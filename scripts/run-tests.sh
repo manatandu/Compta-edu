@@ -63,11 +63,18 @@ if lsof -i :$EMULATOR_PORT &>/dev/null 2>&1; then
 fi
 
 # Démarrer l'émulateur en arrière-plan
+# (--import seulement si un jeu de données de test a été sauvegardé au préalable :
+#  sans lui, firebase-tools refuse de démarrer si le dossier n'existe pas)
+IMPORT_ARGS=()
+if [ -d "./emulator-data" ]; then
+  IMPORT_ARGS=(--import ./emulator-data)
+fi
+
 FIRESTORE_EMULATOR_HOST="localhost:$EMULATOR_PORT" \
 npx firebase-tools emulators:start \
   --only firestore \
   --project campus-ohada-test \
-  --import ./emulator-data \
+  "${IMPORT_ARGS[@]}" \
   2>&1 | grep -v "^$" &
 
 EMULATOR_PID=$!
