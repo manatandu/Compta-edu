@@ -34,8 +34,16 @@ jobs:
         run: npm install
         working-directory: client
 
-      - name: Build (tests d'isolation Firestore inclus)
-        run: npm run build
+      # Séparé du build : l'émulateur Firestore peut occasionnellement rester bloqué
+      # au démarrage sur un runner à froid. timeout-minutes évite qu'un run pende
+      # indéfiniment (le job entier attendrait sinon la limite par défaut de 6h).
+      - name: Tests d'isolation Firestore
+        run: npm run test:firestore
+        timeout-minutes: 5
+
+      - name: Build
+        run: SKIP_FIRESTORE_TESTS=1 npm run build
+        timeout-minutes: 5
 
       - name: Authentifier le compte de service Firebase
         run: echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-sa.json"
