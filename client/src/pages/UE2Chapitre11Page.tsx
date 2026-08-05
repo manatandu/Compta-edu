@@ -3,7 +3,7 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, BookOpen, FileText,
+  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, FileText,
   ChevronRight, Briefcase, AlertTriangle, Info, Scale, Users
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -296,7 +296,7 @@ const lecons = [
 export default function UE2Chapitre11Page() {
   const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
-  const { user } = useUser()
+  const user = useUser()
   const isEtudiant = user?.role === 'etudiant'
 
   const [activeTab, setActiveTab] = useState<'lessons' | 'qcm' | 'cas' | 'devoir'>('lessons')

@@ -391,7 +391,7 @@ function CasPratiqueBlock({ cp }: { cp: typeof casPratiques[0] }) {
 // ─── Composant principal ──────────────────────────────────────────────────────
 export default function UE2Chapitre10Page() {
   const goBack = useGoBack('/ue2-droit-societes')
-  const { user } = useUser()
+  const user = useUser()
 
   // Onglets
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')

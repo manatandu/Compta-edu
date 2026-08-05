@@ -106,7 +106,7 @@ const CHAPITRES = [
 
 export default function UE13IFRSPage() {
   const [, navigate] = useHashLocation()
-  const { user } = useUser()
+  const user = useUser()
 
   return (
     <div className="min-h-screen bg-background">

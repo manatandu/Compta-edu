@@ -578,7 +578,7 @@ const LECONS: Lecon[] = [
 // ============================================================
 // QCM GLOBAL (15 questions pour l'onglet QCM admin/prof)
 // ============================================================
-const QCM_GLOBAL: QCMChapitre = {
+const QCM_GLOBAL: { chapitreId: string; chapitreNom: string; questions: QCMChapitre[] } = {
   chapitreId: 'ue5-chapitre-7',
   chapitreNom: 'Chapitre 7 - Exécution des dépenses — chaîne de la dépense',
   questions: [
@@ -1013,7 +1013,7 @@ function CasPratiqueBlock({ cas }: { cas: typeof ETUDES_DE_CAS[0] }) {
 // ============================================================
 export default function UE5Chapitre7Page() {
   const goBack = useGoBack('/ue5-finances-publiques')
-  const { user } = useUser()
+  const user = useUser()
   const isAdmin = user?.role === 'admin' || user?.role === 'professeur' || user?.role === 'assistant'
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')
@@ -1024,7 +1024,7 @@ export default function UE5Chapitre7Page() {
     id: ec.id,
     titre: ec.titre,
     enonce: ec.contexte + '\n' + ec.questions.map(q => q.num + '. ' + q.enonce).join('\n'),
-    correction: ec.questions.map(q => 'Q' + q.num + ': ' + q.correction).join('\n\n'),
+    corrigeType: ec.questions.map(q => 'Q' + q.num + ': ' + q.correction).join('\n\n'),
   }))
 
   const tabs = isAdmin
@@ -1170,7 +1170,7 @@ export default function UE5Chapitre7Page() {
 
         {/* ── QCM ADMIN ── */}
         {activeTab === 'qcm' && isAdmin && (
-          <QCMPageUnique chapitre={QCM_GLOBAL} couleurAccent="violet" />
+          <QCMPageUnique questions={QCM_GLOBAL.questions} couleurAccent="violet" />
         )}
 
         {/* ── CAS PRATIQUES ADMIN ── */}
@@ -1194,6 +1194,8 @@ export default function UE5Chapitre7Page() {
           <DevoirChapitreCreateur
             chapitreId="ue5-chapitre-7"
             chapitreNom="Chapitre 7 - Exécution des dépenses — chaîne de la dépense"
+            questions={QCM_GLOBAL.questions}
+            coursId="ue5-finances-publiques"
             casPratiquesExistants={casPratiquesForDevoir}
           />
         )}

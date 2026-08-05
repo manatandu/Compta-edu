@@ -471,7 +471,7 @@ function CasPratiqueBlock({ cas, index }: { cas: typeof casPratiques[0]; index: 
 export default function UE2Chapitre4Page() {
   const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
-  const { user } = useUser()
+  const user = useUser()
 
   const isEtudiant = user?.role === 'etudiant'
 

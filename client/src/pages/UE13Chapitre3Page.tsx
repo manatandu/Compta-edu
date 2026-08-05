@@ -817,7 +817,13 @@ const QUESTIONS_QCM: QCMQuestion[] = [
 // ─────────────────────────────────────────────────────────────────
 // ETUDES DE CAS (CasPratiqueExistant compatible)
 // ─────────────────────────────────────────────────────────────────
-const ETUDES_DE_CAS: CasPratiqueExistant[] = [
+interface EtudeDeCasIAS {
+  titre: string
+  contexte: string
+  questions: { num: number; énoncé: string; correction: string }[]
+}
+
+const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
   {
     titre: 'Cas 1 — PHARMA CENTRAL SA : Test de dépréciation et valeur recouvrable',
     contexte: "PHARMA CENTRAL SA est une société pharmaceutique qui exploite une ligne de production de médicaments génériques. Au 31/12/N, en raison d'une modification réglementaire interdisant la commercialisation d'un principe actif clé, la direction identifie un indice externe de perte de valeur sur cette ligne. Valeur comptable nette de la ligne : 2 800 000. Offre ferme de rachat reçue d'un concurrent : 2 600 000 (coûts de cession estimés : 40 000). Valeur d'utilité calculée par la direction sur la base de flux actualisés sur 6 ans : 2 900 000.",
@@ -1010,7 +1016,7 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
 // ─────────────────────────────────────────────────────────────────
 // COMPOSANT CasPratiqueBlock
 // ─────────────────────────────────────────────────────────────────
-function CasPratiqueBlock({ cp }: { cp: CasPratiqueExistant }) {
+function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
   const [open, setOpen] = useState(false)
   const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
   return (
@@ -1193,7 +1199,12 @@ export default function UE13Chapitre3Page() {
               chapitreNom="Chapitre 3 : IAS 36 et IAS 40 Dépréciation et Immeubles de placement"
               questions={QUESTIONS_QCM as unknown as QCMChapitre[]}
               coursId="ue13-ifrs-ias"
-              casPratiquesExistants={ETUDES_DE_CAS}
+              casPratiquesExistants={ETUDES_DE_CAS.map((c, i) => ({
+                id: `cas-${i + 1}`,
+                titre: c.titre,
+                enonce: [c.contexte, ...c.questions.map(q => `Question ${q.num} : ${q.énoncé}`)].join('\n\n'),
+                corrigeType: c.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n\n'),
+              } as CasPratiqueExistant))}
             />
           ) : (
             <div className="rounded-xl border border-border bg-card p-6 text-center space-y-2">

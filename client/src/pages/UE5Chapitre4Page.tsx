@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
+import DevoirChapitreCreateur, { versCasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -1293,12 +1293,7 @@ export default function UE5Chapitre4Page() {
           chapitreNom="Chapitre 4 - Budget-programme et gestion par la performance"
           questions={QCM_GLOBAL as unknown as QCMChapitre[]}
           coursId="ue5-finances-publiques"
-          casPratiquesExistants={ETUDES_DE_CAS.map((c, i) => ({
-            id: `cp${i + 1}`,
-            titre: c.titre,
-            contexte: c.contexte,
-            questions: c.questions.map(q => ({ num: q.num, enonce: q.enonce, correction: q.correction })),
-          } as CasPratiqueExistant))}
+          casPratiquesExistants={ETUDES_DE_CAS.map(versCasPratiqueExistant)}
         />
       )}
 

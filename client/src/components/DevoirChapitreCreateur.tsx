@@ -35,6 +35,29 @@ export interface CasPratiqueExistant {
   corrigeType: string  // correction type complète
 }
 
+// Format "brut" utilisé par les pages de chapitre pour leurs études de cas :
+// un contexte global suivi de plusieurs questions numérotées, chacune avec sa correction.
+export interface EtudeDeCasRaw {
+  id?: string
+  titre: string
+  contexte: string
+  questions: { num: number | string; enonce: string; correction: string }[]
+}
+
+// Convertit une étude de cas "page" (contexte + questions numérotées) vers le format
+// CasPratiqueExistant attendu par ce composant (énoncé et corrigé regroupés en un seul texte).
+export function versCasPratiqueExistant(cas: EtudeDeCasRaw, index = 0): CasPratiqueExistant {
+  return {
+    id: cas.id ?? `cas-${index + 1}`,
+    titre: cas.titre,
+    enonce: [
+      cas.contexte,
+      ...cas.questions.map(q => `Question ${q.num} : ${q.enonce}`),
+    ].join('\n\n'),
+    corrigeType: cas.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n\n'),
+  }
+}
+
 // ─── Props ────────────────────────────────────────────────────────────────────
 
 interface Props {

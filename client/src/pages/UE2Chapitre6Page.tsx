@@ -440,7 +440,7 @@ function CasPratiqueBlock({ cp, isProf }: { cp: typeof casPratiques[0]; isProf: 
 export default function UE2Chapitre6Page() {
   const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
-  const { user } = useUser()
+  const user = useUser()
   const isProf = user?.role === 'professeur' || user?.role === 'admin' || user?.role === 'assistant'
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')

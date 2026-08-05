@@ -1217,7 +1217,7 @@ export default function UE2Chapitre8Page() {
                 id: cp.id,
                 titre: cp.titre,
                 enonce: cp.enonce,
-                corrigeType: cp.corrigeType,
+                corrigeType: cp.etapes.map(e => `${e.question}\n${e.correctionDetaillee}`).join('\n\n'),
               } as CasPratiqueExistant))}
             />
           ) : (

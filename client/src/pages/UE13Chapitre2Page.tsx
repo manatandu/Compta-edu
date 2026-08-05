@@ -1375,7 +1375,13 @@ function JournalTable({ titre, lignes }: {
 // ─────────────────────────────────────────────────────────────────
 // ETUDES DE CAS (5 cas pratiques) — type CasPratiqueExistant pour DevoirChapitreCreateur
 // ─────────────────────────────────────────────────────────────────
-const ETUDES_DE_CAS: CasPratiqueExistant[] = [
+interface EtudeDeCasIAS {
+  titre: string
+  contexte: string
+  questions: { num: number; énoncé: string; correction: string }[]
+}
+
+const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
   {
     titre: "Cas 1 — Acquisition d'une installation industrielle avec paiement échelonné et coûts de démantèlement (IAS 16)",
     contexte: "La société MINEREX acquiert le 1er janvier N une installation de traitement mineralurgique pour un prix catalogue de 500 000 €, payable comme suit : 200 000 € comptant, 165 000 € au 31 décembre N, 181 500 € au 31 décembre N+1. Le taux d'actualisation applicable est de 10 %. Le contrat impose a MINEREX de remettre en etat le site a l'issue d'une exploitation de 20 ans, coût estime en valeur actuelle : 80 000 €. Des tests de bon fonctionnement sont réalisés pour 15 000 €. Des frais de publicité pour le lancement commercial de l'unite : 25 000 €. Des frais administratifs de la direction generale : 10 000 €.",
@@ -2138,7 +2144,7 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
 // ─────────────────────────────────────────────────────────────────
 // COMPOSANT CasPratiqueBlock
 // ─────────────────────────────────────────────────────────────────
-function CasPratiqueBlock({ cp }: { cp: CasPratiqueExistant }) {
+function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
   const [open, setOpen] = useState(false)
   const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
   return (
@@ -2375,7 +2381,12 @@ export default function UE13Chapitre2Page() {
               chapitreNom="Chapitre 2 : IAS 16 et IAS 38 Immobilisations"
               questions={QUESTIONS_QCM as unknown as QCMChapitre[]}
               coursId="ue13-ifrs-ias"
-              casPratiquesExistants={ETUDES_DE_CAS}
+              casPratiquesExistants={ETUDES_DE_CAS.map((c, i) => ({
+                id: `cas-${i + 1}`,
+                titre: c.titre,
+                enonce: [c.contexte, ...c.questions.map(q => `Question ${q.num} : ${q.énoncé}`)].join('\n\n'),
+                corrigeType: c.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n\n'),
+              } as CasPratiqueExistant))}
             />
           ) : (
             <div className="rounded-xl border border-border bg-card p-6 text-center space-y-2">

@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
+import DevoirChapitreCreateur, { EtudeDeCasRaw, versCasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -753,7 +753,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
 // ─────────────────────────────────────────────────────────────────
 // ETUDES DE CAS
 // ─────────────────────────────────────────────────────────────────
-const ETUDES_DE_CAS: CasPratiqueExistant[] = [
+const ETUDES_DE_CAS: EtudeDeCasRaw[] = [
   {
     titre: "Cas 1 — La crise informationnelle de 1929 et ses enseignements pour aujourd'hui",
     contexte: "En 1929, les bourses mondiales s'effondrent. L'analyse historique révèle que de nombreuses entreprises cotées aux États-Unis publiaient des états financiers non audités, avec des résultats manipulés et aucune règle commune encadrant leur présentation. Les investisseurs ne pouvaient pas distinguer les entreprises solvables des entreprises en faillite imminente.",
@@ -802,9 +802,9 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
 // ─────────────────────────────────────────────────────────────────
 // COMPOSANT CasPratiqueBlock (design UE5)
 // ─────────────────────────────────────────────────────────────────
-function CasPratiqueBlock({ cp }: { cp: CasPratiqueExistant }) {
+function CasPratiqueBlock({ cp }: { cp: EtudeDeCasRaw }) {
   const [open, setOpen] = useState(false)
-  const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
+  const [corrVisible, setCorrVisible] = useState<Set<number | string>>(new Set())
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
@@ -864,13 +864,6 @@ export default function UE13Chapitre1Page() {
   const lecon = LECONS[leconIdx]
   const isFirst = leconIdx === 0
   const isLast = leconIdx === LECONS.length - 1
-
-  const qcmChapitre: QCMChapitre = {
-    id: 'ue13-ch1',
-    titre: 'Chapitre 1 - Fondements conceptuels IFRS',
-    ue: 'UE13',
-    questions: QUESTIONS_QCM
-  }
 
   return (
     <div className="space-y-4 pb-10 animate-fadeIn">
@@ -992,7 +985,7 @@ export default function UE13Chapitre1Page() {
               chapitreNom="Chapitre 1 : Fondements conceptuels IFRS"
               questions={QUESTIONS_QCM as unknown as QCMChapitre[]}
               coursId="ue13-ifrs-ias"
-              casPratiquesExistants={ETUDES_DE_CAS}
+              casPratiquesExistants={ETUDES_DE_CAS.map(versCasPratiqueExistant)}
             />
           ) : (
             <div className="rounded-xl border border-border bg-card p-6 text-center space-y-2">

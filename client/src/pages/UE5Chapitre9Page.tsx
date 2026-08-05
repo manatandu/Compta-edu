@@ -4,7 +4,7 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import { ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
+import DevoirChapitreCreateur, { CasPratiqueExistant, versCasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
 import { useUser } from '@/lib/userContext'
@@ -817,20 +817,12 @@ export default function UE5Chapitre9Page() {
     },
   ]
 
-  const qcmChapitre: QCMChapitre = {
-    id: 'ue5-ch9',
-    titre: 'Chapitre 9 — Contrôle des finances publiques',
-    ue: 'UE5',
-    questions: QCM_GLOBAUX.map(q => ({
-      id: q.id, question: q.question, options: q.options,
-      reponse: q.reponse, explication: q.explication,
-    })),
-  }
-
-  const casPratiquesDevoir: CasPratiqueExistant[] = ETUDES_DE_CAS.map((ec, i) => ({
-    id: `cp${i + 1}`, titre: ec.titre, contexte: ec.contexte,
-    questions: ec.questions.map(q => ({ num: q.num, enonce: q.enonce })),
+  const qcmQuestions: QCMChapitre[] = QCM_GLOBAUX.map(q => ({
+    id: q.id, question: q.question, options: q.options,
+    reponseCorrecte: q.reponse, explication: q.explication, articleRef: '',
   }))
+
+  const casPratiquesDevoir: CasPratiqueExistant[] = ETUDES_DE_CAS.map(versCasPratiqueExistant)
 
   const tabs = isAdmin
     ? [{ id: 'lecons', label: 'Leçons' }, { id: 'qcm', label: 'QCM' }, { id: 'cas', label: 'Cas pratiques' }, { id: 'devoir', label: 'Devoir' }]
@@ -919,7 +911,7 @@ export default function UE5Chapitre9Page() {
 
       {/* QCM */}
       {activeTab === 'qcm' && isAdmin && (
-        <QCMPageUnique chapitre={qcmChapitre} couleurAccent="orange" />
+        <QCMPageUnique questions={qcmQuestions} couleurAccent="orange" />
       )}
 
       {/* Cas pratiques */}
@@ -937,9 +929,10 @@ export default function UE5Chapitre9Page() {
       {activeTab === 'devoir' && (
         <DevoirChapitreCreateur
           chapitreId="ue5-ch9"
-          chapitreTitre="Chapitre 9 — Contrôle des finances publiques"
-          qcms={QCM_GLOBAUX.map(q => ({ id: q.id, question: q.question, options: q.options, reponse: q.reponse, explication: q.explication }))}
-          casPratiques={casPratiquesDevoir}
+          chapitreNom="Chapitre 9 — Contrôle des finances publiques"
+          questions={qcmQuestions}
+          coursId="ue5-finances-publiques"
+          casPratiquesExistants={casPratiquesDevoir}
         />
       )}
     </div>
