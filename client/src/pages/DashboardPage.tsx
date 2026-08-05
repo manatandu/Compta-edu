@@ -14,12 +14,13 @@ import DevoirChapitreEtudiant from '@/components/DevoirChapitreEtudiant'
 import {
   useSessions, useEcritures, useAllCours, useAllDevoirs, useSoumissionsEtudiant,
   useUniversites, useFacultes, useAllSessions, useAllEcritures, useExercices, useTentatives, usePresencesEtudiant,
-  useAllSoumissions
+  useAllSoumissions, useCoursStatuts
 } from '@/lib/useFirestore'
 import { createSoumissionAsync, getUsersAsync, createSessionAsync, COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { useModule } from '@/lib/moduleContext'
 import { cn } from '@/lib/utils'
+import { prefetchRoute } from '@/lib/prefetch'
 
 // ─── Composant compteur animé ─────────────────────────────────────────────────
 function AnimatedCount({ target, suffix = '' }: { target: number | string; suffix?: string }) {
@@ -419,6 +420,7 @@ export default function DashboardPage() {
   const allCours    = allCoursRaw.filter(c => c.actif)
   const userCoursIds: string[] = (user as any)?.coursIds || []
   const userCours   = allCours.filter(c => userCoursIds.includes(c.id))
+  const { statuts: coursStatuts } = useCoursStatuts(isStudent ? user?.id : undefined)
   // Un étudiant sans coursIds assignés (mais qu'il existe des cours) est bloqué
   const coursBloque = isStudent && allCours.length > 0 && userCours.length === 0
 
@@ -596,6 +598,81 @@ export default function DashboardPage() {
           })}
         </div>
       </div>
+
+      {/* ══ MES COURS — registre par cours, pas de progression globale ═════════
+           La progression n'a de sens que par cours : deux promotions n'ont pas
+           forcément les mêmes cours, donc pas de moyenne unique entre étudiants. ══ */}
+      {isStudent && userCours.length > 0 && (
+        <div className="animate-slideRight" style={{ animationDelay: '550ms' }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-display font-semibold text-foreground">Mes cours ce semestre</h2>
+            <span className="text-xs text-muted-foreground">{userCours.length} cours inscrit{userCours.length > 1 ? 's' : ''}</span>
+          </div>
+          <div className="rounded-lg border border-border bg-card overflow-hidden table-scroll">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border bg-muted/40">
+                  <th className="text-left font-medium text-xs uppercase tracking-wide text-muted-foreground py-2.5 px-4">Cours</th>
+                  <th className="text-left font-medium text-xs uppercase tracking-wide text-muted-foreground py-2.5 px-4">Statut</th>
+                  <th className="text-left font-medium text-xs uppercase tracking-wide text-muted-foreground py-2.5 px-4">Prochaine échéance</th>
+                  <th className="w-10"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {userCours.map((cours, i) => {
+                  const statutInfo = coursStatuts.find(s => s.coursId === cours.id)?.statut || 'non_commence'
+                  const statutMap: Record<string, { label: string; className: string }> = {
+                    complete:      { label: 'Terminé',   className: 'border-green-400/50 text-green-700 bg-green-50' },
+                    en_cours:      { label: 'En cours',  className: 'border-secondary/50 text-secondary bg-secondary/10' },
+                    non_commence:  { label: 'À commencer', className: 'border-border text-muted-foreground' },
+                  }
+                  const s = statutMap[statutInfo] || statutMap.non_commence
+
+                  // Prochaine échéance : devoir non-expiré le plus proche pour ce cours
+                  const prochainDevoir = allDevoirs
+                    .filter(d => d.coursId === cours.id && d.actif && !isDevoirExpire(d))
+                    .sort((a, b) => new Date(a.dateLimit).getTime() - new Date(b.dateLimit).getTime())[0]
+
+                  const moduleKey = (cours as any).moduleKey || cours.id
+                  const path = `/${moduleKey}`
+
+                  return (
+                    <tr
+                      key={cours.id}
+                      onClick={() => navigate(path)}
+                      onMouseEnter={() => prefetchRoute(path)}
+                      className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors cursor-pointer animate-fadeIn"
+                      style={{ animationDelay: `${600 + i * 40}ms` }}
+                    >
+                      <td className="py-3 px-4">
+                        <p className="font-display font-semibold text-foreground leading-tight">{cours.nom}</p>
+                        {(cours as any).promotion && (
+                          <p className="text-xs text-muted-foreground mt-0.5">{(cours as any).promotion}</p>
+                        )}
+                      </td>
+                      <td className="py-3 px-4">
+                        <Badge variant="outline" className={cn("text-xs font-normal", s.className)}>{s.label}</Badge>
+                      </td>
+                      <td className="py-3 px-4 text-xs">
+                        {prochainDevoir ? (
+                          <span className="text-foreground/80">
+                            {prochainDevoir.titre} — <span className="font-mono">{new Date(prochainDevoir.dateLimit).toLocaleDateString('fr-FR')}</span>
+                          </span>
+                        ) : (
+                          <span className="text-muted-foreground/60">—</span>
+                        )}
+                      </td>
+                      <td className="py-3 px-4 text-right">
+                        <ChevronRight className="h-4 w-4 text-muted-foreground/40 inline-block" />
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* ══ MODULES — grille de carreaux ════════════════════════════════════ */}
       <div className="animate-slideRight" style={{ animationDelay: '600ms' }}>

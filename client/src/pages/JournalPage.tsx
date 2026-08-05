@@ -11,7 +11,7 @@ import {
 } from '@/lib/db-firebase'
 import { useSessions, useEcritures } from '@/lib/useFirestore'
 import { useModule } from '@/lib/moduleContext'
-import { formatMontant, generateId } from '@/lib/utils'
+import { formatMontant, generateId, cn } from '@/lib/utils'
 import { exportJournalPDF } from '@/lib/exportPDF'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -22,7 +22,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Plus, Pencil, Trash2, Download, PlusCircle, AlertCircle, RefreshCw, Settings2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, Download, PlusCircle, AlertCircle, RefreshCw, Settings2, CheckCircle2 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 
 interface LigneSaisie {
@@ -398,7 +398,8 @@ export default function JournalPage() {
         </Card>
       ) : (
         <div className="space-y-3">
-          {grouped.map(([groupe, lines]) => {
+          {grouped.map(([groupe, lines], groupIndex) => {
+            const rowOffset = grouped.slice(0, groupIndex).reduce((n, [, l]) => n + l.length, 0)
             const isOuverture = groupe.startsWith('ouverture-')
             const totalDebit = lines.reduce((s, l) => s + l.debit, 0)
             const totalCredit = lines.reduce((s, l) => s + l.credit, 0)
@@ -441,6 +442,7 @@ export default function JournalPage() {
                     <table className="w-full text-xs min-w-[320px]">
                       <thead>
                         <tr className="text-muted-foreground border-b border-border">
+                          <th className="text-right py-1 px-2 w-8 font-normal font-mono text-[10px]">N°</th>
                           <th className="text-left py-1 px-2 w-[4.5rem]">Compte</th>
                           <th className="text-left py-1 px-2">Intitulé</th>
                           <th className="text-right py-1 px-2 w-[5.5rem] whitespace-nowrap">Débit</th>
@@ -448,8 +450,9 @@ export default function JournalPage() {
                         </tr>
                       </thead>
                       <tbody>
-                        {lines.map(l => (
+                        {lines.map((l, i) => (
                           <tr key={l.id} className="border-b border-border/50 last:border-0">
+                            <td className="py-1 px-2 text-right font-mono text-[10px] text-muted-foreground/70">{rowOffset + i + 1}</td>
                             <td className="py-1 px-2 font-mono w-[4.5rem] shrink-0">{l.numeroCompte}</td>
                             <td className="py-1 px-2 text-foreground max-w-0 truncate">{l.intituleCompte}</td>
                             <td className="py-1 px-2 text-right text-green-700 whitespace-nowrap w-[5.5rem] font-mono tabular-nums">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
@@ -457,7 +460,7 @@ export default function JournalPage() {
                           </tr>
                         ))}
                         <tr className="font-semibold text-xs bg-muted/30">
-                          <td colSpan={2} className="py-1 px-2 text-right text-muted-foreground">Total</td>
+                          <td colSpan={3} className="py-1 px-2 text-right text-muted-foreground">Total</td>
                           <td className="py-1 px-2 text-right text-green-700 font-mono tabular-nums font-semibold">{formatMontant(totalDebit)}</td>
                           <td className="py-1 px-2 text-right text-red-700 font-mono tabular-nums font-semibold">{formatMontant(totalCredit)}</td>
                         </tr>
@@ -468,6 +471,31 @@ export default function JournalPage() {
               </Card>
             )
           })}
+
+          {/* Barre de statut — vue d'ensemble de la session, comme un vrai logiciel comptable */}
+          {(() => {
+            const sessionDebit = sessionEcritures.reduce((s, l) => s + l.debit, 0)
+            const sessionCredit = sessionEcritures.reduce((s, l) => s + l.credit, 0)
+            const equilibre = Math.abs(sessionDebit - sessionCredit) < 0.01
+            return (
+              <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-muted/30 px-4 py-2.5 text-xs font-mono">
+                <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+                  <span>{sessionEcritures.length} écriture{sessionEcritures.length > 1 ? 's' : ''}</span>
+                  <span>{grouped.length} pièce{grouped.length > 1 ? 's' : ''}</span>
+                  <span>Session : {selectedSession?.nom}</span>
+                </div>
+                <div className={cn(
+                  "flex items-center gap-1.5 font-semibold",
+                  equilibre ? "text-green-700" : "text-destructive"
+                )}>
+                  {equilibre ? <CheckCircle2 className="h-3.5 w-3.5" /> : <AlertCircle className="h-3.5 w-3.5" />}
+                  {equilibre
+                    ? 'Équilibré — Débit = Crédit'
+                    : `Déséquilibre : ${formatMontant(Math.abs(sessionDebit - sessionCredit))}`}
+                </div>
+              </div>
+            )
+          })()}
         </div>
       )}
 

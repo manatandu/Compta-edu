@@ -2,7 +2,9 @@
 //  CAMPUS OHADA : Configuration Firebase
 // ═══════════════════════════════════════════════════════
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+import {
+  initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
+} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 
@@ -17,7 +19,15 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-export const db      = getFirestore(app)
+
+// Cache local persistant (IndexedDB) : les données déjà vues s'affichent
+// instantanément à la réouverture d'une page (ou après un rechargement),
+// pendant que Firestore resynchronise en tâche de fond. Sans ça, chaque
+// écran repart de zéro et attend un aller-retour réseau avant d'afficher
+// quoi que ce soit — la cause principale de la lenteur perçue à l'ouverture.
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+})
 export const auth    = getAuth(app)
 export const storage = getStorage(app)
 export default app

@@ -6,7 +6,8 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import { initDefaultData, User } from '@/lib/db'
 import { logoutAsync, getCurrentUserAsync, initAdminIfNeeded, initCoursSystemeAsync } from '@/lib/db-firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '@/lib/firebase'
+import { terminate, clearIndexedDbPersistence } from 'firebase/firestore'
+import { auth, db } from '@/lib/firebase'
 import { Layout } from '@/components/Layout'
 import { Toaster } from '@/components/ui/toaster'
 import { ModuleProvider } from '@/lib/moduleContext'
@@ -136,11 +137,29 @@ export default function App() {
 
   const handleLogout = async () => {
     await logoutAsync()
-    setUser(null)
+    // Le cache Firestore persistant (IndexedDB) survit à la déconnexion :
+    // sur un poste partagé (salle informatique), les données du compte
+    // précédent resteraient sinon lisibles instantanément par le suivant,
+    // indépendamment des règles de sécurité Firestore. On le vide, puis on
+    // recharge la page pour repartir sur une instance Firestore propre.
+    try {
+      await terminate(db)
+      await clearIndexedDbPersistence(db)
+    } catch (e) {
+      console.warn('Nettoyage du cache Firestore impossible :', e)
+    }
+    window.location.reload()
   }
 
+  // La sidebar/Layout reste montée pendant le chargement d'une page :
+  // seul le contenu affiche un état de chargement (transition fluide,
+  // pas de flash plein écran qui fait disparaître toute l'interface).
   const W = ({ children }: { children: React.ReactNode }) =>
-    user ? <Layout user={user} onLogout={handleLogout}>{children}</Layout> : <Redirect to="/login" />
+    user
+      ? <Layout user={user} onLogout={handleLogout}>
+          <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
+        </Layout>
+      : <Redirect to="/login" />
 
   function IdleGuard() {
     const { showWarning, secondsLeft, stayConnected } = useIdleTimer()

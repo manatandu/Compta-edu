@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils'
 import { useAllCours } from '@/lib/useFirestore'
 import { useCoursStatuts } from '@/lib/useFirestore'
 import { COURS_SYSTEME } from '@/lib/db-firebase'
+import { prefetchRoute } from '@/lib/prefetch'
 
 interface NavItem {
   path: string
@@ -184,6 +185,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
       <button
         key={item.path}
         onClick={() => { navigate(item.path); setSidebarOpen(false) }}
+        onMouseEnter={() => prefetchRoute(item.path)}
+        onTouchStart={() => prefetchRoute(item.path)}
         className={cn(
           "w-full flex items-center gap-3 pl-3 pr-3 py-2 text-sm rounded-sm transition-colors text-left border-l-2",
           isActive
@@ -318,6 +321,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                     navigate(path)
                     setSidebarOpen(false)
                   }}
+                  onMouseEnter={() => { if (!verrouille && !bientot) prefetchRoute(path) }}
+                  onTouchStart={() => { if (!verrouille && !bientot) prefetchRoute(path) }}
                   className={cn(
                     "w-full flex items-center gap-3 pl-3 pr-3 py-2 text-sm rounded-sm transition-colors text-left border-l-2",
                     isDirectActive && !verrouille
@@ -369,6 +374,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                     toggleFolder(folder.id)
                   }
                 }}
+                onMouseEnter={() => { if (isDirect) prefetchRoute(folder.directPath!) }}
+                onTouchStart={() => { if (isDirect) prefetchRoute(folder.directPath!) }}
                 className={cn(
                   "w-full flex items-center gap-3 pl-3 pr-3 py-2 text-sm rounded-sm transition-colors text-left border-l-2",
                   folderHasActive
