@@ -420,6 +420,7 @@ export default function DashboardPage() {
   const allCours    = allCoursRaw.filter(c => c.actif)
   const userCoursIds: string[] = (user as any)?.coursIds || []
   const userCours   = allCours.filter(c => userCoursIds.includes(c.id))
+  const { statuts: coursStatuts } = useCoursStatuts(isStudent ? user?.id : undefined)
   // Un étudiant sans coursIds assignés (mais qu'il existe des cours) est bloqué
   const coursBloque = isStudent && allCours.length > 0 && userCours.length === 0
 
