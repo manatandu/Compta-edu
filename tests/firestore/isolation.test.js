@@ -173,6 +173,30 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     const ref = doc(db(USERS.admin1), 'users', USERS.etud1.uid)
     await assertSucceeds(deleteDoc(ref))
   })
+
+  it('Un étudiant NE PEUT PAS s\'auto-promouvoir admin en modifiant son profil', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertFails(updateDoc(ref, { role: 'admin' }))
+  })
+
+  it('Un étudiant en attente NE PEUT PAS s\'auto-valider (actif/statutInscription)', async () => {
+    await seedDoc('users', USERS.etud1.uid, { ...USERS.etud1, actif: false, statutInscription: 'en_attente' })
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertFails(updateDoc(ref, { actif: true, statutInscription: 'valide' }))
+  })
+
+  it('Un étudiant peut modifier son propre profil SANS toucher role/actif/statutInscription', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertSucceeds(updateDoc(ref, { telephone: '+243900000000' }))
+  })
+
+  it('Un admin PEUT modifier le rôle d\'un autre utilisateur', async () => {
+    await seedUsers(USERS.admin1, USERS.etud1)
+    const ref = doc(db(USERS.admin1), 'users', USERS.etud1.uid)
+    await assertSucceeds(updateDoc(ref, { role: 'professeur' }))
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -677,5 +701,107 @@ describe('📊 Cours statuts — Progression isolée par étudiant', () => {
     })
     const ref = doc(db(USERS.prof1), 'cours_statuts', `${USERS.etud1.uid}_${IDS.coursCompta}`)
     await assertSucceeds(getDoc(ref))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 12 — SESSIONS (journal) — Isolation par étudiant
+// ══════════════════════════════════════════════════════════════════════════════
+describe('📓 Sessions — Isolation par étudiant', () => {
+
+  it('Etud1 peut créer sa propre session', async () => {
+    const ref = doc(db(USERS.etud1), 'sessions', 'session1')
+    await assertSucceeds(setDoc(ref, { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid }))
+  })
+
+  it('Etud1 NE PEUT PAS créer une session au nom de Etud2', async () => {
+    const ref = doc(db(USERS.etud1), 'sessions', 'session-etud2')
+    await assertFails(setDoc(ref, { nom: 'Exercice 1', exercice: 1, userId: USERS.etud2.uid }))
+  })
+
+  it('Etud1 peut lire SA session', async () => {
+    await seedDoc('sessions', 'session1', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid })
+    const ref = doc(db(USERS.etud1), 'sessions', 'session1')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Etud1 NE PEUT PAS lire la session de Etud2', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('sessions', 'session2', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud2.uid })
+    const ref = doc(db(USERS.etud1), 'sessions', 'session2')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Un prof peut lire la session d\'un étudiant (statistiques)', async () => {
+    await seedUsers(USERS.prof1)
+    await seedDoc('sessions', 'session1', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid })
+    const ref = doc(db(USERS.prof1), 'sessions', 'session1')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un prof NE PEUT PAS modifier la session d\'un étudiant', async () => {
+    await seedUsers(USERS.prof1)
+    await seedDoc('sessions', 'session1', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid })
+    const ref = doc(db(USERS.prof1), 'sessions', 'session1')
+    await assertFails(updateDoc(ref, { nom: 'Modifié par le prof' }))
+  })
+
+  it('Etud2 NE PEUT PAS supprimer la session de Etud1', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('sessions', 'session1', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid })
+    const ref = doc(db(USERS.etud2), 'sessions', 'session1')
+    await assertFails(deleteDoc(ref))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 13 — MESSAGES — Isolation par participant
+// ══════════════════════════════════════════════════════════════════════════════
+describe('💬 Messages — Isolation par participant', () => {
+
+  it('Etud1 peut envoyer un message à Etud2', async () => {
+    const ref = doc(db(USERS.etud1), 'messages', 'msg1')
+    await assertSucceeds(setDoc(ref, {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid],
+      texte: 'Bonjour',
+      date: new Date().toISOString(),
+    }))
+  })
+
+  it('Etud1 NE PEUT PAS envoyer un message en usurpant l\'expéditeur', async () => {
+    const ref = doc(db(USERS.etud1), 'messages', 'msg-usurpe')
+    await assertFails(setDoc(ref, {
+      expediteurId: USERS.etud2.uid,
+      destinataireId: USERS.etud1.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid],
+      texte: 'Faux message',
+      date: new Date().toISOString(),
+    }))
+  })
+
+  it('Le destinataire peut lire le message reçu', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('messages', 'msg1', {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid],
+      texte: 'Bonjour',
+    })
+    const ref = doc(db(USERS.etud2), 'messages', 'msg1')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un tiers étranger à la conversation NE PEUT PAS lire le message', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2, USERS.etud3)
+    await seedDoc('messages', 'msg1', {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid],
+      texte: 'Bonjour',
+    })
+    const ref = doc(db(USERS.etud3), 'messages', 'msg1')
+    await assertFails(getDoc(ref))
   })
 })

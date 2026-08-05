@@ -47,9 +47,18 @@ service cloud.firestore {
           get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role
         )
       )) || isAdmin();
-      // Lecture et modification : utilisateur lui-même OU admin
+      // Lecture : utilisateur lui-même OU admin
       allow read: if isAuth() && (request.auth.uid == userId || isAdmin());
-      allow update: if isAuth() && (request.auth.uid == userId || isAdmin());
+      // Modification : un admin peut tout modifier. Un utilisateur peut modifier SON
+      // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
+      // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
+      // en attente — même faille que sur la création, ici via update).
+      allow update: if isAdmin() || (
+        isAuth() && request.auth.uid == userId &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.get('actif', null) == resource.data.get('actif', null) &&
+        request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null)
+      );
       allow delete: if isAdmin();
     }
 
@@ -62,8 +71,12 @@ service cloud.firestore {
     }
 
     // ─── SESSIONS ────────────────────────────────────────────────────────────
+    // Isolation : une session (exercice journal) appartient à un étudiant (userId).
+    // Les profs peuvent les lire (statistiques du tableau de bord) mais pas les modifier.
     match /sessions/{sessionId} {
-      allow read, write: if isAuth();
+      allow read: if isAuth() && (ownsResource('userId') || isProf());
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuth() && ownsResource('userId');
     }
 
     // ─── ÉCRITURES COMPTABLES ────────────────────────────────────────────────
@@ -134,8 +147,11 @@ service cloud.firestore {
     }
 
     // ─── MESSAGES ────────────────────────────────────────────────────────────
+    // Isolation : un message n'est lisible/modifiable que par l'expéditeur ou le
+    // destinataire (champ 'participants' = [expediteurId, destinataireId]).
     match /messages/{messageId} {
-      allow read, write: if isAuth();
+      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.participants;
+      allow create: if isAuth() && request.resource.data.expediteurId == request.auth.uid;
     }
 
     // ─── CODES D'ACCÈS ─────────────────────────────────────────────────────────
