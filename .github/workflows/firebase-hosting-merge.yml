@@ -19,6 +19,14 @@ jobs:
         with:
           node-version: 20
 
+      # L'émulateur Firestore (lancé par le hook prebuild pour les tests d'isolation)
+      # exige Java 21+ depuis une version récente de firebase-tools ; ubuntu-latest
+      # n'embarque que Java 17 par défaut.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
       - name: Installer les dépendances (racine)
         run: npm install
 
