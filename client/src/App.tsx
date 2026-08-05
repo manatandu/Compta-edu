@@ -9,76 +9,80 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { Layout } from '@/components/Layout'
 import { Toaster } from '@/components/ui/toaster'
-import LoginPage from '@/pages/LoginPage'
-import DashboardPage from '@/pages/DashboardPage'
-import JournalPage from '@/pages/JournalPage'
-import GrandLivrePage from '@/pages/GrandLivrePage'
-import BalancePage from '@/pages/BalancePage'
-import BilanPage from '@/pages/BilanPage'
-import PlanComptablePage from '@/pages/PlanComptablePage'
-import ExercicesPage from '@/pages/ExercicesPage'
-import ExerciceDetailPage from '@/pages/ExerciceDetailPage'
-import ProfesseurPage from '@/pages/ProfesseurPage'
-import ComptabiliteGeneralePage from '@/pages/ComptabiliteGeneralePage'
-import ComptabiliteSYCEBNLPage from '@/pages/ComptabiliteSYCEBNLPage'
 import { ModuleProvider } from '@/lib/moduleContext'
 import { UserProvider } from '@/lib/userContext'
 import { NavProvider } from '@/lib/navContext'
-import JournalSYCEBNLPage from '@/pages/JournalSYCEBNLPage'
-import GrandLivreSYCEBNLPage from '@/pages/GrandLivreSYCEBNLPage'
-import BalanceSYCEBNLPage from '@/pages/BalanceSYCEBNLPage'
-import BilanSYCEBNLPage from '@/pages/BilanSYCEBNLPage'
-import PlanComptableSYCEBNLPage from '@/pages/PlanComptableSYCEBNLPage'
-import ChatPage from '@/pages/ChatPage'
-import DocumentsPage from '@/pages/DocumentsPage'
+import PageLoader from '@/components/PageLoader'
 
-import ComingSoonPage from '@/pages/ComingSoonPage'
-import ApercuDevoirPage from '@/pages/ApercuDevoirPage'
-import FiscalitePage from '@/pages/FiscalitePage'
-import ChargesPersonnelIPRPage from '@/pages/ChargesPersonnelIPRPage'
-import ImmobilisationsPage from '@/pages/ImmobilisationsPage'
-import DocsComptablesHub from '@/pages/DocsComptablesHub'
-import EtatsFinanciersHub from '@/pages/EtatsFinanciersHub'
-import DictionnairePage from '@/pages/DictionnairePage'
-import PrepaOnecPage from '@/pages/PrepaOnecPage'
-import DebuggingAdminPage from '@/pages/DebuggingAdminPage'
-import GestionStockPage from '@/pages/GestionStockPage'
-import StockArticlesPage from '@/pages/StockArticlesPage'
-import StockMouvementPage from '@/pages/StockMouvementPage'
-import StockFichePage from '@/pages/StockFichePage'
-import StockJournalPage from '@/pages/StockJournalPage'
-import StockExercicePage from '@/pages/StockExercicePage'
-import MesCoursPage from '@/pages/MesCoursPage'
-import UE2DroitSocietesPage from '@/pages/UE2DroitSocietesPage'
-import UE2Chapitre1Page from '@/pages/UE2Chapitre1Page'
-import UE2Chapitre2Page from '@/pages/UE2Chapitre2Page'
-import UE2Chapitre3Page from '@/pages/UE2Chapitre3Page'
-import UE2Chapitre4Page from '@/pages/UE2Chapitre4Page'
-import UE2Chapitre5Page from '@/pages/UE2Chapitre5Page'
-import UE2Chapitre6Page from '@/pages/UE2Chapitre6Page'
-import UE2Chapitre7Page from '@/pages/UE2Chapitre7Page'
-import UE2Chapitre8Page from '@/pages/UE2Chapitre8Page'
-import UE2Chapitre9Page from '@/pages/UE2Chapitre9Page'
-import UE2Chapitre10Page from '@/pages/UE2Chapitre10Page'
-import UE2Chapitre11Page from '@/pages/UE2Chapitre11Page'
-import UE5FinancesPubliquesPage from '@/pages/UE5FinancesPubliquesPage'
-import UE5Chapitre1Page from '@/pages/UE5Chapitre1Page'
-import UE5Chapitre2Page from '@/pages/UE5Chapitre2Page'
-import UE5Chapitre3Page from '@/pages/UE5Chapitre3Page'
-import UE5Chapitre4Page from '@/pages/UE5Chapitre4Page'
-import UE5Chapitre5Page from '@/pages/UE5Chapitre5Page'
-import UE5Chapitre6Page from '@/pages/UE5Chapitre6Page'
-import UE5Chapitre7Page from '@/pages/UE5Chapitre7Page'
-import UE5Chapitre8Page from '@/pages/UE5Chapitre8Page'
-import UE5Chapitre9Page from '@/pages/UE5Chapitre9Page'
-import UE5Chapitre10Page from '@/pages/UE5Chapitre10Page'
-import UE13IFRSPage from '@/pages/UE13IFRSPage'
-import UE13Chapitre1Page from '@/pages/UE13Chapitre1Page'
-import UE13Chapitre2Page from '@/pages/UE13Chapitre2Page'
-import UE13Chapitre3Page from '@/pages/UE13Chapitre3Page'
-import GestionEtudiantsPage from '@/pages/GestionEtudiantsPage'
-import FicheEtudiantPage from '@/pages/FicheEtudiantPage'
-import InscriptionPlatformePage from '@/pages/InscriptionPlatformePage'
+
+
+// ─── Pages chargées à la demande (code-splitting) ──────────────────────────
+const LoginPage = React.lazy(() => import('@/pages/LoginPage'))
+const DashboardPage = React.lazy(() => import('@/pages/DashboardPage'))
+const JournalPage = React.lazy(() => import('@/pages/JournalPage'))
+const GrandLivrePage = React.lazy(() => import('@/pages/GrandLivrePage'))
+const BalancePage = React.lazy(() => import('@/pages/BalancePage'))
+const BilanPage = React.lazy(() => import('@/pages/BilanPage'))
+const PlanComptablePage = React.lazy(() => import('@/pages/PlanComptablePage'))
+const ExercicesPage = React.lazy(() => import('@/pages/ExercicesPage'))
+const ExerciceDetailPage = React.lazy(() => import('@/pages/ExerciceDetailPage'))
+const ProfesseurPage = React.lazy(() => import('@/pages/ProfesseurPage'))
+const ComptabiliteGeneralePage = React.lazy(() => import('@/pages/ComptabiliteGeneralePage'))
+const ComptabiliteSYCEBNLPage = React.lazy(() => import('@/pages/ComptabiliteSYCEBNLPage'))
+const JournalSYCEBNLPage = React.lazy(() => import('@/pages/JournalSYCEBNLPage'))
+const GrandLivreSYCEBNLPage = React.lazy(() => import('@/pages/GrandLivreSYCEBNLPage'))
+const BalanceSYCEBNLPage = React.lazy(() => import('@/pages/BalanceSYCEBNLPage'))
+const BilanSYCEBNLPage = React.lazy(() => import('@/pages/BilanSYCEBNLPage'))
+const PlanComptableSYCEBNLPage = React.lazy(() => import('@/pages/PlanComptableSYCEBNLPage'))
+const ChatPage = React.lazy(() => import('@/pages/ChatPage'))
+const DocumentsPage = React.lazy(() => import('@/pages/DocumentsPage'))
+const ComingSoonPage = React.lazy(() => import('@/pages/ComingSoonPage'))
+const ApercuDevoirPage = React.lazy(() => import('@/pages/ApercuDevoirPage'))
+const FiscalitePage = React.lazy(() => import('@/pages/FiscalitePage'))
+const ChargesPersonnelIPRPage = React.lazy(() => import('@/pages/ChargesPersonnelIPRPage'))
+const ImmobilisationsPage = React.lazy(() => import('@/pages/ImmobilisationsPage'))
+const DocsComptablesHub = React.lazy(() => import('@/pages/DocsComptablesHub'))
+const EtatsFinanciersHub = React.lazy(() => import('@/pages/EtatsFinanciersHub'))
+const DictionnairePage = React.lazy(() => import('@/pages/DictionnairePage'))
+const PrepaOnecPage = React.lazy(() => import('@/pages/PrepaOnecPage'))
+const DebuggingAdminPage = React.lazy(() => import('@/pages/DebuggingAdminPage'))
+const GestionStockPage = React.lazy(() => import('@/pages/GestionStockPage'))
+const StockArticlesPage = React.lazy(() => import('@/pages/StockArticlesPage'))
+const StockMouvementPage = React.lazy(() => import('@/pages/StockMouvementPage'))
+const StockFichePage = React.lazy(() => import('@/pages/StockFichePage'))
+const StockJournalPage = React.lazy(() => import('@/pages/StockJournalPage'))
+const StockExercicePage = React.lazy(() => import('@/pages/StockExercicePage'))
+const MesCoursPage = React.lazy(() => import('@/pages/MesCoursPage'))
+const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPage'))
+const UE2Chapitre1Page = React.lazy(() => import('@/pages/UE2Chapitre1Page'))
+const UE2Chapitre2Page = React.lazy(() => import('@/pages/UE2Chapitre2Page'))
+const UE2Chapitre3Page = React.lazy(() => import('@/pages/UE2Chapitre3Page'))
+const UE2Chapitre4Page = React.lazy(() => import('@/pages/UE2Chapitre4Page'))
+const UE2Chapitre5Page = React.lazy(() => import('@/pages/UE2Chapitre5Page'))
+const UE2Chapitre6Page = React.lazy(() => import('@/pages/UE2Chapitre6Page'))
+const UE2Chapitre7Page = React.lazy(() => import('@/pages/UE2Chapitre7Page'))
+const UE2Chapitre8Page = React.lazy(() => import('@/pages/UE2Chapitre8Page'))
+const UE2Chapitre9Page = React.lazy(() => import('@/pages/UE2Chapitre9Page'))
+const UE2Chapitre10Page = React.lazy(() => import('@/pages/UE2Chapitre10Page'))
+const UE2Chapitre11Page = React.lazy(() => import('@/pages/UE2Chapitre11Page'))
+const UE5FinancesPubliquesPage = React.lazy(() => import('@/pages/UE5FinancesPubliquesPage'))
+const UE5Chapitre1Page = React.lazy(() => import('@/pages/UE5Chapitre1Page'))
+const UE5Chapitre2Page = React.lazy(() => import('@/pages/UE5Chapitre2Page'))
+const UE5Chapitre3Page = React.lazy(() => import('@/pages/UE5Chapitre3Page'))
+const UE5Chapitre4Page = React.lazy(() => import('@/pages/UE5Chapitre4Page'))
+const UE5Chapitre5Page = React.lazy(() => import('@/pages/UE5Chapitre5Page'))
+const UE5Chapitre6Page = React.lazy(() => import('@/pages/UE5Chapitre6Page'))
+const UE5Chapitre7Page = React.lazy(() => import('@/pages/UE5Chapitre7Page'))
+const UE5Chapitre8Page = React.lazy(() => import('@/pages/UE5Chapitre8Page'))
+const UE5Chapitre9Page = React.lazy(() => import('@/pages/UE5Chapitre9Page'))
+const UE5Chapitre10Page = React.lazy(() => import('@/pages/UE5Chapitre10Page'))
+const UE13IFRSPage = React.lazy(() => import('@/pages/UE13IFRSPage'))
+const UE13Chapitre1Page = React.lazy(() => import('@/pages/UE13Chapitre1Page'))
+const UE13Chapitre2Page = React.lazy(() => import('@/pages/UE13Chapitre2Page'))
+const UE13Chapitre3Page = React.lazy(() => import('@/pages/UE13Chapitre3Page'))
+const GestionEtudiantsPage = React.lazy(() => import('@/pages/GestionEtudiantsPage'))
+const FicheEtudiantPage = React.lazy(() => import('@/pages/FicheEtudiantPage'))
+const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPlatformePage'))
 
 function ProtectedRoute({ component: Component, user, onLogout }: { component: React.ComponentType; user: User | null; onLogout: () => void }) {
   if (!user) return <Redirect to="/login" />
@@ -153,6 +157,7 @@ export default function App() {
     <NavProvider>
     <IdleGuard />
     <Router hook={useHashLocation}>
+      <React.Suspense fallback={<PageLoader />}>
       <Switch>
         <Route path="/login">
           {user ? <Redirect to="/" /> : <LoginPage onLogin={setUser} />}
@@ -383,6 +388,7 @@ export default function App() {
 
         <Route><Redirect to="/" /></Route>
       </Switch>
+      </React.Suspense>
       <Toaster />
     </Router>
     </NavProvider>
