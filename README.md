@@ -28,8 +28,20 @@ npm run build   # depuis la racine, lance le build du client
 npm run test:firestore
 ```
 
-## Déploiement des règles Firestore
+## Déploiement
+
+Prérequis (une seule fois) : se connecter au compte Google propriétaire du projet Firebase `campus-ohada`.
 
 ```bash
-npm run deploy:rules
+npx firebase-tools login
 ```
+
+Puis, depuis la racine du dépôt :
+
+```bash
+npm run deploy:rules     # règles + index Firestore uniquement (fait tourner les tests d'isolation avant de déployer)
+npm run deploy:hosting   # build + déploiement de l'application web (Firebase Hosting)
+npm run deploy           # build + déploiement complet (hosting + règles + index)
+```
+
+`firebase.json` sert `dist/public` (généré par `npm run build`) via Firebase Hosting, avec réécriture SPA (`**` → `/index.html`) et mise en cache longue durée sur les fichiers hashés du dossier `assets/`.

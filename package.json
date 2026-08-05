@@ -6,7 +6,9 @@
     "prebuild": "bash scripts/pre-build-check.sh",
     "build": "cd client && ./node_modules/.bin/vite build",
     "test:firestore": "bash scripts/run-tests.sh",
-    "deploy:rules": "bash scripts/deploy-rules.sh"
+    "deploy:rules": "bash scripts/deploy-rules.sh",
+    "deploy:hosting": "npm run build && npx firebase-tools deploy --only hosting --project campus-ohada",
+    "deploy": "npm run build && npx firebase-tools deploy --project campus-ohada"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^3.0.4",
