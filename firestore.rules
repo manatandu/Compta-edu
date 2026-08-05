@@ -30,12 +30,35 @@ service cloud.firestore {
 
     // ─── USERS ───────────────────────────────────────────────────────────────
     match /users/{userId} {
-      // Création via code d'accès (utilisateur non authentifié — inscription étudiant)
-      allow create: if true;
+      // Création :
+      // 1) Auto-inscription (code d'accès, utilisateur non authentifié) : le compte créé
+      //    ne peut être qu'un compte étudiant — jamais un rôle à privilèges.
+      // 2) Création d'un compte professeur/assistant/admin par un admin : l'écriture se
+      //    fait techniquement "en tant que" le nouveau compte (secondaryAuth), donc on
+      //    exige qu'une invitation ait été posée au préalable par un admin authentifié
+      //    (voir accountInvites) avant d'accepter un rôle à privilèges.
+      // 3) Admin déjà authentifié écrivant directement (cas de repli import CSV / collision
+      //    d'e-mail où l'uid généré ne correspond à aucun compte Auth).
+      allow create: if (request.auth.uid == userId && (
+        request.resource.data.role == 'etudiant' ||
+        (
+          request.resource.data.role in ['professeur', 'assistant', 'admin'] &&
+          exists(/databases/$(database)/documents/accountInvites/$(userId)) &&
+          get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role
+        )
+      )) || isAdmin();
       // Lecture et modification : utilisateur lui-même OU admin
       allow read: if isAuth() && (request.auth.uid == userId || isAdmin());
       allow update: if isAuth() && (request.auth.uid == userId || isAdmin());
       allow delete: if isAdmin();
+    }
+
+    // ─── INVITATIONS DE COMPTE (rôles à privilèges) ────────────────────────────
+    // Posée par un admin, sur sa propre session, juste avant la création d'un compte
+    // professeur/assistant/admin via secondaryAuth. Consommée par la règle de création
+    // ci-dessus ; jamais utilisée directement par l'interface.
+    match /accountInvites/{inviteId} {
+      allow read, write: if isAdmin();
     }
 
     // ─── SESSIONS ────────────────────────────────────────────────────────────

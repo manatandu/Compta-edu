@@ -329,6 +329,15 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
     }
   }
 
+  // Rôle à privilèges créé via secondaryAuth : l'écriture du profil se fait "en tant
+  // que" le nouveau compte, pas en tant qu'admin. On dépose donc une invitation sur
+  // l'instance PRINCIPALE (où l'admin appelant est authentifié) : c'est elle que la
+  // règle Firestore de création vérifie pour autoriser un rôle autre qu'étudiant.
+  const rolePrivilegie = useSecondaryDb && data.role !== 'etudiant'
+  if (rolePrivilegie) {
+    await setDoc(doc(db, 'accountInvites', uid), { role: data.role, dateCreation: new Date().toISOString() })
+  }
+
   const user: User = {
     ...data,
     username: data.username.toLowerCase(),
@@ -340,6 +349,9 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   if (useSecondaryDb) {
     await setDoc(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
     await signOut(secondaryAuth)
+    if (rolePrivilegie) {
+      await deleteDoc(doc(db, 'accountInvites', uid)).catch(() => {})
+    }
   } else {
     // Cas fallback (uid généré) : l'admin est connecté sur db principal
     await setDoc(doc(db, C.USERS, uid), cleanUndefined(user) as any)

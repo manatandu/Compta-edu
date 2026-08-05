@@ -104,9 +104,56 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await assertSucceeds(getDoc(ref2))
   })
 
-  it('Un utilisateur non authentifié PEUT créer un compte (code d\'accès)', async () => {
-    const ref = doc(db(null), 'users', 'nouveau-uid')
+  it('Un utilisateur fraîchement authentifié (auto-inscription) peut créer SON profil étudiant', async () => {
+    // L'app crée d'abord le compte Firebase Auth (via secondaryAuth), PUIS écrit le
+    // profil Firestore : au moment de l'écriture, l'appelant est donc authentifié
+    // en tant que ce nouvel utilisateur — jamais réellement anonyme.
+    const ref = doc(db({ uid: 'nouveau-uid' }), 'users', 'nouveau-uid')
     await assertSucceeds(setDoc(ref, { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau' }))
+  })
+
+  it('Un utilisateur non authentifié NE PEUT PAS créer de compte directement', async () => {
+    const ref = doc(db(null), 'users', 'nouveau-uid')
+    await assertFails(setDoc(ref, { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau' }))
+  })
+
+  it('Un utilisateur NE PEUT PAS créer un profil pour un uid qui n\'est pas le sien', async () => {
+    const ref = doc(db({ uid: 'attaquant-uid' }), 'users', 'victime-uid')
+    await assertFails(setDoc(ref, { uid: 'victime-uid', role: 'etudiant', username: 'victime' }))
+  })
+
+  it('Un utilisateur NE PEUT PAS s\'auto-attribuer le rôle admin sans invitation', async () => {
+    const ref = doc(db({ uid: 'attaquant-uid' }), 'users', 'attaquant-uid')
+    await assertFails(setDoc(ref, { uid: 'attaquant-uid', role: 'admin', username: 'attaquant' }))
+  })
+
+  it('Un utilisateur NE PEUT PAS s\'auto-attribuer le rôle professeur sans invitation', async () => {
+    const ref = doc(db({ uid: 'attaquant-uid' }), 'users', 'attaquant-uid')
+    await assertFails(setDoc(ref, { uid: 'attaquant-uid', role: 'professeur', username: 'attaquant' }))
+  })
+
+  it('Avec une invitation admin valide, un compte professeur peut être créé avec le rôle invité', async () => {
+    await seedDoc('accountInvites', 'invite-uid', { role: 'professeur' })
+    const ref = doc(db({ uid: 'invite-uid' }), 'users', 'invite-uid')
+    await assertSucceeds(setDoc(ref, { uid: 'invite-uid', role: 'professeur', username: 'nouveau-prof' }))
+  })
+
+  it('Une invitation pour un rôle donné NE couvre PAS un rôle différent', async () => {
+    await seedDoc('accountInvites', 'invite-uid', { role: 'professeur' })
+    const ref = doc(db({ uid: 'invite-uid' }), 'users', 'invite-uid')
+    await assertFails(setDoc(ref, { uid: 'invite-uid', role: 'admin', username: 'nouveau-admin' }))
+  })
+
+  it('Un admin authentifié peut créer un profil pour un uid arbitraire (cas de repli import)', async () => {
+    await seedUsers(USERS.admin1)
+    const ref = doc(db(USERS.admin1), 'users', 'uid-genere-csv')
+    await assertSucceeds(setDoc(ref, { uid: 'uid-genere-csv', role: 'etudiant', username: 'import-csv' }))
+  })
+
+  it('Seul un admin peut poser une invitation de compte', async () => {
+    await seedUsers(USERS.prof1)
+    const ref = doc(db(USERS.prof1), 'accountInvites', 'cible-uid')
+    await assertFails(setDoc(ref, { role: 'professeur' }))
   })
 
   it('Un utilisateur non authentifié NE PEUT PAS lire un profil', async () => {
