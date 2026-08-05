@@ -9,7 +9,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["Sora", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["\"Source Serif 4\"", "Georgia", "serif"],
+        mono: ["\"IBM Plex Mono\"", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -48,6 +49,12 @@ export default {
           blue: "hsl(var(--module-blue))",
           rose: "hsl(var(--module-rose))",
           emerald: "hsl(var(--module-emerald))",
+        },
+        // Encre — fond sombre de la barre latérale et textes « registre »
+        ink: {
+          DEFAULT: "hsl(var(--ink))",
+          soft: "hsl(var(--ink-soft))",
+          faint: "hsl(var(--ink-faint))",
         },
       },
       borderRadius: {

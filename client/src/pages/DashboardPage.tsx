@@ -458,7 +458,7 @@ export default function DashboardPage() {
 
       {/* ══ HERO ════════════════════════════════════════════════════════════ */}
       <div
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#5A4FF0] via-[#4338CA] to-[#241F6E] px-6 py-6 sm:px-8 sm:py-7 animate-scaleIn"
+        className="relative overflow-hidden rounded-lg bg-gradient-to-br from-[#2E6FD9] via-[#1E4FAE] to-[#0F2E6E] px-6 py-6 sm:px-8 sm:py-7 animate-scaleIn"
         style={{ animationDelay: '0ms' }}
       >
         {/* 2 orbes décoratifs */}
@@ -482,7 +482,7 @@ export default function DashboardPage() {
             </div>
 
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-display font-semibold text-white tracking-tight leading-tight">
                 {greeting()}{isStudent
                   ? (user?.nom ? ` ${user.nom.toUpperCase()}` : '')
                   : (user?.prenom ? ` ${user.prenom.toUpperCase()}` : '')} !
@@ -576,14 +576,14 @@ export default function DashboardPage() {
             return (
               <div
                 key={s.label}
-                className="rounded-lg bg-white/10 backdrop-blur-sm px-3 py-3 flex items-center gap-2.5 border border-white/10 hover:bg-white/15 transition-colors duration-200 animate-slideUp"
+                className="rounded-md bg-white/10 backdrop-blur-sm px-3 py-3 flex items-center gap-2.5 border border-white/10 hover:bg-white/15 transition-colors duration-200 animate-slideUp"
                 style={{ animationDelay: `${300 + i * 60}ms` }}
               >
-                <div className="h-7 w-7 rounded-md bg-white/10 flex items-center justify-center shrink-0 border border-white/10">
+                <div className="h-7 w-7 rounded-sm bg-white/10 flex items-center justify-center shrink-0 border border-white/10">
                   <Icon className={`h-3.5 w-3.5 ${iconColor}`} />
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-white leading-none tabular-nums">
+                  <p className="text-xl font-semibold font-mono text-white leading-none tabular-nums">
                     {typeof s.value === 'number'
                       ? <AnimatedCount target={s.value} />
                       : s.value
