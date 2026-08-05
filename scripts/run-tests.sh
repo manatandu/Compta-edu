@@ -83,7 +83,7 @@ EMULATOR_PID=$!
 echo -n "  Attente de l'émulateur"
 WAIT=0
 MAX_WAIT=30
-until curl -sf "http://localhost:$EMULATOR_PORT" &>/dev/null 2>&1; do
+until curl -sf --max-time 2 "http://localhost:$EMULATOR_PORT" &>/dev/null 2>&1; do
   echo -n "."
   sleep 1
   WAIT=$((WAIT + 1))

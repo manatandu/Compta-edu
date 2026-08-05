@@ -4,7 +4,7 @@ import { loginAsync, createUserAsync } from '@/lib/db-firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Moon, Sun, AlertCircle, BookOpen, GraduationCap, BarChart2, Sparkles, Eye, EyeOff, KeyRound, UserPlus } from 'lucide-react'
+import { AlertCircle, BookOpen, GraduationCap, BarChart2, Sparkles, Eye, EyeOff, KeyRound, UserPlus } from 'lucide-react'
 import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 
@@ -17,7 +17,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [isDark, setIsDark] = useState(() => localStorage.getItem('dwac_theme') === 'dark')
   const [showPassword, setShowPassword] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [loginMode, setLoginMode] = useState<'login' | 'rejoindre'>('login')
@@ -67,16 +66,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     const t = setTimeout(() => setMounted(true), 50)
     return () => clearTimeout(t)
   }, [])
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('dwac_theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('dwac_theme', 'light')
-    }
-  }, [isDark])
 
   const handleVerifyCode = async () => {
     setJoinError('')
@@ -170,24 +159,23 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
       {/* ── Panneau gauche décoratif (desktop) ────────────────────────────── */}
       <div className={`hidden lg:flex flex-col justify-between w-[420px] shrink-0 relative overflow-hidden
-        bg-gradient-to-br from-[#1a3272] via-[#1e3d8f] to-[#0f2456]
+        bg-gradient-to-br from-[#5A4FF0] via-[#4338CA] to-[#241F6E]
         ${base} ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
         style={{ transitionDuration: '600ms' }}
       >
-        {/* Orbes décoratifs */}
-        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[#c88b0a]/25 animate-heroOrb" />
-        <div className="absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-blue-400/10 animate-heroOrb" style={{ animationDelay: '2.5s' }} />
-        <div className="absolute top-1/2 right-8 h-20 w-20 rounded-full bg-white/8 animate-float" style={{ animationDelay: '1s' }} />
-
-        {/* Grille subtile */}
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: 'linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)', backgroundSize: '48px 48px' }} />
+        {/* Texture "grand livre" : colonnes et lignes réglées */}
+        <div className="absolute inset-0 opacity-90" style={{
+          backgroundImage: `repeating-linear-gradient(to bottom, rgba(255,255,255,.055) 0, rgba(255,255,255,.055) 1px, transparent 1px, transparent 44px),
+            linear-gradient(to right, transparent 0 78px, rgba(255,255,255,.09) 78px 79px, transparent 79px)`
+        }} />
+        {/* Halo ambre décoratif */}
+        <div className="absolute -bottom-40 -right-40 h-[420px] w-[420px] rounded-full bg-secondary/35 blur-2xl animate-heroOrb" />
 
         {/* Header panneau */}
         <div className="relative z-10 p-10">
           <div className={`flex items-center gap-3 mb-12 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '200ms' }}>
             <div className="relative">
-              <div className="absolute inset-0 rounded-2xl bg-[#c88b0a]/30 animate-pulseGlow" />
+              <div className="absolute inset-0 rounded-2xl bg-secondary/30 animate-pulseGlow" />
               <div className="relative h-14 w-14 rounded-2xl bg-white/10 ring-2 ring-white/20 flex items-center justify-center overflow-hidden backdrop-blur-sm">
                 <img
                   src="./assets/campus-ohada-logo.svg"
@@ -199,18 +187,18 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               </div>
             </div>
             <div>
-              <p className="font-bold text-white text-lg leading-tight">CAMPUS OHADA</p>
-              <p className="text-blue-300 text-xs">SYSCOHADA Révisé</p>
+              <p className="font-display font-extrabold text-white text-lg leading-tight tracking-tight">CAMPUS OHADA</p>
+              <p className="text-white/60 text-xs">SYSCOHADA Révisé</p>
             </div>
           </div>
 
           <div className={`${base} ${mounted ? show : hide}`} style={{ transitionDelay: '350ms' }}>
-            <h2 className="text-3xl font-bold text-white leading-snug">
-              La comptabilité <br />
-              <span className="text-[#c88b0a]">OHADA</span> simplifiée
+            <h2 className="font-display text-3xl font-extrabold text-white leading-snug">
+              La compta OHADA,<br />
+              <span className="text-secondary">écriture après écriture.</span>
             </h2>
-            <p className="text-blue-200 mt-3 text-sm leading-relaxed">
-              Pratiquez, apprenez et maîtrisez la comptabilité générale selon le référentiel SYSCOHADA Révisé.
+            <p className="text-white/70 mt-3 text-sm leading-relaxed">
+              Journal, grand livre, bilan et cas pratiques corrigés — le même référentiel que vos examens, en ligne.
             </p>
           </div>
         </div>
@@ -229,15 +217,15 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                 className={`flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 border border-white/10 backdrop-blur-sm ${base} ${mounted ? show : hide}`}
                 style={{ transitionDelay: f.delay }}
               >
-                <div className="h-8 w-8 rounded-lg bg-[#c88b0a]/20 flex items-center justify-center shrink-0">
-                  <Icon className="h-4 w-4 text-[#c88b0a]" />
+                <div className="h-8 w-8 rounded-lg bg-secondary/20 flex items-center justify-center shrink-0">
+                  <Icon className="h-4 w-4 text-secondary" />
                 </div>
-                <span className="text-sm text-blue-100 font-medium">{f.label}</span>
+                <span className="text-sm text-white/85 font-medium">{f.label}</span>
               </div>
             )
           })}
-          <p className="text-blue-400 text-xs pt-2 flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-[#c88b0a]" />
+          <p className="text-white/50 text-xs pt-2 flex items-center gap-1.5">
+            <Sparkles className="h-3 w-3 text-secondary" />
             CAMPUS OHADA © {new Date().getFullYear()}
           </p>
         </div>
@@ -245,19 +233,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
       {/* ── Panneau droit : formulaire ────────────────────────────────────── */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 relative">
-
-        {/* Theme toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 right-4 rounded-full"
-          onClick={() => setIsDark(!isDark)}
-        >
-          {isDark
-            ? <Sun className="h-5 w-5 transition-transform duration-300 hover:rotate-45" />
-            : <Moon className="h-5 w-5 transition-transform duration-300 hover:-rotate-12" />
-          }
-        </Button>
 
         {/* Logo mobile uniquement */}
         <div className={`lg:hidden flex flex-col items-center mb-8 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '100ms' }}>
@@ -387,13 +362,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           {loginMode === 'rejoindre' && (
             <div className="space-y-4">
               {joinSuccess ? (
-                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl p-6 text-center space-y-3">
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center space-y-3">
                   <div className="text-4xl">⏳</div>
-                  <p className="font-semibold text-amber-800 dark:text-amber-300">Demande envoyée !</p>
-                  <p className="text-sm text-amber-700 dark:text-amber-400">
+                  <p className="font-semibold text-amber-800">Demande envoyée !</p>
+                  <p className="text-sm text-amber-700">
                     Votre inscription a bien été reçue. Votre professeur doit valider votre compte avant que vous puissiez accéder au logiciel.
                   </p>
-                  <p className="text-xs text-amber-600 dark:text-amber-500">
+                  <p className="text-xs text-amber-600">
                     Une fois validé, connectez-vous avec l'identifiant et le mot de passe que vous venez de choisir.
                   </p>
                   <Button variant="outline" onClick={() => { setLoginMode('login'); setJoinSuccess(false); setJoinStep('code'); setJoinCode(''); setJoinNom(''); setJoinPostnom(''); setJoinUsername(''); setJoinPassword('') }} className="w-full">
@@ -431,9 +406,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                 </div>
               ) : (
                 <form onSubmit={handleJoinSubmit} className="space-y-3">
-                  <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg px-4 py-3">
-                    <p className="text-xs text-green-700 dark:text-green-400">✓ Code validé. Complétez vos informations.</p>
-                    {joinCodeData?.classe && <p className="text-xs text-green-600 dark:text-green-500 mt-0.5">Classe : {joinCodeData.classe}</p>}
+                  <div className="bg-green-50 border border-green-200 rounded-lg px-4 py-3">
+                    <p className="text-xs text-green-700">✓ Code validé. Complétez vos informations.</p>
+                    {joinCodeData?.classe && <p className="text-xs text-green-600 mt-0.5">Classe : {joinCodeData.classe}</p>}
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
@@ -469,7 +444,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   <div>
                     <div className="flex items-center justify-between">
                       <Label>Identifiant *</Label>
-                      {joinUsername && <span className="text-xs text-green-600 dark:text-green-400 font-medium">✓ Généré automatiquement</span>}
+                      {joinUsername && <span className="text-xs text-green-600 font-medium">✓ Généré automatiquement</span>}
                     </div>
                     <Input
                       value={joinUsername}
@@ -484,7 +459,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   <div>
                     <div className="flex items-center justify-between">
                       <Label>Mot de passe *</Label>
-                      {joinPassword && <span className="text-xs text-green-600 dark:text-green-400 font-medium">✓ Généré automatiquement</span>}
+                      {joinPassword && <span className="text-xs text-green-600 font-medium">✓ Généré automatiquement</span>}
                     </div>
                     <div className="relative mt-1">
                       <Input

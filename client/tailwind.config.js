@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Sora", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -37,11 +41,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Couleurs de module — une teinte par UE/matière, cohérente avec la marque
+        module: {
+          teal: "hsl(var(--module-teal))",
+          violet: "hsl(var(--module-violet))",
+          blue: "hsl(var(--module-blue))",
+          rose: "hsl(var(--module-rose))",
+          emerald: "hsl(var(--module-emerald))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 6px)",
+        xl: "calc(var(--radius) + 6px)",
       },
       keyframes: {
         fadeIn: {

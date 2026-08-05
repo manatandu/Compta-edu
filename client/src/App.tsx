@@ -98,10 +98,6 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Thème
-    const theme = localStorage.getItem('dwac_theme')
-    if (theme === 'dark') document.documentElement.classList.add('dark')
-
     // Initialiser données par défaut (plan comptable, etc.) : localStorage uniquement
     initDefaultData()
 

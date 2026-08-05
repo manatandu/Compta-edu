@@ -458,13 +458,13 @@ export default function DashboardPage() {
 
       {/* ══ HERO ════════════════════════════════════════════════════════════ */}
       <div
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1a3272] via-[#1e3d8f] to-[#0f2456] px-6 py-6 sm:px-8 sm:py-7 animate-scaleIn"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#5A4FF0] via-[#4338CA] to-[#241F6E] px-6 py-6 sm:px-8 sm:py-7 animate-scaleIn"
         style={{ animationDelay: '0ms' }}
       >
         {/* 2 orbes décoratifs */}
-        <div className="pointer-events-none absolute -top-16 -right-16 h-52 w-52 rounded-full bg-[#c88b0a]/15 animate-heroOrb"
+        <div className="pointer-events-none absolute -top-16 -right-16 h-52 w-52 rounded-full bg-secondary/15 animate-heroOrb"
           style={{ animationDelay: '0s' }} />
-        <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-blue-400/8 animate-heroOrb"
+        <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-secondary/10 animate-heroOrb"
           style={{ animationDelay: '2s' }} />
 
         {/* Contenu hero */}
@@ -475,7 +475,7 @@ export default function DashboardPage() {
             style={{ animationDelay: '100ms' }}
           >
             <div className="relative h-16 w-16 shrink-0">
-              <div className="absolute inset-0 rounded-2xl bg-[#c88b0a]/30 animate-pulseGlow" />
+              <div className="absolute inset-0 rounded-2xl bg-secondary/30 animate-pulseGlow" />
               <div className="relative h-16 w-16 rounded-2xl overflow-hidden bg-white/10 ring-2 ring-white/25 flex items-center justify-center backdrop-blur-sm">
                 <img src="/assets/campus-ohada-logo.svg" alt="Campus OHADA" className="h-13 w-13 animate-float" style={{ animationDelay: '0.5s' }} />
               </div>
@@ -493,13 +493,13 @@ export default function DashboardPage() {
                 <div className="mt-1 space-y-0.5">
                   {/* Nom complet — toujours avec 1ère lettre majuscule */}
                   <p className="text-sm text-white font-semibold flex items-center gap-1.5">
-                    <User className="h-3.5 w-3.5 text-[#c88b0a] shrink-0" />
+                    <User className="h-3.5 w-3.5 text-secondary shrink-0" />
                     <span>{[user?.nom, user?.prenom].filter(Boolean).map(s => (s as string).charAt(0).toUpperCase() + (s as string).slice(1)).join(' ')}</span>
                   </p>
                   {/* Promotion */}
                   {(user as any).classe && (
-                    <p className="text-sm text-blue-200 flex items-center gap-1.5">
-                      <Award className="h-3.5 w-3.5 text-[#c88b0a] shrink-0" />
+                    <p className="text-sm text-white/75 flex items-center gap-1.5">
+                      <Award className="h-3.5 w-3.5 text-secondary shrink-0" />
                       <span>{(user as any).classe}</span>
                     </p>
                   )}
@@ -507,8 +507,8 @@ export default function DashboardPage() {
                   {(() => {
                     const nom = allFacultes.find(f => f.id === (user as any).faculteId)?.nom
                     return nom ? (
-                      <p className="text-sm text-blue-200 flex items-center gap-1.5">
-                        <BookMarked className="h-3.5 w-3.5 text-[#c88b0a] shrink-0" />
+                      <p className="text-sm text-white/75 flex items-center gap-1.5">
+                        <BookMarked className="h-3.5 w-3.5 text-secondary shrink-0" />
                         <span>{nom}</span>
                       </p>
                     ) : null
@@ -517,8 +517,8 @@ export default function DashboardPage() {
                   {(() => {
                     const nom = allUniversites.find(u => u.id === (user as any).universiteId)?.nom
                     return nom ? (
-                      <p className="text-sm text-blue-200 flex items-center gap-1.5">
-                        <GraduationCap className="h-3.5 w-3.5 text-[#c88b0a] shrink-0" />
+                      <p className="text-sm text-white/75 flex items-center gap-1.5">
+                        <GraduationCap className="h-3.5 w-3.5 text-secondary shrink-0" />
                         <span>{nom}</span>
                       </p>
                     ) : null
@@ -534,8 +534,8 @@ export default function DashboardPage() {
                     if (!fId) return null
                     const fac = allFacultes.find(f => f.id === fId)
                     return fac ? (
-                      <p className="text-sm text-blue-200 flex items-center gap-1.5">
-                        <BookMarked className="h-3.5 w-3.5 text-[#c88b0a] shrink-0" />
+                      <p className="text-sm text-white/75 flex items-center gap-1.5">
+                        <BookMarked className="h-3.5 w-3.5 text-secondary shrink-0" />
                         <span>{fac.nom}</span>
                       </p>
                     ) : null
@@ -545,8 +545,8 @@ export default function DashboardPage() {
                     if (!uId) return null
                     const uni = allUniversites.find(u => u.id === uId)
                     return uni ? (
-                      <p className="text-sm text-blue-200 flex items-center gap-1.5">
-                        <GraduationCap className="h-3.5 w-3.5 text-[#c88b0a] shrink-0" />
+                      <p className="text-sm text-white/75 flex items-center gap-1.5">
+                        <GraduationCap className="h-3.5 w-3.5 text-secondary shrink-0" />
                         <span>{uni.nom}</span>
                       </p>
                     ) : null
@@ -556,8 +556,8 @@ export default function DashboardPage() {
 
               {/* Admin principal : mention assistant */}
               {user?.role === 'admin' && (
-                <p className="text-sm text-blue-200 mt-1">
-                  Assistant : <span className="text-[#c88b0a] font-semibold">Manasse TANDU SAVA</span>
+                <p className="text-sm text-white/75 mt-1">
+                  Assistant : <span className="text-secondary font-semibold">Manasse TANDU SAVA</span>
                 </p>
               )}
 
@@ -589,7 +589,7 @@ export default function DashboardPage() {
                       : s.value
                     }
                   </p>
-                  <p className="text-xs text-blue-300/80 mt-0.5 font-medium">{s.label}</p>
+                  <p className="text-xs text-white/70 mt-0.5 font-medium">{s.label}</p>
                 </div>
               </div>
             )

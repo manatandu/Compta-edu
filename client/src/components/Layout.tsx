@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
   BookOpen, LayoutDashboard, BookMarked, BarChart2, FileText,
-  Users, MessageSquare, FolderOpen, LogOut, Moon, Sun,
+  Users, MessageSquare, FolderOpen, LogOut,
   Menu, GraduationCap, ClipboardList, ChevronRight, ChevronDown,
   Calculator, Landmark, Wallet, TrendingUp, Home, BookCheck, X, Lock, Bug
 } from 'lucide-react'
@@ -126,7 +126,6 @@ function getModuleIcon(moduleKey?: string, icon?: string) {
 
 export function Layout({ children, user, onLogout }: LayoutProps) {
   const [location, navigate] = useHashLocation()
-  const [isDark, setIsDark] = useState(() => localStorage.getItem('dwac_theme') === 'dark')
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // Cours dynamiques depuis Firestore
@@ -160,16 +159,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
     })
   }
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('dwac_theme', 'dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('dwac_theme', 'light')
-    }
-  }, [isDark])
-
   // Fermer sidebar quand on change de page
   useEffect(() => {
     setSidebarOpen(false)
@@ -196,10 +185,10 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         key={item.path}
         onClick={() => { navigate(item.path); setSidebarOpen(false) }}
         className={cn(
-          "w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-left",
+          "w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors text-left",
           isActive
-            ? "bg-primary text-primary-foreground font-medium"
-            : "text-foreground hover:bg-muted"
+            ? "bg-primary/10 text-primary font-semibold"
+            : "text-foreground/80 hover:bg-muted"
         )}
       >
         {item.icon}
@@ -245,7 +234,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
       {searchBar}
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto py-2">
+      <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
 
         {/* Navigation principale */}
         {topItems.map(item => <NavButton key={item.path} item={item} />)}
@@ -329,10 +318,10 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                     setSidebarOpen(false)
                   }}
                   className={cn(
-                    "w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-left",
+                    "w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors text-left",
                     isDirectActive && !verrouille
-                      ? "bg-primary text-primary-foreground font-medium"
-                      : "text-foreground hover:bg-muted",
+                      ? "bg-primary/10 text-primary font-semibold"
+                      : "text-foreground/80 hover:bg-muted",
                     (verrouille || bientot) && "opacity-60 cursor-default"
                   )}
                 >
@@ -380,10 +369,10 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                   }
                 }}
                 className={cn(
-                  "w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-left",
+                  "w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-colors text-left",
                   folderHasActive
-                    ? "bg-primary text-primary-foreground font-medium"
-                    : "text-foreground hover:bg-muted",
+                    ? "bg-primary/10 text-primary font-semibold"
+                    : "text-foreground/80 hover:bg-muted",
                   isEmpty && !isDirect && "opacity-60 cursor-default"
                 )}
               >
@@ -414,10 +403,10 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                           key={item.path}
                           onClick={() => { navigate(item.path); setSidebarOpen(false) }}
                           className={cn(
-                            "w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors text-left rounded-r",
+                            "w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors text-left rounded-lg",
                             isActive
-                              ? "bg-primary text-primary-foreground font-medium"
-                              : "text-foreground hover:bg-muted"
+                              ? "bg-primary/10 text-primary font-semibold"
+                              : "text-foreground/80 hover:bg-muted"
                           )}
                         >
                           {item.icon}
@@ -455,9 +444,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         </div>
         <div className="flex gap-2 items-center">
           {isAdmin && <NotificationBell user={user} />}
-          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsDark(!isDark)} title="Changer de thème">
-            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </Button>
           <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={handleLogout} title="Déconnexion">
             <LogOut className="h-4 w-4" />
           </Button>
@@ -512,9 +498,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           </div>
           <div className="flex gap-1 shrink-0 items-center">
             {isAdmin && <NotificationBell user={user} />}
-            <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => setIsDark(!isDark)}>
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
             <Button variant="ghost" size="icon" className="h-9 w-9 text-destructive" onClick={handleLogout}>
               <LogOut className="h-4 w-4" />
             </Button>
