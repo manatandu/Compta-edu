@@ -1,0 +1,40 @@
+name: Déploiement Firebase (main)
+
+# Déploie automatiquement le site (Hosting) et les règles/index Firestore
+# à chaque push sur la branche principale. Peut aussi être lancé manuellement
+# depuis l'onglet "Actions" de GitHub (bouton "Run workflow").
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer les dépendances (racine)
+        run: npm install
+
+      - name: Installer les dépendances (client)
+        run: npm install
+        working-directory: client
+
+      - name: Build (tests d'isolation Firestore inclus)
+        run: npm run build
+
+      - name: Authentifier le compte de service Firebase
+        run: echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/firebase-sa.json"
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CAMPUS_OHADA }}
+
+      - name: Déployer (Hosting + règles + index Firestore)
+        run: npx firebase-tools deploy --project campus-ohada --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-sa.json

@@ -1,0 +1,361 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════
+   POLICES — Sora (titres) + Inter (texte), auto-hébergées
+   ═══════════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-400-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-500-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-500-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-600-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-600-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/Inter-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/Sora-600-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/Sora-600-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/Sora-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/Sora-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/assets/fonts/Sora-800-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/assets/fonts/Sora-800-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Taille de base réduite sur mobile pour un meilleur équilibre */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@layer base {
+  :root {
+    /* Neutres — légèrement teintés indigo plutôt que gris pur */
+    --background: 240 20% 99%;
+    --foreground: 248 33% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 248 33% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 248 33% 15%;
+
+    /* Marque — indigo (confiance/technicité) + ambre (réussite/accent) */
+    --primary: 243 75% 59%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 248 33% 15%;
+
+    --muted: 248 45% 96%;
+    --muted-foreground: 248 13% 45%;
+    --accent: 243 60% 96%;
+    --accent-foreground: 244 55% 35%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 248 40% 90%;
+    --input: 248 40% 90%;
+    --ring: 243 75% 59%;
+    --radius: 0.875rem;
+
+    /* Couleurs de module (badges/accents par UE — famille cohérente avec la marque) */
+    --module-teal: 175 84% 32%;
+    --module-violet: 262 83% 58%;
+    --module-blue: 221 83% 53%;
+    --module-rose: 347 77% 50%;
+    --module-emerald: 161 94% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    font-size: 16px;
+  }
+  body {
+    @apply text-foreground font-sans;
+    background-color: hsl(var(--background));
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  /* Support encoche iPhone (safe area) pour la bottom nav */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Inputs plus grands sur mobile pour éviter le zoom automatique iOS */
+  @media (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important; /* Empêche iOS de zoomer sur focus */
+    }
+  }
+
+  /* Scroll horizontal fluide pour les tableaux */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Tap highlight plus discret sur mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATIONS GLOBALES — CAMPUS OHADA
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+
+  /* Shimmer skeleton */
+  .animate-shimmer-bg {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* Gradient animé sur les textes */
+  .text-gradient-animated {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)), hsl(var(--primary)));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease infinite;
+  }
+}
+
+/* ── Transitions globales sur les cartes et boutons ── */
+@layer base {
+
+  /* Toutes les cartes shadcn */
+  .border-border {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  /* Boutons : feedback plus riche */
+  button:not(:disabled):active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+
+  /* Focus ring plus visible et animé */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    transition: outline-offset 0.1s ease;
+  }
+
+  /* Liens et éléments cliquables */
+  a {
+    transition: color 0.15s ease, opacity 0.15s ease;
+  }
+
+  /* Badge hover */
+  .badge, [class*="badge"] {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  /* Rows de tableaux */
+  tr {
+    transition: background-color 0.12s ease;
+  }
+
+  /* Inputs — transition douce sur le focus */
+  input, textarea, select {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.15s ease;
+  }
+
+  /* Switch */
+  [role="switch"] {
+    transition: background-color 0.25s ease;
+  }
+
+  /* Icônes dans les boutons */
+  button svg, a svg {
+    transition: transform 0.2s ease, color 0.15s ease;
+  }
+  button:hover svg {
+    transform: scale(1.08);
+  }
+}
+
+/* ── Entrées en cascade pour les listes ── */
+@layer utilities {
+
+  /* Délais d'animation pour les enfants (cascade) */
+  .cascade-children > *:nth-child(1)  { animation-delay: 0ms;   }
+  .cascade-children > *:nth-child(2)  { animation-delay: 60ms;  }
+  .cascade-children > *:nth-child(3)  { animation-delay: 120ms; }
+  .cascade-children > *:nth-child(4)  { animation-delay: 180ms; }
+  .cascade-children > *:nth-child(5)  { animation-delay: 240ms; }
+  .cascade-children > *:nth-child(6)  { animation-delay: 300ms; }
+  .cascade-children > *:nth-child(7)  { animation-delay: 360ms; }
+  .cascade-children > *:nth-child(8)  { animation-delay: 420ms; }
+  .cascade-children > *:nth-child(9)  { animation-delay: 480ms; }
+  .cascade-children > *:nth-child(10) { animation-delay: 540ms; }
+
+  /* Items de listes avec fadeIn en cascade */
+  .list-animate > * {
+    animation: fadeIn 0.4s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  .list-animate > *:nth-child(1)  { animation-delay: 50ms;  }
+  .list-animate > *:nth-child(2)  { animation-delay: 100ms; }
+  .list-animate > *:nth-child(3)  { animation-delay: 150ms; }
+  .list-animate > *:nth-child(4)  { animation-delay: 200ms; }
+  .list-animate > *:nth-child(5)  { animation-delay: 250ms; }
+  .list-animate > *:nth-child(6)  { animation-delay: 300ms; }
+  .list-animate > *:nth-child(7)  { animation-delay: 350ms; }
+  .list-animate > *:nth-child(8)  { animation-delay: 400ms; }
+
+  /* Barre de progression animée */
+  .progress-bar-animated {
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Hover scale sur les icônes */
+  .icon-hover {
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+  .icon-hover:hover {
+    transform: scale(1.15) rotate(4deg);
+    filter: brightness(1.2);
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.15);
+  }
+
+  /* Pulse sur les éléments "attention" */
+  .attention-pulse {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+}
+
+
+/* ── Scrollbar personnalisée ── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}

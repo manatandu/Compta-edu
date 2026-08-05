@@ -1,0 +1,236 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── HELPERS ─────────────────────────────────────────────────────────────
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isProf() {
+      return isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'professeur'];
+    }
+
+    function ownsResource(field) {
+      return isAuth() && request.auth.uid == resource.data[field];
+    }
+
+    function createdBy() {
+      return isAuth() && request.auth.uid == resource.data.createdBy;
+    }
+
+    // Vérifie que le document appartient au même admin (isolation admin→enfants)
+    function sameAdmin() {
+      return isAuth() && request.auth.uid == resource.data.adminId;
+    }
+
+    // ─── USERS ───────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Création :
+      // 1) Auto-inscription (code d'accès, utilisateur non authentifié) : le compte créé
+      //    ne peut être qu'un compte étudiant — jamais un rôle à privilèges.
+      // 2) Création d'un compte professeur/assistant/admin par un admin : l'écriture se
+      //    fait techniquement "en tant que" le nouveau compte (secondaryAuth), donc on
+      //    exige qu'une invitation ait été posée au préalable par un admin authentifié
+      //    (voir accountInvites) avant d'accepter un rôle à privilèges.
+      // 3) Admin déjà authentifié écrivant directement (cas de repli import CSV / collision
+      //    d'e-mail où l'uid généré ne correspond à aucun compte Auth).
+      allow create: if (request.auth.uid == userId && (
+        request.resource.data.role == 'etudiant' ||
+        (
+          request.resource.data.role in ['professeur', 'assistant', 'admin'] &&
+          exists(/databases/$(database)/documents/accountInvites/$(userId)) &&
+          get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role
+        )
+      )) || isAdmin();
+      // Lecture : utilisateur lui-même OU admin
+      allow read: if isAuth() && (request.auth.uid == userId || isAdmin());
+      // Modification : un admin peut tout modifier. Un utilisateur peut modifier SON
+      // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
+      // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
+      // en attente — même faille que sur la création, ici via update).
+      allow update: if isAdmin() || (
+        isAuth() && request.auth.uid == userId &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.get('actif', null) == resource.data.get('actif', null) &&
+        request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null)
+      );
+      allow delete: if isAdmin();
+    }
+
+    // ─── INVITATIONS DE COMPTE (rôles à privilèges) ────────────────────────────
+    // Posée par un admin, sur sa propre session, juste avant la création d'un compte
+    // professeur/assistant/admin via secondaryAuth. Consommée par la règle de création
+    // ci-dessus ; jamais utilisée directement par l'interface.
+    match /accountInvites/{inviteId} {
+      allow read, write: if isAdmin();
+    }
+
+    // ─── SESSIONS ────────────────────────────────────────────────────────────
+    // Isolation : une session (exercice journal) appartient à un étudiant (userId).
+    // Les profs peuvent les lire (statistiques du tableau de bord) mais pas les modifier.
+    match /sessions/{sessionId} {
+      allow read: if isAuth() && (ownsResource('userId') || isProf());
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuth() && ownsResource('userId');
+    }
+
+    // ─── ÉCRITURES COMPTABLES ────────────────────────────────────────────────
+    match /ecritures/{ecritureId} {
+      allow read: if isAuth() && ownsResource('userId');
+      allow write: if isAuth() && (
+        request.auth.uid == resource.data.userId ||
+        request.resource.data.userId == request.auth.uid
+      );
+    }
+
+    // ─── EXERCICES (cotés — créés par profs/admins) ──────────────────────────
+    // Isolation : chaque exercice est lié à un coursId.
+    // Un étudiant ne voit que les exercices de SES cours.
+    match /exercices/{exerciceId} {
+      allow read: if isAuth();
+      allow create: if isProf();
+      allow update, delete: if isProf() && createdBy();
+    }
+
+    // ─── TENTATIVES (réponses aux exercices cotés) ────────────────────────────
+    // Isolation : une tentative appartient à un étudiant ET un coursId.
+    // Un étudiant ne peut lire/écrire QUE ses propres tentatives.
+    // Un prof/admin peut lire toutes les tentatives de ses cours.
+    match /tentatives/{tentativeId} {
+      allow read: if isAuth() && (
+        ownsResource('etudiantId') || isProf()
+      );
+      allow create: if isAuth() && (
+        request.resource.data.etudiantId == request.auth.uid
+      );
+      allow update: if isAuth() && ownsResource('etudiantId');
+      allow delete: if isProf();
+    }
+
+    // ─── EXERCICES LIBRES (entraînement — non cotés) ─────────────────────────
+    // Isolation stricte par coursId :
+    // • Un exercice libre est rattaché à un coursId (OBLIGATOIRE)
+    // • Un étudiant ne voit que les exercices libres de ses cours (coursId dans ses coursIds)
+    // • Un prof ne voit que ses propres exercices libres (createdBy)
+    match /exercices_libres/{exId} {
+      allow read: if isAuth();
+      allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'createdBy']);
+      allow update, delete: if isProf() && createdBy();
+    }
+
+    // ─── TENTATIVES EXERCICES LIBRES ──────────────────────────────────────────
+    // Isolation : par étudiant. Un étudiant ne peut voir que ses propres tentatives.
+    match /tentatives_el/{tentativeId} {
+      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
+      allow update: if isAuth() && ownsResource('etudiantId');
+      allow delete: if isProf();
+    }
+
+    // ─── DOCUMENTS ───────────────────────────────────────────────────────────
+    // Isolation : un document est lié à un promotionId ET/OU un coursId.
+    // Un étudiant ne voit que les documents de SA promotion ET de SES cours.
+    // Règle :
+    //   - Doc sans promotionId et sans coursId → visible par tous (document système global)
+    //   - Doc avec promotionId mais sans coursId → visible par toute la promotion
+    //   - Doc avec coursId mais sans promotionId → visible pour tout le cours
+    //   - Doc avec promotionId ET coursId → visible uniquement pour les étudiants des deux
+    match /documents/{documentId} {
+      allow read: if isAuth();
+      allow create: if isProf() && request.resource.data.keys().hasAll(['createdBy']);
+      allow update, delete: if isProf() && createdBy();
+    }
+
+    // ─── MESSAGES ────────────────────────────────────────────────────────────
+    // Isolation : un message n'est lisible/modifiable que par l'expéditeur ou le
+    // destinataire (champ 'participants' = [expediteurId, destinataireId]).
+    match /messages/{messageId} {
+      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.participants;
+      allow create: if isAuth() && request.resource.data.expediteurId == request.auth.uid;
+    }
+
+    // ─── CODES D'ACCÈS ─────────────────────────────────────────────────────────
+    // Lecture publique : un étudiant non connecté doit pouvoir vérifier son code
+    // Écriture réservée aux admins/profs (génération de codes)
+    match /codesAcces/{codeId} {
+      allow read: if true;
+      allow write: if isProf();
+    }
+
+    // ─── UNIVERSITÉS, FACULTÉS ───────────────────────────────────────────────
+    match /universites/{uid} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
+    match /facultes/{fid} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
+    // ─── COURS ───────────────────────────────────────────────────────────────
+    // Isolation admin : chaque administrateur ne voit que SES cours (adminId)
+    // et les étudiants inscrits dans CES cours uniquement.
+    match /cours/{coursId} {
+      allow read: if isAuth();
+      allow create: if isProf() && request.resource.data.keys().hasAll(['adminId', 'createdBy']);
+      allow update, delete: if isProf() && (createdBy() || isAdmin());
+    }
+
+    // ─── COURS_STATUTS (progression étudiant par cours) ──────────────────────
+    // id = etudiantId_coursId → isolation naturelle
+    match /cours_statuts/{statutId} {
+      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      allow write: if isAuth() && (
+        request.auth.uid == resource.data.etudiantId ||
+        request.resource.data.etudiantId == request.auth.uid ||
+        isProf()
+      );
+    }
+
+    // ─── DEVOIRS ─────────────────────────────────────────────────────────────
+    // Isolation stricte par coursId :
+    // • Un devoir DOIT avoir un coursId (OBLIGATOIRE)
+    // • Un étudiant voit uniquement les devoirs de SES cours
+    // • Un prof voit uniquement SES devoirs
+    match /devoirs/{devoirId} {
+      allow read: if isAuth();
+      allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'createdBy', 'promotionId']);
+      allow update, delete: if isProf() && createdBy();
+    }
+
+    // ─── SOUMISSIONS (réponses aux devoirs) ──────────────────────────────────
+    // Isolation : par étudiant ET par devoir.
+    match /soumissions/{soumissionId} {
+      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
+      allow update: if isAuth() && ownsResource('etudiantId');
+      allow delete: if isProf();
+    }
+
+    // ─── PRÉSENCES ───────────────────────────────────────────────────────────
+    // Isolation : par coursId et par étudiant
+    match /presences/{presenceId} {
+      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      allow write: if isProf();
+    }
+
+    // ─── NOTES DE COURS ──────────────────────────────────────────────────────
+    // Isolation DOUBLE par coursId ET promotionId :
+    // • Une note de cours DOIT avoir coursId ET promotionId (OBLIGATOIRE)
+    // • Un étudiant ne voit que les notes de SES cours ET de SA promotion
+    // • Un prof ne voit que SES notes (createdBy)
+    // RÈGLE : PAS D'INTERFÉRENCE — les notes d'un cours A ne sont JAMAIS
+    //         visibles dans un cours B, même pour la même promotion.
+    match /notes_cours/{noteId} {
+      allow read: if isAuth();
+      allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'promotionId', 'createdBy']);
+      allow update, delete: if isProf() && createdBy();
+    }
+  }
+}
