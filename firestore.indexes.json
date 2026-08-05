@@ -1,0 +1,149 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "sessions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "module", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "ecritures",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "sessionId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "ecritures",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "module", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "ecritures",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "ligneGroupe", "order": "ASCENDING" },
+        { "fieldPath": "userId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "tentatives",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "exerciceId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "tentatives",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "etudiantId", "order": "ASCENDING" },
+        { "fieldPath": "coursId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "cours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "faculteId", "order": "ASCENDING" },
+        { "fieldPath": "universiteId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "cours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "adminId", "order": "ASCENDING" },
+        { "fieldPath": "createdBy", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "soumissions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "devoirId", "order": "ASCENDING" },
+        { "fieldPath": "etudiantId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "devoirs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "coursId", "order": "ASCENDING" },
+        { "fieldPath": "promotionId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "devoirs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "createdBy", "order": "ASCENDING" },
+        { "fieldPath": "coursId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "notes_cours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "actif", "order": "ASCENDING" },
+        { "fieldPath": "coursId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "notes_cours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "coursId", "order": "ASCENDING" },
+        { "fieldPath": "promotionId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "exercices_libres",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "createdBy", "order": "ASCENDING" },
+        { "fieldPath": "coursId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "tentatives_el",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "etudiantId", "order": "ASCENDING" },
+        { "fieldPath": "dateCreation", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "cours_statuts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "etudiantId", "order": "ASCENDING" },
+        { "fieldPath": "coursId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "presences",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "createdBy", "order": "ASCENDING" },
+        { "fieldPath": "etudiantId", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "messages",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "participants", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "dateEnvoi", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
