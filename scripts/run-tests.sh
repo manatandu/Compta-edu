@@ -22,14 +22,25 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # ─── Nettoyage à la sortie (même en cas d'erreur) ─────────────────
+# NOTE : $EMULATOR_PID (capturé via $! juste après le lancement en arrière-plan)
+# est le PID du DERNIER maillon du pipeline (grep), pas celui de firebase-tools/java.
+# Le tuer ne stoppe donc jamais le vrai émulateur : le process Java reste vivant,
+# garde les descripteurs de sortie hérités ouverts, et "npm run test:firestore"
+# ne se termine alors jamais (observé : blocage total jusqu'au timeout du CI).
+# On tue donc explicitement par motif, en plus du PID suivi.
 cleanup() {
+  echo ""
+  echo -e "${YELLOW}→ Arrêt de l'émulateur Firestore...${NC}"
   if [ -n "$EMULATOR_PID" ]; then
-    echo ""
-    echo -e "${YELLOW}→ Arrêt de l'émulateur Firestore (PID $EMULATOR_PID)...${NC}"
     kill "$EMULATOR_PID" 2>/dev/null || true
-    wait "$EMULATOR_PID" 2>/dev/null || true
-    echo -e "${GREEN}✓ Émulateur arrêté${NC}"
   fi
+  # "emulators:start" attrape aussi bien le process npx/firebase-tools que son
+  # enfant direct "firebase emulators:start" (la commande réelle ne contient
+  # pas toujours "firebase-tools" dans ses arguments).
+  pkill -9 -f "emulators:start" 2>/dev/null || true
+  pkill -9 -f "cloud-firestore-emulator" 2>/dev/null || true
+  fuser -k "$EMULATOR_PORT/tcp" 2>/dev/null || true
+  echo -e "${GREEN}✓ Émulateur arrêté${NC}"
 }
 trap cleanup EXIT
 
