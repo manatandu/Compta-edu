@@ -97,14 +97,14 @@ const LECONS: Lecon[] = [
           Selon IAS 16 §7, le coût d'une immobilisation corporelle doit être comptabilisé en tant qu'actif <strong>si, et seulement si</strong> deux conditions cumulatives sont réunies :
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Condition 1</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Condition 1</p>
             <p className="text-xs text-foreground/80">Il est <strong>probable que les avantages économiques futurs</strong>
             <InfoTooltip texte="Les avantages économiques futurs (AEF) sont les flux de trésorerie nets qu'une entité attend de l'actif. Leur probabilité doit être appréciée sur la base d'une analyse raisonnée des flux futurs, en accordant un poids plus important aux indications externes." loi="IAS 16 §7(a) et Cadre conceptuel IASB" />
             {' '}associés à cet élément iront à l'entité.</p>
           </div>
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Condition 2</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Condition 2</p>
             <p className="text-xs text-foreground/80">Le <strong>coût de cet élément peut être évalué de façon fiable.</strong></p>
           </div>
         </div>
@@ -122,25 +122,25 @@ const LECONS: Lecon[] = [
           En revanche, le <strong>remplacement partiel</strong> d'une immobilisation (§13) est capitalisé dans sa valeur comptable dès lors que les critères de §7 sont satisfaits. La valeur comptable de la partie remplacée est alors décomptabilisée. De même, les inspections majeures obligatoires (§14) constituent un composant distinct amorti jusqu'à la prochaine inspection.
         </p>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-900/20 p-4 mt-3">
-          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">Point d'attention</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4 mt-3">
+          <p className="text-xs font-semibold text-amber-700 mb-1">Point d'attention</p>
           <p className="text-xs text-foreground/80">
             IAS 16 ne prescrit pas d'unité d'évaluation unique (§9). Il appartient à l'entité d'exercer son jugement professionnel pour déterminer ce qui constitue une immobilisation corporelle dans son contexte particulier.
           </p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — Comptabilisation initiale et coûts ultérieurs (IAS 16 §7 et §13)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4 space-y-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte — Société FABRICO SA</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 space-y-4">
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte — Société FABRICO SA</p>
+            <p className="text-xs text-amber-900">
               FABRICO SA acquiert une machine industrielle le 01/01/N. Prix catalogue : <strong>80 000 €</strong>. Transport et installation : <strong>4 200 €</strong>. Formation du personnel à son utilisation : <strong>3 000 €</strong>. En N+3, une pièce de rechange majeure est remplacée pour <strong>12 000 €</strong> ; la valeur comptable de l'ancienne pièce était de <strong>8 500 €</strong> (cumul amortissements : 1 500 €, valeur brute : 10 000 €).
             </p>
           </div>
 
           <div>
             <p className="text-xs font-semibold text-foreground mb-2">Étape 1 — Détermination du coût d'entrée (IAS 16 §16) :</p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="text-xs text-foreground/80 mb-1">Prix catalogue : 80 000 € — Inclus car prix d'acquisition direct.</p>
               <p className="text-xs text-foreground/80 mb-1">Transport + installation : 4 200 € — Inclus car coûts directement attribuables (IAS 16 §16b).</p>
               <p className="text-xs text-foreground/80 mb-1">Formation du personnel : 3 000 € — <strong>Exclus</strong>, car liés à l'usage et non à la mise en état de l'actif (IAS 16 §19e).</p>
@@ -214,8 +214,8 @@ const LECONS: Lecon[] = [
         </ul>
 
         <h3 className="font-bold text-foreground mt-4">Coûts EXCLUS du coût d'entrée (§19)</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4">
-          <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-2">Ne font PAS partie du coût :</p>
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
+          <p className="text-xs font-semibold text-red-700 mb-2">Ne font PAS partie du coût :</p>
           <ul className="list-disc pl-5 space-y-1 text-xs text-foreground/80">
             <li>Coûts d'ouverture d'une nouvelle installation ;</li>
             <li>Coûts de lancement de nouveaux produits ou services (publicité, promotion) ;</li>
@@ -227,17 +227,17 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — Classification des coûts : immobilisables ou non ? (IAS 16 §16-19)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4 mt-2">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 mt-2">
           <p className="text-xs text-foreground/80 mb-3">
             Une ligne de mise en bouteilles est acquise par un producteur de vins. Chaque coût doit être qualifié selon IAS 16.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-sky-100 dark:bg-sky-900/40">
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Coût</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-center">Immobilisable ?</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Justification IAS 16</th>
+                <tr className="bg-sky-100">
+                  <th className="border border-sky-200 p-1.5 text-left">Coût</th>
+                  <th className="border border-sky-200 p-1.5 text-center">Immobilisable ?</th>
+                  <th className="border border-sky-200 p-1.5 text-left">Justification IAS 16</th>
                 </tr>
               </thead>
               <tbody>
@@ -318,12 +318,12 @@ const LECONS: Lecon[] = [
           Si le règlement est <strong>différé au-delà des conditions habituelles de crédit</strong>, le coût de l'immobilisation est le <strong>prix comptant équivalent à la date de comptabilisation</strong>. La différence entre ce prix comptant et le total des paiements est comptabilisée en <strong>charges financières</strong> sur la période de crédit (sauf incorporation au coût selon IAS 23).
         </p>
 
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4 mt-2">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-2">Illustration — Machine acquise avec paiement échelonné (IAS 16 §23)</p>
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 mt-2">
+          <p className="text-xs font-semibold text-sky-700 mb-2">Illustration — Machine acquise avec paiement échelonné (IAS 16 §23)</p>
           <p className="text-xs text-foreground/80 mb-2">
             Une machine est achetée moyennant un acompte de <strong>100 K€ comptant</strong>, puis <strong>110 K€ dans un an</strong> et <strong>121 K€ dans deux ans</strong>. Taux d'actualisation : 10 %.
           </p>
-          <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+          <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
             <p className="text-xs font-semibold text-foreground mb-2">Calcul du prix comptant équivalent (IAS 16 §23) :</p>
             <div className="space-y-1 overflow-x-auto">
               <BlockMath math={String.raw`\text{Étape 1 : Acompte} = 100\,\text{K\euro}`} />
@@ -336,10 +336,10 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-sky-100 dark:bg-sky-900/40">
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Compte</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Débit</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Crédit</th>
+                <tr className="bg-sky-100">
+                  <th className="border border-sky-200 p-1.5 text-left">Compte</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Débit</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Crédit</th>
                 </tr>
               </thead>
               <tbody>
@@ -365,10 +365,10 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-sky-100 dark:bg-sky-900/40">
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Compte</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Débit</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Crédit</th>
+                <tr className="bg-sky-100">
+                  <th className="border border-sky-200 p-1.5 text-left">Compte</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Débit</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Crédit</th>
                 </tr>
               </thead>
               <tbody>
@@ -450,14 +450,14 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">Traitement comptable de l'écart de réévaluation (§39 et §40)</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-          <div className="rounded-xl border border-green-200 dark:border-green-800 bg-green-50/60 dark:bg-green-900/20 p-4">
-            <p className="font-semibold text-green-700 dark:text-green-300 text-xs mb-2">Écart POSITIF (§39)</p>
+          <div className="rounded-xl border border-green-200 bg-green-50/60 p-4">
+            <p className="font-semibold text-green-700 text-xs mb-2">Écart POSITIF (§39)</p>
             <p className="text-xs text-foreground/80">
               L'augmentation est comptabilisée dans les <strong>autres éléments du résultat global (AERG)</strong> et cumulee en capitaux propres sous la rubrique "écarts de réévaluation". Exception : si elle compense une diminution anterieurement en résultat net, elle est comptabilisée en résultat net.
             </p>
           </div>
-          <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/60 dark:bg-red-900/20 p-4">
-            <p className="font-semibold text-red-700 dark:text-red-300 text-xs mb-2">Écart NEGATIF (§40)</p>
+          <div className="rounded-xl border border-red-200 bg-red-50/60 p-4">
+            <p className="font-semibold text-red-700 text-xs mb-2">Écart NEGATIF (§40)</p>
             <p className="text-xs text-foreground/80">
               La diminution est comptabilisée en <strong>résultat net (charges)</strong>. Exception : elle est comptabilisée dans les AERG (en reduction de l'écart de réévaluation crediteur) dans la limite de l'écart positif antérieur pour le meme actif.
             </p>
@@ -465,12 +465,12 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration complète — Cycle de réévaluation sur 3 exercices (IAS 16 §31, §39, §40, §41)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4 space-y-6">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 space-y-6">
 
           {/* Données de base */}
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-2">Données de base — Société REVALCO</p>
-            <ul className="text-xs text-amber-900 dark:text-amber-200 space-y-1">
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-2">Données de base — Société REVALCO</p>
+            <ul className="text-xs text-amber-900 space-y-1">
               <li>Immeuble industriel acquis le 01/01/N au coût de <strong>100 000 €</strong></li>
               <li>Durée d'utilité : <strong>20 ans</strong> — amortissement linéaire</li>
               <li>Option retenue : <strong>modèle de la réévaluation</strong> (IAS 16 §31)</li>
@@ -482,11 +482,11 @@ const LECONS: Lecon[] = [
 
           {/* Exercice N+2 — Réévaluation positive */}
           <div>
-            <p className="text-xs font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wide mb-2">Exercice N+2 — Réévaluation positive (IAS 16 §39)</p>
+            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Exercice N+2 — Réévaluation positive (IAS 16 §39)</p>
             <p className="text-xs text-foreground/80 mb-3">
               Après 2 ans d'amortissement (N+1 et N+2), on procède à une réévaluation. La juste valeur (IFRS 13) est de 108 000 €.
             </p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 mb-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3 mb-3">
               <p className="text-xs font-semibold text-foreground mb-1">Étape 1 — Calcul de la valeur comptable avant réévaluation :</p>
               <BlockMath math={String.raw`\text{Amort. annuel} = \dfrac{100\,000}{20} = 5\,000\,\text{€/an}`} />
               <BlockMath math={String.raw`\text{Cumul amort. (2 ans)} = 5\,000 \times 2 = 10\,000\,\text{€}`} />
@@ -506,19 +506,19 @@ const LECONS: Lecon[] = [
                 { libelle: "Écart de réévaluation (AERG — capitaux propres)", debit: "", credit: "18 000" },
               ]}
             />
-            <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 p-3 mt-2">
-              <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Bilan après réévaluation 31/12/N+2 :</p>
+            <div className="rounded-lg bg-sky-50 border border-sky-200 p-3 mt-2">
+              <p className="text-xs font-semibold text-sky-700 mb-1">Bilan après réévaluation 31/12/N+2 :</p>
               <p className="text-xs text-foreground/80">Valeur brute = <strong>108 000 €</strong> · Amortissements cumulés = <strong>0 €</strong> · Valeur comptable = <strong>108 000 €</strong> · Écart de réévaluation (CP) = <strong>18 000 €</strong></p>
             </div>
           </div>
 
           {/* Exercice N+3 — Amortissement sur base réévaluée */}
           <div>
-            <p className="text-xs font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wide mb-2">Exercice N+3 — Amortissement sur la base réévaluée (IAS 16 §50)</p>
+            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Exercice N+3 — Amortissement sur la base réévaluée (IAS 16 §50)</p>
             <p className="text-xs text-foreground/80 mb-3">
               Après réévaluation, le nouvel amortissement est calculé sur la <strong>valeur réévaluée de 108 000 €</strong> et sur la durée résiduelle restante. La durée consommée était de 2 ans sur 20, il reste donc <strong>18 ans</strong>.
             </p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 mb-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3 mb-3">
               <BlockMath math={String.raw`\text{Nouvel amort. annuel} = \dfrac{108\,000}{18} = \mathbf{6\,000\,\text{€/an}}`} />
               <BlockMath math={String.raw`\text{VC au 31/12/N+3} = 108\,000 - 6\,000 = \mathbf{102\,000\,\text{€}}`} />
             </div>
@@ -536,11 +536,11 @@ const LECONS: Lecon[] = [
 
           {/* Exercice N+3 — Réévaluation négative */}
           <div>
-            <p className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wide mb-2">Exercice N+3 — Réévaluation négative (IAS 16 §40)</p>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">Exercice N+3 — Réévaluation négative (IAS 16 §40)</p>
             <p className="text-xs text-foreground/80 mb-3">
               Au 31/12/N+3, après dotation, la valeur comptable est de 102 000 €. La juste valeur tombe à <strong>88 200 €</strong>. L'écart est négatif. Selon IAS 16 §40 : l'écart négatif s'impute <em>en priorité</em> sur l'écart de réévaluation créditeur en capitaux propres (AERG), puis l'excédent va en résultat net (charge).
             </p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 mb-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3 mb-3">
               <p className="text-xs font-semibold text-foreground mb-1">Calcul de l'écart négatif :</p>
               <BlockMath math={String.raw`\text{Écart brut} = 88\,200 - 102\,000 = \mathbf{(13\,800)\,\text{€}}`} />
               <p className="text-xs font-semibold text-foreground mt-2 mb-1">Imputation (IAS 16 §40) :</p>
@@ -559,18 +559,18 @@ const LECONS: Lecon[] = [
                 { libelle: "Immobilisations corporelles — Immeuble (ajustement à JV)", debit: "", credit: "19 800" },
               ]}
             />
-            <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 p-3 mt-2">
-              <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Bilan après réévaluation 31/12/N+3 :</p>
+            <div className="rounded-lg bg-sky-50 border border-sky-200 p-3 mt-2">
+              <p className="text-xs font-semibold text-sky-700 mb-1">Bilan après réévaluation 31/12/N+3 :</p>
               <p className="text-xs text-foreground/80">Valeur brute = <strong>88 200 €</strong> · Amortissements cumulés = <strong>0 €</strong> · Valeur comptable = <strong>88 200 €</strong> · Écart de réévaluation restant (CP) = <strong>3 200 €</strong> (17 000 − 13 800)</p>
             </div>
           </div>
 
           {/* Synthèse pédagogique */}
-          <div className="rounded-lg border border-sky-300 dark:border-sky-700 bg-sky-100/50 dark:bg-sky-900/30 p-3">
-            <p className="text-xs font-bold text-sky-800 dark:text-sky-200 mb-2">Synthèse pédagogique — Logique de symétrie IAS 16 §39-40</p>
+          <div className="rounded-lg border border-sky-300 bg-sky-100/50 p-3">
+            <p className="text-xs font-bold text-sky-800 mb-2">Synthèse pédagogique — Logique de symétrie IAS 16 §39-40</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
-                <thead><tr className="bg-sky-200 dark:bg-sky-800">
+                <thead><tr className="bg-sky-200">
                   <th className="border border-sky-300 p-1.5 text-left">Exercice</th>
                   <th className="border border-sky-300 p-1.5 text-right">Juste valeur</th>
                   <th className="border border-sky-300 p-1.5 text-right">VC avant rév.</th>
@@ -628,8 +628,8 @@ const LECONS: Lecon[] = [
         <p>
           La <strong>valeur résiduelle</strong> et la <strong>durée d'utilité</strong> doivent être révisées au moins à chaque fin d'exercice. Tout changement est comptabilisé comme un <strong>changement d'estimation comptable</strong> selon IAS 8 (§51).
         </p>
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/60 dark:bg-amber-900/20 p-4 mt-2">
-          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-2">Facteurs determinant la durée d'utilité (§56)</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4 mt-2">
+          <p className="text-xs font-semibold text-amber-700 mb-2">Facteurs determinant la durée d'utilité (§56)</p>
           <ul className="list-disc pl-5 space-y-1 text-xs text-foreground/80">
             <li>Usage attendu de l'actif (capacité ou production physique attendue) ;</li>
             <li>Usure physique attendue (cadences d'utilisation, programme de maintenance) ;</li>
@@ -646,32 +646,32 @@ const LECONS: Lecon[] = [
           Le mode d'amortissement doit <strong>refléter le rythme selon lequel l'entité s'attend à consommer les avantages économiques futurs liés à l'actif</strong> (§60). Il est examiné au moins à chaque fin d'exercice (§61).
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Linéaire</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Linéaire</p>
             <p className="text-xs text-foreground/80">Charge constante sur la durée d'utilité. Le plus commun.</p>
           </div>
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Dégressif</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Dégressif</p>
             <p className="text-xs text-foreground/80">Charge decroissante sur la durée d'utilité.</p>
           </div>
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Unites d'oeuvre</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Unites d'oeuvre</p>
             <p className="text-xs text-foreground/80">Charge basee sur l'utilisation ou la production reelle.</p>
           </div>
         </div>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4 mt-3">
-          <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">Interdiction formelle (§62A)</p>
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4 mt-3">
+          <p className="text-xs font-semibold text-red-700 mb-1">Interdiction formelle (§62A)</p>
           <p className="text-xs text-foreground/80">
             Il n'est <strong>pas approprie</strong> d'avoir recours à un mode d'amortissement qui est fonction des produits tires de l'activite. Les produits refletent des facteurs autres que la consommation des avantages économiques de l'actif (volumes, prix, inflation). Ce mode est interdit par IAS 16.
           </p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — Avion ALPHA : amortissement par unites d'oeuvre avec révision</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
           <p className="text-xs text-foreground/80 mb-2">
             Avion ALPHA acquis pour <strong>10 M€</strong>, valeur résiduelle <strong>8 M€</strong>, kilométrage total prévu <strong>3 M km</strong>.
           </p>
-          <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 mt-2">
+          <div className="rounded-lg bg-white border border-sky-100 p-3 mt-2">
             <p className="text-xs font-semibold text-foreground mb-1">Étape 1 — Calcul amortissement Année N (unités d'œuvre) :</p>
             <div className="space-y-1 overflow-x-auto">
               <BlockMath math={String.raw`A_N = \dfrac{(10\,000\,000 - 8\,000\,000) \times 450\,000}{3\,000\,000} = \mathbf{300\,000\,\text{€}}`} />
@@ -731,17 +731,17 @@ const LECONS: Lecon[] = [
         </p>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — Cession avec profit et cession à perte (IAS 16 §68 et §71)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4 space-y-5">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 space-y-5">
 
           {/* Cas A — Cession avec profit */}
           <div>
-            <p className="text-xs font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wide mb-2">Cas A — Cession avec profit</p>
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 p-3 mb-3">
-              <p className="text-xs text-amber-900 dark:text-amber-200">
+            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Cas A — Cession avec profit</p>
+            <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
+              <p className="text-xs text-amber-900">
                 Machine : coût historique <strong>200 000 €</strong> · Amortissements cumulés <strong>150 000 €</strong> · Prix de cession <strong>80 000 €</strong>
               </p>
             </div>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3 mb-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3 mb-3">
               <BlockMath math={String.raw`\text{Valeur comptable} = 200\,000 - 150\,000 = \mathbf{50\,000\,\text{€}}`} />
               <BlockMath math={String.raw`\text{Profit de cession} = 80\,000 - 50\,000 = \mathbf{+30\,000\,\text{€}}`} />
             </div>
@@ -759,13 +759,13 @@ const LECONS: Lecon[] = [
 
           {/* Cas B — Cession à perte */}
           <div>
-            <p className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wide mb-2">Cas B — Cession à perte</p>
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 p-3 mb-3">
-              <p className="text-xs text-amber-900 dark:text-amber-200">
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">Cas B — Cession à perte</p>
+            <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
+              <p className="text-xs text-amber-900">
                 Équipement : coût historique <strong>120 000 €</strong> · Amortissements cumulés <strong>80 000 €</strong> · Prix de cession <strong>25 000 €</strong>
               </p>
             </div>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3 mb-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3 mb-3">
               <BlockMath math={String.raw`\text{Valeur comptable} = 120\,000 - 80\,000 = \mathbf{40\,000\,\text{€}}`} />
               <BlockMath math={String.raw`\text{Perte de cession} = 25\,000 - 40\,000 = \mathbf{(15\,000)\,\text{€}}`} />
             </div>
@@ -817,30 +817,30 @@ const LECONS: Lecon[] = [
         </div>
         <p>Trois critères cumulatifs doivent etre satisfaits pour que cet actif soit reconnu :</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Identifiable (§12)</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Identifiable (§12)</p>
             <p className="text-xs text-foreground/80">Soit séparable (peut etre vendu, cede, loue individuellement), soit resultant de droits contractuels ou d'autres droits établis.</p>
           </div>
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Controle (§13)</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Controle (§13)</p>
             <p className="text-xs text-foreground/80">L'entité a le pouvoir d'obtenir les AEF et de restreindre l'acces des tiers. Ce contrôle resulte generalement de droits établis (droits d'auteur, licences, brevets).</p>
           </div>
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">Avantages eco. futurs (§17)</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3">
+            <p className="font-semibold text-sky-700 text-xs mb-1">Avantages eco. futurs (§17)</p>
             <p className="text-xs text-foreground/80">Produits de vente, economies de coûts ou autres avantages resultant de l'utilisation de l'actif.</p>
           </div>
         </div>
 
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4 mt-3">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-2">Application pratique des 3 critères</p>
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 mt-3">
+          <p className="text-xs font-semibold text-sky-700 mb-2">Application pratique des 3 critères</p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-sky-100 dark:bg-sky-900/40">
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Élément</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-center">Identifiable</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-center">Controle</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-center">Actif IAS 38</th>
+                <tr className="bg-sky-100">
+                  <th className="border border-sky-200 p-1.5 text-left">Élément</th>
+                  <th className="border border-sky-200 p-1.5 text-center">Identifiable</th>
+                  <th className="border border-sky-200 p-1.5 text-center">Controle</th>
+                  <th className="border border-sky-200 p-1.5 text-center">Actif IAS 38</th>
                 </tr>
               </thead>
               <tbody>
@@ -889,7 +889,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Éléments exclus du champ d'IAS 38</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4">
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
           <ul className="list-disc pl-5 space-y-1 text-xs text-foreground/80">
             <li>Goodwill acquis lors d'un regroupement d'entreprises (IFRS 3) ;</li>
             <li>Actifs financiers (IAS 32 / IFRS 9) ;</li>
@@ -911,8 +911,8 @@ const LECONS: Lecon[] = [
         </p>
 
         <h3 className="font-bold text-foreground mt-4">Goodwill généré en interne (§48 et §49)</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4">
-          <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">Principe fondamental</p>
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
+          <p className="text-xs font-semibold text-red-700 mb-1">Principe fondamental</p>
           <p className="text-xs text-foreground/80 italic">
             "Le goodwill généré en interne ne doit pas etre comptabilisé en tant qu'actif." (IAS 38 §48)
           </p>
@@ -939,8 +939,8 @@ const LECONS: Lecon[] = [
           Pour les immobilisations incorporelles <strong>générées en interne</strong>, IAS 38 §52 impose une distinction fondamentale entre deux phases lors de la creation de l'immobilisation :
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-          <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/60 dark:bg-red-900/20 p-4">
-            <p className="font-bold text-red-700 dark:text-red-300 text-xs mb-2">Phase de RECHERCHE (§54)</p>
+          <div className="rounded-xl border border-red-200 bg-red-50/60 p-4">
+            <p className="font-bold text-red-700 text-xs mb-2">Phase de RECHERCHE (§54)</p>
             <p className="text-xs text-foreground/80 italic mb-2">
               "Aucune immobilisation incorporelle resultant de la recherche (ou de la phase de recherche d'un projet interne) ne doit etre comptabilisée. Les dépenses pour la recherche doivent etre comptabilisées en charges lorsqu'elles sont engagées." (IAS 38 §54)
             </p>
@@ -948,8 +948,8 @@ const LECONS: Lecon[] = [
               Lors de la phase de recherche, l'entité ne peut pas demontrer l'existence d'une immobilisation incorporelle qui générera des AEF probables.
             </p>
           </div>
-          <div className="rounded-xl border border-green-200 dark:border-green-800 bg-green-50/60 dark:bg-green-900/20 p-4">
-            <p className="font-bold text-green-700 dark:text-green-300 text-xs mb-2">Phase de DEVELOPPEMENT (§57)</p>
+          <div className="rounded-xl border border-green-200 bg-green-50/60 p-4">
+            <p className="font-bold text-green-700 text-xs mb-2">Phase de DEVELOPPEMENT (§57)</p>
             <p className="text-xs text-foreground/80">
               L'immobilisation doit etre comptabilisée si, et seulement si, l'entité peut demontrer <strong>les 6 critères suivants simultanement</strong> :
             </p>
@@ -966,8 +966,8 @@ const LECONS: Lecon[] = [
             { lettre: 'e', texte: 'La disponibilité de ressources techniques, financieres et autres, appropriees pour achever le développement ;' },
             { lettre: 'f', texte: 'La capacité a évaluer de facon fiable les dépenses attribuables a l\'immobilisation incorporelle au cours de son développement.' },
           ].map(c => (
-            <div key={c.lettre} className="flex gap-3 items-start rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-3">
-              <span className="font-bold text-sky-600 dark:text-sky-400 text-xs mt-0.5 flex-shrink-0">({c.lettre})</span>
+            <div key={c.lettre} className="flex gap-3 items-start rounded-xl border border-sky-200 bg-sky-50/40 p-3">
+              <span className="font-bold text-sky-600 text-xs mt-0.5 flex-shrink-0">({c.lettre})</span>
               <p className="text-xs text-foreground/80">{c.texte}</p>
             </div>
           ))}
@@ -975,7 +975,7 @@ const LECONS: Lecon[] = [
         <p className="text-xs text-muted-foreground italic mt-1">IAS 38 §57 (a) a (f)</p>
 
         <h3 className="font-bold text-foreground mt-4">Interdiction formelle : marques et listes clients générées en interne (§63)</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4">
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
           <p className="text-xs text-foreground/80 italic">
             "Lorsqu'ils sont générés en interne, les marques, cartouches de titre, titres de publication, listes de clients et autres éléments similaires en substance ne doivent pas etre comptabilisés en tant qu'immobilisations incorporelles." (IAS 38 §63)
           </p>
@@ -985,7 +985,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — Brevet pharmaceutique (IAS 38 §57)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
           <p className="text-xs text-foreground/80 mb-2">
             Un laboratoire pharmaceutique engage les dépenses suivantes pour le développement d'un nouveau medicament :
           </p>
@@ -1001,10 +1001,10 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-sky-100 dark:bg-sky-900/40">
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Compte</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Débit</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Crédit</th>
+                <tr className="bg-sky-100">
+                  <th className="border border-sky-200 p-1.5 text-left">Compte</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Débit</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Crédit</th>
                 </tr>
               </thead>
               <tbody>
@@ -1034,7 +1034,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Principe d'interdiction de revenir en arriere (§71)</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4">
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
           <p className="text-xs text-foreground/80 italic">
             "Les dépenses relatives a un élément incorporel qui ont ete initialement comptabilisées en charges ne doivent pas etre incorporées dans le coût d'une immobilisation incorporelle a une date ulterieure." (IAS 38 §71)
           </p>
@@ -1064,8 +1064,8 @@ const LECONS: Lecon[] = [
           <InfoTooltip texte="Un marché actif existe lorsque des transactions fréquentes ont lieu sur des actifs homogènes, et que les prix sont disponibles au public. Pour les immobilisations incorporelles, cela est exceptionnel." loi="IAS 38 §75 et §78 — IFRS Foundation" />
           . Ce cas est exceptionnel. IAS 38 §78 cite comme exemples : licences de taxis, licences de pêche, quotas de production dans certaines juridictions.
         </p>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4 mt-2">
-          <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">Actifs pour lesquels le marché actif est IMPOSSIBLE</p>
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4 mt-2">
+          <p className="text-xs font-semibold text-red-700 mb-1">Actifs pour lesquels le marché actif est IMPOSSIBLE</p>
           <p className="text-xs text-foreground/80">
             Marques, cartouches de titre de journaux, droits d'edition musicale et cinematographique, brevets, marques commerciales. Chacun de ces actifs est unique. Pas de marché actif possible. Donc : <strong>modèle de réévaluation inapplicable</strong>.
           </p>
@@ -1073,8 +1073,8 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">Durée d'utilité : déterminée ou indéterminée (§88 et §89)</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-2">Durée d'utilité DETERMINEE</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4">
+            <p className="font-semibold text-sky-700 text-xs mb-2">Durée d'utilité DETERMINEE</p>
             <p className="text-xs text-foreground/80">
               L'actif doit etre <strong>amorti</strong> systematiquement sur sa durée d'utilité. Le mode linéaire est applique par defaut si aucun autre mode ne peut etre déterminé de facon fiable (§97).
             </p>
@@ -1082,8 +1082,8 @@ const LECONS: Lecon[] = [
               <strong>Valeur résiduelle présumée nulle</strong>, sauf : (a) engagement ferme de rachat par un tiers à la fin de la durée d'utilité ; ou (b) existence d'un marché actif pour l'actif (§100).
             </p>
           </div>
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4">
-            <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-2">Durée d'utilité INDETERMINEE</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4">
+            <p className="font-semibold text-sky-700 text-xs mb-2">Durée d'utilité INDETERMINEE</p>
             <p className="text-xs text-foreground/80">
               L'actif <strong>ne doit pas etre amorti</strong> (§107). Un <strong>test de dépréciation IAS 36</strong> est obligatoire : (a) annuellement ; et (b) chaque fois qu'il y a une indication de dépréciation (§108).
             </p>
@@ -1094,7 +1094,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Interdiction fondamentale : amortissement fonde sur les produits (§98A)</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/20 p-4">
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
           <p className="text-xs text-foreground/80 italic">
             "Il existe une presomption refutable selon laquelle il n'est pas approprie d'avoir recours, pour une immobilisation incorporelle utilisee dans une activite donnee, a un mode d'amortissement qui est fonction des produits tires de cette activite." (IAS 38 §98A)
           </p>
@@ -1113,7 +1113,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — Échange de licence informatique (IAS 38 §45)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-4">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
           <p className="text-xs text-foreground/80 mb-2">
             Échange d'une licence informatique (valeur comptable <strong>100 000 €</strong>) contre un droit de diffusion (juste valeur <strong>60 000 €</strong>) avec soulte recue de <strong>40 000 €</strong>. L'operation a une substance commerciale.
           </p>
@@ -1121,10 +1121,10 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-sky-100 dark:bg-sky-900/40">
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Compte</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Débit</th>
-                  <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Crédit</th>
+                <tr className="bg-sky-100">
+                  <th className="border border-sky-200 p-1.5 text-left">Compte</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Débit</th>
+                  <th className="border border-sky-200 p-1.5 text-right">Crédit</th>
                 </tr>
               </thead>
               <tbody>
@@ -1352,10 +1352,10 @@ function JournalTable({ titre, lignes }: {
       {titre && <p className="text-xs font-semibold text-foreground mb-1">{titre}</p>}
       <table className="w-full text-xs border-collapse">
         <thead>
-          <tr className="bg-sky-100 dark:bg-sky-900/40">
-            <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-left">Libellé du compte</th>
-            <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Débit (€)</th>
-            <th className="border border-sky-200 dark:border-sky-800 p-1.5 text-right">Crédit (€)</th>
+          <tr className="bg-sky-100">
+            <th className="border border-sky-200 p-1.5 text-left">Libellé du compte</th>
+            <th className="border border-sky-200 p-1.5 text-right">Débit (€)</th>
+            <th className="border border-sky-200 p-1.5 text-right">Crédit (€)</th>
           </tr>
         </thead>
         <tbody>
@@ -1554,13 +1554,13 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-3 text-xs text-foreground/90 leading-relaxed">
             <p><strong>Principe IAS 16 §23 :</strong> en cas de paiement différé, le coût d'entrée est le prix comptant équivalent (valeur actuelle des flux).</p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Calcul du prix comptant équivalent :</p>
               <BlockMath math={String.raw`\text{Prix comptant équivalent} = 200\,000 + \dfrac{165\,000}{1{,}10} + \dfrac{181\,500}{1{,}21} = 200\,000 + 150\,000 + 150\,000 = \mathbf{500\,000\,\text{€}}`} />
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
-                <thead><tr className="bg-sky-100 dark:bg-sky-900/40">
+                <thead><tr className="bg-sky-100">
                   <th className="border border-sky-200 p-1.5 text-left">Elément de coût</th>
                   <th className="border border-sky-200 p-1.5 text-right">Montant (€)</th>
                   <th className="border border-sky-200 p-1.5 text-left">Traitement IAS 16</th>
@@ -1572,7 +1572,7 @@ const CAS_RICHES: CasRiche[] = [
                   <tr><td className="border border-border p-1.5">Coûts de démantèlement (VAN)</td><td className="border border-border p-1.5 text-right">80 000</td><td className="border border-border p-1.5">Inclus — obligation contractuelle (IAS 37)</td><td className="border border-border p-1.5 text-center">§16c</td></tr>
                   <tr className="bg-muted/20"><td className="border border-border p-1.5">Frais de publicité</td><td className="border border-border p-1.5 text-right">25 000</td><td className="border border-border p-1.5 text-red-600">EXCLUS — coûts de lancement</td><td className="border border-border p-1.5 text-center">§19b</td></tr>
                   <tr><td className="border border-border p-1.5">Frais administratifs</td><td className="border border-border p-1.5 text-right">10 000</td><td className="border border-border p-1.5 text-red-600">EXCLUS — frais généraux</td><td className="border border-border p-1.5 text-center">§19d</td></tr>
-                  <tr className="font-bold bg-sky-50 dark:bg-sky-900/20"><td className="border border-sky-300 p-1.5">TOTAL COÛT D'ENTRÉE</td><td className="border border-sky-300 p-1.5 text-right">595 000</td><td className="border border-sky-300 p-1.5" colSpan={2}></td></tr>
+                  <tr className="font-bold bg-sky-50"><td className="border border-sky-300 p-1.5">TOTAL COÛT D'ENTRÉE</td><td className="border border-sky-300 p-1.5 text-right">595 000</td><td className="border border-sky-300 p-1.5" colSpan={2}></td></tr>
                 </tbody>
               </table>
             </div>
@@ -1636,13 +1636,13 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
             <p><strong>IAS 16 §51 :</strong> la valeur résiduelle et la durée d'utilité sont révisées au moins à chaque clôture. Ces changements sont des <strong>changements d'estimation comptable (IAS 8)</strong>, traités de façon <strong>prospective</strong> (sans retraitement des périodes antérieures).</p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Calcul du nouvel amortissement annuel (prospectif) :</p>
               <BlockMath math={String.raw`\text{Valeur comptable à la révision} = \text{Coût} - \text{Amortissements passés}`} />
               <BlockMath math={String.raw`\text{Nouvel amort. annuel} = \dfrac{\text{VC révision} - \text{Nouvelle VR}}{\text{Nouvelle durée résiduelle}}`} />
             </div>
-            <div className="rounded-lg border border-amber-200 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-              <p className="font-semibold text-amber-800 dark:text-amber-300 mb-1">Différence fondamentale :</p>
+            <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
+              <p className="font-semibold text-amber-800 mb-1">Différence fondamentale :</p>
               <p><strong>Changement d'estimation (IAS 8 §36) :</strong> traitement <em>prospectif</em> — seules les périodes courante et futures sont affectées. Aucun retraitement.</p>
               <p className="mt-1"><strong>Correction d'erreur (IAS 8 §41) :</strong> traitement <em>rétrospectif</em> — retraitement de tous les exercices antérieurs publiés.</p>
             </div>
@@ -1654,7 +1654,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "L'installation est vendue au 1er janvier N+5 pour 420 000 €. Sa valeur comptable à cette date est de 380 000 €. Analysez le résultat de cession et son mode de présentation dans les états financiers conformément à IAS 16 §68.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <BlockMath math={String.raw`\text{Résultat de cession} = 420\,000 - 380\,000 = \mathbf{+40\,000\,\text{€}\;\text{(profit)}}`} />
             </div>
             <JournalTable
@@ -1666,8 +1666,8 @@ const CAS_RICHES: CasRiche[] = [
                 { libelle: "Profit sur cession d'immobilisations", debit: "", credit: "40 000" },
               ]}
             />
-            <div className="rounded-lg border border-amber-200 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-              <p className="font-semibold text-amber-800 dark:text-amber-300 mb-1">IAS 16 §68 — Présentation obligatoire :</p>
+            <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
+              <p className="font-semibold text-amber-800 mb-1">IAS 16 §68 — Présentation obligatoire :</p>
               <p>Le profit de 40 000 € <strong>ne doit PAS être classé en produits des activités ordinaires.</strong> Il est présenté séparément. Sans cette règle, les analystes surestimerait la rentabilité récurrente de MINEREX. Sa présentation séparée garantit la qualité prédictive de l'information (Cadre IASB §QC6).</p>
             </div>
           </div>
@@ -1686,7 +1686,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
-              <thead><tr className="bg-sky-100 dark:bg-sky-900/40">
+              <thead><tr className="bg-sky-100">
                 <th className="border border-sky-200 p-1.5 text-left">Elément</th>
                 <th className="border border-sky-200 p-1.5 text-right">Montant</th>
                 <th className="border border-sky-200 p-1.5 text-center">Traitement</th>
@@ -1698,8 +1698,8 @@ const CAS_RICHES: CasRiche[] = [
                 <tr><td className="border border-border p-1.5">Enregistrement copyright</td><td className="border border-border p-1.5 text-right">8 500 €</td><td className="border border-border p-1.5 text-center font-bold text-green-600">CAPITALISÉ</td><td className="border border-border p-1.5 text-center">§66c</td></tr>
                 <tr className="bg-muted/20"><td className="border border-border p-1.5">Formation du personnel</td><td className="border border-border p-1.5 text-right">18 000 €</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§67c</td></tr>
                 <tr><td className="border border-border p-1.5">Publicité et promotion</td><td className="border border-border p-1.5 text-right">22 000 €</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§69c</td></tr>
-                <tr className="font-bold bg-sky-50 dark:bg-sky-900/20"><td className="border border-sky-300 p-1.5">Total capitalisé</td><td className="border border-sky-300 p-1.5 text-right">288 500 €</td><td className="border border-sky-300 p-1.5" colSpan={2}></td></tr>
-                <tr className="font-bold bg-red-50 dark:bg-red-900/10"><td className="border border-red-200 p-1.5">Total charges</td><td className="border border-red-200 p-1.5 text-right">160 000 €</td><td className="border border-red-200 p-1.5" colSpan={2}></td></tr>
+                <tr className="font-bold bg-sky-50"><td className="border border-sky-300 p-1.5">Total capitalisé</td><td className="border border-sky-300 p-1.5 text-right">288 500 €</td><td className="border border-sky-300 p-1.5" colSpan={2}></td></tr>
+                <tr className="font-bold bg-red-50"><td className="border border-red-200 p-1.5">Total charges</td><td className="border border-red-200 p-1.5 text-right">160 000 €</td><td className="border border-red-200 p-1.5" colSpan={2}></td></tr>
               </tbody>
             </table>
           </div>
@@ -1735,7 +1735,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Le logiciel est achevé le 1er janvier N+1. Sa durée d'utilité est estimée à 4 ans, valeur résiduelle nulle. Calculez la dotation annuelle aux amortissements et passez l'écriture. Justifiez la présomption de valeur résiduelle nulle selon IAS 38 §100.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Calcul de la dotation annuelle :</p>
               <BlockMath math={String.raw`\text{Dotation} = \dfrac{288\,500 - 0}{4} = \mathbf{72\,125\,\text{€/an}}`} />
             </div>
@@ -1755,8 +1755,8 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "En N+2, TECHSOL envisage de requalifier certaines dépenses de recherche de la phase initiale (120 000 €) en dépenses de développement. IAS 38 §71 permet-il cette requalification ?",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
-            <div className="rounded-lg border border-red-200 bg-red-50/50 dark:bg-red-900/10 p-3">
-              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Interdiction absolue — IAS 38 §71</p>
+            <div className="rounded-lg border border-red-200 bg-red-50/50 p-3">
+              <p className="font-semibold text-red-700 mb-1">Interdiction absolue — IAS 38 §71</p>
               <p className="italic">« Les dépenses relatives à un élément incorporel qui ont été initialement comptabilisées en charges ne doivent pas être incorporées dans le coût d'une immobilisation incorporelle à une date ultérieure. » (IAS 38 §71)</p>
             </div>
             <p>Ce principe d'irréversibilité est <strong>absolu</strong>, sans aucune exception. Il protège la fiabilité des états financiers (Cadre IASB §QC12) en empêchant les entités de manipuler leurs résultats en requalifiant des charges passées en actifs.</p>
@@ -1777,7 +1777,7 @@ const CAS_RICHES: CasRiche[] = [
                 { libelle: "Immobilisations incorporelles — Logiciel", debit: "", credit: "288 500" },
               ]}
             />
-            <div className="rounded-lg border border-sky-200 bg-sky-50/30 dark:bg-sky-900/10 p-3">
+            <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
               <p className="font-semibold mb-1">Comparaison avec une cession ordinaire (IAS 38 §113) :</p>
               <p><strong>Cession ordinaire :</strong> Résultat = Prix net de sortie − Valeur comptable (profit ou perte en résultat net, jamais en produits ordinaires).</p>
               <p className="mt-1"><strong>Mise hors service sans prix :</strong> perte intégrale de la valeur comptable résiduelle, aucun produit de sortie.</p>
@@ -1797,7 +1797,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Calculez la valeur comptable de l'immeuble au 31 décembre N (avant réévaluation), puis déterminez l'écart de réévaluation. Précisez le traitement comptable selon IAS 16 §39.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <BlockMath math={String.raw`\text{Amort. annuel} = \dfrac{1\,200\,000}{40} = 30\,000\,\text{€}`} />
               <BlockMath math={String.raw`\text{Cumul 6 ans} = 30\,000 \times 6 = 180\,000\,\text{€}`} />
               <BlockMath math={String.raw`\text{Valeur comptable (31/12/N)} = 1\,200\,000 - 180\,000 = \mathbf{1\,020\,000\,\text{€}}`} />
@@ -1835,7 +1835,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Calculez le nouvel amortissement annuel après réévaluation et déterminez la valeur comptable au 31 décembre N+2 avant la deuxième réévaluation. La durée résiduelle est estimée à 34 ans.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <BlockMath math={String.raw`\text{Nouvel amort. annuel} = \dfrac{1\,380\,000}{34} \approx 40\,588\,\text{€}`} />
               <BlockMath math={String.raw`\text{VC au 31/12/N+1} = 1\,380\,000 - 40\,588 = 1\,339\,412\,\text{€}`} />
               <BlockMath math={String.raw`\text{VC au 31/12/N+2} \approx 1\,339\,412 - 40\,588 = 1\,298\,824\,\text{€}`} />
@@ -1849,7 +1849,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Au 31 décembre N+2, la juste valeur tombe à 900 000 €. L'écart de réévaluation créditeur s'élève à 360 000 €. Déterminez l'écart N+2 et passez l'écriture complète selon IAS 16 §40.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <BlockMath math={String.raw`\text{Écart N+2} = 900\,000 - 1\,349\,500 = \mathbf{(449\,500)\,\text{€}\;\text{NÉGATIF}}`} />
               <p className="text-xs mt-1">Imputation : 360 000 € sur AERG (annulation écart antérieur) + 89 500 € en résultat net (charges).</p>
             </div>
@@ -1871,7 +1871,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
             <p><strong>Principe de symétrie conditionnelle :</strong> les gains de réévaluation passent en AERG (capitaux propres, pas en résultat) car ils sont non réalisés. Les pertes s'imputent d'abord sur le coussin AERG antérieur, puis l'excès passe en résultat net.</p>
-            <div className="rounded-lg border border-sky-200 bg-sky-50/30 dark:bg-sky-900/10 p-3">
+            <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
               <p className="font-semibold mb-1">Protections assurées par ce système :</p>
               <ul className="list-disc pl-4 space-y-1">
                 <li><strong>Contre le biais optimiste :</strong> un profit de réévaluation ne peut pas être affiché en résultat net pour gonfler artificiellement le bénéfice.</li>
@@ -1897,7 +1897,7 @@ const CAS_RICHES: CasRiche[] = [
             <p><strong>IAS 16 §43 :</strong> chaque partie d'une immobilisation ayant un coût significatif par rapport au coût total doit être amortie séparément.</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
-                <thead><tr className="bg-sky-100 dark:bg-sky-900/40">
+                <thead><tr className="bg-sky-100">
                   <th className="border border-sky-200 p-1.5 text-left">Composant</th>
                   <th className="border border-sky-200 p-1.5 text-right">Coût</th>
                   <th className="border border-sky-200 p-1.5 text-center">Durée</th>
@@ -1919,7 +1919,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Calculez la dotation aux amortissements de l'année N pour chaque composant. Utilisez la méthode linéaire pour la cellule et les unités d'œuvre pour les moteurs.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Cellule (linéaire) :</p>
               <BlockMath math={String.raw`A_{\text{cellule}} = \dfrac{9\,000\,000 - 1\,500\,000}{25} = \mathbf{300\,000\,\text{€}}`} />
               <p className="font-semibold mt-2 mb-1">Moteurs (unités d'œuvre — 800 000 km sur 15 M km) :</p>
@@ -1961,7 +1961,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
             <p><strong>IAS 16 §51 + IAS 8 §36 :</strong> changement d'estimation — traitement prospectif uniquement.</p>
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Calcul :</p>
               <BlockMath math={String.raw`\text{VC cellule début N+8} = 9\,000\,000 - (7 \times 300\,000) = 6\,900\,000\,\text{€}`} />
               <BlockMath math={String.raw`\text{Nouveau mont. amort.} = 6\,900\,000 - 2\,000\,000 = 4\,900\,000\,\text{€}`} />
@@ -1976,7 +1976,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Analysez l'impact de l'approche par composants sur la pertinence et la fiabilité de l'information financière d'AEROTEC au regard du Cadre conceptuel de l'IASB.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
-            <div className="rounded-lg border border-sky-200 bg-sky-50/30 dark:bg-sky-900/10 p-3">
+            <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
               <p className="font-semibold mb-2">Avantages au regard du Cadre IASB :</p>
               <ul className="list-disc pl-4 space-y-1">
                 <li><strong>Pertinence (§QC6) :</strong> les amortissements calibrés sur la consommation réelle des AEF permettent aux investisseurs d'évaluer précisément les futures sorties de trésorerie.</li>
@@ -2001,7 +2001,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
-              <thead><tr className="bg-sky-100 dark:bg-sky-900/40">
+              <thead><tr className="bg-sky-100">
                 <th className="border border-sky-200 p-1.5 text-left">Dépense</th>
                 <th className="border border-sky-200 p-1.5 text-right">Montant</th>
                 <th className="border border-sky-200 p-1.5 text-center">Traitement</th>
@@ -2015,8 +2015,8 @@ const CAS_RICHES: CasRiche[] = [
                 <tr className="bg-muted/20"><td className="border border-border p-1.5">(C) Dépôt de brevet</td><td className="border border-border p-1.5 text-right">45 000</td><td className="border border-border p-1.5 text-center font-bold text-green-600">CAPITALISÉ</td><td className="border border-border p-1.5 text-center">§66c</td><td className="border border-border p-1.5">Coût d'obtention d'un droit</td></tr>
                 <tr><td className="border border-border p-1.5">(D) Formation chercheurs</td><td className="border border-border p-1.5 text-right">30 000</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§67c</td><td className="border border-border p-1.5">Formation exclue du coût</td></tr>
                 <tr className="bg-muted/20"><td className="border border-border p-1.5">(E) Licence externe</td><td className="border border-border p-1.5 text-right">280 000</td><td className="border border-border p-1.5 text-center font-bold text-green-600">CAPITALISÉ</td><td className="border border-border p-1.5 text-center">§25</td><td className="border border-border p-1.5">Acquisition séparée</td></tr>
-                <tr className="font-bold bg-sky-50 dark:bg-sky-900/20"><td className="border border-sky-300 p-1.5">Total capitalisé</td><td className="border border-sky-300 p-1.5 text-right">495 000</td><td className="border border-sky-300 p-1.5" colSpan={3}></td></tr>
-                <tr className="font-bold bg-red-50 dark:bg-red-900/10"><td className="border border-red-200 p-1.5">Total charges</td><td className="border border-red-200 p-1.5 text-right">410 000</td><td className="border border-red-200 p-1.5" colSpan={3}></td></tr>
+                <tr className="font-bold bg-sky-50"><td className="border border-sky-300 p-1.5">Total capitalisé</td><td className="border border-sky-300 p-1.5 text-right">495 000</td><td className="border border-sky-300 p-1.5" colSpan={3}></td></tr>
+                <tr className="font-bold bg-red-50"><td className="border border-red-200 p-1.5">Total charges</td><td className="border border-red-200 p-1.5 text-right">410 000</td><td className="border border-red-200 p-1.5" colSpan={3}></td></tr>
               </tbody>
             </table>
           </div>
@@ -2052,7 +2052,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
             <p><strong>IAS 38 §126 :</strong> l'entité doit indiquer le montant total des dépenses de R&D comptabilisé en charges de la période.</p>
-            <div className="rounded-lg border border-sky-200 bg-sky-50/30 dark:bg-sky-900/10 p-3">
+            <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
               <p className="font-semibold mb-1">Importance pour les investisseurs pharmaceutiques :</p>
               <ul className="list-disc pl-4 space-y-1">
                 <li>Permet d'évaluer l'intensité et la stratégie de R&D, source principale de valeur future dans ce secteur.</li>
@@ -2068,7 +2068,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "En N+5, la concurrence rend B7 obsolète. La valeur recouvrable (IAS 36) est estimée à 50 000 €, pour une valeur comptable de 129 000 €. Quel est le traitement de cette perte de valeur selon IAS 36 et IAS 38 §111 ?",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 p-3">
+            <div className="rounded-lg bg-white border border-sky-100 p-3">
               <BlockMath math={String.raw`\text{Perte de valeur} = 129\,000 - 50\,000 = \mathbf{79\,000\,\text{€}}`} />
             </div>
             <JournalTable
@@ -2087,11 +2087,11 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "Le conseil d'administration veut comptabiliser la marque 'B7' générée en interne (valeur estimée 500 000 €). IAS 38 §63 le permet-il ? Analysez les fondements juridiques et conceptuels de l'interdiction.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
-            <div className="rounded-lg border border-red-200 bg-red-50/50 dark:bg-red-900/10 p-3">
-              <p className="font-semibold text-red-700 dark:text-red-400 mb-1">Interdiction formelle — IAS 38 §63</p>
+            <div className="rounded-lg border border-red-200 bg-red-50/50 p-3">
+              <p className="font-semibold text-red-700 mb-1">Interdiction formelle — IAS 38 §63</p>
               <p className="italic">« Lorsqu'ils sont générés en interne, les marques (...) ne doivent pas être comptabilisés en tant qu'immobilisations incorporelles. » (IAS 38 §63)</p>
             </div>
-            <div className="rounded-lg border border-sky-200 bg-sky-50/30 dark:bg-sky-900/10 p-3">
+            <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
               <p className="font-semibold mb-1">Fondements de l'interdiction :</p>
               <ul className="list-disc pl-4 space-y-1">
                 <li><strong>Juridique :</strong> la marque générée en interne n'est pas séparable (§12a), son coût ne peut être évalué de façon fiable (IAS 38 §64).</li>
@@ -2116,21 +2116,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/30 dark:bg-sky-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-sky-700 dark:text-sky-300">{q.question}</p>
+    <div className="rounded-xl border border-sky-200 bg-sky-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-sky-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 dark:bg-sky-900/30 text-sky-800 dark:text-sky-200' : 'border-border hover:border-sky-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 text-sky-800' : 'border-border hover:border-sky-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-sky-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-sky-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <p className="text-xs opacity-70 mt-0.5">Ref. : {q.articleRef}</p>
@@ -2151,7 +2151,7 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-xs font-bold flex items-center justify-center shrink-0">C</span>
+          <span className="h-7 w-7 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center shrink-0">C</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
           </div>
@@ -2160,9 +2160,9 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
@@ -2174,14 +2174,14 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
                     if (n.has(q.num)) { n.delete(q.num) } else { n.add(q.num) }
                     return n
                   })}
-                  className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
+                  className="text-xs text-sky-600 hover:underline font-medium"
                 >
                   {corrVisible.has(q.num) ? 'Masquer la correction' : 'Voir la correction'}
                 </button>
                 {corrVisible.has(q.num) && (
-                  <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3">
-                    <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Correction</p>
-                    <p className="text-xs text-sky-900 dark:text-sky-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
+                    <p className="text-xs font-semibold text-sky-700 mb-1">Correction</p>
+                    <p className="text-xs text-sky-900 leading-relaxed">{q.correction}</p>
                   </div>
                 )}
               </div>
@@ -2203,7 +2203,7 @@ function CasRicheBlock({ cp }: { cp: CasRiche }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-xs font-bold flex items-center justify-center shrink-0">C</span>
+          <span className="h-7 w-7 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center shrink-0">C</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
           </div>
@@ -2212,9 +2212,9 @@ function CasRicheBlock({ cp }: { cp: CasRiche }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
@@ -2226,14 +2226,14 @@ function CasRicheBlock({ cp }: { cp: CasRiche }) {
                     if (n.has(q.num)) { n.delete(q.num) } else { n.add(q.num) }
                     return n
                   })}
-                  className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
+                  className="text-xs text-sky-600 hover:underline font-medium"
                 >
                   {corrVisible.has(q.num) ? 'Masquer la correction' : 'Voir la correction'}
                 </button>
                 {corrVisible.has(q.num) && (
-                  <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3">
-                    <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-2">Correction</p>
-                    <div className="text-xs text-sky-900 dark:text-sky-100 leading-relaxed">
+                  <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
+                    <p className="text-xs font-semibold text-sky-700 mb-2">Correction</p>
+                    <div className="text-xs text-sky-900 leading-relaxed">
                       {q.correctionJSX}
                     </div>
                   </div>
@@ -2293,17 +2293,17 @@ export default function UE13Chapitre2Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-4">
+      <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-          <span className="text-sm font-semibold text-sky-800 dark:text-sky-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-sky-600" />
+          <span className="text-sm font-semibold text-sky-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les conditions de comptabilisation d'une immobilisation corporelle selon IAS 16 §7</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer les coûts immobilisables des charges de période (IAS 16 §10-§14) et maitriser la méthode des composants</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Appliquer les deux modèles d'évaluation postérieure IAS 16 : modèle du coût historique et modèle de réévaluation</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Appliquer les 3 critères de comptabilisation IAS 38 (identifiable, controle, avantages économiques futurs) et distinguer recherche/développement</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Maitriser l'amortissement IAS 16/38 : valeur résiduelle, durée d'utilité, méthodes et tests de dépréciation IAS 36</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les conditions de comptabilisation d'une immobilisation corporelle selon IAS 16 §7</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer les coûts immobilisables des charges de période (IAS 16 §10-§14) et maitriser la méthode des composants</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Appliquer les deux modèles d'évaluation postérieure IAS 16 : modèle du coût historique et modèle de réévaluation</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Appliquer les 3 critères de comptabilisation IAS 38 (identifiable, controle, avantages économiques futurs) et distinguer recherche/développement</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Maitriser l'amortissement IAS 16/38 : valeur résiduelle, durée d'utilité, méthodes et tests de dépréciation IAS 36</span></li>
         </ul>
       </div>
 
@@ -2329,7 +2329,7 @@ export default function UE13Chapitre2Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-sky-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-sky-600 dark:text-sky-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-sky-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

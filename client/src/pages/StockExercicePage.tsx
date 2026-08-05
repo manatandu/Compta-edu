@@ -55,8 +55,8 @@ function TableauCorrection({ lignes, methode }: { lignes: any[]; methode: 'CUMP'
         <span className={cn(
           'px-2 py-0.5 rounded-full text-xs font-bold',
           methode === 'CUMP'
-            ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400'
-            : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+            ? 'bg-purple-100 text-purple-700'
+            : 'bg-blue-100 text-blue-700'
         )}>
           {methode === 'PEPS' ? 'PEPS / FIFO' : 'CUMP : après chaque entrée'}
         </span>
@@ -67,9 +67,9 @@ function TableauCorrection({ lignes, methode }: { lignes: any[]; methode: 'CUMP'
             <tr>
               <th className="border border-border px-2 py-1.5 text-left bg-muted/60 text-xs font-bold uppercase">Date</th>
               <th className="border border-border px-2 py-1.5 text-left bg-muted/60 text-xs font-bold uppercase min-w-[100px]">Libellé</th>
-              <th colSpan={3} className="border border-border px-2 py-1 text-center bg-emerald-50 dark:bg-emerald-900/20 text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase">Entrée</th>
-              <th colSpan={3} className="border border-border px-2 py-1 text-center bg-orange-50 dark:bg-orange-900/20 text-xs font-bold text-orange-800 dark:text-orange-300 uppercase">Sortie</th>
-              <th colSpan={3} className="border border-border px-2 py-1 text-center bg-blue-50 dark:bg-blue-900/20 text-xs font-bold text-blue-800 dark:text-blue-300 uppercase">Stock</th>
+              <th colSpan={3} className="border border-border px-2 py-1 text-center bg-emerald-50 text-xs font-bold text-emerald-800 uppercase">Entrée</th>
+              <th colSpan={3} className="border border-border px-2 py-1 text-center bg-orange-50 text-xs font-bold text-orange-800 uppercase">Sortie</th>
+              <th colSpan={3} className="border border-border px-2 py-1 text-center bg-blue-50 text-xs font-bold text-blue-800 uppercase">Stock</th>
             </tr>
             <tr>
               <th className="border border-border px-2 py-1 bg-muted/40" />
@@ -77,9 +77,9 @@ function TableauCorrection({ lignes, methode }: { lignes: any[]; methode: 'CUMP'
               {['Q', 'CU', 'Montant', 'Q', 'CU', 'Montant', 'Q', 'CU', 'Montant'].map((h, i) => (
                 <th key={i} className={cn(
                   'border border-border px-2 py-1 text-center text-xs font-bold uppercase w-14',
-                  i < 3 ? 'bg-emerald-50/60 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-400'
-                  : i < 6 ? 'bg-orange-50/60 dark:bg-orange-900/10 text-orange-700 dark:text-orange-400'
-                  : 'bg-blue-50/60 dark:bg-blue-900/10 text-blue-700 dark:text-blue-400'
+                  i < 3 ? 'bg-emerald-50/60 text-emerald-700'
+                  : i < 6 ? 'bg-orange-50/60 text-orange-700'
+                  : 'bg-blue-50/60 text-blue-700'
                 )}>{h}</th>
               ))}
             </tr>
@@ -91,29 +91,29 @@ function TableauCorrection({ lignes, methode }: { lignes: any[]; methode: 'CUMP'
               )}>
                 <td className="border border-border px-2 py-1.5 font-mono text-xs text-muted-foreground whitespace-nowrap">{l.date}</td>
                 <td className="border border-border px-2 py-1.5 text-foreground">{l.libelle}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-emerald-700 dark:text-emerald-400">{l.entreeQ ?? ''}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-emerald-700 dark:text-emerald-400">{l.entreeCU !== undefined ? fmt(l.entreeCU, 3) : ''}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-emerald-700 dark:text-emerald-400">{l.entreeMontant !== undefined ? fmt(l.entreeMontant) : ''}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-orange-700 dark:text-orange-400">{l.sortieQ ?? ''}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-orange-700 dark:text-orange-400">{l.sortieCU !== undefined ? fmt(l.sortieCU, 3) : ''}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-orange-700 dark:text-orange-400">{l.sortieMontant !== undefined ? fmt(l.sortieMontant) : ''}</td>
-                <td className="border border-border px-2 py-1.5 text-right font-semibold text-blue-700 dark:text-blue-400">{l.stockQ}</td>
-                <td className="border border-border px-2 py-1.5 text-right text-blue-700 dark:text-blue-400">{fmt(l.stockCU, 3)}</td>
-                <td className="border border-border px-2 py-1.5 text-right font-semibold text-blue-700 dark:text-blue-400">{fmt(l.stockMontant)}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-emerald-700">{l.entreeQ ?? ''}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-emerald-700">{l.entreeCU !== undefined ? fmt(l.entreeCU, 3) : ''}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-emerald-700">{l.entreeMontant !== undefined ? fmt(l.entreeMontant) : ''}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-orange-700">{l.sortieQ ?? ''}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-orange-700">{l.sortieCU !== undefined ? fmt(l.sortieCU, 3) : ''}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-orange-700">{l.sortieMontant !== undefined ? fmt(l.sortieMontant) : ''}</td>
+                <td className="border border-border px-2 py-1.5 text-right font-semibold text-blue-700">{l.stockQ}</td>
+                <td className="border border-border px-2 py-1.5 text-right text-blue-700">{fmt(l.stockCU, 3)}</td>
+                <td className="border border-border px-2 py-1.5 text-right font-semibold text-blue-700">{fmt(l.stockMontant)}</td>
               </tr>
             ))}
             {/* TOTAUX */}
             <tr className="bg-muted/50 font-bold border-t-2 border-border">
               <td colSpan={2} className="border border-border px-2 py-1.5 text-xs font-bold text-foreground">TOTAUX</td>
-              <td className="border border-border px-2 py-1.5 text-right text-emerald-700 dark:text-emerald-400">{totalEntreeQ}</td>
+              <td className="border border-border px-2 py-1.5 text-right text-emerald-700">{totalEntreeQ}</td>
               <td className="border border-border px-2 py-1.5" />
-              <td className="border border-border px-2 py-1.5 text-right text-emerald-700 dark:text-emerald-400">{fmt(totalEntreeMontant)}</td>
-              <td className="border border-border px-2 py-1.5 text-right text-orange-700 dark:text-orange-400">{totalSortieQ}</td>
+              <td className="border border-border px-2 py-1.5 text-right text-emerald-700">{fmt(totalEntreeMontant)}</td>
+              <td className="border border-border px-2 py-1.5 text-right text-orange-700">{totalSortieQ}</td>
               <td className="border border-border px-2 py-1.5" />
-              <td className="border border-border px-2 py-1.5 text-right text-orange-700 dark:text-orange-400">{fmt(totalSortieMontant)}</td>
-              <td className="border border-border px-2 py-1.5 text-right text-blue-700 dark:text-blue-400">{sf?.stockQ}</td>
+              <td className="border border-border px-2 py-1.5 text-right text-orange-700">{fmt(totalSortieMontant)}</td>
+              <td className="border border-border px-2 py-1.5 text-right text-blue-700">{sf?.stockQ}</td>
               <td className="border border-border px-2 py-1.5" />
-              <td className="border border-border px-2 py-1.5 text-right text-blue-700 dark:text-blue-400">{fmt(sf?.stockMontant)}</td>
+              <td className="border border-border px-2 py-1.5 text-right text-blue-700">{fmt(sf?.stockMontant)}</td>
             </tr>
           </tbody>
         </table>
@@ -240,10 +240,10 @@ export default function StockExercicePage() {
       </div>
 
       {/* Titre exercice */}
-      <div className="rounded-xl bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-200/30 dark:border-purple-700/20 px-5 py-4">
+      <div className="rounded-xl bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-200/30 px-5 py-4">
         <div className="flex items-center gap-2 mb-1">
-          <BookOpen className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-          <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wide">Application</span>
+          <BookOpen className="h-4 w-4 text-purple-600" />
+          <span className="text-xs font-bold text-purple-600 uppercase tracking-wide">Application</span>
         </div>
         <h2 className="font-bold text-foreground text-sm">{EXERCICE.titre}</h2>
         <p className="text-xs text-muted-foreground mt-1">
@@ -319,8 +319,8 @@ export default function StockExercicePage() {
                       <td className="border border-border px-3 py-1.5 text-foreground">
                         <span className={cn('inline-flex items-center px-1.5 py-0.5 rounded text-xs font-bold mr-1.5',
                           e.type === 'stock_initial' ? 'bg-muted/50 text-muted-foreground'
-                          : e.type === 'entree' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400'
-                          : 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400'
+                          : e.type === 'entree' ? 'bg-emerald-100 text-emerald-700'
+                          : 'bg-orange-100 text-orange-700'
                         )}>
                           {e.type === 'stock_initial' ? 'S.I.' : e.type === 'entree' ? 'Entrée' : 'Sortie'}
                         </span>
@@ -339,18 +339,18 @@ export default function StockExercicePage() {
           </div>
 
           {/* Bouton charger */}
-          <div className="rounded-xl border border-dashed border-purple-300 dark:border-purple-700/40 bg-purple-50/30 dark:bg-purple-900/10 p-4 space-y-3">
+          <div className="rounded-xl border border-dashed border-purple-300 bg-purple-50/30 p-4 space-y-3">
             <p className="text-xs text-muted-foreground">
               Charge cet exercice dans tes fiches de stock pour pratiquer et voir la fiche calculée automatiquement.
             </p>
             {erreur && (
-              <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-900/20 px-3 py-2">
+              <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2">
                 <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
                 <p className="text-xs text-red-600">{erreur}</p>
               </div>
             )}
             {charge ? (
-              <div className="flex items-center gap-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 px-3 py-2">
+              <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2">
                 <Check className="h-4 w-4 text-emerald-600 shrink-0" />
                 <p className="text-xs text-emerald-700 font-semibold">Chargé. Redirection vers la fiche…</p>
               </div>
@@ -367,8 +367,8 @@ export default function StockExercicePage() {
       ) : (
         /* CORRECTION */
         <div className="space-y-6">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200/50 px-3 py-2">
-            <p className="text-xs text-amber-700 dark:text-amber-400 font-semibold">
+          <div className="rounded-lg bg-amber-50 border border-amber-200/50 px-3 py-2">
+            <p className="text-xs text-amber-700 font-semibold">
               Essaie d'abord de résoudre l'exercice avant de consulter la correction.
             </p>
           </div>
@@ -380,13 +380,13 @@ export default function StockExercicePage() {
           <div className="rounded-xl border border-border bg-card p-4 space-y-3">
             <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Comparaison des stocks finals</p>
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200/40 px-3 py-3 text-center">
-                <p className="text-xs font-bold text-purple-700 dark:text-purple-400 mb-1">CUMP</p>
+              <div className="rounded-lg bg-purple-50 border border-purple-200/40 px-3 py-3 text-center">
+                <p className="text-xs font-bold text-purple-700 mb-1">CUMP</p>
                 <p className="text-lg font-bold text-foreground">{fmt(lignesCUMP[lignesCUMP.length - 1]?.stockMontant)}</p>
                 <p className="text-xs text-muted-foreground">CDF : {lignesCUMP[lignesCUMP.length - 1]?.stockQ} u.</p>
               </div>
-              <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200/40 px-3 py-3 text-center">
-                <p className="text-xs font-bold text-blue-700 dark:text-blue-400 mb-1">PEPS / FIFO</p>
+              <div className="rounded-lg bg-blue-50 border border-blue-200/40 px-3 py-3 text-center">
+                <p className="text-xs font-bold text-blue-700 mb-1">PEPS / FIFO</p>
                 <p className="text-lg font-bold text-foreground">{fmt(lignesPEPS[lignesPEPS.length - 1]?.stockMontant)}</p>
                 <p className="text-xs text-muted-foreground">CDF : {lignesPEPS[lignesPEPS.length - 1]?.stockQ} u.</p>
               </div>

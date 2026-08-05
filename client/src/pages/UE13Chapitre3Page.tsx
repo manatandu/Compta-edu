@@ -47,10 +47,10 @@ function JournalTable({ rows }: { rows: { libelle: string; debit?: string; credi
     <div className="overflow-x-auto rounded-lg border border-border my-2">
       <table className="w-full text-xs">
         <thead>
-          <tr className="bg-sky-100 dark:bg-sky-900/40">
-            <th className="text-left px-3 py-2 font-semibold text-sky-800 dark:text-sky-200 w-1/2">Libellé</th>
-            <th className="text-right px-3 py-2 font-semibold text-sky-800 dark:text-sky-200 w-1/4">Débit</th>
-            <th className="text-right px-3 py-2 font-semibold text-sky-800 dark:text-sky-200 w-1/4">Crédit</th>
+          <tr className="bg-sky-100">
+            <th className="text-left px-3 py-2 font-semibold text-sky-800 w-1/2">Libellé</th>
+            <th className="text-right px-3 py-2 font-semibold text-sky-800 w-1/4">Débit</th>
+            <th className="text-right px-3 py-2 font-semibold text-sky-800 w-1/4">Crédit</th>
           </tr>
         </thead>
         <tbody>
@@ -108,8 +108,8 @@ const LECONS: Lecon[] = [
         </p>
 
         <h3 className="font-bold text-foreground mt-4">2. Principe fondamental (§6)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 space-y-2">
-          <p className="font-semibold text-sky-700 dark:text-sky-300 text-sm">Règle cardinale d'IAS 36</p>
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 space-y-2">
+          <p className="font-semibold text-sky-700 text-sm">Règle cardinale d'IAS 36</p>
           <p className="text-sm text-foreground/90 italic">"Une entité doit apprécier, à chaque date de clôture, s'il existe un quelconque indice qu'un actif peut avoir subi une perte de valeur. Si un tel indice existe, l'entité doit estimer la valeur recouvrable de l'actif."</p>
           <p className="text-xs text-muted-foreground">IAS 36 §9</p>
           <p className="text-sm mt-2 text-foreground">
@@ -122,18 +122,18 @@ const LECONS: Lecon[] = [
           La norme impose un <strong>test de dépréciation annuel obligatoire</strong>, indépendamment de tout indice, pour trois catégories d'actifs :
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3 text-center">
-            <p className="font-semibold text-amber-800 dark:text-amber-300 text-xs mb-1">Goodwill</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 text-center">
+            <p className="font-semibold text-amber-800 text-xs mb-1">Goodwill</p>
             <p className="text-xs text-foreground/80">Issu d'un regroupement d'entreprises — jamais amorti, toujours testé</p>
             <p className="text-xs text-muted-foreground mt-1">IFRS 3 + IAS 36 §96</p>
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3 text-center">
-            <p className="font-semibold text-amber-800 dark:text-amber-300 text-xs mb-1">Immob. incorporelle à durée indéterminée</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 text-center">
+            <p className="font-semibold text-amber-800 text-xs mb-1">Immob. incorporelle à durée indéterminée</p>
             <p className="text-xs text-foreground/80">Ex. marque non amortie, droit d'exploitation perpétuel</p>
             <p className="text-xs text-muted-foreground mt-1">IAS 38 §108 + IAS 36 §10</p>
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3 text-center">
-            <p className="font-semibold text-amber-800 dark:text-amber-300 text-xs mb-1">Immob. incorporelle non encore disponible</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 text-center">
+            <p className="font-semibold text-amber-800 text-xs mb-1">Immob. incorporelle non encore disponible</p>
             <p className="text-xs text-foreground/80">En cours de développement, pas encore en service</p>
             <p className="text-xs text-muted-foreground mt-1">IAS 36 §10(b)</p>
           </div>
@@ -164,9 +164,9 @@ const LECONS: Lecon[] = [
           </div>
         </div>
 
-        <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3 mt-3">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Point pédagogique — Cadre du raisonnement</p>
-          <p className="text-xs text-sky-900 dark:text-sky-100">L'existence d'un indice interne ou externe ne conduit pas automatiquement à une perte de valeur. Elle oblige seulement l'entité à estimer la valeur recouvrable et à la comparer à la valeur comptable. C'est cette comparaison qui détermine l'existence — ou non — d'une perte.</p>
+        <div className="rounded-lg bg-sky-50 border border-sky-200 p-3 mt-3">
+          <p className="text-xs font-semibold text-sky-700 mb-1">Point pédagogique — Cadre du raisonnement</p>
+          <p className="text-xs text-sky-900">L'existence d'un indice interne ou externe ne conduit pas automatiquement à une perte de valeur. Elle oblige seulement l'entité à estimer la valeur recouvrable et à la comparer à la valeur comptable. C'est cette comparaison qui détermine l'existence — ou non — d'une perte.</p>
         </div>
       </div>
     ),
@@ -184,9 +184,9 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <h3 className="font-bold text-foreground">1. Définition de la valeur recouvrable (§18)</h3>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4">
-          <p className="font-semibold text-sky-700 dark:text-sky-300 text-sm mb-2">Formule centrale</p>
-          <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4">
+          <p className="font-semibold text-sky-700 text-sm mb-2">Formule centrale</p>
+          <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
             <BlockMath math={String.raw`\text{Valeur recouvrable} = \max\!\left(\text{JVN},\; \text{VU}\right)`} />
           </div>
           <p className="text-xs text-foreground/80">
@@ -220,7 +220,7 @@ const LECONS: Lecon[] = [
           <InfoTooltip texte="La valeur d'utilité est la valeur actualisée des flux de trésorerie futurs attendus de l'utilisation continue d'un actif jusqu'à sa sortie. Elle repose sur un modèle DCF (Discounted Cash Flow) propre à l'entité, et non sur les conditions du marché. Elle intègre les projections de flux de trésorerie, les variations futures probables, la valeur temps de l'argent et les risques spécifiques à l'actif." loi="IAS 36 §30 — IFRS Foundation" />
           {' '}est la valeur actualisée des flux de trésorerie futurs susceptibles de découler d'un actif ou d'une unité génératrice de trésorerie. Elle est déterminée selon un modèle d'actualisation (DCF) :
         </p>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`VU = \sum_{t=1}^{n} \dfrac{CF_t}{\left(1 + r\right)^t} + \dfrac{VR_n}{\left(1 + r\right)^n}`} />
         </div>
         <p className="text-xs text-muted-foreground">VU = Valeur d'utilité · CF = Flux de trésorerie de la période t · r = Taux d'actualisation · VR = Valeur résiduelle à la fin de la période n</p>
@@ -251,21 +251,21 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration — INDUSTRIA SA (IAS 36 §18)</h3>
-        <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3 mb-3">
-          <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Données</p>
-          <p className="text-xs text-amber-900 dark:text-amber-200">Valeur comptable nette (VNC) d'une machine : 700 000 · Juste valeur de marché : 690 000 · Coûts de sortie estimés : 10 000 · Valeur d'utilité (DCF) : 760 000</p>
+        <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
+          <p className="text-xs font-semibold text-amber-800 mb-1">Données</p>
+          <p className="text-xs text-amber-900">Valeur comptable nette (VNC) d'une machine : 700 000 · Juste valeur de marché : 690 000 · Coûts de sortie estimés : 10 000 · Valeur d'utilité (DCF) : 760 000</p>
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`JVN = 690\,000 - 10\,000 = 680\,000`} />
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Valeur recouvrable} = \max(680\,000 ;\; 760\,000) = 760\,000`} />
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Comparaison} : VNC\; 700\,000 < VR\; 760\,000 \Rightarrow \text{Aucune dépréciation}`} />
         </div>
-        <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-3">
-          <p className="text-xs text-green-800 dark:text-green-200"><strong>Conclusion :</strong> Bien que la juste valeur (690 000) soit inférieure à la valeur comptable (700 000), la valeur recouvrable est 760 000 car la valeur d'utilité est plus élevée. Aucune dépréciation n'est comptabilisée. C'est la règle du maximum qui s'applique.</p>
+        <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+          <p className="text-xs text-green-800"><strong>Conclusion :</strong> Bien que la juste valeur (690 000) soit inférieure à la valeur comptable (700 000), la valeur recouvrable est 760 000 car la valeur d'utilité est plus élevée. Aucune dépréciation n'est comptabilisée. C'est la règle du maximum qui s'applique.</p>
         </div>
       </div>
     ),
@@ -300,8 +300,8 @@ const LECONS: Lecon[] = [
         <p>
           Lorsque l'actif a fait l'objet d'une réévaluation antérieure avec constitution d'un écart de réévaluation (AERG — Autres Éléments du Résultat Global) en capitaux propres, la perte de valeur doit être imputée <strong>en priorité sur l'AERG</strong>, et seulement le solde éventuel est porté en résultat net.
         </p>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-3 mt-2">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Illustration — TRANSLOG SA</p>
+        <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-3 mt-2">
+          <p className="text-xs font-semibold text-sky-700 mb-1">Illustration — TRANSLOG SA</p>
           <p className="text-xs text-foreground/80 mb-2">Perte de valeur totale : 20 000 · AERG disponible : 12 000 · Solde en résultat : 8 000</p>
         </div>
         <JournalTable rows={[
@@ -312,7 +312,7 @@ const LECONS: Lecon[] = [
           { libelle: 'Charges de dépréciation (résultat net)', debit: '8 000', credit: '' },
           { libelle: 'Cumul des dépréciations — actif (solde)', debit: '', credit: '8 000' },
         ]} />
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Perte totale} = \underbrace{12\,000}_{\text{AERG}} + \underbrace{8\,000}_{\text{Résultat net}} = 20\,000`} />
         </div>
 
@@ -321,8 +321,8 @@ const LECONS: Lecon[] = [
           Une entité doit apprécier, à chaque date de clôture, s'il existe un indice qu'une perte de valeur comptabilisée lors d'exercices antérieurs n'existe plus ou a diminué. Si tel est le cas, l'entité doit estimer la valeur recouvrable de l'actif.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-          <div className="rounded-xl border border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10 p-3">
-            <p className="font-semibold text-green-700 dark:text-green-300 text-xs mb-1">Indices de reprise (§111)</p>
+          <div className="rounded-xl border border-green-200 bg-green-50/50 p-3">
+            <p className="font-semibold text-green-700 text-xs mb-1">Indices de reprise (§111)</p>
             <ul className="list-disc pl-4 space-y-1 text-xs text-foreground/80">
               <li>Hausse de la valeur de marché de l'actif</li>
               <li>Changements favorables dans l'environnement technologique, économique ou du marché</li>
@@ -344,8 +344,8 @@ const LECONS: Lecon[] = [
         ]} />
 
         <h3 className="font-bold text-foreground mt-4">3. Règle absolue sur le goodwill (§124)</h3>
-        <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10 p-4">
-          <p className="font-semibold text-red-700 dark:text-red-300 text-sm mb-1">Interdiction formelle de reprise sur le goodwill</p>
+        <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
+          <p className="font-semibold text-red-700 text-sm mb-1">Interdiction formelle de reprise sur le goodwill</p>
           <p className="text-sm text-foreground/90 italic">"Une perte de valeur comptabilisée pour un goodwill ne doit pas être reprise lors d'une période ultérieure."</p>
           <p className="text-xs text-muted-foreground mt-1">IAS 36 §124 — IFRS Foundation</p>
           <p className="text-sm mt-2 text-foreground">Cette règle est absolue. Elle repose sur le principe qu'une augmentation de la valeur recouvrable de l'UGT après la perte ne correspond probablement pas à une reprise du goodwill acquis, mais plutôt à la génération d'un goodwill interne — non comptabilisable selon IAS 38 §48.</p>
@@ -355,7 +355,7 @@ const LECONS: Lecon[] = [
         <p>
           Après la comptabilisation d'une perte de valeur, la <strong>dotation aux amortissements</strong> doit être ajustée pour les périodes futures afin de répartir la nouvelle valeur comptable (après dépréciation) sur la durée d'utilité restante de l'actif.
         </p>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Nouvel amortissement annuel} = \dfrac{\text{Nouvelle VC après dépréciation} - \text{VR}}{\text{Durée d'utilité restante}}`} />
         </div>
       </div>
@@ -377,8 +377,8 @@ const LECONS: Lecon[] = [
         <p>
           Dans la majorité des cas, les actifs ne génèrent pas de flux de trésorerie indépendamment d'autres actifs. IAS 36 §65 prévoit que lorsqu'il n'est pas possible d'estimer la valeur recouvrable d'un actif individuel, l'entité doit identifier l'<strong>Unité Génératrice de Trésorerie</strong> à laquelle appartient l'actif.
         </p>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 space-y-2">
-          <p className="font-semibold text-sky-700 dark:text-sky-300 text-sm">Définition légale — IAS 36 §6</p>
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 space-y-2">
+          <p className="font-semibold text-sky-700 text-sm">Définition légale — IAS 36 §6</p>
           <p className="text-sm text-foreground/90 italic">"Une unité génératrice de trésorerie est le plus petit groupe identifiable d'actifs qui génère des entrées de trésorerie provenant d'une utilisation continue et qui sont largement indépendantes des entrées de trésorerie générées par d'autres actifs ou groupes d'actifs."</p>
           <p className="text-xs text-muted-foreground">IAS 36 §6</p>
         </div>
@@ -400,10 +400,10 @@ const LECONS: Lecon[] = [
         <p>
           Le test consiste à comparer la <strong>valeur comptable de l'UGT</strong> (actifs nets + goodwill affecté) à sa <strong>valeur recouvrable</strong> (max JVN ; VU calculée au niveau de l'UGT).
         </p>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{VC UGT} = \sum \text{Actifs identifiables nets} + \text{Goodwill affecté}`} />
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Si VC UGT} > \text{VR UGT} \Rightarrow \text{Perte} = \text{VC UGT} - \text{VR UGT}`} />
         </div>
 
@@ -413,14 +413,14 @@ const LECONS: Lecon[] = [
         </p>
         <div className="space-y-2 mt-2">
           <div className="flex gap-3 items-start rounded-lg border border-border p-3 bg-muted/10">
-            <span className="font-bold text-sky-600 dark:text-sky-400 text-sm w-5 shrink-0">1.</span>
+            <span className="font-bold text-sky-600 text-sm w-5 shrink-0">1.</span>
             <div>
               <p className="text-sm font-semibold text-foreground">Imputer sur le goodwill</p>
               <p className="text-xs text-foreground/80">La perte est d'abord imputée sur le goodwill affecté à l'UGT, jusqu'à son épuisement. Cette perte sur goodwill n'est jamais reprise (§124).</p>
             </div>
           </div>
           <div className="flex gap-3 items-start rounded-lg border border-border p-3 bg-muted/10">
-            <span className="font-bold text-sky-600 dark:text-sky-400 text-sm w-5 shrink-0">2.</span>
+            <span className="font-bold text-sky-600 text-sm w-5 shrink-0">2.</span>
             <div>
               <p className="text-sm font-semibold text-foreground">Répartir sur les autres actifs au prorata</p>
               <p className="text-xs text-foreground/80">Le solde est réparti pro rata de la valeur comptable de chaque actif de l'UGT. Aucun actif ne peut être ramené en dessous du plus élevé entre : sa JVN, sa VU individuelle, zéro.</p>
@@ -429,17 +429,17 @@ const LECONS: Lecon[] = [
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Illustration numérique — UGT avec goodwill</h3>
-        <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3 mb-3">
-          <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Données</p>
-          <p className="text-xs text-amber-900 dark:text-amber-200">UGT Alpha : Actifs nets (machines + stocks + créances) VC = 900 000 · Goodwill affecté = 150 000 · VC UGT totale = 1 050 000 · Valeur recouvrable UGT = 850 000</p>
+        <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
+          <p className="text-xs font-semibold text-amber-800 mb-1">Données</p>
+          <p className="text-xs text-amber-900">UGT Alpha : Actifs nets (machines + stocks + créances) VC = 900 000 · Goodwill affecté = 150 000 · VC UGT totale = 1 050 000 · Valeur recouvrable UGT = 850 000</p>
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Perte totale} = 1\,050\,000 - 850\,000 = 200\,000`} />
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Étape 1} : \text{Goodwill} \Rightarrow 150\,000 \text{ (épuisé)}`} />
         </div>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-2">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Étape 2} : \text{Solde sur actifs} = 200\,000 - 150\,000 = 50\,000`} />
         </div>
         <JournalTable rows={[
@@ -469,8 +469,8 @@ const LECONS: Lecon[] = [
         <p>
           IAS 40 prescrit le traitement comptable des <strong>immeubles de placement</strong> et les informations à fournir les concernant. Un immeuble de placement est distinct des immobilisations corporelles utilisées dans le cadre de la production (IAS 16) et des stocks (IAS 2).
         </p>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 space-y-2">
-          <p className="font-semibold text-sky-700 dark:text-sky-300 text-sm">Définition légale — IAS 40 §5</p>
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 space-y-2">
+          <p className="font-semibold text-sky-700 text-sm">Définition légale — IAS 40 §5</p>
           <p className="text-sm text-foreground/90 italic">"Un immeuble de placement est un bien immobilier (terrain ou bâtiment — ou partie d'un bâtiment — ou les deux) détenu (par le propriétaire ou par le preneur dans le cadre d'un contrat de location) pour en retirer des loyers ou pour valoriser le capital ou les deux, plutôt que pour : (a) l'utiliser dans la production ou la fourniture de biens ou de services ou à des fins administratives ; ou (b) le vendre dans le cadre de l'activité ordinaire."</p>
           <p className="text-xs text-muted-foreground">IAS 40 §5 — IFRS Foundation</p>
         </div>
@@ -505,8 +505,8 @@ const LECONS: Lecon[] = [
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
-          <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-4 space-y-2">
-            <p className="font-bold text-sky-700 dark:text-sky-300 text-sm">Modèle de la juste valeur (§33 à §55)</p>
+          <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-4 space-y-2">
+            <p className="font-bold text-sky-700 text-sm">Modèle de la juste valeur (§33 à §55)</p>
             <ul className="list-disc pl-4 space-y-1 text-xs text-foreground/80">
               <li><strong>Aucun amortissement</strong> — l'immeuble n'est pas amorti</li>
               <li>Réévaluation à chaque clôture à la juste valeur</li>
@@ -545,13 +545,13 @@ const LECONS: Lecon[] = [
         ]} />
 
         <h3 className="font-bold text-foreground mt-4">Illustration — IMMO PLUS SA</h3>
-        <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3 mb-3">
-          <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Données</p>
-          <p className="text-xs text-amber-900 dark:text-amber-200">Coût d'acquisition N-1 : 5 000 000 · Juste valeur N : 4 300 000 · Durée d'amortissement (si modèle coût) : 40 ans · Amortissement annuel : 125 000</p>
+        <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
+          <p className="text-xs font-semibold text-amber-800 mb-1">Données</p>
+          <p className="text-xs text-amber-900">Coût d'acquisition N-1 : 5 000 000 · Juste valeur N : 4 300 000 · Durée d'amortissement (si modèle coût) : 40 ans · Amortissement annuel : 125 000</p>
         </div>
 
         <p className="text-xs font-semibold text-foreground mt-2">Modèle juste valeur :</p>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-1">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-1">
           <BlockMath math={String.raw`\text{Variation JV} = 4\,300\,000 - 5\,000\,000 = (700\,000)`} />
         </div>
         <JournalTable rows={[
@@ -561,7 +561,7 @@ const LECONS: Lecon[] = [
         ]} />
 
         <p className="text-xs font-semibold text-foreground mt-2">Modèle du coût — Amortissement :</p>
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-1">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-1">
           <BlockMath math={String.raw`\text{Amortissement annuel} = \dfrac{5\,000\,000}{40} = 125\,000`} />
         </div>
         <JournalTable rows={[
@@ -570,11 +570,11 @@ const LECONS: Lecon[] = [
           { libelle: "Amortissements cumulés — Immeuble", debit: '', credit: '125 000' },
           { libelle: 'Test IAS 36 : VNC = 4 875 000 < VR = 4 300 000 (JV) : à vérifier', isHeader: true },
         ]} />
-        <div className="rounded-lg bg-white dark:bg-muted/20 border border-sky-100 dark:border-sky-900 p-3 my-1">
+        <div className="rounded-lg bg-white border border-sky-100 p-3 my-1">
           <BlockMath math={String.raw`VNC = 5\,000\,000 - 125\,000 = 4\,875\,000`} />
         </div>
-        <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3">
-          <p className="text-xs text-sky-800 dark:text-sky-200"><strong>Analyse comparée :</strong> Avec le modèle juste valeur, la perte de 700 000 est comptabilisée immédiatement en résultat. Avec le modèle du coût, seul l'amortissement de 125 000 est comptabilisé. Un test IAS 36 est requis car la VNC (4 875 000) est supérieure à la JV (4 300 000) — une dépréciation supplémentaire de 575 000 pourrait être nécessaire si la valeur recouvrable confirme cette infériorité.</p>
+        <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
+          <p className="text-xs text-sky-800"><strong>Analyse comparée :</strong> Avec le modèle juste valeur, la perte de 700 000 est comptabilisée immédiatement en résultat. Avec le modèle du coût, seul l'amortissement de 125 000 est comptabilisé. Un test IAS 36 est requis car la VNC (4 875 000) est supérieure à la JV (4 300 000) — une dépréciation supplémentaire de 575 000 pourrait être nécessaire si la valeur recouvrable confirme cette infériorité.</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">4. Transferts (§57 à §65)</h3>
@@ -988,21 +988,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/30 dark:bg-sky-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-sky-700 dark:text-sky-300">{q.question}</p>
+    <div className="rounded-xl border border-sky-200 bg-sky-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-sky-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 dark:bg-sky-900/30 text-sky-800 dark:text-sky-200' : 'border-border hover:border-sky-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 text-sky-800' : 'border-border hover:border-sky-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-sky-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-sky-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <p className="text-xs opacity-70 mt-0.5">Ref. : {q.articleRef}</p>
@@ -1023,7 +1023,7 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-xs font-bold flex items-center justify-center shrink-0">C</span>
+          <span className="h-7 w-7 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center shrink-0">C</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
           </div>
@@ -1032,9 +1032,9 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
@@ -1046,14 +1046,14 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
                     if (n.has(q.num)) { n.delete(q.num) } else { n.add(q.num) }
                     return n
                   })}
-                  className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
+                  className="text-xs text-sky-600 hover:underline font-medium"
                 >
                   {corrVisible.has(q.num) ? 'Masquer la correction' : 'Voir la correction'}
                 </button>
                 {corrVisible.has(q.num) && (
-                  <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3">
-                    <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Correction</p>
-                    <p className="text-xs text-sky-900 dark:text-sky-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
+                    <p className="text-xs font-semibold text-sky-700 mb-1">Correction</p>
+                    <p className="text-xs text-sky-900 leading-relaxed">{q.correction}</p>
                   </div>
                 )}
               </div>
@@ -1111,17 +1111,17 @@ export default function UE13Chapitre3Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-4">
+      <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-          <span className="text-sm font-semibold text-sky-800 dark:text-sky-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-sky-600" />
+          <span className="text-sm font-semibold text-sky-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les actifs soumis au test de dépréciation IAS 36 et distinguer test obligatoire et test conditionnel (§10)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Calculer la valeur recouvrable : juste valeur nette des coûts de sortie et valeur d'utilité par DCF (§18-§57)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Comptabiliser la perte de valeur et sa reprise, en distinguant actif au coût et actif réévalué (§59-§117)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Appliquer la cascade d'imputation au niveau de l'UGT avec goodwill selon IAS 36 §104</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer les deux modèles IAS 40 (juste valeur vs coût) et comptabiliser leurs effets sur les états financiers</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les actifs soumis au test de dépréciation IAS 36 et distinguer test obligatoire et test conditionnel (§10)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Calculer la valeur recouvrable : juste valeur nette des coûts de sortie et valeur d'utilité par DCF (§18-§57)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Comptabiliser la perte de valeur et sa reprise, en distinguant actif au coût et actif réévalué (§59-§117)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Appliquer la cascade d'imputation au niveau de l'UGT avec goodwill selon IAS 36 §104</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer les deux modèles IAS 40 (juste valeur vs coût) et comptabiliser leurs effets sur les états financiers</span></li>
         </ul>
       </div>
 
@@ -1147,7 +1147,7 @@ export default function UE13Chapitre3Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-sky-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-sky-600 dark:text-sky-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-sky-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

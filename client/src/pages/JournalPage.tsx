@@ -354,7 +354,7 @@ export default function JournalPage() {
               </span>
             )}
             {sessionVerrouillee && (
-              <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-700 bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 px-2.5 py-1 rounded-full border border-amber-300 dark:border-amber-700">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full border border-amber-300">
                 🔒 Session verrouillée (devoir soumis)
               </span>
             )}
@@ -363,7 +363,7 @@ export default function JournalPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-amber-600 border-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20"
+                  className="text-amber-600 border-amber-300 hover:bg-amber-50"
                   onClick={() => setConfirmClearSession(true)}
                   disabled={sessionEcritures.length === 0 || sessionVerrouillee}
                   title={sessionVerrouillee ? 'Session verrouillée' : 'Effacer toutes les écritures de cette session'}
@@ -452,14 +452,14 @@ export default function JournalPage() {
                           <tr key={l.id} className="border-b border-border/50 last:border-0">
                             <td className="py-1 px-2 font-mono w-[4.5rem] shrink-0">{l.numeroCompte}</td>
                             <td className="py-1 px-2 text-foreground max-w-0 truncate">{l.intituleCompte}</td>
-                            <td className="py-1 px-2 text-right text-green-700 dark:text-green-400 whitespace-nowrap w-[5.5rem]">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
-                            <td className="py-1 px-2 text-right text-red-700 dark:text-red-400 whitespace-nowrap w-[5.5rem]">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
+                            <td className="py-1 px-2 text-right text-green-700 whitespace-nowrap w-[5.5rem]">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
+                            <td className="py-1 px-2 text-right text-red-700 whitespace-nowrap w-[5.5rem]">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
                           </tr>
                         ))}
                         <tr className="font-semibold text-xs bg-muted/30">
                           <td colSpan={2} className="py-1 px-2 text-right text-muted-foreground">Total</td>
-                          <td className="py-1 px-2 text-right text-green-700 dark:text-green-400">{formatMontant(totalDebit)}</td>
-                          <td className="py-1 px-2 text-right text-red-700 dark:text-red-400">{formatMontant(totalCredit)}</td>
+                          <td className="py-1 px-2 text-right text-green-700">{formatMontant(totalDebit)}</td>
+                          <td className="py-1 px-2 text-right text-red-700">{formatMontant(totalCredit)}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -618,10 +618,10 @@ export default function JournalPage() {
                   <tfoot>
                     <tr className="text-xs font-semibold bg-muted/30">
                       <td className="py-2 px-1 text-right text-muted-foreground">Totaux</td>
-                      <td className="py-2 px-1 text-right text-green-700 dark:text-green-400">
+                      <td className="py-2 px-1 text-right text-green-700">
                         {formatMontant(lignes.reduce((s, l) => s + (parseFloat(l.debit) || 0), 0))}
                       </td>
-                      <td className="py-2 px-1 text-right text-red-700 dark:text-red-400">
+                      <td className="py-2 px-1 text-right text-red-700">
                         {formatMontant(lignes.reduce((s, l) => s + (parseFloat(l.credit) || 0), 0))}
                       </td>
                       <td></td>

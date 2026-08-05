@@ -10,7 +10,7 @@ const ONGLETS = [
     id: 'bilan',
     label: 'Bilan',
     icon: FileText,
-    color: 'text-orange-600 dark:text-orange-400',
+    color: 'text-orange-600',
     activeBorder: 'border-orange-500',
     mode: 'bilan' as const,
   },
@@ -18,7 +18,7 @@ const ONGLETS = [
     id: 'compte-resultat',
     label: 'Compte de Résultat',
     icon: BarChart2,
-    color: 'text-amber-600 dark:text-amber-400',
+    color: 'text-amber-600',
     activeBorder: 'border-amber-500',
     mode: 'cr' as const,
   },
@@ -41,8 +41,8 @@ export default function EtatsFinanciersHub() {
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center">
-            <TrendingUp className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+          <div className="h-8 w-8 rounded-lg bg-orange-50 flex items-center justify-center">
+            <TrendingUp className="h-4 w-4 text-orange-600" />
           </div>
           <div>
             <h1 className="text-sm font-bold text-foreground leading-tight">États Financiers</h1>

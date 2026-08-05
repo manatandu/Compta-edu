@@ -59,7 +59,7 @@ function ArticleBox({
           <span className="text-sm font-semibold text-foreground">Art. {num}</span>
           {titre && <span className="text-sm text-muted-foreground ml-2">{titre}</span>}
           {modifie && (
-            <span className="ml-2 text-sm bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded px-1 py-0.5">
+            <span className="ml-2 text-sm bg-amber-100 text-amber-700 rounded px-1 py-0.5">
               mod. {modifie}
             </span>
           )}
@@ -87,7 +87,7 @@ function SectionHeader({ icon: Icon, label, color }: { icon: any; label: string;
 function TitreI() {
   return (
     <div>
-      <SectionHeader icon={FileText} label="Titre I : Obligations Déclaratives (Art. 1-24)" color="bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300" />
+      <SectionHeader icon={FileText} label="Titre I : Obligations Déclaratives (Art. 1-24)" color="bg-blue-50 text-blue-800" />
 
       <div className="mb-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
@@ -134,7 +134,7 @@ function TitreI() {
 
         <ArticleBox num="5" titre="Lettre de relance : délai 5 jours">
           <p>Tout redevable qui s'est abstenu de souscrire sa déclaration dans le délai fait l'objet d'une <strong>lettre de relance valant mise en demeure de déclarer</strong>. Dans ce cas, il dispose d'un délai de cinq jours à compter de la réception de la lettre de relance pour régulariser sa situation.</p>
-          <p className="mt-1 text-amber-700 dark:text-amber-400 font-medium">⚠ Cette disposition <strong>ne s'applique pas en cas de récidive</strong>.</p>
+          <p className="mt-1 text-amber-700 font-medium">⚠ Cette disposition <strong>ne s'applique pas en cas de récidive</strong>.</p>
           <Ref>Art. 5, Loi n° 004/2003</Ref>
         </ArticleBox>
       </div>
@@ -206,7 +206,7 @@ function TitreI() {
         <ArticleBox num="12" titre="Délai de dépôt de la déclaration IS : 30 avril" modifie="LF 2026 Art. 18">
           <p>La déclaration IS (Impôt sur les Sociétés) doit être souscrite et déposée <strong>au plus tard le 30 avril de l'année civile qui suit celle de la clôture de l'exercice</strong>.</p>
           <p className="mt-1">Exemple : pour l'exercice clos le 31 décembre N, la déclaration IS doit être déposée au plus tard le <strong>30 avril N+1</strong>.</p>
-          <p className="mt-1 text-blue-700 dark:text-blue-400 text-xs">ℹ Ce délai a été uniformisé par la LF 2026 (Art. 18) pour le mettre en cohérence avec le délai IRPP (Art. 17 de la même loi — voir Art. 17 ci-dessous).</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Ce délai a été uniformisé par la LF 2026 (Art. 18) pour le mettre en cohérence avec le délai IRPP (Art. 17 de la même loi — voir Art. 17 ci-dessous).</p>
           <Ref>Art. 12, Loi n° 004/2003 mod. LF 2026 : n° 25/060 du 29/12/2025, Art. 18</Ref>
         </ArticleBox>
 
@@ -220,7 +220,7 @@ function TitreI() {
             <li>Rémunérations de dirigeants (toutes catégories IRPP)</li>
           </ul>
           <p className="mt-1">Exemple : pour les revenus de l'année N, la déclaration IRPP doit être déposée au plus tard le <strong>30 avril N+1</strong>.</p>
-          <p className="mt-1 text-amber-700 dark:text-amber-400 font-medium">⚠ Ce délai 30 avril concerne la déclaration annuelle. Les retenues à la source (salaires, mobiliers) restent soumises à leurs propres délais mensuels (Art. 18 bis, 22 bis, etc.).</p>
+          <p className="mt-1 text-amber-700 font-medium">⚠ Ce délai 30 avril concerne la déclaration annuelle. Les retenues à la source (salaires, mobiliers) restent soumises à leurs propres délais mensuels (Art. 18 bis, 22 bis, etc.).</p>
           <Ref>Art. 17, Loi n° 004/2003 mod. LF 2026 : n° 25/060 du 29/12/2025, Art. 20</Ref>
         </ArticleBox>
 
@@ -237,7 +237,7 @@ function TitreI() {
             <li>De toutes autres pièces justificatives que le contribuable jugerait nécessaires</li>
           </ul>
           <p className="mt-2"><strong>Cas particuliers :</strong> Les établissements de crédit, microfinance, sociétés d'assurance, organismes de sécurité sociale et entités à but non lucratif joignent leurs <strong>états financiers propres à leurs règles comptables spécifiques</strong> (et non le bilan OHADA standard).</p>
-          <p className="mt-2 text-amber-700 dark:text-amber-400 font-medium">⚠ La déclaration est <strong>contresignée par le conseil ou le comptable du redevable</strong>.</p>
+          <p className="mt-2 text-amber-700 font-medium">⚠ La déclaration est <strong>contresignée par le conseil ou le comptable du redevable</strong>.</p>
           <Ref>Art. 13, Loi n° 004/2003 mod. Art. 34, LF 2025 n° 24/011 du 20 décembre 2024</Ref>
         </ArticleBox>
 
@@ -316,7 +316,7 @@ function TitreI() {
             <li><strong>Fichier local</strong> : informations spécifiques sur l'entreprise vérifiée</li>
           </ul>
           <p className="mt-1.5"><strong>Mise en demeure :</strong> Si la documentation n'est pas mise à disposition à la date de première intervention, l'Administration adresse une mise en demeure de la produire ou de la compléter dans un <strong>délai de 5 jours</strong>.</p>
-          <p className="mt-1.5 text-amber-700 dark:text-amber-400"><strong>Sanction (Art. 93 bis) :</strong> En cas de défaut de réponse à la mise en demeure : amende égale à <strong>2% du montant des transactions concernées par les documents manquants</strong>, avec un minimum de <strong>100 000 000 FC par exercice</strong>.</p>
+          <p className="mt-1.5 text-amber-700"><strong>Sanction (Art. 93 bis) :</strong> En cas de défaut de réponse à la mise en demeure : amende égale à <strong>2% du montant des transactions concernées par les documents manquants</strong>, avec un minimum de <strong>100 000 000 FC par exercice</strong>.</p>
           <Ref>Art. 24 bis, Loi n° 004/2003 (modifié par LF 2026 n° 25/060, Art. 25)</Ref>
         </ArticleBox>
 
@@ -327,7 +327,7 @@ function TitreI() {
             <li><em>Informations générales sur le groupe :</em> dénomination et adresse de l'entité mère ultime ; description des principales activités ; politique de prix de transfert du groupe ; actifs incorporels détenus ; restructurations opérées au sein du groupe</li>
             <li><em>Informations spécifiques sur l'entreprise déclarante :</em> description de l'activité ; état récapitulatif des opérations avec entreprises liées ; informations sur les prêts/emprunts intragroupe ; opérations sans contrepartie ; transactions faisant l'objet d'accords préalables</li>
           </ul>
-          <p className="mt-1.5 text-amber-700 dark:text-amber-400"><strong>Sanction :</strong> Défaut de souscription ou souscription incomplète : amende de <strong>100 000 000 FC</strong> (Art. 93 bis).</p>
+          <p className="mt-1.5 text-amber-700"><strong>Sanction :</strong> Défaut de souscription ou souscription incomplète : amende de <strong>100 000 000 FC</strong> (Art. 93 bis).</p>
           <Ref>Art. 24 ter, Loi n° 004/2003 (modifié par LF 2026 n° 25/060, Art. 26)</Ref>
         </ArticleBox>
 
@@ -343,7 +343,7 @@ function TitreI() {
             <li>N'exigeant pas le dépôt d'une déclaration pays par pays similaire</li>
             <li>Ne figurant pas sur la liste des États ayant conclu un accord d'échange automatique avec la RDC</li>
           </ul>
-          <p className="mt-1.5 text-amber-700 dark:text-amber-400"><strong>Sanction :</strong> Défaut de souscription ou souscription incomplète/inexacte : amende de <strong>150 000 000 FC</strong> (Art. 93 bis).</p>
+          <p className="mt-1.5 text-amber-700"><strong>Sanction :</strong> Défaut de souscription ou souscription incomplète/inexacte : amende de <strong>150 000 000 FC</strong> (Art. 93 bis).</p>
           <Ref>Art. 24 quinquies, Loi n° 004/2003 (introduit par LF 2026 n° 25/060, Art. 27)</Ref>
         </ArticleBox>
 
@@ -371,7 +371,7 @@ function TitreI() {
 function TitreII() {
   return (
     <div>
-      <SectionHeader icon={Shield} label="Titre II : Contrôle fiscal (Art. 25-56)" color="bg-violet-50 dark:bg-violet-950/30 text-violet-800 dark:text-violet-300" />
+      <SectionHeader icon={Shield} label="Titre II : Contrôle fiscal (Art. 25-56)" color="bg-violet-50 text-violet-800" />
 
       <div className="mb-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
@@ -437,7 +437,7 @@ function TitreII() {
           </ol>
           <p className="mt-1.5">Les demandes doivent être précises et indiquer, par nature d'activité ou par produit : le pays/territoire concerné ; l'entité visée ; les montants en cause.</p>
           <p className="mt-1"><strong>Délai de réponse :</strong> l'entreprise dispose de <strong>15 jours</strong> pour répondre à compter de la réception de la demande.</p>
-          <p className="mt-1 text-amber-700 dark:text-amber-400"><strong>Sanction (Art. 92 bis) :</strong> Défaut de réponse → astreinte de <strong>10 000 000 FC/jour</strong> jusqu'à communication des informations, réclamée par AMR.</p>
+          <p className="mt-1 text-amber-700"><strong>Sanction (Art. 92 bis) :</strong> Défaut de réponse → astreinte de <strong>10 000 000 FC/jour</strong> jusqu'à communication des informations, réclamée par AMR.</p>
           <Ref>Art. 29 bis, Loi n° 004/2003 (modifié par LF 2026 n° 25/060, Art. 28)</Ref>
         </ArticleBox>
 
@@ -472,16 +472,16 @@ function TitreII() {
             <li>Défaut de remise des pièces justificatives dans les délais fixés par la loi</li>
             <li>Rejet d'une comptabilité considérée comme irrégulière</li>
             <li>Opposition au contrôle fiscal</li>
-            <li className="text-amber-700 dark:text-amber-400 font-medium"><strong>Exercice d'une activité occulte ou non déclarée</strong> <span className="font-normal text-muted-foreground">(ajouté par Art. 37, LF 2025)</span></li>
-            <li className="text-amber-700 dark:text-amber-400 font-medium"><strong>Non-désignation d'un représentant par une société étrangère n'ayant pas de domicile en RDC</strong> <span className="font-normal text-muted-foreground">(ajouté par Art. 37, LF 2025)</span></li>
+            <li className="text-amber-700 font-medium"><strong>Exercice d'une activité occulte ou non déclarée</strong> <span className="font-normal text-muted-foreground">(ajouté par Art. 37, LF 2025)</span></li>
+            <li className="text-amber-700 font-medium"><strong>Non-désignation d'un représentant par une société étrangère n'ayant pas de domicile en RDC</strong> <span className="font-normal text-muted-foreground">(ajouté par Art. 37, LF 2025)</span></li>
           </ul>
-          <p className="mt-1 text-blue-700 dark:text-blue-400 text-xs">ℹ Le rejet de comptabilité et l'opposition au contrôle fiscal font préalablement l'objet d'un <strong>constat sur procès-verbal</strong>, sous peine de nullité de la taxation d'office. Le refus de contresigner doit y être mentionné.</p>
-          <p className="mt-1 text-amber-700 dark:text-amber-400 font-medium">⚠ En cas de taxation d'office, <strong>la charge de la preuve incombe au redevable</strong> (et non à l'Administration : contrairement au redressement contradictoire).</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Le rejet de comptabilité et l'opposition au contrôle fiscal font préalablement l'objet d'un <strong>constat sur procès-verbal</strong>, sous peine de nullité de la taxation d'office. Le refus de contresigner doit y être mentionné.</p>
+          <p className="mt-1 text-amber-700 font-medium">⚠ En cas de taxation d'office, <strong>la charge de la preuve incombe au redevable</strong> (et non à l'Administration : contrairement au redressement contradictoire).</p>
           <Ref>Art. 41, Loi n° 004/2003 mod. Art. 37, LF 2025 n° 24/011 du 20 décembre 2024</Ref>
         </ArticleBox>
 
-        <div className="border border-red-200 dark:border-red-800/40 rounded-lg mb-2 overflow-hidden bg-red-50/30 dark:bg-red-900/10 px-3 py-2.5">
-          <p className="text-sm font-semibold text-red-700 dark:text-red-400">❌ Art. 41 ter — Supprimé par LF 2026</p>
+        <div className="border border-red-200 rounded-lg mb-2 overflow-hidden bg-red-50/30 px-3 py-2.5">
+          <p className="text-sm font-semibold text-red-700">❌ Art. 41 ter — Supprimé par LF 2026</p>
           <p className="text-xs text-muted-foreground mt-1">L'article 41 ter de la Loi n° 004/2003 a été expressément <strong>supprimé</strong> par l'article 29 de la Loi de Finances 2026 (n° 25/060 du 29 décembre 2025). Il ne produit plus aucun effet juridique à compter de l'entrée en vigueur de ladite loi.</p>
           <p className="text-xs text-muted-foreground mt-1">
             <span className="font-mono bg-muted/50 rounded px-1 py-0.5">Abrogé par Art. 29, LF 2026 n° 25/060 du 29/12/2025</span>
@@ -502,7 +502,7 @@ function TitreII() {
             <li><strong>Déficits reportables</strong> : l'Administration peut remonter sur un ou plusieurs exercices prescrits lorsque ces exercices sont déficitaires et que ces déficits s'imputent sur les résultats du premier exercice non prescrit.</li>
             <li><strong>Fraude judiciaire</strong> : lorsqu'une décision judiciaire ou tout organisme public a révélé l'existence de fraudes à incidence fiscale, l'Administration peut exercer son droit de vérification sur un exercice déjà prescrit. Elle dispose alors d'un délai de <strong>deux ans à compter de la révélation des faits</strong> pour notifier des suppléments d'impôts.</li>
           </ul>
-          <p className="mt-1 text-blue-700 dark:text-blue-400 text-xs">ℹ Rappel : dans le texte original de 2003, le délai était de <strong>5 années</strong>. L'Art. 38 LF 2025 l'a réduit à <strong>4 années</strong>.</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Rappel : dans le texte original de 2003, le délai était de <strong>5 années</strong>. L'Art. 38 LF 2025 l'a réduit à <strong>4 années</strong>.</p>
           <Ref>Art. 43, Loi n° 004/2003 mod. Art. 38, LF 2025 n° 24/011 du 20/12/2024</Ref>
         </ArticleBox>
 
@@ -550,7 +550,7 @@ function TitreII() {
             <li>Le numéro impôt du client</li>
             <li>Le montant total des achats effectués au cours de l'année précédente</li>
           </ul>
-          <p className="mt-1 text-amber-700 dark:text-amber-400 text-xs">Cette obligation est <strong>complémentaire</strong> à l'Art. 47 ter (liste des fournisseurs, LF 2026) : l'Art. 47 bis couvre les <em>clients</em>, l'Art. 47 ter couvre les <em>fournisseurs</em>.</p>
+          <p className="mt-1 text-amber-700 text-xs">Cette obligation est <strong>complémentaire</strong> à l'Art. 47 ter (liste des fournisseurs, LF 2026) : l'Art. 47 bis couvre les <em>clients</em>, l'Art. 47 ter couvre les <em>fournisseurs</em>.</p>
           <Ref>Art. 47 bis, Loi n° 004/2003 (introduit par Art. 41, LF 2025 : n° 24/011)</Ref>
         </ArticleBox>
 
@@ -574,7 +574,7 @@ function TitreII() {
 function TitreIII() {
   return (
     <div>
-      <SectionHeader icon={Banknote} label="Titre III : Recouvrement (Art. 57-82)" color="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300" />
+      <SectionHeader icon={Banknote} label="Titre III : Recouvrement (Art. 57-82)" color="bg-emerald-50 text-emerald-800" />
 
       <div className="mb-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
@@ -659,7 +659,7 @@ function TitreIII() {
 
         <ArticleBox num="72" titre="Délai de prononciation du Receveur : 72 heures" modifie="Art. 43, LF 2025">
           <p>Le Receveur des Impôts doit se prononcer sur toute demande qui lui est soumise <strong>dans un délai de 72 heures</strong> à compter de la réception de ladite demande.</p>
-          <p className="mt-1 text-amber-700 dark:text-amber-400 font-medium">⚠ Passé ce délai, le Receveur des Impôts est <strong>frappé de forclusion</strong> : il ne peut plus s'opposer à la demande.</p>
+          <p className="mt-1 text-amber-700 font-medium">⚠ Passé ce délai, le Receveur des Impôts est <strong>frappé de forclusion</strong> : il ne peut plus s'opposer à la demande.</p>
           <Ref>Art. 72 al. 3 et 4, Loi n° 004/2003 mod. Art. 43, LF 2025 : n° 24/011</Ref>
         </ArticleBox>
 
@@ -693,7 +693,7 @@ function TitreIII() {
 function TitreIV() {
   return (
     <div>
-      <SectionHeader icon={AlertTriangle} label="Titre IV : Pénalités Fiscales (Art. 83-103)" color="bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-300" />
+      <SectionHeader icon={AlertTriangle} label="Titre IV : Pénalités Fiscales (Art. 83-103)" color="bg-red-50 text-red-800" />
 
       <ArticleBox num="83-84" titre="Nature et définitions des pénalités">
         <p>Les pénalités fiscales comprennent (Art. 83) :</p>
@@ -710,7 +710,7 @@ function TitreIV() {
 
       <div className="overflow-x-auto rounded-lg border border-border/60 mb-3">
         <table className="w-full text-xs">
-          <thead className="bg-red-50 dark:bg-red-950/30">
+          <thead className="bg-red-50">
             <tr>
               <th className="text-left px-3 py-2 font-semibold">Type de pénalité</th>
               <th className="text-left px-3 py-2 font-semibold">Taux / Montant</th>
@@ -721,59 +721,59 @@ function TitreIV() {
           <tbody className="divide-y divide-border/40">
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Taxation d'office (absence de déclaration)</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">50%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">50%</td>
               <td className="px-3 py-2">Sur le montant de l'impôt dû</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Récidive (absence de déclaration)</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">100%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">100%</td>
               <td className="px-3 py-2">Sur le montant de l'impôt dû</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
-            <tr className="hover:bg-muted/20 bg-amber-50/40 dark:bg-amber-950/10">
+            <tr className="hover:bg-muted/20 bg-amber-50/40">
               <td className="px-3 py-2 font-medium">Régularisation après mise en demeure (Art. 5)</td>
-              <td className="px-3 py-2 text-amber-700 dark:text-amber-400 font-bold">25%</td>
+              <td className="px-3 py-2 text-amber-700 font-bold">25%</td>
               <td className="px-3 py-2">Si régularisation dans le délai de 5 jours (Art. 5)</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Autres cas de taxation d'office</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">25%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">25%</td>
               <td className="px-3 py-2">Sur l'impôt dû</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Récidive (autres cas taxation d'office)</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">50%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">50%</td>
               <td className="px-3 py-2">Sur l'impôt dû</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Redressement contradictoire</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">20%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">20%</td>
               <td className="px-3 py-2">Sur le montant de l'impôt éludé</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Récidive (redressement)</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">40%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">40%</td>
               <td className="px-3 py-2">Sur le montant de l'impôt éludé</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Défaut de paiement d'acompte provisionnel</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">50%</td>
+              <td className="px-3 py-2 text-red-700 font-bold">50%</td>
               <td className="px-3 py-2">Sur le montant de l'acompte dû</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 90</td>
             </tr>
-            <tr className="hover:bg-muted/20 bg-red-50/40 dark:bg-red-950/10">
+            <tr className="hover:bg-muted/20 bg-red-50/40">
               <td className="px-3 py-2 font-medium">Retard de paiement (intérêt moratoire)</td>
-              <td className="px-3 py-2 text-red-700 dark:text-red-400 font-bold">10% par mois</td>
+              <td className="px-3 py-2 text-red-700 font-bold">10% par mois</td>
               <td className="px-3 py-2">Tout mois commencé compté intégralement</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 91</td>
             </tr>
-            <tr className="hover:bg-muted/20 bg-amber-50/40 dark:bg-amber-950/10">
+            <tr className="hover:bg-muted/20 bg-amber-50/40">
               <td className="px-3 py-2 font-medium">Astreinte (refus de renseigner l'Administration)</td>
               <td className="px-3 py-2 font-bold">
                 <span className="block">250 000 FC/jour (grandes entreprises)</span>
@@ -798,9 +798,9 @@ function TitreIV() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border/30">
-              <tr><td className="px-2 py-1.5">Grande entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700 dark:text-amber-400">250 000 FC</td></tr>
-              <tr><td className="px-2 py-1.5">Moyenne entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700 dark:text-amber-400">150 000 FC</td></tr>
-              <tr><td className="px-2 py-1.5">Petite entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700 dark:text-amber-400">100 000 FC</td></tr>
+              <tr><td className="px-2 py-1.5">Grande entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700">250 000 FC</td></tr>
+              <tr><td className="px-2 py-1.5">Moyenne entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700">150 000 FC</td></tr>
+              <tr><td className="px-2 py-1.5">Petite entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700">100 000 FC</td></tr>
             </tbody>
           </table>
         </div>
@@ -826,27 +826,27 @@ function TitreIV() {
             <tbody className="divide-y divide-border/30">
               <tr>
                 <td className="px-2 py-1.5">Déclaration d'un contribuable exonéré ou réalisant des opérations exonérées ; déclaration avec mention « Néant »</td>
-                <td className="px-2 py-1.5 font-bold text-amber-700 dark:text-amber-400">400 000 FC</td>
+                <td className="px-2 py-1.5 font-bold text-amber-700">400 000 FC</td>
                 <td className="px-2 py-1.5">Art. 93 bis al. 1</td>
               </tr>
               <tr>
                 <td className="px-2 py-1.5">Déclaration créditrice IS, en cas de régularisation après mise en demeure de déclarer</td>
-                <td className="px-2 py-1.5 font-bold text-amber-700 dark:text-amber-400">3 000 000 FC</td>
+                <td className="px-2 py-1.5 font-bold text-amber-700">3 000 000 FC</td>
                 <td className="px-2 py-1.5">Art. 93 bis al. 1</td>
               </tr>
-              <tr className="bg-red-50/40 dark:bg-red-950/10">
+              <tr className="bg-red-50/40">
                 <td className="px-2 py-1.5">Défaut de souscription ou souscription incomplète/inexacte de la <strong>déclaration pays par pays</strong> (Art. 24 quinquies)</td>
-                <td className="px-2 py-1.5 font-bold text-red-700 dark:text-red-400">150 000 000 FC</td>
+                <td className="px-2 py-1.5 font-bold text-red-700">150 000 000 FC</td>
                 <td className="px-2 py-1.5">Art. 93 bis al. 3</td>
               </tr>
-              <tr className="bg-orange-50/40 dark:bg-orange-950/10">
+              <tr className="bg-orange-50/40">
                 <td className="px-2 py-1.5">Défaut de réponse ou réponse incomplète à la mise en demeure Art. 24 bis (documentation prix de transfert), par exercice vérifié</td>
-                <td className="px-2 py-1.5 font-bold text-orange-700 dark:text-orange-400">2% des transactions manquantes<br/><span className="font-normal">minimum : 100 000 000 FC/exercice</span></td>
+                <td className="px-2 py-1.5 font-bold text-orange-700">2% des transactions manquantes<br/><span className="font-normal">minimum : 100 000 000 FC/exercice</span></td>
                 <td className="px-2 py-1.5">Art. 93 bis al. 4</td>
               </tr>
-              <tr className="bg-orange-50/40 dark:bg-orange-950/10">
+              <tr className="bg-orange-50/40">
                 <td className="px-2 py-1.5">Défaut de souscription ou souscription incomplète/inexacte de la <strong>déclaration annuelle des prix de transfert</strong> (Art. 24 ter)</td>
-                <td className="px-2 py-1.5 font-bold text-orange-700 dark:text-orange-400">100 000 000 FC</td>
+                <td className="px-2 py-1.5 font-bold text-orange-700">100 000 000 FC</td>
                 <td className="px-2 py-1.5">Art. 93 bis al. 5</td>
               </tr>
             </tbody>
@@ -907,7 +907,7 @@ function TitreIV() {
 function TitreV() {
   return (
     <div>
-      <SectionHeader icon={MessageSquare} label="Titre V : Réclamations et Recours (Art. 104-110)" color="bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-300" />
+      <SectionHeader icon={MessageSquare} label="Titre V : Réclamations et Recours (Art. 104-110)" color="bg-orange-50 text-orange-800" />
 
       <ArticleBox num="104" titre="Droit à réclamation contentieuse">
         <p>Les redevables ainsi que leurs mandataires peuvent <strong>se pourvoir par écrit en réclamation contre le montant de leur imposition auprès du Directeur des Impôts compétent, sans justifier du paiement de l'impôt</strong>.</p>
@@ -977,8 +977,8 @@ function TitreV() {
       </ArticleBox>
 
       {/* Schéma des voies de recours */}
-      <div className="mt-4 p-3 border border-orange-200 dark:border-orange-800/40 rounded-lg bg-orange-50/50 dark:bg-orange-950/20">
-        <p className="text-xs font-semibold text-orange-800 dark:text-orange-300 mb-2">Schéma des voies de recours (LF 2025 + LF 2026)</p>
+      <div className="mt-4 p-3 border border-orange-200 rounded-lg bg-orange-50/50">
+        <p className="text-xs font-semibold text-orange-800 mb-2">Schéma des voies de recours (LF 2025 + LF 2026)</p>
         <div className="flex flex-col gap-1.5 text-xs">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-orange-400 shrink-0" />
@@ -1056,9 +1056,9 @@ function SimulateurPenalites() {
 
   return (
     <div>
-      <SectionHeader icon={Calculator} label="Simulateur de Pénalités Fiscales" color="bg-rose-50 dark:bg-rose-950/30 text-rose-800 dark:text-rose-300" />
+      <SectionHeader icon={Calculator} label="Simulateur de Pénalités Fiscales" color="bg-rose-50 text-rose-800" />
 
-      <div className="p-3 bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-800/40 rounded-lg mb-3">
+      <div className="p-3 bg-rose-50/50 border border-rose-200 rounded-lg mb-3">
         <p className="text-xs text-muted-foreground italic">
           Fondé exclusivement sur la Loi n° 004/2003 du 13 mars 2003 portant réforme des procédures fiscales (Art. 83-100).
           Taux d'intérêt moratoire : 10% par mois de retard (Art. 91). Tout mois commencé est compté intégralement.
@@ -1121,9 +1121,9 @@ function SimulateurPenalites() {
       </button>
 
       {result && (
-        <div className="border border-rose-200 dark:border-rose-800/40 rounded-lg overflow-hidden">
-          <div className="bg-rose-50 dark:bg-rose-950/30 px-3 py-2 border-b border-rose-200 dark:border-rose-800/40">
-            <p className="text-sm font-semibold text-rose-800 dark:text-rose-300">Résultat du calcul</p>
+        <div className="border border-rose-200 rounded-lg overflow-hidden">
+          <div className="bg-rose-50 px-3 py-2 border-b border-rose-200">
+            <p className="text-sm font-semibold text-rose-800">Résultat du calcul</p>
           </div>
           <div className="p-3 space-y-2">
             {result.details.map((d, i) => (
@@ -1136,15 +1136,15 @@ function SimulateurPenalites() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Pénalité d'assiette</span>
-                <span className="font-medium text-amber-700 dark:text-amber-400">{formatFC(result.penaliteAssiette)}</span>
+                <span className="font-medium text-amber-700">{formatFC(result.penaliteAssiette)}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Intérêts moratoires (10%/mois)</span>
-                <span className="font-medium text-red-600 dark:text-red-400">{formatFC(result.interetMoratoire)}</span>
+                <span className="font-medium text-red-600">{formatFC(result.interetMoratoire)}</span>
               </div>
               <div className="flex justify-between text-sm font-bold border-t border-border/60 pt-1.5 mt-1">
                 <span>TOTAL À PAYER</span>
-                <span className="text-red-700 dark:text-red-400">{formatFC(result.total)}</span>
+                <span className="text-red-700">{formatFC(result.total)}</span>
               </div>
             </div>
             <p className="text-sm text-muted-foreground mt-1 italic">
@@ -1162,7 +1162,7 @@ function SimulateurPenalites() {
 function TitreVI() {
   return (
     <div>
-      <SectionHeader icon={Scale} label="Titre VI : Prélèvements spéciaux (Art. 149 bis – 149 quinquies)" color="bg-teal-50 dark:bg-teal-950/30 text-teal-800 dark:text-teal-300" />
+      <SectionHeader icon={Scale} label="Titre VI : Prélèvements spéciaux (Art. 149 bis – 149 quinquies)" color="bg-teal-50 text-teal-800" />
 
       <div className="mb-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
@@ -1193,8 +1193,8 @@ function TitreVI() {
         </ArticleBox>
 
         {/* Déclaration — Art. 22 quarter / Point L Titre I LF 2026 */}
-        <div className="mt-3 p-3 bg-teal-50/50 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-800/40 rounded-lg">
-          <p className="text-xs font-semibold text-teal-800 dark:text-teal-300 mb-1">Déclaration (Art. 22 quarter)</p>
+        <div className="mt-3 p-3 bg-teal-50/50 border border-teal-200 rounded-lg">
+          <p className="text-xs font-semibold text-teal-800 mb-1">Déclaration (Art. 22 quarter)</p>
           <p className="text-xs text-foreground">Les sociétés établies en RDC qui paient des revenus des capitaux mobiliers à des non-résidents souscrivent une déclaration <strong>au plus tard le 15 du mois suivant le paiement</strong>, accompagnée du paiement, auprès du Service gestionnaire compétent de l'Administration des Impôts.</p>
           <p className="text-xs text-muted-foreground mt-1">Réf : Art. 22 quarter inséré par LF 2026 n° 25/060 Art. 39 ; Point L inséré par Art. 38 LF 2026</p>
         </div>
@@ -1220,9 +1220,9 @@ export default function ProceduresFiscales() {
   return (
     <div className="space-y-4">
       {/* En-tête */}
-      <div className="p-3 bg-slate-50 dark:bg-slate-950/30 border border-slate-200 dark:border-slate-800/40 rounded-lg">
+      <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
         <div className="flex items-start gap-2">
-          <BookOpen className="h-4 w-4 mt-0.5 text-slate-600 dark:text-slate-400 shrink-0" />
+          <BookOpen className="h-4 w-4 mt-0.5 text-slate-600 shrink-0" />
           <div>
             <p className="text-sm font-bold text-foreground">
               Loi n° 004/2003 du 13 mars 2003 portant réforme des procédures fiscales
@@ -1249,7 +1249,7 @@ export default function ProceduresFiscales() {
               className={cn(
                 'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all border',
                 isActif
-                  ? 'bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 border-slate-800 dark:border-slate-200'
+                  ? 'bg-slate-800 text-white border-slate-800'
                   : 'bg-background text-muted-foreground border-border/60 hover:border-slate-400 hover:text-foreground'
               )}
             >

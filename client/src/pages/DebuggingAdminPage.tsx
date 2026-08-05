@@ -92,15 +92,15 @@ export default function DebuggingAdminPage() {
           <p className="text-2xl font-bold text-primary">{loading ? '…' : tousEtudiants.length}</p>
           <p className="text-xs text-muted-foreground mt-1">Total Firestore</p>
         </div>
-        <div className="rounded-xl border bg-green-50 dark:bg-green-950/20 p-4 text-center">
+        <div className="rounded-xl border bg-green-50 p-4 text-center">
           <p className="text-2xl font-bold text-green-600">{loading ? '…' : mesEtudiants.length}</p>
           <p className="text-xs text-muted-foreground mt-1">Mes étudiants</p>
         </div>
-        <div className="rounded-xl border bg-red-50 dark:bg-red-950/20 p-4 text-center">
+        <div className="rounded-xl border bg-red-50 p-4 text-center">
           <p className="text-2xl font-bold text-red-500">{loading ? '…' : etudiantsAutresAdmins.length}</p>
           <p className="text-xs text-muted-foreground mt-1">Autres admins</p>
         </div>
-        <div className="rounded-xl border bg-amber-50 dark:bg-amber-950/20 p-4 text-center">
+        <div className="rounded-xl border bg-amber-50 p-4 text-center">
           <p className="text-2xl font-bold text-amber-500">{loading ? '…' : etudiantsSansCreatedBy.length}</p>
           <p className="text-xs text-muted-foreground mt-1">Sans createdBy</p>
         </div>
@@ -109,8 +109,8 @@ export default function DebuggingAdminPage() {
       {/* Statut isolation */}
       <div className={`rounded-xl border p-4 flex items-start gap-3 ${
         etudiantsAutresAdmins.length === 0
-          ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800'
-          : 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800'
+          ? 'bg-green-50 border-green-200'
+          : 'bg-amber-50 border-amber-200'
       }`}>
         {etudiantsAutresAdmins.length === 0
           ? <ShieldCheck className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
@@ -131,13 +131,13 @@ export default function DebuggingAdminPage() {
       </div>
 
       {/* Note sur les règles Firestore */}
-      <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/20 p-4 flex items-start gap-3">
+      <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 flex items-start gap-3">
         <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
-        <div className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+        <div className="text-sm text-blue-800 space-y-1">
           <p className="font-semibold">Règles de sécurité Firestore — État</p>
           <p>Les règles côté serveur Firebase Firestore sont configurées dans la <strong>Console Firebase</strong> (campus-ohada project).</p>
           <p>La règle recommandée pour isoler les étudiants par admin est :</p>
-          <pre className="bg-black/10 dark:bg-white/10 rounded p-2 text-xs font-mono mt-2 overflow-x-auto whitespace-pre-wrap">
+          <pre className="bg-black/10 rounded p-2 text-xs font-mono mt-2 overflow-x-auto whitespace-pre-wrap">
 {`match /users/{userId} {
   allow read: if request.auth != null && (
     // L'utilisateur lit son propre profil
@@ -213,7 +213,7 @@ export default function DebuggingAdminPage() {
           <p className="text-xs text-muted-foreground">Ces étudiants n'ont pas de champ <code>createdBy</code>. Ils ne sont visibles que par l'admin principal (manasse.tandu).</p>
           <div className="space-y-2">
             {etudiantsSansCreatedBy.map(e => (
-              <div key={e.id} className="rounded-lg border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/20 p-3">
+              <div key={e.id} className="rounded-lg border border-amber-200 bg-amber-50 p-3">
                 <p className="font-semibold text-sm">{e.prenom} {e.nom} <span className="font-mono text-xs text-muted-foreground">@{e.username}</span></p>
                 <p className="text-xs text-muted-foreground">ID : {e.id}</p>
               </div>
@@ -231,7 +231,7 @@ export default function DebuggingAdminPage() {
           </h2>
           <div className="space-y-2">
             {anomalies.map(e => (
-              <div key={e.id} className="rounded-lg border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/20 p-3">
+              <div key={e.id} className="rounded-lg border border-red-200 bg-red-50 p-3">
                 <p className="font-semibold text-sm">{e.prenom} {e.nom} <span className="font-mono text-xs">@{e.username}</span></p>
                 <p className="text-xs text-muted-foreground">
                   faculteId : {(e as any).faculteId || <span className="text-destructive">manquant</span>} |{' '}

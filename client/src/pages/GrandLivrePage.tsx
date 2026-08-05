@@ -194,7 +194,7 @@ export default function GrandLivrePage() {
                   <span className="flex-1 text-sm font-medium text-foreground truncate">{compte.intitule}</span>
                   <Badge
                     variant={isDebiteur ? "default" : "destructive"}
-                    className={`text-xs ml-2 shrink-0 ${isDebiteur ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-red-200'}`}
+                    className={`text-xs ml-2 shrink-0 ${isDebiteur ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200'}`}
                   >
                     {isDebiteur ? 'SD' : 'SC'} {formatMontant(solde)}
                   </Badge>
@@ -218,12 +218,12 @@ export default function GrandLivrePage() {
                             <tr key={l.id} className="border-b border-border/30 last:border-0">
                               <td className="py-1 px-2 font-mono">{l.date}</td>
                               <td className="py-1 px-2">{l.libelle}</td>
-                              <td className="py-1 px-2 text-right text-green-700 dark:text-green-400">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
-                              <td className="py-1 px-2 text-right text-red-700 dark:text-red-400">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
+                              <td className="py-1 px-2 text-right text-green-700">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
+                              <td className="py-1 px-2 text-right text-red-700">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
                             </tr>
                           ))}
                           {/* Solde line */}
-                          <tr className={`font-medium border-t border-border ${isDebiteur ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
+                          <tr className={`font-medium border-t border-border ${isDebiteur ? 'text-green-700' : 'text-red-700'}`}>
                             <td className="py-1.5 px-2 font-mono italic text-muted-foreground">—</td>
                             <td className="py-1.5 px-2 italic">
                               {isDebiteur ? 'Solde débiteur' : 'Solde créditeur'}
@@ -239,8 +239,8 @@ export default function GrandLivrePage() {
                           {/* Total line */}
                           <tr className="font-bold bg-muted/30 border-t-2 border-border">
                             <td colSpan={2} className="py-1.5 px-2 text-right text-muted-foreground text-xs">TOTAL</td>
-                            <td className="py-1.5 px-2 text-right text-green-700 dark:text-green-400">{formatMontant(displayTotalDebit)}</td>
-                            <td className="py-1.5 px-2 text-right text-red-700 dark:text-red-400">{formatMontant(displayTotalCredit)}</td>
+                            <td className="py-1.5 px-2 text-right text-green-700">{formatMontant(displayTotalDebit)}</td>
+                            <td className="py-1.5 px-2 text-right text-red-700">{formatMontant(displayTotalCredit)}</td>
                           </tr>
                         </tbody>
                       </table>

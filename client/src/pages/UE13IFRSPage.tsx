@@ -15,7 +15,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-1',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
+    couleur: 'bg-sky-50 text-sky-700',
     accent: 'border-l-sky-500',
   },
   {
@@ -27,7 +27,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-2',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300',
+    couleur: 'bg-cyan-50 text-cyan-700',
     accent: 'border-l-cyan-500',
   },
   {
@@ -39,7 +39,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-3',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    couleur: 'bg-blue-50 text-blue-700',
     accent: 'border-l-blue-500',
   },
   {
@@ -51,7 +51,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-4',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
+    couleur: 'bg-indigo-50 text-indigo-700',
     accent: 'border-l-indigo-500',
   },
   {
@@ -63,7 +63,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-5',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
+    couleur: 'bg-violet-50 text-violet-700',
     accent: 'border-l-violet-500',
   },
   {
@@ -75,7 +75,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-6',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+    couleur: 'bg-purple-50 text-purple-700',
     accent: 'border-l-purple-500',
   },
   {
@@ -87,7 +87,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-7',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-fuchsia-50 text-fuchsia-700 dark:bg-fuchsia-900/30 dark:text-fuchsia-300',
+    couleur: 'bg-fuchsia-50 text-fuchsia-700',
     accent: 'border-l-fuchsia-500',
   },
   {
@@ -99,7 +99,7 @@ const CHAPITRES = [
     route: '/ue13/chapitre-8',
     lecons: 6,
     exercices: 12,
-    couleur: 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
+    couleur: 'bg-rose-50 text-rose-700',
     accent: 'border-l-rose-500',
   },
 ]

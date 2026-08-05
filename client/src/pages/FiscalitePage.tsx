@@ -136,11 +136,11 @@ function SectionSaisieModal({
   const [showDropdown, setShowDropdown] = useState(false)
   const [recherche, setRecherche] = useState('')
   const styles: Record<string, string> = {
-    blue:   'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300',
-    slate:  'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300',
-    purple: 'border-purple-200 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300',
-    green:  'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300',
-    orange: 'border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300',
+    blue:   'border-blue-200 bg-blue-50 text-blue-700',
+    slate:  'border-slate-200 bg-slate-50 text-slate-700',
+    purple: 'border-purple-200 bg-purple-50 text-purple-700',
+    green:  'border-green-200 bg-green-50 text-green-700',
+    orange: 'border-orange-200 bg-orange-50 text-orange-700',
   }
   const filtres = (catalogue || []).filter(e =>
     e.label.toLowerCase().includes(recherche.toLowerCase()) || e.code.includes(recherche)
@@ -253,7 +253,7 @@ function LigneR({ label, val, bold, neg, accent, note, indent, signe, tooltip }:
         {signe && (
           <span className={cn(
             'text-xs font-bold shrink-0 w-3 text-center',
-            signe === '−' || neg ? 'text-red-500 dark:text-red-400' :
+            signe === '−' || neg ? 'text-red-500' :
             signe === '=' || accent ? 'text-primary' :
             'text-muted-foreground'
           )}>{signe}</span>
@@ -264,7 +264,7 @@ function LigneR({ label, val, bold, neg, accent, note, indent, signe, tooltip }:
         </span>
       </div>
       <span className={cn('text-xs font-mono shrink-0', bold ? 'font-bold' : '',
-        accent ? 'text-primary font-bold' : neg ? 'text-red-600 dark:text-red-400' : 'text-foreground')}>
+        accent ? 'text-primary font-bold' : neg ? 'text-red-600' : 'text-foreground')}>
         {val}
       </span>
     </div>
@@ -277,14 +277,14 @@ function Separateur() {
 
 function BoxFinal({ label, sublabel, val, credit, couleur }: { label: string; sublabel?: string; val: string; credit?: boolean; couleur?: string }) {
   const bg = credit
-    ? 'bg-amber-50 dark:bg-amber-900/15 border-amber-200 dark:border-amber-700'
+    ? 'bg-amber-50 border-amber-200'
     : couleur === 'red'
-      ? 'bg-red-50 dark:bg-red-900/15 border-red-200 dark:border-red-700'
+      ? 'bg-red-50 border-red-200'
       : 'bg-primary/8 border-primary/25'
   const textColor = credit
-    ? 'text-amber-600 dark:text-amber-400'
+    ? 'text-amber-600'
     : couleur === 'red'
-      ? 'text-red-600 dark:text-red-400'
+      ? 'text-red-600'
       : 'text-primary'
   return (
     <div className={cn('rounded-xl p-3.5 text-center border shadow-sm transition-all hover:shadow-md', bg)}>
@@ -316,13 +316,13 @@ function BtnReset({ onClick }: { onClick: () => void }) {
 
 function ResultatWrap({ titre, children }: { titre: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-green-200 dark:border-green-800 bg-gradient-to-b from-green-50 to-white dark:from-green-900/15 dark:to-background overflow-hidden animate-slideUp shadow-sm" style={{animationDuration:"0.4s",animationTimingFunction:"cubic-bezier(0.22,1,0.36,1)"}}>
+    <div className="rounded-2xl border border-green-200 bg-gradient-to-b from-green-50 to-white overflow-hidden animate-slideUp shadow-sm" style={{animationDuration:"0.4s",animationTimingFunction:"cubic-bezier(0.22,1,0.36,1)"}}>
       {/* Header */}
-      <div className="flex items-center gap-2.5 px-4 py-3 bg-green-500/10 dark:bg-green-900/30 border-b border-green-200 dark:border-green-800">
+      <div className="flex items-center gap-2.5 px-4 py-3 bg-green-500/10 border-b border-green-200">
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-500 shrink-0">
           <CheckCircle2 className="h-4 w-4 text-white" />
         </div>
-        <p className="font-bold text-sm text-green-800 dark:text-green-300">{titre}</p>
+        <p className="font-bold text-sm text-green-800">{titre}</p>
       </div>
       <div className="p-4 space-y-4">
         {children}
@@ -476,28 +476,28 @@ function Cat1Salaires() {
   return (
     <div className="space-y-4">
       {/* Bandeau légal Cat. 1 */}
-      <div className="rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-3 space-y-2">
-        <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+      <div className="rounded-xl border border-blue-200 bg-blue-50 p-3 space-y-2">
+        <p className="text-xs text-blue-700 leading-relaxed">
           <strong>Revenus salariaux et assimilés</strong> : tout revenu perçu en contrepartie d'un travail subordonné.
           Imposition mensuelle via retenue à la source par l'employeur (Art. 119, Loi 23/053).
         </p>
-        <div className="rounded-lg border border-blue-300 dark:border-blue-600 bg-white/60 dark:bg-blue-950/40 p-2.5">
-          <p className="text-xs font-semibold text-blue-800 dark:text-blue-200 mb-1.5">Qui est concerné par cette catégorie ?</p>
+        <div className="rounded-lg border border-blue-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-blue-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-              <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ IRPP Cat. 1 : Salariés et assimilés <span className="font-normal opacity-70">(Art. 58, Loi n°23/053)</span></p>
-              <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 1 : Salariés et assimilés <span className="font-normal opacity-70">(Art. 58, Loi n°23/053)</span></p>
+              <p className="text-xs text-green-700 leading-relaxed">
                 Toute personne liée par un <strong>contrat de travail</strong> ou lien de subordination. Exemples : employé de bureau, ouvrier, directeur salarié, agent de l'État, personnel expatrié.
               </p>
             </div>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ Hors Cat. 1 : Travailleurs indépendants</p>
-              <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Hors Cat. 1 : Travailleurs indépendants</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
                 Un indépendant sans lien de subordination relève de la <strong>Cat. 2 (BIC)</strong> s'il exerce une activité commerciale, ou d'une autre catégorie selon la nature de son revenu.
               </p>
             </div>
           </div>
-          <p className="text-xs text-blue-600 dark:text-blue-400 mt-1.5 italic">L'IRPP est retenu chaque mois directement par l'employeur et versé au Trésor public (Art. 119, Loi 23/053).</p>
+          <p className="text-xs text-blue-600 mt-1.5 italic">L'IRPP est retenu chaque mois directement par l'employeur et versé au Trésor public (Art. 119, Loi 23/053).</p>
         </div>
       </div>
 
@@ -617,8 +617,8 @@ function Cat1Salaires() {
         </>
       ) : (
         <>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/10 p-3">
-            <div className="flex items-start gap-2 text-xs text-amber-700 dark:text-amber-300">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <div className="flex items-start gap-2 text-xs text-amber-700">
               <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" />
               <span>
                 <strong>Deux calculs distincts (Art. 118 + Art. 145-148 Loi n°23/053) :</strong><br/>
@@ -728,8 +728,8 @@ function Cat1Salaires() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/10 p-3">
-            <p className="text-xs text-blue-700 dark:text-blue-300"><span className="font-semibold">IERE : taux unique 25%</span> — Art. 148 Loi n°23/053.</p>
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
+            <p className="text-xs text-blue-700"><span className="font-semibold">IERE : taux unique 25%</span> — Art. 148 Loi n°23/053.</p>
           </div>
         </>
       )}
@@ -771,7 +771,7 @@ function Cat1Salaires() {
                 <LigneR label="IRPP brut=" val={formatFC(res.iprBrut)} />
                 {res.charge > 0 && (
                   res.reductionInapplicable ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300">
+                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
                       <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                       <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
                     </div>
@@ -785,19 +785,19 @@ function Cat1Salaires() {
                 )}
                 <LigneR signe="=" label="IRPP net dû" val={formatFC(res.iprNet)} bold accent />
                 {/* Formule textuelle IRPP */}
-                <div className="mt-2 rounded-lg border border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 px-3 py-2">
-                  <p className="text-xs font-bold text-green-800 dark:text-green-200 text-center">
+                <div className="mt-2 rounded-lg border border-green-300 bg-green-50 px-3 py-2">
+                  <p className="text-xs font-bold text-green-800 text-center">
                     IRPP = min(IRPP max, IRPP net)
                   </p>
-                  <p className="text-xs text-green-700 dark:text-green-300 text-center mt-0.5">
+                  <p className="text-xs text-green-700 text-center mt-0.5">
                     IRPP max = 30% du revenu imposable (Art. 118) : IRPP net = calcul barème progressif
                   </p>
                 </div>
                 {/* Plafond Art. 118 : toujours visible */}
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs ${
                   res.plafonne
-                    ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300'
+                    ? 'bg-amber-50 border border-amber-300 text-amber-700'
+                    : 'bg-green-50 border border-green-300 text-green-700'
                 }`}>
                   <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                   <span>
@@ -887,7 +887,7 @@ function Cat1Salaires() {
                 <LigneR label="IRPP brut=" val={formatFC(res.iprBrut)} />
                 {res.chargeE > 0 && (
                   res.reductionInapplicableE ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300">
+                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
                       <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                       <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
                     </div>
@@ -903,8 +903,8 @@ function Cat1Salaires() {
                 {/* Plafond Art. 118 : toujours visible */}
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs ${
                   res.plafonne
-                    ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300'
+                    ? 'bg-amber-50 border border-amber-300 text-amber-700'
+                    : 'bg-green-50 border border-green-300 text-green-700'
                 }`}>
                   <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                   <span>
@@ -917,8 +917,8 @@ function Cat1Salaires() {
               </EtapeResultat>
 
               <EtapeResultat numero={4} titre="IERE : Charge patronale (Art. 148 Loi 23/053)">
-                <div className="rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 p-3 space-y-1">
-                  <p className="text-xs font-semibold text-red-700 dark:text-red-300 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
+                <div className="rounded-lg bg-red-50 border border-red-200 p-3 space-y-1">
+                  <p className="text-xs font-semibold text-red-700 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
                   <LigneR signe="+" label="Base imposable (brut 662)" val={formatFC(res.brut662)} />
                   <LigneR signe="×" label={`Taux IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
                   <Separateur />
@@ -1085,28 +1085,28 @@ function Cat2BIC() {
   return (
     <div className="space-y-4">
       {/* Bandeau légal */}
-      <div className="rounded-xl border border-indigo-200 dark:border-indigo-700 bg-indigo-50 dark:bg-indigo-900/20 p-3 space-y-2">
-        <p className="text-xs text-indigo-700 dark:text-indigo-300 leading-relaxed">
+      <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-3 space-y-2">
+        <p className="text-xs text-indigo-700 leading-relaxed">
           <strong>Bénéfices industriels, commerciaux, immobiliers et artisanaux</strong> : activités exercées à titre individuel.
           Régime déterminé selon le chiffre d'affaires annuel (Art. 107-112, Loi 23/053).
         </p>
-        <div className="rounded-lg border border-indigo-300 dark:border-indigo-600 bg-white/60 dark:bg-indigo-950/40 p-2.5">
-          <p className="text-xs font-semibold text-indigo-800 dark:text-indigo-200 mb-1.5">Qui est concerné par cette catégorie ?</p>
+        <div className="rounded-lg border border-indigo-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-indigo-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-              <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ IRPP Cat. 2 : Exploitant individuel</p>
-              <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 2 : Exploitant individuel</p>
+              <p className="text-xs text-green-700 leading-relaxed">
                 Commerçant, artisan, prestataire exerçant <strong>en nom propre</strong>. L'entreprise et son propriétaire sont la même personne fiscale. Exemples : Jean vend des marchandises à son propre compte, Marie est couturière indépendante.
               </p>
             </div>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ IS : Personne morale (hors Cat. 2)</p>
-              <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ IS : Personne morale (hors Cat. 2)</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
                 Dès que Jean <strong>constitue une société</strong> (SARL, SA...), même seul, il sort de cette catégorie. L'entreprise devient une entité juridique distincte, soumise à l'Impôt sur les Sociétés (IS).
               </p>
             </div>
           </div>
-          <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-1.5 italic">Une même activité ne peut être soumise à la fois à l'IRPP et à l'IS (Loi 23/053).</p>
+          <p className="text-xs text-indigo-600 mt-1.5 italic">Une même activité ne peut être soumise à la fois à l'IRPP et à l'IS (Loi 23/053).</p>
         </div>
       </div>
 
@@ -1287,9 +1287,9 @@ function Cat2BIC() {
           <div className="space-y-2">
             {/* Séparateur produits */}
             <div className="flex items-center gap-2 mb-1">
-              <div className="flex-1 h-px bg-indigo-200 dark:bg-indigo-700" />
-              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Produits imposables</span>
-              <div className="flex-1 h-px bg-indigo-200 dark:bg-indigo-700" />
+              <div className="flex-1 h-px bg-indigo-200" />
+              <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">Produits imposables</span>
+              <div className="flex-1 h-px bg-indigo-200" />
             </div>
             <div className="flex items-center gap-1">
               <p className="text-xs font-semibold text-foreground">Produits imposables</p>
@@ -1323,7 +1323,7 @@ function Cat2BIC() {
               <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2">
                 <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
                 {[
-                  { cat: 'Produits imposables : Art. 14, Loi 23/053', color: 'text-indigo-600 dark:text-indigo-400', items: [
+                  { cat: 'Produits imposables : Art. 14, Loi 23/053', color: 'text-indigo-600', items: [
                     "Ventes et recettes=",
                     "Produits financiers=",
                     "Revenus bruts des capitaux mobiliers inscrits à l'actif",
@@ -1361,8 +1361,8 @@ function Cat2BIC() {
                             className={cn(
                               'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
                               excluded
-                                ? 'border-red-200 text-red-400 bg-red-50 dark:bg-red-900/10 cursor-not-allowed opacity-60'
-                                : 'border-indigo-200 text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-800/30 cursor-pointer'
+                                ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
+                                : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
                             )}>
                             {excluded ? '✕ ' : '+ '}{item}
                           </button>
@@ -1379,9 +1379,9 @@ function Cat2BIC() {
           <div className="space-y-2">
             {/* ── Séparation charges ── */}
             <div className="flex items-center gap-2 my-3">
-              <div className="flex-1 h-px bg-rose-200 dark:bg-rose-700" />
-              <span className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Charges déductibles</span>
-              <div className="flex-1 h-px bg-rose-200 dark:bg-rose-700" />
+              <div className="flex-1 h-px bg-rose-200" />
+              <span className="text-xs font-bold text-rose-600 uppercase tracking-wider">Charges déductibles</span>
+              <div className="flex-1 h-px bg-rose-200" />
             </div>
             <div className="flex items-center gap-1">
               <p className="text-xs font-semibold text-foreground">Charges déductibles</p>
@@ -1415,7 +1415,7 @@ function Cat2BIC() {
               <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2">
                 <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
                 {[
-                  { cat: 'A. Charges de personnel et autres rémunérations : Art. 21-24', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'A. Charges de personnel et autres rémunérations : Art. 21-24', color: 'text-indigo-600', excluded: false, items: [
                     "Traitements, salaires et rémunérations du personnel=",
                     "Indemnités, allocations et avantages en nature du personnel=",
                     "Rémunérations des associés actifs pour emploi effectif dans l'entreprise",
@@ -1423,52 +1423,52 @@ function Cat2BIC() {
                     "Rémunérations exceptionnelles des administrateurs (assemblée générale)",
                     "Salaires, commissions et honoraires déclarés aux impôts correspondants=",
                   ]},
-                  { cat: 'B. Dépenses locatives : Art. 25', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'B. Dépenses locatives : Art. 25', color: 'text-indigo-600', excluded: false, items: [
                     "Loyer réellement payé des immeubles affectés à l'activité",
                     "Charges locatives des immeubles affectés à l'activité",
                     "Frais généraux d'entretien et éclairage des locaux professionnels=",
                   ]},
-                  { cat: "C. Frais de transport, d'assurance, de courtage, d'entretien et de commission : Art. 26", color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: "C. Frais de transport, d'assurance, de courtage, d'entretien et de commission : Art. 26", color: 'text-indigo-600', excluded: false, items: [
                     "Frais de transport=",
                     "Frais de courtage=",
                     "Commissions (justifiées : nom, domicile, date et montant du bénéficiaire)",
                     "Frais d'entretien et de réparation des biens immobiliers affectés à l'exploitation",
                     "Frais d'entretien et de réparation du matériel et objets mobiliers affectés à l'exploitation",
                   ]},
-                  { cat: "D. Primes d'assurance : Art. 27", color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: "D. Primes d'assurance : Art. 27", color: 'text-indigo-600', excluded: false, items: [
                     "Primes d'assurance couvrant un risque entraînant diminution de l'actif net de l'entreprise",
                   ]},
-                  { cat: 'E. Amortissements : Art. 28-38', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'E. Amortissements : Art. 28-38', color: 'text-indigo-600', excluded: false, items: [
                     "Amortissement linéaire des immobilisations à l'actif soumises à dépréciation",
                     "Amortissement dégressif des biens neufs éligibles (matériels industriels, manutention, sécurité, informatique, hôteliers)",
                     "Amortissement exceptionnel (60% la 1ère année) pour entreprises exportant ≥20% du CA=",
                     "Amortissement des biens en crédit-bail (Institution agréée BCC)",
                   ]},
-                  { cat: 'F. Charges financières : Art. 39-42', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'F. Charges financières : Art. 39-42', color: 'text-indigo-600', excluded: false, items: [
                     "Intérêts des capitaux empruntés à des tiers engagés dans l'exploitation",
                     "Charges, rentes et redevances analogues relatives à l'exploitation",
                     "Intérêts servis aux associés (dans la limite du taux BCC + 2 points)",
                   ]},
-                  { cat: 'G. Redevances : Art. 43', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'G. Redevances : Art. 43', color: 'text-indigo-600', excluded: false, items: [
                     "Redevances de concession de licences d'exploitation (limite : 3,5% du CA HT)",
                     "Redevances de brevets d'invention (limite : 3,5% du CA HT)",
                     "Redevances de marques de fabrique, procédés ou formules de fabrication (limite : 3,5% du CA HT)",
                     "Redevances pour droits analogues en cours de validité (limite : 3,5% du CA HT)",
                   ]},
-                  { cat: 'H. Libéralités, dons et subventions : Art. 44', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'H. Libéralités, dons et subventions : Art. 44', color: 'text-indigo-600', excluded: false, items: [
                     "Versements au Fonds Social de la RDC (justifiés, limite : 0,5% du CA)",
                     "Dons à des organismes de recherche en RDC (justifiés, limite : 0,5% du CA)",
                     "Dons à des œuvres d'utilité publique philanthropiques ou sociales en RDC (limite : 0,5% du CA)",
                     "Dons à des associations sportives en RDC (justifiés, limite : 0,5% du CA)",
                   ]},
-                  { cat: 'I. Impôts, droits et taxes : Art. 45', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'I. Impôts, droits et taxes : Art. 45', color: 'text-indigo-600', excluded: false, items: [
                     "Impôts, droits et taxes à charge de l'entreprise acquittés dans le délai (sauf IRPP lui-même)",
                   ]},
-                  { cat: 'J. Sommes versées à des personnes non résidentes : Art. 46-48', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'J. Sommes versées à des personnes non résidentes : Art. 46-48', color: 'text-indigo-600', excluded: false, items: [
                     "Sommes versées à une entité liée non résidente (service réel démontré, non disponible en RDC, montant normal)",
                     "Sommes versées à une entité non liée en pays à régime fiscal privilégié (réalité et montant normal prouvés)",
                   ]},
-                  { cat: 'K. Autres charges déductibles : Art. 49', color: 'text-indigo-600 dark:text-indigo-400', excluded: false, items: [
+                  { cat: 'K. Autres charges déductibles : Art. 49', color: 'text-indigo-600', excluded: false, items: [
                     "Cadeaux publicitaires justifiés par factures (limite : 2‰ du CA HT)",
                     "Frais de représentation justifiés par factures (limite : 60% de leur montant)",
                     "Charges professionnelles des bâtiments et terrains donnés en location par sociétés immobilières",
@@ -1478,7 +1478,7 @@ function Cat2BIC() {
                     "Frais de communication justifiés par factures (limite : 50% de leur montant)",
                     "Frais d'internet exclusivement professionnel (100% déductible)",
                   ]},
-                  { cat: '⚠ Dépenses mixtes pro/perso : Art. 89 al. 4', color: 'text-amber-500 dark:text-amber-400', excluded: false, items: [
+                  { cat: '⚠ Dépenses mixtes pro/perso : Art. 89 al. 4', color: 'text-amber-500', excluded: false, items: [
                     "Véhicule à usage mixte professionnel et personnel (50% admis à défaut de justificatif précis)",
                     "Logement servant partiellement de lieu d'activité (50% admis à défaut de justificatif précis)",
                   ]},
@@ -1508,10 +1508,10 @@ function Cat2BIC() {
                           className={cn(
                             'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
                             section.excluded
-                              ? 'border-red-200 text-red-400 bg-red-50 dark:bg-red-900/10 cursor-not-allowed opacity-60'
+                              ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
                               : section.color.includes('amber')
-                                ? 'border-amber-200 text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-900/20 hover:bg-amber-100 cursor-pointer'
-                                : 'border-indigo-200 text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-800/30 cursor-pointer'
+                                ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 cursor-pointer'
+                                : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
                           )}>
                           {section.excluded ? '✕ ' : '+ '}{item}
                         </button>
@@ -1574,7 +1574,7 @@ function Cat2BIC() {
                     disabled={!!res && res.beneficeNetArrondi > 43200000}
                     className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed=" : "bg-background")} />
                   {res && res.beneficeNetArrondi > 43200000
-                    ? <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
+                    ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
                     : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes : réduction inapplicable si revenu imposable &gt; 43 200 000 FC</p>
                   }
                 </div>
@@ -1667,7 +1667,7 @@ function Cat2BIC() {
                 <Separateur />
                 <LigneR signe="=" label="IRPP barème" val={formatFC(res.impotBareme)} bold />
                 {res.plafonne && res.beneficeNetArrondi > 0 && (
-                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
+                  <p className="text-xs text-amber-600 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
                 )}
                 {res.nbPC > 0 && (
                   <>
@@ -1676,7 +1676,7 @@ function Cat2BIC() {
                   </>
                 )}
                 {res.minimumApplique && (
-                  <p className="text-xs text-orange-600 dark:text-orange-400 mt-1 font-medium">Impôt minimum appliqué : 1% du CA = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
+                  <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% du CA = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
                 )}
               </EtapeResultat>
             </>
@@ -1822,40 +1822,40 @@ function Cat5Mobiliers() {
     <div className="space-y-4">
 
       {/* Encadré introduction */}
-      <div className="rounded-xl border border-teal-200 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/20 p-3 space-y-2">
-        <p className="text-xs text-teal-700 dark:text-teal-300 leading-relaxed">
+      <div className="rounded-xl border border-teal-200 bg-teal-50 p-3 space-y-2">
+        <p className="text-xs text-teal-700 leading-relaxed">
           <strong>Revenus de capitaux mobiliers</strong> : produits générés par la détention d'avoirs financiers
           (actions, obligations, dépôts, créances, bons de caisse) sans effort direct de travail.
           Base légale : Art. 72 à 81, Loi 23/053.
         </p>
-        <div className="rounded-lg border border-teal-300 dark:border-teal-600 bg-white/60 dark:bg-teal-950/40 p-2.5">
-          <p className="text-xs font-semibold text-teal-800 dark:text-teal-200 mb-1.5">Qui est concerné par cette catégorie ?</p>
+        <div className="rounded-lg border border-teal-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-teal-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
           <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
-            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-              <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ IRPP Cat. 5 : Revenus imposables</p>
-              <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 5 : Revenus imposables</p>
+              <p className="text-xs text-green-700 leading-relaxed">
                 Toute personne physique percevant des dividendes, intérêts (hors épargne/État), indemnités d'administrateur,
                 intérêts sur prêts privés, produits d'obligations ou de bons de caisse.
               </p>
             </div>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ Hors Cat. 5</p>
-              <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Hors Cat. 5</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
                 Redevances et droits d'auteur perçus à titre professionnel → <strong>Cat. 3 (BNC)</strong>.<br />
                 Intérêts inclus dans les recettes d'une activité commerciale ou agricole → <strong>Cat. 2 ou Cat. 4</strong> (Art. 78).
               </p>
             </div>
           </div>
-          <div className="mt-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 p-3">
-            <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-0.5">⚠ Exonérations (Art. 80)</p>
-            <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
+          <div className="mt-2 rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-bold text-amber-700 mb-0.5">⚠ Exonérations (Art. 80)</p>
+            <p className="text-xs text-amber-700 leading-relaxed">
               Sont exonérés d'IRPP : intérêts sur titres d'emprunt émis par l'État, les Provinces et les ETD —
               intérêts des comptes d'épargne classiques : intérêts des bons de caisse (sous conditions).
             </p>
           </div>
-          <div className="mt-2 rounded-lg bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-700 p-3">
-            <p className="text-xs font-bold text-teal-700 dark:text-teal-300 mb-0.5">Mécanisme : retenue à la source imputable</p>
-            <p className="text-xs text-teal-700 dark:text-teal-400 leading-relaxed">
+          <div className="mt-2 rounded-lg bg-teal-50 border border-teal-200 p-3">
+            <p className="text-xs font-bold text-teal-700 mb-0.5">Mécanisme : retenue à la source imputable</p>
+            <p className="text-xs text-teal-700 leading-relaxed">
               L'impôt est retenu directement par le débiteur (société distributrice, banque, emprunteur).
               Taux unique : <strong>20% sur le montant brut</strong> (Art. 120, Loi 23/053).
               Cette retenue est imputée sur l'IRPP global dû par le contribuable (Art. 121, Loi 23/053).
@@ -1877,14 +1877,14 @@ function Cat5Mobiliers() {
           />
         </div>
         <details className="group">
-          <summary className="cursor-pointer text-xs text-teal-600 dark:text-teal-400 font-medium hover:underline flex items-center gap-1 select-none list-none">
+          <summary className="cursor-pointer text-xs text-teal-600 font-medium hover:underline flex items-center gap-1 select-none list-none">
             <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des revenus mobiliers
           </summary>
           <div className="mt-2 space-y-1 pl-3">
             {TYPES_REVENUS.map((t, i) => (
               <div key={i} className="flex items-start gap-1.5">
                 <button onClick={() => addLigne(t)}
-                  className="flex-1 text-left text-xs text-foreground hover:text-teal-700 dark:hover:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 px-2 py-1.5 rounded transition-colors duration-200">
+                  className="flex-1 text-left text-xs text-foreground hover:text-teal-700 hover:bg-teal-50 px-2 py-1.5 rounded transition-colors duration-200">
                   + {t.label}
                 </button>
                 <InfoTooltip texte={t.texte} loi={t.loi} />
@@ -1896,7 +1896,7 @@ function Cat5Mobiliers() {
 
       {/* Lignes saisies */}
       {lignes.length > 0 && (
-        <div className="rounded-xl border border-teal-200 dark:border-teal-700 bg-teal-50/40 dark:bg-teal-900/10 p-3 space-y-2">
+        <div className="rounded-xl border border-teal-200 bg-teal-50/40 p-3 space-y-2">
           {lignes.map((l, i) => (
             <div key={i} className="flex flex-col sm:flex-row gap-2">
               <div className="flex-1 rounded-lg border border-border bg-muted/40 px-2.5 py-1.5 text-xs text-foreground/80 truncate">
@@ -2308,37 +2308,37 @@ function SimulateurIS() {
     <div className="space-y-4">
 
       {/* Encadré intro */}
-      <div className="rounded-xl border border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/20 p-3 space-y-2">
-        <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 space-y-2">
+        <p className="text-xs text-emerald-700 leading-relaxed">
           <strong>Impôt sur les Sociétés (IS)</strong> : impôt sur l'ensemble des bénéfices nets réalisés en RDC
           par les sociétés et personnes morales. Base légale : Art. 1, 3, 56, 57, Loi 23/053 du 30 novembre 2023.
         </p>
         <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
-          <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-            <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ Assujettis à l'IS (Art. 3)</p>
-            <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+          <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+            <p className="text-xs font-bold text-green-700 mb-0.5">✓ Assujettis à l'IS (Art. 3)</p>
+            <p className="text-xs text-green-700 leading-relaxed">
               SA, SARL, SAS (même unipersonnelles) : en raison de leur forme.<br />
               Sociétés coopératives, sociétés de fait, associations momentanées, sociétés lucratives : en raison de leur activité.<br />
               SNC, SCS, sociétés en participation : sur option irrévocable (Art. 3 al. 3).
             </p>
           </div>
-          <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-            <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ Exemptés / Exonérés (Art. 5-6)</p>
-            <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+          <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+            <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Exemptés / Exonérés (Art. 5-6)</p>
+            <p className="text-xs text-rose-700 leading-relaxed">
               État, Provinces, ETD, établissements publics sur subventions, ASBL, écoles techniques privées nationales, coopératives agricoles civiles.
             </p>
           </div>
         </div>
-        <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-600 p-3">
-          <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 mb-1">Schéma de calcul</p>
-          <div className="font-mono text-xs text-emerald-800 dark:text-emerald-200 space-y-0.5">
+        <div className="rounded-lg bg-emerald-50 border border-emerald-300 p-3">
+          <p className="text-xs font-bold text-emerald-700 mb-1">Schéma de calcul</p>
+          <div className="font-mono text-xs text-emerald-800 space-y-0.5">
             <p>Résultat comptable</p>
             <p>+ Réintégrations (charges non déductibles : Art. 50)</p>
             <p>− Déductions (produits non imposables : Art. 19, 54, 55)</p>
             <p>= Résultat fiscal brut</p>
             <p>− Déficits reportables N-1/N-2/N-3 (Art. 51)</p>
             <p>− Amortissements différés en période déficitaire (Art. 51 al. 3)</p>
-            <p className="border-t border-emerald-300 dark:border-emerald-600 pt-0.5 font-bold">= Résultat fiscal net imposable</p>
+            <p className="border-t border-emerald-300 pt-0.5 font-bold">= Résultat fiscal net imposable</p>
             <p>× 30% = IS théorique (Art. 56)</p>
             <p>CA × 1% = IS minimum (Art. 57)</p>
             <p className="font-bold">IS dû = max(IS théorique, IS minimum)</p>
@@ -2394,7 +2394,7 @@ function SimulateurIS() {
             className={cn(
               'mt-1 w-full flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition-all text-left',
               cessationActivite
-                ? 'bg-orange-100 border-orange-400 text-orange-800 dark:bg-orange-900/30 dark:border-orange-600 dark:text-orange-300'
+                ? 'bg-orange-100 border-orange-400 text-orange-800'
                 : 'border-border bg-card text-muted-foreground hover:bg-muted/30'
             )}
           >
@@ -2449,12 +2449,12 @@ function SimulateurIS() {
       />
 
       {/* Bloc 4 : Déficits reportables */}
-      <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3 space-y-2">
-        <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 flex items-center gap-1">
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 space-y-2">
+        <p className="text-xs font-semibold text-amber-800 flex items-center gap-1">
           (−) Déficits reportables
           <InfoTooltip texte="Les pertes constatées au cours d'un exercice sont déductibles du bénéfice imposable des exercices suivants, jusqu'au troisième exercice qui suit l'exercice déficitaire. Attention : un déficit non déclaré (absence de déclaration après mise en demeure) ne peut plus être déduit (Art. 51, Loi 23/053)." loi="Art. 51, Loi 23/053" />
         </p>
-        <p className="text-xs text-amber-700 dark:text-amber-400">Pertes des 3 exercices précédents imputables sur le résultat fiscal brut (Art. 51). Saisir 0 si aucun déficit.</p>
+        <p className="text-xs text-amber-700">Pertes des 3 exercices précédents imputables sur le résultat fiscal brut (Art. 51). Saisir 0 si aucun déficit.</p>
         <div className="grid grid-cols-3 gap-3">
           {[
             { label: `Déficit N-1 (${parseInt(exercice)-1})`, val: defN1, set: setDefN1 },
@@ -2472,12 +2472,12 @@ function SimulateurIS() {
       </div>
 
       {/* Bloc 5 : Amortissements différés */}
-      <div className="rounded-xl border border-purple-200 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/20 p-3 space-y-2">
-        <p className="text-xs font-semibold text-purple-800 dark:text-purple-300 flex items-center gap-1">
+      <div className="rounded-xl border border-purple-200 bg-purple-50 p-3 space-y-2">
+        <p className="text-xs font-semibold text-purple-800 flex items-center gap-1">
           (−) Amortissements différés
           <InfoTooltip texte="Les amortissements régulièrement comptabilisés mais non déduits pendant une période déficitaire sont réputés différés. Ils sont récupérables sur les exercices bénéficiaires suivants sans limitation de durée (à distinguer des déficits ordinaires limités à 3 ans). Condition : amortissements effectivement inscrits en comptabilité et figurant au tableau des amortissements (Art. 51 al. 3 et Art. 52 §3, Loi 23/053)." loi="Art. 51 al. 3, Loi 23/053" />
         </p>
-        <p className="text-xs text-purple-700 dark:text-purple-400">Amortissements comptabilisés en période déficitaire non encore récupérés (Art. 51 al. 3).</p>
+        <p className="text-xs text-purple-700">Amortissements comptabilisés en période déficitaire non encore récupérés (Art. 51 al. 3).</p>
         <input type="number" min={0} placeholder="0" value={amortDifferes}
           onChange={e => { setAmortDifferes(e.target.value); setRes(null) }}
           className={inputCls} />
@@ -2542,15 +2542,15 @@ function SimulateurIS() {
           </EtapeResultat>
 
           {res.isDeficit && res.rfNet === 0 && (
-            <div className="rounded-lg border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/10 p-3">
-              <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">Résultat fiscal déficitaire</p>
-              <p className="text-xs text-amber-600 dark:text-amber-400 mt-0.5">Le déficit ({formatFC(Math.abs(res.rfBrut))} FC) peut être reporté sur les 3 exercices suivants (Art. 51). Si le CA déclaré est positif, l'IS minimum (1% du CA) s'applique.</p>
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
+              <p className="text-xs font-semibold text-amber-700">Résultat fiscal déficitaire</p>
+              <p className="text-xs text-amber-600 mt-0.5">Le déficit ({formatFC(Math.abs(res.rfBrut))} FC) peut être reporté sur les 3 exercices suivants (Art. 51). Si le CA déclaré est positif, l'IS minimum (1% du CA) s'applique.</p>
             </div>
           )}
           {res.casMinimum === 'sansCA' && (
-            <div className="rounded-lg border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/10 p-3">
-              <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">CA = 0 : impôt forfaitaire appliqué (Art. 91 §2 CGI)</p>
-              <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">
+            <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
+              <p className="text-xs font-semibold text-blue-700">CA = 0 : impôt forfaitaire appliqué (Art. 91 §2 CGI)</p>
+              <p className="text-xs text-blue-600 mt-0.5">
                 L'entreprise est en activité mais n'a réalisé aucun chiffre d'affaires. L'Art. 91 §2 CGI (O.-L. 69/009) impose un forfait fixe :
                 Grande entreprise : <strong>2 500 000 FC</strong> / Moyenne : <strong>750 000 FC</strong> / Petite : <strong>30 000 FC</strong>.
                 Prorata : 1/12e par mois d'activité si début après janvier. | Art. 92bis : le Ministre peut réajuster ces montants par arrêté.
@@ -2558,9 +2558,9 @@ function SimulateurIS() {
             </div>
           )}
           {res.casMinimum === 'cessation' && (
-            <div className="rounded-lg border border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/10 p-3">
-              <p className="text-xs font-semibold text-orange-700 dark:text-orange-300">Cessation sans radiation RCCM : forfait applicable (Art. 91 §3 CGI)</p>
-              <p className="text-xs text-orange-600 dark:text-orange-400 mt-0.5">
+            <div className="rounded-lg border border-orange-200 bg-orange-50 p-3">
+              <p className="text-xs font-semibold text-orange-700">Cessation sans radiation RCCM : forfait applicable (Art. 91 §3 CGI)</p>
+              <p className="text-xs text-orange-600 mt-0.5">
                 L'entreprise a cessé ses activités sans s'être fait radier du RCCM (Art. 97 OHADA). L'Art. 91 §3 CGI impose un forfait :
                 Grande : <strong>500 000 FC</strong> / Moyenne : <strong>250 000 FC</strong> / Petite : <strong>30 000 FC</strong>.
                 Ce forfait ne fait pas obstacle au pouvoir de recherche et de recoupement de l'Administration fiscale. | Art. 92bis : montants réajustables par arrêté ministériel.
@@ -2573,10 +2573,10 @@ function SimulateurIS() {
       )}
 
       {/* Bloc Réévaluation : pliable */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+      <div className="rounded-xl border border-slate-200 overflow-hidden">
         <button
           onClick={() => setShowReeval(v => !v)}
-          className="w-full flex items-center justify-between px-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 text-xs font-semibold text-slate-700 dark:text-slate-300"
+          className="w-full flex items-center justify-between px-4 py-2.5 bg-slate-50 text-xs font-semibold text-slate-700"
         >
           <span className="flex items-center gap-2">
             Réévaluation de l'actif immobilisé (Art. 129)
@@ -2614,8 +2614,8 @@ function SimulateurIS() {
               </div>
             )}
             {res && reevalMode !== 'none' && res.pvReeval > 0 && (
-              <div className="rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/30 p-2.5 space-y-1">
-                <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">Prélèvement libératoire réévaluation</p>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-2.5 space-y-1">
+                <p className="text-xs font-semibold text-slate-700">Prélèvement libératoire réévaluation</p>
                 <LigneR label={`Plus-value réévaluée × ${reevalMode === 'libre' ? '20%' : '5%'}`} val={formatFC(res.prelevReeval)} bold accent />
                 <p className="text-xs text-muted-foreground">Ce prélèvement est libératoire : il ne s'ajoute pas à l'IS de l'exercice (Art. 129).</p>
               </div>
@@ -2625,10 +2625,10 @@ function SimulateurIS() {
       </div>
 
       {/* Bloc Acomptes provisionnels : pliable */}
-      <div className="rounded-xl border border-blue-200 dark:border-blue-700 overflow-hidden">
+      <div className="rounded-xl border border-blue-200 overflow-hidden">
         <button
           onClick={() => setShowAcomptes(v => !v)}
-          className="w-full flex items-center justify-between px-4 py-2.5 bg-blue-50 dark:bg-blue-900/20 text-xs font-semibold text-blue-700 dark:text-blue-300"
+          className="w-full flex items-center justify-between px-4 py-2.5 bg-blue-50 text-xs font-semibold text-blue-700"
         >
           <span className="flex items-center gap-2">
             Acomptes provisionnels (Art. 57 bis)
@@ -2645,7 +2645,7 @@ function SimulateurIS() {
                 className={inputCls} />
             </div>
             {res && res.isN1 > 0 && (
-              <div className="rounded-lg border border-blue-200 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20 p-2.5 space-y-1.5">
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-2.5 space-y-1.5">
                 <LigneR label={`1er acompte (avant 25 juillet ${exercice}) : IS N-1 × 30%`} val={formatFC(res.acompte1)} />
                 <LigneR label={`2e acompte (avant 25 sept. ${exercice}) : IS N-1 × 30%`} val={formatFC(res.acompte2)} />
                 <LigneR label={`3e acompte (avant 25 nov. ${exercice}) : IS N-1 × 20%`} val={formatFC(res.acompte3)} />
@@ -2659,7 +2659,7 @@ function SimulateurIS() {
                   neg={res.solde < 0}
                 />
                 {res.solde < 0 && (
-                  <p className="text-xs text-emerald-600 dark:text-emerald-400">Excédent d'acomptes : crédit imputable sur obligations fiscales futures (Art. 57 ter).</p>
+                  <p className="text-xs text-emerald-600">Excédent d'acomptes : crédit imputable sur obligations fiscales futures (Art. 57 ter).</p>
                 )}
               </div>
             )}
@@ -2668,10 +2668,10 @@ function SimulateurIS() {
       </div>
 
       {/* Bloc Prélèvements spéciaux : pliable */}
-      <div className="rounded-xl border border-rose-200 dark:border-rose-700 overflow-hidden">
+      <div className="rounded-xl border border-rose-200 overflow-hidden">
         <button
           onClick={() => setShowPrelevements(v => !v)}
-          className="w-full flex items-center justify-between px-4 py-2.5 bg-rose-50 dark:bg-rose-900/20 text-xs font-semibold text-rose-700 dark:text-rose-300"
+          className="w-full flex items-center justify-between px-4 py-2.5 bg-rose-50 text-xs font-semibold text-rose-700"
         >
           <span>Autres prélèvements (Titre V)</span>
           <span className="text-xs opacity-60">{showPrelevements ? '▲ Masquer' : '▼ Afficher'}</span>
@@ -2680,7 +2680,7 @@ function SimulateurIS() {
           <div className="p-3 space-y-4">
             {/* Prélèvement non-résidents */}
             <div className="space-y-1.5">
-              <p className="text-xs font-semibold text-rose-700 dark:text-rose-300 flex items-center gap-1">
+              <p className="text-xs font-semibold text-rose-700 flex items-center gap-1">
                 Prélèvement sur prestataires non-résidents (Art. 144)
                 <InfoTooltip texte="Prélèvement de 14% sur le montant brut des factures de prestations de services fournies par des personnes physiques ou morales non établies en RDC. Retenu à la source par le bénéficiaire des services. Déclaration au plus tard le 15 du mois suivant le paiement (Art. 22 bis, Loi procédures fiscales)." loi="Art. 144, Loi 23/053" />
               </p>
@@ -2694,7 +2694,7 @@ function SimulateurIS() {
             </div>
             {/* Prélèvement expatriés */}
             <div className="space-y-1.5">
-              <p className="text-xs font-semibold text-rose-700 dark:text-rose-300 flex items-center gap-1">
+              <p className="text-xs font-semibold text-rose-700 flex items-center gap-1">
                 Prélèvement exceptionnel personnel expatrié (Art. 148)
                 <InfoTooltip texte="Prélèvement de 25% sur le montant brut des rémunérations versées au personnel expatrié. Dû mensuellement, versé dans les 15 jours suivant le mois de paiement des rémunérations (Art. 19, Loi procédures fiscales). Ce prélèvement n'est pas déductible de l'IS (Art. 50 §2)." loi="Art. 148, Loi 23/053" />
               </p>
@@ -2707,8 +2707,8 @@ function SimulateurIS() {
               )}
             </div>
             {/* Art. 149 quater LF 2026 : Prélèvement capitaux mobiliers non-résidents */}
-            <div className="space-y-1.5 rounded-lg border border-rose-200 dark:border-rose-700 bg-rose-50/50 dark:bg-rose-900/10 p-2.5">
-              <p className="text-xs font-semibold text-rose-700 dark:text-rose-300 flex items-center gap-1">
+            <div className="space-y-1.5 rounded-lg border border-rose-200 bg-rose-50/50 p-2.5">
+              <p className="text-xs font-semibold text-rose-700 flex items-center gap-1">
                 Prélèvement capitaux mobiliers non-résidents 20% (Art. 149 quater)
                 <InfoTooltip
                   texte="Art. 149 quater introduit par la Loi de Finances 2026 (Loi n°25/060 du 29 déc. 2025) : prélèvement libératoire de 20% sur les revenus de capitaux mobiliers versés à des personnes physiques ou morales non résidentes en RDC (dividendes, intérêts, redevances). Retenu à la source par le débiteur résident. Versé au Trésor au plus tard le 15 du mois suivant. Ce prélèvement est libératoire et ne s'impute pas sur l'IS."
@@ -2751,8 +2751,8 @@ function SimulateurIRL() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-3">
-        <p className="text-xs text-blue-700 dark:text-blue-300">
+      <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
+        <p className="text-xs text-blue-700">
           Taux global 22% (province de Kinshasa) : 20% retenu par le locataire + 2% payé par le propriétaire au 1er février de l'année suivante.
         </p>
       </div>
@@ -2896,16 +2896,16 @@ const COLOR_MAP: Record<string, string> = {
 }
 
 const COLOR_LIGHT: Record<string, string> = {
-  blue:    'text-blue-600 dark:text-blue-400',
-  indigo:  'text-indigo-600 dark:text-indigo-400',
-  violet:  'text-violet-600 dark:text-violet-400',
-  emerald: 'text-emerald-600 dark:text-emerald-400',
-  amber:   'text-amber-600 dark:text-amber-400',
-  rose:    'text-rose-600 dark:text-rose-400',
-  lime:    'text-lime-600 dark:text-lime-400',
-  teal:    'text-teal-600 dark:text-teal-400',
-  orange:  'text-orange-600 dark:text-orange-400',
-  purple:  'text-purple-600 dark:text-purple-400',
+  blue:    'text-blue-600',
+  indigo:  'text-indigo-600',
+  violet:  'text-violet-600',
+  emerald: 'text-emerald-600',
+  amber:   'text-amber-600',
+  rose:    'text-rose-600',
+  lime:    'text-lime-600',
+  teal:    'text-teal-600',
+  orange:  'text-orange-600',
+  purple:  'text-purple-600',
 }
 
 // Placeholder pour catégories à venir
@@ -3023,23 +3023,23 @@ function Cat3BNC() {
     <div className="space-y-4">
 
       {/* Bandeau encadré Cat. 3 */}
-      <div className="rounded-xl border border-violet-200 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/20 p-3 space-y-2">
-        <p className="text-xs text-violet-700 dark:text-violet-300 leading-relaxed">
+      <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 space-y-2">
+        <p className="text-xs text-violet-700 leading-relaxed">
           <strong>Bénéfices des professions non commerciales et revenus assimilés</strong> : activités intellectuelles, libérales ou artistiques exercées en toute indépendance.
           Base imposable : recettes effectivement perçues − dépenses professionnelles (Art. 93, Loi 23/053).
         </p>
-        <div className="rounded-lg border border-violet-300 dark:border-violet-600 bg-white/60 dark:bg-violet-950/40 p-2.5">
-          <p className="text-xs font-semibold text-violet-800 dark:text-violet-200 mb-1.5">Qui est concerné par cette catégorie ?</p>
+        <div className="rounded-lg border border-violet-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-violet-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
           <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
-            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-              <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ IRPP Cat. 3 : Professions libérales indépendantes</p>
-              <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 3 : Professions libérales indépendantes</p>
+              <p className="text-xs text-green-700 leading-relaxed">
                 Médecins, avocats, experts-comptables, architectes, ingénieurs, notaires, artistes, consultants, formateurs, traducteurs, chercheurs... Toute activité lucrative autonome reposant sur une compétence personnelle (Art. 92).
               </p>
             </div>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ Hors Cat. 3</p>
-              <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Hors Cat. 3</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
                 Si l'activité implique la vente de biens ou la production matérielle :{' '}
                 <strong>Cat. 2 (BIC).</strong>
                 <br />
@@ -3048,20 +3048,20 @@ function Cat3BNC() {
               </p>
             </div>
           </div>
-          <p className="text-xs text-violet-600 dark:text-violet-400 mt-1.5 italic">Pas de seuil de CA : toute profession libérale indépendante à caractère lucratif est concernée, quel que soit le montant des recettes.</p>
+          <p className="text-xs text-violet-600 mt-1.5 italic">Pas de seuil de CA : toute profession libérale indépendante à caractère lucratif est concernée, quel que soit le montant des recettes.</p>
         </div>
       </div>
 
       {/* Recettes */}
       <div>
         <div className="flex items-center gap-1 mb-2">
-          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">Recettes professionnelles</p>
+          <p className="text-xs font-semibold text-indigo-700">Recettes professionnelles</p>
           <InfoTooltip
             texte="Tous les produits effectivement encaissés dans le cadre de l'activité : honoraires, provisions et acomptes encaissés, gains sur cessions d'actifs professionnels, indemnités de cessation ou de transfert de clientèle, remboursements de frais, intérêts de créances, subventions liées à l'activité."
             loi="Art. 94 et 96, Loi 23/053"
           />
         </div>
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-700 bg-indigo-50/40 dark:bg-indigo-900/10 p-3 space-y-2">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-3 space-y-2">
           {recettes.map((r, i) => (
             <div key={i} className="flex flex-col sm:flex-row gap-2">
               <div className="flex-1 rounded-lg border border-border bg-muted/40 px-2.5 py-1.5 text-xs text-foreground/80 truncate">
@@ -3080,13 +3080,13 @@ function Cat3BNC() {
             </div>
           ))}
           <details className="group">
-            <summary className="cursor-pointer text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
+            <summary className="cursor-pointer text-xs text-indigo-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
               <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des recettes (Art. 94)
             </summary>
             <div className="mt-2 space-y-1 pl-3">
               {RECETTES_CAT.map((c, i) => (
                 <button key={i} onClick={() => addFromList(setRecettes, c.label)}
-                  className="block w-full text-left text-xs text-foreground hover:text-indigo-700 dark:hover:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 px-2 py-1 rounded transition-colors duration-200">
+                  className="block w-full text-left text-xs text-foreground hover:text-indigo-700 hover:bg-indigo-50 px-2 py-1 rounded transition-colors duration-200">
                   + {c.label}
                 </button>
               ))}
@@ -3105,13 +3105,13 @@ function Cat3BNC() {
       {/* Charges */}
       <div>
         <div className="flex items-center gap-1 mb-2">
-          <p className="text-xs font-semibold text-rose-700 dark:text-rose-300">Dépenses professionnelles déductibles</p>
+          <p className="text-xs font-semibold text-rose-700">Dépenses professionnelles déductibles</p>
           <InfoTooltip
             texte="Dépenses professionnelles déductibles (Art. 98) : loyers, frais généraux, rémunérations d'assistance à l'étranger, formation, stages et colloques, impôts et taxes (hors IRPP), amortissements, charges du personnel. Dépenses mixtes : 50% admis à défaut de justificatif précis (Art. 99). Non déductibles : dépenses sans lien avec la profession et dépenses somptuaires (Art. 99)."
             loi="Art. 98-99, Loi 23/053"
           />
         </div>
-        <div className="rounded-xl border border-rose-200 dark:border-rose-700 bg-rose-50/40 dark:bg-rose-900/10 p-3 space-y-2">
+        <div className="rounded-xl border border-rose-200 bg-rose-50/40 p-3 space-y-2">
           {charges.map((r, i) => (
             <div key={i} className="flex flex-col sm:flex-row gap-2">
               <div className="flex-1 rounded-lg border border-border bg-muted/40 px-2.5 py-1.5 text-xs text-foreground/80 truncate">
@@ -3130,21 +3130,21 @@ function Cat3BNC() {
             </div>
           ))}
           <details className="group">
-            <summary className="cursor-pointer text-xs text-rose-600 dark:text-rose-400 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
+            <summary className="cursor-pointer text-xs text-rose-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
               <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des charges déductibles (Art. 98)
             </summary>
             <div className="mt-2 space-y-1 pl-3">
               {CHARGES_CAT.map((c, i) => (
                 <button key={i} onClick={() => addFromList(setCharges, c.label)}
-                  className="block w-full text-left text-xs text-foreground hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/20 px-2 py-1 rounded transition-colors duration-200">
+                  className="block w-full text-left text-xs text-foreground hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors duration-200">
                   + {c.label}
                 </button>
               ))}
             </div>
-            <div className="mt-3 rounded-lg border border-red-200 dark:border-red-700 bg-red-50/60 dark:bg-red-900/10 p-2">
-              <p className="text-xs font-bold text-red-600 dark:text-red-400 mb-1">✕ Charges NON déductibles (Art. 99)</p>
+            <div className="mt-3 rounded-lg border border-red-200 bg-red-50/60 p-2">
+              <p className="text-xs font-bold text-red-600 mb-1">✕ Charges NON déductibles (Art. 99)</p>
               {CHARGES_NON_DEDUCTIBLES.map((c, i) => (
-                <p key={i} className="text-xs text-red-600 dark:text-red-400">• {c}</p>
+                <p key={i} className="text-xs text-red-600">• {c}</p>
               ))}
             </div>
           </details>
@@ -3204,7 +3204,7 @@ function Cat3BNC() {
                 disabled={!!res && res.beneficeNetArrondi > 43200000}
                 className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed=" : "bg-background")} />
               {res && res.beneficeNetArrondi > 43200000
-                ? <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
+                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
                 : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes : réduction inapplicable si revenu imposable &gt; 43 200 000 FC</p>
               }
             </div>
@@ -3236,7 +3236,7 @@ function Cat3BNC() {
             <LigneR signe="=" label="Bénéfice brut=" val={formatFC(res.beneficeBrut)} bold
               neg={res.beneficeBrut < 0} />
             {res.beneficeBrut < 0 && (
-              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Déficit constaté : base imposable ramenée à 0. Ce déficit peut être reporté sur les 3 exercices suivants (Art. 101, Loi 23/053).</p>
+              <p className="text-xs text-amber-600 mt-1">Déficit constaté : base imposable ramenée à 0. Ce déficit peut être reporté sur les 3 exercices suivants (Art. 101, Loi 23/053).</p>
             )}
           </EtapeResultat>
 
@@ -3286,7 +3286,7 @@ function Cat3BNC() {
             <Separateur />
             <LigneR signe="=" label="IRPP barème" val={formatFC(res.impotBareme)} bold />
             {res.plafonne && res.beneficeNetArrondi > 0 && (
-              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
+              <p className="text-xs text-amber-600 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
             )}
             {res.nbPC > 0 && (
               <>
@@ -3295,7 +3295,7 @@ function Cat3BNC() {
               </>
             )}
             {res.minimumApplique && (
-              <p className="text-xs text-orange-600 dark:text-orange-400 mt-1 font-medium">Impôt minimum appliqué : 1% des recettes = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
+              <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% des recettes = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
             )}
           </EtapeResultat>
 
@@ -3442,35 +3442,35 @@ function Cat4Agricole() {
     <div className="space-y-4">
 
       {/* Encadré d'introduction */}
-      <div className="rounded-xl border border-lime-200 dark:border-lime-700 bg-lime-50 dark:bg-lime-900/20 p-3 space-y-2">
-        <p className="text-xs text-lime-700 dark:text-lime-300 leading-relaxed">
+      <div className="rounded-xl border border-lime-200 bg-lime-50 p-3 space-y-2">
+        <p className="text-xs text-lime-700 leading-relaxed">
           <strong>Bénéfices de l'exploitation agricole</strong> : profits tirés de l'exploitation de biens ruraux par un propriétaire exploitant, fermier ou métayer.
           Base imposable : produits encaissés − charges d'exploitation (Art. 104 renvoyant aux règles BIC, Loi 23/053).
         </p>
-        <div className="rounded-lg border border-lime-300 dark:border-lime-600 bg-white/60 dark:bg-lime-950/40 p-2.5">
-          <p className="text-xs font-semibold text-lime-800 dark:text-lime-200 mb-1.5">Qui est concerné par cette catégorie ?</p>
+        <div className="rounded-lg border border-lime-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-lime-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
           <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
-            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-              <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ IRPP Cat. 4 : Exploitants agricoles imposables</p>
-              <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 4 : Exploitants agricoles imposables</p>
+              <p className="text-xs text-green-700 leading-relaxed">
                 Propriétaires exploitants, fermiers et métayers exerçant à titre lucratif : cultures vivrières ou industrielles, élevage, aviculture, pisciculture, apiculture (Art. 102). Grandes, moyennes et fermes familiales modernisées.
               </p>
             </div>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ Hors Cat. 4</p>
-              <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Hors Cat. 4</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
                 Cultures vivrières sur moins de 10 ha → <strong>exonérées</strong> (Art. 103).<br />
                 Si activité industrielle ou commerciale liée → <strong>Cat. 2 (BIC)</strong> (Art. 87).
               </p>
             </div>
           </div>
-          <div className="mt-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 p-3">
-            <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-0.5">⚠ Exonération vivrière (Art. 103)</p>
-            <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">
+          <div className="mt-2 rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-bold text-amber-700 mb-0.5">⚠ Exonération vivrière (Art. 103)</p>
+            <p className="text-xs text-amber-700 leading-relaxed">
               Les revenus tirés de l'exploitation de terres <strong>exclusivement affectées à des cultures vivrières</strong> (manioc, maïs, haricot, riz...) dont la superficie est <strong>inférieure à 10 hectares</strong> sont totalement exonérés d'IRPP. Toute diversification vers des cultures industrielles fait perdre cette exonération.
             </p>
           </div>
-          <p className="text-xs text-lime-600 dark:text-lime-400 mt-1.5 italic">Les exploitants relevant du régime réel doivent tenir une comptabilité conforme aux normes fiscales (Art. 104).</p>
+          <p className="text-xs text-lime-600 mt-1.5 italic">Les exploitants relevant du régime réel doivent tenir une comptabilité conforme aux normes fiscales (Art. 104).</p>
         </div>
       </div>
 
@@ -3487,7 +3487,7 @@ function Cat4Agricole() {
               className={cn(
                 'rounded-xl border px-2 py-2.5 text-center transition-all duration-200',
                 regime === r.id
-                  ? 'bg-lime-600 dark:bg-lime-700 border-transparent text-white shadow-md scale-[1.03]'
+                  ? 'bg-lime-600 border-transparent text-white shadow-md scale-[1.03]'
                   : 'border-border bg-card hover:bg-muted/30 hover:border-lime-300'
               )}>
               <p className={cn('text-xs font-bold', regime === r.id ? 'text-white' : 'text-foreground')}>{r.label}</p>
@@ -3500,7 +3500,7 @@ function Cat4Agricole() {
 
       {/* ── MICRO ── */}
       {regime === 'micro' && (
-        <div className="rounded-xl border border-lime-200 dark:border-lime-700 bg-lime-50/40 dark:bg-lime-900/10 p-3 space-y-3">
+        <div className="rounded-xl border border-lime-200 bg-lime-50/40 p-3 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed">
             Forfait annuel fixé à <strong>30 USD</strong> converti en FC au taux BCC du jour (Art. 128 + Arrêté n° 015 du 19/02/2025).
           </p>
@@ -3516,12 +3516,12 @@ function Cat4Agricole() {
               onChange={e => setTauxBCC(e.target.value)}
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
             {tauxBCC && (
-              <p className="text-xs text-lime-700 dark:text-lime-300 mt-1.5 font-medium">
+              <p className="text-xs text-lime-700 mt-1.5 font-medium">
                 IRPP forfaitaire : 30 × {tauxBCC} = <strong>{formatFC(30 * (parseFloat(tauxBCC) || 0))} FC</strong>
               </p>
             )}
             <a href="https://www.bcc.cd" target="_blank" rel="noopener noreferrer="
-              className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1 inline-block">
+              className="text-xs text-blue-600 hover:underline mt-1 inline-block">
               Consulter le taux BCC →
             </a>
           </div>
@@ -3530,7 +3530,7 @@ function Cat4Agricole() {
 
       {/* ── PETITE ENTREPRISE ── */}
       {regime === 'petite' && (
-        <div className="rounded-xl border border-lime-200 dark:border-lime-700 bg-lime-50/40 dark:bg-lime-900/10 p-3 space-y-3">
+        <div className="rounded-xl border border-lime-200 bg-lime-50/40 p-3 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed">
             Impôt calculé sur le chiffre d'affaires : <strong>1%</strong> pour les ventes, <strong>2%</strong> pour les prestations de services (Art. 109).
           </p>
@@ -3545,7 +3545,7 @@ function Cat4Agricole() {
                   className={cn(
                     'flex-1 rounded-lg border px-3 py-2 text-center text-xs font-medium transition-all duration-200',
                     typeActivite === t.id
-                      ? 'bg-lime-600 dark:bg-lime-700 border-transparent text-white'
+                      ? 'bg-lime-600 border-transparent text-white'
                       : 'border-border bg-card hover:bg-muted/30'
                   )}>
                   {t.label}
@@ -3568,13 +3568,13 @@ function Cat4Agricole() {
           {/* Produits */}
           <div>
             <div className="flex items-center gap-1 mb-2">
-              <p className="text-xs font-semibold text-lime-700 dark:text-lime-300">Produits agricoles</p>
+              <p className="text-xs font-semibold text-lime-700">Produits agricoles</p>
               <InfoTooltip
                 texte="Tous les produits encaissés dans l'exploitation : ventes de récoltes, produits transformés, revenus d'élevage et d'activités annexes, subventions perçues, indemnités d'assurance. Base : recettes de l'année fiscale (Art. 104, Loi 23/053)."
                 loi="Art. 104, Loi 23/053"
               />
             </div>
-            <div className="rounded-xl border border-lime-200 dark:border-lime-700 bg-lime-50/40 dark:bg-lime-900/10 p-3 space-y-2">
+            <div className="rounded-xl border border-lime-200 bg-lime-50/40 p-3 space-y-2">
               {produits.map((r, i) => (
                 <div key={i} className="flex flex-col sm:flex-row gap-2">
                   <div className="flex-1 rounded-lg border border-border bg-muted/40 px-2.5 py-1.5 text-xs text-foreground/80 truncate">
@@ -3589,13 +3589,13 @@ function Cat4Agricole() {
                 </div>
               ))}
               <details className="group">
-                <summary className="cursor-pointer text-xs text-lime-600 dark:text-lime-400 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
+                <summary className="cursor-pointer text-xs text-lime-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
                   <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des produits (Art. 104)
                 </summary>
                 <div className="mt-2 space-y-1 pl-3">
                   {PRODUITS_CAT.map((c, i) => (
                     <button key={i} onClick={() => addFromList(setProduits, c.label)}
-                      className="block w-full text-left text-xs text-foreground hover:text-lime-700 dark:hover:text-lime-300 hover:bg-lime-50 dark:hover:bg-lime-900/20 px-2 py-1 rounded transition-colors duration-200">
+                      className="block w-full text-left text-xs text-foreground hover:text-lime-700 hover:bg-lime-50 px-2 py-1 rounded transition-colors duration-200">
                       + {c.label}
                     </button>
                   ))}
@@ -3614,13 +3614,13 @@ function Cat4Agricole() {
           {/* Charges */}
           <div>
             <div className="flex items-center gap-1 mb-2">
-              <p className="text-xs font-semibold text-rose-700 dark:text-rose-300">Charges d'exploitation déductibles</p>
+              <p className="text-xs font-semibold text-rose-700">Charges d'exploitation déductibles</p>
               <InfoTooltip
                 texte="Charges directement liées à l'activité agricole : intrants (semences, engrais, pesticides), main-d'œuvre, entretien, amortissements, logistique, loyers, impôts et taxes hors IRPP. Dépenses mixtes : 50% à défaut de justificatif précis (Art. 89, Loi 23/053)."
                 loi="Art. 104 renvoyant à Art. 89 et 98, Loi 23/053"
               />
             </div>
-            <div className="rounded-xl border border-rose-200 dark:border-rose-700 bg-rose-50/40 dark:bg-rose-900/10 p-3 space-y-2">
+            <div className="rounded-xl border border-rose-200 bg-rose-50/40 p-3 space-y-2">
               {charges.map((r, i) => (
                 <div key={i} className="flex flex-col sm:flex-row gap-2">
                   <div className="flex-1 rounded-lg border border-border bg-muted/40 px-2.5 py-1.5 text-xs text-foreground/80 truncate">
@@ -3635,13 +3635,13 @@ function Cat4Agricole() {
                 </div>
               ))}
               <details className="group">
-                <summary className="cursor-pointer text-xs text-rose-600 dark:text-rose-400 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
+                <summary className="cursor-pointer text-xs text-rose-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
                   <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des charges (Art. 104)
                 </summary>
                 <div className="mt-2 space-y-1 pl-3">
                   {CHARGES_CAT.map((c, i) => (
                     <button key={i} onClick={() => addFromList(setCharges, c.label)}
-                      className="block w-full text-left text-xs text-foreground hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/20 px-2 py-1 rounded transition-colors duration-200">
+                      className="block w-full text-left text-xs text-foreground hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors duration-200">
                       + {c.label}
                     </button>
                   ))}
@@ -3703,7 +3703,7 @@ function Cat4Agricole() {
                     disabled={!!res && res.beneficeNetArrondi > 43200000}
                     className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed=" : "bg-background")} />
                   {res && res.beneficeNetArrondi > 43200000
-                    ? <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
+                    ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
                     : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes : réduction inapplicable si revenu imposable &gt; 43 200 000 FC</p>
                   }
                 </div>
@@ -3761,7 +3761,7 @@ function Cat4Agricole() {
             <Separateur />
             <LigneR signe="=" label="Bénéfice brut=" val={formatFC(res.beneficeBrut)} bold neg={res.beneficeBrut < 0} />
             {res.beneficeBrut < 0 && (
-              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Déficit constaté : base imposable ramenée à 0. Ce déficit peut être reporté sur les 3 exercices suivants (Art. 101 par renvoi Art. 104, Loi 23/053).</p>
+              <p className="text-xs text-amber-600 mt-1">Déficit constaté : base imposable ramenée à 0. Ce déficit peut être reporté sur les 3 exercices suivants (Art. 101 par renvoi Art. 104, Loi 23/053).</p>
             )}
           </EtapeResultat>
 
@@ -3811,7 +3811,7 @@ function Cat4Agricole() {
             <Separateur />
             <LigneR signe="=" label="IRPP barème" val={formatFC(res.impotBareme)} bold />
             {res.plafonne && res.beneficeNetArrondi > 0 && (
-              <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
+              <p className="text-xs text-amber-600 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
             )}
             {res.nbPC > 0 && (
               <>
@@ -3820,7 +3820,7 @@ function Cat4Agricole() {
               </>
             )}
             {res.minimumApplique && (
-              <p className="text-xs text-orange-600 dark:text-orange-400 mt-1 font-medium">Impôt minimum appliqué : 1% des produits = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
+              <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% des produits = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
             )}
           </EtapeResultat>
 
@@ -3941,44 +3941,44 @@ function Cat6PlusValues() {
     <div className="space-y-4">
 
       {/* Encadré introduction */}
-      <div className="rounded-xl border border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20 p-3 space-y-2">
-        <p className="text-xs text-orange-700 dark:text-orange-300 leading-relaxed">
+      <div className="rounded-xl border border-orange-200 bg-orange-50 p-3 space-y-2">
+        <p className="text-xs text-orange-700 leading-relaxed">
           <strong>Plus-values de cession de biens</strong> : gains réalisés lors de la vente, l'échange, l'apport ou la liquidation
           d'un bien (immobilier, mobilier, parts sociales, droits) dans le cadre de la gestion du patrimoine privé.
           Base légale : Art. 82 à 84, Art. 120, Loi 23/053.
         </p>
-        <div className="rounded-lg border border-orange-300 dark:border-orange-600 bg-white/60 dark:bg-orange-950/40 p-2.5">
-          <p className="text-xs font-semibold text-orange-800 dark:text-orange-200 mb-1.5">Qui est concerné par cette catégorie ?</p>
+        <div className="rounded-lg border border-orange-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-orange-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
           <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
-            <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-              <p className="text-xs font-bold text-green-700 dark:text-green-300 mb-0.5">✓ IRPP Cat. 6 : Plus-values imposables</p>
-              <p className="text-xs text-green-700 dark:text-green-400 leading-relaxed">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 6 : Plus-values imposables</p>
+              <p className="text-xs text-green-700 leading-relaxed">
                 Toute personne physique qui cède à titre onéreux un bien immobilier, mobilier (professionnel),
                 des parts sociales, des droits, dans le cadre de la gestion de son patrimoine privé.
                 Opérations : vente, échange, partage, apport en société, expropriation, liquidation (Art. 82).
               </p>
             </div>
-            <div className="rounded-lg bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-700 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-0.5">✗ Hors Cat. 6</p>
-              <p className="text-xs text-rose-700 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Hors Cat. 6</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
                 Plus-values issues d'une activité spéculative habituelle (achat-revente régulier)
                 → <strong>Cat. 2 (BIC)</strong>.<br />
                 Biens exonérés (résidence principale, meubles, terrain agricole, assurance) → Art. 83.
               </p>
             </div>
           </div>
-          <div className="mt-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 p-3">
-            <p className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-0.5">⚠ Exonérations (Art. 83)</p>
-            <ul className="text-xs text-amber-700 dark:text-amber-400 space-y-0.5 list-disc pl-3">
+          <div className="mt-2 rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-bold text-amber-700 mb-0.5">⚠ Exonérations (Art. 83)</p>
+            <ul className="text-xs text-amber-700 space-y-0.5 list-disc pl-3">
               <li>Résidence principale (occupée ≥ 5 ans ou cession pour impératif familial)</li>
               <li>Meubles meublants, appareils ménagers, voiture personnelle</li>
               <li>Terrain à usage strictement agricole</li>
               <li>Indemnité d'assurance pour sinistre (partiel ou total) sur bien personnel</li>
             </ul>
           </div>
-          <div className="mt-2 rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 p-3">
-            <p className="text-xs font-bold text-orange-700 dark:text-orange-300 mb-0.5">Mécanisme : retenue à la source par l'acquéreur</p>
-            <p className="text-xs text-orange-700 dark:text-orange-400 leading-relaxed">
+          <div className="mt-2 rounded-lg bg-orange-50 border border-orange-200 p-3">
+            <p className="text-xs font-bold text-orange-700 mb-0.5">Mécanisme : retenue à la source par l'acquéreur</p>
+            <p className="text-xs text-orange-700 leading-relaxed">
               Taux unique : <strong>20% sur la plus-value nette imposable</strong> (Art. 120, Loi 23/053).
               La retenue est opérée par l'acquéreur au moment de la transaction.
               Cette retenue est <strong>imputable</strong> sur l'IRPP global du vendeur (non libératoire : Art. 121, Loi 23/053).
@@ -4011,7 +4011,7 @@ function Cat6PlusValues() {
                     'w-full text-left text-xs px-2.5 py-1.5 rounded-lg border transition-all duration-200',
                     motifExoneration === e
                       ? 'bg-orange-600 border-transparent text-white'
-                      : 'border-border bg-card hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300'
+                      : 'border-border bg-card hover:bg-orange-50 hover:border-orange-300'
                   )}>
                   {e}
                 </button>
@@ -4032,7 +4032,7 @@ function Cat6PlusValues() {
                   className={cn(
                     'rounded-xl border px-2 py-2 text-left transition-all duration-200',
                     typeBien === t.id
-                      ? 'bg-orange-600 dark:bg-orange-700 border-transparent text-white shadow-md scale-[1.02]'
+                      ? 'bg-orange-600 border-transparent text-white shadow-md scale-[1.02]'
                       : 'border-border bg-card hover:bg-muted/30 hover:border-orange-300'
                   )}>
                   <p className={cn('text-xs font-bold', typeBien === t.id ? 'text-white' : 'text-foreground')}>{t.label}</p>
@@ -4089,7 +4089,7 @@ function Cat6PlusValues() {
                   className={cn(
                     'flex-1 rounded-lg border px-2 py-2 text-center text-xs font-medium transition-all duration-200',
                     modeAcquisition === m.id
-                      ? 'bg-orange-600 dark:bg-orange-700 border-transparent text-white'
+                      ? 'bg-orange-600 border-transparent text-white'
                       : 'border-border bg-card hover:bg-muted/30'
                   )}>
                   <p className={cn('font-bold', modeAcquisition === m.id ? 'text-white' : 'text-foreground')}>{m.label}</p>
@@ -4100,8 +4100,8 @@ function Cat6PlusValues() {
           </div>
 
           {modeAcquisition === 'inconnu' && (
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 p-2.5">
-              <p className="text-xs text-amber-700 dark:text-amber-300">
+            <div className="rounded-lg bg-amber-50 border border-amber-200 p-2.5">
+              <p className="text-xs text-amber-700">
                 Prix d'acquisition indéterminable : le prix d'acquisition est fixé forfaitairement à <strong>75% du prix de cession</strong> (Art. 84 §5, Loi 23/053).
               </p>
             </div>
@@ -4142,7 +4142,7 @@ function Cat6PlusValues() {
                         className={cn(
                           'flex-1 rounded-lg border px-3 py-1.5 text-xs font-medium transition-all duration-200',
                           fraisAcqMode === f.id
-                            ? 'bg-orange-600 dark:bg-orange-700 border-transparent text-white'
+                            ? 'bg-orange-600 border-transparent text-white'
                             : 'border-border bg-card hover:bg-muted/30'
                         )}>
                         {f.label}
@@ -4177,7 +4177,7 @@ function Cat6PlusValues() {
                         className={cn(
                           'flex-1 rounded-lg border px-2 py-1.5 text-xs font-medium transition-all duration-200',
                           travauxMode === t.id
-                            ? 'bg-orange-600 dark:bg-orange-700 border-transparent text-white'
+                            ? 'bg-orange-600 border-transparent text-white'
                             : 'border-border bg-card hover:bg-muted/30'
                         )}>
                         {t.label}
@@ -4204,10 +4204,10 @@ function Cat6PlusValues() {
       {/* Résultats */}
       {res && res.exonere && (
         <ResultatWrap titre="IRPP : Cat. 6 : Plus-value exonérée">
-          <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 p-3">
-            <p className="text-xs font-semibold text-green-700 dark:text-green-300 mb-1">✓ Plus-value exonérée d'IRPP (Art. 83)</p>
-            {res.motif && <p className="text-xs text-green-700 dark:text-green-400">Motif : {res.motif}</p>}
-            <p className="text-xs text-green-600 dark:text-green-400 mt-1">Aucune retenue à la source ne doit être opérée par l'acquéreur.</p>
+          <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+            <p className="text-xs font-semibold text-green-700 mb-1">✓ Plus-value exonérée d'IRPP (Art. 83)</p>
+            {res.motif && <p className="text-xs text-green-700">Motif : {res.motif}</p>}
+            <p className="text-xs text-green-600 mt-1">Aucune retenue à la source ne doit être opérée par l'acquéreur.</p>
           </div>
         </ResultatWrap>
       )}
@@ -4492,19 +4492,19 @@ function CalendrierFiscal() {
   const couleurInactif = 'bg-card border border-border text-foreground hover:bg-muted/40'
 
   const BADGE: Record<string, string> = {
-    IS: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300',
-    IRPP: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-    TVA: 'bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300',
-    CPCC: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
+    IS: 'bg-emerald-100 text-emerald-800',
+    IRPP: 'bg-blue-100 text-blue-800',
+    TVA: 'bg-violet-100 text-violet-800',
+    CPCC: 'bg-orange-100 text-orange-800',
   }
 
   const filtered = filtreImpot === 'tous' ? obligations : obligations.filter(o => o.impot === filtreImpot)
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-teal-200 bg-teal-50 dark:bg-teal-900/20 dark:border-teal-800 p-4">
-        <p className="text-xs font-bold text-teal-700 dark:text-teal-300 uppercase tracking-wide mb-0.5">Calendrier fiscal de référence</p>
-        <p className="text-xs text-teal-600/80 dark:text-teal-400/80">Délais légaux de déclaration et de paiement — IS, IRPP, TVA. CGI 2023 + LF 2025 + LF 2026.</p>
+      <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
+        <p className="text-xs font-bold text-teal-700 uppercase tracking-wide mb-0.5">Calendrier fiscal de référence</p>
+        <p className="text-xs text-teal-600/80">Délais légaux de déclaration et de paiement — IS, IRPP, TVA. CGI 2023 + LF 2025 + LF 2026.</p>
       </div>
 
       {/* Filtres */}
@@ -4546,11 +4546,11 @@ function CalendrierFiscal() {
                 </td>
                 <td className="py-2 px-3 font-medium text-foreground">{o.type}</td>
                 <td className="py-2 px-3">
-                  <span className="font-semibold text-rose-600 dark:text-rose-400 whitespace-nowrap">{o.echeance}</span>
+                  <span className="font-semibold text-rose-600 whitespace-nowrap">{o.echeance}</span>
                 </td>
                 <td className="py-2 px-3 text-foreground/70">{o.periodicite}</td>
                 <td className="py-2 px-3 text-foreground/70 hidden sm:table-cell">{o.modePaiement}</td>
-                <td className="py-2 px-3 text-amber-700 dark:text-amber-400">{o.consequences}</td>
+                <td className="py-2 px-3 text-amber-700">{o.consequences}</td>
                 <td className="py-2 px-3 text-muted-foreground hidden md:table-cell">{o.base}</td>
               </tr>
             ))}
@@ -4559,9 +4559,9 @@ function CalendrierFiscal() {
       </div>
 
       {/* Note pédagogique */}
-      <div className="rounded-xl border border-teal-200 bg-teal-50 dark:bg-teal-900/10 dark:border-teal-800/50 p-3 space-y-1">
-        <p className="text-xs font-semibold text-teal-700 dark:text-teal-300">Note pédagogique</p>
-        <p className="text-xs text-teal-600 dark:text-teal-400 leading-relaxed">
+      <div className="rounded-xl border border-teal-200 bg-teal-50 p-3 space-y-1">
+        <p className="text-xs font-semibold text-teal-700">Note pédagogique</p>
+        <p className="text-xs text-teal-600 leading-relaxed">
           Les délais ci-dessus sont des <span className="font-semibold">délais de déchéance</span> : leur dépassement entraîne automatiquement des sanctions sans mise en demeure préalable pour certaines infractions (Art. 93 bis). Le point de départ de l’intérêt moratoire (Art. 91) est le premier jour du mois suivant l’échéance. Tout mois commencé est compté intégralement.
         </p>
       </div>
@@ -4644,23 +4644,23 @@ function SimulateurPenalitesAssiette() {
   const totalArt89 = impot + majoration + interetRetard
 
   const COLOR_BORDER: Record<string, string> = {
-    amber: 'border-amber-200 bg-amber-50 dark:bg-amber-900/10 dark:border-amber-800/50',
-    rose:  'border-rose-200 bg-rose-50 dark:bg-rose-900/10 dark:border-rose-800/50',
-    red:   'border-red-200 bg-red-50 dark:bg-red-900/10 dark:border-red-800/50',
-    orange:'border-orange-200 bg-orange-50 dark:bg-orange-900/10 dark:border-orange-800/50',
+    amber: 'border-amber-200 bg-amber-50',
+    rose:  'border-rose-200 bg-rose-50',
+    red:   'border-red-200 bg-red-50',
+    orange:'border-orange-200 bg-orange-50',
   }
   const COLOR_TEXT: Record<string, string> = {
-    amber: 'text-amber-700 dark:text-amber-300',
-    rose:  'text-rose-700 dark:text-rose-300',
-    red:   'text-red-700 dark:text-red-300',
-    orange:'text-orange-700 dark:text-orange-300',
+    amber: 'text-amber-700',
+    rose:  'text-rose-700',
+    red:   'text-red-700',
+    orange:'text-orange-700',
   }
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-violet-200 bg-violet-50 dark:bg-violet-900/20 dark:border-violet-800 p-4">
-        <p className="text-xs font-bold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-0.5">Simulateur de majorations d’assiette</p>
-        <p className="text-xs text-violet-600/80 dark:text-violet-400/80">Art. 89 CGI 2023 (pénalités d’assiette) + Art. 93 bis mod. LF 2026 (amendes forfaitaires)</p>
+      <div className="rounded-xl border border-violet-200 bg-violet-50 p-4">
+        <p className="text-xs font-bold text-violet-700 uppercase tracking-wide mb-0.5">Simulateur de majorations d’assiette</p>
+        <p className="text-xs text-violet-600/80">Art. 89 CGI 2023 (pénalités d’assiette) + Art. 93 bis mod. LF 2026 (amendes forfaitaires)</p>
       </div>
 
       {/* ─ SECTION 1 : Art. 89 ─ */}
@@ -4689,7 +4689,7 @@ function SimulateurPenalitesAssiette() {
                 className={cn(
                   'text-left rounded-lg border px-3 py-2.5 transition-all text-xs',
                   typeInfraction === inf.id
-                    ? 'border-rose-400 bg-rose-50 dark:bg-rose-900/20 dark:border-rose-600'
+                    ? 'border-rose-400 bg-rose-50'
                     : 'border-border bg-background hover:bg-muted/40'
                 )}
               >
@@ -4778,9 +4778,9 @@ function SimulateurPenalitesAssiette() {
                 <span className={cn('font-mono font-bold', COLOR_TEXT[infraction89.couleur])}>{formatFC(totalArt89)}</span>
               </div>
               {interetRetard === impot * 0.50 && mois > 0 && (
-                <p className="text-[10px] text-amber-600 dark:text-amber-400 mt-1">⚠ Plafond 50% atteint : l’intérêt de retard ne peut pas dépasser 50% de l’impôt de base (Art. 89 al. 5 in fine)</p>
+                <p className="text-[10px] text-amber-600 mt-1">⚠ Plafond 50% atteint : l’intérêt de retard ne peut pas dépasser 50% de l’impôt de base (Art. 89 al. 5 in fine)</p>
               )}
-              <div className="mt-2 rounded-lg bg-white/60 dark:bg-black/20 border border-current/10 p-2">
+              <div className="mt-2 rounded-lg bg-white/60 border border-current/10 p-2">
                 <p className="text-[11px] text-foreground/70">
                   <span className="font-semibold">Référence légale :</span> {infraction89.art} — Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (RDC), mod. par O.-L. n°13/005 du 23/02/2013 et L.F. n°18/025 du 13/12/2018.
                   {recidive && ' Récidive : même infraction commise dans les 2 ans (impôts annuels) ou 6 mois (autres).'}
@@ -4817,7 +4817,7 @@ function SimulateurPenalitesAssiette() {
                 className={cn(
                   'text-left rounded-lg border px-3 py-2.5 transition-all text-xs',
                   typeDecl === a.id
-                    ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-600'
+                    ? 'border-orange-400 bg-orange-50'
                     : 'border-border bg-background hover:bg-muted/40'
                 )}
               >
@@ -4837,7 +4837,7 @@ function SimulateurPenalitesAssiette() {
               <span className="text-xs text-foreground/80">{amende93.label}</span>
               <span className={cn('font-mono font-bold text-base', COLOR_TEXT[amende93.couleur])}>{formatFC(amende93.montantFixe)}</span>
             </div>
-            <div className="mt-2 rounded-lg bg-white/60 dark:bg-black/20 border border-current/10 p-2">
+            <div className="mt-2 rounded-lg bg-white/60 border border-current/10 p-2">
               <p className="text-[11px] text-foreground/70">
                 <span className="font-semibold">Référence légale :</span> {amende93.art} — Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales, tel que modifié par l’Art. 34 de la Loi de Finances n°25/060 du 29 déc. 2025 (LF 2026).
               </p>
@@ -4848,9 +4848,9 @@ function SimulateurPenalitesAssiette() {
       </div>
 
       {/* Note pédagogique */}
-      <div className="rounded-xl border border-violet-200 bg-violet-50 dark:bg-violet-900/10 dark:border-violet-800/50 p-3 space-y-1">
-        <p className="text-xs font-semibold text-violet-700 dark:text-violet-300">Distinction à retenir</p>
-        <p className="text-xs text-violet-600 dark:text-violet-400 leading-relaxed">
+      <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 space-y-1">
+        <p className="text-xs font-semibold text-violet-700">Distinction à retenir</p>
+        <p className="text-xs text-violet-600 leading-relaxed">
           <span className="font-semibold">Art. 89</span> : pénalités <span className="font-semibold">proportionnelles</span> à l’impôt (25%, 20%, 50%, etc.) — elles s’appliquent quand un montant d’impôt est en cause. |
           <span className="font-semibold"> Art. 93 bis</span> : amendes <span className="font-semibold">forfaitaires</span> (montant fixe) pour le seul fait de ne pas avoir déposé une déclaration dans les délais, indépendamment de tout impôt dû.
         </p>
@@ -4912,9 +4912,9 @@ function ProceduresFiscales() {
       {/* ── TITRE I : Obligations déclaratives ── */}
       {titrActif === 'titre1' && (
         <div className="space-y-3">
-          <div className="rounded-xl border border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 p-4">
-            <p className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wide mb-1">Titre I : Obligations déclaratives</p>
-            <p className="text-xs text-blue-600/80 dark:text-blue-400/80">Art. 1 à 24 : Loi n°004/2003 du 13 mars 2003</p>
+          <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
+            <p className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-1">Titre I : Obligations déclaratives</p>
+            <p className="text-xs text-blue-600/80">Art. 1 à 24 : Loi n°004/2003 du 13 mars 2003</p>
           </div>
 
           {/* Section 1 : Identification */}
@@ -4976,9 +4976,9 @@ function ProceduresFiscales() {
       {/* ── TITRE II : Contrôle fiscal ── */}
       {titrActif === 'titre2' && (
         <div className="space-y-3">
-          <div className="rounded-xl border border-indigo-200 bg-indigo-50 dark:bg-indigo-900/20 dark:border-indigo-800 p-4">
-            <p className="text-xs font-bold text-indigo-700 dark:text-indigo-300 uppercase tracking-wide mb-1">Titre II : Contrôle fiscal</p>
-            <p className="text-xs text-indigo-600/80 dark:text-indigo-400/80">Art. 25 à 56 : Vérification, redressement, taxation d'office</p>
+          <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+            <p className="text-xs font-bold text-indigo-700 uppercase tracking-wide mb-1">Titre II : Contrôle fiscal</p>
+            <p className="text-xs text-indigo-600/80">Art. 25 à 56 : Vérification, redressement, taxation d'office</p>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -5032,9 +5032,9 @@ function ProceduresFiscales() {
       {/* ── TITRE III : Recouvrement ── */}
       {titrActif === 'titre3' && (
         <div className="space-y-3">
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800 p-4">
-            <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wide mb-1">Titre III : Recouvrement</p>
-            <p className="text-xs text-emerald-600/80 dark:text-emerald-400/80">Art. 57 à 82 : Paiement, AMR, acomptes, étalement</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+            <p className="text-xs font-bold text-emerald-700 uppercase tracking-wide mb-1">Titre III : Recouvrement</p>
+            <p className="text-xs text-emerald-600/80">Art. 57 à 82 : Paiement, AMR, acomptes, étalement</p>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -5082,9 +5082,9 @@ function ProceduresFiscales() {
       {/* ── TITRE IV : Pénalités ── */}
       {titrActif === 'titre4' && (
         <div className="space-y-3">
-          <div className="rounded-xl border border-rose-200 bg-rose-50 dark:bg-rose-900/20 dark:border-rose-800 p-4">
-            <p className="text-xs font-bold text-rose-700 dark:text-rose-300 uppercase tracking-wide mb-1">Titre IV : Pénalités et sanctions</p>
-            <p className="text-xs text-rose-600/80 dark:text-rose-400/80">Art. 83 à 103 : Majorations, intérêts, amendes, sanctions pénales</p>
+          <div className="rounded-xl border border-rose-200 bg-rose-50 p-4">
+            <p className="text-xs font-bold text-rose-700 uppercase tracking-wide mb-1">Titre IV : Pénalités et sanctions</p>
+            <p className="text-xs text-rose-600/80">Art. 83 à 103 : Majorations, intérêts, amendes, sanctions pénales</p>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -5159,9 +5159,9 @@ function ProceduresFiscales() {
       {/* ── TITRE V : Réclamations et recours ── */}
       {titrActif === 'titre5' && (
         <div className="space-y-3">
-          <div className="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 p-4">
-            <p className="text-xs font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wide mb-1">Titre V : Réclamations et recours</p>
-            <p className="text-xs text-amber-600/80 dark:text-amber-400/80">Art. 104 à 110 : Réclamation contentieuse, recours judiciaire</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <p className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-1">Titre V : Réclamations et recours</p>
+            <p className="text-xs text-amber-600/80">Art. 104 à 110 : Réclamation contentieuse, recours judiciaire</p>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -5192,22 +5192,22 @@ function ProceduresFiscales() {
           </div>
 
           {/* Schéma récapitulatif des voies de recours */}
-          <div className="rounded-xl border border-amber-200 bg-amber-50/50 dark:bg-amber-900/10 dark:border-amber-800/50 p-4 space-y-2">
-            <p className="text-xs font-bold text-amber-700 dark:text-amber-300">Voies de recours : Schéma récapitulatif</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-4 space-y-2">
+            <p className="text-xs font-bold text-amber-700">Voies de recours : Schéma récapitulatif</p>
             <div className="flex flex-col gap-2 text-xs">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center rounded-full bg-amber-500 text-white w-5 h-5 text-xs font-bold shrink-0">1</span>
                 <span className="text-foreground/80"><span className="font-semibold">Réclamation</span> auprès du Directeur des Impôts : délai : 3 mois (Art. 104)</span>
               </div>
               <div className="flex items-center gap-2 pl-2">
-                <div className="w-[1px] h-4 bg-amber-300 dark:bg-amber-700 ml-2"></div>
+                <div className="w-[1px] h-4 bg-amber-300 ml-2"></div>
               </div>
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center rounded-full bg-amber-500 text-white w-5 h-5 text-xs font-bold shrink-0">2</span>
                 <span className="text-foreground/80"><span className="font-semibold">Recours Cour Administrative d'Appel</span> : délai : 3 mois après rejet (Art. 108)</span>
               </div>
               <div className="flex items-center gap-2 pl-2">
-                <div className="w-[1px] h-4 bg-amber-300 dark:bg-amber-700 ml-2"></div>
+                <div className="w-[1px] h-4 bg-amber-300 ml-2"></div>
               </div>
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center justify-center rounded-full bg-amber-600 text-white w-5 h-5 text-xs font-bold shrink-0">3</span>
@@ -5221,9 +5221,9 @@ function ProceduresFiscales() {
       {/* ── CALCULATEUR PÉNALITÉS ── */}
       {titrActif === 'calcul' && (
         <div className="space-y-3">
-          <div className="rounded-xl border border-orange-200 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-800 p-4">
-            <p className="text-xs font-bold text-orange-700 dark:text-orange-300 uppercase tracking-wide mb-1">Calculateur de pénalités de retard</p>
-            <p className="text-xs text-orange-600/80 dark:text-orange-400/80">Intérêt moratoire : 2% par mois de retard, plafonné à 50% du principal (Art. 91 CGI 2023)</p>
+          <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
+            <p className="text-xs font-bold text-orange-700 uppercase tracking-wide mb-1">Calculateur de pénalités de retard</p>
+            <p className="text-xs text-orange-600/80">Intérêt moratoire : 2% par mois de retard, plafonné à 50% du principal (Art. 91 CGI 2023)</p>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4 space-y-4">
@@ -5251,8 +5251,8 @@ function ProceduresFiscales() {
             </div>
 
             {principal > 0 && mois > 0 && (
-              <div className="rounded-xl border border-orange-200 bg-orange-50/50 dark:bg-orange-900/10 dark:border-orange-800/50 p-4 space-y-2">
-                <p className="text-xs font-bold text-orange-700 dark:text-orange-300 mb-2">Résultat du calcul</p>
+              <div className="rounded-xl border border-orange-200 bg-orange-50/50 p-4 space-y-2">
+                <p className="text-xs font-bold text-orange-700 mb-2">Résultat du calcul</p>
                 <div className="space-y-1.5">
                   <div className="flex justify-between text-xs">
                     <span className="text-foreground/80">Montant principal</span>
@@ -5260,12 +5260,12 @@ function ProceduresFiscales() {
                   </div>
                   <div className="flex justify-between text-xs">
                     <span className="text-foreground/80">Intérêt moratoire ({mois} mois × 2%, plafonné 50%)</span>
-                    <span className="font-mono font-semibold text-rose-600 dark:text-rose-400">{formatFC(interetTotal)}</span>
+                    <span className="font-mono font-semibold text-rose-600">{formatFC(interetTotal)}</span>
                   </div>
-                  <div className="border-t border-orange-200 dark:border-orange-700 my-1"></div>
+                  <div className="border-t border-orange-200 my-1"></div>
                   <div className="flex justify-between text-xs">
                     <span className="font-bold text-foreground">Total dû (principal + pénalités)</span>
-                    <span className="font-mono font-bold text-orange-600 dark:text-orange-400">{formatFC(totalDu)}</span>
+                    <span className="font-mono font-bold text-orange-600">{formatFC(totalDu)}</span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">Base légale : Art. 91 CGI 2023 (Loi n°004/2003 mod.). Taux : 2% par mois de retard, plafonné à 50% du principal (Art. 89). Sans capitalisation des pénalités.</p>
                 </div>
@@ -5273,7 +5273,7 @@ function ProceduresFiscales() {
             )}
 
             {(principal === 0 || mois === 0) && (
-              <div className="rounded-xl border border-dashed border-orange-300 dark:border-orange-700 p-4 text-center">
+              <div className="rounded-xl border border-dashed border-orange-300 p-4 text-center">
                 <p className="text-xs text-muted-foreground">Saisissez le montant principal et le nombre de mois pour calculer les pénalités.</p>
               </div>
             )}
@@ -5349,7 +5349,7 @@ export default function FiscalitePage() {
               <Badge variant="outline" className="text-xs">Loi n°23/053 du 26 déc. 2023 portant IS/IRPP : J.O. RDC</Badge>
               <Button
                 size="sm" variant="outline"
-                className="gap-1.5 text-xs h-7 border-purple-300 text-purple-700 hover:bg-purple-50 dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-900/20"
+                className="gap-1.5 text-xs h-7 border-purple-300 text-purple-700 hover:bg-purple-50"
                 onClick={() => { setNav({ cours: 'fiscalite' }); navigate('/documents') }}
               >
                 <FolderOpen className="h-3.5 w-3.5" /> Documents
@@ -5385,33 +5385,33 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro IRPP ── */}
         {impotActif === 'irpp' && (
-          <div className="mb-4 rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-4 space-y-3">
-            <p className="text-sm font-bold text-blue-800 dark:text-blue-200">IRPP : Impôt sur le Revenu des Personnes Physiques</p>
-            <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+          <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-4 space-y-3">
+            <p className="text-sm font-bold text-blue-800">IRPP : Impôt sur le Revenu des Personnes Physiques</p>
+            <p className="text-xs text-blue-700 leading-relaxed">
               L'IRPP frappe l'ensemble des revenus des personnes physiques, quelle que soit leur nature ou leur source, dès lors qu'ils sont réalisés en RDC. Il est organisé en 6 catégories autonomes.
               Base légale : Loi n°23/053 du 30 novembre 2023.
             </p>
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg border border-blue-200 dark:border-blue-700 bg-white dark:bg-blue-950/40 p-3">
-                <p className="text-xs font-bold text-blue-700 dark:text-blue-300 mb-1.5">Cat. 1 : Revenus salariaux</p>
-                <p className="text-xs text-blue-600 dark:text-blue-400 leading-relaxed">Traitements, salaires, indemnités, pensions. Barème progressif mensuel. Retenue à la source par l'employeur.</p>
+              <div className="rounded-lg border border-blue-200 bg-white p-3">
+                <p className="text-xs font-bold text-blue-700 mb-1.5">Cat. 1 : Revenus salariaux</p>
+                <p className="text-xs text-blue-600 leading-relaxed">Traitements, salaires, indemnités, pensions. Barème progressif mensuel. Retenue à la source par l'employeur.</p>
               </div>
-              <div className="rounded-lg border border-blue-200 dark:border-blue-700 bg-white dark:bg-blue-950/40 p-3">
-                <p className="text-xs font-bold text-blue-700 dark:text-blue-300 mb-1.5">Cat. 2 : Bénéfices ind. &amp; comm.</p>
-                <p className="text-xs text-blue-600 dark:text-blue-400 leading-relaxed">Entrepreneurs individuels, commerçants, artisans. Régimes micro (30 USD), forfait, réel. Barème progressif annuel.</p>
+              <div className="rounded-lg border border-blue-200 bg-white p-3">
+                <p className="text-xs font-bold text-blue-700 mb-1.5">Cat. 2 : Bénéfices ind. &amp; comm.</p>
+                <p className="text-xs text-blue-600 leading-relaxed">Entrepreneurs individuels, commerçants, artisans. Régimes micro (30 USD), forfait, réel. Barème progressif annuel.</p>
               </div>
-              <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40 p-3">
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Cat. 3 à 6 : Autres revenus</p>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">BNC (libéraux), revenus agricoles, capitaux mobiliers (20% RAS), plus-values de cession.</p>
+              <div className="rounded-lg border border-slate-200 bg-white p-3">
+                <p className="text-xs font-bold text-slate-700 mb-1.5">Cat. 3 à 6 : Autres revenus</p>
+                <p className="text-xs text-slate-600 leading-relaxed">BNC (libéraux), revenus agricoles, capitaux mobiliers (20% RAS), plus-values de cession.</p>
               </div>
-              <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/40 p-3">
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Principe d'indépendance</p>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Chaque catégorie a ses propres règles de calcul. Un même contribuable peut relever de plusieurs catégories simultanément.</p>
+              <div className="rounded-lg border border-slate-200 bg-white p-3">
+                <p className="text-xs font-bold text-slate-700 mb-1.5">Principe d'indépendance</p>
+                <p className="text-xs text-slate-600 leading-relaxed">Chaque catégorie a ses propres règles de calcul. Un même contribuable peut relever de plusieurs catégories simultanément.</p>
               </div>
             </div>
-            <div className="rounded-lg border border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/20 p-3">
-              <p className="text-xs font-bold text-rose-700 dark:text-rose-300 mb-1">⚠ IRPP ≠ IS</p>
-              <p className="text-xs text-rose-600 dark:text-rose-400 leading-relaxed">
+            <div className="rounded-lg border border-rose-200 bg-rose-50 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-1">⚠ IRPP ≠ IS</p>
+              <p className="text-xs text-rose-600 leading-relaxed">
                 L'IRPP s'applique aux <strong>personnes physiques</strong> (individus). L'IS s'applique aux <strong>personnes morales</strong> (sociétés). Une même activité ne peut être soumise simultanément aux deux impôts.
                 Dès qu'un entrepreneur constitue une société, il bascule vers l'IS (Loi 23/053).
               </p>
@@ -5457,7 +5457,7 @@ export default function FiscalitePage() {
             <div className="flex items-center gap-2.5">
               <div className={cn(
                 'flex h-8 w-8 items-center justify-center rounded-lg shrink-0',
-                `bg-${ongletDesc.color}-100 dark:bg-${ongletDesc.color}-900/30`
+                `bg-${ongletDesc.color}-100`
               )}>
                 {React.createElement(ongletDesc.icon, {
                   className: cn('h-4 w-4', COLOR_LIGHT[ongletDesc.color])

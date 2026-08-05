@@ -36,16 +36,16 @@ interface CasPratique {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const C = {
-  bg:      'bg-rose-50 dark:bg-rose-900/20',
-  border:  'border-rose-200 dark:border-rose-800',
-  text:    'text-rose-700 dark:text-rose-300',
-  badge:   'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
+  bg:      'bg-rose-50',
+  border:  'border-rose-200',
+  text:    'text-rose-700',
+  badge:   'bg-rose-100 text-rose-700',
   btn:     'bg-rose-600 hover:bg-rose-700 text-white',
   active:  'bg-rose-600 text-white',
-  inactive:'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700',
-  correct: 'bg-green-50 border-green-400 dark:bg-green-900/20',
-  wrong:   'bg-red-50 border-red-400 dark:bg-red-900/20',
-  loi:     'text-rose-600 dark:text-rose-400 text-xs font-medium',
+  inactive:'bg-white text-gray-600 border border-gray-200',
+  correct: 'bg-green-50 border-green-400',
+  wrong:   'bg-red-50 border-red-400',
+  loi:     'text-rose-600 text-xs font-medium',
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -63,52 +63,52 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-6">
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             1.1 La loi financière n° 83-003 du 23 février 1983 : premier cadre post-indépendance
             <InfoTooltip texte="La loi financière de 1983 a constitué le premier cadre légal unifié des finances publiques congolaises après l'indépendance. Elle a régi les finances publiques pendant près de 30 ans avant d'être abrogée par la LOFIP." loi="LOFIP Art. 233" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La République Démocratique du Congo a longtemps été régie, en matière de finances publiques, par la loi financière n° 83-003 du 23 février 1983, telle que modifiée et complétée par l'ordonnance-loi n° 87-004 du 10 janvier 1987. Ce texte organisait la gestion budgétaire selon une logique de budget de moyens : les crédits étaient alloués par nature de dépenses (personnel, matériel, investissement) sans lien direct avec les résultats attendus.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 233 de la LOFIP a expressément abrogé cette loi financière de 1983 : <em>"La présente loi abroge toutes les dispositions antérieures contraires, notamment celles contenues dans la loi financière n° 83-003 du 23 février 1983, telle que modifiée et complétée par l'ordonnance-loi n° 87-004 du 10 janvier 1987."</em>
           </p>
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-gray-700">
             Cette abrogation marque une rupture historique avec la gestion axée sur les moyens pour aller vers une gestion axée sur les résultats et la performance, conformément aux standards des finances publiques modernes.
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             1.2 La LOFIP n° 11/011 du 13 juillet 2011 : révolution normative
             <InfoTooltip texte="La LOFIP est la loi organique qui régit l'ensemble des finances publiques congolaises. Elle consacre le budget-programme, la décentralisation fiscale, l'unité de trésorerie, et le contrôle de la performance." loi="LOFIP Art. 1 et 234" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La loi n° 11/011 du 13 juillet 2011 relative aux finances publiques, communément appelée LOFIP, constitue la révolution normative majeure dans l'histoire des finances publiques congolaises. Elle a été adoptée conformément à l'article 122 point 3 de la Constitution qui réserve au législateur la compétence de fixer les règles relatives aux finances publiques.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Selon l'article 1er de la LOFIP, cette loi fixe les règles concernant : l'affectation des ressources et des charges, l'élaboration, la présentation, l'adoption et l'exécution des lois de finances, des édits budgétaires et des décisions budgétaires, le contrôle sur les finances publiques, la détermination des responsabilités et des sanctions, ainsi que les rapports entre le pouvoir central et les provinces et entre les provinces et les entités territoriales décentralisées.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Ses innovations majeures sont les suivantes :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-3">
+          <ul className="list-disc list-inside space-y-2 text-gray-700 mb-3">
             <li><strong>Le budget-programme :</strong> les crédits sont regroupés par programme selon l'article 8, chaque programme associant des objectifs précis et des indicateurs de performance (Art. 43).</li>
             <li><strong>La décentralisation fiscale :</strong> les 40% des recettes nationales à caractère national sont rétrocédés aux provinces (Art. 218-222), et une caisse nationale de péréquation est instituée.</li>
             <li><strong>L'unité de trésorerie :</strong> toutes les recettes et dépenses publiques transitent par un compte unique du Trésor (Art. 110).</li>
             <li><strong>Le contrôle renforcé :</strong> contrôle administratif (contrôleur budgétaire, IGF), juridictionnel (Cour des comptes) et parlementaire (loi de reddition des comptes).</li>
             <li><strong>La séparation ordonnateur-comptable :</strong> principe cardinal consacré par les articles 88-96.</li>
           </ul>
-          <div className="rounded-lg border border-rose-200 dark:border-rose-800 overflow-x-auto">
+          <div className="rounded-lg border border-rose-200 overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-rose-50 dark:bg-rose-900/30">
+              <thead className="bg-rose-50">
                 <tr>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Année</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Texte</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Innovation principale</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Année</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Texte</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Innovation principale</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-rose-100 dark:divide-rose-800">
+              <tbody className="divide-y divide-rose-100">
                 {[
                   ["1983","Loi financière n° 83-003","Premier cadre légal des finances publiques — budget de moyens"],
                   ["1987","Ordonnance-loi n° 87-004","Modification de la loi financière de 1983"],
@@ -122,10 +122,10 @@ const LECONS: Lecon[] = [
                   ["2025","LFR n° 25/044","Ajustement macroéconomique face au conflit dans l'Est"],
                   ["2026","LF n° 25/060","Budget 59 020,5 Mds FC, poursuite des réformes structurelles"],
                 ].map(([y,t,i]) => (
-                  <tr key={y} className="hover:bg-rose-50/50 dark:hover:bg-rose-900/10">
-                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-gray-200">{y}</td>
-                    <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{t}</td>
-                    <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{i}</td>
+                  <tr key={y} className="hover:bg-rose-50/50">
+                    <td className="px-4 py-2 font-medium text-gray-800">{y}</td>
+                    <td className="px-4 py-2 text-gray-700">{t}</td>
+                    <td className="px-4 py-2 text-gray-700">{i}</td>
                   </tr>
                 ))}
               </tbody>
@@ -134,17 +134,17 @@ const LECONS: Lecon[] = [
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             1.3 Les prorogations du budget-programme (2018 et 2023)
             <InfoTooltip texte="L'article 234 de la LOFIP fixait l'entrée en vigueur intégrale au 1er janvier de la 8e année après promulgation (2019). Deux lois ont prorogé ce délai : en 2018 (Loi 18/010) et en 2023 (Loi 23/030)." loi="LOFIP Art. 234 · Loi 18/010 · Loi 23/030" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 234 de la LOFIP prévoyait que la loi entrerait en vigueur dans l'intégralité de ses dispositions au premier janvier de la huitième année suivant celle de sa promulgation, soit le 1er janvier 2019. Cette date correspondait au délai de transition accordé pour que la RDC bascule effectivement vers la gestion budgétaire en mode programmes.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Face à l'ampleur des préalables non encore accomplis (découpage ministériel en programmes, formation des responsables de programmes, mise en place des systèmes d'information), le Parlement a accordé deux prorogations successives :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li><strong>Loi n° 18/010 du 9 juillet 2018 :</strong> 1re prorogation de 5 ans, reportant l'entrée en vigueur intégrale au 1er janvier 2024.</li>
             <li><strong>Loi n° 23/030 du 28 juin 2023 :</strong> 2e prorogation jusqu'en 2029, assortie d'enrichissements documentaires (débat d'orientation budgétaire, nouvelles définitions, renforcement des PAP et RAP).</li>
           </ul>
@@ -191,70 +191,70 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-6">
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             2.1 Définition et fondement constitutionnel du budget-programme
             <InfoTooltip texte="Le budget-programme trouve son fondement dans la Constitution (Art. 122 pt. 3) et dans la LOFIP (Art. 8, 43). Il remplace le budget de moyens par une gestion axée sur les résultats et la performance." loi="LOFIP Art. 8 et 43 · Constitution Art. 122 pt. 3" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 122 point 3 de la Constitution réserve au législateur la compétence de fixer les règles relatives aux finances publiques. C'est sur cette base que la LOFIP a consacré le budget-programme comme mode de gestion des finances publiques en RDC.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 8 de la LOFIP pose le principe fondateur : <em>"Les crédits sont spécialisés par grande nature de dépenses ou titres tel que précisé à l'article 37 de la présente loi et par source de financement. Ils sont regroupés par programme. Les programmes peuvent être regroupés par fonction."</em> Il précise que dans le cadre du budget-programme, la présentation des crédits par subdivision de la nomenclature budgétaire (chapitre, article, littera) est indicative et non limitative.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Le budget-programme s'oppose au budget de moyens en ce que l'allocation des crédits n'est plus opérée au profit des institutions (personnel, matériel), mais au profit d'actions à mener en vue de résultats précis. C'est une approche de gestion par laquelle l'allocation des crédits budgétaires permet d'améliorer l'efficacité de l'action de l'État.
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             2.2 Définition légale du programme (Art. 43 LOFIP)
             <InfoTooltip texte="L'article 43 de la LOFIP donne la définition légale du programme, unité de base du budget-programme. Chaque programme est associé à des objectifs précis et à des indicateurs de performance." loi="LOFIP Art. 43" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-2">
+          <p className="text-gray-700 mb-2">
             L'article 43 de la LOFIP définit le programme de la manière suivante :
           </p>
-          <blockquote className="border-l-4 border-rose-400 pl-4 italic text-gray-600 dark:text-gray-400 mb-3">
+          <blockquote className="border-l-4 border-rose-400 pl-4 italic text-gray-600 mb-3">
             "Un programme regroupe les crédits destinés à mettre en oeuvre une action ou un ensemble cohérent d'actions relevant d'un même ministère ou institution et auquel sont associés des objectifs précis, définis en fonction des finalités d'intérêt général, ainsi que des résultats attendus et faisant l'objet d'une évaluation au moyen d'indicateurs de performance."
           </blockquote>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 43 ajoute deux règles importantes :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li>Chaque ministère ou institution peut créer un programme intitulé "administration générale" pour recevoir les crédits non affectés à un programme spécifique.</li>
             <li>Seule une disposition de loi de finances d'initiative gouvernementale peut créer ou supprimer un programme — la création et la suppression des programmes relèvent donc du domaine de la loi.</li>
           </ul>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             2.3 Les fonctions et les documents du budget-programme (Art. 44, 47-49 LOFIP)
             <InfoTooltip texte="L'article 44 organise le regroupement des programmes en fonctions. Les articles 47 à 49 imposent des documents de performance : PAP (Projets Annuels de Performance) et RAP (Rapports Annuels de Performance)." loi="LOFIP Art. 44, 47-49" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 44 de la LOFIP dispose que les programmes peuvent être regroupés en fonctions, lesquelles peuvent être institutionnelles, ministérielles ou interministérielles. La présentation des programmes sous forme de fonction interministérielle entraîne une coordination dans l'exécution et une présentation conjointe des résultats.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Les articles 47 à 49 imposent deux documents essentiels du budget-programme :
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="rounded-lg border border-rose-200 dark:border-rose-800 p-4 bg-rose-50/50 dark:bg-rose-900/10">
-              <h5 className="font-semibold text-rose-700 dark:text-rose-300 mb-2">PAP — Projet Annuel de Performance</h5>
-              <p className="text-sm text-gray-700 dark:text-gray-300">Produit avant le vote du budget. Il expose pour chaque programme : les objectifs poursuivis, les résultats attendus, les indicateurs et leurs cibles. Il accompagne le PLF soumis au Parlement.</p>
+            <div className="rounded-lg border border-rose-200 p-4 bg-rose-50/50">
+              <h5 className="font-semibold text-rose-700 mb-2">PAP — Projet Annuel de Performance</h5>
+              <p className="text-sm text-gray-700">Produit avant le vote du budget. Il expose pour chaque programme : les objectifs poursuivis, les résultats attendus, les indicateurs et leurs cibles. Il accompagne le PLF soumis au Parlement.</p>
             </div>
-            <div className="rounded-lg border border-rose-200 dark:border-rose-800 p-4 bg-rose-50/50 dark:bg-rose-900/10">
-              <h5 className="font-semibold text-rose-700 dark:text-rose-300 mb-2">RAP — Rapport Annuel de Performance</h5>
-              <p className="text-sm text-gray-700 dark:text-gray-300">Produit en fin d'exercice. Il rend compte des résultats effectivement obtenus par rapport aux objectifs du PAP. Il accompagne la loi de reddition des comptes soumise au Parlement (Art. 28-31 LOFIP).</p>
+            <div className="rounded-lg border border-rose-200 p-4 bg-rose-50/50">
+              <h5 className="font-semibold text-rose-700 mb-2">RAP — Rapport Annuel de Performance</h5>
+              <p className="text-sm text-gray-700">Produit en fin d'exercice. Il rend compte des résultats effectivement obtenus par rapport aux objectifs du PAP. Il accompagne la loi de reddition des comptes soumise au Parlement (Art. 28-31 LOFIP).</p>
             </div>
           </div>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             2.4 Le contenu de la loi de finances en mode budget-programme (Art. 22 LOFIP)
             <InfoTooltip texte="L'article 22 fixe le contenu de la loi de finances de l'année dans le cadre du budget-programme : par ministère, par programme, avec autorisation d'engagement (AE) et crédits de paiement (CP)." loi="LOFIP Art. 22" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 22 de la LOFIP dispose que la loi de finances de l'année fixe pour le budget général, par ministère ou institution et par programme, le montant des autorisations d'engagement annuelles et pluriannuelles ainsi que des crédits de paiement. Cette double présentation AE/CP est une innovation majeure qui permet de distinguer l'engagement de la dépense (AE) du décaissement effectif (CP), améliorant ainsi la gestion pluriannuelle des finances publiques.
           </p>
         </div>
@@ -300,17 +300,17 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-6">
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             3.1 La deuxième prorogation du budget-programme : Loi n° 23/030 du 28 juin 2023
             <InfoTooltip texte="La loi n° 23/030 du 28 juin 2023 constitue la 2e modification de la LOFIP. Elle proroge l'entrée en vigueur intégrale du budget-programme jusqu'en 2029 et enrichit le cadre documentaire du PLF." loi="Loi n° 23/030 du 28 juin 2023 · LOFIP Art. 234" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La loi n° 23/030 du 28 juin 2023 modifiant et complétant la LOFIP constitue le dernier acte législatif en date concernant la réforme budgétaire. Elle a accordé au Gouvernement une deuxième prorogation du délai de basculement effectif vers le budget-programme, repoussant l'échéance à 2029. Cette prorogation reconnaît implicitement que les préalables du budget-programme n'étaient pas encore tous réalisés.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Outre la prorogation, la loi n° 23/030 a apporté plusieurs enrichissements normatifs :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li>L'ajout à l'article 3 des définitions des notions de débat d'orientation budgétaire et de dotation budgétaire.</li>
             <li>L'institutionnalisation du débat d'orientation budgétaire au Parlement (avant le dépôt du PLF).</li>
             <li>Le renforcement des exigences documentaires du PLF (PAP enrichis).</li>
@@ -319,57 +319,57 @@ const LECONS: Lecon[] = [
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             3.2 La déconcentration de l'ordonnancement : Art. 5 LF 2026
             <InfoTooltip texte="L'article 5 de la LF n° 25/060 du 29 décembre 2025 autorise la déconcentration de l'ordonnancement à 9 ministères pilotes, transfert progressif de la compétence d'ordonnancement du ministre du Budget vers les ministères sectoriels." loi="LF n° 25/060 Art. 5" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'une des réformes les plus significatives en cours est la déconcentration de l'ordonnancement. En vertu de l'article 5 de la Loi de finances n° 25/060 du 29 décembre 2025, 9 ministères pilotes se sont vu transférer progressivement la compétence d'ordonnanciement de leurs dépenses — une compétence qui relevait jusqu'alors exclusivement du ministre ayant le budget dans ses attributions.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Cette réforme vise à rapprocher la prise de décision budgétaire des ministères sectoriels, à renforcer leur responsabilité dans l'exécution de leurs programmes et à améliorer les taux d'exécution budgétaire. Lors du Conseil des ministres de décembre 2025, la Vice-ministre des Finances a présenté les avancées de cette réforme, soulignant qu'elle constitue une transformation majeure de la gestion publique.
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             3.3 La Loi de finances rectificative n° 25/044 de 2025 : impact du conflit à l'Est
             <InfoTooltip texte="La LFR n° 25/044 a réduit le budget 2025 de 1,7%, le ramenant à 50 691,8 Mds FC, en raison du conflit dans l'Est de la RDC qui a impacté les recettes minières et augmenté les dépenses sécuritaires." loi="LFR n° 25/044 du 28 juin 2025" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Adoptée par le Sénat le 13 juin 2025, la Loi de finances rectificative n° 25/044 a réduit le budget de l'exercice 2025 de 1,7%, le ramenant de 51 553,5 milliards FC à 50 691,8 milliards FC (environ 17,2 milliards USD). Cette contraction résulte principalement de la persistance du conflit armé dans l'Est de la RDC qui a :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-3">
+          <ul className="list-disc list-inside space-y-2 text-gray-700 mb-3">
             <li>Réduit les recettes minières provenant des zones affectées.</li>
             <li>Accru les dépenses de défense et de sécurité non prévues dans la loi de finances initiale.</li>
             <li>Perturbé les activités économiques dans plusieurs provinces.</li>
           </ul>
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-gray-700">
             Malgré ce contexte, la LFR 2025 a pu être adoptée sans réduction plus importante grâce aux décaissements du FMI dans le cadre du programme de Facilité élargie de crédit (FEC) et de la Facilité pour la résilience et la durabilité (FRD).
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             3.4 La Loi de finances 2026 : budget en progression (LF n° 25/060)
             <InfoTooltip texte="La LF n° 25/060 du 29 décembre 2025 fixe le budget 2026 à 59 020,5 Mds FC, soit une progression de 16,4% par rapport à la LFR 2025. Elle reflète la consolidation des efforts de stabilisation macroéconomique." loi="LF n° 25/060 du 29 décembre 2025" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La Loi de finances pour l'exercice 2026, promulguée sous le numéro n° 25/060 le 29 décembre 2025, fixe les prévisions de recettes et de dépenses à 59 020,5 milliards de francs congolais, soit environ 20,3 milliards USD. Il s'agit d'une progression de 16,4% par rapport à la LFR 2025. Ce relèvement reflète la consolidation des efforts de stabilisation macroéconomique engagés ces dernières années.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'Assemblée nationale a déclaré recevable le PLF 2026 le 19 novembre 2025 après des débats intenses d'environ six heures. Le budget 2026 est présenté en équilibre tant en recettes qu'en dépenses, conformément au principe d'équilibre posé par la LOFIP.
           </p>
-          <div className="rounded-lg border border-rose-200 dark:border-rose-800 overflow-x-auto">
+          <div className="rounded-lg border border-rose-200 overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-rose-50 dark:bg-rose-900/30">
+              <thead className="bg-rose-50">
                 <tr>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Indicateur</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">LFR 2025</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">LF 2026</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Indicateur</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">LFR 2025</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">LF 2026</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-rose-100 dark:divide-rose-800">
+              <tbody className="divide-y divide-rose-100">
                 {[
                   ["Budget total","50 691,8 Mds FC","59 020,5 Mds FC"],
                   ["Equivalent USD","~17,2 Mds USD","~20,3 Mds USD"],
@@ -377,10 +377,10 @@ const LECONS: Lecon[] = [
                   ["Caisse péréquation","Art. 225-226 LOFIP","744,6 Mds FC (Art. 9 LF 2026)"],
                   ["Progression","(-1,7% vs LFI 2025)","(+16,4% vs LFR 2025)"],
                 ].map(([i,v1,v2]) => (
-                  <tr key={i} className="hover:bg-rose-50/50 dark:hover:bg-rose-900/10">
-                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-gray-200">{i}</td>
-                    <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{v1}</td>
-                    <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{v2}</td>
+                  <tr key={i} className="hover:bg-rose-50/50">
+                    <td className="px-4 py-2 font-medium text-gray-800">{i}</td>
+                    <td className="px-4 py-2 text-gray-700">{v1}</td>
+                    <td className="px-4 py-2 text-gray-700">{v2}</td>
                   </tr>
                 ))}
               </tbody>
@@ -429,26 +429,26 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-6">
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             4.1 Le cadre macroéconomique 2025 : contexte de la réforme
             <InfoTooltip texte="Le cadre macroéconomique conditionne l'exécution des finances publiques. La LOFIP s'applique aux finances de l'État dans le cadre fixé par la Constitution (Art. 174-175) sur la souveraineté fiscale." loi="Constitution Art. 174-175 · LFR n° 25/044" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 174 de la Constitution dispose que les finances de l'État sont gérées conformément au principe de bonne gouvernance financière. L'article 175 précise que le budget de l'État prévoit et autorise, en recettes et en dépenses, les ressources et les charges de l'État. Ces dispositions constitutionnelles encadrent le contexte macroéconomique dans lequel s'inscrivent les réformes.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Le contexte macroéconomique de 2025 est marqué par plusieurs facteurs significatifs : le conflit armé persistant dans l'Est du pays, les ajustements budgétaires consécutifs, et la poursuite des réformes structurelles sous l'égide du FMI.
           </p>
-          <div className="rounded-lg border border-rose-200 dark:border-rose-800 overflow-x-auto">
+          <div className="rounded-lg border border-rose-200 overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-rose-50 dark:bg-rose-900/30">
+              <thead className="bg-rose-50">
                 <tr>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Indicateur</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Valeur 2025</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Source</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Indicateur</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Valeur 2025</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Source</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-rose-100 dark:divide-rose-800">
+              <tbody className="divide-y divide-rose-100">
                 {[
                   ["Taux de croissance du PIB","5,3%","FMI / BCC"],
                   ["Inflation moyenne","8,8%","BCC"],
@@ -457,10 +457,10 @@ const LECONS: Lecon[] = [
                   ["Pression fiscale","~12% du PIB","FMI / Ministère des Finances"],
                   ["Taux d'exécution T1 2025","17,1%","ODEP T1 2025"],
                 ].map(([i,v,s]) => (
-                  <tr key={i} className="hover:bg-rose-50/50 dark:hover:bg-rose-900/10">
-                    <td className="px-4 py-2 font-medium text-gray-800 dark:text-gray-200">{i}</td>
-                    <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{v}</td>
-                    <td className="px-4 py-2 text-gray-600 dark:text-gray-400 text-xs">{s}</td>
+                  <tr key={i} className="hover:bg-rose-50/50">
+                    <td className="px-4 py-2 font-medium text-gray-800">{i}</td>
+                    <td className="px-4 py-2 text-gray-700">{v}</td>
+                    <td className="px-4 py-2 text-gray-600 text-xs">{s}</td>
                   </tr>
                 ))}
               </tbody>
@@ -469,35 +469,35 @@ const LECONS: Lecon[] = [
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             4.2 Le programme FMI : Facilité élargie de crédit (FEC) et Facilité pour la résilience et la durabilité (FRD)
             <InfoTooltip texte="La RDC bénéficie d'un programme triennal avec le FMI (FEC + FRD). Le 19 décembre 2025, le FMI a approuvé un décaissement de 445 millions USD. Un 3e examen a abouti en mai 2026." loi="LOFIP Art. 1 et 2 — contexte international des finances publiques" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La RDC est engagée dans un programme triennal avec le Fonds monétaire international comprenant deux volets : la Facilité élargie de crédit (FEC) pour la stabilisation macroéconomique, et la Facilité pour la résilience et la durabilité (FRD) pour le financement de l'adaptation climatique.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Chronologie des revues et décaissements :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li><strong>Mai 2025 :</strong> Accord au niveau des services FMI-RDC sur la 1re revue FEC et FRD — rééquilibrage du cadre macroéconomique.</li>
             <li><strong>19 décembre 2025 :</strong> Le Conseil d'administration du FMI approuve la 2e revue et un décaissement de 445 millions USD (570,9 millions DTS au titre de la FEC + 133,25 millions DTS au titre du FRD), portant le total à plus de 570,9 millions DTS décaissés.</li>
             <li><strong>6 mai 2026 :</strong> Fin de la mission FMI à Kinshasa — accord préliminaire sur la 3e revue FEC et 2e revue FRD. Ouverture de la voie à un nouveau décaissement d'environ 400 millions USD.</li>
           </ul>
-          <p className="text-gray-700 dark:text-gray-300 mt-3">
+          <p className="text-gray-700 mt-3">
             Ces programmes conditionnent les réformes structurelles des finances publiques, notamment la mobilisation des recettes (objectif : porter la pression fiscale de ~12% à 15-17% du PIB), la transparence budgétaire et la déconcentration de l'ordonnancement.
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             4.3 Défis persistants de l'exécution budgétaire
             <InfoTooltip texte="Malgré les réformes, des défis structurels persistent : faible taux d'exécution, paiements hors système, migration des systèmes d'information (SYDONIA, ERAS), formation insuffisante des RPROG." loi="LOFIP Art. 43, 88-96 — cadre d'exécution du budget" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Malgré les avancées normatives, plusieurs défis structurels entravent la mise en oeuvre effective du budget-programme :
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+          <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li><strong>Faible taux d'exécution :</strong> seulement 17,1% au premier trimestre 2025 selon l'ODEP — le taux d'exécution des investissements ne dépasse pas 4% au T1.</li>
             <li><strong>Persistance des paiements hors système :</strong> les avances de trésorerie régularisées tardivement violent le principe de l'unité de trésorerie (Art. 110 LOFIP).</li>
             <li><strong>Migration des systèmes d'information :</strong> le basculement vers de nouveaux systèmes intégrés (SYDONIA pour les douanes, ERAS pour les recettes) est en cours mais incomplet.</li>
@@ -547,27 +547,27 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-6">
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             5.1 L'effectivité de la décentralisation fiscale : les 40% aux provinces (Art. 218-222 LOFIP)
             <InfoTooltip texte="Les articles 218 à 222 de la LOFIP organisent la rétrocession de 40% des recettes à caractère national aux provinces. L'article 232 précise que ces dispositions sont d'application immédiate depuis 2011." loi="LOFIP Art. 218-222 et 232" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 218 de la LOFIP pose le principe de la rétrocession aux provinces de 40% des recettes à caractère national. L'article 219 précise les modalités de calcul, et l'article 220 organise les transferts mensuels automatiques. Conformément à l'article 232, ces dispositions sont d'application immédiate depuis la promulgation de la LOFIP en 2011 — elles ne faisaient pas partie des dispositions soumises au moratoire.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La Loi de finances n° 25/060 du 29 décembre 2025 fixe à son article 8 la rétrocession aux provinces à 7 694,5 milliards de francs congolais pour l'exercice 2026, et l'article 9 fixe la dotation à la Caisse nationale de péréquation à 744,6 milliards FC.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Malgré le cadre légal, l'effectivité des transferts pose encore des difficultés pratiques : retards dans les virements, insuffisance des capacités de gestion provinciales, et faible taux d'utilisation des crédits provinciaux. La consolidation de la décentralisation budgétaire reste un défi majeur à l'horizon 2029.
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             5.2 Cinq perspectives pour les réformes à l'horizon 2029
             <InfoTooltip texte="L'horizon 2029 correspond à la date de basculement intégral vers le budget-programme selon la 2e prorogation (Loi n° 23/030). Cinq axes de réforme doivent être conduits d'ici cette échéance." loi="Loi n° 23/030 · LOFIP Art. 234" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             A l'horizon 2029, date limite du basculement effectif vers le budget-programme selon la loi n° 23/030, cinq perspectives de réforme s'imposent :
           </p>
           <div className="space-y-3">
@@ -598,12 +598,12 @@ const LECONS: Lecon[] = [
                 texte: "La reddition des comptes (Art. 28-31 LOFIP) et le renforcement de la Cour des comptes (Art. 180 Constitution, Art. 123-126 LOFIP) sont essentiels. Le déploiement du SYSCOLAF (Système de comptabilité locale des finances publiques) et la publication régulière des rapports d'exécution budgétaire constituent des avancées nécessaires.",
               },
             ].map(p => (
-              <div key={p.num} className="rounded-lg border border-rose-200 dark:border-rose-800 p-4 bg-rose-50/30 dark:bg-rose-900/10">
+              <div key={p.num} className="rounded-lg border border-rose-200 p-4 bg-rose-50/30">
                 <div className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-7 h-7 rounded-full bg-rose-600 text-white text-sm font-bold flex items-center justify-center">{p.num}</span>
                   <div>
-                    <h5 className="font-semibold text-gray-800 dark:text-gray-100 mb-1">{p.titre}</h5>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">{p.texte}</p>
+                    <h5 className="font-semibold text-gray-800 mb-1">{p.titre}</h5>
+                    <p className="text-sm text-gray-700">{p.texte}</p>
                   </div>
                 </div>
               </div>
@@ -612,14 +612,14 @@ const LECONS: Lecon[] = [
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             5.3 La révision budgétaire extraordinaire de 2026
             <InfoTooltip texte="En juin 2026, l'Assemblée nationale a ouvert une session extraordinaire pour examiner un collectif budgétaire (révision à la hausse du budget 2026), en raison de la persistance des dépenses liées au conflit dans l'Est." loi="Constitution Art. 122 · LOFIP Art. 28" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Le 26 juin 2026, l'Assemblée nationale de la RDC a ouvert une session extraordinaire dont l'ordre du jour comprenait notamment un collectif budgétaire — une révision à la hausse du budget 2026. Cette révision est rendue nécessaire par la persistance des dépenses liées au conflit armé dans l'Est du pays, qui continue de peser sur les finances publiques malgré la progression globale du budget.
           </p>
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-gray-700">
             Cette démarche illustre le mécanisme de la loi de finances rectificative prévu par la LOFIP, qui permet au Gouvernement d'adapter en cours d'exercice les prévisions initiales aux réalités économiques et sécuritaires. Elle rappelle l'importance du contrôle parlementaire comme mécanisme central de la gouvernance financière (Art. 127-130 LOFIP).
           </p>
         </div>
@@ -661,26 +661,26 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-6">
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             6.1 Le calendrier legal de depot et de vote du PLF (§55 Circulaire)
             <InfoTooltip texte="Le §55 de la Circulaire N° 004/ME/MIN.BUDGET/2025 rappelle les delais constitutionnels : 60 jours pour le vote (40 AN + 20 Senat), depot PLF au 15 septembre. Ce delai est fixe par l'Art. 126 de la Constitution et l'Art. 83 al. 1 LOFIP." loi="Constitution Art. 126 · Art. 83 al. 1 LOFIP · §55 Circulaire N° 004/ME/MIN.BUDGET/2025" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Le §55 de la Circulaire N° 004/ME/MIN.BUDGET/2025 rappelle le cadre constitutionnel et legal du vote du PLF. L'article 126 de la Constitution dispose que le Parlement dispose au total de 60 jours pour l'adoption de la loi de finances : 40 jours pour l'Assemblee nationale et 20 jours pour le Senat. L'article 83 alinea 1 de la LOFIP fixe la date limite de depot du PLF au 15 septembre de chaque annee pour respecter ce calendrier constitutionnel.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La Circulaire precise que le respect strict de ce calendrier conditionne la regularite de l'ensemble de la procedure budgetaire. Un depot tardif du PLF comprime le delai de vote parlementaire et peut conduire a l'application de l'article 83 alinea 7 de la LOFIP (ordonnance-loi presidentielle si le PLF n'est pas vote dans les delais). La date limite pour le depot des previsions sectorielles est fixee au 22 juillet (§34 Circulaire).
           </p>
-          <div className="rounded-lg border border-rose-200 dark:border-rose-800 overflow-x-auto">
+          <div className="rounded-lg border border-rose-200 overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-rose-50 dark:bg-rose-900/30">
+              <thead className="bg-rose-50">
                 <tr>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Etape</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Date limite</th>
-                  <th className="text-left px-4 py-2 font-semibold text-rose-700 dark:text-rose-300">Fondement legal</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Etape</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Date limite</th>
+                  <th className="text-left px-4 py-2 font-semibold text-rose-700">Fondement legal</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-rose-100 dark:divide-rose-800">
+              <tbody className="divide-y divide-rose-100">
                 {[
                   ['Depot previsions sectorielles ministeres','22 juillet','§34 Circulaire N° 004/ME/MIN.BUDGET/2025'],
                   ['Conferences fiscales (mesures nouvelles)','Avant inscription PLF','§71 Circulaire N° 004/ME/MIN.BUDGET/2025'],
@@ -689,10 +689,10 @@ const LECONS: Lecon[] = [
                   ['Vote Senat','20 jours','Art. 126 Constitution'],
                   ['Promulgation par President','Avant 31 decembre','Constitution Art. 100'],
                 ].map(([e,d,f]) => (
-                  <tr key={e} className="hover:bg-rose-50/50 dark:hover:bg-rose-900/10">
-                    <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{e}</td>
-                    <td className="px-4 py-2 font-medium text-rose-700 dark:text-rose-300">{d}</td>
-                    <td className="px-4 py-2 text-gray-500 dark:text-gray-400 text-xs">{f}</td>
+                  <tr key={e} className="hover:bg-rose-50/50">
+                    <td className="px-4 py-2 text-gray-700">{e}</td>
+                    <td className="px-4 py-2 font-medium text-rose-700">{d}</td>
+                    <td className="px-4 py-2 text-gray-500 text-xs">{f}</td>
                   </tr>
                 ))}
               </tbody>
@@ -701,34 +701,34 @@ const LECONS: Lecon[] = [
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             6.2 La conference fiscale : coordination obligatoire avant toute mesure nouvelle (§71 Circulaire)
             <InfoTooltip texte="Le §71 de la Circulaire N° 004/ME/MIN.BUDGET/2025 impose que toute mesure fiscale nouvelle soit prealablement discutee en conference fiscale, organisee sous la coordination du Ministere du Budget. Aucune mesure nouvelle ne peut etre inscrite au PLF sans ce passage obligatoire." loi="§71 Circulaire N° 004/ME/MIN.BUDGET/2025 · Art. 107 LOFIP" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Le §71 de la Circulaire N° 004/ME/MIN.BUDGET/2025 consacre la conference fiscale comme etape preambulaire obligatoire a l'inscription de toute mesure fiscale dans le PLF. Cette conference est organisee sous la coordination du Ministere du Budget, qui doit s'assurer de la coherence des mesures fiscales envisagees avec les orientations macroeconomiques et les objectifs de recettes.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             La conference fiscale reunit les principales administrations fiscales et douanieres (DGI, DGDA, DGRAD) ainsi que le Ministere des Finances. Son role est triple : evaluer l'impact budgetaire des mesures nouvelles, verifier la conformite aux engagements FMI, et garantir la cohesion de la politique fiscale. Aucune mesure fiscale nouvelle ne peut figurer dans le PLF sans avoir ete validee lors de cette conference.
           </p>
-          <p className="text-gray-700 dark:text-gray-300">
+          <p className="text-gray-700">
             Cette exigence s'articule avec l'article 107 LOFIP qui institue l'avis prealable obligatoire du Ministre du Budget pour toute decision d'exoneration ou de creation d'une nouvelle structure fiscale. Le non-respect de cette procedure rend la mesure juridiquement irreguliere.
           </p>
         </div>
 
         <div>
-          <h4 className="font-semibold text-gray-800 dark:text-gray-100 mb-2">
+          <h4 className="font-semibold text-gray-800 mb-2">
             6.3 L'article 107 LOFIP : l'avis prealable du Ministre du Budget (§116 Circulaire)
             <InfoTooltip texte="L'article 107 de la LOFIP dispose que toute exoneration fiscale ou creation d'une nouvelle structure est subordonnee a l'avis prealable du Ministre du Budget. Le §116 de la Circulaire rappelle cette obligation et sanctionne les exonerations accordees en dehors de cette procedure." loi="Art. 107 LOFIP · §116 Circulaire N° 004/ME/MIN.BUDGET/2025" />
           </h4>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             L'article 107 de la LOFIP constitue une disposition cle du controle budgetaire preventif. Il dispose que toute decision accordant une exoneration fiscale ou creant une nouvelle structure administrative generant des charges budgetaires est subordonnee a l'avis prealable obligatoire du Ministre du Budget. Cet avis prealable garantit que l'impact budgetaire de la mesure envisagee a ete evalue et est compatible avec l'equilibre des finances publiques.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-3">
+          <p className="text-gray-700 mb-3">
             Le §116 de la Circulaire N° 004/ME/MIN.BUDGET/2025 rappelle cette obligation a tous les ministres sectoriels et instructeurs : aucune exoneration ne peut etre accordee et aucune structure nouvelle ne peut etre creee sans cet avis prealable. Une exoneration accordee en violation de cette procedure est entachee d'irregularite et expose son auteur a une mise en cause devant la Cour des comptes.
           </p>
-          <div className="rounded-lg border border-rose-200 dark:border-rose-800 p-4 bg-rose-50/30 dark:bg-rose-900/10">
-            <p className="text-sm font-semibold text-rose-700 dark:text-rose-300 mb-2">Conditions requises pour une exoneration fiscale legale (Art. 107 LOFIP)</p>
+          <div className="rounded-lg border border-rose-200 p-4 bg-rose-50/30">
+            <p className="text-sm font-semibold text-rose-700 mb-2">Conditions requises pour une exoneration fiscale legale (Art. 107 LOFIP)</p>
             <ul className="space-y-1">
               {[
                 'Avis prealable du Ministre du Budget (obligatoire)',
@@ -737,7 +737,7 @@ const LECONS: Lecon[] = [
                 'Inscription dans le rapport sur les depenses fiscales (Art. 79 pt. 11 LOFIP)',
                 'Validation lors de la conference fiscale (§71 Circulaire)',
               ].map((c, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
                   <span className="flex-shrink-0 w-5 h-5 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center mt-0.5">{i+1}</span>
                   {c}
                 </li>
@@ -1202,8 +1202,8 @@ function QCMCard({ qcm, index }: { qcm: QCM; index: number }) {
   const [selected, setSelected] = useState<string | null>(null)
   const submitted = selected !== null
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 space-y-3">
-      <p className="font-medium text-gray-800 dark:text-gray-100 text-sm">
+    <div className="rounded-xl border border-gray-200 bg-white p-4 space-y-3">
+      <p className="font-medium text-gray-800 text-sm">
         <span className={cn('inline-block px-2 py-0.5 rounded text-xs font-bold mr-2', C.badge)}>Q{index + 1}</span>
         {qcm.question}
       </p>
@@ -1218,10 +1218,10 @@ function QCMCard({ qcm, index }: { qcm: QCM; index: number }) {
               onClick={() => setSelected(opt.id)}
               className={cn(
                 'w-full text-left text-sm px-3 py-2 rounded-lg border transition-all',
-                !submitted && 'hover:border-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 border-gray-200 dark:border-gray-600',
+                !submitted && 'hover:border-rose-400 hover:bg-rose-50 border-gray-200',
                 submitted && isCorrect && C.correct,
                 submitted && isSelected && !isCorrect && C.wrong,
-                submitted && !isCorrect && !isSelected && 'border-gray-200 dark:border-gray-600 opacity-60',
+                submitted && !isCorrect && !isSelected && 'border-gray-200 opacity-60',
               )}
             >
               <span className="font-semibold mr-2 uppercase">{opt.id}.</span>{opt.texte}
@@ -1232,7 +1232,7 @@ function QCMCard({ qcm, index }: { qcm: QCM; index: number }) {
         })}
       </div>
       {submitted && (
-        <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-3 text-sm text-blue-800 dark:text-blue-200">
+        <div className="rounded-lg bg-blue-50 border border-blue-200 p-3 text-sm text-blue-800">
           <strong>Explication :</strong> {qcm.explication}
         </div>
       )}
@@ -1247,32 +1247,32 @@ function QCMCard({ qcm, index }: { qcm: QCM; index: number }) {
 function CasPratiqueCard({ cp }: { cp: CasPratique }) {
   const [open, setOpen] = useState<string | null>(null)
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
+    <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
       <div className={cn('px-5 py-4 border-b', C.bg, C.border)}>
         <h3 className={cn('font-bold text-base', C.text)}>{cp.titre}</h3>
       </div>
       <div className="p-5 space-y-4">
-        <div className="rounded-lg bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-4">
-          <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Contexte</p>
-          <p className="text-sm text-gray-700 dark:text-gray-300">{cp.contexte}</p>
+        <div className="rounded-lg bg-gray-50 border border-gray-200 p-4">
+          <p className="text-sm font-semibold text-gray-700 mb-2">Contexte</p>
+          <p className="text-sm text-gray-700">{cp.contexte}</p>
         </div>
         <div className="space-y-3">
           {cp.questions.map(q => (
-            <div key={q.num} className="rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div key={q.num} className="rounded-lg border border-gray-200 overflow-hidden">
               <button
                 className="w-full flex items-center justify-between px-4 py-3 text-left"
                 onClick={() => setOpen(open === q.num ? null : q.num)}
               >
-                <span className="font-semibold text-gray-800 dark:text-gray-100 text-sm">
+                <span className="font-semibold text-gray-800 text-sm">
                   <span className={cn('inline-block px-2 py-0.5 rounded text-xs font-bold mr-2', C.badge)}>Q{q.num}</span>
                   {q.enonce}
                 </span>
                 {open === q.num ? <ChevronUp className="h-4 w-4 flex-shrink-0 text-gray-400" /> : <ChevronDown className="h-4 w-4 flex-shrink-0 text-gray-400" />}
               </button>
               {open === q.num && (
-                <div className="px-4 pb-4 pt-1 border-t border-gray-100 dark:border-gray-700">
-                  <p className="text-xs font-semibold text-rose-600 dark:text-rose-400 mb-2 uppercase tracking-wide">Correction</p>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">{q.correction}</p>
+                <div className="px-4 pb-4 pt-1 border-t border-gray-100">
+                  <p className="text-xs font-semibold text-rose-600 mb-2 uppercase tracking-wide">Correction</p>
+                  <p className="text-sm text-gray-700">{q.correction}</p>
                 </div>
               )}
             </div>
@@ -1295,7 +1295,7 @@ export default function UE5Chapitre10Page() {
   const [devOpen, setDevOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
+    <div className="min-h-screen bg-gray-50 pb-20">
       {/* HEADER */}
       <div className={cn('border-b', C.bg, C.border)}>
         <div className="max-w-4xl mx-auto px-4 py-4">
@@ -1308,10 +1308,10 @@ export default function UE5Chapitre10Page() {
               ]}
               color="emerald"
             />
-            <h1 className="text-xl font-bold text-gray-900 dark:text-gray-50 mt-1">
+            <h1 className="text-xl font-bold text-gray-900 mt-1">
               Réformes et actualité des finances publiques en RDC
             </h1>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500">
               LOFIP Art. 1-3, 8, 22, 43-44, 218-226, 231-234 · Loi n° 18/010 · Loi n° 23/030 · LF n° 25/060 · Constitution Art. 122, 174-175
             </p>
           </div>
@@ -1319,7 +1319,7 @@ export default function UE5Chapitre10Page() {
             {[['6','Lecons'],['30','QCMs'],['6','Cas pratiques']].map(([n,l]) => (
               <div key={l} className="text-center">
                 <div className={cn('text-lg font-bold', C.text)}>{n}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{l}</div>
+                <div className="text-xs text-gray-500">{l}</div>
               </div>
             ))}
           </div>
@@ -1328,10 +1328,10 @@ export default function UE5Chapitre10Page() {
 
       {/* ONGLETS */}
       <div className="max-w-4xl mx-auto px-4 mt-4">
-        <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+        <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
           {([['lecons','Lecons'],['qcm','QCM'],['cas','Cas pratiques'],['devoir','Devoir']] as const).map(([k,l]) => (
             <button key={k} onClick={() => setOnglet(k)}
-              className={cn('flex-1 text-xs font-medium py-1.5 rounded-md transition-all', onglet === k ? C.active : 'text-gray-500 dark:text-gray-400 hover:text-gray-700')}>
+              className={cn('flex-1 text-xs font-medium py-1.5 rounded-md transition-all', onglet === k ? C.active : 'text-gray-500 hover:text-gray-700')}>
               {l}
             </button>
           ))}
@@ -1355,21 +1355,21 @@ export default function UE5Chapitre10Page() {
 
             {/* Carte leçon */}
             <div className={cn('rounded-xl border p-1', C.bg, C.border)}>
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-5 space-y-1">
+              <div className="bg-white rounded-lg p-5 space-y-1">
                 <p className={cn('text-xs font-bold uppercase tracking-wide', C.text)}>LECON {LECONS.findIndex(l => l.id === leconActive) + 1} SUR 6</p>
-                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50">{lecon.titre}</h2>
+                <h2 className="text-lg font-bold text-gray-900">{lecon.titre}</h2>
                 <p className={C.loi}>{lecon.lois}</p>
               </div>
             </div>
 
             {/* Contenu */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+            <div className="bg-white rounded-xl border border-gray-200 p-5">
               {lecon.contenu}
             </div>
 
             {/* QCMs de leçon */}
             <div>
-              <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-3 text-sm">QCMs de la leçon</h3>
+              <h3 className="font-semibold text-gray-700 mb-3 text-sm">QCMs de la leçon</h3>
               <div className="space-y-4">
                 {lecon.qcms.map((q, i) => <QCMCard key={q.id} qcm={q} index={i} />)}
               </div>
@@ -1382,7 +1382,7 @@ export default function UE5Chapitre10Page() {
           <div className="space-y-4">
             <div className={cn('rounded-xl border p-4', C.bg, C.border)}>
               <h2 className={cn('font-bold text-base', C.text)}>QCM globaux — Chapitre 10</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">20 questions · 5 propositions chacune · LOFIP · LF n° 25/060 · Circulaire N° 004/ME/MIN.BUDGET/2025</p>
+              <p className="text-xs text-gray-500 mt-1">20 questions · 5 propositions chacune · LOFIP · LF n° 25/060 · Circulaire N° 004/ME/MIN.BUDGET/2025</p>
             </div>
             {QCM_GLOBAUX.map((q, i) => <QCMCard key={q.id} qcm={q} index={i} />)}
           </div>
@@ -1393,7 +1393,7 @@ export default function UE5Chapitre10Page() {
           <div className="space-y-6">
             <div className={cn('rounded-xl border p-4', C.bg, C.border)}>
               <h2 className={cn('font-bold text-base', C.text)}>Cas pratiques — Chapitre 10</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">6 cas purement juridiques · Fondes exclusivement sur les textes legaux · Inclut la Circulaire N° 004/ME/MIN.BUDGET/2025</p>
+              <p className="text-xs text-gray-500 mt-1">6 cas purement juridiques · Fondes exclusivement sur les textes legaux · Inclut la Circulaire N° 004/ME/MIN.BUDGET/2025</p>
             </div>
             {CAS_PRATIQUES.map(cp => <CasPratiqueCard key={cp.id} cp={cp} />)}
           </div>
@@ -1404,22 +1404,22 @@ export default function UE5Chapitre10Page() {
           <div className="space-y-4">
             <div className={cn('rounded-xl border p-4', C.bg, C.border)}>
               <h2 className={cn('font-bold text-base', C.text)}>Devoir — Chapitre 10</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Dissertation juridique · Noté sur 20</p>
+              <p className="text-xs text-gray-500 mt-1">Dissertation juridique · Noté sur 20</p>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 space-y-4">
+            <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
               <div>
-                <p className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wide mb-1">Sujet</p>
-                <p className="text-gray-800 dark:text-gray-100 font-medium">
+                <p className="text-xs font-bold text-rose-600 uppercase tracking-wide mb-1">Sujet</p>
+                <p className="text-gray-800 font-medium">
                   "La réforme du budget-programme en RDC, deux fois prorogée depuis 2018, témoigne-t-elle d'une volonté politique insuffisante ou d'une contrainte juridique et institutionnelle incontournable ?"
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <p className="text-xs text-gray-500 mt-2">
                   Vous répondrez en vous fondant exclusivement sur la LOFIP (Art. 8, 22, 43-44, 232, 233, 234), la Loi n° 18/010 du 9 juillet 2018, la Loi n° 23/030 du 28 juin 2023, la Constitution (Art. 122 pt. 3, 174-175), la LF n° 25/060 et la LFR n° 25/044.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm">
                 {[['Présences','/5'],['Devoir','/5'],['Total','/10 (ramené sur 20)']].map(([l,v]) => (
                   <div key={l} className={cn('rounded-lg border p-3', C.bg, C.border)}>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{l}</p>
+                    <p className="text-xs text-gray-500">{l}</p>
                     <p className={cn('font-bold text-lg', C.text)}>{v}</p>
                   </div>
                 ))}
@@ -1429,9 +1429,9 @@ export default function UE5Chapitre10Page() {
                 {devOpen ? 'Masquer les éléments de réponse' : 'Voir les éléments de réponse'}
               </button>
               {devOpen && (
-                <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 p-4 text-sm space-y-3">
-                  <p className="font-bold text-blue-800 dark:text-blue-200">Eléments de réponse attendus :</p>
-                  <div className="space-y-2 text-blue-800 dark:text-blue-200">
+                <div className="rounded-lg bg-blue-50 border border-blue-200 p-4 text-sm space-y-3">
+                  <p className="font-bold text-blue-800">Eléments de réponse attendus :</p>
+                  <div className="space-y-2 text-blue-800">
                     <p><strong>Introduction :</strong> Présenter la LOFIP comme révolution normative de 2011, le délai initial de l'Art. 234 (2019), et les deux prorogations (2018 et 2023). Poser la problématique : les prorogations révèlent-elles un manque de volonté ou des contraintes objectives ?</p>
                     <p><strong>I. Les contraintes juridiques et institutionnelles objectives :</strong> (1) La LOFIP elle-même (Art. 43, 44, 47-49) impose des préalables techniques complexes (PAP, RAP, RPROG, systèmes d'information) ; (2) l'article 232 distingue les dispositions d'application immédiate des dispositions différées — montrer que le Parlement a prévu que certaines dispositions demandaient du temps ; (3) la création de 26 provinces en 2015 a complexifié la décentralisation fiscale (Art. 218-222).</p>
                     <p><strong>II. Les indices d'insuffisance de la volonté politique :</strong> (1) Taux d'exécution budgétaire de 17,1% au T1 2025 — inadmissible après 14 ans ; (2) persistance des paiements hors système violant l'Art. 110 (unité de trésorerie) ; (3) formation insuffisante des RPROG malgré le délai ; (4) déconcentration de l'ordonnancement (Art. 5 LF 2026) encore expérimentale après plus d'une décennie.</p>

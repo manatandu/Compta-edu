@@ -60,7 +60,7 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
       {/* Bandeau score global */}
       <div className={cn(
         'rounded-xl border p-3 flex items-center justify-between',
-        `border-${couleurAccent}-200 dark:border-${couleurAccent}-800 bg-${couleurAccent}-50/50 dark:bg-${couleurAccent}-900/10`
+        `border-${couleurAccent}-200 bg-${couleurAccent}-50/50`
       )}>
         <div className="flex items-center gap-3">
           <Award className={cn('h-5 w-5', totalRepondu > 0 ? scoreCouleur : `text-${couleurAccent}-500`)} />
@@ -96,8 +96,8 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
                 'rounded-xl border bg-card p-4 space-y-3 transition-colors',
                 repondu
                   ? estCorrecte
-                    ? 'border-green-300 dark:border-green-700'
-                    : 'border-red-300 dark:border-red-700'
+                    ? 'border-green-300'
+                    : 'border-red-300'
                   : 'border-border'
               )}
             >
@@ -107,8 +107,8 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
                   'shrink-0 text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center',
                   repondu
                     ? estCorrecte
-                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-                      : 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-red-100 text-red-700'
                     : 'bg-primary/10 text-primary'
                 )}>
                   {idx + 1}
@@ -136,12 +136,12 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
                 {q.options.map(opt => {
                   let cls = 'w-full text-left rounded-lg border px-3 py-2 text-sm transition-colors '
                   if (!repondu) {
-                    cls += `border-border hover:border-${couleurAccent}-400 hover:bg-${couleurAccent}-50/50 dark:hover:bg-${couleurAccent}-900/10`
+                    cls += `border-border hover:border-${couleurAccent}-400 hover:bg-${couleurAccent}-50/50`
                   } else {
                     if (opt.id === q.reponseCorrecte) {
-                      cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200'
+                      cls += 'border-green-500 bg-green-50 text-green-800'
                     } else if (opt.id === rep) {
-                      cls += 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
+                      cls += 'border-red-500 bg-red-50 text-red-800'
                     } else {
                       cls += 'border-border opacity-50'
                     }

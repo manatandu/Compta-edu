@@ -502,8 +502,8 @@ function QCMBlock({ qcm }: { qcm: QCMData }) {
           const isSelected = opt.id === selected
           let cls = 'w-full text-left px-3 py-2 rounded-lg border text-sm transition-colors '
           if (!showResult) cls += 'border-border bg-background hover:bg-muted'
-          else if (isCorrect) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300'
-          else if (isSelected) cls += 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300'
+          else if (isCorrect) cls += 'border-green-500 bg-green-50 text-green-800'
+          else if (isSelected) cls += 'border-red-500 bg-red-50 text-red-800'
           else cls += 'border-border bg-background opacity-60'
           return (
             <button key={opt.id} className={cls} onClick={() => handleAnswer(opt.id)}>
@@ -515,8 +515,8 @@ function QCMBlock({ qcm }: { qcm: QCMData }) {
       {showResult && (
         <div className={cn('flex items-start gap-2 rounded-lg p-3 text-xs',
           selected === qcm.reponse
-            ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300'
-            : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300'
+            ? 'bg-green-50 text-green-800'
+            : 'bg-red-50 text-red-800'
         )}>
           {selected === qcm.reponse
             ? <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
@@ -534,9 +534,9 @@ function QCMBlock({ qcm }: { qcm: QCMData }) {
 function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
   const [open, setOpen] = useState<Record<string, boolean>>({})
   return (
-    <div className="rounded-xl border border-orange-200 dark:border-orange-800 bg-card overflow-hidden">
-      <div className="bg-orange-50 dark:bg-orange-900/20 px-4 py-3 border-b border-orange-200 dark:border-orange-800">
-        <span className="text-xs font-bold text-orange-700 dark:text-orange-300 uppercase tracking-wide">Cas pratique {index + 1}</span>
+    <div className="rounded-xl border border-orange-200 bg-card overflow-hidden">
+      <div className="bg-orange-50 px-4 py-3 border-b border-orange-200">
+        <span className="text-xs font-bold text-orange-700 uppercase tracking-wide">Cas pratique {index + 1}</span>
         <h3 className="text-sm font-bold text-foreground mt-1 leading-snug">{ec.titre}</h3>
       </div>
       <div className="p-4 space-y-4">
@@ -555,7 +555,7 @@ function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
               </button>
               <div className={cn('px-4 text-sm text-foreground leading-relaxed', open[q.num] ? 'pb-4' : 'hidden')}>
                 <p className="mb-3 font-medium text-foreground/90">{q.enonce}</p>
-                <div className="rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-3 text-xs text-orange-900 dark:text-orange-200 leading-relaxed">
+                <div className="rounded-lg bg-orange-50 border border-orange-200 p-3 text-xs text-orange-900 leading-relaxed">
                   <strong>Correction :</strong> {q.correction}
                 </div>
               </div>
@@ -597,12 +597,12 @@ export default function UE5Chapitre9Page() {
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
                 <thead>
-                  <tr className="bg-orange-100 dark:bg-orange-900/30">
-                    <th className="border border-orange-200 dark:border-orange-700 px-3 py-2 text-left font-bold">Type</th>
-                    <th className="border border-orange-200 dark:border-orange-700 px-3 py-2 text-left font-bold">Nature</th>
-                    <th className="border border-orange-200 dark:border-orange-700 px-3 py-2 text-left font-bold">Moment</th>
-                    <th className="border border-orange-200 dark:border-orange-700 px-3 py-2 text-left font-bold">Organe</th>
-                    <th className="border border-orange-200 dark:border-orange-700 px-3 py-2 text-left font-bold">Base légale</th>
+                  <tr className="bg-orange-100">
+                    <th className="border border-orange-200 px-3 py-2 text-left font-bold">Type</th>
+                    <th className="border border-orange-200 px-3 py-2 text-left font-bold">Nature</th>
+                    <th className="border border-orange-200 px-3 py-2 text-left font-bold">Moment</th>
+                    <th className="border border-orange-200 px-3 py-2 text-left font-bold">Organe</th>
+                    <th className="border border-orange-200 px-3 py-2 text-left font-bold">Base légale</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -638,9 +638,9 @@ export default function UE5Chapitre9Page() {
               </table>
             </div>
           </div>
-          <div className="rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-3">
-            <p className="text-xs font-semibold text-orange-800 dark:text-orange-200">Constitution Art. 180</p>
-            <p className="text-xs text-orange-700 dark:text-orange-300 mt-1 italic">
+          <div className="rounded-lg bg-orange-50 border border-orange-200 p-3">
+            <p className="text-xs font-semibold text-orange-800">Constitution Art. 180</p>
+            <p className="text-xs text-orange-700 mt-1 italic">
               « La Cour des comptes est chargée du contrôle de la gestion des finances de l'État, des biens et du patrimoine publics. »
             </p>
           </div>
@@ -736,8 +736,8 @@ export default function UE5Chapitre9Page() {
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
           <div>
             <h4 className="font-bold text-foreground mb-2">Fondement constitutionnel (Art. 180 Constitution)</h4>
-            <div className="rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-3">
-              <p className="text-xs italic text-orange-800 dark:text-orange-200">Art. 180 Constitution : « La Cour des comptes est chargée du contrôle de la gestion des finances de l'État, des biens et du patrimoine publics. »</p>
+            <div className="rounded-lg bg-orange-50 border border-orange-200 p-3">
+              <p className="text-xs italic text-orange-800">Art. 180 Constitution : « La Cour des comptes est chargée du contrôle de la gestion des finances de l'État, des biens et du patrimoine publics. »</p>
             </div>
           </div>
           <div>
@@ -848,7 +848,7 @@ export default function UE5Chapitre9Page() {
       <div className="grid grid-cols-3 gap-2">
         {[{ label: 'Leçons', val: '5' }, { label: 'QCMs', val: '25' }, { label: 'Cas pratiques', val: '5' }].map(s => (
           <div key={s.label} className="rounded-xl border border-border bg-card p-3 text-center">
-            <p className="text-lg font-bold text-orange-600 dark:text-orange-400">{s.val}</p>
+            <p className="text-lg font-bold text-orange-600">{s.val}</p>
             <p className="text-xs text-muted-foreground">{s.label}</p>
           </div>
         ))}
@@ -880,15 +880,15 @@ export default function UE5Chapitre9Page() {
             ))}
           </div>
           <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <div className="bg-orange-50 dark:bg-orange-900/20 px-4 py-3 border-b border-orange-200 dark:border-orange-800">
+            <div className="bg-orange-50 px-4 py-3 border-b border-orange-200">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-orange-700 dark:text-orange-300 uppercase tracking-wide">Leçon {activeLecon + 1} sur {lecons.length}</span>
+                  <span className="text-xs font-bold text-orange-700 uppercase tracking-wide">Leçon {activeLecon + 1} sur {lecons.length}</span>
                   <h2 className="text-sm font-bold text-foreground mt-0.5 leading-snug">{lecons[activeLecon].titre}</h2>
                 </div>
                 <InfoTooltip texte={`Source : ${lecons[activeLecon].source}`} loi="LOFIP" />
               </div>
-              <p className="text-xs text-orange-600 dark:text-orange-400 mt-1">{lecons[activeLecon].source}</p>
+              <p className="text-xs text-orange-600 mt-1">{lecons[activeLecon].source}</p>
             </div>
             <div className="p-4">{lecons[activeLecon].contenu}</div>
           </div>
@@ -917,9 +917,9 @@ export default function UE5Chapitre9Page() {
       {/* Cas pratiques */}
       {activeTab === 'cas' && isAdmin && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20 p-3">
-            <p className="text-xs text-orange-800 dark:text-orange-200 font-semibold">5 cas pratiques — Contrôle des finances publiques (LOFIP Art. 111-132 + Constitution Art. 178-180)</p>
-            <p className="text-xs text-orange-700 dark:text-orange-300 mt-1">Tous les cas exigent une analyse juridique rigoureuse fondée sur les textes légaux.</p>
+          <div className="rounded-xl border border-orange-200 bg-orange-50 p-3">
+            <p className="text-xs text-orange-800 font-semibold">5 cas pratiques — Contrôle des finances publiques (LOFIP Art. 111-132 + Constitution Art. 178-180)</p>
+            <p className="text-xs text-orange-700 mt-1">Tous les cas exigent une analyse juridique rigoureuse fondée sur les textes légaux.</p>
           </div>
           {ETUDES_DE_CAS.map((ec, i) => <CasPratiqueBlock key={i} ec={ec} index={i} />)}
         </div>

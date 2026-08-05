@@ -43,9 +43,9 @@ function LigneR({ label, val, bold, indent }: { label: string; val: string; bold
 }
 function BoxFinal({ label, val, credit }: { label: string; val: string; credit?: boolean }) {
   return (
-    <div className={cn('rounded-xl p-3 text-center', credit ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700' : 'bg-primary/5 border border-primary/20')}>
+    <div className={cn('rounded-xl p-3 text-center', credit ? 'bg-green-50 border border-green-200' : 'bg-primary/5 border border-primary/20')}>
       <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
-      <p className={cn('text-base font-bold font-mono tabular-nums', credit ? 'text-green-700 dark:text-green-400' : 'text-primary')}>{val}</p>
+      <p className={cn('text-base font-bold font-mono tabular-nums', credit ? 'text-green-700' : 'text-primary')}>{val}</p>
     </div>
   )
 }
@@ -72,10 +72,10 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 }
 function DefBox({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-3">
+    <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
       <div className="flex gap-2">
-        <Info className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-        <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">{children}</div>
+        <Info className="h-3.5 w-3.5 text-blue-600 shrink-0 mt-0.5" />
+        <div className="text-sm text-blue-700 space-y-1">{children}</div>
       </div>
     </div>
   )
@@ -166,9 +166,9 @@ function OngletIRL() {
             <BoxFinal label="Retenu locataire (20%)" val={formatFC(res.retenuLocataire)} />
             <BoxFinal label="Solde propriétaire (2%)" val={formatFC(res.soldeProprietaire)} credit />
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3">
-            <p className="text-sm text-amber-700 dark:text-amber-300 font-semibold mb-1">Exonérations (Art. 12)</p>
-            <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-0.5 list-disc list-inside">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-sm text-amber-700 font-semibold mb-1">Exonérations (Art. 12)</p>
+            <ul className="text-sm text-amber-700 space-y-0.5 list-disc list-inside">
               <li>L'État, les provinces, communes, secteurs, chefferies</li>
               <li>Institutions religieuses, scientifiques, philanthropiques</li>
               <li>Organismes internationaux</li>
@@ -336,9 +336,9 @@ function OngletIF() {
             </div>
           </div>
           <BoxFinal label="Impôt Foncier annuel dû" val={formatFC(res.impot)} />
-          <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3">
-            <p className="text-sm text-amber-700 dark:text-amber-300 font-semibold mb-1">Règles pratiques (Art. 21 &amp; 23)</p>
-            <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-0.5 list-disc list-inside">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-sm text-amber-700 font-semibold mb-1">Règles pratiques (Art. 21 &amp; 23)</p>
+            <ul className="text-sm text-amber-700 space-y-0.5 list-disc list-inside">
               <li>Dû pour l'année entière sur la situation au 1er janvier</li>
               <li>Immeuble neuf imposable à partir du 1er janvier suivant l'occupation</li>
               <li>Dégrèvement si inoccupation ≥ 180 jours consécutifs (Art. 25)</li>
@@ -349,40 +349,40 @@ function OngletIF() {
       )}
 
       {/* Tableau de référence fixe : classement des localités par rang */}
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/20 overflow-hidden">
-        <div className="px-3 py-2 bg-slate-100 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
-          <p className="text-sm font-bold text-slate-700 dark:text-slate-200">Classement des localités par rang (référence)</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Arrêté ministériel n°019/CAB/MIN/FIN/97 du 08 oct. 1997 · OL n°69-006 du 10 fév. 1969</p>
+      <div className="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
+        <div className="px-3 py-2 bg-slate-100 border-b border-slate-200">
+          <p className="text-sm font-bold text-slate-700">Classement des localités par rang (référence)</p>
+          <p className="text-sm text-slate-500 mt-0.5">Arrêté ministériel n°019/CAB/MIN/FIN/97 du 08 oct. 1997 · OL n°69-006 du 10 fév. 1969</p>
         </div>
-        <div className="divide-y divide-slate-200 dark:divide-slate-700">
+        <div className="divide-y divide-slate-200">
           {[
             {
-              rang: 'Rang 1', couleur: 'text-rose-700 dark:text-rose-300 bg-rose-100 dark:bg-rose-900/30',
+              rang: 'Rang 1', couleur: 'text-rose-700 bg-rose-100',
               kin: 'Gombe (tous q.) · Limete (sauf Mombele, Musoso, Salongo, Kingabwa) · Ngaliema (Ma-campagne, IPN, Binza Pigeon, Monts Fleuris, Golf, Mimoza, Utexafrica, Chanic…) · Barumbu (Bon-Marché) · Lemba (Gombele)',
               autres: 'Matadi (Soyo, centre commercial) · Lubumbashi (commune) · Bukavu (Ibanda) · Goma (centre, Himbi) · Mbuji-Mayi (MIBA) · Kisangani (Makiso) · Aéroports internationaux · Ports maritimes',
             },
             {
-              rang: 'Rang 2', couleur: 'text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-900/30',
+              rang: 'Rang 2', couleur: 'text-orange-700 bg-orange-100',
               kin: 'Matete (Marais) · Lingwala (Boyata, Golf) · Lemba (camp Riche, Salongo) · Limete (Salongo) · Selembao (Cité Verte, Ngafani I/II/III) · Mont-Ngafula (Maman Mobutu, Mama Yemo, Munongo, Masanga Mbila) · Kintambo (Jamaïque, centre commercial)',
               autres: 'Matadi (commune) · Bunia (centre) · Goma (Butembo, Beni) · Gbadolite (centre) · Mbandaka (centre) · Lubumbashi (Kapemba) · Likasi · Kolwezi · Kikwit (plateau, ville basse) · Kananga (centre) · Ports fluviaux KIN/Kisangani',
             },
             {
-              rang: 'Rang 3', couleur: 'text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/30',
+              rang: 'Rang 3', couleur: 'text-amber-700 bg-amber-100',
               kin: 'Kalamu · Kasa-Vubu · Bandalungwa · Kinshasa · Ngiri-Ngiri · Masina (Sans-Fil) · Ndjili (q.1,2,3,4,7,12) · Barumbu (sauf Bon-Marché) · Lingwala (sauf Boyata/Golf) · Matete (sauf Marais) · Mont-Ngafula (sauf Maman Mobutu/Mama Yemo) · Lemba (sauf Gombele/Riche) · Limete (Musoso) · Kintambo (sauf Rang 1/2)',
               autres: 'Mbanza-Ngungu · Inkisi · Boma (Nzadi) · Bukavu (Bagira, Kadutu) · Uvira (Mulongwe) · Kindu · Kamina · Kalemie · Lubumbashi (Rwashi) · Bandundu · Mwene-Ditu · Mbandaka (sauf centre) · Bunia (Nyakasanza) · Ilebo · Tshikapa',
             },
             {
-              rang: 'Rang 4', couleur: 'text-slate-600 dark:text-slate-300 bg-slate-200 dark:bg-slate-700/50',
+              rang: 'Rang 4', couleur: 'text-slate-600 bg-slate-200',
               kin: 'Kimbanseke · Kisenso · Makala · Ngaba · Bumbu · Maluku · Selembao (hors Cité Verte) · Masina (hors Sans-Fil) · Ndjili (hors q.1,2,3,4,7,12) · et tout quartier non repris aux rangs 1, 2 ou 3',
               autres: "Toutes localités de l'intérieur non classées en rangs 1, 2 ou 3 : chefs-lieux de territoire, cités rurales, agglomérations non urbanisées",
             },
           ].map(r => (
             <div key={r.rang} className="p-3 space-y-1.5">
               <span className={`text-sm font-bold px-2 py-0.5 rounded ${r.couleur}`}>{r.rang}</span>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed mt-1">
+              <p className="text-xs text-slate-700 leading-relaxed mt-1">
                 <span className="font-semibold">Kinshasa : </span>{r.kin}
               </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 <span className="font-semibold">Autres provinces : </span>{r.autres}
               </p>
             </div>
@@ -553,9 +553,9 @@ function OngletIV() {
             </div>
           )}
           <BoxFinal label="IV total dû" val={formatFC(res.impotTotal)} />
-          <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3">
-            <p className="text-sm text-amber-700 dark:text-amber-300 font-semibold mb-1">Principales exonérations (Art. 39)</p>
-            <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-0.5 list-disc list-inside">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-sm text-amber-700 font-semibold mb-1">Principales exonérations (Art. 39)</p>
+            <ul className="text-sm text-amber-700 space-y-0.5 list-disc list-inside">
               <li>Véhicules de l'État et établissements publics à subvention</li>
               <li>Corps diplomatique (sous réserve de réciprocité)</li>
               <li>Cyclomoteurs ≤ 50 cm³ : véhicules à traction humaine/animale</li>
@@ -681,9 +681,9 @@ function OngletTSMC() {
             <BoxFinal label="TSMC en USD" val={formatUSD(res.montantUSD)} />
             <BoxFinal label="TSMC en FC (indicatif)" val={formatFC(res.montantFC)} />
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-3">
-            <p className="text-sm text-amber-700 dark:text-amber-300 font-semibold mb-1">Note importante</p>
-            <p className="text-sm text-amber-700 dark:text-amber-300">Le paiement se fait en FC à l'équivalent du taux de change officiel de la BCC au jour du paiement. Le taux ci-dessus est purement indicatif.</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-sm text-amber-700 font-semibold mb-1">Note importante</p>
+            <p className="text-sm text-amber-700">Le paiement se fait en FC à l'équivalent du taux de change officiel de la BCC au jour du paiement. Le taux ci-dessus est purement indicatif.</p>
           </div>
         </ResultatWrap>
       )}
@@ -703,16 +703,16 @@ const ONGLETS = [
 ]
 
 const COLOR_MAP: Record<string, string> = {
-  amber:  'bg-amber-100 text-amber-700 border-amber-300 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-700',
-  green:  'bg-green-100 text-green-700 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700',
-  blue:   'bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700',
-  purple: 'bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-700',
+  amber:  'bg-amber-100 text-amber-700 border-amber-300',
+  green:  'bg-green-100 text-green-700 border-green-300',
+  blue:   'bg-blue-100 text-blue-700 border-blue-300',
+  purple: 'bg-purple-100 text-purple-700 border-purple-300',
 }
 const COLOR_ACTIVE: Record<string, string> = {
-  amber:  'border-amber-500 bg-amber-50 dark:bg-amber-900/20',
-  green:  'border-green-500 bg-green-50 dark:bg-green-900/20',
-  blue:   'border-blue-500 bg-blue-50 dark:bg-blue-900/20',
-  purple: 'border-purple-500 bg-purple-50 dark:bg-purple-900/20',
+  amber:  'border-amber-500 bg-amber-50',
+  green:  'border-green-500 bg-green-50',
+  blue:   'border-blue-500 bg-blue-50',
+  purple: 'border-purple-500 bg-purple-50',
 }
 
 export default function SimulateurAutresImpots() {
@@ -723,7 +723,7 @@ export default function SimulateurAutresImpots() {
   return (
     <div className="space-y-4">
       {/* En-tête */}
-      <div className="rounded-xl border border-border bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900/50 dark:to-slate-800/50 p-4">
+      <div className="rounded-xl border border-border bg-gradient-to-br from-slate-50 to-slate-100 p-4">
         <h2 className="text-sm font-bold text-foreground mb-1">Autres impôts rétrocédés aux ETD</h2>
         <p className="text-sm text-muted-foreground">
           Ces quatre impôts sont des impôts réels provinciaux et locaux, rétrocédés aux Entités Territoriales Décentralisées (ETD) conformément à l'article 204 al. 16 de la Constitution et à la Loi n° 11/011 du 13 juillet 2011 relative aux finances publiques.

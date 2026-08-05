@@ -15,7 +15,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-1',
     lecons: 8,
     exercices: 3,
-    couleur: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
+    couleur: 'bg-indigo-50 text-indigo-700',
     accent: 'border-l-indigo-500',
     categorie: '',
   },
@@ -28,7 +28,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-2',
     lecons: 7,
     exercices: 4,
-    couleur: 'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
+    couleur: 'bg-violet-50 text-violet-700',
     accent: 'border-l-violet-500',
     categorie: '',
   },
@@ -41,7 +41,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-3',
     lecons: 5,
     exercices: 3,
-    couleur: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+    couleur: 'bg-blue-50 text-blue-700',
     accent: 'border-l-blue-500',
     categorie: 'Soci\u00e9t\u00e9s de personnes',
   },
@@ -54,7 +54,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-4',
     lecons: 6,
     exercices: 3,
-    couleur: 'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300',
+    couleur: 'bg-cyan-50 text-cyan-700',
     accent: 'border-l-cyan-500',
     categorie: 'Soci\u00e9t\u00e9s de capitaux',
   },
@@ -67,7 +67,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-5',
     lecons: 5,
     exercices: 3,
-    couleur: 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
+    couleur: 'bg-teal-50 text-teal-700',
     accent: 'border-l-teal-500',
     categorie: 'Soci\u00e9t\u00e9 mixte',
   },
@@ -80,7 +80,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-6',
     lecons: 5,
     exercices: 3,
-    couleur: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+    couleur: 'bg-emerald-50 text-emerald-700',
     accent: 'border-l-emerald-500',
     categorie: 'Cat\u00e9gorie distincte',
   },
@@ -93,7 +93,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-7',
     lecons: 5,
     exercices: 20,
-    couleur: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
+    couleur: 'bg-amber-50 text-amber-700',
     accent: 'border-l-amber-500',
     categorie: '',
   },
@@ -106,7 +106,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-8',
     lecons: 5,
     exercices: 2,
-    couleur: 'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
+    couleur: 'bg-sky-50 text-sky-700',
     accent: 'border-l-sky-500',
     categorie: '',
   },
@@ -119,7 +119,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-9',
     lecons: 4,
     exercices: 2,
-    couleur: 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    couleur: 'bg-orange-50 text-orange-700',
     accent: 'border-l-orange-500',
     categorie: '',
   },
@@ -132,7 +132,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-10',
     lecons: 4,
     exercices: 2,
-    couleur: 'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
+    couleur: 'bg-rose-50 text-rose-700',
     accent: 'border-l-rose-500',
     categorie: '',
   },
@@ -145,7 +145,7 @@ const CHAPITRES = [
     route: '/ue2/chapitre-11',
     lecons: 5,
     exercices: 10,
-    couleur: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+    couleur: 'bg-emerald-50 text-emerald-700',
     accent: 'border-l-emerald-500',
     categorie: '',
   },
@@ -190,10 +190,10 @@ export default function UE2DroitSocietesPage() {
       </div>
 
       {/* Objectifs du cours */}
-      <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
+      <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-          <span className="text-sm font-semibold text-indigo-800 dark:text-indigo-300">Objectifs du cours</span>
+          <BookOpen className="h-4 w-4 text-indigo-600" />
+          <span className="text-sm font-semibold text-indigo-800">Objectifs du cours</span>
         </div>
         <ul className="space-y-1.5">
           {[
@@ -202,7 +202,7 @@ export default function UE2DroitSocietesPage() {
             'Appliquer les règles aux situations pratiques de création et gestion de sociétés',
             'Préparer aux examens DCG adapté OHADA',
           ].map((obj, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300">
+            <li key={i} className="flex items-start gap-2 text-xs text-indigo-700">
               <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" />
               <span>{obj}</span>
             </li>

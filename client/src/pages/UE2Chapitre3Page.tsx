@@ -49,16 +49,16 @@ const LECONS: Lecon[] = [
 
         <p className="font-semibold">1.1 Les trois piliers de la SNC</p>
         <div className="space-y-2">
-          <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10 p-3">
-            <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">1. Tous les associés ont la qualité de commerçant</p>
+          <div className="rounded-xl border border-red-200 bg-red-50/50 p-3">
+            <p className="text-xs font-semibold text-red-700 mb-1">1. Tous les associés ont la qualité de commerçant</p>
             <p className="text-xs text-muted-foreground">Conséquence : un mineur non émancipé ne peut pas être associé. Des époux ne peuvent pas s'associer (Art. 9). Les personnes frappées d'incompatibilité professionnelle avec le commerce non plus.</p>
           </div>
-          <div className="rounded-xl border border-orange-200 dark:border-orange-800 bg-orange-50/50 dark:bg-orange-900/10 p-3">
-            <p className="text-xs font-semibold text-orange-700 dark:text-orange-300 mb-1">2. Responsabilité indéfinie</p>
+          <div className="rounded-xl border border-orange-200 bg-orange-50/50 p-3">
+            <p className="text-xs font-semibold text-orange-700 mb-1">2. Responsabilité indéfinie</p>
             <p className="text-xs text-muted-foreground">Chaque associé répond des dettes sociales sur la totalité de son patrimoine personnel, sans aucune limite. Les créanciers peuvent saisir immeubles, véhicules, comptes bancaires, salaires, etc. Aucun bouclier patrimonial.</p>
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-            <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">3. Responsabilité solidaire</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+            <p className="text-xs font-semibold text-amber-700 mb-1">3. Responsabilité solidaire</p>
             <p className="text-xs text-muted-foreground">Le créancier peut choisir librement contre quel associé agir et lui réclamer la totalité de la dette. Il poursuivra naturellement l'associé le plus solvable. L'associé qui a trop payé dispose ensuite d'un recours en contribution contre ses co-associés.</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const LECONS: Lecon[] = [
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{car}</td>
                   <td className="p-2 border border-border text-muted-foreground">{regle}</td>
-                  <td className="p-2 border border-border text-slate-600 dark:text-slate-400">{ref}</td>
+                  <td className="p-2 border border-border text-slate-600">{ref}</td>
                 </tr>
               ))}
             </tbody>
@@ -203,7 +203,7 @@ const LECONS: Lecon[] = [
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{sit}</td>
                   <td className="p-2 border border-border text-muted-foreground">{regle}</td>
-                  <td className="p-2 border border-border text-slate-600 dark:text-slate-400 font-medium">{art}</td>
+                  <td className="p-2 border border-border text-slate-600 font-medium">{art}</td>
                 </tr>
               ))}
             </tbody>
@@ -311,9 +311,9 @@ const LECONS: Lecon[] = [
         <p className="font-semibold">3.4 La dissolution de la SNC (Art. 290-292)</p>
         <div className="space-y-2">
           {[
-            { cause: "Décès d'un associé (Art. 290 al. 1)", content: "Principe : le décès entraîne la dissolution. Exception : les statuts peuvent prévoir la continuation avec les associés survivants, avec les héritiers (avec ou sans agrément), ou selon toute autre modalité.", color: "border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10" },
-            { cause: "Héritiers mineurs non émancipés (Art. 290 al. 4)", content: "Si les héritiers sont des mineurs non émancipés, la société doit être transformée en SCS dans 1 an. Les mineurs deviennent commanditaires (responsabilité limitée). À défaut, dissolution de plein droit.", color: "border-orange-200 dark:border-orange-800 bg-orange-50/50 dark:bg-orange-900/10" },
-            { cause: "Incapacité, faillite, retrait (Art. 291)", content: "Le prononcé de l'incapacité, la faillite personnelle ou le retrait d'un associé entraînent en principe la dissolution, sauf clause statutaire contraire ou décision unanime des autres associés de continuer.", color: "border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10" },
+            { cause: "Décès d'un associé (Art. 290 al. 1)", content: "Principe : le décès entraîne la dissolution. Exception : les statuts peuvent prévoir la continuation avec les associés survivants, avec les héritiers (avec ou sans agrément), ou selon toute autre modalité.", color: "border-red-200 bg-red-50/50" },
+            { cause: "Héritiers mineurs non émancipés (Art. 290 al. 4)", content: "Si les héritiers sont des mineurs non émancipés, la société doit être transformée en SCS dans 1 an. Les mineurs deviennent commanditaires (responsabilité limitée). À défaut, dissolution de plein droit.", color: "border-orange-200 bg-orange-50/50" },
+            { cause: "Incapacité, faillite, retrait (Art. 291)", content: "Le prononcé de l'incapacité, la faillite personnelle ou le retrait d'un associé entraînent en principe la dissolution, sauf clause statutaire contraire ou décision unanime des autres associés de continuer.", color: "border-amber-200 bg-amber-50/50" },
           ].map(({ cause, content, color }) => (
             <div key={cause} className={cn('rounded-xl border p-3', color)}>
               <p className="text-xs font-semibold text-foreground mb-1">{cause}</p>
@@ -322,8 +322,8 @@ const LECONS: Lecon[] = [
           ))}
         </div>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/20 p-3">
-          <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Remboursement des parts (Art. 292)</p>
+        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-3">
+          <p className="text-xs font-semibold text-slate-700 mb-1">Remboursement des parts (Art. 292)</p>
           <p className="text-xs text-muted-foreground">En cas de refus d'agrément des héritiers ou de retrait d'un associé, les associés restants doivent racheter ses parts. Ils sont tenus <strong>indéfiniment et solidairement</strong> du paiement du prix de remboursement. Valeur fixée selon l'Art. 59 (accord amiable ou expert judiciaire).</p>
         </div>
       </div>
@@ -386,8 +386,8 @@ const LECONS: Lecon[] = [
         </p>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10 p-3">
-            <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-2">Commandités — Associés actifs</p>
+          <div className="rounded-xl border border-red-200 bg-red-50/50 p-3">
+            <p className="text-xs font-semibold text-red-700 mb-2">Commandités — Associés actifs</p>
             <ul className="space-y-1 text-xs text-muted-foreground">
               {[
                 "Statut identique aux associés SNC (commerçants)",
@@ -398,8 +398,8 @@ const LECONS: Lecon[] = [
               ].map((p, i) => <li key={i} className="flex items-start gap-1"><span className="text-red-500 shrink-0">•</span><span>{p}</span></li>)}
             </ul>
           </div>
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-3">
-            <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-2">Commanditaires — Investisseurs passifs</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+            <p className="text-xs font-semibold text-emerald-700 mb-2">Commanditaires — Investisseurs passifs</p>
             <ul className="space-y-1 text-xs text-muted-foreground">
               {[
                 "Responsabilité limitée strictement à leurs apports",
@@ -414,12 +414,12 @@ const LECONS: Lecon[] = [
 
         <p className="font-semibold">4.1 Sanctions graves pour le commanditaire (Art. 294 et 300)</p>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-            <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">Nom dans la dénomination (Art. 294)</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+            <p className="text-xs font-semibold text-amber-700 mb-1">Nom dans la dénomination (Art. 294)</p>
             <p className="text-xs text-muted-foreground">Le commanditaire perd la protection de la responsabilité limitée et répond indéfiniment et solidairement des dettes sociales envers les tiers de bonne foi.</p>
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-            <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">Acte de gestion externe (Art. 300)</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+            <p className="text-xs font-semibold text-amber-700 mb-1">Acte de gestion externe (Art. 300)</p>
             <p className="text-xs text-muted-foreground">Il devient obligé indéfiniment et solidairement pour les engagements découlant de ses actes. Si la gravité est suffisante, le juge peut l'obliger pour TOUS les engagements de la société.</p>
           </div>
         </div>
@@ -511,8 +511,8 @@ const LECONS: Lecon[] = [
               ].map(([type, principe, assouplissement], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{type}</td>
-                  <td className="p-2 border border-border text-red-600 dark:text-red-400">{principe}</td>
-                  <td className="p-2 border border-border text-emerald-600 dark:text-emerald-400">{assouplissement}</td>
+                  <td className="p-2 border border-border text-red-600">{principe}</td>
+                  <td className="p-2 border border-border text-emerald-600">{assouplissement}</td>
                 </tr>
               ))}
             </tbody>
@@ -539,7 +539,7 @@ const LECONS: Lecon[] = [
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{dec}</td>
                   <td className="p-2 border border-border text-muted-foreground">{regle}</td>
-                  <td className="p-2 border border-border text-slate-600 dark:text-slate-400 font-medium">{art}</td>
+                  <td className="p-2 border border-border text-slate-600 font-medium">{art}</td>
                 </tr>
               ))}
             </tbody>
@@ -548,12 +548,12 @@ const LECONS: Lecon[] = [
 
         <p className="font-semibold">5.3 Dissolution de la SCS (Art. 308) et comparatif SNC / SCS</p>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-3">
-            <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Décès d'un commanditaire</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+            <p className="text-xs font-semibold text-emerald-700 mb-1">Décès d'un commanditaire</p>
             <p className="text-xs text-muted-foreground">La SCS continue de plein droit. Le décès d'un commanditaire ne provoque pas de dissolution. Différence fondamentale avec la SNC.</p>
           </div>
-          <div className="rounded-xl border border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10 p-3">
-            <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">Décès de l'unique commandité</p>
+          <div className="rounded-xl border border-red-200 bg-red-50/50 p-3">
+            <p className="text-xs font-semibold text-red-700 mb-1">Décès de l'unique commandité</p>
             <p className="text-xs text-muted-foreground">Situation critique. Si ses héritiers sont mineurs, ils deviennent commanditaires. La société doit être transformée ou un nouveau commandité nommé dans 1 an. À défaut, dissolution.</p>
           </div>
         </div>
@@ -683,21 +683,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/30 dark:bg-slate-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">{q.question}</p>
+    <div className="rounded-xl border border-slate-200 bg-slate-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-slate-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-slate-500 bg-slate-100 dark:bg-slate-900/30 text-slate-800 dark:text-slate-200' : 'border-border hover:border-slate-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-slate-500 bg-slate-100 text-slate-800' : 'border-border hover:border-slate-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-slate-700 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-slate-800 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
@@ -714,7 +714,7 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('ec', '')}</span>
+          <span className="h-7 w-7 rounded-full bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('ec', '')}</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
             <p className="text-xs text-muted-foreground">{cp.articleRef}</p>
@@ -724,21 +724,21 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
               <div key={q.num} className="space-y-2">
                 <p className="text-xs font-semibold text-foreground">Question {q.num} : {q.enonce}</p>
                 {corrVisible.has(q.num) ? (
-                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                    <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Correction</p>
-                    <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                    <p className="text-xs font-semibold text-emerald-700 mb-1">Correction</p>
+                    <p className="text-xs text-emerald-900 leading-relaxed">{q.correction}</p>
                   </div>
                 ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-slate-600 dark:text-slate-400 hover:underline font-medium">Voir la correction</button>
+                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-slate-600 hover:underline font-medium">Voir la correction</button>
                 )}
               </div>
             ))}
@@ -818,17 +818,17 @@ export default function UE2Chapitre3Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/20 p-4">
+      <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-slate-600 dark:text-slate-400" />
-          <span className="text-sm font-semibold text-slate-800 dark:text-slate-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-slate-600" />
+          <span className="text-sm font-semibold text-slate-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Maîtriser la définition et les trois piliers de la SNC : commerçants, responsabilité indéfinie et solidaire (Art. 270)</span></li>
-          <li className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Appliquer la procédure préalable de mise en demeure avant poursuite d'un associé (Art. 271)</span></li>
-          <li className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Comprendre les règles de cession des parts (unanimité, Art. 274) et de gérance (Art. 276-282)</span></li>
-          <li className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Distinguer commandités et commanditaires dans la SCS et leurs droits/interdictions (Art. 293-301)</span></li>
-          <li className="flex items-start gap-2 text-xs text-slate-700 dark:text-slate-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Analyser les causes de dissolution et leurs spécificités SNC/SCS (Art. 290-292, 308)</span></li>
+          <li className="flex items-start gap-2 text-xs text-slate-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Maîtriser la définition et les trois piliers de la SNC : commerçants, responsabilité indéfinie et solidaire (Art. 270)</span></li>
+          <li className="flex items-start gap-2 text-xs text-slate-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Appliquer la procédure préalable de mise en demeure avant poursuite d'un associé (Art. 271)</span></li>
+          <li className="flex items-start gap-2 text-xs text-slate-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Comprendre les règles de cession des parts (unanimité, Art. 274) et de gérance (Art. 276-282)</span></li>
+          <li className="flex items-start gap-2 text-xs text-slate-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Distinguer commandités et commanditaires dans la SCS et leurs droits/interdictions (Art. 293-301)</span></li>
+          <li className="flex items-start gap-2 text-xs text-slate-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-slate-500" /><span>Analyser les causes de dissolution et leurs spécificités SNC/SCS (Art. 290-292, 308)</span></li>
         </ul>
       </div>
 
@@ -854,7 +854,7 @@ export default function UE2Chapitre3Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-slate-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-slate-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

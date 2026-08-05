@@ -94,10 +94,10 @@ const ROLE_LABELS: Record<UserRole, string> = {
 }
 
 const ROLE_COLORS: Record<UserRole, string> = {
-  admin: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  professeur: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-  assistant: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-  etudiant: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+  admin: 'bg-red-100 text-red-800',
+  professeur: 'bg-blue-100 text-blue-800',
+  assistant: 'bg-purple-100 text-purple-800',
+  etudiant: 'bg-green-100 text-green-800',
 }
 
 const emptyUserForm = {
@@ -1440,8 +1440,8 @@ export default function ProfesseurPage() {
                   </div>
                 </div>
                 {confirmNettoyage && (
-                  <div className="rounded-xl border border-orange-300 dark:border-orange-700 bg-orange-50 dark:bg-orange-950/30 px-4 py-3 flex items-center justify-between gap-4">
-                    <p className="text-sm text-orange-800 dark:text-orange-300">
+                  <div className="rounded-xl border border-orange-300 bg-orange-50 px-4 py-3 flex items-center justify-between gap-4">
+                    <p className="text-sm text-orange-800">
                       Supprimer {coursDoublonsIds.length} cours en double ? Cette action est irréversible.
                     </p>
                     <div className="flex gap-2 shrink-0">
@@ -1487,11 +1487,11 @@ export default function ProfesseurPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
                             <span className="font-semibold text-foreground">{c.nom}</span>
-                            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                            <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">
                               Actif
                             </span>
                             {(c as any).systeme && (
-                              <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Système</span>
+                              <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-100 text-blue-700">Système</span>
                             )}
                           </div>
                           {c.description && <p className="text-xs text-muted-foreground mt-0.5">{c.description}</p>}
@@ -1535,10 +1535,10 @@ export default function ProfesseurPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-foreground text-sm">{c.nom}</span>
-                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-gray-100 text-gray-500">
                             Verrouillé
                           </span>
-                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Système</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-100 text-blue-700">Système</span>
                         </div>
                         {c.description && <p className="text-xs text-muted-foreground mt-0.5">{c.description}</p>}
                         <p className="text-xs text-muted-foreground/70 mt-0.5 italic">Ce cours sera disponible prochainement.</p>
@@ -1776,7 +1776,7 @@ export default function ProfesseurPage() {
                             <td className="px-4 py-2.5">
                               <button
                                 onClick={() => toggleActifUser(u.id, u.actif)}
-                                className={`text-xs px-2.5 py-1 rounded-full font-medium border transition-colors ${u.actif ? 'bg-green-100 text-green-700 border-green-300 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-700' : 'bg-red-100 text-red-600 border-red-300 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700'}`}
+                                className={`text-xs px-2.5 py-1 rounded-full font-medium border transition-colors ${u.actif ? 'bg-green-100 text-green-700 border-green-300 hover:bg-green-200' : 'bg-red-100 text-red-600 border-red-300 hover:bg-red-200'}`}
                               >
                                 {u.actif ? '● Actif' : '● Suspendu'}
                               </button>
@@ -2080,18 +2080,18 @@ export default function ProfesseurPage() {
                     <Label>Fichier PDF joint (optionnel)</Label>
                     <div className="mt-1">
                       {exPdfFile ? (
-                        <div className="flex items-center gap-2 p-3 rounded-md border border-green-300 bg-green-50 dark:bg-green-900/20 dark:border-green-700">
+                        <div className="flex items-center gap-2 p-3 rounded-md border border-green-300 bg-green-50">
                           <FileText className="h-4 w-4 text-green-600 shrink-0" />
-                          <span className="text-sm text-green-700 dark:text-green-400 flex-1 truncate">{exPdfFile!.name}</span>
+                          <span className="text-sm text-green-700 flex-1 truncate">{exPdfFile!.name}</span>
                           <span className="text-xs text-muted-foreground">{(exPdfFile!.size/1024/1024).toFixed(1)} Mo</span>
                           <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => { setExPdfFile(null); setExForm(f => ({ ...f, pdfNom: '', pdfUrl: '' })) }}>
                             <X className="h-3.5 w-3.5" />
                           </Button>
                         </div>
                       ) : exForm.pdfNom ? (
-                        <div className="flex items-center gap-2 p-3 rounded-md border border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-700">
+                        <div className="flex items-center gap-2 p-3 rounded-md border border-blue-300 bg-blue-50">
                           <FileText className="h-4 w-4 text-blue-600 shrink-0" />
-                          <span className="text-sm text-blue-700 dark:text-blue-400 flex-1 truncate">{exForm.pdfNom}</span>
+                          <span className="text-sm text-blue-700 flex-1 truncate">{exForm.pdfNom}</span>
                           <span className="text-xs text-blue-500">Déjà uploadé</span>
                           <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => setExForm(f => ({ ...f, pdfNom: '', pdfUrl: '', pdfData: '' }))}>
                             <X className="h-3.5 w-3.5" />
@@ -2298,7 +2298,7 @@ export default function ProfesseurPage() {
                 </div>
               </div>
               {aucunFiltre && (
-                <p className="text-xs text-amber-600 dark:text-amber-400">
+                <p className="text-xs text-amber-600">
                   Aucun filtre actif : tous les étudiants sont affichés. Sélectionnez un groupe pour une comparaison pertinente.
                 </p>
               )}
@@ -2307,8 +2307,8 @@ export default function ProfesseurPage() {
             {/* Alertes rapides */}
             {perfData.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className={cn('rounded-xl border p-3 flex items-center gap-3', enDifficulte.length > 0 ? 'border-red-300 bg-red-50 dark:bg-red-900/20' : 'border-border bg-muted/20')}>
-                  <div className="h-9 w-9 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center shrink-0">
+                <div className={cn('rounded-xl border p-3 flex items-center gap-3', enDifficulte.length > 0 ? 'border-red-300 bg-red-50' : 'border-border bg-muted/20')}>
+                  <div className="h-9 w-9 rounded-lg bg-red-100 flex items-center justify-center shrink-0">
                     <TrendingDown className="h-4 w-4 text-red-600" />
                   </div>
                   <div>
@@ -2316,8 +2316,8 @@ export default function ProfesseurPage() {
                     <p className="text-xs text-muted-foreground">En difficulté (&lt; 5/10)</p>
                   </div>
                 </div>
-                <div className={cn('rounded-xl border p-3 flex items-center gap-3', sansActivite.length > 0 ? 'border-amber-300 bg-amber-50 dark:bg-amber-900/20' : 'border-border bg-muted/20')}>
-                  <div className="h-9 w-9 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0">
+                <div className={cn('rounded-xl border p-3 flex items-center gap-3', sansActivite.length > 0 ? 'border-amber-300 bg-amber-50' : 'border-border bg-muted/20')}>
+                  <div className="h-9 w-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
                     <Clock className="h-4 w-4 text-amber-600" />
                   </div>
                   <div>
@@ -2325,8 +2325,8 @@ export default function ProfesseurPage() {
                     <p className="text-xs text-muted-foreground">Aucune activité</p>
                   </div>
                 </div>
-                <div className={cn('rounded-xl border p-3 flex items-center gap-3', bons.length > 0 ? 'border-green-300 bg-green-50 dark:bg-green-900/20' : 'border-border bg-muted/20')}>
-                  <div className="h-9 w-9 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center shrink-0">
+                <div className={cn('rounded-xl border p-3 flex items-center gap-3', bons.length > 0 ? 'border-green-300 bg-green-50' : 'border-border bg-muted/20')}>
+                  <div className="h-9 w-9 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
                     <Award className="h-4 w-4 text-green-600" />
                   </div>
                   <div>
@@ -2365,7 +2365,7 @@ export default function ProfesseurPage() {
                       const enDiff  = total !== null && total < 5
                       const inactif = tentatives === 0 && totalSeances === 0
                       return (
-                        <tr key={e.id} className={cn('border-t border-border/50 hover:bg-muted/20', enDiff && 'bg-red-50/40 dark:bg-red-900/10')}>
+                        <tr key={e.id} className={cn('border-t border-border/50 hover:bg-muted/20', enDiff && 'bg-red-50/40')}>
                           <td className="px-4 py-2.5">
                             <p className="font-medium text-foreground">{e.prenom} {e.nom}</p>
                             <p className="text-xs text-muted-foreground">{uni ? uni.nom : <span className="italic">Sans université</span>}{(e as any).classe ? ` · ${(e as any).classe}` : ''}</p>
@@ -2400,10 +2400,10 @@ export default function ProfesseurPage() {
                               <Badge variant="outline" className="text-xs border-gray-400 text-gray-500">Inactif</Badge>
                             ) : mention ? (
                               <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium',
-                                mention === 'Excellent'    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                                mention === 'Bien'         ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
-                                mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                                'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                                mention === 'Excellent'    ? 'bg-green-100 text-green-800' :
+                                mention === 'Bien'         ? 'bg-blue-100 text-blue-800' :
+                                mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800' :
+                                'bg-red-100 text-red-800'
                               )}>{mention}</span>
                             ) : <span className="text-muted-foreground text-xs">—</span>}
                           </td>
@@ -2458,7 +2458,7 @@ export default function ProfesseurPage() {
                           )}
                           {note.pdfUrl && (
                             <a href={note.pdfUrl} target="_blank" rel="noopener noreferrer="
-                              className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400 hover:underline">
+                              className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:underline">
                               <FileDown className="h-3.5 w-3.5" />Voir le PDF
                             </a>
                           )}
@@ -3026,10 +3026,10 @@ export default function ProfesseurPage() {
                           {mention ? (
                             <span className={cn(
                               'text-xs px-2 py-0.5 rounded-full font-medium',
-                              mention === 'Excellent' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                              mention === 'Bien' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
-                              mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                              'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                              mention === 'Excellent' ? 'bg-green-100 text-green-800' :
+                              mention === 'Bien' ? 'bg-blue-100 text-blue-800' :
+                              mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
                             )}>{mention}</span>
                           ) : <span className="text-muted-foreground opacity-40">—</span>}
                         </td>
@@ -3217,9 +3217,9 @@ export default function ProfesseurPage() {
               <div className="mt-1">
                 {/* Fichier nouveau sélectionné */}
                 {pdfFile ? (
-                  <div className="flex items-center gap-2 p-3 rounded-md border border-green-300 bg-green-50 dark:bg-green-900/20 dark:border-green-700 overflow-hidden">
+                  <div className="flex items-center gap-2 p-3 rounded-md border border-green-300 bg-green-50 overflow-hidden">
                     <FileText className="h-4 w-4 text-green-600 shrink-0" />
-                    <span className="text-sm text-green-700 dark:text-green-400 flex-1 truncate min-w-0">{pdfFile.name}</span>
+                    <span className="text-sm text-green-700 flex-1 truncate min-w-0">{pdfFile.name}</span>
                     <span className="text-xs text-muted-foreground shrink-0">{(pdfFile.size / 1024 / 1024).toFixed(1)} Mo</span>
                     <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive shrink-0" onClick={() => { setPdfFile(null); setDevoirForm(f => ({ ...f, pdfNom: '' })) }}>
                       <X className="h-3.5 w-3.5" />
@@ -3227,9 +3227,9 @@ export default function ProfesseurPage() {
                   </div>
                 ) : devoirForm.pdfNom ? (
                   // PDF existant (déjà uploadé)
-                  <div className="flex items-center gap-2 p-3 rounded-md border border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-700 overflow-hidden">
+                  <div className="flex items-center gap-2 p-3 rounded-md border border-blue-300 bg-blue-50 overflow-hidden">
                     <FileText className="h-4 w-4 text-blue-600 shrink-0" />
-                    <span className="text-sm text-blue-700 dark:text-blue-400 flex-1 truncate min-w-0">{devoirForm.pdfNom}</span>
+                    <span className="text-sm text-blue-700 flex-1 truncate min-w-0">{devoirForm.pdfNom}</span>
                     <span className="text-xs text-blue-500">Déjà uploadé</span>
                     <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => setDevoirForm(f => ({ ...f, pdfData: '', pdfNom: '' }))}>
                       <X className="h-3.5 w-3.5" />

@@ -217,21 +217,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">{q.question}</p>
+    <div className="rounded-xl border border-emerald-200 bg-emerald-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-emerald-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-emerald-500 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200' : 'border-border hover:border-emerald-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-emerald-500 bg-emerald-100 text-emerald-800' : 'border-border hover:border-emerald-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-emerald-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-emerald-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={`rounded-lg p-2.5 text-xs ${selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'}`}>
+        <div className={`rounded-lg p-2.5 text-xs ${selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}`}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
@@ -338,10 +338,10 @@ export default function UE2Chapitre11Page() {
       </div>
 
       {/* ── OBJECTIFS ── */}
-      <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-emerald-600" />
+          <span className="text-sm font-semibold text-emerald-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
           {[
@@ -351,7 +351,7 @@ export default function UE2Chapitre11Page() {
             "Qualifier une situation de société de fait et appliquer le régime de la SNC (Art. 864-865)",
             "Maîtriser les modes de preuve et de dissolution de ces deux formes (Art. 857, 862-863)",
           ].map((obj, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300">
+            <li key={i} className="flex items-start gap-2 text-xs text-emerald-700">
               <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" />
               <span>{obj}</span>
             </li>
@@ -406,7 +406,7 @@ export default function UE2Chapitre11Page() {
           {/* Carte leçon */}
           <div className="rounded-xl border-l-4 border-l-emerald-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Leçon {activeLecon + 1} / {lecons.length}</span>
+              <span className="text-xs font-semibold text-emerald-600">Leçon {activeLecon + 1} / {lecons.length}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecons[activeLecon]}</h2>
           </div>

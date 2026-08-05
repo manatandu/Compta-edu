@@ -45,10 +45,10 @@ function TypeLabel({ type }: { type: ExerciceLibreType }) {
     pratique: 'Pratique', theorique: 'Théorique', qcm: 'QCM', mixte: 'Mixte',
   }
   const colors: Record<ExerciceLibreType, string> = {
-    pratique: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-    theorique: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
-    qcm: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-    mixte: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    pratique: 'bg-blue-100 text-blue-700',
+    theorique: 'bg-purple-100 text-purple-700',
+    qcm: 'bg-green-100 text-green-700',
+    mixte: 'bg-orange-100 text-orange-700',
   }
   return <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${colors[type]}`}>{labels[type]}</span>
 }
@@ -144,15 +144,15 @@ function ModalCorrige({
 
           {/* Score QCM */}
           {scoreQCM !== null && (
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-              <p className="font-semibold text-green-700 dark:text-green-300">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <p className="font-semibold text-green-700">
                 Score QCM : {scoreQCM}/{exercice.questions.length} bonnes réponses
               </p>
               {exercice.questions.map((q: QuestionQCM, i: number) => (
                 <div key={i} className="mt-3">
                   <p className="text-sm font-medium">{i + 1}. {q.enonce}</p>
                   {q.options.map((opt: string, oi: number) => (
-                    <div key={oi} className={`text-sm flex items-center gap-2 mt-1 ${oi === q.reponseCorrecte ? 'text-green-600 dark:text-green-400 font-medium' : tentative?.reponsesQCM?.[i] === oi && oi !== q.reponseCorrecte ? 'text-red-500 line-through' : 'text-muted-foreground'}`}>
+                    <div key={oi} className={`text-sm flex items-center gap-2 mt-1 ${oi === q.reponseCorrecte ? 'text-green-600 font-medium' : tentative?.reponsesQCM?.[i] === oi && oi !== q.reponseCorrecte ? 'text-red-500 line-through' : 'text-muted-foreground'}`}>
                       <span>{oi === q.reponseCorrecte ? '✓' : tentative?.reponsesQCM?.[i] === oi ? '✗' : '•'}</span>
                       {opt}
                     </div>
@@ -542,9 +542,9 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { 
 
         {/* Info pratique */}
         {ex.type === 'pratique' && (
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 text-sm">
-            <p className="font-medium text-blue-700 dark:text-blue-300">Exercice pratique</p>
-            <p className="text-blue-600 dark:text-blue-400 mt-1">Passez dans la section <strong>Comptabilité</strong> pour saisir vos écritures dans une session dédiée, puis revenez ici pour soumettre.</p>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm">
+            <p className="font-medium text-blue-700">Exercice pratique</p>
+            <p className="text-blue-600 mt-1">Passez dans la section <strong>Comptabilité</strong> pour saisir vos écritures dans une session dédiée, puis revenez ici pour soumettre.</p>
           </div>
         )}
 

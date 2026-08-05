@@ -5,11 +5,11 @@ import { DICTIONNAIRE, CATEGORIES_DICT, TermeDict } from '@/data/dictionnaire'
 import { cn } from '@/lib/utils'
 
 const CAT_COLORS: Record<TermeDict['categorie'], string> = {
-  comptabilite: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
-  fiscalite:    'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300',
-  droit:        'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
-  finance:      'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300',
-  gestion:      'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',
+  comptabilite: 'bg-blue-100 text-blue-700',
+  fiscalite:    'bg-orange-100 text-orange-700',
+  droit:        'bg-purple-100 text-purple-700',
+  finance:      'bg-green-100 text-green-700',
+  gestion:      'bg-rose-100 text-rose-700',
 }
 
 const PAGE_SIZE = 20

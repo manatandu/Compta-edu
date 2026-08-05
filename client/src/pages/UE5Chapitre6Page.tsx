@@ -55,7 +55,7 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
       {questions.map((q, qi) => {
         const isCorrect = reponses[q.id] === q.reponseCorrecte
         return (
-          <div key={q.id} className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-card p-4">
+          <div key={q.id} className="rounded-xl border border-indigo-200 bg-card p-4">
             <p className="text-sm font-semibold text-foreground mb-1">Q{qi + 1}. {q.question}</p>
             <p className="text-xs text-muted-foreground mb-3 italic">{q.articleRef}</p>
             <div className="space-y-2">
@@ -63,9 +63,9 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
                 const selected = reponses[q.id] === opt.id
                 const isRight = opt.id === q.reponseCorrecte
                 let cls = 'flex items-center gap-2 rounded-lg border px-3 py-2 text-xs cursor-pointer transition-colors '
-                if (!verifie) cls += selected ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200' : 'border-border hover:border-indigo-300 hover:bg-muted'
-                else if (isRight) cls += 'border-green-500 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200'
-                else if (selected && !isRight) cls += 'border-red-400 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                if (!verifie) cls += selected ? 'border-indigo-500 bg-indigo-50 text-indigo-800' : 'border-border hover:border-indigo-300 hover:bg-muted'
+                else if (isRight) cls += 'border-green-500 bg-green-50 text-green-800'
+                else if (selected && !isRight) cls += 'border-red-400 bg-red-50 text-red-700'
                 else cls += 'border-border text-muted-foreground'
                 return (
                   <div key={opt.id} className={cls} onClick={() => handleSelect(q.id, opt.id)}>
@@ -77,7 +77,7 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
               })}
             </div>
             {verifie && (
-              <div className={cn('mt-3 rounded-lg p-3 text-xs', isCorrect ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' : 'bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200')}>
+              <div className={cn('mt-3 rounded-lg p-3 text-xs', isCorrect ? 'bg-green-50 text-green-800' : 'bg-amber-50 text-amber-800')}>
                 <strong>{isCorrect ? 'Correct !' : 'Incorrect.'}</strong> {q.explication}
               </div>
             )}
@@ -91,8 +91,8 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
           </button>
         ) : (
           <>
-            <div className="flex-1 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 px-4 py-2.5 text-center">
-              <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300">Score : {score}/{questions.length}</span>
+            <div className="flex-1 rounded-lg bg-indigo-50 border border-indigo-200 px-4 py-2.5 text-center">
+              <span className="text-sm font-bold text-indigo-700">Score : {score}/{questions.length}</span>
             </div>
             <button onClick={handleReset} className="rounded-lg border border-border px-4 py-2.5 text-sm hover:bg-muted transition-colors flex items-center gap-1">
               <RotateCcw className="h-3.5 w-3.5" /> Recommencer
@@ -108,23 +108,23 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
 function CasPratiqueBlock({ cas }: { cas: { titre: string; contexte: string; questions: { num: string; enonce: string; correction: string }[] } }) {
   const [open, setOpen] = useState<Record<string, boolean>>({})
   return (
-    <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-card p-4 space-y-3">
-      <h3 className="text-sm font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-2">
+    <div className="rounded-xl border border-indigo-200 bg-card p-4 space-y-3">
+      <h3 className="text-sm font-bold text-indigo-700 flex items-center gap-2">
         <FileText className="h-4 w-4" /> {cas.titre}
       </h3>
-      <div className="rounded-lg bg-indigo-50/60 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-800 p-3">
+      <div className="rounded-lg bg-indigo-50/60 border border-indigo-100 p-3">
         <p className="text-xs text-foreground leading-relaxed">{cas.contexte}</p>
       </div>
       <div className="space-y-3">
         {cas.questions.map(q => (
           <div key={q.num} className="rounded-lg border border-border bg-muted/30 p-3">
             <p className="text-xs font-semibold text-foreground mb-2">Question {q.num} : {q.enonce}</p>
-            <button onClick={() => setOpen(prev => ({ ...prev, [q.num]: !prev[q.num] }))} className="flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 hover:underline">
+            <button onClick={() => setOpen(prev => ({ ...prev, [q.num]: !prev[q.num] }))} className="flex items-center gap-1 text-xs text-indigo-600 hover:underline">
               <ChevronRight className={cn('h-3.5 w-3.5 transition-transform', open[q.num] && 'rotate-90')} />
               {open[q.num] ? 'Masquer la correction' : 'Voir la correction'}
             </button>
             {open[q.num] && (
-              <div className="mt-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 p-3 text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed whitespace-pre-line">
+              <div className="mt-2 rounded-lg bg-indigo-50 p-3 text-xs text-indigo-800 leading-relaxed whitespace-pre-line">
                 {q.correction}
               </div>
             )}
@@ -144,8 +144,8 @@ const LECONS: Lecon[] = [
     soustitre: 'Constatation, Liquidation, Ordonnancement des recettes publiques',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-2">Fondement : Art. 89-92 LOFIP</h3>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">Fondement : Art. 89-92 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
             L\'Art. 89 LOFIP pose le principe fondamental : <strong>les recettes du Pouvoir central sont executees conformement aux lois et reglements en vigueur.</strong> Cette disposition signifie que l\'Etat ne peut percevoir une recette que si elle est fondee sur un texte legal (loi fiscale, reglementation douaniere, texte domanial...). Aucune recette ne peut etre percue sans base legale : c\'est le principe de legalite fiscale.
           </p>
@@ -200,11 +200,11 @@ const LECONS: Lecon[] = [
           </div>
         </div>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-4">
-          <h3 className="text-sm font-bold text-amber-800 dark:text-amber-200 mb-2 flex items-center gap-2">
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+          <h3 className="text-sm font-bold text-amber-800 mb-2 flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" /> Regle speciale : recettes au comptant (Art. 91 al. 2 LOFIP)
           </h3>
-          <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+          <p className="text-xs text-amber-700 leading-relaxed">
             L\'Art. 91 al. 2 LOFIP prevoit une derogation pour les recettes percues au comptant (paiement immediat) : <strong>les documents justifiant le paiement tiennent lieu de titres de perception.</strong> L\'ordonnancement intervient apres l\'encaissement, pour regularisation comptable. C\'est notamment le cas pour les droits de timbre, les taxes perceptibles a la caisse du tresor et certaines recettes administratives (DGRAD). Cette inversion de la sequence normale est une exception qui confirme la regle generale des trois phases.
           </p>
         </div>
@@ -249,8 +249,8 @@ const LECONS: Lecon[] = [
     soustitre: 'DGI, DGDA, DGRAD, BCC - acteurs du recouvrement des recettes publiques',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-2">Principe : specialisation des regies financieres</h3>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">Principe : specialisation des regies financieres</h3>
           <p className="text-xs text-foreground leading-relaxed">
             Conformement a l\'Art. 89 LOFIP, les recettes sont executees par des regies financieres specialisees, chacune competente pour un type de recette. Ce systeme de specialisation garantit une expertise technique dans chaque domaine fiscal et assure la traçabilite des recettes depuis leur constatation jusqu\'a leur versement au Compte general du Tresor (Art. 110 LOFIP). En 2026, les quatre grandes regies sont la DGI, la DGDA, la DGRAD et, pour certaines recettes specifiques, la Banque Centrale du Congo.
           </p>
@@ -295,7 +295,7 @@ const LECONS: Lecon[] = [
               loi: 'Art. 89, 110 LOFIP, Art. 3 LF 2026'
             },
           ].map(regie => (
-            <div key={regie.titre} className={cn('rounded-xl border bg-card p-4', `border-${regie.couleur}-200 dark:border-${regie.couleur}-800`)}>
+            <div key={regie.titre} className={cn('rounded-xl border bg-card p-4', `border-${regie.couleur}-200`)}>
               <div className="flex items-center gap-2 mb-3">
                 <div className={cn('rounded-lg p-1.5 text-white', `bg-${regie.couleur}-600`)}>
                   <Building2 className="h-4 w-4" />
@@ -370,14 +370,14 @@ const LECONS: Lecon[] = [
     soustitre: 'Droits de douane, accises, TVA, IS, IRPP, recettes minieres - taux et bases legales',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-2">LF n° 25/060 du 29 decembre 2025 : Budget 2026</h3>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">LF n° 25/060 du 29 decembre 2025 : Budget 2026</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
             La Loi de Finances 2026 (LF n° 25/060 du 29 decembre 2025) fixe l\'equilibre du budget a <strong>54.335,8 milliards FC</strong> (Art. 6), dont <strong>48.969,3 milliards FC</strong> de recettes du Budget general (Art. 7). L\'Art. 3 LF 2026 rappelle le principe d\'universalite : toutes les recettes sont portees au budget sans affectation prealable (sauf exceptions prevues par la loi). L\'Art. 4 LF 2026 confirme qu\'aucune exemption fiscale n\'est admise sans disposition legale expresse.
           </p>
-          <div className="rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 p-2.5">
-            <p className="text-xs font-bold text-indigo-800 dark:text-indigo-200">Parametres macro-economiques 2026 (LF 2026)</p>
-            <p className="text-xs text-indigo-700 dark:text-indigo-300 mt-1">Taux de change : 2.467,0 FC/USD · Croissance : 5,3% · Inflation : 4,4% · Pression fiscale : 12,3% · PIB nominal : 269.291,9 milliards FC</p>
+          <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-2.5">
+            <p className="text-xs font-bold text-indigo-800">Parametres macro-economiques 2026 (LF 2026)</p>
+            <p className="text-xs text-indigo-700 mt-1">Taux de change : 2.467,0 FC/USD · Croissance : 5,3% · Inflation : 4,4% · Pression fiscale : 12,3% · PIB nominal : 269.291,9 milliards FC</p>
           </div>
         </div>
 
@@ -393,16 +393,16 @@ const LECONS: Lecon[] = [
               { taux: '20%', cat: 'Produits finis de consommation, biens de luxe, marchandises generales', exemple: 'Vehicules de tourisme, appareils electromenagers, vetements de marque' },
             ].map(d => (
               <div key={d.taux} className="flex gap-3 rounded-lg border border-border p-2.5">
-                <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300 w-12 shrink-0">{d.taux}</span>
+                <span className="text-sm font-bold text-indigo-700 w-12 shrink-0">{d.taux}</span>
                 <div>
                   <p className="text-xs font-bold text-foreground">{d.cat}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">Ex. : {d.exemple}</p>
                 </div>
               </div>
             ))}
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-2.5">
-              <p className="text-xs font-bold text-amber-800 dark:text-amber-200">Taxe exportations minieres (LF 2026)</p>
-              <p className="text-xs text-amber-700 dark:text-amber-300 mt-0.5">La LF 2026 a etendu la taxe de 2% a TOUTES les exportations de produits miniers marchands (Chapitre 26 du SH + Section XV : metaux de base). Cela inclut le cobalt, le cuivre, le coltan, le lithium, l\'or et les autres mineraux strategiques. La RDC etant le 1er producteur mondial de cobalt, cette mesure accroit substantiellement les recettes DGDA.</p>
+            <div className="rounded-lg bg-amber-50 border border-amber-200 p-2.5">
+              <p className="text-xs font-bold text-amber-800">Taxe exportations minieres (LF 2026)</p>
+              <p className="text-xs text-amber-700 mt-0.5">La LF 2026 a etendu la taxe de 2% a TOUTES les exportations de produits miniers marchands (Chapitre 26 du SH + Section XV : metaux de base). Cela inclut le cobalt, le cuivre, le coltan, le lithium, l\'or et les autres mineraux strategiques. La RDC etant le 1er producteur mondial de cobalt, cette mesure accroit substantiellement les recettes DGDA.</p>
             </div>
           </div>
         </div>
@@ -465,7 +465,7 @@ const LECONS: Lecon[] = [
               <div key={imp.impot} className="rounded-lg border border-border p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <p className="text-xs font-bold text-foreground">{imp.impot}</p>
-                  <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-2 py-0.5 rounded-full">{imp.taux}</span>
+                  <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-full">{imp.taux}</span>
                   <InfoTooltip texte={imp.tooltip} loi={imp.loi} />
                 </div>
                 <p className="text-xs text-muted-foreground">{imp.base}</p>
@@ -515,9 +515,9 @@ const LECONS: Lecon[] = [
     soustitre: 'Compte general du Tresor, caissier de l\'Etat, centralisation des recettes',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-2">Art. 110 LOFIP : le principe d\'unite de caisse</h3>
-          <div className="rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 p-3 mb-3">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">Art. 110 LOFIP : le principe d\'unite de caisse</h3>
+          <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 mb-3">
             <p className="text-xs text-foreground italic leading-relaxed">
               « Tous les fonds publics appartenant au Pouvoir central doivent etre deposes dans le compte general du Tresor ouvert aupres du caissier de l\'Etat. »
             </p>
@@ -560,11 +560,11 @@ const LECONS: Lecon[] = [
           </div>
         </div>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-4">
-          <h3 className="text-sm font-bold text-amber-800 dark:text-amber-200 mb-2 flex items-center gap-2">
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+          <h3 className="text-sm font-bold text-amber-800 mb-2 flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" /> Lien avec le principe d\'universalite (Art. 3 LF 2026)
           </h3>
-          <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+          <p className="text-xs text-amber-700 leading-relaxed">
             L\'Art. 3 LF 2026 rappelle le principe d\'universalite budgetaire : <strong>les recettes et les depenses sont retracees dans le budget sans contraction entre elles.</strong> Toute compensation entre recettes et depenses est strictement prohibee. Ce principe est complementaire a l\'unite de caisse : non seulement toutes les recettes doivent passer par le Compte general du Tresor (unite de caisse), mais elles ne peuvent pas etre directement utilisees pour payer des depenses sans passer par la procedure budgetaire (universalite).
           </p>
         </div>
@@ -631,8 +631,8 @@ const LECONS: Lecon[] = [
     soustitre: 'Ordonnateurs, comptables publics, contrôleurs budgetaires - roles et responsabilites',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-2">Art. 92-94 LOFIP : roles des acteurs dans l\'execution des recettes</h3>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">Art. 92-94 LOFIP : roles des acteurs dans l\'execution des recettes</h3>
           <p className="text-xs text-foreground leading-relaxed">
             L\'execution des recettes implique deux categories d\'acteurs aux responsabilites distinctes et complementaires : les <strong>ordonnateurs</strong>, qui constatent, liquident et ordonnancent les recettes, et les <strong>comptables publics</strong>, qui procedent au recouvrement effectif. Cette separation est le principe de la <strong>dualite ordonnateur-comptable</strong>, garantie essentielle de contrôle des finances publiques.
           </p>
@@ -667,7 +667,7 @@ const LECONS: Lecon[] = [
               ]
             },
           ].map(acteur => (
-            <div key={acteur.titre} className={cn('rounded-xl border bg-card p-4', `border-${acteur.couleur}-200 dark:border-${acteur.couleur}-800`)}>
+            <div key={acteur.titre} className={cn('rounded-xl border bg-card p-4', `border-${acteur.couleur}-200`)}>
               <div className="flex items-center gap-2 mb-3">
                 <div className={cn('rounded-lg p-1.5 text-white', `bg-${acteur.couleur}-600`)}>
                   <Users className="h-4 w-4" />
@@ -1254,17 +1254,17 @@ export default function UE5Chapitre6Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
+      <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-          <span className="text-sm font-semibold text-indigo-800 dark:text-indigo-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-indigo-600" />
+          <span className="text-sm font-semibold text-indigo-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maitriser les trois phases d\'execution des recettes : constatation, liquidation et ordonnancement (Art. 90 LOFIP)</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Identifier les regies financieres (DGI, DGDA, DGRAD) et leurs competences respectives en matiere de recouvrement</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Connaitre les types de recettes et taux applicables en 2026 : droits de douane (5/10/20%), TVA (16%), IS, IRPP, recettes minieres</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Comprendre le principe d\'unite de caisse (Art. 110 LOFIP) : Compte general du Tresor, BCC caissier de l\'Etat, derogations</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Appliquer les principes d\'universalite (Art. 3 LF 2026) et de legalite fiscale (Art. 4 LF 2026, Art. 89 LOFIP) aux cas pratiques</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maitriser les trois phases d\'execution des recettes : constatation, liquidation et ordonnancement (Art. 90 LOFIP)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Identifier les regies financieres (DGI, DGDA, DGRAD) et leurs competences respectives en matiere de recouvrement</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Connaitre les types de recettes et taux applicables en 2026 : droits de douane (5/10/20%), TVA (16%), IS, IRPP, recettes minieres</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Comprendre le principe d\'unite de caisse (Art. 110 LOFIP) : Compte general du Tresor, BCC caissier de l\'Etat, derogations</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Appliquer les principes d\'universalite (Art. 3 LF 2026) et de legalite fiscale (Art. 4 LF 2026, Art. 89 LOFIP) aux cas pratiques</span></li>
         </ul>
       </div>
 
@@ -1291,7 +1291,7 @@ export default function UE5Chapitre6Page() {
           </div>
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-start gap-3 mb-4">
-              <div className="rounded-lg bg-indigo-100 dark:bg-indigo-900/30 p-2 text-indigo-600 dark:text-indigo-400 shrink-0">
+              <div className="rounded-lg bg-indigo-100 p-2 text-indigo-600 shrink-0">
                 {lecon.icone}
               </div>
               <div>
@@ -1317,8 +1317,8 @@ export default function UE5Chapitre6Page() {
 
       {activeTab === 'qcm' && !isStudent && (
         <div className="space-y-2">
-          <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-3">
-            <p className="text-xs text-indigo-700 dark:text-indigo-300 font-medium">15 questions · 5 faciles · 5 moyennes · 5 difficiles · Sources : LOFIP Art. 89-92, 110 · LF 2026 n° 25/060</p>
+          <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3">
+            <p className="text-xs text-indigo-700 font-medium">15 questions · 5 faciles · 5 moyennes · 5 difficiles · Sources : LOFIP Art. 89-92, 110 · LF 2026 n° 25/060</p>
           </div>
           <QCMPageUnique questions={QCM_GLOBAL as unknown as QCMChapitre[]} couleurAccent="indigo" />
         </div>
@@ -1326,8 +1326,8 @@ export default function UE5Chapitre6Page() {
 
       {activeTab === 'cas' && !isStudent && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-3">
-            <p className="text-xs text-indigo-700 dark:text-indigo-300 font-medium">5 cas pratiques de reflexion · Phases execution recettes · Regies DGI/DGDA/DGRAD · Unite de caisse · LF 2026</p>
+          <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3">
+            <p className="text-xs text-indigo-700 font-medium">5 cas pratiques de reflexion · Phases execution recettes · Regies DGI/DGDA/DGRAD · Unite de caisse · LF 2026</p>
           </div>
           {ETUDES_DE_CAS.map(cas => (
             <CasPratiqueBlock key={cas.titre} cas={cas} />

@@ -12,24 +12,24 @@ const ONGLETS = [
     id: 'journal',
     label: 'Livre Journal',
     icon: BookOpen,
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-50 dark:bg-blue-900/20',
+    color: 'text-blue-600',
+    bg: 'bg-blue-50',
     activeBorder: 'border-blue-500',
   },
   {
     id: 'grand-livre',
     label: 'Grand Livre',
     icon: BookMarked,
-    color: 'text-indigo-600 dark:text-indigo-400',
-    bg: 'bg-indigo-50 dark:bg-indigo-900/20',
+    color: 'text-indigo-600',
+    bg: 'bg-indigo-50',
     activeBorder: 'border-indigo-500',
   },
   {
     id: 'balance',
     label: 'Balance Générale',
     icon: Scale,
-    color: 'text-cyan-600 dark:text-cyan-400',
-    bg: 'bg-cyan-50 dark:bg-cyan-900/20',
+    color: 'text-cyan-600',
+    bg: 'bg-cyan-50',
     activeBorder: 'border-cyan-500',
   },
 ]
@@ -51,8 +51,8 @@ export default function DocsComptablesHub() {
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
-            <BookOpen className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center">
+            <BookOpen className="h-4 w-4 text-blue-600" />
           </div>
           <div>
             <h1 className="text-sm font-bold text-foreground leading-tight">Documents Comptables</h1>

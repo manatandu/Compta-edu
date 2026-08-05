@@ -65,9 +65,9 @@ const LECONS: Lecon[] = [
           <li>Une <strong>information financière orientée vers l'administration</strong> plutôt que vers les marchés financiers.</li>
         </ul>
 
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 mt-2">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Constat fondateur</p>
-          <p className="text-xs text-sky-800 dark:text-sky-200">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 mt-2">
+          <p className="text-xs font-semibold text-sky-700 mb-1">Constat fondateur</p>
+          <p className="text-xs text-sky-800">
             La normalisation internationale apparait donc comme une <strong>réponse institutionnelle à la mondialisation des marchés financiers</strong>. Elle transforme la comptabilité d'un outil de contrôle fiscal en un véritable outil d'information économique au service des investisseurs.
           </p>
         </div>
@@ -153,7 +153,7 @@ const LECONS: Lecon[] = [
         <div className="overflow-x-auto mt-3">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-sky-100 dark:bg-sky-900/40">
+              <tr className="bg-sky-100">
                 <th className="text-left p-2 border border-border font-semibold">Année</th>
                 <th className="text-left p-2 border border-border font-semibold">Evénement</th>
                 <th className="text-left p-2 border border-border font-semibold">Portée</th>
@@ -184,9 +184,9 @@ const LECONS: Lecon[] = [
           </table>
         </div>
 
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 mt-2">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Logique fondatrice</p>
-          <p className="text-xs text-sky-800 dark:text-sky-200">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 mt-2">
+          <p className="text-xs font-semibold text-sky-700 mb-1">Logique fondatrice</p>
+          <p className="text-xs text-sky-800">
             Le modèle anglo-saxon donne naissance à une logique fondée sur la <strong>prééminence des marchés financiers</strong>, la comptabilité comme <strong>outil d'information économique</strong> et des normes <strong>évolutives basées sur des principes</strong>. C'est ce modèle qui influencera directement les IAS/IFRS.
           </p>
         </div>
@@ -243,10 +243,10 @@ const LECONS: Lecon[] = [
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-sky-100 dark:bg-sky-900/40">
+              <tr className="bg-sky-100">
                 <th className="text-left p-2 border border-border font-semibold">Critère</th>
-                <th className="text-left p-2 border border-border font-semibold text-sky-700 dark:text-sky-300">Logique IFRS (investisseurs)</th>
-                <th className="text-left p-2 border border-border font-semibold text-amber-700 dark:text-amber-300">Logique SYSCOHADA (fiscale)</th>
+                <th className="text-left p-2 border border-border font-semibold text-sky-700">Logique IFRS (investisseurs)</th>
+                <th className="text-left p-2 border border-border font-semibold text-amber-700">Logique SYSCOHADA (fiscale)</th>
               </tr>
             </thead>
             <tbody>
@@ -261,8 +261,8 @@ const LECONS: Lecon[] = [
               ].map(([critere, ifrs, sysco], i) => (
                 <tr key={i} className={i % 2 === 0 ? '' : 'bg-muted/20'}>
                   <td className="p-2 border border-border font-medium">{critere}</td>
-                  <td className="p-2 border border-border text-sky-700 dark:text-sky-300">{ifrs}</td>
-                  <td className="p-2 border border-border text-amber-700 dark:text-amber-300">{sysco}</td>
+                  <td className="p-2 border border-border text-sky-700">{ifrs}</td>
+                  <td className="p-2 border border-border text-amber-700">{sysco}</td>
                 </tr>
               ))}
             </tbody>
@@ -339,9 +339,9 @@ const LECONS: Lecon[] = [
           <InfoTooltip texte="L'ISSB a été créé lors de la COP26 (Glasgow, novembre 2021) pour répondre à la demande croissante des marchés financiers en matière d'informations sur les risques climatiques et de durabilité. Il opère en parallèle de l'IASB, avec la même structure de gouvernance." loi="Annonce IFRS Foundation, COP26, novembre 2021" />
           {' '}pour développer des normes mondiales d'information en matière de durabilité. Ses premières normes — <strong>IFRS S1</strong> (informations générales sur la durabilité) et <strong>IFRS S2</strong> (informations sur les risques climatiques) — ont été publiées en juin 2023 et sont en cours d'adoption dans plus de 36 juridictions en 2025-2026.
         </p>
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-3 mt-2">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Actualité 2025-2026</p>
-          <p className="text-xs text-sky-800 dark:text-sky-200">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3 mt-2">
+          <p className="text-xs font-semibold text-sky-700 mb-1">Actualité 2025-2026</p>
+          <p className="text-xs text-sky-800">
             Selon les données de la IFRS Foundation (juin 2025), <strong>36 juridictions</strong> ont déjà adopté ou s'engagent à adopter les normes ISSB S1 et S2. L'adoption des IFRS comptables (financières) concerne plus de <strong>140 pays</strong>, dont l'Union européenne (obligation depuis 2005 pour les sociétés cotées). En Afrique, le Rwanda a adopté les normes ISSB au 1er janvier 2025 pour les entités cotées sur la Rwanda Stock Exchange.
           </p>
         </div>
@@ -350,7 +350,7 @@ const LECONS: Lecon[] = [
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-sky-100 dark:bg-sky-900/40">
+              <tr className="bg-sky-100">
                 <th className="text-left p-2 border border-border font-semibold">Date</th>
                 <th className="text-left p-2 border border-border font-semibold">Etape</th>
               </tr>
@@ -368,7 +368,7 @@ const LECONS: Lecon[] = [
                 ["2025-2026", "36 juridictions en cours d'adoption des normes ISSB ; 140+ pour les IFRS financières"],
               ].map(([date, etape], i) => (
                 <tr key={i} className={i % 2 === 0 ? '' : 'bg-muted/20'}>
-                  <td className="p-2 border border-border font-mono font-semibold text-sky-700 dark:text-sky-300 whitespace-nowrap">{date}</td>
+                  <td className="p-2 border border-border font-mono font-semibold text-sky-700 whitespace-nowrap">{date}</td>
                   <td className="p-2 border border-border">{etape}</td>
                 </tr>
               ))}
@@ -442,9 +442,9 @@ const LECONS: Lecon[] = [
           ))}
         </div>
 
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 mt-2">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Point fondamental</p>
-          <p className="text-xs text-sky-800 dark:text-sky-200">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 mt-2">
+          <p className="text-xs font-semibold text-sky-700 mb-1">Point fondamental</p>
+          <p className="text-xs text-sky-800">
             Ce processus garantit la légitimité et la qualité des normes. Les IFRS ne sont pas des règles imposées par un État, mais le produit d'un processus international indépendant et participatif, adopté juridiquement par les États selon leurs propres mécanismes. En Zone OHADA, aucune norme IFRS n'a force obligatoire à moins d'être explicitement adoptée par l'OHADA ou par un État membre.
           </p>
         </div>
@@ -493,8 +493,8 @@ const LECONS: Lecon[] = [
             { titre: "Pertinence", desc: "L'information est pertinente si elle est susceptible de faire une différence dans les décisions des utilisateurs. Elle possède une valeur prédictive ou confirmatoire (§QC6-10)." },
             { titre: "Fidélité", desc: "L'information représente fidèlement les phénomènes économiques qu'elle prétend représenter. Elle doit être exhaustive, neutre et exempte d'erreurs (§QC12-16)." },
           ].map((c) => (
-            <div key={c.titre} className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/40 dark:bg-sky-900/20 p-3">
-              <p className="font-semibold text-sky-700 dark:text-sky-300 text-xs mb-1">{c.titre}</p>
+            <div key={c.titre} className="rounded-xl border border-sky-200 bg-sky-50/40 p-3">
+              <p className="font-semibold text-sky-700 text-xs mb-1">{c.titre}</p>
               <p className="text-xs text-foreground/80">{c.desc}</p>
             </div>
           ))}
@@ -507,7 +507,7 @@ const LECONS: Lecon[] = [
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-sky-100 dark:bg-sky-900/40">
+              <tr className="bg-sky-100">
                 <th className="text-left p-2 border border-border font-semibold">Elément</th>
                 <th className="text-left p-2 border border-border font-semibold">Définition (Cadre conceptuel IASB)</th>
               </tr>
@@ -536,7 +536,7 @@ const LECONS: Lecon[] = [
         <div className="overflow-x-auto mt-2">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-sky-100 dark:bg-sky-900/40">
+              <tr className="bg-sky-100">
                 <th className="text-left p-2 border border-border font-semibold">Logique IFRS</th>
                 <th className="text-left p-2 border border-border font-semibold">Logique juridique/fiscale</th>
               </tr>
@@ -549,8 +549,8 @@ const LECONS: Lecon[] = [
                 ["Image fidèle", "Sécurité fiscale"],
               ].map(([ifrs, fisc], i) => (
                 <tr key={i} className={i % 2 === 0 ? '' : 'bg-muted/20'}>
-                  <td className="p-2 border border-border text-sky-700 dark:text-sky-300">{ifrs}</td>
-                  <td className="p-2 border border-border text-amber-700 dark:text-amber-300">{fisc}</td>
+                  <td className="p-2 border border-border text-sky-700">{ifrs}</td>
+                  <td className="p-2 border border-border text-amber-700">{fisc}</td>
                 </tr>
               ))}
             </tbody>
@@ -560,9 +560,9 @@ const LECONS: Lecon[] = [
           Ce principe explique de nombreuses divergences entre IFRS et référentiels nationaux dont SYSCOHADA. Par exemple, un contrat de location-financement (crédit-bail) donne lieu à l'activation d'un actif et d'un passif chez le preneur selon IFRS 16, même si juridiquement l'actif appartient au bailleur.
         </p>
 
-        <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/60 dark:bg-sky-900/20 p-4 mt-3">
-          <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-2">Synthèse : ce que permet le cadre conceptuel</p>
-          <ul className="list-disc pl-4 space-y-1 text-xs text-sky-800 dark:text-sky-200">
+        <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 mt-3">
+          <p className="text-xs font-semibold text-sky-700 mb-2">Synthèse : ce que permet le cadre conceptuel</p>
+          <ul className="list-disc pl-4 space-y-1 text-xs text-sky-800">
             <li>Comprendre la <strong>philosophie globale</strong> des IFRS</li>
             <li>Interpreter correctement les normes</li>
             <li>Eviter une lecture mécanique des textes</li>
@@ -774,21 +774,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/30 dark:bg-sky-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-sky-700 dark:text-sky-300">{q.question}</p>
+    <div className="rounded-xl border border-sky-200 bg-sky-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-sky-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 dark:bg-sky-900/30 text-sky-800 dark:text-sky-200' : 'border-border hover:border-sky-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 text-sky-800' : 'border-border hover:border-sky-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-sky-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-sky-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <p className="text-xs opacity-70 mt-0.5">Ref. : {q.articleRef}</p>
@@ -809,7 +809,7 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasRaw }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 text-xs font-bold flex items-center justify-center shrink-0">C</span>
+          <span className="h-7 w-7 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center shrink-0">C</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
           </div>
@@ -818,9 +818,9 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasRaw }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
@@ -832,14 +832,14 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasRaw }) {
                     if (n.has(q.num)) { n.delete(q.num) } else { n.add(q.num) }
                     return n
                   })}
-                  className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium"
+                  className="text-xs text-sky-600 hover:underline font-medium"
                 >
                   {corrVisible.has(q.num) ? 'Masquer la correction' : 'Voir la correction'}
                 </button>
                 {corrVisible.has(q.num) && (
-                  <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3">
-                    <p className="text-xs font-semibold text-sky-700 dark:text-sky-300 mb-1">Correction</p>
-                    <p className="text-xs text-sky-900 dark:text-sky-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
+                    <p className="text-xs font-semibold text-sky-700 mb-1">Correction</p>
+                    <p className="text-xs text-sky-900 leading-relaxed">{q.correction}</p>
                   </div>
                 )}
               </div>
@@ -897,17 +897,17 @@ export default function UE13Chapitre1Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-4">
+      <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-          <span className="text-sm font-semibold text-sky-800 dark:text-sky-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-sky-600" />
+          <span className="text-sm font-semibold text-sky-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Comprendre la nécessité de la normalisation comptable internationale et les limites des référentiels nationaux</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Retracer l'histoire de la normalisation : crise de 1929, création IASC (1973), transformation en IASB (2001)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer la logique investisseurs (IFRS) de la logique fiscale (SYSCOHADA)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les 4 organes de la IFRS Foundation (Monitoring Board, Foundation, IASB, IFRIC) et le role de l'ISSB</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Maitriser le Cadre conceptuel IASB : objectifs, caractéristiques qualitatives, éléments des états financiers, substance over form</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Comprendre la nécessité de la normalisation comptable internationale et les limites des référentiels nationaux</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Retracer l'histoire de la normalisation : crise de 1929, création IASC (1973), transformation en IASB (2001)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer la logique investisseurs (IFRS) de la logique fiscale (SYSCOHADA)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les 4 organes de la IFRS Foundation (Monitoring Board, Foundation, IASB, IFRIC) et le role de l'ISSB</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Maitriser le Cadre conceptuel IASB : objectifs, caractéristiques qualitatives, éléments des états financiers, substance over form</span></li>
         </ul>
       </div>
 
@@ -933,7 +933,7 @@ export default function UE13Chapitre1Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-sky-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-sky-600 dark:text-sky-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-sky-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

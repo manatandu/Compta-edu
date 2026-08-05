@@ -132,11 +132,11 @@ function SectionSaisieModal({ titre, couleur, rows, catalogue, onAdd, onAddFromC
   const [showDropdown, setShowDropdown] = useState(false)
   const [recherche, setRecherche] = useState('')
   const styles: Record<string, string> = {
-    blue:   'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300',
-    slate:  'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300',
-    purple: 'border-purple-200 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300',
-    green:  'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300',
-    orange: 'border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300',
+    blue:   'border-blue-200 bg-blue-50 text-blue-700',
+    slate:  'border-slate-200 bg-slate-50 text-slate-700',
+    purple: 'border-purple-200 bg-purple-50 text-purple-700',
+    green:  'border-green-200 bg-green-50 text-green-700',
+    orange: 'border-orange-200 bg-orange-50 text-orange-700',
   }
   const filtres = (catalogue || []).filter(e =>
     e.label.toLowerCase().includes(recherche.toLowerCase()) || e.code.includes(recherche)
@@ -238,7 +238,7 @@ function LigneR({ label, val, bold, neg, accent, note, indent, signe, tooltip }:
       <div className="flex items-baseline gap-1.5 flex-1 min-w-0">
         {signe && (
           <span className={cn('text-xs font-bold shrink-0 w-3 text-center',
-            signe === '−' || neg ? 'text-red-500 dark:text-red-400' :
+            signe === '−' || neg ? 'text-red-500' :
             signe === '=' || accent ? 'text-primary' : 'text-muted-foreground')}>{signe}</span>
         )}
         <span className={cn('text-xs inline-flex items-center gap-0.5', bold ? 'font-semibold text-foreground' : 'text-muted-foreground')}>
@@ -247,7 +247,7 @@ function LigneR({ label, val, bold, neg, accent, note, indent, signe, tooltip }:
         </span>
       </div>
       <span className={cn('text-xs font-mono shrink-0', bold ? 'font-bold' : '',
-        accent ? 'text-primary font-bold' : neg ? 'text-red-600 dark:text-red-400' : 'text-foreground')}>
+        accent ? 'text-primary font-bold' : neg ? 'text-red-600' : 'text-foreground')}>
         {val}
       </span>
     </div>
@@ -260,13 +260,13 @@ function BoxFinal({ label, sublabel, val, credit, couleur }: {
   label: string; sublabel?: string; val: string; credit?: boolean; couleur?: string
 }) {
   const bg = credit
-    ? 'bg-amber-50 dark:bg-amber-900/15 border-amber-200 dark:border-amber-700'
+    ? 'bg-amber-50 border-amber-200'
     : couleur === 'red'
-      ? 'bg-red-50 dark:bg-red-900/15 border-red-200 dark:border-red-700'
+      ? 'bg-red-50 border-red-200'
       : 'bg-primary/8 border-primary/25'
   const textColor = credit
-    ? 'text-amber-600 dark:text-amber-400'
-    : couleur === 'red' ? 'text-red-600 dark:text-red-400' : 'text-primary'
+    ? 'text-amber-600'
+    : couleur === 'red' ? 'text-red-600' : 'text-primary'
   return (
     <div className={cn('rounded-xl p-3.5 text-center border shadow-sm transition-all hover:shadow-md', bg)}>
       <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-0.5">{label}</p>
@@ -278,12 +278,12 @@ function BoxFinal({ label, sublabel, val, credit, couleur }: {
 
 function ResultatWrap({ titre, children }: { titre: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-green-200 dark:border-green-800 bg-gradient-to-b from-green-50 to-white dark:from-green-900/15 dark:to-background overflow-hidden animate-slideUp shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 py-3 bg-green-500/10 dark:bg-green-900/30 border-b border-green-200 dark:border-green-800">
+    <div className="rounded-2xl border border-green-200 bg-gradient-to-b from-green-50 to-white overflow-hidden animate-slideUp shadow-sm">
+      <div className="flex items-center gap-2.5 px-4 py-3 bg-green-500/10 border-b border-green-200">
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-500 shrink-0">
           <CheckCircle2 className="h-4 w-4 text-white" />
         </div>
-        <p className="font-bold text-sm text-green-800 dark:text-green-300">{titre}</p>
+        <p className="font-bold text-sm text-green-800">{titre}</p>
       </div>
       <div className="p-4 space-y-4">{children}</div>
     </div>
@@ -491,7 +491,7 @@ export default function ChargesPersonnelIPRPage() {
             </thead>
             <tbody className="divide-y divide-border/20">
               {lignes.map((l, i) => (
-                <tr key={i} className={l.sens === 'D' ? 'bg-blue-50/40 dark:bg-blue-900/10' : 'bg-green-50/40 dark:bg-green-900/10 pl-6'}>
+                <tr key={i} className={l.sens === 'D' ? 'bg-blue-50/40' : 'bg-green-50/40 pl-6'}>
                   <td className="px-3 py-1.5">
                     <span className={`inline-flex h-4 w-4 items-center justify-center rounded text-xs font-bold ${
                       l.sens === 'D' ? 'bg-blue-500 text-white' : 'bg-green-500 text-white'
@@ -517,8 +517,8 @@ export default function ChargesPersonnelIPRPage() {
         <BackButton />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-100 dark:bg-sky-900/30 shrink-0">
-              <Users className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-100 shrink-0">
+              <Users className="h-4 w-4 text-sky-600" />
             </div>
             <div>
               <p className="text-xs text-muted-foreground uppercase tracking-wide">Charges du personnel</p>
@@ -529,8 +529,8 @@ export default function ChargesPersonnelIPRPage() {
       </div>
 
       {/* Note contextuelle comptabilité */}
-      <div className="rounded-xl border border-sky-200 dark:border-sky-700 bg-sky-50 dark:bg-sky-900/10 p-3">
-        <div className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300">
+      <div className="rounded-xl border border-sky-200 bg-sky-50 p-3">
+        <div className="flex items-start gap-2 text-xs text-sky-700">
           <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" />
           <span>
             <strong>Charges du personnel : SYSCOHADA :</strong> Ce simulateur calcule l'IRPP (Cat. 1), les charges patronales et le net à payer : Art. 118-125 Loi 23/053.
@@ -581,7 +581,7 @@ export default function ChargesPersonnelIPRPage() {
                 disabled={!!res && res.mode === 'national' && res.reductionInapplicable}
                 className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.mode === 'national' && res.reductionInapplicable ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
               {res && res.mode === 'national' && res.reductionInapplicable
-                ? <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
+                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
                 : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes sur IPR brut (Art. 123-125)</p>
               }
             </div>
@@ -639,7 +639,7 @@ export default function ChargesPersonnelIPRPage() {
                   className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <p className="text-xs text-muted-foreground mt-1">Avances, prêts, saisies-arrêts</p>
                 {ecrAnt && (
-                  <div className="mt-2 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/15 px-3 py-2 text-xs text-amber-700 dark:text-amber-300">
+                  <div className="mt-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-700">
                     <p className="font-semibold mb-1">Écriture anticipative générée :</p>
                     <p>D / <span className="font-mono font-bold">4211</span> Personnel, avances &nbsp;→&nbsp; {formatFC(ecrAnt.montant)}</p>
                     <p>C / <span className="font-mono font-bold">521</span> Banque &nbsp;→&nbsp; {formatFC(ecrAnt.montant)}</p>
@@ -651,8 +651,8 @@ export default function ChargesPersonnelIPRPage() {
         </>
       ) : mode === 'expatrie' ? (
         <>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/10 p-3">
-            <div className="flex items-start gap-2 text-xs text-amber-700 dark:text-amber-300">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <div className="flex items-start gap-2 text-xs text-amber-700">
               <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" />
               <span>
                 <strong>Deux calculs distincts (Art. 84 + Art. 145-148, Loi 23/053) :</strong><br/>
@@ -687,7 +687,7 @@ export default function ChargesPersonnelIPRPage() {
                 disabled={!!res && res.mode === 'expatrie' && res.reductionInapplicableE}
                 className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.mode === 'expatrie' && res.reductionInapplicableE ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
               {res && res.mode === 'expatrie' && res.reductionInapplicableE
-                ? <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
+                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
                 : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes sur IPR brut (Art. 123-125)</p>
               }
             </div>
@@ -745,7 +745,7 @@ export default function ChargesPersonnelIPRPage() {
                   className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <p className="text-xs text-muted-foreground mt-1">Avances, prêts, saisies-arrêts</p>
                 {ecrAnt && (
-                  <div className="mt-2 rounded-lg border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/15 px-3 py-2 text-xs text-amber-700 dark:text-amber-300">
+                  <div className="mt-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-700">
                     <p className="font-semibold mb-1">Écriture anticipative générée :</p>
                     <p>D / <span className="font-mono font-bold">4211</span> Personnel, avances &nbsp;→&nbsp; {formatFC(ecrAnt.montant)}</p>
                     <p>C / <span className="font-mono font-bold">521</span> Banque &nbsp;→&nbsp; {formatFC(ecrAnt.montant)}</p>
@@ -772,8 +772,8 @@ export default function ChargesPersonnelIPRPage() {
       {mode === 'admin' && (
         <>
           {/* Note légale */}
-          <div className="rounded-xl border border-violet-200 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/10 p-3">
-            <div className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300">
+          <div className="rounded-xl border border-violet-200 bg-violet-50 p-3">
+            <div className="flex items-start gap-2 text-xs text-violet-700">
               <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" />
               <span>
                 <strong>Art. 68 Loi 23/053 :</strong> "Sont également incluses, les rémunérations versées aux dirigeants sociaux des entreprises (directeurs généraux, gérants, administrateurs ou commissaires) même lorsqu'ils ne sont pas liés à l'entreprise par un contrat de travail classique." : Le terme "commissaires" désigne exclusivement les Commissaires aux Comptes (CAC), seul commissaire reconnu en droit OHADA (Art. 702-730 AUSC). Imposables IRPP Cat. 1, barème progressif. Pas de CNSS, INPP ni ONEM : aucun contrat de travail (Art. 68 in fine).
@@ -801,9 +801,9 @@ export default function ChargesPersonnelIPRPage() {
           {sousMode === 'mandataire' && (
             <>
               {/* Imposables */}
-              <div className="rounded-xl border border-violet-200 dark:border-violet-700 bg-violet-50/50 dark:bg-violet-900/10 p-4 space-y-3">
+              <div className="rounded-xl border border-violet-200 bg-violet-50/50 p-4 space-y-3">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-300">Rémunérations imposables (FC)</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">Rémunérations imposables (FC)</p>
                   <InfoTooltip texte="Ces éléments constituent la base imposable à l'IRPP Cat. 1, débités au compte 6581. | Art. 430 AUSC : 'Hors les sommes perçues dans le cadre d'un contrat de travail, les administrateurs ne peuvent recevoir, au titre de leurs fonctions, aucune autre rémunération, permanente ou non, que celles visées aux articles 431 et 432.' | Art. 431 AUSC : 'L'assemblée générale ordinaire peut allouer aux administrateurs, en rémunération de leurs activités, à titre d'indemnité de fonction une somme fixe annuelle qu'elle détermine souverainement.' | Art. 432 AUSC (1re partie) : l'AG peut allouer des rémunérations exceptionnelles pour missions spéciales confiées. | Art. 68 Loi 23/053 : imposables même sans contrat de travail." loi="Art. 68 Loi 23/053 ; Art. 430-432 AUSC révisé 2014" />
                 </div>
                 <p className="text-xs text-muted-foreground italic">
@@ -823,9 +823,9 @@ export default function ChargesPersonnelIPRPage() {
               </div>
 
               {/* Non imposables */}
-              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/10 p-4 space-y-3">
+              <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4 space-y-3">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">Remboursements non imposables (FC)</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">Remboursements non imposables (FC)</p>
                   <InfoTooltip texte="Ces éléments NE font PAS partie de la base imposable IRPP. Ce sont des remboursements de frais réels engagés dans l'intérêt exclusif de la société, sur justificatifs. | Art. 432 AUSC (2e partie) : 'Le conseil d'administration peut également allouer à ses membres, des rémunérations exceptionnelles pour les missions et mandats qui leur sont confiés, ou autoriser le remboursement des frais de voyage, déplacements et dépenses engagées dans l'intérêt de la société.' | Condition : frais réels, justifiés, non excessifs. En l'absence de justificatif, requalification possible en avantage imposable." loi="Art. 432 AUSC révisé 2014" />
                 </div>
                 <p className="text-xs text-muted-foreground italic">
@@ -853,7 +853,7 @@ export default function ChargesPersonnelIPRPage() {
                   disabled={!!resAdmin && resAdmin.reductionInapplicable}
                   className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (resAdmin && resAdmin.reductionInapplicable ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
                 {resAdmin && resAdmin.reductionInapplicable
-                  ? <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
+                  ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
                   : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes (Art. 123-125)</p>
                 }
               </div>
@@ -863,9 +863,9 @@ export default function ChargesPersonnelIPRPage() {
           {/* ─── CAC (cabinet ou physique) ─── */}
           {(sousMode === 'cac_cabinet' || sousMode === 'cac_physique') && (
             <>
-              <div className="rounded-xl border border-violet-200 dark:border-violet-700 bg-violet-50/50 dark:bg-violet-900/10 p-4 space-y-3">
+              <div className="rounded-xl border border-violet-200 bg-violet-50/50 p-4 space-y-3">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-300">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">
                     {sousMode === 'cac_cabinet' ? 'Honoraires : Cabinet d\'audit' : 'Honoraires : CAC Personne physique'}
                   </p>
                   {sousMode === 'cac_cabinet' ? (
@@ -880,7 +880,7 @@ export default function ChargesPersonnelIPRPage() {
                     onChange={e => setCacHT(e.target.value)}
                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 </div>
-                <p className="text-xs text-violet-600 dark:text-violet-400 font-medium">
+                <p className="text-xs text-violet-600 font-medium">
                   TVA 16% appliquée automatiquement (taux légal RDC : Code des impôts)
                 </p>
                 {cacHT && (
@@ -918,7 +918,7 @@ export default function ChargesPersonnelIPRPage() {
                 <>
                   <EtapeResultat numero={1} titre="Rémunération brute">
                     {/* Imposables */}
-                    <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1">Rémunérations imposables</p>
+                    <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Rémunérations imposables</p>
                     {(resAdmin.adminLignes as LigneSaisie[]).map((l: LigneSaisie, i: number) => (
                       parseFloat(l.montant) > 0 && (
                         <LigneR key={i} signe="+" label={l.label || l.code} val={formatFC(parseFloat(l.montant) || 0)} />
@@ -930,7 +930,7 @@ export default function ChargesPersonnelIPRPage() {
                     {resAdmin.totalNI > 0 && (
                       <>
                         <Separateur />
-                        <p className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mt-2 mb-1">Remboursements non imposables (Art. 432 AUSC)</p>
+                        <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide mt-2 mb-1">Remboursements non imposables (Art. 432 AUSC)</p>
                         {(resAdmin.adminLignesNI as LigneSaisie[]).map((l: LigneSaisie, i: number) => (
                           parseFloat(l.montant) > 0 && (
                             <LigneR key={i} signe="+" label={l.label || l.code} val={formatFC(parseFloat(l.montant) || 0)} />
@@ -957,7 +957,7 @@ export default function ChargesPersonnelIPRPage() {
                     <LigneR label="IRPP calculé (barème)" val={formatFC(resAdmin.iprCalcule ?? resAdmin.iprBrut)} />
                     {resAdmin.charge > 0 && (
                       resAdmin.reductionInapplicable ? (
-                        <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300">
+                        <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
                           <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                           <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois</span>
                         </div>
@@ -972,8 +972,8 @@ export default function ChargesPersonnelIPRPage() {
                     {/* Bloc comparaison plafond : avant le résultat final */}
                     <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-3 text-xs ${
                       resAdmin.plafonne
-                        ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                        : 'bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300'
+                        ? 'bg-amber-50 border border-amber-300 text-amber-700'
+                        : 'bg-green-50 border border-green-300 text-green-700'
                     }`}>
                       <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                       <div className="space-y-0.5">
@@ -1017,12 +1017,12 @@ export default function ChargesPersonnelIPRPage() {
             </ResultatWrap>
 
             {/* ÉCRITURES ADMIN */}
-            <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-gradient-to-b from-blue-50 to-white dark:from-blue-900/10 dark:to-background overflow-hidden shadow-sm">
-              <div className="flex items-center gap-2.5 px-4 py-3 bg-blue-500/10 dark:bg-blue-900/30 border-b border-blue-200 dark:border-blue-800">
+            <div className="rounded-2xl border border-blue-200 bg-gradient-to-b from-blue-50 to-white overflow-hidden shadow-sm">
+              <div className="flex items-center gap-2.5 px-4 py-3 bg-blue-500/10 border-b border-blue-200">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 shrink-0">
                   <BookOpen className="h-4 w-4 text-white" />
                 </div>
-                <p className="font-bold text-sm text-blue-800 dark:text-blue-300">Écritures comptables au journal : SYSCOHADA</p>
+                <p className="font-bold text-sm text-blue-800">Écritures comptables au journal : SYSCOHADA</p>
               </div>
               <div className="p-4 space-y-3">
                 {resAdmin.sousMode === 'mandataire' ? (
@@ -1147,7 +1147,7 @@ export default function ChargesPersonnelIPRPage() {
                 <LigneR label="IRPP brut" val={formatFC(res.iprBrut)} />
                 {res.charge > 0 && (
                   res.reductionInapplicable ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300">
+                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
                       <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                       <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
                     </div>
@@ -1162,8 +1162,8 @@ export default function ChargesPersonnelIPRPage() {
                 <LigneR signe="=" label="IRPP net dû" val={formatFC(res.iprNet)} bold accent />
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-3 text-xs ${
                   res.plafonne
-                    ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300'
+                    ? 'bg-amber-50 border border-amber-300 text-amber-700'
+                    : 'bg-green-50 border border-green-300 text-green-700'
                 }`}>
                   <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                   <span>
@@ -1242,7 +1242,7 @@ export default function ChargesPersonnelIPRPage() {
                 <LigneR label="IRPP brut" val={formatFC(res.iprBrut)} />
                 {res.chargeE > 0 && (
                   res.reductionInapplicableE ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300">
+                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
                       <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                       <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
                     </div>
@@ -1257,8 +1257,8 @@ export default function ChargesPersonnelIPRPage() {
                 <LigneR signe="=" label="IRPP net retenu sur salaire" val={formatFC(res.iprNetExp)} bold accent />
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-3 text-xs ${
                   res.plafonne
-                    ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300'
-                    : 'bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300'
+                    ? 'bg-amber-50 border border-amber-300 text-amber-700'
+                    : 'bg-green-50 border border-green-300 text-green-700'
                 }`}>
                   <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                   <span>
@@ -1271,8 +1271,8 @@ export default function ChargesPersonnelIPRPage() {
               </EtapeResultat>
 
               <EtapeResultat numero={4} titre="IERE : Charge patronale (Art. 145-148)">
-                <div className="rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 p-3 space-y-1">
-                  <p className="text-xs font-semibold text-red-700 dark:text-red-300 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
+                <div className="rounded-lg bg-red-50 border border-red-200 p-3 space-y-1">
+                  <p className="text-xs font-semibold text-red-700 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
                   <LigneR signe="+" label="Base imposable (brut 662)" val={formatFC(res.brut662)} />
                   <LigneR signe="×" label={`Taux IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
                   <Separateur />
@@ -1325,17 +1325,17 @@ export default function ChargesPersonnelIPRPage() {
         {/* ═══════════════════════════════════════════════════════════════════
             ÉCRITURES COMPTABLES AU JOURNAL
         ═══════════════════════════════════════════════════════════════════ */}
-        <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-gradient-to-b from-blue-50 to-white dark:from-blue-900/10 dark:to-background overflow-hidden shadow-sm">
-          <div className="flex items-center gap-2.5 px-4 py-3 bg-blue-500/10 dark:bg-blue-900/30 border-b border-blue-200 dark:border-blue-800">
+        <div className="rounded-2xl border border-blue-200 bg-gradient-to-b from-blue-50 to-white overflow-hidden shadow-sm">
+          <div className="flex items-center gap-2.5 px-4 py-3 bg-blue-500/10 border-b border-blue-200">
             <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 shrink-0">
               <BookOpen className="h-4 w-4 text-white" />
             </div>
-            <p className="font-bold text-sm text-blue-800 dark:text-blue-300">Écritures comptables au journal : SYSCOHADA</p>
+            <p className="font-bold text-sm text-blue-800">Écritures comptables au journal : SYSCOHADA</p>
           </div>
           <div className="p-4 space-y-3">
 
             {/* NOTE PÉDAGOGIQUE */}
-            <div className="rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 px-3 py-2 text-xs text-blue-700 dark:text-blue-300">
+            <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-700">
               <p>Les comptes avec <span className="font-semibold">*</span> sont des sous-comptes personnalisés créés selon la nomenclature SYSCOHADA révisé 2017. Les montants sont calculés à partir des valeurs saisies.</p>
             </div>
 

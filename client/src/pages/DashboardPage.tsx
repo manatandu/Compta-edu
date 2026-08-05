@@ -91,9 +91,9 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
   // Si déjà soumis avec note
   if (soumission?.statut === 'note') {
     return (
-      <div className="mt-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-3 space-y-1">
-        <p className="text-sm font-semibold text-green-700 dark:text-green-400">✓ QCM corrigé automatiquement</p>
-        <p className="text-sm text-green-700 dark:text-green-400">Note : <strong>{soumission.note}/10</strong></p>
+      <div className="mt-3 bg-green-50 border border-green-200 rounded-lg p-3 space-y-1">
+        <p className="text-sm font-semibold text-green-700">✓ QCM corrigé automatiquement</p>
+        <p className="text-sm text-green-700">Note : <strong>{soumission.note}/10</strong></p>
         {soumission.commentaire && <p className="text-xs text-muted-foreground">{soumission.commentaire}</p>}
       </div>
     )
@@ -101,7 +101,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
 
   if (soumission?.statut === 'soumis') {
     return (
-      <p className="mt-2 text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">
+      <p className="mt-2 text-xs text-blue-600 flex items-center gap-1">
         <Lock className="h-3 w-3" /> QCM soumis : correction en cours...
       </p>
     )
@@ -144,7 +144,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
   if (soumis && resultat) {
     const note = Math.round((resultat.score / resultat.total) * 10 * 10) / 10
     const mention = note >= 8 ? 'Excellent' : note >= 6 ? 'Bien' : note >= 5 ? 'Satisfaisant' : 'Insuffisant'
-    const mentionColor = note >= 8 ? 'text-green-600 dark:text-green-400' : note >= 6 ? 'text-blue-600 dark:text-blue-400' : note >= 5 ? 'text-amber-600 dark:text-amber-400' : 'text-destructive'
+    const mentionColor = note >= 8 ? 'text-green-600' : note >= 6 ? 'text-blue-600' : note >= 5 ? 'text-amber-600' : 'text-destructive'
     return (
       <div className="mt-3 space-y-3">
         <div className="bg-muted rounded-lg p-4 text-center space-y-1">
@@ -153,11 +153,11 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
           <p className="text-xs text-muted-foreground">{resultat.score}/{resultat.total} bonne{resultat.score > 1 ? 's' : ''} réponse{resultat.score > 1 ? 's' : ''}</p>
         </div>
         {questions.map((q, i) => (
-          <div key={i} className={`rounded-lg border p-3 space-y-1.5 ${ resultat.details[i] ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-950/20' : 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950/20' }`}>
+          <div key={i} className={`rounded-lg border p-3 space-y-1.5 ${ resultat.details[i] ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50' }`}>
             <p className="text-xs font-medium text-foreground">{i + 1}. {q.texte}</p>
             <p className="text-xs">
               {resultat.details[i]
-                ? <span className="text-green-600 dark:text-green-400">✓ Bonne réponse : {q.choix[q.bonneReponse]}</span>
+                ? <span className="text-green-600">✓ Bonne réponse : {q.choix[q.bonneReponse]}</span>
                 : <span className="text-destructive">✗ Votre réponse : {q.choix[reponses[i]]} : Bonne réponse : {q.choix[q.bonneReponse]}</span>
               }
             </p>
@@ -295,8 +295,8 @@ function ReponseTheoriqueForm({ devoir, etudiantId, soumission }: { devoir: any;
       <div className="rounded-md bg-background border border-border px-3 py-2 text-sm text-foreground whitespace-pre-wrap max-h-40 overflow-y-auto">
         {reponse}
       </div>
-      <div className="rounded-md bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 px-3 py-2">
-        <p className="text-xs text-amber-800 dark:text-amber-300">
+      <div className="rounded-md bg-amber-50 border border-amber-200 px-3 py-2">
+        <p className="text-xs text-amber-800">
           Une fois soumis, votre devoir sera transmis au professeur et vous ne pourrez plus modifier vos réponses.
         </p>
       </div>
@@ -314,19 +314,19 @@ function ReponseTheoriqueForm({ devoir, etudiantId, soumission }: { devoir: any;
 
 // ─── Palettes couleurs UE ────────────────────────────────────────────────────
 const UE_COLORS = [
-  'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
-  'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
-  'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-  'bg-gray-50 text-gray-600 dark:bg-gray-900/30 dark:text-gray-400',
-  'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
-  'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300',
-  'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
-  'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
-  'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
-  'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-  'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+  'bg-blue-50 text-blue-700',
+  'bg-indigo-50 text-indigo-700',
+  'bg-violet-50 text-violet-700',
+  'bg-amber-50 text-amber-700',
+  'bg-gray-50 text-gray-600',
+  'bg-emerald-50 text-emerald-700',
+  'bg-cyan-50 text-cyan-700',
+  'bg-teal-50 text-teal-700',
+  'bg-blue-50 text-blue-700',
+  'bg-sky-50 text-sky-700',
+  'bg-rose-50 text-rose-700',
+  'bg-orange-50 text-orange-700',
+  'bg-purple-50 text-purple-700',
 ]
 const UE_RINGS = [
   'hover:ring-blue-300/40', 'hover:ring-indigo-300/40', 'hover:ring-violet-300/40',
@@ -338,8 +338,8 @@ const UE_RINGS = [
 
 // Raccourcis outils (hors cours UE)
 const MODULES_OUTILS = [
-  { path: '/exercices', label: 'Exercices',  desc: "Pratiquer & s'évaluer", icon: GraduationCap, light: 'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300', ring: 'hover:ring-orange-300/40' },
-  { path: '/documents', label: 'Documents', desc: 'Ressources pédagogiques',  icon: FolderOpen,    light: 'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',    ring: 'hover:ring-teal-300/40' },
+  { path: '/exercices', label: 'Exercices',  desc: "Pratiquer & s'évaluer", icon: GraduationCap, light: 'bg-orange-50 text-orange-700', ring: 'hover:ring-orange-300/40' },
+  { path: '/documents', label: 'Documents', desc: 'Ressources pédagogiques',  icon: FolderOpen,    light: 'bg-teal-50 text-teal-700',    ring: 'hover:ring-teal-300/40' },
 ]
 
 // Salutation selon l'heure
@@ -614,7 +614,7 @@ export default function DashboardPage() {
             )}
             style={{ animationDelay: '650ms' }}
           >
-            <div className="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
               <LibraryBig className="h-5 w-5" />
             </div>
             <div className="flex-1">
@@ -634,7 +634,7 @@ export default function DashboardPage() {
             )}
             style={{ animationDelay: '700ms' }}
           >
-            <div className="h-10 w-10 rounded-xl bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-violet-50 text-violet-700 flex items-center justify-center">
               <BookMarked className="h-5 w-5" />
             </div>
             <div className="flex-1">
@@ -654,7 +654,7 @@ export default function DashboardPage() {
             )}
             style={{ animationDelay: '800ms' }}
           >
-            <div className="h-10 w-10 rounded-xl bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center">
               <GraduationCap className="h-5 w-5" />
             </div>
             <div className="flex-1">
@@ -674,7 +674,7 @@ export default function DashboardPage() {
             )}
             style={{ animationDelay: '850ms' }}
           >
-            <div className="h-10 w-10 rounded-xl bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
               <FolderOpen className="h-5 w-5" />
             </div>
             <div className="flex-1">
@@ -748,7 +748,7 @@ export default function DashboardPage() {
                             href={(dev as any).pdfUrl || (dev as any).pdfData}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400 hover:underline"
+                            className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:underline"
                           >
                             <FileDown className="h-3.5 w-3.5" />
                             Voir l’énoncé PDF
@@ -772,7 +772,7 @@ export default function DashboardPage() {
                       const sessionDevoir = sessions.find((s: any) => s.devoirId === dev.id && s.userId === user!.id)
 
                       if (soum?.statut === 'soumis') return (
-                        <p className="mt-2 text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">
+                        <p className="mt-2 text-xs text-blue-600 flex items-center gap-1">
                           <Lock className="h-3 w-3" />Soumis : en attente de correction
                         </p>
                       )
@@ -878,10 +878,10 @@ export default function DashboardPage() {
               {mentionEtudiant && (
                 <span className={cn(
                   'text-xs px-2.5 py-1 rounded-full font-semibold border',
-                  mentionEtudiant === 'Excellent' ? 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-700' :
-                  mentionEtudiant === 'Bien' ? 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-700' :
-                  mentionEtudiant === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-700' :
-                  'bg-red-100 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700'
+                  mentionEtudiant === 'Excellent' ? 'bg-green-100 text-green-700 border-green-200' :
+                  mentionEtudiant === 'Bien' ? 'bg-blue-100 text-blue-700 border-blue-200' :
+                  mentionEtudiant === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-700 border-yellow-200' :
+                  'bg-red-100 text-red-700 border-red-200'
                 )}>{mentionEtudiant}</span>
               )}
               <Button

@@ -168,7 +168,7 @@ export default function StockMouvementPage() {
               className={cn(
                 'flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-semibold transition-all',
                 type === 'entree'
-                  ? 'border-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400'
+                  ? 'border-emerald-400 bg-emerald-50 text-emerald-700'
                   : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted/50'
               )}>
               <ArrowDownCircle className="h-4 w-4" />
@@ -178,7 +178,7 @@ export default function StockMouvementPage() {
               className={cn(
                 'flex items-center justify-center gap-2 rounded-xl border py-3 text-sm font-semibold transition-all',
                 type === 'sortie'
-                  ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400'
+                  ? 'border-orange-400 bg-orange-50 text-orange-700'
                   : 'border-border bg-muted/30 text-muted-foreground hover:bg-muted/50'
               )}>
               <ArrowUpCircle className="h-4 w-4" />
@@ -219,8 +219,8 @@ export default function StockMouvementPage() {
 
         {/* Pour les sorties : CU calculé automatiquement */}
         {type === 'sortie' && (
-          <div className="rounded-lg bg-orange-50 dark:bg-orange-900/10 border border-orange-200/50 dark:border-orange-700/20 px-3 py-2">
-            <p className="text-xs text-orange-700 dark:text-orange-400">
+          <div className="rounded-lg bg-orange-50 border border-orange-200/50 px-3 py-2">
+            <p className="text-xs text-orange-700">
               CU de sortie calculé automatiquement ({article.methode === 'PEPS' ? 'PEPS / FIFO' : 'CUMP'}) :
               <span className="font-bold ml-1">
                 {cuSortie.toLocaleString('fr-CD', { minimumFractionDigits: 2, maximumFractionDigits: 3 })} CDF/u
@@ -243,17 +243,17 @@ export default function StockMouvementPage() {
 
         {/* Erreur */}
         {erreur && (
-          <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200/50 px-3 py-3">
+          <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200/50 px-3 py-3">
             <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
-            <p className="text-xs text-red-600 dark:text-red-400">{erreur}</p>
+            <p className="text-xs text-red-600">{erreur}</p>
           </div>
         )}
 
         {/* Succès */}
         {succes && (
-          <div className="flex items-center gap-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200/50 px-3 py-3">
+          <div className="flex items-center gap-2 rounded-lg bg-emerald-50 border border-emerald-200/50 px-3 py-3">
             <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-            <p className="text-xs text-emerald-700 dark:text-emerald-400">
+            <p className="text-xs text-emerald-700">
               Mouvement et écritures enregistrés avec succès.
             </p>
           </div>
@@ -272,8 +272,8 @@ export default function StockMouvementPage() {
 
       {/* Lien vers la fiche */}
       <button onClick={() => navigate(`/stock/fiche/${articleId}`)}
-        className="w-full flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-purple-300/50 hover:bg-purple-50/30 dark:hover:bg-purple-900/10 transition-all group">
-        <span className="text-sm font-semibold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+        className="w-full flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-purple-300/50 hover:bg-purple-50/30 transition-all group">
+        <span className="text-sm font-semibold text-foreground group-hover:text-purple-600 transition-colors">
           Voir la fiche de stock calculée
         </span>
         <ArrowUpCircle className="h-4 w-4 text-muted-foreground/40 group-hover:text-purple-500 transition-colors" />

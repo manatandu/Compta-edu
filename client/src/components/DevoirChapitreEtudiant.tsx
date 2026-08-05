@@ -334,7 +334,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
     return (
       <div className="space-y-3">
         {/* Bandeau info */}
-        <div className="rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 p-3 text-xs text-indigo-800 dark:text-indigo-200">
+        <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 text-xs text-indigo-800">
           <p className="font-semibold mb-1">Devoir QCM + Cas pratiques — /20</p>
           <p>Partie 1 : {questions.length} QCM × 2 pts = 10 pts</p>
           <p>Partie 2 : {casPratiques.length} cas pratique{casPratiques.length > 1 ? 's' : ''} = 10 pts (corrigé par IA)</p>
@@ -357,16 +357,16 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
   if (etape === 'cas') {
     return (
       <div className="space-y-3">
-        <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 p-3 text-xs text-amber-800 dark:text-amber-200">
+        <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-xs text-amber-800">
           <p className="font-semibold">Partie 2 — Cas pratiques</p>
           <p className="mt-0.5">QCM validé ({Object.values(reponsesQCM).length}/{questions.length}). Répondez maintenant aux cas pratiques.</p>
-          <p className="mt-0.5 text-amber-600 dark:text-amber-300">La correction est effectuée par IA — répondez avec vos mots, la logique est évaluée.</p>
+          <p className="mt-0.5 text-amber-600">La correction est effectuée par IA — répondez avec vos mots, la logique est évaluée.</p>
         </div>
 
         {casPratiques.map((cas, i) => (
           <div key={cas.id} className="rounded-xl border border-border bg-card p-4 space-y-3">
             <div className="flex items-start gap-2">
-              <span className="h-6 w-6 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center justify-center shrink-0">
+              <span className="h-6 w-6 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center shrink-0">
                 {i + 1}
               </span>
               <div className="flex-1">
@@ -425,10 +425,10 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
   if (etape === 'correction' && resultat) {
     if (resultat.geminiEchoue) {
       return (
-        <div className="rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-900/20 p-4 text-center space-y-2">
+        <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-center space-y-2">
           <FileText className="h-8 w-8 mx-auto text-amber-600" />
           <p className="text-sm font-semibold text-foreground">Devoir soumis</p>
-          <p className="text-xs text-amber-700 dark:text-amber-300">
+          <p className="text-xs text-amber-700">
             La correction automatique des cas pratiques a rencontré un problème. Votre devoir a été transmis à votre professeur pour correction manuelle.
           </p>
           <div className="text-xs text-muted-foreground mt-2">
@@ -471,10 +471,10 @@ function ResultatQCMDisplay({ score, total, noteSur20, questions, details }: Res
       <div className={cn(
         'rounded-xl border p-4 text-center space-y-1',
         score >= Math.ceil(total * 0.7)
-          ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
+          ? 'border-emerald-300 bg-emerald-50'
           : score >= Math.ceil(total * 0.5)
-            ? 'border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20'
-            : 'border-red-300 bg-red-50 dark:bg-red-900/20'
+            ? 'border-yellow-300 bg-yellow-50'
+            : 'border-red-300 bg-red-50'
       )}>
         <Award className={cn('h-8 w-8 mx-auto',
           score >= Math.ceil(total * 0.7) ? 'text-emerald-600' :
@@ -519,10 +519,10 @@ function ResultatQCMCasDisplay({
       <div className={cn(
         'rounded-xl border p-4 text-center space-y-2',
         noteFinale >= 14
-          ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/20'
+          ? 'border-emerald-300 bg-emerald-50'
           : noteFinale >= 10
-            ? 'border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20'
-            : 'border-red-300 bg-red-50 dark:bg-red-900/20'
+            ? 'border-yellow-300 bg-yellow-50'
+            : 'border-red-300 bg-red-50'
       )}>
         <Award className={cn('h-8 w-8 mx-auto',
           noteFinale >= 14 ? 'text-emerald-600' :
@@ -552,20 +552,20 @@ function ResultatQCMCasDisplay({
             <div key={cas.id} className={cn(
               'rounded-lg border p-3 space-y-2',
               ev.coherente
-                ? 'border-emerald-200 bg-emerald-50 dark:bg-emerald-900/10'
+                ? 'border-emerald-200 bg-emerald-50'
                 : ratio >= 0.5
-                  ? 'border-yellow-200 bg-yellow-50 dark:bg-yellow-900/10'
-                  : 'border-red-200 bg-red-50 dark:bg-red-900/10'
+                  ? 'border-yellow-200 bg-yellow-50'
+                  : 'border-red-200 bg-red-50'
             )}>
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-foreground">{cas.titre}</p>
                 <span className={cn(
                   'text-xs font-bold px-2 py-0.5 rounded-full',
                   ev.coherente
-                    ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700'
+                    ? 'bg-emerald-100 text-emerald-700'
                     : ratio >= 0.5
-                      ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700'
-                      : 'bg-red-100 dark:bg-red-900/30 text-red-700'
+                      ? 'bg-yellow-100 text-yellow-700'
+                      : 'bg-red-100 text-red-700'
                 )}>
                   {ev.score}/{cas.pointsMax} pts
                 </span>
@@ -575,7 +575,7 @@ function ResultatQCMCasDisplay({
                   ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                   : <XCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
                 }
-                <span className={ev.coherente ? 'text-emerald-700 dark:text-emerald-300' : 'text-red-600 dark:text-red-400'}>
+                <span className={ev.coherente ? 'text-emerald-700' : 'text-red-600'}>
                   {ev.coherente ? 'Réponse logiquement correcte' : 'Réponse incohérente ou incorrecte'}
                 </span>
               </div>
@@ -591,7 +591,7 @@ function ResultatQCMCasDisplay({
       <div>
         <button
           onClick={() => setVoirDetailQCM(v => !v)}
-          className="w-full text-left text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1 py-1"
+          className="w-full text-left text-xs text-indigo-600 font-medium hover:underline flex items-center gap-1 py-1"
         >
           {voirDetailQCM
             ? <><ChevronUp className="h-3.5 w-3.5" /> Masquer le détail QCM</>
@@ -626,8 +626,8 @@ function QCMDetailsDisplay({ questions, details }: QCMDetailsDisplayProps) {
           <div key={q.id} className={cn(
             'rounded-lg border p-3 text-xs space-y-1.5',
             correct
-              ? 'border-emerald-200 bg-emerald-50 dark:bg-emerald-900/10'
-              : 'border-red-200 bg-red-50 dark:bg-red-900/10'
+              ? 'border-emerald-200 bg-emerald-50'
+              : 'border-red-200 bg-red-50'
           )}>
             <div className="flex items-start gap-2">
               {correct
@@ -639,15 +639,15 @@ function QCMDetailsDisplay({ questions, details }: QCMDetailsDisplayProps) {
               </p>
             </div>
             {!correct && (
-              <p className="text-red-600 dark:text-red-400 pl-6">
+              <p className="text-red-600 pl-6">
                 Votre réponse : {choixEtu?.texte || '—'}
               </p>
             )}
-            <p className="text-emerald-700 dark:text-emerald-300 pl-6">
+            <p className="text-emerald-700 pl-6">
               ✓ Bonne réponse : {bonneOpt?.texte}
             </p>
             <p className="pl-6 text-muted-foreground italic">{q.explication}</p>
-            <p className="pl-6 text-indigo-600 dark:text-indigo-400 font-medium">📖 {q.articleRef}</p>
+            <p className="pl-6 text-indigo-600 font-medium">📖 {q.articleRef}</p>
           </div>
         )
       })}
@@ -691,7 +691,7 @@ function QCMForm({ questions, reponses, onReponse, onSoumettre, loading, label, 
       {questions.map((q, i) => (
         <div key={q.id} className={cn(
           'rounded-xl border p-3.5 space-y-2.5 transition-colors',
-          reponses[q.id] ? 'border-indigo-300 bg-indigo-50/50 dark:bg-indigo-900/10' : 'border-border bg-card'
+          reponses[q.id] ? 'border-indigo-300 bg-indigo-50/50' : 'border-border bg-card'
         )}>
           <div className="flex items-start gap-2">
             <span className="h-5 w-5 rounded-full bg-muted text-muted-foreground text-xs font-bold flex items-center justify-center shrink-0">
@@ -707,7 +707,7 @@ function QCMForm({ questions, reponses, onReponse, onSoumettre, loading, label, 
                 className={cn(
                   'w-full text-left text-xs rounded-lg border px-3 py-2 transition-colors',
                   reponses[q.id] === opt.id
-                    ? 'border-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 font-medium'
+                    ? 'border-indigo-500 bg-indigo-100 text-indigo-800 font-medium'
                     : 'border-border bg-card hover:bg-muted/40 text-foreground'
                 )}
               >
@@ -766,7 +766,7 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
   const getBadgeNote = () => {
     if (estEnAttenteCorrectionManuelle) {
       return (
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-700">
+        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
           En correction
         </span>
       )
@@ -775,9 +775,9 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
       return (
         <span className={cn(
           'text-xs font-bold px-2 py-0.5 rounded-full',
-          noteSur20 >= 14 ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700' :
-          noteSur20 >= 10 ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700' :
-          'bg-red-100 dark:bg-red-900/30 text-red-700'
+          noteSur20 >= 14 ? 'bg-emerald-100 text-emerald-700' :
+          noteSur20 >= 10 ? 'bg-yellow-100 text-yellow-700' :
+          'bg-red-100 text-red-700'
         )}>
           {noteSur20}/20
         </span>
@@ -795,9 +795,9 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
         <div className="flex items-start gap-3 text-left">
           <div className={cn(
             'h-9 w-9 rounded-xl flex items-center justify-center shrink-0',
-            soumission ? 'bg-emerald-100 dark:bg-emerald-900/30' :
-            expire ? 'bg-red-100 dark:bg-red-900/30' :
-            'bg-indigo-100 dark:bg-indigo-900/30'
+            soumission ? 'bg-emerald-100' :
+            expire ? 'bg-red-100' :
+            'bg-indigo-100'
           )}>
             {soumission
               ? <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600" />
@@ -810,7 +810,7 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
             <div className="flex items-center gap-2 flex-wrap">
               <p className="text-sm font-semibold text-foreground truncate">{devoir.titre}</p>
               {devoir.type === 'qcm_cas' && (
-                <span className="text-xs px-1.5 py-0.5 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium shrink-0">
+                <span className="text-xs px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 font-medium shrink-0">
                   QCM+Cas
                 </span>
               )}
@@ -819,7 +819,7 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
               <span className="text-xs text-muted-foreground">{devoir.chapitreNom}</span>
               {getBadgeNote()}
               {!soumission && !expire && (
-                <span className="text-xs text-amber-600 dark:text-amber-400">
+                <span className="text-xs text-amber-600">
                   Limite : {new Date(devoir.dateLimit).toLocaleDateString('fr-FR')}
                 </span>
               )}
@@ -875,7 +875,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
   // Devoir en attente de correction manuelle
   if (soumission.statut === 'soumis') {
     return (
-      <div className="rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-900/20 p-4 text-center space-y-2">
+      <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-center space-y-2">
         <FileText className="h-8 w-8 mx-auto text-amber-600" />
         <p className="text-sm font-semibold text-foreground">En attente de correction</p>
         <p className="text-xs text-muted-foreground">
@@ -897,9 +897,9 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
       <div className="space-y-3">
         <div className={cn(
           'rounded-xl border p-4 text-center space-y-2',
-          noteSur20! >= 14 ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/20' :
-          noteSur20! >= 10 ? 'border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20' :
-          'border-red-300 bg-red-50 dark:bg-red-900/20'
+          noteSur20! >= 14 ? 'border-emerald-300 bg-emerald-50' :
+          noteSur20! >= 10 ? 'border-yellow-300 bg-yellow-50' :
+          'border-red-300 bg-red-50'
         )}>
           <p className="text-3xl font-bold text-foreground">
             {noteSur20}<span className="text-sm font-normal text-muted-foreground">/20</span>
@@ -923,8 +923,8 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
               <div key={cas.id} className={cn(
                 'rounded-lg border p-3 text-xs space-y-1.5',
                 ev.coherente
-                  ? 'border-emerald-200 bg-emerald-50 dark:bg-emerald-900/10'
-                  : 'border-red-200 bg-red-50 dark:bg-red-900/10'
+                  ? 'border-emerald-200 bg-emerald-50'
+                  : 'border-red-200 bg-red-50'
               )}>
                 <div className="flex items-center justify-between">
                   <p className="font-semibold text-foreground">{cas.titre}</p>
@@ -943,7 +943,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
         {/* Détail QCM si disponible */}
         {soumission.detailsQCMChapitre && devoir.questionsChapitre && (
           <details className="text-xs">
-            <summary className="cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium hover:underline py-1">
+            <summary className="cursor-pointer text-indigo-600 font-medium hover:underline py-1">
               Voir le détail QCM
             </summary>
             <div className="mt-2">
@@ -963,9 +963,9 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
     <div className="space-y-3">
       <div className={cn(
         'rounded-xl border p-4 text-center space-y-1',
-        noteSur20! >= 14 ? 'border-emerald-300 bg-emerald-50 dark:bg-emerald-900/20' :
-        noteSur20! >= 10 ? 'border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20' :
-        'border-red-300 bg-red-50 dark:bg-red-900/20'
+        noteSur20! >= 14 ? 'border-emerald-300 bg-emerald-50' :
+        noteSur20! >= 10 ? 'border-yellow-300 bg-yellow-50' :
+        'border-red-300 bg-red-50'
       )}>
         <p className="text-3xl font-bold text-foreground">
           {noteSur20}<span className="text-sm font-normal text-muted-foreground">/20</span>
@@ -979,7 +979,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
       </div>
       {soumission.detailsQCMChapitre && devoir.questionsChapitre && (
         <details className="text-xs">
-          <summary className="cursor-pointer text-indigo-600 dark:text-indigo-400 font-medium hover:underline py-1">
+          <summary className="cursor-pointer text-indigo-600 font-medium hover:underline py-1">
             Voir le détail des réponses
           </summary>
           <div className="space-y-2 mt-2">
@@ -1065,7 +1065,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
       {/* Devoirs en attente */}
       {enAttente.length > 0 && (
         <div className="space-y-2">
-          <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wide px-1">
+          <p className="text-xs font-semibold text-amber-600 uppercase tracking-wide px-1">
             À faire ({enAttente.length})
           </p>
           {enAttente.map(d => (

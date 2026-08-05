@@ -15,10 +15,10 @@ import { Badge } from '@/components/ui/badge'
 // ─── Couleurs par type de compte ─────────────────────────────────────────────
 function couleurCompte(type: TypeStock) {
   return type === '31'
-    ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-700/30'
+    ? 'bg-blue-50 text-blue-700 border-blue-200'
     : type === '32'
-    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700/30'
-    : 'bg-orange-50 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400 border-orange-200 dark:border-orange-700/30'
+    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+    : 'bg-orange-50 text-orange-700 border-orange-200'
 }
 
 // ─── Formulaire de création ───────────────────────────────────────────────────
@@ -76,8 +76,8 @@ function FormulaireArticle({ onClose, userId }: { onClose: () => void; userId: s
         {/* En-tête */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-              <Package className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+            <div className="h-8 w-8 rounded-lg bg-purple-100 flex items-center justify-center">
+              <Package className="h-4 w-4 text-purple-600" />
             </div>
             <h2 className="font-bold text-base text-foreground">Nouvel article</h2>
           </div>
@@ -136,7 +136,7 @@ function FormulaireArticle({ onClose, userId }: { onClose: () => void; userId: s
                 className={cn(
                   'rounded-lg border px-3 py-2.5 text-xs font-semibold transition-all text-left',
                   form.methode === m
-                    ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 ring-2 ring-offset-1 ring-purple-400/30'
+                    ? 'border-purple-400 bg-purple-50 text-purple-700 ring-2 ring-offset-1 ring-purple-400/30'
                     : 'border-border bg-muted/30 text-muted-foreground hover:border-border/80'
                 )}
               >
@@ -180,7 +180,7 @@ function FormulaireArticle({ onClose, userId }: { onClose: () => void; userId: s
 
         {/* Erreur */}
         {erreur && (
-          <p className="text-xs text-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg px-3 py-2">{erreur}</p>
+          <p className="text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2">{erreur}</p>
         )}
 
         {/* Boutons */}
@@ -220,7 +220,7 @@ function CarteArticle({
             <Badge variant="outline" className={cn('text-xs px-1.5 py-0 border', couleurCompte(article.typeCompte))}>
               {article.typeCompte} : {libelleCompte(article.typeCompte)}
             </Badge>
-            <Badge variant="outline" className="text-xs px-1.5 py-0 border border-purple-200 text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/10">
+            <Badge variant="outline" className="text-xs px-1.5 py-0 border border-purple-200 text-purple-700 bg-purple-50">
               {article.methode === 'PEPS' ? 'PEPS / FIFO' : 'CUMP'}
             </Badge>
           </div>
@@ -230,7 +230,7 @@ function CarteArticle({
           )}
         </div>
         <button onClick={onSupprimer}
-          className="h-7 w-7 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center transition-colors shrink-0">
+          className="h-7 w-7 rounded-lg hover:bg-red-50 flex items-center justify-center transition-colors shrink-0">
           <Trash2 className="h-3.5 w-3.5 text-red-400" />
         </button>
       </div>

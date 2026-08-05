@@ -53,24 +53,24 @@ type CasPratique = {
 // ─── Composant InfoBox ─────────────────────────────────────────────────────────
 function InfoBox({ couleur, titre, children }: { couleur: string; titre: React.ReactNode; children: React.ReactNode }) {
   const styles: Record<string, string> = {
-    blue: 'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20',
-    amber: 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20',
-    emerald: 'border-emerald-200 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/20',
-    red: 'border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20',
-    violet: 'border-violet-200 dark:border-violet-700 bg-violet-50 dark:bg-violet-900/20',
-    slate: 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40',
-    sky: 'border-sky-200 dark:border-sky-700 bg-sky-50 dark:bg-sky-900/20',
-    orange: 'border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20',
+    blue: 'border-blue-200 bg-blue-50',
+    amber: 'border-amber-200 bg-amber-50',
+    emerald: 'border-emerald-200 bg-emerald-50',
+    red: 'border-red-200 bg-red-50',
+    violet: 'border-violet-200 bg-violet-50',
+    slate: 'border-slate-200 bg-slate-50',
+    sky: 'border-sky-200 bg-sky-50',
+    orange: 'border-orange-200 bg-orange-50',
   }
   const titreStyles: Record<string, string> = {
-    blue: 'text-blue-700 dark:text-blue-300',
-    amber: 'text-amber-700 dark:text-amber-300',
-    emerald: 'text-emerald-700 dark:text-emerald-300',
-    red: 'text-red-700 dark:text-red-300',
-    violet: 'text-violet-700 dark:text-violet-300',
-    slate: 'text-slate-700 dark:text-slate-300',
-    sky: 'text-sky-700 dark:text-sky-300',
-    orange: 'text-orange-700 dark:text-orange-300',
+    blue: 'text-blue-700',
+    amber: 'text-amber-700',
+    emerald: 'text-emerald-700',
+    red: 'text-red-700',
+    violet: 'text-violet-700',
+    slate: 'text-slate-700',
+    sky: 'text-sky-700',
+    orange: 'text-orange-700',
   }
   return (
     <div className={`rounded-xl border p-3 space-y-1 ${styles[couleur] || styles.slate}`}>
@@ -85,21 +85,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/30 dark:bg-sky-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-sky-700 dark:text-sky-300">{q.question}</p>
+    <div className="rounded-xl border border-sky-200 bg-sky-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-sky-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 dark:bg-sky-900/30 text-sky-800 dark:text-sky-200' : 'border-border hover:border-sky-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-sky-500 bg-sky-100 text-sky-800' : 'border-border hover:border-sky-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-sky-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-sky-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
@@ -117,7 +117,7 @@ function CasPratiqueBlock({ cp }: { cp: CasPratique }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="inline-flex items-center justify-center h-6 px-2 rounded-full text-xs font-bold border border-sky-300 dark:border-sky-700 text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30">{cp.badge}</span>
+          <span className="inline-flex items-center justify-center h-6 px-2 rounded-full text-xs font-bold border border-sky-300 text-sky-700 bg-sky-50">{cp.badge}</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
             <p className="text-xs text-muted-foreground">{cp.enonce.slice(0, 60)}…</p>
@@ -127,23 +127,23 @@ function CasPratiqueBlock({ cp }: { cp: CasPratique }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-sky-50 dark:bg-sky-900/20 border border-sky-200 dark:border-sky-800 p-3">
-            <p className="text-xs font-semibold text-sky-800 dark:text-sky-300 mb-1">Énoncé</p>
-            <p className="text-xs text-sky-900 dark:text-sky-200 leading-relaxed">{cp.enonce}</p>
-            {cp.contexte && <p className="text-xs text-sky-800 dark:text-sky-200 leading-relaxed mt-1 italic">{cp.contexte}</p>}
+          <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
+            <p className="text-xs font-semibold text-sky-800 mb-1">Énoncé</p>
+            <p className="text-xs text-sky-900 leading-relaxed">{cp.enonce}</p>
+            {cp.contexte && <p className="text-xs text-sky-800 leading-relaxed mt-1 italic">{cp.contexte}</p>}
           </div>
           <div className="space-y-3">
             {cp.etapes.map((e, ei) => (
               <div key={e.id} className="space-y-2">
                 <p className="text-xs font-semibold text-foreground">Question {ei + 1} : {e.question}</p>
                 {corrVisible.has(e.id) ? (
-                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                    <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Correction</p>
-                    <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed whitespace-pre-line">{e.correctionDetaillee}</p>
-                    <p className="text-xs text-sky-600 dark:text-sky-400 font-medium mt-1">{e.articleRef}</p>
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                    <p className="text-xs font-semibold text-emerald-700 mb-1">Correction</p>
+                    <p className="text-xs text-emerald-900 leading-relaxed whitespace-pre-line">{e.correctionDetaillee}</p>
+                    <p className="text-xs text-sky-600 font-medium mt-1">{e.articleRef}</p>
                   </div>
                 ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, e.id]))} className="text-xs text-sky-600 dark:text-sky-400 hover:underline font-medium">Voir la correction</button>
+                  <button onClick={() => setCorrVisible(s => new Set([...s, e.id]))} className="text-xs text-sky-600 hover:underline font-medium">Voir la correction</button>
                 )}
               </div>
             ))}
@@ -539,12 +539,12 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-blue-300 dark:border-blue-600">
+                <tr className="border-b border-blue-300">
                   <th className="text-left py-1.5 pr-3 font-semibold">Droit</th>
                   <th className="text-left py-1.5 font-semibold">Contenu et conditions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-blue-200 dark:divide-blue-700">
+              <tbody className="divide-y divide-blue-200">
                 {[
                   { droit: '1. Droit aux bénéfices', contenu: 'Partager les bénéfices si l’assemblée décide une distribution. Aucun dividende sans décision collective.' },
                   { droit: '2. Droit aux actifs nets', contenu: 'Recevoir une quote-part des actifs nets en cas de dissolution ou de réduction de capital. Proportionnel aux titres détenus.' },
@@ -578,13 +578,13 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-violet-300 dark:border-violet-600">
+                <tr className="border-b border-violet-300">
                   <th className="text-left py-1.5 pr-3">Type de titre</th>
                   <th className="text-left py-1.5 pr-3">Mode de transmission</th>
                   <th className="text-left py-1.5">Formalités</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-violet-200 dark:divide-violet-700">
+              <tbody className="divide-y divide-violet-200">
                 {[
                   { type: 'Parts sociales (SARL, SNC)', mode: 'Cession', formalites: 'Acte écrit, signification à la société, accord des associés selon statuts' },
                   { type: 'Actions (SA, SAS)', mode: 'Cession ou négociation', formalites: 'Cession : acte ; Négociation : virement de compte à compte (Bourse ou gré à gré)' },
@@ -644,12 +644,12 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-blue-300 dark:border-blue-600">
+                <tr className="border-b border-blue-300">
                   <th className="text-left py-1.5 pr-3">Type de décision</th>
                   <th className="text-left py-1.5">Qui vote ?</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-blue-200 dark:divide-blue-700">
+              <tbody className="divide-y divide-blue-200">
                 {[
                   { type: 'Décisions ordinaires (AGO)', qui: 'Le nu-propriétaire en principe' },
                   { type: 'Affectation des bénéfices (dividendes)', qui: 'L’usufruitier (il perçoit les fruits)' },
@@ -703,13 +703,13 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-sky-300 dark:border-sky-600">
+                <tr className="border-b border-sky-300">
                   <th className="text-left py-1.5 pr-3">Catégorie</th>
                   <th className="text-left py-1.5 pr-3">Objet</th>
                   <th className="text-left py-1.5">Majorité générale</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-sky-200 dark:divide-sky-700">
+              <tbody className="divide-y divide-sky-200">
                 {[
                   { cat: 'Décisions ordinaires', objet: 'Gestion courante : comptes annuels, rémunérations, nominations', majorite: 'Majorité des voix exprimées (variable selon forme)' },
                   { cat: 'Décisions extraordinaires', objet: 'Modification des statuts, fusions, augmentation de capital', majorite: '2/3 ou unanimité selon les cas' },
@@ -731,12 +731,12 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-blue-300 dark:border-blue-600">
+                <tr className="border-b border-blue-300">
                   <th className="text-left py-1.5 pr-3">Mode</th>
                   <th className="text-left py-1.5">Conditions et modalités</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-blue-200 dark:divide-blue-700">
+              <tbody className="divide-y divide-blue-200">
                 {[
                   { mode: 'Vote par correspondance (Art. 133-1)', conditions: 'Prévu par les statuts. Préavis de 3 jours avant le scrutin. Bulletin de vote reçu 24h avant. Votes comptabilisés comme présents.' },
                   { mode: 'Visioconférence (Art. 133-2)', conditions: 'Prévu par les statuts. Vote oral à distance validé. Incidents techniques (coupure, déconnexion) doivent être mentionnés dans le PV. L’associé déconnecté est réputé absent à partir de la coupure.' },
@@ -827,13 +827,13 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-emerald-300 dark:border-emerald-600">
+                <tr className="border-b border-emerald-300">
                   <th className="text-left py-1.5 pr-3">Convocation</th>
                   <th className="text-left py-1.5 pr-3">Quorum</th>
                   <th className="text-left py-1.5">Majorité</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-emerald-200 dark:divide-emerald-700">
+              <tbody className="divide-y divide-emerald-200">
                 {[
                   { conv: '1re convocation', quorum: '1/4 des actions avec droit de vote', majorite: 'Majorité des voix exprimées' },
                   { conv: '2e convocation', quorum: 'Aucun quorum', majorite: 'Majorité des voix exprimées' },
@@ -863,13 +863,13 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-amber-300 dark:border-amber-600">
+                <tr className="border-b border-amber-300">
                   <th className="text-left py-1.5 pr-3">Convocation</th>
                   <th className="text-left py-1.5 pr-3">Quorum</th>
                   <th className="text-left py-1.5">Majorité</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-amber-200 dark:divide-amber-700">
+              <tbody className="divide-y divide-amber-200">
                 {[
                   { conv: '1re', quorum: '1/2 des actions avec droit de vote', majorite: '2/3 voix exprimées' },
                   { conv: '2e', quorum: '1/4 des actions avec droit de vote', majorite: '2/3 voix exprimées' },
@@ -909,13 +909,13 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto mt-2">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-sky-300 dark:border-sky-600">
+                <tr className="border-b border-sky-300">
                   <th className="text-left py-1.5 pr-3">Mode</th>
                   <th className="text-left py-1.5 pr-3">Description</th>
                   <th className="text-left py-1.5">Règles applicables</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-sky-200 dark:divide-sky-700">
+              <tbody className="divide-y divide-sky-200">
                 {[
                   { mode: 'Émission d’actions nouvelles en numéraire', desc: 'Apport d’argent frais par les actionnaires ou de nouveaux investisseurs', regles: 'Capital DOIT être intégralement libéré (Art. 572) ; DPS obligatoire (Art. 573)' },
                   { mode: 'Majoration de la valeur nominale', desc: 'Augmentation de la valeur de chaque action existante', regles: 'Libération intégrale du capital existant requise' },
@@ -966,14 +966,14 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-300 dark:border-slate-600">
+                <tr className="border-b border-slate-300">
                   <th className="text-left py-1.5 pr-3">Critère</th>
                   <th className="text-left py-1.5 pr-3">AGO</th>
                   <th className="text-left py-1.5 pr-3">AGE</th>
                   <th className="text-left py-1.5">Spéciale</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+              <tbody className="divide-y divide-slate-200">
                 {[
                   { crit: 'Objet', ago: 'Gestion courante', age: 'Modification statuts', spec: 'Droits d’une catégorie' },
                   { crit: 'Quorum 1re conv.', ago: '1/4', age: '1/2', spec: '1/2' },
@@ -1077,17 +1077,17 @@ export default function UE2Chapitre8Page() {
       </div>
 
       {/* Objectifs */}
-      <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-4">
+      <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-          <span className="text-sm font-semibold text-sky-800 dark:text-sky-300">Objectifs</span>
+          <BookOpen className="h-4 w-4 text-sky-600" />
+          <span className="text-sm font-semibold text-sky-800">Objectifs</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les titres sociaux et les quatre droits fondamentaux des associés (Art. 51–55)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Maîtriser les règles de vote, de représentation, d’usufruit et de vote double (Art. 125–133)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Analyser l’abus de majorité et de minorité avec la jurisprudence CCJA et française 2025</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer les compétences, quorums et majorités de l’AGO, l’AGE et l’assemblée spéciale (Art. 546–557)</span></li>
-          <li className="flex items-start gap-2 text-xs text-sky-700 dark:text-sky-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Comprendre les modalités d’augmentation de capital et le droit préférentiel de souscription (Art. 562–600)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Identifier les titres sociaux et les quatre droits fondamentaux des associés (Art. 51–55)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Maîtriser les règles de vote, de représentation, d’usufruit et de vote double (Art. 125–133)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Analyser l’abus de majorité et de minorité avec la jurisprudence CCJA et française 2025</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Distinguer les compétences, quorums et majorités de l’AGO, l’AGE et l’assemblée spéciale (Art. 546–557)</span></li>
+          <li className="flex items-start gap-2 text-xs text-sky-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-sky-500" /><span>Comprendre les modalités d’augmentation de capital et le droit préférentiel de souscription (Art. 562–600)</span></li>
         </ul>
       </div>
 
@@ -1112,7 +1112,7 @@ export default function UE2Chapitre8Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-sky-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-sky-600 dark:text-sky-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-sky-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
@@ -1158,9 +1158,9 @@ export default function UE2Chapitre8Page() {
                 <div className="space-y-2">
                   {currentQ.options.map(opt => {
                     let cls = 'w-full text-left text-sm px-3 py-2.5 rounded-lg border transition-colors '
-                    if (!qcmShowResult) cls += qcmSelected === opt.id ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300' : 'border-border hover:border-sky-400 hover:bg-muted/50'
-                    else if (opt.id === currentQ.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-                    else if (opt.id === qcmSelected) cls += 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300'
+                    if (!qcmShowResult) cls += qcmSelected === opt.id ? 'border-sky-500 bg-sky-50 text-sky-700' : 'border-border hover:border-sky-400 hover:bg-muted/50'
+                    else if (opt.id === currentQ.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+                    else if (opt.id === qcmSelected) cls += 'border-red-500 bg-red-50 text-red-700'
                     else cls += 'border-border opacity-50'
                     return (
                       <button key={opt.id} className={cls} onClick={() => { if (!qcmShowResult) setQcmSelected(opt.id) }} disabled={qcmShowResult}>
@@ -1170,7 +1170,7 @@ export default function UE2Chapitre8Page() {
                   })}
                 </div>
                 {qcmShowResult && (
-                  <div className={cn('mt-3 rounded-lg p-3 text-xs', qcmSelected === currentQ.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300')}>
+                  <div className={cn('mt-3 rounded-lg p-3 text-xs', qcmSelected === currentQ.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700')}>
                     <div className="flex items-center gap-1 font-semibold mb-1">{qcmSelected === currentQ.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{qcmSelected === currentQ.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
                     <p>{currentQ.explication}</p>
                   </div>
@@ -1186,7 +1186,7 @@ export default function UE2Chapitre8Page() {
               </div>
             </div>
           ) : (
-            <div className="rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-900/10 p-6 text-center space-y-3">
+            <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-6 text-center space-y-3">
               <CheckCircle2 className="h-10 w-10 text-sky-500 mx-auto" />
               <p className="text-lg font-bold text-foreground">{qcmScore} / {TOUTES_QCM.length}</p>
               <p className="text-sm text-muted-foreground">{qcmScore >= 16 ? 'Excellent ! Vous maîtrisez parfaitement les associés et les assemblées.' : qcmScore >= 12 ? 'Bon niveau. Relisez les leçons sur les assemblées de SA.' : 'Relisez les leçons, notamment sur les quorums et majorités.'}</p>

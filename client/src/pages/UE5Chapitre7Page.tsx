@@ -75,8 +75,8 @@ const LECONS: Lecon[] = [
     ],
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
-        <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1">Art. 90 LOFIP — Définition légale</p>
+        <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 90 LOFIP — Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « En matière de dépenses, l\'engagement est l\'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge. La liquidation a pour objet de vérifier la réalité de la dette et d\'arrêter le montant exact de la dépense. L\'ordonnancement est l\'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l\'ordre est donné au caissier concerné de payer la dette du pouvoir central. Le paiement est l\'acte par lequel le pouvoir central se libère de sa dette. »
           </p>
@@ -90,10 +90,10 @@ const LECONS: Lecon[] = [
         {/* Schéma des 4 phases */}
         <div className="grid grid-cols-4 gap-1 mt-3">
           {[
-            { num: '1', label: 'ENGAGEMENT', acteur: 'Ordonnateur', art: 'Art. 90 al. 1', couleur: 'bg-violet-100 dark:bg-violet-900/40 border-violet-300 dark:border-violet-600' },
-            { num: '2', label: 'LIQUIDATION', acteur: 'Ordonnateur', art: 'Art. 90 al. 2', couleur: 'bg-violet-100 dark:bg-violet-900/40 border-violet-300 dark:border-violet-600' },
-            { num: '3', label: 'ORDONNANCEMENT', acteur: 'Ordonnateur', art: 'Art. 90 al. 3', couleur: 'bg-violet-100 dark:bg-violet-900/40 border-violet-300 dark:border-violet-600' },
-            { num: '4', label: 'PAIEMENT', acteur: 'Comptable public', art: 'Art. 90 al. 4', couleur: 'bg-amber-100 dark:bg-amber-900/40 border-amber-300 dark:border-amber-600' },
+            { num: '1', label: 'ENGAGEMENT', acteur: 'Ordonnateur', art: 'Art. 90 al. 1', couleur: 'bg-violet-100 border-violet-300' },
+            { num: '2', label: 'LIQUIDATION', acteur: 'Ordonnateur', art: 'Art. 90 al. 2', couleur: 'bg-violet-100 border-violet-300' },
+            { num: '3', label: 'ORDONNANCEMENT', acteur: 'Ordonnateur', art: 'Art. 90 al. 3', couleur: 'bg-violet-100 border-violet-300' },
+            { num: '4', label: 'PAIEMENT', acteur: 'Comptable public', art: 'Art. 90 al. 4', couleur: 'bg-amber-100 border-amber-300' },
           ].map((p, i) => (
             <div key={i} className={`border rounded-lg p-2 text-center ${p.couleur}`}>
               <p className="text-xs font-bold text-foreground">{p.num}</p>
@@ -137,18 +137,18 @@ const LECONS: Lecon[] = [
         <p>
           L\'<strong>ordonnancement</strong> est « l\'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l\'ordre est donné au caissier concerné de payer la dette du pouvoir central » (Art. 90 al. 3 LOFIP). C\'est l\'acte de transmission entre l\'ordonnateur et le comptable public. Sans ordonnancement régulier, le comptable public ne peut pas effectuer le paiement (Art. 91 al. 3 LOFIP).
         </p>
-        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded p-3 text-xs">
-          <p className="font-semibold text-amber-800 dark:text-amber-200 mb-1">Art. 91 al. 3 LOFIP — Règle impérative</p>
-          <p className="text-amber-700 dark:text-amber-300">« Toute dépense, régulièrement engagée et liquidée par l\'ordonnateur fait l\'objet, préalablement à son paiement, d\'un ordonnancement. »</p>
+        <div className="bg-amber-50 border border-amber-200 rounded p-3 text-xs">
+          <p className="font-semibold text-amber-800 mb-1">Art. 91 al. 3 LOFIP — Règle impérative</p>
+          <p className="text-amber-700">« Toute dépense, régulièrement engagée et liquidée par l\'ordonnateur fait l\'objet, préalablement à son paiement, d\'un ordonnancement. »</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Phase 4 — Le paiement (Art. 90 al. 4)</h3>
         <p>
           Le <strong>paiement</strong> est « l\'acte par lequel le pouvoir central se libère de sa dette » (Art. 90 al. 4 LOFIP). C\'est la seule phase exécutée par le <strong>comptable public</strong> et non par l\'ordonnateur. Cette règle est le corollaire du principe de séparation ordonnateur/comptable (Art. 102 LOFIP). Le comptable public ne peut payer que dans la limite des crédits ouverts et sur présentation d\'un ordonnancement régulier.
         </p>
-        <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded p-3 text-xs mt-2">
-          <p className="font-semibold text-violet-800 dark:text-violet-200 mb-1">Principe fondamental — Art. 92 LOFIP</p>
-          <p className="text-violet-700 dark:text-violet-300">« Les dépenses sont prises en compte au titre du budget de l\'année au cours de laquelle elles sont prises en charge par le comptable public. Elles sont imputées sur les crédits de cette même année. »</p>
+        <div className="bg-violet-50 border border-violet-200 rounded p-3 text-xs mt-2">
+          <p className="font-semibold text-violet-800 mb-1">Principe fondamental — Art. 92 LOFIP</p>
+          <p className="text-violet-700">« Les dépenses sont prises en compte au titre du budget de l\'année au cours de laquelle elles sont prises en charge par le comptable public. Elles sont imputées sur les crédits de cette même année. »</p>
         </div>
         <div className="bg-muted/40 rounded p-3 text-xs mt-2">
           <p className="font-semibold text-foreground mb-1">Date limite d\'engagement (Art. 92 LOFIP)</p>
@@ -196,8 +196,8 @@ const LECONS: Lecon[] = [
     ],
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
-        <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1">Art. 103 LOFIP — Définition légale</p>
+        <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 103 LOFIP — Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « Est ordonnateur, le responsable d\'institution, le ministre, le responsable de budget annexe ou la personne déléguée par lui au niveau central et au niveau déconcentré. L\'ordonnateur a le pouvoir, dans la limite des crédits budgétaires qui lui sont accordés par les lois de finances, d\'engager, de liquider et d\'ordonnancer les dépenses nécessaires au fonctionnement de son institution ou ministère, ou service déconcentré, ou budget annexe rattaché. Il le fait dans le respect des lois, règlements et instructions qui régissent la matière, et sous réserve du pouvoir de régulation des crédits budgétaires du ministre ayant le budget dans ses attributions et du pouvoir de gestion de la trésorerie du ministre ayant les finances dans ses attributions. »
           </p>
@@ -213,9 +213,9 @@ const LECONS: Lecon[] = [
         </p>
 
         <h3 className="font-bold text-foreground mt-4">L\'avis préalable obligatoire (Art. 107 LOFIP)</h3>
-        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded p-3 text-xs">
-          <p className="font-semibold text-amber-800 dark:text-amber-200 mb-1">Art. 107 LOFIP — Avis obligatoire du Ministre du Budget</p>
-          <p className="text-amber-700 dark:text-amber-300">« Tout projet de loi, toute décision ou convention quelconque pouvant avoir une répercussion immédiate ou future, tant sur les recettes que sur les dépenses ainsi que tout acte d\'administration portant création d\'emploi, extension des cadres organiques, ou modification du statut pécuniaire des agents de carrière des services publics du pouvoir central, doivent être soumis à l\'avis préalable du ministre ayant le budget dans ses attributions. »</p>
+        <div className="bg-amber-50 border border-amber-200 rounded p-3 text-xs">
+          <p className="font-semibold text-amber-800 mb-1">Art. 107 LOFIP — Avis obligatoire du Ministre du Budget</p>
+          <p className="text-amber-700">« Tout projet de loi, toute décision ou convention quelconque pouvant avoir une répercussion immédiate ou future, tant sur les recettes que sur les dépenses ainsi que tout acte d\'administration portant création d\'emploi, extension des cadres organiques, ou modification du statut pécuniaire des agents de carrière des services publics du pouvoir central, doivent être soumis à l\'avis préalable du ministre ayant le budget dans ses attributions. »</p>
         </div>
         <p className="text-sm">
           Cette disposition étend l\'autorité budgétaire du Ministre du Budget au-delà de l\'exécution : toute décision ayant une incidence financière — y compris la création d\'emplois et la modification des statuts pécuniaires — ne peut être prise sans son avis préalable.
@@ -226,7 +226,7 @@ const LECONS: Lecon[] = [
           {[
             {
               titre: 'Ministre du Budget (Art. 105)',
-              couleur: 'border-l-violet-500 bg-violet-50 dark:bg-violet-900/20',
+              couleur: 'border-l-violet-500 bg-violet-50',
               points: [
                 'Ordonnateur du budget de son ministère',
                 'Ordonnateur des charges communes (dépenses communes à tous les ministères)',
@@ -236,7 +236,7 @@ const LECONS: Lecon[] = [
             },
             {
               titre: 'Ministre des Finances (Art. 106)',
-              couleur: 'border-l-amber-500 bg-amber-50 dark:bg-amber-900/20',
+              couleur: 'border-l-amber-500 bg-amber-50',
               points: [
                 'Ordonnateur du budget de son ministère',
                 'Ordonnateur général de TOUTES les recettes du Pouvoir central',
@@ -306,8 +306,8 @@ const LECONS: Lecon[] = [
     ],
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
-        <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1">Art. 109 LOFIP — Définition légale</p>
+        <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 109 LOFIP — Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « Est comptable public, tout agent ayant qualité pour exécuter, au nom et pour compte du pouvoir central, des opérations de recettes et de dépenses, de maniement de fonds et de valeurs qu\'il détient ainsi que les opérations se rapportant aux biens publics. Le comptable public chargé de la tenue et de l\'établissement des comptes du pouvoir central veille au respect des principes et des règles de gestion des finances publiques. Il s\'assure notamment de la sincérité des enregistrements et du respect des procédures. Il relève de la responsabilité du ministre ayant les finances dans ses attributions. »
           </p>
@@ -340,7 +340,7 @@ const LECONS: Lecon[] = [
         </p>
         <div className="border rounded-lg overflow-hidden mt-3">
           <table className="w-full text-xs">
-            <thead className="bg-violet-50 dark:bg-violet-900/30">
+            <thead className="bg-violet-50">
               <tr>
                 <th className="text-left p-2 border-b border-border font-semibold">Critère</th>
                 <th className="text-left p-2 border-b border-border font-semibold">Ordonnateur</th>
@@ -411,8 +411,8 @@ const LECONS: Lecon[] = [
     ],
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
-        <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1">Art. 112 LOFIP — Contrôle a priori</p>
+        <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 112 LOFIP — Contrôle a priori</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « Le contrôle administratif a priori des opérations budgétaires de dépenses du pouvoir central est assuré par le contrôleur budgétaire. Tous les actes portant engagement, liquidation et ordonnancement sont soumis à son visa préalable notamment, les contrats, arrêtés, mesures ou décisions émanant d\'un responsable d\'institution, d\'un ministre, d\'un responsable de service déconcentré ou d\'un fonctionnaire habilité de l\'administration. »
           </p>
@@ -458,9 +458,9 @@ const LECONS: Lecon[] = [
             </div>
           ))}
         </div>
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded p-3 text-xs mt-2">
-          <p className="font-semibold text-red-800 dark:text-red-200 mb-1">Règle impérative</p>
-          <p className="text-red-700 dark:text-red-300">Sans autorisation motivée écrite du Ministre du Budget, aucun ordonnateur ne peut passer outre au refus de visa. Toute dépense engagée en violation de cette règle est irrégulière et engage la responsabilité personnelle de l\'ordonnateur.</p>
+        <div className="bg-red-50 border border-red-200 rounded p-3 text-xs mt-2">
+          <p className="font-semibold text-red-800 mb-1">Règle impérative</p>
+          <p className="text-red-700">Sans autorisation motivée écrite du Ministre du Budget, aucun ordonnateur ne peut passer outre au refus de visa. Toute dépense engagée en violation de cette règle est irrégulière et engage la responsabilité personnelle de l\'ordonnateur.</p>
         </div>
       </div>
     ),
@@ -504,8 +504,8 @@ const LECONS: Lecon[] = [
     ],
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
-        <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide mb-1">Art. 95 LOFIP</p>
+        <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 95 LOFIP</p>
           <p className="text-xs text-foreground italic">« Il est tenu, au sein des administrations, une comptabilité administrative, une comptabilité budgétaire, une comptabilité des matières et une comptabilité générale. »</p>
         </div>
 
@@ -935,10 +935,10 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
               'w-full text-left text-xs px-2 py-1.5 rounded border transition-colors',
               selected === opt.id
                 ? showResult
-                  ? opt.id === q.reponseCorrecte ? 'bg-green-100 dark:bg-green-900/40 border-green-400 text-green-800 dark:text-green-200' : 'bg-red-100 dark:bg-red-900/40 border-red-400 text-red-800 dark:text-red-200'
-                  : 'bg-violet-100 dark:bg-violet-900/40 border-violet-400'
+                  ? opt.id === q.reponseCorrecte ? 'bg-green-100 border-green-400 text-green-800' : 'bg-red-100 border-red-400 text-red-800'
+                  : 'bg-violet-100 border-violet-400'
                 : showResult && opt.id === q.reponseCorrecte
-                  ? 'bg-green-50 dark:bg-green-900/20 border-green-300'
+                  ? 'bg-green-50 border-green-300'
                   : 'border-border hover:bg-muted'
             )}
           >
@@ -962,7 +962,7 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
         </button>
       </div>
       {showResult && (
-        <div className={cn('text-xs p-2 rounded', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200')}>
+        <div className={cn('text-xs p-2 rounded', selected === q.reponseCorrecte ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800')}>
           <span className="font-semibold">{selected === q.reponseCorrecte ? '✓ Correct' : '✗ Incorrect'}</span> — {q.explication}
         </div>
       )}
@@ -995,8 +995,8 @@ function CasPratiqueBlock({ cas }: { cas: typeof ETUDES_DE_CAS[0] }) {
             {openQ === q.num && (
               <div className="px-3 pb-3 space-y-2 text-xs">
                 <p className="text-foreground font-medium italic">{q.enonce}</p>
-                <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded p-2 text-foreground leading-relaxed">
-                  <p className="font-semibold text-violet-700 dark:text-violet-300 mb-1">Correction</p>
+                <div className="bg-violet-50 border border-violet-200 rounded p-2 text-foreground leading-relaxed">
+                  <p className="font-semibold text-violet-700 mb-1">Correction</p>
                   <p>{q.correction}</p>
                 </div>
               </div>
@@ -1103,7 +1103,7 @@ export default function UE5Chapitre7Page() {
 
             {/* Carte leçon */}
             <div className="border border-border rounded-xl overflow-hidden">
-              <div className="bg-violet-50 dark:bg-violet-900/20 px-4 py-3 border-b border-border">
+              <div className="bg-violet-50 px-4 py-3 border-b border-border">
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5">{lecon.icone}</div>
                   <div>
@@ -1142,8 +1142,8 @@ export default function UE5Chapitre7Page() {
             </div>
 
             {/* Synthèse */}
-            <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-xl p-4">
-              <h3 className="text-sm font-bold text-violet-800 dark:text-violet-300 mb-2">Synthèse juridique — Art. 88–115 LOFIP</h3>
+            <div className="bg-violet-50 border border-violet-200 rounded-xl p-4">
+              <h3 className="text-sm font-bold text-violet-800 mb-2">Synthèse juridique — Art. 88–115 LOFIP</h3>
               <ul className="space-y-1.5">
                 {[
                   'Art. 88 : Mise à disposition des crédits par arrêté du Ministre du Budget',
@@ -1158,7 +1158,7 @@ export default function UE5Chapitre7Page() {
                   'Art. 109 : Comptable public — responsabilité du Ministre des Finances, sincérité des enregistrements',
                   'Art. 112-115 : Contrôleur budgétaire — visa a priori obligatoire, refus protégé, désaccord référé au Ministre du Budget',
                 ].map((pt, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300">
+                  <li key={i} className="flex items-start gap-2 text-xs text-violet-700">
                     <CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-violet-600" />
                     <span>{pt}</span>
                   </li>
@@ -1176,10 +1176,10 @@ export default function UE5Chapitre7Page() {
         {/* ── CAS PRATIQUES ADMIN ── */}
         {activeTab === 'cas' && isAdmin && (
           <div className="space-y-4">
-            <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-700 rounded-lg p-3">
+            <div className="bg-violet-50 border border-violet-200 rounded-lg p-3">
               <div className="flex items-start gap-2">
                 <Scale className="h-4 w-4 text-violet-600 shrink-0 mt-0.5" />
-                <div className="text-xs text-violet-800 dark:text-violet-200">
+                <div className="text-xs text-violet-800">
                   <p className="font-semibold mb-0.5">5 cas pratiques de réflexion juridique</p>
                   <p>Chaque cas est ancré exclusivement dans la LOFIP (Art. 88–115) et la Constitution RDC. Tous les cas exigent une analyse juridique rigoureuse, la citation des articles et une qualification des violations.</p>
                 </div>

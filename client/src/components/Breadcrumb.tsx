@@ -56,7 +56,7 @@ export function Breadcrumb({ items, color = 'sky' }: Props) {
                 className={cn(
                   'font-semibold truncate max-w-[160px] sm:max-w-xs',
                   isLast
-                    ? `text-${color}-600 dark:text-${color}-400`
+                    ? `text-${color}-600`
                     : 'text-muted-foreground'
                 )}
                 aria-current={isLast ? 'page' : undefined}

@@ -188,8 +188,8 @@ export default function BalancePage() {
                       <td className="py-1.5 px-3 text-right">{l.ouvertureC > 0 ? formatMontant(l.ouvertureC) : ''}</td>
                       <td className="py-1.5 px-3 text-right border-l border-border/50">{l.mouvementD > 0 ? formatMontant(l.mouvementD) : ''}</td>
                       <td className="py-1.5 px-3 text-right">{l.mouvementC > 0 ? formatMontant(l.mouvementC) : ''}</td>
-                      <td className="py-1.5 px-3 text-right border-l border-border/50 text-green-700 dark:text-green-400 font-medium">{l.clotureD > 0 ? formatMontant(l.clotureD) : ''}</td>
-                      <td className="py-1.5 px-3 text-right text-red-700 dark:text-red-400 font-medium">{l.clotureC > 0 ? formatMontant(l.clotureC) : ''}</td>
+                      <td className="py-1.5 px-3 text-right border-l border-border/50 text-green-700 font-medium">{l.clotureD > 0 ? formatMontant(l.clotureD) : ''}</td>
+                      <td className="py-1.5 px-3 text-right text-red-700 font-medium">{l.clotureC > 0 ? formatMontant(l.clotureC) : ''}</td>
                     </tr>
                   ))}
                 </tbody>

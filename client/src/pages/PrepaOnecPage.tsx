@@ -13,8 +13,8 @@ const UE_DSCG = [
     description: 'Droit des sociétés, fiscalité des entreprises, droit social et relations de travail.',
     icon: Scale,
     color: 'from-purple-500/20 to-purple-600/10',
-    border: 'border-purple-300/40 dark:border-purple-700/40',
-    iconColor: 'text-purple-600 dark:text-purple-400',
+    border: 'border-purple-300/40',
+    iconColor: 'text-purple-600',
   },
   {
     code: 'UE 2',
@@ -23,8 +23,8 @@ const UE_DSCG = [
     description: 'Valeur, diagnostic financier, évaluation d\'entreprise, investissement, trésorerie et ingénierie financière.',
     icon: TrendingUp,
     color: 'from-blue-500/20 to-blue-600/10',
-    border: 'border-blue-300/40 dark:border-blue-700/40',
-    iconColor: 'text-blue-600 dark:text-blue-400',
+    border: 'border-blue-300/40',
+    iconColor: 'text-blue-600',
   },
   {
     code: 'UE 3',
@@ -33,8 +33,8 @@ const UE_DSCG = [
     description: 'Stratégie, organisation, contrôle de gestion, tableaux de bord et performance.',
     icon: BarChart2,
     color: 'from-green-500/20 to-green-600/10',
-    border: 'border-green-300/40 dark:border-green-700/40',
-    iconColor: 'text-green-600 dark:text-green-400',
+    border: 'border-green-300/40',
+    iconColor: 'text-green-600',
   },
   {
     code: 'UE 4',
@@ -43,8 +43,8 @@ const UE_DSCG = [
     description: 'Comptabilité approfondie, consolidation, IFRS, normes d\'audit et commissariat aux comptes.',
     icon: BookOpen,
     color: 'from-amber-500/20 to-amber-600/10',
-    border: 'border-amber-300/40 dark:border-amber-700/40',
-    iconColor: 'text-amber-600 dark:text-amber-400',
+    border: 'border-amber-300/40',
+    iconColor: 'text-amber-600',
   },
   {
     code: 'UE 5',
@@ -53,8 +53,8 @@ const UE_DSCG = [
     description: 'Systèmes d\'information, gouvernance IT, sécurité et transformation numérique.',
     icon: Cpu,
     color: 'from-rose-500/20 to-rose-600/10',
-    border: 'border-rose-300/40 dark:border-rose-700/40',
-    iconColor: 'text-rose-600 dark:text-rose-400',
+    border: 'border-rose-300/40',
+    iconColor: 'text-rose-600',
   },
   {
     code: 'UE 6',
@@ -63,8 +63,8 @@ const UE_DSCG = [
     description: 'Communication professionnelle en anglais dans les domaines comptable, fiscal et financier.',
     icon: Globe,
     color: 'from-teal-500/20 to-teal-600/10',
-    border: 'border-teal-300/40 dark:border-teal-700/40',
-    iconColor: 'text-teal-600 dark:text-teal-400',
+    border: 'border-teal-300/40',
+    iconColor: 'text-teal-600',
   },
 ]
 

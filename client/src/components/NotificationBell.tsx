@@ -151,18 +151,18 @@ export function NotificationBell({ user }: NotificationBellProps) {
   // Icône de type
   function IconeType({ type }: { type: Notif['type'] }) {
     if (type === 'inscription') return (
-      <div className="h-8 w-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shrink-0">
-        <UserPlus className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+      <div className="h-8 w-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+        <UserPlus className="h-4 w-4 text-amber-600" />
       </div>
     )
     if (type === 'correction') return (
-      <div className="h-8 w-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
-        <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+      <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
+        <Clock className="h-4 w-4 text-blue-600" />
       </div>
     )
     return (
-      <div className="h-8 w-8 rounded-lg bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center shrink-0">
-        <BookOpen className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+      <div className="h-8 w-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+        <BookOpen className="h-4 w-4 text-violet-600" />
       </div>
     )
   }
@@ -226,7 +226,7 @@ export function NotificationBell({ user }: NotificationBellProps) {
           <div className="max-h-80 overflow-y-auto divide-y divide-border">
             {notifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-center px-4">
-                <div className="h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center mb-3">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
                   <CheckCircle2 className="h-6 w-6 text-green-500" />
                 </div>
                 <p className="text-sm font-semibold text-foreground">Tout est à jour</p>

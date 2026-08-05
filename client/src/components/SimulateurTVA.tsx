@@ -40,7 +40,7 @@ function LigneR({ label, val, bold, neg, accent, note, indent, signe, tooltip }:
       <div className="flex items-baseline gap-1.5 flex-1 min-w-0">
         {signe && (
           <span className={cn('text-xs font-bold shrink-0 w-3 text-center',
-            signe === '−' || neg ? 'text-red-500 dark:text-red-400' :
+            signe === '−' || neg ? 'text-red-500' :
             signe === '=' || accent ? 'text-primary' : 'text-muted-foreground')}>{signe}</span>
         )}
         <span className={cn('text-xs inline-flex items-center gap-0.5', bold ? 'font-semibold text-foreground' : 'text-muted-foreground')}>
@@ -49,7 +49,7 @@ function LigneR({ label, val, bold, neg, accent, note, indent, signe, tooltip }:
         </span>
       </div>
       <span className={cn('text-xs font-mono shrink-0', bold ? 'font-bold' : '',
-        accent ? 'text-primary font-bold' : neg ? 'text-red-600 dark:text-red-400' : 'text-foreground')}>
+        accent ? 'text-primary font-bold' : neg ? 'text-red-600' : 'text-foreground')}>
         {val}
       </span>
     </div>
@@ -61,13 +61,13 @@ function Separateur() { return <div className="border-t border-border/40 my-1" /
 function BoxFinal({ label, sublabel, val, credit, couleur }: {
   label: string; sublabel?: string; val: string; credit?: boolean; couleur?: string
 }) {
-  const bg = credit ? 'bg-amber-50 dark:bg-amber-900/15 border-amber-200 dark:border-amber-700'
-    : couleur === 'red' ? 'bg-red-50 dark:bg-red-900/15 border-red-200 dark:border-red-700'
-    : couleur === 'orange' ? 'bg-orange-50 dark:bg-orange-900/15 border-orange-200 dark:border-orange-700'
+  const bg = credit ? 'bg-amber-50 border-amber-200'
+    : couleur === 'red' ? 'bg-red-50 border-red-200'
+    : couleur === 'orange' ? 'bg-orange-50 border-orange-200'
     : 'bg-primary/8 border-primary/25'
-  const tc = credit ? 'text-amber-600 dark:text-amber-400'
-    : couleur === 'red' ? 'text-red-600 dark:text-red-400'
-    : couleur === 'orange' ? 'text-orange-600 dark:text-orange-400'
+  const tc = credit ? 'text-amber-600'
+    : couleur === 'red' ? 'text-red-600'
+    : couleur === 'orange' ? 'text-orange-600'
     : 'text-primary'
   return (
     <div className={cn('rounded-xl p-3.5 text-center border shadow-sm', bg)}>
@@ -98,12 +98,12 @@ function BtnReset({ onClick }: { onClick: () => void }) {
 
 function ResultatWrap({ titre, children }: { titre: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-green-200 dark:border-green-800 bg-gradient-to-b from-green-50 to-white dark:from-green-900/15 dark:to-background overflow-hidden shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 py-3 bg-green-500/10 dark:bg-green-900/30 border-b border-green-200 dark:border-green-800">
+    <div className="rounded-2xl border border-green-200 bg-gradient-to-b from-green-50 to-white overflow-hidden shadow-sm">
+      <div className="flex items-center gap-2.5 px-4 py-3 bg-green-500/10 border-b border-green-200">
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-500 shrink-0">
           <CheckCircle2 className="h-4 w-4 text-white" />
         </div>
-        <p className="font-bold text-sm text-green-800 dark:text-green-300">{titre}</p>
+        <p className="font-bold text-sm text-green-800">{titre}</p>
       </div>
       <div className="p-4 space-y-4">{children}</div>
     </div>
@@ -112,10 +112,10 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 
 function DefinitionBox({ titre, children }: { titre: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-3.5">
+    <div className="rounded-xl border border-blue-200 bg-blue-50 p-3.5">
       <div className="flex items-center gap-2 mb-2">
-        <BookOpen className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-        <p className="text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wide">{titre}</p>
+        <BookOpen className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+        <p className="text-xs font-bold text-blue-700 uppercase tracking-wide">{titre}</p>
       </div>
       <div className="space-y-1">{children}</div>
     </div>
@@ -150,9 +150,9 @@ function SectionTitre({ texte, loi }: { texte: string; loi?: string }) {
 
 function AlertInfo({ texte, type = 'info' }: { texte: string; type?: 'info' | 'warning' | 'success' }) {
   const styles = {
-    info: 'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300',
-    warning: 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300',
-    success: 'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300',
+    info: 'border-blue-200 bg-blue-50 text-blue-700',
+    warning: 'border-amber-200 bg-amber-50 text-amber-700',
+    success: 'border-green-200 bg-green-50 text-green-700',
   }
   const icons = { info: Info, warning: AlertTriangle, success: CheckCircle2 }
   const Icon = icons[type]
@@ -200,7 +200,7 @@ function ModalCatalogue({
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-foreground">{it.label || it.designation}</p>
                 {it.position && <p className="text-xs text-muted-foreground">{it.position}</p>}
-                {it.taux && <span className="inline-flex items-center rounded-full bg-rose-100 dark:bg-rose-900/30 px-1.5 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-300 mt-0.5">{it.taux}</span>}
+                {it.taux && <span className="inline-flex items-center rounded-full bg-rose-100 px-1.5 py-0.5 text-xs font-medium text-rose-700 mt-0.5">{it.taux}</span>}
                 {it.article && <span className="ml-1 text-xs text-muted-foreground">{it.article}</span>}
               </div>
             </button>
@@ -466,10 +466,10 @@ function OngletChampApplication() {
           </select>
           {typeOp && <button onClick={evaluer} className="w-full bg-primary text-primary-foreground rounded-xl py-2.5 text-sm font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"><ArrowRight className="h-4 w-4" /> Qualifier</button>}
           {resultat && (
-            <div className={cn('rounded-xl border p-3.5 space-y-2', resultat.statut === 'imposable' ? 'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20' : resultat.statut === 'exonere' ? 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20' : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40')}>
+            <div className={cn('rounded-xl border p-3.5 space-y-2', resultat.statut === 'imposable' ? 'border-green-200 bg-green-50' : resultat.statut === 'exonere' ? 'border-amber-200 bg-amber-50' : 'border-slate-200 bg-slate-50')}>
               <div className="flex items-center gap-2">
-                {resultat.statut === 'imposable' ? <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" /> : resultat.statut === 'exonere' ? <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400" /> : <X className="h-4 w-4 text-slate-500" />}
-                <span className={cn('text-sm font-bold', resultat.statut === 'imposable' ? 'text-green-700 dark:text-green-300' : resultat.statut === 'exonere' ? 'text-amber-700 dark:text-amber-300' : 'text-slate-600 dark:text-slate-300')}>
+                {resultat.statut === 'imposable' ? <CheckCircle2 className="h-4 w-4 text-green-600" /> : resultat.statut === 'exonere' ? <AlertCircle className="h-4 w-4 text-amber-600" /> : <X className="h-4 w-4 text-slate-500" />}
+                <span className={cn('text-sm font-bold', resultat.statut === 'imposable' ? 'text-green-700' : resultat.statut === 'exonere' ? 'text-amber-700' : 'text-slate-600')}>
                   {resultat.statut === 'imposable' ? 'Opération IMPOSABLE à la TVA' : resultat.statut === 'exonere' ? 'Opération EXONÉRÉE de TVA' : 'Opération HORS CHAMP de la TVA'}
                 </span>
               </div>
@@ -509,9 +509,9 @@ function OngletAssujettis() {
 
       <div className="space-y-3">
         <SectionTitre texte="Seuil d'assujettissement" loi="Art. 14" />
-        <div className="rounded-xl border border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/20 p-4 text-center">
-          <p className="text-xs text-rose-600 dark:text-rose-400 uppercase font-semibold tracking-wider mb-1">Seuil obligatoire</p>
-          <p className="text-2xl font-bold text-rose-700 dark:text-rose-300">80 000 000 FC</p>
+        <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-center">
+          <p className="text-xs text-rose-600 uppercase font-semibold tracking-wider mb-1">Seuil obligatoire</p>
+          <p className="text-2xl font-bold text-rose-700">80 000 000 FC</p>
           <p className="text-xs text-muted-foreground mt-1">Chiffre d\'affaires annuel</p>
         </div>
         <div className="grid gap-2">
@@ -543,8 +543,8 @@ function OngletAssujettis() {
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
           <div className="flex gap-2"><BtnCalculer onClick={evaluer} /><BtnReset onClick={() => { setCa(''); setRes(null) }} /></div>
           {res && (
-            <div className={cn('rounded-xl border p-3.5 space-y-2', res.couleur === 'green' ? 'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20' : 'border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20')}>
-              <p className={cn('text-sm font-bold', res.couleur === 'green' ? 'text-green-700 dark:text-green-300' : 'text-amber-700 dark:text-amber-300')}>{res.statut}</p>
+            <div className={cn('rounded-xl border p-3.5 space-y-2', res.couleur === 'green' ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50')}>
+              <p className={cn('text-sm font-bold', res.couleur === 'green' ? 'text-green-700' : 'text-amber-700')}>{res.statut}</p>
               <p className="text-xs text-foreground">{res.detail}</p>
             </div>
           )}
@@ -594,7 +594,7 @@ function OngletExonerations() {
       <div className="space-y-1.5 max-h-80 overflow-y-auto">
         {liste.map(it => (
           <button key={it.code} onClick={() => setSelection(selection?.code === it.code ? null : it)}
-            className={cn('w-full rounded-lg border p-3 text-left transition-colors', selection?.code === it.code ? 'border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/20' : 'border-border/60 bg-card hover:bg-muted/30')}>
+            className={cn('w-full rounded-lg border p-3 text-left transition-colors', selection?.code === it.code ? 'border-amber-300 bg-amber-50' : 'border-border/60 bg-card hover:bg-muted/30')}>
             <div className="flex items-start gap-2">
               <span className="text-xs font-mono text-primary/70 shrink-0 mt-0.5">{it.code}</span>
               <span className="text-xs text-foreground flex-1">{it.label}</span>
@@ -606,10 +606,10 @@ function OngletExonerations() {
       </div>
 
       {selection && (
-        <div className="rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-2">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-            <p className="text-sm font-bold text-amber-700 dark:text-amber-300">Opération exonérée de TVA</p>
+            <CheckCircle2 className="h-4 w-4 text-amber-600" />
+            <p className="text-sm font-bold text-amber-700">Opération exonérée de TVA</p>
           </div>
           <p className="text-xs text-foreground font-medium">{selection.label}</p>
           <BadgeLoi loi={selection.article} />
@@ -868,9 +868,9 @@ function OngletTauxBase() {
   const cls = 'w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30'
 
   const TAUX_CONFIG: { v: Taux; label: string; sublabel: string; color: string; activeBg: string; activeTxt: string; borderActive: string; inactiveBg: string; inactiveBorder: string }[] = [
-    { v: '16', label: '16%', sublabel: 'Normal',  color: 'text-rose-600 dark:text-rose-400',     activeBg: 'bg-rose-600 dark:bg-rose-500',     activeTxt: 'text-white', borderActive: 'border-rose-600',   inactiveBg: 'bg-rose-50 dark:bg-rose-900/20',     inactiveBorder: 'border-rose-200 dark:border-rose-700' },
-    { v: '8',  label: '8%',  sublabel: 'Réduit',  color: 'text-orange-600 dark:text-orange-400', activeBg: 'bg-orange-500 dark:bg-orange-600',  activeTxt: 'text-white', borderActive: 'border-orange-500', inactiveBg: 'bg-orange-50 dark:bg-orange-900/20', inactiveBorder: 'border-orange-200 dark:border-orange-700' },
-    { v: '0',  label: '0%',  sublabel: 'Export',  color: 'text-blue-600 dark:text-blue-400',     activeBg: 'bg-blue-600 dark:bg-blue-500',     activeTxt: 'text-white', borderActive: 'border-blue-600',   inactiveBg: 'bg-blue-50 dark:bg-blue-900/20',     inactiveBorder: 'border-blue-200 dark:border-blue-700' },
+    { v: '16', label: '16%', sublabel: 'Normal',  color: 'text-rose-600',     activeBg: 'bg-rose-600',     activeTxt: 'text-white', borderActive: 'border-rose-600',   inactiveBg: 'bg-rose-50',     inactiveBorder: 'border-rose-200' },
+    { v: '8',  label: '8%',  sublabel: 'Réduit',  color: 'text-orange-600', activeBg: 'bg-orange-500',  activeTxt: 'text-white', borderActive: 'border-orange-500', inactiveBg: 'bg-orange-50', inactiveBorder: 'border-orange-200' },
+    { v: '0',  label: '0%',  sublabel: 'Export',  color: 'text-blue-600',     activeBg: 'bg-blue-600',     activeTxt: 'text-white', borderActive: 'border-blue-600',   inactiveBg: 'bg-blue-50',     inactiveBorder: 'border-blue-200' },
   ]
 
   return (
@@ -888,14 +888,14 @@ function OngletTauxBase() {
         ].map(t => (
           <div key={t.taux} className={cn(
             'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
-            t.couleur === 'rose'   ? 'border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/20' :
-            t.couleur === 'orange' ? 'border-orange-200 dark:border-orange-700 bg-orange-50 dark:bg-orange-900/20' :
-                                     'border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20'
+            t.couleur === 'rose'   ? 'border-rose-200 bg-rose-50' :
+            t.couleur === 'orange' ? 'border-orange-200 bg-orange-50' :
+                                     'border-blue-200 bg-blue-50'
           )}>
             <p className={cn('text-xl font-bold leading-none',
-              t.couleur === 'rose'   ? 'text-rose-600 dark:text-rose-400' :
-              t.couleur === 'orange' ? 'text-orange-600 dark:text-orange-400' :
-                                       'text-blue-600 dark:text-blue-400'
+              t.couleur === 'rose'   ? 'text-rose-600' :
+              t.couleur === 'orange' ? 'text-orange-600' :
+                                       'text-blue-600'
             )}>{t.taux}</p>
             <p className="text-xs font-semibold text-foreground/70">{t.sublabel}</p>
             <p className="text-xs text-muted-foreground leading-tight text-center">{t.desc}</p>
@@ -1126,8 +1126,8 @@ function OngletDeductions() {
             { item: 'Services entrant dans le prix de revient d\'opérations ouvrant droit à déduction', loi: 'Art. 36-3' },
             { item: 'Biens meubles, immeubles et services acquis pour les besoins de l\'exploitation (investissements + frais généraux)', loi: 'Art. 36-4' },
           ].map((it, i) => (
-            <div key={i} className="flex items-start gap-2 rounded-lg border border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 px-3 py-2">
-              <CheckCircle2 className="h-3.5 w-3.5 text-green-600 dark:text-green-400 shrink-0 mt-0.5" />
+            <div key={i} className="flex items-start gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-2">
+              <CheckCircle2 className="h-3.5 w-3.5 text-green-600 shrink-0 mt-0.5" />
               <span className="text-xs text-foreground flex-1">{it.item}</span>
               <BadgeLoi loi={it.loi} />
             </div>
@@ -1186,7 +1186,7 @@ function OngletDeductions() {
                       {it.code && <span className="text-xs font-mono text-primary/60 shrink-0 min-w-[60px] pt-0.5">{it.code}</span>}
                       <div className="flex-1 min-w-0">
                         <p className="text-xs text-foreground group-hover:text-primary transition-colors">{it.label || (it as any).designation}</p>
-                        {(it as any).taux && <span className="inline-flex items-center rounded-full bg-rose-100 dark:bg-rose-900/30 px-1.5 py-0.5 text-xs font-medium text-rose-700 dark:text-rose-300 mt-0.5">{(it as any).taux}</span>}
+                        {(it as any).taux && <span className="inline-flex items-center rounded-full bg-rose-100 px-1.5 py-0.5 text-xs font-medium text-rose-700 mt-0.5">{(it as any).taux}</span>}
                         {it.article && <span className="ml-1 text-xs text-muted-foreground">{it.article}</span>}
                       </div>
                       <Plus className="h-3.5 w-3.5 text-muted-foreground/40 group-hover:text-primary shrink-0 mt-0.5 transition-colors" />
@@ -1204,16 +1204,16 @@ function OngletDeductions() {
           {lignes.length > 0 && (
             <div className="space-y-2">
               {lignes.map((l, i) => (
-                <div key={i} className={cn('rounded-lg border p-3 space-y-2', l.deductible ? 'border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20' : 'border-red-200 dark:border-red-700 bg-red-50 dark:bg-red-900/20')}>
+                <div key={i} className={cn('rounded-lg border p-3 space-y-2', l.deductible ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50')}>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium text-foreground">{l.label}</p>
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <BadgeLoi loi={l.article} />
                         {l.deductible ? (
-                          l.pct < 100 ? <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">Déductible à {l.pct}%</span>
-                          : <span className="text-xs text-green-600 dark:text-green-400 font-medium">✓ Déductible</span>
-                        ) : <span className="text-xs text-red-600 dark:text-red-400 font-medium">✗ Exclu du droit à déduction</span>}
+                          l.pct < 100 ? <span className="text-xs text-amber-600 font-medium">Déductible à {l.pct}%</span>
+                          : <span className="text-xs text-green-600 font-medium">✓ Déductible</span>
+                        ) : <span className="text-xs text-red-600 font-medium">✗ Exclu du droit à déduction</span>}
                       </div>
                     </div>
                     <button onClick={() => { setLignes(p => p.filter((_, idx) => idx !== i)); setRes(null) }}
@@ -1246,7 +1246,7 @@ function OngletDeductions() {
                 {res.lignesCalc.map((l: any, i: number) => (
                   <div key={i} className="flex items-baseline justify-between gap-2">
                     <span className="text-xs text-muted-foreground flex-1 min-w-0 truncate">{l.label}</span>
-                    <span className={cn('text-xs font-mono shrink-0', l.deductible ? 'text-green-600 dark:text-green-400' : 'text-red-500 line-through opacity-60')}>
+                    <span className={cn('text-xs font-mono shrink-0', l.deductible ? 'text-green-600' : 'text-red-500 line-through opacity-60')}>
                       {formatFC(l.tvaVal)}
                       {l.deductible && l.pct < 100 && <span className="text-xs ml-1">× {l.pct}%</span>}
                     </span>
@@ -1341,7 +1341,7 @@ function OngletTVANette() {
 
         {/* TVA collectée */}
         <div>
-          <p className="text-xs font-semibold text-green-700 dark:text-green-300 uppercase mb-2">TVA collectée (sur ventes)</p>
+          <p className="text-xs font-semibold text-green-700 uppercase mb-2">TVA collectée (sur ventes)</p>
           <div className="space-y-2">
             {lignesCol.map((l, i) => (
               <div key={i} className="grid grid-cols-[1fr_100px_60px_24px] gap-1.5 items-center">
@@ -1364,7 +1364,7 @@ function OngletTVANette() {
 
         {/* TVA déductible */}
         <div>
-          <p className="text-xs font-semibold text-orange-700 dark:text-orange-300 uppercase mb-2">TVA déductible (sur achats)</p>
+          <p className="text-xs font-semibold text-orange-700 uppercase mb-2">TVA déductible (sur achats)</p>
           <div className="space-y-2">
             {lignesDed.map((l, i) => (
               <div key={i} className="grid grid-cols-[1fr_100px_60px_24px] gap-1.5 items-center">
@@ -1463,8 +1463,8 @@ function OngletProrata() {
       </DefinitionBox>
 
       <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
-        <div className="rounded-xl border border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-blue-900/20 p-3">
-          <p className="text-xs font-bold text-blue-700 dark:text-blue-300 mb-1">Formule du prorata</p>
+        <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
+          <p className="text-xs font-bold text-blue-700 mb-1">Formule du prorata</p>
           <p className="text-xs font-mono text-foreground">Prorata = Recettes imposables (+ exports) / Total recettes × 100</p>
           <p className="text-xs text-muted-foreground mt-1">Arrondi à l\'unité supérieure : Art. 43</p>
         </div>
@@ -1513,15 +1513,15 @@ function OngletProrata() {
       <div className="space-y-3">
         <SectionTitre texte="Ce qui figure au numérateur et au dénominateur" loi="Art. 43" />
         <div className="grid gap-2">
-          <div className="rounded-lg border border-green-200 dark:border-green-700 bg-green-50 dark:bg-green-900/20 p-3">
-            <p className="text-xs font-semibold text-green-700 dark:text-green-300 mb-1">Au numérateur (recettes imposables)</p>
+          <div className="rounded-lg border border-green-200 bg-green-50 p-3">
+            <p className="text-xs font-semibold text-green-700 mb-1">Au numérateur (recettes imposables)</p>
             <ul className="text-xs text-foreground space-y-0.5">
               <li>• Recettes des ventes et prestations imposables à la TVA</li>
               <li>• Exportations et opérations assimilées</li>
               <li>• Livraisons aux missions diplomatiques, consulaires et organisations internationales</li>
             </ul>
           </div>
-          <div className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 p-3">
+          <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
             <p className="text-xs font-semibold text-foreground mb-1">Au dénominateur (total recettes)</p>
             <p className="text-xs text-muted-foreground">Toutes les recettes (imposables + exonérées), <strong>sauf</strong> :</p>
             <ul className="text-xs text-muted-foreground space-y-0.5 mt-0.5">
@@ -1886,18 +1886,18 @@ function OngletDeclarationPenalites() {
               { titre: 'Retenue à la source (Art. 53)', desc: 'La TVA est retenue à la source (1) par les entreprises minières pour le compte des entreprises publiques et (2) par le Trésor Public pour le compte des fournisseurs et prestataires de l\'État lors du paiement des factures.', badge: 'Retenue source', couleur: 'blue' },
             ].map((ob, i) => {
               const couleurs: Record<string, string> = {
-                rose: 'border-rose-200 dark:border-rose-700',
-                amber: 'border-amber-200 dark:border-amber-700',
-                blue: 'border-blue-200 dark:border-blue-700',
-                green: 'border-green-200 dark:border-green-700',
-                purple: 'border-purple-200 dark:border-purple-700',
+                rose: 'border-rose-200',
+                amber: 'border-amber-200',
+                blue: 'border-blue-200',
+                green: 'border-green-200',
+                purple: 'border-purple-200',
               }
               const badgeCouleurs: Record<string, string> = {
-                rose: 'bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300',
-                amber: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300',
-                blue: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-                green: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300',
-                purple: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300',
+                rose: 'bg-rose-100 text-rose-700',
+                amber: 'bg-amber-100 text-amber-700',
+                blue: 'bg-blue-100 text-blue-700',
+                green: 'bg-green-100 text-green-700',
+                purple: 'bg-purple-100 text-purple-700',
               }
               return (
                 <div key={i} className={cn('rounded-xl border bg-card p-3', couleurs[ob.couleur])}>
@@ -1925,7 +1925,7 @@ function OngletDeclarationPenalites() {
               <div className="space-y-1.5 max-h-60 overflow-y-auto">
                 {CATALOGUE_INFRACTIONS.map(inf => (
                   <button key={inf.code} onClick={() => { setInfraction(inf); setRes(null) }}
-                    className={cn('w-full rounded-lg border p-2.5 text-left transition-colors', infraction?.code === inf.code ? 'border-red-300 dark:border-red-600 bg-red-50 dark:bg-red-900/20' : 'border-border/60 bg-card hover:bg-muted/30')}>
+                    className={cn('w-full rounded-lg border p-2.5 text-left transition-colors', infraction?.code === inf.code ? 'border-red-300 bg-red-50' : 'border-border/60 bg-card hover:bg-muted/30')}>
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
                         <span className="text-xs font-mono text-primary/70">{inf.code}</span>
@@ -2026,11 +2026,11 @@ export default function SimulateurTVA() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="rounded-xl border border-rose-200 dark:border-rose-700 bg-rose-50 dark:bg-rose-900/20 p-3">
+      <div className="rounded-xl border border-rose-200 bg-rose-50 p-3">
         <div className="flex items-center gap-2">
-          <Percent className="h-4 w-4 text-rose-600 dark:text-rose-400 shrink-0" />
+          <Percent className="h-4 w-4 text-rose-600 shrink-0" />
           <div>
-            <p className="text-xs font-bold text-rose-700 dark:text-rose-300">Simulateur TVA : CGI 2023</p>
+            <p className="text-xs font-bold text-rose-700">Simulateur TVA : CGI 2023</p>
             <p className="text-xs text-muted-foreground">Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à LF n° 22/071 du 28 décembre 2022</p>
           </div>
         </div>
@@ -2045,7 +2045,7 @@ export default function SimulateurTVA() {
             'flex items-center gap-1 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors',
             currentIndex === 0
               ? 'border-border text-muted-foreground opacity-40 cursor-not-allowed'
-              : 'border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/20'
+              : 'border-rose-300 text-rose-700 hover:bg-rose-50'
           )}
         >
           ‹ {currentIndex > 0 ? ONGLETS_TVA[currentIndex - 1].label : ''}
@@ -2058,7 +2058,7 @@ export default function SimulateurTVA() {
             'flex items-center gap-1 rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors',
             currentIndex === ONGLETS_TVA.length - 1
               ? 'border-border text-muted-foreground opacity-40 cursor-not-allowed'
-              : 'border-rose-300 dark:border-rose-600 text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/20'
+              : 'border-rose-300 text-rose-700 hover:bg-rose-50'
           )}
         >
           {currentIndex < ONGLETS_TVA.length - 1 ? ONGLETS_TVA[currentIndex + 1].label : ''} ›
@@ -2073,7 +2073,7 @@ export default function SimulateurTVA() {
             return (
               <button key={o.id} onClick={() => setOnglet(o.id)}
                 className={cn('flex flex-col items-center gap-0.5 rounded-xl border px-3 py-2 transition-colors shrink-0 min-w-[80px]',
-                  onglet === o.id ? 'border-rose-300 dark:border-rose-600 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-300' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30')}>
+                  onglet === o.id ? 'border-rose-300 bg-rose-50 text-rose-700' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30')}>
                 <Icon className="h-3.5 w-3.5" />
                 <p className="text-xs font-semibold text-center leading-tight">{o.label}</p>
                 <p className="text-xs opacity-60 text-center">{o.sublabel}</p>

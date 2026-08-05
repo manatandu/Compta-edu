@@ -64,9 +64,9 @@ const LECONS: Lecon[] = [
           <InfoTooltip texte="Les ETD (Entités Territoriales Décentralisées) sont les communes, les secteurs et les chefferies. Elles ont la personnalité juridique et disposent de leurs propres finances, distinctes de celles des provinces." loi="Art. 3 pt. 25 LOFIP" />»</em>. Cette définition positionne les finances publiques à trois niveaux distincts mais articulés.
         </p>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Point fondamental</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">Les finances publiques en RDC sont organisées selon un modèle décentralisé à trois niveaux : Pouvoir central, Provinces et ETD. Chaque niveau dispose de ses propres recettes et dépenses, tout en étant soumis aux règles communes fixées par la LOFIP.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Point fondamental</p>
+          <p className="text-xs text-emerald-800">Les finances publiques en RDC sont organisées selon un modèle décentralisé à trois niveaux : Pouvoir central, Provinces et ETD. Chaque niveau dispose de ses propres recettes et dépenses, tout en étant soumis aux règles communes fixées par la LOFIP.</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Distinction finances publiques / finances privées</h3>
@@ -93,7 +93,7 @@ const LECONS: Lecon[] = [
               ].map(([c, fp, fpr], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{c}</td>
-                  <td className="p-2 border border-border text-emerald-700 dark:text-emerald-300">{fp}</td>
+                  <td className="p-2 border border-border text-emerald-700">{fp}</td>
                   <td className="p-2 border border-border text-muted-foreground">{fpr}</td>
                 </tr>
               ))}
@@ -209,8 +209,8 @@ const LECONS: Lecon[] = [
           </li>
         </ul>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-2">Schéma de consolidation budgétaire</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-2">Schéma de consolidation budgétaire</p>
           <div className="space-y-1.5 text-xs">
             <div className="flex items-center gap-2">
               <span className="font-semibold text-foreground">Budget ETD</span>
@@ -226,7 +226,7 @@ const LECONS: Lecon[] = [
               <ChevronRight className="h-3 w-3 text-muted-foreground" />
               <span className="font-semibold text-foreground">Budget Pouvoir central</span>
               <ChevronRight className="h-3 w-3 text-muted-foreground" />
-              <span className="font-bold text-emerald-700 dark:text-emerald-300">Budget de l'Etat</span>
+              <span className="font-bold text-emerald-700">Budget de l'Etat</span>
             </div>
           </div>
         </div>
@@ -315,9 +315,9 @@ const LECONS: Lecon[] = [
           , qui est l'une des mesures phares de la décentralisation fiscale en RDC. La répartition est donc :
         </p>
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3 text-center">
-            <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-300">40%</p>
-            <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">Provinces</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3 text-center">
+            <p className="text-2xl font-bold text-emerald-700">40%</p>
+            <p className="text-xs font-semibold text-emerald-700">Provinces</p>
             <p className="text-xs text-muted-foreground mt-1">Retenue directement à la source, dans la province de perception</p>
           </div>
           <div className="rounded-xl border border-border bg-card p-3 text-center">
@@ -335,14 +335,14 @@ const LECONS: Lecon[] = [
           L'article 176 de la Constitution garantit que <strong>chaque province dispose de la libre administration de ses ressources</strong>. Les recettes propres des provinces et leur quote-part des recettes nationales sont gérées de façon autonome, sous le contrôle de l'Assemblée provinciale et, pour les finances, sous le contrôle de la Cour des comptes.
         </p>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-2">Synthèse du cadre constitutionnel</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-2">Synthèse du cadre constitutionnel</p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-emerald-100/50 dark:bg-emerald-900/30">
-                  <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold">Article Constitution</th>
-                  <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold">Contenu</th>
+                <tr className="bg-emerald-100/50">
+                  <th className="text-left p-2 border border-emerald-200 font-semibold">Article Constitution</th>
+                  <th className="text-left p-2 border border-emerald-200 font-semibold">Contenu</th>
                 </tr>
               </thead>
               <tbody>
@@ -355,7 +355,7 @@ const LECONS: Lecon[] = [
                   ['Art. 181', 'Caisse nationale de péréquation pour corriger les déséquilibres entre provinces'],
                 ].map(([art, cont], i) => (
                   <tr key={i} className="even:bg-muted/20">
-                    <td className="p-2 border border-border font-semibold text-emerald-700 dark:text-emerald-300">{art}</td>
+                    <td className="p-2 border border-border font-semibold text-emerald-700">{art}</td>
                     <td className="p-2 border border-border">{cont}</td>
                   </tr>
                 ))}
@@ -492,7 +492,7 @@ const LECONS: Lecon[] = [
                 ['Ministre des Finances', 'Trésorerie, ordonnancement des recettes, comptables publics', 'Phase d\'exécution et de recouvrement'],
               ].map(([m, role, phase], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-emerald-700 dark:text-emerald-300">{m}</td>
+                  <td className="p-2 border border-border font-semibold text-emerald-700">{m}</td>
                   <td className="p-2 border border-border">{role}</td>
                   <td className="p-2 border border-border text-muted-foreground italic">{phase}</td>
                 </tr>
@@ -501,9 +501,9 @@ const LECONS: Lecon[] = [
           </table>
         </div>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Point clé — Séparation ordonnateur / comptable</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">La LOFIP consacre le principe fondamental de séparation entre l'<strong>ordonnateur</strong> (qui décide de la dépense : les ministres sectoriels et le Ministre du Budget) et le <strong>comptable public</strong> (qui exécute le paiement : nommé par le Ministre des Finances). Cette séparation est un gage de contrôle et d'intégrité dans la gestion des fonds publics.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Point clé — Séparation ordonnateur / comptable</p>
+          <p className="text-xs text-emerald-800">La LOFIP consacre le principe fondamental de séparation entre l'<strong>ordonnateur</strong> (qui décide de la dépense : les ministres sectoriels et le Ministre du Budget) et le <strong>comptable public</strong> (qui exécute le paiement : nommé par le Ministre des Finances). Cette séparation est un gage de contrôle et d'intégrité dans la gestion des fonds publics.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : LOFIP Exposé des motifs · Art. 88-115 LOFIP · Décret portant organisation du Gouvernement</p>
       </div>
@@ -600,9 +600,9 @@ const LECONS: Lecon[] = [
           </li>
         </ul>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Contexte économique RDC 2025</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">Le budget 2025 de la RDC reflète les défis d'un pays en forte croissance mais confronté à des pressions inflationnistes persistantes et à la volatilité du taux de change. La révision à la baisse du budget (- 861,7 Mds FC) traduit une prudence budgétaire face à des recettes en deçà des prévisions initiales, notamment dans les secteurs minier et pétrolier. Le maintien d'un taux de croissance de 5,3% témoigne de la résilience de l'économie congolaise portée par les industries extractives et les télécommunications.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Contexte économique RDC 2025</p>
+          <p className="text-xs text-emerald-800">Le budget 2025 de la RDC reflète les défis d'un pays en forte croissance mais confronté à des pressions inflationnistes persistantes et à la volatilité du taux de change. La révision à la baisse du budget (- 861,7 Mds FC) traduit une prudence budgétaire face à des recettes en deçà des prévisions initiales, notamment dans les secteurs minier et pétrolier. Le maintien d'un taux de croissance de 5,3% témoigne de la résilience de l'économie congolaise portée par les industries extractives et les télécommunications.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : Loi n° 25/044 du 28 juin 2025 portant budget rectifié de l'Etat pour l'exercice 2025 · LOFIP Art. 5, 11, 76-87</p>
       </div>
@@ -964,21 +964,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">{q.question}</p>
+    <div className="rounded-xl border border-emerald-200 bg-emerald-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-emerald-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-emerald-500 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200' : 'border-border hover:border-emerald-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-emerald-500 bg-emerald-100 text-emerald-800' : 'border-border hover:border-emerald-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-emerald-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-emerald-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <p className="text-xs opacity-70 mt-0.5">Ref. : {q.articleRef}</p>
@@ -996,7 +996,7 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('cp', '')}</span>
+          <span className="h-7 w-7 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('cp', '')}</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
             <p className="text-xs text-muted-foreground">{cp.articleRef}</p>
@@ -1006,21 +1006,21 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
               <div key={q.num} className="space-y-2">
                 <p className="text-xs font-semibold text-foreground">Question {q.num} : {q.enonce}</p>
                 {corrVisible.has(q.num) ? (
-                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                    <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Correction</p>
-                    <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                    <p className="text-xs font-semibold text-emerald-700 mb-1">Correction</p>
+                    <p className="text-xs text-emerald-900 leading-relaxed">{q.correction}</p>
                   </div>
                 ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-medium">Voir la correction</button>
+                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-emerald-600 hover:underline font-medium">Voir la correction</button>
                 )}
               </div>
             ))}
@@ -1078,17 +1078,17 @@ export default function UE5Chapitre1Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-emerald-600" />
+          <span className="text-sm font-semibold text-emerald-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Définir les finances publiques selon la LOFIP (Art. 1 et Art. 3 pt. 22) et les distinguer des finances privées</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les 3 composantes des finances de l'Etat : Pouvoir central, Provinces et ETD (Art. 2 et 3 LOFIP)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Situer le cadre constitutionnel : Art. 122 pt. 3 et 10, Art. 174, Art. 175 (règle des 40%), Art. 176</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Distinguer les rôles du Ministre du Budget (planification/contrôle) et du Ministre des Finances (trésorerie/recouvrement)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Analyser l'actualité budgétaire 2025 : LFR n° 25/044 du 28 juin 2025, budget 50 691,8 Mds FC</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Définir les finances publiques selon la LOFIP (Art. 1 et Art. 3 pt. 22) et les distinguer des finances privées</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les 3 composantes des finances de l'Etat : Pouvoir central, Provinces et ETD (Art. 2 et 3 LOFIP)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Situer le cadre constitutionnel : Art. 122 pt. 3 et 10, Art. 174, Art. 175 (règle des 40%), Art. 176</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Distinguer les rôles du Ministre du Budget (planification/contrôle) et du Ministre des Finances (trésorerie/recouvrement)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Analyser l'actualité budgétaire 2025 : LFR n° 25/044 du 28 juin 2025, budget 50 691,8 Mds FC</span></li>
         </ul>
       </div>
 
@@ -1114,7 +1114,7 @@ export default function UE5Chapitre1Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-emerald-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-emerald-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

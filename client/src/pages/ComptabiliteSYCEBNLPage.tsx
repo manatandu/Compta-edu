@@ -13,7 +13,7 @@ const MODULES: Module[] = [
     label: 'Journal Comptable',
     desc: 'Saisir et consulter les écritures comptables par ordre chronologique.',
     icon: <BookOpen className="h-6 w-6" />,
-    color: 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+    color: 'bg-blue-50 text-blue-600',
     available: true,
   },
   {
@@ -21,7 +21,7 @@ const MODULES: Module[] = [
     label: 'Grand Livre',
     desc: 'Visualiser les mouvements compte par compte avec soldes déroulés.',
     icon: <BookMarked className="h-6 w-6" />,
-    color: 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+    color: 'bg-purple-50 text-purple-600',
     available: true,
   },
   {
@@ -29,7 +29,7 @@ const MODULES: Module[] = [
     label: 'Balance Générale',
     desc: 'Balance à 6 colonnes SYCEBNL : ouverture, mouvements et clôture.',
     icon: <BarChart2 className="h-6 w-6" />,
-    color: 'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400',
+    color: 'bg-green-50 text-green-600',
     available: true,
   },
   {
@@ -37,7 +37,7 @@ const MODULES: Module[] = [
     label: 'Bilan & Compte de Résultat',
     desc: 'États financiers SYCEBNL : Bilan (Fonds propres / Fonds affectés) + CR (Revenus – Charges = Excédent/Déficit). Modèle officiel p.346-347.',
     icon: <FileText className="h-6 w-6" />,
-    color: 'bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400',
+    color: 'bg-orange-50 text-orange-600',
     available: true,
   },
   {
@@ -45,7 +45,7 @@ const MODULES: Module[] = [
     label: 'Plan Comptable SYCEBNL',
     desc: 'Plan comptable officiel SYCEBNL : 8 classes, comptes spécifiques aux entités à but non lucratif (associations, ONG, fondations).',
     icon: <ClipboardList className="h-6 w-6" />,
-    color: 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400',
+    color: 'bg-red-50 text-red-600',
     available: true,
   },
 ]
@@ -91,7 +91,7 @@ export default function ComptabiliteSYCEBNLPage() {
                       {m.desc}
                     </p>
                     {m.comingSoon && (
-                      <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 italic">{m.comingSoon}</p>
+                      <p className="text-xs text-amber-600 mt-1 italic">{m.comingSoon}</p>
                     )}
                   </div>
                   {m.available && (
@@ -105,9 +105,9 @@ export default function ComptabiliteSYCEBNLPage() {
       </div>
 
       {/* Note SYCEBNL */}
-      <div className="rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-900/10 dark:border-amber-800 px-4 py-3">
-        <p className="text-xs text-amber-800 dark:text-amber-300 font-medium">SYCEBNL : En vigueur depuis le 1ᵉʳ janvier 2024</p>
-        <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+      <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+        <p className="text-xs text-amber-800 font-medium">SYCEBNL : En vigueur depuis le 1ᵉʳ janvier 2024</p>
+        <p className="text-xs text-amber-700 mt-0.5">
           Journal, Grand Livre et Balance fonctionnent avec la même logique que SYSCOHADA.
           Le Bilan et le Compte de Résultat utilisent le modèle officiel SYCEBNL p.346-347 (Ressources propres, Fonds affectés, Excédent/Déficit).
         </p>

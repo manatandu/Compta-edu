@@ -139,8 +139,8 @@ export default function HistoriquePage() {
                         <td className="py-1.5 px-3 max-w-[150px] truncate">{e.libelle}</td>
                         <td className="py-1.5 px-3 font-mono text-primary font-medium">{e.numeroCompte}</td>
                         <td className="py-1.5 px-3 max-w-[150px] truncate">{e.intituleCompte}</td>
-                        <td className="py-1.5 px-3 text-right text-green-700 dark:text-green-400">{e.debit > 0 ? formatMontant(e.debit) : ''}</td>
-                        <td className="py-1.5 px-3 text-right text-red-700 dark:text-red-400">{e.credit > 0 ? formatMontant(e.credit) : ''}</td>
+                        <td className="py-1.5 px-3 text-right text-green-700">{e.debit > 0 ? formatMontant(e.debit) : ''}</td>
+                        <td className="py-1.5 px-3 text-right text-red-700">{e.credit > 0 ? formatMontant(e.credit) : ''}</td>
                         <td className="py-1.5 px-3">
                           {isOuverture && <Badge variant="secondary" className="text-xs">Ouv.</Badge>}
                         </td>

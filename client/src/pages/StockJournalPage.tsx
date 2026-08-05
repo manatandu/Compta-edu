@@ -80,17 +80,17 @@ function ModalExport({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
       <div className="bg-card rounded-2xl border border-border shadow-2xl p-6 max-w-md w-full space-y-4">
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
-            <Upload className="h-4 w-4 text-orange-600 dark:text-orange-400" />
+          <div className="h-8 w-8 rounded-lg bg-orange-100 flex items-center justify-center">
+            <Upload className="h-4 w-4 text-orange-600" />
           </div>
           <h2 className="font-bold text-base text-foreground">Exporter vers le Journal</h2>
         </div>
 
         {done ? (
           <div className="space-y-3">
-            <div className="flex items-center gap-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 px-3 py-3">
+            <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-3">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <p className="text-sm text-emerald-700 dark:text-emerald-400 font-semibold">
+              <p className="text-sm text-emerald-700 font-semibold">
                 {nonExportes.length} écriture(s) exportée(s) avec succès.
               </p>
             </div>
@@ -101,8 +101,8 @@ function ModalExport({
           </div>
         ) : (
           <>
-            <div className="rounded-lg bg-orange-50 dark:bg-orange-900/10 border border-orange-200/50 px-3 py-2">
-              <p className="text-xs text-orange-700 dark:text-orange-400">
+            <div className="rounded-lg bg-orange-50 border border-orange-200/50 px-3 py-2">
+              <p className="text-xs text-orange-700">
                 <strong>{nonExportes.length}</strong> écriture(s) non encore exportée(s) seront envoyées dans le Journal général de la session choisie.
               </p>
             </div>
@@ -122,7 +122,7 @@ function ModalExport({
             </div>
 
             {erreur && (
-              <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-900/20 px-3 py-2">
+              <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2">
                 <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
                 <p className="text-xs text-red-600">{erreur}</p>
               </div>
@@ -152,7 +152,7 @@ function LigneEcriture({ ec }: { ec: EcritureStock }) {
     <div className={cn(
       'rounded-xl border p-3 space-y-2 transition-all',
       ec.exporte
-        ? 'border-emerald-200/50 dark:border-emerald-700/20 bg-emerald-50/30 dark:bg-emerald-900/10'
+        ? 'border-emerald-200/50 bg-emerald-50/30'
         : 'border-border bg-card'
     )}>
       {/* Date + libellé + badge */}
@@ -161,7 +161,7 @@ function LigneEcriture({ ec }: { ec: EcritureStock }) {
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-mono text-muted-foreground">{ec.date}</span>
             {ec.exporte && (
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-900/30 px-1.5 py-0.5 rounded-full">
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded-full">
                 <Check className="h-2.5 w-2.5" /> Exporté
               </span>
             )}
@@ -172,13 +172,13 @@ function LigneEcriture({ ec }: { ec: EcritureStock }) {
       </div>
       {/* Débit / Crédit */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800/20 px-2.5 py-1.5">
-          <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">DÉBIT</p>
+        <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-2.5 py-1.5">
+          <p className="text-xs text-emerald-600 font-semibold">DÉBIT</p>
           <p className="text-xs font-bold text-foreground">{ec.debit}</p>
           <p className="text-xs text-muted-foreground leading-tight">{ec.libDebit}</p>
         </div>
-        <div className="rounded-lg bg-orange-50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-800/20 px-2.5 py-1.5">
-          <p className="text-xs text-orange-600 dark:text-orange-400 font-semibold">CRÉDIT</p>
+        <div className="rounded-lg bg-orange-50 border border-orange-100 px-2.5 py-1.5">
+          <p className="text-xs text-orange-600 font-semibold">CRÉDIT</p>
           <p className="text-xs font-bold text-foreground">{ec.credit}</p>
           <p className="text-xs text-muted-foreground leading-tight">{ec.libCredit}</p>
         </div>
@@ -242,11 +242,11 @@ export default function StockJournalPage() {
         </div>
         <div className="rounded-xl border border-border bg-card px-3 py-2 text-center">
           <p className="text-xs text-muted-foreground">A exporter</p>
-          <p className="text-lg font-bold text-orange-600 dark:text-orange-400">{nonExportesCount}</p>
+          <p className="text-lg font-bold text-orange-600">{nonExportesCount}</p>
         </div>
         <div className="rounded-xl border border-border bg-card px-3 py-2 text-center">
           <p className="text-xs text-muted-foreground">Exportées</p>
-          <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+          <p className="text-lg font-bold text-emerald-600">
             {ecritures.filter(e => e.exporte).length}
           </p>
         </div>

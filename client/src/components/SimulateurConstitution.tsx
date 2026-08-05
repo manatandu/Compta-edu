@@ -215,9 +215,9 @@ export default function SimulateurConstitution() {
 
   // ─── Barre de taux ───────────────────────────────────────────────────────
   const renderTauxBandeau = () => (
-    <div className="rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-2.5 flex items-center gap-3">
+    <div className="rounded-xl bg-amber-50 border border-amber-200 p-2.5 flex items-center gap-3">
       <RefreshCw className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-      <div className="flex-1 text-xs text-amber-800 dark:text-amber-200">
+      <div className="flex-1 text-xs text-amber-800">
         <span className="font-semibold">Taux de change : </span>
         <span>1 FCFA = </span>
         {tauxEdit ? (
@@ -229,17 +229,17 @@ export default function SimulateurConstitution() {
             onChange={e => setTaux(parseFloat(e.target.value) || TAUX_DEFAUT)}
             onBlur={() => setTauxEdit(false)}
             autoFocus
-            className="w-16 text-xs rounded border border-amber-400 px-1 py-0.5 bg-white dark:bg-amber-900/40 text-amber-900 dark:text-amber-100 focus:outline-none"
+            className="w-16 text-xs rounded border border-amber-400 px-1 py-0.5 bg-white text-amber-900 focus:outline-none"
           />
         ) : (
           <button
             onClick={() => setTauxEdit(true)}
-            className="font-bold underline underline-offset-2 text-amber-700 dark:text-amber-300"
+            className="font-bold underline underline-offset-2 text-amber-700"
           >
             {taux.toFixed(2)} CDF
           </button>
         )}
-        <span className="text-amber-600 dark:text-amber-400 ml-1">(juin 2026 : cliquez pour modifier)</span>
+        <span className="text-amber-600 ml-1">(juin 2026 : cliquez pour modifier)</span>
       </div>
     </div>
   )
@@ -248,11 +248,11 @@ export default function SimulateurConstitution() {
   const renderEtape1 = () => (
     <div className="space-y-4">
       {/* Badge pays fixé */}
-      <div className="flex items-center gap-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 px-3 py-2.5">
+      <div className="flex items-center gap-2 rounded-xl bg-blue-50 border border-blue-200 px-3 py-2.5">
         <span className="text-base">🇨🇩</span>
         <div>
-          <p className="text-xs font-bold text-blue-800 dark:text-blue-200">République Démocratique du Congo</p>
-          <p className="text-xs text-blue-600 dark:text-blue-400">AUSCGIE 2014 + Arrêté intermin. 30/12/2014 + Startup Act 2022</p>
+          <p className="text-xs font-bold text-blue-800">République Démocratique du Congo</p>
+          <p className="text-xs text-blue-600">AUSCGIE 2014 + Arrêté intermin. 30/12/2014 + Startup Act 2022</p>
         </div>
       </div>
 
@@ -270,13 +270,13 @@ export default function SimulateurConstitution() {
               className={cn(
                 'w-full rounded-xl border px-3 py-3 text-left transition-all',
                 data.forme === f.id
-                  ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30'
+                  ? 'border-indigo-500 bg-indigo-50'
                   : 'border-border bg-card hover:border-indigo-300'
               )}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1">
-                  <p className={cn('text-xs font-bold', data.forme === f.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-foreground')}>
+                  <p className={cn('text-xs font-bold', data.forme === f.id ? 'text-indigo-700' : 'text-foreground')}>
                     {f.id}
                     <span className="text-xs font-normal text-muted-foreground ml-1.5">: {f.art}</span>
                   </p>
@@ -287,8 +287,8 @@ export default function SimulateurConstitution() {
                     <span className={cn(
                       'text-xs px-1.5 py-0.5 rounded-full font-semibold',
                       minCDF === null
-                        ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
-                        : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                        ? 'bg-emerald-100 text-emerald-700'
+                        : 'bg-amber-100 text-amber-700'
                     )}>
                       {minCDF === null ? 'Capital libre' : `≥ ${formatCDF(minCDF)}`}
                     </span>
@@ -305,13 +305,13 @@ export default function SimulateurConstitution() {
 
       {/* Note SARL */}
       {data.forme === 'SARL' && (
-        <div className="rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-3">
+        <div className="rounded-xl bg-blue-50 border border-blue-200 p-3">
           <div className="flex items-start gap-2">
             <Info className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />
-            <div className="text-xs text-blue-800 dark:text-blue-200">
+            <div className="text-xs text-blue-800">
               <p className="font-semibold mb-0.5">Exception RDC : Capital libre</p>
               <p>L'Art. 2 de l'Arrêté interministériel n° 002 & 243 du 30/12/2014 dispose : « Le capital social de la SARL est librement fixé par les associés en tenant compte de l'objet social. » Aucun minimum légal en RDC.</p>
-              <p className="mt-1 text-blue-600 dark:text-blue-400">Pour référence, le plancher OHADA est de {formatFCFA(1_000_000)} = <strong>{formatCDF(fcfaToCDF(1_000_000))}</strong> (Art. 311 AUSCGIE).</p>
+              <p className="mt-1 text-blue-600">Pour référence, le plancher OHADA est de {formatFCFA(1_000_000)} = <strong>{formatCDF(fcfaToCDF(1_000_000))}</strong> (Art. 311 AUSCGIE).</p>
             </div>
           </div>
         </div>
@@ -490,28 +490,28 @@ export default function SimulateurConstitution() {
         </p>
 
         {/* Récap capital temps réel */}
-        <div className="rounded-xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 p-3 space-y-1.5">
+        <div className="rounded-xl bg-indigo-50 border border-indigo-200 p-3 space-y-1.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-indigo-800 dark:text-indigo-200">Capital constitué</span>
-            <span className="text-sm font-bold text-indigo-700 dark:text-indigo-300">{formatCDF(capitalTotal)}</span>
+            <span className="text-xs font-semibold text-indigo-800">Capital constitué</span>
+            <span className="text-sm font-bold text-indigo-700">{formatCDF(capitalTotal)}</span>
           </div>
-          <div className="flex items-center justify-between text-xs text-indigo-600 dark:text-indigo-400">
+          <div className="flex items-center justify-between text-xs text-indigo-600">
             <span>Équivalent FCFA (≈)</span>
             <span className="font-medium">{formatFCFA(cdfToFCFA(capitalTotal))}</span>
           </div>
           {capitalMinCDF !== null && (
             <div className={cn(
               'flex items-center justify-between pt-1.5 border-t text-xs',
-              capitalTotal >= capitalMinCDF ? 'border-indigo-200 dark:border-indigo-700' : 'border-red-200 dark:border-red-800'
+              capitalTotal >= capitalMinCDF ? 'border-indigo-200' : 'border-red-200'
             )}>
-              <span className="text-indigo-600 dark:text-indigo-400">Minimum légal requis</span>
+              <span className="text-indigo-600">Minimum légal requis</span>
               <span className={cn('font-semibold', capitalTotal >= capitalMinCDF ? 'text-emerald-600' : 'text-red-600')}>
                 {capitalTotal >= capitalMinCDF ? '✓' : '✗'} {formatCDF(capitalMinCDF)}
               </span>
             </div>
           )}
           {capitalMinCDF === null && (
-            <p className="text-xs text-emerald-600 dark:text-emerald-400 border-t border-indigo-200 dark:border-indigo-700 pt-1.5">
+            <p className="text-xs text-emerald-600 border-t border-indigo-200 pt-1.5">
               ✓ Capital libre : aucun minimum légal
             </p>
           )}
@@ -526,7 +526,7 @@ export default function SimulateurConstitution() {
                 {data.associes.length > 1 && (
                   <button
                     onClick={() => removeAssocie(a.id)}
-                    className="h-6 w-6 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                    className="h-6 w-6 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-50 transition-colors"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
@@ -556,11 +556,11 @@ export default function SimulateurConstitution() {
                       className={cn(
                         'rounded-lg border px-2 py-1.5 text-center transition-all',
                         a.typeApport === t.id
-                          ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30'
+                          ? 'border-indigo-500 bg-indigo-50'
                           : 'border-border bg-card hover:border-indigo-300'
                       )}
                     >
-                      <p className={cn('text-xs font-semibold', a.typeApport === t.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-foreground')}>{t.label}</p>
+                      <p className={cn('text-xs font-semibold', a.typeApport === t.id ? 'text-indigo-700' : 'text-foreground')}>{t.label}</p>
                       <p className="text-xs text-muted-foreground">{t.desc}</p>
                     </button>
                   ))}
@@ -601,7 +601,7 @@ export default function SimulateurConstitution() {
                     onChange={e => updateAssocie(a.id, 'description', e.target.value)}
                     className="w-full text-xs rounded-lg border border-border bg-muted/30 px-3 py-2 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder:text-muted-foreground"
                   />
-                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                  <p className="text-xs text-amber-600 mt-1">
                     ⚠ Ne forme pas le capital social (Art. 50-3). L'apporteur reçoit des parts sans valeur capitalistique.
                   </p>
                 </div>
@@ -625,7 +625,7 @@ export default function SimulateurConstitution() {
 
         <button
           onClick={addAssocie}
-          className="w-full flex items-center justify-center gap-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 py-2.5 text-xs text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors font-medium"
+          className="w-full flex items-center justify-center gap-2 rounded-xl border border-dashed border-indigo-300 py-2.5 text-xs text-indigo-600 hover:bg-indigo-50 transition-colors font-medium"
         >
           <Plus className="h-3.5 w-3.5" />
           Ajouter un associé
@@ -645,22 +645,22 @@ export default function SimulateurConstitution() {
         <div className={cn(
           'rounded-xl border p-4 text-center',
           conforme
-            ? 'border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/20'
-            : 'border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20'
+            ? 'border-emerald-300 bg-emerald-50'
+            : 'border-red-300 bg-red-50'
         )}>
           {conforme ? (
             <>
               <CheckCircle2 className="h-8 w-8 text-emerald-600 mx-auto mb-2" />
-              <p className="text-sm font-bold text-emerald-800 dark:text-emerald-200">Constitution conforme ✓</p>
-              <p className="text-xs text-emerald-700 dark:text-emerald-300 mt-0.5">
+              <p className="text-sm font-bold text-emerald-800">Constitution conforme ✓</p>
+              <p className="text-xs text-emerald-700 mt-0.5">
                 Votre société respecte toutes les conditions légales applicables en RDC.
               </p>
             </>
           ) : (
             <>
               <AlertTriangle className="h-8 w-8 text-red-500 mx-auto mb-2" />
-              <p className="text-sm font-bold text-red-800 dark:text-red-200">Constitution non conforme</p>
-              <p className="text-xs text-red-600 dark:text-red-400 mt-0.5">
+              <p className="text-sm font-bold text-red-800">Constitution non conforme</p>
+              <p className="text-xs text-red-600 mt-0.5">
                 {erreurs.length} problème{erreurs.length > 1 ? 's' : ''} détecté{erreurs.length > 1 ? 's' : ''} : à corriger avant de signer les statuts.
               </p>
             </>
@@ -670,9 +670,9 @@ export default function SimulateurConstitution() {
         {/* Erreurs */}
         {erreurs.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-red-700 dark:text-red-300">Problèmes à corriger :</p>
+            <p className="text-xs font-semibold text-red-700">Problèmes à corriger :</p>
             {erreurs.map((e, i) => (
-              <div key={i} className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 px-3 py-2 text-xs text-red-700 dark:text-red-300 flex items-start gap-2">
+              <div key={i} className="rounded-lg bg-red-50 border border-red-200 px-3 py-2 text-xs text-red-700 flex items-start gap-2">
                 <span className="shrink-0 font-bold">{i + 1}.</span>
                 <span>{e}</span>
               </div>
@@ -683,9 +683,9 @@ export default function SimulateurConstitution() {
         {/* Avertissements */}
         {avertissements.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">À noter :</p>
+            <p className="text-xs font-semibold text-amber-700">À noter :</p>
             {avertissements.map((a, i) => (
-              <div key={i} className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-700 dark:text-amber-300 flex items-start gap-2">
+              <div key={i} className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700 flex items-start gap-2">
                 <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" />
                 <span>{a}</span>
               </div>
@@ -735,7 +735,7 @@ export default function SimulateurConstitution() {
             {/* Tableau associés */}
             <div>
               <p className="font-semibold text-foreground mb-2">
-                Capital social : <span className="text-indigo-700 dark:text-indigo-300">{formatCDF(capitalTotal)}</span>
+                Capital social : <span className="text-indigo-700">{formatCDF(capitalTotal)}</span>
                 <span className="text-muted-foreground font-normal ml-1.5">≈ {formatFCFA(cdfToFCFA(capitalTotal))}</span>
               </p>
               <table className="w-full border-collapse text-xs">
@@ -762,9 +762,9 @@ export default function SimulateurConstitution() {
                         <td className="px-2 py-1.5">
                           <span className={cn(
                             'px-1.5 py-0.5 rounded-full text-xs font-medium',
-                            a.typeApport === 'numeraire' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' :
-                              a.typeApport === 'nature' ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300' :
-                                'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                            a.typeApport === 'numeraire' ? 'bg-blue-100 text-blue-700' :
+                              a.typeApport === 'nature' ? 'bg-violet-100 text-violet-700' :
+                                'bg-amber-100 text-amber-700'
                           )}>
                             {a.typeApport}
                           </span>
@@ -782,14 +782,14 @@ export default function SimulateurConstitution() {
                       </tr>
                     )
                   })}
-                  <tr className="border-t border-border bg-indigo-50 dark:bg-indigo-900/20">
-                    <td className="px-2 py-1.5 font-bold text-indigo-700 dark:text-indigo-300" colSpan={2}>TOTAL</td>
-                    <td className="px-2 py-1.5 text-right font-bold text-indigo-700 dark:text-indigo-300 font-mono">
+                  <tr className="border-t border-border bg-indigo-50">
+                    <td className="px-2 py-1.5 font-bold text-indigo-700" colSpan={2}>TOTAL</td>
+                    <td className="px-2 py-1.5 text-right font-bold text-indigo-700 font-mono">
                       {formatCDF(capitalTotal)}<br />
                       <span className="text-muted-foreground font-normal text-xs">≈ {formatFCFA(cdfToFCFA(capitalTotal))}</span>
                     </td>
-                    <td className="px-2 py-1.5 text-right font-bold text-indigo-700 dark:text-indigo-300 font-mono">{nbParts.toLocaleString('fr-FR')}</td>
-                    <td className="px-2 py-1.5 text-right font-bold text-indigo-700 dark:text-indigo-300">100%</td>
+                    <td className="px-2 py-1.5 text-right font-bold text-indigo-700 font-mono">{nbParts.toLocaleString('fr-FR')}</td>
+                    <td className="px-2 py-1.5 text-right font-bold text-indigo-700">100%</td>
                   </tr>
                 </tbody>
               </table>
@@ -832,12 +832,12 @@ export default function SimulateurConstitution() {
         </div>
 
         {/* ── Générateur de statuts ─────────────────────────────── */}
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/20 p-4 space-y-3">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-3">
           <div className="flex items-start gap-2">
             <FileText className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
             <div>
-              <p className="text-xs font-bold text-indigo-800 dark:text-indigo-200">Générateur de statuts OHADA</p>
-              <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-0.5">
+              <p className="text-xs font-bold text-indigo-800">Générateur de statuts OHADA</p>
+              <p className="text-xs text-indigo-600 mt-0.5">
                 Téléchargez le projet de statuts structuré selon les 27 articles de l'AUSCGIE 2014,
                 pré-rempli avec les données de votre simulation. Les mentions manquantes sont signalées entre crochets.
               </p>
@@ -845,7 +845,7 @@ export default function SimulateurConstitution() {
           </div>
 
           {!conforme && (
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-700 dark:text-amber-300 flex items-start gap-2">
+            <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700 flex items-start gap-2">
               <Info className="h-3.5 w-3.5 shrink-0 mt-0.5" />
               <span>La constitution présente des irrégularités : le document généré est à titre pédagogique uniquement.</span>
             </div>
@@ -924,14 +924,14 @@ export default function SimulateurConstitution() {
                 }
                 exportStatutsDOCX(statutsData)
               }}
-              className="flex items-center justify-center gap-2 rounded-xl border border-indigo-400 dark:border-indigo-600 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 py-2.5 text-xs font-semibold transition-colors"
+              className="flex items-center justify-center gap-2 rounded-xl border border-indigo-400 text-indigo-700 hover:bg-indigo-100 py-2.5 text-xs font-semibold transition-colors"
             >
               <Download className="h-3.5 w-3.5" />
               Télécharger DOCX
             </button>
           </div>
 
-          <p className="text-xs text-indigo-500 dark:text-indigo-400 text-center">
+          <p className="text-xs text-indigo-500 text-center">
             Document pédagogique : à faire relire et compléter par un juriste avant signature.
           </p>
         </div>
@@ -991,7 +991,7 @@ export default function SimulateurConstitution() {
               </div>
               <span className={cn(
                 'text-xs mt-1 font-medium',
-                etapeActive === e.n ? 'text-indigo-600 dark:text-indigo-400' : 'text-muted-foreground'
+                etapeActive === e.n ? 'text-indigo-600' : 'text-muted-foreground'
               )}>
                 {e.label}
               </span>

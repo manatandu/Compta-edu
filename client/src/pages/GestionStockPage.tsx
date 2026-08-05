@@ -17,35 +17,35 @@ export default function GestionStockPage() {
       icon: ClipboardList,
       label: 'Fiches de stock',
       desc: 'Créer et gérer les articles (31, 32, 36) avec stock initial.',
-      color: 'text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400',
+      color: 'text-purple-600 bg-purple-50',
       path: '/stock/articles',
     },
     {
       icon: ArrowDownCircle,
       label: 'Entrées / Sorties',
       desc: 'Enregistrer les mouvements de stock (bons de réception et de sortie).',
-      color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400',
+      color: 'text-emerald-600 bg-emerald-50',
       path: '/stock/mouvement',
     },
     {
       icon: BarChart2,
       label: 'Fiche de stock calculée',
       desc: 'Tableau CUMP après chaque entrée ou PEPS / FIFO par article.',
-      color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400',
+      color: 'text-blue-600 bg-blue-50',
       path: '/stock/fiche',
     },
     {
       icon: BookOpen,
       label: 'Journal interne',
       desc: 'Écritures générées automatiquement. Exporter vers le Journal général.',
-      color: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400',
+      color: 'text-orange-600 bg-orange-50',
       path: '/stock/journal',
     },
     {
       icon: Sparkles,
       label: 'Exercice pédagogique',
       desc: 'Cas pratique SYSCOHADA : rames de papier A4 : CUMP & PEPS avec correction.',
-      color: 'text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400',
+      color: 'text-purple-600 bg-purple-50',
       path: '/stock/exercice',
     },
   ]
@@ -56,7 +56,7 @@ export default function GestionStockPage() {
 
       {/* En-tête */}
       <div className="animate-slideDown">
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-200/30 dark:border-purple-700/20 px-6 py-5">
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-200/30 px-6 py-5">
           <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-purple-400/10 animate-pulseGlow" />
           <div className="flex items-center gap-3 relative">
             <div className="h-10 w-10 rounded-lg bg-purple-600 flex items-center justify-center shrink-0 shadow-md shadow-purple-500/20">
@@ -128,7 +128,7 @@ export default function GestionStockPage() {
             { num: '39', label: 'Dépréciations de stocks' },
           ].map(c => (
             <div key={c.num} className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-purple-600 dark:text-purple-400 w-16 shrink-0">{c.num}</span>
+              <span className="text-xs font-mono font-bold text-purple-600 w-16 shrink-0">{c.num}</span>
               <span className="text-xs text-muted-foreground">{c.label}</span>
             </div>
           ))}

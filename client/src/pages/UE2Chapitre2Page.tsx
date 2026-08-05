@@ -99,8 +99,8 @@ const LECONS: Lecon[] = [
           <p className="text-xs text-muted-foreground mt-1">* Sous représentation légale (tuteur ou parents)</p>
         </div>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">Point de vigilance (Art. 8-9)</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+          <p className="text-xs font-semibold text-amber-700 mb-1">Point de vigilance (Art. 8-9)</p>
           <p className="text-xs text-muted-foreground">Un associé dont la participation devient contraire aux règles de l'Art. 8 ou 9 en cours de vie sociale (ex. : mariage entre deux associés de SNC) doit régulariser sa situation dans les meilleurs délais, sous peine d'irrégularité pouvant entraîner une action en nullité.</p>
         </div>
       </div>
@@ -196,7 +196,7 @@ const LECONS: Lecon[] = [
                 ["13", "Dispositions sur les organes de gestion", "Gérant désigné pour 3 ans, révocable à la majorité 3/4"],
               ].map(([num, mention, ex], i) => (
                 <tr key={num} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-bold text-violet-600 dark:text-violet-400 text-center">{num}</td>
+                  <td className="p-2 border border-border font-bold text-violet-600 text-center">{num}</td>
                   <td className="p-2 border border-border font-medium">{mention}</td>
                   <td className="p-2 border border-border text-muted-foreground italic">{ex}</td>
                 </tr>
@@ -227,15 +227,15 @@ const LECONS: Lecon[] = [
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{evt}</td>
                   <td className="p-2 border border-border text-muted-foreground">{regle}</td>
-                  <td className="p-2 border border-border text-red-600 dark:text-red-400">{csq}</td>
+                  <td className="p-2 border border-border text-red-600">{csq}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50/60 dark:bg-violet-900/20 p-3">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 mb-1">Bon à savoir</p>
+        <div className="rounded-xl border border-violet-200 bg-violet-50/60 p-3">
+          <p className="text-xs font-semibold text-violet-700 mb-1">Bon à savoir</p>
           <p className="text-xs text-muted-foreground">La durée est une mention statutaire modifiable, mais toute modification doit respecter les règles de quorum et de majorité propres à chaque forme sociale. Une prorogation tardive (après expiration) est inopérante.</p>
         </div>
       </div>
@@ -320,7 +320,7 @@ const LECONS: Lecon[] = [
               ].map(([forme, frac, delai, ref], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{forme}</td>
-                  <td className="p-2 border border-border text-center font-bold text-violet-600 dark:text-violet-400">{frac}</td>
+                  <td className="p-2 border border-border text-center font-bold text-violet-600">{frac}</td>
                   <td className="p-2 border border-border text-center text-muted-foreground">{delai}</td>
                   <td className="p-2 border border-border text-muted-foreground">{ref}</td>
                 </tr>
@@ -332,8 +332,8 @@ const LECONS: Lecon[] = [
         <p className="font-semibold">3.2 Apports en nature (Art. 46-50)</p>
         <p>Transfert à la société de la propriété ou jouissance d'un bien autre qu'une somme d'argent : immeuble, fonds de commerce, véhicule, brevet... La valeur doit être évaluée rigoureusement par un Commissaire aux Apports (CAA).</p>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-2">Le Commissaire aux Apports (CAA)</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+          <p className="text-xs font-semibold text-amber-700 mb-2">Le Commissaire aux Apports (CAA)</p>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs text-muted-foreground">
             <div>
               <p className="font-semibold text-foreground mb-1">Intervention OBLIGATOIRE :</p>
@@ -376,8 +376,8 @@ const LECONS: Lecon[] = [
               ].map(([car, regle, ref], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{car}</td>
-                  <td className={cn('p-2 border border-border', regle === 'INTERDIT' ? 'text-red-600 dark:text-red-400 font-bold' : 'text-muted-foreground')}>{regle}</td>
-                  <td className="p-2 border border-border text-violet-600 dark:text-violet-400">{ref}</td>
+                  <td className={cn('p-2 border border-border', regle === 'INTERDIT' ? 'text-red-600 font-bold' : 'text-muted-foreground')}>{regle}</td>
+                  <td className="p-2 border border-border text-violet-600">{ref}</td>
                 </tr>
               ))}
             </tbody>
@@ -482,8 +482,8 @@ const LECONS: Lecon[] = [
         <p>
           Est réputée léonine toute clause qui attribue à un associé la totalité des bénéfices, l'exonère de toute contribution aux pertes, l'exclut de tout partage des bénéfices, ou lui fait supporter la totalité des pertes.
         </p>
-        <div className="rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/10 p-3">
-          <p className="text-xs font-semibold text-rose-700 dark:text-rose-300 mb-1">Sanction Art. 54 al. 2 AUSCGIE</p>
+        <div className="rounded-xl border border-rose-200 bg-rose-50/50 p-3">
+          <p className="text-xs font-semibold text-rose-700 mb-1">Sanction Art. 54 al. 2 AUSCGIE</p>
           <p className="text-xs text-muted-foreground">La clause léonine est "réputée non écrite" : elle est juridiquement inexistante sans affecter la validité des autres dispositions statutaires. La société demeure valable, mais la clause est ignorée.</p>
         </div>
 
@@ -507,7 +507,7 @@ const LECONS: Lecon[] = [
               ].map(([forme, capital, prec], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-semibold">{forme}</td>
-                  <td className="p-2 border border-border text-center font-medium text-violet-600 dark:text-violet-400">{capital}</td>
+                  <td className="p-2 border border-border text-center font-medium text-violet-600">{capital}</td>
                   <td className="p-2 border border-border text-muted-foreground">{prec}</td>
                 </tr>
               ))}
@@ -608,8 +608,8 @@ const LECONS: Lecon[] = [
               ].map(([irr, sanc, ref, reg], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{irr}</td>
-                  <td className="p-2 border border-border text-red-600 dark:text-red-400">{sanc}</td>
-                  <td className="p-2 border border-border text-violet-600 dark:text-violet-400">{ref}</td>
+                  <td className="p-2 border border-border text-red-600">{sanc}</td>
+                  <td className="p-2 border border-border text-violet-600">{ref}</td>
                   <td className="p-2 border border-border text-muted-foreground">{reg}</td>
                 </tr>
               ))}
@@ -645,8 +645,8 @@ const LECONS: Lecon[] = [
           </table>
         </div>
 
-        <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50/60 dark:bg-violet-900/20 p-3">
-          <p className="text-xs font-semibold text-violet-700 dark:text-violet-300 mb-1">Principe de faveur pour la société (Art. 75)</p>
+        <div className="rounded-xl border border-violet-200 bg-violet-50/60 p-3">
+          <p className="text-xs font-semibold text-violet-700 mb-1">Principe de faveur pour la société (Art. 75)</p>
           <p className="text-xs text-muted-foreground">L'AUSCGIE privilégie la régularisation sur la nullité. Tant qu'une irrégularité peut être corrigée sans léser irrémédiablement les associés ou les tiers, les tribunaux accordent un délai de régularisation plutôt que de prononcer la dissolution.</p>
         </div>
       </div>
@@ -743,7 +743,7 @@ const LECONS: Lecon[] = [
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{acte}</td>
                   <td className="p-2 border border-border text-muted-foreground">{forma}</td>
-                  <td className="p-2 border border-border text-center text-violet-600 dark:text-violet-400">{delai}</td>
+                  <td className="p-2 border border-border text-center text-violet-600">{delai}</td>
                 </tr>
               ))}
             </tbody>
@@ -892,21 +892,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50/30 dark:bg-violet-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-violet-700 dark:text-violet-300">{q.question}</p>
+    <div className="rounded-xl border border-violet-200 bg-violet-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-violet-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-violet-500 bg-violet-100 dark:bg-violet-900/30 text-violet-800 dark:text-violet-200' : 'border-border hover:border-violet-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-violet-500 bg-violet-100 text-violet-800' : 'border-border hover:border-violet-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-violet-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-violet-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
@@ -923,7 +923,7 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('ec', '')}</span>
+          <span className="h-7 w-7 rounded-full bg-violet-100 text-violet-700 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('ec', '')}</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
             <p className="text-xs text-muted-foreground">{cp.articleRef}</p>
@@ -933,21 +933,21 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
               <div key={q.num} className="space-y-2">
                 <p className="text-xs font-semibold text-foreground">Question {q.num} : {q.enonce}</p>
                 {corrVisible.has(q.num) ? (
-                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                    <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Correction</p>
-                    <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                    <p className="text-xs font-semibold text-emerald-700 mb-1">Correction</p>
+                    <p className="text-xs text-emerald-900 leading-relaxed">{q.correction}</p>
                   </div>
                 ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-violet-600 dark:text-violet-400 hover:underline font-medium">Voir la correction</button>
+                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-violet-600 hover:underline font-medium">Voir la correction</button>
                 )}
               </div>
             ))}
@@ -1027,18 +1027,18 @@ export default function UE2Chapitre2Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50/50 dark:bg-violet-900/10 p-4">
+      <div className="rounded-xl border border-violet-200 bg-violet-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-violet-600 dark:text-violet-400" />
-          <span className="text-sm font-semibold text-violet-800 dark:text-violet-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-violet-600" />
+          <span className="text-sm font-semibold text-violet-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Identifier qui peut être associé et les restrictions légales (Art. 7-9 AUSCGIE)</span></li>
-          <li className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Maîtriser les 13 mentions obligatoires des statuts (Art. 13 AUSCGIE)</span></li>
-          <li className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Distinguer les 3 types d'apports et leurs règles de libération (Art. 37-50-4)</span></li>
-          <li className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Comprendre la naissance de la personnalité morale par l'immatriculation RCCM (Art. 97)</span></li>
-          <li className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Appliquer les règles de publicité légale et d'opposabilité aux tiers (Art. 256-263)</span></li>
-          <li className="flex items-start gap-2 text-xs text-violet-700 dark:text-violet-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Analyser la clause léonine et la société en formation (Art. 54 al. 2, 101-103)</span></li>
+          <li className="flex items-start gap-2 text-xs text-violet-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Identifier qui peut être associé et les restrictions légales (Art. 7-9 AUSCGIE)</span></li>
+          <li className="flex items-start gap-2 text-xs text-violet-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Maîtriser les 13 mentions obligatoires des statuts (Art. 13 AUSCGIE)</span></li>
+          <li className="flex items-start gap-2 text-xs text-violet-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Distinguer les 3 types d'apports et leurs règles de libération (Art. 37-50-4)</span></li>
+          <li className="flex items-start gap-2 text-xs text-violet-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Comprendre la naissance de la personnalité morale par l'immatriculation RCCM (Art. 97)</span></li>
+          <li className="flex items-start gap-2 text-xs text-violet-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Appliquer les règles de publicité légale et d'opposabilité aux tiers (Art. 256-263)</span></li>
+          <li className="flex items-start gap-2 text-xs text-violet-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-violet-500" /><span>Analyser la clause léonine et la société en formation (Art. 54 al. 2, 101-103)</span></li>
         </ul>
       </div>
 
@@ -1064,7 +1064,7 @@ export default function UE2Chapitre2Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-violet-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-violet-600 dark:text-violet-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-violet-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

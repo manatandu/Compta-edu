@@ -593,7 +593,7 @@ export default function ExerciceDetailPage() {
                           <span className="text-xs">{formatMontant(r.attendu?.montant || 0)}</span>
                         </div>
                       </div>
-                      <div className={cn('rounded p-2', r.matchCompte === 'incorrect' ? 'bg-red-50 dark:bg-red-900/20' : 'bg-green-50 dark:bg-green-900/20')}>
+                      <div className={cn('rounded p-2', r.matchCompte === 'incorrect' ? 'bg-red-50' : 'bg-green-50')}>
                         <p className="text-xs text-muted-foreground mb-1 font-medium">Votre réponse</p>
                         <p className={cn('font-mono font-semibold', r.matchCompte === 'incorrect' ? 'text-red-600' : 'text-green-600')}>{r.saisi.numeroCompte || '—'}</p>
                         <p className="text-xs text-muted-foreground">{r.saisi.intituleCompte || '—'}</p>
@@ -616,19 +616,19 @@ export default function ExerciceDetailPage() {
                     </div>
                     <div className="space-y-1 text-xs">
                       {r.messageCompte && (
-                        <p className={cn('flex items-start gap-1.5', r.matchCompte === 'incorrect' ? 'text-red-600 dark:text-red-400' : 'text-green-700 dark:text-green-400')}>
+                        <p className={cn('flex items-start gap-1.5', r.matchCompte === 'incorrect' ? 'text-red-600' : 'text-green-700')}>
                           {r.matchCompte === 'incorrect' ? <XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" /> : <CheckCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" />}
                           {r.messageCompte}
                         </p>
                       )}
                       {r.messageSens && (
-                        <p className={cn('flex items-start gap-1.5', r.matchSens ? 'text-green-700 dark:text-green-400' : 'text-red-600 dark:text-red-400')}>
+                        <p className={cn('flex items-start gap-1.5', r.matchSens ? 'text-green-700' : 'text-red-600')}>
                           {r.matchSens ? <CheckCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" /> : <XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" />}
                           {r.messageSens}
                         </p>
                       )}
                       {r.messageMontant && (
-                        <p className={cn('flex items-start gap-1.5', r.matchMontant ? 'text-green-700 dark:text-green-400' : 'text-red-600 dark:text-red-400')}>
+                        <p className={cn('flex items-start gap-1.5', r.matchMontant ? 'text-green-700' : 'text-red-600')}>
                           {r.matchMontant ? <CheckCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" /> : <XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" />}
                           {r.messageMontant}
                         </p>
@@ -643,7 +643,7 @@ export default function ExerciceDetailPage() {
                   </div>
                 ))}
                 <div className={cn('flex items-center gap-2 text-sm px-3 py-2 rounded-lg',
-                  result.balanced ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400'
+                  result.balanced ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'
                 )}>
                   {result.balanced ? <CheckCircle className="h-4 w-4 shrink-0" /> : <XCircle className="h-4 w-4 shrink-0" />}
                   {result.balanced ? 'Écriture équilibrée (Débit = Crédit) ✓' : 'Écriture déséquilibrée ✗'}
@@ -659,13 +659,13 @@ export default function ExerciceDetailPage() {
               {result.bilanPoints.length > 0 && (
                 <div>
                   <p className="text-xs font-semibold text-green-600 mb-1">Points réussis ✅</p>
-                  {result.bilanPoints.map((p, i) => <p key={i} className="text-xs text-green-700 dark:text-green-400 flex items-start gap-1.5"><CheckCircle className="h-3 w-3 shrink-0 mt-0.5" />{p}</p>)}
+                  {result.bilanPoints.map((p, i) => <p key={i} className="text-xs text-green-700 flex items-start gap-1.5"><CheckCircle className="h-3 w-3 shrink-0 mt-0.5" />{p}</p>)}
                 </div>
               )}
               {result.bilanErreurs.length > 0 && (
                 <div>
                   <p className="text-xs font-semibold text-red-600 mb-1">Erreurs à corriger ❌</p>
-                  {result.bilanErreurs.map((e, i) => <p key={i} className="text-xs text-red-600 dark:text-red-400 flex items-start gap-1.5"><XCircle className="h-3 w-3 shrink-0 mt-0.5" />{e}</p>)}
+                  {result.bilanErreurs.map((e, i) => <p key={i} className="text-xs text-red-600 flex items-start gap-1.5"><XCircle className="h-3 w-3 shrink-0 mt-0.5" />{e}</p>)}
                 </div>
               )}
               {result.conseilsRevision.length > 0 && (
@@ -844,8 +844,8 @@ export default function ExerciceDetailPage() {
                   {showCorrige ? 'Masquer le corrigé' : 'Voir le corrigé (Entraînement)'}
                 </Button>
                 {showCorrige && (
-                  <div className="mt-2 border border-amber-300 dark:border-amber-700 rounded-lg p-3 bg-amber-50 dark:bg-amber-900/20">
-                    <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-2">Corrigé officiel</p>
+                  <div className="mt-2 border border-amber-300 rounded-lg p-3 bg-amber-50">
+                    <p className="text-xs font-semibold text-amber-700 mb-2">Corrigé officiel</p>
                     <div className="overflow-x-auto -mx-1">
                     <table className="w-full text-sm min-w-[600px]">
                       <thead>

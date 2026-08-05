@@ -248,19 +248,19 @@ export default function DevoirChapitreCreateur({
   // ─────────────────────────────────────────────────────────────────────────────
 
   return (
-    <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 overflow-hidden">
+    <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 overflow-hidden">
 
       {/* En-tête */}
       <button
         onClick={() => setOuvert(o => !o)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-indigo-100/50 dark:hover:bg-indigo-900/20 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-indigo-100/50 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <BookOpen className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-          <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">
+          <BookOpen className="h-4 w-4 text-indigo-600" />
+          <span className="text-sm font-semibold text-indigo-700">
             Créer un devoir depuis ce chapitre
           </span>
-          <span className="text-xs bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded-full">
+          <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full">
             {questions.length} questions disponibles
           </span>
         </div>
@@ -271,7 +271,7 @@ export default function DevoirChapitreCreateur({
       </button>
 
       {ouvert && (
-        <div className="px-4 pb-5 space-y-4 border-t border-indigo-200 dark:border-indigo-800 pt-4">
+        <div className="px-4 pb-5 space-y-4 border-t border-indigo-200 pt-4">
 
           {/* Type de devoir */}
           <div>
@@ -287,7 +287,7 @@ export default function DevoirChapitreCreateur({
                   className={cn(
                     'text-left rounded-xl border px-3 py-2.5 transition-colors',
                     typeDevoir === opt.val
-                      ? 'border-indigo-500 bg-indigo-100 dark:bg-indigo-900/40'
+                      ? 'border-indigo-500 bg-indigo-100'
                       : 'border-border bg-card hover:bg-muted/40'
                   )}
                 >
@@ -364,8 +364,8 @@ export default function DevoirChapitreCreateur({
 
             {/* Résumé ciblage */}
             {uniId && facId && promoId && (
-              <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 px-3 py-2">
-                <p className="text-xs text-emerald-700 dark:text-emerald-300 font-medium">
+              <div className="rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2">
+                <p className="text-xs text-emerald-700 font-medium">
                   Ce devoir sera envoyé à : <span className="font-bold">{promoId}</span>
                   {' : '}{facultes.find(f => f.id === facId)?.nom || ''}
                   {' : '}{universites.find(u => u.id === uniId)?.nom || ''}
@@ -397,8 +397,8 @@ export default function DevoirChapitreCreateur({
               <span className={cn(
                 'text-xs font-bold px-2 py-0.5 rounded-full',
                 nbQCMSelectionnes > 0
-                  ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'
-                  : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300'
+                  ? 'bg-emerald-100 text-emerald-700'
+                  : 'bg-amber-100 text-amber-700'
               )}>
                 {nbQCMSelectionnes} sélectionnée{nbQCMSelectionnes > 1 ? 's' : ''}
               </span>
@@ -413,7 +413,7 @@ export default function DevoirChapitreCreateur({
                     className={cn(
                       'w-full text-left rounded-lg border px-3 py-2.5 transition-colors text-xs',
                       sel
-                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30'
+                        ? 'border-indigo-500 bg-indigo-50'
                         : 'border-border bg-card hover:bg-muted/40'
                     )}
                   >
@@ -439,15 +439,15 @@ export default function DevoirChapitreCreateur({
           {typeDevoir === 'qcm_cas' && (
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-violet-600 dark:text-violet-400" />
+                <FileText className="h-4 w-4 text-violet-600" />
                 <p className="text-xs font-semibold text-foreground">
                   Cas pratique(s) : 10 pts total
                 </p>
                 <span className="text-xs text-muted-foreground">(max 2 cas)</span>
               </div>
 
-              <div className="rounded-lg bg-violet-50 dark:bg-violet-900/10 border border-violet-200 dark:border-violet-800 px-3 py-2">
-                <p className="text-xs text-violet-700 dark:text-violet-300">
+              <div className="rounded-lg bg-violet-50 border border-violet-200 px-3 py-2">
+                <p className="text-xs text-violet-700">
                   Le corrigé type sert de référence à l'IA pour évaluer la <strong>logique</strong> de la réponse, pas la formulation exacte.
                 </p>
               </div>
@@ -469,7 +469,7 @@ export default function DevoirChapitreCreateur({
                         className={cn(
                           'w-full text-left rounded-xl border px-3 py-3 transition-colors text-xs',
                           sel
-                            ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/20'
+                            ? 'border-violet-500 bg-violet-50'
                             : disabled
                               ? 'border-border bg-muted/30 opacity-50 cursor-not-allowed'
                               : 'border-border bg-card hover:bg-muted/40'
@@ -504,20 +504,20 @@ export default function DevoirChapitreCreateur({
 
           {/* Barème récapitulatif */}
           {nbQCMSelectionnes > 0 && (
-            <div className="rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 px-3 py-2">
-              <p className="text-xs text-indigo-700 dark:text-indigo-300 font-medium">{getBaremeLabel()}</p>
+            <div className="rounded-lg bg-indigo-50 border border-indigo-200 px-3 py-2">
+              <p className="text-xs text-indigo-700 font-medium">{getBaremeLabel()}</p>
             </div>
           )}
 
           {/* Erreur / Succès */}
           {erreur && (
-            <div className="flex items-center gap-2 text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
+            <div className="flex items-center gap-2 text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
               <XCircle className="h-4 w-4 shrink-0" />
               {erreur}
             </div>
           )}
           {succes && (
-            <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg px-3 py-2">
+            <div className="flex items-center gap-2 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
               <CheckCircle2 className="h-4 w-4 shrink-0" />
               Devoir créé et envoyé à {promoId} : {facultes.find(f => f.id === facId)?.nom || ''} !
             </div>

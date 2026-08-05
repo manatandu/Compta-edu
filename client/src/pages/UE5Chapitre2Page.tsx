@@ -61,11 +61,11 @@ const LECONS: Lecon[] = [
               { num: '6', principe: 'Sincérité', art: 'Art. 11', resume: 'Budget sincère, régulier, image fidèle de la situation financière' },
             ].map((p) => (
               <div key={p.num} className="flex items-start gap-3 rounded-lg bg-card border border-border p-3">
-                <span className="h-7 w-7 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center shrink-0">{p.num}</span>
+                <span className="h-7 w-7 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0">{p.num}</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-semibold text-foreground text-xs">{p.principe}</span>
-                    <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{p.art}</span>
+                    <span className="text-xs text-emerald-600 font-medium">{p.art}</span>
                   </div>
                   <p className="text-xs text-muted-foreground mt-0.5">{p.resume}</p>
                 </div>
@@ -76,9 +76,9 @@ const LECONS: Lecon[] = [
         <p>
           Ces six principes forment un système cohérent. L'<strong>annualité</strong> définit le cadre temporel ; l'<strong>unité</strong> et l'<strong>universalité</strong> imposent la globalité et la transparence ; la <strong>spécialité</strong> garantit l'affectation précise des crédits ; la <strong>légalité</strong> protège contre l'arbitraire ; la <strong>sincérité</strong> impose l'honnêteté dans les prévisions. Ensemble, ils traduisent le principe démocratique fondamental : c'est le Parlement — représentant du peuple — qui autorise les recettes et les dépenses de l'État.
         </p>
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Fondement démocratique</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">Les principes budgétaires trouvent leur fondement ultime dans la <strong>Constitution du 18 février 2006</strong> : c'est l'Art. 122 pt. 3 qui habilite le Parlement à voter le budget, et c'est l'Art. 175 qui fixe la clé de répartition 60/40 entre Pouvoir central et Provinces. La LOFIP (Art. 4-11) traduit ces exigences constitutionnelles en règles budgétaires précises.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Fondement démocratique</p>
+          <p className="text-xs text-emerald-800">Les principes budgétaires trouvent leur fondement ultime dans la <strong>Constitution du 18 février 2006</strong> : c'est l'Art. 122 pt. 3 qui habilite le Parlement à voter le budget, et c'est l'Art. 175 qui fixe la clé de répartition 60/40 entre Pouvoir central et Provinces. La LOFIP (Art. 4-11) traduit ces exigences constitutionnelles en règles budgétaires précises.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : LOFIP Art. 4 à 11 · Constitution RDC Art. 122 pt. 3</p>
       </div>
@@ -169,7 +169,7 @@ const LECONS: Lecon[] = [
                 ['Autorisations d\'engagement pluriannuelles', 'Pour les grands investissements, l\'engagement peut couvrir plusieurs exercices même si le paiement est annuel', 'Art. 43-44 LOFIP'],
               ].map(([d, m, b], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-emerald-700 dark:text-emerald-300">{d}</td>
+                  <td className="p-2 border border-border font-semibold text-emerald-700">{d}</td>
                   <td className="p-2 border border-border">{m}</td>
                   <td className="p-2 border border-border text-muted-foreground italic text-xs">{b}</td>
                 </tr>
@@ -178,9 +178,9 @@ const LECONS: Lecon[] = [
           </table>
         </div>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Actualité 2025 — LFR n° 25/044 : annualité en pratique</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">La <strong>Loi de finances rectificative n° 25/044 du 28 juin 2025</strong> est une illustration parfaite du principe d'annualité et de sa dérogation via la LFR. En cours d'exercice 2025, le Gouvernement a révisé les hypothèses macroéconomiques (PIB revu à 5,3%, taux de change à 2 859,2 FC/USD) et ajusté le budget de 51 553,5 à 50 691,8 milliards FC. Cette révision a nécessité une loi, votée par le Parlement, conformément au principe d'annualité qui exige que toute modification du budget soit autorisée par le législateur.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Actualité 2025 — LFR n° 25/044 : annualité en pratique</p>
+          <p className="text-xs text-emerald-800">La <strong>Loi de finances rectificative n° 25/044 du 28 juin 2025</strong> est une illustration parfaite du principe d'annualité et de sa dérogation via la LFR. En cours d'exercice 2025, le Gouvernement a révisé les hypothèses macroéconomiques (PIB revu à 5,3%, taux de change à 2 859,2 FC/USD) et ajusté le budget de 51 553,5 à 50 691,8 milliards FC. Cette révision a nécessité une loi, votée par le Parlement, conformément au principe d'annualité qui exige que toute modification du budget soit autorisée par le législateur.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : LOFIP Art. 5, 43-44, 53, 76-87 · LFR n° 25/044 du 28 juin 2025</p>
       </div>
@@ -240,11 +240,11 @@ const LECONS: Lecon[] = [
           </p>
         </div>
         <p>La LOFIP traduit ce principe par une <strong>consolidation budgétaire en cascade</strong> :</p>
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-900/10 p-3 space-y-2">
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-3 space-y-2">
           {[
-            { label: 'Niveau 1', contenu: 'Budget ETD (commune, secteur, chefferie) → intégré dans le budget de sa Province', couleur: 'text-emerald-600 dark:text-emerald-400' },
-            { label: 'Niveau 2', contenu: 'Budget provincial (y compris budgets ETD) → consolidé avec le budget du Pouvoir central', couleur: 'text-emerald-700 dark:text-emerald-300' },
-            { label: 'Niveau 3', contenu: 'Budget de l\'Etat = Budget Pouvoir central + Budgets provinciaux consolidés (Art. 174 Constitution)', couleur: 'text-emerald-800 dark:text-emerald-200' },
+            { label: 'Niveau 1', contenu: 'Budget ETD (commune, secteur, chefferie) → intégré dans le budget de sa Province', couleur: 'text-emerald-600' },
+            { label: 'Niveau 2', contenu: 'Budget provincial (y compris budgets ETD) → consolidé avec le budget du Pouvoir central', couleur: 'text-emerald-700' },
+            { label: 'Niveau 3', contenu: 'Budget de l\'Etat = Budget Pouvoir central + Budgets provinciaux consolidés (Art. 174 Constitution)', couleur: 'text-emerald-800' },
           ].map((n, i) => (
             <div key={i} className="flex items-start gap-2 text-xs">
               <span className={cn('font-bold shrink-0', n.couleur)}>{n.label}</span>
@@ -265,10 +265,10 @@ const LECONS: Lecon[] = [
           <div className="rounded-xl border border-border bg-card p-3">
             <p className="text-xs font-semibold text-foreground mb-1">Règle du produit brut</p>
             <p className="text-xs text-muted-foreground leading-relaxed">Le montant intégral des recettes est inscrit au budget, sans déduction des dépenses y afférentes. Un service public ne peut pas déduire ses frais de fonctionnement de ses recettes avant de verser le solde au Trésor.</p>
-            <div className="mt-2 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-2 text-xs text-red-700 dark:text-red-300">
+            <div className="mt-2 rounded-lg bg-red-50 border border-red-200 p-2 text-xs text-red-700">
               Interdit : Service A perçoit 10 M FC de recettes, supporte 2 M FC de frais, verse seulement 8 M FC au Trésor.
             </div>
-            <div className="mt-1 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-2 text-xs text-green-700 dark:text-green-300">
+            <div className="mt-1 rounded-lg bg-green-50 border border-green-200 p-2 text-xs text-green-700">
               Correct : Service A verse 10 M FC au Trésor et ses 2 M FC de frais sont inscrits en dépenses budgétaires.
             </div>
           </div>
@@ -297,7 +297,7 @@ const LECONS: Lecon[] = [
                 ['Attributions de produits', 'Recettes tirées d\'une prestation rendue affectées au service rendant la prestation', 'Art. 75'],
               ].map(([d, m, a], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-emerald-700 dark:text-emerald-300">{d}</td>
+                  <td className="p-2 border border-border font-semibold text-emerald-700">{d}</td>
                   <td className="p-2 border border-border">{m}</td>
                   <td className="p-2 border border-border text-muted-foreground italic">{a}</td>
                 </tr>
@@ -367,10 +367,10 @@ const LECONS: Lecon[] = [
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-emerald-50 dark:bg-emerald-900/20">
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold text-emerald-700 dark:text-emerald-300">Titre</th>
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold text-emerald-700 dark:text-emerald-300">Nature de la dépense</th>
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold text-emerald-700 dark:text-emerald-300">Exemples concrets</th>
+              <tr className="bg-emerald-50">
+                <th className="text-left p-2 border border-emerald-200 font-semibold text-emerald-700">Titre</th>
+                <th className="text-left p-2 border border-emerald-200 font-semibold text-emerald-700">Nature de la dépense</th>
+                <th className="text-left p-2 border border-emerald-200 font-semibold text-emerald-700">Exemples concrets</th>
               </tr>
             </thead>
             <tbody>
@@ -382,7 +382,7 @@ const LECONS: Lecon[] = [
                 ['Titre 5', 'Dépenses financières (service de la dette)', 'Remboursement du capital emprunté, paiement des intérêts de la dette intérieure et extérieure'],
               ].map(([t, n, e], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-bold text-emerald-700 dark:text-emerald-300">{t}</td>
+                  <td className="p-2 border border-border font-bold text-emerald-700">{t}</td>
                   <td className="p-2 border border-border font-medium">{n}</td>
                   <td className="p-2 border border-border text-muted-foreground italic">{e}</td>
                 </tr>
@@ -398,13 +398,13 @@ const LECONS: Lecon[] = [
           {' '}est une dérogation encadrée au principe de spécialité. Elle permet aux gestionnaires de programme une certaine souplesse dans l'utilisation des crédits, avec une restriction fondamentale :
         </p>
         <div className="grid grid-cols-1 gap-2">
-          <div className="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-3">
-            <p className="text-xs font-semibold text-green-700 dark:text-green-300 mb-1">Autorisé — fongibilité vers les autres titres</p>
-            <p className="text-xs text-green-800 dark:text-green-200">Des crédits du Titre 1 (personnel) peuvent être redéployés vers les Titres 2, 3, 4 ou 5 si le gestionnaire estime que les postes prévus n'ont pas tous été pourvus.</p>
+          <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+            <p className="text-xs font-semibold text-green-700 mb-1">Autorisé — fongibilité vers les autres titres</p>
+            <p className="text-xs text-green-800">Des crédits du Titre 1 (personnel) peuvent être redéployés vers les Titres 2, 3, 4 ou 5 si le gestionnaire estime que les postes prévus n'ont pas tous été pourvus.</p>
           </div>
-          <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
-            <p className="text-xs font-semibold text-red-700 dark:text-red-300 mb-1">Interdit — fongibilité vers le Titre 1 (personnel)</p>
-            <p className="text-xs text-red-800 dark:text-red-200">Il est formellement interdit de prélever sur les crédits des Titres 2, 3, 4 ou 5 pour abonder le Titre 1 (personnel). Cette règle protège le budget de l'Etat contre une dérive des dépenses salariales non programmées.</p>
+          <div className="rounded-lg bg-red-50 border border-red-200 p-3">
+            <p className="text-xs font-semibold text-red-700 mb-1">Interdit — fongibilité vers le Titre 1 (personnel)</p>
+            <p className="text-xs text-red-800">Il est formellement interdit de prélever sur les crédits des Titres 2, 3, 4 ou 5 pour abonder le Titre 1 (personnel). Cette règle protège le budget de l'Etat contre une dérive des dépenses salariales non programmées.</p>
           </div>
         </div>
 
@@ -517,7 +517,7 @@ const LECONS: Lecon[] = [
             { num: '4', cond: 'Mobilisation des fonds extérieurs', expl: 'Pour les dépenses financées sur ressources extérieures, les fonds doivent avoir été mobilisés auprès des bailleurs' },
           ].map((c) => (
             <div key={c.num} className="flex items-start gap-3 rounded-lg border border-border bg-card p-3">
-              <span className="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center shrink-0">{c.num}</span>
+              <span className="h-6 w-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0">{c.num}</span>
               <div>
                 <p className="text-xs font-semibold text-foreground">{c.cond}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{c.expl}</p>
@@ -526,9 +526,9 @@ const LECONS: Lecon[] = [
           ))}
         </div>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Sanction de l'illégalité budgétaire</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">Une dépense effectuée sans respecter ces 4 conditions engage la <strong>responsabilité personnelle et pécuniaire</strong> du comptable public ou de l'ordonnateur. La Cour des comptes peut constater l'irrégularité et exiger remboursement. Les ordonnateurs peuvent être condamnés à reverser les sommes irrégulièrement engagées.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Sanction de l'illégalité budgétaire</p>
+          <p className="text-xs text-emerald-800">Une dépense effectuée sans respecter ces 4 conditions engage la <strong>responsabilité personnelle et pécuniaire</strong> du comptable public ou de l'ordonnateur. La Cour des comptes peut constater l'irrégularité et exiger remboursement. Les ordonnateurs peuvent être condamnés à reverser les sommes irrégulièrement engagées.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : LOFIP Art. 9-10 · Constitution Art. 122 pt. 10 · Art. 178-180 Constitution (Cour des comptes)</p>
       </div>
@@ -594,40 +594,40 @@ const LECONS: Lecon[] = [
             {
               titre: 'Sincérité des prévisions',
               contenu: 'Les hypothèses macroéconomiques (croissance du PIB, taux d\'inflation, taux de change) qui fondent les prévisions de recettes et de dépenses doivent être établies de bonne foi, sans optimisme excessif ou sous-estimation délibérée.',
-              color: 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-900/10',
+              color: 'border-emerald-200 bg-emerald-50/40',
             },
             {
               titre: 'Sincérité des comptes',
               contenu: 'Les comptes de l\'Etat doivent être réguliers (conformes aux règles), sincères (refléter la réalité) et offrir une image fidèle du patrimoine et de la situation financière. Cette exigence se rapproche du concept SYSCOHADA.',
-              color: 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-900/10',
+              color: 'border-emerald-200 bg-emerald-50/40',
             },
             {
               titre: 'Annexe financière obligatoire',
               contenu: 'Tout projet de loi ayant une incidence financière doit être accompagné d\'une annexe précisant ses conséquences budgétaires sur l\'exercice en cours et les suivants. Cette obligation permet au Parlement d\'évaluer pleinement l\'impact de chaque loi.',
-              color: 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-900/10',
+              color: 'border-emerald-200 bg-emerald-50/40',
             },
           ].map((d, i) => (
             <div key={i} className={cn('rounded-xl border p-3', d.color)}>
-              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">{d.titre}</p>
+              <p className="text-xs font-semibold text-emerald-700 mb-1">{d.titre}</p>
               <p className="text-xs text-foreground/80">{d.contenu}</p>
             </div>
           ))}
         </div>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-emerald-900/20 p-3">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Actualité 2025-2026 — La sincérité comme exigence du Ministère du Budget</p>
-          <p className="text-xs text-emerald-800 dark:text-emerald-200">Lors de l'ouverture des <strong>conférences budgétaires pour l'exercice 2026</strong> (28 juillet 2025), le Ministère du Budget a explicitement exigé une <strong>«préfiguration budgétaire 2026 réaliste et sincère»</strong>. Cette formulation reprend mot pour mot le principe de l'Art. 11 de la LOFIP, illustrant son application concrète dans le processus de préparation du budget 2026. Par ailleurs, la révision à la baisse du budget 2025 via la LFR n° 25/044 (de 51 553,5 à 50 691,8 Mds FC) démontre une correction sincère des prévisions initiales jugées trop optimistes.</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Actualité 2025-2026 — La sincérité comme exigence du Ministère du Budget</p>
+          <p className="text-xs text-emerald-800">Lors de l'ouverture des <strong>conférences budgétaires pour l'exercice 2026</strong> (28 juillet 2025), le Ministère du Budget a explicitement exigé une <strong>«préfiguration budgétaire 2026 réaliste et sincère»</strong>. Cette formulation reprend mot pour mot le principe de l'Art. 11 de la LOFIP, illustrant son application concrète dans le processus de préparation du budget 2026. Par ailleurs, la révision à la baisse du budget 2025 via la LFR n° 25/044 (de 51 553,5 à 50 691,8 Mds FC) démontre une correction sincère des prévisions initiales jugées trop optimistes.</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Tableau comparatif — Les 6 principes en synthèse</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
-              <tr className="bg-emerald-50 dark:bg-emerald-900/20">
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold">Principe</th>
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold">Article</th>
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold">Règle fondamentale</th>
-                <th className="text-left p-2 border border-emerald-200 dark:border-emerald-800 font-semibold">Dérogation principale</th>
+              <tr className="bg-emerald-50">
+                <th className="text-left p-2 border border-emerald-200 font-semibold">Principe</th>
+                <th className="text-left p-2 border border-emerald-200 font-semibold">Article</th>
+                <th className="text-left p-2 border border-emerald-200 font-semibold">Règle fondamentale</th>
+                <th className="text-left p-2 border border-emerald-200 font-semibold">Dérogation principale</th>
               </tr>
             </thead>
             <tbody>
@@ -640,7 +640,7 @@ const LECONS: Lecon[] = [
                 ['Sincérité', 'Art. 11', 'Image fidèle, prévisions réalistes', 'Aucune — principe absolu'],
               ].map(([p, a, r, d], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-emerald-700 dark:text-emerald-300">{p}</td>
+                  <td className="p-2 border border-border font-semibold text-emerald-700">{p}</td>
                   <td className="p-2 border border-border text-xs font-medium">{a}</td>
                   <td className="p-2 border border-border">{r}</td>
                   <td className="p-2 border border-border text-muted-foreground italic">{d}</td>
@@ -1010,21 +1010,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">{q.question}</p>
+    <div className="rounded-xl border border-emerald-200 bg-emerald-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-emerald-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-emerald-500 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200' : 'border-border hover:border-emerald-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-emerald-500 bg-emerald-100 text-emerald-800' : 'border-border hover:border-emerald-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-emerald-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-emerald-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <p className="text-xs opacity-70 mt-0.5">Ref. : {q.articleRef}</p>
@@ -1042,7 +1042,7 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('cp', '')}</span>
+          <span className="h-7 w-7 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('cp', '')}</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
             <p className="text-xs text-muted-foreground">{cp.articleRef}</p>
@@ -1052,21 +1052,21 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
               <div key={q.num} className="space-y-2">
                 <p className="text-xs font-semibold text-foreground">Question {q.num} : {q.enonce}</p>
                 {corrVisible.has(q.num) ? (
-                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                    <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Correction</p>
-                    <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                    <p className="text-xs font-semibold text-emerald-700 mb-1">Correction</p>
+                    <p className="text-xs text-emerald-900 leading-relaxed">{q.correction}</p>
                   </div>
                 ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline font-medium">Voir la correction</button>
+                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-emerald-600 hover:underline font-medium">Voir la correction</button>
                 )}
               </div>
             ))}
@@ -1124,17 +1124,17 @@ export default function UE5Chapitre2Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-emerald-600" />
+          <span className="text-sm font-semibold text-emerald-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Enoncer et expliquer les 6 principes budgétaires de la LOFIP (Art. 4 à 11)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les dérogations légales à chaque principe (budgets annexes, comptes spéciaux, fongibilité asymétrique)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maîtriser la nomenclature budgétaire : les 5 titres de dépenses et la fongibilité asymétrique (Art. 45)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Appliquer les principes à des situations pratiques de gestion budgétaire</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Analyser l'actualité 2025-2026 : LFR n° 25/044, conférences budgétaires 2026 (sincérité réaffirmée)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Enoncer et expliquer les 6 principes budgétaires de la LOFIP (Art. 4 à 11)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les dérogations légales à chaque principe (budgets annexes, comptes spéciaux, fongibilité asymétrique)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maîtriser la nomenclature budgétaire : les 5 titres de dépenses et la fongibilité asymétrique (Art. 45)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Appliquer les principes à des situations pratiques de gestion budgétaire</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Analyser l'actualité 2025-2026 : LFR n° 25/044, conférences budgétaires 2026 (sincérité réaffirmée)</span></li>
         </ul>
       </div>
 
@@ -1160,7 +1160,7 @@ export default function UE5Chapitre2Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-emerald-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-emerald-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

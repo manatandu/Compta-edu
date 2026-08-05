@@ -63,7 +63,7 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
       {questions.map((q, qi) => {
         const isCorrect = reponses[q.id] === q.reponseCorrecte
         return (
-          <div key={q.id} className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4">
+          <div key={q.id} className="rounded-xl border border-emerald-200 bg-card p-4">
             <p className="text-sm font-semibold text-foreground mb-1">
               Q{qi + 1}. {q.question}
             </p>
@@ -74,10 +74,10 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
                 const isRight = opt.id === q.reponseCorrecte
                 let cls = 'flex items-center gap-2 rounded-lg border px-3 py-2 text-xs cursor-pointer transition-colors '
                 if (!vérifie) {
-                  cls += selected ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200' : 'border-border hover:border-emerald-300 hover:bg-muted'
+                  cls += selected ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-border hover:border-emerald-300 hover:bg-muted'
                 } else {
-                  if (isRight) cls += 'border-green-500 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200'
-                  else if (selected && !isRight) cls += 'border-red-400 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                  if (isRight) cls += 'border-green-500 bg-green-50 text-green-800'
+                  else if (selected && !isRight) cls += 'border-red-400 bg-red-50 text-red-700'
                   else cls += 'border-border text-muted-foreground'
                 }
                 return (
@@ -90,7 +90,7 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
               })}
             </div>
             {vérifie && (
-              <div className={cn('mt-3 rounded-lg p-3 text-xs', isCorrect ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' : 'bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200')}>
+              <div className={cn('mt-3 rounded-lg p-3 text-xs', isCorrect ? 'bg-green-50 text-green-800' : 'bg-amber-50 text-amber-800')}>
                 <strong>{isCorrect ? 'Correct !' : 'Incorrect.'}</strong> {q.explication}
               </div>
             )}
@@ -104,8 +104,8 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
           </button>
         ) : (
           <>
-            <div className="flex-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 px-4 py-2.5 text-center">
-              <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">Score : {score}/{questions.length}</span>
+            <div className="flex-1 rounded-lg bg-emerald-50 border border-emerald-200 px-4 py-2.5 text-center">
+              <span className="text-sm font-bold text-emerald-700">Score : {score}/{questions.length}</span>
             </div>
             <button onClick={handleReset} className="rounded-lg border border-border px-4 py-2.5 text-sm hover:bg-muted transition-colors flex items-center gap-1">
               <RotateCcw className="h-3.5 w-3.5" /> Recommencer
@@ -121,23 +121,23 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
 function CasPratiqueBlock({ cas }: { cas: { titre: string; contexte: string; questions: { num: string; enonce: string; correction: string }[] } }) {
   const [open, setOpen] = useState<Record<string, boolean>>({})
   return (
-    <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4 space-y-3">
-      <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+    <div className="rounded-xl border border-emerald-200 bg-card p-4 space-y-3">
+      <h3 className="text-sm font-bold text-emerald-700 flex items-center gap-2">
         <FileText className="h-4 w-4" /> {cas.titre}
       </h3>
-      <div className="rounded-lg bg-emerald-50/60 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800 p-3">
+      <div className="rounded-lg bg-emerald-50/60 border border-emerald-100 p-3">
         <p className="text-xs text-foreground leading-relaxed">{cas.contexte}</p>
       </div>
       <div className="space-y-3">
         {cas.questions.map(q => (
           <div key={q.num} className="rounded-lg border border-border bg-muted/30 p-3">
             <p className="text-xs font-semibold text-foreground mb-2">Question {q.num} : {q.enonce}</p>
-            <button onClick={() => setOpen(prev => ({ ...prev, [q.num]: !prev[q.num] }))} className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 hover:underline">
+            <button onClick={() => setOpen(prev => ({ ...prev, [q.num]: !prev[q.num] }))} className="flex items-center gap-1 text-xs text-emerald-600 hover:underline">
               <ChevronRight className={cn('h-3.5 w-3.5 transition-transform', open[q.num] && 'rotate-90')} />
               {open[q.num] ? 'Masquer la correction' : 'Voir la correction'}
             </button>
             {open[q.num] && (
-              <div className="mt-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 p-3 text-xs text-emerald-800 dark:text-emerald-200 leading-relaxed">
+              <div className="mt-2 rounded-lg bg-emerald-50 p-3 text-xs text-emerald-800 leading-relaxed">
                 {q.correction}
               </div>
             )}
@@ -157,8 +157,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 20, 22, 24, 32 - Les trois composantes du budget',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2 flex items-center gap-2">
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2 flex items-center gap-2">
             <Layers className="h-4 w-4" /> Fondement legal : Art. 20 LOFIP
           </h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
@@ -174,7 +174,7 @@ const LECONS: Lecon[] = [
             <Building2 className="h-4 w-4 text-emerald-600" /> Les trois composantes du budget (Art. 20 LOFIP)
           </h3>
 
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4">
+          <div className="rounded-xl border border-emerald-200 bg-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold text-white bg-emerald-600 rounded-full px-2 py-0.5">1</span>
               <h4 className="text-sm font-bold text-foreground">
@@ -188,14 +188,14 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground leading-relaxed mb-3">
               L\'Art. 24 precise que la loi de finances fixe les plafonds des charges du budget général et arrete les donnees générales de l\'équilibre budgétaire. Elle fixe globalement la dotation de <strong>40% des recettes a caractere national</strong> allouees aux provinces conformement a la Constitution.
             </p>
-            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-              <p className="text-xs font-bold text-emerald-800 dark:text-emerald-200 mb-1">Budget général 2025 (Loi de finances initiale) :</p>
-              <p className="text-lg font-bold text-emerald-700 dark:text-emerald-300">45 376 945 297 405 FC</p>
+            <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+              <p className="text-xs font-bold text-emerald-800 mb-1">Budget général 2025 (Loi de finances initiale) :</p>
+              <p className="text-lg font-bold text-emerald-700">45 376 945 297 405 FC</p>
               <p className="text-xs text-muted-foreground mt-1">Source : Loi de finances initiale 2025, RDC</p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-cyan-200 dark:border-cyan-800 bg-card p-4">
+          <div className="rounded-xl border border-cyan-200 bg-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold text-white bg-cyan-600 rounded-full px-2 py-0.5">2</span>
               <h4 className="text-sm font-bold text-foreground">
@@ -212,14 +212,14 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground leading-relaxed mb-3">
               L\'Art. 57 precise leur presentation en <strong>deux sections</strong> : la section des operations courantes (recettes et dépenses d\'exploitation) et la section des operations en capital (dépenses d\'investissement et ressources affectees). L\'équilibre est assure soit par un versement au budget général en cas d\'excedent, soit par une subvention en cas de déficit dument justifie (Art. 56 al. 2).
             </p>
-            <div className="rounded-lg bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-800 p-3">
-              <p className="text-xs font-bold text-cyan-800 dark:text-cyan-200 mb-1">Budgets annexes 2025 :</p>
-              <p className="text-lg font-bold text-cyan-700 dark:text-cyan-300">788 989 271 833 FC</p>
+            <div className="rounded-lg bg-cyan-50 border border-cyan-200 p-3">
+              <p className="text-xs font-bold text-cyan-800 mb-1">Budgets annexes 2025 :</p>
+              <p className="text-lg font-bold text-cyan-700">788 989 271 833 FC</p>
               <p className="text-xs text-muted-foreground mt-1">Source : Loi de finances initiale 2025, RDC</p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-card p-4">
+          <div className="rounded-xl border border-violet-200 bg-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold text-white bg-violet-600 rounded-full px-2 py-0.5">3</span>
               <h4 className="text-sm font-bold text-foreground">
@@ -233,16 +233,16 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground leading-relaxed mb-3">
               Un compte special constitue un programme au sens de l\'Art. 43. Aucun mouvement de crédits ne peut etre effectue entre un compte special et le budget auquel il est rattache, ni entre comptes speciaux (Art. 59 al. 2). Sauf dispositions contraires, le solde de chaque compte special est reporte sur l\'année suivante (Art. 61).
             </p>
-            <div className="rounded-lg bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 p-3">
-              <p className="text-xs font-bold text-violet-800 dark:text-violet-200 mb-1">Comptes speciaux 2025 :</p>
-              <p className="text-lg font-bold text-violet-700 dark:text-violet-300">3 680 839 771 037 FC</p>
+            <div className="rounded-lg bg-violet-50 border border-violet-200 p-3">
+              <p className="text-xs font-bold text-violet-800 mb-1">Comptes speciaux 2025 :</p>
+              <p className="text-lg font-bold text-violet-700">3 680 839 771 037 FC</p>
               <p className="text-xs text-muted-foreground mt-1">Source : Loi de finances initiale 2025, RDC</p>
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/20 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-200 mb-3">Tableau recapitulatif : Budget total 2025</h3>
+        <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-3">Tableau recapitulatif : Budget total 2025</h3>
           <table className="w-full text-xs border-collapse">
             <thead>
               <tr className="bg-emerald-600 text-white">
@@ -252,20 +252,20 @@ const LECONS: Lecon[] = [
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-emerald-50 dark:bg-emerald-900/20">
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 font-medium">Budget général</td>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">45 376 945 297 405</td>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">91,0%</td>
+              <tr className="bg-emerald-50">
+                <td className="border border-emerald-200 px-2 py-1.5 font-medium">Budget général</td>
+                <td className="border border-emerald-200 px-2 py-1.5 text-right">45 376 945 297 405</td>
+                <td className="border border-emerald-200 px-2 py-1.5 text-right">91,0%</td>
               </tr>
               <tr>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 font-medium">Budgets annexes</td>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">788 989 271 833</td>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">1,6%</td>
+                <td className="border border-emerald-200 px-2 py-1.5 font-medium">Budgets annexes</td>
+                <td className="border border-emerald-200 px-2 py-1.5 text-right">788 989 271 833</td>
+                <td className="border border-emerald-200 px-2 py-1.5 text-right">1,6%</td>
               </tr>
-              <tr className="bg-emerald-50 dark:bg-emerald-900/20">
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 font-medium">Comptes speciaux</td>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">3 680 839 771 037</td>
-                <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">7,4%</td>
+              <tr className="bg-emerald-50">
+                <td className="border border-emerald-200 px-2 py-1.5 font-medium">Comptes speciaux</td>
+                <td className="border border-emerald-200 px-2 py-1.5 text-right">3 680 839 771 037</td>
+                <td className="border border-emerald-200 px-2 py-1.5 text-right">7,4%</td>
               </tr>
               <tr className="bg-emerald-600 text-white font-bold">
                 <td className="border border-emerald-400 px-2 py-1.5">TOTAL BUDGET 2025</td>
@@ -274,14 +274,14 @@ const LECONS: Lecon[] = [
               </tr>
             </tbody>
           </table>
-          <p className="text-xs text-emerald-700 dark:text-emerald-300 mt-2 italic">Loi de finances rectificative (LFR juin 2025) : 50 691,8 milliards FC</p>
+          <p className="text-xs text-emerald-700 mt-2 italic">Loi de finances rectificative (LFR juin 2025) : 50 691,8 milliards FC</p>
         </div>
 
-        <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-          <p className="text-xs font-bold text-amber-800 dark:text-amber-200 mb-1 flex items-center gap-1">
+        <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+          <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1">
             <AlertTriangle className="h-3.5 w-3.5" /> Regle importante (Art. 58 et 59 LOFIP)
           </p>
-          <p className="text-xs text-amber-700 dark:text-amber-300">Aucun mouvement de crédits ne peut etre effectue ni entre un budget annexe et le budget général, ni entre budgets annexes (Art. 58), ni entre un compte special et le budget général, ni entre comptes speciaux (Art. 59). Cette etancheite garantit l\'affectation stricte des ressources.</p>
+          <p className="text-xs text-amber-700">Aucun mouvement de crédits ne peut etre effectue ni entre un budget annexe et le budget général, ni entre budgets annexes (Art. 58), ni entre un compte special et le budget général, ni entre comptes speciaux (Art. 59). Cette etancheite garantit l\'affectation stricte des ressources.</p>
         </div>
 
         <QCMBlock questions={[
@@ -324,8 +324,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 17, 21, 24, 32-35 - Recettes fiscales, douanieres, non fiscales et retrocession',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Fondement legal : Art. 32 LOFIP</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Fondement legal : Art. 32 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
             L\'Art. 32 de la LOFIP dispose : <em>« Les ressources et les charges du pouvoir central comprennent les ressources et les charges budgétaires ainsi que les ressources et les charges de tresorerie. »</em>
           </p>
@@ -342,30 +342,30 @@ const LECONS: Lecon[] = [
             </p>
 
             <div className="space-y-2">
-              <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                <h4 className="text-xs font-bold text-emerald-800 dark:text-emerald-200 mb-1 flex items-center gap-1">
+              <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                <h4 className="text-xs font-bold text-emerald-800 mb-1 flex items-center gap-1">
                   Recettes fiscales{' '}
                   <InfoTooltip texte="Les recettes fiscales comprennent les impots sur le revenu (IRPP, IS), les taxes sur les transactions (TVA, droits de douane, droits d\'accise) et toutes contributions obligatoires percues en vertu de la loi. Elles constituent la principale source de financement de l\'Etat." loi="Art. 33 LOFIP" />
                 </h4>
                 <p className="text-xs text-foreground">Impots directs (IRPP, IS, IPR, IRL), taxes indirectes (TVA, accises), droits de douane a l\'importation et a l\'exportation, droits d\'enregistrement et de timbre. Ces recettes sont percues par la DGI (Direction Generale des Impots) et la DGDA (Direction Generale des Douanes et Accises).</p>
               </div>
 
-              <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-3">
-                <h4 className="text-xs font-bold text-blue-800 dark:text-blue-200 mb-1 flex items-center gap-1">
+              <div className="rounded-lg bg-blue-50 border border-blue-200 p-3">
+                <h4 className="text-xs font-bold text-blue-800 mb-1 flex items-center gap-1">
                   Recettes non fiscales{' '}
                   <InfoTooltip texte="Les recettes non fiscales sont des ressources de l\'Etat qui ne proviennent pas de l\'obligation fiscale. Elles comprennent notamment les redevances minieres, les dividendes des entreprises publiques, les produits du domaine de l\'Etat et les amendes." loi="Art. 33 LOFIP" />
                 </h4>
                 <p className="text-xs text-foreground">Redevances minieres et petrolieres, dividendes des entreprises du portefeuille de l\'Etat, produits du domaine public et prive, amendes et penalites, droits et redevances administratives. Percues par la DGRAD (Direction Generale des Recettes Administratives, Judiciaires, Domaniales et de Participations).</p>
               </div>
 
-              <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-                <h4 className="text-xs font-bold text-amber-800 dark:text-amber-200 mb-1">Ressources de financement (dons et emprunts)</h4>
+              <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+                <h4 className="text-xs font-bold text-amber-800 mb-1">Ressources de financement (dons et emprunts)</h4>
                 <p className="text-xs text-foreground">Dons et legs de partenaires bi et multilateraux, emprunts interieurs (bons du Tresor, obligations) et exterieurs (prets FMI, Banque mondiale, partenaires bilateraux). L\'Art. 16 LOFIP interdit le recours aux avances de la Banque Centrale du Congo.</p>
               </div>
             </div>
           </div>
 
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4">
+          <div className="rounded-xl border border-emerald-200 bg-card p-4">
             <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
               <PieChart className="h-4 w-4 text-emerald-600" /> Retrocession aux provinces : Art. 24 LOFIP
               <InfoTooltip texte="L\'Art. 24 al. 3 LOFIP fixe globalement la dotation de 40% des recettes a caractere national allouees aux provinces conformement a la Constitution (Art. 175 al. 2). Cette retrocession est prelevee avant toute affectation et constitue une obligation constitutionnelle." loi="Art. 24 LOFIP, Art. 175 Constitution" />
@@ -381,26 +381,26 @@ const LECONS: Lecon[] = [
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-emerald-50 dark:bg-emerald-900/20">
-                  <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5">Part Provinces (40% recettes nationales)</td>
-                  <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">9 131 900 887 823</td>
+                <tr className="bg-emerald-50">
+                  <td className="border border-emerald-200 px-2 py-1.5">Part Provinces (40% recettes nationales)</td>
+                  <td className="border border-emerald-200 px-2 py-1.5 text-right">9 131 900 887 823</td>
                 </tr>
                 <tr>
-                  <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5">Caisse nationale de perequation{' '}
+                  <td className="border border-emerald-200 px-2 py-1.5">Caisse nationale de perequation{' '}
                     <InfoTooltip texte="La Caisse nationale de perequation vise a corriger les desequilibres de developpement entre provinces. Elle est alimentee par une fraction des ressources nationales et redistribuee selon des criteres de solidarite nationale." loi="Art. 181 Constitution, LF 2025" />
                   </td>
-                  <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-right">2 282 975 221 956</td>
+                  <td className="border border-emerald-200 px-2 py-1.5 text-right">2 282 975 221 956</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-          <p className="text-xs font-bold text-amber-800 dark:text-amber-200 mb-1 flex items-center gap-1">
+        <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+          <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1">
             <AlertTriangle className="h-3.5 w-3.5" /> Interdiction des avances BCC (Art. 16 LOFIP)
           </p>
-          <p className="text-xs text-amber-700 dark:text-amber-300">L\'Art. 16 de la LOFIP dispose expressement : <em>« Le recours aux avances de la Banque Centrale du Congo est prohibe tant pour le pouvoir central que pour la province et l\'entite territoriale decentralisee. »</em> Cette interdiction vise a preserver l\'independance de la politique monetaire et a eviter le financement monetaire des déficits budgétaires, source d\'inflation.</p>
+          <p className="text-xs text-amber-700">L\'Art. 16 de la LOFIP dispose expressement : <em>« Le recours aux avances de la Banque Centrale du Congo est prohibe tant pour le pouvoir central que pour la province et l\'entite territoriale decentralisee. »</em> Cette interdiction vise a preserver l\'independance de la politique monetaire et a eviter le financement monetaire des déficits budgétaires, source d\'inflation.</p>
         </div>
 
         <QCMBlock questions={[
@@ -443,8 +443,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 36-37 - Nomenclature des charges budgétaires',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Art. 36 LOFIP : Principe de classification</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 36 LOFIP : Principe de classification</h3>
           <p className="text-xs text-foreground leading-relaxed">
             L\'Art. 36 de la LOFIP dispose : <em>« Les charges budgétaires sont classees par programme, administration, nature economique telles que definies par la nomenclature en vigueur ou suivant toute autre classification presentant un intérêt pour leur analyse, suivi et evaluation. Elles comprennent les dépenses courantes, les dépenses en capital ainsi que les prets et avances. »</em>
           </p>
@@ -460,8 +460,8 @@ const LECONS: Lecon[] = [
           </p>
 
           <div className="space-y-2">
-            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 p-3 border border-emerald-200 dark:border-emerald-800">
-              <p className="text-xs font-bold text-emerald-800 dark:text-emerald-200 mb-2">DEPENSES COURANTES (Titres I a VI)</p>
+            <div className="rounded-lg bg-emerald-50 p-3 border border-emerald-200">
+              <p className="text-xs font-bold text-emerald-800 mb-2">DEPENSES COURANTES (Titres I a VI)</p>
               <table className="w-full text-xs border-collapse">
                 <thead>
                   <tr className="bg-emerald-600 text-white">
@@ -479,18 +479,18 @@ const LECONS: Lecon[] = [
                     ['Titre V', 'Depenses de prestations', 'Services externes, loyers, telecommunications, consultants, eau, electricite'],
                     ['Titre VI', 'Transferts et interventions', 'Subventions aux établissements publics, transferts aux provinces, aides sociales'],
                   ].map(([titre, nature, ex]) => (
-                    <tr key={titre} className="border-b border-emerald-100 dark:border-emerald-800 even:bg-emerald-50/50 dark:even:bg-emerald-900/10">
-                      <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 font-bold text-emerald-700 dark:text-emerald-300 whitespace-nowrap">{titre}</td>
-                      <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 font-medium">{nature}</td>
-                      <td className="border border-emerald-200 dark:border-emerald-700 px-2 py-1.5 text-muted-foreground">{ex}</td>
+                    <tr key={titre} className="border-b border-emerald-100 even:bg-emerald-50/50">
+                      <td className="border border-emerald-200 px-2 py-1.5 font-bold text-emerald-700 whitespace-nowrap">{titre}</td>
+                      <td className="border border-emerald-200 px-2 py-1.5 font-medium">{nature}</td>
+                      <td className="border border-emerald-200 px-2 py-1.5 text-muted-foreground">{ex}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-3 border border-blue-200 dark:border-blue-800">
-              <p className="text-xs font-bold text-blue-800 dark:text-blue-200 mb-2">DEPENSES EN CAPITAL (Titres VII et VIII)</p>
+            <div className="rounded-lg bg-blue-50 p-3 border border-blue-200">
+              <p className="text-xs font-bold text-blue-800 mb-2">DEPENSES EN CAPITAL (Titres VII et VIII)</p>
               <table className="w-full text-xs border-collapse">
                 <thead>
                   <tr className="bg-blue-600 text-white">
@@ -501,21 +501,21 @@ const LECONS: Lecon[] = [
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="border border-blue-200 dark:border-blue-700 px-2 py-1.5 font-bold text-blue-700 dark:text-blue-300">Titre VII</td>
-                    <td className="border border-blue-200 dark:border-blue-700 px-2 py-1.5 font-medium">Equipements</td>
-                    <td className="border border-blue-200 dark:border-blue-700 px-2 py-1.5 text-muted-foreground">Vehicules, materiels medicaux, engins lourds, equipements militaires</td>
+                    <td className="border border-blue-200 px-2 py-1.5 font-bold text-blue-700">Titre VII</td>
+                    <td className="border border-blue-200 px-2 py-1.5 font-medium">Equipements</td>
+                    <td className="border border-blue-200 px-2 py-1.5 text-muted-foreground">Vehicules, materiels medicaux, engins lourds, equipements militaires</td>
                   </tr>
-                  <tr className="bg-blue-50/50 dark:bg-blue-900/10">
-                    <td className="border border-blue-200 dark:border-blue-700 px-2 py-1.5 font-bold text-blue-700 dark:text-blue-300">Titre VIII</td>
-                    <td className="border border-blue-200 dark:border-blue-700 px-2 py-1.5 font-medium">Construction, refection, rehabilitation, addition d\'ouvrage et edifice, acquisition immobiliere</td>
-                    <td className="border border-blue-200 dark:border-blue-700 px-2 py-1.5 text-muted-foreground">Routes, batiments administratifs, hopitaux, ecoles, barrages</td>
+                  <tr className="bg-blue-50/50">
+                    <td className="border border-blue-200 px-2 py-1.5 font-bold text-blue-700">Titre VIII</td>
+                    <td className="border border-blue-200 px-2 py-1.5 font-medium">Construction, refection, rehabilitation, addition d\'ouvrage et edifice, acquisition immobiliere</td>
+                    <td className="border border-blue-200 px-2 py-1.5 text-muted-foreground">Routes, batiments administratifs, hopitaux, ecoles, barrages</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div className="rounded-lg bg-violet-50 dark:bg-violet-900/20 p-3 border border-violet-200 dark:border-violet-800">
-              <p className="text-xs font-bold text-violet-800 dark:text-violet-200 mb-2">PRETS ET AVANCES (Titre IX)</p>
+            <div className="rounded-lg bg-violet-50 p-3 border border-violet-200">
+              <p className="text-xs font-bold text-violet-800 mb-2">PRETS ET AVANCES (Titre IX)</p>
               <table className="w-full text-xs border-collapse">
                 <thead>
                   <tr className="bg-violet-600 text-white">
@@ -526,9 +526,9 @@ const LECONS: Lecon[] = [
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="border border-violet-200 dark:border-violet-700 px-2 py-1.5 font-bold text-violet-700 dark:text-violet-300">Titre IX</td>
-                    <td className="border border-violet-200 dark:border-violet-700 px-2 py-1.5 font-medium">Prets et avances de l\'Etat</td>
-                    <td className="border border-violet-200 dark:border-violet-700 px-2 py-1.5 text-muted-foreground">Retrace dans les comptes de concours financiers (Art. 66 LOFIP)</td>
+                    <td className="border border-violet-200 px-2 py-1.5 font-bold text-violet-700">Titre IX</td>
+                    <td className="border border-violet-200 px-2 py-1.5 font-medium">Prets et avances de l\'Etat</td>
+                    <td className="border border-violet-200 px-2 py-1.5 text-muted-foreground">Retrace dans les comptes de concours financiers (Art. 66 LOFIP)</td>
                   </tr>
                 </tbody>
               </table>
@@ -538,9 +538,9 @@ const LECONS: Lecon[] = [
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3">Execution budgétaire 2025 : donnees reelles</h3>
-          <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
-            <p className="text-xs font-bold text-red-800 dark:text-red-200 mb-1">Taux d\'exécution global T1 2025 : 17,1%</p>
-            <p className="text-xs text-red-700 dark:text-red-300 mb-2">A fin mars 2025, le taux d\'exécution global du budget est de <strong>17,1%</strong> des crédits votes. Les dépenses d\'investissement (Titres VII et VIII) n\'ont exécuté que <strong>4%</strong> des crédits votes.</p>
+          <div className="rounded-lg bg-red-50 border border-red-200 p-3">
+            <p className="text-xs font-bold text-red-800 mb-1">Taux d\'exécution global T1 2025 : 17,1%</p>
+            <p className="text-xs text-red-700 mb-2">A fin mars 2025, le taux d\'exécution global du budget est de <strong>17,1%</strong> des crédits votes. Les dépenses d\'investissement (Titres VII et VIII) n\'ont exécuté que <strong>4%</strong> des crédits votes.</p>
             <p className="text-xs text-muted-foreground italic">Source : Rapport d\'exécution budgétaire, Observatoire de la Depense Publique (ODEP), mars 2025</p>
           </div>
           <p className="text-xs text-foreground leading-relaxed mt-3">Ce faible taux d\'exécution des dépenses en capital illustre le defi structurel de la RDC : les crédits d\'investissement sont votes mais rarement executes, ce qui freine le developpement des infrastructures et la mise en oeuvre des programmes publics.</p>
@@ -586,8 +586,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 38-41 - Regimes juridiques des crédits budgétaires',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Principe général : Art. 38 LOFIP</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Principe général : Art. 38 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
             L\'Art. 38 de la LOFIP pose le principe général : <em>« Sous reserve des dispositions des articles 39 et 40 de la présenté loi, les crédits budgétaires sont limitatifs. Les dépenses sur crédits limitatifs ne peuvent etre engagees ni ordonnancees au-dela des dotations budgétaires. »</em>
           </p>
@@ -597,7 +597,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <div className="space-y-3">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4">
+          <div className="rounded-xl border border-emerald-200 bg-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold text-white bg-emerald-600 rounded-full px-3 py-0.5">Art. 38</span>
               <h4 className="text-sm font-bold text-foreground">
@@ -611,12 +611,12 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground leading-relaxed mb-2">
               <strong>Consequence juridique :</strong> Tout engagement de dépense au-dela des crédits disponibles est irrégulier et engage la responsabilite personnelle et pecuniaire de l\'ordonnateur. Le comptable public est tenu de rejeter tout paiement excedant les crédits ouverts.
             </p>
-            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 p-2 border border-emerald-200 dark:border-emerald-800">
-              <p className="text-xs font-medium text-emerald-800 dark:text-emerald-200">Exemples : salaires (Titre III), biens et materiels (Titre IV), dépenses de prestations (Titre V), investissements (Titres VII et VIII)</p>
+            <div className="rounded-lg bg-emerald-50 p-2 border border-emerald-200">
+              <p className="text-xs font-medium text-emerald-800">Exemples : salaires (Titre III), biens et materiels (Titre IV), dépenses de prestations (Titre V), investissements (Titres VII et VIII)</p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-card p-4">
+          <div className="rounded-xl border border-amber-200 bg-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold text-white bg-amber-600 rounded-full px-3 py-0.5">Art. 39</span>
               <h4 className="text-sm font-bold text-foreground">
@@ -627,12 +627,12 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground leading-relaxed mb-2">
               L\'Art. 39 LOFIP dispose : <em>« Les crédits relatifs aux charges de la dette du pouvoir central ont un caractere evaluatif. Les dépenses sur crédits evaluatifs s\'imputent, si necessaire, au-dela des crédits ouverts. Dans cette hypothese, le Gouvernement informe le Parlement des motifs du depassement. Les depassements des crédits evaluatifs font l\'objet des propositions d\'ouverture de crédits dans le projet de loi de finances rectificative. »</em>
             </p>
-            <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 p-2 border border-amber-200 dark:border-amber-800">
-              <p className="text-xs font-medium text-amber-800 dark:text-amber-200">Application exclusive : charges de la dette du Pouvoir central (Titres I et II - remboursement principal + frais financiers)</p>
+            <div className="rounded-lg bg-amber-50 p-2 border border-amber-200">
+              <p className="text-xs font-medium text-amber-800">Application exclusive : charges de la dette du Pouvoir central (Titres I et II - remboursement principal + frais financiers)</p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-red-200 dark:border-red-800 bg-card p-4">
+          <div className="rounded-xl border border-red-200 bg-card p-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-bold text-white bg-red-600 rounded-full px-3 py-0.5">Art. 40</span>
               <h4 className="text-sm font-bold text-foreground">
@@ -646,8 +646,8 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground leading-relaxed mb-2">
               <em>« Les dépenses sur crédits provisionnels ne peuvent etre ordonnancees que dans les limites des allocations budgétaires correspondantes. Toutefois, en cas d\'insuffisance de ces crédits, des crédits supplementaires sont demandes au Parlement, conformement a l\'article 129 de la Constitution. »</em>
             </p>
-            <div className="rounded-lg bg-red-50 dark:bg-red-900/20 p-2 border border-red-200 dark:border-red-800">
-              <p className="text-xs font-medium text-red-800 dark:text-red-200">Exemples : epidemie de mpox, eruption volcanique du Nyiragongo, inondations, conflits armes</p>
+            <div className="rounded-lg bg-red-50 p-2 border border-red-200">
+              <p className="text-xs font-medium text-red-800">Exemples : epidemie de mpox, eruption volcanique du Nyiragongo, inondations, conflits armes</p>
             </div>
           </div>
         </div>
@@ -672,9 +672,9 @@ const LECONS: Lecon[] = [
               ].map(([c, l, e, p]) => (
                 <tr key={c} className="even:bg-muted/30">
                   <td className="border border-border px-2 py-1.5 font-medium">{c}</td>
-                  <td className="border border-border px-2 py-1.5 text-center text-emerald-700 dark:text-emerald-300">{l}</td>
-                  <td className="border border-border px-2 py-1.5 text-center text-amber-700 dark:text-amber-300">{e}</td>
-                  <td className="border border-border px-2 py-1.5 text-center text-red-700 dark:text-red-300">{p}</td>
+                  <td className="border border-border px-2 py-1.5 text-center text-emerald-700">{l}</td>
+                  <td className="border border-border px-2 py-1.5 text-center text-amber-700">{e}</td>
+                  <td className="border border-border px-2 py-1.5 text-center text-red-700">{p}</td>
                 </tr>
               ))}
             </tbody>
@@ -728,8 +728,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 55-73 - Regimes juridiques et mecanismes de financement',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Vue d\'ensemble</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Vue d\'ensemble</h3>
           <p className="text-xs text-foreground leading-relaxed">
             Les budgets annexes (Art. 55-58) et les comptes speciaux (Art. 59-73) constituent des mecanismes derogatoires au budget général. Ils permettent d\'individualiser certaines operations budgétaires tout en les maintenant sous le contrôle de la loi de finances. Leur creation, modification et suppression relèvent exclusivement de la loi de finances (Art. 55 et 60).
           </p>
@@ -760,8 +760,8 @@ const LECONS: Lecon[] = [
             <p className="text-xs text-foreground mb-3">L\'Art. 60 pose le cadre : <em>« Les comptes speciaux sont constitues des comptes d\'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances. »</em></p>
 
             <div className="space-y-3">
-              <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                <h4 className="text-xs font-bold text-emerald-800 dark:text-emerald-200 mb-1 flex items-center gap-1">
+              <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                <h4 className="text-xs font-bold text-emerald-800 mb-1 flex items-center gap-1">
                   Comptes d\'affectation speciale (Art. 62-65){' '}
                   <InfoTooltip texte="Les comptes d\'affectation speciale retracent des operations financees par des recettes particulieres directement liees aux dépenses concernees. Ex : Fonds routier (financement des travaux routiers par les taxes sur les carburants), Fonds minier (royalties minieres affectees au developpement minier)." loi="Art. 62 LOFIP" />
                 </h4>
@@ -774,8 +774,8 @@ const LECONS: Lecon[] = [
                 <p className="text-xs text-muted-foreground italic">Exemples RDC : Fonds routier, Fonds de promotion de l\'industrie, Caisse nationale de perequation</p>
               </div>
 
-              <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 p-3">
-                <h4 className="text-xs font-bold text-blue-800 dark:text-blue-200 mb-1 flex items-center gap-1">
+              <div className="rounded-lg bg-blue-50 border border-blue-200 p-3">
+                <h4 className="text-xs font-bold text-blue-800 mb-1 flex items-center gap-1">
                   Comptes de concours financiers (Art. 66-68){' '}
                   <InfoTooltip texte="Les comptes de concours financiers retracent les prets et avances consentis par le Pouvoir central. Un compte distinct doit etre ouvert pour chaque debiteur ou categorie de debiteurs (Art. 66 al. 2). Ils sont dotes de crédits limitatifs et assortis d\'un taux d\'intérêt." loi="Art. 66-68 LOFIP" />
                 </h4>
@@ -790,8 +790,8 @@ const LECONS: Lecon[] = [
                 </p>
               </div>
 
-              <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-                <h4 className="text-xs font-bold text-amber-800 dark:text-amber-200 mb-2">Autres procédures speciales (Art. 69-73)</h4>
+              <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+                <h4 className="text-xs font-bold text-amber-800 mb-2">Autres procédures speciales (Art. 69-73)</h4>
                 <div className="space-y-1 text-xs text-foreground">
                   <p><strong>Fonds de concours (Art. 70) :</strong> Fonds non fiscaux verses par des tiers (personnes physiques ou morales) pour concourir a des dépenses d\'intérêt public, et produits de legs et donations. Portes directement en recettes et ouvrent des crédits supplementaires de meme montant.</p>
                   <p><strong>Attributions de produits (Art. 72) :</strong> Recettes tirees de la remuneration des prestations d\'un service du Pouvoir central, affectees a ce meme service par arrete ministeriel.</p>
@@ -1286,17 +1286,17 @@ export default function UE5Chapitre3Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-emerald-600" />
+          <span className="text-sm font-semibold text-emerald-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Decrire la structure tripartite du budget du Pouvoir central : budget général, budgets annexes, comptes speciaux (Art. 20 LOFIP)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les categories de ressources budgétaires et la retrocession de 40% aux provinces (Art. 24, 175 Constitution)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maitriser la nomenclature des charges par 9 titres (Art. 37 LOFIP) et les regimes des crédits (Art. 38-41)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Distinguer budgets annexes (Art. 55-58) et comptes speciaux : comptes d\'affectation speciale (Art. 62-65) et comptes de concours financiers (Art. 66-68)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Lire et analyser les chiffres reels du budget 2025 : 49 846 Mds FC (LF initiale) et 50 691,8 Mds FC (LFR juin 2025)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Decrire la structure tripartite du budget du Pouvoir central : budget général, budgets annexes, comptes speciaux (Art. 20 LOFIP)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les categories de ressources budgétaires et la retrocession de 40% aux provinces (Art. 24, 175 Constitution)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maitriser la nomenclature des charges par 9 titres (Art. 37 LOFIP) et les regimes des crédits (Art. 38-41)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Distinguer budgets annexes (Art. 55-58) et comptes speciaux : comptes d\'affectation speciale (Art. 62-65) et comptes de concours financiers (Art. 66-68)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Lire et analyser les chiffres reels du budget 2025 : 49 846 Mds FC (LF initiale) et 50 691,8 Mds FC (LFR juin 2025)</span></li>
         </ul>
       </div>
 
@@ -1324,7 +1324,7 @@ export default function UE5Chapitre3Page() {
 
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-start gap-3 mb-4">
-              <div className="rounded-lg bg-emerald-100 dark:bg-emerald-900/30 p-2 text-emerald-600 dark:text-emerald-400 shrink-0">
+              <div className="rounded-lg bg-emerald-100 p-2 text-emerald-600 shrink-0">
                 {lecon.icone}
               </div>
               <div>
@@ -1351,8 +1351,8 @@ export default function UE5Chapitre3Page() {
 
       {activeTab === 'qcm' && !isStudent && (
         <div className="space-y-2">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-3">
-            <p className="text-xs text-emerald-700 dark:text-emerald-300 font-medium">15 questions · 5 faciles · 5 moyennes · 5 difficiles · Sources : LOFIP Art. 16-73 · Budget 2025</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+            <p className="text-xs text-emerald-700 font-medium">15 questions · 5 faciles · 5 moyennes · 5 difficiles · Sources : LOFIP Art. 16-73 · Budget 2025</p>
           </div>
           <QCMPageUnique questions={QCM_GLOBAL as unknown as QCMChapitre[]} couleurAccent="emerald" />
         </div>
@@ -1360,8 +1360,8 @@ export default function UE5Chapitre3Page() {
 
       {activeTab === 'cas' && !isStudent && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-3">
-            <p className="text-xs text-emerald-700 dark:text-emerald-300 font-medium">2 cas pratiques enrichis · Application des Art. 37-41, 55-73 LOFIP · Donnees reelles budget 2025</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+            <p className="text-xs text-emerald-700 font-medium">2 cas pratiques enrichis · Application des Art. 37-41, 55-73 LOFIP · Donnees reelles budget 2025</p>
           </div>
           {ETUDES_DE_CAS.map(cas => (
             <CasPratiqueBlock key={cas.titre} cas={cas} />

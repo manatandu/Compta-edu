@@ -408,7 +408,7 @@ export default function ApercuDevoirPage() {
           const libelle = lines[0]?.libelle ?? ''
           return (
             <div key={groupe} className="rounded-md border border-border bg-card overflow-hidden">
-              <div className={`px-3 py-2 flex items-center gap-3 text-xs font-medium ${isOuverture ? 'bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300' : 'bg-muted/40 text-foreground'}`}>
+              <div className={`px-3 py-2 flex items-center gap-3 text-xs font-medium ${isOuverture ? 'bg-violet-50 text-violet-700' : 'bg-muted/40 text-foreground'}`}>
                 <span className="font-mono">{date}</span>
                 <span className="flex-1 truncate">{libelle}</span>
                 {isOuverture && <Badge variant="outline" className="text-xs">Bilan d'ouverture</Badge>}
@@ -428,14 +428,14 @@ export default function ApercuDevoirPage() {
                       <tr key={l.id} className={`border-b border-border/40 last:border-0 ${l.credit > 0 ? 'pl-6' : ''}`}>
                         <td className={`py-1.5 px-3 font-mono ${l.credit > 0 ? 'pl-8' : ''}`}>{l.numeroCompte}</td>
                         <td className={`py-1.5 px-3 ${l.credit > 0 ? 'italic pl-8' : ''}`}>{l.intituleCompte}</td>
-                        <td className="py-1.5 px-3 text-right text-green-700 dark:text-green-400 font-mono">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
-                        <td className="py-1.5 px-3 text-right text-red-700 dark:text-red-400 font-mono">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
+                        <td className="py-1.5 px-3 text-right text-green-700 font-mono">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
+                        <td className="py-1.5 px-3 text-right text-red-700 font-mono">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
                       </tr>
                     ))}
                     <tr className="bg-muted/30 font-semibold border-t border-border text-xs">
                       <td colSpan={2} className="py-1.5 px-3 text-right text-muted-foreground">Total</td>
-                      <td className="py-1.5 px-3 text-right text-green-700 dark:text-green-400 font-mono">{formatMontant(totalD)}</td>
-                      <td className="py-1.5 px-3 text-right text-red-700 dark:text-red-400 font-mono">{formatMontant(totalC)}</td>
+                      <td className="py-1.5 px-3 text-right text-green-700 font-mono">{formatMontant(totalD)}</td>
+                      <td className="py-1.5 px-3 text-right text-red-700 font-mono">{formatMontant(totalC)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -460,7 +460,7 @@ export default function ApercuDevoirPage() {
               <div className="px-3 py-2 flex items-center gap-2 bg-muted/30">
                 <span className="font-mono font-bold text-primary text-sm">{compte.numero}</span>
                 <span className="flex-1 font-medium text-sm truncate">{compte.intitule}</span>
-                <Badge className={`text-xs shrink-0 ${isDebiteur ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'}`}>
+                <Badge className={`text-xs shrink-0 ${isDebiteur ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                   {isDebiteur ? 'SD' : 'SC'} {formatMontant(isDebiteur ? compte.soldeDebiteur : compte.soldeCrediteur)}
                 </Badge>
               </div>
@@ -479,11 +479,11 @@ export default function ApercuDevoirPage() {
                       <tr key={l.id} className="border-b border-border/30 last:border-0">
                         <td className="py-1 px-3 font-mono">{l.date}</td>
                         <td className="py-1 px-3">{l.libelle}</td>
-                        <td className="py-1 px-3 text-right text-green-700 dark:text-green-400 font-mono">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
-                        <td className="py-1 px-3 text-right text-red-700 dark:text-red-400 font-mono">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
+                        <td className="py-1 px-3 text-right text-green-700 font-mono">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
+                        <td className="py-1 px-3 text-right text-red-700 font-mono">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
                       </tr>
                     ))}
-                    <tr className={`font-medium border-t border-border ${isDebiteur ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
+                    <tr className={`font-medium border-t border-border ${isDebiteur ? 'text-green-700' : 'text-red-700'}`}>
                       <td className="py-1.5 px-3 font-mono italic text-muted-foreground">—</td>
                       <td className="py-1.5 px-3 italic">{isDebiteur ? 'Solde débiteur' : 'Solde créditeur'}</td>
                       <td className="py-1.5 px-3 text-right font-mono">{!isDebiteur ? formatMontant(compte.soldeCrediteur) : ''}</td>
@@ -491,8 +491,8 @@ export default function ApercuDevoirPage() {
                     </tr>
                     <tr className="font-bold bg-muted/30 border-t-2 border-border">
                       <td colSpan={2} className="py-1.5 px-3 text-right text-muted-foreground text-xs">TOTAL</td>
-                      <td className="py-1.5 px-3 text-right text-green-700 dark:text-green-400 font-mono">{formatMontant(displayTotalD)}</td>
-                      <td className="py-1.5 px-3 text-right text-red-700 dark:text-red-400 font-mono">{formatMontant(displayTotalC)}</td>
+                      <td className="py-1.5 px-3 text-right text-green-700 font-mono">{formatMontant(displayTotalD)}</td>
+                      <td className="py-1.5 px-3 text-right text-red-700 font-mono">{formatMontant(displayTotalC)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -524,10 +524,10 @@ export default function ApercuDevoirPage() {
               <tr key={l.numero} className="border-b border-border/40 hover:bg-muted/20">
                 <td className="py-1.5 px-3 font-mono text-primary">{l.numero}</td>
                 <td className="py-1.5 px-3">{l.intitule}</td>
-                <td className="py-1.5 px-3 text-right border-l border-border/30 font-mono text-green-700 dark:text-green-400">{l.mouvD > 0 ? formatMontant(l.mouvD) : ''}</td>
-                <td className="py-1.5 px-3 text-right font-mono text-red-700 dark:text-red-400">{l.mouvC > 0 ? formatMontant(l.mouvC) : ''}</td>
-                <td className="py-1.5 px-3 text-right border-l border-border/30 font-mono text-green-700 dark:text-green-400">{l.soldeD > 0 ? formatMontant(l.soldeD) : ''}</td>
-                <td className="py-1.5 px-3 text-right font-mono text-red-700 dark:text-red-400">{l.soldeC > 0 ? formatMontant(l.soldeC) : ''}</td>
+                <td className="py-1.5 px-3 text-right border-l border-border/30 font-mono text-green-700">{l.mouvD > 0 ? formatMontant(l.mouvD) : ''}</td>
+                <td className="py-1.5 px-3 text-right font-mono text-red-700">{l.mouvC > 0 ? formatMontant(l.mouvC) : ''}</td>
+                <td className="py-1.5 px-3 text-right border-l border-border/30 font-mono text-green-700">{l.soldeD > 0 ? formatMontant(l.soldeD) : ''}</td>
+                <td className="py-1.5 px-3 text-right font-mono text-red-700">{l.soldeC > 0 ? formatMontant(l.soldeC) : ''}</td>
               </tr>
             ))}
             <tr className="bg-primary text-primary-foreground font-bold border-t-2">
@@ -637,7 +637,7 @@ export default function ApercuDevoirPage() {
                   <td className="px-2 py-1.5 text-primary font-mono">{r.ref}</td>
                   <td className="px-2 py-1.5 text-primary">{r.label}</td>
                   <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                  <td className={`px-2 py-1.5 text-right font-bold font-mono ${val < 0 ? 'text-red-600 dark:text-red-400' : 'text-primary'}`}>{val !== 0 ? (val < 0 ? `(${formatMontant(Math.abs(val))})` : formatMontant(val)) : ''}</td>
+                  <td className={`px-2 py-1.5 text-right font-bold font-mono ${val < 0 ? 'text-red-600' : 'text-primary'}`}>{val !== 0 ? (val < 0 ? `(${formatMontant(Math.abs(val))})` : formatMontant(val)) : ''}</td>
                 </tr>
               )
               if ((r as any).isResultat) return (
@@ -645,7 +645,7 @@ export default function ApercuDevoirPage() {
                   <td className="px-2 py-1.5 font-mono text-muted-foreground">{r.ref}</td>
                   <td className="px-2 py-1.5 font-medium">{r.label}</td>
                   <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                  <td className={`px-2 py-1.5 text-right font-bold font-mono ${resultatNet >= 0 ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
+                  <td className={`px-2 py-1.5 text-right font-bold font-mono ${resultatNet >= 0 ? 'text-green-700' : 'text-red-700'}`}>
                     {resultatNet !== 0 ? `${formatMontant(Math.abs(resultatNet))} ${resultatNet >= 0 ? '(Bénéfice)' : '(Perte)'}` : ''}
                   </td>
                 </tr>
@@ -655,7 +655,7 @@ export default function ApercuDevoirPage() {
                   <td className="px-2 py-1.5 font-mono text-muted-foreground">{r.ref}</td>
                   <td className="px-2 py-1.5">{r.label}</td>
                   <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                  <td className={`px-2 py-1.5 text-right font-medium font-mono ${isSigne && val < 0 ? 'text-red-600 dark:text-red-400' : ''}`}>{displayVal}</td>
+                  <td className={`px-2 py-1.5 text-right font-medium font-mono ${isSigne && val < 0 ? 'text-red-600' : ''}`}>{displayVal}</td>
                 </tr>
               )
             })}
@@ -699,7 +699,7 @@ export default function ApercuDevoirPage() {
                   <td className="px-2 py-1.5 text-primary">{r.label}</td>
                   <td className="px-2 py-1.5 text-center">{v.montant >= 0 ? '+' : '-'}</td>
                   <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                  <td className={`px-2 py-1.5 text-right font-bold font-mono ${v.montant >= 0 ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>{formatMontant(Math.abs(v.montant))}</td>
+                  <td className={`px-2 py-1.5 text-right font-bold font-mono ${v.montant >= 0 ? 'text-green-700' : 'text-red-700'}`}>{formatMontant(Math.abs(v.montant))}</td>
                 </tr>
               )
               return (
@@ -721,10 +721,10 @@ export default function ApercuDevoirPage() {
   // ── Rendu page ────────────────────────────────────────────────────────────
   if (submitted) return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
-      <div className="h-16 w-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+      <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
         <span className="text-3xl">✓</span>
       </div>
-      <h2 className="text-xl font-bold text-green-700 dark:text-green-400">Devoir soumis avec succès</h2>
+      <h2 className="text-xl font-bold text-green-700">Devoir soumis avec succès</h2>
       <p className="text-sm text-muted-foreground">Votre devoir a été transmis au professeur. Redirection...</p>
     </div>
   )
@@ -742,7 +742,7 @@ export default function ApercuDevoirPage() {
         <p className="text-sm text-muted-foreground mt-0.5">Vérifiez vos travaux dans chaque document avant de soumettre.</p>
         {loading && <p className="text-sm text-muted-foreground mt-2">Chargement des données...</p>}
         {!loading && ecritures.length === 0 && (
-          <div className="mt-3 flex items-center gap-2 text-amber-600 dark:text-amber-400">
+          <div className="mt-3 flex items-center gap-2 text-amber-600">
             <AlertTriangle className="h-4 w-4 shrink-0" />
             <p className="text-sm">Aucune écriture dans cette session. Assurez-vous d'avoir bien saisi vos écritures dans le journal avant de soumettre.</p>
           </div>
@@ -790,7 +790,7 @@ export default function ApercuDevoirPage() {
       <div className="text-center">
         <button
           onClick={() => navigate(`/journal?session=${sessionId}`)}
-          className="text-sm text-blue-600 dark:text-blue-400 underline underline-offset-2"
+          className="text-sm text-blue-600 underline underline-offset-2"
         >
           Retourner au journal pour corriger mes écritures
         </button>
@@ -799,7 +799,7 @@ export default function ApercuDevoirPage() {
       {/* ── Barre de soumission fixe en bas ──────────────────────────────── */}
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur border-t border-border px-4 py-3">
         <div className="max-w-3xl mx-auto space-y-2">
-          <div className="flex items-start gap-2 text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-md px-3 py-2">
+          <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-md px-3 py-2">
             <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
             <span>Une fois soumis, votre devoir sera transmis au professeur et vous ne pourrez plus modifier vos réponses.</span>
           </div>

@@ -20,11 +20,11 @@ const CLASS_NAMES: Record<number, string> = {
 }
 
 const TYPE_COLOR: Record<string, string> = {
-  actif: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-  passif: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-  charge: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  produit: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-  autre: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
+  actif: 'bg-blue-100 text-blue-800',
+  passif: 'bg-purple-100 text-purple-800',
+  charge: 'bg-red-100 text-red-800',
+  produit: 'bg-green-100 text-green-800',
+  autre: 'bg-gray-100 text-gray-700',
 }
 
 export default function PlanComptablePage() {

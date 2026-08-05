@@ -56,7 +56,7 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
       {questions.map((q, qi) => {
         const isCorrect = reponses[q.id] === q.reponseCorrecte
         return (
-          <div key={q.id} className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4">
+          <div key={q.id} className="rounded-xl border border-emerald-200 bg-card p-4">
             <p className="text-sm font-semibold text-foreground mb-1">Q{qi + 1}. {q.question}</p>
             <p className="text-xs text-muted-foreground mb-3 italic">{q.articleRef}</p>
             <div className="space-y-2">
@@ -64,9 +64,9 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
                 const selected = reponses[q.id] === opt.id
                 const isRight = opt.id === q.reponseCorrecte
                 let cls = 'flex items-center gap-2 rounded-lg border px-3 py-2 text-xs cursor-pointer transition-colors '
-                if (!vérifie) cls += selected ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200' : 'border-border hover:border-emerald-300 hover:bg-muted'
-                else if (isRight) cls += 'border-green-500 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200'
-                else if (selected && !isRight) cls += 'border-red-400 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+                if (!vérifie) cls += selected ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-border hover:border-emerald-300 hover:bg-muted'
+                else if (isRight) cls += 'border-green-500 bg-green-50 text-green-800'
+                else if (selected && !isRight) cls += 'border-red-400 bg-red-50 text-red-700'
                 else cls += 'border-border text-muted-foreground'
                 return (
                   <div key={opt.id} className={cls} onClick={() => handleSelect(q.id, opt.id)}>
@@ -78,7 +78,7 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
               })}
             </div>
             {vérifie && (
-              <div className={cn('mt-3 rounded-lg p-3 text-xs', isCorrect ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' : 'bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200')}>
+              <div className={cn('mt-3 rounded-lg p-3 text-xs', isCorrect ? 'bg-green-50 text-green-800' : 'bg-amber-50 text-amber-800')}>
                 <strong>{isCorrect ? 'Correct !' : 'Incorrect.'}</strong> {q.explication}
               </div>
             )}
@@ -92,8 +92,8 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
           </button>
         ) : (
           <>
-            <div className="flex-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 px-4 py-2.5 text-center">
-              <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">Score : {score}/{questions.length}</span>
+            <div className="flex-1 rounded-lg bg-emerald-50 border border-emerald-200 px-4 py-2.5 text-center">
+              <span className="text-sm font-bold text-emerald-700">Score : {score}/{questions.length}</span>
             </div>
             <button onClick={handleReset} className="rounded-lg border border-border px-4 py-2.5 text-sm hover:bg-muted transition-colors flex items-center gap-1">
               <RotateCcw className="h-3.5 w-3.5" /> Recommencer
@@ -109,23 +109,23 @@ function QCMBlock({ questions }: { questions: QCMQuestion[] }) {
 function CasPratiqueBlock({ cas }: { cas: { titre: string; contexte: string; questions: { num: string; enonce: string; correction: string }[] } }) {
   const [open, setOpen] = useState<Record<string, boolean>>({})
   return (
-    <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4 space-y-3">
-      <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+    <div className="rounded-xl border border-emerald-200 bg-card p-4 space-y-3">
+      <h3 className="text-sm font-bold text-emerald-700 flex items-center gap-2">
         <FileText className="h-4 w-4" /> {cas.titre}
       </h3>
-      <div className="rounded-lg bg-emerald-50/60 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-800 p-3">
+      <div className="rounded-lg bg-emerald-50/60 border border-emerald-100 p-3">
         <p className="text-xs text-foreground leading-relaxed">{cas.contexte}</p>
       </div>
       <div className="space-y-3">
         {cas.questions.map(q => (
           <div key={q.num} className="rounded-lg border border-border bg-muted/30 p-3">
             <p className="text-xs font-semibold text-foreground mb-2">Question {q.num} : {q.enonce}</p>
-            <button onClick={() => setOpen(prev => ({ ...prev, [q.num]: !prev[q.num] }))} className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 hover:underline">
+            <button onClick={() => setOpen(prev => ({ ...prev, [q.num]: !prev[q.num] }))} className="flex items-center gap-1 text-xs text-emerald-600 hover:underline">
               <ChevronRight className={cn('h-3.5 w-3.5 transition-transform', open[q.num] && 'rotate-90')} />
               {open[q.num] ? 'Masquer la correction' : 'Voir la correction'}
             </button>
             {open[q.num] && (
-              <div className="mt-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 p-3 text-xs text-emerald-800 dark:text-emerald-200 leading-relaxed whitespace-pre-line">
+              <div className="mt-2 rounded-lg bg-emerald-50 p-3 text-xs text-emerald-800 leading-relaxed whitespace-pre-line">
                 {q.correction}
               </div>
             )}
@@ -145,8 +145,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Expose des motifs, Art. 43-44 - Fondements de la reforme',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Pourquoi une reforme budgétaire ?</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Pourquoi une reforme budgétaire ?</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
             Avant l\'adoption de la LOFIP en 2011, le budget de la RDC etait présenté par <strong>lignes de crédit</strong> — ce que l\'on appelle le budget de moyens. Chaque ministère recevait des dotations par nature de dépense (personnel, fonctionnement, investissement) sans avoir a justifier des résultats obtenus en contrepartie. Cette approche presentait deux defauts majeurs :
           </p>
@@ -184,8 +184,8 @@ const LECONS: Lecon[] = [
                 ].map(([c, a, b]) => (
                   <tr key={c} className="even:bg-muted/30">
                     <td className="border border-border px-2 py-1.5 font-medium">{c}</td>
-                    <td className="border border-border px-2 py-1.5 text-center text-red-600 dark:text-red-400">{a}</td>
-                    <td className="border border-border px-2 py-1.5 text-center text-emerald-600 dark:text-emerald-400">{b}</td>
+                    <td className="border border-border px-2 py-1.5 text-center text-red-600">{a}</td>
+                    <td className="border border-border px-2 py-1.5 text-center text-emerald-600">{b}</td>
                   </tr>
                 ))}
               </tbody>
@@ -198,7 +198,7 @@ const LECONS: Lecon[] = [
             <Target className="h-4 w-4 text-emerald-600" /> Definition legale du programme (Art. 43 LOFIP){' '}
             <InfoTooltip texte="L\'Art. 43 LOFIP donne la definition officielle et obligatoire du programme budgétaire. C\'est la brique de base du budget-programme. Chaque ministère peut creer autant de programmes que necessaire, plus un programme 'administration générale' pour les crédits non affectes." loi="Art. 43 LOFIP" />
           </h3>
-          <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3 mb-3">
+          <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 mb-3">
             <p className="text-xs text-foreground leading-relaxed italic">
               « Un programme regroupe les crédits destines a mettre en oeuvre une action ou un ensemble coherent d\'actions relevant d\'un meme ministère ou institution et auquel sont associes des objectifs precis, definis en fonction des finalites d\'intérêt général, ainsi que des résultats attendus et faisant l\'objet d\'une evaluation au moyen d\'indicateurs de performance. »
             </p>
@@ -224,14 +224,14 @@ const LECONS: Lecon[] = [
             </div>
           </div>
 
-          <div className="mt-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-bold text-amber-800 dark:text-amber-200 mb-1">Programme "Administration générale" (Art. 43 al. 2)</p>
-            <p className="text-xs text-amber-700 dark:text-amber-300">L\'Art. 43 al. 2 prevoit que chaque ministère ou institution peut creer un programme intitule <em>« administration générale »</em> destine a recevoir les crédits non specifiquement affectes a un autre programme. Ce programme "chapeau" evite que des crédits restent sans rattachement programmatique.</p>
+          <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-bold text-amber-800 mb-1">Programme "Administration générale" (Art. 43 al. 2)</p>
+            <p className="text-xs text-amber-700">L\'Art. 43 al. 2 prevoit que chaque ministère ou institution peut creer un programme intitule <em>« administration générale »</em> destine a recevoir les crédits non specifiquement affectes a un autre programme. Ce programme "chapeau" evite que des crédits restent sans rattachement programmatique.</p>
           </div>
 
-          <div className="mt-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
-            <p className="text-xs font-bold text-red-800 dark:text-red-200 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Regle imperieuse (Art. 43 al. 3)</p>
-            <p className="text-xs text-red-700 dark:text-red-300"><em>« Seule une disposition de loi de finances d\'initiative gouvernementale peut creer ou supprimer un programme. »</em> Un programme ne peut donc etre cree ni supprime par un simple arrete ministeriel ou une resolution parlementaire.</p>
+          <div className="mt-3 rounded-lg bg-red-50 border border-red-200 p-3">
+            <p className="text-xs font-bold text-red-800 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Regle imperieuse (Art. 43 al. 3)</p>
+            <p className="text-xs text-red-700"><em>« Seule une disposition de loi de finances d\'initiative gouvernementale peut creer ou supprimer un programme. »</em> Un programme ne peut donc etre cree ni supprime par un simple arrete ministeriel ou une resolution parlementaire.</p>
           </div>
         </div>
 
@@ -273,8 +273,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 43-44 - Hierarchie et regroupements budgétaires',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-3">La hierarchie budgétaire selon la LOFIP</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-3">La hierarchie budgétaire selon la LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
             La LOFIP organise les crédits du budget-programme selon une architecture a plusieurs niveaux, chacun ayant une fonction precise dans le pilotage de la performance publique.
           </p>
@@ -288,28 +288,28 @@ const LECONS: Lecon[] = [
           <div className="space-y-2">
             {[
               {
-                niveau: 'FONCTION', art: 'Art. 44', couleur: 'bg-violet-600', bg: 'bg-violet-50 dark:bg-violet-900/20 border-violet-200 dark:border-violet-800',
+                niveau: 'FONCTION', art: 'Art. 44', couleur: 'bg-violet-600', bg: 'bg-violet-50 border-violet-200',
                 texte: 'Art. 44 al. 1 : « Les programmes peuvent etre regroupes en fonctions. Les fonctions peuvent etre institutionnelles, ministerielles ou interministerielles. »',
                 explication: 'La fonction est le niveau le plus eleve. Elle regroupe plusieurs programmes concourant a une meme politique publique (ex : la fonction "Education" regroupe les programmes Enseignement primaire, Enseignement secondaire, Enseignement superieur). Une fonction peut etre portee par un seul ministère (ministerielle) ou par plusieurs (interministerielle).',
                 tooltip: 'La fonction est une categorie transversale qui regroupe des programmes concourant a une meme politique publique. Ex : Sante, Education, Infrastructure, Defense. Elle permet une vision consolidee d\'un secteur au-dela des structures ministerielles.',
                 loi: 'Art. 44 LOFIP'
               },
               {
-                niveau: 'PROGRAMME', art: 'Art. 43', couleur: 'bg-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800',
+                niveau: 'PROGRAMME', art: 'Art. 43', couleur: 'bg-emerald-600', bg: 'bg-emerald-50 border-emerald-200',
                 texte: 'Art. 43 al. 1 : « Un programme regroupe les crédits destines a mettre en oeuvre une action ou un ensemble coherent d\'actions relevant d\'un meme ministère ou institution. »',
                 explication: 'Le programme est l\'unite fondamentale du budget-programme. Il est rattache a un ministère, dote de crédits limitatifs, et confie a un responsable de programme (RAMO). Chaque programme est associe a des objectifs et des indicateurs de performance presentes dans le PAP.',
                 tooltip: 'Le programme est l\'unite centrale du budget-programme (Art. 43). Il est necessairement rattache a un seul ministère. Les crédits d\'un programme sont limitatifs. Le responsable du programme (RAMO) engage sa responsabilite sur les résultats obtenus.',
                 loi: 'Art. 43 LOFIP'
               },
               {
-                niveau: 'ACTION', art: 'Art. 43', couleur: 'bg-cyan-600', bg: 'bg-cyan-50 dark:bg-cyan-900/20 border-cyan-200 dark:border-cyan-800',
+                niveau: 'ACTION', art: 'Art. 43', couleur: 'bg-cyan-600', bg: 'bg-cyan-50 border-cyan-200',
                 texte: 'Art. 43 : Les actions constituent les composantes d\'un programme. Elles decomposent le programme en activités concretes et mesurables.',
                 explication: 'L\'action est la composante operationnelle du programme. Elle correspond a un sous-ensemble homogene d\'activités du programme. Ex : dans le programme "Sante de base", les actions pourraient etre : Vaccination, Sante maternelle, Lutte contre le paludisme. Les actions ne sont pas des unites de crédits : les crédits restent au niveau du programme.',
                 tooltip: 'L\'action est la composante d\'un programme. Elle permet de decomposer le programme en activités specifiques et d\'en mesurer les résultats separement. Les actions n\'ont pas de crédits propres : les crédits sont gérés au niveau du programme.',
                 loi: 'Art. 43 LOFIP'
               },
               {
-                niveau: 'OBJECTIFS + INDICATEURS', art: 'Art. 43', couleur: 'bg-amber-600', bg: 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800',
+                niveau: 'OBJECTIFS + INDICATEURS', art: 'Art. 43', couleur: 'bg-amber-600', bg: 'bg-amber-50 border-amber-200',
                 texte: 'Art. 43 : Les résultats attendus « faisant l\'objet d\'une evaluation au moyen d\'indicateurs de performance ».',
                 explication: 'A chaque programme (et donc a chaque action) sont associes des objectifs precis et des indicateurs de performance. Les indicateurs mesurent l\'efficacite (résultats obtenus vs objectifs), l\'efficience (résultats obtenus vs ressources utilisees) et la qualite de service (satisfaction des usagers). Ces indicateurs sont presentes dans le PAP et evalues dans le RAP.',
                 tooltip: 'Les indicateurs de performance mesurent les résultats du programme sur trois dimensions : efficacite (objectifs atteints), efficience (rapport cout/résultat) et qualite de service. Ils constituent l\'outil de reddition de comptes du responsable de programme.',
@@ -343,18 +343,18 @@ const LECONS: Lecon[] = [
           </ul>
         </div>
 
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-card p-4">
+        <div className="rounded-xl border border-emerald-200 bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3">Exemple concret : Ministere de la Sante (RDC)</h3>
           <div className="font-mono text-xs space-y-0.5 bg-muted/50 rounded-lg p-3">
-            <p className="text-violet-600 dark:text-violet-400 font-bold">FONCTION : Sante (interministerielle avec Finances pour budget sante)</p>
-            <p className="ml-4 text-emerald-600 dark:text-emerald-400 font-bold">PROGRAMME 1 : Sante de base</p>
-            <p className="ml-8 text-cyan-600 dark:text-cyan-400">ACTION 1.1 : Vaccination nationale</p>
-            <p className="ml-8 text-cyan-600 dark:text-cyan-400">ACTION 1.2 : Sante maternelle et infantile</p>
-            <p className="ml-8 text-cyan-600 dark:text-cyan-400">ACTION 1.3 : Lutte contre le paludisme</p>
-            <p className="ml-4 text-emerald-600 dark:text-emerald-400 font-bold">PROGRAMME 2 : Hopitaux généraux de reference</p>
-            <p className="ml-8 text-cyan-600 dark:text-cyan-400">ACTION 2.1 : Equipements hospitaliers</p>
-            <p className="ml-8 text-cyan-600 dark:text-cyan-400">ACTION 2.2 : Formation du personnel soignant</p>
-            <p className="ml-4 text-emerald-600 dark:text-emerald-400 font-bold">PROGRAMME 3 : Administration générale</p>
+            <p className="text-violet-600 font-bold">FONCTION : Sante (interministerielle avec Finances pour budget sante)</p>
+            <p className="ml-4 text-emerald-600 font-bold">PROGRAMME 1 : Sante de base</p>
+            <p className="ml-8 text-cyan-600">ACTION 1.1 : Vaccination nationale</p>
+            <p className="ml-8 text-cyan-600">ACTION 1.2 : Sante maternelle et infantile</p>
+            <p className="ml-8 text-cyan-600">ACTION 1.3 : Lutte contre le paludisme</p>
+            <p className="ml-4 text-emerald-600 font-bold">PROGRAMME 2 : Hopitaux généraux de reference</p>
+            <p className="ml-8 text-cyan-600">ACTION 2.1 : Equipements hospitaliers</p>
+            <p className="ml-8 text-cyan-600">ACTION 2.2 : Formation du personnel soignant</p>
+            <p className="ml-4 text-emerald-600 font-bold">PROGRAMME 3 : Administration générale</p>
             <p className="ml-8 text-muted-foreground">Credits non affectes aux autres programmes (Art. 43 al. 2)</p>
           </div>
         </div>
@@ -397,8 +397,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 45-51 - Flexibilite dans la gestion des programmes',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Art. 45 LOFIP : La fongibilite</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 45 LOFIP : La fongibilite</h3>
           <p className="text-xs text-foreground leading-relaxed italic mb-2">
             « Les crédits ouverts au sein d\'un programme sont fongibles a l\'interieur du titre et de la source de financement. Toutefois, les mouvements y relatifs font l\'objet d\'un suivi conformement aux procédures fixees par le ministre ayant le budget dans ses attributions. »
           </p>
@@ -414,17 +414,17 @@ const LECONS: Lecon[] = [
           </h3>
 
           <div className="space-y-2">
-            <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-              <p className="text-xs font-bold text-emerald-800 dark:text-emerald-200 mb-1">CE QUI EST PERMIS (Art. 45)</p>
-              <ul className="space-y-1 text-xs text-emerald-700 dark:text-emerald-300">
+            <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+              <p className="text-xs font-bold text-emerald-800 mb-1">CE QUI EST PERMIS (Art. 45)</p>
+              <ul className="space-y-1 text-xs text-emerald-700">
                 <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Reallouer des crédits entre actions d\'un meme programme, a l\'interieur d\'un meme titre</span></li>
                 <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Ajuster les dotations des actions en cours d\'année selon les besoins reels</span></li>
                 <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Faire des virements entre titres d\'un meme programme par arrete ministeriel (Art. 47)</span></li>
               </ul>
             </div>
-            <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3">
-              <p className="text-xs font-bold text-red-800 dark:text-red-200 mb-1">CE QUI EST INTERDIT (Art. 51)</p>
-              <ul className="space-y-1 text-xs text-red-700 dark:text-red-300">
+            <div className="rounded-lg bg-red-50 border border-red-200 p-3">
+              <p className="text-xs font-bold text-red-800 mb-1">CE QUI EST INTERDIT (Art. 51)</p>
+              <ul className="space-y-1 text-xs text-red-700">
                 <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Tout virement ou transfert au profit du Titre III (Personnel) a partir d\'un autre titre</span></li>
                 <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Creer des emplois nouveaux sans autorisation par loi de finances</span></li>
                 <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Depasser le plafond d\'autorisation des emplois remuneres (Art. 51 al. 3)</span></li>
@@ -449,9 +449,9 @@ const LECONS: Lecon[] = [
               <p className="text-xs text-foreground">Operees entre programmes de differents ministères. Interviennent par <strong>décret du Premier ministre apres avis prealable du Ministre du Budget</strong>, sur proposition des ministres concernes. Font l\'objet de propositions en LFR. Ex : transferer des crédits du Ministere de la Sante vers le Ministere de l\'Education pour un programme commun.</p>
             </div>
           </div>
-          <div className="mt-2 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-bold text-amber-800 dark:text-amber-200 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Art. 50 LOFIP</p>
-            <p className="text-xs text-amber-700 dark:text-amber-300"><em>« Aucun virement ni transfert ne peut etre effectue au profit d\'un programme non prevu par une loi de finances. »</em> Il est impossible de creer un nouveau programme par voie de virement ou de transfert.</p>
+          <div className="mt-2 rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Art. 50 LOFIP</p>
+            <p className="text-xs text-amber-700"><em>« Aucun virement ni transfert ne peut etre effectue au profit d\'un programme non prevu par une loi de finances. »</em> Il est impossible de creer un nouveau programme par voie de virement ou de transfert.</p>
           </div>
         </div>
 
@@ -493,8 +493,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 79 pt. 6 - Instruments de la gestion par la performance',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Fondement legal : Art. 79 LOFIP</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Fondement legal : Art. 79 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
             L\'Art. 79 LOFIP enumere les documents qui accompagnent le projet de loi de finances. Le PAP figure parmi ces documents obligatoires. L\'Art. 79 pt. 5 cite dans l\'annexe explicative : « le developpement par titre de l\'estimation des crédits » et « l\'état recapitulatif des crédits a reporter ». Le PAP est le document de mise en oeuvre de la gestion par la performance.
           </p>
@@ -517,7 +517,7 @@ const LECONS: Lecon[] = [
               { num: '3', label: 'Les moyens alloues', desc: 'Le detail des crédits par titre et par action, les autorisations d\'engagement et les crédits de paiement, les plafonds d\'emplois.' },
               { num: '4', label: 'Les résultats attendus', desc: 'Les valeurs cibles des indicateurs pour l\'année N, les résultats de l\'année N-1 et les prévisions pour N+1 et N+2.' },
             ].map(e => (
-              <div key={e.num} className="flex gap-3 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-900/10 p-3">
+              <div key={e.num} className="flex gap-3 rounded-lg border border-emerald-200 bg-emerald-50/30 p-3">
                 <span className="text-xs font-bold text-white bg-emerald-600 rounded-full h-5 w-5 flex items-center justify-center shrink-0 mt-0.5">{e.num}</span>
                 <div>
                   <p className="text-xs font-bold text-foreground">{e.label}</p>
@@ -556,8 +556,8 @@ const LECONS: Lecon[] = [
                 ].map(([c, p, r]) => (
                   <tr key={c} className="even:bg-muted/30">
                     <td className="border border-border px-2 py-1.5 font-medium">{c}</td>
-                    <td className="border border-border px-2 py-1.5 text-center text-emerald-700 dark:text-emerald-300">{p}</td>
-                    <td className="border border-border px-2 py-1.5 text-center text-blue-700 dark:text-blue-300">{r}</td>
+                    <td className="border border-border px-2 py-1.5 text-center text-emerald-700">{p}</td>
+                    <td className="border border-border px-2 py-1.5 text-center text-blue-700">{r}</td>
                   </tr>
                 ))}
               </tbody>
@@ -577,7 +577,7 @@ const LECONS: Lecon[] = [
               { num: '5', label: 'Annexe explicative', desc: 'Analyse des prévisions de recettes, detail des crédits par titre, état des reports, encours de la dette, restes a payer et restes a recouvrer.' },
             ].map(e => (
               <div key={e.num} className="flex gap-3 rounded-lg border border-border p-2.5">
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 w-4 shrink-0">({e.num})</span>
+                <span className="text-xs font-bold text-emerald-600 w-4 shrink-0">({e.num})</span>
                 <div>
                   <p className="text-xs font-bold text-foreground">{e.label}</p>
                   <p className="text-xs text-muted-foreground">{e.desc}</p>
@@ -625,8 +625,8 @@ const LECONS: Lecon[] = [
     soustitre: 'LOFIP Art. 43-45 · Actualite 2024-2026 · Rapport UNIS 2025',
     contenu: (
       <div className="space-y-4">
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mb-2">Le calendrier prevu et les prorogations</h3>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Le calendrier prevu et les prorogations</h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
             La LOFIP de 2011 prevoyait le basculement vers le budget-programme au <strong>1er janvier 2019</strong> (Art. 215 LOFIP, dispositions transitoires). Ce delai a ete proroге a deux reprises :
           </p>
@@ -659,7 +659,7 @@ const LECONS: Lecon[] = [
               { ok: false, titre: 'Execution des crédits d\'investissement', desc: 'Seulement 4% des crédits d\'investissement executes a fin mars 2025 (ODEP). La logique de programme n\'a pas encore amélioré l\'exécution des dépenses en capital.' },
               { ok: false, titre: 'Systeme intègre de gestion des finances publiques (SIGFIP)', desc: 'L\'informatisation complete de la chaine de la dépense publique reste incomplète. Le SIGFIP couvre imparfaitement toutes les administrations.' },
             ].map(e => (
-              <div key={e.titre} className={cn('flex gap-3 rounded-lg border p-3', e.ok ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10' : 'border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-900/10')}>
+              <div key={e.titre} className={cn('flex gap-3 rounded-lg border p-3', e.ok ? 'border-green-200 bg-green-50/50' : 'border-red-200 bg-red-50/50')}>
                 {e.ok
                   ? <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5 text-green-500" />
                   : <XCircle className="h-4 w-4 shrink-0 mt-0.5 text-red-500" />}
@@ -672,14 +672,14 @@ const LECONS: Lecon[] = [
           </div>
         </div>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-4">
-          <h3 className="text-sm font-bold text-amber-800 dark:text-amber-200 mb-2 flex items-center gap-2">
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+          <h3 className="text-sm font-bold text-amber-800 mb-2 flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" /> Rapport UNIS - fevrier 2025 : les defis persistants
           </h3>
-          <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed mb-2">
+          <p className="text-xs text-amber-700 leading-relaxed mb-2">
             Un rapport de l\'organisation UNIS (fevrier 2025) souligne que <strong>80% des ressources budgétaires devraient etre orientees vers des projets d\'intérêt public</strong>, mais l\'exécution reste faible. Les principaux defis identifies sont :
           </p>
-          <ul className="space-y-1 text-xs text-amber-700 dark:text-amber-300">
+          <ul className="space-y-1 text-xs text-amber-700">
             <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Faible taux d\'exécution global :</strong> 17,1% a fin mars 2025 pour le budget général</span></li>
             <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Sous-exécution de l\'investissement :</strong> 4% seulement des crédits d\'investissement (Titres VII et VIII)</span></li>
             <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Culture du résultat insuffisante :</strong> les gestionnaires publics ne sont pas encore formes a la logique de la performance et de l\'evaluation</span></li>
@@ -1204,17 +1204,17 @@ export default function UE5Chapitre4Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-          <span className="text-sm font-semibold text-emerald-800 dark:text-emerald-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-emerald-600" />
+          <span className="text-sm font-semibold text-emerald-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Comprendre le passage du budget de moyens au budget-programme et la logique de la gestion par la performance (Art. 43 LOFIP)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Definir et distinguer programme, action, fonction, objectif et indicateur de performance (Art. 43-44)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maitriser la fongibilite des crédits et les règles de virements/transferts (Art. 45-51)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Connaitre les instruments de la performance : PAP (joint au PLF) et RAP (joint a la loi de reddition des comptes) (Art. 79)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700 dark:text-emerald-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Situer l\'état d\'avancement de la reforme en RDC : deux prorogations, realisations et defis persistants (actualite 2024-2026)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Comprendre le passage du budget de moyens au budget-programme et la logique de la gestion par la performance (Art. 43 LOFIP)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Definir et distinguer programme, action, fonction, objectif et indicateur de performance (Art. 43-44)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maitriser la fongibilite des crédits et les règles de virements/transferts (Art. 45-51)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Connaitre les instruments de la performance : PAP (joint au PLF) et RAP (joint a la loi de reddition des comptes) (Art. 79)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Situer l\'état d\'avancement de la reforme en RDC : deux prorogations, realisations et defis persistants (actualite 2024-2026)</span></li>
         </ul>
       </div>
 
@@ -1242,7 +1242,7 @@ export default function UE5Chapitre4Page() {
 
           <div className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-start gap-3 mb-4">
-              <div className="rounded-lg bg-emerald-100 dark:bg-emerald-900/30 p-2 text-emerald-600 dark:text-emerald-400 shrink-0">
+              <div className="rounded-lg bg-emerald-100 p-2 text-emerald-600 shrink-0">
                 {lecon.icone}
               </div>
               <div>
@@ -1269,8 +1269,8 @@ export default function UE5Chapitre4Page() {
 
       {activeTab === 'qcm' && !isStudent && (
         <div className="space-y-2">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-3">
-            <p className="text-xs text-emerald-700 dark:text-emerald-300 font-medium">15 questions · 5 faciles · 5 moyennes · 5 difficiles · Sources : LOFIP Art. 43-54, 79 · Actualite 2025</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+            <p className="text-xs text-emerald-700 font-medium">15 questions · 5 faciles · 5 moyennes · 5 difficiles · Sources : LOFIP Art. 43-54, 79 · Actualite 2025</p>
           </div>
           <QCMPageUnique questions={QCM_GLOBAL as unknown as QCMChapitre[]} couleurAccent="emerald" />
         </div>
@@ -1278,8 +1278,8 @@ export default function UE5Chapitre4Page() {
 
       {activeTab === 'cas' && !isStudent && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-3">
-            <p className="text-xs text-emerald-700 dark:text-emerald-300 font-medium">2 cas pratiques enrichis · Application Art. 43-53 LOFIP · PAP/RAP · Fongibilite et mouvements de crédits</p>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+            <p className="text-xs text-emerald-700 font-medium">2 cas pratiques enrichis · Application Art. 43-53 LOFIP · PAP/RAP · Fongibilite et mouvements de crédits</p>
           </div>
           {ETUDES_DE_CAS.map(cas => (
             <CasPratiqueBlock key={cas.titre} cas={cas} />

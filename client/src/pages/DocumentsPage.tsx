@@ -27,21 +27,21 @@ const FOLDERS = [
     label: 'Notes de cours et documents de travail',
     icon: <BookOpen className="h-5 w-5" />,
     color: 'text-blue-600',
-    bg: 'bg-blue-50 dark:bg-blue-900/20',
+    bg: 'bg-blue-50',
   },
   {
     id: 'exercices',
     label: 'Exercices et applications',
     icon: <ClipboardList className="h-5 w-5" />,
     color: 'text-orange-600',
-    bg: 'bg-orange-50 dark:bg-orange-900/20',
+    bg: 'bg-orange-50',
   },
   {
     id: 'fiscalite',
     label: 'Fiscalité : Textes légaux et références',
     icon: <Scale className="h-5 w-5" />,
     color: 'text-purple-600',
-    bg: 'bg-purple-50 dark:bg-purple-900/20',
+    bg: 'bg-purple-50',
   },
 ]
 
@@ -400,7 +400,7 @@ export default function DocumentsPage() {
           <div className="border border-border rounded-lg overflow-hidden">
             {/* En-tête */}
             <div className="flex items-center gap-3 px-4 py-3 bg-card border-b border-border">
-              <div className="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
                 <GraduationCap className="h-5 w-5 text-green-600" />
               </div>
               <span className="flex-1 font-semibold text-foreground">Notes de cours</span>
@@ -423,7 +423,7 @@ export default function DocumentsPage() {
                     <Card key={note.id} className="border-border hover:border-green-300 transition-colors">
                       <CardContent className="pt-3 pb-3">
                         <div className="flex items-start gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center flex-shrink-0">
+                          <div className="w-9 h-9 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
                             <BookOpen className="h-4 w-4 text-green-600" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -445,7 +445,7 @@ export default function DocumentsPage() {
                                   <Button
                                     variant="outline"
                                     size="sm"
-                                    className="h-7 text-xs text-red-600 border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                    className="h-7 text-xs text-red-600 border-red-300 hover:bg-red-50"
                                     onClick={() => {
                                       const a = document.createElement('a')
                                       a.href = note.pdfUrl!
@@ -534,7 +534,7 @@ export default function DocumentsPage() {
 
                   {/* Document système OHADA (notes-cours uniquement) */}
                   {showSystem && (
-                    <Card className="border-primary/30 bg-primary/5 dark:bg-primary/10">
+                    <Card className="border-primary/30 bg-primary/5">
                       <CardContent className="pt-3 pb-3">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -566,16 +566,16 @@ export default function DocumentsPage() {
                   {/* Documents système Fiscalité */}
                   {showFiscalite && fiscaliteDocs.map(doc => (
                     <Card key={doc.id} className={cn(
-                      'border-purple-200 dark:border-purple-800 bg-purple-50/40 dark:bg-purple-900/10',
-                      (doc as any).badge === 'CPCC 2025' && 'border-orange-200 dark:border-orange-800 bg-orange-50/40 dark:bg-orange-900/10'
+                      'border-purple-200 bg-purple-50/40',
+                      (doc as any).badge === 'CPCC 2025' && 'border-orange-200 bg-orange-50/40'
                     )}>
                       <CardContent className="pt-3 pb-3">
                         <div className="flex items-start gap-3">
                           <div className={cn(
                             'w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0',
                             (doc as any).badge === 'CPCC 2025'
-                              ? 'bg-orange-100 dark:bg-orange-900/30'
-                              : 'bg-purple-100 dark:bg-purple-900/30'
+                              ? 'bg-orange-100'
+                              : 'bg-purple-100'
                           )}>
                             <Scale className={cn('h-5 w-5', (doc as any).badge === 'CPCC 2025' ? 'text-orange-600' : 'text-purple-600')} />
                           </div>
@@ -649,7 +649,7 @@ export default function DocumentsPage() {
                                 <div className="flex flex-wrap gap-1 mt-1">
                                   <Badge variant="outline" className="text-xs">{doc.type}</Badge>
                                   {(doc as any).promotionId && (
-                                    <Badge variant="outline" className="text-xs bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300">
+                                    <Badge variant="outline" className="text-xs bg-blue-50 border-blue-300 text-blue-700">
                                       <GraduationCap className="h-2.5 w-2.5 mr-1" />{(doc as any).promotionId}
                                     </Badge>
                                   )}
@@ -659,7 +659,7 @@ export default function DocumentsPage() {
                                   {(doc as any).coursId && (() => {
                                     const c = allCours.find(c => c.id === (doc as any).coursId)
                                     return c ? (
-                                      <Badge variant="outline" className="text-xs bg-purple-50 dark:bg-purple-900/20 border-purple-300 dark:border-purple-700 text-purple-700 dark:text-purple-300">{c.nom}</Badge>
+                                      <Badge variant="outline" className="text-xs bg-purple-50 border-purple-300 text-purple-700">{c.nom}</Badge>
                                     ) : null
                                   })()}
                                 </div>
@@ -668,7 +668,7 @@ export default function DocumentsPage() {
                                 </p>
                                 <div className="flex gap-2 mt-2">
                                   {((doc as any).pdfUrl || (doc as any).pdfData) ? (
-                                    <Button variant="outline" size="sm" className="flex-1 h-7 text-xs text-red-600 border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20" onClick={() => {
+                                    <Button variant="outline" size="sm" className="flex-1 h-7 text-xs text-red-600 border-red-300 hover:bg-red-50" onClick={() => {
                                       const a = document.createElement('a')
                                       a.href = (doc as any).pdfUrl || (doc as any).pdfData
                                       a.download = (doc as any).pdfNom || doc.titre + '.pdf'
@@ -764,17 +764,17 @@ export default function DocumentsPage() {
             </div>
             {/* Indicateur isolation */}
             {form.coursId ? (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-300 dark:border-green-700">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-green-50 border border-green-300">
                 <GraduationCap className="h-4 w-4 text-green-600 shrink-0" />
-                <p className="text-xs text-green-700 dark:text-green-300">
+                <p className="text-xs text-green-700">
                   Visible uniquement aux étudiants inscrits au cours :
                   <strong> {allCours.find(c => c.id === form.coursId)?.nom || form.coursId}</strong>
                 </p>
               </div>
             ) : (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-700">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 border border-red-300">
                 <Lock className="h-4 w-4 text-red-600 shrink-0" />
-                <p className="text-xs text-red-700 dark:text-red-300">
+                <p className="text-xs text-red-700">
                   <strong>Cours obligatoire.</strong> Sélectionnez un cours pour isoler ce document.
                 </p>
               </div>
@@ -794,9 +794,9 @@ export default function DocumentsPage() {
               <Label>Fichier PDF (optionnel)</Label>
               <div className="mt-1">
                 {docFile ? (
-                  <div className="flex items-center gap-2 p-2.5 rounded-md border border-green-300 bg-green-50 dark:bg-green-900/20 dark:border-green-700">
+                  <div className="flex items-center gap-2 p-2.5 rounded-md border border-green-300 bg-green-50">
                     <FileText className="h-4 w-4 text-green-600 shrink-0" />
-                    <span className="text-sm text-green-700 dark:text-green-400 flex-1 truncate">{docFile.name}</span>
+                    <span className="text-sm text-green-700 flex-1 truncate">{docFile.name}</span>
                     <span className="text-xs text-muted-foreground">{(docFile.size/1024/1024).toFixed(1)} Mo</span>
                     <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => { setDocFile(null); setForm(f => ({ ...f, pdfNom: '' })) }}>
                       <X className="h-3.5 w-3.5" />

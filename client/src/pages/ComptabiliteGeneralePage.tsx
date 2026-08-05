@@ -40,14 +40,14 @@ const FOLDERS: Folder[] = [
     number: 1,
     label: 'Documents Comptables',
     icon: ScrollText,
-    folderColor: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400',
+    folderColor: 'text-blue-600 bg-blue-50',
     subModules: [
       {
         path: '/docs-comptables-hub',
         label: 'Documents Comptables',
         desc: 'Livre Journal, Grand Livre, Balance Générale.',
         icon: ScrollText,
-        color: 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+        color: 'bg-blue-50 text-blue-600',
       },
     ],
   },
@@ -56,14 +56,14 @@ const FOLDERS: Folder[] = [
     number: 2,
     label: 'États Financiers',
     icon: TrendingUp,
-    folderColor: 'text-orange-600 bg-orange-50 dark:bg-orange-900/20 dark:text-orange-400',
+    folderColor: 'text-orange-600 bg-orange-50',
     subModules: [
       {
         path: '/etats-financiers-hub',
         label: 'États Financiers',
         desc: 'Bilan et Compte de Résultat SYSCOHADA.',
         icon: TrendingUp,
-        color: 'bg-orange-50 text-orange-600 dark:bg-orange-900/20 dark:text-orange-400',
+        color: 'bg-orange-50 text-orange-600',
       },
     ],
   },
@@ -72,14 +72,14 @@ const FOLDERS: Folder[] = [
     number: 3,
     label: 'Immobilisations & Amortissements',
     icon: Building2,
-    folderColor: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400',
+    folderColor: 'text-emerald-600 bg-emerald-50',
     subModules: [
       {
         path: '/immobilisations',
         label: 'Immobilisations & Amortissements',
         desc: 'Catalogue AR n°088, simulateur 3 modes (linéaire, dégressif, exceptionnel), fiches pédagogiques.',
         icon: Building2,
-        color: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400',
+        color: 'bg-emerald-50 text-emerald-600',
       },
     ],
   },
@@ -88,7 +88,7 @@ const FOLDERS: Folder[] = [
     number: 4,
     label: 'Gestion de Stock',
     icon: Package,
-    folderColor: 'text-purple-600 bg-purple-50 dark:bg-purple-900/20 dark:text-purple-400',
+    folderColor: 'text-purple-600 bg-purple-50',
     soon: false,
     subModules: [
       {
@@ -96,7 +96,7 @@ const FOLDERS: Folder[] = [
         label: 'Gestion de Stock',
         desc: 'Fiches articles, mouvements, CUMP, PEPS/FIFO, écritures automatiques.',
         icon: Package,
-        color: 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+        color: 'bg-purple-50 text-purple-600',
       },
     ],
   },
@@ -105,7 +105,7 @@ const FOLDERS: Folder[] = [
     number: 5,
     label: 'Enregistrement des Factures',
     icon: Receipt,
-    folderColor: 'text-rose-600 bg-rose-50 dark:bg-rose-900/20 dark:text-rose-400',
+    folderColor: 'text-rose-600 bg-rose-50',
     soon: true,
     subModules: [],
   },
@@ -114,14 +114,14 @@ const FOLDERS: Folder[] = [
     number: 6,
     label: 'Charges du personnel',
     icon: Users,
-    folderColor: 'text-sky-600 bg-sky-50 dark:bg-sky-900/20 dark:text-sky-400',
+    folderColor: 'text-sky-600 bg-sky-50',
     soon: false,
     subModules: [
       {
         label: 'Simulateur IPR / Salaires',
         desc: 'Calcul IPR nationaux et expatriés, charges patronales, net à payer',
         icon: Users,
-        color: 'bg-sky-100 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400',
+        color: 'bg-sky-100 text-sky-600',
         path: '/charges-personnel/ipr',
       },
     ],
@@ -131,7 +131,7 @@ const FOLDERS: Folder[] = [
     number: 7,
     label: 'Gestion des Emprunts',
     icon: Landmark,
-    folderColor: 'text-amber-600 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400',
+    folderColor: 'text-amber-600 bg-amber-50',
     soon: true,
     subModules: [],
   },
@@ -140,14 +140,14 @@ const FOLDERS: Folder[] = [
     number: 8,
     label: 'Plan Comptable SYSCOHADA',
     icon: List,
-    folderColor: 'text-teal-600 bg-teal-50 dark:bg-teal-900/20 dark:text-teal-400',
+    folderColor: 'text-teal-600 bg-teal-50',
     subModules: [
       {
         path: '/plan-comptable',
         label: 'Plan Comptable SYSCOHADA',
         desc: 'Liste complète des comptes SYSCOHADA révisé : classes 1 à 9, numéros, intitulés et soldes normaux.',
         icon: List,
-        color: 'bg-teal-50 text-teal-600 dark:bg-teal-900/20 dark:text-teal-400',
+        color: 'bg-teal-50 text-teal-600',
       },
     ],
   },
@@ -202,8 +202,8 @@ export default function ComptabiliteGeneralePage() {
       {/* ── Mini tableau de bord ── */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <div className="rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-3">
-          <div className="h-9 w-9 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center shrink-0">
-            <Layers className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <div className="h-9 w-9 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+            <Layers className="h-4 w-4 text-blue-600" />
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Sessions</p>
@@ -211,8 +211,8 @@ export default function ComptabiliteGeneralePage() {
           </div>
         </div>
         <div className="rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-3">
-          <div className="h-9 w-9 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center shrink-0">
-            <PenLine className="h-4 w-4 text-green-600 dark:text-green-400" />
+          <div className="h-9 w-9 rounded-lg bg-green-50 flex items-center justify-center shrink-0">
+            <PenLine className="h-4 w-4 text-green-600" />
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Écritures</p>
@@ -224,12 +224,12 @@ export default function ComptabiliteGeneralePage() {
           className="col-span-2 sm:col-span-3 rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-3 cursor-pointer hover:border-teal-300/50 transition-colors"
           onClick={() => { setNav({ cours: 'comptabilite-generale' }); navigate('/documents') }}
         >
-          <div className="h-9 w-9 rounded-lg bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center shrink-0">
-            <FolderOpen className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+          <div className="h-9 w-9 rounded-lg bg-teal-50 flex items-center justify-center shrink-0">
+            <FolderOpen className="h-4 w-4 text-teal-600" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs text-muted-foreground">Ressources</p>
-            <p className="text-sm font-semibold text-teal-700 dark:text-teal-400">Documents &amp; Plan Comptable</p>
+            <p className="text-sm font-semibold text-teal-700">Documents &amp; Plan Comptable</p>
           </div>
           <ChevronRight className="h-4 w-4 text-muted-foreground/40 shrink-0" />
         </div>

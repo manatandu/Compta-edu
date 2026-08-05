@@ -558,7 +558,7 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
                       <td className="px-2 py-1.5 text-primary font-mono">{r.ref}</td>
                       <td className="px-2 py-1.5 text-primary font-semibold">{r.label}</td>
                       <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                      <td className={`px-2 py-1.5 text-right font-bold ${val < 0 ? "text-red-600 dark:text-red-400" : "text-primary"}`}>
+                      <td className={`px-2 py-1.5 text-right font-bold ${val < 0 ? "text-red-600" : "text-primary"}`}>
                         {val !== 0 ? (val < 0 ? `(${formatMontant(Math.abs(val))})` : formatMontant(val)) : ""}
                       </td>
                     </tr>
@@ -570,7 +570,7 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
                       <td className="px-2 py-1.5 font-mono text-muted-foreground">{r.ref}</td>
                       <td className="px-2 py-1.5 font-medium">{r.label}</td>
                       <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                      <td className={`px-2 py-1.5 text-right font-bold ${resultatNet >= 0 ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
+                      <td className={`px-2 py-1.5 text-right font-bold ${resultatNet >= 0 ? "text-green-700" : "text-red-700"}`}>
                         {resultatNet !== 0 ? `${formatMontant(Math.abs(resultatNet))} ${resultatNet >= 0 ? "(Bénéfice)" : "(Perte)"}` : ""}
                       </td>
                     </tr>
@@ -580,7 +580,7 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
                 const displayVal = isSigne
                   ? (val !== 0 ? (val < 0 ? `(${formatMontant(Math.abs(val))})` : formatMontant(val)) : "")
                   : (val !== 0 ? formatMontant(val) : "");
-                const valColor = isSigne && val < 0 ? "text-red-600 dark:text-red-400" : "";
+                const valColor = isSigne && val < 0 ? "text-red-600" : "";
                 return (
                   <tr key={r.ref} className="border-b border-border/40 hover:bg-muted/20 text-xs">
                     <td className="px-2 py-1.5 font-mono text-muted-foreground">{r.ref}</td>
@@ -637,7 +637,7 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
                       <td className="px-2 py-1.5 text-center">{v.montant >= 0 ? "+" : "-"}</td>
                       <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
                       <td className="px-2 py-1.5 text-xs text-muted-foreground">{v.compteUtilises.join(", ")}</td>
-                      <td className={`px-2 py-1.5 text-right font-bold ${v.montant >= 0 ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
+                      <td className={`px-2 py-1.5 text-right font-bold ${v.montant >= 0 ? "text-green-700" : "text-red-700"}`}>
                         {formatMontant(Math.abs(v.montant))}
                       </td>
                     </tr>

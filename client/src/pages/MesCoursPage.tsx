@@ -8,19 +8,19 @@ import { useUser } from '@/lib/userContext'
 import { cn } from '@/lib/utils'
 
 const UE_COLORS = [
-  'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
-  'bg-violet-50 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300',
-  'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-  'bg-gray-50 text-gray-600 dark:bg-gray-900/30 dark:text-gray-400',
-  'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
-  'bg-cyan-50 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300',
-  'bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
-  'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  'bg-sky-50 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300',
-  'bg-rose-50 text-rose-700 dark:bg-rose-900/30 dark:text-rose-300',
-  'bg-orange-50 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-  'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+  'bg-blue-50 text-blue-700',
+  'bg-indigo-50 text-indigo-700',
+  'bg-violet-50 text-violet-700',
+  'bg-amber-50 text-amber-700',
+  'bg-gray-50 text-gray-600',
+  'bg-emerald-50 text-emerald-700',
+  'bg-cyan-50 text-cyan-700',
+  'bg-teal-50 text-teal-700',
+  'bg-blue-50 text-blue-700',
+  'bg-sky-50 text-sky-700',
+  'bg-rose-50 text-rose-700',
+  'bg-orange-50 text-orange-700',
+  'bg-purple-50 text-purple-700',
 ]
 
 const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'analyse-financiere', 'ue2-droit-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
@@ -60,7 +60,7 @@ export default function MesCoursPage() {
         {coursBloque ? (
           <div className="p-10 text-center">
             <div className="text-4xl mb-3">📖</div>
-            <p className="font-semibold text-amber-800 dark:text-amber-300">Aucun cours assigné</p>
+            <p className="font-semibold text-amber-800">Aucun cours assigné</p>
             <p className="text-sm text-muted-foreground mt-1">
               Tu n&apos;es inscrit à aucun cours pour le moment.<br />
               Contacte ton professeur pour être inscrit à un cours.

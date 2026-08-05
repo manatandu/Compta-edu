@@ -96,9 +96,9 @@ const LECONS: Lecon[] = [
             </tbody>
           </table>
         </div>
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/60 dark:bg-indigo-900/20 p-3">
-          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 mb-1">Point clé — L'AUSCGIE est un droit autonome</p>
-          <p className="text-xs text-indigo-800 dark:text-indigo-200">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/60 p-3">
+          <p className="text-xs font-semibold text-indigo-700 mb-1">Point clé — L'AUSCGIE est un droit autonome</p>
+          <p className="text-xs text-indigo-800">
             L'AUSCGIE n'est pas une adaptation du droit français. C'est un droit <strong>autonome et supranational</strong>. En cas de conflit avec une loi congolaise, c'est l'AUSCGIE qui prime. La loi nationale comble les silences : elle ne le contredit pas. La CCJA (Cour Commune de Justice et d'Arbitrage) est la juridiction suprême chargée d'interpréter les Actes Uniformes, avec primauté sur les cours nationales.
           </p>
         </div>
@@ -189,8 +189,8 @@ const LECONS: Lecon[] = [
         <p>
           Cette définition légale de l'Art. 4 révèle la nature <strong>contractuelle</strong> de la société commerciale : la société naît d'un accord de volontés entre au moins deux personnes. Mais ce contrat présente des particularités qui le distinguent des contrats ordinaires : il crée une <strong>personne morale nouvelle</strong>, distincte des associés, avec son propre patrimoine, sa propre identité juridique et sa propre capacité d'agir. La société est donc à la fois un <strong>contrat</strong> (accord de volontés) et une <strong>institution</strong> (entité juridique autonome).
         </p>
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4 space-y-3">
-          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase mb-1">Art. 5 AUSCGIE : La société unipersonnelle — exception fondamentale</p>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4 space-y-3">
+          <p className="text-xs font-semibold text-indigo-700 uppercase mb-1">Art. 5 AUSCGIE : La société unipersonnelle — exception fondamentale</p>
           <p className="italic text-foreground/80 text-xs">
             « La société peut être constituée par une seule personne dénommée « associé unique », dans les formes prévues par le présent Acte uniforme pour la <strong>SARL, la SA et la SAS</strong>. »
           </p>
@@ -200,31 +200,31 @@ const LECONS: Lecon[] = [
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-indigo-100 dark:bg-indigo-900/30">
-                  <th className="p-2 border border-indigo-200 dark:border-indigo-700 text-left text-indigo-800 dark:text-indigo-200">Forme unipersonnelle</th>
-                  <th className="p-2 border border-indigo-200 dark:border-indigo-700 text-left text-indigo-800 dark:text-indigo-200">Sigle</th>
-                  <th className="p-2 border border-indigo-200 dark:border-indigo-700 text-left text-indigo-800 dark:text-indigo-200">Base légale</th>
-                  <th className="p-2 border border-indigo-200 dark:border-indigo-700 text-left text-indigo-800 dark:text-indigo-200">Particularités</th>
+                <tr className="bg-indigo-100">
+                  <th className="p-2 border border-indigo-200 text-left text-indigo-800">Forme unipersonnelle</th>
+                  <th className="p-2 border border-indigo-200 text-left text-indigo-800">Sigle</th>
+                  <th className="p-2 border border-indigo-200 text-left text-indigo-800">Base légale</th>
+                  <th className="p-2 border border-indigo-200 text-left text-indigo-800">Particularités</th>
                 </tr>
               </thead>
               <tbody className="text-muted-foreground">
                 <tr>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700 font-semibold text-foreground">SARL unipersonnelle</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">SARL-U</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">Art. 309 al. 2</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">Décisions écrites dans un registre spécial. Conventions sans AGO. Capital libre en RDC.</td>
+                  <td className="p-2 border border-indigo-200 font-semibold text-foreground">SARL unipersonnelle</td>
+                  <td className="p-2 border border-indigo-200">SARL-U</td>
+                  <td className="p-2 border border-indigo-200">Art. 309 al. 2</td>
+                  <td className="p-2 border border-indigo-200">Décisions écrites dans un registre spécial. Conventions sans AGO. Capital libre en RDC.</td>
                 </tr>
-                <tr className="bg-indigo-50/40 dark:bg-indigo-900/10">
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700 font-semibold text-foreground">SA unipersonnelle</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">SA-U</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">Art. 385 al. 2</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">Capital minimum 10 000 000 FCFA. L'actionnaire unique tient lieu d'assemblée générale.</td>
+                <tr className="bg-indigo-50/40">
+                  <td className="p-2 border border-indigo-200 font-semibold text-foreground">SA unipersonnelle</td>
+                  <td className="p-2 border border-indigo-200">SA-U</td>
+                  <td className="p-2 border border-indigo-200">Art. 385 al. 2</td>
+                  <td className="p-2 border border-indigo-200">Capital minimum 10 000 000 FCFA. L'actionnaire unique tient lieu d'assemblée générale.</td>
                 </tr>
                 <tr>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700 font-semibold text-foreground">SAS unipersonnelle</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">SASU</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">Art. 853-2</td>
-                  <td className="p-2 border border-indigo-200 dark:border-indigo-700">Très flexible. Statuts entièrement libres. L'associé unique décide seul de tout.</td>
+                  <td className="p-2 border border-indigo-200 font-semibold text-foreground">SAS unipersonnelle</td>
+                  <td className="p-2 border border-indigo-200">SASU</td>
+                  <td className="p-2 border border-indigo-200">Art. 853-2</td>
+                  <td className="p-2 border border-indigo-200">Très flexible. Statuts entièrement libres. L'associé unique décide seul de tout.</td>
                 </tr>
               </tbody>
             </table>
@@ -242,9 +242,9 @@ const LECONS: Lecon[] = [
               </div>
             ))}
           </div>
-          <div className="flex items-start gap-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg p-2.5 border border-amber-200 dark:border-amber-800">
+          <div className="flex items-start gap-2 bg-amber-50 rounded-lg p-2.5 border border-amber-200">
             <AlertTriangle className="h-3.5 w-3.5 text-amber-600 mt-0.5 shrink-0" />
-            <p className="text-xs text-amber-800 dark:text-amber-200"><strong>Formes exclues :</strong> La SNC et la SCS ne peuvent jamais être unipersonnelles. Seules SARL, SA et SAS sont autorisées par l'Art. 5 AUSCGIE.</p>
+            <p className="text-xs text-amber-800"><strong>Formes exclues :</strong> La SNC et la SCS ne peuvent jamais être unipersonnelles. Seules SARL, SA et SAS sont autorisées par l'Art. 5 AUSCGIE.</p>
           </div>
         </div>
         <p className="font-semibold">Les 3 éléments constitutifs cumulatifs de la société :</p>
@@ -273,9 +273,9 @@ const LECONS: Lecon[] = [
               <p className="font-semibold text-sm text-primary mb-1">{el.num} {el.titre}</p>
               <p className="text-xs text-muted-foreground mb-1">{el.texte}</p>
               {el.alerte && (
-                <div className="flex items-start gap-1.5 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-2.5 py-1.5 mt-1">
+                <div className="flex items-start gap-1.5 bg-amber-50 rounded-lg px-2.5 py-1.5 mt-1">
                   <AlertTriangle className="h-3.5 w-3.5 text-amber-600 mt-0.5 shrink-0" />
-                  <p className="text-xs text-amber-700 dark:text-amber-300 font-medium">{el.alerte}</p>
+                  <p className="text-xs text-amber-700 font-medium">{el.alerte}</p>
                 </div>
               )}
             </div>
@@ -302,7 +302,7 @@ const LECONS: Lecon[] = [
               ].map(([cl, v, f], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border">{cl}</td>
-                  <td className={cn('p-2 border border-border font-medium', v.startsWith('OUI') ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600 dark:text-red-400')}>{v}</td>
+                  <td className={cn('p-2 border border-border font-medium', v.startsWith('OUI') ? 'text-emerald-700' : 'text-red-600')}>{v}</td>
                   <td className="p-2 border border-border text-muted-foreground">{f}</td>
                 </tr>
               ))}
@@ -412,7 +412,7 @@ const LECONS: Lecon[] = [
                   <td className="p-2 border border-border text-xs">{cat}</td>
                   <td className="p-2 border border-border text-xs">{r}</td>
                   <td className="p-2 border border-border text-xs">{co}</td>
-                  <td className={cn('p-2 border border-border text-xs font-medium', cr.includes('Librement') ? 'text-emerald-700 dark:text-emerald-400' : '')}>{cr}</td>
+                  <td className={cn('p-2 border border-border text-xs font-medium', cr.includes('Librement') ? 'text-emerald-700' : '')}>{cr}</td>
                   <td className="p-2 border border-border text-xs text-center">{am}</td>
                 </tr>
               ))}
@@ -420,12 +420,12 @@ const LECONS: Lecon[] = [
           </table>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/10 p-3">
-            <p className="font-semibold text-xs text-rose-700 dark:text-rose-300 mb-1">Sociétés de personnes (intuitu personae)</p>
+          <div className="rounded-xl border border-rose-200 bg-rose-50/50 p-3">
+            <p className="font-semibold text-xs text-rose-700 mb-1">Sociétés de personnes (intuitu personae)</p>
             <p className="text-xs text-muted-foreground">SNC et SCS : l'identité des associés prime sur le capital. La cession de parts exige l'agrément unanime de tous les associés. Le décès, la faillite ou l'incapacité d'un associé peut entraîner la dissolution. La responsabilité des commandités de la SCS et de tous les associés de la SNC est indéfinie et solidaire : les créanciers peuvent saisir le patrimoine personnel des associés.</p>
           </div>
-          <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-900/10 p-3">
-            <p className="font-semibold text-xs text-blue-700 dark:text-blue-300 mb-1">Sociétés de capitaux</p>
+          <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-3">
+            <p className="font-semibold text-xs text-blue-700 mb-1">Sociétés de capitaux</p>
             <p className="text-xs text-muted-foreground">SARL, SA et SAS : le capital investi prime. La responsabilité est limitée aux apports de chaque associé. Les créanciers ne peuvent pas saisir le patrimoine personnel des associés au-delà de leur apport. La cession de parts (SARL) ou d'actions (SA, SAS) est plus libre. Ces formes conviennent aux projets nécessitant des capitaux importants et à la protection du patrimoine personnel.</p>
           </div>
         </div>
@@ -443,8 +443,8 @@ const LECONS: Lecon[] = [
             </div>
           </div>
         </div>
-        <div className="rounded-xl border border-teal-200 dark:border-teal-800 bg-teal-50/50 dark:bg-teal-900/10 p-3">
-          <p className="text-xs font-semibold text-teal-700 dark:text-teal-300 mb-2">Le GIE (Groupement d'Intérêt Économique) : forme particulière</p>
+        <div className="rounded-xl border border-teal-200 bg-teal-50/50 p-3">
+          <p className="text-xs font-semibold text-teal-700 mb-2">Le GIE (Groupement d'Intérêt Économique) : forme particulière</p>
           <p className="text-xs text-muted-foreground">Le GIE n'est pas une société commerciale au sens strict. C'est un groupement créé entre personnes physiques ou morales pour mettre en commun des moyens en vue de faciliter leur activité respective. Le GIE ne vise pas la réalisation de bénéfices pour lui-même mais la réduction des coûts ou l'amélioration des résultats de ses membres. Il est traité en détail au Chapitre 6.</p>
         </div>
         <div className="overflow-x-auto">
@@ -475,8 +475,8 @@ const LECONS: Lecon[] = [
             </tbody>
           </table>
         </div>
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/40 dark:bg-indigo-900/10 p-3">
-          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 mb-1">Approfondissement par forme</p>
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-3">
+          <p className="text-xs font-semibold text-indigo-700 mb-1">Approfondissement par forme</p>
           <p className="text-xs text-muted-foreground">Ce tableau est un aperçu introductif. Chaque forme est étudiée en profondeur dans les chapitres dédiés : <strong>Ch. 3</strong> (SNC et SCS), <strong>Ch. 4</strong> (SA et SAS), <strong>Ch. 5</strong> (SARL), <strong>Ch. 6</strong> (GIE).</p>
         </div>
       </div>
@@ -523,17 +523,17 @@ const LECONS: Lecon[] = [
         <p>
           La révision de l'AUSCGIE du 30 janvier 2014 à Ouagadougou a introduit une règle fondamentale à l'Art. 311 : le capital minimum d'un million FCFA pour la SARL est désormais <strong>supplétif</strong> (applicable par défaut) et non plus impératif. Cela signifie que les États membres peuvent s'en écarter par une disposition nationale. La RDC a saisi cette opportunité pour moderniser radicalement son droit de la création d'entreprise.
         </p>
-        <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-900/10 p-4">
-          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 uppercase mb-2">Art. 311 AUSCGIE révisé 2014 : Capital SARL supplétif</p>
+        <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
+          <p className="text-xs font-semibold text-emerald-700 uppercase mb-2">Art. 311 AUSCGIE révisé 2014 : Capital SARL supplétif</p>
           <p className="italic text-foreground/80 text-xs">
             « <strong>Sauf dispositions nationales contraires</strong>, le capital social doit être d'un million (1 000 000) de francs CFA au moins. »
           </p>
-          <p className="text-xs text-emerald-700 dark:text-emerald-300 mt-2 font-medium">
+          <p className="text-xs text-emerald-700 mt-2 font-medium">
             Le million FCFA n'est plus impératif depuis 2014 : les États peuvent s'en écarter par une loi ou un décret national.
           </p>
         </div>
-        <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/20 p-4">
-          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase mb-2">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+          <p className="text-xs font-semibold text-indigo-700 uppercase mb-2">
             Arrêté interministériel RDC n° 002 et n° 243 du 30 décembre 2014
           </p>
           <p className="text-xs text-muted-foreground mb-3">
@@ -557,7 +557,7 @@ const LECONS: Lecon[] = [
                 d: 'Un simple bordereau de versement bancaire acquitté suffit désormais comme preuve de la libération du capital social. L\'attestation notariale de dépôt des fonds, auparavant requise, n\'est plus obligatoire. Cette simplification supprime une étape coûteuse et bureaucratique tout en maintenant la traçabilité bancaire.',
               },
             ].map(item => (
-              <div key={item.n} className="flex items-start gap-2.5 bg-white dark:bg-muted/20 rounded-lg p-2.5 border border-border">
+              <div key={item.n} className="flex items-start gap-2.5 bg-white rounded-lg p-2.5 border border-border">
                 <span className="h-5 w-5 rounded-full bg-indigo-600 text-white text-xs flex items-center justify-center font-bold shrink-0">{item.n}</span>
                 <div>
                   <p className="text-xs font-semibold text-foreground">{item.t}</p>
@@ -587,17 +587,17 @@ const LECONS: Lecon[] = [
                 ['Sénégal', 'Aucun minimum', 'Réforme sénégalaise post-2014'],
                 ['Togo', 'Aucun minimum', 'Réforme togolaise'],
               ].map(([pays, cap, base], i) => (
-                <tr key={i} className={cn('even:bg-muted/20', pays === 'RDC' ? 'bg-emerald-50/70 dark:bg-emerald-900/20 font-bold' : '')}>
+                <tr key={i} className={cn('even:bg-muted/20', pays === 'RDC' ? 'bg-emerald-50/70 font-bold' : '')}>
                   <td className="p-2 border border-border">{pays}</td>
-                  <td className={cn('p-2 border border-border', pays === 'RDC' ? 'text-emerald-700 dark:text-emerald-400' : '')}>{cap}</td>
+                  <td className={cn('p-2 border border-border', pays === 'RDC' ? 'text-emerald-700' : '')}>{cap}</td>
                   <td className="p-2 border border-border text-muted-foreground">{base}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-2">Important : capital libre ne signifie pas capital nul</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+          <p className="text-xs font-semibold text-amber-700 mb-2">Important : capital libre ne signifie pas capital nul</p>
           <p className="text-xs text-muted-foreground">
             Même si la loi congolaise ne fixe pas de minimum, les associés doivent fixer un capital <strong>adapté à l'objet social</strong>. Un capital symbolique (ex. 1 CDF) pour une société qui emprunte plusieurs millions peut engager la responsabilité des fondateurs pour insuffisance de capital (abus de personnalité morale). Dans la pratique, les banques, les fournisseurs et les partenaires examinent le capital comme indicateur de solvabilité.
           </p>
@@ -669,7 +669,7 @@ const LECONS: Lecon[] = [
                   <tr key={i} className="even:bg-muted/20">
                     <td className="p-2 border border-border">{t}</td>
                     <td className="p-2 border border-border font-semibold text-primary">{c}</td>
-                    <td className="p-2 border border-border font-semibold text-emerald-700 dark:text-emerald-400">{d}</td>
+                    <td className="p-2 border border-border font-semibold text-emerald-700">{d}</td>
                   </tr>
                 ))}
               </tbody>
@@ -854,16 +854,16 @@ const LECONS: Lecon[] = [
               <div className="flex items-start gap-2"><span className="text-blue-500 shrink-0 font-bold">•</span><span><strong>En cas de conflit :</strong> les statuts prévalent sur le pacte vis-à-vis des tiers</span></div>
             </div>
           </div>
-          <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/20 p-3">
-            <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-2">Limite : les règles impératives de l'AUSCGIE</p>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+            <p className="text-xs font-semibold text-amber-700 mb-2">Limite : les règles impératives de l'AUSCGIE</p>
             <p className="text-xs text-muted-foreground">
               Un pacte ne peut pas déroger aux règles impératives de l'AUSCGIE. Par exemple : un pacte qui attribue 100% des bénéfices à un seul associé est nul (clause léonine, Art. 54). Un pacte qui interdit à un associé de participer aux décisions collectives viole le droit de vote (Art. 125). Ces clauses sont réputées non écrites.
             </p>
           </div>
         </div>
-        <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50/60 dark:bg-amber-900/20 p-3">
+        <div className="flex items-start gap-2.5 rounded-xl border border-amber-200 bg-amber-50/60 p-3">
           <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
-          <p className="text-xs text-amber-800 dark:text-amber-300">
+          <p className="text-xs text-amber-800">
             Un pacte d'associés qui attribue la totalité des bénéfices à un seul associé est <strong>nul</strong> même s'il est dans un document externe aux statuts : l'Art. 54 al. 2 s'applique à tout acte relatif à la société, pas seulement aux statuts. La violation d'un pacte ne rend pas nul l'acte accompli (ex. la cession de parts réalisée en violation du droit de préemption reste valable), mais engage la responsabilité civile du violateur envers les autres signataires.
           </p>
         </div>
@@ -902,7 +902,7 @@ const LECONS: Lecon[] = [
           <p className="italic text-foreground/80 text-xs">
             « La nullité d'une société ne peut résulter que d'une disposition expresse du présent Acte uniforme ou des textes régissant la nullité des contrats en général. »
           </p>
-          <p className="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-2">
+          <p className="text-xs text-emerald-700 font-medium mt-2">
             Principe de faveur pour la validité : la nullité est d'interprétation STRICTE. Les juges ne peuvent pas inventer de nouvelles causes de nullité.
           </p>
         </div>
@@ -929,7 +929,7 @@ const LECONS: Lecon[] = [
                 ['Art. 54 al. 2', 'Clause léonine (nullité de la clause, pas de la société)', 'La clause est nulle mais la société reste valide. Exception : si la clause est l\'essence même du contrat'],
               ].map(([a, c, e], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-red-600 dark:text-red-400">{a}</td>
+                  <td className="p-2 border border-border font-semibold text-red-600">{a}</td>
                   <td className="p-2 border border-border font-medium">{c}</td>
                   <td className="p-2 border border-border text-muted-foreground">{e}</td>
                 </tr>
@@ -961,7 +961,7 @@ const LECONS: Lecon[] = [
                 ].map(([f, e, r], i) => (
                   <tr key={i} className="even:bg-muted/20">
                     <td className="p-2 border border-border font-medium">{f}</td>
-                    <td className={cn('p-2 border border-border font-medium', e.startsWith('OUI') ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-600 dark:text-red-400')}>{e}</td>
+                    <td className={cn('p-2 border border-border font-medium', e.startsWith('OUI') ? 'text-emerald-700' : 'text-red-600')}>{e}</td>
                     <td className="p-2 border border-border text-muted-foreground">{r}</td>
                   </tr>
                 ))}
@@ -1051,8 +1051,8 @@ const LECONS: Lecon[] = [
     badge: 'Art. 28-36, 50-1 à 50-4, 73-80 AUSCGIE',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
-        <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-900/10 p-4">
-          <p className="text-xs font-semibold text-blue-700 dark:text-blue-300 uppercase mb-1">Objectif de cette leçon</p>
+        <div className="rounded-xl border border-blue-200 bg-blue-50/50 p-4">
+          <p className="text-xs font-semibold text-blue-700 uppercase mb-1">Objectif de cette leçon</p>
           <p className="text-xs text-muted-foreground">Comprendre les règles AUSCGIE sur la durée des sociétés (Art. 28 à 36), les apports en industrie introduits par la révision 2014 (Art. 50-1 à 50-4), et la responsabilité des fondateurs (Art. 73 à 80).</p>
         </div>
 
@@ -1098,7 +1098,7 @@ const LECONS: Lecon[] = [
                 ['Art. 34', 'Prorogation sans nouvelle personnalité morale', 'Pas de re-immatriculation nécessaire'],
               ].map(([a, r, s], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-blue-600 dark:text-blue-400">{a}</td>
+                  <td className="p-2 border border-border font-semibold text-blue-600">{a}</td>
                   <td className="p-2 border border-border">{r}</td>
                   <td className="p-2 border border-border text-muted-foreground">{s}</td>
                 </tr>
@@ -1113,8 +1113,8 @@ const LECONS: Lecon[] = [
           La révision de l'AUSCGIE du 30 janvier 2014 a introduit pour la première fois un régime légal complet des apports en industrie. Avant 2014, l'apport en industrie existait dans la pratique mais sans cadre juridique précis dans l'AUSCGIE. Désormais, les Art. 50-1 à 50-4 fixent clairement les droits et obligations des apporteurs en industrie.
         </p>
 
-        <div className="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-900/10 p-3">
-          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">Définition de l'apport en industrie (Art. 50-1)</p>
+        <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3">
+          <p className="text-xs font-semibold text-amber-700 mb-1">Définition de l'apport en industrie (Art. 50-1)</p>
           <p className="text-xs text-muted-foreground">Les apports en industrie sont constitués par la <strong>mise à disposition effective de connaissances techniques, de compétences professionnelles ou de services</strong> au profit de la société. Exemples : un expert-comptable qui apporte son savoir-faire en comptabilité, un ingénieur qui apporte son expertise technique, un commercial qui apporte son réseau de clients. L'apport en industrie est interdit dans les SA (Art. 50-1 al. 2).</p>
         </div>
 
@@ -1164,7 +1164,7 @@ const LECONS: Lecon[] = [
                   <td className="p-2 border border-border font-medium">{c}</td>
                   <td className="p-2 border border-border">{n}</td>
                   <td className="p-2 border border-border">{na}</td>
-                  <td className={cn('p-2 border border-border', i.startsWith('NON') ? 'text-red-600 dark:text-red-400 font-medium' : i.startsWith('OUI') ? 'text-emerald-700 dark:text-emerald-400 font-medium' : '')}>{i}</td>
+                  <td className={cn('p-2 border border-border', i.startsWith('NON') ? 'text-red-600 font-medium' : i.startsWith('OUI') ? 'text-emerald-700 font-medium' : '')}>{i}</td>
                 </tr>
               ))}
             </tbody>
@@ -1177,8 +1177,8 @@ const LECONS: Lecon[] = [
           Les fondateurs et les premiers membres des organes de gestion portent une responsabilité particulière dans la constitution de la société. L'AUSCGIE leur impose des obligations spécifiques et les soumet à des régimes de responsabilité rigoureux pour garantir que la société est constituée conformément à la loi.
         </p>
 
-        <div className="rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-900/10 p-3">
-          <p className="text-xs font-semibold text-rose-700 dark:text-rose-300 mb-2">Déclaration de régularité et de conformité (Art. 73)</p>
+        <div className="rounded-xl border border-rose-200 bg-rose-50/50 p-3">
+          <p className="text-xs font-semibold text-rose-700 mb-2">Déclaration de régularité et de conformité (Art. 73)</p>
           <p className="text-xs text-muted-foreground">Les fondateurs et les premiers membres des organes de gestion, d'administration et de direction doivent déposer au RCCM une <strong>déclaration de régularité et de conformité</strong> attestant que la constitution a été réalisée conformément aux dispositions de l'AUSCGIE. Cette déclaration est exigée <strong>à peine de rejet de la demande d'immatriculation</strong>. Elle engage personnellement ses signataires qui certifient la régularité de la constitution.</p>
         </div>
 
@@ -1202,7 +1202,7 @@ const LECONS: Lecon[] = [
                 ['Art. 80', 'Prescription de l\'action en responsabilité contre les fondateurs et dirigeants : 3 ans', 'Délai calculé à compter de l\'immatriculation ou de la publication de la modification.'],
               ].map(([a, r, s], i) => (
                 <tr key={i} className="even:bg-muted/20">
-                  <td className="p-2 border border-border font-semibold text-blue-600 dark:text-blue-400">{a}</td>
+                  <td className="p-2 border border-border font-semibold text-blue-600">{a}</td>
                   <td className="p-2 border border-border text-muted-foreground">{r}</td>
                   <td className="p-2 border border-border text-muted-foreground">{s}</td>
                 </tr>
@@ -1271,9 +1271,9 @@ const LECONS: Lecon[] = [
     badge: 'Outil pratique interactif',
     contenu: (
       <div className="space-y-3">
-        <div className="rounded-xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 p-3">
-          <p className="text-xs text-indigo-800 dark:text-indigo-200 font-semibold mb-1">Comment utiliser ce simulateur ?</p>
-          <ul className="text-xs text-indigo-700 dark:text-indigo-300 space-y-1 list-disc list-inside">
+        <div className="rounded-xl bg-indigo-50 border border-indigo-200 p-3">
+          <p className="text-xs text-indigo-800 font-semibold mb-1">Comment utiliser ce simulateur ?</p>
+          <ul className="text-xs text-indigo-700 space-y-1 list-disc list-inside">
             <li>Choisissez votre forme sociale et votre pays de constitution</li>
             <li>Renseignez les mentions obligatoires des statuts (Art. 1 à 5 AUSCGIE)</li>
             <li>Ajoutez vos associés et leurs apports (numéraire, nature, industrie)</li>
@@ -1327,21 +1327,21 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [showResult, setShowResult] = useState(false)
   return (
-    <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/30 dark:bg-indigo-900/10 p-4 space-y-3">
-      <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">{q.question}</p>
+    <div className="rounded-xl border border-indigo-200 bg-indigo-50/30 p-4 space-y-3">
+      <p className="text-xs font-semibold text-indigo-700">{q.question}</p>
       <div className="space-y-1.5">
         {q.options.map(opt => {
           let cls = 'w-full text-left text-xs px-3 py-2 rounded-lg border transition-colors '
-          if (!showResult) cls += selected === opt.id ? 'border-indigo-500 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200' : 'border-border hover:border-indigo-300 hover:bg-muted/40'
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300'
+          if (!showResult) cls += selected === opt.id ? 'border-indigo-500 bg-indigo-100 text-indigo-800' : 'border-border hover:border-indigo-300 hover:bg-muted/40'
+          else if (opt.id === q.reponseCorrecte) cls += 'border-green-500 bg-green-50 text-green-700'
+          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
           else cls += 'border-border opacity-50'
           return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
         })}
       </div>
       {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className="text-xs bg-indigo-600 text-white rounded-lg px-4 py-1.5 disabled:opacity-40 hover:bg-indigo-700 transition-colors font-semibold">Vérifier</button>}
       {showResult && (
-        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300' : 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300')}>
+        <div className={cn('rounded-lg p-2.5 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600')}>
           <div className="flex items-center gap-1 font-semibold mb-0.5">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct !' : 'Incorrect'}</div>
           <p>{q.explication}</p>
           <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
@@ -1358,7 +1358,7 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
         <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('ec','')}</span>
+          <span className="h-7 w-7 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center shrink-0">C{cp.id.replace('ec','')}</span>
           <div>
             <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
             <p className="text-xs text-muted-foreground">{cp.articleRef}</p>
@@ -1368,21 +1368,21 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
       </button>
       {open && (
         <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3">
-            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed">{cp.contexte}</p>
+          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
+            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
           </div>
           <div className="space-y-3">
             {cp.questions.map(q => (
               <div key={q.num} className="space-y-2">
                 <p className="text-xs font-semibold text-foreground">Question {q.num} : {q.enonce}</p>
                 {corrVisible.has(q.num) ? (
-                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 p-3">
-                    <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 mb-1">Correction</p>
-                    <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">{q.correction}</p>
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
+                    <p className="text-xs font-semibold text-emerald-700 mb-1">Correction</p>
+                    <p className="text-xs text-emerald-900 leading-relaxed">{q.correction}</p>
                   </div>
                 ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Voir la correction</button>
+                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className="text-xs text-indigo-600 hover:underline font-medium">Voir la correction</button>
                 )}
               </div>
             ))}
@@ -1439,18 +1439,18 @@ export default function UE2Chapitre1Page() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/10 p-4">
+      <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
         <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-          <span className="text-sm font-semibold text-indigo-800 dark:text-indigo-300">Objectifs du chapitre</span>
+          <BookOpen className="h-4 w-4 text-indigo-600" />
+          <span className="text-sm font-semibold text-indigo-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maîtriser le champ d'application de l'AUSCGIE et le critère du siège social (Art. 1)</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Identifier les 3 éléments constitutifs d'une société : apports, vocation aux résultats, affectio societatis (Art. 4)</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Distinguer les 5 formes sociales OHADA et leurs caractéristiques comparatives (Art. 270 à 853)</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Appliquer les réformes RDC sur le capital libre de la SARL (Arrêté 30/12/2014)</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maîtriser les 9 étapes de création d'une société au GUCE en RDC (Décret 14/014)</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700 dark:text-indigo-300"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Comprendre les pactes d'associés, la nullité des sociétés et la responsabilité des fondateurs</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maîtriser le champ d'application de l'AUSCGIE et le critère du siège social (Art. 1)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Identifier les 3 éléments constitutifs d'une société : apports, vocation aux résultats, affectio societatis (Art. 4)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Distinguer les 5 formes sociales OHADA et leurs caractéristiques comparatives (Art. 270 à 853)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Appliquer les réformes RDC sur le capital libre de la SARL (Arrêté 30/12/2014)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maîtriser les 9 étapes de création d'une société au GUCE en RDC (Décret 14/014)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Comprendre les pactes d'associés, la nullité des sociétés et la responsabilité des fondateurs</span></li>
         </ul>
       </div>
 
@@ -1476,7 +1476,7 @@ export default function UE2Chapitre1Page() {
           </div>
           <div className="rounded-xl border-l-4 border-l-indigo-500 bg-card border border-border p-4">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">Leçon {leconIdx + 1} / {LECONS.length}</span>
+              <span className="text-xs font-semibold text-indigo-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
             <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>

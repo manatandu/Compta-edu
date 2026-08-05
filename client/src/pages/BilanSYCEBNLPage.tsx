@@ -516,7 +516,7 @@ export default function BilanSYCEBNLPage() {
                       <td className="px-2 py-2 text-primary font-mono">{r.ref}</td>
                       <td className="px-2 py-2 text-primary font-bold">{r.label}</td>
                       <td className="px-2 py-2 text-center text-muted-foreground">{r.note}</td>
-                      <td className={`px-2 py-2 text-right font-bold ${val < 0 ? "text-red-700 dark:text-red-400" : "text-primary"}`}>{displayST}</td>
+                      <td className={`px-2 py-2 text-right font-bold ${val < 0 ? "text-red-700" : "text-primary"}`}>{displayST}</td>
                     </tr>
                   );
                 }
@@ -529,7 +529,7 @@ export default function BilanSYCEBNLPage() {
                       <td className="px-2 py-1.5 text-primary font-mono">{r.ref}</td>
                       <td className="px-2 py-1.5 text-primary font-semibold">{r.label}</td>
                       <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                      <td className={`px-2 py-1.5 text-right font-bold ${val < 0 ? "text-red-700 dark:text-red-400" : "text-primary"}`}>{displayTot}</td>
+                      <td className={`px-2 py-1.5 text-right font-bold ${val < 0 ? "text-red-700" : "text-primary"}`}>{displayTot}</td>
                     </tr>
                   );
                 }
@@ -539,7 +539,7 @@ export default function BilanSYCEBNLPage() {
                       <td className="px-2 py-1.5 font-mono text-muted-foreground">{r.ref}</td>
                       <td className="px-2 py-1.5 font-medium">{r.label}</td>
                       <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                      <td className={`px-2 py-1.5 text-right font-bold ${resultatNet >= 0 ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
+                      <td className={`px-2 py-1.5 text-right font-bold ${resultatNet >= 0 ? "text-green-700" : "text-red-700"}`}>
                         {resultatNet !== 0 ? `${formatMontant(Math.abs(resultatNet))} ${resultatNet >= 0 ? "(Excédent)" : "(Déficit)"}` : ""}
                       </td>
                     </tr>
@@ -554,7 +554,7 @@ export default function BilanSYCEBNLPage() {
                     <td className="px-2 py-1.5 font-mono text-muted-foreground">{r.ref}</td>
                     <td className="px-2 py-1.5">{r.label}</td>
                     <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
-                    <td className={`px-2 py-1.5 text-right font-medium ${val < 0 ? "text-red-700 dark:text-red-400" : ""}`}>{displayPassif}</td>
+                    <td className={`px-2 py-1.5 text-right font-medium ${val < 0 ? "text-red-700" : ""}`}>{displayPassif}</td>
                   </tr>
                 );
               })}
@@ -611,7 +611,7 @@ export default function BilanSYCEBNLPage() {
                       <td className="px-2 py-2 text-center">{isPos ? "+" : "-"}</td>
                       <td className="px-2 py-2 text-center text-muted-foreground">{r.note}</td>
                       <td className="px-2 py-2 text-xs text-muted-foreground"></td>
-                      <td className={`px-2 py-2 text-right font-bold ${isPos ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
+                      <td className={`px-2 py-2 text-right font-bold ${isPos ? "text-green-700" : "text-red-700"}`}>
                         {formatMontant(Math.abs(v.montant))}
                       </td>
                     </tr>
@@ -625,7 +625,7 @@ export default function BilanSYCEBNLPage() {
                       <td className="px-2 py-1.5 text-center"></td>
                       <td className="px-2 py-1.5 text-center text-muted-foreground">{r.note}</td>
                       <td className="px-2 py-1.5 text-xs text-muted-foreground">{v.compteUtilises.join(", ")}</td>
-                      <td className={`px-2 py-1.5 text-right font-bold ${v.montant >= 0 ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}>
+                      <td className={`px-2 py-1.5 text-right font-bold ${v.montant >= 0 ? "text-green-700" : "text-red-700"}`}>
                         {formatMontant(Math.abs(v.montant))}
                       </td>
                     </tr>
@@ -671,9 +671,9 @@ export default function BilanSYCEBNLPage() {
 
       {/* Sélecteur session */}
       {sessions.length === 0 ? (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-900/10 dark:border-amber-800 px-4 py-3">
-          <p className="text-xs text-amber-800 dark:text-amber-300 font-medium">Aucune session comptable trouvée.</p>
-          <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+          <p className="text-xs text-amber-800 font-medium">Aucune session comptable trouvée.</p>
+          <p className="text-xs text-amber-700 mt-0.5">
             Créez une session dans le module Journal pour commencer.
           </p>
         </div>
@@ -707,11 +707,11 @@ export default function BilanSYCEBNLPage() {
       </div>
 
       {/* Note informative SYCEBNL */}
-      <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-900/10 dark:border-blue-800 px-4 py-2">
-        <p className="text-xs text-blue-800 dark:text-blue-300 font-medium">
+      <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-2">
+        <p className="text-xs text-blue-800 font-medium">
           SYCEBNL : Entités à But Non Lucratif (ONG, Associations, Fondations)
         </p>
-        <p className="text-xs text-blue-700 dark:text-blue-400 mt-0.5">
+        <p className="text-xs text-blue-700 mt-0.5">
           {tab === "bilan"
             ? "Le Passif SYCEBNL distingue : Fonds propres et assimilés + Fonds affectés et reportés = Ressources propres et assimilées. Le résultat est appelé Excédent (+) ou Déficit (-)."
             : "Le CR SYCEBNL est structuré en Revenus des AO – Charges des AO = Résultat AO, puis ± HAO = Résultat net. Il n'y a pas de Marge commerciale ni de Valeur ajoutée comme dans SYSCOHADA."}

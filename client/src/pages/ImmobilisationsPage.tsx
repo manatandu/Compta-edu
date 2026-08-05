@@ -1081,13 +1081,13 @@ function InfoBulle({ texte, loi }: { texte: string; loi?: string }) {
       {open && createPortal(
         <div
           style={{ position: 'fixed', top: pos.top, left: pos.left, zIndex: 99999, width: 260 }}
-          className="rounded-xl border border-emerald-200 dark:border-emerald-700 bg-white dark:bg-zinc-900 shadow-2xl p-3 text-xs"
+          className="rounded-xl border border-emerald-200 bg-white shadow-2xl p-3 text-xs"
         >
-          <p className="text-zinc-800 dark:text-zinc-100 leading-relaxed">{texte}</p>
-          {loi && <p className="mt-1.5 text-emerald-700 dark:text-emerald-400 font-semibold">{loi}</p>}
+          <p className="text-zinc-800 leading-relaxed">{texte}</p>
+          {loi && <p className="mt-1.5 text-emerald-700 font-semibold">{loi}</p>}
           <button
             onClick={() => setOpen(false)}
-            className="absolute top-1.5 right-2 text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 text-sm leading-none font-bold"
+            className="absolute top-1.5 right-2 text-zinc-400 hover:text-zinc-700 text-sm leading-none font-bold"
           >×</button>
         </div>,
         document.body
@@ -1225,8 +1225,8 @@ export default function ImmobilisationsPage() {
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center">
-            <Building2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <div className="h-8 w-8 rounded-lg bg-emerald-50 flex items-center justify-center">
+            <Building2 className="h-4 w-4 text-emerald-600" />
           </div>
           <div>
             <h1 className="text-sm font-bold text-foreground leading-tight">Immobilisations & Amortissements</h1>
@@ -1248,7 +1248,7 @@ export default function ImmobilisationsPage() {
             className={cn(
               'flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all',
               onglet === id
-                ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
+                ? 'border-emerald-500 text-emerald-600'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             )}
           >
@@ -1263,8 +1263,8 @@ export default function ImmobilisationsPage() {
         {/* ─── CATALOGUE ─────────────────────────────────────────────────────────── */}
         {onglet === 'catalogue' && (
           <div className="space-y-4">
-            <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800 p-3">
-              <p className="text-xs text-emerald-800 dark:text-emerald-300 font-medium">
+            <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3">
+              <p className="text-xs text-emerald-800 font-medium">
                 Catalogue officiel : AR n°088 du 19/02/2025 (en vigueur au 01/01/2026). Éligibilité dégressif et exceptionnel selon Loi IS Art. 31-37. Comptes OHADA 2017.
               </p>
             </div>
@@ -1295,8 +1295,8 @@ export default function ImmobilisationsPage() {
                 return (
                   <div key={cat}>
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="h-5 w-5 rounded bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                        <Building2 className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                      <div className="h-5 w-5 rounded bg-emerald-100 flex items-center justify-center">
+                        <Building2 className="h-3 w-3 text-emerald-600" />
                       </div>
                       <h3 className="text-xs font-bold text-foreground">{cat}</h3>
                       <span className="text-xs text-muted-foreground">({items.length})</span>
@@ -1308,7 +1308,7 @@ export default function ImmobilisationsPage() {
                             <div className="flex-1 min-w-0">
                               <p className="text-xs font-semibold text-foreground">{item.designation}</p>
                               <div className="flex items-center gap-1 mt-0.5">
-                                <span className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-emerald-700 dark:text-emerald-400 font-bold">{item.compteOHADA}</span>
+                                <span className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-emerald-700 font-bold">{item.compteOHADA}</span>
                                 <span className="text-xs text-muted-foreground truncate">{item.intituleCompte}</span>
                               </div>
                             </div>
@@ -1323,7 +1323,7 @@ export default function ImmobilisationsPage() {
                               {/* Badge dégressif */}
                               <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1',
                                 item.eligibleDegressif
-                                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
+                                  ? 'bg-blue-50 text-blue-700'
                                   : 'bg-muted text-muted-foreground')}>
                                 {!item.eligibleDegressif && <Lock className="h-2.5 w-2.5" />}
                                 Dégressif {item.eligibleDegressif && item.duree ? `(×${getCoeffDegressif(item.duree)})` : ''}
@@ -1331,14 +1331,14 @@ export default function ImmobilisationsPage() {
                               {/* Badge exceptionnel */}
                               <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1',
                                 item.eligibleExceptionnel
-                                  ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400'
+                                  ? 'bg-purple-50 text-purple-700'
                                   : 'bg-muted text-muted-foreground')}>
                                 {!item.eligibleExceptionnel && <Lock className="h-2.5 w-2.5" />}
                                 Exceptionnel
                               </span>
                             </div>
                             <button onClick={() => simulerDepuisCatalogue(item)}
-                              className="text-xs px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors flex items-center gap-1">
+                              className="text-xs px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold hover:bg-emerald-100 transition-colors flex items-center gap-1">
                               <Calculator className="h-3 w-3" />
                               Simuler
                             </button>
@@ -1365,9 +1365,9 @@ export default function ImmobilisationsPage() {
         {onglet === 'simulateur' && (
           <div className="space-y-4">
             {immoPrechoisie && (
-              <div className="rounded-xl bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800 p-3 flex items-center gap-2">
+              <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3 flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                <p className="text-xs text-emerald-800 dark:text-emerald-300 flex-1">
+                <p className="text-xs text-emerald-800 flex-1">
                   Pré-rempli depuis le catalogue : <strong>{immoPrechoisie.designation}</strong>
                 </p>
                 <button onClick={() => { setImmoPrechoisie(null); setFormData(f => ({ ...f, designation: '', compteOHADA: '', intituleCompte: '', dureeCustom: '' })); setCompteQuery(''); setTableauGenere(null) }}
@@ -1392,7 +1392,7 @@ export default function ImmobilisationsPage() {
                 {immoPrechoisie ? (
                   /* Verrouillé depuis catalogue */
                   <div className="flex items-center gap-2">
-                    <div className="flex-shrink-0 px-2 py-1.5 rounded-md border border-border bg-muted text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400">
+                    <div className="flex-shrink-0 px-2 py-1.5 rounded-md border border-border bg-muted text-xs font-mono font-bold text-emerald-700">
                       {formData.compteOHADA}
                     </div>
                     <div className="flex-1 px-3 py-1.5 rounded-md border border-border bg-muted text-xs text-muted-foreground truncate">
@@ -1445,7 +1445,7 @@ export default function ImmobilisationsPage() {
                               }}
                               className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-muted transition-colors"
                             >
-                              <span className="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 w-14 shrink-0">{c.code}</span>
+                              <span className="text-xs font-mono font-bold text-emerald-700 w-14 shrink-0">{c.code}</span>
                               <span className="text-xs text-foreground truncate">{c.intitule}</span>
                             </button>
                           ))}
@@ -1500,8 +1500,8 @@ export default function ImmobilisationsPage() {
                   {/* Linéaire : toujours disponible */}
                   <button onClick={() => setFormData(f => ({ ...f, mode: 'lineaire' }))}
                     className={cn('p-3 rounded-xl border text-center transition-all',
-                      formData.mode === 'lineaire' ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20' : 'border-border bg-card hover:border-emerald-300')}>
-                    <p className={cn('text-xs font-bold', formData.mode === 'lineaire' ? 'text-emerald-700 dark:text-emerald-400' : 'text-foreground')}>Linéaire</p>
+                      formData.mode === 'lineaire' ? 'border-emerald-500 bg-emerald-50' : 'border-border bg-card hover:border-emerald-300')}>
+                    <p className={cn('text-xs font-bold', formData.mode === 'lineaire' ? 'text-emerald-700' : 'text-foreground')}>Linéaire</p>
                     <p className="text-xs text-muted-foreground">Art. 30</p>
                   </button>
 
@@ -1513,10 +1513,10 @@ export default function ImmobilisationsPage() {
                       !immoDegressifOk
                         ? 'border-border/40 bg-muted/30 opacity-60 cursor-not-allowed'
                         : formData.mode === 'degressif'
-                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                          ? 'border-blue-500 bg-blue-50'
                           : 'border-border bg-card hover:border-blue-300')}>
                     {!immoDegressifOk && <Lock className="absolute top-1 right-1 h-2.5 w-2.5 text-muted-foreground" />}
-                    <p className={cn('text-xs font-bold', formData.mode === 'degressif' ? 'text-blue-700 dark:text-blue-400' : !immoDegressifOk ? 'text-muted-foreground' : 'text-foreground')}>Dégressif</p>
+                    <p className={cn('text-xs font-bold', formData.mode === 'degressif' ? 'text-blue-700' : !immoDegressifOk ? 'text-muted-foreground' : 'text-foreground')}>Dégressif</p>
                     <p className="text-xs text-muted-foreground">Art. 31-35</p>
                   </button>
 
@@ -1528,19 +1528,19 @@ export default function ImmobilisationsPage() {
                       !immoExceptionnelOk
                         ? 'border-border/40 bg-muted/30 opacity-60 cursor-not-allowed'
                         : formData.mode === 'exceptionnel'
-                          ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
+                          ? 'border-purple-500 bg-purple-50'
                           : 'border-border bg-card hover:border-purple-300')}>
                     {!immoExceptionnelOk && <Lock className="absolute top-1 right-1 h-2.5 w-2.5 text-muted-foreground" />}
-                    <p className={cn('text-xs font-bold', formData.mode === 'exceptionnel' ? 'text-purple-700 dark:text-purple-400' : !immoExceptionnelOk ? 'text-muted-foreground' : 'text-foreground')}>Exceptionnel</p>
+                    <p className={cn('text-xs font-bold', formData.mode === 'exceptionnel' ? 'text-purple-700' : !immoExceptionnelOk ? 'text-muted-foreground' : 'text-foreground')}>Exceptionnel</p>
                     <p className="text-xs text-muted-foreground">Art. 36-38</p>
                   </button>
                 </div>
 
                 {/* Message raison blocage */}
                 {immoPrechoisie && formData.mode === 'lineaire' && (!immoDegressifOk || !immoExceptionnelOk) && (
-                  <div className="rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200 p-3 flex gap-2">
+                  <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 flex gap-2">
                     <AlertCircle className="h-3.5 w-3.5 text-amber-600 shrink-0 mt-0.5" />
-                    <div className="text-xs text-amber-800 dark:text-amber-300 space-y-0.5">
+                    <div className="text-xs text-amber-800 space-y-0.5">
                       {!immoDegressifOk && <p>Dégressif non applicable : {immoPrechoisie.raisonNonDegressif}</p>}
                       {!immoExceptionnelOk && <p>Exceptionnel non applicable : {immoPrechoisie.raisonNonExceptionnel}</p>}
                     </div>
@@ -1549,9 +1549,9 @@ export default function ImmobilisationsPage() {
 
                 {/* Avertissement exceptionnel */}
                 {formData.mode === 'exceptionnel' && (
-                  <div className="rounded-lg bg-purple-50 dark:bg-purple-900/10 border border-purple-200 p-3 flex gap-2">
+                  <div className="rounded-lg bg-purple-50 border border-purple-200 p-3 flex gap-2">
                     <AlertCircle className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
-                    <p className="text-xs text-purple-800 dark:text-purple-300">
+                    <p className="text-xs text-purple-800">
                       Réservé aux entreprises industrielles fabriquant des produits ouvrés/semi-ouvrés et exportant au moins 20% de leur CA (Art. 36 Loi IS).
                     </p>
                   </div>
@@ -1559,7 +1559,7 @@ export default function ImmobilisationsPage() {
               </div>
 
               {erreur && (
-                <div className="rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-200 p-3 flex gap-2">
+                <div className="rounded-lg bg-red-50 border border-red-200 p-3 flex gap-2">
                   <AlertCircle className="h-4 w-4 text-red-600 shrink-0 mt-0.5" />
                   <p className="text-xs text-red-700">{erreur}</p>
                 </div>
@@ -1575,19 +1575,19 @@ export default function ImmobilisationsPage() {
             {tableauGenere && (
               <div className="space-y-3">
                 {/* Récapitulatif */}
-                <div className="rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/10 p-3">
-                  <h4 className="text-xs font-bold text-emerald-800 dark:text-emerald-300 mb-2">Récapitulatif</h4>
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                  <h4 className="text-xs font-bold text-emerald-800 mb-2">Récapitulatif</h4>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
                     <span className="text-muted-foreground">Immobilisation :</span>
                     <span className="font-semibold text-foreground">{formData.designation || '—'}</span>
                     <span className="text-muted-foreground">Compte OHADA :</span>
-                    <span className="font-mono font-bold text-emerald-700 dark:text-emerald-400">{formData.compteOHADA} : {formData.intituleCompte}</span>
+                    <span className="font-mono font-bold text-emerald-700">{formData.compteOHADA} : {formData.intituleCompte}</span>
                     <span className="text-muted-foreground">Valeur d'origine :</span>
                     <span className="font-semibold text-foreground">{fmt(parseFloat(formData.valeur || '0'))} Fc</span>
                     <span className="text-muted-foreground">Mode :</span>
                     <span className="font-semibold text-foreground capitalize">{formData.mode}</span>
                     <span className="text-muted-foreground">Compte amortissement :</span>
-                    <span className="font-mono font-bold text-blue-600 dark:text-blue-400">{getCompteAmort(formData.compteOHADA)}</span>
+                    <span className="font-mono font-bold text-blue-600">{getCompteAmort(formData.compteOHADA)}</span>
                     {formData.mode === 'degressif' && (() => {
                       const dureeN = parseInt(formData.dureeCustom) || 0
                       const coeff = getCoeffDegressif(dureeN)
@@ -1640,8 +1640,8 @@ export default function ImmobilisationsPage() {
                       <tbody>
                         {tableauGenere.map((ligne, idx) => (
                           <tr key={idx} className={cn('border-t border-border',
-                            ligne.bascule ? 'bg-blue-50/50 dark:bg-blue-900/10' : 'hover:bg-muted/30',
-                            ligne.valeurResiduelle === 0 && 'bg-emerald-50/50 dark:bg-emerald-900/10')}>
+                            ligne.bascule ? 'bg-blue-50/50' : 'hover:bg-muted/30',
+                            ligne.valeurResiduelle === 0 && 'bg-emerald-50/50')}>
                             <td className="px-3 py-2 font-semibold text-foreground whitespace-nowrap">
                               N{ligne.exercice > 1 ? `+${ligne.exercice - 1}` : ''}
                               {ligne.bascule && <span className="ml-1 text-xs text-blue-600 font-bold">↩ linéaire</span>}
@@ -1660,14 +1660,14 @@ export default function ImmobilisationsPage() {
                               'px-3 py-2 text-right font-mono font-bold whitespace-nowrap',
                               // Avant bascule : annuité dégressive retenue = vert
                               // Après bascule : annuité linéaire retenue = bleu
-                              ligne.bascule ? 'text-blue-600 dark:text-blue-400' : 'text-emerald-700 dark:text-emerald-400'
+                              ligne.bascule ? 'text-blue-600' : 'text-emerald-700'
                             )}>{fmt(ligne.annuite)}</td>
                             {(formData.mode === 'degressif' || formData.mode === 'exceptionnel') && (
                               <td className="px-3 py-2 text-right font-mono whitespace-nowrap">
                                 {ligne.annuiteLineaireResid !== undefined ? (
                                   ligne.bascule ? (
                                     // Ligne de bascule et après : linéaire = valeur retenue (bleu), dégressif barré ci-dessous
-                                    <span className="text-blue-600 dark:text-blue-400 font-bold">{fmt(ligne.annuiteLineaireResid)}</span>
+                                    <span className="text-blue-600 font-bold">{fmt(ligne.annuiteLineaireResid)}</span>
                                   ) : ligne.annuiteLineaireResid >= ligne.annuite ? (
                                     // Linéaire ≥ dégressif = seuil atteint, affiché en orange
                                     <span className="text-orange-500 font-bold">{fmt(ligne.annuiteLineaireResid)}</span>
@@ -1713,7 +1713,7 @@ export default function ImmobilisationsPage() {
                         <td className="px-3 py-1.5 border border-border"></td>
                       </tr>
                       <tr className="bg-muted/20">
-                        <td className="px-3 py-1.5 font-mono font-bold text-blue-600 dark:text-blue-400 border border-border">{getCompteAmort(formData.compteOHADA)}</td>
+                        <td className="px-3 py-1.5 font-mono font-bold text-blue-600 border border-border">{getCompteAmort(formData.compteOHADA)}</td>
                         <td className="px-3 py-1.5 text-foreground border border-border">Amortissement : {formData.intituleCompte || formData.designation}</td>
                         <td className="px-3 py-1.5 border border-border"></td>
                         <td className="px-3 py-1.5 text-right font-mono font-bold border border-border">{fmt(tableauGenere[0]?.annuite || 0)}</td>
@@ -1891,9 +1891,9 @@ export default function ImmobilisationsPage() {
                 ].map((r, i) => (
                   <div key={i} className={cn('flex items-center gap-2 text-xs py-1.5 border-b border-border/50 last:border-0',
                     r.amort === '—' && 'opacity-50')}>
-                    <span className="font-mono font-bold text-emerald-700 dark:text-emerald-400 w-16 shrink-0">{r.immo}</span>
+                    <span className="font-mono font-bold text-emerald-700 w-16 shrink-0">{r.immo}</span>
                     <span className="flex-1 text-foreground">{r.label}</span>
-                    <span className={cn('font-mono font-bold w-10 text-right shrink-0', r.amort === '—' ? 'text-muted-foreground' : 'text-blue-600 dark:text-blue-400')}>{r.amort}</span>
+                    <span className={cn('font-mono font-bold w-10 text-right shrink-0', r.amort === '—' ? 'text-muted-foreground' : 'text-blue-600')}>{r.amort}</span>
                   </div>
                 ))}
               </div>
@@ -1914,9 +1914,9 @@ function FichePedagogique({ titre, article, couleur, definition, formule, regles
 }) {
   const [ouvert, setOuvert] = useState(false)
   const colors = {
-    blue: { bg: 'bg-blue-50 dark:bg-blue-900/10', border: 'border-blue-200 dark:border-blue-800', text: 'text-blue-700 dark:text-blue-300', badge: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
-    purple: { bg: 'bg-purple-50 dark:bg-purple-900/10', border: 'border-purple-200 dark:border-purple-800', text: 'text-purple-700 dark:text-purple-300', badge: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400' },
-    amber: { bg: 'bg-amber-50 dark:bg-amber-900/10', border: 'border-amber-200 dark:border-amber-800', text: 'text-amber-700 dark:text-amber-300', badge: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' },
+    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', badge: 'bg-blue-100 text-blue-700' },
+    purple: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', badge: 'bg-purple-100 text-purple-700' },
+    amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', badge: 'bg-amber-100 text-amber-700' },
   }
   const c = colors[couleur]
   return (

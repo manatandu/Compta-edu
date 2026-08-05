@@ -56,22 +56,22 @@ function TableauFiche({ lignes, methode }: { lignes: LigneFiche[]; methode: 'CUM
             <tr>
               <Th className="w-16 text-left">Date</Th>
               <Th className="text-left min-w-[120px]">Libellé</Th>
-              <Th colSpan={3} className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-800 dark:text-emerald-300">ENTRÉE</Th>
-              <Th colSpan={3} className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-300">SORTIE</Th>
-              <Th colSpan={3} className="bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300">STOCK</Th>
+              <Th colSpan={3} className="bg-emerald-50 text-emerald-800">ENTRÉE</Th>
+              <Th colSpan={3} className="bg-orange-50 text-orange-800">SORTIE</Th>
+              <Th colSpan={3} className="bg-blue-50 text-blue-800">STOCK</Th>
             </tr>
             <tr>
               <Th />
               <Th />
-              <Th className="bg-emerald-50/60 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-400 w-10">Q</Th>
-              <Th className="bg-emerald-50/60 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-400 w-16">CU</Th>
-              <Th className="bg-emerald-50/60 dark:bg-emerald-900/10 text-emerald-700 dark:text-emerald-400 w-20">Montant</Th>
-              <Th className="bg-orange-50/60 dark:bg-orange-900/10 text-orange-700 dark:text-orange-400 w-10">Q</Th>
-              <Th className="bg-orange-50/60 dark:bg-orange-900/10 text-orange-700 dark:text-orange-400 w-16">CU</Th>
-              <Th className="bg-orange-50/60 dark:bg-orange-900/10 text-orange-700 dark:text-orange-400 w-20">Montant</Th>
-              <Th className="bg-blue-50/60 dark:bg-blue-900/10 text-blue-700 dark:text-blue-400 w-10">Q</Th>
-              <Th className="bg-blue-50/60 dark:bg-blue-900/10 text-blue-700 dark:text-blue-400 w-16">CU</Th>
-              <Th className="bg-blue-50/60 dark:bg-blue-900/10 text-blue-700 dark:text-blue-400 w-20">Montant</Th>
+              <Th className="bg-emerald-50/60 text-emerald-700 w-10">Q</Th>
+              <Th className="bg-emerald-50/60 text-emerald-700 w-16">CU</Th>
+              <Th className="bg-emerald-50/60 text-emerald-700 w-20">Montant</Th>
+              <Th className="bg-orange-50/60 text-orange-700 w-10">Q</Th>
+              <Th className="bg-orange-50/60 text-orange-700 w-16">CU</Th>
+              <Th className="bg-orange-50/60 text-orange-700 w-20">Montant</Th>
+              <Th className="bg-blue-50/60 text-blue-700 w-10">Q</Th>
+              <Th className="bg-blue-50/60 text-blue-700 w-16">CU</Th>
+              <Th className="bg-blue-50/60 text-blue-700 w-20">Montant</Th>
             </tr>
           </thead>
           <tbody>
@@ -91,17 +91,17 @@ function TableauFiche({ lignes, methode }: { lignes: LigneFiche[]; methode: 'CUM
                     {l.numeroBon ? <span className="text-muted-foreground ml-1 text-xs">n° {l.numeroBon}</span> : null}
                   </Td>
                   {/* Entrée */}
-                  <Td className="text-emerald-700 dark:text-emerald-400">{l.entreeQ ?? ''}</Td>
-                  <Td className="text-emerald-700 dark:text-emerald-400">{l.entreeCU !== undefined ? fmt(l.entreeCU, 3) : ''}</Td>
-                  <Td className="text-emerald-700 dark:text-emerald-400">{l.entreeMontant !== undefined ? fmt(l.entreeMontant) : ''}</Td>
+                  <Td className="text-emerald-700">{l.entreeQ ?? ''}</Td>
+                  <Td className="text-emerald-700">{l.entreeCU !== undefined ? fmt(l.entreeCU, 3) : ''}</Td>
+                  <Td className="text-emerald-700">{l.entreeMontant !== undefined ? fmt(l.entreeMontant) : ''}</Td>
                   {/* Sortie */}
-                  <Td className="text-orange-700 dark:text-orange-400">{l.sortieQ ?? ''}</Td>
-                  <Td className="text-orange-700 dark:text-orange-400">{l.sortieCU !== undefined ? fmt(l.sortieCU, 3) : ''}</Td>
-                  <Td className="text-orange-700 dark:text-orange-400">{l.sortieMontant !== undefined ? fmt(l.sortieMontant) : ''}</Td>
+                  <Td className="text-orange-700">{l.sortieQ ?? ''}</Td>
+                  <Td className="text-orange-700">{l.sortieCU !== undefined ? fmt(l.sortieCU, 3) : ''}</Td>
+                  <Td className="text-orange-700">{l.sortieMontant !== undefined ? fmt(l.sortieMontant) : ''}</Td>
                   {/* Stock */}
-                  <Td className="font-semibold text-blue-700 dark:text-blue-400">{l.stockQ}</Td>
-                  <Td className="text-blue-700 dark:text-blue-400">{fmt(l.stockCU, 3)}</Td>
-                  <Td className="font-semibold text-blue-700 dark:text-blue-400">{fmt(l.stockMontant)}</Td>
+                  <Td className="font-semibold text-blue-700">{l.stockQ}</Td>
+                  <Td className="text-blue-700">{fmt(l.stockCU, 3)}</Td>
+                  <Td className="font-semibold text-blue-700">{fmt(l.stockMontant)}</Td>
                 </tr>
               )
             })}
@@ -109,15 +109,15 @@ function TableauFiche({ lignes, methode }: { lignes: LigneFiche[]; methode: 'CUM
             {lignes.length > 1 && (
               <tr className="bg-muted/50 font-bold border-t-2 border-t-border">
                 <Td colSpan={2} className="text-left text-foreground text-xs font-bold">TOTAUX</Td>
-                <Td className="text-emerald-700 dark:text-emerald-400">{totalEntreeQ}</Td>
+                <Td className="text-emerald-700">{totalEntreeQ}</Td>
                 <Td />
-                <Td className="text-emerald-700 dark:text-emerald-400">{fmt(totalEntreeMontant)}</Td>
-                <Td className="text-orange-700 dark:text-orange-400">{totalSortieQ}</Td>
+                <Td className="text-emerald-700">{fmt(totalEntreeMontant)}</Td>
+                <Td className="text-orange-700">{totalSortieQ}</Td>
                 <Td />
-                <Td className="text-orange-700 dark:text-orange-400">{fmt(totalSortieMontant)}</Td>
-                <Td className="text-blue-700 dark:text-blue-400">{sfQ}</Td>
+                <Td className="text-orange-700">{fmt(totalSortieMontant)}</Td>
+                <Td className="text-blue-700">{sfQ}</Td>
                 <Td />
-                <Td className="text-blue-700 dark:text-blue-400">{fmt(sfMontant)}</Td>
+                <Td className="text-blue-700">{fmt(sfMontant)}</Td>
               </tr>
             )}
           </tbody>
@@ -134,7 +134,7 @@ function TableauFiche({ lignes, methode }: { lignes: LigneFiche[]; methode: 'CUM
           <div className="grid grid-cols-2 gap-3">
             <div className={cn(
               'rounded-lg px-3 py-3 flex items-center gap-2',
-              checkQ ? 'bg-emerald-50 dark:bg-emerald-900/20' : 'bg-red-50 dark:bg-red-900/20'
+              checkQ ? 'bg-emerald-50' : 'bg-red-50'
             )}>
               {checkQ
                 ? <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
@@ -145,7 +145,7 @@ function TableauFiche({ lignes, methode }: { lignes: LigneFiche[]; methode: 'CUM
             </div>
             <div className={cn(
               'rounded-lg px-3 py-3 flex items-center gap-2',
-              checkM ? 'bg-emerald-50 dark:bg-emerald-900/20' : 'bg-red-50 dark:bg-red-900/20'
+              checkM ? 'bg-emerald-50' : 'bg-red-50'
             )}>
               {checkM
                 ? <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
@@ -243,7 +243,7 @@ export default function StockFichePage() {
         <div className="rounded-xl border border-dashed border-border bg-muted/20 py-10 text-center space-y-2">
           <p className="text-sm text-muted-foreground">Aucun mouvement enregistré.</p>
           <button onClick={() => navigate(`/stock/mouvement/${articleId}`)}
-            className="inline-flex items-center gap-1.5 text-xs text-purple-600 dark:text-purple-400 hover:underline">
+            className="inline-flex items-center gap-1.5 text-xs text-purple-600 hover:underline">
             Ajouter le premier mouvement <ChevronRight className="h-3 w-3" />
           </button>
         </div>
@@ -253,10 +253,10 @@ export default function StockFichePage() {
 
       {/* Lien journal */}
       <button onClick={() => navigate(`/stock/journal/${articleId}`)}
-        className="w-full flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-orange-300/50 hover:bg-orange-50/30 dark:hover:bg-orange-900/10 transition-all group">
+        className="w-full flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-orange-300/50 hover:bg-orange-50/30 transition-all group">
         <div className="flex items-center gap-2">
           <BookOpen className="h-4 w-4 text-orange-500" />
-          <span className="text-sm font-semibold text-foreground group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+          <span className="text-sm font-semibold text-foreground group-hover:text-orange-600 transition-colors">
             Voir les écritures générées
           </span>
         </div>

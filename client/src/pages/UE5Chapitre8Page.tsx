@@ -505,9 +505,9 @@ function QCMBlock({ qcm, onScore }: { qcm: QCMData; onScore?: (correct: boolean)
           if (!showResult) {
             cls += 'border-border bg-background hover:bg-muted'
           } else if (isCorrect) {
-            cls += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300'
+            cls += 'border-green-500 bg-green-50 text-green-800'
           } else if (isSelected) {
-            cls += 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300'
+            cls += 'border-red-500 bg-red-50 text-red-800'
           } else {
             cls += 'border-border bg-background opacity-60'
           }
@@ -521,8 +521,8 @@ function QCMBlock({ qcm, onScore }: { qcm: QCMData; onScore?: (correct: boolean)
       {showResult && (
         <div className={cn('flex items-start gap-2 rounded-lg p-3 text-xs',
           selected === qcm.reponse
-            ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300'
-            : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300'
+            ? 'bg-green-50 text-green-800'
+            : 'bg-red-50 text-red-800'
         )}>
           {selected === qcm.reponse
             ? <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
@@ -541,9 +541,9 @@ function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
   const [open, setOpen] = useState<Record<string, boolean>>({})
 
   return (
-    <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-card overflow-hidden">
-      <div className="bg-violet-50 dark:bg-violet-900/20 px-4 py-3 border-b border-violet-200 dark:border-violet-800">
-        <span className="text-xs font-bold text-violet-700 dark:text-violet-300 uppercase tracking-wide">
+    <div className="rounded-xl border border-violet-200 bg-card overflow-hidden">
+      <div className="bg-violet-50 px-4 py-3 border-b border-violet-200">
+        <span className="text-xs font-bold text-violet-700 uppercase tracking-wide">
           Cas pratique {index + 1}
         </span>
         <h3 className="text-sm font-bold text-foreground mt-1 leading-snug">{ec.titre}</h3>
@@ -564,7 +564,7 @@ function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
               </button>
               <div className={cn('px-4 text-sm text-foreground leading-relaxed', open[q.num] ? 'pb-4' : 'hidden')}>
                 <p className="mb-3 font-medium text-foreground/90">{q.enonce}</p>
-                <div className="rounded-lg bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 p-3 text-xs text-violet-900 dark:text-violet-200 leading-relaxed">
+                <div className="rounded-lg bg-violet-50 border border-violet-200 p-3 text-xs text-violet-900 leading-relaxed">
                   <strong>Correction :</strong> {q.correction}
                 </div>
               </div>
@@ -600,8 +600,8 @@ export default function UE5Chapitre8Page() {
       source: 'Constitution Art. 175, LOFIP Art. 3 pt. 5, 19 et 218',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
-          <div className="rounded-lg bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 p-4">
-            <h4 className="font-bold text-violet-800 dark:text-violet-200 mb-2">Définitions légales fondamentales</h4>
+          <div className="rounded-lg bg-violet-50 border border-violet-200 p-4">
+            <h4 className="font-bold text-violet-800 mb-2">Définitions légales fondamentales</h4>
             <div className="space-y-3">
               <div>
                 <span className="font-semibold">Édit budgétaire</span>
@@ -638,11 +638,11 @@ export default function UE5Chapitre8Page() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-violet-100 dark:bg-violet-900/30">
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Niveau</th>
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Acte budgétaire</th>
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Organe votant</th>
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Référence LOFIP</th>
+                <tr className="bg-violet-100">
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Niveau</th>
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Acte budgétaire</th>
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Organe votant</th>
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Référence LOFIP</th>
                 </tr>
               </thead>
               <tbody>
@@ -693,9 +693,9 @@ export default function UE5Chapitre8Page() {
             <div className="mt-2 overflow-x-auto">
               <table className="w-full text-xs border-collapse">
                 <thead>
-                  <tr className="bg-violet-100 dark:bg-violet-900/30">
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Catégorie A</th>
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Catégorie B</th>
+                  <tr className="bg-violet-100">
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">Catégorie A</th>
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">Catégorie B</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -732,11 +732,11 @@ export default function UE5Chapitre8Page() {
               </div>
             </div>
           </div>
-          <div className="rounded-lg bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 p-3">
-            <p className="text-xs font-semibold text-violet-800 dark:text-violet-200">
+          <div className="rounded-lg bg-violet-50 border border-violet-200 p-3">
+            <p className="text-xs font-semibold text-violet-800">
               LF 2026 (Loi n° 25/060 du 29 décembre 2025) — Application chiffrée (Art. 8)
             </p>
-            <p className="text-xs text-violet-700 dark:text-violet-300 mt-1">
+            <p className="text-xs text-violet-700 mt-1">
               Rétrocession aux provinces au titre du 40% constitutionnel : <strong>7.694,5 milliards FC</strong>
             </p>
           </div>
@@ -771,11 +771,11 @@ export default function UE5Chapitre8Page() {
               Le taux d'alimentation est donc fixé à 10% de la totalité des recettes de catégories A et B. Ce prélèvement est distinct du 40% de retenue à la source prévu à l'article 218 LOFIP. Il est calculé sur la base de toutes les recettes nationales, y compris celles qui alimentent le budget du Pouvoir central.
             </p>
           </div>
-          <div className="rounded-lg bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 p-3">
-            <p className="text-xs font-semibold text-violet-800 dark:text-violet-200">
+          <div className="rounded-lg bg-violet-50 border border-violet-200 p-3">
+            <p className="text-xs font-semibold text-violet-800">
               LF 2026 (Loi n° 25/060) — Dotation Caisse nationale de péréquation (Art. 9)
             </p>
-            <p className="text-xs text-violet-700 dark:text-violet-300 mt-1">
+            <p className="text-xs text-violet-700 mt-1">
               Montant inscrit : <strong>744,6 milliards FC</strong>
             </p>
           </div>
@@ -784,12 +784,12 @@ export default function UE5Chapitre8Page() {
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
                 <thead>
-                  <tr className="bg-violet-100 dark:bg-violet-900/30">
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Mécanisme</th>
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Base constitutionnelle</th>
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Article LOFIP</th>
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Taux</th>
-                    <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">LF 2026</th>
+                  <tr className="bg-violet-100">
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">Mécanisme</th>
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">Base constitutionnelle</th>
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">Article LOFIP</th>
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">Taux</th>
+                    <th className="border border-violet-200 px-3 py-2 text-left font-bold">LF 2026</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -896,11 +896,11 @@ export default function UE5Chapitre8Page() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-violet-100 dark:bg-violet-900/30">
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Étape</th>
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Délai</th>
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Acte</th>
-                  <th className="border border-violet-200 dark:border-violet-700 px-3 py-2 text-left font-bold">Base légale</th>
+                <tr className="bg-violet-100">
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Étape</th>
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Délai</th>
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Acte</th>
+                  <th className="border border-violet-200 px-3 py-2 text-left font-bold">Base légale</th>
                 </tr>
               </thead>
               <tbody>
@@ -980,7 +980,7 @@ export default function UE5Chapitre8Page() {
           { label: 'Cas pratiques', val: '5' },
         ].map(s => (
           <div key={s.label} className="rounded-xl border border-border bg-card p-3 text-center">
-            <p className="text-lg font-bold text-violet-600 dark:text-violet-400">{s.val}</p>
+            <p className="text-lg font-bold text-violet-600">{s.val}</p>
             <p className="text-xs text-muted-foreground">{s.label}</p>
           </div>
         ))}
@@ -1026,10 +1026,10 @@ export default function UE5Chapitre8Page() {
           </div>
           {/* Leçon active */}
           <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <div className="bg-violet-50 dark:bg-violet-900/20 px-4 py-3 border-b border-violet-200 dark:border-violet-800">
+            <div className="bg-violet-50 px-4 py-3 border-b border-violet-200">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-violet-700 dark:text-violet-300 uppercase tracking-wide">
+                  <span className="text-xs font-bold text-violet-700 uppercase tracking-wide">
                     Leçon {activeLecon + 1} sur {lecons.length}
                   </span>
                   <h2 className="text-sm font-bold text-foreground mt-0.5 leading-snug">
@@ -1038,7 +1038,7 @@ export default function UE5Chapitre8Page() {
                 </div>
                 <InfoTooltip texte={`Source : ${lecons[activeLecon].source}`} loi="LOFIP" />
               </div>
-              <p className="text-xs text-violet-600 dark:text-violet-400 mt-1">{lecons[activeLecon].source}</p>
+              <p className="text-xs text-violet-600 mt-1">{lecons[activeLecon].source}</p>
             </div>
             <div className="p-4">
               {lecons[activeLecon].contenu}
@@ -1074,11 +1074,11 @@ export default function UE5Chapitre8Page() {
       {/* Onglet Cas pratiques (admin/prof/assistant) */}
       {activeTab === 'cas' && isAdmin && (
         <div className="space-y-4">
-          <div className="rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/20 p-3">
-            <p className="text-xs text-violet-800 dark:text-violet-200 font-semibold">
+          <div className="rounded-xl border border-violet-200 bg-violet-50 p-3">
+            <p className="text-xs text-violet-800 font-semibold">
               5 cas pratiques — Décentralisation budgétaire (Art. 132-138, 217-224 LOFIP + Constitution Art. 175, 181)
             </p>
-            <p className="text-xs text-violet-700 dark:text-violet-300 mt-1">
+            <p className="text-xs text-violet-700 mt-1">
               Tous les cas exigent une analyse juridique rigoureuse fondée sur les textes légaux.
             </p>
           </div>
