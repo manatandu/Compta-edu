@@ -310,7 +310,7 @@ export default function JournalPage() {
                 <Settings2 className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-lg sm:text-xl font-bold text-foreground tracking-tight">Journal Comptable</h1>
+                <h1 className="text-lg sm:text-xl font-display font-semibold text-foreground tracking-tight">Journal Comptable</h1>
                 <p className="text-xs text-muted-foreground mt-0.5">Saisie des écritures SYSCOHADA : Partie double</p>
               </div>
             </div>
@@ -452,14 +452,14 @@ export default function JournalPage() {
                           <tr key={l.id} className="border-b border-border/50 last:border-0">
                             <td className="py-1 px-2 font-mono w-[4.5rem] shrink-0">{l.numeroCompte}</td>
                             <td className="py-1 px-2 text-foreground max-w-0 truncate">{l.intituleCompte}</td>
-                            <td className="py-1 px-2 text-right text-green-700 whitespace-nowrap w-[5.5rem]">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
-                            <td className="py-1 px-2 text-right text-red-700 whitespace-nowrap w-[5.5rem]">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
+                            <td className="py-1 px-2 text-right text-green-700 whitespace-nowrap w-[5.5rem] font-mono tabular-nums">{l.debit > 0 ? formatMontant(l.debit) : ''}</td>
+                            <td className="py-1 px-2 text-right text-red-700 whitespace-nowrap w-[5.5rem] font-mono tabular-nums">{l.credit > 0 ? formatMontant(l.credit) : ''}</td>
                           </tr>
                         ))}
                         <tr className="font-semibold text-xs bg-muted/30">
                           <td colSpan={2} className="py-1 px-2 text-right text-muted-foreground">Total</td>
-                          <td className="py-1 px-2 text-right text-green-700">{formatMontant(totalDebit)}</td>
-                          <td className="py-1 px-2 text-right text-red-700">{formatMontant(totalCredit)}</td>
+                          <td className="py-1 px-2 text-right text-green-700 font-mono tabular-nums font-semibold">{formatMontant(totalDebit)}</td>
+                          <td className="py-1 px-2 text-right text-red-700 font-mono tabular-nums font-semibold">{formatMontant(totalCredit)}</td>
                         </tr>
                       </tbody>
                     </table>
