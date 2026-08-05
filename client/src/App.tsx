@@ -139,8 +139,15 @@ export default function App() {
     setUser(null)
   }
 
+  // La sidebar/Layout reste montée pendant le chargement d'une page :
+  // seul le contenu affiche un état de chargement (transition fluide,
+  // pas de flash plein écran qui fait disparaître toute l'interface).
   const W = ({ children }: { children: React.ReactNode }) =>
-    user ? <Layout user={user} onLogout={handleLogout}>{children}</Layout> : <Redirect to="/login" />
+    user
+      ? <Layout user={user} onLogout={handleLogout}>
+          <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
+        </Layout>
+      : <Redirect to="/login" />
 
   function IdleGuard() {
     const { showWarning, secondsLeft, stayConnected } = useIdleTimer()
