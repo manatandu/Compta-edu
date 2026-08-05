@@ -440,7 +440,15 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                 : `Bonjour ${user.prenom}`
               }
             </p>
-            <Badge variant={roleBadge.variant} className="text-xs py-0 px-1.5">{roleBadge.label}</Badge>
+            <Badge
+              variant={roleBadge.variant}
+              className={cn(
+                "text-xs py-0 px-1.5",
+                roleBadge.variant === 'outline' && "text-ink-soft border-white/25"
+              )}
+            >
+              {roleBadge.label}
+            </Badge>
           </div>
         </div>
         <div className="flex gap-2 items-center">

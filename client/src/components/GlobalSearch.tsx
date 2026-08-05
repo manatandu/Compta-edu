@@ -173,7 +173,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
   return (
     <div ref={containerRef} className="relative w-full">
       <div className="relative">
-        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-faint pointer-events-none" />
         <input
           ref={inputRef}
           type="text"
@@ -182,14 +182,14 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           onFocus={() => setOpen(true)}
           placeholder="Rechercher..."
           className={cn(
-            'w-full pl-8 pr-7 py-1.5 text-sm rounded-md border border-border bg-muted/50',
-            'focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40',
-            'placeholder:text-muted-foreground/60 transition-colors'
+            'w-full pl-8 pr-7 py-1.5 text-sm rounded-md border border-white/15 bg-white/5 text-white',
+            'focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50',
+            'placeholder:text-ink-faint transition-colors'
           )}
         />
         {query && (
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-faint hover:text-white"
             onClick={() => { setQuery(''); setResults([]); inputRef.current?.focus() }}
           >
             <X className="h-3.5 w-3.5" />
