@@ -1,5 +1,5 @@
 import { useUser } from '@/lib/userContext'
-import { isAdminRole } from '@/lib/permissions'
+import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
 import BackButton from '@/components/BackButton'
@@ -355,7 +355,7 @@ export default function ProfesseurPage() {
   const { toast } = useToast()
   const currentUser = useUser()
   const isAdmin = isAdminRole(currentUser)
-  const isStaff = ['admin', 'professeur', 'assistant'].includes(currentUser?.role || '')
+  const isStaff = isStaffRole(currentUser)
 
   const [, navigate] = useLocation()
   const [tab, setTab] = useState<Tab>('cours')
@@ -1313,6 +1313,20 @@ export default function ProfesseurPage() {
 
   // ── Rendu onglets ──
   const visibleTabs = TABS.filter(t => !t.adminOnly || isAdmin)
+
+  // Garde de rôle (point 7 de l'audit) : /professeurs n'était protégée que par
+  // l'authentification (voir le wrapper W dans App.tsx), pas par le rôle — un
+  // étudiant qui naviguait directement vers l'URL montait tout le composant de
+  // gestion (données réelles filtrées côté Firestore, mais structure/libellés de
+  // gestion exposés). Même garde que GestionEtudiantsPage/FicheEtudiantPage/
+  // InscriptionPlatformePage, placée après tous les hooks (règle des hooks React).
+  if (!isStaff) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">Accès non autorisé.</p>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-5 animate-fadeIn">
