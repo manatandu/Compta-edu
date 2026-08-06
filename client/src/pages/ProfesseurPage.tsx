@@ -1,4 +1,5 @@
 import { useUser } from '@/lib/userContext'
+import { isAdminRole } from '@/lib/permissions'
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
 import BackButton from '@/components/BackButton'
@@ -353,7 +354,7 @@ function exportToCSV(rows: string[][], filename: string) {
 export default function ProfesseurPage() {
   const { toast } = useToast()
   const currentUser = useUser()
-  const isAdmin = currentUser?.role === 'admin'
+  const isAdmin = isAdminRole(currentUser)
   const isStaff = ['admin', 'professeur', 'assistant'].includes(currentUser?.role || '')
 
   const [, navigate] = useLocation()

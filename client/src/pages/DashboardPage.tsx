@@ -18,6 +18,7 @@ import {
 } from '@/lib/useFirestore'
 import { createSoumissionAsync, getUsersAsync, createSessionAsync, COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
+import { isStudentRole, isAdminRole } from '@/lib/permissions'
 import { useModule } from '@/lib/moduleContext'
 import { cn } from '@/lib/utils'
 import { prefetchRoute } from '@/lib/prefetch'
@@ -359,7 +360,7 @@ export default function DashboardPage() {
   const [, navigate] = useHashLocation()
   const user = useUser()
   const module = useModule()
-  const isStudent = user?.role === 'etudiant'
+  const isStudent = isStudentRole(user)
   const isAdmin   = ['admin', 'professeur', 'assistant'].includes(user?.role || '')
 
   // Sessions et écritures : version personnelle pour étudiants, globale pour admins
@@ -557,7 +558,7 @@ export default function DashboardPage() {
               )}
 
               {/* Admin principal : mention assistant */}
-              {user?.role === 'admin' && (
+              {isAdminRole(user) && (
                 <p className="text-sm text-white/75 mt-1">
                   Assistant : <span className="text-secondary font-semibold">Manasse TANDU SAVA</span>
                 </p>
