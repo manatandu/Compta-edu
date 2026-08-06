@@ -49,6 +49,8 @@ function subscribeByFieldIn<T>(
     onSnapshot(query(collection(db, collectionName), where(field, 'in', group)), snap => {
       perChunk[i] = snap.docs.map(transform)
       onData(perChunk.flat())
+    }, err => {
+      console.error(`subscribeByFieldIn(${collectionName}.${field}) error:`, err)
     })
   )
   return () => unsubs.forEach(u => u())
@@ -230,7 +232,7 @@ export function useAllDevoirs() {
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'devoirs'), (snap) => {
         setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-      })
+      }, err => console.error('useAllDevoirs error:', err))
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setDevoirs([]); return }
@@ -365,7 +367,7 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
       const unsub = onSnapshot(collection(db, 'exercices'), snap => {
         setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as Exercice))))
         setLoading(false)
-      })
+      }, err => { console.error('useExercices error:', err); setLoading(false) })
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setExercices([]); setLoading(false); return }
@@ -425,14 +427,14 @@ export function useExercicesLibres(createdBy?: string, coursIds?: string[], facu
       const unsub = onSnapshot(q, snap => {
         setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))))
         setLoading(false)
-      })
+      }, err => { console.error('useExercicesLibres error:', err); setLoading(false) })
       return () => unsub()
     }
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'exercices_libres'), snap => {
         setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))))
         setLoading(false)
-      })
+      }, err => { console.error('useExercicesLibres error:', err); setLoading(false) })
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setExercices([]); setLoading(false); return }
@@ -517,7 +519,7 @@ export function useNotesCours(coursIds?: string[], promotionId?: string) {
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'notes_cours'), snap => {
         setNotes(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as NoteCours))))
-      })
+      }, err => console.error('useNotesCours error:', err))
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setNotes([]); return }
