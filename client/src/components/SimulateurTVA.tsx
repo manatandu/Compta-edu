@@ -1378,8 +1378,8 @@ function OngletTVANette() {
                 <select value={l.taux} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
                   <option value="16">16%</option>
-                  <option value="5">5%</option>
                   <option value="1">1%</option>
+                  <option value="5">5%</option>
                   <option value="0">0%</option>
                 </select>
                 {lignesCol.length > 1 && <button onClick={() => { setLignesCol(p => p.filter((_, idx) => idx !== i)); setRes(null) }} className="text-red-400 hover:text-red-600"><X className="h-3.5 w-3.5" /></button>}
@@ -1402,8 +1402,8 @@ function OngletTVANette() {
                 <select value={l.taux} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
                   <option value="16">16%</option>
-                  <option value="5">5%</option>
                   <option value="1">1%</option>
+                  <option value="5">5%</option>
                   <option value="0">0%</option>
                 </select>
                 {lignesDed.length > 1 && <button onClick={() => { setLignesDed(p => p.filter((_, idx) => idx !== i)); setRes(null) }} className="text-red-400 hover:text-red-600"><X className="h-3.5 w-3.5" /></button>}
