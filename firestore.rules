@@ -329,5 +329,36 @@ service cloud.firestore {
       allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'promotionId', 'createdBy']);
       allow update, delete: if isProf() && createdBy();
     }
+
+    // ─── STOCK (comptabilité de stock personnelle — exercice pédagogique) ────
+    // Isolation stricte par userId, comme ecritures/sessions : ces collections
+    // n'avaient ICI AUCUNE règle avant ce correctif — Firestore refuse par
+    // défaut tout ce qui n'a pas de correspondance dans ce fichier, donc les 6
+    // pages Stock (GestionStockPage, StockArticlesPage, StockMouvementPage,
+    // StockJournalPage, StockFichePage, StockExercicePage) étaient entièrement
+    // inutilisables en production (PERMISSION_DENIED sur toute lecture/écriture).
+    match /stock_articles/{articleId} {
+      allow read: if isAuth() && ownsResource('userId');
+      allow write: if isAuth() && (
+        request.auth.uid == resource.data.userId ||
+        request.resource.data.userId == request.auth.uid
+      );
+    }
+
+    match /stock_mouvements/{mouvementId} {
+      allow read: if isAuth() && ownsResource('userId');
+      allow write: if isAuth() && (
+        request.auth.uid == resource.data.userId ||
+        request.resource.data.userId == request.auth.uid
+      );
+    }
+
+    match /stock_ecritures/{ecritureId} {
+      allow read: if isAuth() && ownsResource('userId');
+      allow write: if isAuth() && (
+        request.auth.uid == resource.data.userId ||
+        request.resource.data.userId == request.auth.uid
+      );
+    }
   }
 }
