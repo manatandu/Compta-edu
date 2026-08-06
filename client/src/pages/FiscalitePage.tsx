@@ -43,11 +43,15 @@ interface LigneBareme {
   impot: number     // baseReelle × taux
 }
 
+// N'applique QUE le barème progressif — ni la réduction pour charges de famille (Art. 123-125),
+// ni le plafond (Art. 118 in fine). L'ordre de liquidation retenu par le texte et la pratique est :
+// barème → réduction pour charges → plafond 30% → arrondi. Appliquer le plafond ici, avant la
+// réduction, sous-évaluerait la réduction (assise sur un IRPP déjà plafonné) et surévaluerait
+// l'impôt net final. Le plafond doit être comparé et appliqué par l'appelant, APRÈS réduction.
 function calculerBareme(revenuNetImposable: number): {
   lignes: LigneBareme[]
   iprBrut: number
-  iprMax: number   // plafond Art. 118 = 30% du revenu net imposable
-  plafonne: boolean
+  iprMax: number   // plafond Art. 118 = 30% du revenu net imposable — à appliquer après réduction
 } {
   const lignes: LigneBareme[] = []
   let iprBrut = 0
@@ -67,11 +71,21 @@ function calculerBareme(revenuNetImposable: number): {
     iprBrut += impot
   }
 
-  // Art. 118 : IPR ne peut excéder 30% du revenu net imposable
   const iprMax = revenuNetImposable * 0.30
-  const plafonne = iprBrut > iprMax
-  if (plafonne) iprBrut = iprMax
-  return { lignes, iprBrut, iprMax, plafonne }
+  return { lignes, iprBrut, iprMax }
+}
+
+// Applique, dans cet ordre, la réduction pour charges de famille (Art. 123-125) puis le plafond
+// de 30% (Art. 118 in fine) sur un IRPP brut déjà calculé par calculerBareme().
+function appliquerReductionEtPlafond(iprBrut: number, iprMax: number, reduction: number): {
+  iprApresReduction: number
+  plafonne: boolean
+  iprFinal: number
+} {
+  const iprApresReduction = Math.max(0, iprBrut - reduction)
+  const plafonne = iprApresReduction > iprMax
+  const iprFinal = plafonne ? iprMax : iprApresReduction
+  return { iprApresReduction, plafonne, iprFinal }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -377,13 +391,16 @@ function Cat1Salaires() {
       const qpo = brut661 * 0.05      // Quote-part ouvrière CNSS 5%
       const baseImposable = brut661 - qpo  // Revenu net imposable
 
-      const { lignes, iprBrut, iprMax, plafonne } = calculerBareme(baseImposable)
+      const { lignes, iprBrut, iprMax } = calculerBareme(baseImposable)
       const charge = Math.min(Math.max(0, nbCharge), 9)
       // Art. 125 : réduction charges de famille INAPPLICABLE si revenu imposable > 3 600 000 FC/mois (3ème tranche)
       const reductionInapplicable = baseImposable > 3_600_000
+      // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre de liquidation :
+      // barème → réduction → plafond, Art. 118 + 123-125)
       const reduction = reductionInapplicable ? 0 : iprBrut * (charge * 0.02)
+      const { iprApresReduction, plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
       // IPR net : appliquer plancher 2 000 FC (si revenu imposable > 0)
-      const iprAvantPlancher = Math.max(0, iprBrut - reduction)
+      const iprAvantPlancher = iprFinal
       const iprNet = baseImposable > 0 ? Math.max(2000, iprAvantPlancher) : 0
       const iprPlancher = iprNet > iprAvantPlancher // true si plancher appliqué
 
@@ -420,13 +437,15 @@ function Cat1Salaires() {
       // Art. 71 : QPO s'applique aussi aux expatriés (sauf convention bilatérale)
       const qpoE = brut662 * 0.05
       const baseImposableE = brut662 - qpoE
-      const { lignes, iprBrut, iprMax: iprMaxE, plafonne } = calculerBareme(baseImposableE)
+      const { lignes, iprBrut, iprMax: iprMaxE } = calculerBareme(baseImposableE)
       const chargeE = Math.min(Math.max(0, nbChargeExp), 9)
       // Art. 125 : réduction charges de famille INAPPLICABLE si revenu imposable > 3 600 000 FC/mois
       const reductionInapplicableE = baseImposableE > 3_600_000
+      // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement
       const reductionE = reductionInapplicableE ? 0 : iprBrut * (chargeE * 0.02)
+      const { plafonne, iprFinal: iprFinalE } = appliquerReductionEtPlafond(iprBrut, iprMaxE, reductionE)
       // IPR net expatrié : même plancher 2 000 FC
-      const iprAvantPlancherE = Math.max(0, iprBrut - reductionE)
+      const iprAvantPlancherE = iprFinalE
       const iprNetExp = baseImposableE > 0 ? Math.max(2000, iprAvantPlancherE) : 0
       const iprPlancherE = iprNetExp > iprAvantPlancherE
 
@@ -1052,14 +1071,16 @@ function Cat2BIC() {
       } else {
         impotBareme = t1max * 0.03 + (t2max - t1max) * 0.15 + (t3max - t2max) * 0.30 + (beneficeNetArrondi - t3max) * 0.40
       }
-      // Plafond 30% (Art. 118)
-      const plafond30 = beneficeNetArrondi * 0.30
-      const plafonne = impotBareme > plafond30
-      if (plafonne) impotBareme = plafond30
       // Réduction personnes à charge Art. 123 : 2% par personne, max 9, inapplicable si revenu > t3max
+      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre de liquidation :
+      // barème → réduction → plafond, Art. 118 + 123-125)
       const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
       const reductionPC = beneficeNetArrondi <= t3max ? impotBareme * 0.02 * nbPC : 0
-      let impotApresPC = Math.max(0, impotBareme - reductionPC)
+      const impotApresReduction = Math.max(0, impotBareme - reductionPC)
+      // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
+      const plafond30 = beneficeNetArrondi * 0.30
+      const plafonne = impotApresReduction > plafond30
+      let impotApresPC = plafonne ? plafond30 : impotApresReduction
       // Impôt minimum 1% du CA (Art. 122) : applicable régime réel seulement, hors micro
       const minimum122 = tp * 0.01
       const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
@@ -2985,14 +3006,15 @@ function Cat3BNC() {
     else if (beneficeNetArrondi <= t2)  impotBareme = t1 * 0.03 + (beneficeNetArrondi - t1) * 0.15
     else if (beneficeNetArrondi <= t3)  impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (beneficeNetArrondi - t2) * 0.30
     else                                 impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30 + (beneficeNetArrondi - t3) * 0.40
-    // Plafond 30% (Art. 118)
-    const plafond30 = beneficeNetArrondi * 0.30
-    const plafonne = impotBareme > plafond30
-    if (plafonne) impotBareme = plafond30
     // Réduction personnes à charge Art. 123 : 2% par personne, max 9, inapplicable si revenu > t3
+    // Assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre : barème → réduction → plafond)
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
     const reductionPC = beneficeNetArrondi <= t3 ? impotBareme * 0.02 * nbPC : 0
-    let impotApresPC = Math.max(0, impotBareme - reductionPC)
+    const impotApresReduction = Math.max(0, impotBareme - reductionPC)
+    // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
+    const plafond30 = beneficeNetArrondi * 0.30
+    const plafonne = impotApresReduction > plafond30
+    let impotApresPC = plafonne ? plafond30 : impotApresReduction
     // Impôt minimum 1% des recettes (Art. 122)
     const minimum122 = totalRecettes * 0.01
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
@@ -3403,14 +3425,15 @@ function Cat4Agricole() {
     else if (beneficeNetArrondi <= t2)  impotBareme = t1 * 0.03 + (beneficeNetArrondi - t1) * 0.15
     else if (beneficeNetArrondi <= t3)  impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (beneficeNetArrondi - t2) * 0.30
     else                                 impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30 + (beneficeNetArrondi - t3) * 0.40
-    // Plafond 30% (Art. 118)
-    const plafond30 = beneficeNetArrondi * 0.30
-    const plafonne = impotBareme > plafond30
-    if (plafonne) impotBareme = plafond30
     // Réduction personnes à charge Art. 123 : 2% par personne, max 9, inapplicable si revenu > t3
+    // Assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre : barème → réduction → plafond)
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
     const reductionPC = beneficeNetArrondi <= t3 ? impotBareme * 0.02 * nbPC : 0
-    let impotApresPC = Math.max(0, impotBareme - reductionPC)
+    const impotApresReduction = Math.max(0, impotBareme - reductionPC)
+    // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
+    const plafond30 = beneficeNetArrondi * 0.30
+    const plafonne = impotApresReduction > plafond30
+    let impotApresPC = plafonne ? plafond30 : impotApresReduction
     // Impôt minimum 1% des produits (Art. 122)
     const minimum122 = totalProduits * 0.01
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
