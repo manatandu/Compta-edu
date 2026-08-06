@@ -18,6 +18,7 @@ import {
 } from '@/lib/db-firebase'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
+import { isAdminRole } from '@/lib/permissions'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import PasswordInput from '@/components/PasswordInput'
 import { useToast } from '@/components/ui/use-toast'
@@ -54,7 +55,7 @@ export default function InscriptionPlatformePage() {
   const [methode, setMethode] = useState<Methode>('form')
   const [users, setUsers] = useState<User[]>([])
 
-  const isAdmin = user?.role === 'admin'
+  const isAdmin = isAdminRole(user)
   const isStaff = ['admin', 'professeur', 'assistant'].includes(user?.role || '')
 
   // Listener temps réel pour détecter les doublons username

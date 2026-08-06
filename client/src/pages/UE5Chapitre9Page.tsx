@@ -8,6 +8,7 @@ import DevoirChapitreCreateur, { CasPratiqueExistant, versCasPratiqueExistant } 
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
 import { useUser } from '@/lib/userContext'
+import { isStaffRole } from '@/lib/permissions'
 
 // ============================================================
 // TYPES
@@ -573,8 +574,7 @@ function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
 export default function UE5Chapitre9Page() {
   const goBack = useGoBack('/ue5-finances-publiques')
   const user = useUser()
-  const role = (user as any)?.role || 'etudiant'
-  const isAdmin = role === 'admin' || role === 'professeur' || role === 'assistant'
+  const isAdmin = isStaffRole(user as any)
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')
   const [activeLecon, setActiveLecon] = useState(0)

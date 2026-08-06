@@ -3,6 +3,7 @@ import { useLocation } from 'wouter'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
+import { isAdminRole } from '@/lib/permissions'
 import { TypeEtudiant, StatutEtudiant } from '@/lib/db'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { useUniversites, useFacultes, useCours } from '@/lib/useFirestore'
@@ -81,7 +82,7 @@ export default function NouvelEtudiantPage() {
     setErrors(prev => ({ ...prev, [field]: undefined }))
   }
 
-  const isAdmin = user?.role === 'admin'
+  const isAdmin = isAdminRole(user)
   if (!isAdmin) {
     return (
       <div className="flex items-center justify-center h-64">

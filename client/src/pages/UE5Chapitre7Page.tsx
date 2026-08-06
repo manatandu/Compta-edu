@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
+import { isStaffRole } from '@/lib/permissions'
 import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
@@ -1014,7 +1015,7 @@ function CasPratiqueBlock({ cas }: { cas: typeof ETUDES_DE_CAS[0] }) {
 export default function UE5Chapitre7Page() {
   const goBack = useGoBack('/ue5-finances-publiques')
   const user = useUser()
-  const isAdmin = user?.role === 'admin' || user?.role === 'professeur' || user?.role === 'assistant'
+  const isAdmin = isStaffRole(user)
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')
   const [leconIdx, setLeconIdx] = useState(0)

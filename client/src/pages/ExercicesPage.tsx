@@ -1,4 +1,5 @@
 import { useUser } from '@/lib/userContext'
+import { isStaffRole, isStudentRole } from '@/lib/permissions'
 import React, { useState, useRef } from 'react'
 import BackButton from '@/components/BackButton'
 import { useHashLocation } from 'wouter/use-hash-location'
@@ -407,10 +408,10 @@ function FormExerciceLibre({ onClose, editData, coursList }: { onClose: () => vo
 function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { coursIds?: string[], coursList: { id: string, nom: string, faculteId?: string, universiteId?: string, promotion?: string }[], faculteId?: string, promotion?: string }) {
   const { toast } = useToast()
   const user = useUser()
-  const canManage = user?.role === 'admin' || user?.role === 'professeur' || user?.role === 'assistant'
+  const canManage = isStaffRole(user)
   // Étudiants : filtré par leurs cours + faculteId + promotion via cours ; prof/admin : tous
   const { exercices, loading } = useExercicesLibres(undefined, !canManage ? coursIds : undefined, !canManage ? faculteId : undefined, !canManage ? promotion : undefined, !canManage ? coursList : undefined)
-  const { tentatives } = useTentativesEL(user?.role === 'etudiant' ? user?.id : undefined)
+  const { tentatives } = useTentativesEL(isStudentRole(user) ? user?.id : undefined)
 
   const [showForm, setShowForm] = useState(false)
   const [editData, setEditData] = useState<any>(null)
@@ -682,7 +683,7 @@ export default function ExercicesPage() {
   const user = useUser()
   const { sessions } = useSessions(user?.id)
   const { cours: allCours } = useCours()
-  const canManage = user?.role === 'admin' || user?.role === 'professeur' || user?.role === 'assistant'
+  const canManage = isStaffRole(user)
   // Pour les étudiants, filtrer par leurs cours inscrits
   const studentCoursIds = !canManage && user?.coursIds && user.coursIds.length > 0 ? user.coursIds : undefined
   const studentFaculteId = !canManage ? (user as any)?.faculteId || undefined : undefined
@@ -879,7 +880,7 @@ export default function ExercicesPage() {
                               <span className="ml-2 text-primary font-medium flex items-center gap-1"><Trophy className="h-3 w-3" />{bestScore}/100</span>
                             )}
                           </div>
-                          <Button size="sm" variant="outline" onClick={() => navigate(`/exercices/${ex.id}`)} disabled={!ex.actif && user?.role === 'etudiant'} className="transition-all duration-200 hover:scale-105">
+                          <Button size="sm" variant="outline" onClick={() => navigate(`/exercices/${ex.id}`)} disabled={!ex.actif && isStudentRole(user)} className="transition-all duration-200 hover:scale-105">
                             <Play className="h-3.5 w-3.5 mr-1" />
                             {canManage ? 'Gérer' : 'Commencer'}
                           </Button>

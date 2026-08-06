@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
+import { isStudentRole } from '@/lib/permissions'
 import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
@@ -551,7 +552,7 @@ export default function UE2Chapitre9Page() {
 
       {/* ─── ONGLETS ─── */}
       <div className="bg-muted p-1 rounded-xl flex gap-1">
-        {(user?.role === 'etudiant'
+        {(isStudentRole(user)
           ? [{ key: 'lecons', label: 'Leçons' }, { key: 'devoir', label: 'Devoir' }]
           : [{ key: 'lecons', label: 'Leçons' }, { key: 'qcm', label: 'QCM' }, { key: 'cas', label: 'Cas pratiques' }, { key: 'devoir', label: 'Devoir' }]
         ).map(({ key, label }) => (
@@ -1283,7 +1284,7 @@ export default function UE2Chapitre9Page() {
             <p className="text-sm text-gray-500 mt-1">4 cas pratiques basés sur les Art. 181-199 AUSCGIE et l'AUPCAP révisé 2015.</p>
           </div>
           {casPratiques.map((cp) => (
-            <CasPratiqueBlock key={cp.id} cp={cp} isEtudiant={user?.role === 'etudiant'} />
+            <CasPratiqueBlock key={cp.id} cp={cp} isEtudiant={isStudentRole(user)} />
           ))}
         </div>
       )}

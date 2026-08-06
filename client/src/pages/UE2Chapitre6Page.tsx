@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
+import { isStaffRole } from '@/lib/permissions'
 import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
@@ -441,7 +442,7 @@ export default function UE2Chapitre6Page() {
   const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
   const user = useUser()
-  const isProf = user?.role === 'professeur' || user?.role === 'admin' || user?.role === 'assistant'
+  const isProf = isStaffRole(user)
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')
   const [activeLecon, setActiveLecon] = useState(0)

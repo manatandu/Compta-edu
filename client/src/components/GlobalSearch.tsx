@@ -3,6 +3,7 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import { Search, X, BookOpen, Building2, ClipboardList, GraduationCap, BookMarked } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { User } from '@/lib/db'
+import { isStaffRole, isStudentRole } from '@/lib/permissions'
 import { useUniversites, useAllCours, useDevoirs } from '@/lib/useFirestore'
 import { onUsersSnapshot } from '@/lib/db-firebase'
 
@@ -36,8 +37,8 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
   const { devoirs } = useDevoirs(user?.id || '')
   const [allUsers, setAllUsers] = useState<any[]>([])
 
-  const canAdmin = ['admin', 'professeur', 'assistant'].includes(role)
-  const isStudent = role === 'etudiant'
+  const canAdmin = isStaffRole(user)
+  const isStudent = isStudentRole(user)
 
   useEffect(() => {
     // Faille sécurité corrigée : dépend de role (stable) et non de canAdmin (dérivé)

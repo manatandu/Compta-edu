@@ -5,6 +5,7 @@ import { ChevronRight, Lock, BookOpen, ArrowLeft } from 'lucide-react'
 import { useAllCours } from '@/lib/useFirestore'
 import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
+import { isStudentRole } from '@/lib/permissions'
 import { cn } from '@/lib/utils'
 
 // Cycle sur la palette « module » de la marque Orbit (5 teintes définies dans
@@ -23,7 +24,7 @@ export default function MesCoursPage() {
   const [, navigate] = useHashLocation()
   const goBack = useGoBack('/')
   const user = useUser()
-  const isStudent = user?.role === 'etudiant'
+  const isStudent = isStudentRole(user)
   const { cours: allCoursRaw } = useAllCours()
   const allCours = allCoursRaw.filter(c => c.actif)
   const userCoursIds: string[] = (user as any)?.coursIds || []
