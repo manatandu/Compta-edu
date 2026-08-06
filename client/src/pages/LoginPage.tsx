@@ -178,16 +178,16 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <div className="absolute inset-0 rounded-2xl bg-secondary/30 animate-pulseGlow" />
               <div className="relative h-14 w-14 rounded-2xl bg-white/10 ring-2 ring-white/20 flex items-center justify-center overflow-hidden backdrop-blur-sm">
                 <img
-                  src="./assets/campus-ohada-logo.svg"
-                  alt="CAMPUS OHADA"
-                  className="w-12 h-12 animate-float"
+                  src="./assets/orbit-mark.svg"
+                  alt="Orbit"
+                  className="w-11 h-11 animate-float"
                   style={{ animationDelay: '0.5s' }}
                   onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
                 />
               </div>
             </div>
             <div>
-              <p className="font-display font-extrabold text-white text-lg leading-tight tracking-tight">CAMPUS OHADA</p>
+              <p className="font-display font-extrabold text-white text-lg leading-tight tracking-tight">Orbit</p>
               <p className="text-white/60 text-xs">SYSCOHADA Révisé</p>
             </div>
           </div>
@@ -226,7 +226,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           })}
           <p className="text-white/50 text-xs pt-2 flex items-center gap-1.5">
             <Sparkles className="h-3 w-3 text-secondary" />
-            CAMPUS OHADA © {new Date().getFullYear()}
+            Orbit © {new Date().getFullYear()}
           </p>
         </div>
       </div>
@@ -240,19 +240,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             <div className="absolute inset-0 rounded-2xl bg-primary/20 animate-pulseGlow" />
             <div className="relative h-16 w-16 rounded-2xl bg-primary flex items-center justify-center overflow-hidden ring-2 ring-primary/30">
               <img
-                src="./assets/campus-ohada-logo.svg"
-                alt="CAMPUS OHADA"
-                className="w-14 h-14"
+                src="./assets/orbit-mark.svg"
+                alt="Orbit"
+                className="w-12 h-12"
                 onError={e => {
                   const el = e.target as HTMLImageElement
                   el.style.display = 'none'
                   const p = el.parentElement
-                  if (p) p.innerHTML = '<span class="text-white font-bold text-2xl">CO</span>'
+                  if (p) p.innerHTML = '<span class="text-white font-bold text-2xl">O</span>'
                 }}
               />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-primary">CAMPUS OHADA</h1>
+          <h1 className="font-display text-2xl font-bold text-primary">Orbit</h1>
           <p className="text-muted-foreground text-sm mt-0.5">Comptabilité SYSCOHADA Révisé</p>
         </div>
 
@@ -493,7 +493,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           )}
 
           <div className={`text-center mt-8 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '600ms' }}>
-            <p className="text-xs text-muted-foreground">CAMPUS OHADA © {new Date().getFullYear()} : SYSCOHADA Révisé</p>
+            <p className="text-xs text-muted-foreground">Orbit © {new Date().getFullYear()} : SYSCOHADA Révisé</p>
             <p className="text-xs text-muted-foreground/60 mt-0.5">Propriété de Manassé TANDU</p>
           </div>
         </div>

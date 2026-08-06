@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
- *  CAMPUS OHADA : Générateur de statuts SARL
+ *  ORBIT : Générateur de statuts SARL
  *  Fichier : lib/generateStatuts.ts
  *
  *  Génère les statuts complets d'une SARL conformément au modèle
@@ -269,7 +269,7 @@ export async function exportStatutsPDF(d: StatutsData): Promise<void> {
     pdf.setFont('times', 'italic')
     pdf.setFontSize(8)
     pdf.setTextColor(120, 120, 120)
-    pdf.text(`Statuts générés par CAMPUS OHADA : Document pédagogique : ${d.dateGeneration}`, pageW / 2, pageH - 10, { align: 'center' })
+    pdf.text(`Statuts générés par ORBIT : Document pédagogique : ${d.dateGeneration}`, pageW / 2, pageH - 10, { align: 'center' })
     pdf.setTextColor(0, 0, 0)
     pdf.setFont('times', 'normal')
   }
@@ -411,14 +411,14 @@ export async function exportStatutsPDF(d: StatutsData): Promise<void> {
   pdf.setLineWidth(0.3)
   pdf.line(marginL, y, pageW - marginR, y)
   space(4)
-  writeBlock(`Note pédagogique : Document généré par CAMPUS OHADA à des fins d'apprentissage. Ce document est basé sur le modèle officiel OHADA (AUSCGIE 2014) et l'Arrêté interministériel RDC n° 002 & 243 du 30/12/2014. Les mentions entre crochets [  ] doivent être complétées avant toute utilisation juridique. Consulter un notaire ou un avocat avant de signer des statuts définitifs.`, 9, 'italic')
+  writeBlock(`Note pédagogique : Document généré par ORBIT à des fins d'apprentissage. Ce document est basé sur le modèle officiel OHADA (AUSCGIE 2014) et l'Arrêté interministériel RDC n° 002 & 243 du 30/12/2014. Les mentions entre crochets [  ] doivent être complétées avant toute utilisation juridique. Consulter un notaire ou un avocat avant de signer des statuts définitifs.`, 9, 'italic')
 
   // Pied de page première page (ajouté après coup)
   pdf.setPage(1)
   pdf.setFont('times', 'italic')
   pdf.setFontSize(8)
   pdf.setTextColor(120, 120, 120)
-  pdf.text(`Statuts générés par CAMPUS OHADA : Document pédagogique : ${d.dateGeneration}`, pageW / 2, pageH - 10, { align: 'center' })
+  pdf.text(`Statuts générés par ORBIT : Document pédagogique : ${d.dateGeneration}`, pageW / 2, pageH - 10, { align: 'center' })
 
   pdf.save(`Statuts-${(d.denomination || 'societe').replace(/\s+/g, '-')}-OHADA.pdf`)
 }
@@ -521,7 +521,7 @@ export async function exportStatutsDOCX(d: StatutsData): Promise<void> {
     new Paragraph({ children: [new TextRun({ text: '', size: 24 })], spacing: { after: 240 } }),
     new Paragraph({
       children: [new TextRun({
-        text: `Note pédagogique : Document généré par CAMPUS OHADA. Basé sur l'AUSCGIE 2014 et l'Arrêté RDC n° 002 & 243 du 30/12/2014. Les mentions entre crochets [ ] doivent être complétées avant toute utilisation juridique. Consulter un notaire avant de signer des statuts définitifs.`,
+        text: `Note pédagogique : Document généré par ORBIT. Basé sur l'AUSCGIE 2014 et l'Arrêté RDC n° 002 & 243 du 30/12/2014. Les mentions entre crochets [ ] doivent être complétées avant toute utilisation juridique. Consulter un notaire avant de signer des statuts définitifs.`,
         size: 18, italics: true, color: '666666', font: 'Times New Roman',
       })],
       alignment: AlignmentType.JUSTIFIED,

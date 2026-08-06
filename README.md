@@ -1,4 +1,4 @@
-# Compta-edu (Campus OHADA)
+# Compta-edu (Orbit)
 
 Logiciel web pédagogique de comptabilité OHADA/AUDCIF pour étudiants : cours (UE1-UE5), journal, grand livre, balance, bilan, plan comptable, simulateurs fiscaux (TVA, IPR, constitution de société), QCM, gestion des étudiants et des devoirs.
 

@@ -40,7 +40,7 @@ function addHeader(doc: jsPDF, title: string, sessionName: string) {
   doc.setTextColor(255, 255, 255)
   doc.setFontSize(14)
   doc.setFont('helvetica', 'bold')
-  doc.text('CAMPUS OHADA', 14, 10)
+  doc.text('ORBIT', 14, 10)
 
   doc.setFontSize(8)
   doc.setFont('helvetica', 'normal')
@@ -67,7 +67,7 @@ function addFooter(doc: jsPDF) {
     doc.setPage(i)
     doc.setFontSize(7)
     doc.setTextColor(150)
-    doc.text(`CAMPUS OHADA · SYSCOHADA Révisé · Page ${i}/${pageCount}`, 105, 291, { align: 'center' })
+    doc.text(`ORBIT · SYSCOHADA Révisé · Page ${i}/${pageCount}`, 105, 291, { align: 'center' })
     doc.setTextColor(0, 0, 0)
   }
 }
@@ -77,7 +77,7 @@ export function exportJournalPDF(sessionName: string, ecritures: Ecriture[]) {
 
   // ── EN-TÊTE : fond bleu pleine largeur, deux lignes ──
   // Ligne 1 : "JOURNAL COMPTABLE" centré, gras, blanc
-  // Ligne 2 : "Session : xxx  |  SYSCOHADA Révisé  |  CAMPUS OHADA"
+  // Ligne 2 : "Session : xxx  |  SYSCOHADA Révisé  |  ORBIT"
   const PW = 297  // largeur A4 paysage
   const MARGIN = 3
 
@@ -91,7 +91,7 @@ export function exportJournalPDF(sessionName: string, ecritures: Ecriture[]) {
 
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(8)
-  doc.text(`Session : ${sessionName}  |  SYSCOHADA Révisé  |  CAMPUS OHADA`, PW / 2, 16, { align: 'center' })
+  doc.text(`Session : ${sessionName}  |  SYSCOHADA Révisé  |  ORBIT`, PW / 2, 16, { align: 'center' })
 
   // ── EN-TÊTE DES COLONNES ──
   // Colonnes : Date | Libellé | Cpt Débit | Cpt Crédit | Intitulé du compte | Débit | Crédit
@@ -239,7 +239,7 @@ export function exportJournalPDF(sessionName: string, ecritures: Ecriture[]) {
     doc.setPage(i)
     doc.setFontSize(7)
     doc.setTextColor(150)
-    doc.text(`CAMPUS OHADA · SYSCOHADA Révisé · Page ${i}/${pageCount}`, PW / 2, 208, { align: 'center' })
+    doc.text(`ORBIT · SYSCOHADA Révisé · Page ${i}/${pageCount}`, PW / 2, 208, { align: 'center' })
   }
 
   savePDF(doc, `Journal_${sessionName.replace(/[^a-z0-9]/gi, '_')}.pdf`)
@@ -447,7 +447,7 @@ export function exportResultatPDF(sessionName: string, lignes: { ref: string; la
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(13);
   doc.setFont("helvetica", "bold");
-  doc.text("CAMPUS OHADA : COMPTE DE RÉSULTAT", pageWidth / 2, 12, { align: "center" });
+  doc.text("ORBIT : COMPTE DE RÉSULTAT", pageWidth / 2, 12, { align: "center" });
 
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(9);
