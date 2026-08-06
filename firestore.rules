@@ -55,8 +55,17 @@ service cloud.firestore {
           get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role
         )
       )) || isAdmin();
-      // Lecture : utilisateur lui-même OU admin
-      allow read: if isAuth() && (request.auth.uid == userId || isAdmin());
+      // Lecture : utilisateur lui-même OU prof/admin (isProf()). Les écrans de gestion
+      // étudiants (ProfesseurPage, DocumentsPage, InscriptionPlatformePage) s'appuient
+      // sur une lecture de la collection users entière et sont censés être accessibles
+      // aux comptes 'professeur' (voir isProfRole() dans permissions.ts côté client) —
+      // avec seulement isAdmin() ici, cette requête de liste échouait entièrement pour
+      // un prof non-admin (Firestore rejette une requête non filtrée dès qu'une partie
+      // des documents ne satisfait pas la règle), cassant silencieusement ces écrans.
+      // Le rôle 'assistant' n'est PAS inclus : isProf() ne le reconnaît nulle part
+      // ailleurs dans ce fichier, et l'élargir serait un changement de portée distinct
+      // (voir la note dans permissions.ts sur isStaffRole()).
+      allow read: if isAuth() && (request.auth.uid == userId || isProf());
       // Modification : un admin peut tout modifier. Un utilisateur peut modifier SON
       // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
       // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
