@@ -25,12 +25,27 @@ import type { User, UserRole } from './db'
 
 const PROF_ROLES: UserRole[] = ['admin', 'professeur']
 
+// "Staff" au sens large (admin + professeur + assistant) : plusieurs pages affichent
+// des contrôles de gestion (modifier/supprimer un exercice, gérer un étudiant...) à ce
+// groupe élargi. ATTENTION : ce n'est PAS un miroir de isProf() côté serveur, qui
+// n'accepte que 'admin' et 'professeur' — un compte 'assistant' voit donc ici des
+// contrôles que Firestore refusera silencieusement s'il tente réellement l'action.
+// Ce helper centralise ce comportement existant tel quel (aucun changement fonctionnel
+// lors de son introduction), il ne le cautionne pas comme correct : si le rôle
+// assistant doit vraiment avoir ces droits, il faut d'abord élargir isProf() dans
+// firestore.rules, sans quoi ces contrôles resteront des boutons morts pour lui.
+const STAFF_ROLES: UserRole[] = ['admin', 'professeur', 'assistant']
+
 export function isAdminRole(user: User | null | undefined): boolean {
   return user?.role === 'admin'
 }
 
 export function isProfRole(user: User | null | undefined): boolean {
   return !!user && PROF_ROLES.includes(user.role)
+}
+
+export function isStaffRole(user: User | null | undefined): boolean {
+  return !!user && STAFF_ROLES.includes(user.role)
 }
 
 export function isStudentRole(user: User | null | undefined): boolean {
@@ -49,6 +64,10 @@ export function useIsAdmin(): boolean {
 
 export function useIsProf(): boolean {
   return isProfRole(useUser())
+}
+
+export function useIsStaff(): boolean {
+  return isStaffRole(useUser())
 }
 
 export function useIsStudent(): boolean {

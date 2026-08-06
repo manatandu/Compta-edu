@@ -1,4 +1,5 @@
 import { useUser } from '@/lib/userContext'
+import { isAdminRole } from '@/lib/permissions'
 import React, { useState, useRef, useEffect } from 'react'
 import BackButton from '@/components/BackButton'
 import { onMessagesSnapshot, saveMessageAsync, getUsersAsync } from '@/lib/db-firebase'
@@ -20,7 +21,7 @@ export default function ChatPage() {
   // - Admin/prof/assistant : voit uniquement les étudiants qu'il a créés
   // - Étudiant : voit l'admin qui a créé son code d'accès EN PREMIER, puis les autres staff
   const isStaff = ['admin', 'professeur', 'assistant'].includes(currentUser?.role || '')
-  const isMainAdmin = currentUser?.role === 'admin'
+  const isMainAdmin = isAdminRole(currentUser)
   const createdByRef = (currentUser as any)?.createdBy as string | undefined
 
   const users = isStaff

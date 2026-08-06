@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
+import { isStudentRole } from '@/lib/permissions'
 import DevoirChapitreCreateur, { EtudeDeCasRaw, versCasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
@@ -857,7 +858,7 @@ function CasPratiqueBlock({ cp }: { cp: EtudeDeCasRaw }) {
 export default function UE13Chapitre1Page() {
   const goBack = useGoBack('/ue13-ifrs-ias')
   const currentUser = useUser()
-  const isStudent = currentUser?.role === 'etudiant'
+  const isStudent = isStudentRole(currentUser)
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')
   const [leconIdx, setLeconIdx] = useState(0)

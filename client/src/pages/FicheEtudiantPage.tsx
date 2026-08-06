@@ -6,6 +6,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
+import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { EtudiantFiche, NoteManuelle, StatutEtudiant } from '@/lib/db'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import {
@@ -78,8 +79,8 @@ export default function FicheEtudiantPage() {
   const [savingNote, setSavingNote] = useState(false)
   const [confirmDeleteNote, setConfirmDeleteNote] = useState<string | null>(null)
 
-  const isAdmin = user?.role === 'admin'
-  const isStaff = user?.role === 'admin' || user?.role === 'professeur' || user?.role === 'assistant'
+  const isAdmin = isAdminRole(user)
+  const isStaff = isStaffRole(user)
 
   // ─── Chargement ────────────────────────────────────────────────────────────
   useEffect(() => {

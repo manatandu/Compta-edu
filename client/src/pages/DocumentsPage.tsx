@@ -1,4 +1,5 @@
 import { useUser } from '@/lib/userContext'
+import { isStudentRole } from '@/lib/permissions'
 import React, { useState, useEffect } from 'react'
 import BackButton from '@/components/BackButton'
 import { useNav } from '@/lib/navContext'
@@ -187,7 +188,7 @@ export default function DocumentsPage() {
   }, [allCours])
 
   // Promotion de l'étudiant connecté (champ 'classe', ex: 'L1')
-  const isEtudiant = user?.role === 'etudiant'
+  const isEtudiant = isStudentRole(user)
   const userPromotion: string = (user as any)?.classe || ''
   const userCoursIds: string[] = (user as any)?.coursIds || []
 

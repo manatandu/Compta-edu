@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
+import { isStudentRole } from '@/lib/permissions'
 import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import { QCMChapitre } from '@/lib/db'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -1014,7 +1015,7 @@ function toQCMChapitre(q: QCMQuestion): QCMChapitre {
 export default function UE2Chapitre8Page() {
   const goBack = useGoBack('/ue2-droit-societes')
   const currentUser = useUser()
-  const isStudent = currentUser?.role === 'etudiant'
+  const isStudent = isStudentRole(currentUser)
 
   const [activeTab, setActiveTab] = useState<'lecons' | 'qcm' | 'cas' | 'devoir'>('lecons')
   const [leconIdx, setLeconIdx] = useState(0)

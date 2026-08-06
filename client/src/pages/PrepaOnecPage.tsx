@@ -2,6 +2,7 @@ import React from 'react'
 import { Lock, BookOpen, TrendingUp, Scale, BarChart2, Cpu, Globe } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { useUser } from '@/lib/userContext'
+import { isStudentRole } from '@/lib/permissions'
 import { useHashLocation } from 'wouter/use-hash-location'
 
 // Les 6 UE du DSCG — toutes verrouillées pour l'instant
@@ -73,7 +74,7 @@ export default function PrepaOnecPage() {
   const [, navigate] = useHashLocation()
 
   // Page réservée au staff — les étudiants ne doivent jamais arriver ici
-  if (!user || user.role === 'etudiant') {
+  if (!user || isStudentRole(user)) {
     navigate('/')
     return null
   }
