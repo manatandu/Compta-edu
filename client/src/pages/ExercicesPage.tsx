@@ -749,6 +749,13 @@ export default function ExercicesPage() {
           ecrituresAttendues: [],
           bareme: BAREME_DEFAUT,
           userId: user?.id || '',
+          // firestore.rules exige createdBy pour autoriser update/delete
+          // (isProf() && createdBy()) — absent jusqu'ici, un prof pouvait
+          // créer un exercice (allow create: if isProf(), pas d'exigence de
+          // champ) mais ne pouvait plus jamais le modifier ni le supprimer :
+          // resource.data.createdBy était toujours undefined, donc la
+          // comparaison à request.auth.uid échouait pour toujours.
+          createdBy: user?.id || '',
           actif: form.actif,
           coursId: form.coursId,
           faculteId: coursObj?.faculteId || undefined,

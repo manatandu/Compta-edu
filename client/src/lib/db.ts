@@ -94,6 +94,11 @@ export interface Exercice {
   bareme: { compte: number; sens: number; montant: number; equilibre: number }
   dateCreation: string
   userId: string
+  // Requis par firestore.rules pour autoriser update/delete (isProf() &&
+  // createdBy()) — distinct de userId par convention avec les autres
+  // collections prof-créées (cours, devoirs, documents), même si ici les
+  // deux valent la même chose (l'auteur de l'exercice).
+  createdBy?: string
   actif: boolean
   pdfData?: string            // base64 du PDF joint
   pdfNom?: string
