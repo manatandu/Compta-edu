@@ -12,6 +12,7 @@ import {
 import { db } from './firebase'
 import { useUser } from './userContext'
 import { onPresencesByEtudiantSnapshot } from './db-firebase'
+import { notifyFirestoreError } from './firestoreErrorHandler'
 import type {
   Session, Ecriture, Universite, Faculte, Cours, Devoir, Soumission,
   Exercice, Tentative, ExerciceLibre, TentativeExerciceLibre, Presence, NoteCours
@@ -50,9 +51,7 @@ function subscribeByFieldIn<T>(
     onSnapshot(query(collection(db, collectionName), where(field, 'in', group)), snap => {
       perChunk[i] = snap.docs.map(transform)
       onData(perChunk.flat())
-    }, err => {
-      console.error(`subscribeByFieldIn(${collectionName}.${field}) error:`, err)
-    })
+    }, err => notifyFirestoreError(`subscribeByFieldIn(${collectionName}.${field})`, err))
   )
   return () => unsubs.forEach(u => u())
 }
@@ -77,7 +76,7 @@ export function useSessions(userId: string | undefined, module?: 'syscohada' | '
       setSessions(data)
       setLoading(false)
     }, (err) => {
-      console.error('useSessions error:', err)
+      notifyFirestoreError('useSessions', err)
       setLoading(false)
     })
 
@@ -104,7 +103,7 @@ export function useEcritures(userId: string | undefined, module?: 'syscohada' | 
       setEcritures(snap.docs.map(d => fromDoc<Ecriture>(d)))
       setLoading(false)
     }, (err) => {
-      console.error('useEcritures error:', err)
+      notifyFirestoreError('useEcritures', err)
       setLoading(false)
     })
 
@@ -122,7 +121,7 @@ export function useUniversites() {
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'universites'), (snap) => {
       setUniversites(snap.docs.map(d => fromDoc<Universite>(d)))
-    })
+    }, err => notifyFirestoreError('useUniversites', err))
     return () => unsub()
   }, [])
 
@@ -141,7 +140,7 @@ export function useFacultes(universiteId?: string) {
 
     const unsub = onSnapshot(q, (snap) => {
       setFacultes(snap.docs.map(d => fromDoc<Faculte>(d)))
-    })
+    }, err => notifyFirestoreError('useFacultes', err))
     return () => unsub()
   }, [universiteId])
 
@@ -161,7 +160,7 @@ export function useCours(faculteId?: string, universiteId?: string) {
     const q = query(collection(db, 'cours'), ...conditions)
     const unsub = onSnapshot(q, (snap) => {
       setCours(snap.docs.map(d => fromDoc<Cours>(d)))
-    })
+    }, err => notifyFirestoreError('useCours', err))
     return () => unsub()
   }, [faculteId, universiteId])
 
@@ -176,7 +175,7 @@ export function useAllCours() {
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'cours'), (snap) => {
       setCours(snap.docs.map(d => fromDoc<Cours>(d)))
-    })
+    }, err => notifyFirestoreError('useAllCours', err))
     return () => unsub()
   }, [])
 
@@ -191,7 +190,7 @@ export function useAllFacultes() {
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'facultes'), (snap) => {
       setFacultes(snap.docs.map(d => fromDoc<Faculte>(d)))
-    })
+    }, err => notifyFirestoreError('useAllFacultes', err))
     return () => unsub()
   }, [])
 
@@ -210,7 +209,7 @@ export function useDevoirs(createdBy?: string) {
 
     const unsub = onSnapshot(q, (snap) => {
       setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-    })
+    }, err => notifyFirestoreError('useDevoirs', err))
     return () => unsub()
   }, [createdBy])
 
@@ -233,7 +232,7 @@ export function useAllDevoirs() {
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'devoirs'), (snap) => {
         setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-      }, err => console.error('useAllDevoirs error:', err))
+      }, err => notifyFirestoreError('useAllDevoirs', err))
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setDevoirs([]); return }
@@ -258,7 +257,7 @@ export function useSoumissions(devoirId?: string, etudiantId?: string) {
     const q = query(collection(db, 'soumissions'), ...conditions)
     const unsub = onSnapshot(q, (snap) => {
       setSoumissions(snap.docs.map(d => fromDoc<Soumission>(d)))
-    })
+    }, err => notifyFirestoreError('useSoumissions', err))
     return () => unsub()
   }, [devoirId, etudiantId])
 
@@ -275,7 +274,7 @@ export function useSoumissionsEtudiant(etudiantId: string | undefined) {
     const q = query(collection(db, 'soumissions'), where('etudiantId', '==', etudiantId))
     const unsub = onSnapshot(q, (snap) => {
       setSoumissions(snap.docs.map(d => fromDoc<Soumission>(d)))
-    })
+    }, err => notifyFirestoreError('useSoumissionsEtudiant', err))
     return () => unsub()
   }, [etudiantId])
 
@@ -297,7 +296,7 @@ export function useCoursStatuts(etudiantId: string | undefined) {
     const q = query(collection(db, 'cours_statuts'), where('etudiantId', '==', etudiantId))
     const unsub = onSnapshot(q, (snap) => {
       setStatuts(snap.docs.map(d => ({ coursId: d.data().coursId, statut: d.data().statut || null })))
-    })
+    }, err => notifyFirestoreError('useCoursStatuts', err))
     return () => unsub()
   }, [etudiantId])
 
@@ -313,7 +312,7 @@ export function useAllSessions(faculteId?: string) {
     const q = faculteId
       ? query(collection(db, 'sessions'), where('faculteId', '==', faculteId))
       : collection(db, 'sessions')
-    const unsub = onSnapshot(q, snap => setSessions(snap.docs.map(d => ({ id: d.id, ...d.data() }))))
+    const unsub = onSnapshot(q, snap => setSessions(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllSessions', err))
     return () => unsub()
   }, [faculteId])
   return { sessions }
@@ -326,7 +325,7 @@ export function useAllEcritures(faculteId?: string) {
     const q = faculteId
       ? query(collection(db, 'ecritures'), where('faculteId', '==', faculteId))
       : collection(db, 'ecritures')
-    const unsub = onSnapshot(q, snap => setEcritures(snap.docs.map(d => ({ id: d.id, ...d.data() }))))
+    const unsub = onSnapshot(q, snap => setEcritures(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllEcritures', err))
     return () => unsub()
   }, [faculteId])
   return { ecritures }
@@ -368,7 +367,7 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
       const unsub = onSnapshot(collection(db, 'exercices'), snap => {
         setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as Exercice))))
         setLoading(false)
-      }, err => { console.error('useExercices error:', err); setLoading(false) })
+      }, err => { notifyFirestoreError('useExercices', err); setLoading(false) })
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setExercices([]); setLoading(false); return }
@@ -390,7 +389,7 @@ export function useTentatives(etudiantId?: string, exerciceId?: string) {
     if (etudiantId) conditions.push(where('etudiantId', '==', etudiantId))
     if (exerciceId) conditions.push(where('exerciceId', '==', exerciceId))
     const q = conditions.length > 0 ? query(collection(db, 'tentatives'), ...conditions) : collection(db, 'tentatives')
-    const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))))
+    const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))), err => notifyFirestoreError('useTentatives', err))
     return () => unsub()
   }, [etudiantId, exerciceId])
   return { tentatives }
@@ -428,14 +427,14 @@ export function useExercicesLibres(createdBy?: string, coursIds?: string[], facu
       const unsub = onSnapshot(q, snap => {
         setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))))
         setLoading(false)
-      }, err => { console.error('useExercicesLibres error:', err); setLoading(false) })
+      }, err => { notifyFirestoreError('useExercicesLibres', err); setLoading(false) })
       return () => unsub()
     }
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'exercices_libres'), snap => {
         setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))))
         setLoading(false)
-      }, err => { console.error('useExercicesLibres error:', err); setLoading(false) })
+      }, err => { notifyFirestoreError('useExercicesLibres', err); setLoading(false) })
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setExercices([]); setLoading(false); return }
@@ -455,7 +454,7 @@ export function useTentativesEL(etudiantId?: string) {
   useEffect(() => {
     if (!etudiantId) { setTentatives([]); return }
     const q = query(collection(db, 'tentatives_el'), where('etudiantId', '==', etudiantId))
-    const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as TentativeExerciceLibre))))
+    const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as TentativeExerciceLibre))), err => notifyFirestoreError('useTentativesEL', err))
     return () => unsub()
   }, [etudiantId])
   return { tentatives }
@@ -477,7 +476,7 @@ export function usePresences(createdBy?: string, faculteId?: string) {
     const unsub = onSnapshot(q, snap => {
       setPresences(snap.docs.map(d => ({ id: d.id, ...d.data() } as Presence)))
       setLoading(false)
-    })
+    }, err => { notifyFirestoreError('usePresences', err); setLoading(false) })
     return () => unsub()
   }, [createdBy, faculteId])
   return { presences, loading }
@@ -522,7 +521,7 @@ export function useNotesCours(coursIds?: string[], promotionId?: string) {
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'notes_cours'), snap => {
         setNotes(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as NoteCours))))
-      }, err => console.error('useNotesCours error:', err))
+      }, err => notifyFirestoreError('useNotesCours', err))
       return () => unsub()
     }
     if (queryCoursIds.length === 0) { setNotes([]); return }
@@ -539,7 +538,7 @@ export function useAllNotesCours() {
   const [notes, setNotes] = useState<NoteCours[]>([])
   useEffect(() => {
     const q = collection(db, 'notes_cours')
-    const unsub = onSnapshot(q, snap => setNotes(snap.docs.map(d => ({ id: d.id, ...d.data() } as NoteCours))))
+    const unsub = onSnapshot(q, snap => setNotes(snap.docs.map(d => ({ id: d.id, ...d.data() } as NoteCours))), err => notifyFirestoreError('useAllNotesCours', err))
     return () => unsub()
   }, [])
   return { notes }
@@ -551,7 +550,7 @@ export function useAllSoumissions() {
   const [soumissions, setSoumissions] = useState<any[]>([])
   useEffect(() => {
     const q = collection(db, 'soumissions')
-    const unsub = onSnapshot(q, snap => setSoumissions(snap.docs.map(d => ({ id: d.id, ...d.data() }))))
+    const unsub = onSnapshot(q, snap => setSoumissions(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllSoumissions', err))
     return () => unsub()
   }, [])
   return { soumissions }

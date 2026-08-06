@@ -19,6 +19,7 @@ import {
 import { initializeApp, getApps } from 'firebase/app'
 import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 import { db, auth, storage } from './firebase'
+import { notifyFirestoreError } from './firestoreErrorHandler'
 import type {
   User, UserRole, Session, Ecriture, Exercice, Tentative,
   Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours
@@ -599,11 +600,11 @@ export function onMessagesSnapshot(userId: string, callback: (messages: Message[
   const unsubSent = onSnapshot(qSent, (snap) => {
     sent = snap.docs.map(d => fromDoc<Message>(d))
     merge()
-  })
+  }, err => notifyFirestoreError('onMessagesSnapshot(sent)', err))
   const unsubReceived = onSnapshot(qReceived, (snap) => {
     received = snap.docs.map(d => fromDoc<Message>(d))
     merge()
-  })
+  }, err => notifyFirestoreError('onMessagesSnapshot(received)', err))
 
   return () => { unsubSent(); unsubReceived() }
 }
@@ -830,7 +831,7 @@ export async function deletePresenceAsync(id: string): Promise<void> {
 
 export function onPresencesSnapshot(createdBy: string, callback: (presences: Presence[]) => void): Unsubscribe {
   const q = query(collection(db, C.PRESENCES), where('createdBy', '==', createdBy))
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Presence>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Presence>(d))), err => notifyFirestoreError('onPresencesSnapshot', err))
 }
 
 export function onPresencesByEtudiantSnapshot(etudiantId: string, callback: (presences: Presence[]) => void): Unsubscribe {
@@ -839,25 +840,25 @@ export function onPresencesByEtudiantSnapshot(etudiantId: string, callback: (pre
   // plus d'être un problème de passage à l'échelle, ne correspondait à aucune règle
   // de lecture valide (voir le correctif dans firestore.rules).
   const q = query(collection(db, C.PRESENCES), where('etudiantIds', 'array-contains', etudiantId))
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Presence>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Presence>(d))), err => notifyFirestoreError('onPresencesByEtudiantSnapshot', err))
 }
 
 export function onSessionsSnapshot(userId: string, module: string | undefined, callback: (sessions: Session[]) => void): Unsubscribe {
   const conditions: any[] = [where('userId', '==', userId)]
   if (module) conditions.push(where('module', '==', module))
   const q = query(collection(db, C.SESSIONS), ...conditions)
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Session>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Session>(d))), err => notifyFirestoreError('onSessionsSnapshot', err))
 }
 
 export function onEcrituresSnapshot(userId: string, module: string | undefined, callback: (ecritures: Ecriture[]) => void): Unsubscribe {
   const conditions: any[] = [where('userId', '==', userId)]
   if (module) conditions.push(where('module', '==', module))
   const q = query(collection(db, C.ECRITURES), ...conditions)
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Ecriture>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Ecriture>(d))), err => notifyFirestoreError('onEcrituresSnapshot', err))
 }
 
 export function onUsersSnapshot(callback: (users: User[]) => void): Unsubscribe {
-  return onSnapshot(collection(db, C.USERS), snap => callback(snap.docs.map(d => fromDoc<User>(d))))
+  return onSnapshot(collection(db, C.USERS), snap => callback(snap.docs.map(d => fromDoc<User>(d))), err => notifyFirestoreError('onUsersSnapshot', err))
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -876,11 +877,11 @@ export function onNotesCours(
       // ISOLATION STRICTE : le cours ET la promotion doivent correspondre
       .filter(n => coursIds.includes(n.coursId) && n.promotionId === promotionId)
     callback(notes)
-  })
+  }, err => notifyFirestoreError('onNotesCours', err))
 }
 
 export function onAllNotesCours(callback: (notes: NoteCours[]) => void): Unsubscribe {
-  return onSnapshot(collection(db, C.NOTES_COURS), snap => callback(snap.docs.map(d => fromDoc<NoteCours>(d))))
+  return onSnapshot(collection(db, C.NOTES_COURS), snap => callback(snap.docs.map(d => fromDoc<NoteCours>(d))), err => notifyFirestoreError('onAllNotesCours', err))
 }
 
 export async function createNoteCoursAsync(data: Omit<NoteCours, 'id' | 'dateCreation'>): Promise<NoteCours> {
@@ -907,11 +908,11 @@ export function onExercicesLibres(createdBy: string | undefined, callback: (ex: 
   const q = createdBy
     ? query(collection(db, C.EXERCICES_LIBRES), where('createdBy', '==', createdBy))
     : query(collection(db, C.EXERCICES_LIBRES))
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<ExerciceLibre>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<ExerciceLibre>(d))), err => notifyFirestoreError('onExercicesLibres', err))
 }
 
 export function onAllExercicesLibres(callback: (ex: ExerciceLibre[]) => void): Unsubscribe {
-  return onSnapshot(collection(db, C.EXERCICES_LIBRES), snap => callback(snap.docs.map(d => fromDoc<ExerciceLibre>(d))))
+  return onSnapshot(collection(db, C.EXERCICES_LIBRES), snap => callback(snap.docs.map(d => fromDoc<ExerciceLibre>(d))), err => notifyFirestoreError('onAllExercicesLibres', err))
 }
 
 export async function createExerciceLibreAsync(data: Omit<ExerciceLibre, 'id' | 'dateCreation'>): Promise<ExerciceLibre> {
@@ -933,7 +934,7 @@ export async function deleteExerciceLibreAsync(id: string): Promise<void> {
 export function onTentativesEL(etudiantId: string | undefined, callback: (t: TentativeExerciceLibre[]) => void): Unsubscribe {
   if (!etudiantId) { callback([]); return () => {} }
   const q = query(collection(db, C.TENTATIVES_EL), where('etudiantId', '==', etudiantId))
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<TentativeExerciceLibre>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<TentativeExerciceLibre>(d))), err => notifyFirestoreError('onTentativesEL', err))
 }
 
 export async function createTentativeELAsync(data: Omit<TentativeExerciceLibre, 'id' | 'dateCreation'>): Promise<TentativeExerciceLibre> {
@@ -1114,7 +1115,7 @@ export function onCoursStatutsEtudiant(
 ): Unsubscribe {
   if (!etudiantId) { callback([]); return () => {} }
   const q = query(collection(db, C.COURS_STATUTS), where('etudiantId', '==', etudiantId))
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<CoursEtudiantStatut>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<CoursEtudiantStatut>(d))), err => notifyFirestoreError('onCoursStatutsEtudiant', err))
 }
 
 export function onCoursStatutsParCreateur(
@@ -1123,7 +1124,7 @@ export function onCoursStatutsParCreateur(
 ): Unsubscribe {
   if (!createdBy) { callback([]); return () => {} }
   const q = query(collection(db, C.COURS_STATUTS), where('createdBy', '==', createdBy))
-  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<CoursEtudiantStatut>(d))))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<CoursEtudiantStatut>(d))), err => notifyFirestoreError('onCoursStatutsParCreateur', err))
 }
 
 export async function setCoursStatutAsync(

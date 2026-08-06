@@ -1,0 +1,41 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// GESTION CENTRALISÉE DES ERREURS onSnapshot (point 4 de l'audit)
+//
+// Avant ce module, la quasi-totalité des écoutes onSnapshot() de l'application
+// (useFirestore.ts, db-firebase.ts) n'avaient pas de callback d'erreur. Le SDK
+// Firestore désabonne SILENCIEUSEMENT un listener en erreur (droits révoqués
+// après un changement de rôle, coupure réseau prolongée, requête invalide) sans
+// prévenir l'appelant : l'état React reste figé sur sa dernière valeur (souvent
+// [] ou un "chargement" qui ne se résout jamais), sans aucun message à
+// l'utilisateur ni tentative de reconnexion.
+//
+// `toast` (client/src/components/ui/use-toast.ts) est exporté comme une fonction
+// autonome, pas seulement comme hook — utilisable aussi bien depuis les hooks de
+// useFirestore.ts que depuis les fonctions onXSnapshot() de db-firebase.ts, qui
+// ne sont pas des composants React et ne peuvent pas appeler useToast().
+// ─────────────────────────────────────────────────────────────────────────────
+import { toast } from '@/components/ui/use-toast'
+
+// Évite une rafale de toasts identiques si plusieurs écoutes échouent au même
+// instant (ex. coupure réseau, session expirée) — un seul message suffit à
+// prévenir l'utilisateur ; TOAST_LIMIT=1 dans use-toast.ts les aurait de toute
+// façon écrasés les uns après les autres, mais autant éviter le clignotement.
+const TOAST_THROTTLE_MS = 8000
+let lastToastAt = 0
+
+/**
+ * Callback d'erreur générique à passer en 3ème argument d'un onSnapshot().
+ * `context` identifie la fonction/le hook concerné (visible en console pour le
+ * debug) ; l'utilisateur voit un message générique de perte de synchronisation.
+ */
+export function notifyFirestoreError(context: string, err: unknown): void {
+  console.error(`[Firestore onSnapshot] ${context}:`, err)
+  const now = Date.now()
+  if (now - lastToastAt < TOAST_THROTTLE_MS) return
+  lastToastAt = now
+  toast({
+    title: 'Connexion interrompue',
+    description: 'La synchronisation avec le serveur a été interrompue. Vérifiez votre connexion, ou rechargez la page si le problème persiste.',
+    variant: 'destructive',
+  })
+}
