@@ -86,6 +86,28 @@ const GestionEtudiantsPage = React.lazy(() => import('@/pages/GestionEtudiantsPa
 const FicheEtudiantPage = React.lazy(() => import('@/pages/FicheEtudiantPage'))
 const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPlatformePage'))
 
+// La sidebar/Layout reste montée pendant le chargement d'une page : seul le
+// contenu affiche un état de chargement (transition fluide, pas de flash plein
+// écran qui fait disparaître toute l'interface).
+// Hoisté au niveau module (et non défini inline dans App()) : une fonction
+// composant recréée à chaque rendu de App change d'identité à chaque fois,
+// ce qui force React à démonter/remonter tout le sous-arbre enveloppé — y
+// compris l'ErrorBoundary et la page lazy — à chaque changement de `user`
+// (ex. après connexion/déconnexion), perdant leur état et rejouant le loader.
+function W({ user, onLogout, children }: { user: User | null; onLogout: () => void; children: React.ReactNode }) {
+  const [location] = useHashLocation()
+  return user
+    ? <Layout user={user} onLogout={onLogout}>
+        {/* key={location} : changer de page réarme l'ErrorBoundary — sans ça,
+            une page qui plante resterait affichée en erreur même après avoir
+            cliqué vers une autre page dans la sidebar. */}
+        <ErrorBoundary key={location}>
+          <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
+        </ErrorBoundary>
+      </Layout>
+    : <Redirect to="/login" />
+}
+
 function ProtectedRoute({ component: Component, user, onLogout }: { component: React.ComponentType; user: User | null; onLogout: () => void }) {
   const [location] = useHashLocation()
   if (!user) return <Redirect to="/login" />
@@ -157,23 +179,6 @@ export default function App() {
     window.location.reload()
   }
 
-  // La sidebar/Layout reste montée pendant le chargement d'une page :
-  // seul le contenu affiche un état de chargement (transition fluide,
-  // pas de flash plein écran qui fait disparaître toute l'interface).
-  const W = ({ children }: { children: React.ReactNode }) => {
-    const [location] = useHashLocation()
-    return user
-      ? <Layout user={user} onLogout={handleLogout}>
-          {/* key={location} : changer de page réarme l'ErrorBoundary — sans ça,
-              une page qui plante resterait affichée en erreur même après avoir
-              cliqué vers une autre page dans la sidebar. */}
-          <ErrorBoundary key={location}>
-            <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
-          </ErrorBoundary>
-        </Layout>
-      : <Redirect to="/login" />
-  }
-
   function IdleGuard() {
     const { showWarning, secondsLeft, stayConnected } = useIdleTimer()
     if (!user) return null
@@ -191,58 +196,58 @@ export default function App() {
           {user ? <Redirect to="/" /> : <LoginPage onLogin={setUser} />}
         </Route>
         <Route path="/">
-          <W><DashboardPage /></W>
+          <W user={user} onLogout={handleLogout}><DashboardPage /></W>
         </Route>
 
         {/* ── Comptabilité Générale (SYSCOHADA) ── */}
         <Route path="/comptabilite-generale">
-          <W><ComptabiliteGeneralePage /></W>
+          <W user={user} onLogout={handleLogout}><ComptabiliteGeneralePage /></W>
         </Route>
         <Route path="/journal">
-          <W><ModuleProvider module="syscohada"><JournalPage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><JournalPage /></ModuleProvider></W>
         </Route>
         <Route path="/grand-livre">
-          <W><ModuleProvider module="syscohada"><GrandLivrePage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><GrandLivrePage /></ModuleProvider></W>
         </Route>
         <Route path="/balance">
-          <W><ModuleProvider module="syscohada"><BalancePage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><BalancePage /></ModuleProvider></W>
         </Route>
         <Route path="/bilan">
-          <W><ModuleProvider module="syscohada"><BilanPage mode="bilan" /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><BilanPage mode="bilan" /></ModuleProvider></W>
         </Route>
         <Route path="/compte-resultat">
-          <W><ModuleProvider module="syscohada"><BilanPage mode="cr" /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><BilanPage mode="cr" /></ModuleProvider></W>
         </Route>
         <Route path="/plan-comptable">
-          <W><PlanComptablePage /></W>
+          <W user={user} onLogout={handleLogout}><PlanComptablePage /></W>
         </Route>
 
         {/* ── Comptabilité SYCEBNL ── */}
         <Route path="/comptabilite-sycebnl">
-          <W><ComptabiliteSYCEBNLPage /></W>
+          <W user={user} onLogout={handleLogout}><ComptabiliteSYCEBNLPage /></W>
         </Route>
         <Route path="/sycebnl/journal">
-          <W><ModuleProvider module="sycebnl"><JournalSYCEBNLPage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><JournalSYCEBNLPage /></ModuleProvider></W>
         </Route>
         <Route path="/sycebnl/grand-livre">
-          <W><ModuleProvider module="sycebnl"><GrandLivreSYCEBNLPage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><GrandLivreSYCEBNLPage /></ModuleProvider></W>
         </Route>
         <Route path="/sycebnl/balance">
-          <W><ModuleProvider module="sycebnl"><BalanceSYCEBNLPage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><BalanceSYCEBNLPage /></ModuleProvider></W>
         </Route>
         <Route path="/sycebnl/bilan">
-          <W><ModuleProvider module="sycebnl"><BilanSYCEBNLPage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><BilanSYCEBNLPage /></ModuleProvider></W>
         </Route>
         <Route path="/sycebnl/plan-comptable">
-          <W><PlanComptableSYCEBNLPage /></W>
+          <W user={user} onLogout={handleLogout}><PlanComptableSYCEBNLPage /></W>
         </Route>
 
         {/* ── Hubs dossiers 1 et 2 ── */}
         <Route path="/docs-comptables-hub">
-          <W><DocsComptablesHub /></W>
+          <W user={user} onLogout={handleLogout}><DocsComptablesHub /></W>
         </Route>
         <Route path="/etats-financiers-hub">
-          <W><EtatsFinanciersHub /></W>
+          <W user={user} onLogout={handleLogout}><EtatsFinanciersHub /></W>
         </Route>
 
         {/* ── Charges du personnel (Comptabilité Générale) ── */}
@@ -271,37 +276,37 @@ export default function App() {
           {() => <ProtectedRoute component={StockExercicePage} user={user} onLogout={handleLogout} />}
         </Route>
         <Route path="/charges-personnel/ipr">
-          <W><ChargesPersonnelIPRPage /></W>
+          <W user={user} onLogout={handleLogout}><ChargesPersonnelIPRPage /></W>
         </Route>
 
         {/* ── Autres ── */}
         <Route path="/exercices">
-          <W><ExercicesPage /></W>
+          <W user={user} onLogout={handleLogout}><ExercicesPage /></W>
         </Route>
         <Route path="/exercices/:id">
-          <W><ExerciceDetailPage /></W>
+          <W user={user} onLogout={handleLogout}><ExerciceDetailPage /></W>
         </Route>
         <Route path="/professeurs">
-          <W><ProfesseurPage /></W>
+          <W user={user} onLogout={handleLogout}><ProfesseurPage /></W>
         </Route>
         <Route path="/chat">
-          <W><ChatPage /></W>
+          <W user={user} onLogout={handleLogout}><ChatPage /></W>
         </Route>
         <Route path="/documents">
-          <W><DocumentsPage /></W>
+          <W user={user} onLogout={handleLogout}><DocumentsPage /></W>
         </Route>
 
         <Route path="/apercu-devoir">
-          <W><ApercuDevoirPage /></W>
+          <W user={user} onLogout={handleLogout}><ApercuDevoirPage /></W>
         </Route>
         <Route path="/fiscalite">
-          <W><FiscalitePage /></W>
+          <W user={user} onLogout={handleLogout}><FiscalitePage /></W>
         </Route>
         <Route path="/dictionnaire">
-          <W><DictionnairePage /></W>
+          <W user={user} onLogout={handleLogout}><DictionnairePage /></W>
         </Route>
         <Route path="/analyse-financiere">
-          <W><ComingSoonPage
+          <W user={user} onLogout={handleLogout}><ComingSoonPage
             titre="Analyse Financière"
             description="Le module Analyse Financière permet d'étudier la santé financière d'une entreprise : rentabilité, liquidité, solvabilité et ratios clés."
             fonctionnalites={['Calcul des ratios financiers', 'Analyse de la rentabilité', 'Tableau des flux de trésorerie', 'Diagnostic financier', 'Exercices d\'analyse']}
@@ -309,11 +314,11 @@ export default function App() {
         </Route>
 
         <Route path="/prepa-onec">
-          <W><PrepaOnecPage /></W>
+          <W user={user} onLogout={handleLogout}><PrepaOnecPage /></W>
         </Route>
 
         <Route path="/debug-isolation">
-          <W><DebuggingAdminPage /></W>
+          <W user={user} onLogout={handleLogout}><DebuggingAdminPage /></W>
         </Route>
 
         <Route path="/mes-cours">
@@ -322,84 +327,84 @@ export default function App() {
 
         {/* ── UE 2 — Droit des sociétés OHADA ── */}
         <Route path="/ue2-droit-societes">
-          <W><UE2DroitSocietesPage /></W>
+          <W user={user} onLogout={handleLogout}><UE2DroitSocietesPage /></W>
         </Route>
         <Route path="/ue2/chapitre-1">
-          <W><UE2Chapitre1Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre1Page /></W>
         </Route>
         <Route path="/ue2/chapitre-2">
-          <W><UE2Chapitre2Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre2Page /></W>
         </Route>
         <Route path="/ue2/chapitre-3">
-          <W><UE2Chapitre3Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre3Page /></W>
         </Route>
         <Route path="/ue2/chapitre-4">
-          <W><UE2Chapitre4Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre4Page /></W>
         </Route>
         <Route path="/ue2/chapitre-5">
-          <W><UE2Chapitre5Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre5Page /></W>
         </Route>
         <Route path="/ue2/chapitre-6">
-          <W><UE2Chapitre6Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre6Page /></W>
         </Route>
         <Route path="/ue2/chapitre-7">
-          <W><UE2Chapitre7Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre7Page /></W>
         </Route>
         <Route path="/ue2/chapitre-8">
-          <W><UE2Chapitre8Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre8Page /></W>
         </Route>
         <Route path="/ue2/chapitre-9">
-          <W><UE2Chapitre9Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre9Page /></W>
         </Route>
         <Route path="/ue2/chapitre-10">
-          <W><UE2Chapitre10Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre10Page /></W>
         </Route>
         <Route path="/ue2/chapitre-11">
-          <W><UE2Chapitre11Page /></W>
+          <W user={user} onLogout={handleLogout}><UE2Chapitre11Page /></W>
         </Route>
 
         {/* ── UE 5 — Finances publiques ── */}
         <Route path="/ue5-finances-publiques">
-          <W><UE5FinancesPubliquesPage /></W>
+          <W user={user} onLogout={handleLogout}><UE5FinancesPubliquesPage /></W>
         </Route>
         <Route path="/ue5/chapitre-1">
-          <W><UE5Chapitre1Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre1Page /></W>
         </Route>
         <Route path="/ue5/chapitre-2">
-          <W><UE5Chapitre2Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre2Page /></W>
         </Route>
         <Route path="/ue5/chapitre-3">
-          <W><UE5Chapitre3Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre3Page /></W>
         </Route>
         <Route path="/ue5/chapitre-4">
-          <W><UE5Chapitre4Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre4Page /></W>
         </Route>
         <Route path="/ue5/chapitre-5">
-          <W><UE5Chapitre5Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre5Page /></W>
         </Route>
         <Route path="/ue5/chapitre-6">
-          <W><UE5Chapitre6Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre6Page /></W>
         </Route>
         <Route path="/ue5/chapitre-7">
-          <W><UE5Chapitre7Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre7Page /></W>
         </Route>
         <Route path="/ue5/chapitre-8">
-          <W><UE5Chapitre8Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre8Page /></W>
         </Route>
         <Route path="/ue5/chapitre-9">
-          <W><UE5Chapitre9Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre9Page /></W>
         </Route>
         <Route path="/ue5/chapitre-10">
-          <W><UE5Chapitre10Page /></W>
+          <W user={user} onLogout={handleLogout}><UE5Chapitre10Page /></W>
         </Route>
         <Route path="/ue13-ifrs-ias">
-          <W><UE13IFRSPage /></W>
+          <W user={user} onLogout={handleLogout}><UE13IFRSPage /></W>
         </Route>
         <Route path="/ue13/chapitre-1">
-          <W><UE13Chapitre1Page /></W>
+          <W user={user} onLogout={handleLogout}><UE13Chapitre1Page /></W>
         </Route>
         <Route path="/ue13/chapitre-2">
-          <W><UE13Chapitre2Page /></W>
+          <W user={user} onLogout={handleLogout}><UE13Chapitre2Page /></W>
         </Route>
         <Route path="/gestion-etudiants">
           {() => <ProtectedRoute component={GestionEtudiantsPage} user={user} onLogout={handleLogout} />}
@@ -411,7 +416,7 @@ export default function App() {
           {() => <ProtectedRoute component={InscriptionPlatformePage} user={user} onLogout={handleLogout} />}
         </Route>
         <Route path="/ue13/chapitre-3">
-          <W><UE13Chapitre3Page /></W>
+          <W user={user} onLogout={handleLogout}><UE13Chapitre3Page /></W>
         </Route>
 
         <Route><Redirect to="/" /></Route>
