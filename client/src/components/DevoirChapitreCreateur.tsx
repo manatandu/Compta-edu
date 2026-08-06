@@ -18,6 +18,7 @@ import { QCMChapitre, CasPratique, PROMOTIONS } from '@/lib/db'
 import { createDevoirAsync } from '@/lib/db-firebase'
 import { db } from '@/lib/firebase'
 import { getCurrentUser } from '@/lib/db'
+import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 
 // ─── Types locaux ──────────────────────────────────────────────────────────────
@@ -93,7 +94,7 @@ export default function DevoirChapitreCreateur({
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'universites'), snap => {
       setUniversites(snap.docs.map(d => ({ id: d.id, ...d.data() } as Universite)))
-    })
+    }, err => notifyFirestoreError('DevoirChapitreCreateur.universites', err))
     return () => unsub()
   }, [])
 
@@ -107,7 +108,7 @@ export default function DevoirChapitreCreateur({
     const q = query(collection(db, 'facultes'), where('universiteId', '==', uniId))
     const unsub = onSnapshot(q, snap => {
       setFacultes(snap.docs.map(d => ({ id: d.id, ...d.data() } as Faculte)))
-    })
+    }, err => notifyFirestoreError('DevoirChapitreCreateur.facultes', err))
     return () => unsub()
   }, [uniId])
 

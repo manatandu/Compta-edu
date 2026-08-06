@@ -4,6 +4,7 @@ import {
   addDoc, updateDoc, deleteDoc, doc, serverTimestamp, Timestamp
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -292,7 +293,7 @@ export function useArticlesStock(userId: string | undefined) {
     const unsub = onSnapshot(q, snap => {
       setArticles(snap.docs.map(d => ({ id: d.id, ...d.data() } as ArticleStock)))
       setLoading(false)
-    })
+    }, err => { notifyFirestoreError('useArticlesStock', err); setLoading(false) })
     return () => unsub()
   }, [userId])
 
@@ -312,7 +313,7 @@ export function useMouvementsStock(userId: string | undefined, articleId?: strin
     const unsub = onSnapshot(q, snap => {
       setMouvements(snap.docs.map(d => ({ id: d.id, ...d.data() } as MouvementStock)))
       setLoading(false)
-    })
+    }, err => { notifyFirestoreError('useMouvementsStock', err); setLoading(false) })
     return () => unsub()
   }, [userId, articleId])
 
@@ -332,7 +333,7 @@ export function useEcrituresStock(userId: string | undefined, articleId?: string
     const unsub = onSnapshot(q, snap => {
       setEcritures(snap.docs.map(d => ({ id: d.id, ...d.data() } as EcritureStock)))
       setLoading(false)
-    })
+    }, err => { notifyFirestoreError('useEcrituresStock', err); setLoading(false) })
     return () => unsub()
   }, [userId, articleId])
 
