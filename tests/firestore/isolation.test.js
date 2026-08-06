@@ -782,6 +782,70 @@ describe('🧮 Exercices — Isolation par cours', () => {
     const q = query(collection(db(USERS.etud1), 'exercices'), where('coursId', 'in', USERS.etud1.coursIds))
     await assertSucceeds(getDocs(q))
   })
+
+  // Régression (point 5/5 du deuxième audit) : aucun test n'existait pour
+  // update/delete sur exercices, ce qui a laissé passer un bug réel — un
+  // prof pouvait créer un exercice mais ne pouvait plus jamais le modifier
+  // ni le supprimer, faute de createdBy sur le document.
+  it('Prof1 peut modifier SON exercice (createdBy présent)', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('exercices', 'ex-001', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, createdBy: USERS.prof1.uid,
+      actif: true, coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.prof1), 'exercices', 'ex-001')
+    await assertSucceeds(updateDoc(ref, { titre: 'Exercice compta (modifié)' }))
+  })
+
+  it('Prof1 NE PEUT PAS modifier un exercice sans createdBy (bug corrigé)', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('exercices', 'ex-sans-createdby', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid,
+      // createdBy manquant, comme le faisait ExercicesPage.tsx avant correctif
+      actif: true, coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.prof1), 'exercices', 'ex-sans-createdby')
+    await assertFails(updateDoc(ref, { titre: 'Tentative de modification' }))
+  })
+
+  it('Prof2 NE PEUT PAS modifier l\'exercice de Prof1', async () => {
+    await seedUsers(USERS.admin1, USERS.admin2, USERS.prof1, USERS.prof2)
+    await seedDoc('exercices', 'ex-001', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, createdBy: USERS.prof1.uid,
+      actif: true, coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.prof2), 'exercices', 'ex-001')
+    await assertFails(updateDoc(ref, { titre: 'Piraté' }))
+  })
+
+  it('Prof1 peut supprimer SON exercice (createdBy présent)', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('exercices', 'ex-001', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, createdBy: USERS.prof1.uid,
+      actif: true, coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.prof1), 'exercices', 'ex-001')
+    await assertSucceeds(deleteDoc(ref))
+  })
+
+  it('Un étudiant NE PEUT PAS créer d\'exercice', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'exercices', 'ex-hack')
+    await assertFails(setDoc(ref, {
+      sessionId: 'sess-1', titre: 'Hack', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.etud1.uid, createdBy: USERS.etud1.uid,
+      actif: true, coursId: IDS.coursCompta,
+    }))
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
