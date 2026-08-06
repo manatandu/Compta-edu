@@ -9,6 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { terminate, clearIndexedDbPersistence } from 'firebase/firestore'
 import { auth, db } from '@/lib/firebase'
 import { Layout } from '@/components/Layout'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import { Toaster } from '@/components/ui/toaster'
 import { ModuleProvider } from '@/lib/moduleContext'
 import { UserProvider } from '@/lib/userContext'
@@ -86,10 +87,15 @@ const FicheEtudiantPage = React.lazy(() => import('@/pages/FicheEtudiantPage'))
 const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPlatformePage'))
 
 function ProtectedRoute({ component: Component, user, onLogout }: { component: React.ComponentType; user: User | null; onLogout: () => void }) {
+  const [location] = useHashLocation()
   if (!user) return <Redirect to="/login" />
   return (
     <Layout user={user} onLogout={onLogout}>
-      <Component />
+      <ErrorBoundary key={location}>
+        <React.Suspense fallback={<PageLoader />}>
+          <Component />
+        </React.Suspense>
+      </ErrorBoundary>
     </Layout>
   )
 }
@@ -154,12 +160,19 @@ export default function App() {
   // La sidebar/Layout reste montée pendant le chargement d'une page :
   // seul le contenu affiche un état de chargement (transition fluide,
   // pas de flash plein écran qui fait disparaître toute l'interface).
-  const W = ({ children }: { children: React.ReactNode }) =>
-    user
+  const W = ({ children }: { children: React.ReactNode }) => {
+    const [location] = useHashLocation()
+    return user
       ? <Layout user={user} onLogout={handleLogout}>
-          <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
+          {/* key={location} : changer de page réarme l'ErrorBoundary — sans ça,
+              une page qui plante resterait affichée en erreur même après avoir
+              cliqué vers une autre page dans la sidebar. */}
+          <ErrorBoundary key={location}>
+            <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
+          </ErrorBoundary>
         </Layout>
       : <Redirect to="/login" />
+  }
 
   function IdleGuard() {
     const { showWarning, secondsLeft, stayConnected } = useIdleTimer()
