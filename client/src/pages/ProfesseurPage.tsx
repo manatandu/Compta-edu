@@ -900,7 +900,7 @@ export default function ProfesseurPage() {
         createdBy: currentUser?.id || '',
         adminId: uniAdminId,
         ...(coursForm.coursSystemeId ? { coursSystemeId: coursForm.coursSystemeId } : {})
-      } as any)
+      })
     }
     setShowCoursForm(false)
     toast({ title: editCoursId ? 'Cours modifié' : 'Cours créé' })
