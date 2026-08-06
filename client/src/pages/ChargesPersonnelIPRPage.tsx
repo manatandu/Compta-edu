@@ -1206,7 +1206,7 @@ export default function ChargesPersonnelIPRPage() {
                 <LigneR signe="+" label="CNSS patronal (13%)" val={formatFC(res.cnssPatron)}
                   tooltip={{ texte: "La Quote-Part Patronale (QPP) CNSS est à la charge exclusive de l'employeur. | Taux : 13% du salaire brut imposable (661). | Elle couvre : accidents du travail, maladies professionnelles, allocations familiales, pension vieillesse (retraite). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | L'employeur est débiteur solidaire de la QPO ouvrière et de la QPP patronale vis-à-vis de la CNSS. | Écriture : Débit 6641 (Charges sociales personnel national) / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
-                <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toFixed(0)}%)`} val={formatFC(res.inpp)}
+                <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inpp)}
                   tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est financé par une contribution patronale obligatoire. | Taux dégressif selon l'effectif total : effectif ≤ 50 agents : 3,5% | effectif 51 à 300 agents : 3% | effectif > 300 agents : 2%. | Base : salaire brut imposable (661) du personnel national. | À la charge exclusive de l'employeur. | Écriture : Débit 6641 / Crédit 4331 (INPP dette patronale *).", loi: "Arrêté interministériel du 24/09/2025 (INPP)" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onem)}
@@ -1314,7 +1314,7 @@ export default function ChargesPersonnelIPRPage() {
                 <LigneR signe="+" label="CNSS patronal (13%)" val={formatFC(res.cnssPatronE)}
                   tooltip={{ texte: "La Quote-Part Patronale (QPP) CNSS est à la charge exclusive de l'employeur, non déductible du salaire de l'expatrié. | Taux : 13% du salaire brut imposable (662). | Applicable aux expatriés affiliés à la CNSS RDC, en l'absence de convention bilatérale de sécurité sociale. | Art. 1er Code du Travail RDC (Loi 015-2002) : le Code du Travail s'applique à tous les travailleurs exerçant en RDC, quelle que soit leur nationalité. | Art. 112(b) CT : les cotisations dues à la CNSS constituent des retenues autorisées sur le salaire. | La QPP CNSS couvre les risques : accident du travail, maladie professionnelle, allocations familiales, retraite (pension vieillesse). | Écriture : Débit 6642 (Charges sociales personnel non national) / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 1er et 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
-                <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toFixed(0)}%)`} val={formatFC(res.inppE)}
+                <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inppE)}
                   tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est financé par une contribution patronale obligatoire sur toutes les rémunérations versées au personnel (national et expatrié). | Taux progressif dégressif selon l'effectif total de l'entreprise : effectif ≤ 50 agents : 3,5% | effectif 51 à 300 agents : 3% | effectif > 300 agents : 2%. | Base : salaire brut (662 pour les expatriés). | À la charge exclusive de l'employeur. | Écriture : Débit 6642 / Crédit 4331 (INPP dette patronale *).", loi: "Arrêté interministériel du 24/09/2025 (INPP) ; art. 71 Loi 23/053 (référence)" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onemE)}
@@ -1432,7 +1432,7 @@ export default function ChargesPersonnelIPRPage() {
                 {/* ÉCRITURE 4 : INPP PATRONAL */}
                 <JournalEntry
                   numero="4"
-                  libelle={`Charges sociales : INPP patronal (${(res.inppTaux * 100).toFixed(0)}%)`}
+                  libelle={`Charges sociales : INPP patronal (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`}
                   lignes={[
                     { sens: 'D', compte: '6641', intitule: 'Charges sociales sur rémunération du personnel national', montant: res.inpp },
                     { sens: 'C', compte: '4331', intitule: 'INPP : dette patronale *', montant: res.inpp },
@@ -1527,7 +1527,7 @@ export default function ChargesPersonnelIPRPage() {
                 {/* ÉCRITURE 4 : INPP PATRONAL EXPATRIÉ */}
                 <JournalEntry
                   numero="4"
-                  libelle={`Charges sociales : INPP patronal (${(res.inppTauxE * 100).toFixed(0)}%) : expatrié`}
+                  libelle={`Charges sociales : INPP patronal (${(res.inppTauxE * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%) : expatrié`}
                   lignes={[
                     { sens: 'D', compte: '6642', intitule: 'Charges sociales sur rémunération du personnel non national', montant: res.inppE },
                     { sens: 'C', compte: '4331', intitule: 'INPP : dette patronale *', montant: res.inppE },

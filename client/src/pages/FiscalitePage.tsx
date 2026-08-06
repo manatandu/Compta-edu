@@ -847,7 +847,7 @@ function Cat1Salaires() {
                 <LigneR signe="+" label={`CNSS patronal (13%)`} val={formatFC(res.cnssPatron)}
                   tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% calculée sur la rémunération imposable brute (661). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
-                <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toFixed(0)}%)`} val={formatFC(res.inpp)}
+                <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inpp)}
                   tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%. Elle finance la formation professionnelle.=", loi: "INPP : charge patronale=" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onem)}
@@ -967,7 +967,7 @@ function Cat1Salaires() {
                 <LigneR signe="+" label="CNSS patronal (13%)" val={formatFC(res.cnssPatronE)}
                   tooltip={{ texte: "La CNSS est une charge patronale de 13% calculée sur la rémunération imposable brute de l'expatrié (662). | Art. 1er Code du Travail RDC : applicable à tous les travailleurs en RDC, quelle que soit leur nationalité. | Art. 112(b) CT : les cotisations dues à la CNSS constituent des retenues autorisées sur le salaire. | Versée directement à la Caisse Nationale de Sécurité Sociale par l'employeur. | Écriture : Débit 6642 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 1er et 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
-                <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toFixed(0)}%)`} val={formatFC(res.inppE)}
+                <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inppE)}
                   tooltip={{ texte: "L'INPP est une charge patronale dont le taux dépend de l'effectif total de l'entreprise : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%.", loi: "INPP : charge patronale=" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onemE)}
