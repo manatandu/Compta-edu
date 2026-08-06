@@ -104,6 +104,28 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await assertSucceeds(getDoc(ref2))
   })
 
+  it('Un professeur peut aussi lire TOUS les profils (gestion des étudiants)', async () => {
+    // Régression : la règle ne vérifiait que isAdmin(), ce qui cassait silencieusement
+    // ProfesseurPage/DocumentsPage/InscriptionPlatformePage pour un compte professeur
+    // non-admin (requête de liste rejetée en bloc dès qu'un document ne satisfait pas
+    // la règle). isProf() (admin OU professeur) doit couvrir ce cas.
+    await seedUsers(USERS.prof1, USERS.etud1, USERS.etud2)
+    const ref1 = doc(db(USERS.prof1), 'users', USERS.etud1.uid)
+    const ref2 = doc(db(USERS.prof1), 'users', USERS.etud2.uid)
+    await assertSucceeds(getDoc(ref1))
+    await assertSucceeds(getDoc(ref2))
+  })
+
+  it('Un assistant NE PEUT PAS lire le profil d\'un autre utilisateur (isProf() ne couvre que admin/professeur)', async () => {
+    // Frontière volontaire : isProf() n'inclut pas 'assistant' nulle part ailleurs
+    // dans ce fichier ; l'élargir serait un changement de portée distinct (voir la
+    // note sur isStaffRole() dans client/src/lib/permissions.ts).
+    await seedDoc('users', 'assistant1-uid', { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1' })
+    await seedUsers(USERS.etud1)
+    const ref = doc(db({ uid: 'assistant1-uid' }), 'users', USERS.etud1.uid)
+    await assertFails(getDoc(ref))
+  })
+
   it('Un utilisateur fraîchement authentifié (auto-inscription) peut créer SON profil étudiant', async () => {
     // L'app crée d'abord le compte Firebase Auth (via secondaryAuth), PUIS écrit le
     // profil Firestore : au moment de l'écriture, l'appelant est donc authentifié
