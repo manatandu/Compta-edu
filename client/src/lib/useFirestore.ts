@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore'
 import { db } from './firebase'
 import { useUser } from './userContext'
+import { onPresencesByEtudiantSnapshot } from './db-firebase'
 import type {
   Session, Ecriture, Universite, Faculte, Cours, Devoir, Soumission,
   Exercice, Tentative, ExerciceLibre, TentativeExerciceLibre, Presence, NoteCours
@@ -486,12 +487,14 @@ export function usePresencesEtudiant(etudiantId?: string) {
   const [presences, setPresences] = useState<Presence[]>([])
   useEffect(() => {
     if (!etudiantId) { setPresences([]); return }
-    // Firestore ne supporte pas le filtre sur un champ dans un tableau d'objets
-    // On récupère toutes les séances et on filtre côté client
-    const unsub = onSnapshot(collection(db, 'presences'), snap => {
-      const all = snap.docs.map(d => ({ id: d.id, ...d.data() } as Presence))
-      setPresences(all.filter(p => p.etudiants?.some(e => e.etudiantId === etudiantId)))
-    })
+    // Délègue à onPresencesByEtudiantSnapshot (db-firebase.ts) : ce hook dupliquait
+    // auparavant sa propre écoute NON FILTRÉE sur toute la collection en filtrant
+    // côté client — exactement le même bug que celui corrigé côté firestore.rules/
+    // db-firebase.ts (PR #21), mais dans une implémentation séparée qui n'était pas
+    // touchée par ce correctif puisque ce hook n'appelait jamais cette fonction.
+    // C'était le vrai chemin utilisé en production par DashboardPage — donc, sans
+    // cette délégation, le bug d'origine restait entier malgré le correctif.
+    const unsub = onPresencesByEtudiantSnapshot(etudiantId, setPresences)
     return () => unsub()
   }, [etudiantId])
   return { presences }
