@@ -481,7 +481,7 @@ describe('✏️ Tentatives — Un étudiant ne voit que les siennes', () => {
     const ref = doc(db(USERS.etud1), 'tentatives', 'tent-usurpee')
     await assertFails(setDoc(ref, {
       ...DOCS.tentativeEtud1,
-      etudiantId: USERS.etud2.uid, // usurpation d'identité
+      userId: USERS.etud2.uid, // usurpation d'identité
     }))
   })
 
@@ -509,10 +509,30 @@ describe('✏️ Tentatives — Un étudiant ne voit que les siennes', () => {
     await assertSucceeds(getDoc(ref2))
   })
 
-  it('Un prof peut supprimer une tentative', async () => {
+  it('Un prof peut supprimer une tentative de SON cours', async () => {
     await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('cours', IDS.coursCompta, DOCS.coursCompta)
     await seedDoc('tentatives', 'tent-etud1-001', DOCS.tentativeEtud1)
     const ref = doc(db(USERS.prof1), 'tentatives', 'tent-etud1-001')
+    await assertSucceeds(deleteDoc(ref))
+  })
+
+  it('Un prof NE PEUT PAS supprimer une tentative d\'un cours qu\'il n\'enseigne pas (point 3 de l\'audit)', async () => {
+    // Régression : la règle ne vérifiait que isProf() global, sans lien avec le
+    // cours — n'importe quel prof pouvait supprimer les tentatives d'un cours
+    // qui n'était pas le sien.
+    await seedUsers(USERS.admin1, USERS.admin2, USERS.prof1, USERS.prof2)
+    await seedDoc('cours', IDS.coursCompta, DOCS.coursCompta) // prof1/admin1
+    await seedDoc('tentatives', 'tent-etud1-001', DOCS.tentativeEtud1) // coursCompta
+    const ref = doc(db(USERS.prof2), 'tentatives', 'tent-etud1-001') // prof2 (autre admin)
+    await assertFails(deleteDoc(ref))
+  })
+
+  it('Un admin peut supprimer une tentative même hors de son propre cours', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('cours', IDS.coursCompta, DOCS.coursCompta)
+    await seedDoc('tentatives', 'tent-etud1-001', DOCS.tentativeEtud1)
+    const ref = doc(db(USERS.admin1), 'tentatives', 'tent-etud1-001')
     await assertSucceeds(deleteDoc(ref))
   })
 
@@ -520,6 +540,28 @@ describe('✏️ Tentatives — Un étudiant ne voit que les siennes', () => {
     await seedUsers(USERS.etud1, USERS.etud2)
     await seedDoc('tentatives', 'tent-etud2-001', DOCS.tentativeEtud2)
     const ref = doc(db(USERS.etud1), 'tentatives', 'tent-etud2-001')
+    await assertFails(deleteDoc(ref))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 5bis — TENTATIVES EXERCICES LIBRES — Isolation par créateur de l'exercice
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🏋️✏️ Tentatives exercices libres — Isolation par créateur', () => {
+
+  it('Un prof peut supprimer une tentative d\'un exercice libre qu\'il a créé', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta) // createdBy: prof1
+    await seedDoc('tentatives_el', 'tel-001', { etudiantId: USERS.etud1.uid, exerciceId: 'exlib-001' })
+    const ref = doc(db(USERS.prof1), 'tentatives_el', 'tel-001')
+    await assertSucceeds(deleteDoc(ref))
+  })
+
+  it('Un prof NE PEUT PAS supprimer une tentative d\'un exercice libre créé par un autre prof (point 3 de l\'audit)', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta) // createdBy: prof1
+    await seedDoc('tentatives_el', 'tel-001', { etudiantId: USERS.etud1.uid, exerciceId: 'exlib-001' })
+    const ref = doc(db(USERS.prof2), 'tentatives_el', 'tel-001')
     await assertFails(deleteDoc(ref))
   })
 })
@@ -790,8 +832,9 @@ describe('📤 Soumissions — Isolation stricte par étudiant', () => {
     await assertSucceeds(getDoc(ref))
   })
 
-  it('Un prof peut supprimer une soumission', async () => {
+  it('Un prof peut supprimer une soumission de SON devoir', async () => {
     await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta) // createdBy: prof1
     await seedDoc('soumissions', 'soum-etud1-001', {
       etudiantId: USERS.etud1.uid,
       devoirId: 'devoir-001',
@@ -799,6 +842,18 @@ describe('📤 Soumissions — Isolation stricte par étudiant', () => {
     })
     const ref = doc(db(USERS.prof1), 'soumissions', 'soum-etud1-001')
     await assertSucceeds(deleteDoc(ref))
+  })
+
+  it('Un prof NE PEUT PAS supprimer une soumission d\'un devoir qui n\'est pas le sien (point 3 de l\'audit)', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta) // createdBy: prof1
+    await seedDoc('soumissions', 'soum-etud1-001', {
+      etudiantId: USERS.etud1.uid,
+      devoirId: 'devoir-001',
+      coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.prof2), 'soumissions', 'soum-etud1-001')
+    await assertFails(deleteDoc(ref))
   })
 })
 
@@ -875,6 +930,27 @@ describe('📅 Présences — Seul le prof peut écrire', () => {
     await seedDoc('presences', 'pres-001', DOCS.presenceEtud1)
     const ref = doc(db(USERS.etud2), 'presences', 'pres-001')
     await assertFails(getDoc(ref))
+  })
+
+  it('Prof1 peut supprimer SA présence', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('presences', 'pres-001', DOCS.presenceEtud1) // createdBy: prof1
+    const ref = doc(db(USERS.prof1), 'presences', 'pres-001')
+    await assertSucceeds(deleteDoc(ref))
+  })
+
+  it('Prof2 NE PEUT PAS supprimer une présence créée par prof1 (point 3 de l\'audit)', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
+    await seedDoc('presences', 'pres-001', DOCS.presenceEtud1) // createdBy: prof1
+    const ref = doc(db(USERS.prof2), 'presences', 'pres-001')
+    await assertFails(deleteDoc(ref))
+  })
+
+  it('Un admin peut supprimer une présence même créée par un autre prof', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('presences', 'pres-001', DOCS.presenceEtud1) // createdBy: prof1
+    const ref = doc(db(USERS.admin1), 'presences', 'pres-001')
+    await assertSucceeds(deleteDoc(ref))
   })
 })
 

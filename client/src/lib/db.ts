@@ -336,6 +336,11 @@ export interface Presence {
     etudiantId: string
     present: boolean
   }[]
+  // Dérivé de `etudiants` (maintenu par createPresenceAsync/updatePresenceAsync) :
+  // Firestore ne peut ni interroger ni vérifier par règle un sous-champ d'un
+  // tableau d'objets — ce tableau plat des etudiantId permet where('etudiantIds',
+  // 'array-contains', uid) côté requête ET la règle de lecture côté firestore.rules.
+  etudiantIds?: string[]
 }
 
 // ===================== MODULE ÉTUDIANTS =====================
