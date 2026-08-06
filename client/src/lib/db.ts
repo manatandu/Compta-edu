@@ -167,6 +167,11 @@ export interface Cours {
   promotion?: string      // ex: 'L1', 'L2', 'M1' — null = visible toutes promotions
   dateCreation: string
   createdBy: string
+  // Admin propriétaire de ce cours (repris de l'université — voir
+  // firestore.rules, qui l'exige à la création). Optionnel côté type car les
+  // cours système créés par initCoursSystemeAsync() n'ont pas d'université ;
+  // ownsCours()/sameAdmin() dans firestore.rules gèrent son absence.
+  adminId?: string
   actif: boolean
   systeme?: boolean       // true = cours par défaut non supprimable
   moduleKey?: string      // clé pour lier au module (ex: 'comptabilite-generale')
