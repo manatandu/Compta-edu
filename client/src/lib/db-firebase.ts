@@ -312,8 +312,23 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
       try {
         const cred2 = await signInWithEmailAndPassword(secondaryAuth, email, data.password)
         uid = cred2.user.uid
+        // Le compte Auth existe déjà ET accepte ce mot de passe : ça peut être la même
+        // personne qui retente son inscription (légitime, il faut alors compléter/mettre
+        // à jour son profil), OU deux personnes différentes ayant généré le même
+        // identifiant+mot de passe par défaut (ex. homonymes — l'identifiant suggéré ne
+        // contient pas de suffixe garantissant l'unicité). Un profil Firestore déjà
+        // présent pour cet uid signifie que ce compte a déjà été réclamé : ne JAMAIS
+        // l'écraser silencieusement ici — createUserAsync sert à CRÉER, pas à modifier
+        // un profil existant (updateUserAsync existe pour ça). On rejette la collision
+        // et on laisse l'appelant demander un identifiant différent.
+        const existingProfile = await getDoc(doc(secondaryDb, C.USERS, uid))
+        if (existingProfile.exists()) {
+          await signOut(secondaryAuth).catch(() => {})
+          throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
+        }
         useSecondaryDb = true
       } catch (e2: any) {
+        if (e2?.message === 'Ce nom d\'utilisateur est déjà utilisé.') throw e2
         // Mot de passe différent — vérifier si un profil Firestore existe déjà avec ce username
         await signOut(secondaryAuth).catch(() => {})
         const existing = await getDocs(query(collection(db, C.USERS), where('username', '==', data.username.toLowerCase())))

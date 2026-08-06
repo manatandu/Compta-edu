@@ -8,7 +8,7 @@ import {
   AlertCircle, BookOpen, GraduationCap, Sparkles, Eye, EyeOff, KeyRound, UserPlus,
   Calculator, Heart, Scale, Landmark, Globe, Receipt, ClipboardList, ClipboardCheck,
 } from 'lucide-react'
-import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firestore'
+import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 
 interface LoginPageProps {
@@ -43,25 +43,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       .normalize('NFD').replace(/[̀-ͯ]/g, '')
       .replace(/[^a-z0-9]/g, '')
 
-  const genererIdentifiants = async (nom: string, postnom: string) => {
+  const genererIdentifiants = (nom: string, postnom: string) => {
     const n = normaliser(nom)
     const p = normaliser(postnom)
     if (!n || !p) return
-    const username = `${n}.${p}`
-    // Compter tous les étudiants dans Firestore pour le numéro d'ordre
-    try {
-      const db2 = getFirestore(getApp())
-      const snap = await getDocs(collection(db2, 'users'))
-      const nbTotal = snap.docs.filter(d => d.data().role === 'etudiant').length
-      const ordre = nbTotal + 1
-      const mdp = `${n.charAt(0)}${p}${ordre}`
-      setJoinUsername(username)
-      setJoinPassword(mdp)
-    } catch {
-      // fallback sans numéro d'ordre
-      setJoinUsername(username)
-      setJoinPassword(`${n.charAt(0)}${p}1`)
-    }
+    // Simple suggestion — pas de numéro d'ordre fiable calculable ici : cette page
+    // n'est pas encore authentifiée, et firestore.rules exige isAuth() pour lire
+    // `users` (un ancien essai de comptage échouait donc systématiquement et
+    // silencieusement). L'identifiant est explicitement présenté comme modifiable
+    // ci-dessous, et handleJoinSubmit rejette désormais toute collision avec un
+    // compte existant (voir createUserAsync) au lieu de l'écraser silencieusement —
+    // l'utilisateur devra alors ajuster ce champ, comme déjà indiqué à l'écran.
+    setJoinUsername(`${n}.${p}`)
+    setJoinPassword(`${n.charAt(0)}${p}1`)
   }
 
   useEffect(() => {
