@@ -17,6 +17,7 @@ import { useAllCours } from '@/lib/useFirestore'
 import { useCoursStatuts } from '@/lib/useFirestore'
 import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { prefetchRoute } from '@/lib/prefetch'
+import { isStudentRole } from '@/lib/permissions'
 
 interface NavItem {
   path: string
@@ -132,7 +133,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
   // Cours dynamiques depuis Firestore
   const { cours: allCours } = useAllCours()
   // Statuts pour étudiant
-  const isStudent = user.role === 'etudiant'
+  const isStudent = isStudentRole(user)
   const { statuts: coursStatuts } = useCoursStatuts(isStudent ? user.id : undefined)
 
   // Détermine quel dossier est actif selon la route courante
