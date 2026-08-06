@@ -1033,3 +1033,81 @@ describe('💬 Messages — Isolation par participant', () => {
     await assertFails(getDoc(ref))
   })
 })
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 14 — CODES D'ACCÈS — Lecture publique par code, jamais par liste
+// ══════════════════════════════════════════════════════════════════════════════
+// Contexte : un visiteur non connecté doit pouvoir vérifier LE code qu'il a saisi
+// (LoginPage / InscriptionPlatformePage font un getDoc par id exact), mais ne
+// doit jamais pouvoir lister toute la collection — sinon il pourrait récupérer
+// tous les codes valides d'un coup et s'auto-inscrire n'importe où sans avoir
+// reçu de code. D'où la règle : `allow get: if true; allow list: if isProf();`
+describe('🔑 Codes d\'accès — get public, list réservé aux profs/admins', () => {
+
+  it('Un visiteur non connecté peut lire UN code d\'accès précis (get)', async () => {
+    await seedDoc('codesAcces', 'code1', {
+      code: 'ABC123',
+      universiteId: IDS.univ1,
+      faculteId: IDS.fac1,
+      coursIds: [IDS.coursCompta],
+      classe: 'L1',
+      createdBy: USERS.prof1.uid,
+      actif: true,
+    })
+    const ref = doc(db(null), 'codesAcces', 'code1')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un étudiant connecté peut aussi lire UN code d\'accès précis (get)', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('codesAcces', 'code1', {
+      code: 'ABC123',
+      universiteId: IDS.univ1,
+      faculteId: IDS.fac1,
+      coursIds: [IDS.coursCompta],
+      classe: 'L1',
+      createdBy: USERS.prof1.uid,
+      actif: true,
+    })
+    const ref = doc(db(USERS.etud1), 'codesAcces', 'code1')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un visiteur non connecté NE PEUT PAS lister toute la collection codesAcces', async () => {
+    await seedDoc('codesAcces', 'code1', { code: 'ABC123', createdBy: USERS.prof1.uid, actif: true })
+    await seedDoc('codesAcces', 'code2', { code: 'XYZ789', createdBy: USERS.prof2.uid, actif: true })
+    await assertFails(getDocs(collection(db(null), 'codesAcces')))
+  })
+
+  it('Un étudiant connecté NE PEUT PAS non plus lister toute la collection codesAcces', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('codesAcces', 'code1', { code: 'ABC123', createdBy: USERS.prof1.uid, actif: true })
+    await seedDoc('codesAcces', 'code2', { code: 'XYZ789', createdBy: USERS.prof2.uid, actif: true })
+    await assertFails(getDocs(collection(db(USERS.etud1), 'codesAcces')))
+  })
+
+  it('Un prof PEUT lister toute la collection codesAcces (gestion des codes)', async () => {
+    await seedUsers(USERS.prof1)
+    await seedDoc('codesAcces', 'code1', { code: 'ABC123', createdBy: USERS.prof1.uid, actif: true })
+    await seedDoc('codesAcces', 'code2', { code: 'XYZ789', createdBy: USERS.prof2.uid, actif: true })
+    await assertSucceeds(getDocs(collection(db(USERS.prof1), 'codesAcces')))
+  })
+
+  it('Un étudiant NE PEUT PAS créer de code d\'accès', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'codesAcces', 'code-fraude')
+    await assertFails(setDoc(ref, {
+      code: 'FRAUDE1', universiteId: IDS.univ1, faculteId: IDS.fac1,
+      coursIds: [IDS.coursCompta], classe: 'L1', createdBy: USERS.etud1.uid, actif: true,
+    }))
+  })
+
+  it('Un prof PEUT créer un code d\'accès', async () => {
+    await seedUsers(USERS.prof1)
+    const ref = doc(db(USERS.prof1), 'codesAcces', 'code-nouveau')
+    await assertSucceeds(setDoc(ref, {
+      code: 'NEW999', universiteId: IDS.univ1, faculteId: IDS.fac1,
+      coursIds: [IDS.coursCompta], classe: 'L1', createdBy: USERS.prof1.uid, actif: true,
+    }))
+  })
+})
