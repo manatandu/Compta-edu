@@ -34,12 +34,14 @@ interface LigneBareme {
   impot: number
 }
 
+// N'applique QUE le barème progressif — ni la réduction pour charges de famille (Art. 123-125),
+// ni le plafond (Art. 118 in fine). Ordre de liquidation correct : barème → réduction → plafond
+// → arrondi. Le plafond est appliqué par l'appelant, APRÈS réduction (voir appliquerReductionEtPlafond).
 function calculerBareme(revenuNetImposable: number): {
   lignes: LigneBareme[]
   iprBrut: number
   iprCalcule: number
   iprMax: number
-  plafonne: boolean
 } {
   const lignes: LigneBareme[] = []
   let iprBrut = 0
@@ -52,11 +54,19 @@ function calculerBareme(revenuNetImposable: number): {
     lignes.push({ tranche: t.label, taux: `${(t.taux * 100).toFixed(0)}%`, baseReelle, impot })
     iprBrut += impot
   }
-  const iprCalcule = iprBrut
   const iprMax = revenuNetImposable * 0.30
-  const plafonne = iprBrut > iprMax
-  if (plafonne) iprBrut = iprMax
-  return { lignes, iprBrut, iprCalcule, iprMax, plafonne }
+  return { lignes, iprBrut, iprCalcule: iprBrut, iprMax }
+}
+
+// Applique, dans cet ordre, la réduction pour charges de famille (Art. 123-125) puis le plafond
+// de 30% (Art. 118 in fine) sur un IRPP brut déjà calculé par calculerBareme().
+function appliquerReductionEtPlafond(iprBrut: number, iprMax: number, reduction: number): {
+  plafonne: boolean
+  iprFinal: number
+} {
+  const iprApresReduction = Math.max(0, iprBrut - reduction)
+  const plafonne = iprApresReduction > iprMax
+  return { plafonne, iprFinal: plafonne ? iprMax : iprApresReduction }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -350,12 +360,14 @@ export default function ChargesPersonnelIPRPage() {
       const brut663 = e663.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const qpo = brut661 * 0.05
       const baseImposable = brut661 - qpo
-      const { lignes, iprBrut, iprMax, plafonne } = calculerBareme(baseImposable)
+      const { lignes, iprBrut, iprMax } = calculerBareme(baseImposable)
       const charge = Math.min(Math.max(0, nbCharge), 9)
       // Art. 125 : réduction inapplicable si revenu imposable > 3 600 000 FC/mois
       const reductionInapplicable = baseImposable > 3_600_000
+      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement
       const reduction = reductionInapplicable ? 0 : iprBrut * (charge * 0.02)
-      const iprAvantPlancher = Math.max(0, iprBrut - reduction)
+      const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
+      const iprAvantPlancher = iprFinal
       const iprNet = baseImposable > 0 ? Math.max(2000, iprAvantPlancher) : 0
       const iprPlancher = iprNet > iprAvantPlancher
       const syndicatVal = parseFloat(syndicat) || 0
@@ -386,12 +398,14 @@ export default function ChargesPersonnelIPRPage() {
       // Art. 71 : QPO s'applique aussi aux expatriés (sauf convention bilatérale)
       const qpoE = brut662 * 0.05
       const baseImposableE = brut662 - qpoE
-      const { lignes, iprBrut, iprMax: iprMaxE, plafonne } = calculerBareme(baseImposableE)
+      const { lignes, iprBrut, iprMax: iprMaxE } = calculerBareme(baseImposableE)
       const chargeE = Math.min(Math.max(0, nbChargeExp), 9)
       // Art. 125 : réduction inapplicable si revenu imposable > 3 600 000 FC/mois
       const reductionInapplicableE = baseImposableE > 3_600_000
+      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement
       const reductionE = reductionInapplicableE ? 0 : iprBrut * (chargeE * 0.02)
-      const iprAvantPlancherE = Math.max(0, iprBrut - reductionE)
+      const { plafonne, iprFinal: iprFinalE } = appliquerReductionEtPlafond(iprBrut, iprMaxE, reductionE)
+      const iprAvantPlancherE = iprFinalE
       const iprNetExp = baseImposableE > 0 ? Math.max(2000, iprAvantPlancherE) : 0
       const iprPlancherE = iprNetExp > iprAvantPlancherE
       const syndicatValE = parseFloat(syndicatExp) || 0
@@ -427,11 +441,13 @@ export default function ChargesPersonnelIPRPage() {
       // Seuls les imposables entrent dans la base IRPP
       const brut = adminLignes.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const totalNI = adminLignesNI.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
-      const { lignes, iprBrut, iprCalcule, iprMax, plafonne } = calculerBareme(brut)
+      const { lignes, iprBrut, iprCalcule, iprMax } = calculerBareme(brut)
       const charge = Math.min(Math.max(0, adminNbCharge), 9)
       const reductionInapplicable = brut > 3_600_000
+      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement
       const reduction = reductionInapplicable ? 0 : iprBrut * (charge * 0.02)
-      const iprAvantPlancher = Math.max(0, iprBrut - reduction)
+      const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
+      const iprAvantPlancher = iprFinal
       const iprNet = brut > 0 ? Math.max(2000, iprAvantPlancher) : 0
       const iprPlancher = iprNet > iprAvantPlancher
       const brutTotal = brut + totalNI          // total 6581 : imposable + non imposable
