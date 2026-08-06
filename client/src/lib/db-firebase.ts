@@ -963,7 +963,7 @@ export const COURS_SYSTEME = [
     moduleKey: 'ue1-droit-travail',
     icon: 'BookOpen',
     systeme: true,
-    actif: false,
+    actif: true,
   },
   {
     id: 'sys_ue2_droit_societes',

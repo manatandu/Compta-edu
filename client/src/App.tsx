@@ -55,6 +55,8 @@ const StockFichePage = React.lazy(() => import('@/pages/StockFichePage'))
 const StockJournalPage = React.lazy(() => import('@/pages/StockJournalPage'))
 const StockExercicePage = React.lazy(() => import('@/pages/StockExercicePage'))
 const MesCoursPage = React.lazy(() => import('@/pages/MesCoursPage'))
+const UE1DroitTravailPage = React.lazy(() => import('@/pages/UE1DroitTravailPage'))
+const UE1Chapitre1Page = React.lazy(() => import('@/pages/UE1Chapitre1Page'))
 const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPage'))
 const UE2Chapitre1Page = React.lazy(() => import('@/pages/UE2Chapitre1Page'))
 const UE2Chapitre2Page = React.lazy(() => import('@/pages/UE2Chapitre2Page'))
@@ -323,6 +325,14 @@ export default function App() {
 
         <Route path="/mes-cours">
           {() => <ProtectedRoute component={MesCoursPage} user={user} onLogout={handleLogout} />}
+        </Route>
+
+        {/* ── UE 1 — Droit du travail ── */}
+        <Route path="/ue1-droit-travail">
+          <W user={user} onLogout={handleLogout}><UE1DroitTravailPage /></W>
+        </Route>
+        <Route path="/ue1/chapitre-1">
+          <W user={user} onLogout={handleLogout}><UE1Chapitre1Page /></W>
         </Route>
 
         {/* ── UE 2 — Droit des sociétés OHADA ── */}
