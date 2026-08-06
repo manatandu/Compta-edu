@@ -326,6 +326,20 @@ describe('📝 Notes de cours — Isolation stricte cours × promotion', () => {
     const ref = doc(db(USERS.etud1), 'notes_cours', 'note-001')
     await assertFails(updateDoc(ref, { titre: 'Modif par étudiant' }))
   })
+
+  it('Un étudiant inscrit au cours PEUT lire la note de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('notes_cours', 'note-001', DOCS.noteCoursCompta)
+    const ref = doc(db(USERS.etud1), 'notes_cours', 'note-001')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire la note de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('notes_cours', 'note-001', DOCS.noteCoursCompta)
+    const ref = doc(db(USERS.etud2), 'notes_cours', 'note-001')
+    await assertFails(getDoc(ref))
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -382,6 +396,20 @@ describe('📋 Devoirs — Isolation stricte cours × promotion', () => {
     await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
     const ref = doc(db(USERS.etud1), 'devoirs', 'devoir-001')
     await assertFails(deleteDoc(ref))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire le devoir de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    const ref = doc(db(USERS.etud1), 'devoirs', 'devoir-001')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire le devoir de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    const ref = doc(db(USERS.etud2), 'devoirs', 'devoir-001')
+    await assertFails(getDoc(ref))
   })
 })
 
@@ -489,6 +517,95 @@ describe('🏋️ Exercices libres — Isolation par cours', () => {
       createdBy: USERS.etud1.uid,
       type: 'pratique',
     }))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire l\'exercice libre de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta)
+    const ref = doc(db(USERS.etud1), 'exercices_libres', 'exlib-001')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire l'exercice libre de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta)
+    const ref = doc(db(USERS.etud2), 'exercices_libres', 'exlib-001')
+    await assertFails(getDoc(ref))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 6bis — DOCUMENTS — Isolation par cours
+// ══════════════════════════════════════════════════════════════════════════════
+describe('📁 Documents — Isolation par cours', () => {
+
+  it('Un document sans coursId (global) est lisible par tout étudiant authentifié', async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('documents', 'doc-global', { titre: 'Guide plateforme', createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud2), 'documents', 'doc-global')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire le document de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud1), 'documents', 'doc-compta')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire le document de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud2), 'documents', 'doc-compta')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Un prof/admin peut lire le document d\'un cours qui n\'est pas le sien', async () => {
+    await seedUsers(USERS.admin2, USERS.prof2)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.prof2), 'documents', 'doc-compta')
+    await assertSucceeds(getDoc(ref))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 6ter — EXERCICES (cotés) — Isolation par cours
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🧮 Exercices — Isolation par cours', () => {
+
+  it('Un exercice sans coursId (global) est lisible par tout étudiant authentifié', async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('exercices', 'ex-global', {
+      sessionId: 'sess-1', titre: 'Exercice général', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+    })
+    const ref = doc(db(USERS.etud2), 'exercices', 'ex-global')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire l\'exercice de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices', 'ex-compta', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+      coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.etud1), 'exercices', 'ex-compta')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire l'exercice de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('exercices', 'ex-compta', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+      coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.etud2), 'exercices', 'ex-compta')
+    await assertFails(getDoc(ref))
   })
 })
 
