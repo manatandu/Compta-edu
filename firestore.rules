@@ -98,14 +98,16 @@ service cloud.firestore {
 
     // ─── EXERCICES (cotés — créés par profs/admins) ──────────────────────────
     // Isolation : chaque exercice est lié à un coursId.
-    // Un étudiant ne voit que les exercices de SES cours (coursId absent =
-    // exercice global, visible de tous — coursId est optionnel sur ce modèle).
+    // Un étudiant ne voit que les exercices de SES cours.
+    // IMPORTANT : pas de branche "OR coursId absent" ici — testé en pratique,
+    // une telle clause rend Firestore incapable de valider correctement une
+    // requête de LISTE (list) et la laisse passer même pour un document d'un
+    // autre cours (contournement complet de l'isolation). Un exercice sans
+    // coursId n'est donc plus lisible par un étudiant via cette règle — seuls
+    // les profs/admins (isProf()) y ont accès. C'est un compromis assumé :
+    // la sécurité prime sur la visibilité d'un contenu "global" marginal.
     match /exercices/{exerciceId} {
-      allow read: if isAuth() && (
-        isProf() ||
-        resource.data.get('coursId', null) == null ||
-        resource.data.coursId in studentCoursIds()
-      );
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf();
       allow update, delete: if isProf() && createdBy();
     }
@@ -155,12 +157,14 @@ service cloud.firestore {
     //   - Doc avec promotionId ET coursId → visible uniquement pour les étudiants des deux
     // NOTE : le champ promotionId a été retiré du formulaire de création (DocumentsPage) —
     // en pratique seul coursId isole encore les documents créés depuis l'interface actuelle.
+    // IMPORTANT : pas de branche "OR coursId absent" ici — testé en pratique,
+    // une telle clause rend Firestore incapable de valider correctement une
+    // requête de LISTE (list) et la laisse passer même pour un document d'un
+    // autre cours (contournement complet de l'isolation). Un document sans
+    // coursId n'est donc plus lisible par un étudiant via cette règle — seuls
+    // les profs/admins (isProf()) y ont accès.
     match /documents/{documentId} {
-      allow read: if isAuth() && (
-        isProf() ||
-        resource.data.get('coursId', null) == null ||
-        resource.data.coursId in studentCoursIds()
-      );
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf() && request.resource.data.keys().hasAll(['createdBy']);
       allow update, delete: if isProf() && createdBy();
     }
