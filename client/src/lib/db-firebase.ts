@@ -811,13 +811,17 @@ export async function initAdminIfNeeded(): Promise<void> {
 
 export async function createPresenceAsync(data: Omit<Presence, 'id'>): Promise<Presence> {
   const id = generateId()
-  const presence = { ...data, id }
+  // etudiantIds est dérivé de etudiants (tableau plat requis par firestore.rules
+  // et par la requête array-contains ci-dessous — voir le commentaire sur ce champ
+  // dans db.ts).
+  const presence = { ...data, id, etudiantIds: data.etudiants.map(e => e.etudiantId) }
   await setDoc(doc(db, C.PRESENCES, id), cleanUndefined(presence) as any)
   return presence
 }
 
 export async function updatePresenceAsync(id: string, data: Partial<Presence>): Promise<void> {
-  await updateDoc(doc(db, C.PRESENCES, id), cleanUndefined(data) as any)
+  const patch = data.etudiants ? { ...data, etudiantIds: data.etudiants.map(e => e.etudiantId) } : data
+  await updateDoc(doc(db, C.PRESENCES, id), cleanUndefined(patch) as any)
 }
 
 export async function deletePresenceAsync(id: string): Promise<void> {
@@ -830,11 +834,12 @@ export function onPresencesSnapshot(createdBy: string, callback: (presences: Pre
 }
 
 export function onPresencesByEtudiantSnapshot(etudiantId: string, callback: (presences: Presence[]) => void): Unsubscribe {
-  // Récupère toutes les présences et filtre côté client (Firestore ne supporte pas de filtre sur array d'objets)
-  return onSnapshot(collection(db, C.PRESENCES), snap => {
-    const all = snap.docs.map(d => fromDoc<Presence>(d))
-    callback(all.filter(p => p.etudiants.some(e => e.etudiantId === etudiantId)))
-  })
+  // Requête filtrée côté serveur via le champ plat etudiantIds (voir db.ts) — avant,
+  // ceci écoutait TOUTE la collection sans filtre et triait côté client, ce qui, en
+  // plus d'être un problème de passage à l'échelle, ne correspondait à aucune règle
+  // de lecture valide (voir le correctif dans firestore.rules).
+  const q = query(collection(db, C.PRESENCES), where('etudiantIds', 'array-contains', etudiantId))
+  return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<Presence>(d))))
 }
 
 export function onSessionsSnapshot(userId: string, module: string | undefined, callback: (sessions: Session[]) => void): Unsubscribe {

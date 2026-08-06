@@ -36,6 +36,24 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('coursIds', []);
     }
 
+    // Le cours coursId est-il enseigné par l'appelant (créateur ou admin du cours) ?
+    // Utilisé pour isoler la SUPPRESSION de contenus produits par un étudiant
+    // (tentatives...) : ces documents n'ont pas de createdBy à eux (ils appartiennent
+    // à l'étudiant), donc l'isolation prof passe par le cours auquel ils sont rattachés.
+    function ownsCours(coursId) {
+      return isAuth() && (
+        get(/databases/$(database)/documents/cours/$(coursId)).data.createdBy == request.auth.uid ||
+        get(/databases/$(database)/documents/cours/$(coursId)).data.adminId == request.auth.uid
+      );
+    }
+
+    // Même principe qu'ownsCours(), mais en passant par le document créateur
+    // (devoir, exercice libre...) d'une collection tierce, pour les documents
+    // étudiant qui n'ont ni coursId ni createdBy propre (soumissions, tentatives_el).
+    function ownsVia(coll, id) {
+      return isAuth() && get(/databases/$(database)/documents/$(coll)/$(id)).data.createdBy == request.auth.uid;
+    }
+
     // ─── USERS ───────────────────────────────────────────────────────────────
     match /users/{userId} {
       // Création :
@@ -125,15 +143,30 @@ service cloud.firestore {
     // Isolation : une tentative appartient à un étudiant ET un coursId.
     // Un étudiant ne peut lire/écrire QUE ses propres tentatives.
     // Un prof/admin peut lire toutes les tentatives de ses cours.
+    //
+    // IMPORTANT — bug corrigé : cette règle vérifiait un champ 'etudiantId' qui
+    // n'a jamais existé sur les documents réels. saveTentativeAsync() (db-firebase.ts)
+    // et le type Tentative (db.ts) utilisent 'userId' partout — vérifié contre
+    // l'émulateur avec la charge utile exacte envoyée par ExerciceDetailPage.tsx :
+    // le create échouait systématiquement (PERMISSION_DENIED), en silence
+    // (.catch(console.error) côté appelant). Conséquence réelle : aucun étudiant
+    // ne pouvait enregistrer une tentative d'exercice coté. Champ corrigé en 'userId'.
     match /tentatives/{tentativeId} {
       allow read: if isAuth() && (
-        ownsResource('etudiantId') || isProf()
+        ownsResource('userId') || isProf()
       );
       allow create: if isAuth() && (
-        request.resource.data.etudiantId == request.auth.uid
+        request.resource.data.userId == request.auth.uid
       );
-      allow update: if isAuth() && ownsResource('etudiantId');
-      allow delete: if isProf();
+      allow update: if isAuth() && ownsResource('userId');
+      // Suppression isolée par cours (et non isProf() global) : un prof ne peut
+      // supprimer que les tentatives d'un cours qu'il enseigne ; sans coursId
+      // (champ optionnel), seul un admin le peut — même compromis assumé
+      // qu'ailleurs dans ce fichier (sécurité > visibilité d'un contenu marginal
+      // non rattaché à un cours).
+      allow delete: if isProf() && (
+        (resource.data.coursId != null && ownsCours(resource.data.coursId)) || isAdmin()
+      );
     }
 
     // ─── EXERCICES LIBRES (entraînement — non cotés) ─────────────────────────
@@ -153,7 +186,12 @@ service cloud.firestore {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
       allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
       allow update: if isAuth() && ownsResource('etudiantId');
-      allow delete: if isProf();
+      // Suppression isolée par créateur de l'exercice libre rattaché (et non
+      // isProf() global) : un prof ne peut supprimer que les tentatives d'un
+      // exercice libre qu'il a lui-même créé.
+      allow delete: if isProf() && (
+        ownsVia('exercices_libres', resource.data.exerciceId) || isAdmin()
+      );
     }
 
     // ─── DOCUMENTS ───────────────────────────────────────────────────────────
@@ -248,14 +286,35 @@ service cloud.firestore {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
       allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
       allow update: if isAuth() && ownsResource('etudiantId');
-      allow delete: if isProf();
+      // Suppression isolée par créateur du devoir rattaché (et non isProf()
+      // global) : un prof ne peut supprimer que les soumissions d'un devoir
+      // qu'il a lui-même créé.
+      allow delete: if isProf() && (
+        ownsVia('devoirs', resource.data.devoirId) || isAdmin()
+      );
     }
 
     // ─── PRÉSENCES ───────────────────────────────────────────────────────────
-    // Isolation : par coursId et par étudiant
+    // Isolation : par coursId et par étudiant.
+    //
+    // IMPORTANT — bug corrigé : la lecture vérifiait un champ plat 'etudiantId'
+    // qui n'existe pas sur les documents réels — le type Presence (db.ts) stocke
+    // un tableau d'objets 'etudiants: [{etudiantId, present}]', jamais de champ
+    // 'etudiantId' à la racine. onPresencesByEtudiantSnapshot() (db-firebase.ts)
+    // faisait donc une écoute NON FILTRÉE sur toute la collection en filtrant
+    // côté client — chaque document réel échouait la règle, donc Firestore
+    // rejetait l'écoute en bloc. Conséquence réelle : un étudiant ne pouvait lire
+    // AUCUNE présence, y compris les siennes (widget d'assiduité du dashboard).
+    // Corrigé en ajoutant un champ dérivé 'etudiantIds' (tableau plat, maintenu
+    // par createPresenceAsync/updatePresenceAsync) que la règle ET une requête
+    // where('etudiantIds','array-contains', uid) peuvent exploiter correctement
+    // (Firestore ne sait filtrer/vérifier un tableau d'objets par sous-champ).
     match /presences/{presenceId} {
-      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
-      allow write: if isProf();
+      allow read: if isAuth() && (
+        request.auth.uid in resource.data.get('etudiantIds', []) || isProf()
+      );
+      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid;
+      allow update, delete: if isProf() && (createdBy() || isAdmin());
     }
 
     // ─── NOTES DE COURS ──────────────────────────────────────────────────────

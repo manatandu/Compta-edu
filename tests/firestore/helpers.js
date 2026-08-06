@@ -109,9 +109,11 @@ export const DOCS = {
     type: 'pratique',
   },
 
-  // Tentative de etud1 sur un exercice
+  // Tentative de etud1 sur un exercice — champ 'userId', PAS 'etudiantId' : c'est le
+  // champ réellement écrit par saveTentativeAsync()/ExerciceDetailPage.tsx (voir
+  // firestore.rules, bloc TENTATIVES, pour l'historique du bug corrigé).
   tentativeEtud1: {
-    etudiantId: USERS.etud1.uid,
+    userId: USERS.etud1.uid,
     exerciceId: 'ex-001',
     coursId: IDS.coursCompta,
     score: 15,
@@ -119,7 +121,7 @@ export const DOCS = {
 
   // Tentative de etud2 sur un exercice (cours différent)
   tentativeEtud2: {
-    etudiantId: USERS.etud2.uid,
+    userId: USERS.etud2.uid,
     exerciceId: 'ex-002',
     coursId: IDS.coursFiscalite,
     score: 18,
@@ -131,13 +133,17 @@ export const DOCS = {
     adminId: USERS.admin1.uid,
   },
 
-  // Présence
+  // Présence — forme réelle (voir type Presence dans db.ts) : un tableau d'objets
+  // 'etudiants', PAS un champ plat 'etudiantId'. 'etudiantIds' est le champ plat
+  // dérivé maintenu par createPresenceAsync()/updatePresenceAsync(), utilisé par la
+  // règle de lecture et par la requête array-contains (voir firestore.rules et
+  // db-firebase.ts pour l'historique du bug corrigé).
   presenceEtud1: {
-    etudiantId: USERS.etud1.uid,
     coursId: IDS.coursCompta,
     createdBy: USERS.prof1.uid,
     date: '2026-06-24',
-    statut: 'present',
+    etudiants: [{ etudiantId: USERS.etud1.uid, present: true }],
+    etudiantIds: [USERS.etud1.uid],
   },
 }
 
