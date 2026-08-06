@@ -549,8 +549,8 @@ export default function UE1Chapitre1Page() {
                 Suivante <ArrowRight className="h-4 w-4" />
               </button>
             ) : (
-              <button onClick={() => setActiveTab('qcm')} className={cn('flex items-center gap-1 text-sm px-4 py-2 rounded-xl text-white transition-colors', VERT_BG)}>
-                Aller aux QCM <ChevronRight className="h-4 w-4" />
+              <button onClick={() => setActiveTab(isStudent ? 'devoir' : 'qcm')} className={cn('flex items-center gap-1 text-sm px-4 py-2 rounded-xl text-white transition-colors', VERT_BG)}>
+                {isStudent ? 'Aller au devoir' : 'Aller aux QCM'} <ChevronRight className="h-4 w-4" />
               </button>
             )}
           </div>
