@@ -80,7 +80,7 @@ function QCMBuilder({ questions, onChange }: { questions: QuestionQCM[], onChang
         <div key={qi} className="border border-border rounded-lg p-3 space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground">Question {qi + 1}</span>
-            <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => removeQuestion(qi)}>
+            <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => removeQuestion(qi)} aria-label={`Supprimer la question ${qi + 1}`}>
               <X className="h-3.5 w-3.5" />
             </Button>
           </div>
@@ -602,10 +602,10 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { 
                         <TypeLabel type={ex.type} />
                         {canManage && (
                           <>
-                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(ex)}>
+                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(ex)} aria-label={`Modifier l'exercice ${ex.titre}`}>
                               <Pencil className="h-3.5 w-3.5" />
                             </Button>
-                            <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => setDeleteId(ex.id)}>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => setDeleteId(ex.id)} aria-label={`Supprimer l'exercice ${ex.titre}`}>
                               <Trash2 className="h-3.5 w-3.5" />
                             </Button>
                           </>
@@ -860,10 +860,10 @@ export default function ExercicesPage() {
                             {!ex.actif && <Badge variant="outline" className="text-xs">Inactif</Badge>}
                             {canManage && (
                               <>
-                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(ex.id)}>
+                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(ex.id)} aria-label={`Modifier l'exercice ${ex.titre}`}>
                                   <Pencil className="h-3.5 w-3.5" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteId(ex.id)}>
+                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteId(ex.id)} aria-label={`Supprimer l'exercice ${ex.titre}`}>
                                   <Trash2 className="h-3.5 w-3.5" />
                                 </Button>
                               </>

@@ -423,6 +423,7 @@ export default function JournalPage() {
                         onClick={() => openEditEcriture(groupe, lines)}
                         disabled={sessionVerrouillee}
                         title={sessionVerrouillee ? 'Session verrouillée' : 'Modifier'}
+                        aria-label={sessionVerrouillee ? 'Session verrouillée' : 'Modifier cette écriture'}
                       >
                         <Pencil className="h-3.5 w-3.5" />
                       </Button>
@@ -433,6 +434,7 @@ export default function JournalPage() {
                         onClick={() => setDeleteGroupe(groupe)}
                         disabled={sessionVerrouillee}
                         title={sessionVerrouillee ? 'Session verrouillée' : 'Supprimer'}
+                        aria-label={sessionVerrouillee ? 'Session verrouillée' : 'Supprimer cette écriture'}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </Button>
@@ -635,7 +637,7 @@ export default function JournalPage() {
                             />
                           </td>
                           <td className="py-1 px-1">
-                            <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-destructive" onClick={() => removeLigne(l.id)}>
+                            <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-destructive" onClick={() => removeLigne(l.id)} aria-label="Supprimer cette ligne">
                               <Trash2 className="h-3 w-3" />
                             </Button>
                           </td>

@@ -463,7 +463,7 @@ export default function ExerciceDetailPage() {
 
       {/* En-tête */}
       <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/exercices')}>
+        <Button variant="ghost" size="icon" onClick={() => navigate('/exercices')} aria-label="Retour aux exercices">
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div className="flex-1">
@@ -816,7 +816,7 @@ export default function ExerciceDetailPage() {
                       <Input type="number" className="text-right text-xs" placeholder="0" value={l.credit} onChange={e => updateLigne(l.id, 'credit', e.target.value)} min="0" />
                     </td>
                     <td className="py-1 px-1">
-                      <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-destructive" onClick={() => removeLigne(l.id)}>
+                      <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground hover:text-destructive" onClick={() => removeLigne(l.id)} aria-label="Supprimer cette ligne">
                         <Trash2 className="h-3 w-3" />
                       </Button>
                     </td>

@@ -225,6 +225,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           <button
             className="md:hidden p-1 rounded hover:bg-white/10 transition-colors"
             onClick={() => setSidebarOpen(false)}
+            aria-label="Fermer le menu"
           >
             <X className="h-4 w-4 text-ink-soft" />
           </button>
@@ -461,7 +462,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         </div>
         <div className="flex gap-2 items-center">
           {isAdmin && <NotificationBell user={user} />}
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-ink-soft hover:text-destructive hover:bg-white/5" onClick={handleLogout} title="Déconnexion">
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-ink-soft hover:text-destructive hover:bg-white/5" onClick={handleLogout} title="Déconnexion" aria-label="Déconnexion">
             <LogOut className="h-4 w-4" />
           </Button>
         </div>
@@ -497,7 +498,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Mobile header */}
         <header className="md:hidden flex items-center gap-3 px-3 py-2 border-b border-border bg-card/95 backdrop-blur-sm sticky top-0 z-40">
-          <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0" onClick={() => setSidebarOpen(true)}>
+          <Button variant="ghost" size="icon" className="h-9 w-9 shrink-0" onClick={() => setSidebarOpen(true)} aria-label="Ouvrir le menu">
             <Menu className="h-5 w-5" />
           </Button>
           <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -515,7 +516,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           </div>
           <div className="flex gap-1 shrink-0 items-center">
             {isAdmin && <NotificationBell user={user} />}
-            <Button variant="ghost" size="icon" className="h-9 w-9 text-destructive" onClick={handleLogout}>
+            <Button variant="ghost" size="icon" className="h-9 w-9 text-destructive" onClick={handleLogout} aria-label="Déconnexion">
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
