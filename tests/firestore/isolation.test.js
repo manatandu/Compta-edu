@@ -992,6 +992,101 @@ describe('📒 Écritures comptables — Isolation par utilisateur', () => {
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 10bis — STOCK — Isolation par userId (régression : aucune règle avant)
+// ══════════════════════════════════════════════════════════════════════════════
+describe('📦 Stock — Isolation par utilisateur', () => {
+
+  it('Etud1 peut créer son propre article de stock', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'stock_articles', 'art-001')
+    await assertSucceeds(setDoc(ref, {
+      userId: USERS.etud1.uid,
+      reference: 'ABX25',
+      designation: 'Cartouches encre',
+      typeCompte: '31',
+      methode: 'CUMP',
+      qteInitiale: 10,
+      cuInitial: 100,
+      dateInitiale: '2026-01-01',
+    }))
+  })
+
+  it('Etud1 NE PEUT PAS lire l\'article de stock de Etud2', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('stock_articles', 'art-etud2', { userId: USERS.etud2.uid, reference: 'X' })
+    const ref = doc(db(USERS.etud1), 'stock_articles', 'art-etud2')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Etud1 peut créer son propre mouvement de stock', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'stock_mouvements', 'mv-001')
+    await assertSucceeds(setDoc(ref, {
+      userId: USERS.etud1.uid,
+      articleId: 'art-001',
+      type: 'entree',
+      date: '2026-01-05',
+      libelle: 'Entrée 0705',
+      numeroBon: '0705',
+      quantite: 5,
+      cuSaisi: 110,
+    }))
+  })
+
+  it('Etud1 NE PEUT PAS lire le mouvement de stock de Etud2', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('stock_mouvements', 'mv-etud2', { userId: USERS.etud2.uid, articleId: 'art-x' })
+    const ref = doc(db(USERS.etud1), 'stock_mouvements', 'mv-etud2')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Etud1 peut créer sa propre écriture de stock', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'stock_ecritures', 'ec-001')
+    await assertSucceeds(setDoc(ref, {
+      userId: USERS.etud1.uid,
+      articleId: 'art-001',
+      mouvementId: 'mv-001',
+      date: '2026-01-05',
+      libelle: 'Entrée en stock',
+      debit: '31', libDebit: 'Marchandises',
+      credit: '6031', libCredit: 'Variation des stocks de marchandises',
+      montant: 550,
+      exporte: false,
+    }))
+  })
+
+  it('Etud1 NE PEUT PAS lire l\'écriture de stock de Etud2', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('stock_ecritures', 'ec-etud2', { userId: USERS.etud2.uid, articleId: 'art-x' })
+    const ref = doc(db(USERS.etud1), 'stock_ecritures', 'ec-etud2')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Un non authentifié NE PEUT PAS lire un article de stock', async () => {
+    await seedDoc('stock_articles', 'art-001', { userId: USERS.etud1.uid, reference: 'X' })
+    const ref = doc(db(null), 'stock_articles', 'art-001')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Etud1 NE PEUT PAS réattribuer son article de stock à Etud2 (userId) en le modifiant', async () => {
+    // Régression revue PR #27 : create/update séparés pour empêcher qu'une
+    // modification change le propriétaire du document.
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('stock_articles', 'art-001', { userId: USERS.etud1.uid, reference: 'X' })
+    const ref = doc(db(USERS.etud1), 'stock_articles', 'art-001')
+    await assertFails(updateDoc(ref, { userId: USERS.etud2.uid }))
+  })
+
+  it('Etud1 peut modifier son article de stock sans toucher userId', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('stock_articles', 'art-001', { userId: USERS.etud1.uid, reference: 'X' })
+    const ref = doc(db(USERS.etud1), 'stock_articles', 'art-001')
+    await assertSucceeds(updateDoc(ref, { reference: 'Y' }))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
 //  SUITE 11 — COURS STATUTS — Progression isolée par étudiant
 // ══════════════════════════════════════════════════════════════════════════════
 describe('📊 Cours statuts — Progression isolée par étudiant', () => {
