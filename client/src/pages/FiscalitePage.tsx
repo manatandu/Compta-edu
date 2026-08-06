@@ -408,7 +408,7 @@ function Cat1Salaires() {
       const avancesVal  = parseFloat(avances)  || 0
 
       const nbEff = parseInt(effectif) || 0
-      const inppTaux = nbEff > 300 ? 0.01 : nbEff >= 51 ? 0.02 : 0.03
+      const inppTaux = nbEff > 300 ? 0.02 : nbEff >= 51 ? 0.03 : 0.035
       const cnssPatron = brut661 * 0.13
       const inpp = brut661 * inppTaux
       const onem = brut661 * 0.005
@@ -459,7 +459,7 @@ function Cat1Salaires() {
 
       // Charges patronales habituelles sur expatriés
       const nbEffE = parseInt(effectifExp) || 0
-      const inppTauxE = nbEffE > 300 ? 0.01 : nbEffE >= 51 ? 0.02 : 0.03
+      const inppTauxE = nbEffE > 300 ? 0.02 : nbEffE >= 51 ? 0.03 : 0.035
       const cnssPatronE = brut662 * 0.13
       const inppE = brut662 * inppTauxE
       const onemE = brut662 * 0.005
@@ -584,7 +584,7 @@ function Cat1Salaires() {
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Effectif total entreprise
                 <InfoTooltip
-                  texte="L'effectif total de l'entreprise détermine le taux INPP applicable : ≤ 50 agents → 3% | 51 à 300 → 2% | + de 300 → 1%. C'est une charge patronale reversée à l'Institut National de Préparation Professionnelle.="
+                  texte="L'effectif total de l'entreprise détermine le taux INPP applicable : ≤ 50 agents → 3,5% | 51 à 300 → 3% | + de 300 → 2%. C'est une charge patronale reversée à l'Institut National de Préparation Professionnelle.="
                   loi="INPP : charge patronale="
                 />
               </label>
@@ -595,7 +595,7 @@ function Cat1Salaires() {
                 {(() => {
                   const n = parseInt(effectif) || 0
                   if (!n) return 'Détermine le taux INPP'
-                  return n > 300 ? 'INPP : 1% (> 300 agents)' : n >= 51 ? 'INPP : 2% (51–300 agents)' : 'INPP : 3% (≤ 50 agents)'
+                  return n > 300 ? 'INPP : 2% (> 300 agents)' : n >= 51 ? 'INPP : 3% (51–300 agents)' : 'INPP : 3,5% (≤ 50 agents)'
                 })()}
               </p>
             </div>
@@ -697,7 +697,7 @@ function Cat1Salaires() {
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Effectif total entreprise
                 <InfoTooltip
-                  texte="L'effectif total détermine le taux INPP : ≤ 50 → 3% | 51–300 → 2% | + de 300 → 1%. Charge patronale reversée à l'Institut National de Préparation Professionnelle.="
+                  texte="L'effectif total détermine le taux INPP : ≤ 50 → 3,5% | 51–300 → 3% | + de 300 → 2%. Charge patronale reversée à l'Institut National de Préparation Professionnelle.="
                   loi="INPP : charge patronale="
                 />
               </label>
@@ -708,7 +708,7 @@ function Cat1Salaires() {
                 {(() => {
                   const n = parseInt(effectifExp) || 0
                   if (!n) return 'Détermine le taux INPP'
-                  return n > 300 ? 'INPP : 1%' : n >= 51 ? 'INPP : 2%' : 'INPP : 3%'
+                  return n > 300 ? 'INPP : 2%' : n >= 51 ? 'INPP : 3%' : 'INPP : 3,5%'
                 })()}
               </p>
             </div>
@@ -847,8 +847,8 @@ function Cat1Salaires() {
                 <LigneR signe="+" label={`CNSS patronal (13%)`} val={formatFC(res.cnssPatron)}
                   tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% calculée sur la rémunération imposable brute (661). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
-                <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toFixed(0)}%)`} val={formatFC(res.inpp)}
-                  tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3% | 51–300 → 2% | + de 300 → 1%. Elle finance la formation professionnelle.=", loi: "INPP : charge patronale=" }}
+                <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inpp)}
+                  tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%. Elle finance la formation professionnelle.=", loi: "INPP : charge patronale=" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onem)}
                   tooltip={{ texte: "L'ONEM (Office National de l'Emploi) perçoit une cotisation patronale de 0,5% de la rémunération brute. | Taux 0,5% fixé par l'Arrêté Ministériel N°028/CAB/MIN.ET/FMM/RK/09/2025. | Elle finance les politiques de l'emploi et est à la charge exclusive de l'employeur. | Écriture : Débit 6641 / Crédit 4332 (ONEM dette patronale *).", loi: "AM N°028/CAB/MIN.ET/FMM/RK/09/2025" }}
@@ -967,8 +967,8 @@ function Cat1Salaires() {
                 <LigneR signe="+" label="CNSS patronal (13%)" val={formatFC(res.cnssPatronE)}
                   tooltip={{ texte: "La CNSS est une charge patronale de 13% calculée sur la rémunération imposable brute de l'expatrié (662). | Art. 1er Code du Travail RDC : applicable à tous les travailleurs en RDC, quelle que soit leur nationalité. | Art. 112(b) CT : les cotisations dues à la CNSS constituent des retenues autorisées sur le salaire. | Versée directement à la Caisse Nationale de Sécurité Sociale par l'employeur. | Écriture : Débit 6642 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 1er et 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
-                <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toFixed(0)}%)`} val={formatFC(res.inppE)}
-                  tooltip={{ texte: "L'INPP est une charge patronale dont le taux dépend de l'effectif total de l'entreprise : ≤ 50 agents → 3% | 51–300 → 2% | + de 300 → 1%.", loi: "INPP : charge patronale=" }}
+                <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inppE)}
+                  tooltip={{ texte: "L'INPP est une charge patronale dont le taux dépend de l'effectif total de l'entreprise : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%.", loi: "INPP : charge patronale=" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onemE)}
                   tooltip={{ texte: "L'ONEM (Office National de l'Emploi) perçoit une cotisation patronale de 0,5% de la rémunération brute de l'expatrié. | Taux 0,5% fixé par l'Arrêté Ministériel N°028/CAB/MIN.ET/FMM/RK/09/2025. | Charge patronale exclusive de l'employeur ; art. 1er CT RDC : applicable à tous les travailleurs en RDC, quelle que soit leur nationalité. | Écriture : Débit 6642 / Crédit 4332 (ONEM dette patronale *).", loi: "AM N°028/CAB/MIN.ET/FMM/RK/09/2025 ; Art. 1er CT RDC" }}
