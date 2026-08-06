@@ -484,7 +484,7 @@ export default function UE2Chapitre6Page() {
           ]}
           color="indigo"
         />
-        <h1 className="text-xl font-bold text-foreground mt-0.5">Le Groupement d'Intérêt Économique (GIE)</h1>
+        <h1 className="text-xl font-display font-bold text-foreground mt-0.5">Le Groupement d'Intérêt Économique (GIE)</h1>
         <p className="text-sm text-muted-foreground">AUSCGIE — Articles 869 à 885 — OHADA</p>
       </div>
 
@@ -566,7 +566,7 @@ export default function UE2Chapitre6Page() {
 
           {/* Titre leçon active */}
           <div className="border-l-4 border-teal-500 bg-card rounded-r-xl p-4">
-            <h2 className="font-bold text-foreground">{lecons[activeLecon].id} — {lecons[activeLecon].titre}</h2>
+            <h2 className="font-display font-bold text-foreground">{lecons[activeLecon].id} — {lecons[activeLecon].titre}</h2>
           </div>
 
           {/* ── Contenu L1 ── */}
@@ -1082,7 +1082,7 @@ export default function UE2Chapitre6Page() {
       {activeTab === 'cas' && (
         <div className="space-y-3">
           <div className="bg-card border border-border rounded-xl p-4">
-            <h2 className="font-bold text-foreground flex items-center gap-2 mb-1">
+            <h2 className="font-display font-bold text-foreground flex items-center gap-2 mb-1">
               <FileText className="w-5 h-5 text-teal-600" /> Cas Pratiques — Chapitre 6 : Le GIE
             </h2>
             <p className="text-sm text-muted-foreground">4 cas pratiques basés sur les articles 869 à 885 de l'AUSCGIE et la jurisprudence CCJA.</p>

@@ -5343,7 +5343,7 @@ export default function FiscalitePage() {
           <BackButton />
           <div className="mt-4 flex items-start justify-between gap-3">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Fiscalité des entreprises</h1>
+              <h1 className="text-2xl font-display font-bold text-foreground">Fiscalité des entreprises</h1>
             </div>
             <div className="flex flex-col items-end gap-2 shrink-0">
               <Badge variant="outline" className="text-xs">Loi n°23/053 du 26 déc. 2023 portant IS/IRPP : J.O. RDC</Badge>

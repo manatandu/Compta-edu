@@ -468,7 +468,7 @@ export default function ExerciceDetailPage() {
         </Button>
         <div className="flex-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <h1 className="text-xl font-bold text-foreground">{exercice.titre}</h1>
+            <h1 className="text-xl font-display font-bold text-foreground">{exercice.titre}</h1>
             {difficulte && (
               <Badge variant="outline" className={cn('text-xs',
                 difficulte === 'Facile' ? 'border-green-400 text-green-600' :

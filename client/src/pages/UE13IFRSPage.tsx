@@ -124,7 +124,7 @@ export default function UE13IFRSPage() {
             <span className="text-xs bg-white/20 rounded-full px-3 py-1">UE13</span>
             <span className="text-xs bg-white/10 rounded-full px-3 py-1">Master / Professionnel</span>
           </div>
-          <h1 className="text-2xl font-bold mt-2">Normes Comptables Internationales IAS/IFRS</h1>
+          <h1 className="text-2xl font-display font-bold mt-2">Normes Comptables Internationales IAS/IFRS</h1>
           <p className="text-sky-100 text-sm mt-1">
             8 chapitres · 12 normes · 48 leçons · Source : IFRS Foundation 
           </p>

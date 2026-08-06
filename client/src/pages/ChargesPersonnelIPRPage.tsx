@@ -522,7 +522,7 @@ export default function ChargesPersonnelIPRPage() {
             </div>
             <div>
               <p className="text-xs text-muted-foreground uppercase tracking-wide">Charges du personnel</p>
-              <h1 className="text-base font-bold text-foreground leading-tight">IRPP : Cat. 1 : Revenus salariaux et assimilés</h1>
+              <h1 className="text-base font-display font-bold text-foreground leading-tight">IRPP : Cat. 1 : Revenus salariaux et assimilés</h1>
             </div>
           </div>
         </div>

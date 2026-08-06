@@ -2273,7 +2273,7 @@ export default function UE13Chapitre2Page() {
           color="sky"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">IAS 16 Immobilisations corporelles et IAS 38 Immobilisations incorporelles</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">IAS 16 Immobilisations corporelles et IAS 38 Immobilisations incorporelles</h1>
           <InfoTooltip texte="IAS 16 : traitement comptable des immobilisations corporelles (comptabilisation, évaluation initiale et postérieure, amortissement, composants). IAS 38 : traitement comptable des immobilisations incorporelles (critères, phases R&D, amortissement)." loi="IAS 16 §1 · IAS 38 §1 — IFRS Foundation" />
         </div>
         <p className="text-xs text-muted-foreground">IAS 16 · IAS 38 · Évaluation initiale et postérieure · Amortissement</p>
@@ -2332,7 +2332,7 @@ export default function UE13Chapitre2Page() {
               <span className="text-xs font-semibold text-sky-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
+            <h2 className="text-base font-display font-bold text-foreground">{lecon.titre}</h2>
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -2368,7 +2368,7 @@ export default function UE13Chapitre2Page() {
 
       {activeTab === 'cas' && (
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-foreground px-1">Cas pratiques : {CAS_RICHES.length} études de cas</h2>
+          <h2 className="text-sm font-display font-bold text-foreground px-1">Cas pratiques : {CAS_RICHES.length} études de cas</h2>
           {CAS_RICHES.map((cp, i) => <CasRicheBlock key={i} cp={cp} />)}
         </div>
       )}

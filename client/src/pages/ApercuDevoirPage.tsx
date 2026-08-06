@@ -724,7 +724,7 @@ export default function ApercuDevoirPage() {
       <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
         <span className="text-3xl">✓</span>
       </div>
-      <h2 className="text-xl font-bold text-green-700">Devoir soumis avec succès</h2>
+      <h2 className="text-xl font-display font-bold text-green-700">Devoir soumis avec succès</h2>
       <p className="text-sm text-muted-foreground">Votre devoir a été transmis au professeur. Redirection...</p>
     </div>
   )
@@ -738,7 +738,7 @@ export default function ApercuDevoirPage() {
       </div>
 
       <div className="rounded-xl border border-border bg-card p-4">
-        <h1 className="text-lg font-bold text-foreground">Récapitulatif du devoir</h1>
+        <h1 className="text-lg font-display font-bold text-foreground">Récapitulatif du devoir</h1>
         <p className="text-sm text-muted-foreground mt-0.5">Vérifiez vos travaux dans chaque document avant de soumettre.</p>
         {loading && <p className="text-sm text-muted-foreground mt-2">Chargement des données...</p>}
         {!loading && ecritures.length === 0 && (

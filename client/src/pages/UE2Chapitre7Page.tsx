@@ -501,7 +501,7 @@ export default function UE2Chapitre7Page() {
           ]}
           color="indigo"
         />
-        <h1 className="text-xl font-bold text-foreground mt-0.5">Les Dirigeants Sociaux</h1>
+        <h1 className="text-xl font-display font-bold text-foreground mt-0.5">Les Dirigeants Sociaux</h1>
         <p className="text-sm text-muted-foreground">AUSCGIE — Articles 121 à 338 — Pouvoirs, Responsabilité et Révocation</p>
       </div>
 
@@ -583,7 +583,7 @@ export default function UE2Chapitre7Page() {
 
           {/* Titre */}
           <div className="border-l-4 border-amber-500 bg-card rounded-r-xl p-4">
-            <h2 className="font-bold text-foreground">{lecons[activeLecon].id} — {lecons[activeLecon].titre}</h2>
+            <h2 className="font-display font-bold text-foreground">{lecons[activeLecon].id} — {lecons[activeLecon].titre}</h2>
           </div>
 
           {/* ── L1 ── */}
@@ -1262,7 +1262,7 @@ export default function UE2Chapitre7Page() {
       {activeTab === 'cas' && (
         <div className="space-y-3">
           <div className="bg-card border border-border rounded-xl p-4">
-            <h2 className="font-bold text-foreground flex items-center gap-2 mb-1">
+            <h2 className="font-display font-bold text-foreground flex items-center gap-2 mb-1">
               <FileText className="w-5 h-5 text-amber-600" /> Cas Pratiques — Chapitre 7 : Les Dirigeants Sociaux
             </h2>
             <p className="text-sm text-muted-foreground">4 cas pratiques couvrant les articles fondamentaux du droit des dirigeants sociaux OHADA.</p>

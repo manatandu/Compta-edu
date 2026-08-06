@@ -93,7 +93,7 @@ export default function InscriptionPlatformePage() {
             <UserPlus className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground">Inscrire un étudiant sur la plateforme</h1>
+            <h1 className="text-xl font-display font-bold text-foreground">Inscrire un étudiant sur la plateforme</h1>
             <p className="text-sm text-muted-foreground">Créer un compte Firebase (étudiant interne)</p>
           </div>
         </div>
@@ -219,7 +219,7 @@ function FormIndividuel({ users, universites, getFacultes, getCours, currentUser
 
   return (
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
-      <h2 className="text-sm font-semibold text-foreground">Créer un compte étudiant</h2>
+      <h2 className="text-sm font-display font-semibold text-foreground">Créer un compte étudiant</h2>
 
       {success && (
         <div className="flex items-center gap-2 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-sm">
@@ -415,7 +415,7 @@ function ImportCSV({ users, universites, getFacultes, getCours, currentUserId, t
   return (
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
       <div className="space-y-1">
-        <h2 className="text-sm font-semibold text-foreground">Import depuis un fichier CSV</h2>
+        <h2 className="text-sm font-display font-semibold text-foreground">Import depuis un fichier CSV</h2>
         <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code></p>
       </div>
 
@@ -607,7 +607,7 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
   return (
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
       <div className="space-y-1">
-        <h2 className="text-sm font-semibold text-foreground">Générer un code d'accès</h2>
+        <h2 className="text-sm font-display font-semibold text-foreground">Générer un code d'accès</h2>
         <p className="text-xs text-muted-foreground">
           Les étudiants entrent ce code lors de leur première connexion pour rejoindre automatiquement la bonne université, faculté et les cours associés.
         </p>

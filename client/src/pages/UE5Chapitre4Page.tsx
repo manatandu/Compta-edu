@@ -1184,7 +1184,7 @@ export default function UE5Chapitre4Page() {
           color="emerald"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">Budget-programme et gestion par la performance</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Budget-programme et gestion par la performance</h1>
           <InfoTooltip texte="Ce chapitre analyse la reforme du budget-programme introduite par la LOFIP : definition du programme (Art. 43), fonctions (Art. 44), fongibilite des crédits (Art. 45), mouvements de crédits (Art. 46-53), PAP/RAP (Art. 79) et état d\'avancement de la reforme en RDC." loi="Art. 43-54, 79 LOFIP" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 43-54, 79 · Programme, PAP, RAP · Reforme RDC 2011-2026</p>
@@ -1246,7 +1246,7 @@ export default function UE5Chapitre4Page() {
                 {lecon.icone}
               </div>
               <div>
-                <h2 className="text-sm font-bold text-foreground">{lecon.titre}</h2>
+                <h2 className="text-sm font-display font-bold text-foreground">{lecon.titre}</h2>
                 <p className="text-xs text-muted-foreground mt-0.5">{lecon.soustitre}</p>
               </div>
             </div>

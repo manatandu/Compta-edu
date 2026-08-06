@@ -84,7 +84,7 @@ export default function PlanComptablePage() {
               <ListTree className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground tracking-tight">Plan Comptable SYSCOHADA</h1>
+              <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Plan Comptable SYSCOHADA</h1>
               <p className="text-xs text-muted-foreground mt-0.5">SYSCOHADA Révisé : 9 classes de comptes</p>
             </div>
           </div>

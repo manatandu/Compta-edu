@@ -840,7 +840,7 @@ export default function UE5Chapitre9Page() {
           ]}
           color="emerald"
         />
-        <h1 className="text-lg font-bold text-foreground leading-tight">Contrôle des finances publiques</h1>
+        <h1 className="text-lg font-display font-bold text-foreground leading-tight">Contrôle des finances publiques</h1>
         <p className="text-xs text-muted-foreground">Constitution Art. 178-180 · LOFIP Art. 28-31, 111-132 · LF n° 25/060</p>
       </div>
 
@@ -884,7 +884,7 @@ export default function UE5Chapitre9Page() {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <span className="text-xs font-bold text-orange-700 uppercase tracking-wide">Leçon {activeLecon + 1} sur {lecons.length}</span>
-                  <h2 className="text-sm font-bold text-foreground mt-0.5 leading-snug">{lecons[activeLecon].titre}</h2>
+                  <h2 className="text-sm font-display font-bold text-foreground mt-0.5 leading-snug">{lecons[activeLecon].titre}</h2>
                 </div>
                 <InfoTooltip texte={`Source : ${lecons[activeLecon].source}`} loi="LOFIP" />
               </div>

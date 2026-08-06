@@ -58,7 +58,7 @@ export default function ComptabiliteSYCEBNLPage() {
       <BackButton />
       {/* En-tête */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Comptabilité SYCEBNL</h1>
+        <h1 className="text-2xl font-display font-bold text-foreground">Comptabilité SYCEBNL</h1>
         <p className="text-sm text-muted-foreground mt-0.5">
           Système Comptable des Entités à But Non Lucratif : Associations, ONG, Fondations, Projets de développement
         </p>

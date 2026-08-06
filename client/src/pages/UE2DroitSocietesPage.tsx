@@ -170,7 +170,7 @@ export default function UE2DroitSocietesPage() {
             ]}
             color="indigo"
           />
-          <h1 className="text-lg font-bold text-foreground leading-tight truncate mt-1">Droit des sociétés OHADA</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight truncate mt-1">Droit des sociétés OHADA</h1>
           <p className="text-xs text-muted-foreground">Source : AUSCGIE révisé 2014 · Droit RDC</p>
         </div>
       </div>
@@ -212,7 +212,7 @@ export default function UE2DroitSocietesPage() {
 
       {/* Liste des chapitres */}
       <div>
-        <h2 className="text-sm font-semibold text-foreground mb-2 px-1">Programme : 10 chapitres</h2>
+        <h2 className="text-sm font-display font-semibold text-foreground mb-2 px-1">Programme : 10 chapitres</h2>
         <div className="rounded-2xl border border-border bg-card overflow-hidden divide-y divide-border">
           {CHAPITRES.map((ch) => {
             const bloque = !ch.actif

@@ -110,7 +110,7 @@ export default function DictionnairePage() {
           <BookMarked className="h-5 w-5 text-primary" />
         </div>
         <div>
-          <h1 className="text-xl font-bold">Dictionnaire</h1>
+          <h1 className="text-xl font-display font-bold">Dictionnaire</h1>
           <p className="text-sm text-muted-foreground">
             {DICTIONNAIRE.length} termes : Comptabilité, Fiscalité, Droit, Finance, Gestion
           </p>

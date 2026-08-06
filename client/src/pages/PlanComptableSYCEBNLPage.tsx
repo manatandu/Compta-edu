@@ -522,7 +522,7 @@ export default function PlanComptableSYCEBNLPage() {
       <BackButton />
       <div className="flex flex-col sm:flex-row sm:items-center gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Plan Comptable SYCEBNL</h1>
+          <h1 className="text-2xl font-display font-bold text-foreground">Plan Comptable SYCEBNL</h1>
           <p className="text-sm text-muted-foreground">
             {COMPTES_SYCEBNL.length} comptes : Système Comptable des Entités à But Non Lucratif (Acte Uniforme OHADA)
           </p>

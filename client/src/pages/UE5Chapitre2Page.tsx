@@ -1104,7 +1104,7 @@ export default function UE5Chapitre2Page() {
           color="emerald"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">Les principes budgétaires</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Les principes budgétaires</h1>
           <InfoTooltip texte="Les 6 principes budgétaires de la LOFIP : annualité, unité, universalité, spécialité, légalité et sincérité (Art. 4 à 11)." loi="Art. 4-11 LOFIP" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 4 à 11 · CBMT · Fongibilité asymétrique · LFR n° 25/044 · Budget 2026</p>
@@ -1163,7 +1163,7 @@ export default function UE5Chapitre2Page() {
               <span className="text-xs font-semibold text-emerald-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
+            <h2 className="text-base font-display font-bold text-foreground">{lecon.titre}</h2>
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -1199,7 +1199,7 @@ export default function UE5Chapitre2Page() {
 
       {activeTab === 'cas' && (
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
+          <h2 className="text-sm font-display font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
           {ETUDES_DE_CAS.map(cp => <CasPratiqueBlock key={cp.id} cp={cp} />)}
         </div>
       )}
