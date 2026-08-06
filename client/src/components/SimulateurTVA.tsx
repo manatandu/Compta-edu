@@ -270,32 +270,44 @@ const CATALOGUE_EXONERATIONS_TAXATIONS_SPECIALES = [
   { code: 'EXT-05', label: 'Gains de parieurs dans le cadre des jeux de hasard', article: 'Art. 18-4' },
 ]
 
-const CATALOGUE_TAUX_8 = [
-  { code: 'T8-01', position: '02.01', label: 'Viandes fraîches ou réfrigérées des animaux de l\'espèce bovine', taux: '8%' },
-  { code: 'T8-02', position: '02.02', label: 'Viandes congelées des animaux de l\'espèce bovine', taux: '8%' },
-  { code: 'T8-03', position: '02.03', label: 'Viandes fraîches, réfrigérées ou congelées des animaux de l\'espèce porcine', taux: '8%' },
-  { code: 'T8-04', position: '02.06', label: 'Abats comestibles frais, réfrigérés ou congelés des animaux bovins, porcins, ovins, caprins, chevaux', taux: '8%' },
-  { code: 'T8-05', position: '02.07', label: 'Viandes et abats comestibles frais, réfrigérés ou congelés des volailles', taux: '8%' },
-  { code: 'T8-06', position: '0303.23.00', label: 'Tilapias congelés', taux: '8%' },
-  { code: 'T8-07', position: '0303.55.00', label: 'Chinchards congelés', taux: '8%' },
-  { code: 'T8-08', position: '0305.51.00', label: 'Morues séchées et salées', taux: '8%' },
-  { code: 'T8-09', position: '0305.52.00', label: 'Tilapias, siluridés, carpes, anguilles séchés et salés', taux: '8%' },
-  { code: 'T8-10', position: '0305.53.00', label: 'Poissons des familles Gadidae, Merluccidae, Macrouridae… séchés et salés', taux: '8%' },
-  { code: 'T8-11', position: '0305.54.00', label: 'Harengs, anchois, sardines, sardinelles, sprats, maquereaux, thazards, chinchards séchés et salés', taux: '8%' },
-  { code: 'T8-12', position: '0305.59.00', label: 'Autres poissons séchés et salés', taux: '8%' },
-  { code: 'T8-13', position: '1006.20.00', label: 'Riz décortiqué (riz cargo ou riz brun)', taux: '8%' },
-  { code: 'T8-14', position: '1006.30.00', label: 'Riz semi-blanchi ou blanchi, même poli ou glacé', taux: '8%' },
-  { code: 'T8-15', position: '1006.40.00', label: 'Riz en brisures', taux: '8%' },
-  { code: 'T8-16', position: '1701.91.00', label: 'Sucre de canne ou betteraves, additionnés d\'arômes ou colorants', taux: '8%' },
-  { code: 'T8-17', position: '1701.99.00', label: 'Sucre de canne ou betteraves (autres)', taux: '8%' },
-  { code: 'T8-18', position: '1901.10.00', label: 'Préparations à base de lait pour l\'alimentation des nourrissons et enfants en bas âge', taux: '8%' },
-  { code: 'T8-19', position: '1901.90.90', label: 'Autres préparations de lait (produits n° 04.01 à 04.04), moins de 5% de cacao', taux: '8%' },
-  { code: 'T8-20', position: '04.02', label: 'Lait et crème de lait, concentrés ou additionnés de sucre ou édulcorants', taux: '8%' },
-  { code: 'T8-21', position: '2201.90.10', label: 'Eaux conditionnées pour la table', taux: '8%' },
-  { code: 'T8-22', position: '2501.00.10', label: 'Sel iodé', taux: '8%' },
-  { code: 'T8-23', position: '3401.19.10', label: 'Savons de ménage présentés en barres, pains ou morceaux', taux: '8%' },
-  { code: 'T8-24', position: '3605.00.00', label: 'Allumettes (autres qu\'articles de pyrotechnie)', taux: '8%' },
-  { code: 'T8-25', position: '—', label: 'Billets d\'avion sur le trafic aérien national', taux: '8%' },
+// Taux réduit — refonte par l'Art. 46 de la Loi de Finances n° 25/060 du 29/12/2025 (LF 2026),
+// modifiant l'Art. 35 CGI-TVA, en vigueur depuis le 1er janvier 2026.
+// L'ancien taux réduit unique de 8% (LF 21/029 et LF 22/071) est supprimé et remplacé par
+// une structure à deux paliers : 1% (ex-produits à 8% + nouvelles opérations) et 5% (billets
+// d'avion sur trafic aérien national uniquement — seul cas visé par ce taux).
+const CATALOGUE_TAUX_1 = [
+  { code: 'T1-01', position: '02.01', label: 'Viandes fraîches ou réfrigérées des animaux de l\'espèce bovine', taux: '1%' },
+  { code: 'T1-02', position: '02.02', label: 'Viandes congelées des animaux de l\'espèce bovine', taux: '1%' },
+  { code: 'T1-03', position: '02.03', label: 'Viandes fraîches, réfrigérées ou congelées des animaux de l\'espèce porcine', taux: '1%' },
+  { code: 'T1-04', position: '02.06', label: 'Abats comestibles frais, réfrigérés ou congelés des animaux bovins, porcins, ovins, caprins, chevaux', taux: '1%' },
+  { code: 'T1-05', position: '02.07', label: 'Viandes et abats comestibles frais, réfrigérés ou congelés des volailles', taux: '1%' },
+  { code: 'T1-06', position: '0303.23.00', label: 'Tilapias congelés', taux: '1%' },
+  { code: 'T1-07', position: '0303.55.00', label: 'Chinchards congelés', taux: '1%' },
+  { code: 'T1-08', position: '0305.51.00', label: 'Morues séchées et salées', taux: '1%' },
+  { code: 'T1-09', position: '0305.52.00', label: 'Tilapias, siluridés, carpes, anguilles séchés et salés', taux: '1%' },
+  { code: 'T1-10', position: '0305.53.00', label: 'Poissons des familles Gadidae, Merluccidae, Macrouridae… séchés et salés', taux: '1%' },
+  { code: 'T1-11', position: '0305.54.00', label: 'Harengs, anchois, sardines, sardinelles, sprats, maquereaux, thazards, chinchards séchés et salés', taux: '1%' },
+  { code: 'T1-12', position: '0305.59.00', label: 'Autres poissons séchés et salés', taux: '1%' },
+  { code: 'T1-13', position: '1006.20.00', label: 'Riz décortiqué (riz cargo ou riz brun)', taux: '1%' },
+  { code: 'T1-14', position: '1006.30.00', label: 'Riz semi-blanchi ou blanchi, même poli ou glacé', taux: '1%' },
+  { code: 'T1-15', position: '1006.40.00', label: 'Riz en brisures', taux: '1%' },
+  { code: 'T1-16', position: '1701.91.00', label: 'Sucre de canne ou betteraves, additionnés d\'arômes ou colorants', taux: '1%' },
+  { code: 'T1-17', position: '1701.99.00', label: 'Sucre de canne ou betteraves (autres)', taux: '1%' },
+  { code: 'T1-18', position: '1901.10.00', label: 'Préparations à base de lait pour l\'alimentation des nourrissons et enfants en bas âge', taux: '1%' },
+  { code: 'T1-19', position: '1901.90.90', label: 'Autres préparations de lait (produits n° 04.01 à 04.04), moins de 5% de cacao', taux: '1%' },
+  { code: 'T1-20', position: '04.02', label: 'Lait et crème de lait, concentrés ou additionnés de sucre ou édulcorants', taux: '1%' },
+  { code: 'T1-21', position: '2201.90.10', label: 'Eaux conditionnées pour la table', taux: '1%' },
+  { code: 'T1-22', position: '2501.00.10', label: 'Sel iodé', taux: '1%' },
+  { code: 'T1-23', position: '3401.19.10', label: 'Savons de ménage présentés en barres, pains ou morceaux', taux: '1%' },
+  { code: 'T1-24', position: '3605.00.00', label: 'Allumettes (autres qu\'articles de pyrotechnie)', taux: '1%' },
+  { code: 'T1-25', position: '—', label: 'Matières premières pour la valorisation de l\'industrie locale : cuivre, étain, plomb, aluminium, zinc, sous forme de produit brut', taux: '1%' },
+  { code: 'T1-26', position: '—', label: 'Acquisition de produits agricoles bruts et intrants pour l\'agro-industrie (engrais, équipements agricoles inclus)', taux: '1%' },
+  { code: 'T1-27', position: '—', label: 'Acquisition d\'intrants pour la fabrication locale du ciment', taux: '1%' },
+  { code: 'T1-28', position: '—', label: 'Acquisition de matériaux et services de construction pour les projets publics d\'infrastructures d\'intérêt national', taux: '1%' },
+]
+
+const CATALOGUE_TAUX_5 = [
+  { code: 'T5-01', position: '—', label: 'Billets d\'avion sur le trafic aérien national', taux: '5%' },
 ]
 
 const CATALOGUE_TAUX_0 = [
@@ -625,7 +637,7 @@ function OngletExonerations() {
 // ─────────────────────────────────────────────────────────────────────────────
 function OngletTauxBase() {
   type TypeOp = 'standard' | 'import' | 'occasion' | 'agence' | 'transitaire' | 'T16-03' | 'T16-08' | 'T16-13' | 'EX-01'
-  type Taux = '16' | '8' | '0'
+  type Taux = '16' | '1' | '5' | '0'
 
   const [typeOp, setTypeOp] = useState<TypeOp>('standard')
   const [taux, setTaux] = useState<Taux>('16')
@@ -646,7 +658,7 @@ function OngletTauxBase() {
   const [showCatalogue, setShowCatalogue] = useState(false)
   const [res, setRes] = useState<null | any>(null)
 
-  const tauxNum = taux === '16' ? 0.16 : taux === '8' ? 0.08 : 0
+  const tauxNum = taux === '16' ? 0.16 : taux === '1' ? 0.01 : taux === '5' ? 0.05 : 0
 
   // Opérations disponibles selon le taux sélectionné
   // Formules de calcul extraites du CGI (Art. 27 à 35, Ordonnance-Loi n° 10/001 du 20/08/2010)
@@ -709,13 +721,22 @@ function OngletTauxBase() {
         loi: 'Art. 34 CGI RDC : « la rémunération brute, comprenant la totalité des sommes encaissées, déduction faite de la TVA et des seuls débours afférents au transport lui-même ainsi que de ceux payés à l\'occasion du dédouanement, pourvu que lesdits débours soient justifiés »'
       },
     ],
-    '8': [
+    '1': [
       {
         value: 'standard',
-        label: 'Produit à taux réduit 8% (liste tarifaire — 24 produits de 1ère nécessité + billets avion national)',
+        label: 'Produit à taux réduit 1% (24 produits de 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique)',
         ref: 'Art. 35 al. 2',
-        formule: 'Base HT = Prix de vente HT ou valeur CIF + droits si importation | TVA = Base HT × 8% | TTC = Base HT + TVA | Applicable uniquement aux produits figurant dans la liste tarifaire de l\'Art. 35 (viandes, poissons, riz, sucre, lait, eau, sel, savon, allumettes + billets d\'avion nationaux)',
-        loi: 'Art. 35 al. 2 CGI RDC (modifié LF 21/029 et LF 22/071) : taux réduit 8% applicable à la liste de 24 produits + billets d\'avion sur trafic aérien national'
+        formule: 'Base HT = Prix de vente HT ou valeur CIF + droits si importation | TVA = Base HT × 1% | TTC = Base HT + TVA | Applicable aux produits figurant dans la liste tarifaire de l\'Art. 35 (viandes, poissons, riz, sucre, lait, eau, sel, savon, allumettes) ainsi qu\'aux matières premières industrielles brutes (cuivre, étain, plomb, aluminium, zinc), aux intrants agricoles/agro-industriels, aux intrants du ciment local et aux matériaux/services de construction des projets publics d\'infrastructures',
+        loi: 'Art. 35 CGI RDC modifié par l\'Art. 46 de la LF n° 25/060 du 29/12/2025 (LF 2026), en vigueur depuis le 1er janvier 2026 : l\'ancien taux réduit unique de 8% est supprimé et remplacé par 1% pour ces opérations'
+      },
+    ],
+    '5': [
+      {
+        value: 'standard',
+        label: 'Billets d\'avion sur le trafic aérien national (taux réduit 5%)',
+        ref: 'Art. 35 al. 2',
+        formule: 'Base HT = Prix du billet HT | TVA = Base HT × 5% | TTC = Base HT + TVA | Seul cas visé par le taux de 5% depuis la LF 2026',
+        loi: 'Art. 35 CGI RDC modifié par l\'Art. 46 de la LF n° 25/060 du 29/12/2025 (LF 2026), en vigueur depuis le 1er janvier 2026 : le taux de 5% est réservé au seul cas de la vente de billets d\'avion sur le trafic aérien national'
       },
     ],
     '0': [
@@ -730,9 +751,10 @@ function OngletTauxBase() {
   }
 
   // Catalogue d'opérations imposables par taux (pour affichage déroulant)
-  const CATALOGUE_PAR_TAUX: Record<'16' | '8' | '0', { code: string; label: string; ref?: string }[]> = {
+  const CATALOGUE_PAR_TAUX: Record<Taux, { code: string; label: string; ref?: string }[]> = {
     '16': CATALOGUE_TAUX_16.map(it => ({ code: it.code, label: it.label, ref: '' })),
-    '8':  CATALOGUE_TAUX_8.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
+    '1':  CATALOGUE_TAUX_1.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
+    '5':  CATALOGUE_TAUX_5.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
     '0':  CATALOGUE_TAUX_0.map(it => ({ code: it.code, label: it.label, ref: it.article })),
   }
 
@@ -869,7 +891,8 @@ function OngletTauxBase() {
 
   const TAUX_CONFIG: { v: Taux; label: string; sublabel: string; color: string; activeBg: string; activeTxt: string; borderActive: string; inactiveBg: string; inactiveBorder: string }[] = [
     { v: '16', label: '16%', sublabel: 'Normal',  color: 'text-rose-600',     activeBg: 'bg-rose-600',     activeTxt: 'text-white', borderActive: 'border-rose-600',   inactiveBg: 'bg-rose-50',     inactiveBorder: 'border-rose-200' },
-    { v: '8',  label: '8%',  sublabel: 'Réduit',  color: 'text-orange-600', activeBg: 'bg-orange-500',  activeTxt: 'text-white', borderActive: 'border-orange-500', inactiveBg: 'bg-orange-50', inactiveBorder: 'border-orange-200' },
+    { v: '1',  label: '1%',  sublabel: 'Réduit',  color: 'text-orange-600', activeBg: 'bg-orange-500',  activeTxt: 'text-white', borderActive: 'border-orange-500', inactiveBg: 'bg-orange-50', inactiveBorder: 'border-orange-200' },
+    { v: '5',  label: '5%',  sublabel: 'Réduit',  color: 'text-amber-600',  activeBg: 'bg-amber-500',   activeTxt: 'text-white', borderActive: 'border-amber-500',  inactiveBg: 'bg-amber-50',  inactiveBorder: 'border-amber-200' },
     { v: '0',  label: '0%',  sublabel: 'Export',  color: 'text-blue-600',     activeBg: 'bg-blue-600',     activeTxt: 'text-white', borderActive: 'border-blue-600',   inactiveBg: 'bg-blue-50',     inactiveBorder: 'border-blue-200' },
   ]
 
@@ -879,22 +902,25 @@ function OngletTauxBase() {
         <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l\'opération, y compris subventions et tous frais, impôts, droits et taxes, à l\'<strong>exclusion de la TVA elle-même</strong>.</p>
       </DefinitionBox>
 
-      {/* ── Résumé des 3 taux ── */}
-      <div className="grid grid-cols-3 gap-2">
+      {/* ── Résumé des 4 taux (LF 2026 : ex-8% remplacé par 1%/5%) ── */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {[
           { taux: '16%', sublabel: 'Normal',  couleur: 'rose',   desc: 'Toutes opérations imposables' },
-          { taux: '8%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité' },
+          { taux: '1%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique' },
+          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion — trafic aérien national' },
           { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations — droit à déduction' },
         ].map(t => (
           <div key={t.taux} className={cn(
             'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
             t.couleur === 'rose'   ? 'border-rose-200 bg-rose-50' :
             t.couleur === 'orange' ? 'border-orange-200 bg-orange-50' :
+            t.couleur === 'amber'  ? 'border-amber-200 bg-amber-50' :
                                      'border-blue-200 bg-blue-50'
           )}>
             <p className={cn('text-xl font-bold leading-none',
               t.couleur === 'rose'   ? 'text-rose-600' :
               t.couleur === 'orange' ? 'text-orange-600' :
+              t.couleur === 'amber'  ? 'text-amber-600' :
                                        'text-blue-600'
             )}>{t.taux}</p>
             <p className="text-xs font-semibold text-foreground/70">{t.sublabel}</p>
@@ -1352,7 +1378,8 @@ function OngletTVANette() {
                 <select value={l.taux} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
                   <option value="16">16%</option>
-                  <option value="8">8%</option>
+                  <option value="5">5%</option>
+                  <option value="1">1%</option>
                   <option value="0">0%</option>
                 </select>
                 {lignesCol.length > 1 && <button onClick={() => { setLignesCol(p => p.filter((_, idx) => idx !== i)); setRes(null) }} className="text-red-400 hover:text-red-600"><X className="h-3.5 w-3.5" /></button>}
@@ -1375,7 +1402,8 @@ function OngletTVANette() {
                 <select value={l.taux} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
                   <option value="16">16%</option>
-                  <option value="8">8%</option>
+                  <option value="5">5%</option>
+                  <option value="1">1%</option>
                   <option value="0">0%</option>
                 </select>
                 {lignesDed.length > 1 && <button onClick={() => { setLignesDed(p => p.filter((_, idx) => idx !== i)); setRes(null) }} className="text-red-400 hover:text-red-600"><X className="h-3.5 w-3.5" /></button>}
