@@ -167,7 +167,7 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
             {((dev as any).pdfUrl || (dev as any).pdfData) && (
-              <Button variant="ghost" size="icon" className="h-7 w-7 text-red-500 hover:text-red-600" title="Ouvrir le PDF=" onClick={() => {
+              <Button variant="ghost" size="icon" className="h-7 w-7 text-red-500 hover:text-red-600" title="Ouvrir le PDF" aria-label="Ouvrir le PDF du devoir" onClick={() => {
                 const a = document.createElement('a')
                 a.href = (dev as any).pdfUrl || (dev as any).pdfData
                 a.download = (dev as any).pdfNom || 'devoir.pdf'
@@ -175,8 +175,8 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                 a.click()
               }}><FileDown className="h-3.5 w-3.5" /></Button>
             )}
-            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditDevoir(dev)}><Pencil className="h-3.5 w-3.5" /></Button>
-            <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteDevoirId(dev.id)}><Trash2 className="h-3.5 w-3.5" /></Button>
+            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditDevoir(dev)} aria-label={`Modifier le devoir ${dev.titre}`}><Pencil className="h-3.5 w-3.5" /></Button>
+            <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteDevoirId(dev.id)} aria-label={`Supprimer le devoir ${dev.titre}`}><Trash2 className="h-3.5 w-3.5" /></Button>
           </div>
         </div>
         {inscrits.length === 0 ? (
@@ -1504,11 +1504,11 @@ export default function ProfesseurPage() {
                           </p>
                         </div>
                         <div className="flex gap-1 flex-shrink-0">
-                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEditCours(c)}>
+                          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEditCours(c)} aria-label={`Modifier le cours ${c.nom}`}>
                             <Pencil className="h-3.5 w-3.5" />
                           </Button>
                           {!(c as any).systeme && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => setDeleteCoursId(c.id)}>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => setDeleteCoursId(c.id)} aria-label={`Supprimer le cours ${c.nom}`}>
                               <Trash2 className="h-3.5 w-3.5" />
                             </Button>
                           )}
@@ -1604,10 +1604,10 @@ export default function ProfesseurPage() {
                         <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => openCreateFaculte(u.id)}>
                           <Plus className="h-3 w-3 mr-1" /> Faculté
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditUni(u)}>
+                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditUni(u)} aria-label={`Modifier l'université ${u.nom}`}>
                           <Pencil className="h-3.5 w-3.5" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUniId(u.id)}>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUniId(u.id)} aria-label={`Supprimer l'université ${u.nom}`}>
                           <Trash2 className="h-3.5 w-3.5" />
                         </Button>
                       </div>
@@ -1642,10 +1642,10 @@ export default function ProfesseurPage() {
                                     <Button variant="outline" size="sm" className="h-6 text-xs" onClick={() => openCreateCours(fac.id, u.id)}>
                                       <Plus className="h-3 w-3 mr-1" /> Cours
                                     </Button>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditFaculte(fac)}>
+                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditFaculte(fac)} aria-label={`Modifier la faculté ${fac.nom}`}>
                                       <Pencil className="h-3 w-3" />
                                     </Button>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteFaculteId(fac.id)}>
+                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteFaculteId(fac.id)} aria-label={`Supprimer la faculté ${fac.nom}`}>
                                       <Trash2 className="h-3 w-3" />
                                     </Button>
                                   </div>
@@ -1655,7 +1655,7 @@ export default function ProfesseurPage() {
                                 {facOpen && (
                                   <div className="px-12 pb-2">
                                     {facCours.length === 0 ? (
-                                      <p className="text-xs text-muted-foreground italic py-1">Aucun cours : cliquez sur "+ Cours=".</p>
+                                      <p className="text-xs text-muted-foreground italic py-1">Aucun cours : cliquez sur "+ Cours".</p>
                                     ) : (
                                       <div className="space-y-1">
                                         {facCours.map(c => {
@@ -1669,11 +1669,11 @@ export default function ProfesseurPage() {
                                                 {!c.actif && <Badge variant="secondary" className="text-xs">Inactif</Badge>}
                                               </div>
                                               <div className="flex items-center gap-1">
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditCours(c)}>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditCours(c)} aria-label={`Modifier le cours ${c.nom}`}>
                                                   <Pencil className="h-3 w-3" />
                                                 </Button>
                                                 {!(c as any).systeme && (
-                                                  <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteCoursId(c.id)}>
+                                                  <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteCoursId(c.id)} aria-label={`Supprimer le cours ${c.nom}`}>
                                                     <Trash2 className="h-3 w-3" />
                                                   </Button>
                                                 )}
@@ -1725,7 +1725,7 @@ export default function ProfesseurPage() {
                         </span>
                       </div>
                       {!isProtectedAdmin(u) && (
-                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUserId(u.id)}>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUserId(u.id)} aria-label={`Supprimer ${u.prenom} ${u.nom}`}>
                           <Trash2 className="h-3.5 w-3.5" />
                         </Button>
                       )}
@@ -1784,10 +1784,10 @@ export default function ProfesseurPage() {
                             </td>
                             <td className="px-4 py-2.5">
                               <div className="flex gap-1 justify-end">
-                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditUser(u)}>
+                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditUser(u)} aria-label={`Modifier ${u.prenom} ${u.nom}`}>
                                   <Pencil className="h-3.5 w-3.5" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUserId(u.id)}>
+                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUserId(u.id)} aria-label={`Supprimer ${u.prenom} ${u.nom}`}>
                                   <Trash2 className="h-3.5 w-3.5" />
                                 </Button>
                               </div>
@@ -2458,7 +2458,7 @@ export default function ProfesseurPage() {
                             <p className="text-sm text-foreground/80 mt-2 whitespace-pre-wrap line-clamp-3">{note.contenu}</p>
                           )}
                           {note.pdfUrl && (
-                            <a href={note.pdfUrl} target="_blank" rel="noopener noreferrer="
+                            <a href={note.pdfUrl} target="_blank" rel="noopener noreferrer"
                               className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:underline">
                               <FileDown className="h-3.5 w-3.5" />Voir le PDF
                             </a>
@@ -2468,10 +2468,10 @@ export default function ProfesseurPage() {
                           </p>
                         </div>
                         <div className="flex items-center gap-1 shrink-0">
-                          <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => openEditNote(note)}>
+                          <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => openEditNote(note)} aria-label={`Modifier la note ${note.titre}`}>
                             <Pencil className="h-3.5 w-3.5" />
                           </Button>
-                          <Button size="icon" variant="ghost" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteNoteId(note.id)}>
+                          <Button size="icon" variant="ghost" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteNoteId(note.id)} aria-label={`Supprimer la note ${note.titre}`}>
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         </div>
@@ -2712,8 +2712,8 @@ export default function ProfesseurPage() {
                         <th key={s.id} className="text-center px-2 py-2.5 font-medium text-muted-foreground text-xs whitespace-nowrap">
                           <div>{new Date(s.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}</div>
                           <div className="flex gap-1 justify-center mt-1">
-                            <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => openEditPresence(s)}><Pencil className="h-2.5 w-2.5" /></Button>
-                            <Button size="icon" variant="ghost" className="h-5 w-5 text-destructive" onClick={() => setDeletePresenceId(s.id)}><Trash2 className="h-2.5 w-2.5" /></Button>
+                            <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => openEditPresence(s)} aria-label={`Modifier la séance ${s.titre}`}><Pencil className="h-2.5 w-2.5" /></Button>
+                            <Button size="icon" variant="ghost" className="h-5 w-5 text-destructive" onClick={() => setDeletePresenceId(s.id)} aria-label={`Supprimer la séance ${s.titre}`}><Trash2 className="h-2.5 w-2.5" /></Button>
                           </div>
                         </th>
                       ))}
@@ -3222,7 +3222,7 @@ export default function ProfesseurPage() {
                     <FileText className="h-4 w-4 text-green-600 shrink-0" />
                     <span className="text-sm text-green-700 flex-1 truncate min-w-0">{pdfFile.name}</span>
                     <span className="text-xs text-muted-foreground shrink-0">{(pdfFile.size / 1024 / 1024).toFixed(1)} Mo</span>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive shrink-0" onClick={() => { setPdfFile(null); setDevoirForm(f => ({ ...f, pdfNom: '' })) }}>
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive shrink-0" onClick={() => { setPdfFile(null); setDevoirForm(f => ({ ...f, pdfNom: '' })) }} aria-label="Retirer le fichier PDF">
                       <X className="h-3.5 w-3.5" />
                     </Button>
                   </div>
@@ -3232,7 +3232,7 @@ export default function ProfesseurPage() {
                     <FileText className="h-4 w-4 text-blue-600 shrink-0" />
                     <span className="text-sm text-blue-700 flex-1 truncate min-w-0">{devoirForm.pdfNom}</span>
                     <span className="text-xs text-blue-500">Déjà uploadé</span>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => setDevoirForm(f => ({ ...f, pdfData: '', pdfNom: '' }))}>
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => setDevoirForm(f => ({ ...f, pdfData: '', pdfNom: '' }))} aria-label="Retirer le fichier PDF">
                       <X className="h-3.5 w-3.5" />
                     </Button>
                   </div>

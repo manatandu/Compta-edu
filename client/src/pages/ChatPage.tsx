@@ -213,7 +213,7 @@ export default function ChatPage() {
                     className="flex-1"
                     autoComplete="off"
                   />
-                  <Button size="icon" onClick={sendMessage} disabled={!newMessage.trim()} title="Envoyer (Entrée)">
+                  <Button size="icon" onClick={sendMessage} disabled={!newMessage.trim()} title="Envoyer (Entrée)" aria-label="Envoyer le message">
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>

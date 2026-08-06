@@ -684,12 +684,12 @@ export default function DocumentsPage() {
                                     </Button>
                                   )}
                                   {((doc as any).pdfUrl || (doc as any).pdfData) && doc.contenu && (
-                                    <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => setViewDoc(doc)}>
+                                    <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => setViewDoc(doc)} aria-label={`Aperçu du document ${doc.titre}`}>
                                       <Eye className="h-3 w-3" />
                                     </Button>
                                   )}
                                   {(canCreate || doc.userId === user?.id) && (
-                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteId(doc.id)}>
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteId(doc.id)} aria-label={`Supprimer le document ${doc.titre}`}>
                                       <Trash2 className="h-3 w-3" />
                                     </Button>
                                   )}
@@ -799,7 +799,7 @@ export default function DocumentsPage() {
                     <FileText className="h-4 w-4 text-green-600 shrink-0" />
                     <span className="text-sm text-green-700 flex-1 truncate">{docFile.name}</span>
                     <span className="text-xs text-muted-foreground">{(docFile.size/1024/1024).toFixed(1)} Mo</span>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => { setDocFile(null); setForm(f => ({ ...f, pdfNom: '' })) }}>
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => { setDocFile(null); setForm(f => ({ ...f, pdfNom: '' })) }} aria-label="Retirer le fichier PDF">
                       <X className="h-3.5 w-3.5" />
                     </Button>
                   </div>
