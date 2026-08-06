@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Orbit">
+  <defs>
+    <linearGradient id="orbitRingGrad" x1="20%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#8FB4FF"/>
+      <stop offset="55%" stop-color="#3D7DF2"/>
+      <stop offset="100%" stop-color="#15296B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- masse pleine : anneau planétaire épais -->
+  <path d="M 100 18 A 82 82 0 1 1 34 145"
+        fill="none" stroke="url(#orbitRingGrad)" stroke-width="34" stroke-linecap="round"/>
+
+  <!-- gravures circuit sur l'anneau -->
+  <path d="M 105 26 A 74 74 0 0 1 155 62" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.55"/>
+  <path d="M 165 82 A 74 74 0 0 1 160 122" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.5"/>
+  <path d="M 148 140 A 74 74 0 0 1 118 160" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.45"/>
+
+  <!-- noyau -->
+  <circle cx="146" cy="46" r="15" fill="url(#orbitRingGrad)"/>
+
+  <!-- transition : la trajectoire se prolonge en traits fins -->
+  <g stroke="#3D7DF2" stroke-width="1.4" opacity="0.75">
+    <line x1="34" y1="145" x2="18" y2="118"/>
+    <line x1="34" y1="145" x2="16" y2="158"/>
+    <line x1="18" y1="118" x2="30" y2="90"/>
+    <line x1="18" y1="118" x2="8" y2="132"/>
+    <line x1="30" y1="90" x2="26" y2="62"/>
+  </g>
+
+  <!-- nœuds / constellation -->
+  <circle cx="34" cy="145" r="7" fill="#7FA8FF"/>
+  <circle cx="18" cy="118" r="9" fill="#3D7DF2"/>
+  <circle cx="16" cy="158" r="4" fill="#5C8FF0"/>
+  <circle cx="30" cy="90" r="5.5" fill="#5C8FF0"/>
+  <circle cx="8" cy="132" r="3.5" fill="#8FB4FF"/>
+  <circle cx="26" cy="62" r="4.5" fill="#8FB4FF"/>
+</svg>

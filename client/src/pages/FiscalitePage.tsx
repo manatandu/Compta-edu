@@ -5492,7 +5492,7 @@ export default function FiscalitePage() {
 
         {/* Note légale */}
         <p className="text-center text-xs text-muted-foreground mt-4 px-4">
-          Simulateurs pédagogiques : CAMPUS OHADA | Référence : Loi 23/052 + Loi 23/053 du 30 nov. 2023 (J.O. RDC) | Loi de Finances 2025 | Loi de Finances 2026
+          Simulateurs pédagogiques : ORBIT | Référence : Loi 23/052 + Loi 23/053 du 30 nov. 2023 (J.O. RDC) | Loi de Finances 2025 | Loi de Finances 2026
         </p>
       </div>
     </div>

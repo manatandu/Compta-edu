@@ -479,7 +479,7 @@ export default function DashboardPage() {
             <div className="relative h-16 w-16 shrink-0">
               <div className="absolute inset-0 rounded-2xl bg-secondary/30 animate-pulseGlow" />
               <div className="relative h-16 w-16 rounded-2xl overflow-hidden bg-white/10 ring-2 ring-white/25 flex items-center justify-center backdrop-blur-sm">
-                <img src="/assets/campus-ohada-logo.svg" alt="Campus OHADA" className="h-13 w-13 animate-float" style={{ animationDelay: '0.5s' }} />
+                <img src="/assets/orbit-mark.svg" alt="Orbit" className="h-11 w-11 animate-float" style={{ animationDelay: '0.5s' }} />
               </div>
             </div>
 
@@ -976,7 +976,7 @@ export default function DashboardPage() {
                       doc.setTextColor(255, 255, 255)
                       doc.setFontSize(18)
                       doc.setFont('helvetica', 'bold')
-                      doc.text('CAMPUS OHADA', pageW / 2, 14, { align: 'center' })
+                      doc.text('ORBIT', pageW / 2, 14, { align: 'center' })
                       doc.setFontSize(11)
                       doc.setFont('helvetica', 'normal')
                       doc.text('SYSCOHADA Révisé — Bulletin de Notes', pageW / 2, 22, { align: 'center' })
@@ -1050,7 +1050,7 @@ export default function DashboardPage() {
                       // Pied de page
                       const pgH = doc.internal.pageSize.getHeight()
                       doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(150)
-                      doc.text('CAMPUS OHADA © ' + new Date().getFullYear() + ' — Propriété de Manassé TANDU', pageW / 2, pgH - 8, { align: 'center' })
+                      doc.text('ORBIT © ' + new Date().getFullYear() + ' — Propriété de Manassé TANDU', pageW / 2, pgH - 8, { align: 'center' })
                       doc.save(`bulletin_${(user?.nom || 'etudiant').toLowerCase().replace(/\s+/g, '_')}_${new Date().getFullYear()}.pdf`)
                     })
                   })
@@ -1269,7 +1269,7 @@ export default function DashboardPage() {
         <div className="h-px flex-1 bg-border" />
         <div className="flex flex-col items-center px-3">
           <p className="text-xs text-muted-foreground">
-            CAMPUS OHADA © {new Date().getFullYear()} : SYSCOHADA Révisé
+            Orbit © {new Date().getFullYear()} : SYSCOHADA Révisé
           </p>
           <p className="text-xs text-muted-foreground/60 mt-0.5">
             Propriété de Manassé TANDU

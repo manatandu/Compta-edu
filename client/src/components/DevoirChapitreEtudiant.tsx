@@ -64,7 +64,7 @@ async function evaluerCasGemini(
   cas: CasPratique,
   reponseEtudiant: string
 ): Promise<GeminiEval | null> {
-  const prompt = `Tu es un correcteur pédagogique en comptabilité OHADA (SYSCOHADA révisé) pour le logiciel CAMPUS OHADA.
+  const prompt = `Tu es un correcteur pédagogique en comptabilité OHADA (SYSCOHADA révisé) pour le logiciel ORBIT.
 
 Évalue la réponse d'un étudiant pour le cas pratique suivant.
 

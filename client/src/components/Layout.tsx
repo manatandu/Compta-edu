@@ -206,18 +206,18 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
       {/* En-tête — bloc identité façon registre académique */}
       <div className="px-4 pt-5 pb-4 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-sm border border-secondary/70 flex items-center justify-center flex-shrink-0 overflow-hidden bg-white/5">
+          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
             <img
-              src="./assets/campus-ohada-logo.jpeg"
-              alt="CAMPUS OHADA"
-              className="w-full h-full object-cover"
+              src="./assets/orbit-mark.svg"
+              alt="Orbit"
+              className="w-full h-full object-contain"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none'
               }}
             />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="font-display font-semibold text-white text-[15px] leading-tight tracking-tight">Campus OHADA</p>
+            <p className="font-display font-semibold text-white text-[15px] leading-tight tracking-tight">Orbit</p>
             <p className="text-[10px] text-ink-faint uppercase tracking-widest">Système académique</p>
           </div>
           {/* Bouton fermer sidebar sur mobile */}
@@ -500,17 +500,17 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
             <Menu className="h-5 w-5" />
           </Button>
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center shrink-0">
               <img
-                src="./assets/campus-ohada-logo.jpeg"
-                alt="CAMPUS OHADA"
-                className="w-full h-full object-cover"
+                src="./assets/orbit-mark.svg"
+                alt="Orbit"
+                className="w-full h-full object-contain"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none'
                 }}
               />
             </div>
-            <span className="font-bold text-primary text-sm truncate">CAMPUS OHADA</span>
+            <span className="font-display font-bold text-primary text-sm truncate">Orbit</span>
           </div>
           <div className="flex gap-1 shrink-0 items-center">
             {isAdmin && <NotificationBell user={user} />}
