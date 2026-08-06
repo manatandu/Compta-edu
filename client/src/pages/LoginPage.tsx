@@ -4,7 +4,10 @@ import { loginAsync, createUserAsync } from '@/lib/db-firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { AlertCircle, BookOpen, GraduationCap, BarChart2, Sparkles, Eye, EyeOff, KeyRound, UserPlus } from 'lucide-react'
+import {
+  AlertCircle, BookOpen, GraduationCap, Sparkles, Eye, EyeOff, KeyRound, UserPlus,
+  Calculator, Heart, Scale, Landmark, Globe, Receipt, ClipboardList, ClipboardCheck,
+} from 'lucide-react'
 import { getFirestore, doc, getDoc, getDocs, collection } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 
@@ -154,12 +157,29 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const show = 'opacity-100 translate-y-0'
   const hide = 'opacity-0 translate-y-6'
 
+  // Modules réellement couverts par Orbit (panneau gauche + résumé mobile)
+  const modules = [
+    { icon: Calculator, label: 'Comptabilité générale' },
+    { icon: Heart,       label: 'SYCEBNL' },
+    { icon: Scale,       label: 'Droit des sociétés' },
+    { icon: Landmark,    label: 'Finances publiques' },
+    { icon: Globe,       label: 'IFRS' },
+    { icon: Receipt,     label: 'Fiscalité' },
+  ]
+  // Parcours étudiant en 4 étapes
+  const journey = [
+    { icon: BookOpen,        label: 'Cours' },
+    { icon: GraduationCap,   label: 'Exercices' },
+    { icon: ClipboardList,   label: 'Devoirs' },
+    { icon: ClipboardCheck,  label: 'Présences' },
+  ]
+
   return (
     <div className="min-h-screen bg-background flex overflow-hidden relative">
 
       {/* ── Panneau gauche décoratif (desktop) ────────────────────────────── */}
       <div className={`hidden lg:flex flex-col justify-between w-[420px] shrink-0 relative overflow-hidden
-        bg-gradient-to-br from-[#5A4FF0] via-[#4338CA] to-[#241F6E]
+        bg-gradient-to-br from-[#2E6FD9] via-[#1E4FAE] to-[#0F2E6E]
         ${base} ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
         style={{ transitionDuration: '600ms' }}
       >
@@ -198,34 +218,48 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <span className="text-secondary">écriture après écriture.</span>
             </h2>
             <p className="text-white/70 mt-3 text-sm leading-relaxed">
-              Journal, grand livre, bilan et cas pratiques corrigés — le même référentiel que vos examens, en ligne.
+              Journal, grand livre, bilan et cas pratiques corrigés : le même référentiel que vos examens, en ligne.
             </p>
           </div>
         </div>
 
-        {/* Feature pills */}
-        <div className="relative z-10 p-10 space-y-3">
-          {[
-            { icon: BookOpen,      label: 'Journal comptable & Grand Livre',   delay: '450ms' },
-            { icon: BarChart2,     label: 'Balance, Bilan & États financiers', delay: '550ms' },
-            { icon: GraduationCap, label: 'Exercices pédagogiques corrigés',   delay: '650ms' },
-          ].map(f => {
-            const Icon = f.icon
-            return (
-              <div
-                key={f.label}
-                className={`flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 border border-white/10 backdrop-blur-sm ${base} ${mounted ? show : hide}`}
-                style={{ transitionDelay: f.delay }}
-              >
-                <div className="h-8 w-8 rounded-lg bg-secondary/20 flex items-center justify-center shrink-0">
-                  <Icon className="h-4 w-4 text-secondary" />
+        {/* Modules couverts + parcours étudiant */}
+        <div className="relative z-10 px-10 pb-6 space-y-6">
+          <div className={`${base} ${mounted ? show : hide}`} style={{ transitionDelay: '450ms' }}>
+            <p className="text-[10px] font-mono uppercase tracking-widest text-white/55 mb-2.5">Ce que couvre Orbit</p>
+            <div className="flex flex-wrap gap-1.5">
+              {modules.map((m, i) => (
+                <span
+                  key={m.label}
+                  className={`flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-2.5 py-1.5 text-xs font-medium text-white/85 ${base} ${mounted ? show : hide}`}
+                  style={{ transitionDelay: `${480 + i * 50}ms` }}
+                >
+                  <m.icon className="h-3 w-3 text-secondary shrink-0" />
+                  {m.label}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className={`${base} ${mounted ? show : hide}`} style={{ transitionDelay: '750ms' }}>
+            <p className="text-[10px] font-mono uppercase tracking-widest text-white/55 mb-3">Le parcours étudiant</p>
+            <div className="flex items-start">
+              {journey.map((j, i) => (
+                <div key={j.label} className="flex-1 flex flex-col items-center relative">
+                  {i < journey.length - 1 && (
+                    <div className="absolute top-4 left-1/2 w-full h-px bg-white/20" />
+                  )}
+                  <div className={`relative h-8 w-8 rounded-full flex items-center justify-center mb-1.5 border ${i === 0 ? 'bg-secondary border-secondary' : 'bg-white/10 border-white/25'}`}>
+                    <j.icon className={`h-3.5 w-3.5 ${i === 0 ? 'text-[#241C0C]' : 'text-white/80'}`} />
+                  </div>
+                  <span className="text-[10.5px] text-white/75 font-medium text-center leading-tight">{j.label}</span>
                 </div>
-                <span className="text-sm text-white/85 font-medium">{f.label}</span>
-              </div>
-            )
-          })}
-          <p className="text-white/50 text-xs pt-2 flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-secondary" />
+              ))}
+            </div>
+          </div>
+
+          <p className="text-white/50 text-xs pt-2 border-t border-white/15 flex items-center gap-1.5">
+            <Sparkles className="h-3 w-3 text-secondary shrink-0" />
             Orbit © {new Date().getFullYear()}
           </p>
         </div>
@@ -254,6 +288,29 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           </div>
           <h1 className="font-display text-2xl font-bold text-primary">Orbit</h1>
           <p className="text-muted-foreground text-sm mt-0.5">Comptabilité SYSCOHADA Révisé</p>
+        </div>
+
+        {/* Modules + parcours : résumé compact, mobile uniquement */}
+        <div className={`lg:hidden w-full max-w-sm mb-6 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '170ms' }}>
+          <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1">
+            {modules.map(m => (
+              <span
+                key={m.label}
+                className="flex items-center gap-1.5 rounded-full bg-primary/8 border border-primary/15 px-2.5 py-1.5 text-xs font-medium text-foreground/80 shrink-0 whitespace-nowrap"
+              >
+                <m.icon className="h-3 w-3 text-primary shrink-0" />
+                {m.label}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center justify-center gap-1.5 mt-3 text-[11px] text-muted-foreground font-medium">
+            {journey.map((j, i) => (
+              <React.Fragment key={j.label}>
+                <span className="flex items-center gap-1"><j.icon className="h-3 w-3 text-primary" />{j.label}</span>
+                {i < journey.length - 1 && <span className="text-muted-foreground/40">›</span>}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
 
         {/* Card formulaire */}
