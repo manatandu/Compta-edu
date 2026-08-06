@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
-import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, GraduationCap } from 'lucide-react'
+import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { isStudentRole } from '@/lib/permissions'
@@ -38,11 +38,13 @@ const QCM_CHAPITRE: QCMChapitre[] = [
     id: 'q1', question: 'Quelle loi constitue actuellement le Code du travail congolais ?',
     options: [
       { id: 'a', texte: 'La loi n°015/2002 du 16 octobre 2002, modifiée par la loi n°16/010 du 15 juillet 2016' },
-      { id: 'b', texte: 'La loi n°16/010 du 15 juillet 2016, seule' },
-      { id: 'c', texte: 'Le décret du 27 février 1887 sur le travail' },
+      { id: 'b', texte: 'La loi n°16/010 du 15 juillet 2016, seule, qui a abrogé la loi de 2002' },
+      { id: 'c', texte: 'Le décret du 27 février 1887 sur le travail, toujours en vigueur en parallèle' },
+      { id: 'd', texte: 'La loi n°015/2002 du 16 octobre 2002, dans sa version originale non modifiée' },
+      { id: 'e', texte: "L'ordonnance-loi n°67/310 du 9 août 1967 portant Code du travail" },
     ],
     reponseCorrecte: 'a', articleRef: 'Introduction',
-    explication: "Le Code du travail actuellement en vigueur est la loi n°015/2002 du 16 octobre 2002, telle que modifiée et complétée par la loi n°16/010 du 15 juillet 2016.",
+    explication: "Le Code du travail actuellement en vigueur est la loi n°015/2002 du 16 octobre 2002, telle que modifiée et complétée par la loi n°16/010 du 15 juillet 2016. La loi de 2016 modifie le texte de 2002, elle ne l'abroge pas ; le texte de 2002 seul, sans ses modifications, ne reflète donc plus le droit actuel.",
   },
   {
     id: 'q2', question: 'Combien de titres et d\'articles compte le Code du travail ?',
@@ -50,9 +52,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'Dix titres, deux cents articles' },
       { id: 'b', texte: 'Seize titres, trois cent trente-quatre articles' },
       { id: 'c', texte: 'Vingt titres, quatre cents articles' },
+      { id: 'd', texte: 'Seize titres, deux cent trente-quatre articles' },
+      { id: 'e', texte: 'Treize titres, trois cent trente-quatre articles' },
     ],
     reponseCorrecte: 'b', articleRef: '1.1',
-    explication: 'Le Code compte seize titres et trois cent trente-quatre articles.',
+    explication: 'Le Code compte seize titres et trois cent trente-quatre articles. Les distracteurs proches (deux cent trente-quatre, treize titres) visent à vérifier une mémorisation précise, non approximative.',
   },
   {
     id: 'q3', question: 'Comment se nomme le principe selon lequel une norme inférieure ne peut prévoir une protection moindre que la loi ?',
@@ -60,9 +64,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'Le principe de faveur' },
       { id: 'b', texte: 'Le principe de proportionnalité' },
       { id: 'c', texte: 'Le principe de spécialité' },
+      { id: 'd', texte: "Le principe de l'autonomie de la volonté" },
+      { id: 'e', texte: 'Le principe de la hiérarchie des normes, seul et suffisant à lui expliquer ce mécanisme' },
     ],
     reponseCorrecte: 'a', articleRef: '1.1',
-    explication: 'Le principe de faveur signifie que la loi fixe un plancher de protection : le contrat, le règlement intérieur ou la convention collective ne peuvent y déroger que favorablement au travailleur.',
+    explication: "Le principe de faveur signifie que la loi fixe un plancher de protection : le contrat, le règlement intérieur ou la convention collective ne peuvent y déroger que favorablement au travailleur. La hiérarchie des normes (option e) est le cadre général dans lequel s'inscrit le principe de faveur, mais elle ne rend pas compte, à elle seule, de la règle spécifique qui autorise une dérogation seulement favorable : une norme inférieure ordinaire ne peut pas déroger du tout à une norme supérieure, alors qu'en droit du travail, elle le peut favorablement.",
   },
   {
     id: 'q4', question: 'Quel âge le Code fixe-t-il, en principe, pour la capacité de contracter un contrat de travail ?',
@@ -70,9 +76,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'Seize ans révolus' },
       { id: 'b', texte: 'Dix-huit ans révolus' },
       { id: 'c', texte: 'Vingt et un ans révolus' },
+      { id: 'd', texte: 'Quinze ans révolus, âge de la dérogation devenu le principe' },
+      { id: 'e', texte: "Dix-huit ans révolus, sauf autorisation parentale écrite qui abaisse ce seuil à seize ans" },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 6',
-    explication: "L'article 6 fixe l'âge minimum de capacité à contracter à dix-huit ans révolus, avec une dérogation strictement encadrée dès quinze ans.",
+    explication: "L'article 6 fixe l'âge minimum de capacité à contracter à dix-huit ans révolus, avec une dérogation strictement encadrée dès quinze ans, non par simple autorisation parentale mais par une procédure à trois conditions cumulatives (option e, piège classique confondant l'accord des parents avec l'autorisation légale).",
   },
   {
     id: 'q5', question: 'Lequel de ces travailleurs relève du Code du travail ?',
@@ -80,9 +88,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Un agent de carrière de la fonction publique" },
       { id: 'b', texte: 'Un magistrat' },
       { id: 'c', texte: 'Un salarié de droit privé, quelle que soit sa fonction' },
+      { id: 'd', texte: 'Un membre de la Police nationale congolaise' },
+      { id: 'e', texte: 'Un assesseur du tribunal du travail' },
     ],
     reponseCorrecte: 'c', articleRef: 'Art. 1er',
-    explication: "L'article 1er exclut les magistrats, juges consulaires et assesseurs, agents de carrière de la fonction publique et membres des FARDC/PNC. Tout autre salarié de droit privé relève du Code.",
+    explication: "L'article 1er exclut les magistrats, juges consulaires et assesseurs, agents de carrière de la fonction publique et membres des FARDC/PNC. Tout autre salarié de droit privé relève du Code, quelle que soit sa fonction dans l'entreprise.",
   },
   {
     id: 'q6', question: 'Qui doit autoriser l\'engagement d\'un mineur de quinze ans ?',
@@ -90,9 +100,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'Le maire de la commune, sur simple demande des parents' },
       { id: 'b', texte: 'Le Président du Tribunal de paix du ressort, sur avis conforme d\'un examen psycho-médical et après avis de l\'inspecteur du travail' },
       { id: 'c', texte: "L'inspecteur du travail seul, sans autre formalité" },
+      { id: 'd', texte: 'Le tuteur légal du mineur, avec confirmation du médecin de famille' },
+      { id: 'e', texte: 'Le Président du Tribunal de paix seul, sans avis médical ni avis de l\'inspecteur du travail' },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 6',
-    explication: "L'autorisation relève du Président du Tribunal de paix du ressort, délivrée sur avis conforme d'un examen psycho-médical et après avis de l'inspecteur du travail.",
+    explication: "L'autorisation relève du Président du Tribunal de paix du ressort, délivrée sur avis conforme d'un examen psycho-médical et après avis de l'inspecteur du travail : les trois conditions sont cumulatives. L'option e isole correctement l'autorité compétente mais omet les deux avis requis, ce qui la rend incomplète et donc fausse.",
   },
   {
     id: 'q7', question: 'Quels sont les trois éléments mis en avant par la définition légale du contrat de travail ?',
@@ -100,9 +112,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'La rémunération, la durée, le lieu de travail' },
       { id: 'b', texte: 'La prestation, la subordination, la rémunération' },
       { id: 'c', texte: "L'ancienneté, la qualification, le grade" },
+      { id: 'd', texte: 'La subordination, la durée, le lieu de travail' },
+      { id: 'e', texte: 'La prestation, la rémunération, la durée déterminée du contrat' },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 7, point 3',
-    explication: 'Le contrat de travail se définit par une prestation fournie sous la subordination de l\'employeur, moyennant rémunération.',
+    explication: "Le contrat de travail se définit par une prestation fournie sous la subordination de l'employeur, moyennant rémunération. La durée n'entre pas dans cette définition : un CDI comme un CDD sont l'un et l'autre des contrats de travail, la durée déterminée n'étant qu'une modalité, non un élément constitutif.",
   },
   {
     id: 'q8', question: "L'indemnité de logement entre-t-elle dans la rémunération au sens de l'article 7 ?",
@@ -110,9 +124,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Oui, systématiquement" },
       { id: 'b', texte: 'Non, elle en est expressément exclue' },
       { id: 'c', texte: "Oui, mais seulement pour les cadres" },
+      { id: 'd', texte: "Non, mais uniquement lorsqu'elle dépasse un certain montant" },
+      { id: 'e', texte: "Oui, dès lors qu'elle est versée en espèces plutôt qu'en nature" },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 7, point 8',
-    explication: "L'indemnité de logement est expressément exclue de la rémunération, au même titre que les soins de santé, les allocations familiales légales, l'indemnité de transport et les frais de voyage.",
+    explication: "L'indemnité de logement est expressément exclue de la rémunération, sans condition de montant ni de mode de versement, au même titre que les soins de santé, les allocations familiales légales, l'indemnité de transport et les frais de voyage.",
   },
   {
     id: 'q9', question: "Quelle convention de l'OIT porte sur l'âge minimum d'admission à l'emploi, et quand la RDC l'a-t-elle ratifiée ?",
@@ -120,9 +136,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'La convention n°182, ratifiée en 1999' },
       { id: 'b', texte: 'La convention n°138, ratifiée en 2001' },
       { id: 'c', texte: 'La convention n°190, ratifiée en 2020' },
+      { id: 'd', texte: 'La convention n°138, ratifiée en 1999, année de son adoption par l\'OIT' },
+      { id: 'e', texte: 'La convention n°182, ratifiée en 2001' },
     ],
     reponseCorrecte: 'b', articleRef: '1.2 / 1.6',
-    explication: "La convention n°138 de l'OIT porte sur l'âge minimum d'admission à l'emploi ; la RDC l'a ratifiée en 2001, en même temps que la convention n°182 sur les pires formes de travail des enfants.",
+    explication: "La convention n°138 de l'OIT porte sur l'âge minimum d'admission à l'emploi ; la RDC l'a ratifiée en 2001, en même temps que la convention n°182 sur les pires formes de travail des enfants. L'option d confond l'année d'adoption de la convention n°182 par l'OIT (1999) avec l'année de ratification par la RDC (2001) : ce sont deux dates distinctes, à ne pas mélanger.",
   },
   {
     id: 'q10', question: "Qu'est-ce qui distingue fondamentalement un contrat de travail d'un contrat d'entreprise ?",
@@ -130,9 +148,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Le montant de la rémunération versée" },
       { id: 'b', texte: 'Le lien de subordination à l\'employeur' },
       { id: 'c', texte: 'La durée de la relation contractuelle' },
+      { id: 'd', texte: "L'existence d'un contrat écrit" },
+      { id: 'e', texte: 'Le nombre de clients ou de donneurs d\'ordre du prestataire' },
     ],
     reponseCorrecte: 'b', articleRef: '1.5',
-    explication: "C'est le lien de subordination, et non le montant ou la durée, qui distingue le contrat de travail du contrat d'entreprise, dans lequel le prestataire choisit librement ses moyens.",
+    explication: "C'est le lien de subordination, et non le montant, la durée, l'existence d'un écrit ou le nombre de donneurs d'ordre, qui distingue le contrat de travail du contrat d'entreprise. Un prestataire peut n'avoir qu'un seul client sans pour autant être subordonné, s'il conserve la maîtrise de ses méthodes.",
   },
   {
     id: 'q11', question: 'Comment l\'article 7 définit-il le "temps de services" ?',
@@ -140,9 +160,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "La durée totale de la carrière professionnelle du travailleur, tous employeurs confondus" },
       { id: 'b', texte: "La durée pendant laquelle le travailleur a été occupé de manière effective ou assimilée au service d'un même employeur" },
       { id: 'c', texte: "Le nombre d'heures travaillées sur une semaine donnée" },
+      { id: 'd', texte: "La durée du préavis restant à courir avant la fin du contrat" },
+      { id: 'e', texte: "La durée d'occupation effective ou assimilée, incluant les interruptions dues au fait du travailleur lui-même" },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 7, point 10',
-    explication: "Le temps de services correspond à la durée d'occupation effective ou assimilée au service d'un même employeur, quelles qu'aient été les interruptions dues au fait de cet employeur.",
+    explication: "Le temps de services correspond à la durée d'occupation effective ou assimilée au service d'un même employeur, quelles qu'aient été les interruptions dues au fait de cet employeur. L'option e inverse un point précis de la définition : ce sont les interruptions dues au fait de l'employeur qui sont assimilées à du temps de services, non celles dues au fait du travailleur.",
   },
   {
     id: 'q12', question: 'Une gratification versée chaque année avec une régularité constante peut-elle être requalifiée en élément de rémunération soumis à cotisation ?',
@@ -150,9 +172,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: 'Non, une gratification reste toujours un acte libéral, quelle que soit sa régularité' },
       { id: 'b', texte: "Oui : une régularité prévisible tend à faire perdre son caractère libéral à la gratification" },
       { id: 'c', texte: 'Non, sauf disposition contraire du contrat' },
+      { id: 'd', texte: "Oui, mais uniquement si son montant dépasse un mois de salaire" },
+      { id: 'e', texte: "Non, l'article 7 exclut expressément et sans exception toute gratification de la rémunération" },
     ],
     reponseCorrecte: 'b', articleRef: '1.4',
-    explication: "Une gratification versée avec une régularité telle qu'elle en devient prévisible tend, en pratique, à être requalifiée en élément de rémunération soumis aux cotisations sociales.",
+    explication: "Une gratification versée avec une régularité telle qu'elle en devient prévisible tend, en pratique, à être requalifiée en élément de rémunération soumis aux cotisations sociales. L'option e inverse la règle : l'article 7 inclut au contraire les gratifications dans la rémunération, ce n'est que leur caractère éventuellement libéral et imprévisible qui peut, en pratique, en écarter certaines occurrences isolées.",
   },
   {
     id: 'q13', question: "Un juge consulaire d'un tribunal de commerce est-il un travailleur au sens du Code du travail ?",
@@ -160,9 +184,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Oui, dès lors qu'il perçoit une indemnité" },
       { id: 'b', texte: "Non, il exerce une fonction juridictionnelle, étrangère par nature au salariat" },
       { id: 'c', texte: 'Oui, s\'il siège plus de trois fois par an' },
+      { id: 'd', texte: "Non, mais uniquement s'il siège bénévolement, sans aucune indemnité" },
+      { id: 'e', texte: "Cela dépend de la juridiction commerciale concernée" },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 1er / 1.3',
-    explication: "Le juge consulaire, comme l'assesseur des tribunaux du travail, n'est pas salarié de la juridiction auprès de laquelle il siège : il exerce une fonction juridictionnelle bénévole ou indemnisée, exclue du champ du Code par l'article 1er.",
+    explication: "Le juge consulaire n'est pas salarié de la juridiction auprès de laquelle il siège : il exerce une fonction juridictionnelle, bénévole ou indemnisée, exclue du champ du Code par l'article 1er. L'exclusion ne dépend donc ni du versement d'une indemnité (option d, piège), ni de la fréquence des séances (option c), ni de la juridiction précise (option e) : elle tient à la nature même de la fonction.",
   },
   {
     id: 'q14', question: 'Une société qualifie un livreur de « prestataire indépendant » mais lui impose ses horaires et ses méthodes de travail. Cette qualification contractuelle empêche-t-elle une requalification en contrat de travail ?',
@@ -170,9 +196,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Oui, la qualification donnée par les parties au contrat lie le juge" },
       { id: 'b', texte: "Non : si les faits révèlent une subordination réelle, la relation est requalifiée quelle que soit l'étiquette contractuelle" },
       { id: 'c', texte: "Cela dépend uniquement du montant facturé chaque mois" },
+      { id: 'd', texte: "Oui, sauf si le livreur en fait expressément la demande devant le tribunal du travail" },
+      { id: 'e', texte: "Non, mais seulement si un écrit contredit expressément la qualification de prestataire indépendant" },
     ],
     reponseCorrecte: 'b', articleRef: '1.5',
-    explication: "La qualification donnée par les parties ne lie pas le juge : c'est le faisceau d'indices concrets, direction, surveillance, organisation imposée, exclusivité, sanction, qui détermine la nature réelle de la relation.",
+    explication: "La qualification donnée par les parties ne lie pas le juge : c'est le faisceau d'indices concrets, direction, surveillance, organisation imposée, exclusivité, sanction, qui détermine la nature réelle de la relation. Aucun écrit contradictoire n'est requis (option e) : la requalification s'opère au vu des faits, même en présence d'un contrat qui affirme le contraire.",
   },
   {
     id: 'q15', question: "Entre seize et dix-huit ans, quels travaux un mineur peut-il légalement exercer ?",
@@ -180,9 +208,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Tout travail, dès lors que ses parents y consentent par écrit" },
       { id: 'b', texte: "Uniquement des travaux légers déterminés par arrêté ministériel, à l'exclusion de tout travail dangereux ou de nuit" },
       { id: 'c', texte: "Tout travail rémunéré au moins au SMIG" },
+      { id: 'd', texte: "Des travaux légers, y compris de nuit si l'employeur assure un encadrement renforcé" },
+      { id: 'e', texte: "Les mêmes travaux qu'un adulte, la limitation aux travaux légers ne s'appliquant qu'avant seize ans" },
     ],
     reponseCorrecte: 'b', articleRef: 'Art. 6',
-    explication: "Entre seize et dix-huit ans, seuls des travaux légers déterminés par arrêté du ministre ayant le Travail dans ses attributions sont autorisés. Le travail dangereux ou de nuit demeure exclu, quel que soit le consentement parental.",
+    explication: "Entre seize et dix-huit ans, seuls des travaux légers déterminés par arrêté ministériel sont autorisés, à l'exclusion de tout travail dangereux ou de nuit, sans exception même en cas d'encadrement renforcé (option d, piège). La limitation ne disparaît pas à seize ans (option e) : elle s'assouplit, elle ne s'efface pas.",
   },
   {
     id: 'q16', question: "Les travailleurs domestiques, chauffeurs et femmes de ménage employés par des particuliers sont-ils actuellement exclus du champ d'application du Code ?",
@@ -190,9 +220,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Oui, ils relèvent d'un statut spécifique depuis 2020" },
       { id: 'b', texte: "Non, ils ne figurent pas parmi les catégories exclues par l'article 1er et relèvent donc, en droit positif, du Code commun" },
       { id: 'c', texte: "Oui, depuis l'adoption de la proposition de loi de mai 2026" },
+      { id: 'd', texte: "Non, mais seulement s'ils ont signé un contrat écrit avec leur employeur particulier" },
+      { id: 'e', texte: "Le Code est muet sur leur situation, qui relève d'un vide juridique total" },
     ],
     reponseCorrecte: 'b', articleRef: '1.3',
-    explication: "Les travailleurs domestiques relèvent en droit positif du Code du travail commun, faute d'exclusion expresse. La proposition de loi de mai 2026 n'est, à ce stade, qu'une initiative législative, non un texte en vigueur.",
+    explication: "Les travailleurs domestiques relèvent en droit positif du Code du travail commun, faute d'exclusion expresse, que la relation soit ou non formalisée par un écrit (option d, piège : l'absence d'écrit n'exclut pas l'existence du contrat de travail, voir 1.4). La proposition de loi de mai 2026 n'est, à ce stade, qu'une initiative législative, non un texte en vigueur.",
   },
   {
     id: 'q17', question: "Quelle est la portée juridique actuelle de la proposition de loi Kangila Kawele sur les travailleurs domestiques ?",
@@ -200,9 +232,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Elle est en vigueur depuis son dépôt le 15 mai 2026" },
       { id: 'b', texte: "Elle n'a aucune portée normative tant qu'elle n'a pas été adoptée : c'est une initiative législative, à distinguer du droit positif" },
       { id: 'c', texte: "Elle modifie immédiatement l'article 1er du Code" },
+      { id: 'd', texte: "Elle est déjà appliquée par les juridictions du travail à titre de droit souple" },
+      { id: 'e', texte: "Elle abroge, dès son dépôt, les dispositions contraires du droit positif" },
     ],
     reponseCorrecte: 'b', articleRef: '1.3',
-    explication: "Une proposition de loi déposée ne produit aucun effet de droit tant qu'elle n'a pas été adoptée selon la procédure législative. Elle doit être présentée comme une actualité, non comme une règle applicable.",
+    explication: "Une proposition de loi déposée ne produit aucun effet de droit tant qu'elle n'a pas été adoptée selon la procédure législative complète. Aucune des options a, c, d, e ne décrit correctement ce stade : le dépôt n'emporte ni entrée en vigueur, ni modification, ni application anticipée, ni abrogation.",
   },
   {
     id: 'q18', question: "Un cadre supérieur négocie individuellement chaque clause de son contrat avec son employeur. Cela suffit-il à réfuter la thèse du contrat de travail comme contrat d'adhésion telle que la présente Kapuku ?",
@@ -210,9 +244,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Oui, un contrat négocié individuellement échappe par définition à la logique d'adhésion" },
       { id: 'b', texte: "Non : la thèse porte sur la généralité des relations de travail, dont la majorité échappe à toute négociation réelle ; l'existence de situations minoritaires de négociation effective ne l'invalide pas" },
       { id: 'c', texte: "Cela dépend uniquement du niveau de rémunération du cadre" },
+      { id: 'd', texte: "Oui, car le principe de faveur ne s'applique pas aux contrats individuellement négociés" },
+      { id: 'e', texte: "Non, car aucun contrat de travail, quel que soit le profil du salarié, ne peut jamais être considéré comme négocié" },
     ],
     reponseCorrecte: 'b', articleRef: '1.1',
-    explication: "La thèse de Kapuku décrit une tendance générale, non une règle sans exception. Certains profils à fort pouvoir de négociation, cadres dirigeants, experts recherchés, échappent partiellement à la logique d'adhésion, sans que cela remette en cause le constat statistique dominant qui justifie le caractère protecteur du Code.",
+    explication: "La thèse de Kapuku décrit une tendance générale, non une règle sans exception. Certains profils à fort pouvoir de négociation échappent partiellement à la logique d'adhésion, sans que cela invalide le constat dominant. Le principe de faveur, contrairement à l'option d, s'applique à tout contrat de travail sans exception liée au mode de négociation ; et l'option e, à l'inverse, nie toute négociation possible, ce qui est aussi excessif que l'option a.",
   },
   {
     id: 'q19', question: "Une personne travaille trois jours par semaine pour une société, facture un prix forfaitaire par mission, choisit librement son lieu de travail, mais reçoit des instructions précises sur la méthode à suivre. Quel indice pèse le plus lourd dans l'appréciation du lien de subordination ?",
@@ -220,9 +256,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Le mode de facturation au forfait, qui exclut par nature la subordination" },
       { id: 'b', texte: "Le contrôle des méthodes de travail, qui doit être mis en balance avec le libre choix du lieu et l'absence d'exclusivité, dans un examen global du faisceau d'indices" },
       { id: 'c', texte: "Le nombre de jours travaillés par semaine, seul critère retenu par la jurisprudence" },
+      { id: 'd', texte: "Le libre choix du lieu de travail, qui écarte à lui seul toute subordination" },
+      { id: 'e', texte: "Aucun indice ne peut être apprécié tant que le nombre de clients de cette personne n'est pas connu" },
     ],
     reponseCorrecte: 'b', articleRef: '1.5',
-    explication: "Aucun indice n'est décisif isolément. Le mode de facturation ou le nombre de jours ne suffisent pas à trancher : c'est l'appréciation globale du faisceau, direction, surveillance, organisation, exclusivité, sanction, qui permet de qualifier la relation. Ici, des indices contradictoires appellent un examen approfondi des faits, non une réponse automatique.",
+    explication: "Aucun indice n'est décisif isolément, ni le mode de facturation (option a), ni le nombre de jours (option c), ni le libre choix du lieu (option d) : c'est l'appréciation globale du faisceau qui permet de qualifier la relation. Le nombre de clients (option e) est un facteur pertinent, notamment pour apprécier l'exclusivité, mais son absence ne bloque pas l'analyse : les autres indices disponibles suffisent à raisonner.",
   },
   {
     id: 'q20', question: "Un magistrat exerce, en parallèle de ses fonctions judiciaires, une activité d'enseignant salarié dans une université privée. Cette seconde activité relève-t-elle du Code du travail ?",
@@ -230,9 +268,11 @@ const QCM_CHAPITRE: QCMChapitre[] = [
       { id: 'a', texte: "Non, l'exclusion de l'article 1er couvre toute activité professionnelle du magistrat, y compris accessoire" },
       { id: 'b', texte: "Oui : l'exclusion de l'article 1er est attachée à la fonction de magistrat, non à la personne ; son activité d'enseignant salarié, distincte de sa fonction judiciaire, relève du droit commun du travail" },
       { id: 'c', texte: "Cela dépend uniquement du nombre d'heures d'enseignement par semaine" },
+      { id: 'd', texte: "Non, car un magistrat ne peut légalement exercer aucune activité rémunérée accessoire" },
+      { id: 'e', texte: "Oui, mais seulement si l'université a le statut d'établissement public" },
     ],
     reponseCorrecte: 'b', articleRef: '1.3',
-    explication: "L'exclusion de l'article 1er est fonctionnelle : elle s'attache à la qualité de magistrat dans l'exercice de sa fonction juridictionnelle, non à toute activité que la personne pourrait exercer par ailleurs. Une activité salariée distincte, ici l'enseignement, relève du Code dans les conditions de droit commun.",
+    explication: "L'exclusion de l'article 1er est fonctionnelle : elle s'attache à la qualité de magistrat dans l'exercice de sa fonction juridictionnelle, non à toute activité que la personne pourrait exercer par ailleurs. La question de savoir si le cumul d'activités du magistrat est par ailleurs autorisé par son statut propre (option d) est distincte de la question posée, celle du régime applicable à l'activité d'enseignement elle-même ; et ce régime ne dépend pas de la nature publique ou privée de l'université (option e), mais du fait que l'enseignant y est salarié sous subordination.",
   },
 ]
 
@@ -251,51 +291,57 @@ const CAS_PRATIQUES: CasPratique[] = [
   {
     id: 'cp1',
     titre: 'Le livreur à vélo',
-    contexte: "Une société de restauration rapide de Kinshasa collabore avec des livreurs à vélo qu'elle qualifie de « partenaires indépendants ». Chaque livreur signe un contrat de prestation de service, choisit librement ses horaires de connexion à l'application, mais doit respecter un itinéraire imposé par le système, un délai de livraison strict sous peine de désactivation de son compte, et porter un uniforme fourni par la société.",
+    contexte: "Une société de restauration rapide de Kinshasa collabore avec des livreurs à vélo qu'elle qualifie de « partenaires indépendants ». Chaque livreur signe un contrat de prestation de service, choisit librement ses horaires de connexion à l'application, mais doit respecter un itinéraire imposé par le système, un délai de livraison strict sous peine de désactivation de son compte, et porter un uniforme fourni par la société. M. Bofenda, l'un de ces livreurs, roule avec son propre vélo et son propre téléphone, et livre parallèlement pour une seconde application concurrente deux jours par semaine. L'algorithme de la société abaisse cependant sa priorité d'attribution de commandes lorsque son taux d'acceptation descend sous 80 %, ce qui, en pratique, l'incite fortement à ne jamais refuser une course. Après un différend sur une désactivation qu'il conteste, M. Bofenda saisit le tribunal du travail en soutenant qu'il a toujours été un salarié.",
     questions: [
-      { num: 1, enonce: "La liberté de choisir ses horaires de connexion suffit-elle à écarter la qualification de contrat de travail ?", correction: "Non. La liberté de connexion n'est qu'un indice parmi d'autres. L'itinéraire imposé, le délai strict sanctionné par une désactivation (pouvoir de sanction), et l'uniforme fourni (organisation matérielle par le donneur d'ordre) constituent des indices convergents de subordination qui l'emportent, dans un examen global du faisceau, sur la seule liberté horaire." },
-      { num: 2, enonce: "La désactivation du compte en cas de retard s'analyse-t-elle juridiquement comme une sanction disciplinaire ?", correction: "Oui, fonctionnellement. Bien qu'elle ne porte pas ce nom, la désactivation prive le livreur de sa source de revenus en réaction à un manquement constaté : elle remplit la fonction d'une sanction disciplinaire, ce qui est un indice caractéristique du pouvoir de sanction de l'employeur, étranger au contrat d'entreprise." },
-      { num: 3, enonce: "Si la relation est requalifiée en contrat de travail, quelles conséquences pour la société au regard du chapitre étudié ?", correction: "La société devient employeur au sens de l'article 7, avec les obligations afférentes : affiliation du livreur à la CNSS, application du régime de préavis et de licenciement, respect du principe de faveur pour toute clause du contrat de prestation initial qui serait moins protectrice que le Code." },
+      { num: 1, enonce: "La liberté de choisir ses horaires de connexion, la possession de son propre vélo et de son propre téléphone, ainsi que la collaboration avec une seconde application, suffisent-elles à écarter la qualification de contrat de travail ?", correction: "Non, mais ces éléments doivent être réellement pesés, pas seulement écartés. La propriété du matériel et le travail pour un second donneur d'ordre sont des indices sérieux d'indépendance économique, qui affaiblissent l'exclusivité. Ils sont cependant mis en balance avec l'itinéraire imposé, le délai strict sanctionné par une désactivation, et l'uniforme fourni : ces derniers, relatifs à l'organisation et au contrôle du travail lui-même, l'emportent en général dans l'appréciation globale, car ils touchent au cœur de l'exécution de la prestation, alors que la propriété du vélo ou le second donneur d'ordre ne portent que sur les conditions périphériques de l'activité." },
+      { num: 2, enonce: "Le mécanisme de priorité algorithmique lié au taux d'acceptation s'analyse-t-il juridiquement comme un pouvoir de sanction, alors même qu'aucune sanction nommée n'est prononcée ?", correction: "Oui, par requalification fonctionnelle. Le droit du travail ne s'arrête pas à l'absence du mot « sanction » : il regarde l'effet économique du mécanisme sur le travailleur. En abaissant la priorité d'attribution, donc les revenus, en réaction à un comportement, ici le refus de courses, la société exerce un pouvoir de contrainte comportementale équivalant fonctionnellement à une sanction disciplinaire déguisée, ce qui est étranger au contrat d'entreprise, dans lequel le prestataire reste libre de refuser une mission sans pénalité automatique." },
+      { num: 3, enonce: "La désactivation du compte de M. Bofenda pour un retard s'analyse-t-elle différemment du mécanisme de priorité évoqué à la question précédente ?", correction: "Elle est plus radicale mais de même nature : la désactivation prive totalement le livreur de sa source de revenus, en réaction à un manquement identifié, ce qui remplit la fonction d'une sanction disciplinaire lourde, proche d'une mise à pied ou d'un licenciement dans la logique du droit du travail. La gradation entre les deux mécanismes, priorité abaissée puis désactivation, dessine même une échelle de sanctions comparable à celle d'un règlement intérieur d'entreprise." },
+      { num: 4, enonce: "Devant le tribunal du travail, à qui incombe la charge de prouver l'existence, ou l'absence, du lien de subordination ?", correction: "Le demandeur, ici M. Bofenda, doit apporter les éléments de fait permettant au juge d'apprécier le faisceau d'indices, mais il ne doit pas prouver une définition abstraite : il lui suffit d'établir les faits précis, itinéraire imposé, délai sanctionné, uniforme fourni, mécanisme de priorité. C'est ensuite au juge, et non aux parties, de qualifier juridiquement ces faits, sans être lié par le contrat de prestation de service qui les qualifierait autrement. La société devra, de son côté, apporter les éléments démontrant la réalité de l'indépendance alléguée, propriété du matériel, pluralité de donneurs d'ordre, absence de contrainte réelle." },
+      { num: 5, enonce: "Si la relation est requalifiée en contrat de travail, quelles conséquences pour la société au regard du chapitre étudié ?", correction: "La société devient employeur au sens de l'article 7, avec les obligations afférentes : affiliation de M. Bofenda à la CNSS, application du régime de préavis et de licenciement, respect du principe de faveur pour toute clause du contrat de prestation initial moins protectrice que le Code. Cette requalification n'est en outre pas limitée à M. Bofenda : si les mêmes clauses et le même dispositif algorithmique s'appliquent à l'ensemble des livreurs de la plateforme, le raisonnement retenu pour l'un d'eux est transposable à tous, ce qui en fait un enjeu structurel pour le modèle économique de la société, non un différend isolé." },
     ],
   },
   {
     id: 'cp2',
     titre: "La double activité de Mme Ngalula",
-    contexte: "Mme Ngalula est employée en contrat à durée indéterminée par une banque de Lubumbashi, où elle travaille du lundi au vendredi. Le samedi, elle donne des cours de comptabilité dans un centre de formation privé, facturé à l'heure selon un tarif qu'elle a elle-même fixé, sans lien de subordination avec ce centre. En fin d'année, la banque lui verse une gratification équivalant à un mois de salaire, présentée par la direction comme un acte de pure libéralité, mais versée sans interruption depuis six exercices consécutifs.",
+    contexte: "Mme Ngalula est employée en contrat à durée indéterminée par une banque de Lubumbashi, où elle perçoit un salaire de base de 1 200 000 FC par mois et travaille du lundi au vendredi. Le samedi, elle donne des cours de comptabilité dans un centre de formation privé, facturé à l'heure selon un tarif qu'elle a elle-même fixé. Le centre lui impose cependant un syllabus détaillé, contrôle sa présence par une feuille d'émargement et lui interdit contractuellement d'enseigner pour un centre concurrent. En fin d'année, la banque lui verse une gratification de 1 200 000 FC, présentée par la direction comme un acte de pure libéralité « à la discrétion exclusive de la direction », mais versée sans interruption ni variation depuis six exercices consécutifs.",
     questions: [
-      { num: 1, enonce: "Mme Ngalula a-t-elle deux employeurs au sens de l'article 7 ?", correction: "Non. Elle a un employeur, la banque, avec lequel existe un lien de subordination caractérisé. Sa relation avec le centre de formation, sans direction ni contrôle de l'exécution, s'analyse en une prestation de service indépendante, non en un second contrat de travail." },
-      { num: 2, enonce: "La gratification annuelle doit-elle être intégrée à l'assiette de sa rémunération au sens de l'article 7 ?", correction: "Oui, malgré sa présentation comme acte de libéralité. La régularité de son versement sur six exercices consécutifs lui fait perdre son caractère aléatoire et discrétionnaire : elle devient un élément prévisible de la rémunération, au sens de l'article 7 point 8, qui inclut expressément les gratifications." },
-      { num: 3, enonce: "Cette qualification a-t-elle une incidence pratique pour la banque ?", correction: "Oui. Si la gratification entre dans l'assiette de la rémunération, elle doit être prise en compte dans le calcul de tout élément assis sur le salaire, notamment les cotisations sociales et, le cas échéant, un futur décompte final, étudié au chapitre 10." },
+      { num: 1, enonce: "Mme Ngalula a-t-elle deux employeurs au sens de l'article 7, ou sa relation avec le centre de formation reste-t-elle une prestation indépendante malgré le syllabus imposé et l'exclusivité contractuelle ?", correction: "La question mérite un examen plus approfondi qu'une réponse de principe. Le syllabus imposé et l'émargement contrôlé sont des indices de direction et de surveillance ; la clause d'exclusivité prive Mme Ngalula de la possibilité de proposer ses services à un concurrent, ce qui affaiblit l'argument de l'indépendance économique. Ces éléments, mis bout à bout, rapprochent sa relation avec le centre d'un véritable lien de subordination, malgré la facturation à l'heure et le tarif qu'elle a elle-même fixé, qui ne sont que des indices contraires, non décisifs à eux seuls. Un examen approfondi des faits pourrait donc conduire à requalifier également cette seconde relation en contrat de travail à temps partiel, ce qui ferait de Mme Ngalula une salariée à deux employeurs distincts." },
+      { num: 2, enonce: "En supposant que la seconde relation soit bien requalifiée en contrat de travail, la banque peut-elle s'opposer à ce cumul d'emplois ?", correction: "Le Code n'interdit pas par principe le cumul d'emplois auprès de deux employeurs distincts, dès lors qu'il n'existe pas de clause d'exclusivité dans le contrat conclu avec la banque et que l'activité du samedi n'entre pas en concurrence avec celle-ci. La banque pourrait en revanche s'y opposer si son propre contrat de travail contenait une clause de non-concurrence ou d'exclusivité, ce qui n'est pas indiqué dans les faits, ou si l'activité du samedi affectait la disponibilité ou les capacités de Mme Ngalula pendant sa semaine de travail bancaire." },
+      { num: 3, enonce: "La gratification annuelle de 1 200 000 FC doit-elle être intégrée à l'assiette de sa rémunération versée par la banque au sens de l'article 7 ?", correction: "Oui, malgré la clause contractuelle qui la présente comme relevant de la « discrétion exclusive de la direction ». Une telle clause, aussi explicite soit-elle, ne peut neutraliser la réalité des faits : la régularité du versement sur six exercices consécutifs, sans interruption ni variation de montant, lui fait perdre son caractère aléatoire et discrétionnaire. Elle devient un élément prévisible de la rémunération au sens de l'article 7 point 8, qui inclut expressément les gratifications, quelle que soit la qualification que lui donne le contrat, en application du même raisonnement qu'à la section 1.4 sur la portée limitée des qualifications contractuelles." },
+      { num: 4, enonce: "Quelle incidence pratique cette double qualification, gratification requalifiée et éventuel second contrat de travail, a-t-elle pour la banque et pour le centre de formation ?", correction: "Pour la banque : la gratification requalifiée entre dans l'assiette de calcul de tout élément assis sur le salaire, notamment les cotisations sociales et, le cas échéant, un futur décompte final étudié au chapitre 10. Pour le centre de formation, si sa relation avec Mme Ngalula est elle aussi requalifiée : il devient employeur à part entière, avec les obligations afférentes, affiliation CNSS, respect du principe de faveur, alors même qu'il pensait n'être lié que par un contrat de prestation de service. Les deux qualifications sont indépendantes l'une de l'autre : la première ne conditionne pas la seconde, mais toutes deux illustrent la même méthode, celle du faisceau d'indices l'emportant sur la lettre du contrat." },
     ],
   },
   {
     id: 'cp3',
     titre: "L'apprenti mécanicien de quinze ans",
-    contexte: "Un garage de Matadi engage un jeune de quinze ans pour l'assister dans des tâches de mécanique légère, sur simple accord verbal avec les parents de l'enfant, sans autorisation du Tribunal de paix, sans examen psycho-médical et sans avis de l'inspecteur du travail. Le mineur travaille cinq jours par semaine, y compris certaines tâches de manutention de pièces lourdes.",
+    contexte: "Un garage de Matadi engage Jonas, quinze ans, pour l'assister dans des tâches de mécanique légère, sur simple accord verbal avec ses parents, sans autorisation du Tribunal de paix, sans examen psycho-médical et sans avis de l'inspecteur du travail. Jonas travaille cinq jours par semaine, six heures par jour, y compris certaines tâches de manutention de pièces lourdes, pour une rémunération journalière de 5 000 FC versée en espèces, sans reçu. Après quatre mois, un contrôle de l'inspection du travail révèle la situation. Le propriétaire du garage affirme de bonne foi qu'il pensait suffisant l'accord des parents, et qu'il n'a « fait qu'aider une famille dans le besoin ». Jonas, pour sa part, réclame le paiement de deux mois de salaire que le garagiste refuse de lui verser, invoquant précisément l'irrégularité de l'engagement pour se soustraire au paiement.",
     questions: [
-      { num: 1, enonce: "L'accord verbal des parents suffit-il à rendre cet engagement conforme à l'article 6 ?", correction: "Non. L'accord parental n'a aucune incidence sur la capacité légale du mineur. L'article 6 exige cumulativement une autorisation du Président du Tribunal de paix, un avis conforme d'un examen psycho-médical et un avis de l'inspecteur du travail : aucune de ces trois conditions n'est ici remplie." },
-      { num: 2, enonce: "La manutention de pièces lourdes serait-elle admissible même si les trois conditions de l'article 6 avaient été respectées ?", correction: "Non. Entre seize et dix-huit ans, seuls des travaux légers déterminés par arrêté ministériel sont autorisés, à l'exclusion de tout travail dangereux. À quinze ans, la dérogation est plus stricte encore. La manutention de pièces lourdes relève, par nature, d'un travail que le Code entend exclure pour un mineur, indépendamment du respect de la procédure d'autorisation." },
-      { num: 3, enonce: "Quelle qualification juridique cet engagement appelle-t-il au regard de la finalité protectrice étudiée en 1.1 ?", correction: "Un engagement conclu en violation des conditions impératives de l'article 6 se heurte au caractère d'ordre public social des dispositions protectrices du Code. Ce n'est pas un cas isolé de non-conformité administrative : il illustre la tension, relevée en 1.6, entre l'existence de la règle et son application effective, la sanction de la violation relevant du droit du travail et de la protection de l'enfance." },
+      { num: 1, enonce: "L'accord verbal des parents, conjugué à la bonne foi invoquée par le garagiste, suffit-il à rendre cet engagement conforme à l'article 6 ?", correction: "Non, ni l'un ni l'autre. L'accord parental n'a aucune incidence sur la capacité légale du mineur : l'article 6 exige cumulativement une autorisation du Président du Tribunal de paix, un avis conforme d'un examen psycho-médical et un avis de l'inspecteur du travail, trois conditions institutionnelles qu'aucun accord familial, même de bonne foi, ne peut suppléer. La bonne foi du garagiste, si elle peut être prise en compte dans l'appréciation de sa responsabilité personnelle, ne rend pas l'engagement régulier : les conditions de l'article 6 sont de nature objective, indépendantes de l'intention de l'employeur." },
+      { num: 2, enonce: "La manutention de pièces lourdes et la durée de six heures par jour seraient-elles admissibles même si les trois conditions de l'article 6 avaient été respectées ?", correction: "Non, sur les deux points. Entre seize et dix-huit ans, seuls des travaux légers déterminés par arrêté ministériel sont autorisés, à l'exclusion de tout travail dangereux ; à quinze ans, la dérogation est plus stricte encore. La manutention de pièces lourdes relève, par nature, d'un travail que le Code entend exclure pour un mineur, indépendamment du respect de la procédure d'autorisation. La durée quotidienne devrait, par ailleurs, être appréciée à l'aune des règles de durée du travail spécifiques aux mineurs, objet du chapitre 6, mais l'ampleur relevée ici, six heures par jour sur cinq jours pour un enfant de quinze ans, appelle déjà, à ce stade du raisonnement, la plus grande réserve." },
+      { num: 3, enonce: "Le garagiste peut-il valablement refuser de payer les deux mois de salaire de Jonas en invoquant l'irrégularité de l'engagement dont il est lui-même l'auteur ?", correction: "Non, et c'est le point le plus important de ce cas. Un employeur ne peut pas se prévaloir de sa propre violation de l'article 6 pour se soustraire à ses obligations envers le travailleur qu'il a irrégulièrement engagé. La finalité protectrice du droit du travail, étudiée en 1.1, interdit qu'une règle destinée à protéger le mineur soit retournée contre lui pour le priver de la rémunération d'un travail effectivement fourni. Jonas a droit au paiement intégral du travail accompli, la nullité éventuelle de l'engagement ne produisant ses effets que pour l'avenir, non de manière rétroactive à son détriment." },
+      { num: 4, enonce: "Quelle qualification juridique cet engagement appelle-t-il au regard de la finalité protectrice étudiée en 1.1, et quelles suites l'inspection du travail peut-elle y donner ?", correction: "Un engagement conclu en violation des conditions impératives de l'article 6 se heurte au caractère d'ordre public social des dispositions protectrices du Code : les parties ne pouvaient, par leur seul accord, y déroger. Ce n'est pas un cas isolé de non-conformité administrative, mais l'illustration de la tension, relevée en 1.6, entre l'existence de la règle et son application effective dans le secteur informel. L'inspection du travail peut faire cesser l'engagement irrégulier, orienter Jonas et sa famille vers les autorités compétentes en matière de protection de l'enfance, et, indépendamment de la cessation de la relation, exiger le paiement des sommes dues pour le travail déjà accompli." },
     ],
   },
   {
     id: 'cp4',
     titre: "L'agent de sécurité mis à disposition",
-    contexte: "Une société de gardiennage emploie M. Kabongo et l'affecte, dans le cadre d'un contrat commercial, à la surveillance d'un site industriel appartenant à une entreprise cliente. Sur le site, M. Kabongo reçoit ses consignes quotidiennes directement du responsable de sécurité de l'entreprise cliente, qui contrôle également ses horaires de faction. Son salaire continue cependant d'être versé par la société de gardiennage, qui reste seule signataire de son contrat de travail.",
+    contexte: "Une société de gardiennage emploie M. Kabongo depuis trois ans et l'affecte, dans le cadre d'un contrat commercial renouvelable, à la surveillance d'un site industriel appartenant à une entreprise cliente, où il travaille depuis dix-huit mois. Sur le site, M. Kabongo reçoit ses consignes quotidiennes directement du responsable de sécurité de l'entreprise cliente, qui contrôle également ses horaires de faction et lui a, à deux reprises, adressé un avertissement écrit pour manquement au règlement du site. Son salaire de base continue d'être versé par la société de gardiennage, qui reste seule signataire de son contrat de travail, mais l'entreprise cliente lui verse directement, chaque mois, une « prime de risque industriel » de 80 000 FC, sans en informer la société de gardiennage. Lorsque l'entreprise cliente met fin au contrat commercial pour réduire ses coûts, elle informe la société de gardiennage qu'elle ne souhaite plus la présence de M. Kabongo sur le site, sans autre justification. La société de gardiennage envisage alors de lui notifier une rupture de contrat, faute d'autre site disponible.",
     questions: [
-      { num: 1, enonce: "Qui est l'employeur de M. Kabongo au sens de l'article 7 : la société de gardiennage ou l'entreprise cliente ?", correction: "La société de gardiennage demeure l'employeur formel : elle a conclu le contrat de travail, verse la rémunération et conserve le pouvoir de recrutement, de sanction disciplinaire et de licenciement. La subordination exercée au quotidien par le responsable de sécurité du site relève d'un encadrement opérationnel délégué contractuellement par la société de gardiennage à sa cliente, non d'un transfert de la qualité d'employeur." },
-      { num: 2, enonce: "Le fait que les consignes quotidiennes proviennent de l'entreprise cliente remet-il en cause l'existence d'un contrat de travail entre M. Kabongo et la société de gardiennage ?", correction: "Non. Le lien de subordination juridique, celui qui qualifie le contrat de travail, s'apprécie à l'égard de l'employeur contractant, non de la personne qui exerce matériellement le contrôle au jour le jour dans un dispositif de mise à disposition licite. La société de gardiennage conserve les attributs déterminants de l'employeur : recrutement, rémunération, pouvoir disciplinaire ultime." },
-      { num: 3, enonce: "Cette configuration présente-t-elle un risque juridique pour l'une des deux sociétés ?", correction: "Oui, si l'entreprise cliente en venait à exercer, en pratique, l'intégralité des attributs de l'employeur, recrutement, rémunération directe, pouvoir de licenciement, au point de vider de sa substance le rôle de la société de gardiennage. Le faisceau d'indices pourrait alors conduire à une requalification de fait, faisant de l'entreprise cliente un coemployeur, avec les obligations sociales que cela emporterait." },
+      { num: 1, enonce: "Qui est l'employeur de M. Kabongo au sens de l'article 7 : la société de gardiennage ou l'entreprise cliente, compte tenu de l'ensemble des faits, y compris la prime de risque versée directement ?", correction: "La société de gardiennage demeure en principe l'employeur formel : elle a conclu le contrat de travail, verse le salaire de base et conserve, sur le papier, le pouvoir de recrutement et de licenciement. Le versement direct d'une prime par l'entreprise cliente, sans passer par la société de gardiennage, est cependant un fait nouveau et significatif : il traduit un pouvoir de rémunération exercé directement par le donneur d'ordre, qui s'ajoute au pouvoir de direction, de surveillance et, désormais, de sanction déjà exercés par le responsable de sécurité du site. Le faisceau d'indices commence ainsi à basculer vers un exercice de fait, par l'entreprise cliente, de plusieurs attributs normalement réservés à l'employeur." },
+      { num: 2, enonce: "Les deux avertissements écrits adressés par le responsable de sécurité du site changent-ils l'analyse par rapport à un simple contrôle des horaires de faction ?", correction: "Oui, significativement. Un contrôle des horaires relève d'un encadrement opérationnel courant, compatible avec une mise à disposition licite. Un avertissement écrit est en revanche un acte disciplinaire formel, qui suppose normalement d'être pris par l'employeur ou par une personne agissant en son nom et sous son autorité. Que l'entreprise cliente exerce elle-même ce pouvoir disciplinaire, sans qu'il soit indiqué que la société de gardiennage en ait été informée ou y ait consenti, constitue un indice fort d'exercice de fait du pouvoir de sanction, l'un des cinq indices étudiés en 1.5, par une personne qui n'est pourtant pas signataire du contrat de travail." },
+      { num: 3, enonce: "Face à la fin du contrat commercial, la société de gardiennage peut-elle rompre le contrat de travail de M. Kabongo au seul motif qu'elle n'a plus de site à lui confier ?", correction: "Rien, à ce stade du chapitre, ne permet de répondre que la société de gardiennage puisse rompre librement et sans condition le contrat : la rupture du contrat de travail, ses motifs valables et la procédure applicable, seront étudiés au chapitre 4. Ce qu'il est possible d'affirmer dès à présent, c'est que la fin du contrat commercial entre les deux sociétés n'entraîne pas automatiquement la fin du contrat de travail de M. Kabongo avec son employeur, ces deux contrats étant juridiquement distincts : l'un lie deux sociétés, l'autre lie M. Kabongo à son seul employeur. La société de gardiennage reste tenue de ses obligations envers lui tant qu'elle n'a pas rompu régulièrement ce second contrat, qu'elle lui trouve ou non une nouvelle affectation." },
+      { num: 4, enonce: "En cas de litige, M. Kabongo aurait-il intérêt à demander la requalification de l'entreprise cliente en coemployeur, plutôt que de s'en tenir à la société de gardiennage seule ?", correction: "Cela dépend de sa stratégie et de la solvabilité respective des deux sociétés, mais l'intérêt est réel sur le plan juridique : si le faisceau d'indices, avertissements disciplinaires, prime versée directement, contrôle quotidien, permet de retenir un exercice de fait des attributs de l'employeur par l'entreprise cliente, celle-ci pourrait être tenue solidairement responsable des obligations sociales dues à M. Kabongo, aux côtés de la société de gardiennage. Cette hypothèse de coemploi, esquissée ici sur la base des indices étudiés en 1.5, sera reprise et approfondie au chapitre 8 à propos des relations collectives et de la sous-traitance de main-d'œuvre." },
     ],
   },
   {
     id: 'cp5',
     titre: "La femme de ménage de Mme Ilunga",
-    contexte: "Mme Ilunga, particulière employeuse à Kinshasa, engage une femme de ménage qui travaille à son domicile quatre jours par semaine, sans contrat écrit, sans déclaration à la CNSS et sans bulletin de paie. Mme Ilunga a entendu parler d'une proposition de loi récente sur le statut des travailleurs domestiques et vous consulte pour savoir quelles sont ses obligations actuelles.",
+    contexte: "Mme Ilunga, particulière employeuse à Kinshasa, engage Mme Kabeya, qui travaille à son domicile quatre jours par semaine, six heures par jour, sans contrat écrit, sans déclaration à la CNSS et sans bulletin de paie, pour une rémunération mensuelle convenue oralement de 90 000 FC. Lorsque Mme Ilunga voyage, c'est sa fille majeure, qui réside dans le même foyer, qui donne les instructions quotidiennes à Mme Kabeya et lui remet parfois elle-même la rémunération du mois en espèces. Mme Ilunga a entendu parler d'une proposition de loi récente sur le statut des travailleurs domestiques et vous consulte, à la fois sur ses obligations actuelles et sur le fait de savoir si elle est bien la seule à devoir en répondre, compte tenu du rôle que joue sa fille.",
     questions: [
-      { num: 1, enonce: "Cette relation de travail relève-t-elle aujourd'hui du Code du travail ?", correction: "Oui. Les travailleurs domestiques ne figurent pas parmi les catégories exclues par l'article 1er. La femme de ménage de Mme Ilunga est un travailleur au sens de l'article 7, dès lors qu'elle fournit une prestation sous la subordination de Mme Ilunga, moyennant rémunération, quand bien même aucun contrat écrit n'a été formalisé." },
-      { num: 2, enonce: "L'absence de contrat écrit et de déclaration à la CNSS rend-elle la relation de travail inexistante en droit ?", correction: "Non. L'existence d'un contrat de travail ne dépend pas d'un écrit : elle résulte de la réunion des éléments de l'article 7, prestation, subordination, rémunération. L'absence d'écrit et de déclaration constitue un manquement aux obligations de l'employeur, non une absence de contrat, et expose Mme Ilunga à un risque de régularisation rétroactive." },
-      { num: 3, enonce: "Que répondre à Mme Ilunga sur la portée de la proposition de loi dont elle a entendu parler ?", correction: "Il convient de lui indiquer clairement que cette proposition, déposée le 15 mai 2026, n'est à ce jour qu'une initiative parlementaire sans force obligatoire. Ses obligations actuelles sont celles du Code du travail commun, applicable dès aujourd'hui à la relation qu'elle a nouée, indépendamment du sort futur de ce texte en discussion." },
+      { num: 1, enonce: "Cette relation de travail relève-t-elle aujourd'hui du Code du travail, malgré l'absence de tout écrit ?", correction: "Oui. Les travailleurs domestiques ne figurent pas parmi les catégories exclues par l'article 1er. Mme Kabeya est un travailleur au sens de l'article 7 dès lors qu'elle fournit une prestation sous subordination, moyennant rémunération, quand bien même aucun contrat écrit n'a été formalisé : l'existence du contrat de travail résulte de la réunion de ces éléments de fait, non d'un formalisme documentaire, ainsi qu'il a été vu en 1.4 à propos de la définition de l'article 7." },
+      { num: 2, enonce: "Qui est l'employeur de Mme Kabeya au sens de l'article 7 : Mme Ilunga seule, ou également sa fille, qui donne des instructions et remet parfois la rémunération en son absence ?", correction: "En principe, Mme Ilunga demeure l'employeuse, puisque c'est elle qui a engagé Mme Kabeya et qui décide, en dernier ressort, des conditions de la relation. Le rôle de sa fille, ponctuel et lié à l'absence de sa mère, s'analyse plutôt comme une délégation domestique de fait, comparable à celle d'un responsable de site dans une entreprise, qui exécute une autorité qui reste, sur le principe, celle de l'employeur titulaire. Si toutefois la fille en venait à exercer ces attributs de façon permanente et autonome, au point de se substituer durablement à sa mère, la question d'une qualité d'employeur partagée ou transférée pourrait légitimement se poser, sur le modèle du raisonnement retenu pour la mise à disposition de personnel." },
+      { num: 3, enonce: "L'absence de contrat écrit, de déclaration à la CNSS et de bulletin de paie rend-elle la relation de travail inexistante en droit, ou expose-t-elle simplement Mme Ilunga à des conséquences distinctes ?", correction: "Elle ne rend pas la relation inexistante : l'existence du contrat de travail ne dépend pas d'un écrit, ainsi qu'il vient d'être répondu à la première question. Ces absences constituent en revanche des manquements distincts aux obligations de l'employeur, chacun exposant Mme Ilunga à des conséquences propres : l'absence de déclaration CNSS l'expose à un risque de redressement et de régularisation rétroactive des cotisations, l'absence de bulletin de paie la prive de preuve écrite du montant réellement convenu en cas de litige sur la rémunération, ce qui pourrait, en pratique, jouer contre elle si Mme Kabeya alléguait un montant supérieur à celui reconnu oralement." },
+      { num: 4, enonce: "Que répondre à Mme Ilunga sur la portée de la proposition de loi Kangila Kawele dont elle a entendu parler ?", correction: "Il convient de lui indiquer clairement que cette proposition, déposée le 15 mai 2026, n'est à ce jour qu'une initiative parlementaire sans force obligatoire, quel qu'en soit le contenu envisagé. Ses obligations actuelles sont celles du Code du travail commun, applicable dès aujourd'hui à la relation qu'elle a nouée avec Mme Kabeya, indépendamment du sort futur de ce texte en discussion : ni son adoption ni son rejet éventuels ne changent rétroactivement la qualification de la relation en cours, qui s'apprécie au regard du droit positif tel qu'il existe à la date des faits." },
     ],
   },
 ]
@@ -374,6 +420,35 @@ export default function UE1Chapitre1Page() {
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)
   const [vue, setVue] = useState<Vue>('lecture')
+  const [afficherRemonter, setAfficherRemonter] = useState(false)
+  const sommetRef = useRef<HTMLDivElement>(null)
+
+  // Remonte en haut de la page à chaque changement de vue (lecture ↔ qcm ↔ cas ↔ devoir).
+  // Le conteneur qui défile réellement est le <main> du Layout, pas la fenêtre : on
+  // remonte donc les deux, sans présumer lequel est actif.
+  useEffect(() => {
+    sommetRef.current?.scrollIntoView({ block: 'start' })
+    document.querySelector('main')?.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0 })
+  }, [vue])
+
+  // Affiche un bouton « remonter en haut » dès que l'un des conteneurs défilables
+  // dépasse 400px. Écoute en phase de capture : les événements de scroll ne
+  // remontent pas naturellement depuis un conteneur imbriqué en overflow-auto.
+  useEffect(() => {
+    const verifier = () => {
+      const main = document.querySelector('main')
+      setAfficherRemonter((main?.scrollTop ?? 0) > 400 || window.scrollY > 400)
+    }
+    window.addEventListener('scroll', verifier, true)
+    verifier()
+    return () => window.removeEventListener('scroll', verifier, true)
+  }, [])
+
+  const remonterEnHaut = () => {
+    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const casPratiquesExistants: CasPratiqueExistant[] = CAS_PRATIQUES.map(cp => ({
     id: cp.id,
@@ -383,12 +458,21 @@ export default function UE1Chapitre1Page() {
   }))
 
   return (
-    <div className="space-y-4 pb-10 animate-fadeIn">
+    <div ref={sommetRef} className="space-y-4 pb-10 animate-fadeIn">
+      {afficherRemonter && (
+        <button
+          onClick={remonterEnHaut}
+          aria-label="Remonter en haut de la page"
+          className={cn('fixed bottom-20 md:bottom-6 right-4 z-40 h-10 w-10 rounded-full text-white shadow-lg flex items-center justify-center transition-transform hover:scale-105', VERT_BG)}
+        >
+          <ArrowUp className="h-4 w-4" />
+        </button>
+      )}
       <div className="space-y-1">
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 1 — Droit du travail', route: '/ue1-droit-travail' },
+            { label: 'UE 1 · Droit du travail', route: '/ue1-droit-travail' },
             { label: 'Chapitre 1' },
           ]}
           color="emerald"
@@ -397,7 +481,7 @@ export default function UE1Chapitre1Page() {
           <h1 className={cn('font-display text-lg font-bold leading-tight', ENCRE)}>Notions fondamentales et sources du droit du travail</h1>
           <InfoTooltip texte="Champ d'application, sources et définitions légales du droit du travail congolais." loi="Titre I, art. 1 à 7" />
         </div>
-        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Titre I du Code du travail — Loi n°015/2002, art. 1 à 7</p>
+        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Titre I du Code du travail · Loi n°015/2002, art. 1 à 7</p>
       </div>
 
       {vue === 'lecture' && (
@@ -702,7 +786,7 @@ export default function UE1Chapitre1Page() {
           <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
             <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
           </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>QCM du chapitre — 20 questions</h2>
+          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>QCM du chapitre : 20 questions</h2>
           <div className="grid gap-3">
             {QCM_CHAPITRE.map(q => <QCMBankItem key={q.id} q={q} />)}
           </div>
@@ -714,7 +798,7 @@ export default function UE1Chapitre1Page() {
           <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
             <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
           </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Cas pratiques — 5 mises en situation</h2>
+          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Cas pratiques : 5 mises en situation</h2>
           <div className="space-y-3">
             {CAS_PRATIQUES.map((cp, i) => <CasPratiqueBlock key={cp.id} cp={cp} index={i} />)}
           </div>
