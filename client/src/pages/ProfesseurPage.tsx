@@ -502,6 +502,16 @@ export default function ProfesseurPage() {
         pdfNom = pdfFile.name
       }
 
+      // promotionId : la règle firestore.rules exige ce champ à la création
+      // (hasAll(['coursId','createdBy','promotionId'])) pour tout devoir, pas
+      // seulement les QCM-chapitre (seul type qui le renseignait jusqu'ici,
+      // via DevoirChapitreCreateur.tsx). Repris de la promotion du cours
+      // choisi quand elle existe (Cours.promotion), sinon chaîne vide — ce
+      // formulaire générique n'a pas son propre sélecteur de promotion, et
+      // promotionId n'est pas exploité côté lecture pour ce type de devoir
+      // (contrairement à coursId, seul vrai filtre d'isolation).
+      const promotionId = coursList.find(c => c.id === devoirForm.coursId)?.promotion || ''
+
       const data = {
         titre: devoirForm.titre.trim(),
         consignes: devoirForm.consignes.trim(),
@@ -510,6 +520,7 @@ export default function ProfesseurPage() {
         faculteId: devoirForm.faculteId || undefined,
         dateLimit: new Date(devoirForm.dateLimit + 'T23:59:59').toISOString(),
         createdBy: currentUser?.id || '',
+        promotionId,
         actif: devoirForm.actif,
         type: devoirForm.type || 'pratique',
         questions: devoirForm.type === 'qcm' ? qcmQuestions : undefined,
@@ -520,7 +531,9 @@ export default function ProfesseurPage() {
       if (editDevoirId) {
         await updateDevoirAsync(editDevoirId, data)
       } else {
-        // Créer avec l'ID qu'on a généré
+        // Créer avec l'ID qu'on a généré (le cast est nécessaire ici car
+        // createDevoirAsync généré son propre id normalement — id doit être
+        // imposé pour correspondre au chemin Storage du PDF déjà uploadé)
         await createDevoirAsync({ ...data, id: devoirId } as any)
       }
 
