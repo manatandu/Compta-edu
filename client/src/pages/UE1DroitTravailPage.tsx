@@ -40,7 +40,7 @@ export default function UE1DroitTravailPage() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 1 — Droit du travail' },
+            { label: 'UE 1 · Droit du travail' },
           ]}
           color="emerald"
         />
