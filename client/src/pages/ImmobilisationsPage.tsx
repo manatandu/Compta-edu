@@ -1229,7 +1229,7 @@ export default function ImmobilisationsPage() {
             <Building2 className="h-4 w-4 text-emerald-600" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-foreground leading-tight">Immobilisations & Amortissements</h1>
+            <h1 className="text-sm font-display font-bold text-foreground leading-tight">Immobilisations & Amortissements</h1>
             <p className="text-xs text-muted-foreground">AR n°088 · Loi IS Art. 28-38 · OHADA 2017</p>
           </div>
         </div>

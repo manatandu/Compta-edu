@@ -968,7 +968,7 @@ export default function UE5Chapitre8Page() {
           ]}
           color="emerald"
         />
-        <h1 className="text-lg font-bold text-foreground leading-tight">Décentralisation budgétaire</h1>
+        <h1 className="text-lg font-display font-bold text-foreground leading-tight">Décentralisation budgétaire</h1>
         <p className="text-xs text-muted-foreground">Constitution Art. 175, 181 · LOFIP Art. 3, 132-138, 217-224 · LF n° 25/060</p>
       </div>
 
@@ -1032,7 +1032,7 @@ export default function UE5Chapitre8Page() {
                   <span className="text-xs font-bold text-violet-700 uppercase tracking-wide">
                     Leçon {activeLecon + 1} sur {lecons.length}
                   </span>
-                  <h2 className="text-sm font-bold text-foreground mt-0.5 leading-snug">
+                  <h2 className="text-sm font-display font-bold text-foreground mt-0.5 leading-snug">
                     {lecons[activeLecon].titre}
                   </h2>
                 </div>

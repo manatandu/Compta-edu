@@ -63,7 +63,7 @@ export default function GestionStockPage() {
               <Package className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground leading-tight">Gestion de Stock</h1>
+              <h1 className="text-xl font-display font-bold text-foreground leading-tight">Gestion de Stock</h1>
               <p className="text-sm text-muted-foreground flex items-center gap-1.5 mt-0.5">
                 <Sparkles className="h-3 w-3 text-purple-500" />
                 SYSCOHADA : Comptes 31, 32, 36 : CUMP & PEPS

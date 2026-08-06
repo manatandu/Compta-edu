@@ -89,7 +89,7 @@ export default function PrepaOnecPage() {
             <BookOpen className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Prépa ONEC</h1>
+            <h1 className="text-2xl font-display font-bold text-foreground">Prépa ONEC</h1>
             <p className="text-sm text-muted-foreground">
               Préparation aux examens d'admission au stage — Ordre National des Experts-Comptables (RDC)
             </p>

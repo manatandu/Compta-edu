@@ -798,7 +798,7 @@ export default function UE2Chapitre3Page() {
           color="indigo"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">SNC et SCS : Sociétés de Personnes</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">SNC et SCS : Sociétés de Personnes</h1>
           <InfoTooltip texte="SNC et SCS : sociétés de personnes à responsabilité illimitée" loi="Art. 270-308 AUSCGIE" />
         </div>
         <p className="text-xs text-muted-foreground">Art. 270-292 AUSCGIE (SNC) : Art. 293-308 AUSCGIE (SCS)</p>
@@ -857,7 +857,7 @@ export default function UE2Chapitre3Page() {
               <span className="text-xs font-semibold text-slate-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
+            <h2 className="text-base font-display font-bold text-foreground">{lecon.titre}</h2>
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -893,7 +893,7 @@ export default function UE2Chapitre3Page() {
 
       {activeTab === 'cas' && (
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
+          <h2 className="text-sm font-display font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
           {ETUDES_DE_CAS.map(cp => <CasPratiqueBlock key={cp.id} cp={cp} />)}
         </div>
       )}

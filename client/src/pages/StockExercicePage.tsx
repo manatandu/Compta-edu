@@ -231,7 +231,7 @@ export default function StockExercicePage() {
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
         </button>
         <div className="flex-1">
-          <h1 className="text-lg font-bold text-foreground">Exercice pédagogique</h1>
+          <h1 className="text-lg font-display font-bold text-foreground">Exercice pédagogique</h1>
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             <Sparkles className="h-3 w-3 text-purple-500" />
             Gestion de stock : SYSCOHADA
@@ -245,7 +245,7 @@ export default function StockExercicePage() {
           <BookOpen className="h-4 w-4 text-purple-600" />
           <span className="text-xs font-bold text-purple-600 uppercase tracking-wide">Application</span>
         </div>
-        <h2 className="font-bold text-foreground text-sm">{EXERCICE.titre}</h2>
+        <h2 className="font-display font-bold text-foreground text-sm">{EXERCICE.titre}</h2>
         <p className="text-xs text-muted-foreground mt-1">
           Article : <strong>{EXERCICE.article.designation}</strong> : Fournisseur : {EXERCICE.article.fournisseur}
         </p>

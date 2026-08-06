@@ -1329,7 +1329,7 @@ export default function ProfesseurPage() {
               <ShieldCheck className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground tracking-tight">Espace Administrateur</h1>
+              <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Espace Administrateur</h1>
               <p className="text-xs text-muted-foreground mt-0.5">Gérez les étudiants, universités, exercices et suivez la progression</p>
             </div>
           </div>
@@ -1421,7 +1421,7 @@ export default function ProfesseurPage() {
               <>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-base font-semibold text-foreground">Gestion des cours</h2>
+                    <h2 className="text-base font-display font-semibold text-foreground">Gestion des cours</h2>
                     <p className="text-sm text-muted-foreground mt-0.5">{coursList.filter(c => c.actif).length} cours actif{coursList.filter(c => c.actif).length > 1 ? 's' : ''} : {COURS_SYSTEME.filter(c => !c.actif).length} en préparation</p>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1854,7 +1854,7 @@ export default function ProfesseurPage() {
             <Card className="border-border">
               <CardContent className="pt-5 pb-5">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-base font-semibold">{editExId ? 'Modifier l\'exercice' : 'Nouvel exercice pédagogique'}</h2>
+                  <h2 className="text-base font-display font-semibold">{editExId ? 'Modifier l\'exercice' : 'Nouvel exercice pédagogique'}</h2>
                   <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setShowExForm(false)}><X className="h-4 w-4" /></Button>
                 </div>
                 <div className="space-y-4">

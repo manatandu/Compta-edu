@@ -66,7 +66,7 @@ export default function DebuggingAdminPage() {
       <div className="flex items-center gap-3 border-b pb-4">
         <Bug className="h-7 w-7 text-amber-500" />
         <div>
-          <h1 className="text-xl font-bold text-foreground">Page de débogage — Isolation admin</h1>
+          <h1 className="text-xl font-display font-bold text-foreground">Page de débogage — Isolation admin</h1>
           <p className="text-sm text-muted-foreground">Vérifiez que vous ne voyez que vos propres étudiants.</p>
         </div>
       </div>
@@ -161,7 +161,7 @@ export default function DebuggingAdminPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-2">
           <Users className="h-5 w-5 text-primary" />
-          <h2 className="font-bold text-foreground">Mes étudiants ({mesEtudiants.length})</h2>
+          <h2 className="font-display font-bold text-foreground">Mes étudiants ({mesEtudiants.length})</h2>
         </div>
         {loading && <p className="text-sm text-muted-foreground">Chargement…</p>}
         {!loading && mesEtudiants.length === 0 && (
@@ -206,7 +206,7 @@ export default function DebuggingAdminPage() {
       {/* Étudiants sans createdBy (orphelins) */}
       {etudiantsSansCreatedBy.length > 0 && (
         <div className="space-y-2">
-          <h2 className="font-bold text-foreground text-amber-600 flex items-center gap-2">
+          <h2 className="font-display font-bold text-foreground text-amber-600 flex items-center gap-2">
             <ShieldAlert className="h-5 w-5" />
             Étudiants orphelins — sans createdBy ({etudiantsSansCreatedBy.length})
           </h2>
@@ -225,7 +225,7 @@ export default function DebuggingAdminPage() {
       {/* Anomalies */}
       {anomalies.length > 0 && (
         <div className="space-y-2">
-          <h2 className="font-bold text-destructive flex items-center gap-2">
+          <h2 className="font-display font-bold text-destructive flex items-center gap-2">
             <XCircle className="h-5 w-5" />
             Anomalies profil ({anomalies.length} étudiants sans faculté ou université)
           </h2>

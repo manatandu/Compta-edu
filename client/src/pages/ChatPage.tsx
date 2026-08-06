@@ -109,7 +109,7 @@ export default function ChatPage() {
               <MessagesSquare className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground tracking-tight">Messagerie</h1>
+              <h1 className="text-lg font-display font-bold text-foreground tracking-tight">Messagerie</h1>
               <p className="text-xs text-muted-foreground mt-0.5">Communication entre étudiants et professeurs</p>
             </div>
           </div>

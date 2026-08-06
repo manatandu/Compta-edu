@@ -113,7 +113,7 @@ export default function GrandLivrePage() {
                 <BookMarked className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground tracking-tight">Grand Livre</h1>
+                <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Grand Livre</h1>
                 <p className="text-xs text-muted-foreground mt-0.5">Suivi détaillé par compte SYSCOHADA</p>
               </div>
             </div>

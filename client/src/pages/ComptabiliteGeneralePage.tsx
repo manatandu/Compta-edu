@@ -189,7 +189,7 @@ export default function ComptabiliteGeneralePage() {
               <BookOpen className="h-5 w-5 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground leading-tight">Comptabilité Générale</h1>
+              <h1 className="text-xl font-display font-bold text-foreground leading-tight">Comptabilité Générale</h1>
               <p className="text-sm text-muted-foreground flex items-center gap-1.5 mt-0.5">
                 <Sparkles className="h-3 w-3 text-primary" />
                 SYSCOHADA Révisé : 5 modules disponibles

@@ -22,7 +22,7 @@ export default function ComingSoonPage({ titre, description, fonctionnalites = [
             <Clock className="h-8 w-8 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">{titre}</h1>
+            <h1 className="text-2xl font-display font-bold text-foreground">{titre}</h1>
             <Badge variant="outline" className="mt-2 text-xs border-amber-400 text-amber-600">Bientôt disponible</Badge>
           </div>
           {description && (

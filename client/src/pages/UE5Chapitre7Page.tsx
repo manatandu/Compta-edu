@@ -1054,7 +1054,7 @@ export default function UE5Chapitre7Page() {
               color="emerald"
             />
             <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="text-lg font-bold text-foreground leading-tight">Exécution des dépenses — chaîne de la dépense</h1>
+              <h1 className="text-lg font-display font-bold text-foreground leading-tight">Exécution des dépenses — chaîne de la dépense</h1>
               <InfoTooltip texte="Ce chapitre analyse la chaîne de la dépense publique en RDC : les quatre phases obligatoires (Art. 90 LOFIP), les acteurs (ordonnateur, comptable public, contrôleur budgétaire) et les quatre comptabilités publiques (Art. 95-101 LOFIP). Contenu exclusivement juridique fondé sur la LOFIP et la Constitution." loi="Art. 88-115 LOFIP · RGCP" />
             </div>
           </div>
@@ -1107,7 +1107,7 @@ export default function UE5Chapitre7Page() {
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5">{lecon.icone}</div>
                   <div>
-                    <h2 className="font-bold text-foreground text-sm">{lecon.titre}</h2>
+                    <h2 className="font-display font-bold text-foreground text-sm">{lecon.titre}</h2>
                     <p className="text-xs text-muted-foreground mt-0.5">{lecon.soustitre}</p>
                   </div>
                 </div>

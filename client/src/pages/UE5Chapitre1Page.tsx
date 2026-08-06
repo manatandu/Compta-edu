@@ -1058,7 +1058,7 @@ export default function UE5Chapitre1Page() {
           color="emerald"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">Introduction aux finances publiques</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Introduction aux finances publiques</h1>
           <InfoTooltip texte="Introduction aux finances publiques : définition LOFIP, composantes, cadre constitutionnel et actualité 2025." loi="Art. 1-3 LOFIP · Art. 122, 174, 175 Constitution" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 1-3 · Constitution Art. 122, 174, 175 · LFR n° 25/044 du 28 juin 2025</p>
@@ -1117,7 +1117,7 @@ export default function UE5Chapitre1Page() {
               <span className="text-xs font-semibold text-emerald-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
+            <h2 className="text-base font-display font-bold text-foreground">{lecon.titre}</h2>
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -1153,7 +1153,7 @@ export default function UE5Chapitre1Page() {
 
       {activeTab === 'cas' && (
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
+          <h2 className="text-sm font-display font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
           {ETUDES_DE_CAS.map(cp => <CasPratiqueBlock key={cp.id} cp={cp} />)}
         </div>
       )}

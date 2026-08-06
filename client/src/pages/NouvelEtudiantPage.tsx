@@ -163,7 +163,7 @@ export default function NouvelEtudiantPage() {
             <UserPlus className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground">Nouvel étudiant</h1>
+            <h1 className="text-xl font-display font-bold text-foreground">Nouvel étudiant</h1>
             <p className="text-sm text-muted-foreground">Enregistrer un étudiant interne ou externe</p>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function NouvelEtudiantPage() {
 
         {/* ─── TYPE ─── */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <h2 className="text-sm font-display font-semibold text-foreground flex items-center gap-2">
             <GraduationCap className="w-4 h-4 text-indigo-500" />
             Type d'étudiant
           </h2>
@@ -202,7 +202,7 @@ export default function NouvelEtudiantPage() {
 
         {/* ─── IDENTITÉ ─── */}
         <section className="space-y-4">
-          <h2 className="text-sm font-semibold text-foreground">Identité</h2>
+          <h2 className="text-sm font-display font-semibold text-foreground">Identité</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
               <label className="text-xs font-medium text-muted-foreground">Nom <span className="text-red-500">*</span></label>
@@ -246,7 +246,7 @@ export default function NouvelEtudiantPage() {
 
         {/* ─── ÉTABLISSEMENT (cascade Firestore) ─── */}
         <section className="space-y-4">
-          <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <h2 className="text-sm font-display font-semibold text-foreground flex items-center gap-2">
             <Building2 className="w-4 h-4 text-indigo-500" />
             Établissement
           </h2>
@@ -348,7 +348,7 @@ export default function NouvelEtudiantPage() {
 
         {/* ─── SCOLARITÉ ─── */}
         <section className="space-y-4">
-          <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <h2 className="text-sm font-display font-semibold text-foreground flex items-center gap-2">
             <Calendar className="w-4 h-4 text-indigo-500" />
             Scolarité
           </h2>
@@ -398,7 +398,7 @@ export default function NouvelEtudiantPage() {
 
         {/* ─── CONTACT ─── */}
         <section className="space-y-4">
-          <h2 className="text-sm font-semibold text-foreground">Contact</h2>
+          <h2 className="text-sm font-display font-semibold text-foreground">Contact</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
               <label className="text-xs font-medium text-muted-foreground flex items-center gap-1">

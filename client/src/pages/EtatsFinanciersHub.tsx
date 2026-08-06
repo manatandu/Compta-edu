@@ -45,7 +45,7 @@ export default function EtatsFinanciersHub() {
             <TrendingUp className="h-4 w-4 text-orange-600" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-foreground leading-tight">États Financiers</h1>
+            <h1 className="text-sm font-display font-bold text-foreground leading-tight">États Financiers</h1>
             <p className="text-xs text-muted-foreground">Dossier 2 · SYSCOHADA Révisé</p>
           </div>
         </div>

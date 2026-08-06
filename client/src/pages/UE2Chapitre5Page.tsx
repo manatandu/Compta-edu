@@ -484,7 +484,7 @@ export default function UE2Chapitre5Page() {
           ]}
           color="indigo"
         />
-        <h1 className="text-xl font-bold mt-0.5">Société à Responsabilité Limitée (SARL)</h1>
+        <h1 className="text-xl font-display font-bold mt-0.5">Société à Responsabilité Limitée (SARL)</h1>
         <p className="text-sm text-muted-foreground">
           La forme hybride par excellence : responsabilité limitée et intuitu personae modéré
         </p>
@@ -576,7 +576,7 @@ export default function UE2Chapitre5Page() {
 
           {/* Carte leçon */}
           <div className="bg-white rounded-xl border-l-4 border-purple-500 shadow-sm p-5">
-            <h2 className="text-base font-bold text-purple-800 mb-4 flex items-center gap-2">
+            <h2 className="text-base font-display font-bold text-purple-800 mb-4 flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
               Leçon {activeLecon + 1} — {lecons[activeLecon]}
             </h2>
@@ -1172,7 +1172,7 @@ export default function UE2Chapitre5Page() {
       {activeTab === 'cas' && (
         <div className="space-y-3">
           <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
-            <h2 className="font-bold text-gray-800 flex items-center gap-2">
+            <h2 className="font-display font-bold text-gray-800 flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-purple-600" />
               Cas Pratiques — SARL (8 cas)
             </h2>

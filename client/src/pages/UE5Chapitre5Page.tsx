@@ -2090,7 +2090,7 @@ export default function UE5Chapitre5Page() {
           color="emerald"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">Elaboration et adoption du budget</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Elaboration et adoption du budget</h1>
           <InfoTooltip texte="Ce chapitre analyse la procédure budgétaire en RDC : calendrier (Art. 13, 83-84), acteurs (Art. 77), documents integrants PLF (Art. 78), documents accompagnants (Art. 79 mod. 2023), recevabilité des amendements (Art. 86) et loi de reddition des comptes (Art. 81-82, 87)." loi="Art. 13, 77-87 LOFIP" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 13, 76-87 · CBMT · PLF · Reddition des comptes · Quitus</p>
@@ -2152,7 +2152,7 @@ export default function UE5Chapitre5Page() {
                 {lecon.icone}
               </div>
               <div>
-                <h2 className="text-sm font-bold text-foreground">{lecon.titre}</h2>
+                <h2 className="text-sm font-display font-bold text-foreground">{lecon.titre}</h2>
                 <p className="text-xs text-muted-foreground mt-0.5">{lecon.soustitre}</p>
               </div>
             </div>

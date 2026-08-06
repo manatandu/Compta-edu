@@ -1091,7 +1091,7 @@ export default function UE13Chapitre3Page() {
           color="sky"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">IAS 36 Dépréciation d'actifs et IAS 40 Immeubles de placement</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">IAS 36 Dépréciation d'actifs et IAS 40 Immeubles de placement</h1>
           <InfoTooltip texte="IAS 36 : dépréciation d'actifs — test de valeur recouvrable, UGT, goodwill. IAS 40 : immeubles de placement — modèle juste valeur vs modèle du coût. Normes IFRS Foundation." loi="IAS 36 §1 · IAS 40 §1 — IFRS Foundation" />
         </div>
         <p className="text-xs text-muted-foreground">IAS 36 · IAS 40 · Valeur recouvrable · UGT · Goodwill · Juste valeur</p>
@@ -1150,7 +1150,7 @@ export default function UE13Chapitre3Page() {
               <span className="text-xs font-semibold text-sky-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
+            <h2 className="text-base font-display font-bold text-foreground">{lecon.titre}</h2>
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -1186,7 +1186,7 @@ export default function UE13Chapitre3Page() {
 
       {activeTab === 'cas' && (
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} études de cas</h2>
+          <h2 className="text-sm font-display font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} études de cas</h2>
           {ETUDES_DE_CAS.map((cp, i) => <CasPratiqueBlock key={i} cp={cp} />)}
         </div>
       )}

@@ -79,7 +79,7 @@ function FormulaireArticle({ onClose, userId }: { onClose: () => void; userId: s
             <div className="h-8 w-8 rounded-lg bg-purple-100 flex items-center justify-center">
               <Package className="h-4 w-4 text-purple-600" />
             </div>
-            <h2 className="font-bold text-base text-foreground">Nouvel article</h2>
+            <h2 className="font-display font-bold text-base text-foreground">Nouvel article</h2>
           </div>
           <button onClick={onClose} className="h-8 w-8 rounded-lg hover:bg-muted flex items-center justify-center transition-colors">
             <X className="h-4 w-4 text-muted-foreground" />
@@ -296,7 +296,7 @@ export default function StockArticlesPage() {
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
         </button>
         <div className="flex-1">
-          <h1 className="text-lg font-bold text-foreground">Fiches de stock</h1>
+          <h1 className="text-lg font-display font-bold text-foreground">Fiches de stock</h1>
           <p className="text-xs text-muted-foreground">Articles enregistrés : Comptes 31, 32, 36</p>
         </div>
         <button onClick={() => setShowForm(true)}

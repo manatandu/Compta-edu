@@ -229,7 +229,7 @@ export default function FicheEtudiantPage() {
           {/* Infos principales */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="text-xl font-bold text-foreground">{etudiant.nom} {etudiant.prenom}</h1>
+              <h1 className="text-xl font-display font-bold text-foreground">{etudiant.nom} {etudiant.prenom}</h1>
               <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${STATUT_COLORS[etudiant.statut]}`}>
                 {STATUT_ICONS[etudiant.statut]}
                 {etudiant.statut === 'actif' ? 'Actif' : etudiant.statut === 'suspendu' ? 'Suspendu' : 'Diplômé'}
@@ -348,7 +348,7 @@ export default function FicheEtudiantPage() {
       {/* ─── ONGLET PROFIL ─── */}
       {onglet === 'profil' && (
         <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
-          <h2 className="text-sm font-semibold text-foreground">Informations complètes</h2>
+          <h2 className="text-sm font-display font-semibold text-foreground">Informations complètes</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
             {[
@@ -382,7 +382,7 @@ export default function FicheEtudiantPage() {
           {/* En-tête notes */}
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
-              <h2 className="text-sm font-semibold text-foreground">Notes et progression</h2>
+              <h2 className="text-sm font-display font-semibold text-foreground">Notes et progression</h2>
               {moyenne && (
                 <p className="text-xs text-muted-foreground">
                   Moyenne : <span className="font-bold text-foreground">{moyenne}/20</span> sur {notes.length} note{notes.length > 1 ? 's' : ''}

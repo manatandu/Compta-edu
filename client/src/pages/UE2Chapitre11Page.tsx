@@ -316,7 +316,7 @@ export default function UE2Chapitre11Page() {
           color="indigo"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">Société en Participation et Société de Fait</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Société en Participation et Société de Fait</h1>
           <InfoTooltip texte="Sociétés sans personnalité morale en droit OHADA" loi="Art. 854-868 AUSCGIE" />
         </div>
         <p className="text-xs text-muted-foreground">Art. 854 à 868 AUSCGIE révisé 30 janvier 2014</p>
@@ -408,7 +408,7 @@ export default function UE2Chapitre11Page() {
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-semibold text-emerald-600">Leçon {activeLecon + 1} / {lecons.length}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecons[activeLecon]}</h2>
+            <h2 className="text-base font-display font-bold text-foreground">{lecons[activeLecon]}</h2>
           </div>
 
           {/* ── LEÇON 1 ── */}
@@ -768,7 +768,7 @@ export default function UE2Chapitre11Page() {
       {activeTab === 'cas' && (
         <div className="space-y-3">
           <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
-            <h2 className="font-bold text-gray-800 flex items-center gap-2">
+            <h2 className="font-display font-bold text-gray-800 flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-emerald-600" />
               Cas Pratiques — SEP et Société de fait ({casPratiques.length} cas)
             </h2>

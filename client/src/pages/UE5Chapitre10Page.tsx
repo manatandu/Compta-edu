@@ -1308,7 +1308,7 @@ export default function UE5Chapitre10Page() {
               ]}
               color="emerald"
             />
-            <h1 className="text-xl font-bold text-gray-900 mt-1">
+            <h1 className="text-xl font-display font-bold text-gray-900 mt-1">
               Réformes et actualité des finances publiques en RDC
             </h1>
             <p className="text-xs text-gray-500">
@@ -1357,7 +1357,7 @@ export default function UE5Chapitre10Page() {
             <div className={cn('rounded-xl border p-1', C.bg, C.border)}>
               <div className="bg-white rounded-lg p-5 space-y-1">
                 <p className={cn('text-xs font-bold uppercase tracking-wide', C.text)}>LECON {LECONS.findIndex(l => l.id === leconActive) + 1} SUR 6</p>
-                <h2 className="text-lg font-bold text-gray-900">{lecon.titre}</h2>
+                <h2 className="text-lg font-display font-bold text-gray-900">{lecon.titre}</h2>
                 <p className={C.loi}>{lecon.lois}</p>
               </div>
             </div>

@@ -83,7 +83,7 @@ function ModalExport({
           <div className="h-8 w-8 rounded-lg bg-orange-100 flex items-center justify-center">
             <Upload className="h-4 w-4 text-orange-600" />
           </div>
-          <h2 className="font-bold text-base text-foreground">Exporter vers le Journal</h2>
+          <h2 className="font-display font-bold text-base text-foreground">Exporter vers le Journal</h2>
         </div>
 
         {done ? (
@@ -220,7 +220,7 @@ export default function StockJournalPage() {
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-foreground">Journal interne : Stock</h1>
+          <h1 className="text-lg font-display font-bold text-foreground">Journal interne : Stock</h1>
           <p className="text-xs text-muted-foreground truncate">
             {article ? `${article.reference} : ${article.designation}` : 'Tous les articles'}
           </p>

@@ -55,7 +55,7 @@ export default function DocsComptablesHub() {
             <BookOpen className="h-4 w-4 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-foreground leading-tight">Documents Comptables</h1>
+            <h1 className="text-sm font-display font-bold text-foreground leading-tight">Documents Comptables</h1>
             <p className="text-xs text-muted-foreground">Dossier 1 · SYSCOHADA Révisé</p>
           </div>
         </div>

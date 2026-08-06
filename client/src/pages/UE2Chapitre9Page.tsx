@@ -510,7 +510,7 @@ export default function UE2Chapitre9Page() {
           ]}
           color="indigo"
         />
-        <h1 className="text-xl font-bold text-gray-900 leading-tight mt-0.5">Transformation des Sociétés et Difficultés d'Entreprise</h1>
+        <h1 className="text-xl font-display font-bold text-gray-900 leading-tight mt-0.5">Transformation des Sociétés et Difficultés d'Entreprise</h1>
         <p className="text-sm text-gray-500">AUSCGIE Art. 181-199 et AUPCAP révisé 2015 - OHADA</p>
       </div>
 
@@ -599,7 +599,7 @@ export default function UE2Chapitre9Page() {
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs font-semibold text-orange-600 bg-orange-50 border border-orange-200 rounded-full px-3 py-0.5">{lecon.ref}</span>
               </div>
-              <h2 className="text-lg font-bold text-gray-900">{lecon.id} - {lecon.titre}</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900">{lecon.id} - {lecon.titre}</h2>
             </div>
 
             {/* ── LEÇON 1 ── */}
@@ -1276,7 +1276,7 @@ export default function UE2Chapitre9Page() {
       {activeTab === 'cas' && (
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-orange-100 shadow-sm p-4">
-            <h2 className="font-bold text-orange-800 flex items-center gap-2">
+            <h2 className="font-display font-bold text-orange-800 flex items-center gap-2">
               <FileText className="w-5 h-5" />
               Cas Pratiques - Transformation et Difficultés d'Entreprise
             </h2>

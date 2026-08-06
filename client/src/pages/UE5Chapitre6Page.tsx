@@ -1234,7 +1234,7 @@ export default function UE5Chapitre6Page() {
           color="emerald"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">Execution des recettes publiques</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Execution des recettes publiques</h1>
           <InfoTooltip texte="Ce chapitre analyse l\'execution des recettes publiques en RDC : les trois phases (constatation, liquidation, ordonnancement) selon l\'Art. 90 LOFIP, les regies financieres (DGI, DGDA, DGRAD), les types de recettes du budget 2026 et le principe d\'unite de caisse (Art. 110 LOFIP)." loi="Art. 89-92, 110 LOFIP, LF n° 25/060" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 89-92, 110 · DGI · DGDA · DGRAD · Unite de caisse · LF 2026</p>
@@ -1295,7 +1295,7 @@ export default function UE5Chapitre6Page() {
                 {lecon.icone}
               </div>
               <div>
-                <h2 className="text-sm font-bold text-foreground">{lecon.titre}</h2>
+                <h2 className="text-sm font-display font-bold text-foreground">{lecon.titre}</h2>
                 <p className="text-xs text-muted-foreground mt-0.5">{lecon.soustitre}</p>
               </div>
             </div>

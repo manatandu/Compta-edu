@@ -657,7 +657,7 @@ export default function BilanSYCEBNLPage() {
       {/* En-tête */}
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-2xl font-bold">États Financiers SYCEBNL</h1>
+          <h1 className="text-2xl font-display font-bold">États Financiers SYCEBNL</h1>
           <p className="text-xs text-muted-foreground mt-0.5">
             Système Comptable des Entités à But Non Lucratif : Modèle officiel p.346-347
           </p>

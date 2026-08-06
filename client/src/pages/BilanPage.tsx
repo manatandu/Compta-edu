@@ -683,7 +683,7 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
                 <FileDown className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground tracking-tight">
+                <h1 className="text-xl font-display font-bold text-foreground tracking-tight">
                   {isBilan ? "Bilan" : "Compte de Résultat"}
                 </h1>
                 <p className="text-xs text-muted-foreground mt-0.5">

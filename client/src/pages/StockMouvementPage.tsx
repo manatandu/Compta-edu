@@ -131,7 +131,7 @@ export default function StockMouvementPage() {
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-foreground truncate">
+          <h1 className="text-lg font-display font-bold text-foreground truncate">
             {article.reference} : {article.designation}
           </h1>
           <p className="text-xs text-muted-foreground">
