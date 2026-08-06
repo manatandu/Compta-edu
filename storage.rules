@@ -1,0 +1,79 @@
+rules_version = '2';
+
+// ═══════════════════════════════════════════════════════════════════════
+//  ORBIT — Règles de sécurité Firebase Storage
+//
+//  Jusqu'ici aucune règle n'était versionnée pour ce bucket : l'accès
+//  dépendait de ce qui avait été configuré à la main dans la Console,
+//  invisible dans le code, jamais testé, jamais revu. Ce fichier couvre
+//  les quatre préfixes réellement utilisés par l'application (voir
+//  client/src/lib/db-firebase.ts, section "FIREBASE STORAGE").
+//
+//  Modèle retenu : Storage sert de porte d'authentification générale
+//  (lecture réservée aux comptes connectés, écriture réservée aux
+//  profs/admins) — l'isolation fine par cours/promotion est déjà assurée
+//  en amont par firestore.rules : un étudiant ne peut obtenir l'URL d'un
+//  fichier qu'en lisant d'abord le document Firestore correspondant
+//  (devoir, exercice, document, note de cours), et ces lectures sont
+//  elles-mêmes filtrées par coursId. Reproduire cette isolation ici
+//  nécessiterait un firestore.get() coûteux par requête pour un gain
+//  marginal, l'URL de téléchargement Firebase étant déjà un jeton
+//  opaque non énumérable.
+// ═══════════════════════════════════════════════════════════════════════
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isProf() {
+      return isAuth() &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role
+          in ['admin', 'professeur'];
+    }
+
+    // Toutes les pièces jointes de l'application sont des PDF (voir les
+    // attributs accept=".pdf" des formulaires) — on le vérifie ici aussi
+    // pour empêcher l'upload d'un fichier arbitraire en contournant
+    // l'interface. Taille plafonnée à 20 Mo par fichier.
+    function isValidPdfUpload() {
+      return request.resource.size < 20 * 1024 * 1024 &&
+        request.resource.contentType.matches('application/pdf');
+    }
+
+    // ── Énoncés de devoirs — devoirs/{devoirId}/{fileName} ──
+    match /devoirs/{devoirId}/{fileName} {
+      allow read: if isAuth();
+      allow create, update: if isProf() && isValidPdfUpload();
+      allow delete: if isProf();
+    }
+
+    // ── Énoncés et corrigés d'exercices — exercices/{exerciceId}/{fileName} ──
+    match /exercices/{exerciceId}/{fileName} {
+      allow read: if isAuth();
+      allow create, update: if isProf() && isValidPdfUpload();
+      allow delete: if isProf();
+    }
+
+    // ── Notes de cours (PDF) — notes-cours/{userId}/{fileName} ──
+    match /notes-cours/{userId}/{fileName} {
+      allow read: if isAuth();
+      allow create, update: if isProf() && isValidPdfUpload();
+      allow delete: if isProf();
+    }
+
+    // ── Documents pédagogiques — documents/{userId}/{fileName} ──
+    match /documents/{userId}/{fileName} {
+      allow read: if isAuth();
+      allow create, update: if isProf() && isValidPdfUpload();
+      allow delete: if isProf();
+    }
+
+    // Tout le reste : refusé par défaut (aucun chemin imprévu accessible).
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
