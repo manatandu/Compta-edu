@@ -178,10 +178,16 @@ service cloud.firestore {
     }
 
     // ─── CODES D'ACCÈS ─────────────────────────────────────────────────────────
-    // Lecture publique : un étudiant non connecté doit pouvoir vérifier son code
+    // Lecture publique MAIS uniquement document par document (get) : un
+    // étudiant non connecté doit pouvoir vérifier LE code qu'il a saisi
+    // (getDoc par id exact — voir LoginPage/InscriptionPlatformePage), jamais
+    // lister TOUTE la collection (list) — sinon n'importe qui pourrait
+    // récupérer tous les codes valides d'un coup et s'auto-inscrire dans
+    // n'importe quelle promotion sans avoir reçu de code.
     // Écriture réservée aux admins/profs (génération de codes)
     match /codesAcces/{codeId} {
-      allow read: if true;
+      allow get: if true;
+      allow list: if isProf();
       allow write: if isProf();
     }
 
