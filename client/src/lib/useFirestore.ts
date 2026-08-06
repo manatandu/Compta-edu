@@ -10,6 +10,7 @@ import {
   type Unsubscribe
 } from 'firebase/firestore'
 import { db } from './firebase'
+import { useUser } from './userContext'
 import type {
   Session, Ecriture, Universite, Faculte, Cours, Devoir, Soumission,
   Exercice, Tentative, ExerciceLibre, TentativeExerciceLibre, Presence, NoteCours
@@ -19,6 +20,40 @@ function fromDoc<T>(snap: any): T {
   const data = snap.data()
   if (!data) return { id: snap.id } as T
   return { ...data, id: snap.id } as T
+}
+
+// L'opérateur Firestore "in" accepte au maximum 30 valeurs : au-delà, il faut
+// découper en plusieurs requêtes et fusionner les résultats côté client.
+const FIRESTORE_IN_LIMIT = 30
+function chunk<T>(arr: T[], size = FIRESTORE_IN_LIMIT): T[][] {
+  const out: T[][] = []
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
+  return out
+}
+
+// S'abonne à une collection filtrée par un champ "in" (coursId, ...), en
+// répartissant sur plusieurs requêtes si la liste dépasse 30 valeurs.
+// Nécessaire depuis que firestore.rules exige une requête contrainte pour
+// certaines collections (une lecture non filtrée de toute la collection est
+// refusée avec permission-denied dès que la règle dépend de resource.data).
+function subscribeByFieldIn<T>(
+  collectionName: string,
+  field: string,
+  values: string[],
+  transform: (snap: any) => T,
+  onData: (items: T[]) => void
+): Unsubscribe {
+  const groups = chunk(values)
+  const perChunk: T[][] = groups.map(() => [])
+  const unsubs = groups.map((group, i) =>
+    onSnapshot(query(collection(db, collectionName), where(field, 'in', group)), snap => {
+      perChunk[i] = snap.docs.map(transform)
+      onData(perChunk.flat())
+    }, err => {
+      console.error(`subscribeByFieldIn(${collectionName}.${field}) error:`, err)
+    })
+  )
+  return () => unsubs.forEach(u => u())
 }
 
 // ─── Sessions temps réel ──────────────────────────────────────────────────────
@@ -182,16 +217,29 @@ export function useDevoirs(createdBy?: string) {
 }
 
 // ─── Tous les devoirs (pour les étudiants : filtrés par coursIds) ─────────────
-
+// La contrainte de requête est dérivée du rôle réel de l'utilisateur CONNECTÉ
+// (via useUser), pas d'un paramètre — c'est la même source que
+// studentCoursIds() dans firestore.rules. Un étudiant doit interroger avec
+// where('coursId','in', ...) : firestore.rules refuse toute lecture de
+// collection non contrainte dès que la règle dépend de resource.data
+// (permission-denied), même si le client compte filtrer après coup.
 export function useAllDevoirs() {
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
+  const currentUser = useUser()
+  const queryCoursIds = currentUser?.role === 'etudiant' ? ((currentUser as any).coursIds || []) : null
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'devoirs'), (snap) => {
-      setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-    })
-    return () => unsub()
-  }, [])
+    if (queryCoursIds === null) {
+      const unsub = onSnapshot(collection(db, 'devoirs'), (snap) => {
+        setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
+      }, err => console.error('useAllDevoirs error:', err))
+      return () => unsub()
+    }
+    if (queryCoursIds.length === 0) { setDevoirs([]); return }
+    return subscribeByFieldIn(
+      'devoirs', 'coursId', queryCoursIds, d => fromDoc<Devoir>(d), setDevoirs
+    )
+  }, [JSON.stringify(queryCoursIds)])
 
   return { devoirs }
 }
@@ -287,31 +335,48 @@ export function useAllEcritures(faculteId?: string) {
 
 // useExercices : filtre par coursIds (pour étudiant) + faculteId + promotion via cours
 // coursList : liste des cours chargés, pour récupérer la promotion du cours
+// NOTE isolation : la requête est contrainte par les coursIds RÉELS de
+// l'utilisateur connecté (rôle étudiant détecté via useUser), pas par les
+// paramètres — firestore.rules refuse une lecture non contrainte de toute la
+// collection pour un étudiant. Conséquence assumée : un exercice sans coursId
+// (contenu « global », en théorie visible de tous) n'apparaît plus dans cette
+// liste pour un étudiant, seulement pour un prof/admin (requête non contrainte,
+// déjà autorisée par isProf()) — cas marginal en pratique.
 export function useExercices(coursIds?: string[], faculteId?: string, promotion?: string, coursList?: { id: string; promotion?: string }[]) {
   const [exercices, setExercices] = useState<Exercice[]>([])
   const [loading, setLoading] = useState(true)
+  const currentUser = useUser()
+  const queryCoursIds = currentUser?.role === 'etudiant' ? ((currentUser as any).coursIds || []) : null
+
   useEffect(() => {
-    const q = collection(db, 'exercices')
-    const unsub = onSnapshot(q, snap => {
-      let data = snap.docs.map(d => ({ id: d.id, ...d.data() } as Exercice))
-      // Filtre par cours de l'étudiant
+    const applyFilters = (raw: Exercice[]) => {
+      let data = raw
       if (coursIds && coursIds.length > 0) data = data.filter(e => coursIds.includes(e.coursId || ''))
-      // Filtre strict par faculté (si fourni)
       if (faculteId) data = data.filter(e => !e.faculteId || e.faculteId === faculteId)
-      // Filtre strict par promotion : via le cours lié
       if (promotion && coursList && coursList.length > 0) {
         data = data.filter(e => {
           const cours = coursList.find(c => c.id === e.coursId)
-          // Cours sans promotion = visible toutes promotions
           if (!cours || !cours.promotion) return true
           return cours.promotion === promotion
         })
       }
-      setExercices(data)
-      setLoading(false)
-    })
-    return () => unsub()
-  }, [JSON.stringify(coursIds), faculteId, promotion, JSON.stringify(coursList?.map(c => c.id + (c.promotion || '')))])
+      return data
+    }
+
+    if (queryCoursIds === null) {
+      const unsub = onSnapshot(collection(db, 'exercices'), snap => {
+        setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as Exercice))))
+        setLoading(false)
+      }, err => { console.error('useExercices error:', err); setLoading(false) })
+      return () => unsub()
+    }
+    if (queryCoursIds.length === 0) { setExercices([]); setLoading(false); return }
+    return subscribeByFieldIn(
+      'exercices', 'coursId', queryCoursIds,
+      d => ({ id: d.id, ...d.data() } as Exercice),
+      data => { setExercices(applyFilters(data)); setLoading(false) }
+    )
+  }, [JSON.stringify(queryCoursIds), JSON.stringify(coursIds), faculteId, promotion, JSON.stringify(coursList?.map(c => c.id + (c.promotion || '')))])
   return { exercices, loading }
 }
 
@@ -333,19 +398,20 @@ export function useTentatives(etudiantId?: string, exerciceId?: string) {
 // ─── Exercices libres ─────────────────────────────────────────────────────────
 
 // useExercicesLibres : filtre par createdBy (prof) OU par coursIds+faculteId+promotion via cours
+// NOTE isolation : coursId est obligatoire à la création sur ce modèle, donc
+// contraindre la requête par les coursIds réels de l'étudiant connecté
+// (au lieu d'une lecture non filtrée) ne perd aucun contenu légitime.
 export function useExercicesLibres(createdBy?: string, coursIds?: string[], faculteId?: string, promotion?: string, coursList?: { id: string; promotion?: string }[]) {
   const [exercices, setExercices] = useState<ExerciceLibre[]>([])
   const [loading, setLoading] = useState(true)
+  const currentUser = useUser()
+  const queryCoursIds = currentUser?.role === 'etudiant' ? ((currentUser as any).coursIds || []) : null
+
   useEffect(() => {
-    const q = createdBy
-      ? query(collection(db, 'exercices_libres'), where('createdBy', '==', createdBy))
-      : collection(db, 'exercices_libres')
-    const unsub = onSnapshot(q, snap => {
-      let data = snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))
+    const applyFilters = (raw: ExerciceLibre[]) => {
+      let data = raw
       if (coursIds && coursIds.length > 0) data = data.filter(e => coursIds.includes(e.coursId || ''))
-      // Filtre strict par faculté (si fourni) — les exercices sans faculteId sont globaux
       if (faculteId) data = data.filter(e => !e.faculteId || e.faculteId === faculteId)
-      // Filtre strict par promotion : via le cours lié
       if (promotion && coursList && coursList.length > 0) {
         data = data.filter(e => {
           const cours = coursList.find(c => c.id === e.coursId)
@@ -353,11 +419,31 @@ export function useExercicesLibres(createdBy?: string, coursIds?: string[], facu
           return cours.promotion === promotion
         })
       }
-      setExercices(data)
-      setLoading(false)
-    })
-    return () => unsub()
-  }, [createdBy, JSON.stringify(coursIds), faculteId, promotion, JSON.stringify(coursList?.map(c => c.id + (c.promotion || '')))])
+      return data
+    }
+
+    if (createdBy) {
+      const q = query(collection(db, 'exercices_libres'), where('createdBy', '==', createdBy))
+      const unsub = onSnapshot(q, snap => {
+        setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))))
+        setLoading(false)
+      }, err => { console.error('useExercicesLibres error:', err); setLoading(false) })
+      return () => unsub()
+    }
+    if (queryCoursIds === null) {
+      const unsub = onSnapshot(collection(db, 'exercices_libres'), snap => {
+        setExercices(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as ExerciceLibre))))
+        setLoading(false)
+      }, err => { console.error('useExercicesLibres error:', err); setLoading(false) })
+      return () => unsub()
+    }
+    if (queryCoursIds.length === 0) { setExercices([]); setLoading(false); return }
+    return subscribeByFieldIn(
+      'exercices_libres', 'coursId', queryCoursIds,
+      d => ({ id: d.id, ...d.data() } as ExerciceLibre),
+      data => { setExercices(applyFilters(data)); setLoading(false) }
+    )
+  }, [createdBy, JSON.stringify(queryCoursIds), JSON.stringify(coursIds), faculteId, promotion, JSON.stringify(coursList?.map(c => c.id + (c.promotion || '')))])
   return { exercices, loading }
 }
 
@@ -414,22 +500,35 @@ export function usePresencesEtudiant(etudiantId?: string) {
 // ─── Notes de cours ───────────────────────────────────────────────────────────
 
 // ISOLATION STRICTE : filtre par coursId ET promotionId
+// NOTE isolation : coursId est obligatoire à la création sur ce modèle, donc
+// contraindre la requête par les coursIds réels de l'étudiant connecté
+// (au lieu d'une lecture non filtrée) ne perd aucun contenu légitime.
 export function useNotesCours(coursIds?: string[], promotionId?: string) {
   const [notes, setNotes] = useState<NoteCours[]>([])
+  const currentUser = useUser()
+  const queryCoursIds = currentUser?.role === 'etudiant' ? ((currentUser as any).coursIds || []) : null
+
   useEffect(() => {
-    const q = collection(db, 'notes_cours')
-    const unsub = onSnapshot(q, snap => {
-      let data = snap.docs.map(d => ({ id: d.id, ...d.data() } as NoteCours))
-      // Filtre cours
-      if (coursIds && coursIds.length > 0)
-        data = data.filter(n => coursIds.includes(n.coursId || ''))
-      // Filtre promotion OBLIGATOIRE si fourni
-      if (promotionId)
-        data = data.filter(n => n.promotionId === promotionId)
-      setNotes(data)
-    })
-    return () => unsub()
-  }, [JSON.stringify(coursIds), promotionId])
+    const applyFilters = (raw: NoteCours[]) => {
+      let data = raw
+      if (coursIds && coursIds.length > 0) data = data.filter(n => coursIds.includes(n.coursId || ''))
+      if (promotionId) data = data.filter(n => n.promotionId === promotionId)
+      return data
+    }
+
+    if (queryCoursIds === null) {
+      const unsub = onSnapshot(collection(db, 'notes_cours'), snap => {
+        setNotes(applyFilters(snap.docs.map(d => ({ id: d.id, ...d.data() } as NoteCours))))
+      }, err => console.error('useNotesCours error:', err))
+      return () => unsub()
+    }
+    if (queryCoursIds.length === 0) { setNotes([]); return }
+    return subscribeByFieldIn(
+      'notes_cours', 'coursId', queryCoursIds,
+      d => ({ id: d.id, ...d.data() } as NoteCours),
+      data => setNotes(applyFilters(data))
+    )
+  }, [JSON.stringify(queryCoursIds), JSON.stringify(coursIds), promotionId])
   return { notes }
 }
 

@@ -23,7 +23,7 @@ import {
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { doc, getDoc, setDoc, updateDoc, deleteDoc, collection, addDoc } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where } from 'firebase/firestore'
 import { describe, it, beforeAll, afterAll, afterEach } from 'vitest'
 
 import { USERS, IDS, DOCS, token } from './helpers.js'
@@ -326,6 +326,34 @@ describe('📝 Notes de cours — Isolation stricte cours × promotion', () => {
     const ref = doc(db(USERS.etud1), 'notes_cours', 'note-001')
     await assertFails(updateDoc(ref, { titre: 'Modif par étudiant' }))
   })
+
+  it('Un étudiant inscrit au cours PEUT lire la note de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('notes_cours', 'note-001', DOCS.noteCoursCompta)
+    const ref = doc(db(USERS.etud1), 'notes_cours', 'note-001')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire la note de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('notes_cours', 'note-001', DOCS.noteCoursCompta)
+    const ref = doc(db(USERS.etud2), 'notes_cours', 'note-001')
+    await assertFails(getDoc(ref))
+  })
+
+  it("Un étudiant NE PEUT PAS lire toute la collection notes_cours sans requête contrainte, même si une note lui appartient (fuite silencieuse écartée)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('notes_cours', 'note-001', DOCS.noteCoursCompta)
+    await seedDoc('notes_cours', 'note-002', DOCS.notesCoursFiscalite)
+    await assertFails(getDocs(collection(db(USERS.etud1), 'notes_cours')))
+  })
+
+  it("Un étudiant PEUT lire notes_cours via une requête where('coursId','in', ses coursIds)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('notes_cours', 'note-001', DOCS.noteCoursCompta)
+    const q = query(collection(db(USERS.etud1), 'notes_cours'), where('coursId', 'in', USERS.etud1.coursIds))
+    await assertSucceeds(getDocs(q))
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -382,6 +410,36 @@ describe('📋 Devoirs — Isolation stricte cours × promotion', () => {
     await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
     const ref = doc(db(USERS.etud1), 'devoirs', 'devoir-001')
     await assertFails(deleteDoc(ref))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire le devoir de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    const ref = doc(db(USERS.etud1), 'devoirs', 'devoir-001')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire le devoir de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    const ref = doc(db(USERS.etud2), 'devoirs', 'devoir-001')
+    await assertFails(getDoc(ref))
+  })
+
+  it("Un étudiant NE PEUT PAS lire toute la collection devoirs sans requête contrainte, même si un devoir lui appartient (fuite silencieuse écartée)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    await seedDoc('devoirs', 'devoir-002', {
+      titre: 'Devoir 1 — TVA', coursId: IDS.coursFiscalite, promotionId: IDS.promoL2, createdBy: USERS.prof2.uid,
+    })
+    await assertFails(getDocs(collection(db(USERS.etud1), 'devoirs')))
+  })
+
+  it("Un étudiant PEUT lire devoirs via une requête where('coursId','in', ses coursIds)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    const q = query(collection(db(USERS.etud1), 'devoirs'), where('coursId', 'in', USERS.etud1.coursIds))
+    await assertSucceeds(getDocs(q))
   })
 })
 
@@ -489,6 +547,176 @@ describe('🏋️ Exercices libres — Isolation par cours', () => {
       createdBy: USERS.etud1.uid,
       type: 'pratique',
     }))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire l\'exercice libre de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta)
+    const ref = doc(db(USERS.etud1), 'exercices_libres', 'exlib-001')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire l'exercice libre de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta)
+    const ref = doc(db(USERS.etud2), 'exercices_libres', 'exlib-001')
+    await assertFails(getDoc(ref))
+  })
+
+  it("Un étudiant NE PEUT PAS lire toute la collection exercices_libres sans requête contrainte, même si un exercice lui appartient (fuite silencieuse écartée)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta)
+    await seedDoc('exercices_libres', 'exlib-002', { titre: 'Exercice TVA', coursId: IDS.coursFiscalite, createdBy: USERS.prof2.uid, type: 'pratique' })
+    await assertFails(getDocs(collection(db(USERS.etud1), 'exercices_libres')))
+  })
+
+  it("Un étudiant PEUT lire exercices_libres via une requête where('coursId','in', ses coursIds)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices_libres', 'exlib-001', DOCS.exerciceLibreCompta)
+    const q = query(collection(db(USERS.etud1), 'exercices_libres'), where('coursId', 'in', USERS.etud1.coursIds))
+    await assertSucceeds(getDocs(q))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 6bis — DOCUMENTS — Isolation par cours
+// ══════════════════════════════════════════════════════════════════════════════
+describe('📁 Documents — Isolation par cours', () => {
+
+  it("Un document sans coursId N'EST PLUS lisible par un étudiant (retiré : rendait les requêtes de liste perméables)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('documents', 'doc-global', { titre: 'Guide plateforme', createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud2), 'documents', 'doc-global')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Un document sans coursId reste lisible par un prof/admin', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('documents', 'doc-global', { titre: 'Guide plateforme', createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.prof1), 'documents', 'doc-global')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire le document de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud1), 'documents', 'doc-compta')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire le document de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud2), 'documents', 'doc-compta')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Un prof/admin peut lire le document d\'un cours qui n\'est pas le sien', async () => {
+    await seedUsers(USERS.admin2, USERS.prof2)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.prof2), 'documents', 'doc-compta')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NE PEUT PAS lire toute la collection documents sans requête contrainte, même si un document lui appartient (fuite silencieuse écartée)", async () => {
+    await seedUsers(USERS.etud1)
+    // Un document que etud1 a le droit de lire...
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    // ...et un document d'un AUTRE cours, qu'il ne doit jamais voir.
+    await seedDoc('documents', 'doc-fiscalite', { titre: 'Support fiscalité', coursId: IDS.coursFiscalite, createdBy: USERS.prof2.uid })
+    // La requête entière doit échouer — pas juste filtrer silencieusement doc-fiscalite.
+    await assertFails(getDocs(collection(db(USERS.etud1), 'documents')))
+  })
+
+  it("Un étudiant PEUT lire documents via une requête where('coursId','==', un de ses cours)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('documents', 'doc-compta', { titre: 'Support cours', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    const q = query(collection(db(USERS.etud1), 'documents'), where('coursId', '==', IDS.coursCompta))
+    await assertSucceeds(getDocs(q))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 6ter — EXERCICES (cotés) — Isolation par cours
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🧮 Exercices — Isolation par cours', () => {
+
+  it("Un exercice sans coursId N'EST PLUS lisible par un étudiant (retiré : rendait les requêtes de liste perméables)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('exercices', 'ex-global', {
+      sessionId: 'sess-1', titre: 'Exercice général', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+    })
+    const ref = doc(db(USERS.etud2), 'exercices', 'ex-global')
+    await assertFails(getDoc(ref))
+  })
+
+  it('Un exercice sans coursId reste lisible par un prof/admin', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('exercices', 'ex-global', {
+      sessionId: 'sess-1', titre: 'Exercice général', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+    })
+    const ref = doc(db(USERS.prof1), 'exercices', 'ex-global')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un étudiant inscrit au cours PEUT lire l\'exercice de ce cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices', 'ex-compta', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+      coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.etud1), 'exercices', 'ex-compta')
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it("Un étudiant NON inscrit au cours NE PEUT PAS lire l'exercice de ce cours (faille corrigée)", async () => {
+    await seedUsers(USERS.etud2)
+    await seedDoc('exercices', 'ex-compta', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+      coursId: IDS.coursCompta,
+    })
+    const ref = doc(db(USERS.etud2), 'exercices', 'ex-compta')
+    await assertFails(getDoc(ref))
+  })
+
+  it("Un étudiant NE PEUT PAS lire toute la collection exercices sans requête contrainte, même si un exercice lui appartient (fuite silencieuse écartée)", async () => {
+    await seedUsers(USERS.etud1)
+    // Un exercice que etud1 a le droit de lire...
+    await seedDoc('exercices', 'ex-compta', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+      coursId: IDS.coursCompta,
+    })
+    // ...et un exercice d'un AUTRE cours, qu'il ne doit jamais voir.
+    await seedDoc('exercices', 'ex-fiscalite', {
+      sessionId: 'sess-2', titre: 'Exercice fiscalité', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof2.uid, actif: true,
+      coursId: IDS.coursFiscalite,
+    })
+    // La requête entière doit échouer — pas juste filtrer silencieusement ex-fiscalite.
+    await assertFails(getDocs(collection(db(USERS.etud1), 'exercices')))
+  })
+
+  it("Un étudiant PEUT lire exercices via une requête where('coursId','in', ses coursIds)", async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('exercices', 'ex-compta', {
+      sessionId: 'sess-1', titre: 'Exercice compta', description: '', instructions: '',
+      ecrituresAttendues: [], bareme: { compte: 1, sens: 1, montant: 1, equilibre: 1 },
+      dateCreation: new Date().toISOString(), userId: USERS.prof1.uid, actif: true,
+      coursId: IDS.coursCompta,
+    })
+    const q = query(collection(db(USERS.etud1), 'exercices'), where('coursId', 'in', USERS.etud1.coursIds))
+    await assertSucceeds(getDocs(q))
   })
 })
 

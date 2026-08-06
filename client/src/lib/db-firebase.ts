@@ -502,7 +502,16 @@ export async function saveTentativeAsync(data: Omit<Tentative, 'id' | 'dateCreat
 // ──────────────────────────────────────────────────────────────────────────────
 
 export async function getDocumentsAsync(userId?: string, promotionId?: string, coursId?: string): Promise<Document[]> {
-  const snap = await getDocs(query(collection(db, C.DOCUMENTS)))
+  // Isolation : quand un coursId précis est fourni (appel étudiant, un par cours
+  // inscrit — voir DocumentsPage), la requête Firestore elle-même doit être
+  // contrainte par ce coursId. firestore.rules refuse désormais une lecture non
+  // filtrée de toute la collection dès que la règle dépend de resource.data.
+  // Sans coursId (appel prof/admin), la lecture reste non filtrée — déjà
+  // autorisée par isProf() côté règles.
+  const q = coursId
+    ? query(collection(db, C.DOCUMENTS), where('coursId', '==', coursId))
+    : query(collection(db, C.DOCUMENTS))
+  const snap = await getDocs(q)
   const all = snap.docs.map(d => fromDoc<Document>(d))
   // ISOLATION STRICTE :
   // Si l'appelant est un étudiant (promotionId fourni), un document ne lui est visible

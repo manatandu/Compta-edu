@@ -28,6 +28,14 @@ service cloud.firestore {
       return isAuth() && request.auth.uid == resource.data.adminId;
     }
 
+    // Cours auxquels l'étudiant courant est inscrit (champ coursIds sur son profil,
+    // seule source de vérité déjà utilisée côté interface — Layout, Dashboard).
+    // Un compte non-étudiant (prof/admin) n'a pas ce champ : tableau vide, sans
+    // incidence puisque isProf() court-circuite toujours avant ce test.
+    function studentCoursIds() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('coursIds', []);
+    }
+
     // ─── USERS ───────────────────────────────────────────────────────────────
     match /users/{userId} {
       // Création :
@@ -91,8 +99,15 @@ service cloud.firestore {
     // ─── EXERCICES (cotés — créés par profs/admins) ──────────────────────────
     // Isolation : chaque exercice est lié à un coursId.
     // Un étudiant ne voit que les exercices de SES cours.
+    // IMPORTANT : pas de branche "OR coursId absent" ici — testé en pratique,
+    // une telle clause rend Firestore incapable de valider correctement une
+    // requête de LISTE (list) et la laisse passer même pour un document d'un
+    // autre cours (contournement complet de l'isolation). Un exercice sans
+    // coursId n'est donc plus lisible par un étudiant via cette règle — seuls
+    // les profs/admins (isProf()) y ont accès. C'est un compromis assumé :
+    // la sécurité prime sur la visibilité d'un contenu "global" marginal.
     match /exercices/{exerciceId} {
-      allow read: if isAuth();
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf();
       allow update, delete: if isProf() && createdBy();
     }
@@ -118,7 +133,7 @@ service cloud.firestore {
     // • Un étudiant ne voit que les exercices libres de ses cours (coursId dans ses coursIds)
     // • Un prof ne voit que ses propres exercices libres (createdBy)
     match /exercices_libres/{exId} {
-      allow read: if isAuth();
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'createdBy']);
       allow update, delete: if isProf() && createdBy();
     }
@@ -140,8 +155,16 @@ service cloud.firestore {
     //   - Doc avec promotionId mais sans coursId → visible par toute la promotion
     //   - Doc avec coursId mais sans promotionId → visible pour tout le cours
     //   - Doc avec promotionId ET coursId → visible uniquement pour les étudiants des deux
+    // NOTE : le champ promotionId a été retiré du formulaire de création (DocumentsPage) —
+    // en pratique seul coursId isole encore les documents créés depuis l'interface actuelle.
+    // IMPORTANT : pas de branche "OR coursId absent" ici — testé en pratique,
+    // une telle clause rend Firestore incapable de valider correctement une
+    // requête de LISTE (list) et la laisse passer même pour un document d'un
+    // autre cours (contournement complet de l'isolation). Un document sans
+    // coursId n'est donc plus lisible par un étudiant via cette règle — seuls
+    // les profs/admins (isProf()) y ont accès.
     match /documents/{documentId} {
-      allow read: if isAuth();
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf() && request.resource.data.keys().hasAll(['createdBy']);
       allow update, delete: if isProf() && createdBy();
     }
@@ -199,7 +222,7 @@ service cloud.firestore {
     // • Un étudiant voit uniquement les devoirs de SES cours
     // • Un prof voit uniquement SES devoirs
     match /devoirs/{devoirId} {
-      allow read: if isAuth();
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'createdBy', 'promotionId']);
       allow update, delete: if isProf() && createdBy();
     }
@@ -228,7 +251,7 @@ service cloud.firestore {
     // RÈGLE : PAS D'INTERFÉRENCE — les notes d'un cours A ne sont JAMAIS
     //         visibles dans un cours B, même pour la même promotion.
     match /notes_cours/{noteId} {
-      allow read: if isAuth();
+      allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'promotionId', 'createdBy']);
       allow update, delete: if isProf() && createdBy();
     }
