@@ -2244,7 +2244,10 @@ function SimulateurIS() {
 
     // IS théorique 30% (Art. 56)
     const isTheoriqueRaw = rfNet * 0.30
-    // IS minimum — 3 cas (Art. 91 CGI O.-L. 69/009 repris par Loi 23/053)
+    // IS minimum — 3 cas. Seul le cas §1 (1% du CA) est confirmé par le texte en vigueur
+    // (Art. 57, Loi 23/053). Les cas §2/§3 (forfaits par taille) reproduisent l'art. 91 de
+    // l'Ordonnance-loi 69/009 (ancien CGI), abrogée depuis le 1er janvier 2026 (Art. 152,
+    // Loi 23/053) — continuité non confirmée par le texte, conservée à titre indicatif.
     // §1 : CA > 0 ET (déficit OU IS théorique < 1% CA) → minimum = 1% du CA (grandes+moyennes, hors petites)
     // §2 : en activité mais CA = 0 → forfait fixe par taille
     // §3 : cessation d'activités sans radiation RCCM → forfait réduit par taille
@@ -2263,7 +2266,7 @@ function SimulateurIS() {
       isMinimumRaw = Math.max(ca * 0.01, forfaitSansCA[tailleEntreprise])
       casMinimum = 'ca'
     } else {
-      // §2 : en activité, CA = 0 → forfait fixe selon taille (Art. 91 §2 CGI)
+      // §2 : en activité, CA = 0 → forfait fixe selon taille (régime non confirmé, voir réserve ci-dessus)
       isMinimumRaw = forfaitSansCA[tailleEntreprise]
       casMinimum = 'sansCA'
     }
@@ -2392,8 +2395,8 @@ function SimulateurIS() {
           <label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
             Taille de l'entreprise (classement fiscal)
             <InfoTooltip
-              texte="Art. 91 CGI (O.-L. 69/009) — IS minimum : §1 : si CA réalisé, minimum = 1% du CA (grandes+moyennes). §2 : si CA = 0 (en activité) → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : si cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC. | Art. 92bis : le Ministre peut réajuster ces montants par arrêté."
-              loi="Art. 91 CGI O.-L. 69/009 ; Art. 57 Loi 23/053"
+              texte="⚠️ Réserve : ce régime forfaitaire par taille d'entreprise (§2 et §3 ci-dessous) provient de l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 par l'art. 152 de la Loi 23/053. L'art. 57 de la loi actuelle prévoit expressément un minimum uniforme de 1% du chiffre d'affaires déclaré, sans mentionner de forfaits par taille ni de régime de cessation — la continuité de ce régime forfaitaire n'est donc pas confirmée par le texte en vigueur. Reproduit ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. | §1 : si CA réalisé, minimum = 1% du CA (seule règle certaine, Art. 57). §2 : si CA = 0 (en activité) → forfait fixe reproduit de l'ancien régime : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : si cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
+              loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée — continuité non confirmée"
             />
           </label>
           <div className="flex gap-2">
@@ -2536,16 +2539,16 @@ function SimulateurIS() {
               <LigneR
                 label={
                   res.casMinimum === 'ca'
-                    ? `IS minimum : MAX(1% CA = ${formatFC(Math.round(res.ca * 0.01))}, plancher ${res.tailleEntreprise === 'grande' ? '2 500 000' : res.tailleEntreprise === 'moyenne' ? '750 000' : '30 000'} FC) (Art. 91 §1 CGI)`
+                    ? `IS minimum : MAX(1% CA = ${formatFC(Math.round(res.ca * 0.01))}, plancher ${res.tailleEntreprise === 'grande' ? '2 500 000' : res.tailleEntreprise === 'moyenne' ? '750 000' : '30 000'} FC) (Art. 57 ; plancher non confirmé, voir réserve)`
                     : res.casMinimum === 'sansCA'
-                    ? `IS minimum forfaitaire CA=0 — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (Art. 91 §2 CGI)`
-                    : `IS forfaitaire — cessation sans radiation RCCM — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (Art. 91 §3 CGI)`
+                    ? `IS minimum forfaitaire CA=0 — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
+                    : `IS forfaitaire — cessation sans radiation RCCM — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
                 }
                 val={formatFC(res.isMinimum)}
               />
               <InfoTooltip
-                texte="Art. 91 CGI (O.-L. 69/009) — IS minimum : §1 : si CA > 0 → minimum = MAX(1% du CA, plancher du régime). Le plancher garantit que l'IS ne peut être inférieur au forfait du régime (ex. grande entreprise : 2 500 000 FC), même si 1% du CA est supérieur. §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC. L'impôt forfaitaire ne fait pas obstacle au pouvoir de recherche de l'Administration fiscale. | Art. 92bis : le Ministre peut réajuster ces montants par arrêté."
-                loi="Art. 91 CGI O.-L. 69/009"
+                texte="⚠️ Réserve : seul le minimum de 1% du CA (Art. 57, Loi 23/053) est confirmé par le texte en vigueur. Les planchers et forfaits par taille d'entreprise ci-dessous reproduisent l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 (Art. 152, Loi 23/053) — leur continuité sous le régime actuel n'est pas confirmée par le texte, seulement reproduite ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. §1 : si CA > 0 → minimum = MAX(1% du CA, plancher du régime). §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
+                loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée — continuité non confirmée"
               />
             </div>
             <Separateur />
@@ -2570,21 +2573,20 @@ function SimulateurIS() {
           )}
           {res.casMinimum === 'sansCA' && (
             <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
-              <p className="text-xs font-semibold text-blue-700">CA = 0 : impôt forfaitaire appliqué (Art. 91 §2 CGI)</p>
+              <p className="text-xs font-semibold text-blue-700">CA = 0 : impôt forfaitaire appliqué (régime non confirmé, voir réserve)</p>
               <p className="text-xs text-blue-600 mt-0.5">
-                L'entreprise est en activité mais n'a réalisé aucun chiffre d'affaires. L'Art. 91 §2 CGI (O.-L. 69/009) impose un forfait fixe :
+                L'entreprise est en activité mais n'a réalisé aucun chiffre d'affaires. Ce forfait fixe reproduit l'art. 91 §2 de l'ancien CGI (O.-L. 69/009), <strong>abrogé depuis le 1er janvier 2026</strong> (Art. 152, Loi 23/053) : sa continuité sous la loi actuelle n'est pas confirmée par le texte, qui ne prévoit qu'un minimum uniforme de 1% du CA (Art. 57). Reproduit à titre indicatif :
                 Grande entreprise : <strong>2 500 000 FC</strong> / Moyenne : <strong>750 000 FC</strong> / Petite : <strong>30 000 FC</strong>.
-                Prorata : 1/12e par mois d'activité si début après janvier. | Art. 92bis : le Ministre peut réajuster ces montants par arrêté.
+                Prorata : 1/12e par mois d'activité si début après janvier (règle de l'ancien régime, également non confirmée).
               </p>
             </div>
           )}
           {res.casMinimum === 'cessation' && (
             <div className="rounded-lg border border-orange-200 bg-orange-50 p-3">
-              <p className="text-xs font-semibold text-orange-700">Cessation sans radiation RCCM : forfait applicable (Art. 91 §3 CGI)</p>
+              <p className="text-xs font-semibold text-orange-700">Cessation sans radiation RCCM : forfait applicable (régime non confirmé, voir réserve)</p>
               <p className="text-xs text-orange-600 mt-0.5">
-                L'entreprise a cessé ses activités sans s'être fait radier du RCCM (Art. 97 OHADA). L'Art. 91 §3 CGI impose un forfait :
+                L'entreprise a cessé ses activités sans s'être fait radier du RCCM (Art. 97 OHADA). Ce forfait reproduit l'art. 91 §3 de l'ancien CGI (O.-L. 69/009), <strong>abrogé depuis le 1er janvier 2026</strong> (Art. 152, Loi 23/053) : sa continuité sous la loi actuelle n'est pas confirmée par le texte, qui ne prévoit qu'un minimum uniforme de 1% du CA (Art. 57). Reproduit à titre indicatif :
                 Grande : <strong>500 000 FC</strong> / Moyenne : <strong>250 000 FC</strong> / Petite : <strong>30 000 FC</strong>.
-                Ce forfait ne fait pas obstacle au pouvoir de recherche et de recoupement de l'Administration fiscale. | Art. 92bis : montants réajustables par arrêté ministériel.
               </p>
             </div>
           )}
