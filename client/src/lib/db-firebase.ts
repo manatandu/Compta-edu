@@ -1098,6 +1098,12 @@ export async function initCoursSystemeAsync(): Promise<void> {
         faculteId: '',
         universiteId: '',
         createdBy: 'system',
+        // adminId requis par firestore.rules (hasAll(['adminId','createdBy']))
+        // à la création — ces cours système n'appartiennent à aucun admin en
+        // particulier (visibles de tous, cf. allow read: if isAuth() sur
+        // /cours), donc pas de vraie valeur à mettre : présence du champ
+        // suffit à satisfaire la règle.
+        adminId: 'system',
         dateCreation: new Date().toISOString(),
       }) as any)
     } else {

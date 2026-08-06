@@ -884,6 +884,12 @@ export default function ProfesseurPage() {
           return
         }
       }
+      // adminId : la règle firestore.rules exige ce champ à la création
+      // (hasAll(['adminId','createdBy'])) — repris de l'université choisie
+      // (source de vérité de "qui possède ce cours") plutôt que de l'auteur
+      // de l'action, car un professeur (pas seulement un admin) peut créer
+      // un cours : son propre id ne serait pas un adminId valide.
+      const uniAdminId = universites.find(u => u.id === coursForm.universiteId)?.adminId || currentUser?.id || ''
       await createCoursAsync({
         nom: coursForm.nom.trim(),
         description: coursForm.description.trim(),
@@ -892,6 +898,7 @@ export default function ProfesseurPage() {
         promotion: coursForm.promotion || undefined,
         actif: coursForm.actif,
         createdBy: currentUser?.id || '',
+        adminId: uniAdminId,
         ...(coursForm.coursSystemeId ? { coursSystemeId: coursForm.coursSystemeId } : {})
       })
     }
