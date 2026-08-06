@@ -1068,6 +1068,22 @@ describe('📦 Stock — Isolation par utilisateur', () => {
     const ref = doc(db(null), 'stock_articles', 'art-001')
     await assertFails(getDoc(ref))
   })
+
+  it('Etud1 NE PEUT PAS réattribuer son article de stock à Etud2 (userId) en le modifiant', async () => {
+    // Régression revue PR #27 : create/update séparés pour empêcher qu'une
+    // modification change le propriétaire du document.
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('stock_articles', 'art-001', { userId: USERS.etud1.uid, reference: 'X' })
+    const ref = doc(db(USERS.etud1), 'stock_articles', 'art-001')
+    await assertFails(updateDoc(ref, { userId: USERS.etud2.uid }))
+  })
+
+  it('Etud1 peut modifier son article de stock sans toucher userId', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('stock_articles', 'art-001', { userId: USERS.etud1.uid, reference: 'X' })
+    const ref = doc(db(USERS.etud1), 'stock_articles', 'art-001')
+    await assertSucceeds(updateDoc(ref, { reference: 'Y' }))
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════

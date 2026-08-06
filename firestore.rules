@@ -337,28 +337,29 @@ service cloud.firestore {
     // pages Stock (GestionStockPage, StockArticlesPage, StockMouvementPage,
     // StockJournalPage, StockFichePage, StockExercicePage) étaient entièrement
     // inutilisables en production (PERMISSION_DENIED sur toute lecture/écriture).
+    // create/update séparés (plutôt qu'un seul "write") pour empêcher un
+    // utilisateur de réattribuer userId à quelqu'un d'autre lors d'une
+    // modification : update exige à la fois la propriété actuelle ET que la
+    // nouvelle valeur reste la sienne.
     match /stock_articles/{articleId} {
       allow read: if isAuth() && ownsResource('userId');
-      allow write: if isAuth() && (
-        request.auth.uid == resource.data.userId ||
-        request.resource.data.userId == request.auth.uid
-      );
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuth() && ownsResource('userId') && request.resource.data.userId == request.auth.uid;
+      allow delete: if isAuth() && ownsResource('userId');
     }
 
     match /stock_mouvements/{mouvementId} {
       allow read: if isAuth() && ownsResource('userId');
-      allow write: if isAuth() && (
-        request.auth.uid == resource.data.userId ||
-        request.resource.data.userId == request.auth.uid
-      );
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuth() && ownsResource('userId') && request.resource.data.userId == request.auth.uid;
+      allow delete: if isAuth() && ownsResource('userId');
     }
 
     match /stock_ecritures/{ecritureId} {
       allow read: if isAuth() && ownsResource('userId');
-      allow write: if isAuth() && (
-        request.auth.uid == resource.data.userId ||
-        request.resource.data.userId == request.auth.uid
-      );
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAuth() && ownsResource('userId') && request.resource.data.userId == request.auth.uid;
+      allow delete: if isAuth() && ownsResource('userId');
     }
   }
 }
