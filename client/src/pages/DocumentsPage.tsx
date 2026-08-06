@@ -321,8 +321,8 @@ export default function DocumentsPage() {
                 <FolderOpen className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground tracking-tight">Documents</h1>
-                <p className="text-xs text-muted-foreground mt-0.5">
+                <h1 className="font-display text-xl font-bold text-foreground tracking-tight">Documents</h1>
+                <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground mt-0.5">
                   {coursParam === 'fiscalite'
                     ? 'Ressources : Module Fiscalité'
                     : coursParam === 'comptabilite-generale'

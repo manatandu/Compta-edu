@@ -1419,10 +1419,10 @@ export default function UE2Chapitre1Page() {
           color="indigo"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-bold text-foreground leading-tight">La société commerciale</h1>
+          <h1 className="font-display text-lg font-bold text-foreground leading-tight">La société commerciale</h1>
           <InfoTooltip texte="La société commerciale en droit OHADA" loi="Art. 1 à 6 AUSCGIE" />
         </div>
-        <p className="text-xs text-muted-foreground">Art. 1 à 107 AUSCGIE : Traité OHADA 1993 : Droit RDC</p>
+        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Art. 1 à 107 AUSCGIE : Traité OHADA 1993 : Droit RDC</p>
       </div>
 
       <div className="grid grid-cols-4 gap-2">
@@ -1479,7 +1479,7 @@ export default function UE2Chapitre1Page() {
               <span className="text-xs font-semibold text-indigo-600">Leçon {leconIdx + 1} / {LECONS.length}</span>
               <span className="text-xs text-muted-foreground">{lecon.badge ?? ''}</span>
             </div>
-            <h2 className="text-base font-bold text-foreground">{lecon.titre}</h2>
+            <h2 className="font-display text-base font-bold text-foreground">{lecon.titre}</h2>
           </div>
           <div className="space-y-4">
             <div className="rounded-xl border border-border bg-card p-4 space-y-2">
@@ -1515,7 +1515,7 @@ export default function UE2Chapitre1Page() {
 
       {activeTab === 'cas' && (
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
+          <h2 className="font-display text-sm font-bold text-foreground px-1">Cas pratiques : {ETUDES_DE_CAS.length} exercices</h2>
           {ETUDES_DE_CAS.map(cp => <CasPratiqueBlock key={cp.id} cp={cp} />)}
         </div>
       )}

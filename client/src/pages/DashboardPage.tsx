@@ -149,7 +149,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
     return (
       <div className="mt-3 space-y-3">
         <div className="bg-muted rounded-lg p-4 text-center space-y-1">
-          <p className="text-2xl font-bold text-foreground">{note}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
+          <p className="text-2xl font-mono font-bold text-foreground">{note}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
           <p className={`text-sm font-semibold ${mentionColor}`}>{mention}</p>
           <p className="text-xs text-muted-foreground">{resultat.score}/{resultat.total} bonne{resultat.score > 1 ? 's' : ''} réponse{resultat.score > 1 ? 's' : ''}</p>
         </div>
@@ -677,7 +677,7 @@ export default function DashboardPage() {
       {/* ══ MODULES — grille de carreaux ════════════════════════════════════ */}
       <div className="animate-slideRight" style={{ animationDelay: '600ms' }}>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-bold text-foreground">Modules</h2>
+          <h2 className="text-base font-display font-semibold text-foreground">Modules</h2>
           <span className="text-xs text-muted-foreground">Accès rapide à tous les outils</span>
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -782,7 +782,7 @@ export default function DashboardPage() {
         return (
           <div className="animate-slideUp" style={{ animationDelay: '1250ms' }}>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-base font-bold text-foreground">Mes devoirs</h2>
+              <h2 className="text-base font-display font-semibold text-foreground">Mes devoirs</h2>
               <span className="text-xs text-muted-foreground">{mesDevoirs.length} devoir{mesDevoirs.length > 1 ? 's' : ''}</span>
             </div>
             <div className="space-y-2">
@@ -837,7 +837,7 @@ export default function DashboardPage() {
                     {soum?.statut === 'note' && (
                       <div className="mt-3 bg-muted/40 rounded-md p-3">
                         <div className="flex items-center gap-3">
-                          <p className={cn('text-2xl font-bold', soum.note! >= 5 ? 'text-green-600' : 'text-red-500')}>{soum.note}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
+                          <p className={cn('text-2xl font-mono font-bold', soum.note! >= 5 ? 'text-green-600' : 'text-red-500')}>{soum.note}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
                           {soum.commentaire && <p className="text-xs text-foreground flex-1 italic">{soum.commentaire}</p>}
                         </div>
                       </div>
@@ -947,7 +947,7 @@ export default function DashboardPage() {
                 <Award className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-foreground">Mes cotes</h2>
+                <h2 className="text-sm font-display font-semibold text-foreground">Mes cotes</h2>
                 <p className="text-xs text-muted-foreground">Performance académique</p>
               </div>
             </div>
@@ -1119,7 +1119,7 @@ export default function DashboardPage() {
               <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-xs text-muted-foreground">Score total</p>
-                  <p className={cn('text-2xl font-bold tabular-nums mt-0.5',
+                  <p className={cn('text-2xl font-mono font-bold tabular-nums mt-0.5',
                     totalCoteEtudiant === null ? 'text-muted-foreground' :
                     totalCoteEtudiant >= 8 ? 'text-green-600' :
                     totalCoteEtudiant >= 5 ? 'text-yellow-600' : 'text-red-600'

@@ -476,7 +476,7 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-bold">{ex.titre}</h2>
+            <h2 className="font-display text-lg font-bold">{ex.titre}</h2>
             <TypeLabel type={ex.type} />
           </div>
           <Button variant="outline" size="sm" onClick={() => setSessionActive(null)}>
@@ -787,8 +787,8 @@ export default function ExercicesPage() {
               <BookOpen className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground tracking-tight">Exercices</h1>
-              <p className="text-xs text-muted-foreground mt-0.5">Pratiquez la comptabilité SYSCOHADA</p>
+              <h1 className="font-display text-xl font-bold text-foreground tracking-tight">Exercices</h1>
+              <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground mt-0.5">Pratiquez la comptabilité SYSCOHADA</p>
             </div>
           </div>
         </div>
