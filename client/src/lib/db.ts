@@ -123,6 +123,11 @@ export interface Document {
   contenu: string
   type: string
   userId: string
+  // Requis par firestore.rules (hasAll(['createdBy']) à la création, exploité
+  // par createdBy() pour update/delete) — distinct de userId par convention
+  // avec les autres collections prof-créées (cours, devoirs, exercices...),
+  // même si ici les deux valent la même chose (l'auteur du document).
+  createdBy?: string
   dateCreation: string
   folderId?: string
   pdfData?: string    // base64 du fichier PDF joint

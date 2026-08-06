@@ -256,6 +256,10 @@ export default function DocumentsPage() {
         pdfUrl,
         pdfNom,
         userId: user?.id || '',
+        // firestore.rules exige createdBy à la création (hasAll(['createdBy']))
+        // et s'en sert pour autoriser update/delete — absent jusqu'ici, toute
+        // création de document échouait (PERMISSION_DENIED).
+        createdBy: user?.id || '',
         promotionId: form.promotionId || undefined,
         coursId: form.coursId || undefined,
       }
