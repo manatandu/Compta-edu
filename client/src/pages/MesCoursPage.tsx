@@ -7,20 +7,14 @@ import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { cn } from '@/lib/utils'
 
+// Cycle sur la palette « module » de la marque Orbit (5 teintes définies dans
+// index.css) plutôt que des couleurs Tailwind ad hoc sans rapport avec l'identité.
 const UE_COLORS = [
-  'bg-blue-50 text-blue-700',
-  'bg-indigo-50 text-indigo-700',
-  'bg-violet-50 text-violet-700',
-  'bg-amber-50 text-amber-700',
-  'bg-gray-50 text-gray-600',
-  'bg-emerald-50 text-emerald-700',
-  'bg-cyan-50 text-cyan-700',
-  'bg-teal-50 text-teal-700',
-  'bg-blue-50 text-blue-700',
-  'bg-sky-50 text-sky-700',
-  'bg-rose-50 text-rose-700',
-  'bg-orange-50 text-orange-700',
-  'bg-purple-50 text-purple-700',
+  'bg-module-blue/10 text-module-blue',
+  'bg-module-violet/10 text-module-violet',
+  'bg-module-teal/10 text-module-teal',
+  'bg-module-rose/10 text-module-rose',
+  'bg-module-emerald/10 text-module-emerald',
 ]
 
 const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'analyse-financiere', 'ue2-droit-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
@@ -49,13 +43,13 @@ export default function MesCoursPage() {
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
         </button>
         <div>
-          <h1 className="text-lg font-bold text-foreground leading-tight">Mes cours</h1>
-          <p className="text-xs text-muted-foreground">{nbActifs} cours actifs · {COURS_SYSTEME.length} UE au total</p>
+          <h1 className="font-display text-xl font-bold text-foreground leading-tight">Mes cours</h1>
+          <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">{nbActifs} cours actifs · {COURS_SYSTEME.length} UE au total</p>
         </div>
       </div>
 
       {/* Contenu */}
-      <div className="rounded-2xl border border-border bg-card overflow-hidden">
+      <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm">
         {/* Étudiant sans cours assigné */}
         {coursBloque ? (
           <div className="p-10 text-center">
@@ -69,7 +63,7 @@ export default function MesCoursPage() {
         ) : (
           <div className="divide-y divide-border">
             {COURS_SYSTEME.map((cours, i) => {
-              const couleur = UE_COLORS[i] || UE_COLORS[0]
+              const couleur = UE_COLORS[i % UE_COLORS.length]
               const path = `/${cours.moduleKey}`
               const estActif = !!cours.actif && ROUTES_CONNUES.includes(cours.moduleKey)
               const estVerrouilleEtudiant = isStudent && estActif && !userCoursIds.includes(cours.id)
