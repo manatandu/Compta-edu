@@ -242,7 +242,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <img
                 src="./assets/orbit-mark.svg"
                 alt="Orbit"
-                className="w-13 h-13"
+                className="w-12 h-12"
                 onError={e => {
                   const el = e.target as HTMLImageElement
                   el.style.display = 'none'
