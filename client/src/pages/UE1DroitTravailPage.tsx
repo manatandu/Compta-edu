@@ -19,7 +19,7 @@ const AMBRE = 'text-[#8A6416]'
 
 const CHAPITRES = [
   { num: 1, titre: 'Notions fondamentales et sources du droit du travail', sousTitre: 'Titre I, art. 1–7', duree: '4h', actif: true, route: '/ue1/chapitre-1' },
-  { num: 2, titre: 'Formation professionnelle, apprentissage et INPP', sousTitre: 'Titres II–III, art. 8–35', duree: '3h', actif: false, route: '/ue1/chapitre-2' },
+  { num: 2, titre: 'Formation professionnelle, apprentissage et INPP', sousTitre: 'Titres II–III, art. 8–35', duree: '3h', actif: true, route: '/ue1/chapitre-2' },
   { num: 3, titre: 'Le contrat de travail : formation, exécution, suspension', sousTitre: 'Titre IV (1/2), art. 36–60', duree: '6h', actif: false, route: '/ue1/chapitre-3' },
   { num: 4, titre: 'La rupture du contrat de travail', sousTitre: 'Titre IV (2/2), art. 61–85', duree: '5h', actif: false, route: '/ue1/chapitre-4' },
   { num: 5, titre: 'La rémunération : salaire, SMIG et sa protection', sousTitre: 'Titre V, art. 86–118', duree: '4h', actif: false, route: '/ue1/chapitre-5' },
