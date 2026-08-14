@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
+import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 
 const IDLE_MS = 30 * 60 * 1000   // 30 minutes
 const WARN_MS = 25 * 60 * 1000   // avertissement à 25 min
@@ -35,6 +36,7 @@ export function useIdleTimer() {
     warnRef.current = setTimeout(() => { setShowWarning(true); startCountdown() }, WARN_MS)
     idleRef.current = setTimeout(async () => {
       clearAll(); setShowWarning(false)
+      setFirestoreErrorSuppressed(true)
       try { await signOut(auth) } catch {}
       window.location.hash = '#/login'
     }, IDLE_MS)

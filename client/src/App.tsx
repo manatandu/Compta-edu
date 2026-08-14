@@ -5,6 +5,7 @@ import { Router, Route, Switch, Redirect } from 'wouter'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { initDefaultData, User } from '@/lib/db'
 import { logoutAsync, getCurrentUserAsync, initAdminIfNeeded, initCoursSystemeAsync } from '@/lib/db-firebase'
+import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { onAuthStateChanged } from 'firebase/auth'
 import { terminate, clearIndexedDbPersistence } from 'firebase/firestore'
 import { auth, db } from '@/lib/firebase'
@@ -137,6 +138,10 @@ export default function App() {
     // Écouter l'état Firebase Auth
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
+        // Une connexion réussie referme la fenêtre de suppression ouverte par
+        // un logout précédent (manuel ou pour inactivité) : au-delà de ce
+        // point, une erreur onSnapshot signale de nouveau un vrai problème.
+        setFirestoreErrorSuppressed(false)
         // Passer directement firebaseUser pour éviter les problèmes de timing
         try {
           const appUser = await getCurrentUserAsync(firebaseUser)
@@ -168,6 +173,11 @@ export default function App() {
   }
 
   const handleLogout = async () => {
+    // Le signOut() qui suit révoque immédiatement les droits Firestore : les
+    // onSnapshot() encore montés vont échouer en permission-denied avant que
+    // la page ne se recharge. Ce n'est pas une coupure réseau, on coupe donc
+    // l'avertissement pour cette fenêtre attendue.
+    setFirestoreErrorSuppressed(true)
     await logoutAsync()
     // Le cache Firestore persistant (IndexedDB) survit à la déconnexion :
     // sur un poste partagé (salle informatique), les données du compte
