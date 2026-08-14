@@ -23,6 +23,19 @@ import { toast } from '@/components/ui/use-toast'
 const TOAST_THROTTLE_MS = 8000
 let lastToastAt = 0
 
+// Une déconnexion volontaire révoque immédiatement les droits Firestore de
+// l'utilisateur : tous les onSnapshot() encore montés reçoivent alors une
+// erreur permission-denied avant même que React ait eu le temps de démonter
+// les composants, ce qui déclenchait ce toast à chaque logout alors qu'il
+// n'y a jamais eu de coupure réseau. `setFirestoreErrorSuppressed(true)` est
+// appelé juste avant le signOut() pour couper l'avertissement le temps de
+// cette fenêtre attendue ; le rechargement de page qui suit le logout
+// réinitialise de toute façon ce drapeau.
+let suppressed = false
+export function setFirestoreErrorSuppressed(value: boolean): void {
+  suppressed = value
+}
+
 /**
  * Callback d'erreur générique à passer en 3ème argument d'un onSnapshot().
  * `context` identifie la fonction/le hook concerné (visible en console pour le
@@ -30,6 +43,7 @@ let lastToastAt = 0
  */
 export function notifyFirestoreError(context: string, err: unknown): void {
   console.error(`[Firestore onSnapshot] ${context}:`, err)
+  if (suppressed) return
   const now = Date.now()
   if (now - lastToastAt < TOAST_THROTTLE_MS) return
   lastToastAt = now
