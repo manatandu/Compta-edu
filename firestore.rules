@@ -361,5 +361,21 @@ service cloud.firestore {
       allow update: if isAuth() && ownsResource('userId') && request.resource.data.userId == request.auth.uid;
       allow delete: if isAuth() && ownsResource('userId');
     }
+
+    // ─── ÉTUDIANTS (fiches administratives — GestionEtudiantsPage) ────────────
+    // Registre administratif des étudiants (interne/externe), distinct des
+    // comptes de connexion (collection users) : une fiche peut exister sans
+    // compte plateforme (userId == null, étudiant externe). Réservé au
+    // personnel (isProf(), miroir exact de isStaffRole() côté client dans
+    // permissions.ts — le rôle 'assistant' n'y est PAS inclus, voir la note
+    // dans ce fichier). AUCUNE règle n'existait ici avant ce correctif :
+    // Firestore refuse par défaut tout accès à une collection sans match
+    // correspondant, ce qui rendait GestionEtudiantsPage inutilisable en
+    // production (toast "Impossible de charger les étudiants").
+    match /etudiants/{etudiantId} {
+      allow read: if isProf();
+      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid;
+      allow update, delete: if isProf() && (createdBy() || isAdmin());
+    }
   }
 }

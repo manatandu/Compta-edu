@@ -966,6 +966,50 @@ describe('🏛️ Universités & Facultés — Seul l\'admin peut écrire', () =
 })
 
 // ══════════════════════════════════════════════════════════════════════════════
+//  SUITE 8bis — ÉTUDIANTS (fiches administratives) — Réservé au personnel
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🎓 Étudiants (fiches administratives) — Réservé au personnel', () => {
+
+  it('Un prof peut créer une fiche étudiant', async () => {
+    await seedUsers(USERS.prof1)
+    const ref = doc(db(USERS.prof1), 'etudiants', 'fiche-001')
+    await assertSucceeds(setDoc(ref, { nom: 'KABILA', prenom: 'Grace', createdBy: USERS.prof1.uid }))
+  })
+
+  it('Un étudiant NE PEUT PAS créer sa propre fiche', async () => {
+    await seedUsers(USERS.etud1)
+    const ref = doc(db(USERS.etud1), 'etudiants', 'fiche-hack')
+    await assertFails(setDoc(ref, { nom: 'HACK', prenom: 'Test', createdBy: USERS.etud1.uid }))
+  })
+
+  it('Un étudiant NE PEUT PAS lire la liste des fiches étudiants', async () => {
+    await seedUsers(USERS.etud1, USERS.prof1)
+    await seedDoc('etudiants', 'fiche-001', { nom: 'KABILA', prenom: 'Grace', createdBy: USERS.prof1.uid })
+    await assertFails(getDocs(collection(db(USERS.etud1), 'etudiants')))
+  })
+
+  it('Un prof peut lire la liste des fiches étudiants (GestionEtudiantsPage)', async () => {
+    await seedUsers(USERS.prof1)
+    await seedDoc('etudiants', 'fiche-001', { nom: 'KABILA', prenom: 'Grace', createdBy: USERS.prof1.uid })
+    await assertSucceeds(getDocs(collection(db(USERS.prof1), 'etudiants')))
+  })
+
+  it('Le prof créateur peut modifier sa fiche étudiant', async () => {
+    await seedUsers(USERS.prof1)
+    await seedDoc('etudiants', 'fiche-001', { nom: 'KABILA', prenom: 'Grace', createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.prof1), 'etudiants', 'fiche-001')
+    await assertSucceeds(updateDoc(ref, { statut: 'diplome' }))
+  })
+
+  it("Un prof NE PEUT PAS modifier la fiche créée par un autre prof (l'admin le peut)", async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
+    await seedDoc('etudiants', 'fiche-001', { nom: 'KABILA', prenom: 'Grace', createdBy: USERS.prof1.uid })
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'etudiants', 'fiche-001'), { statut: 'diplome' }))
+    await assertSucceeds(updateDoc(doc(db(USERS.admin1), 'etudiants', 'fiche-001'), { statut: 'diplome' }))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
 //  SUITE 9 — PRÉSENCES — Seul le prof gère les présences
 // ══════════════════════════════════════════════════════════════════════════════
 describe('📅 Présences — Seul le prof peut écrire', () => {
