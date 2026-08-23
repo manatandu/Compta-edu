@@ -22,7 +22,7 @@ const CHAPITRES = [
   { num: 2, titre: 'Formation professionnelle, apprentissage et INPP', sousTitre: 'Titres II–III, art. 8–35', duree: '3h', actif: true, route: '/ue1/chapitre-2' },
   { num: 3, titre: 'Le contrat de travail : formation, exécution, suspension', sousTitre: 'Titre IV (1/2), art. 36–60', duree: '6h', actif: true, route: '/ue1/chapitre-3' },
   { num: 4, titre: 'La rupture du contrat de travail', sousTitre: 'Titre IV (2/2), art. 61–85', duree: '5h', actif: true, route: '/ue1/chapitre-4' },
-  { num: 5, titre: 'La rémunération : salaire, SMIG et sa protection', sousTitre: 'Titre V, art. 86–118', duree: '4h', actif: false, route: '/ue1/chapitre-5' },
+  { num: 5, titre: 'La rémunération : salaire, SMIG et sa protection', sousTitre: 'Titre V, art. 86–118', duree: '4h', actif: true, route: '/ue1/chapitre-5' },
   { num: 6, titre: 'Durée du travail, repos et congés', sousTitre: 'Titre VI, art. 119–158', duree: '4h', actif: false, route: '/ue1/chapitre-6' },
   { num: 7, titre: 'Santé, sécurité et protection sociale', sousTitre: 'Titres VII–VIII, Décret n°18/041', duree: '5h', actif: false, route: '/ue1/chapitre-7' },
   { num: 8, titre: 'Administration du travail et relations collectives', sousTitre: 'Titres IX–XII, art. 185–296', duree: '6h', actif: false, route: '/ue1/chapitre-8' },
