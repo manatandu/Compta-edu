@@ -61,6 +61,7 @@ const UE1Chapitre1Page = React.lazy(() => import('@/pages/UE1Chapitre1Page'))
 const UE1Chapitre2Page = React.lazy(() => import('@/pages/UE1Chapitre2Page'))
 const UE1Chapitre3Page = React.lazy(() => import('@/pages/UE1Chapitre3Page'))
 const UE1Chapitre4Page = React.lazy(() => import('@/pages/UE1Chapitre4Page'))
+const UE1Chapitre5Page = React.lazy(() => import('@/pages/UE1Chapitre5Page'))
 const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPage'))
 const UE2Chapitre1Page = React.lazy(() => import('@/pages/UE2Chapitre1Page'))
 const UE2Chapitre2Page = React.lazy(() => import('@/pages/UE2Chapitre2Page'))
@@ -356,6 +357,9 @@ export default function App() {
         </Route>
         <Route path="/ue1/chapitre-4">
           <W user={user} onLogout={handleLogout}><UE1Chapitre4Page /></W>
+        </Route>
+        <Route path="/ue1/chapitre-5">
+          <W user={user} onLogout={handleLogout}><UE1Chapitre5Page /></W>
         </Route>
 
         {/* ── UE 2 — Droit des sociétés OHADA ── */}
