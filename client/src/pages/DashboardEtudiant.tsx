@@ -286,9 +286,15 @@ function echeanceLisible(dateLimit: string): { label: string; urgent: boolean } 
   return { label: new Date(dateLimit).toLocaleDateString('fr-FR'), urgent: false }
 }
 
-// Amène la section « Mes devoirs » sous les yeux depuis le raccourci « À faire ».
+// Amène une section de la page sous les yeux, depuis « À faire » ou depuis une
+// tuile du bandeau. Sans effet si la section n'est pas rendue (pas de devoir,
+// pas de cote) — le raccourci n'est alors de toute façon pas proposé.
 function allerAuxDevoirs() {
   document.getElementById('mes-devoirs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+function allerAuxCotes() {
+  document.getElementById('mes-cotes')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 export default function DashboardEtudiant() {
@@ -350,16 +356,16 @@ export default function DashboardEtudiant() {
     .sort((a, b) => new Date(a.dateLimit).getTime() - new Date(b.dateLimit).getTime())
 
   const stats: DashboardStat[] = [
-    { label: 'Devoirs',   value: mesDevoirs.length, icon: ClipboardList },
-    { label: 'Exercices', value: allExercices.filter(e => e.actif).length, icon: GraduationCap },
-    { label: 'Cours',     value: userCours.length,                          icon: BookOpen },
+    { label: 'Devoirs',   value: mesDevoirs.length, icon: ClipboardList, onClick: allerAuxDevoirs },
+    { label: 'Exercices', value: allExercices.filter(e => e.actif).length, icon: GraduationCap, onClick: () => navigate('/exercices') },
+    { label: 'Cours',     value: userCours.length,                          icon: BookOpen, onClick: () => navigate('/mes-cours') },
     // Anciennement « Messages », dont la valeur était écrite en dur à 0 : jamais
     // calculée, donc toujours fausse. Un vrai compteur de non-lus n'est pas
     // possible en l'état — les messages portent bien un champ `lu`, mis à false
     // à l'envoi, mais aucun code ne le repasse jamais à true : le compteur ne
     // ferait que croître sans jamais redescendre. Remplacé par la cote, qui est
     // une donnée réelle et déjà calculée plus haut.
-    { label: 'Ma cote',   value: totalCoteEtudiant !== null ? `${totalCoteEtudiant}/10` : '—', icon: Award },
+    { label: 'Ma cote',   value: totalCoteEtudiant !== null ? `${totalCoteEtudiant}/10` : '—', icon: Award, onClick: allerAuxCotes },
   ]
 
   const identity = (
@@ -704,7 +710,7 @@ export default function DashboardEtudiant() {
       })()}
 
       {/* ══ MES COTES ══════════════════════════════════════════════════════ */}
-      <div className="rounded-2xl border border-border bg-card overflow-hidden animate-fadeIn" style={{ animationDelay: '1100ms' }}>
+      <div id="mes-cotes" className="rounded-2xl border border-border bg-card overflow-hidden animate-fadeIn scroll-mt-4" style={{ animationDelay: '1100ms' }}>
         <div className="px-5 py-4 bg-gradient-to-r from-primary/8 via-primary/4 to-transparent border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">

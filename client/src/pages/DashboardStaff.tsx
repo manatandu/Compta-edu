@@ -52,10 +52,10 @@ export default function DashboardStaff() {
   const nbNonCorriges = toutesLesSoumissions.filter(s => s.statut === 'soumis').length
 
   const stats: DashboardStat[] = [
-    { label: 'Étudiants actifs', value: nbEtudiants,   icon: Users,         color: 'text-green-300' },
-    { label: 'En attente',        value: nbEnAttente,   icon: Clock,         color: nbEnAttente > 0 ? 'text-amber-300' : 'text-blue-300/80' },
-    { label: 'Non corrigés',      value: nbNonCorriges, icon: ClipboardList, color: nbNonCorriges > 0 ? 'text-rose-300' : 'text-blue-300/80' },
-    { label: 'Cours',             value: allCours.length, icon: BookOpen,    color: 'text-blue-300/80' },
+    { label: 'Étudiants actifs', value: nbEtudiants,   icon: Users,         color: 'text-green-300', onClick: () => navigate('/gestion-etudiants') },
+    { label: 'En attente',        value: nbEnAttente,   icon: Clock,         color: nbEnAttente > 0 ? 'text-amber-300' : 'text-blue-300/80', onClick: () => navigate('/professeurs') },
+    { label: 'Non corrigés',      value: nbNonCorriges, icon: ClipboardList, color: nbNonCorriges > 0 ? 'text-rose-300' : 'text-blue-300/80', onClick: () => navigate('/professeurs') },
+    { label: 'Cours',             value: allCours.length, icon: BookOpen,    color: 'text-blue-300/80', onClick: () => navigate('/professeurs') },
   ]
 
   const identity = (
