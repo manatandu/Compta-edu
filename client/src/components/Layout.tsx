@@ -62,9 +62,11 @@ const outilsPratiquesItems: NavItem[] = [
 ]
 
 // Items staff uniquement (en dernier avant Modules)
+// « Gestion des étudiants » n'a plus sa propre entrée : elle est déjà
+// accessible en un clic depuis « Espace pédagogique » (groupe Gestion,
+// bouton Étudiants) — deux entrées de sidebar pour une même zone.
 const staffItems: NavItem[] = [
   { path: '/professeurs', label: 'Espace pédagogique', icon: <Users className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
-  { path: '/gestion-etudiants', label: 'Gestion des étudiants', icon: <GraduationCap className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
   { path: '/prepa-onec', label: 'Prépa ONEC', icon: <BookCheck className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
   // Débogage isolation masqué volontairement
 ]
