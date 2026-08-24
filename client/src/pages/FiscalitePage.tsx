@@ -243,6 +243,50 @@ function SectionSaisieModal({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Catalogue à liste plate : recettes/produits et charges des catégories dont le
+// catalogue légal n'est pas subdivisé par article (Cat. 3 BNC, Cat. 4 Agricole).
+// Sert à éviter la duplication de la même structure JSX (4 occurrences avant
+// harmonisation : recettes+charges en Cat. 3, produits+charges en Cat. 4).
+// ─────────────────────────────────────────────────────────────────────────────
+const CATALOGUE_COULEURS: Record<string, { texte: string; hover: string }> = {
+  indigo: { texte: 'text-indigo-600', hover: 'hover:text-indigo-700 hover:bg-indigo-50' },
+  rose:   { texte: 'text-rose-600',   hover: 'hover:text-rose-700 hover:bg-rose-50' },
+  lime:   { texte: 'text-lime-600',   hover: 'hover:text-lime-700 hover:bg-lime-50' },
+}
+
+function CatalogueListe({ titre, couleur, items, onSelect, exclusions, exclusionsTitre }: {
+  titre: string
+  couleur: keyof typeof CATALOGUE_COULEURS
+  items: { label: string }[]
+  onSelect: (label: string) => void
+  exclusions?: string[]
+  exclusionsTitre?: string
+}) {
+  const c = CATALOGUE_COULEURS[couleur]
+  return (
+    <details className="group">
+      <summary className={cn('cursor-pointer text-xs font-medium hover:underline flex items-center gap-1 select-none list-none mt-1', c.texte)}>
+        <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> {titre}
+      </summary>
+      <div className="mt-2 space-y-1 pl-3">
+        {items.map((it, i) => (
+          <button key={i} onClick={() => onSelect(it.label)}
+            className={cn('block w-full text-left text-xs text-foreground px-2 py-1 rounded transition-colors duration-200', c.hover)}>
+            + {it.label}
+          </button>
+        ))}
+      </div>
+      {exclusions && exclusions.length > 0 && (
+        <div className="mt-3 rounded-lg border border-red-200 bg-red-50/60 p-2">
+          <p className="text-xs font-bold text-red-600 mb-1">{exclusionsTitre || '✕ Non déductibles'}</p>
+          {exclusions.map((ex, i) => <p key={i} className="text-xs text-red-600">• {ex}</p>)}
+        </div>
+      )}
+    </details>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // COMPOSANTS RÉSULTAT
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -3078,19 +3122,7 @@ function Cat3BNC() {
               </div>
             </div>
           ))}
-          <details className="group">
-            <summary className="cursor-pointer text-xs text-indigo-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
-              <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des recettes (Art. 94)
-            </summary>
-            <div className="mt-2 space-y-1 pl-3">
-              {RECETTES_CAT.map((c, i) => (
-                <button key={i} onClick={() => addFromList(setRecettes, c.label)}
-                  className="block w-full text-left text-xs text-foreground hover:text-indigo-700 hover:bg-indigo-50 px-2 py-1 rounded transition-colors duration-200">
-                  + {c.label}
-                </button>
-              ))}
-            </div>
-          </details>
+          <CatalogueListe titre="Catalogue des recettes (Art. 94)" couleur="indigo" items={RECETTES_CAT} onSelect={label => addFromList(setRecettes, label)} />
         </div>
       </div>
 
@@ -3128,25 +3160,8 @@ function Cat3BNC() {
               </div>
             </div>
           ))}
-          <details className="group">
-            <summary className="cursor-pointer text-xs text-rose-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
-              <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des charges déductibles (Art. 98)
-            </summary>
-            <div className="mt-2 space-y-1 pl-3">
-              {CHARGES_CAT.map((c, i) => (
-                <button key={i} onClick={() => addFromList(setCharges, c.label)}
-                  className="block w-full text-left text-xs text-foreground hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors duration-200">
-                  + {c.label}
-                </button>
-              ))}
-            </div>
-            <div className="mt-3 rounded-lg border border-red-200 bg-red-50/60 p-2">
-              <p className="text-xs font-bold text-red-600 mb-1">✕ Charges NON déductibles (Art. 99)</p>
-              {CHARGES_NON_DEDUCTIBLES.map((c, i) => (
-                <p key={i} className="text-xs text-red-600">• {c}</p>
-              ))}
-            </div>
-          </details>
+          <CatalogueListe titre="Catalogue des charges déductibles (Art. 98)" couleur="rose" items={CHARGES_CAT} onSelect={label => addFromList(setCharges, label)}
+            exclusions={CHARGES_NON_DEDUCTIBLES} exclusionsTitre="✕ Charges NON déductibles (Art. 99)" />
         </div>
       </div>
 
@@ -3490,6 +3505,54 @@ function Cat4Agricole() {
         </div>
       </div>
 
+      {/* Encadré : Comment savoir dans quel régime on est ? */}
+      <details className="group">
+        <summary className="cursor-pointer text-xs font-semibold text-primary hover:underline flex items-center gap-1 select-none list-none">
+          <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span>
+          Comment savoir dans quel régime je suis ?
+        </summary>
+        <div className="mt-2 rounded-xl border border-border bg-muted/30 p-3 space-y-3">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Le régime dépend, comme pour la Cat. 2 (BIC), du <strong>chiffre d'affaires annuel hors taxes (CA HT)</strong> de l'exploitation agricole réalisé au cours de l'exercice (Art. 105, renvoyant aux seuils des Art. 107, 109 et 112).
+          </p>
+          <div className="space-y-2">
+            <div className="rounded-lg border border-border bg-background p-2.5">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold text-white bg-lime-600 rounded-full px-2 py-0.5">MICRO</span>
+                <span className="text-xs font-semibold text-foreground">CA ≤ 25 000 000 FC</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Impôt forfaitaire fixé par Arrêté Ministériel à l'équivalent de <strong>30 USD en FC</strong>, quel que soit le CA. Aucune comptabilité détaillée exigée. Exemple : petit maraîcher, éleveur familial.
+              </p>
+              <p className="text-xs text-primary mt-1">Art. 107, Loi 23/053</p>
+            </div>
+            <div className="rounded-lg border border-border bg-background p-2.5">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold text-white bg-lime-500 rounded-full px-2 py-0.5">PETITE</span>
+                <span className="text-xs font-semibold text-foreground">CA entre 25 000 001 et 300 000 000 FC</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Impôt proportionnel : <strong>1% du CA</strong> pour les ventes de récoltes/produits, <strong>2% du CA</strong> pour les prestations de services agricoles.
+              </p>
+              <p className="text-xs text-primary mt-1">Art. 109-111, Loi 23/053</p>
+            </div>
+            <div className="rounded-lg border border-border bg-background p-2.5">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-bold text-white bg-lime-700 rounded-full px-2 py-0.5">RÉEL</span>
+                <span className="text-xs font-semibold text-foreground">CA &gt; 300 000 000 FC</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Impôt calculé sur le <strong>bénéfice réel</strong> (produits − charges déductibles), soumis au barème progressif IRPP. Comptabilité complète obligatoire conforme aux normes fiscales.
+              </p>
+              <p className="text-xs text-primary mt-1">Art. 112-113, Loi 23/053</p>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground italic">
+            Rappel : les cultures vivrières sur moins de 10 hectares restent exonérées quel que soit le régime (Art. 103) — voir l'encadré ci-dessus.
+          </p>
+        </div>
+      </details>
+
       {/* Sélecteur de régime */}
       <div>
         <p className="text-xs font-semibold text-foreground mb-2">Régime d'imposition (Art. 105)</p>
@@ -3604,19 +3667,7 @@ function Cat4Agricole() {
                   </div>
                 </div>
               ))}
-              <details className="group">
-                <summary className="cursor-pointer text-xs text-lime-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
-                  <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des produits (Art. 104)
-                </summary>
-                <div className="mt-2 space-y-1 pl-3">
-                  {PRODUITS_CAT.map((c, i) => (
-                    <button key={i} onClick={() => addFromList(setProduits, c.label)}
-                      className="block w-full text-left text-xs text-foreground hover:text-lime-700 hover:bg-lime-50 px-2 py-1 rounded transition-colors duration-200">
-                      + {c.label}
-                    </button>
-                  ))}
-                </div>
-              </details>
+              <CatalogueListe titre="Catalogue des produits (Art. 104)" couleur="lime" items={PRODUITS_CAT} onSelect={label => addFromList(setProduits, label)} />
             </div>
           </div>
 
@@ -3650,19 +3701,7 @@ function Cat4Agricole() {
                   </div>
                 </div>
               ))}
-              <details className="group">
-                <summary className="cursor-pointer text-xs text-rose-600 font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
-                  <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des charges (Art. 104)
-                </summary>
-                <div className="mt-2 space-y-1 pl-3">
-                  {CHARGES_CAT.map((c, i) => (
-                    <button key={i} onClick={() => addFromList(setCharges, c.label)}
-                      className="block w-full text-left text-xs text-foreground hover:text-rose-700 hover:bg-rose-50 px-2 py-1 rounded transition-colors duration-200">
-                      + {c.label}
-                    </button>
-                  ))}
-                </div>
-              </details>
+              <CatalogueListe titre="Catalogue des charges (Art. 104)" couleur="rose" items={CHARGES_CAT} onSelect={label => addFromList(setCharges, label)} />
             </div>
           </div>
 
