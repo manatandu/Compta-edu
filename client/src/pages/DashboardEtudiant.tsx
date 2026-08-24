@@ -272,6 +272,25 @@ function ReponseTheoriqueForm({ devoir, etudiantId, soumission }: { devoir: any;
 // arbre de rendu avec le staff — seuls le bandeau hero, la grille de modules
 // et le pied de page sont des composants communs importés.
 // ─────────────────────────────────────────────────────────────────────────────
+
+// Échéance exprimée telle qu'on la lit : « aujourd'hui », « demain »,
+// « dans 3 jours », puis la date brute au-delà. Les trois premiers jours sont
+// marqués urgents — c'est ce qui justifie la couleur d'alerte.
+function echeanceLisible(dateLimit: string): { label: string; urgent: boolean } {
+  const aujourdhui = new Date(); aujourdhui.setHours(0, 0, 0, 0)
+  const limite = new Date(dateLimit); limite.setHours(0, 0, 0, 0)
+  const jours = Math.round((limite.getTime() - aujourdhui.getTime()) / 86400000)
+  if (jours <= 0) return { label: "aujourd'hui", urgent: true }
+  if (jours === 1) return { label: 'demain', urgent: true }
+  if (jours <= 3) return { label: `dans ${jours} jours`, urgent: true }
+  return { label: new Date(dateLimit).toLocaleDateString('fr-FR'), urgent: false }
+}
+
+// Amène la section « Mes devoirs » sous les yeux depuis le raccourci « À faire ».
+function allerAuxDevoirs() {
+  document.getElementById('mes-devoirs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 export default function DashboardEtudiant() {
   const [, navigate] = useHashLocation()
   const user = useUser()
@@ -310,14 +329,28 @@ export default function DashboardEtudiant() {
   const userCoursIds: string[] = (user as any)?.coursIds || []
   const userCours = allCours.filter(c => userCoursIds.includes(c.id))
 
+  // Devoirs qui concernent réellement cet étudiant : un de ses cours, actif,
+  // sa faculté, sa promotion. Ce filtre était écrit deux fois à l'identique
+  // (barre de stats et section « Mes devoirs ») — calculé une seule fois ici,
+  // et réutilisé aussi par la section « À faire ».
+  const userFaculteId = (user as any)?.faculteId || ''
+  const userPromotion = (user as any)?.classe || ''
+  const mesDevoirs = allDevoirs.filter(d => {
+    if (!userCoursIds.includes(d.coursId) || !d.actif) return false
+    if (d.faculteId && userFaculteId && d.faculteId !== userFaculteId) return false
+    const cours = allCours.find(c => c.id === d.coursId)
+    if (cours?.promotion && userPromotion && cours.promotion !== userPromotion) return false
+    return true
+  })
+
+  // Ce qui appelle une action maintenant : ni rendu, ni expiré. Le plus urgent
+  // d'abord — c'est l'ordre dans lequel l'étudiant doit s'en occuper.
+  const devoirsAFaire = mesDevoirs
+    .filter(d => !isDevoirExpire(d) && !mesSoumissions.some(s => s.devoirId === d.id))
+    .sort((a, b) => new Date(a.dateLimit).getTime() - new Date(b.dateLimit).getTime())
+
   const stats: DashboardStat[] = [
-    { label: 'Devoirs',   value: allDevoirs.filter(d => {
-      if (!userCoursIds.includes(d.coursId) || !d.actif) return false
-      if (d.faculteId && (user as any)?.faculteId && d.faculteId !== (user as any)?.faculteId) return false
-      const cours = allCours.find(c => c.id === d.coursId)
-      if (cours?.promotion && (user as any)?.classe && cours.promotion !== (user as any)?.classe) return false
-      return true
-    }).length, icon: ClipboardList },
+    { label: 'Devoirs',   value: mesDevoirs.length, icon: ClipboardList },
     { label: 'Exercices', value: allExercices.filter(e => e.actif).length, icon: GraduationCap },
     { label: 'Cours',     value: userCours.length,                          icon: BookOpen },
     // Anciennement « Messages », dont la valeur était écrite en dur à 0 : jamais
@@ -369,6 +402,72 @@ export default function DashboardEtudiant() {
         identity={identity}
         stats={stats}
       />
+
+      {/* ══ À FAIRE ══════════════════════════════════════════════════════════
+           En tête de page, avant tout le reste : c'est la seule section qui
+           répond à « qu'est-ce que je dois faire maintenant ? ». Les devoirs
+           restaient jusqu'ici enterrés en quatrième position, sous une grille
+           de navigation. Ne montre que les trois plus urgents — au-delà, un
+           lien renvoie vers la section « Mes devoirs » complète. ══ */}
+      {userCoursIds.length > 0 && (
+        <div className="animate-slideUp" style={{ animationDelay: '450ms' }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-display font-semibold text-foreground">À faire</h2>
+            {devoirsAFaire.length > 0 && (
+              <span className="text-xs text-muted-foreground">
+                {devoirsAFaire.length} devoir{devoirsAFaire.length > 1 ? 's' : ''} en attente
+              </span>
+            )}
+          </div>
+          {devoirsAFaire.length === 0 ? (
+            <div className="rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-2.5">
+              <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+              <p className="text-sm text-muted-foreground">Rien à rendre pour le moment.</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {devoirsAFaire.slice(0, 3).map((dev, i) => {
+                const cours = allCours.find(c => c.id === dev.coursId)
+                const ech = echeanceLisible(dev.dateLimit)
+                return (
+                  <button
+                    key={dev.id}
+                    onClick={allerAuxDevoirs}
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3 text-left flex items-center gap-3 hover:bg-muted/40 hover:border-primary/30 transition-colors animate-slideUp"
+                    style={{ animationDelay: `${500 + i * 60}ms` }}
+                  >
+                    <div className={cn(
+                      'h-9 w-9 rounded-lg flex items-center justify-center shrink-0',
+                      ech.urgent ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-700'
+                    )}>
+                      <ClipboardList className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm text-foreground truncate">{dev.titre}</p>
+                      {cours && <p className="text-xs text-muted-foreground truncate">{cours.nom}</p>}
+                    </div>
+                    <span className={cn(
+                      'text-xs font-medium shrink-0',
+                      ech.urgent ? 'text-red-600' : 'text-muted-foreground'
+                    )}>
+                      {ech.label}
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground/40 shrink-0" />
+                  </button>
+                )
+              })}
+              {devoirsAFaire.length > 3 && (
+                <button
+                  onClick={allerAuxDevoirs}
+                  className="text-xs text-primary hover:underline px-1"
+                >
+                  + {devoirsAFaire.length - 3} autre{devoirsAFaire.length - 3 > 1 ? 's' : ''} en attente
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ══ MES COURS — registre par cours, pas de progression globale ═════════
            La progression n'a de sens que par cours : deux promotions n'ont pas
@@ -450,19 +549,9 @@ export default function DashboardEtudiant() {
 
       {/* ══ MES DEVOIRS ══════════════════════════════════════════════════════ */}
       {userCoursIds.length > 0 && (() => {
-        const userFaculteId = (user as any)?.faculteId || ''
-        const userPromotion = (user as any)?.classe || ''
-        const mesDevoirs = allDevoirs.filter(d => {
-          if (!userCoursIds.includes(d.coursId)) return false
-          if (!d.actif) return false
-          if (d.faculteId && userFaculteId && d.faculteId !== userFaculteId) return false
-          const cours = allCours.find(c => c.id === d.coursId)
-          if (cours?.promotion && userPromotion && cours.promotion !== userPromotion) return false
-          return true
-        })
         if (mesDevoirs.length === 0) return null
         return (
-          <div className="animate-slideUp" style={{ animationDelay: '1250ms' }}>
+          <div id="mes-devoirs" className="animate-slideUp scroll-mt-4" style={{ animationDelay: '1250ms' }}>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-base font-display font-semibold text-foreground">Mes devoirs</h2>
               <span className="text-xs text-muted-foreground">{mesDevoirs.length} devoir{mesDevoirs.length > 1 ? 's' : ''}</span>
