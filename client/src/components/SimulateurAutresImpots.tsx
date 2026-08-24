@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Calculator, RotateCcw, Info, Home, Car, TrendingUp, Pickaxe } from 'lucide-react'
+import { Calculator, RotateCcw, Info, Home, Car, TrendingUp, Pickaxe, Signpost } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
 
@@ -175,6 +175,11 @@ function OngletIRL() {
               <li>Immeubles neufs dans les provinces de l'Est (5 ans)</li>
             </ul>
           </div>
+          <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
+            <p className="text-sm text-blue-700 font-semibold mb-1">Base forfaitaire minimum (Loi n° 83/004 du 23/02/1983)</p>
+            <p className="text-sm text-blue-700">Si le loyer déclaré est inférieur à un minimum forfaitaire (surface totale développée × tarif minimum au m²), c'est ce minimum qui sert de base — sans empêcher l'Administration de redresser si les revenus réels sont supérieurs. Le tarif se décompose en 6 classes A à F selon le classement de la localité et le standing du local (Art. 3), avec un abattement de 30% sur le Tarif A et 10% sur le Tarif C pour les locaux industriels et commerciaux (au-delà des 200 premiers m²).</p>
+            <p className="text-sm text-blue-700 mt-1">⚠️ Les montants au m² de chaque tarif ne sont pas chiffrés dans le texte consulté : à vérifier province par province avant tout usage engageant. Non applicable aux locations à l'État ou aux établissements publics ne vivant que de subventions (Art. 7).</p>
+          </div>
         </ResultatWrap>
       )}
     </div>
@@ -290,9 +295,14 @@ function OngletIF() {
       <DefBox>
         <p className="font-semibold">Impôt Foncier (IF) : Art. 1er à 28, Livre I Partie 1ère (Titre II)</p>
         <p>Impôt réel annuel sur la superficie des propriétés foncières bâties et non bâties situées en RDC. Il est dû par le titulaire du droit de propriété, de possession, d'emphytéose ou d'usufruit (Art. 8).</p>
-        <p>Le taux est fixé par les provinces via édit budgétaire (Art. 204 al. 16 Constitution). Les barèmes ci-dessous sont indicatifs.</p>
+        <p>Le taux est fixé par les provinces via édit budgétaire (Art. 204 al. 16 Constitution).</p>
         <p className="text-xs mt-1">Rétrocédé aux ETD : impôt provincial et local.</p>
       </DefBox>
+
+      <div className="rounded-xl border border-red-200 bg-red-50 p-3">
+        <p className="text-sm text-red-700 font-semibold mb-1">⚠️ Barème non vérifié</p>
+        <p className="text-sm text-red-700">L'Art. 13 fixe l'impôt foncier « à titre d'impôt forfaitaire annuel dont le montant varie suivant la nature des immeubles et le rang des localités », mais le barème chiffré par rang de localité n'a pas été retrouvé dans le texte source consulté. Les montants ci-dessous ne sont donc <strong>pas confirmés</strong> par la loi : à vérifier obligatoirement auprès de l'édit budgétaire de la province concernée avant tout usage engageant.</p>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <SelectField
@@ -343,6 +353,18 @@ function OngletIF() {
               <li>Immeuble neuf imposable à partir du 1er janvier suivant l'occupation</li>
               <li>Dégrèvement si inoccupation ≥ 180 jours consécutifs (Art. 25)</li>
               <li>Déclaration de mutation dans le mois du changement de propriétaire (Art. 11)</li>
+            </ul>
+          </div>
+          <div className="rounded-xl border border-green-200 bg-green-50 p-3">
+            <p className="text-sm text-green-700 font-semibold mb-1">Exonérations (Art. 2 à 5)</p>
+            <ul className="text-sm text-green-700 space-y-0.5 list-disc list-inside">
+              <li>État, Provinces, ETD, offices publics sans autre ressource que des subventions (Art. 2, 1°)</li>
+              <li>Institutions et associations religieuses, scientifiques ou philanthropiques, établissements d'utilité publique (Art. 2, 2°)</li>
+              <li>Personnes de plus de 55 ans et veuves, sur leur habitation principale, sous conditions d'occupation (Art. 2 bis)</li>
+              <li>Immeubles affectés exclusivement à l'agriculture ou à l'élevage (≥ 80% des produits traités issus de l'exploitation du contribuable) (Art. 3, 1°)</li>
+              <li>Immeubles à but non lucratif : culte, enseignement, recherche scientifique, hôpitaux/dispensaires, chambres de commerce, œuvres sociales (Art. 3, 2°)</li>
+              <li>Terrains affectés aux mêmes fins non lucratives que ci-dessus (Art. 4)</li>
+              <li>Exonérations accordées par le Code des investissements ou convention spéciale (Art. 5)</li>
             </ul>
           </div>
         </ResultatWrap>
@@ -413,23 +435,50 @@ const CATEGORIES_IV = [
   { id: 'bateau_mc', label: 'Bateau transport marchandises / remorquage : par CV', type: 'par_cv', taux: 3500 },
 ]
 
+// Art. 42, alinéa 2 : puissance des bateaux et embarcations à moteur, P = K·d²·C·N·n.
+// K et le régime n par défaut dépendent du type de carburant (n reste modifiable :
+// c'est le régime réel du moteur, la loi ne fixe qu'une valeur type par carburant).
+const CARBURANTS_BATEAU: Record<string, { label: string; k: number; nDefaut: number }> = {
+  puissant:       { label: 'Carburant puissant (essence, benzol...)', k: 2, nDefaut: 4500 },
+  faible:         { label: 'Carburant faible (huiles lourdes, huiles brutes...)', k: 4, nDefaut: 1500 },
+  vapeur_simple:  { label: 'Machine à vapeur à simple expansion', k: 6, nDefaut: 0 },
+  vapeur_double:  { label: 'Machine à vapeur à double expansion', k: 3, nDefaut: 0 },
+}
+
 function OngletIV() {
   const [catId, setCatId] = useState('tour_pp_s')
   const [cylindree, setCylindree] = useState('')
   const [poids, setPoids] = useState('')
   const [moisDebut, setMoisDebut] = useState('1')
   const [nbVehicules, setNbVehicules] = useState('1')
-  const [puissanceManuelle, setPuissanceManuelle] = useState('')
-  const [modePuissance, setModePuissance] = useState('formule')
+  const [alesage, setAlesage] = useState('')
+  const [course, setCourse] = useState('')
+  const [nbCylindres, setNbCylindres] = useState('')
+  const [carburantBateau, setCarburantBateau] = useState('puissant')
+  const [regimeMoteur, setRegimeMoteur] = useState('')
   const [res, setRes] = useState<any>(null)
 
   const cat = CATEGORIES_IV.find(c => c.id === catId)!
-  const isParCV = cat.type === 'par_cv'
+  const isBateau = cat.type === 'par_cv'
+  const carb = CARBURANTS_BATEAU[carburantBateau]
+  const regime = regimeMoteur ? parseFloat(regimeMoteur) : carb.nDefaut
 
-  function calculPuissance(): number {
+  // Art. 42, alinéa 1 : puissance des véhicules terrestres, P = 4·CY + Poids/400.
+  // Non utilisée par aucune catégorie IV aujourd'hui (les catégories véhicules sont
+  // toutes taxées par tranche forfaitaire de puissance, Art. 41.C) — conservée pour
+  // exactitude si une catégorie par formule est ajoutée un jour. Le terme 4·CY n'est
+  // PAS divisé par 400 : seul le terme Poids l'est.
+  function calculPuissanceVehicule(): number {
     const cy = parseFloat(cylindree) || 0
     const p = parseFloat(poids) || 0
-    return (4 * cy) / 400 + p / 400
+    return 4 * cy + p / 400
+  }
+
+  function calculPuissanceBateau(): number {
+    const d = parseFloat(alesage) || 0
+    const c = parseFloat(course) || 0
+    const n = parseFloat(nbCylindres) || 0
+    return carb.k * d * d * c * n * regime
   }
 
   function calculer() {
@@ -441,8 +490,8 @@ function OngletIV() {
     let detail = ''
     let cv = 0
 
-    if (isParCV) {
-      cv = modePuissance === 'formule' ? calculPuissance() : (parseFloat(puissanceManuelle) || 0)
+    if (isBateau) {
+      cv = calculPuissanceBateau()
       impotUnitaire = Math.round(cv) * cat.taux
       detail = `${Math.round(cv)} CV × ${cat.taux.toLocaleString('fr-FR')} FC`
     } else {
@@ -453,9 +502,12 @@ function OngletIV() {
     const impotAnnuel = impotUnitaire
     const impotProrata = Math.round(impotAnnuel * fraction)
     const impotTotal = impotProrata * nb
-    setRes({ cat: cat.label, impotAnnuel, fraction, impotProrata, nb, impotTotal, detail, mois, cv: isParCV ? Math.round(cv) : null })
+    setRes({ cat: cat.label, impotAnnuel, fraction, impotProrata, nb, impotTotal, detail, mois, cv: isBateau ? Math.round(cv) : null })
   }
-  function reset() { setCylindree(''); setPoids(''); setMoisDebut('1'); setNbVehicules('1'); setPuissanceManuelle(''); setRes(null) }
+  function reset() {
+    setCylindree(''); setPoids(''); setMoisDebut('1'); setNbVehicules('1')
+    setAlesage(''); setCourse(''); setNbCylindres(''); setCarburantBateau('puissant'); setRegimeMoteur(''); setRes(null)
+  }
 
   const MOIS_LABELS = ['Janvier (année entière)', 'Février (11/12)', 'Mars (10/12)', 'Avril (9/12)', 'Mai (8/12)', 'Juin (7/12)', 'Juillet (6/12)', 'Août (5/12)', 'Septembre (4/12)', 'Octobre (3/12)', 'Novembre (2/12)', 'Décembre (1/12)']
 
@@ -484,31 +536,30 @@ function OngletIV() {
         />
       </div>
 
-      {isParCV && (
+      {isBateau && (
         <div className="space-y-3">
-          <div className="flex gap-3">
-            <label className="flex items-center gap-1.5 cursor-pointer">
-              <input type="radio" checked={modePuissance === 'formule'} onChange={() => setModePuissance('formule')} />
-              <span className="text-xs">Calculer via formule (Art. 42)</span>
-            </label>
-            <label className="flex items-center gap-1.5 cursor-pointer">
-              <input type="radio" checked={modePuissance === 'manuel'} onChange={() => setModePuissance('manuel')} />
-              <span className="text-xs">Saisir puissance directement (CV)</span>
-            </label>
+          <div className="rounded-lg bg-blue-50 border border-blue-200 px-3 py-2 text-xs text-blue-700">
+            La puissance des bateaux et embarcations à moteur se calcule par une formule distincte de celle des véhicules terrestres (Art. 42, al. 2) : <strong>P = K × d² × C × N × n</strong>.
           </div>
-          {modePuissance === 'formule' ? (
-            <div className="grid grid-cols-2 gap-3">
-              <InputField label="Cylindrée totale (CY en litres)" value={cylindree} onChange={setCylindree} placeholder="Ex : 2.0" unit="L" />
-              <InputField label="Poids en ordre de marche (kg)" value={poids} onChange={setPoids} placeholder="Ex : 1500" unit="kg" />
-              {cylindree && poids && (
-                <div className="col-span-2 rounded-lg bg-muted/50 px-3 py-2 text-sm">
-                  <span className="text-muted-foreground">Puissance calculée : </span>
-                  <span className="font-semibold">P = (4 × {cylindree}) / 400 + {poids} / 400 = <strong>{calculPuissance().toFixed(2)} CV</strong></span>
-                </div>
-              )}
+          <SelectField
+            label="Type de carburant / moteur (fixe K et le régime type)"
+            value={carburantBateau}
+            onChange={v => { setCarburantBateau(v); setRegimeMoteur(''); setRes(null) }}
+            options={Object.entries(CARBURANTS_BATEAU).map(([k, v]) => ({ value: k, label: v.label }))}
+          />
+          <div className="grid grid-cols-2 gap-3">
+            <InputField label="Alésage des cylindres (d, en m)" value={alesage} onChange={setAlesage} placeholder="Ex : 0.08" unit="m" />
+            <InputField label="Course des pistons (C, en m)" value={course} onChange={setCourse} placeholder="Ex : 0.07" unit="m" />
+            <InputField label="Nombre de cylindres (N)" value={nbCylindres} onChange={setNbCylindres} placeholder="Ex : 4" />
+            <InputField
+              label={carburantBateau.startsWith('vapeur') ? 'Nombre de coups doubles (n), déclaré ou constaté' : `Régime moteur (n, tours/min) — défaut ${carb.nDefaut}`}
+              value={regimeMoteur} onChange={setRegimeMoteur} placeholder={String(carb.nDefaut || 'à saisir')} unit="tr/min" />
+          </div>
+          {alesage && course && nbCylindres && (
+            <div className="rounded-lg bg-muted/50 px-3 py-2 text-sm">
+              <span className="text-muted-foreground">Puissance calculée : </span>
+              <span className="font-semibold">P = {carb.k} × {alesage}² × {course} × {nbCylindres} × {regime} = <strong>{calculPuissanceBateau().toFixed(2)} CV</strong></span>
             </div>
-          ) : (
-            <InputField label="Puissance fiscale (CV)" value={puissanceManuelle} onChange={setPuissanceManuelle} placeholder="Ex : 8" unit="CV" />
           )}
         </div>
       )}
@@ -692,6 +743,94 @@ function OngletTSMC() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// ONGLET 5 : TSCR : Taxe Spéciale de Circulation Routière
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletTSCR() {
+  const [catId, setCatId] = useState('tour_pp_s')
+  const [transportPublic, setTransportPublic] = useState(false)
+  const [nbVehicules, setNbVehicules] = useState('1')
+  const [res, setRes] = useState<any>(null)
+
+  const cat = CATEGORIES_IV.find(c => c.id === catId)!
+
+  function calculer() {
+    const nb = parseInt(nbVehicules) || 1
+    // Art. 3 ter : les entreprises de transport public supportent la moitié du taux,
+    // pour les véhicules affectés au transport public des personnes.
+    const tauxUnitaire = transportPublic ? cat.taux / 2 : cat.taux
+    const total = tauxUnitaire * nb
+    setRes({ cat: cat.label, tauxUnitaire, transportPublic, nb, total })
+  }
+  function reset() { setNbVehicules('1'); setTransportPublic(false); setRes(null) }
+
+  return (
+    <div className="space-y-4">
+      <DefBox>
+        <p className="font-semibold">Taxe Spéciale de Circulation Routière (TSCR) : O.-L. n° 88-029 du 15/07/1988</p>
+        <p>Droit de péage au profit du Trésor public, assis sur tous les véhicules admis à circuler sur le réseau routier public, quelle que soit la qualité du propriétaire (Art. 1er et 2) — distincte de l'Impôt sur les Véhicules (IV), bien que les mêmes catégories tarifaires s'appliquent (Art. 4).</p>
+        <p>Entreprises de transport public de personnes : la taxe est réduite de moitié pour les véhicules affectés à cet usage (Art. 3 ter).</p>
+        <p className="text-xs mt-1">Impôt provincial et local (Art. 204 al. 16 Constitution). Montants non chiffrés dans le texte : mêmes catégories et mêmes montants indicatifs que l'onglet IV, à confirmer avec l'édit budgétaire provincial en vigueur.</p>
+      </DefBox>
+
+      <div>
+        <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Catégorie de véhicule (Art. 4, mêmes catégories que l'IV)</label>
+        <select value={catId} onChange={e => { setCatId(e.target.value); setRes(null) }}
+          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
+          {CATEGORIES_IV.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+        </select>
+      </div>
+
+      <label className="flex items-center gap-2 cursor-pointer rounded-lg border border-border bg-card px-3 py-2">
+        <input type="checkbox" checked={transportPublic} onChange={e => { setTransportPublic(e.target.checked); setRes(null) }} />
+        <span className="text-sm">Véhicule affecté au transport public de personnes (taux réduit de moitié, Art. 3 ter)</span>
+      </label>
+
+      <InputField label="Nombre de véhicules" value={nbVehicules} onChange={setNbVehicules} placeholder="1" unit="véh." />
+
+      <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={reset} /></div>
+
+      {res && (
+        <ResultatWrap titre="TSCR : Résultat du calcul">
+          <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
+            <div className="flex items-center gap-2.5 px-3 py-3 bg-muted/40 border-b border-border/40">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">1</span>
+              <p className="text-xs font-semibold text-foreground">Calcul de la taxe</p>
+            </div>
+            <div className="px-3 py-2.5 space-y-1.5">
+              <LigneR label="Catégorie" val={res.cat} />
+              {res.transportPublic && <LigneR label="Réduction transport public (Art. 3 ter)" val="− 50%" />}
+              <LigneR label={`TSCR = ${res.tauxUnitaire.toLocaleString('fr-FR')} FC${res.nb > 1 ? ` × ${res.nb} véhicules` : ''}`} val={formatFC(res.total)} bold />
+            </div>
+          </div>
+          <BoxFinal label="TSCR annuelle due" val={formatFC(res.total)} />
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-sm text-amber-700 font-semibold mb-1">Période et paiement (Art. 5 &amp; 7)</p>
+            <ul className="text-sm text-amber-700 space-y-0.5 list-disc list-inside">
+              <li>Due pour l'année civile entière, quelle que soit la date de mise en circulation ou hors service</li>
+              <li>Cession en cours d'année : le paiement déjà effectué bénéficie au nouveau propriétaire</li>
+              <li>Véhicule acquis avant le 1er janvier : paiement avant le 31 mars</li>
+              <li>Véhicule acquis en cours d'année : paiement à la date d'immatriculation</li>
+              <li>Majoration de 100% en cas de défaut de paiement relevé par procès-verbal lors d'un contrôle routier (Art. 13)</li>
+            </ul>
+          </div>
+          <div className="rounded-xl border border-green-200 bg-green-50 p-3">
+            <p className="text-sm text-green-700 font-semibold mb-1">Exemptions (Art. 3 bis)</p>
+            <ul className="text-sm text-green-700 space-y-0.5 list-disc list-inside">
+              <li>Véhicules de l'État, des Provinces, des ETD et des offices publics sans autre ressource que des subventions</li>
+              <li>Véhicules des institutions religieuses, scientifiques ou philanthropiques exemptées de l'impôt foncier</li>
+              <li>Véhicules des États étrangers affectés aux agents diplomatiques, sous réserve de réciprocité</li>
+              <li>Véhicules des organismes internationaux, pour leurs besoins exclusifs</li>
+              <li>Véhicules des membres du corps diplomatique et consulaire accrédités, à triple condition de réciprocité</li>
+              <li>Véhicules des sociétés bénéficiaires d'une convention particulière d'exonération</li>
+            </ul>
+          </div>
+        </ResultatWrap>
+      )}
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // COMPOSANT PRINCIPAL : SimulateurAutresImpots
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -699,11 +838,13 @@ const ONGLETS = [
   { id: 'irl',   label: 'IRL',  sublabel: 'Revenus Locatifs',  icon: TrendingUp, color: 'amber' },
   { id: 'if',    label: 'IF',   sublabel: 'Impôt Foncier',     icon: Home,       color: 'green' },
   { id: 'iv',    label: 'IV',   sublabel: 'Véhicules',         icon: Car,        color: 'blue' },
+  { id: 'tscr',  label: 'TSCR', sublabel: 'Circulation Routière', icon: Signpost, color: 'rose' },
   { id: 'tsmc',  label: 'TSMC', sublabel: 'Concessions Minières', icon: Pickaxe, color: 'purple' },
 ]
 
 const COLOR_MAP: Record<string, string> = {
   amber:  'bg-amber-100 text-amber-700 border-amber-300',
+  rose:   'bg-rose-100 text-rose-700 border-rose-300',
   green:  'bg-green-100 text-green-700 border-green-300',
   blue:   'bg-blue-100 text-blue-700 border-blue-300',
   purple: 'bg-purple-100 text-purple-700 border-purple-300',
@@ -713,6 +854,7 @@ const COLOR_ACTIVE: Record<string, string> = {
   green:  'bg-green-600 border-transparent text-white shadow-md scale-[1.03]',
   blue:   'bg-blue-600 border-transparent text-white shadow-md scale-[1.03]',
   purple: 'bg-purple-600 border-transparent text-white shadow-md scale-[1.03]',
+  rose:   'bg-rose-600 border-transparent text-white shadow-md scale-[1.03]',
 }
 
 export default function SimulateurAutresImpots() {
@@ -726,12 +868,12 @@ export default function SimulateurAutresImpots() {
       <div className="rounded-xl border border-border bg-gradient-to-br from-slate-50 to-slate-100 p-4">
         <h2 className="text-sm font-bold text-foreground mb-1">Autres impôts rétrocédés aux ETD</h2>
         <p className="text-sm text-muted-foreground">
-          Ces quatre impôts sont des impôts réels provinciaux et locaux, rétrocédés aux Entités Territoriales Décentralisées (ETD) conformément à l'article 204 al. 16 de la Constitution et à la Loi n° 11/011 du 13 juillet 2011 relative aux finances publiques.
+          Ces cinq impôts sont des impôts réels provinciaux et locaux, rétrocédés aux Entités Territoriales Décentralisées (ETD) conformément à l'article 204 al. 16 de la Constitution et à la Loi n° 11/011 du 13 juillet 2011 relative aux finances publiques.
         </p>
       </div>
 
       {/* Onglets */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
         {ONGLETS.map(o => {
           const Icon = o.icon
           const isActive = ongletActif === o.id
@@ -756,6 +898,7 @@ export default function SimulateurAutresImpots() {
         {ongletActif === 'irl'  && <OngletIRL />}
         {ongletActif === 'if'   && <OngletIF />}
         {ongletActif === 'iv'   && <OngletIV />}
+        {ongletActif === 'tscr' && <OngletTSCR />}
         {ongletActif === 'tsmc' && <OngletTSMC />}
       </div>
     </div>

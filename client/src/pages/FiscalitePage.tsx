@@ -3007,7 +3007,7 @@ const ONGLETS = [
   { id: 'irpp_cat5', label: 'IRPP', sublabel: 'Cat. 5 : Revenus de capitaux mobiliers',              icon: TrendingUp,color: 'teal',    desc: "Produits d'actions, d'obligations, de dépôts, de prêts ou de titres financiers=" },
   { id: 'irpp_cat6', label: 'IRPP', sublabel: 'Cat. 6 : Plus-values de cession de biens',            icon: BarChart2, color: 'orange',  desc: 'Plus-values réalisées à la vente de biens mobiliers ou immobiliers hors activité professionnelle' },
   { id: 'is',        label: 'IS',   sublabel: 'Impôt sur les Sociétés',                              icon: Building2, color: 'emerald', desc: 'Passage résultat comptable → fiscal (réintégrations & déductions) → IS 30%' },
-  { id: 'irl',       label: 'Autres impôts',  sublabel: 'Impôts rétrocédés aux ETD',                      icon: Receipt,   color: 'amber',   desc: 'IRL (22%) · IF · IV · TSMC : impôts réels provinciaux et locaux' },
+  { id: 'irl',       label: 'Autres impôts',  sublabel: 'Impôts rétrocédés aux ETD',                      icon: Receipt,   color: 'amber',   desc: 'IRL (22%) · IF · IV · TSCR · TSMC : impôts réels provinciaux et locaux' },
   { id: 'tva',        label: 'TVA',        sublabel: 'Taxe sur la Valeur Ajoutée',                          icon: Percent,   color: 'rose',    desc: 'TVA collectée − TVA déductible, taux normal 16%, taux réduits 1%/5% (LF 2026)' },
   { id: 'procedures', label: 'Procédures fiscales', sublabel: 'Obligations, contrôle, recouvrement',                    icon: Scale,     color: 'purple',  desc: 'Déclarations, vérification, AMR, pénalités et recours : Loi n°004/2003 du 13 mars 2003' },
 ]
