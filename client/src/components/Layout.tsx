@@ -63,7 +63,7 @@ const outilsPratiquesItems: NavItem[] = [
 
 // Items staff uniquement (en dernier avant Modules)
 const staffItems: NavItem[] = [
-  { path: '/professeurs', label: 'Espace Administration', icon: <Users className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
+  { path: '/professeurs', label: 'Espace pédagogique', icon: <Users className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
   { path: '/gestion-etudiants', label: 'Gestion des étudiants', icon: <GraduationCap className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
   { path: '/prepa-onec', label: 'Prépa ONEC', icon: <BookCheck className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
   // Débogage isolation masqué volontairement
@@ -261,7 +261,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         {/* Navigation principale */}
         {topItems.map(item => <NavButton key={item.path} item={item} />)}
 
-        {/* Espace Administration : staff seulement */}
+        {/* Espace pédagogique : staff seulement */}
         {staffItems
           .filter(item => !item.roles || item.roles.includes(user.role))
           .map(item => <NavButton key={item.path} item={item} />)
