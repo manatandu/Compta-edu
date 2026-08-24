@@ -901,13 +901,25 @@ export default function DashboardEtudiant() {
             </div>
           </div>
 
+          {/* Le détail ligne à ligne (historique des devoirs, grille des séances)
+              occupait à lui seul l'essentiel de la page d'accueil. Il est replié :
+              l'essentiel — mention, cotes, score, bulletin PDF — reste visible
+              au-dessus, et le détail s'ouvre à la demande. */}
+          {(soumissionsNotees.length > 0 || mesPresences.length > 0) && (
+          <details className="group px-5 pb-5">
+            <summary className="cursor-pointer text-xs font-medium text-primary hover:underline flex items-center gap-1.5 select-none list-none">
+              <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span>
+              Voir le détail : notes obtenues et relevé de présences
+            </summary>
+            <div className="mt-3 space-y-4">
+
           {soumissionsNotees.length > 0 && (() => {
             const devoirsNotes = soumissionsNotees.map(s => {
               const dev = allDevoirs.find(d => d.id === s.devoirId)
               return { soum: s, dev }
             }).filter(x => x.dev)
             return (
-              <div className="space-y-2 px-5">
+              <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Historique des devoirs</p>
                   <span className="text-xs text-muted-foreground">{cumulNotesEtudiant}/{totalDevoirsNotesEtudiant * 10} pts cumulés</span>
@@ -953,7 +965,7 @@ export default function DashboardEtudiant() {
             const totalS = seancesTri.length
             const taux = totalS > 0 ? Math.round(nbP / totalS * 100) : 0
             return (
-              <div className="space-y-2 px-5 pb-5">
+              <div className="space-y-2">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Détail des séances</p>
                 <div className="overflow-x-auto rounded-lg border border-border">
                   <table className="w-full text-xs">
@@ -1010,6 +1022,10 @@ export default function DashboardEtudiant() {
               </div>
             )
           })()}
+
+            </div>
+          </details>
+          )}
         </div>
       </div>
 
