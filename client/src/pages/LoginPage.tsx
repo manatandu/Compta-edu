@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { User } from '@/lib/db'
 import { loginAsync, createUserAsync } from '@/lib/db-firebase'
+import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -123,15 +124,23 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     e.preventDefault()
     setError('')
     setLoading(true)
+    // Une connexion réussie fait basculer instantanément le contexte d'authentification
+    // Firestore : les onSnapshot() montés par le tableau de bord juste après peuvent
+    // essuyer un refus transitoire le temps que le nouveau jeton d'auth se propage —
+    // ce n'est pas une coupure réseau. Même fenêtre de suppression que pour le logout
+    // (App.tsx), refermée par onAuthStateChanged une fois la session confirmée.
+    setFirestoreErrorSuppressed(true)
     try {
       const user = await loginAsync(username.trim(), password)
       if (user) {
         onLogin(user)
       } else {
+        setFirestoreErrorSuppressed(false)
         setError("Nom d'utilisateur ou mot de passe incorrect.")
         setLoading(false)
       }
     } catch (err: any) {
+      setFirestoreErrorSuppressed(false)
       const msg = err?.message || ''
       if (msg === 'COMPTE_EN_ATTENTE') {
         setError("Votre inscription est en attente de validation par votre professeur. Réessayez une fois votre compte validé.")
