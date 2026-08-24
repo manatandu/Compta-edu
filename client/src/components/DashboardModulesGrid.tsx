@@ -61,8 +61,16 @@ export function DashboardModulesGrid({ navigate, afficherMesCours = true }: {
             <BookMarked className="h-5 w-5" />
           </div>
           <div className="flex-1">
-            <p className="font-bold text-sm text-foreground leading-tight">Bibliothèque</p>
-            <p className="text-xs text-muted-foreground mt-0.5 leading-tight">Lois, textes officiels PDF</p>
+            {/* Cette tuile s'intitulait « Bibliothèque » et annonçait « Lois, textes
+                officiels PDF » — deux erreurs : elle mène au Dictionnaire, un
+                glossaire de termes, et ce sont « Documents » qui portent les PDF.
+                Nom aligné sur celui de la barre latérale et de la page elle-même.
+                Le nombre de termes n'est volontairement pas affiché : importer
+                le catalogue ici ferait télécharger ses 212 ko à toute ouverture
+                du tableau de bord, alors qu'il est aujourd'hui chargé à la
+                demande, avec la page Dictionnaire seule. */}
+            <p className="font-bold text-sm text-foreground leading-tight">Dictionnaire</p>
+            <p className="text-xs text-muted-foreground mt-0.5 leading-tight">Termes de compta, fiscalité, droit</p>
           </div>
           <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-hover:text-violet-600 group-hover:translate-x-0.5 transition-all duration-200" />
         </button>
