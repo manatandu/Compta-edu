@@ -162,33 +162,47 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
       {/* ── Motif de fond décoratif ──────────────────────────────────────────
           Thème blanc conservé, rien à gauche (desktop et mobile) : deux aplats
-          doux + arcs elliptiques fins, à peine perceptibles — reprend le motif
-          validé de la maquette (orbit-login-simple-v4), jamais appliqué au
-          vrai composant jusqu'ici. */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+          doux + arcs elliptiques fins, à peine perceptibles.
+          Chaque coin est un bloc indépendant ancré en CSS (top-right /
+          bottom-left), plutôt qu'un seul SVG à viewBox large en "slice" : ce
+          dernier, pensé pour un écran large, ne montrait presque rien sur un
+          écran mobile étroit et haut — le "slice" ne conservait que la bande
+          centrale du viewBox et coupait les deux coins où vivait le motif. */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        {/* Aplat doux, coin haut-droit */}
+        <div className="absolute -top-16 -right-16 h-64 w-64 sm:h-96 sm:w-96 rounded-full opacity-80"
+          style={{ background: 'radial-gradient(circle, #DCE8FC, #EAF1FC)' }} />
+        {/* Aplat doux, coin bas-gauche */}
+        <div className="absolute -bottom-16 -left-16 h-56 w-56 sm:h-80 sm:w-80 rounded-full opacity-80"
+          style={{ background: 'radial-gradient(circle, #DCE8FC, #EAF1FC)' }} />
+
+        {/* Arcs elliptiques, coin haut-droit */}
+        <svg className="absolute -top-6 -right-6 h-52 w-52 sm:h-72 sm:w-72" viewBox="0 0 300 300">
           <defs>
-            <linearGradient id="orbitArcGrad" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id="orbitArcGrad1" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#1E4FAE" />
               <stop offset="100%" stopColor="#5B9BF5" />
             </linearGradient>
-            <linearGradient id="orbitBlobGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#DCE8FC" />
-              <stop offset="100%" stopColor="#EAF1FC" />
+          </defs>
+          <g stroke="url(#orbitArcGrad1)" fill="none">
+            <ellipse cx="220" cy="60" rx="130" ry="80" opacity=".55" strokeWidth="2" />
+            <ellipse cx="220" cy="60" rx="95" ry="58" opacity=".38" strokeWidth="1.6" />
+          </g>
+          <circle cx="220" cy="60" r="5" fill="#1E4FAE" opacity=".6" />
+        </svg>
+
+        {/* Arcs elliptiques, coin bas-gauche */}
+        <svg className="absolute -bottom-6 -left-6 h-44 w-44 sm:h-64 sm:w-64" viewBox="0 0 300 300">
+          <defs>
+            <linearGradient id="orbitArcGrad2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#1E4FAE" />
+              <stop offset="100%" stopColor="#5B9BF5" />
             </linearGradient>
           </defs>
-          <circle cx="1260" cy="60" r="360" fill="url(#orbitBlobGrad)" />
-          <circle cx="40" cy="920" r="330" fill="url(#orbitBlobGrad)" />
-          <g stroke="url(#orbitArcGrad)" fill="none">
-            <ellipse cx="1230" cy="30" rx="300" ry="115" opacity=".55" strokeWidth="2" />
-            <ellipse cx="1230" cy="30" rx="220" ry="82" opacity=".38" strokeWidth="1.6" />
+          <g stroke="url(#orbitArcGrad2)" fill="none">
+            <ellipse cx="80" cy="240" rx="110" ry="68" opacity=".45" strokeWidth="1.8" />
           </g>
-          <circle cx="1230" cy="30" r="6" fill="#1E4FAE" opacity=".6" />
-          <g stroke="url(#orbitArcGrad)" fill="none">
-            <ellipse cx="60" cy="900" rx="260" ry="100" opacity=".45" strokeWidth="1.8" />
-          </g>
-          <circle cx="60" cy="900" r="5" fill="#1E4FAE" opacity=".5" />
-          <path d="M -50 470 C 350 380, 950 560, 1450 440" stroke="url(#orbitArcGrad)" strokeWidth="1.4" fill="none" opacity=".18" />
+          <circle cx="80" cy="240" r="4" fill="#1E4FAE" opacity=".5" />
         </svg>
       </div>
 
