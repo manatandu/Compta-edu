@@ -1795,17 +1795,15 @@ function Cat5Mobiliers() {
   const TYPES_REVENUS = [
     {
       id: 'div_actions',
-      label: 'Dividendes : actions (base réduite 50%)',
-      texte: "Dividendes distribués aux actionnaires (SA, SARL unipersonnelle, etc.) en raison de leurs actions. La base imposable est réduite à 50% du montant brut mis à disposition : LF 2025 Art. 26 (modification Art. 81 Loi 23/053). La retenue de 20% est calculée sur cette base réduite. Exonérations Art. 80 : dividendes versés entre sociétés mères et filiales sous conditions.=",
-      loi: 'Art. 72-73, Art. 81 §1 mod. LF 2025 Art. 26, Loi 23/053',
-      baseReduite: 0.5,
+      label: 'Dividendes : actions',
+      texte: "Dividendes distribués aux actionnaires (SA, SARL unipersonnelle, etc.) en raison de leurs actions. Retenue de 20% sur le montant brut mis à disposition (Art. 72-73, Art. 120-121, Loi 23/053). Exonérations Art. 80 : dividendes versés entre sociétés mères et filiales sous conditions. ⚠️ La base réduite à 50% qui existait sous l'Ordonnance-loi 69/009 (LF 2025, Art. 26, modifiant son Art. 14 al. 3) n'a pas été reprise dans la Loi 23/053 : cette ordonnance-loi est abrogée depuis le 1er janvier 2026 (Art. 152) et aucun texte du régime actuel ne reproduit ce mécanisme. Base pleine retenue par prudence.",
+      loi: 'Art. 72-73, Art. 120-121, Loi 23/053',
     },
     {
       id: 'div_parts',
-      label: 'Dividendes : parts d’associés (base réduite 60%)',
-      texte: "Dividendes distribués aux associés (SNC, SARL à responsabilité limitée, sociétés civiles, etc.) en raison de leurs parts sociales. La base imposable est réduite à 60% du montant brut mis à disposition : LF 2025 Art. 27 (modification Art. 81 Loi 23/053). La retenue de 20% est calculée sur cette base réduite.",
-      loi: 'Art. 72-73, Art. 81 §1 mod. LF 2025 Art. 27, Loi 23/053',
-      baseReduite: 0.6,
+      label: 'Dividendes : parts d’associés',
+      texte: "Dividendes distribués aux associés (SNC, SARL à responsabilité limitée, sociétés civiles, etc.) en raison de leurs parts sociales. Retenue de 20% sur le montant brut mis à disposition (Art. 72-73, Art. 120-121, Loi 23/053). ⚠️ La base réduite à 60% qui existait sous l'Ordonnance-loi 69/009 (LF 2025, Art. 27, modifiant son Art. 15 al. 2) n'a pas été reprise dans la Loi 23/053 : cette ordonnance-loi est abrogée depuis le 1er janvier 2026 (Art. 152) et aucun texte du régime actuel ne reproduit ce mécanisme. Base pleine retenue par prudence.",
+      loi: 'Art. 72-73, Art. 120-121, Loi 23/053',
     },
     {
       id: 'indem',
