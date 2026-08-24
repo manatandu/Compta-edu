@@ -16,13 +16,6 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/charges-personnel/ipr':      { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
   '/docs-comptables-hub':        { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
   '/etats-financiers-hub':       { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
-  // SYCEBNL
-  '/comptabilite-sycebnl':       { path: '/mes-cours',             label: 'Mes cours' },
-  '/sycebnl/journal':            { path: '/comptabilite-sycebnl',  label: 'Comptabilite SYCEBNL' },
-  '/sycebnl/grand-livre':        { path: '/comptabilite-sycebnl',  label: 'Comptabilite SYCEBNL' },
-  '/sycebnl/balance':            { path: '/comptabilite-sycebnl',  label: 'Comptabilite SYCEBNL' },
-  '/sycebnl/bilan':              { path: '/comptabilite-sycebnl',  label: 'Comptabilite SYCEBNL' },
-  '/sycebnl/plan-comptable':     { path: '/comptabilite-sycebnl',  label: 'Comptabilite SYCEBNL' },
   // Stock
   '/stock':                      { path: '/mes-cours',             label: 'Mes cours' },
   '/stock/articles':             { path: '/stock',                 label: 'Gestion de Stock' },

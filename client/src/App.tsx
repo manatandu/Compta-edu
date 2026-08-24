@@ -31,12 +31,6 @@ const ExercicesPage = React.lazy(() => import('@/pages/ExercicesPage'))
 const ExerciceDetailPage = React.lazy(() => import('@/pages/ExerciceDetailPage'))
 const ProfesseurPage = React.lazy(() => import('@/pages/ProfesseurPage'))
 const ComptabiliteGeneralePage = React.lazy(() => import('@/pages/ComptabiliteGeneralePage'))
-const ComptabiliteSYCEBNLPage = React.lazy(() => import('@/pages/ComptabiliteSYCEBNLPage'))
-const JournalSYCEBNLPage = React.lazy(() => import('@/pages/JournalSYCEBNLPage'))
-const GrandLivreSYCEBNLPage = React.lazy(() => import('@/pages/GrandLivreSYCEBNLPage'))
-const BalanceSYCEBNLPage = React.lazy(() => import('@/pages/BalanceSYCEBNLPage'))
-const BilanSYCEBNLPage = React.lazy(() => import('@/pages/BilanSYCEBNLPage'))
-const PlanComptableSYCEBNLPage = React.lazy(() => import('@/pages/PlanComptableSYCEBNLPage'))
 const ChatPage = React.lazy(() => import('@/pages/ChatPage'))
 const DocumentsPage = React.lazy(() => import('@/pages/DocumentsPage'))
 const ComingSoonPage = React.lazy(() => import('@/pages/ComingSoonPage'))
@@ -233,26 +227,6 @@ export default function App() {
         </Route>
         <Route path="/plan-comptable">
           <W user={user} onLogout={handleLogout}><PlanComptablePage /></W>
-        </Route>
-
-        {/* ── Comptabilité SYCEBNL ── */}
-        <Route path="/comptabilite-sycebnl">
-          <W user={user} onLogout={handleLogout}><ComptabiliteSYCEBNLPage /></W>
-        </Route>
-        <Route path="/sycebnl/journal">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><JournalSYCEBNLPage /></ModuleProvider></W>
-        </Route>
-        <Route path="/sycebnl/grand-livre">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><GrandLivreSYCEBNLPage /></ModuleProvider></W>
-        </Route>
-        <Route path="/sycebnl/balance">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><BalanceSYCEBNLPage /></ModuleProvider></W>
-        </Route>
-        <Route path="/sycebnl/bilan">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="sycebnl"><BilanSYCEBNLPage /></ModuleProvider></W>
-        </Route>
-        <Route path="/sycebnl/plan-comptable">
-          <W user={user} onLogout={handleLogout}><PlanComptableSYCEBNLPage /></W>
         </Route>
 
         {/* ── Hubs dossiers 1 et 2 ── */}

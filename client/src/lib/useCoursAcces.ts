@@ -47,7 +47,7 @@ export function useRouteAcces(routePath: string): boolean {
   // Route de module reconnue → vérifier l'inscription
   if (cours) return userCoursIds.includes(cours.id)
 
-  // Route inconnue (ex: /sycebnl/...) → bloquer par sécurité
+  // Route inconnue → bloquer par sécurité
   return false
 }
 

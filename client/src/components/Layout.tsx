@@ -4,7 +4,8 @@ import {
   BookOpen, LayoutDashboard, BookMarked, BarChart2, FileText,
   Users, MessageSquare, FolderOpen, LogOut,
   Menu, GraduationCap, ClipboardList, ChevronRight, ChevronDown,
-  Calculator, Landmark, Wallet, TrendingUp, Home, BookCheck, X, Lock, Bug
+  Calculator, Landmark, Wallet, TrendingUp, Home, BookCheck, X, Lock, Bug,
+  Scale, Package
 } from 'lucide-react'
 import GlobalSearch from '@/components/GlobalSearch'
 import { NotificationBell } from '@/components/NotificationBell'
@@ -44,6 +45,20 @@ const topItems: NavItem[] = [
 
   { path: '/chat', label: 'Messagerie', icon: <MessageSquare className="h-4 w-4" /> },
   { path: '/dictionnaire', label: 'Dictionnaire', icon: <BookMarked className="h-4 w-4" /> },
+]
+
+// Outils pratiques — les modules concrets de comptabilité, jusqu'ici enterrés comme
+// sous-pages internes de la seule UE 9 (« Comptabilité générale »). Chacun a désormais
+// sa propre entrée, visible sans avoir à deviner qu'il faut d'abord ouvrir cette UE.
+const outilsPratiquesItems: NavItem[] = [
+  { path: '/journal', label: 'Journal', icon: <ClipboardList className="h-4 w-4" /> },
+  { path: '/grand-livre', label: 'Grand-livre', icon: <BookOpen className="h-4 w-4" /> },
+  { path: '/balance', label: 'Balance', icon: <Scale className="h-4 w-4" /> },
+  { path: '/bilan', label: 'Bilan', icon: <Landmark className="h-4 w-4" /> },
+  { path: '/plan-comptable', label: 'Plan comptable', icon: <Calculator className="h-4 w-4" /> },
+  { path: '/immobilisations', label: 'Immobilisations', icon: <TrendingUp className="h-4 w-4" /> },
+  { path: '/stock', label: 'Gestion de stock', icon: <Package className="h-4 w-4" /> },
+  { path: '/charges-personnel/ipr', label: 'Simulateur IPR / Salaires', icon: <Wallet className="h-4 w-4" /> },
 ]
 
 // Items staff uniquement (en dernier avant Modules)
@@ -255,46 +270,48 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         {/* Messagerie + Documents */}
         {middleItems.map(item => <NavButton key={item.path} item={item} />)}
 
-        {/* Séparateur + label section Modules */}
+        {/* Séparateur + label section Outils pratiques */}
         <div className="mx-2.5 mt-4 mb-1.5">
-          <p className="text-[10.5px] font-semibold text-ink-faint uppercase tracking-widest px-0.5">Comptabilité pratique</p>
+          <p className="text-[10.5px] font-semibold text-ink-faint uppercase tracking-widest px-0.5">Outils pratiques</p>
         </div>
+        {outilsPratiquesItems.map(item => <NavButton key={item.path} item={item} />)}
 
-        {/* Dossiers modules : dynamiques depuis Firestore */}
+        {/* Cours additionnels créés manuellement par un professeur (hors programme des 13 UE,
+            déjà listées sur la page "Mes cours" — on ne les reproduit plus ici pour éviter le
+            doublon). N'apparaît que s'il en existe au moins un. */}
         {(() => {
-          // Construire la liste des modules à afficher
-          // 1. Les cours système dans l'ordre défini
-          // 2. Les cours manuels créés par les profs
           const systemIds = COURS_SYSTEME.map(c => c.id)
           const systemModuleKeys = COURS_SYSTEME.map(c => c.moduleKey || c.id)
           const systemNoms = COURS_SYSTEME.map(c => c.nom.trim().toLowerCase())
 
-          const coursAAfficher = [
-            // 1. Cours système (récupérés depuis Firestore si possible)
-            ...COURS_SYSTEME.map(sc => allCours.find(c => c.id === sc.id) || { ...sc, faculteId: '', universiteId: '', dateCreation: '', createdBy: 'system' }),
-            // 2. Cours manuels : exclure tout ce qui correspond à un cours système
-            // (même id, même coursSystemeId, même moduleKey, ou même nom)
-            ...allCours.filter(c => {
-              if (systemIds.includes(c.id)) return false
-              if ((c as any).coursSystemeId && systemIds.includes((c as any).coursSystemeId)) return false
-              if ((c as any).moduleKey && systemModuleKeys.includes((c as any).moduleKey)) return false
-              if (systemNoms.includes(c.nom.trim().toLowerCase())) return false
-              return true
-            })
-          ]
+          // Cours manuels : exclure tout ce qui correspond à un cours système
+          // (même id, même coursSystemeId, même moduleKey, ou même nom)
+          const coursManuels = allCours.filter(c => {
+            if (systemIds.includes(c.id)) return false
+            if ((c as any).coursSystemeId && systemIds.includes((c as any).coursSystemeId)) return false
+            if ((c as any).moduleKey && systemModuleKeys.includes((c as any).moduleKey)) return false
+            if (systemNoms.includes(c.nom.trim().toLowerCase())) return false
+            return true
+          })
+
+          if (coursManuels.length === 0) return null
 
           // Routes connues dans l'application
           const ROUTES_CONNUES = [
             'comptabilite-generale', 'fiscalite', 'analyse-financiere',
             'immobilisations', 'stock', 'charges-personnel',
             'docs-comptables-hub', 'etats-financiers-hub',
-            'comptabilite-sycebnl', 'dictionnaire', 'documents', 'exercices',
+            'dictionnaire', 'documents', 'exercices',
           ]
 
           // Dans la sidebar : n'afficher que les cours actifs
-          const coursVisiblesSidebar = coursAAfficher.filter(c => (c as any).actif !== false)
+          const coursVisiblesSidebar = coursManuels.filter(c => (c as any).actif !== false)
 
-          return coursVisiblesSidebar.map(cours => {
+          return <>
+          <div className="mx-2.5 mt-4 mb-1.5">
+            <p className="text-[10.5px] font-semibold text-ink-faint uppercase tracking-widest px-0.5">Cours additionnels</p>
+          </div>
+          {coursVisiblesSidebar.map(cours => {
             const moduleKey = (cours as any).moduleKey || cours.id
             const path = `/${moduleKey}`
             // Cours sans route connue : on l'affiche mais non cliquable (bientôt)
@@ -346,7 +363,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                 </button>
               </div>
             )
-          })
+          })}
+          </>
         })()}
 
         {/* Anciens dossiers statiques (conservés si items non vides) */}

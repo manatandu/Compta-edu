@@ -24,7 +24,6 @@ const registry: Record<string, Loader> = {
   '/balance': () => import('@/pages/BalancePage'),
   '/bilan': () => import('@/pages/BilanPage'),
   '/plan-comptable': () => import('@/pages/PlanComptablePage'),
-  '/comptabilite-sycebnl': () => import('@/pages/ComptabiliteSYCEBNLPage'),
   '/docs-comptables-hub': () => import('@/pages/DocsComptablesHub'),
   '/etats-financiers-hub': () => import('@/pages/EtatsFinanciersHub'),
   '/immobilisations': () => import('@/pages/ImmobilisationsPage'),
