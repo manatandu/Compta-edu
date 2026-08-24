@@ -653,11 +653,227 @@ function OngletExonerations() {
 // ─────────────────────────────────────────────────────────────────────────────
 // ONGLET 4 : TAUX & BASE D'IMPOSITION
 // ─────────────────────────────────────────────────────────────────────────────
-function OngletTauxBase() {
-  type TypeOp = 'standard' | 'import' | 'occasion' | 'agence' | 'transitaire' | 'T16-03' | 'T16-08' | 'T16-13' | 'EX-01'
-  type Taux = '16' | '1' | '5' | '0'
+// Sélection du taux : mêmes couleurs partout où le module affiche les 4 taux.
+const TAUX_CONFIG: { v: '16' | '1' | '5' | '0'; label: string; sublabel: string; color: string; activeBg: string; activeTxt: string; borderActive: string; inactiveBg: string; inactiveBorder: string }[] = [
+  { v: '16', label: '16%', sublabel: 'Normal',  color: 'text-rose-600',   activeBg: 'bg-rose-600',   activeTxt: 'text-white', borderActive: 'border-rose-600',   inactiveBg: 'bg-rose-50',   inactiveBorder: 'border-rose-200' },
+  { v: '1',  label: '1%',  sublabel: 'Réduit',  color: 'text-orange-600', activeBg: 'bg-orange-500', activeTxt: 'text-white', borderActive: 'border-orange-500', inactiveBg: 'bg-orange-50', inactiveBorder: 'border-orange-200' },
+  { v: '5',  label: '5%',  sublabel: 'Réduit',  color: 'text-amber-600',  activeBg: 'bg-amber-500',  activeTxt: 'text-white', borderActive: 'border-amber-500',  inactiveBg: 'bg-amber-50',  inactiveBorder: 'border-amber-200' },
+  { v: '0',  label: '0%',  sublabel: 'Export',  color: 'text-blue-600',   activeBg: 'bg-blue-600',   activeTxt: 'text-white', borderActive: 'border-blue-600',   inactiveBg: 'bg-blue-50',   inactiveBorder: 'border-blue-200' },
+]
 
-  const [typeOp, setTypeOp] = useState<TypeOp>('standard')
+// Catalogue d'opérations imposables par taux (pour affichage déroulant, onglet consultation)
+const CATALOGUE_PAR_TAUX: Record<'16' | '1' | '5' | '0', { code: string; label: string; ref?: string }[]> = {
+  '16': CATALOGUE_TAUX_16.map(it => ({ code: it.code, label: it.label, ref: '' })),
+  '1':  CATALOGUE_TAUX_1.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
+  '5':  CATALOGUE_TAUX_5.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
+  '0':  CATALOGUE_TAUX_0.map(it => ({ code: it.code, label: it.label, ref: it.article })),
+}
+
+// Formules de calcul extraites du CGI (Art. 27 à 35, Ordonnance-Loi n° 10/001 du 20/08/2010),
+// une par type d'opération, groupées par taux (onglet calculateur)
+type TypeOpTVA = 'standard' | 'import' | 'occasion' | 'agence' | 'transitaire' | 'T16-03' | 'T16-08' | 'T16-13' | 'EX-01'
+const OPS_PAR_TAUX: Record<'16' | '1' | '5' | '0', { value: TypeOpTVA; label: string; ref: string; formule: string; loi: string }[]> = {
+  '16': [
+    {
+      value: 'standard',
+      label: 'Livraison de biens / Prestation de services standard',
+      ref: 'Art. 27 §4–5',
+      formule: 'Base HT = toutes sommes ou valeurs reçues en contrepartie (prix convenu, subventions incluses, frais accessoires inclus) | TVA = Base HT × 16% | TTC = Base HT + TVA',
+      loi: 'Art. 27 al. 1 + §4 (livraison biens) + §5 (prestation services) : CGI RDC (OL 10/001 du 20/08/2010)'
+    },
+    {
+      value: 'import',
+      label: 'Importation de biens (base CIF + droits)',
+      ref: 'Art. 27 §1',
+      formule: 'Base = Valeur CIF + Droits d\'entrée douaniers + Droits de consommation (le cas échéant) | TVA = Base × 16% | Collectée par la Douane lors de la déclaration de mise à la consommation',
+      loi: 'Art. 27 §1 CGI RDC : « la valeur CIF majorée des droits d\'entrée et, le cas échéant, des droits de consommation, pour les produits importés »'
+    },
+    {
+      value: 'T16-03',
+      label: 'Travaux immobiliers (construction, rénovation)',
+      ref: 'Art. 27 §7',
+      formule: 'Base = Montant du marché / mémoire / facture HT | TVA = Montant HT × 16% | TTC = Montant HT + TVA | Exigibilité : encaissement ou débit (sur option DGI)',
+      loi: 'Art. 27 §7 CGI RDC : « le montant de marchés, mémoires ou factures, pour les travaux immobiliers »'
+    },
+    {
+      value: 'T16-08',
+      label: 'Crédit-bail mobilier / immobilier (leasing)',
+      ref: 'Art. 27 §11',
+      formule: 'Base = Montant des loyers facturés par la société de crédit-bail | TVA = Loyers HT × 16% | TTC = Loyers HT + TVA | Note : le prix d\'option d\'achat est aussi imposable le cas échéant',
+      loi: 'Art. 27 §11 CGI RDC : « le montant des loyers facturés par les sociétés de crédit-bail, pour les opérations de crédit-bail »'
+    },
+    {
+      value: 'T16-13',
+      label: 'Vente immobilière par promoteur immobilier',
+      ref: 'Art. 27 §4 + Art. 24 §6',
+      formule: 'Base = Prix de vente HT de l\'immeuble (toutes sommes reçues en contrepartie de la livraison) | TVA = Prix HT × 16% | TTC = Prix HT + TVA | Note : cessions par non-promoteurs → hors TVA, soumises aux droits d\'enregistrement (Art. 15-7)',
+      loi: 'Art. 27 §4 CGI RDC + Art. 24 §6 : promoteurs immobiliers soumis à la TVA sur les ventes d\'immeubles neufs'
+    },
+    {
+      value: 'occasion',
+      label: 'Biens d\'occasion acquis auprès d\'un non-assujetti (régime marge)',
+      ref: 'Art. 31',
+      formule: 'Base = Prix de vente − Prix d\'achat auprès du non-assujetti (marge brute) | TVA = Marge × 16% | Si marge ≤ 0 : TVA = 0 | Attention : déduction TVA amont impossible sur ces achats',
+      loi: 'Art. 31 CGI RDC : « lorsqu\'il s\'agit de biens acquis auprès de non-assujettis, ces négociants doivent payer la taxe sur la valeur ajoutée sur la différence entre le prix de vente et le prix de revient »'
+    },
+    {
+      value: 'agence',
+      label: 'Agence de voyages / Organisateur de circuits touristiques (marge)',
+      ref: 'Art. 32',
+      formule: 'Base = Prix total payé par le client − Total factures fournisseurs (transport, hôtel, restauration, spectacles…) | TVA = Marge × 16% | Note : aucune déduction TVA sur les achats fournisseurs (Art. 33)',
+      loi: 'Art. 32 CGI RDC : « la base est constituée par la différence entre le prix total payé par le client et le prix facturé à l\'agence par les entrepreneurs de transports, hôteliers, restaurateurs… »'
+    },
+    {
+      value: 'transitaire',
+      label: 'Transitaire / Commissionnaire en douane (rémunération nette)',
+      ref: 'Art. 34',
+      formule: 'Base = Total sommes encaissées TTC − TVA incluse − Débours (transport + dédouanement, sur justificatifs) | TVA incluse extraite = Encaissements TTC × 16/116 | TVA = Base nette HT × 16%',
+      loi: 'Art. 34 CGI RDC : « la rémunération brute, comprenant la totalité des sommes encaissées, déduction faite de la TVA et des seuls débours afférents au transport lui-même ainsi que de ceux payés à l\'occasion du dédouanement, pourvu que lesdits débours soient justifiés »'
+    },
+  ],
+  '1': [
+    {
+      value: 'standard',
+      label: 'Produit à taux réduit 1% (24 produits de 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique)',
+      ref: 'Art. 35 al. 2',
+      formule: 'Base HT = Prix de vente HT ou valeur CIF + droits si importation | TVA = Base HT × 1% | TTC = Base HT + TVA | Applicable aux produits figurant dans la liste tarifaire de l\'Art. 35 (viandes, poissons, riz, sucre, lait, eau, sel, savon, allumettes) ainsi qu\'aux matières premières industrielles brutes (cuivre, étain, plomb, aluminium, zinc), aux intrants agricoles/agro-industriels, aux intrants du ciment local et aux matériaux/services de construction des projets publics d\'infrastructures',
+      loi: 'Art. 35 CGI RDC modifié par l\'Art. 46 de la LF n° 25/060 du 29/12/2025 (LF 2026), en vigueur depuis le 1er janvier 2026 : l\'ancien taux réduit unique de 8% est supprimé et remplacé par 1% pour ces opérations'
+    },
+  ],
+  '5': [
+    {
+      value: 'standard',
+      label: 'Billets d\'avion sur le trafic aérien national (taux réduit 5%)',
+      ref: 'Art. 35 al. 2',
+      formule: 'Base HT = Prix du billet HT | TVA = Base HT × 5% | TTC = Base HT + TVA | Seul cas visé par le taux de 5% depuis la LF 2026',
+      loi: 'Art. 35 CGI RDC modifié par l\'Art. 46 de la LF n° 25/060 du 29/12/2025 (LF 2026), en vigueur depuis le 1er janvier 2026 : le taux de 5% est réservé au seul cas de la vente de billets d\'avion sur le trafic aérien national'
+    },
+  ],
+  '0': [
+    {
+      value: 'EX-01',
+      label: 'Exportation de marchandises hors RDC (taux zéro)',
+      ref: 'Art. 35 al. 3 + Art. 7',
+      formule: 'Base = Valeur FOB (Franco à Bord) | TVA = Base × 0% = 0 FC | Aucune TVA facturée sur l\'exportation | DROIT À DÉDUCTION MAINTENU : la TVA payée sur les achats liés à cette exportation reste déductible | Remboursement du crédit TVA possible, sous condition d\'effectivité de l\'export (Art. 39) — voir Art. 63-64 pour le remboursement lui-même',
+      loi: 'Art. 35 al. 3 CGI RDC : taux 0% applicable aux exportations et opérations assimilées (Art. 7). Art. 27 §2 : base = valeur FOB pour les exportations de marchandises'
+    },
+  ],
+}
+
+function getOpTypeTVA(code: TypeOpTVA): string {
+  if (['import', 'occasion', 'agence', 'transitaire'].includes(code)) return code
+  if (code === 'T16-03') return 'travaux_immo'
+  if (code === 'T16-08') return 'credit_bail'
+  if (code === 'T16-13') return 'promoteur'
+  if (code === 'EX-01') return 'export_fob'
+  return 'standard'
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : TAUX APPLICABLES — consultation (Art. 27, 35)
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletTauxApplicables() {
+  type Taux = '16' | '1' | '5' | '0'
+  const [taux, setTaux] = useState<Taux>('16')
+  const [showCatalogue, setShowCatalogue] = useState(false)
+
+  return (
+    <div className="space-y-4">
+      <DefinitionBox titre="Base d'imposition : Art. 27">
+        <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l\'opération, y compris subventions et tous frais, impôts, droits et taxes, à l\'<strong>exclusion de la TVA elle-même</strong>.</p>
+      </DefinitionBox>
+
+      {/* ── Résumé des 4 taux (LF 2026 : ex-8% remplacé par 1%/5%) ── */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        {[
+          { taux: '16%', sublabel: 'Normal',  couleur: 'rose',   desc: 'Toutes opérations imposables' },
+          { taux: '1%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique' },
+          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion — trafic aérien national' },
+          { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations — droit à déduction' },
+        ].map(t => (
+          <div key={t.taux} className={cn(
+            'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
+            t.couleur === 'rose'   ? 'border-rose-200 bg-rose-50' :
+            t.couleur === 'orange' ? 'border-orange-200 bg-orange-50' :
+            t.couleur === 'amber'  ? 'border-amber-200 bg-amber-50' :
+                                     'border-blue-200 bg-blue-50'
+          )}>
+            <p className={cn('text-xl font-bold leading-none',
+              t.couleur === 'rose'   ? 'text-rose-600' :
+              t.couleur === 'orange' ? 'text-orange-600' :
+              t.couleur === 'amber'  ? 'text-amber-600' :
+                                       'text-blue-600'
+            )}>{t.taux}</p>
+            <p className="text-xs font-semibold text-foreground/70">{t.sublabel}</p>
+            <p className="text-xs text-muted-foreground leading-tight text-center">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Sélecteur + catalogue ── */}
+      <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
+        <div className="px-4 py-3 border-b border-border/40 bg-muted/30">
+          <p className="text-xs font-bold text-foreground uppercase tracking-wide">Opérations imposables par taux <span className="font-normal text-muted-foreground ml-1">Art. 35</span></p>
+        </div>
+        <div className="p-4 space-y-3">
+          <div className="grid grid-cols-4 gap-1.5">
+            {TAUX_CONFIG.map(t => (
+              <button
+                key={t.v}
+                onClick={() => { setTaux(t.v); setShowCatalogue(false) }}
+                className={cn(
+                  'rounded-lg border py-3 transition-all flex flex-col items-center justify-center gap-0.5',
+                  taux === t.v
+                    ? `${t.activeBg} ${t.activeTxt} ${t.borderActive} shadow-sm`
+                    : `${t.inactiveBg} ${t.inactiveBorder} hover:brightness-95`
+                )}
+              >
+                <p className={cn('text-sm font-bold leading-none', taux === t.v ? 'text-white' : t.color)}>{t.label}</p>
+                <p className={cn('text-xs mt-0.5 leading-none', taux === t.v ? 'text-white/80' : 'text-muted-foreground')}>{t.sublabel}</p>
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => setShowCatalogue(v => !v)}
+            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors text-xs"
+          >
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              <BookOpen className="h-3.5 w-3.5 text-primary/60" />
+              Voir les opérations imposables à {taux}%
+            </span>
+            <span className="flex items-center gap-1 text-muted-foreground">
+              <span className="text-xs">{showCatalogue ? 'Replier' : 'Déplier'}</span>
+              {showCatalogue ? <ChevronDown className="h-3.5 w-3.5 shrink-0" /> : <ChevronRight className="h-3.5 w-3.5 shrink-0" />}
+            </span>
+          </button>
+          {showCatalogue && (
+            <div className="rounded-lg border border-border/60 bg-background overflow-hidden">
+              <div className="max-h-72 overflow-y-auto divide-y divide-border/30">
+                {CATALOGUE_PAR_TAUX[taux].map((it, i) => (
+                  <div key={i} className="flex items-start gap-2.5 px-3 py-2 hover:bg-muted/30 transition-colors">
+                    <span className="text-xs font-mono text-primary/60 shrink-0 pt-0.5 min-w-[52px]">{it.code}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-foreground leading-snug">{it.label}</p>
+                      {it.ref && <p className="text-xs text-muted-foreground/70 mt-0.5">{it.ref}</p>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : CALCULATEUR DE BASE TVA (Art. 27-35)
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletCalculateurBaseTVA() {
+  type Taux = '16' | '1' | '5' | '0'
+  const [typeOp, setTypeOp] = useState<TypeOpTVA>('standard')
   const [taux, setTaux] = useState<Taux>('16')
   const [baseHT, setBaseHT] = useState('')
   const [cifVal, setCifVal] = useState('')
@@ -673,130 +889,20 @@ function OngletTauxBase() {
   const [loyers, setLoyers] = useState('')
   const [prixVenteProm, setPrixVenteProm] = useState('')
   const [valeurFOB, setValeurFOB] = useState('')
-  const [showCatalogue, setShowCatalogue] = useState(false)
   const [res, setRes] = useState<null | any>(null)
 
   const tauxNum = taux === '16' ? 0.16 : taux === '1' ? 0.01 : taux === '5' ? 0.05 : 0
 
-  // Opérations disponibles selon le taux sélectionné
-  // Formules de calcul extraites du CGI (Art. 27 à 35, Ordonnance-Loi n° 10/001 du 20/08/2010)
-  const OPS_PAR_TAUX: Record<Taux, { value: TypeOp; label: string; ref: string; formule: string; loi: string }[]> = {
-    '16': [
-      {
-        value: 'standard',
-        label: 'Livraison de biens / Prestation de services standard',
-        ref: 'Art. 27 §4–5',
-        formule: 'Base HT = toutes sommes ou valeurs reçues en contrepartie (prix convenu, subventions incluses, frais accessoires inclus) | TVA = Base HT × 16% | TTC = Base HT + TVA',
-        loi: 'Art. 27 al. 1 + §4 (livraison biens) + §5 (prestation services) : CGI RDC (OL 10/001 du 20/08/2010)'
-      },
-      {
-        value: 'import',
-        label: 'Importation de biens (base CIF + droits)',
-        ref: 'Art. 27 §1',
-        formule: 'Base = Valeur CIF + Droits d\'entrée douaniers + Droits de consommation (le cas échéant) | TVA = Base × 16% | Collectée par la Douane lors de la déclaration de mise à la consommation',
-        loi: 'Art. 27 §1 CGI RDC : « la valeur CIF majorée des droits d\'entrée et, le cas échéant, des droits de consommation, pour les produits importés »'
-      },
-      {
-        value: 'T16-03',
-        label: 'Travaux immobiliers (construction, rénovation)',
-        ref: 'Art. 27 §7',
-        formule: 'Base = Montant du marché / mémoire / facture HT | TVA = Montant HT × 16% | TTC = Montant HT + TVA | Exigibilité : encaissement ou débit (sur option DGI)',
-        loi: 'Art. 27 §7 CGI RDC : « le montant de marchés, mémoires ou factures, pour les travaux immobiliers »'
-      },
-      {
-        value: 'T16-08',
-        label: 'Crédit-bail mobilier / immobilier (leasing)',
-        ref: 'Art. 27 §11',
-        formule: 'Base = Montant des loyers facturés par la société de crédit-bail | TVA = Loyers HT × 16% | TTC = Loyers HT + TVA | Note : le prix d\'option d\'achat est aussi imposable le cas échéant',
-        loi: 'Art. 27 §11 CGI RDC : « le montant des loyers facturés par les sociétés de crédit-bail, pour les opérations de crédit-bail »'
-      },
-      {
-        value: 'T16-13',
-        label: 'Vente immobilière par promoteur immobilier',
-        ref: 'Art. 27 §4 + Art. 24 §6',
-        formule: 'Base = Prix de vente HT de l\'immeuble (toutes sommes reçues en contrepartie de la livraison) | TVA = Prix HT × 16% | TTC = Prix HT + TVA | Note : cessions par non-promoteurs → hors TVA, soumises aux droits d\'enregistrement (Art. 15-7)',
-        loi: 'Art. 27 §4 CGI RDC + Art. 24 §6 : promoteurs immobiliers soumis à la TVA sur les ventes d\'immeubles neufs'
-      },
-      {
-        value: 'occasion',
-        label: 'Biens d\'occasion acquis auprès d\'un non-assujetti (régime marge)',
-        ref: 'Art. 31',
-        formule: 'Base = Prix de vente − Prix d\'achat auprès du non-assujetti (marge brute) | TVA = Marge × 16% | Si marge ≤ 0 : TVA = 0 | Attention : déduction TVA amont impossible sur ces achats',
-        loi: 'Art. 31 CGI RDC : « lorsqu\'il s\'agit de biens acquis auprès de non-assujettis, ces négociants doivent payer la taxe sur la valeur ajoutée sur la différence entre le prix de vente et le prix de revient »'
-      },
-      {
-        value: 'agence',
-        label: 'Agence de voyages / Organisateur de circuits touristiques (marge)',
-        ref: 'Art. 32',
-        formule: 'Base = Prix total payé par le client − Total factures fournisseurs (transport, hôtel, restauration, spectacles…) | TVA = Marge × 16% | Note : aucune déduction TVA sur les achats fournisseurs (Art. 33)',
-        loi: 'Art. 32 CGI RDC : « la base est constituée par la différence entre le prix total payé par le client et le prix facturé à l\'agence par les entrepreneurs de transports, hôteliers, restaurateurs… »'
-      },
-      {
-        value: 'transitaire',
-        label: 'Transitaire / Commissionnaire en douane (rémunération nette)',
-        ref: 'Art. 34',
-        formule: 'Base = Total sommes encaissées TTC − TVA incluse − Débours (transport + dédouanement, sur justificatifs) | TVA incluse extraite = Encaissements TTC × 16/116 | TVA = Base nette HT × 16%',
-        loi: 'Art. 34 CGI RDC : « la rémunération brute, comprenant la totalité des sommes encaissées, déduction faite de la TVA et des seuls débours afférents au transport lui-même ainsi que de ceux payés à l\'occasion du dédouanement, pourvu que lesdits débours soient justifiés »'
-      },
-    ],
-    '1': [
-      {
-        value: 'standard',
-        label: 'Produit à taux réduit 1% (24 produits de 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique)',
-        ref: 'Art. 35 al. 2',
-        formule: 'Base HT = Prix de vente HT ou valeur CIF + droits si importation | TVA = Base HT × 1% | TTC = Base HT + TVA | Applicable aux produits figurant dans la liste tarifaire de l\'Art. 35 (viandes, poissons, riz, sucre, lait, eau, sel, savon, allumettes) ainsi qu\'aux matières premières industrielles brutes (cuivre, étain, plomb, aluminium, zinc), aux intrants agricoles/agro-industriels, aux intrants du ciment local et aux matériaux/services de construction des projets publics d\'infrastructures',
-        loi: 'Art. 35 CGI RDC modifié par l\'Art. 46 de la LF n° 25/060 du 29/12/2025 (LF 2026), en vigueur depuis le 1er janvier 2026 : l\'ancien taux réduit unique de 8% est supprimé et remplacé par 1% pour ces opérations'
-      },
-    ],
-    '5': [
-      {
-        value: 'standard',
-        label: 'Billets d\'avion sur le trafic aérien national (taux réduit 5%)',
-        ref: 'Art. 35 al. 2',
-        formule: 'Base HT = Prix du billet HT | TVA = Base HT × 5% | TTC = Base HT + TVA | Seul cas visé par le taux de 5% depuis la LF 2026',
-        loi: 'Art. 35 CGI RDC modifié par l\'Art. 46 de la LF n° 25/060 du 29/12/2025 (LF 2026), en vigueur depuis le 1er janvier 2026 : le taux de 5% est réservé au seul cas de la vente de billets d\'avion sur le trafic aérien national'
-      },
-    ],
-    '0': [
-      {
-        value: 'EX-01',
-        label: 'Exportation de marchandises hors RDC (taux zéro)',
-        ref: 'Art. 35 al. 3 + Art. 7',
-        formule: 'Base = Valeur FOB (Franco à Bord) | TVA = Base × 0% = 0 FC | Aucune TVA facturée sur l\'exportation | DROIT À DÉDUCTION MAINTENU : la TVA payée sur les achats liés à cette exportation reste déductible | Remboursement du crédit TVA possible, sous condition d\'effectivité de l\'export (Art. 39) — voir Art. 63-64 pour le remboursement lui-même',
-        loi: 'Art. 35 al. 3 CGI RDC : taux 0% applicable aux exportations et opérations assimilées (Art. 7). Art. 27 §2 : base = valeur FOB pour les exportations de marchandises'
-      },
-    ],
-  }
-
-  // Catalogue d'opérations imposables par taux (pour affichage déroulant)
-  const CATALOGUE_PAR_TAUX: Record<Taux, { code: string; label: string; ref?: string }[]> = {
-    '16': CATALOGUE_TAUX_16.map(it => ({ code: it.code, label: it.label, ref: '' })),
-    '1':  CATALOGUE_TAUX_1.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
-    '5':  CATALOGUE_TAUX_5.map(it => ({ code: it.code, label: it.label, ref: it.taux })),
-    '0':  CATALOGUE_TAUX_0.map(it => ({ code: it.code, label: it.label, ref: it.article })),
-  }
-
-  function getOpType(code: TypeOp): string {
-    if (['import', 'occasion', 'agence', 'transitaire'].includes(code)) return code
-    if (code === 'T16-03') return 'travaux_immo'
-    if (code === 'T16-08') return 'credit_bail'
-    if (code === 'T16-13') return 'promoteur'
-    if (code === 'EX-01') return 'export_fob'
-    return 'standard'
-  }
-
   function handleTauxChange(t: Taux) {
     setTaux(t)
     setRes(null)
-    setShowCatalogue(false)
-    // Réinitialiser l'opération sur la première option du nouveau taux
     const firstOp = OPS_PAR_TAUX[t][0]?.value
     if (firstOp) setTypeOp(firstOp)
   }
 
   function calculer() {
     let base = 0, tvaCalc = 0, detail: any[] = []
-    const opType = getOpType(typeOp)
+    const opType = getOpTypeTVA(typeOp)
 
     if (opType === 'travaux_immo') {
       base = parseFloat(montantMarche) || 0
@@ -907,54 +1013,14 @@ function OngletTauxBase() {
 
   const cls = 'w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30'
 
-  const TAUX_CONFIG: { v: Taux; label: string; sublabel: string; color: string; activeBg: string; activeTxt: string; borderActive: string; inactiveBg: string; inactiveBorder: string }[] = [
-    { v: '16', label: '16%', sublabel: 'Normal',  color: 'text-rose-600',     activeBg: 'bg-rose-600',     activeTxt: 'text-white', borderActive: 'border-rose-600',   inactiveBg: 'bg-rose-50',     inactiveBorder: 'border-rose-200' },
-    { v: '1',  label: '1%',  sublabel: 'Réduit',  color: 'text-orange-600', activeBg: 'bg-orange-500',  activeTxt: 'text-white', borderActive: 'border-orange-500', inactiveBg: 'bg-orange-50', inactiveBorder: 'border-orange-200' },
-    { v: '5',  label: '5%',  sublabel: 'Réduit',  color: 'text-amber-600',  activeBg: 'bg-amber-500',   activeTxt: 'text-white', borderActive: 'border-amber-500',  inactiveBg: 'bg-amber-50',  inactiveBorder: 'border-amber-200' },
-    { v: '0',  label: '0%',  sublabel: 'Export',  color: 'text-blue-600',     activeBg: 'bg-blue-600',     activeTxt: 'text-white', borderActive: 'border-blue-600',   inactiveBg: 'bg-blue-50',     inactiveBorder: 'border-blue-200' },
-  ]
-
   return (
     <div className="space-y-4">
-      <DefinitionBox titre="Base d'imposition : Art. 27">
-        <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l\'opération, y compris subventions et tous frais, impôts, droits et taxes, à l\'<strong>exclusion de la TVA elle-même</strong>.</p>
+      <DefinitionBox titre="Calculateur : 8 formules de base d'imposition (Art. 27-35)">
+        <p className="text-xs text-muted-foreground">Chaque type d\'opération a sa propre base de calcul — voir l\'onglet « Taux & Base » pour le détail des taux applicables et le catalogue par taux.</p>
       </DefinitionBox>
 
-      {/* ── Résumé des 4 taux (LF 2026 : ex-8% remplacé par 1%/5%) ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-        {[
-          { taux: '16%', sublabel: 'Normal',  couleur: 'rose',   desc: 'Toutes opérations imposables' },
-          { taux: '1%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique' },
-          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion — trafic aérien national' },
-          { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations — droit à déduction' },
-        ].map(t => (
-          <div key={t.taux} className={cn(
-            'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
-            t.couleur === 'rose'   ? 'border-rose-200 bg-rose-50' :
-            t.couleur === 'orange' ? 'border-orange-200 bg-orange-50' :
-            t.couleur === 'amber'  ? 'border-amber-200 bg-amber-50' :
-                                     'border-blue-200 bg-blue-50'
-          )}>
-            <p className={cn('text-xl font-bold leading-none',
-              t.couleur === 'rose'   ? 'text-rose-600' :
-              t.couleur === 'orange' ? 'text-orange-600' :
-              t.couleur === 'amber'  ? 'text-amber-600' :
-                                       'text-blue-600'
-            )}>{t.taux}</p>
-            <p className="text-xs font-semibold text-foreground/70">{t.sublabel}</p>
-            <p className="text-xs text-muted-foreground leading-tight text-center">{t.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Calculateur ── */}
       <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-        <div className="px-4 py-3 border-b border-border/40 bg-muted/30">
-          <p className="text-xs font-bold text-foreground uppercase tracking-wide">Calculateur TVA <span className="font-normal text-muted-foreground ml-1">Art. 27–35</span></p>
-        </div>
         <div className="p-4 space-y-4">
-
-          {/* 1. Sélection du taux — boutons avec catalogue intégré */}
           <div>
             <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Taux applicable <span className="font-normal normal-case">Art. 35</span></p>
             <div className="grid grid-cols-4 gap-1.5">
@@ -974,53 +1040,19 @@ function OngletTauxBase() {
                 </button>
               ))}
             </div>
-
-            {/* Catalogue déroulant lié au taux sélectionné */}
-            <div className="mt-2">
-              <button
-                onClick={() => setShowCatalogue(v => !v)}
-                className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors text-xs"
-              >
-                <span className="flex items-center gap-1.5 font-medium text-foreground">
-                  <BookOpen className="h-3.5 w-3.5 text-primary/60" />
-                  Voir les opérations imposables à {taux}%
-                </span>
-                <span className="flex items-center gap-1 text-muted-foreground">
-                  <span className="text-xs">{showCatalogue ? 'Replier' : 'Déplier'}</span>
-                  {showCatalogue ? <ChevronDown className="h-3.5 w-3.5 shrink-0" /> : <ChevronRight className="h-3.5 w-3.5 shrink-0" />}
-                </span>
-              </button>
-              {showCatalogue && (
-                <div className="mt-1 rounded-lg border border-border/60 bg-background overflow-hidden">
-                  <div className="max-h-56 overflow-y-auto divide-y divide-border/30">
-                    {CATALOGUE_PAR_TAUX[taux].map((it, i) => (
-                      <div key={i} className="flex items-start gap-2.5 px-3 py-2 hover:bg-muted/30 transition-colors">
-                        <span className="text-xs font-mono text-primary/60 shrink-0 pt-0.5 min-w-[52px]">{it.code}</span>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs text-foreground leading-snug">{it.label}</p>
-                          {it.ref && <p className="text-xs text-muted-foreground/70 mt-0.5">{it.ref}</p>}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
 
-          {/* 2. Type d'opération — select filtré selon le taux */}
           <div>
             <p className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Type d'opération</p>
             <select
               value={typeOp}
-              onChange={e => { setTypeOp(e.target.value as TypeOp); setRes(null) }}
+              onChange={e => { setTypeOp(e.target.value as TypeOpTVA); setRes(null) }}
               className={cls}
             >
               {OPS_PAR_TAUX[taux].map(op => (
                 <option key={op.value} value={op.value}>{op.label} — {op.ref}</option>
               ))}
             </select>
-            {/* Formule de calcul + référence CGI pour l'opération sélectionnée */}
             {(() => {
               const opSelected = OPS_PAR_TAUX[taux].find(op => op.value === typeOp)
               if (!opSelected) return null
@@ -1042,9 +1074,8 @@ function OngletTauxBase() {
             })()}
           </div>
 
-          {/* 3. Champs de saisie adaptés à l'opération */}
           {(() => {
-            const opType = getOpType(typeOp)
+            const opType = getOpTypeTVA(typeOp)
             const field = (label: string, ref: string, val: string, setter: (v: string) => void, placeholder: string) => (
               <div>
                 <div className="flex items-baseline justify-between mb-1">
@@ -1093,13 +1124,11 @@ function OngletTauxBase() {
             return null
           })()}
 
-          {/* 4. Boutons */}
           <div className="flex gap-2">
             <BtnCalculer onClick={calculer} />
             <BtnReset onClick={resetAll} />
           </div>
 
-          {/* 5. Résultat */}
           {res && (
             <ResultatWrap titre="Calcul TVA">
               <EtapeResultat numero={1} titre="Détail du calcul">
@@ -2541,21 +2570,29 @@ function OngletFaitGenerateurExigibilite() {
         <p className="text-xs text-foreground">Le <strong>fait générateur</strong> est l\'événement qui fait naître la dette de TVA. L\'<strong>exigibilité</strong> est le moment à partir duquel le Trésor peut en réclamer le paiement — les deux coïncident pour les livraisons de biens, mais pas pour les prestations de services (exigibles à l\'encaissement, pas à l\'exécution).</p>
       </DefinitionBox>
 
-      <div className="space-y-3">
-        <SectionTitre texte="Fait générateur" loi="Art. 24" />
-        <div className="grid gap-1.5">
+      <details className="group rounded-xl border border-border/60 bg-card">
+        <summary className="cursor-pointer select-none list-none flex items-center gap-2 px-3 py-2.5">
+          <span className="group-open:rotate-90 transition-transform inline-block text-xs text-muted-foreground">▶</span>
+          <p className="text-xs font-bold text-foreground uppercase tracking-wide flex-1">Fait générateur — les {CAS_FAIT_GENERATEUR.length} cas</p>
+          <BadgeLoi loi="Art. 24" />
+        </summary>
+        <div className="px-3 pb-3 grid gap-1.5">
           {CAS_FAIT_GENERATEUR.map(c => (
-            <div key={c.n} className="flex items-start gap-2 rounded-lg border border-border/60 bg-card px-3 py-2">
+            <div key={c.n} className="flex items-start gap-2 rounded-lg border border-border/60 bg-background px-3 py-2">
               <span className="text-xs font-mono text-primary/60 shrink-0 mt-0.5">{c.n}.</span>
               <span className="text-xs text-foreground flex-1">{c.texte}</span>
             </div>
           ))}
         </div>
-      </div>
+      </details>
 
-      <div className="space-y-3">
-        <SectionTitre texte="Exigibilité" loi="Art. 25" />
-        <div className="grid gap-1.5">
+      <details className="group rounded-xl border border-blue-200 bg-blue-50/20">
+        <summary className="cursor-pointer select-none list-none flex items-center gap-2 px-3 py-2.5">
+          <span className="group-open:rotate-90 transition-transform inline-block text-xs text-blue-600/70">▶</span>
+          <p className="text-xs font-bold text-foreground uppercase tracking-wide flex-1">Exigibilité — les {CAS_EXIGIBILITE.length} cas</p>
+          <BadgeLoi loi="Art. 25" />
+        </summary>
+        <div className="px-3 pb-3 grid gap-1.5">
           {CAS_EXIGIBILITE.map(c => (
             <div key={c.n} className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50/40 px-3 py-2">
               <span className="text-xs font-mono text-blue-600/70 shrink-0 mt-0.5">{c.n}.</span>
@@ -2563,7 +2600,7 @@ function OngletFaitGenerateurExigibilite() {
             </div>
           ))}
         </div>
-      </div>
+      </details>
 
       <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 space-y-1.5">
         <p className="text-xs font-bold text-amber-700">Option : le régime des débits (Art. 26)</p>
@@ -2722,15 +2759,18 @@ function OngletRegimesDerogatoires() {
         {REGIMES_DEROGATOIRES.map((r, i) => {
           const b = badgeStatut[r.statut]
           return (
-            <div key={i} className="rounded-xl border border-border/60 bg-card p-3 space-y-1.5">
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-xs font-bold text-foreground">{r.nom}</p>
+            <details key={i} className="group rounded-xl border border-border/60 bg-card">
+              <summary className="cursor-pointer select-none list-none flex items-center gap-2 px-3 py-2.5">
+                <span className="group-open:rotate-90 transition-transform inline-block text-xs text-muted-foreground shrink-0">▶</span>
+                <p className="text-xs font-bold text-foreground flex-1">{r.nom}</p>
                 {b && <span className={cn('text-xs font-medium rounded-full px-2 py-0.5 shrink-0 border', b.classe)}>{b.texte}</span>}
+              </summary>
+              <div className="px-3 pb-3 space-y-1.5">
+                <p className="text-xs text-muted-foreground">{r.texte}</p>
+                <p className="text-xs text-foreground/70"><strong>Durée :</strong> {r.duree}</p>
+                <BadgeLoi loi={r.loi} />
               </div>
-              <p className="text-xs text-muted-foreground">{r.texte}</p>
-              <p className="text-xs text-foreground/70"><strong>Durée :</strong> {r.duree}</p>
-              <BadgeLoi loi={r.loi} />
-            </div>
+            </details>
           )
         })}
       </div>
@@ -2866,7 +2906,8 @@ const ONGLETS_TVA = [
   { id: 'exigibilite',     groupe: 'champ',        label: 'Fait générateur & Exigibilité', sublabel: 'Art. 24–26', icon: Clock },
 
   { id: 'exonerations',    groupe: 'base',         label: 'Exonérations',           sublabel: 'Art. 15–20', icon: CheckCircle2 },
-  { id: 'taux',            groupe: 'base',         label: 'Taux & Base',            sublabel: 'Art. 27–35', icon: Percent },
+  { id: 'taux',            groupe: 'base',         label: 'Taux & Base',            sublabel: 'Art. 27, 35', icon: Percent },
+  { id: 'calcul-base',     groupe: 'base',         label: 'Calculateur de base',    sublabel: 'Art. 27–35', icon: Calculator },
   { id: 'listes',          groupe: 'base',         label: 'Listes réglementaires',  sublabel: 'Positions tarifaires', icon: Search },
   { id: 'derogatoires',    groupe: 'base',         label: 'Régimes dérogatoires',   sublabel: 'Suspensions sectorielles', icon: ShieldAlert },
 
@@ -2980,19 +3021,15 @@ export default function SimulateurTVA() {
         </div>
       </div>
 
-      {/* Titre onglet actif */}
-      <div className="flex items-center gap-2">
-        <div className="h-5 w-1 rounded-full bg-rose-500" />
-        <p className="text-sm font-bold text-foreground">{actif.label}</p>
-        <BadgeLoi loi={actif.sublabel} />
-      </div>
-
-      {/* Contenu */}
+      {/* Contenu — la pastille sélectionnée juste au-dessus porte déjà le titre et
+          l'article : pas de bandeau de titre redondant ici. Chaque bloc de contenu
+          ouvre de toute façon sur son propre DefinitionBox. */}
       {onglet === 'champ' && <OngletChampApplication />}
       {onglet === 'assujettis' && <OngletAssujettis />}
       {onglet === 'exigibilite' && <OngletFaitGenerateurExigibilite />}
       {onglet === 'exonerations' && <OngletExonerations />}
-      {onglet === 'taux' && <OngletTauxBase />}
+      {onglet === 'taux' && <OngletTauxApplicables />}
+      {onglet === 'calcul-base' && <OngletCalculateurBaseTVA />}
       {onglet === 'listes' && <OngletListesReglementaires />}
       {onglet === 'derogatoires' && <OngletRegimesDerogatoires />}
       {onglet === 'deductions' && <OngletDeductions />}
