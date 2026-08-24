@@ -7,6 +7,7 @@ import { isAdminRole } from '@/lib/permissions'
 import { TypeEtudiant, StatutEtudiant } from '@/lib/db'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { useUniversites, useFacultes, useCours } from '@/lib/useFirestore'
+import { anneeAcademiqueEnCours } from '@/lib/utils'
 import {
   UserPlus, Save, X, GraduationCap, Building2,
   Phone, Mail, Hash, BookOpen, Calendar, ChevronDown
@@ -15,7 +16,7 @@ import { useToast } from '@/components/ui/use-toast'
 
 const PROMOTIONS = ['L1', 'L2', 'L3', 'M1', 'M2'] as const
 
-const ANNEE_EN_COURS = '2025-2026'
+const ANNEE_EN_COURS = anneeAcademiqueEnCours()
 
 interface FormData {
   type: TypeEtudiant
