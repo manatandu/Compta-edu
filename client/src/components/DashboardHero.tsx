@@ -29,6 +29,8 @@ export interface DashboardStat {
   value: number | string
   icon: React.ComponentType<{ className?: string }>
   color?: string
+  /** Rend la tuile cliquable. Une stat sans action reste un simple affichage. */
+  onClick?: () => void
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -82,10 +84,17 @@ export function DashboardHero({ greeting, identity, stats }: {
         {stats.map((s, i) => {
           const Icon = s.icon
           const iconColor = s.color || 'text-white/80'
+          // Une stat munie d'une action devient un vrai bouton — sinon elle
+          // reste une simple div, pour ne pas annoncer aux lecteurs d'écran
+          // (ni au curseur) une interaction qui n'existe pas.
+          const Balise = s.onClick ? 'button' : 'div'
           return (
-            <div
+            <Balise
               key={s.label}
-              className="rounded-md bg-white/10 backdrop-blur-sm px-3 py-3 flex items-center gap-2.5 border border-white/10 hover:bg-white/15 transition-colors duration-200 animate-slideUp"
+              {...(s.onClick ? { onClick: s.onClick, type: 'button' as const } : {})}
+              className={`rounded-md bg-white/10 backdrop-blur-sm px-3 py-3 flex items-center gap-2.5 border border-white/10 hover:bg-white/15 transition-colors duration-200 animate-slideUp ${
+                s.onClick ? 'text-left cursor-pointer hover:border-white/30' : ''
+              }`}
               style={{ animationDelay: `${300 + i * 60}ms` }}
             >
               <div className="h-7 w-7 rounded-sm bg-white/10 flex items-center justify-center shrink-0 border border-white/10">
@@ -100,7 +109,7 @@ export function DashboardHero({ greeting, identity, stats }: {
                 </p>
                 <p className="text-xs text-white/70 mt-0.5 font-medium">{s.label}</p>
               </div>
-            </div>
+            </Balise>
           )
         })}
       </div>
