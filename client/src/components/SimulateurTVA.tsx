@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import {
   Calculator, Info, RotateCcw, CheckCircle2, X, Search,
   AlertCircle, ChevronDown, ChevronUp, ChevronRight, BookOpen, Percent,
-  FileText, AlertTriangle, ArrowRight, HelpCircle, Plus
+  FileText, AlertTriangle, ArrowRight, HelpCircle, Plus,
+  Clock, ShieldAlert, QrCode, BookMarked
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -15,6 +16,17 @@ function formatFC(n: number): string {
   return `${Math.round(n).toLocaleString('fr-FR')} FC`
 }
 function formatPct(n: number): string { return `${n.toFixed(2)}%` }
+
+// Arrondi de liquidation TVA (Décret n° 011/42, Art. 137) : la décimale est arrondie
+// à l'unité (≥ 0,5 → unité sup., sinon unité inf.), puis la tranche de FC est ramenée
+// à la centaine la plus proche (≥ 50 FC → centaine sup., sinon centaine inf.) — même
+// mécanique en deux temps que l'Art. 150 pour l'IRPP et l'IS.
+function arrondiTVA(val: number): number {
+  const u = Math.round(val)
+  const reste = u % 100
+  if (reste >= 50) return u + (100 - reste)
+  return u - reste
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPOSANTS UI RÉUTILISABLES
@@ -421,7 +433,7 @@ function OngletChampApplication() {
     <div className="space-y-4">
       <DefinitionBox titre="Définition de la TVA : Art. 1er">
         <p className="text-xs text-foreground">La TVA est un <strong>impôt général sur la consommation</strong> institué conformément aux articles 122 et 174 de la Constitution. C\'est un impôt indirect qui touche tous les biens et services de toutes origines <strong>consommés ou utilisés en RDC</strong>.</p>
-        <p className="text-xs text-muted-foreground mt-1">Base légale : Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à la LF n° 22/071 du 28 décembre 2022.</p>
+        <p className="text-xs text-muted-foreground mt-1">Base légale : Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à la LF n° 25/060 du 29 décembre 2025 (LF 2026).</p>
       </DefinitionBox>
 
       <div className="space-y-3">
@@ -1333,7 +1345,9 @@ function OngletTVANette() {
       return s + ht * t
     }, 0)
     const credit = parseFloat(creditPrecedent) || 0
-    const solde = tvaCollectee - tvaDeductible - credit
+    // Art. 137, Décret n° 011/42 : le montant net à reverser (ou le crédit) est
+    // arrondi selon la même mécanique en deux temps que l'IRPP/IS (Art. 150).
+    const solde = arrondiTVA(tvaCollectee - tvaDeductible - credit)
     const moisLabel = mois ? `${mois}/${annee}` : annee
 
     // Date limite : 15 du mois suivant
@@ -1782,6 +1796,45 @@ function OngletRemboursement() {
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
         </div>
 
+        {/* Délais de traitement par catégorie de risque, A.M. n° 018 du 18/03/2016 */}
+        <div className="rounded-xl border border-border bg-muted/20 p-3 space-y-2">
+          <p className="text-xs font-semibold text-foreground">Délai de traitement, selon la catégorie de risque de l\'entreprise</p>
+          <div className="grid grid-cols-3 gap-1.5">
+            {[
+              { cat: 'A', risque: 'Faible', delai: '30 jours', desc: 'Contrôle formel uniquement', couleur: 'green' },
+              { cat: 'B', risque: 'Moyen',  delai: '60 jours', desc: 'Contrôle sur pièces',        couleur: 'amber' },
+              { cat: 'C', risque: 'Élevé',  delai: '90 jours', desc: 'Contrôle sur place systématique', couleur: 'red' },
+            ].map(c => (
+              <div key={c.cat} className={cn('rounded-lg border p-2 text-center',
+                c.couleur === 'green' ? 'border-green-200 bg-green-50' : c.couleur === 'amber' ? 'border-amber-200 bg-amber-50' : 'border-red-200 bg-red-50')}>
+                <p className={cn('text-xs font-bold', c.couleur === 'green' ? 'text-green-700' : c.couleur === 'amber' ? 'text-amber-700' : 'text-red-700')}>Catégorie {c.cat}</p>
+                <p className="text-xs text-muted-foreground">{c.risque}</p>
+                <p className="text-xs font-semibold text-foreground mt-0.5">{c.delai}</p>
+                <p className="text-xs text-muted-foreground leading-tight mt-0.5">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground">Classification établie par la DGI, en concertation avec la DGDA et les organisations professionnelles ; contrôle a posteriori semestriel pour les catégories A et B.</p>
+          <BadgeLoi loi="A.M. n° 018 du 18/03/2016" />
+        </div>
+
+        <details className="group rounded-xl border border-border bg-card">
+          <summary className="cursor-pointer text-xs font-medium text-primary px-3 py-2 flex items-center gap-1 select-none list-none">
+            <span className="group-open:rotate-90 transition-transform inline-block">▶</span>
+            Pièces à joindre à la demande (Art. 144-145)
+          </summary>
+          <div className="px-3 pb-3 space-y-1.5">
+            <p className="text-xs text-muted-foreground">Dans tous les cas : copie de la dernière déclaration mensuelle faisant apparaître le crédit, état récapitulatif des factures fournisseurs (n°, n° impôt, nom du fournisseur, montant HT), copies des factures fournisseurs.</p>
+            <ul className="text-xs text-foreground space-y-1 pl-1">
+              <li>• <strong>Exportation :</strong> document bancaire du paiement client, titre de transport, déclarations d\'exportation/réexportation visées par la douane.</li>
+              <li>• <strong>Importation :</strong> déclarations de mise à la consommation, preuves de paiement des droits de douane.</li>
+              <li>• <strong>Perte de la qualité d\'assujetti :</strong> copie de la déclaration modificative (changement d\'activité).</li>
+              <li>• <strong>Cessation d\'activités :</strong> copie de la déclaration de cessation.</li>
+            </ul>
+            <p className="text-xs text-amber-600">Demande incomplète ou hors ordre chronologique : retournée dans les 7 jours, régularisation possible dans les 3 mois — passé ce délai, rejet.</p>
+          </div>
+        </details>
+
         {profil === 'export' && (
           <div>
             <label className="block text-xs font-medium mb-1">Montant des exportations du mois (FC)</label>
@@ -2021,20 +2074,811 @@ function OngletDeclarationPenalites() {
   )
 }
 
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LISTES RÉGLEMENTAIRES — positions tarifaires exonérées (Art. 15-6 et 15-10)
+// Extraites intégralement des arrêtés interministériels sources (44 positions
+// agricoles, 376 intrants pharmaceutiques) : seule la position tarifaire exacte
+// exonère, jamais l'appartenance à une catégorie générale.
+// ─────────────────────────────────────────────────────────────────────────────
+const LISTE_EQUIPEMENTS_AGRICOLES: { n: number; code: string; designation: string; sousPositions: string[] }[] = [
+  { n: 1, code: '45.04', designation: 'Liège aggloméré (avec ou sans liant) et ouvrages en liège aggloméré.', sousPositions: ['90.91 — Autres : flotteurs pour la pêche.'] },
+  { n: 2, code: '55.09', designation: 'Fils de fibres synthétiques discontinues (autres que les fils à coudre), non conditionnés pour la vente au détail — contenant au moins 85 % en poids de fibres discontinues de nylon ou d\'autres polyamides.', sousPositions: ['12.00 — Retors ou câblés.'] },
+  { n: 3, code: '56.08', designation: 'Filets à mailles nouées, en nappes ou en pièces, obtenus à partir de ficelles, cordes ou cordages ; filets confectionnés pour la pêche et autres filets confectionnés, en matières textiles.', sousPositions: ['11.00 — En matières textiles synthétiques ou artificielles : filets confectionnés pour la pêche.'] },
+  { n: 4, code: '73.14', designation: 'Toiles métalliques (y compris les toiles continues ou sans fin), grillages et treillis, en fils de fer ou d\'acier ; tôles et bandes déployées, en fer ou en acier.', sousPositions: ['20.00 — Grillages et treillis soudés aux points de rencontre, en fils dont la plus grande dimension de coupe transversale est ≥ 3 mm et dont les mailles ont une surface d\'au moins 100 cm² (autres grillages et treillis soudés aux points de rencontre) : 31.00 Zingués ; 39.00 Autres.', 'Autres toiles métalliques, grillages et treillis : 41.00 Zingués ; 42.00 Recouverts de matières plastiques ; 49.00 Autres.'] },
+  { n: 5, code: '73.26', designation: 'Autres ouvrages en fer ou en acier — ouvrages en fils de fer ou d\'acier.', sousPositions: ['20.20 — Batteries pour élevage.', '90.20 — Autres : matériels et équipements de stabulation pour fermes bovine, porcine et avicole.'] },
+  { n: 6, code: '82.01', designation: 'Bêches, pelles, pioches, pics, houes, binettes, fourches, râteaux et racloirs ; haches, serpes et outils similaires à taillants ; sécateurs de tous types ; faux et faucilles, couteaux à foin ou à paille, cisailles à haies, coins et autres outils agricoles, horticoles ou forestiers, à main.', sousPositions: ['10.00 Bêches et pelles ; 30.00 Pioches, pics, houes, binettes, râteaux et racloirs ; 40.00 Haches, serpes et outils similaires à taillants ; 50.00 Sécateurs (y compris cisailles à volaille) maniés à une main ; 60.00 Cisailles à haies, sécateurs et outils similaires maniés à deux mains ; 90.00 Autres outils agricoles, horticoles ou forestiers à main.'] },
+  { n: 7, code: '84.13', designation: 'Pompes pour liquides, même comportant un dispositif mesureur ; élévateurs à liquides.', sousPositions: ['50.10 — Autres pompes volumétriques alternatives, à usages agricoles.', '60.10 — Autres pompes volumétriques rotatives, à usages agricoles.', '70.10 — Autres pompes centrifuges, à usages agricoles.', '81.10 — Pompe à usage agricole.', '82.10 — Élévateur à liquide, à usage agricole.'] },
+  { n: 8, code: '84.24', designation: 'Appareils mécaniques (même à main) à projeter, disperser ou pulvériser des matières liquides ou en poudre ; extincteurs, même chargés ; pistolets aérographes et appareils similaires ; machines et appareils à jet de sable, à jet de vapeur et appareils à jet similaires.', sousPositions: ['81.00 — Pour l\'agriculture ou l\'horticulture.'] },
+  { n: 9, code: '84.32', designation: 'Machines, appareils et engins agricoles, horticoles ou sylvicoles pour la préparation ou le travail du sol ou pour la culture ; rouleaux pour pelouses ou terrains de sport.', sousPositions: ['10.00 Charrues ; 21.00 Herses à disques (pulvériseurs) ; 29.00 Autres (herses, scarificateurs, cultivateurs, extirpateurs, houes, sarcleuses et bineuses) ; 30.00 Semoirs, plantoirs et repiqueurs ; 40.00 Épandeurs de fumier et distributeurs d\'engrais ; 80.10 Autres machines, appareils et engins utilisés dans l\'agriculture, l\'horticulture ou la sylviculture pour la préparation/le travail du sol ou la culture.'] },
+  { n: 10, code: '84.33', designation: 'Machines, appareils et engins pour la récolte ou le battage des produits agricoles, y compris les presses à paille ou à fourrage ; tondeuses à gazon et faucheuses ; machines pour le nettoyage ou le triage des œufs, fruits ou autres produits agricoles (autres que celles du n° 84.37).', sousPositions: ['11.00 Tondeuses à gazon à moteur, dispositif de coupe tournant dans un plan horizontal ; 19.00 Autres tondeuses ; 20.00 Faucheuses, y compris barres de coupe à monter sur tracteur ; 30.00 Autres machines et appareils de fenaison ; 40.00 Presses à paille ou à fourrage, y compris presses ramasseuses ; 51.00 Moissonneuses-batteuses ; 52.00 Autres machines et appareils pour le battage ; 53.00 Machines pour la récolte des racines ou tubercules ; 59.00 Autres machines pour la récolte ; 60.00 Machines pour le nettoyage ou le triage des œufs, fruits ou autres produits agricoles.'] },
+  { n: 11, code: '84.34', designation: 'Machines à traire et machines et appareils de laiterie.', sousPositions: ['10.00 Machines à traire ; 20.00 Machines et appareils de laiterie.'] },
+  { n: 12, code: '84.35', designation: 'Presses et pressoirs, fouloirs et machines et appareils analogues pour la fabrication du vin, du cidre, des jus de fruits ou de boissons similaires.', sousPositions: ['10.00 Machines et appareils.'] },
+  { n: 13, code: '84.36', designation: 'Autres machines et appareils pour l\'agriculture, l\'horticulture, la sylviculture, l\'aviculture ou l\'apiculture, y compris les germoirs à dispositifs mécaniques ou thermiques et les couveuses et éleveuses pour l\'aviculture.', sousPositions: ['10.00 Machines et appareils pour la préparation des aliments ou provendes pour animaux ; 21.00 Couveuses et éleveuses ; 29.00 Autres machines/appareils pour l\'aviculture ; 80.10 Autres machines et appareils pour l\'agriculture, l\'horticulture, la sylviculture et l\'apiculture, y compris germoirs à dispositifs mécaniques ou thermiques.'] },
+  { n: 14, code: '84.37', designation: 'Machines pour le nettoyage, le triage ou le criblage des grains ou des légumes secs, machines et appareils pour la minoterie ou le traitement des céréales ou légumes secs, autres que les machines et appareils du type fermier.', sousPositions: ['10.00 Machines pour le nettoyage, le triage ou le criblage des grains ou légumes secs ; 80.00 Autres machines et appareils.'] },
+  { n: 15, code: '85.39', designation: 'Lampes et tubes électriques à incandescence ou à décharge, y compris les articles dits « phares et projecteurs scellés » et les lampes et tubes à rayons ultraviolets ou infrarouges ; lampes à arc.', sousPositions: ['49.00 — Autres (lampes et tubes à rayons ultraviolets et infrarouges pour l\'élevage).'] },
+  { n: 16, code: '87.01', designation: 'Tracteurs (à l\'exclusion des chariots-tracteurs du n° 87.09).', sousPositions: ['10.00 Motoculteurs ; 90.00 Autres (tracteurs agricoles).'] },
+  { n: 17, code: '87.16', designation: 'Remorques et semi-remorques pour tous véhicules ; autres véhicules non automobiles ; leurs parties.', sousPositions: ['20.00 Remorques et semi-remorques autochargeuses ou autodéchargeuses, pour usages agricoles ; 39.00 Autres remorques agricoles et semi-remorques pour le transport de marchandises.'] },
+  { n: 18, code: '89.02', designation: 'Bateaux de pêche, navires-usines et autres bateaux pour le traitement ou la mise en conserve des produits de la pêche.', sousPositions: ['00.01 Pour la navigation maritime ; 00.20 Pour la navigation intérieure.'] },
+  { n: 19, code: '90.18', designation: 'Instruments et appareils pour la médecine, la chirurgie, l\'art dentaire ou l\'art vétérinaire, y compris les appareils de scintigraphie et autres appareils électromédicaux ainsi que les appareils pour tests visuels.', sousPositions: ['90.00 — Autres instruments et appareils (pour l\'art vétérinaire).'] },
+  { n: 20, code: '95.07', designation: 'Cannes à pêche, hameçons et autres articles pour la pêche à la ligne ; épuisettes pour tous usages ; leurres (autres que ceux des n°s 92.08 ou 97.05) et articles de chasse similaires.', sousPositions: ['10.00 Cannes à pêche ; 20.00 Hameçons, même montés sur avançons ; 30.00 Moulinets pour la pêche ; 90.10 Autres, de pêche.'] },
+  { n: 21, code: '96.17', designation: 'Bouteilles isolantes et autres récipients isothermiques montés, dont l\'isolation est assurée par le vide, ainsi que leurs parties (à l\'exclusion des ampoules en verre).', sousPositions: ['00.11 — Récipients isothermiques pour la pêche.'] },
+  { n: 22, code: '01.01', designation: 'Chevaux, ânes, mulets et bardots, vivants.', sousPositions: ['31.00 Ânes reproducteurs de race pure ; 91.00 Autres (mulets et bardots) reproducteurs de race pure.'] },
+  { n: 23, code: '01.02', designation: 'Animaux vivants de l\'espèce bovine.', sousPositions: ['21.00 — Bovins domestiques reproducteurs de race pure.'] },
+  { n: 24, code: '01.03', designation: 'Animaux vivants de l\'espèce porcine.', sousPositions: ['10.00 — Reproducteurs de race pure.'] },
+  { n: 25, code: '01.04', designation: 'Animaux vivants de l\'espèce ovine ou caprine.', sousPositions: ['10.00 De l\'espèce ovine, reproducteurs de race pure ; 20.00 De l\'espèce caprine, reproducteurs de race pure.'] },
+  { n: 26, code: '01.05', designation: 'Coqs, poulets, canards, oies, dindons, dindes et pintades, vivants, des espèces domestiques, d\'un poids n\'excédant pas 185 g.', sousPositions: ['11.10 — Coqs et poules : poussins d\'un jour.'] },
+  { n: 27, code: '04.07', designation: 'Œufs d\'oiseaux, en coquilles, frais, conservés ou cuits — œufs fertilisés destinés à l\'incubation.', sousPositions: ['11.00 De volailles de l\'espèce Gallus domesticus ; 19.00 Autres.'] },
+  { n: 28, code: '07.01', designation: 'Pommes de terre, à l\'état frais ou réfrigéré.', sousPositions: ['10.00 — De semence.'] },
+  { n: 29, code: '07.13', designation: 'Légumes à cosse secs, écossés, même décortiqués ou cassés (uniquement les sous-positions « de semence ») : 10.10 Pois (Pisum sativum) de semence ; 20.10 Pois chiches de semence ; 31.10 Haricots des espèces Vigna mungo (L.) Hepper ou Vigna radiata (L.) Wilczek, de semence ; 32.10 Haricot « Petits rouges » (haricot adzuki, Phaseolus ou Vigna angularis), de semence ; 33.10 Haricots communs (Phaseolus vulgaris), de semence ; 34.10 Pois bambara/pois de terre (Vigna subterranea ou Voandzeia subterranea), de semence ; 35.10 Dolique à œil noir/pois de Brésil/niébé (Vigna unguiculata), de semence ; 39.10 Autres haricots, de semence ; 40.10 Lentilles de semence ; 50.10 Fèves (Vicia faba var. major) et féveroles (Vicia faba var. equina, var. minor), de semence.', sousPositions: [] },
+  { n: 30, code: '10.05', designation: 'Maïs.', sousPositions: ['10.10 — De semence.'] },
+  { n: 31, code: '10.06', designation: 'Riz.', sousPositions: ['10.10 — Riz en paille (riz paddy), de semence.'] },
+  { n: 32, code: '12.09', designation: 'Graines, fruits et spores à ensemencer.', sousPositions: ['10.00 Graines de betteraves à sucre ; 21.00 Graines fourragères de luzerne ; 22.00 De trèfle (Trifolium spp.) ; 23.00 De fétuque ; 24.00 Du pâturin des prés du Kentucky (Poa pratensis L.) ; 25.00 De ray-grass (Lolium multiflorum Lam., Lolium perenne L.) ; 29.00 Autres graines fourragères ; 30.00 Graines de plantes herbacées utilisées principalement pour leurs fleurs ; 91.00 Autres, graines de légumes ; 99.00 Autres.'] },
+  { n: 33, code: '23.01', designation: 'Farines, poudres et agglomérées sous forme de pellets, de viandes, d\'abats, de poissons ou de crustacés, de mollusques ou d\'autres invertébrés aquatiques, impropres à l\'alimentation humaine ; cretons.', sousPositions: ['10.00 Farines, poudres et agglomérées sous forme de pellets, de viandes, d\'abats ; cretons.', 'Farines, poudres et agglomérées sous forme de pellets de poissons.'] },
+  { n: 34, code: '2304.00.00', designation: 'Tourteaux et autres résidus solides, même broyés ou agglomérés sous forme de pellets, de l\'extraction de l\'huile de soja.', sousPositions: [] },
+  { n: 35, code: '23.09', designation: 'Préparations des types utilisés pour l\'alimentation des animaux.', sousPositions: ['90.10 Additifs alimentaires ; 90.90 Autres.'] },
+  { n: 36, code: '29.36', designation: 'Provitamines et vitamines, naturelles ou reproduites par synthèse (y compris les concentrés naturels), ainsi que leurs dérivés utilisés principalement en tant que vitamines, mélangés ou non entre eux, même en solutions.', sousPositions: ['21.00 Vitamine A et ses dérivés ; 22.00 Vitamine B1 et ses dérivés ; 23.00 Vitamine B2 et ses dérivés ; 24.00 Acide D- ou DL-pantothénique (vitamine B3/B5) et ses dérivés ; 25.00 Vitamine B6 et ses dérivés ; 26.00 Vitamine B12 et ses dérivés ; 27.00 Vitamine C et ses dérivés ; 28.00 Vitamine E et ses dérivés ; 29.00 Autres vitamines et leurs dérivés ; 90.00 Autres, y compris les concentrats naturels.'] },
+  { n: 37, code: '30.02', designation: 'Sang humain ; sang animal préparé en vue d\'usages thérapeutiques, prophylactiques ou de diagnostic ; antisérums, autres fractions du sang et produits immunologiques, même modifiés ou obtenus par voie biotechnologique ; vaccins, toxines, cultures de micro-organismes (à l\'exclusion des levures) et produits similaires.', sousPositions: ['30.00 — Vaccins pour la médecine vétérinaire.'] },
+  { n: 38, code: '30.03', designation: 'Médicaments (à l\'exclusion des produits des n°s 30.02, 30.05 ou 30.06) constitués de produits mélangés entre eux, préparés à des fins thérapeutiques ou prophylactiques, ni présentés sous forme de doses ni conditionnés pour la vente au détail.', sousPositions: ['90.00 — Autres.'] },
+  { n: 39, code: '30.04', designation: 'Médicaments (à l\'exclusion des produits des n°s 30.02, 30.05 ou 30.06) constitués de produits mélangés ou non, préparés à des fins thérapeutiques ou prophylactiques, présentés sous forme de doses (y compris ceux administrés par voie percutanée) ou conditionnés pour la vente au détail.', sousPositions: ['90.90 — Autres.'] },
+  { n: 40, code: '31.02', designation: 'Engrais minéraux ou chimiques azotés.', sousPositions: ['10.00 — Urée, même en solution aqueuse.'] },
+  { n: 41, code: '31.03', designation: 'Engrais minéraux ou chimiques phosphatés.', sousPositions: ['10.00 — Superphosphates.'] },
+  { n: 42, code: '31.04', designation: 'Engrais minéraux ou chimiques potassiques.', sousPositions: ['30.00 — Sulfate de potassium.'] },
+  { n: 43, code: '31.05', designation: 'Engrais minéraux ou chimiques contenant deux ou trois des éléments fertilisants azote, phosphore et potassium ; autres engrais ; produits du chapitre présentés en tablettes ou formes similaires, ou en emballages d\'un poids brut n\'excédant pas 10 kg.', sousPositions: ['20.00 — Engrais minéraux ou chimiques contenant les trois éléments fertilisants azote, phosphore et potassium.'] },
+  { n: 44, code: '38.08', designation: 'Insecticides, antirongeurs, fongicides, herbicides, inhibiteurs de germination et régulateurs de croissance pour plantes, désinfectants et produits similaires, présentés dans des formes ou emballages de vente au détail ou à l\'état de préparations, ou sous forme d\'articles (rubans, mèches, bougies soufrées, papier tue-mouches).', sousPositions: ['92.00 Fongicides ; 93.00 Herbicides, inhibiteurs de germination et régulateurs de croissance pour plantes ; Autres (antirongeurs).'] },
+]
+
+const LISTE_INTRANTS_PHARMACEUTIQUES: { n: number; label: string; position: string }[] = [
+  { n: 1, label: 'Acétate de soude', position: '29.15.39.00' },
+  { n: 2, label: 'Acétone', position: '29.14.11.00' },
+  { n: 3, label: 'Acide salicylique', position: '29.18.21.00' },
+  { n: 4, label: 'Acide ascorbique Vit. C', position: '29.36.27.00' },
+  { n: 5, label: 'Acide benzoïque', position: '29.16.31.00' },
+  { n: 6, label: 'Acide borique', position: '28.10.00.00' },
+  { n: 7, label: 'Acide chlorhydrique', position: '28.06.10.00' },
+  { n: 8, label: 'Acide citrique', position: '29.18.14.00' },
+  { n: 9, label: 'Acide folique', position: '29.36.29.00' },
+  { n: 10, label: 'Acide formique', position: '29.15.11.00' },
+  { n: 11, label: 'Acide lactique', position: '29.18.11.00' },
+  { n: 12, label: 'Acide sulfurique', position: '28.07.00.00' },
+  { n: 13, label: 'Aérosil (dioxyde de silicium)', position: '28.11.22.00' },
+  { n: 14, label: 'Alcool de bon goût', position: '22.07.10.00' },
+  { n: 15, label: 'Alcool dénaturé à l’éther 98%', position: '22.07.20.10' },
+  { n: 16, label: 'Alcool isoproplique', position: '22.07.10.00' },
+  { n: 17, label: 'Aluminium foil diverses dimensions', position: '76.07.11.00' },
+  { n: 18, label: 'Aluminium hydroxyde gel', position: '28.33.22.00' },
+  { n: 19, label: 'Aloe vera gel', position: '13.01.39.00' },
+  { n: 20, label: 'Alpha tocophérol (Vit. E) liquide', position: '29.36.28.00' },
+  { n: 21, label: 'Alpha tocophérol (Vit. E) poudre', position: '29.36.28.00' },
+  { n: 22, label: 'Aluminium (de fermeture de bocal)', position: '76.07.11.00' },
+  { n: 23, label: 'Alvéoles ovules (diverses dimensions)', position: '39.93.90.00' },
+  { n: 24, label: 'Amidon de froment', position: '11.08.11.00' },
+  { n: 25, label: 'Amidon de maïs', position: '11.08.12.00' },
+  { n: 26, label: 'Aminophylline anhydre', position: '29.39.49.00' },
+  { n: 27, label: 'Ammonium chlorure', position: '28.27.10.10' },
+  { n: 28, label: 'Ammonium ferrique citrate', position: '29.18.15.00' },
+  { n: 29, label: 'Amodiaquine base', position: '29.42.00.00' },
+  { n: 30, label: 'Amodiaquine chlorhydrate', position: '29.42.00.00' },
+  { n: 31, label: 'Analgine', position: '29.42.00.00' },
+  { n: 32, label: 'Anéthol', position: '29.42.00.00' },
+  { n: 33, label: 'Anhydride acétique', position: '29.15.24.00' },
+  { n: 34, label: 'Anise oil', position: '33.02.10.10' },
+  { n: 35, label: 'Artesunate', position: '29.42.00.00' },
+  { n: 36, label: 'Arthermeter', position: '29.42.00.00' },
+  { n: 37, label: 'Ashpartam', position: '29.40.00.00' },
+  { n: 38, label: 'Aspirine poudre', position: '29.18.00.00' },
+  { n: 39, label: 'Atropine sulfate', position: '29.39.99.00' },
+  { n: 40, label: 'Avicel (cellulose microcristalline)', position: '39.12.90.00' },
+  { n: 41, label: 'Balsam Pérou', position: '13.01.00.00' },
+  { n: 42, label: 'Balsam tolu (baume de Pérou) x 1 kg', position: '13.01.00.00' },
+  { n: 43, label: 'Banana flavour', position: '33.02.10.10' },
+  { n: 44, label: 'Bees wax x 1 kg', position: '15.21.90.00' },
+  { n: 45, label: 'Bentonite', position: '25.08.10.00' },
+  { n: 46, label: 'Benzalkonium chlorure', position: '29.42.00.00' },
+  { n: 47, label: 'Benzoate de sodium', position: '29.16.31.00' },
+  { n: 48, label: 'Benzocaine', position: '29.16.31.00' },
+  { n: 49, label: 'Benzyl benzoate', position: '29.16.31.00' },
+  { n: 50, label: 'BHT', position: '29.02.30.00' },
+  { n: 51, label: 'Bicarbonate de soude', position: '28.36.99.00' },
+  { n: 52, label: 'Borax', position: '28.48.20.00' },
+  { n: 53, label: 'Bisacodyl', position: '29.22.50.00' },
+  { n: 54, label: 'Bismuth oxyde', position: '28.29.90.00' },
+  { n: 55, label: 'Bismuth subgalate', position: '28.25.90.00' },
+  { n: 56, label: 'Bismuth subiodide', position: '28.25.90.00' },
+  { n: 57, label: 'Bleu de Méthylène', position: '38.07.00.00' },
+  { n: 58, label: 'Bleu indigo carmine', position: '32.03.00.10' },
+  { n: 59, label: 'Brillant Blue Supra', position: '32.04.19.90' },
+  { n: 60, label: 'Bromhexine Hcl', position: '29.42.00.00' },
+  { n: 61, label: 'Bronopol', position: '29.42.00.00' },
+  { n: 62, label: 'C.M.C. NA', position: '39.12.90.00' },
+  { n: 63, label: 'Caféine Anhydre', position: '29.39.30.00' },
+  { n: 64, label: 'Calcium de carbonate', position: '28.36.50.00' },
+  { n: 65, label: 'Calcium pantothenate', position: '28.36.50.00' },
+  { n: 66, label: 'Camphosulfonate de Soude', position: '29.42.00.00' },
+  { n: 67, label: 'Camphrée Synthétique DBE', position: '29.42.00.00' },
+  { n: 68, label: 'Capsicum oil', position: '33.01.90.00' },
+  { n: 69, label: 'Capsules vides', position: '96.02.00.00' },
+  { n: 70, label: 'Caramel pharma', position: '17.02.90.00' },
+  { n: 71, label: 'Carbocisteine', position: '29.30.90.00' },
+  { n: 72, label: 'Carbomer 940', position: '29.42.00.00' },
+  { n: 73, label: 'Carbon Tetra Chlorid', position: '29.03.14.00' },
+  { n: 74, label: 'Carbonate de soude', position: '33.01.90.00' },
+  { n: 75, label: 'Carbopol 940', position: '29.42.00.00' },
+  { n: 76, label: 'Carmellose', position: '29.40.00.00' },
+  { n: 77, label: 'Carmoisine Supra', position: '32.03.00.00' },
+  { n: 78, label: 'Carnauba', position: '15.21.10.00' },
+  { n: 79, label: 'Castor Oil', position: '15.15.30.00' },
+  { n: 80, label: 'Cefadroxyl Monohydrate', position: '33.01.90.00' },
+  { n: 81, label: 'Cetirizine dihydrochloride', position: '29.42.00.00' },
+  { n: 82, label: 'Cetrimide', position: '29.42.00.00' },
+  { n: 83, label: 'Charbon actif', position: '38.02.10.00' },
+  { n: 84, label: 'Chaux éteinte', position: '38.02.10.00' },
+  { n: 85, label: 'Chemi Gum', position: '25.22.20.00' },
+  { n: 86, label: 'Chloramphénicol Base', position: '29.41.40.00' },
+  { n: 87, label: 'Chloramphénicol palmitate', position: '29.41.00.00' },
+  { n: 88, label: 'Chlorhexidine Gluconate', position: '29.42.10.00' },
+  { n: 89, label: 'Chloroforme', position: '29.03.13.00' },
+  { n: 90, label: 'Chloropheniramine Maleate BP', position: '29.42.00.00' },
+  { n: 91, label: 'Chloroquine Diphosphate', position: '29.42.00.00' },
+  { n: 92, label: 'Chloroxylenol', position: '29.42.00.00' },
+  { n: 93, label: 'Chlorure de Baryum', position: '28.27.39.00' },
+  { n: 94, label: 'Chlorure de Potassium', position: '28.27.39.00' },
+  { n: 95, label: 'Chlorure de Sodium', position: '25.01.00.91' },
+  { n: 96, label: 'Chlorzoxane', position: '29.42.00.00' },
+  { n: 97, label: 'Chocolate Brown Colour', position: '32.04.17.90' },
+  { n: 98, label: 'Cholecalciferol (vit d 3) pow x 1 grm', position: '29.36.29.00' },
+  { n: 99, label: 'Choline Theophlilline', position: '29.23.10.00' },
+  { n: 100, label: 'Cinamon Oil', position: '33.01.90.00' },
+  { n: 101, label: 'Ciprofloaxacine Base', position: '29.42.00.00' },
+  { n: 102, label: 'Ciprofloaxacine HCL', position: '29.42.00.00' },
+  { n: 103, label: 'Ciprofloaxacine Chlorhydrated', position: '29.42.00.00' },
+  { n: 104, label: 'Ciprolaxine diffuporm', position: '29.42.00.00' },
+  { n: 105, label: 'Citrate de pipérazine', position: '29.18.15.00' },
+  { n: 106, label: 'Citrate de sodium', position: '29.18.15.00' },
+  { n: 107, label: 'Clotrimazole', position: '29.42.00.00' },
+  { n: 108, label: 'Clove Oil 86', position: '33.01.90.00' },
+  { n: 109, label: 'Coco buter', position: '18.04.00.00' },
+  { n: 110, label: 'Codeine Phosphate', position: '29.39.11.00' },
+  { n: 111, label: 'Cola Extract', position: '21.06.00.00' },
+  { n: 112, label: 'Color red amaranth', position: '32.04.17.00' },
+  { n: 113, label: 'Color erythrosine lake', position: '32.04.17.00' },
+  { n: 114, label: 'Color Erytrocine', position: '32.04.17.00' },
+  { n: 115, label: 'Colorants pharmaceutique (Toutes formes)', position: '32.04.17.00' },
+  { n: 116, label: 'Cramoisine colour', position: '32.04.17.00' },
+  { n: 117, label: 'Creosole Oil', position: '33.01.90.00' },
+  { n: 118, label: 'Cyanocoblamine (Vit B12)', position: '29.36.26.00' },
+  { n: 119, label: 'Cyclamate de Soude', position: '29.40.00.00' },
+  { n: 120, label: 'Cyproheptadine chlorhydrate', position: '29.42.00.00' },
+  { n: 121, label: 'D-Califerol (Vit.D3)', position: '29.36.90.00' },
+  { n: 122, label: 'Dexamenthasone', position: '29.42.00.00' },
+  { n: 123, label: 'Dextromethorphan Hydrobromide', position: '29.42.00.00' },
+  { n: 124, label: 'Dextrpropoxyphene HCL', position: '29.42.00.00' },
+  { n: 125, label: 'Dextrroze onhydrus', position: '29.42.00.00' },
+  { n: 126, label: 'Di basic calcium phosphate', position: '28.35.26.00' },
+  { n: 127, label: 'Diazepam poudre', position: '29.42.00.00' },
+  { n: 128, label: 'Diclofenac sodique', position: '29.42.00.00' },
+  { n: 129, label: 'Diethylcarbamazine citrate', position: '29.18.15.00' },
+  { n: 130, label: 'Dihydroartemisine', position: '29.42.00.00' },
+  { n: 131, label: 'Dimethicone 30%', position: '29.42.00.00' },
+  { n: 132, label: 'Dimeticone 20', position: '29.42.00.00' },
+  { n: 133, label: 'Dioxyde de titane rutile 902', position: '32.06.00.00' },
+  { n: 134, label: 'Diphenydramine', position: '29.32.00.00' },
+  { n: 135, label: 'Diphenoxylate', position: '29.32.00.00' },
+  { n: 136, label: 'Dipyrone poudre', position: '29.42.00.00' },
+  { n: 137, label: 'Disodium Edta', position: '29.42.00.00' },
+  { n: 138, label: 'Dithranol poudre', position: '29.42.00.00' },
+  { n: 139, label: 'DL Methionine USP', position: '29.42.00.00' },
+  { n: 140, label: 'Domperidon', position: '29.42.00.00' },
+  { n: 141, label: 'Ecorces de quinquina', position: '12.11.90.00' },
+  { n: 142, label: 'Elsine Monohydrochloride', position: '29.42.00.00' },
+  { n: 143, label: 'Ephedrine', position: '29.33.00.00' },
+  { n: 144, label: 'Erythomycine Strearate', position: '29.41.00.00' },
+  { n: 145, label: 'Erythomycin estolate', position: '29.41.00.00' },
+  { n: 146, label: 'Essence d’anethol', position: '33.01.09.00' },
+  { n: 147, label: 'Essence de Banane', position: '33.01.09.00' },
+  { n: 148, label: 'Essence de Mandarine', position: '33.01.09.00' },
+  { n: 149, label: 'Essence de Mangue poudre', position: '33.01.09.00' },
+  { n: 150, label: 'Essence de peperment oil', position: '33.01.09.00' },
+  { n: 151, label: 'Essence de pineapple liquide', position: '33.01.09.00' },
+  { n: 152, label: 'Essence de rasberry', position: '33.01.09.00' },
+  { n: 153, label: 'Essence de Turpentine', position: '33.01.09.00' },
+  { n: 154, label: 'Essence de tutti fruti', position: '33.01.09.00' },
+  { n: 155, label: 'Essence de vanile', position: '33.01.09.00' },
+  { n: 156, label: 'Essence d’Eucalyptus', position: '33.01.09.00' },
+  { n: 157, label: 'Essence d’orange liquide', position: '33.01.09.00' },
+  { n: 158, label: 'Essence d’orange poudre', position: '33.01.09.00' },
+  { n: 159, label: 'Essence mixed frute', position: '33.01.09.00' },
+  { n: 160, label: 'Essence pineapple pouder', position: '33.01.09.00' },
+  { n: 161, label: 'Essence lemon lime', position: '33.01.09.00' },
+  { n: 162, label: 'Essence fragrances', position: '33.01.09.00' },
+  { n: 163, label: 'Eucalyptus Oil', position: '33.01.09.00' },
+  { n: 164, label: 'Extrait Fluide de Balladone', position: '33.01.09.00' },
+  { n: 165, label: 'Extrait Fluide d’Ippeca', position: '33.01.09.00' },
+  { n: 166, label: 'Flavour Clarty (w)', position: '33.02.10.10' },
+  { n: 167, label: 'Furosemide', position: '29.42.00.00' },
+  { n: 168, label: 'Gélatine poudre', position: '35.03.00.90' },
+  { n: 169, label: 'Gélatine poudre', position: '12.11.00.00' },
+  { n: 170, label: 'Ginger Flavour', position: '33.02.10.10' },
+  { n: 171, label: 'Glibenclamide', position: '29.42.00.00' },
+  { n: 172, label: 'Glucose liquide', position: '15.20.00.00' },
+  { n: 173, label: 'Glycérine', position: '15.20.00.00' },
+  { n: 174, label: 'Glycérine 99%', position: '15.20.00.00' },
+  { n: 175, label: 'Glycirrhiza Glabra', position: '33.01.90.00' },
+  { n: 176, label: 'Glycolate sodique d’amidon', position: '11.08.19.00' },
+  { n: 177, label: 'Glyconate de calcium', position: '28.05.12.00' },
+  { n: 178, label: 'Gomme Adragente', position: '13.01.00.00' },
+  { n: 179, label: 'Gomme Arabique', position: '13.01.00.00' },
+  { n: 180, label: 'Gomme xanthan', position: '13.01.00.00' },
+  { n: 181, label: 'Griseofulvine', position: '29.42.00.00' },
+  { n: 182, label: 'Guanephenesine', position: '29.42.00.00' },
+  { n: 183, label: 'Gomme Accacia', position: '13.01.00.00' },
+  { n: 184, label: 'Gomme Guar', position: '13.01.00.00' },
+  { n: 185, label: 'H.P.M.C', position: '13.01.00.00' },
+  { n: 186, label: 'Huile de paraffine', position: '29.12.20.00' },
+  { n: 187, label: 'Huile de pin', position: '38.05.10.00' },
+  { n: 188, label: 'Huile de Ricin', position: '15.15.30.00' },
+  { n: 189, label: 'Hydrocortisone Acetate', position: '29.37.21.00' },
+  { n: 190, label: 'Hydrogen peroxide', position: '29.37.21.00' },
+  { n: 191, label: 'Hydrosyde d’Aluminium', position: '28.18.30.00' },
+  { n: 192, label: 'Hydrosyde de Magnesium', position: '28.16.10.00' },
+  { n: 193, label: 'Hydroxide pottasium', position: '28.15.20.00' },
+  { n: 194, label: 'Hydroxyde de sodium pallets', position: '28.15.20.00' },
+  { n: 195, label: 'Hydroxypropymethy Cellulose', position: '39.12.90.00' },
+  { n: 196, label: 'Ibuprofene', position: '29.42.00.00' },
+  { n: 197, label: 'Ichtamole', position: '29.42.00.00' },
+  { n: 198, label: 'Indion', position: '29.42.00.00' },
+  { n: 199, label: 'Indomethacine', position: '29.42.00.00' },
+  { n: 200, label: 'Insta coat 1c-u-5579, red', position: '29.42.00.00' },
+  { n: 201, label: 'Insta Glow', position: '29.42.00.00' },
+  { n: 202, label: 'Instacota universal white', position: '28.01.20.00' },
+  { n: 203, label: 'Lode Métallique', position: '28.01.20.00' },
+  { n: 204, label: 'Lodure de potasium', position: '28.27.60.00' },
+  { n: 205, label: 'Isopropyl alcohom', position: '21.07.23.00' },
+  { n: 206, label: 'Itchol', position: '33.02.10.10' },
+  { n: 207, label: 'Jasmine Parfum', position: '33.02.10.10' },
+  { n: 208, label: 'Kaolin light', position: '25.07.00.00' },
+  { n: 209, label: 'Ketoconazole', position: '29.42.00.00' },
+  { n: 210, label: 'Lactose', position: '04.04.90.90' },
+  { n: 211, label: 'Lanoline x 1 kg', position: '15.05.00.00' },
+  { n: 212, label: 'Lauryl Sulfate Sodique', position: '29.42.00.00' },
+  { n: 213, label: 'Lavamisole', position: '29.42.00.00' },
+  { n: 214, label: 'Lidocaine', position: '29.42.00.00' },
+  { n: 215, label: 'Liquorice Powder', position: '04.04.90.00' },
+  { n: 216, label: 'L-Lysine', position: '29.22.41.00' },
+  { n: 217, label: 'Lumefantrine', position: '29.42.00.00' },
+  { n: 218, label: 'Magnesium alluminium silicate', position: '28.39.90.00' },
+  { n: 219, label: 'Magnesium Hydroxyde Paste', position: '28.16.10.00' },
+  { n: 220, label: 'Magnesium Strearate', position: '29.15.70.00' },
+  { n: 221, label: 'Magnesium Sulphate', position: '28.33.21.00' },
+  { n: 222, label: 'Magnesium Trisilicate', position: '28.39.90.00' },
+  { n: 223, label: 'Mebendazole HCL', position: '29.42.00.00' },
+  { n: 224, label: 'Menthol Crystal', position: '29.06.11.00' },
+  { n: 225, label: 'Merbromine', position: '29.42.00.00' },
+  { n: 226, label: 'Meprobamate', position: '29.41.11.00' },
+  { n: 227, label: 'Metformin hydrochloride', position: '29.42.00.00' },
+  { n: 228, label: 'Metabisulfite sodium', position: '29.32.10.00' },
+  { n: 229, label: 'Methy chloride', position: '29.03.11.00' },
+  { n: 230, label: 'Methyl paraben sodium', position: '29.42.00.00' },
+  { n: 231, label: 'Methyl salicylate', position: '29.42.00.00' },
+  { n: 232, label: 'Methyl testosterone', position: '29.42.00.00' },
+  { n: 233, label: 'Methyldopa', position: '29.03.12.00' },
+  { n: 234, label: 'Methylène Chlorure', position: '29.42.00.00' },
+  { n: 235, label: 'Metronidazole benzoate', position: '29.42.00.00' },
+  { n: 236, label: 'Metronidazole Base', position: '29.42.00.00' },
+  { n: 237, label: 'Mixed Fruit Flavour Liquide', position: '33.02.10.10' },
+  { n: 238, label: 'Mixed Fruit Flavour Poudre', position: '33.02.10.10' },
+  { n: 239, label: 'Neomycine sulfate', position: '29.41.00.00' },
+  { n: 240, label: 'Nicotinamide', position: '29.36.00.00' },
+  { n: 241, label: 'Nipagine Sel Sodique', position: '29.42.00.00' },
+  { n: 242, label: 'Nipasol Sel Sodique', position: '29.42.00.00' },
+  { n: 243, label: 'Nitrofurantoine', position: '29.41.00.00' },
+  { n: 244, label: 'Nitrofuroxazide', position: '29.42.00.00' },
+  { n: 245, label: 'Norfloxacine', position: '29.42.00.00' },
+  { n: 246, label: 'Nipagine Base', position: '29.42.00.00' },
+  { n: 247, label: 'Nystatin BP/USP', position: '29.42.00.00' },
+  { n: 248, label: 'Nystatine Granule 5%', position: '29.42.00.00' },
+  { n: 249, label: 'Ocimum Sanctum', position: '29.42.00.00' },
+  { n: 250, label: 'Oleic Acid', position: '29.42.00.00' },
+  { n: 251, label: 'Oleoresin capscum 59', position: '33.01.10.10' },
+  { n: 252, label: 'Ondansetron hcl dihydrate', position: '29.42.00.00' },
+  { n: 253, label: 'Opadry', position: '29.42.00.00' },
+  { n: 254, label: 'Oxyde de zinc', position: '28.17.00.00' },
+  { n: 255, label: 'P.V.P.K-30', position: '29.42.00.00' },
+  { n: 256, label: 'Panthenol', position: '29.36.00.00' },
+  { n: 257, label: 'Papaverine HCL', position: '48.05.40.00' },
+  { n: 258, label: 'Papier –filtre', position: '48.05.40.00' },
+  { n: 259, label: 'Paracetamol Plain DC 90%', position: '29.42.00.00' },
+  { n: 260, label: 'Paraffine Liquide', position: '27.12.20.00' },
+  { n: 261, label: 'Parafin wax', position: '27.12.20.00' },
+  { n: 262, label: 'Pectine de pomme', position: '13.02.20.00' },
+  { n: 263, label: 'Pectine poudre', position: '29.42.00.00' },
+  { n: 264, label: 'Pen-V-potasium', position: '29.41.10.10' },
+  { n: 265, label: 'Peppermint Flavour', position: '33.02.10.10' },
+  { n: 266, label: 'Phenobarbital', position: '29.33.53.00' },
+  { n: 267, label: 'Phenyl mercure act.gr', position: '29.42.00.00' },
+  { n: 268, label: 'Phenyleprine HCL', position: '29.42.00.00' },
+  { n: 269, label: 'Phosphate acide Dissodique', position: '28.35.22.00' },
+  { n: 270, label: 'Phosphate Dicalcique', position: '28.35.22.00' },
+  { n: 271, label: 'Pine Oil 40', position: '33.02.90.00' },
+  { n: 272, label: 'Pineapple Flavour', position: '33.02.90.00' },
+  { n: 273, label: 'Piperaquine Phosphate', position: '29.42.90.00' },
+  { n: 274, label: 'Pippermint Oil', position: '33.01.90.00' },
+  { n: 275, label: 'Plante médicinale', position: '12.11.00.00' },
+  { n: 276, label: 'Polyoxyl 40 hydrogel Nated Castrol Oil', position: '33.01.90.00' },
+  { n: 277, label: 'Polyoxyl 40 strearate', position: '29.15.70.00' },
+  { n: 278, label: 'Potasium dhydrogieno Phosphate', position: '28.35.22.00' },
+  { n: 279, label: 'Potassium Hydroxyde', position: '28.15.20.00' },
+  { n: 280, label: 'Potassium lodine', position: '28.42.00.00' },
+  { n: 281, label: 'Poudre d’amoxycilline (toutes formes)', position: '29.41.90.00' },
+  { n: 282, label: 'Poudre d’ampicilline', position: '29.41.90.00' },
+  { n: 283, label: 'Poudre de Quinine (divers formes)', position: '29.31.21.00' },
+  { n: 284, label: 'Povidone lodine', position: '29.42.00.00' },
+  { n: 285, label: 'Prednisolone', position: '29.42.00.00' },
+  { n: 286, label: 'Promethazine HCL', position: '29.42.00.00' },
+  { n: 287, label: 'Propyl paraben sodium', position: '29.42.00.00' },
+  { n: 288, label: 'Propyl paraben sodium', position: '29.42.00.00' },
+  { n: 289, label: 'Propyl paraben', position: '29.42.00.00' },
+  { n: 290, label: 'Propyl paraben', position: '29.42.00.00' },
+  { n: 291, label: 'Propyphenazone', position: '29.42.00.00' },
+  { n: 292, label: 'Proteine hydrolydate liquide 20%', position: '29.42.00.00' },
+  { n: 293, label: 'Pyrantel Pamoate', position: '29.42.00.00' },
+  { n: 294, label: 'Pyridoxine HCL Vit. B6', position: '29.36.00.00' },
+  { n: 295, label: 'Pyrimethamine', position: '29.42.00.00' },
+  { n: 296, label: 'Resorcine', position: '29.42.00.00' },
+  { n: 297, label: 'Retinol (Vit. A) poudre', position: '29.36.00.00' },
+  { n: 298, label: 'Retinol (Vit. A) Palmitate', position: '29.36.21.00' },
+  { n: 299, label: 'Ribolflavine 5 Phosphate (Vit B2)', position: '29.36.21.00' },
+  { n: 300, label: 'Saccharine Sodique', position: '29.36.21.00' },
+  { n: 301, label: 'Saccharine sodique', position: '29.35.11.00' },
+  { n: 302, label: 'Salbutamol sulphate', position: '29.36.90.00' },
+  { n: 303, label: 'Shellac Powder', position: '13.01.00.00' },
+  { n: 304, label: 'Sillicone Deoxyne', position: '39.10.00.00' },
+  { n: 305, label: 'Simethicone', position: '29.36.20.00' },
+  { n: 306, label: 'Sodium alignate', position: '25.36.20.00' },
+  { n: 307, label: 'Sodium benzoate', position: '25.05.00.00' },
+  { n: 308, label: 'Sodium bicarbonate', position: '29.16.00.00' },
+  { n: 309, label: 'Sodium carbonate (light ash)', position: '28.36.20.00' },
+  { n: 310, label: 'Sodium citrate', position: '29.18.15.00' },
+  { n: 311, label: 'Sodium CMC', position: '28.19.90.00' },
+  { n: 312, label: 'Sodium di-Phosphate', position: '28.35.22.00' },
+  { n: 313, label: 'Sodium Glycero Phosphate BPC', position: '29.19.90.00' },
+  { n: 314, label: 'Sodium lactate', position: '29.19.90.00' },
+  { n: 315, label: 'Sodium meta-bi sulfate', position: '28.33.19.00' },
+  { n: 316, label: 'Sodium Strach Glycolate', position: '29.05.11.00' },
+  { n: 317, label: 'Sodium laury sulphat', position: '28.33.19.00' },
+  { n: 318, label: 'Sorbitol liquide', position: '29.05.44.00' },
+  { n: 319, label: 'Sorbitol 70%', position: '29.04.44.00' },
+  { n: 320, label: 'Soude caustique', position: '28.15.11.00' },
+  { n: 321, label: 'Soufre poudre', position: '25.03.00.00' },
+  { n: 322, label: 'Steartate de magnesium', position: '29.15.70.00' },
+  { n: 323, label: 'Strawberry flavour poudre', position: '33.02.10.10' },
+  { n: 324, label: 'Strawberry flavour liquide', position: '33.02.10.10' },
+  { n: 325, label: 'Strychnine phosphate', position: '29.39.00.00' },
+  { n: 326, label: 'Sulfadoxine', position: '29.42.00.00' },
+  { n: 327, label: 'Sulfamethoxazole', position: '29.42.00.00' },
+  { n: 328, label: 'Sulfametoxypyrazine', position: '29.42.00.00' },
+  { n: 329, label: 'Sulfanilamide', position: '29.42.00.00' },
+  { n: 330, label: 'Sulfate de fer', position: '29.33.29.00' },
+  { n: 331, label: 'Sulfate de cuivre', position: '28.33.25.00' },
+  { n: 332, label: 'Sulfate de Zinc', position: '28.33.29.00' },
+  { n: 333, label: 'Sulfogaiacolate K', position: '29.42.00.00' },
+  { n: 334, label: 'Sulphur insolube', position: '25.03.00.00' },
+  { n: 335, label: 'Sunset yellow', position: '32.06.20.00' },
+  { n: 336, label: 'Talc', position: '35.26.20.00' },
+  { n: 337, label: 'Tartrazine', position: '29.42.00.00' },
+  { n: 338, label: 'Terpentine oil', position: '33.01.00.00' },
+  { n: 339, label: 'Terpine oil', position: '29.06.00.00' },
+  { n: 340, label: 'Terpine hydrate', position: '33.01.90.00' },
+  { n: 341, label: 'Tetramizole', position: '29.42.00.00' },
+  { n: 342, label: 'Thiamine (Vit. B 1)', position: '29.36.00.00' },
+  { n: 343, label: 'Thiamine HCL', position: '29.30.90.00' },
+  { n: 344, label: 'Thio Uree', position: '29.30.90.00' },
+  { n: 345, label: 'Thymol', position: '29.42.00.00' },
+  { n: 346, label: 'Thyrotricine', position: '29.42.00.00' },
+  { n: 347, label: 'Timolol maleate', position: '29.42.00.00' },
+  { n: 348, label: 'Tissu filtrant', position: '59.11.40.00' },
+  { n: 349, label: 'Totanium dioxyde', position: '32.06.00.00' },
+  { n: 350, label: 'Toluèle', position: '29.02.30.00' },
+  { n: 351, label: 'Trietanolamine', position: '29.42.00.00' },
+  { n: 352, label: 'Trimethoprine', position: '29.41.90.00' },
+  { n: 353, label: 'Trisilicate de magnesium', position: '28.39.90.00' },
+  { n: 354, label: 'Tween -80', position: '29.42.00.00' },
+  { n: 355, label: 'Vanilla flavour liquide', position: '33.02.11.00' },
+  { n: 356, label: 'Vanilla flavour poudre', position: '33.02.11.00' },
+  { n: 357, label: 'Vaseline blanche pure', position: '27.12.00.00' },
+  { n: 358, label: 'Vaseline blanche', position: '27.12.10.00' },
+  { n: 359, label: 'Vit. D2 crystalise gr', position: '29.36.00.00' },
+  { n: 360, label: 'Vitamine A liquide', position: '29.36.00.00' },
+  { n: 361, label: 'Vitamine A palmitate', position: '29.36.00.00' },
+  { n: 362, label: 'Vitamine acitate', position: '29.36.28.00' },
+  { n: 363, label: 'Vitamine B-1', position: '29.36.00.00' },
+  { n: 364, label: 'Vitamine B12. Gr cyno', position: '29.36.00.00' },
+  { n: 365, label: 'Vitamine B12.gr Manitol', position: '29.36.00.00' },
+  { n: 366, label: 'Vitamine B2 Base', position: '29.36.00.00' },
+  { n: 367, label: 'Vitamine B2 Phosphate', position: '29.36.00.00' },
+  { n: 368, label: 'Vitamine B6', position: '29.36.00.00' },
+  { n: 369, label: 'Vitamine PP', position: '29.36.00.00' },
+  { n: 370, label: 'Vitamine -HIS', position: '39.42.00.00' },
+  { n: 371, label: 'Witepsol E 76', position: '83.09.90.00' },
+  { n: 372, label: 'Xantham Gum', position: '35.05.20.00' },
+  { n: 373, label: 'Xylometazoline', position: '29.42.00.00' },
+  { n: 374, label: 'Yohimbine HCL', position: '29.39.90.00' },
+  { n: 375, label: 'Zinc stearrate', position: '29.15.70.00' },
+  { n: 376, label: 'Zinc sulfate', position: '28.33.28.00' },
+]
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : FAIT GÉNÉRATEUR & EXIGIBILITÉ (Art. 24-26)
+// ─────────────────────────────────────────────────────────────────────────────
+const CAS_FAIT_GENERATEUR = [
+  { n: 1, texte: 'Livraison du bien, pour les ventes de biens meubles corporels (y compris à soi-même).' },
+  { n: 2, texte: 'Exécution du service ou des travaux (ou de leurs tranches), y compris travaux à façon et travaux immobiliers.' },
+  { n: 3, texte: 'Franchissement des frontières de la RDC, pour les importations et les exportations.' },
+  { n: 4, texte: 'Mise à la consommation, pour les marchandises placées sous régime douanier suspensif.' },
+  { n: 5, texte: 'Sortie des marchandises de la zone franche, en vue de leur mise à la consommation en RDC.' },
+  { n: 6, texte: 'Acte de mutation ou de transfert de propriété — à défaut d\'acte, l\'entrée en jouissance — pour les opérations immobilières des promoteurs immobiliers.' },
+  { n: 7, texte: 'Acte de mutation, de jouissance ou, à défaut, l\'entrée en jouissance, pour les locations de terrains nus ou de locaux nus par des promoteurs immobiliers.' },
+  { n: 8, texte: 'Première utilisation ou première mise en service, pour les biens et services que les redevables se livrent à eux-mêmes.' },
+  { n: 9, texte: 'Expiration des périodes de décompte ou d\'encaissement, pour les opérations à décomptes ou paiements successifs (hors vente à tempérament, location, location-vente).' },
+  { n: 10, texte: 'Encaissement du prix ou d\'un acompte, pour les autres opérations imposables.' },
+]
+
+const CAS_EXIGIBILITE = [
+  { n: 1, texte: 'Réalisation du fait générateur, pour les livraisons de biens (y compris à soi-même).' },
+  { n: 2, texte: 'Encaissement du prix, des acomptes ou avances, pour les prestations de services et les travaux immobiliers.' },
+  { n: 3, texte: 'Enregistrement de la déclaration de mise à la consommation en RDC, pour les biens importés, placés sous régime suspensif, ou sortis de zone franche.' },
+  { n: 4, texte: 'Échéance de l\'effet, en cas d\'escompte d\'un effet de commerce.' },
+  { n: 5, texte: 'Échéance des intérêts ou des loyers, pour le crédit à la consommation ou le crédit-bail des établissements financiers.' },
+  { n: 6, texte: 'Livraison des produits ou perception du préfinancement, pour les opérations liées aux cultures pérennes.' },
+  { n: 7, texte: 'Date de mutation ou de transfert de propriété, pour les mutations d\'immeuble — sauf location-vente en habitat social et locations de terrains/locaux nus par les promoteurs immobiliers, où l\'exigibilité intervient à chaque échéance.' },
+]
+
+function OngletFaitGenerateurExigibilite() {
+  return (
+    <div className="space-y-4">
+      <DefinitionBox titre="Deux notions distinctes : Art. 24-26">
+        <p className="text-xs text-foreground">Le <strong>fait générateur</strong> est l\'événement qui fait naître la dette de TVA. L\'<strong>exigibilité</strong> est le moment à partir duquel le Trésor peut en réclamer le paiement — les deux coïncident pour les livraisons de biens, mais pas pour les prestations de services (exigibles à l\'encaissement, pas à l\'exécution).</p>
+      </DefinitionBox>
+
+      <div className="space-y-3">
+        <SectionTitre texte="Fait générateur" loi="Art. 24" />
+        <div className="grid gap-1.5">
+          {CAS_FAIT_GENERATEUR.map(c => (
+            <div key={c.n} className="flex items-start gap-2 rounded-lg border border-border/60 bg-card px-3 py-2">
+              <span className="text-xs font-mono text-primary/60 shrink-0 mt-0.5">{c.n}.</span>
+              <span className="text-xs text-foreground flex-1">{c.texte}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <SectionTitre texte="Exigibilité" loi="Art. 25" />
+        <div className="grid gap-1.5">
+          {CAS_EXIGIBILITE.map(c => (
+            <div key={c.n} className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50/40 px-3 py-2">
+              <span className="text-xs font-mono text-blue-600/70 shrink-0 mt-0.5">{c.n}.</span>
+              <span className="text-xs text-foreground flex-1">{c.texte}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 space-y-1.5">
+        <p className="text-xs font-bold text-amber-700">Option : le régime des débits (Art. 26)</p>
+        <p className="text-xs text-foreground">Les entrepreneurs de travaux publics/immobiliers et les prestataires de services qui justifient de circonstances particulières peuvent être autorisés, sur décision du DGI (ou son délégué provincial), à acquitter la TVA <strong>d\'après les débits</strong> — l\'exigibilité intervient alors à l\'inscription au débit du compte du client, et non à l\'encaissement. L\'autorisation reste valable tant que le redevable ne demande pas par écrit à en sortir. Elle ne dispense pas d\'acquitter la TVA à l\'encaissement si celui-ci intervient avant le débit.</p>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : LISTES RÉGLEMENTAIRES (Art. 15-6 et 15-10)
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletListesReglementaires() {
+  const [liste, setListe] = useState<'agricole' | 'pharma'>('agricole')
+  const [recherche, setRecherche] = useState('')
+
+  const resultatsAgricole = LISTE_EQUIPEMENTS_AGRICOLES.filter(it =>
+    it.designation.toLowerCase().includes(recherche.toLowerCase()) ||
+    it.code.toLowerCase().includes(recherche.toLowerCase()) ||
+    it.sousPositions.some(s => s.toLowerCase().includes(recherche.toLowerCase()))
+  )
+  const resultatsPharma = LISTE_INTRANTS_PHARMACEUTIQUES.filter(it =>
+    it.label.toLowerCase().includes(recherche.toLowerCase()) || it.position.includes(recherche)
+  )
+
+  return (
+    <div className="space-y-4">
+      <DefinitionBox titre="Seule la position tarifaire exonère : Art. 15-6 et 15-10">
+        <p className="text-xs text-foreground">Les intrants agricoles (Art. 15-6) et les produits pharmaceutiques (Art. 15-10) sont exonérés <strong>sur la base d\'une liste limitative</strong> fixée par arrêté. L\'appartenance à une catégorie générale (« matériel agricole », « produit pharmaceutique ») ne suffit pas — seule la position tarifaire listée ci-dessous exonère.</p>
+      </DefinitionBox>
+
+      <div className="flex gap-1 rounded-xl border border-border bg-muted/30 p-2">
+        <button onClick={() => { setListe('agricole'); setRecherche('') }}
+          className={cn('flex-1 rounded-lg py-1.5 text-xs font-medium transition-colors', liste === 'agricole' ? 'bg-card shadow text-foreground' : 'text-muted-foreground hover:text-foreground')}>
+          Équipements agricoles ({LISTE_EQUIPEMENTS_AGRICOLES.length})
+        </button>
+        <button onClick={() => { setListe('pharma'); setRecherche('') }}
+          className={cn('flex-1 rounded-lg py-1.5 text-xs font-medium transition-colors', liste === 'pharma' ? 'bg-card shadow text-foreground' : 'text-muted-foreground hover:text-foreground')}>
+          Intrants pharmaceutiques ({LISTE_INTRANTS_PHARMACEUTIQUES.length})
+        </button>
+      </div>
+
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+        <input value={recherche} onChange={e => setRecherche(e.target.value)}
+          placeholder={liste === 'agricole' ? 'Rechercher un équipement ou une position tarifaire...' : 'Rechercher un intrant ou une position tarifaire...'}
+          className="w-full rounded-lg border border-border bg-background pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+      </div>
+
+      {liste === 'agricole' ? (
+        <div className="space-y-1.5 max-h-96 overflow-y-auto">
+          {resultatsAgricole.map(it => (
+            <div key={it.n} className="rounded-lg border border-border/60 bg-card p-3">
+              <div className="flex items-start gap-2">
+                <span className="text-xs font-mono text-primary/70 shrink-0 mt-0.5">{it.n}. {it.code}</span>
+                <span className="text-xs text-foreground flex-1">{it.designation}</span>
+              </div>
+              {it.sousPositions.length > 0 && (
+                <div className="mt-1.5 pl-1 space-y-0.5">
+                  {it.sousPositions.map((s, i) => (
+                    <p key={i} className="text-xs text-muted-foreground">— {s}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          {resultatsAgricole.length === 0 && <p className="text-center text-sm text-muted-foreground py-4">Aucune position trouvée</p>}
+        </div>
+      ) : (
+        <div className="rounded-xl border border-border bg-card overflow-hidden">
+          <div className="max-h-96 overflow-y-auto divide-y divide-border/30">
+            {resultatsPharma.map(it => (
+              <div key={it.n} className="flex items-center gap-3 px-3 py-2">
+                <span className="text-xs font-mono text-primary/60 shrink-0 min-w-[28px]">{it.n}</span>
+                <span className="text-xs text-foreground flex-1">{it.label}</span>
+                <span className="text-xs font-mono text-muted-foreground shrink-0">{it.position}</span>
+              </div>
+            ))}
+            {resultatsPharma.length === 0 && <p className="text-center text-sm text-muted-foreground py-4">Aucun intrant trouvé</p>}
+          </div>
+        </div>
+      )}
+      <BadgeLoi loi={liste === 'agricole' ? "A. Inter. n° 606 et n° 028 du 10/11/2012" : "A. Inter. n° 016 et n° 328 du 28/12/2011"} />
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : RÉGIMES DÉROGATOIRES — suspensions sectorielles
+// ─────────────────────────────────────────────────────────────────────────────
+const REGIMES_DEROGATOIRES = [
+  {
+    nom: 'Équipements et matériels d\'aviation',
+    texte: 'Suspension de la TVA à l\'importation des équipements et matériels d\'aviation (aéronefs ≤ 15 ans, matériels de manutention et de ravitaillement aéroportuaires, pneumatiques neufs, pièces de rechange) importés par les compagnies aériennes de transport public.',
+    duree: '3 ans à dater de la signature (27/07/2016)',
+    statut: 'expire',
+    loi: 'Décret n° 16/029 du 22/07/2016',
+  },
+  {
+    nom: 'Produits de première nécessité',
+    texte: 'Suspension de la TVA en régime intérieur et à l\'importation sur 43 positions tarifaires de produits alimentaires de base et biens de première nécessité (viandes, poissons, riz, lait, huiles, sucre, savons, sel iodé...).',
+    duree: 'Échéance au 31/12/2023',
+    statut: 'expire',
+    loi: 'Décret n° 22/30 du 15/10/2022, modifié par le Décret n° 23/15 du 15/04/2023',
+  },
+  {
+    nom: 'Cimenterie et immobilier',
+    texte: 'Suspension de la TVA (importation et régime intérieur) sur les matières premières de fabrication du ciment gris, sur la vente du ciment gris produit localement, et sur la vente des bâtiments neufs (≤ 3 ans) des promoteurs immobiliers.',
+    duree: 'Échéance au 31/12/2023',
+    statut: 'expire',
+    loi: 'Décret n° 22/31 du 15/10/2022, modifié par le Décret n° 23/16 du 15/04/2023',
+  },
+  {
+    nom: 'Entreprises pétrolières et minières conventionnelles',
+    texte: 'Suspension de la perception de la TVA à l\'importation sur les marchandises importées par les entreprises pétrolières de production et les entreprises minières relevant d\'un régime conventionnel (exonération totale antérieure en matière d\'impôt sur le chiffre d\'affaires).',
+    duree: '« Jusqu\'à nouvel ordre » — sans échéance fixe',
+    statut: 'verifier',
+    loi: 'Arrêté Ministériel n° 072 du 30/12/2011',
+  },
+  {
+    nom: 'Partenariat stratégique sur les chaînes de valeur',
+    texte: 'Suspension de la TVA (régime intérieur et importation) sur les matériels/matériaux, intrants et prestations de services liés au projet, pour les entreprises agréées (investissement ≥ 15 millions USD, ≥ 100 emplois créés).',
+    duree: '4 ans, extensible selon le programme d\'amortissement',
+    statut: 'conditionnel',
+    loi: 'Décret n° 13/049 du 06/10/2013',
+  },
+  {
+    nom: 'Marchés publics à financement extérieur',
+    texte: 'La fiscalité indirecte (dont la TVA) liée à l\'exécution du marché est prise en charge par l\'État via un titre de paiement — le fournisseur/prestataire ne la supporte pas.',
+    duree: 'Durée du marché concerné',
+    statut: 'conditionnel',
+    loi: 'Arrêté Ministériel n° 076 du 13/01/2012',
+  },
+  {
+    nom: 'Énergie électrique et énergies renouvelables',
+    texte: 'Suspension des droits de douane et de la TVA à l\'importation sur l\'énergie électrique, les matériels de production/transport/distribution, les équipements d\'économie d\'énergie et d\'exploitation de l\'énergie solaire/renouvelable.',
+    duree: '4 ans (5 ans pour l\'import/export d\'énergie électrique elle-même), renouvelable après évaluation',
+    statut: 'verifier',
+    loi: 'Décret n° 18/054 du 27/12/2018',
+  },
+]
+
+function OngletRegimesDerogatoires() {
+  const badgeStatut: Record<string, { texte: string; classe: string }> = {
+    expire:      { texte: '⚠ Échéance dépassée — vérifier une prorogation', classe: 'bg-red-100 text-red-700 border-red-200' },
+    verifier:    { texte: '⚠ Sans échéance fixe — vérifier qu\'aucun texte n\'y a mis fin', classe: 'bg-amber-100 text-amber-700 border-amber-200' },
+    conditionnel:{ texte: 'Sous conditions d\'agrément', classe: 'bg-blue-100 text-blue-700 border-blue-200' },
+  }
+  return (
+    <div className="space-y-4">
+      <DefinitionBox titre="Des régimes distincts du droit commun">
+        <p className="text-xs text-foreground">Ces suspensions de TVA sont des <strong>régimes dérogatoires</strong>, accordés secteur par secteur, distincts de la liste limitative d\'exonérations de droit commun (Art. 15-19). Vérifier systématiquement l\'éligibilité précise (secteur, produit exact, échéance non expirée) avant d\'affirmer qu\'une suspension s\'applique à une opération donnée.</p>
+      </DefinitionBox>
+
+      <div className="grid gap-2">
+        {REGIMES_DEROGATOIRES.map((r, i) => {
+          const b = badgeStatut[r.statut]
+          return (
+            <div key={i} className="rounded-xl border border-border/60 bg-card p-3 space-y-1.5">
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-xs font-bold text-foreground">{r.nom}</p>
+                {b && <span className={cn('text-xs font-medium rounded-full px-2 py-0.5 shrink-0 border', b.classe)}>{b.texte}</span>}
+              </div>
+              <p className="text-xs text-muted-foreground">{r.texte}</p>
+              <p className="text-xs text-foreground/70"><strong>Durée :</strong> {r.duree}</p>
+              <BadgeLoi loi={r.loi} />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : FACTURE NORMALISÉE & DEF
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletFactureDEF() {
+  return (
+    <div className="space-y-4">
+      <DefinitionBox titre="Dispositifs électroniques fiscaux (DEF) : Décret n° 23/10 du 03/03/2023">
+        <p className="text-xs text-foreground">Un DEF est un appareil ou un logiciel <strong>homologué</strong> par l\'Administration des Impôts, destiné à produire la facture normalisée. Il existe sous forme physique ou dématérialisée.</p>
+      </DefinitionBox>
+
+      <div className="space-y-3">
+        <SectionTitre texte="Les quatre types de DEF" loi="Art. 5-10" />
+        <div className="grid gap-2">
+          {[
+            { sigle: 'UF', nom: 'Unité de Facturation', desc: 'Appareil physique homologué qui enregistre les données de facturation, gère les articles, imprime les factures et transmet les données au serveur de l\'Administration.' },
+            { sigle: 'MCF', nom: 'Module de Contrôle de Facturation', desc: 'Appareil physique homologué, connecté à un Système de Facturation d\'Entreprise (SFE) homologué : collecte, traite et transmet les données de facturation.' },
+            { sigle: 'e-UF', nom: 'Unité de Facturation dématérialisée', desc: 'Application de l\'Administration mise à disposition des entreprises sans système de facturation propre — mêmes fonctions que l\'UF, sans appareil physique.' },
+            { sigle: 'e-MCF', nom: 'Module de Contrôle dématérialisé', desc: 'Application de l\'Administration pour les entreprises disposant déjà d\'un SFE homologué — mêmes fonctions que le MCF, sans appareil physique.' },
+          ].map((d, i) => (
+            <div key={i} className="rounded-lg border border-border/60 bg-card p-3 flex items-start gap-3">
+              <span className="text-xs font-mono font-bold text-primary bg-primary/10 rounded-lg px-2 py-1 shrink-0">{d.sigle}</span>
+              <div>
+                <p className="text-xs font-semibold text-foreground">{d.nom}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{d.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground italic">Seuls les DEF (UF/MCF) et les SFE homologués peuvent être vendus et utilisés en RDC pour produire une facture normalisée (Art. 11 et 20).</p>
+      </div>
+
+      <div className="space-y-3">
+        <SectionTitre texte="Mentions obligatoires de la facture normalisée" loi="Art. 26" />
+        <div className="rounded-xl border border-border bg-muted/20 p-3">
+          <div className="flex flex-wrap gap-1.5">
+            {[
+              'Identité et n° impôt du vendeur/prestataire', 'Identité et n° impôt du client', 'Date et n° de série',
+              'Désignation et quantité', 'Prix unitaire et global', 'Prix hors TVA', 'Taux et montant de TVA',
+              'Montant non taxable', 'Montant TTC', 'Montant des autres impôts/taxes',
+            ].map((m, i) => (
+              <span key={i} className="text-xs rounded-lg border border-border bg-card px-2 py-1 text-foreground">{m}</span>
+            ))}
+          </div>
+          <div className="mt-2 flex items-center gap-1.5">
+            <QrCode className="h-3.5 w-3.5 text-rose-600 shrink-0" />
+            <span className="text-xs rounded-lg border border-rose-200 bg-rose-50 px-2 py-1 text-rose-700 font-medium">N° d\'identification du DEF + code d\'authentification et QR code</span>
+          </div>
+          <p className="text-xs text-muted-foreground mt-1.5">Un document tenant lieu de facture normalisée reprend toutes ces mentions, sauf les deux dernières (n° DEF, code d\'authentification/QR).</p>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        <SectionTitre texte="Retenue à la source par le Trésor Public" loi="Circ. n° 002 du 03/07/2023" />
+        <div className="rounded-xl border border-blue-200 bg-blue-50/40 p-3 space-y-2">
+          <p className="text-xs text-foreground">Sur les paiements aux fournisseurs et prestataires de l\'État, la TVA facturée est retenue à la source et reversée directement au Trésor, selon trois procédures possibles :</p>
+          <div className="grid gap-1.5">
+            {[
+              { n: '1', titre: 'Procédure normale', desc: 'Deux ordres de paiement (fournisseur : montant HT ; DGI : TVA retenue), via la chaîne de la dépense publique.' },
+              { n: '2', titre: 'Procédure d\'urgence', desc: 'Sur instruction du Ministre des Finances : deux domiciliations distinctes. Relevé transmis au plus tard le 5 du mois suivant.' },
+              { n: '3', titre: 'Déconcentration de l\'ordonnancement', desc: 'Les Ordonnateurs sectoriels établissent les deux ordres de paiement. Relevé mensuel transmis au plus tard le 5 du mois suivant.' },
+            ].map(p => (
+              <div key={p.n} className="flex items-start gap-2 rounded-lg bg-white/60 border border-blue-200 px-3 py-2">
+                <span className="text-xs font-bold text-blue-600 shrink-0">{p.n}</span>
+                <div>
+                  <p className="text-xs font-semibold text-foreground">{p.titre}</p>
+                  <p className="text-xs text-muted-foreground">{p.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-blue-700">Dans les trois cas, la déclaration de TVA retenue à la source est déposée auprès de la Direction des Grandes Entreprises au plus tard le <strong>15 du mois</strong> suivant le paiement des factures.</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : COMPTABILITÉ & NUMÉRO TVA
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletComptabiliteNumeroTVA() {
+  return (
+    <div className="space-y-4">
+      <DefinitionBox titre="Numéro TVA : Art. 54">
+        <p className="text-xs text-foreground">Tout assujetti à la TVA est identifié par un <strong>numéro TVA</strong> dont les modalités d\'attribution sont fixées par Arrêté du Ministre des Finances. Il doit, à cet effet, souscrire une <strong>déclaration d\'assujettissement</strong> auprès de l\'Administration des Impôts <strong>avant le début de ses activités</strong>.</p>
+      </DefinitionBox>
+
+      <div className="space-y-3">
+        <SectionTitre texte="Comptabilité obligatoire" loi="Art. 57" />
+        <p className="text-xs text-muted-foreground">Tout assujetti à la TVA doit tenir une comptabilité régulière comportant :</p>
+        <div className="grid grid-cols-2 gap-1.5">
+          {[
+            'Livre-journal', 'Grand livre des comptes', 'Balance des comptes', 'Journal des ventes',
+            'Journal des achats', 'Livre d\'inventaire', 'Livre des immobilisations',
+          ].map((r, i) => (
+            <div key={i} className="rounded-lg border border-border/60 bg-card px-3 py-2 text-xs text-foreground flex items-center gap-1.5">
+              <BookMarked className="h-3.5 w-3.5 text-primary/60 shrink-0" />
+              {r}
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+          <p className="text-xs text-foreground">La comptabilité doit être <strong>disponible en RDC</strong>, au siège social ou au principal établissement de l\'entreprise — ou, en cas de représentant agréé (redevable établi hors RDC, Art. 23), chez ce dernier. Les pièces justificatives d\'une opération ouvrant droit à déduction doivent être des <strong>documents originaux</strong>.</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // COMPOSANT PRINCIPAL : SIMULATEUR TVA
 // ─────────────────────────────────────────────────────────────────────────────
+// Quatre groupes, dans l'ordre où ils sont parcourus (précédent/suivant) et affichés.
+// Chaque onglet porte son groupe : la barre de navigation se replie en 4 blocs au lieu
+// d'aligner 15 pastilles à plat.
+const GROUPES_TVA = [
+  { id: 'champ',        label: 'Champ & Redevables' },
+  { id: 'base',          label: 'Base, Taux & Exonérations' },
+  { id: 'liquidation',   label: 'Déduction & Liquidation' },
+  { id: 'obligations',   label: 'Obligations & Contentieux' },
+] as const
+
 const ONGLETS_TVA = [
-  { id: 'champ', label: 'Champ d\'application', sublabel: 'Art. 1–12', icon: BookOpen },
-  { id: 'assujettis', label: 'Assujettis & Seuil', sublabel: 'Art. 13–14', icon: FileText },
-  { id: 'exonerations', label: 'Exonérations', sublabel: 'Art. 15–20', icon: CheckCircle2 },
-  { id: 'taux', label: 'Taux & Base', sublabel: 'Art. 27–35', icon: Percent },
-  { id: 'deductions', label: 'Déductions', sublabel: 'Art. 36–42', icon: Calculator },
-  { id: 'nette', label: 'TVA Nette Due', sublabel: 'Art. 60', icon: Receipt },
-  { id: 'prorata', label: 'Prorata', sublabel: 'Art. 43–49', icon: BarChart },
-  { id: 'regularisations', label: 'Régularisations', sublabel: 'Art. 50–52', icon: RefreshIcon },
-  { id: 'remboursement', label: 'Remboursement', sublabel: 'Art. 63–67', icon: CreditCard },
-  { id: 'declaration', label: 'Déclaration & Pénalités', sublabel: 'Art. 60–76', icon: AlertTriangle },
+  { id: 'champ',           groupe: 'champ',        label: 'Champ d\'application',    sublabel: 'Art. 1–12',  icon: BookOpen },
+  { id: 'assujettis',      groupe: 'champ',        label: 'Assujettis & Seuil',      sublabel: 'Art. 13–14', icon: FileText },
+  { id: 'exigibilite',     groupe: 'champ',        label: 'Fait générateur & Exigibilité', sublabel: 'Art. 24–26', icon: Clock },
+
+  { id: 'exonerations',    groupe: 'base',         label: 'Exonérations',           sublabel: 'Art. 15–20', icon: CheckCircle2 },
+  { id: 'taux',            groupe: 'base',         label: 'Taux & Base',            sublabel: 'Art. 27–35', icon: Percent },
+  { id: 'listes',          groupe: 'base',         label: 'Listes réglementaires',  sublabel: 'Positions tarifaires', icon: Search },
+  { id: 'derogatoires',    groupe: 'base',         label: 'Régimes dérogatoires',   sublabel: 'Suspensions sectorielles', icon: ShieldAlert },
+
+  { id: 'deductions',      groupe: 'liquidation',  label: 'Déductions',             sublabel: 'Art. 36–42', icon: Calculator },
+  { id: 'prorata',         groupe: 'liquidation',  label: 'Prorata',                sublabel: 'Art. 43–49', icon: BarChart },
+  { id: 'regularisations', groupe: 'liquidation',  label: 'Régularisations',        sublabel: 'Art. 50–52', icon: RefreshIcon },
+  { id: 'nette',           groupe: 'liquidation',  label: 'TVA Nette Due',          sublabel: 'Art. 60',    icon: Receipt },
+  { id: 'def',             groupe: 'liquidation',  label: 'Facture normalisée & DEF', sublabel: 'Décret 23/10/2023', icon: QrCode },
+
+  { id: 'declaration',     groupe: 'obligations',  label: 'Déclaration & Pénalités', sublabel: 'Art. 60–76', icon: AlertTriangle },
+  { id: 'remboursement',   groupe: 'obligations',  label: 'Remboursement',          sublabel: 'Art. 63–67', icon: CreditCard },
+  { id: 'comptabilite',    groupe: 'obligations',  label: 'Comptabilité & N° TVA',  sublabel: 'Art. 54, 57', icon: BookMarked },
 ]
 
 // icônes manquantes : on utilise des aliases
@@ -2047,14 +2891,22 @@ export default function SimulateurTVA() {
   const [onglet, setOnglet] = useState('champ')
   const actif = ONGLETS_TVA.find(o => o.id === onglet)!
   const currentIndex = ONGLETS_TVA.findIndex(o => o.id === onglet)
+  // Le groupe affiché dans la 2e barre suit l'onglet actif par défaut, mais reste
+  // pilotable seul (cliquer un groupe affiche ses onglets sans changer le contenu).
+  const [groupeAffiche, setGroupeAffiche] = useState<string>(actif.groupe)
 
   function goNext() {
     const next = ONGLETS_TVA[currentIndex + 1]
-    if (next) setOnglet(next.id)
+    if (next) { setOnglet(next.id); setGroupeAffiche(next.groupe) }
   }
   function goPrev() {
     const prev = ONGLETS_TVA[currentIndex - 1]
-    if (prev) setOnglet(prev.id)
+    if (prev) { setOnglet(prev.id); setGroupeAffiche(prev.groupe) }
+  }
+  function choisirOnglet(id: string) {
+    setOnglet(id)
+    const o = ONGLETS_TVA.find(x => x.id === id)
+    if (o) setGroupeAffiche(o.groupe)
   }
 
   return (
@@ -2065,7 +2917,7 @@ export default function SimulateurTVA() {
           <Percent className="h-4 w-4 text-rose-600 shrink-0" />
           <div>
             <p className="text-xs font-bold text-rose-700">Simulateur TVA : CGI 2023</p>
-            <p className="text-xs text-muted-foreground">Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à LF n° 22/071 du 28 décembre 2022</p>
+            <p className="text-xs text-muted-foreground">Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à LF n° 25/060 du 29 décembre 2025 (LF 2026)</p>
           </div>
         </div>
       </div>
@@ -2099,13 +2951,24 @@ export default function SimulateurTVA() {
         </button>
       </div>
 
-      {/* Onglets navigation : scrollable horizontal */}
+      {/* Niveau 1 : les 4 groupes */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+        {GROUPES_TVA.map(g => (
+          <button key={g.id} onClick={() => setGroupeAffiche(g.id)}
+            className={cn('rounded-lg border px-2 py-1.5 text-xs font-semibold text-center transition-colors duration-200',
+              groupeAffiche === g.id ? 'border-rose-300 bg-rose-100 text-rose-700' : 'border-border bg-card text-muted-foreground hover:bg-muted/30')}>
+            {g.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Niveau 2 : les onglets du groupe affiché, scrollable horizontal */}
       <div className="overflow-x-auto">
         <div className="flex gap-1 pb-1 min-w-max">
-          {ONGLETS_TVA.map((o, i) => {
+          {ONGLETS_TVA.filter(o => o.groupe === groupeAffiche).map(o => {
             const Icon = o.icon
             return (
-              <button key={o.id} onClick={() => setOnglet(o.id)}
+              <button key={o.id} onClick={() => choisirOnglet(o.id)}
                 className={cn('flex flex-col items-center gap-0.5 rounded-xl border px-3 py-2 transition-colors shrink-0 min-w-[80px]',
                   onglet === o.id ? 'border-rose-300 bg-rose-50 text-rose-700' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30')}>
                 <Icon className="h-3.5 w-3.5" />
@@ -2127,14 +2990,19 @@ export default function SimulateurTVA() {
       {/* Contenu */}
       {onglet === 'champ' && <OngletChampApplication />}
       {onglet === 'assujettis' && <OngletAssujettis />}
+      {onglet === 'exigibilite' && <OngletFaitGenerateurExigibilite />}
       {onglet === 'exonerations' && <OngletExonerations />}
       {onglet === 'taux' && <OngletTauxBase />}
+      {onglet === 'listes' && <OngletListesReglementaires />}
+      {onglet === 'derogatoires' && <OngletRegimesDerogatoires />}
       {onglet === 'deductions' && <OngletDeductions />}
       {onglet === 'nette' && <OngletTVANette />}
       {onglet === 'prorata' && <OngletProrata />}
       {onglet === 'regularisations' && <OngletRegularisations />}
+      {onglet === 'def' && <OngletFactureDEF />}
       {onglet === 'remboursement' && <OngletRemboursement />}
       {onglet === 'declaration' && <OngletDeclarationPenalites />}
+      {onglet === 'comptabilite' && <OngletComptabiliteNumeroTVA />}
     </div>
   )
 }
