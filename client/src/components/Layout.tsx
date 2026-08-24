@@ -3,8 +3,8 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import {
   BookOpen, LayoutDashboard, BookMarked, BarChart2, FileText,
   Users, MessageSquare, FolderOpen, LogOut,
-  Menu, GraduationCap, ClipboardList, ChevronRight, ChevronDown,
-  Calculator, Landmark, Wallet, TrendingUp, Home, BookCheck, X, Lock, Bug,
+  Menu, GraduationCap, ClipboardList, ChevronRight,
+  Calculator, Landmark, Wallet, TrendingUp, Home, X, Lock,
   Scale, Package
 } from 'lucide-react'
 import GlobalSearch from '@/components/GlobalSearch'
@@ -25,16 +25,6 @@ interface NavItem {
   label: string
   icon: React.ReactNode
   roles?: string[]
-}
-
-interface NavFolder {
-  id: string
-  label: string
-  icon: React.ReactNode
-  items: NavItem[]
-  color?: string
-  directPath?: string   // si défini, clic = navigation directe (pas d'accordéon)
-  directRoles?: string[] // restreindre l'affichage du lien direct
 }
 
 // Items hors dossiers (communs à tous)
@@ -65,9 +55,13 @@ const outilsPratiquesItems: NavItem[] = [
 // « Gestion des étudiants » n'a plus sa propre entrée : elle est déjà
 // accessible en un clic depuis « Espace pédagogique » (groupe Gestion,
 // bouton Étudiants) — deux entrées de sidebar pour une même zone.
+// « Prépa ONEC » retirée : public totalement distinct (aspirants experts-
+// comptables candidats au concours ONEC, hors plateforme étudiante), page
+// encore à l'état de maquette verrouillée (aucune UE construite) — n'a pas
+// sa place dans la navigation courante tant qu'elle n'existe pas vraiment.
+// Route et page conservées, seule l'entrée de sidebar est retirée.
 const staffItems: NavItem[] = [
   { path: '/professeurs', label: 'Espace pédagogique', icon: <Users className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
-  { path: '/prepa-onec', label: 'Prépa ONEC', icon: <BookCheck className="h-4 w-4" />, roles: ['admin', 'professeur', 'assistant'] },
   // Débogage isolation masqué volontairement
 ]
 
@@ -76,28 +70,12 @@ const middleItems: NavItem[] = []
 
 const bottomItems: NavItem[] = []
 
-// Dossiers accordéon
-const navFolders: NavFolder[] = [
-  {
-    id: 'comptabilite-generale',
-    label: 'Comptabilité Générale',
-    icon: <Calculator className="h-4 w-4" />,
-    directPath: '/comptabilite-generale',
-    items: [],
-  },
-  {
-    id: 'fiscalite',
-    label: 'Fiscalité',
-    icon: <FileText className="h-4 w-4" />,
-    items: [],
-  },
-  {
-    id: 'analyse-financiere',
-    label: 'Analyse Financière',
-    icon: <BarChart2 className="h-4 w-4" />,
-    items: [],
-  },
-]
+// Anciens dossiers accordéon (Comptabilité Générale / Fiscalité / Analyse
+// Financière) : supprimés. Les trois n'avaient plus aucun sous-item
+// (items: []) et le rendu qui les affichait était filtré sur
+// `f.items.length > 0` — ils ne s'affichaient donc plus du tout, dans aucun
+// cas. Code mort, jamais visible ; le contenu réel de chaque module vit
+// désormais dans « Outils pratiques » et les « Cours additionnels ».
 
 // Bottom nav items pour mobile (icônes principales)
 const mobileBottomNav = [
@@ -152,31 +130,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
   // Statuts pour étudiant
   const isStudent = isStudentRole(user)
   const { statuts: coursStatuts } = useCoursStatuts(isStudent ? user.id : undefined)
-
-  // Détermine quel dossier est actif selon la route courante
-  const activeFolderId = navFolders.find(f =>
-    f.items.some(i => location === i.path || (i.path !== '/' && location.startsWith(i.path)))
-  )?.id ?? null
-
-  // Dossiers ouverts : ouvre automatiquement le dossier actif au démarrage
-  const [openFolders, setOpenFolders] = useState<Set<string>>(() => {
-    const initial = new Set<string>()
-    const active = navFolders.find(f =>
-      f.items.some(i => location === i.path || (i.path !== '/' && location.startsWith(i.path)))
-    )
-    if (active) initial.add(active.id)
-    else initial.add('comptabilite-generale') // ouvert par défaut
-    return initial
-  })
-
-  const toggleFolder = (id: string) => {
-    setOpenFolders(prev => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }
 
   // Fermer sidebar quand on change de page
   useEffect(() => {
@@ -368,89 +321,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           })}
           </>
         })()}
-
-        {/* Anciens dossiers statiques (conservés si items non vides) */}
-        {navFolders.filter(f => f.items.length > 0).map(folder => {
-          const isOpen = openFolders.has(folder.id)
-          const isEmpty = folder.items.length === 0
-          const isDirect = !!folder.directPath
-          // Masquer si directRoles défini et user n'a pas le rôle
-          if (folder.directRoles && !folder.directRoles.includes(user.role)) return null
-          // Actif = on est sur le directPath OU sur un sous-item du dossier
-          const isDirectActive = isDirect && (location === folder.directPath || location.startsWith(folder.directPath!))
-          const subItemActive = folder.items.some(
-            i => location === i.path || (i.path !== '/' && location.startsWith(i.path))
-          )
-          const folderHasActive = isDirectActive || subItemActive
-
-          return (
-            <div key={folder.id}>
-              {/* Bouton dossier */}
-              <button
-                onClick={() => {
-                  if (isDirect) {
-                    // Navigation directe
-                    navigate(folder.directPath!)
-                    setSidebarOpen(false)
-                  } else if (!isEmpty) {
-                    toggleFolder(folder.id)
-                  }
-                }}
-                onMouseEnter={() => { if (isDirect) prefetchRoute(folder.directPath!) }}
-                onTouchStart={() => { if (isDirect) prefetchRoute(folder.directPath!) }}
-                className={cn(
-                  "w-full flex items-center gap-3 pl-3 pr-3 py-2 text-sm rounded-sm transition-colors text-left border-l-2",
-                  folderHasActive
-                    ? "bg-white/[0.06] border-primary text-white font-medium"
-                    : "border-transparent text-ink-soft hover:bg-white/[0.04] hover:text-white",
-                  isEmpty && !isDirect && "opacity-60 cursor-default"
-                )}
-              >
-                <span className="flex items-center justify-center w-5 h-5">
-                  {folder.icon}
-                </span>
-                <span className="flex-1">{folder.label}</span>
-                {/* Indicateur */}
-                {isDirect
-                  ? folderHasActive && <ChevronRight className="ml-auto h-3 w-3 text-primary" />
-                  : isEmpty
-                    ? <Badge variant="outline" className="text-xs px-1 py-0 ml-auto border-white/20 text-ink-faint">Bientôt</Badge>
-                    : isOpen
-                      ? <ChevronDown className="ml-auto h-3.5 w-3.5 opacity-70" />
-                      : <ChevronRight className="ml-auto h-3.5 w-3.5 opacity-70" />
-                }
-              </button>
-
-              {/* Sous-items (seulement pour les dossiers NON-directs) */}
-              {!isDirect && isOpen && !isEmpty && (
-                <div className="ml-3 border-l border-white/10 pl-1 mb-1">
-                  {folder.items
-                    .filter(item => !item.roles || item.roles.includes(user.role))
-                    .map(item => {
-                      const isActive = location === item.path || (item.path !== '/' && location.startsWith(item.path))
-                      return (
-                        <button
-                          key={item.path}
-                          onClick={() => { navigate(item.path); setSidebarOpen(false) }}
-                          className={cn(
-                            "w-full flex items-center gap-2.5 px-3 py-2 text-sm transition-colors text-left rounded-sm",
-                            isActive
-                              ? "bg-white/[0.06] text-white font-medium"
-                              : "text-ink-soft hover:bg-white/[0.04] hover:text-white"
-                          )}
-                        >
-                          {item.icon}
-                          <span>{item.label}</span>
-                          {isActive && <ChevronRight className="ml-auto h-3 w-3 text-primary" />}
-                        </button>
-                      )
-                  })}
-                </div>
-              )}
-            </div>
-          )
-        })}
-
 
       </nav>
 
