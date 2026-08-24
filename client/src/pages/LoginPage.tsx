@@ -169,15 +169,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           écran mobile étroit et haut — le "slice" ne conservait que la bande
           centrale du viewBox et coupait les deux coins où vivait le motif. */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        {/* Aplat doux, coin haut-droit */}
-        <div className="absolute -top-16 -right-16 h-64 w-64 sm:h-96 sm:w-96 rounded-full opacity-80"
+        {/* Aplats doux, en dérive très lente */}
+        <div className="absolute -top-16 -right-16 h-64 w-64 sm:h-96 sm:w-96 rounded-full opacity-80 animate-driftBlob motion-reduce:animate-none"
           style={{ background: 'radial-gradient(circle, #DCE8FC, #EAF1FC)' }} />
-        {/* Aplat doux, coin bas-gauche */}
-        <div className="absolute -bottom-16 -left-16 h-56 w-56 sm:h-80 sm:w-80 rounded-full opacity-80"
-          style={{ background: 'radial-gradient(circle, #DCE8FC, #EAF1FC)' }} />
+        <div className="absolute -bottom-16 -left-16 h-56 w-56 sm:h-80 sm:w-80 rounded-full opacity-80 animate-driftBlob motion-reduce:animate-none"
+          style={{ background: 'radial-gradient(circle, #DCE8FC, #EAF1FC)', animationDelay: '5s' }} />
 
-        {/* Arcs elliptiques, coin haut-droit */}
-        <svg className="absolute -top-6 -right-6 h-52 w-52 sm:h-72 sm:w-72" viewBox="0 0 300 300">
+        {/* Anneaux en rotation — les ellipses sont centrées dans leur viewBox,
+            la rotation CSS du <svg> pivote donc autour de leur propre centre.
+            Le point posé sur l'anneau extérieur décrit une orbite : d'où le nom
+            du produit. Mouvement volontairement très lent (60 et 90 s/tour),
+            et coupé net si l'utilisateur a demandé moins d'animations. */}
+        <svg className="absolute -top-28 -right-28 h-72 w-72 sm:h-[26rem] sm:w-[26rem] animate-orbitRotate motion-reduce:animate-none"
+          viewBox="0 0 300 300">
           <defs>
             <linearGradient id="orbitArcGrad1" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#1E4FAE" />
@@ -185,14 +189,14 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </linearGradient>
           </defs>
           <g stroke="url(#orbitArcGrad1)" fill="none">
-            <ellipse cx="220" cy="60" rx="130" ry="80" opacity=".55" strokeWidth="2" />
-            <ellipse cx="220" cy="60" rx="95" ry="58" opacity=".38" strokeWidth="1.6" />
+            <ellipse cx="150" cy="150" rx="130" ry="80" opacity=".5" strokeWidth="2" />
+            <ellipse cx="150" cy="150" rx="95" ry="58" opacity=".34" strokeWidth="1.6" />
           </g>
-          <circle cx="220" cy="60" r="5" fill="#1E4FAE" opacity=".6" />
+          <circle cx="280" cy="150" r="5" fill="#1E4FAE" opacity=".55" />
         </svg>
 
-        {/* Arcs elliptiques, coin bas-gauche */}
-        <svg className="absolute -bottom-6 -left-6 h-44 w-44 sm:h-64 sm:w-64" viewBox="0 0 300 300">
+        <svg className="absolute -bottom-24 -left-24 h-64 w-64 sm:h-80 sm:w-80 animate-orbitRotateReverse motion-reduce:animate-none"
+          viewBox="0 0 300 300">
           <defs>
             <linearGradient id="orbitArcGrad2" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#1E4FAE" />
@@ -200,9 +204,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </linearGradient>
           </defs>
           <g stroke="url(#orbitArcGrad2)" fill="none">
-            <ellipse cx="80" cy="240" rx="110" ry="68" opacity=".45" strokeWidth="1.8" />
+            <ellipse cx="150" cy="150" rx="110" ry="68" opacity=".4" strokeWidth="1.8" />
           </g>
-          <circle cx="80" cy="240" r="4" fill="#1E4FAE" opacity=".5" />
+          <circle cx="260" cy="150" r="4" fill="#1E4FAE" opacity=".45" />
         </svg>
       </div>
 

@@ -101,6 +101,20 @@ export default {
           "0%, 100%": { transform: "translateY(0) scale(1)", opacity: "0.15" },
           "50%": { transform: "translateY(-18px) scale(1.08)", opacity: "0.28" },
         },
+        // Rotation d'orbite : les anneaux de la page de connexion tournent
+        // lentement sur eux-mêmes. Les ellipses sont centrées dans leur propre
+        // viewBox, donc une rotation CSS du <svg> pivote bien autour de leur
+        // centre, sans transform-origin à ajuster.
+        orbitRotate: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        // Dérive très lente des aplats de fond, pour que le fond respire sans
+        // jamais attirer l'œil au détriment du formulaire.
+        driftBlob: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(-16px, 14px) scale(1.06)" },
+        },
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
@@ -158,6 +172,9 @@ export default {
         float: "float 5s ease-in-out infinite",
         pulseGlow: "pulseGlow 4s ease-in-out infinite",
         heroOrb: "heroOrb 6s ease-in-out infinite",
+        orbitRotate: "orbitRotate 60s linear infinite",
+        orbitRotateReverse: "orbitRotate 90s linear infinite reverse",
+        driftBlob: "driftBlob 16s ease-in-out infinite",
         shimmer: "shimmer 2.5s linear infinite",
         slideLeft: "slideLeft 0.55s cubic-bezier(0.16,1,0.3,1) both",
         bounceIn: "bounceIn 0.6s cubic-bezier(0.16,1,0.3,1) both",

@@ -3,7 +3,7 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import {
   BookOpen, BookMarked, ClipboardList, Clock, Users, GraduationCap,
 } from 'lucide-react'
-import { useAllCours, useFacultes, useUniversites, useAllSoumissions } from '@/lib/useFirestore'
+import { useAllCours, useFacultes, useUniversites, useAllSoumissions, useDevoirs } from '@/lib/useFirestore'
 import { getUsersAsync } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
@@ -41,6 +41,7 @@ export default function DashboardStaff() {
   const { facultes: allFacultes } = useFacultes()
   const { universites: allUniversites } = useUniversites()
   const { soumissions: toutesLesSoumissions } = useAllSoumissions()
+  const { devoirs: mesDevoirs } = useDevoirs(user?.id)
   const [users, setUsers] = React.useState<any[]>([])
 
   React.useEffect(() => {
@@ -58,7 +59,15 @@ export default function DashboardStaff() {
   })
   const nbEtudiants   = mesEtudiants.filter(u => u.actif && (u as any).statutInscription !== 'en_attente').length
   const nbEnAttente   = mesEtudiants.filter(u => (u as any).statutInscription === 'en_attente').length
-  const nbNonCorriges = toutesLesSoumissions.filter(s => s.statut === 'soumis').length
+  // Copies en attente sur MES devoirs uniquement. Le filtre portait auparavant
+  // sur toutes les soumissions de la plateforme, sans distinction d'auteur :
+  // le bandeau annonçait donc des copies à corriger appartenant aux devoirs
+  // d'autres membres du staff, que l'utilisateur ne voit ni ne peut corriger
+  // (l'onglet « Copies à corriger » est, lui, filtré sur ses propres devoirs).
+  // Même portée que « En attente », déjà restreint via mesEtudiants/createdBy.
+  const nbNonCorriges = toutesLesSoumissions.filter(
+    s => s.statut === 'soumis' && mesDevoirs.some(d => d.id === s.devoirId)
+  ).length
 
   const stats: DashboardStat[] = [
     { label: 'Étudiants actifs', value: nbEtudiants,   icon: Users,         color: 'text-green-300', onClick: () => navigate('/gestion-etudiants') },
