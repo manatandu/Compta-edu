@@ -1008,7 +1008,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue6_gestion_financiere',
     ue: 'UE 6',
-    nom: 'UE 6 — Gestion financière',
+    nom: 'UE 6 — Analyse financière',
     description: 'Analyse financière, ratios, VAN, TIR, emprunts',
     moduleKey: 'analyse-financiere',
     icon: 'BarChart2',
