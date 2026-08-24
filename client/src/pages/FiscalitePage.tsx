@@ -348,13 +348,42 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 // ─────────────────────────────────────────────────────────────────────────────
 // CAT. 1 : Revenus salariaux (IPR) : NATIONAL + EXPATRIÉ
 // ─────────────────────────────────────────────────────────────────────────────
+// Art. 69, 8° : les indemnités et avantages du compte 663 ne sont exonérés que sous condition,
+// ligne par ligne — ce n'est jamais la catégorie 663 dans son ensemble qui est immunisée :
+//   a) logement (6631) : exonéré dans la limite de 30% de la rémunération (661/662) ; l'excédent
+//      est imposable (il « remonte » conceptuellement en 661/662, donc traité ici comme imposable) ;
+//   b) transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné
+//      au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) —
+//      ce plafond en FC dépend d'un tarif local que le simulateur ne connaît pas : exonéré par
+//      défaut, avec un avertissement explicite plutôt qu'un faux calcul du plafond ;
+//   c) tout le reste (6632 représentation, 6633 expatriation, 6638 autres, ou un code non reconnu) :
+//      non listé à l'art. 69 → imposable, ajouté à l'assiette au même titre que le 661/662.
+function qualifier663(lignes: LigneSaisie[], remuneration: number): { exempte: number; imposable: number } {
+  let exempte = 0
+  let imposable = 0
+  for (const l of lignes) {
+    const montant = parseFloat(l.montant) || 0
+    if (l.code === '6631') {
+      const plafond = remuneration * 0.30
+      const exo = Math.min(montant, plafond)
+      exempte += exo
+      imposable += montant - exo
+    } else if (l.code === '6634') {
+      exempte += montant
+    } else {
+      imposable += montant
+    }
+  }
+  return { exempte, imposable }
+}
+
 function Cat1Salaires() {
   type Mode = 'national' | 'expatrie'
   const [mode, setMode] = useState<Mode>('national')
 
   // Nationaux
   const [e661, setE661] = useState<LigneSaisie[]>([{ code: '6611', label: 'Appointements et salaires', montant: '' }])
-  const [e663, setE663] = useState<LigneSaisie[]>([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
+  const [e663, setE663] = useState<LigneSaisie[]>([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
   const [nbCharge, setNbCharge] = useState(0)
   const [effectif, setEffectif] = useState('')
   const [syndicat, setSyndicat] = useState('')       // optionnel
@@ -362,7 +391,7 @@ function Cat1Salaires() {
 
   // Expatriés
   const [e662, setE662] = useState<LigneSaisie[]>([{ code: '6621', label: 'Salaires et appointements (expatriés)', montant: '' }])
-  const [e663Exp, setE663Exp] = useState<LigneSaisie[]>([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
+  const [e663Exp, setE663Exp] = useState<LigneSaisie[]>([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
   const [nbChargeExp, setNbChargeExp] = useState(0)
   const [effectifExp, setEffectifExp] = useState('')
   const [secteurMinier, setSecteurMinier] = useState(false)
@@ -388,8 +417,19 @@ function Cat1Salaires() {
     if (mode === 'national') {
       const brut661 = e661.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const brut663 = e663.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
-      const qpo = brut661 * 0.05      // Quote-part ouvrière CNSS 5%
-      const baseImposable = brut661 - qpo  // Revenu net imposable
+      // Art. 69, 8° : le 663 n'est pas exonéré en bloc — chaque ligne est qualifiée séparément
+      // (logement plafonné à 30% de la rémunération, transport sous condition, le reste imposable).
+      const { exempte: exempte663, imposable: imposable663 } = qualifier663(e663, brut661)
+      // Assiette CNSS (loi 16/009 du 15/07/2016, Art. 13) : « l'ensemble de la rémunération » au
+      // sens de l'Art. 7, litera h, du Code du travail — qui exclut nommément l'indemnité de
+      // logement, l'indemnité de transport et les frais de voyage. La part imposable du 663
+      // (représentation, expatriation, autres — jamais logement/transport, déjà exclus par
+      // construction de qualifier663) entre donc dans l'assiette CNSS au même titre que le 661.
+      const qpo = (brut661 + imposable663) * 0.05      // Quote-part ouvrière CNSS 5%
+      // Revenu net imposable = 661 (moins QPO) + la part du 663 non couverte par une immunité.
+      const baseImposableAvantArrondi = brut661 - qpo + imposable663
+      // Art. 118 : le revenu net global s'arrondit au millier de FC INFÉRIEUR avant le barème.
+      const baseImposable = Math.floor(baseImposableAvantArrondi / 1000) * 1000
 
       const { lignes, iprBrut, iprMax } = calculerBareme(baseImposable)
       const charge = Math.min(Math.max(0, nbCharge), 9)
@@ -403,16 +443,19 @@ function Cat1Salaires() {
       // barème → réduction → plafond, Art. 118 + 123-125)
       const reduction = impotHorsDerniereTranche * (charge * 0.02)
       const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
-      // IPR net : aucun plancher légal en Loi 23/053 (l'ancien plancher de 2 000 FC relevait du
-      // régime IPR abrogé) — l'impôt net est le résultat du calcul, y compris s'il est nul.
-      const iprNet = iprFinal
+      // Art. 150 : le montant de l'impôt s'arrondit à la centaine de FC la plus proche — cette
+      // règle vise nommément l'IRPP, pas seulement l'IS (d'où la réutilisation d'arrondiIS).
+      // Aucun plancher légal en Loi 23/053 (l'ancien plancher de 2 000 FC relevait du régime IPR
+      // abrogé) : l'impôt net est le résultat arrondi du calcul, y compris s'il est nul.
+      const iprNet = arrondiIS(iprFinal)
 
       const syndicatVal = parseFloat(syndicat) || 0
       const avancesVal  = parseFloat(avances)  || 0
 
       const nbEff = parseInt(effectif) || 0
       const inppTaux = nbEff > 300 ? 0.02 : nbEff >= 51 ? 0.03 : 0.035
-      const cnssPatron = brut661 * 0.13
+      // CNSS patronale : même assiette que la QPO (loi 16/009, Art. 13) — voir ci-dessus.
+      const cnssPatron = (brut661 + imposable663) * 0.13
       const inpp = brut661 * inppTaux
       const onem = brut661 * 0.005
 
@@ -422,7 +465,7 @@ function Cat1Salaires() {
       setRes({
         mode: 'national',
         brut661, brut663, brutTotal: brut661 + brut663,
-        qpo, baseImposable, lignes, iprBrut, iprMax, plafonne,
+        qpo, exempte663, imposable663, baseImposable, lignes, iprBrut, iprMax, plafonne,
         reduction, charge, reductionPlafonnee, iprNet,
         syndicatVal, avancesVal,
         cnssPatron, inpp, inppTaux, onem,
@@ -435,11 +478,18 @@ function Cat1Salaires() {
       // EXPATRIÉS : Art. 118 : même barème progressif que nationaux
       const brut662 = e662.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const brut663e = e663Exp.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
+      // Art. 69, 8° : même qualification ligne par ligne que pour les nationaux — voir le
+      // commentaire de qualifier663() ci-dessus.
+      const { exempte: exempte663E, imposable: imposable663E } = qualifier663(e663Exp, brut662)
 
       // IRPP expatrié sur même barème (Art. 118 + Art. 119 Loi 23/053)
       // Art. 71 : QPO s'applique aussi aux expatriés (sauf convention bilatérale)
-      const qpoE = brut662 * 0.05
-      const baseImposableE = brut662 - qpoE
+      // Assiette CNSS (loi 16/009, Art. 13) : voir le commentaire équivalent pour les nationaux —
+      // la part imposable du 663 entre dans l'assiette CNSS au même titre que le 662.
+      const qpoE = (brut662 + imposable663E) * 0.05
+      const baseImposableEAvantArrondi = brut662 - qpoE + imposable663E
+      // Art. 118 : arrondi au millier de FC inférieur avant le barème.
+      const baseImposableE = Math.floor(baseImposableEAvantArrondi / 1000) * 1000
       const { lignes, iprBrut, iprMax: iprMaxE } = calculerBareme(baseImposableE)
       const chargeE = Math.min(Math.max(0, nbChargeExp), 9)
       // Art. 125 : seule la portion d'IRPP correspondant à la 4ème tranche (40%) est exclue de
@@ -449,21 +499,25 @@ function Cat1Salaires() {
       // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement
       const reductionE = impotHorsDerniereTrancheE * (chargeE * 0.02)
       const { plafonne, iprFinal: iprFinalE } = appliquerReductionEtPlafond(iprBrut, iprMaxE, reductionE)
-      // IPR net expatrié : aucun plancher légal en Loi 23/053 (voir national ci-dessus)
-      const iprNetExp = iprFinalE
+      // Art. 150 : arrondi à la centaine de FC la plus proche (voir national ci-dessus). Aucun
+      // plancher légal en Loi 23/053 (voir national ci-dessus).
+      const iprNetExp = arrondiIS(iprFinalE)
 
       const syndicatValE = parseFloat(syndicatExp) || 0
       const avancesValE  = parseFloat(avancesExp)  || 0
 
-      // IERE : Art. 148 Loi n°23/053 du 30/11/2023 : taux unique 25% du brut 662
+      // IERE : Art. 148 Loi n°23/053 du 30/11/2023 : taux unique 25% du brut des rémunérations
+      // de l'Art. 68 (Art. 146), les immunités de l'Art. 69 s'y appliquant également (Art. 147) —
+      // donc la même base que l'IRPP : 662 + la part du 663 non couverte par une immunité.
       // (l'Ord.-Loi n°69/007 du 10/02/1969 et son taux réduit minier sont abrogés : Art. 152 Loi 23/053)
       const tauxIere = 0.25
-      const iere = brut662 * tauxIere
+      const iere = (brut662 + imposable663E) * tauxIere
 
       // Charges patronales habituelles sur expatriés
       const nbEffE = parseInt(effectifExp) || 0
       const inppTauxE = nbEffE > 300 ? 0.02 : nbEffE >= 51 ? 0.03 : 0.035
-      const cnssPatronE = brut662 * 0.13
+      // CNSS patronale : même assiette que la QPO (loi 16/009, Art. 13) — voir ci-dessus.
+      const cnssPatronE = (brut662 + imposable663E) * 0.13
       const inppE = brut662 * inppTauxE
       const onemE = brut662 * 0.005
 
@@ -473,7 +527,7 @@ function Cat1Salaires() {
       setRes({
         mode: 'expatrie',
         brut662, brut663e, brutTotal: brut662 + brut663e,
-        qpoE, baseImposableE, lignes, iprBrut, iprMax: iprMaxE, plafonne,
+        qpoE, exempte663E, imposable663E, baseImposableE, lignes, iprBrut, iprMax: iprMaxE, plafonne,
         chargeE, reductionE, reductionPlafonneeE, iprNetExp,
         syndicatValE, avancesValE,
         tauxIere, iere, secteurMinier,
@@ -490,8 +544,8 @@ function Cat1Salaires() {
     setRes(null)
     setE661([{ code: '6611', label: 'Appointements et salaires', montant: '' }])
     setE662([{ code: '6621', label: 'Salaires et appointements (expatriés)', montant: '' }])
-    setE663([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
-    setE663Exp([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
+    setE663([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
+    setE663Exp([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
     setNbCharge(0); setEffectif(''); setNbChargeExp(0); setEffectifExp(''); setSecteurMinier(false)
   }
 
@@ -554,7 +608,7 @@ function Cat1Salaires() {
           />
 
           <SectionSaisieModal
-            titre="Non imposables : Indemnités légales (663)"
+            titre="Sous conditions : Indemnités et avantages (663)"
             couleur="slate"
             rows={e663}
             catalogue={ELEMENTS_663}
@@ -564,8 +618,8 @@ function Cat1Salaires() {
             onUpdate={(i, f, v) => updateRow(setE663, i, f, v)}
             note=""
             tooltip={{
-              texte: "Compte 663 : indemnités forfaitaires légales (logement, transport, représentation, expatriation...). Ces éléments ne sont PAS soumis à l'IRPP. Ils sont ajoutés directement au net à payer.=",
-              loi: "Compte 663 SYSCOHADA : non imposable="
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc — chaque ligne est qualifiée séparément (Art. 69, 8°). Logement (6631) : exonéré dans la limite de 30% de la rémunération (661), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) — ce plafond en FC n'est pas vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables, ajoutés à l'assiette au même titre que le 661.",
+              loi: "Art. 69, 8°, Loi 23/053"
             }}
           />
 
@@ -574,7 +628,7 @@ function Cat1Salaires() {
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Personnes à charge (max 9)
                 <InfoTooltip
-                  texte="Art. 123 Loi 23/053 : chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut calculé. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond de 9 personnes maximum. ⚠ Réduction totalement inapplicable si le revenu net imposable mensuel dépasse 3 600 000 FC/mois (4e tranche du barème progressif, Art. 118)."
+                  texte="Art. 123 Loi 23/053 : chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut calculé. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond de 9 personnes maximum. ⚠ Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu net imposable qui excède 3 600 000 FC/mois (4e tranche du barème progressif, Art. 118) — seule cette portion est exclue, pas la réduction en bloc."
                   loi="Art. 123 à 125 : Loi 23/053"
                 />
               </label>
@@ -667,7 +721,7 @@ function Cat1Salaires() {
           />
 
           <SectionSaisieModal
-            titre="Non imposables : Indemnités légales (663)"
+            titre="Sous conditions : Indemnités et avantages (663)"
             couleur="slate"
             rows={e663Exp}
             catalogue={ELEMENTS_663}
@@ -675,10 +729,10 @@ function Cat1Salaires() {
             onAddFromCatalogue={e => addFromCatalogue(setE663Exp, e)}
             onRemove={i => removeRow(setE663Exp, i)}
             onUpdate={(i, f, v) => updateRow(setE663Exp, i, f, v)}
-            note="Ces éléments ne sont pas soumis à l'IRPP ni à l'IERE."
+            note=""
             tooltip={{
-              texte: "Compte 663 : indemnités forfaitaires légales. Ces éléments ne sont soumis ni à l'IRPP ni à l'IERE. Ils viennent s'ajouter au net à payer à l'expatrié.",
-              loi: "Compte 663 SYSCOHADA : non imposable="
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc, ni pour l'IRPP ni pour l'IERE — les immunités de l'Art. 69 s'appliquent identiquement aux deux (Art. 147). Logement (6631) : exonéré dans la limite de 30% de la rémunération (662), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses) — plafond en FC non vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables.",
+              loi: "Art. 69, 8° et Art. 147, Loi 23/053"
             }}
           />
 
@@ -775,10 +829,20 @@ function Cat1Salaires() {
               <EtapeResultat numero={2} titre="Base imposable nette=">
                 <LigneR signe="+" label="Revenus imposables bruts=" val={formatFC(res.brut661)} />
                 <LigneR signe="−" label="QPO : Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpo)} neg note="Art. 71"
-                  tooltip={{ texte: "La QPO (Quote-Part Ouvrière) est la cotisation obligatoire retenue sur le salaire du travailleur au titre de la sécurité sociale (CNSS). Elle représente 5% du salaire brut imposable (661) et est déduite avant le calcul de l'IRPP.", loi: "Art. 71 : Loi IRPP 23/053" }}
+                  tooltip={{ texte: "La QPO (Quote-Part Ouvrière) est la cotisation obligatoire retenue sur le salaire du travailleur au titre de la sécurité sociale (CNSS). Elle représente 5% de l'assiette CNSS — l'ensemble de la rémunération au sens du Code du travail (Loi 16/009 du 15/07/2016, Art. 13), qui EXCLUT nommément le logement et le transport (Art. 7.8 CT) : donc le 661 plus la part du 663 imposable (représentation, expatriation, autres). Déduite avant le calcul de l'IRPP.", loi: "Art. 71, Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016" }}
                 />
+                {res.imposable663 > 0 && (
+                  <LigneR signe="+" label="Part imposable du 663 (non couverte par une immunité)" val={formatFC(res.imposable663)}
+                    tooltip={{ texte: "Art. 69, 8° : seuls le logement (dans la limite de 30% de la rémunération) et le transport (sous condition, plafonné) peuvent être immunisés. Le reste (représentation, expatriation, autres, ou l'excédent du logement) est imposable au même titre que le 661.", loi: "Art. 69, 8°, Loi 23/053" }}
+                  />
+                )}
+                {res.exempte663 > 0 && (
+                  <LigneR label="dont 663 exonéré (hors assiette)" val={formatFC(res.exempte663)}
+                    tooltip={{ texte: "Part du 663 couverte par une immunité de l'Art. 69, 8° : logement dans la limite de 30% de la rémunération, transport sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local.", loi: "Art. 69, 8°, Loi 23/053" }}
+                  />
+                )}
                 <Separateur />
-                <LigneR signe="=" label="Revenu net imposable=" val={formatFC(res.baseImposable)} bold accent />
+                <LigneR signe="=" label="Revenu net imposable (arrondi au millier inférieur, Art. 118)=" val={formatFC(res.baseImposable)} bold accent />
 
               </EtapeResultat>
 
@@ -847,7 +911,7 @@ function Cat1Salaires() {
 
               <EtapeResultat numero={5} titre="Charges sociales patronales (employeur)">
                 <LigneR signe="+" label={`CNSS patronal (13%)`} val={formatFC(res.cnssPatron)}
-                  tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% calculée sur la rémunération imposable brute (661). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
+                  tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% (6,5% prestations aux familles + 5% pensions + 1,5% risques professionnels) calculée sur l'assiette CNSS — le 661 plus la part imposable du 663 (Loi 16/009 du 15/07/2016, Art. 13, qui exclut nommément logement et transport). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
                 <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inpp)}
                   tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%. Elle finance la formation professionnelle.=", loi: "INPP : charge patronale=" }}
@@ -890,10 +954,20 @@ function Cat1Salaires() {
               <EtapeResultat numero={2} titre="Base imposable nette=">
                 <LigneR signe="+" label="Revenus imposables bruts (662)" val={formatFC(res.brut662)} />
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpoE)} neg note="Art. 71"
-                  tooltip={{ texte: "La QPO s'applique également aux travailleurs expatriés, sauf convention bilatérale de sécurité sociale entre le pays d'origine et la RDC. Elle représente 5% du brut imposable (662).", loi: "Art. 71 : Loi IRPP 23/053" }}
+                  tooltip={{ texte: "La QPO s'applique également aux travailleurs expatriés, sauf convention bilatérale de sécurité sociale entre le pays d'origine et la RDC. Elle représente 5% de l'assiette CNSS (Loi 16/009 du 15/07/2016, Art. 13) : le 662 plus la part du 663 imposable.", loi: "Art. 71, Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016" }}
                 />
+                {res.imposable663E > 0 && (
+                  <LigneR signe="+" label="Part imposable du 663 (non couverte par une immunité)" val={formatFC(res.imposable663E)}
+                    tooltip={{ texte: "Art. 69, 8° (applicable à l'IRPP comme à l'IERE via l'Art. 147) : seuls le logement (dans la limite de 30% de la rémunération) et le transport (sous condition, plafonné) peuvent être immunisés. Le reste est imposable au même titre que le 662.", loi: "Art. 69, 8° et Art. 147, Loi 23/053" }}
+                  />
+                )}
+                {res.exempte663E > 0 && (
+                  <LigneR label="dont 663 exonéré (hors assiette)" val={formatFC(res.exempte663E)}
+                    tooltip={{ texte: "Part du 663 couverte par une immunité de l'Art. 69, 8°.", loi: "Art. 69, 8°, Loi 23/053" }}
+                  />
+                )}
                 <Separateur />
-                <LigneR signe="=" label="Revenu net imposable=" val={formatFC(res.baseImposableE)} bold accent />
+                <LigneR signe="=" label="Revenu net imposable (arrondi au millier inférieur, Art. 118)=" val={formatFC(res.baseImposableE)} bold accent />
 
               </EtapeResultat>
 
@@ -941,7 +1015,10 @@ function Cat1Salaires() {
               <EtapeResultat numero={4} titre="IERE : Charge patronale (Art. 148 Loi 23/053)">
                 <div className="rounded-lg bg-red-50 border border-red-200 p-3 space-y-1">
                   <p className="text-xs font-semibold text-red-700 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
-                  <LigneR signe="+" label="Base imposable (brut 662)" val={formatFC(res.brut662)} />
+                  <LigneR signe="+" label="Rémunérations brutes (662)" val={formatFC(res.brut662)} />
+                  {res.imposable663E > 0 && (
+                    <LigneR signe="+" label="Part imposable du 663 (Art. 147 : mêmes immunités qu'à l'IRPP)" val={formatFC(res.imposable663E)} />
+                  )}
                   <LigneR signe="×" label={`Taux IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
                   <Separateur />
                   <LigneR signe="=" label="IERE dû par l'employeur" val={formatFC(res.iere)} bold />
