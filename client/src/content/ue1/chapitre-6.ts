@@ -1,35 +1,71 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useGoBack } from '@/lib/navContext'
-import { Breadcrumb } from '@/components/Breadcrumb'
-import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { useUser } from '@/lib/userContext'
-import { isStudentRole } from '@/lib/permissions'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
-import { QCMChapitre } from '@/lib/db'
-import { InfoTooltip } from '@/components/InfoTooltip'
+// Chapitre 6 du module UE1, Droit du travail : contenu pur.
+// La mise en forme appartient au moteur components/chapitre/ChapitreManuscrit.tsx.
+import type { Chapitre } from '@/lib/chapitre-types'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// IDENTITÉ VISUELLE — reprise à l'identique des chapitres 1-5.
-// ─────────────────────────────────────────────────────────────────────────────
-const ENCRE = 'text-[#262019]'
-const ENCRE_DOUX = 'text-[#6B6047]'
-const ENCRE_FAIBLE = 'text-[#948868]'
-const PAPIER = 'bg-[#EDE6D3]'
-const PAPIER_CARD = 'bg-[#F8F4E8]'
-const LIGNE = 'border-[#D9CFA9]'
-const LIGNE_FORTE = 'border-[#C6B788]'
-const VERT = 'text-[#1E4A3D]'
-const VERT_BG = 'bg-[#1E4A3D]'
-const VERT_BORDER = 'border-[#1E4A3D]'
-const VERT_SOFT = 'bg-[#1E4A3D]/8'
-const AMBRE = 'text-[#8A6416]'
-const LETTRINE = "first-letter:font-serif first-letter:font-bold first-letter:text-5xl first-letter:float-left first-letter:leading-[0.8] first-letter:pr-2 first-letter:pt-1 first-letter:text-[#1E4A3D]"
+const SECTIONS: Chapitre['sections'] = [
+  {
+    numero: '6.1',
+    titre: 'La durée du travail et le repos hebdomadaire',
+    navLabel: '6.1 Durée du travail et repos hebdomadaire',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le Titre VI regroupe l\'ensemble des conditions générales de travail, en commençant par sa durée. L\'article 119, modifié en 2016, fixe la durée légale à quarante-cinq heures par semaine et huit heures par jour, dans tous les établissements publics ou privés, même d\'enseignement ou de bienfaisance, quelle que soit la forme du travail exécuté. Cette durée se calcule à partir du moment où le travailleur se tient sur les lieux de travail à la disposition de l\'employeur, et ne comprend pas le temps de trajet, sauf s\'il est inhérent au travail lui-même. Toute heure effectuée au-delà de cette durée légale est une heure supplémentaire, qui donne droit à une majoration de salaire, dans les modalités que des arrêtés ministériels précisent par branche d\'activité et par catégorie professionnelle (article 120).' },
+      { type: 'paragraphe', texte: 'Le repos hebdomadaire, organisé au chapitre suivant du même titre, garantit à tout travailleur un minimum de vingt-quatre heures de repos au cours de chaque période de sept jours, accordé autant que possible collectivement et ayant lieu le dimanche, sauf conditions particulières plus favorables prévues par convention collective (article 121). Deux régimes d\'affichage se distinguent à l\'article 122 : lorsque le repos est donné collectivement, l\'employeur affiche à l\'avance les jours et heures de repos collectif ; lorsqu\'il ne l\'est pas, il affiche les noms des travailleurs soumis au régime particulier et l\'indication de ce régime. La liste des jours fériés légaux, quant à elle, est fixée par décret présidentiel, sur proposition du Ministre du Travail, après avis du Conseil National du Travail (article 123).' },
+    ],
+  },
+  {
+    numero: '6.2',
+    titre: 'Le travail de nuit et la protection des enfants et des personnes avec handicap',
+    navLabel: '6.2 Travail de nuit et protection des enfants',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 124 définit le travail de nuit, pour l\'ensemble des travailleurs, comme celui exécuté entre 19 heures et 5 heures, et impose son paiement avec majoration, sans préjudice des dispositions relatives aux heures supplémentaires : les deux majorations, celle du travail de nuit et celle des heures supplémentaires, se cumulent lorsque les deux conditions sont réunies. Une plage horaire distincte, plus large, protège spécifiquement les enfants et les personnes avec handicap : l\'article 125 leur interdit tout travail nocturne dans les établissements industriels, la « nuit » étant ici définie de 18 heures à 6 heures. Cette différence de plage horaire entre les deux articles, souvent source de confusion, illustre la fonction propre de chacun : l\'article 124 organise une compensation salariale générale, l\'article 125 une interdiction protectrice ciblée.' },
+      { type: 'filet', titre: 'Un repos journalier renforcé', texte: 'L\'article 126 impose, entre deux périodes de travail des enfants et des personnes avec handicap, un repos journalier d\'au moins douze heures consécutives. Des dérogations à ces deux protections restent possibles, pour circonstances exceptionnelles, caractère particulier de la profession ou besoins de l\'apprentissage, mais ne s\'appliquent jamais aux entreprises où sont seuls employés les membres d\'une même famille (article 127).' },
+      { type: 'paragraphe', texte: 'L\'âge minimal d\'emploi, fixé par l\'article 133, complète ce dispositif protecteur : un enfant ne peut être employé dans une entreprise, même comme apprenti, avant quinze ans, sauf dérogation expresse conjointe de l\'Inspecteur du Travail et de l\'autorité parentale ou tutélaire, cette dérogation ne pouvant jamais être accordée en dessous de cet âge plancher. Les articles 134 à 137 organisent, quant à eux, la non-discrimination par le handicap : celui-ci ne peut constituer un empêchement à l\'exercice d\'un emploi correspondant aux aptitudes de la personne, qui bénéficie du droit à la formation professionnelle dans les mêmes conditions que les autres travailleurs, sous le seul contrôle médical que l\'Inspecteur du Travail peut requérir pour vérifier que le travail confié n\'excède pas les forces du travailleur concerné.' },
+    ],
+  },
+  {
+    numero: '6.3',
+    titre: 'La protection de la maternité',
+    navLabel: '6.3 La protection de la maternité',
+    blocs: [
+      { type: 'paragraphe', texte: 'La protection de la maternité s\'ouvre dès le stade de l\'embauche : l\'article 128 interdit d\'exiger d\'une candidate qu\'elle se soumette à un test de grossesse ou présente un certificat de grossesse, sauf pour les travaux interdits totalement ou partiellement aux femmes enceintes ou qui allaitent, ou comportant un risque reconnu pour la santé de la mère et de l\'enfant. Pimant souligne, à propos de cette interdiction, qu\'elle traduit un principe plus général : la maternité ne peut, en droit congolais, constituer une source de discrimination en matière d\'emploi, un principe qui irrigue l\'ensemble des dispositions suivantes.' },
+      { type: 'paragraphe', texte: 'Lorsque l\'état de grossesse entraîne des risques pour la santé, dûment constatés par le médecin, l\'article 129 ouvre à la travailleuse un droit de suspendre son contrat conformément au régime général de la suspension déjà étudié au chapitre 3, sans que cette interruption puisse jamais être considérée comme une cause de résiliation du contrat ; elle peut même, dans les mêmes conditions, résilier elle-même son contrat sans préavis ni indemnité de rupture. À l\'occasion de l\'accouchement, l\'article 130 accorde un congé de quatorze semaines consécutives, dont huit semaines au maximum après la délivrance et six avant l\'accouchement, rémunéré aux deux tiers avec maintien des avantages en nature, l\'employeur ne pouvant rompre le contrat durant cette période. Ce bénéfice est acquis à toute femme salariée, mariée ou non, que l\'enfant vive ou non (article 130, dernier alinéa), et toute convention contraire à ces deux articles est nulle de plein droit (article 131).' },
+      { type: 'carte', titre: 'Une réforme annoncée, mais non encore adoptée', texte: 'Une proposition de loi discutée à l\'Assemblée nationale envisage de porter la rémunération du congé de maternité des deux tiers à l\'intégralité du salaire. Tant que ce texte n\'est pas promulgué, il ne constitue qu\'une actualité législative à suivre, non le droit positif applicable : le taux des deux tiers de l\'article 130 reste, à ce jour, la règle en vigueur, et aucune réponse d\'examen ne saurait présumer son adoption future.' },
+      { type: 'paragraphe', texte: 'Enfin, l\'article 132 accorde à la femme qui allaite, dans tous les cas, deux repos d\'une demi-heure par jour, rémunérés comme temps de travail, une protection immédiate et concrète qui referme ce dispositif d\'ensemble, de l\'embauche jusqu\'au retour effectif de la travailleuse à son poste après la naissance de l\'enfant.' },
+    ],
+  },
+  {
+    numero: '6.4',
+    titre: 'Logement, ration alimentaire et congés annuels',
+    navLabel: '6.4 Logement, ration et congés annuels',
+    blocs: [
+      { type: 'paragraphe', texte: 'En cas de mutation ou d\'engagement en dehors du lieu d\'emploi, l\'article 138 impose à l\'employeur de fournir un logement décent au travailleur et à sa famille, ou, à défaut, une indemnité conséquente ; dans les autres cas, une indemnité de logement reste due, fixée par le contrat, la convention collective ou le règlement d\'entreprise, la travailleuse y ayant droit au même titre. Lorsque le travailleur ne peut, par ses propres moyens, assurer un ravitaillement régulier en denrées de première nécessité, l\'employeur doit également le lui garantir, les modalités précises de ces deux obligations étant renvoyées à un arrêté ministériel (article 139).' },
+      { type: 'paragraphe', texte: 'Le droit au congé annuel, que l\'article 140 interdit au travailleur de renoncer à exercer, naît à l\'expiration d\'une année de services comptée de date à date, chez le même employeur ou un employeur substitué. La date en est fixée de commun accord, sans que la prise effective ne puisse dépasser de six mois la date prévue pour son ouverture, et le travailleur ne peut cumuler plus de la moitié de ses congés sur une période de deux ans.' },
+      { type: 'carte', titre: 'Le calcul de la durée du congé, article 141', tableau: { entetes: ['Élément', 'Règle'], lignes: [['Base, travailleur de plus de 18 ans', '**1 jour ouvrable par mois entier de service**'], ['Base, travailleur de moins de 18 ans', '**1,5 jour ouvrable par mois entier de service**'], ['Majoration d\'ancienneté', '**+ 1 jour par tranche de 5 années**'], ['Maladie incluse dans le service pris en compte', '**Jusqu\'à 6 mois par an (sans limite si accident du travail/maladie professionnelle)**'], ['Maladie survenant pendant le congé', '**Ne compte pas comme jour de congé**']] } },
+      { type: 'paragraphe', texte: 'L\'allocation de congé, égale à la rémunération dont jouissait le travailleur à son départ, intègre la moyenne des commissions, primes et participations aux bénéfices des douze mois précédents, les allocations familiales restant dues pendant toute la durée du congé (article 142) ; le travailleur doit s\'abstenir, durant cette période, d\'exercer une profession lucrative (article 143). En cas de résiliation du contrat, quel qu\'en soit le moment, le congé non pris est obligatoirement remplacé par une indemnité compensatoire, toute convention prévoyant une telle substitution en dehors de ce cas étant nulle et de nul effet (article 144), le paiement devant intervenir au plus tard le dernier jour ouvrable avant le départ en congé, ou dans les deux jours ouvrables suivant la fin du contrat pour l\'indemnité compensatoire (article 145).' },
+    ],
+  },
+  {
+    numero: '6.5',
+    titre: 'Les congés de circonstance et les voyages de retour',
+    navLabel: '6.5 Congés de circonstance et voyages',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 146 énumère les congés de circonstance auxquels le travailleur a droit : deux jours ouvrables pour son propre mariage, deux jours pour l\'accouchement de son épouse, quatre jours pour le décès du conjoint ou d\'un parent allié au premier degré, un jour pour le mariage d\'un enfant, et deux jours pour le décès d\'un parent ou allié au second degré. Ces jours ne sont pas déductibles du congé minimum légal et ne peuvent être fractionnés, les soins de santé restant dus pendant leur durée ; l\'employeur n\'est cependant tenu à leur paiement que dans la limite de quinze jours ouvrables par an.' },
+      { type: 'paragraphe', texte: 'Le régime des voyages distingue le voyage aller, à la charge de l\'employeur dès l\'engagement (sauf, pour la famille, avant la fin de la période d\'essai), du voyage retour, dont le droit naît en règle générale, sans restriction, après chaque période de deux ans de service (articles 147 à 149). Plusieurs hypothèses ouvrent cependant ce droit par anticipation : au travailleur en cours de période d\'essai même en cas de faute lourde qui lui est imputable, au travailleur et à sa famille lorsque le contrat prend fin du fait de l\'employeur ou à l\'expiration d\'un contrat de moins de deux ans, ou à la famille en cas de décès du travailleur avant la fin du contrat.' },
+      { type: 'filet', titre: 'Une prise en charge parfois seulement proportionnelle', texte: 'L\'employeur ne supporte les frais de voyage retour que proportionnellement à la durée des prestations accomplies en cas de faute lourde imputable au travailleur, de rupture par le travailleur d\'un contrat à durée indéterminée après douze mois de services depuis son dernier voyage aller sans faute lourde de l\'employeur, ou de résiliation de commun accord après douze mois de services. Le droit s\'éteint enfin par renonciation écrite après la fin du contrat, ou par l\'écoulement de deux ans sans que le travailleur en ait exigé l\'accomplissement (article 151), l\'employeur devant, dans tous les cas où le voyage reste dû, l\'assurer dans les délais les plus brefs, sous peine de devoir une indemnité égale à la rémunération mensuelle jusqu\'au départ effectif (article 152).' },
+    ],
+  },
+  {
+    numero: '6.6',
+    titre: 'Le règlement d\'entreprise',
+    navLabel: '6.6 Le règlement d\'entreprise',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le Titre VI se referme sur l\'obligation, pour tout établissement public ou privé, même d\'enseignement ou de bienfaisance, d\'établir un règlement d\'entreprise (article 157). Son contenu porte essentiellement sur l\'organisation technique du travail, la discipline, l\'hygiène et la sécurité, ainsi que les modalités de paiement des rémunérations ; toute autre clause, notamment celle prévoyant des amendes à l\'encontre des travailleurs, est nulle de plein droit, une règle qui prolonge directement l\'interdiction générale des amendes déjà rencontrée à l\'article 111 du chapitre 5.' },
+      { type: 'paragraphe', texte: 'Avant sa mise en vigueur, l\'employeur doit communiquer le règlement pour avis aux représentants des travailleurs et à l\'Inspecteur du Travail, qui peut exiger le retrait ou la modification de toute disposition contraire à la législation en vigueur. Le contenu précis, les modalités de communication, de dépôt et d\'affichage du règlement sont, pour le surplus, fixés par arrêté ministériel (article 158), ce texte réglementaire d\'application venant compléter, sans jamais l\'étendre au-delà de ce que le Code autorise, le cadre légal du règlement d\'entreprise.' },
+    ],
+  },
+]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BANQUE DE QUESTIONS — 20 questions, 5 propositions, distracteurs pièges.
-// ─────────────────────────────────────────────────────────────────────────────
-const QCM_CHAPITRE: QCMChapitre[] = [
+const QCM: Chapitre['qcm'] = [
   {
     id: 'q1', question: "Quelle est la durée légale du travail fixée par l'article 119 ?",
     options: [
@@ -272,17 +308,7 @@ const QCM_CHAPITRE: QCMChapitre[] = [
   },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CAS PRATIQUES — 5 situations à plusieurs strates, art. 119 à 158 uniquement.
-// ─────────────────────────────────────────────────────────────────────────────
-interface CasPratique {
-  id: string
-  titre: string
-  contexte: string
-  questions: { num: number; enonce: string; correction: string }[]
-}
-
-const CAS_PRATIQUES: CasPratique[] = [
+const CAS: Chapitre['casPratiques'] = [
   {
     id: 'cp1',
     titre: "Les cinquante-deux heures hebdomadaires non majorées de l'atelier de Kolwezi",
@@ -340,392 +366,57 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
 ]
 
-function QCMBankItem({ q }: { q: QCMChapitre }) {
-  const [selected, setSelected] = useState<string | null>(null)
-  const [showResult, setShowResult] = useState(false)
-  return (
-    <div className={cn('rounded-sm border p-4 space-y-3', LIGNE_FORTE, PAPIER_CARD)}>
-      <p className={cn('text-sm', ENCRE)}>{q.question}</p>
-      <div className="space-y-1.5">
-        {q.options.map(opt => {
-          let cls = 'w-full text-left text-xs px-3 py-2 rounded-sm border transition-colors '
-          if (!showResult) cls += selected === opt.id ? cn(VERT_BORDER, 'bg-[#1E4A3D]/10', ENCRE) : cn(LIGNE, 'hover:bg-black/[.02]')
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-600 bg-green-50 text-green-800'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
-          else cls += cn(LIGNE, 'opacity-50')
-          return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-mono font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
-        })}
-      </div>
-      {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className={cn('text-xs text-white rounded-sm px-4 py-1.5 disabled:opacity-40 transition-colors font-mono', VERT_BG)}>Vérifier</button>}
-      {showResult && (
-        <div className={cn('rounded-sm p-3 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700')}>
-          <div className="flex items-center gap-1 font-semibold mb-1">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct' : 'Incorrect'}<span className="ml-auto font-mono opacity-60">{q.articleRef}</span></div>
-          <p>{q.explication}</p>
-          <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function CasPratiqueBlock({ cp, index }: { cp: CasPratique; index: number }) {
-  const [open, setOpen] = useState(false)
-  const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
-  return (
-    <div className={cn('rounded-sm border overflow-hidden', LIGNE_FORTE, PAPIER_CARD)}>
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-black/[.02] transition-colors text-left">
-        <div className="flex items-center gap-3">
-          <span className={cn('font-serif font-bold text-lg shrink-0', VERT)}>{String(index + 1).padStart(2, '0')}</span>
-          <p className={cn('text-sm font-semibold', ENCRE)}>{cp.titre}</p>
-        </div>
-        <ChevronRight className={cn('h-4 w-4 shrink-0 transition-transform', VERT, open && 'rotate-90')} />
-      </button>
-      {open && (
-        <div className={cn('px-4 pb-4 space-y-4 border-t pt-4', LIGNE)}>
-          <div className={cn('rounded-sm p-3 border', LIGNE_FORTE, PAPIER)}>
-            <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', AMBRE)}>Contexte</p>
-            <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>{cp.contexte}</p>
-          </div>
-          <div className="space-y-3">
-            {cp.questions.map(q => (
-              <div key={q.num} className="space-y-2">
-                <p className={cn('text-xs font-semibold', ENCRE)}>Question {q.num} : {q.enonce}</p>
-                {corrVisible.has(q.num) ? (
-                  <div className="rounded-sm bg-green-50 border border-green-200 p-3">
-                    <p className="text-xs font-semibold text-green-800 mb-1">Correction</p>
-                    <p className="text-xs text-green-900 leading-relaxed">{q.correction}</p>
-                  </div>
-                ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className={cn('text-xs hover:underline font-medium', VERT)}>Voir la correction</button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-type Vue = 'lecture' | 'qcm' | 'cas' | 'devoir'
-
-export default function UE1Chapitre6Page() {
-  const goBack = useGoBack('/ue1-droit-travail')
-  const currentUser = useUser()
-  const isStudent = isStudentRole(currentUser)
-  const [vue, setVue] = useState<Vue>('lecture')
-  const [afficherRemonter, setAfficherRemonter] = useState(false)
-  const sommetRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    sommetRef.current?.scrollIntoView({ block: 'start' })
-    document.querySelector('main')?.scrollTo({ top: 0 })
-    window.scrollTo({ top: 0 })
-  }, [vue])
-
-  useEffect(() => {
-    const verifier = () => {
-      const main = document.querySelector('main')
-      setAfficherRemonter((main?.scrollTop ?? 0) > 400 || window.scrollY > 400)
+export const chapitre: Chapitre = {
+  ue: 'ue1',
+  numero: 6,
+  id: 'ue1-chapitre-6',
+  titre: 'Durée du travail, repos et congés',
+  sousTitre: 'Titre VI du Code du travail · Loi n°015/2002, art. 119 à 158',
+  infoBulle: 'Durée du travail, repos hebdomadaire, travail de nuit, protection de la maternité et des enfants, logement, congés annuels et de circonstance, voyages, règlement d\'entreprise.',
+  loiRef: 'Titre VI, art. 119 à 158',
+  moduleLabel: 'UE 1 · Droit du travail',
+  retourRoute: '/ue1-droit-travail',
+  coursId: 'ue1-droit-travail',
+  objectifs: [
+    'Maîtriser la durée légale du travail, les heures supplémentaires et le repos hebdomadaire',
+    'Connaître le régime du travail de nuit et la protection renforcée des enfants et des personnes avec handicap',
+    'Maîtriser la protection de la grossesse et de la maternité, de l\'embauche au congé de maternité',
+    'Connaître les règles de calcul et de paiement du congé annuel et des congés de circonstance',
+    'Connaître le régime des voyages et transports, et le contenu obligatoire du règlement d\'entreprise',
+  ],
+  sections: SECTIONS,
+  aRetenir: [
+    'La durée légale du travail est de quarante-cinq heures par semaine et huit heures par jour ; au-delà, les heures sont supplémentaires et majorées, sans préjudice de la majoration distincte du travail de nuit (19h-5h).',
+    'Les enfants et les personnes avec handicap bénéficient d\'une protection renforcée : interdiction de travail nocturne de 18h à 6h, repos journalier de douze heures, âge minimal d\'emploi de quinze ans, plancher absolu.',
+    'La grossesse ne peut être une source de discrimination ; la suspension pour grossesse à risque et le congé de maternité de quatorze semaines, rémunéré aux deux tiers, ne peuvent jamais être des causes de résiliation du contrat.',
+    'Le congé annuel, d\'un jour ouvrable par mois majoré d\'un jour par tranche de cinq ans d\'ancienneté, ne peut être remplacé par une indemnité compensatoire qu\'en cas de résiliation du contrat.',
+    'Le droit au voyage retour naît en principe après deux ans de service, avec des hypothèses d\'ouverture anticipée ou de prise en charge proportionnelle ; le règlement d\'entreprise ne peut jamais valablement prévoir d\'amendes.',
+  ],
+  references: [
+    {
+        genre: "article",
+        auteur: "Pimant C.",
+        titre: "La femme enceinte au regard du droit du travail congolais",
+        support: "Village Justice",
+        precision: "note professionnelle en ligne"
+    },
+    {
+        genre: "texte",
+        intitule: "Proposition de loi modifiant et complétant la loi n°015/2002 portant Code du travail (rémunération du congé de maternité)",
+        precision: "Assemblée nationale, actualité législative non adoptée à ce jour"
+    },
+    {
+        genre: "ouvrage",
+        auteur: "Loko Mantuono G.",
+        titre: "Droit social, droit du travail et de la sécurité sociale en RDC",
+        editeur: "L'Harmattan",
+        lieu: "Paris",
+        annee: "2022"
     }
-    window.addEventListener('scroll', verifier, true)
-    verifier()
-    return () => window.removeEventListener('scroll', verifier, true)
-  }, [])
-
-  const remonterEnHaut = () => {
-    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const casPratiquesExistants: CasPratiqueExistant[] = CAS_PRATIQUES.map(cp => ({
-    id: cp.id,
-    titre: cp.titre,
-    enonce: cp.contexte + '\n' + cp.questions.map(q => `Question ${q.num} : ${q.enonce}`).join('\n'),
-    corrigeType: cp.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n'),
-  }))
-
-  return (
-    <div ref={sommetRef} className="space-y-4 pb-10 animate-fadeIn">
-      {afficherRemonter && (
-        <button
-          onClick={remonterEnHaut}
-          aria-label="Remonter en haut de la page"
-          className={cn('fixed bottom-20 md:bottom-6 right-4 z-40 h-10 w-10 rounded-full text-white shadow-lg flex items-center justify-center transition-transform hover:scale-105', VERT_BG)}
-        >
-          <ArrowUp className="h-4 w-4" />
-        </button>
-      )}
-      <div className="space-y-1">
-        <Breadcrumb
-          items={[
-            { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 1 · Droit du travail', route: '/ue1-droit-travail' },
-            { label: 'Chapitre 6' },
-          ]}
-          color="emerald"
-        />
-        <div className="flex items-center gap-2 flex-wrap">
-          <h1 className={cn('font-display text-lg font-bold leading-tight', ENCRE)}>Durée du travail, repos et congés</h1>
-          <InfoTooltip texte="Durée du travail, repos hebdomadaire, travail de nuit, protection de la maternité et des enfants, logement, congés annuels et de circonstance, voyages, règlement d'entreprise." loi="Titre VI, art. 119 à 158" />
-        </div>
-        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Titre VI du Code du travail · Loi n°015/2002, art. 119 à 158</p>
-      </div>
-
-      {vue === 'lecture' && (
-        <div className={cn('rounded-sm border p-4 space-y-1', PAPIER_CARD, LIGNE)}>
-          {[
-            "Maîtriser la durée légale du travail, les heures supplémentaires et le repos hebdomadaire",
-            "Connaître le régime du travail de nuit et la protection renforcée des enfants et des personnes avec handicap",
-            "Maîtriser la protection de la grossesse et de la maternité, de l'embauche au congé de maternité",
-            "Connaître les règles de calcul et de paiement du congé annuel et des congés de circonstance",
-            "Connaître le régime des voyages et transports, et le contenu obligatoire du règlement d'entreprise",
-          ].map((o, i) => (
-            <p key={i} className={cn('flex items-start gap-2 text-xs', ENCRE_DOUX)}>
-              <span className={cn('font-mono shrink-0', VERT)}>{i + 1}.</span>
-              <span>{o}</span>
-            </p>
-          ))}
-        </div>
-      )}
-
-      {vue === 'lecture' && (
-        <div className="grid gap-0 lg:grid-cols-[180px_1fr] lg:gap-10">
-          <nav className="hidden lg:block">
-            <div className="sticky top-4 space-y-1 pt-2">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Dans ce chapitre</p>
-              {[
-                ['s1', '6.1 Durée du travail et repos hebdomadaire'],
-                ['s2', '6.2 Travail de nuit et protection des enfants'],
-                ['s3', '6.3 La protection de la maternité'],
-                ['s4', '6.4 Logement, ration et congés annuels'],
-                ['s5', '6.5 Congés de circonstance et voyages'],
-                ['s6', "6.6 Le règlement d'entreprise"],
-              ].map(([id, label]) => (
-                <a key={id} href={`#${id}`} className={cn('block text-xs leading-snug py-1.5 pl-3 border-l-2', LIGNE, ENCRE_FAIBLE, 'hover:text-[#1E4A3D] hover:border-[#1E4A3D] transition-colors')}>{label}</a>
-              ))}
-            </div>
-          </nav>
-
-          <div className="min-w-0 space-y-14">
-            {/* 6.1 */}
-            <section id="s1" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>6.1</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>La durée du travail et le repos hebdomadaire</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le Titre VI regroupe l'ensemble des conditions générales de travail, en commençant par sa durée. L'article 119, modifié en 2016, fixe la durée légale à quarante-cinq heures par semaine et huit heures par jour, dans tous les établissements publics ou privés, même d'enseignement ou de bienfaisance, quelle que soit la forme du travail exécuté. Cette durée se calcule à partir du moment où le travailleur se tient sur les lieux de travail à la disposition de l'employeur, et ne comprend pas le temps de trajet, sauf s'il est inhérent au travail lui-même. Toute heure effectuée au-delà de cette durée légale est une heure supplémentaire, qui donne droit à une majoration de salaire, dans les modalités que des arrêtés ministériels précisent par branche d'activité et par catégorie professionnelle (article 120).</p>
-                <p>Le repos hebdomadaire, organisé au chapitre suivant du même titre, garantit à tout travailleur un minimum de vingt-quatre heures de repos au cours de chaque période de sept jours, accordé autant que possible collectivement et ayant lieu le dimanche, sauf conditions particulières plus favorables prévues par convention collective (article 121). Deux régimes d'affichage se distinguent à l'article 122 : lorsque le repos est donné collectivement, l'employeur affiche à l'avance les jours et heures de repos collectif ; lorsqu'il ne l'est pas, il affiche les noms des travailleurs soumis au régime particulier et l'indication de ce régime. La liste des jours fériés légaux, quant à elle, est fixée par décret présidentiel, sur proposition du Ministre du Travail, après avis du Conseil National du Travail (article 123).</p>
-              </div>
-            </section>
-
-            {/* 6.2 */}
-            <section id="s2" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>6.2</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le travail de nuit et la protection des enfants et des personnes avec handicap</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>L'article 124 définit le travail de nuit, pour l'ensemble des travailleurs, comme celui exécuté entre 19 heures et 5 heures, et impose son paiement avec majoration, sans préjudice des dispositions relatives aux heures supplémentaires : les deux majorations, celle du travail de nuit et celle des heures supplémentaires, se cumulent lorsque les deux conditions sont réunies. Une plage horaire distincte, plus large, protège spécifiquement les enfants et les personnes avec handicap : l'article 125 leur interdit tout travail nocturne dans les établissements industriels, la « nuit » étant ici définie de 18 heures à 6 heures. Cette différence de plage horaire entre les deux articles, souvent source de confusion, illustre la fonction propre de chacun : l'article 124 organise une compensation salariale générale, l'article 125 une interdiction protectrice ciblée.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>Un repos journalier renforcé</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>L'article 126 impose, entre deux périodes de travail des enfants et des personnes avec handicap, un repos journalier d'au moins douze heures consécutives. Des dérogations à ces deux protections restent possibles, pour circonstances exceptionnelles, caractère particulier de la profession ou besoins de l'apprentissage, mais ne s'appliquent jamais aux entreprises où sont seuls employés les membres d'une même famille (article 127).</p>
-                </div>
-                <p>L'âge minimal d'emploi, fixé par l'article 133, complète ce dispositif protecteur : un enfant ne peut être employé dans une entreprise, même comme apprenti, avant quinze ans, sauf dérogation expresse conjointe de l'Inspecteur du Travail et de l'autorité parentale ou tutélaire, cette dérogation ne pouvant jamais être accordée en dessous de cet âge plancher. Les articles 134 à 137 organisent, quant à eux, la non-discrimination par le handicap : celui-ci ne peut constituer un empêchement à l'exercice d'un emploi correspondant aux aptitudes de la personne, qui bénéficie du droit à la formation professionnelle dans les mêmes conditions que les autres travailleurs, sous le seul contrôle médical que l'Inspecteur du Travail peut requérir pour vérifier que le travail confié n'excède pas les forces du travailleur concerné.</p>
-              </div>
-            </section>
-
-            {/* 6.3 */}
-            <section id="s3" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>6.3</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>La protection de la maternité</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>La protection de la maternité s'ouvre dès le stade de l'embauche : l'article 128 interdit d'exiger d'une candidate qu'elle se soumette à un test de grossesse ou présente un certificat de grossesse, sauf pour les travaux interdits totalement ou partiellement aux femmes enceintes ou qui allaitent, ou comportant un risque reconnu pour la santé de la mère et de l'enfant. Pimant souligne, à propos de cette interdiction, qu'elle traduit un principe plus général : la maternité ne peut, en droit congolais, constituer une source de discrimination en matière d'emploi, un principe qui irrigue l'ensemble des dispositions suivantes.</p>
-                <p>Lorsque l'état de grossesse entraîne des risques pour la santé, dûment constatés par le médecin, l'article 129 ouvre à la travailleuse un droit de suspendre son contrat conformément au régime général de la suspension déjà étudié au chapitre 3, sans que cette interruption puisse jamais être considérée comme une cause de résiliation du contrat ; elle peut même, dans les mêmes conditions, résilier elle-même son contrat sans préavis ni indemnité de rupture. À l'occasion de l'accouchement, l'article 130 accorde un congé de quatorze semaines consécutives, dont huit semaines au maximum après la délivrance et six avant l'accouchement, rémunéré aux deux tiers avec maintien des avantages en nature, l'employeur ne pouvant rompre le contrat durant cette période. Ce bénéfice est acquis à toute femme salariée, mariée ou non, que l'enfant vive ou non (article 130, dernier alinéa), et toute convention contraire à ces deux articles est nulle de plein droit (article 131).</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Une réforme annoncée, mais non encore adoptée</p>
-                  <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>Une proposition de loi discutée à l'Assemblée nationale envisage de porter la rémunération du congé de maternité des deux tiers à l'intégralité du salaire. Tant que ce texte n'est pas promulgué, il ne constitue qu'une actualité législative à suivre, non le droit positif applicable : le taux des deux tiers de l'article 130 reste, à ce jour, la règle en vigueur, et aucune réponse d'examen ne saurait présumer son adoption future.</p>
-                </div>
-                <p>Enfin, l'article 132 accorde à la femme qui allaite, dans tous les cas, deux repos d'une demi-heure par jour, rémunérés comme temps de travail, une protection immédiate et concrète qui referme ce dispositif d'ensemble, de l'embauche jusqu'au retour effectif de la travailleuse à son poste après la naissance de l'enfant.</p>
-              </div>
-            </section>
-
-            {/* 6.4 */}
-            <section id="s4" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>6.4</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Logement, ration alimentaire et congés annuels</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>En cas de mutation ou d'engagement en dehors du lieu d'emploi, l'article 138 impose à l'employeur de fournir un logement décent au travailleur et à sa famille, ou, à défaut, une indemnité conséquente ; dans les autres cas, une indemnité de logement reste due, fixée par le contrat, la convention collective ou le règlement d'entreprise, la travailleuse y ayant droit au même titre. Lorsque le travailleur ne peut, par ses propres moyens, assurer un ravitaillement régulier en denrées de première nécessité, l'employeur doit également le lui garantir, les modalités précises de ces deux obligations étant renvoyées à un arrêté ministériel (article 139).</p>
-                <p>Le droit au congé annuel, que l'article 140 interdit au travailleur de renoncer à exercer, naît à l'expiration d'une année de services comptée de date à date, chez le même employeur ou un employeur substitué. La date en est fixée de commun accord, sans que la prise effective ne puisse dépasser de six mois la date prévue pour son ouverture, et le travailleur ne peut cumuler plus de la moitié de ses congés sur une période de deux ans.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Le calcul de la durée du congé, article 141</p>
-                  <table className="w-full text-xs border-collapse mt-2">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Élément</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Règle</th></tr></thead>
-                    <tbody>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Base, travailleur de plus de 18 ans</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>1 jour ouvrable par mois entier de service</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Base, travailleur de moins de 18 ans</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>1,5 jour ouvrable par mois entier de service</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Majoration d'ancienneté</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>+ 1 jour par tranche de 5 années</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Maladie incluse dans le service pris en compte</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Jusqu'à 6 mois par an (sans limite si accident du travail/maladie professionnelle)</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Maladie survenant pendant le congé</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Ne compte pas comme jour de congé</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <p>L'allocation de congé, égale à la rémunération dont jouissait le travailleur à son départ, intègre la moyenne des commissions, primes et participations aux bénéfices des douze mois précédents, les allocations familiales restant dues pendant toute la durée du congé (article 142) ; le travailleur doit s'abstenir, durant cette période, d'exercer une profession lucrative (article 143). En cas de résiliation du contrat, quel qu'en soit le moment, le congé non pris est obligatoirement remplacé par une indemnité compensatoire, toute convention prévoyant une telle substitution en dehors de ce cas étant nulle et de nul effet (article 144), le paiement devant intervenir au plus tard le dernier jour ouvrable avant le départ en congé, ou dans les deux jours ouvrables suivant la fin du contrat pour l'indemnité compensatoire (article 145).</p>
-              </div>
-            </section>
-
-            {/* 6.5 */}
-            <section id="s5" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>6.5</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Les congés de circonstance et les voyages de retour</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>L'article 146 énumère les congés de circonstance auxquels le travailleur a droit : deux jours ouvrables pour son propre mariage, deux jours pour l'accouchement de son épouse, quatre jours pour le décès du conjoint ou d'un parent allié au premier degré, un jour pour le mariage d'un enfant, et deux jours pour le décès d'un parent ou allié au second degré. Ces jours ne sont pas déductibles du congé minimum légal et ne peuvent être fractionnés, les soins de santé restant dus pendant leur durée ; l'employeur n'est cependant tenu à leur paiement que dans la limite de quinze jours ouvrables par an.</p>
-                <p>Le régime des voyages distingue le voyage aller, à la charge de l'employeur dès l'engagement (sauf, pour la famille, avant la fin de la période d'essai), du voyage retour, dont le droit naît en règle générale, sans restriction, après chaque période de deux ans de service (articles 147 à 149). Plusieurs hypothèses ouvrent cependant ce droit par anticipation : au travailleur en cours de période d'essai même en cas de faute lourde qui lui est imputable, au travailleur et à sa famille lorsque le contrat prend fin du fait de l'employeur ou à l'expiration d'un contrat de moins de deux ans, ou à la famille en cas de décès du travailleur avant la fin du contrat.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>Une prise en charge parfois seulement proportionnelle</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>L'employeur ne supporte les frais de voyage retour que proportionnellement à la durée des prestations accomplies en cas de faute lourde imputable au travailleur, de rupture par le travailleur d'un contrat à durée indéterminée après douze mois de services depuis son dernier voyage aller sans faute lourde de l'employeur, ou de résiliation de commun accord après douze mois de services. Le droit s'éteint enfin par renonciation écrite après la fin du contrat, ou par l'écoulement de deux ans sans que le travailleur en ait exigé l'accomplissement (article 151), l'employeur devant, dans tous les cas où le voyage reste dû, l'assurer dans les délais les plus brefs, sous peine de devoir une indemnité égale à la rémunération mensuelle jusqu'au départ effectif (article 152).</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 6.6 */}
-            <section id="s6" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>6.6</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le règlement d'entreprise</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le Titre VI se referme sur l'obligation, pour tout établissement public ou privé, même d'enseignement ou de bienfaisance, d'établir un règlement d'entreprise (article 157). Son contenu porte essentiellement sur l'organisation technique du travail, la discipline, l'hygiène et la sécurité, ainsi que les modalités de paiement des rémunérations ; toute autre clause, notamment celle prévoyant des amendes à l'encontre des travailleurs, est nulle de plein droit, une règle qui prolonge directement l'interdiction générale des amendes déjà rencontrée à l'article 111 du chapitre 5.</p>
-                <p>Avant sa mise en vigueur, l'employeur doit communiquer le règlement pour avis aux représentants des travailleurs et à l'Inspecteur du Travail, qui peut exiger le retrait ou la modification de toute disposition contraire à la législation en vigueur. Le contenu précis, les modalités de communication, de dépôt et d'affichage du règlement sont, pour le surplus, fixés par arrêté ministériel (article 158), ce texte réglementaire d'application venant compléter, sans jamais l'étendre au-delà de ce que le Code autorise, le cadre légal du règlement d'entreprise.</p>
-              </div>
-            </section>
-
-            {/* à retenir */}
-            <div className={cn('pt-8 border-t-2', 'border-[#262019]')}>
-              <p className={cn('font-serif font-bold text-base mb-4', ENCRE)}>À retenir</p>
-              <ul className="space-y-0">
-                {[
-                  "La durée légale du travail est de quarante-cinq heures par semaine et huit heures par jour ; au-delà, les heures sont supplémentaires et majorées, sans préjudice de la majoration distincte du travail de nuit (19h-5h).",
-                  "Les enfants et les personnes avec handicap bénéficient d'une protection renforcée : interdiction de travail nocturne de 18h à 6h, repos journalier de douze heures, âge minimal d'emploi de quinze ans, plancher absolu.",
-                  "La grossesse ne peut être une source de discrimination ; la suspension pour grossesse à risque et le congé de maternité de quatorze semaines, rémunéré aux deux tiers, ne peuvent jamais être des causes de résiliation du contrat.",
-                  "Le congé annuel, d'un jour ouvrable par mois majoré d'un jour par tranche de cinq ans d'ancienneté, ne peut être remplacé par une indemnité compensatoire qu'en cas de résiliation du contrat.",
-                  "Le droit au voyage retour naît en principe après deux ans de service, avec des hypothèses d'ouverture anticipée ou de prise en charge proportionnelle ; le règlement d'entreprise ne peut jamais valablement prévoir d'amendes.",
-                ].map((l, i) => (
-                  <li key={i} className={cn('flex items-start gap-3 text-sm py-2.5 border-b', LIGNE, ENCRE_DOUX)}>
-                    <span className={VERT}>▪</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* bibliographie */}
-            <div className="pt-6 border-t border-[#D9CFA9]">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Références citées</p>
-              <ul className="space-y-0">
-                {[
-                  <>Pimant C., « La femme enceinte au regard du droit du travail congolais », <i>Village Justice</i>, note professionnelle en ligne.</>,
-                  <>Proposition de loi modifiant et complétant la loi n°015/2002 portant Code du travail (rémunération du congé de maternité), Assemblée nationale, actualité législative non adoptée à ce jour.</>,
-                  <>Loko Mantuono G., <i>Droit social, droit du travail et de la sécurité sociale en RDC</i>, L'Harmattan, Paris, 2022.</>,
-                ].map((ref, i) => (
-                  <li key={i} className={cn('text-xs py-2 border-b', LIGNE, ENCRE_FAIBLE)}>{ref}</li>
-                ))}
-              </ul>
-            </div>
-
-            {/* s'exercer */}
-            <div className={cn('pt-10 border-t-2', 'border-[#262019]')}>
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', AMBRE)}>Le chapitre est terminé : passez à l'épreuve</p>
-              <h2 className={cn('font-serif font-bold text-2xl mb-3', ENCRE)}>S'exercer</h2>
-              <p className={cn('text-sm leading-relaxed mb-6 max-w-xl', ENCRE_DOUX)}>La lecture seule ne suffit pas à maîtriser une notion de droit. Les deux parcours ci-dessous couvrent l'ensemble du chapitre, pas seulement les points soulevés en cours de lecture.</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <button onClick={() => setVue('qcm')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>20</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Questionnaire</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>QCM du chapitre</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Vingt questions couvrant les six sections, du rappel de cours à l'articulation de plusieurs notions.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Commencer le questionnaire →</span>
-                </button>
-                <button onClick={() => setVue('cas')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>05</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Mise en situation</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>Cas pratiques</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Cinq situations à plusieurs strates, exigeant de croiser plusieurs notions du chapitre.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Ouvrir les cas pratiques →</span>
-                </button>
-              </div>
-            </div>
-
-            {!isStudent && (
-              <div className={cn('rounded-sm border border-dashed p-5 flex items-center justify-between gap-4 flex-wrap', LIGNE_FORTE, PAPIER_CARD)}>
-                <div>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', ENCRE_FAIBLE)}>Espace professeur</p>
-                  <p className={cn('text-xs', ENCRE_DOUX)}>20 questions QCM et 5 cas pratiques disponibles pour ce chapitre.</p>
-                </div>
-                <button onClick={() => setVue('devoir')} className={cn('text-xs font-mono px-4 py-2.5 rounded-sm text-white', VERT_BG)}>Créer un devoir à partir de ce chapitre →</button>
-              </div>
-            )}
-
-            <button onClick={goBack} className={cn('w-full flex items-center justify-center gap-2 py-3 rounded-sm text-white text-sm font-semibold transition-colors', VERT_BG)}>
-              <GraduationCap className="h-4 w-4" /> Terminer le chapitre 6
-            </button>
-
-            <p className="text-xs text-center text-muted-foreground/60 pb-2">
-              Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 119 à 158
-            </p>
-          </div>
-        </div>
-      )}
-
-      {vue === 'qcm' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>QCM du chapitre : 20 questions</h2>
-          <div className="grid gap-3">
-            {QCM_CHAPITRE.map(q => <QCMBankItem key={q.id} q={q} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'cas' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Cas pratiques : 5 mises en situation</h2>
-          <div className="space-y-3">
-            {CAS_PRATIQUES.map((cp, i) => <CasPratiqueBlock key={cp.id} cp={cp} index={i} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'devoir' && !isStudent && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <DevoirChapitreCreateur
-            chapitreId="ue1-chapitre-6"
-            chapitreNom="Chapitre 6 : Durée du travail, repos et congés"
-            questions={QCM_CHAPITRE}
-            coursId="ue1-droit-travail"
-            casPratiquesExistants={casPratiquesExistants}
-          />
-        </div>
-      )}
-    </div>
-  )
+],
+  qcm: QCM,
+  casPratiques: CAS,
+  sources: 'Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 119 à 158',
 }
+
+export default chapitre

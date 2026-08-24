@@ -1,35 +1,74 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useGoBack } from '@/lib/navContext'
-import { Breadcrumb } from '@/components/Breadcrumb'
-import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { useUser } from '@/lib/userContext'
-import { isStudentRole } from '@/lib/permissions'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
-import { QCMChapitre } from '@/lib/db'
-import { InfoTooltip } from '@/components/InfoTooltip'
+// Chapitre 4 du module UE1, Droit du travail : contenu pur.
+// La mise en forme appartient au moteur components/chapitre/ChapitreManuscrit.tsx.
+import type { Chapitre } from '@/lib/chapitre-types'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// IDENTITÉ VISUELLE — reprise à l'identique des chapitres 1-3.
-// ─────────────────────────────────────────────────────────────────────────────
-const ENCRE = 'text-[#262019]'
-const ENCRE_DOUX = 'text-[#6B6047]'
-const ENCRE_FAIBLE = 'text-[#948868]'
-const PAPIER = 'bg-[#EDE6D3]'
-const PAPIER_CARD = 'bg-[#F8F4E8]'
-const LIGNE = 'border-[#D9CFA9]'
-const LIGNE_FORTE = 'border-[#C6B788]'
-const VERT = 'text-[#1E4A3D]'
-const VERT_BG = 'bg-[#1E4A3D]'
-const VERT_BORDER = 'border-[#1E4A3D]'
-const VERT_SOFT = 'bg-[#1E4A3D]/8'
-const AMBRE = 'text-[#8A6416]'
-const LETTRINE = "first-letter:font-serif first-letter:font-bold first-letter:text-5xl first-letter:float-left first-letter:leading-[0.8] first-letter:pr-2 first-letter:pt-1 first-letter:text-[#1E4A3D]"
+const SECTIONS: Chapitre['sections'] = [
+  {
+    numero: '4.1',
+    titre: 'Les modes de résiliation du contrat',
+    navLabel: '4.1 Les modes de résiliation',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le chapitre précédent a étudié la formation, l\'exécution et la suspension du contrat de travail. Ce chapitre en referme le cycle en étudiant sa rupture, sous ses différentes formes. L\'article 61 pose le principe premier : tout contrat de travail peut être résilié à l\'initiative soit de l\'employeur, soit du travailleur. La loi de 2016 a complété ce principe par l\'article 61 bis, qui admet expressément la résiliation d\'un commun accord des parties, distincte des deux voies unilatérales et obéissant à ses propres conditions de validité, notamment l\'absence de vice du consentement du travailleur, la partie structurellement la plus faible du rapport contractuel.' },
+      { type: 'paragraphe', texte: 'L\'article 61 ter encadre la forme de cette résiliation, quelle qu\'en soit l\'initiative : elle doit être notifiée par écrit, et la lettre de notification, lorsque l\'initiative est celle de l\'employeur, doit en indiquer expressément le motif. À défaut d\'un tel écrit, le texte ne laisse pas la relation de travail dans l\'incertitude : tout acte d\'une partie tendant à empêcher l\'exécution de ses obligations par l\'autre constitue une modification unilatérale équipollente à un acte de rupture. La partie qui s\'en prévaut doit le faire savoir, dans les huit jours, à l\'autre partie, l\'Inspecteur du Travail étant informé.' },
+      { type: 'filet', titre: 'L\'acte équipollent à rupture, un mécanisme protecteur', texte: 'Cette notion, empruntée à une tradition juridique plus large, protège la partie de bonne foi contre une rupture déguisée : l\'employeur qui, sans notification, retire au travailleur ses attributions essentielles, ou le travailleur qui cesse de fait toute prestation sans démission formelle, ne peuvent se réfugier derrière l\'absence d\'écrit pour échapper aux conséquences de la rupture qu\'ils ont, en réalité, provoquée.' },
+    ],
+  },
+  {
+    numero: '4.2',
+    titre: 'Le licenciement pour motif lié à l\'aptitude ou à la conduite',
+    navLabel: '4.2 Le licenciement pour motif valable',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 62, modifié par la loi de 2016, constitue le cœur du régime protecteur contre le licenciement arbitraire. Il pose que le contrat à durée indéterminée ne peut être résilié à l\'initiative de l\'employeur que pour un motif valable, qui se fonde soit sur des actes du travailleur perpétrés sur les lieux de travail ou trouvant leur origine dans l\'exercice de ses fonctions, soit sur les nécessités du fonctionnement de l\'entreprise, de l\'établissement ou du service. La convenance pure de l\'employeur, détachée de l\'un de ces deux fondements, n\'entre dans aucune de ces catégories.' },
+      { type: 'paragraphe', texte: 'Le texte prend soin d\'énumérer, à l\'inverse, une liste de motifs qui ne constituent jamais un licenciement valable : l\'affiliation ou la non-affiliation syndicale, l\'exercice d\'un mandat de représentation des travailleurs, le fait d\'avoir déposé une plainte ou participé à une procédure contre l\'employeur, la race, le sexe, la situation matrimoniale, les responsabilités familiales, la grossesse, la religion, l\'opinion politique, l\'origine sociale ou ethnique, le statut sérologique au VIH avéré ou présumé, et l\'absence pendant le congé de maternité. Cette liste, de nature manifestement anti-discriminatoire, prolonge et concrétise les principes généraux du Titre I déjà étudiés au chapitre 1. Le licenciement fondé sur les nécessités de fonctionnement de l\'entreprise obéit en outre à des conditions fixées par arrêté ministériel, distinctes de la procédure de licenciement collectif étudiée à la section 4.6.' },
+      { type: 'carte', titre: 'Le contradictoire préalable, une garantie procédurale', texte: 'Le dernier alinéa de l\'article 62 impose, avant toute décision de licenciement fondée sur l\'aptitude ou la conduite du travailleur, de permettre à l\'intéressé de se défendre contre les reproches formulés ou de s\'expliquer sur les motifs avancés. Cette exigence, distincte du motif de fond lui-même, ouvre un vice de procédure autonome : un motif par ailleurs valable, mais décidé sans que le travailleur ait pu s\'expliquer, expose la rupture à être jugée irrégulière.' },
+      { type: 'paragraphe', texte: 'La sanction de la résiliation dépourvue de motif valable figure à l\'article 63 : le travailleur a d\'abord droit à une réintégration ; à défaut de celle-ci, des dommages-intérêts sont fixés par le Tribunal du travail, en tenant compte de la nature des services engagés, de l\'ancienneté du travailleur, de son âge et des droits acquis à quelque titre que ce soit, dans la limite d\'un plafond de trente-six mois de la dernière rémunération. À cette indemnisation de fond s\'ajoute, indépendamment, l\'indemnité de préavis non observé, prévue au dernier alinéa du même article et étudiée à la section suivante.' },
+    ],
+  },
+  {
+    numero: '4.3',
+    titre: 'Le préavis',
+    navLabel: '4.3 Le préavis',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 64 fixe la durée légale minimale du préavis donné par l\'employeur à quatorze jours ouvrables à compter du lendemain de la notification, majorée de sept jours ouvrables par année entière de services continus, comptée de date à date, sauf durée plus longue fixée par les parties ou une convention collective. Lorsque le préavis est donné par le travailleur, sa durée est réduite à la moitié de celle qu\'aurait dû observer l\'employeur s\'il avait pris l\'initiative de la résiliation, sans jamais pouvoir excéder cette limite, une dissymétrie qui traduit, une fois encore, la fonction protectrice du droit du travail envers la partie la plus vulnérable économiquement.' },
+      { type: 'paragraphe', texte: 'Pendant la durée du préavis, l\'article 65 maintient l\'ensemble des obligations réciproques des parties, et accorde au travailleur un jour de liberté par semaine, pris à son choix globalement ou par demi-journées, payé à plein salaire, afin de lui permettre de rechercher un autre emploi. L\'article 68 protège par ailleurs le travailleur en congé ou dont le contrat est suspendu : le préavis ne peut lui être notifié pendant ces périodes, sauf les exceptions strictement délimitées de l\'article 60.' },
+      { type: 'carte', titre: 'Deux régimes de départ anticipé à ne pas confondre', tableau: { entetes: ['Article', 'Hypothèse', 'Effet sur la rémunération'], lignes: [['**Art. 66**', 'Cessation à la moitié du préavis reçu de l\'employeur, sans condition particulière', 'Rémunération et allocations familiales dues pour le temps restant'], ['**Art. 67**', 'Départ pour un nouvel emploi trouvé, dans un délai maximal de sept jours à compter de ce nouvel engagement', 'Perte de la rémunération et des allocations pour le temps de préavis restant']] } },
+      { type: 'paragraphe', texte: 'Ce dernier régime, moins favorable en apparence, se justifie par l\'idée que le travailleur ayant déjà retrouvé un emploi ne subit plus, à proprement parler, le préjudice économique que le préavis a précisément pour fonction de couvrir : la perte de rémunération pendant la recherche d\'un nouvel emploi. C\'est cette même logique compensatoire, retournée, qui explique le plafonnement à sept jours du délai de départ, afin d\'éviter qu\'un préavis nominal ne soit détourné en avantage indéfiniment reportable.' },
+    ],
+  },
+  {
+    numero: '4.4',
+    titre: 'La rupture du contrat à durée déterminée et de la clause d\'essai',
+    navLabel: '4.4 Rupture du CDD et de l\'essai',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le contrat à durée déterminée obéit à une logique de rupture radicalement distincte de celle du contrat à durée indéterminée, cohérente avec son économie générale étudiée au chapitre 3 : l\'article 69 dispose qu\'il prend fin à l\'expiration du terme fixé par les parties, et frappe de nullité de plein droit toute clause qui prévoirait le droit d\'y mettre fin par un simple préavis, comme s\'il s\'agissait d\'un contrat à durée indéterminée déguisé. Toute rupture intervenue en violation de ce principe, avant le terme et hors les cas légalement admis, ouvre droit à des dommages-intérêts dont le calcul, à l\'article 70, diffère sensiblement de celui de l\'article 63 : lorsque la rupture irrégulière émane de l\'employeur, ces dommages-intérêts correspondent aux salaires et avantages de toute nature dont le travailleur aurait bénéficié pendant la période restant à courir jusqu\'au terme du contrat, sans référence au plafond de trente-six mois propre au contrat à durée indéterminée.' },
+      { type: 'paragraphe', texte: 'L\'article 71 organise, quant à lui, le régime spécifique de la clause d\'essai, dont les plafonds ont été étudiés au chapitre précédent. Chacune des parties peut, pour un motif valable lié à l\'aptitude ou à la conduite de l\'autre, mettre fin au contrat en cours d\'essai, moyennant un préavis de trois jours ouvrables prenant cours le lendemain de la notification. Une exception subsiste toutefois pendant les trois premiers jours de l\'essai : le contrat peut alors être résilié sans préavis, la totalité de la rémunération restant due pour toute journée commencée.' },
+    ],
+  },
+  {
+    numero: '4.5',
+    titre: 'La faute lourde',
+    navLabel: '4.5 La faute lourde',
+    blocs: [
+      { type: 'paragraphe', texte: 'La faute lourde constitue la voie exceptionnelle permettant de rompre immédiatement tout contrat de travail, sans préavis, quel que soit son type. L\'article 72 la définit non par une liste fermée, mais par un critère général : une partie est réputée avoir commis une faute lourde lorsque les règles de la bonne foi ne permettent pas d\'exiger de l\'autre qu\'elle continue à exécuter le contrat. La partie qui entend s\'en prévaloir doit notifier par écrit sa décision dans les quinze jours ouvrables au plus tard après avoir eu connaissance des faits qu\'elle invoque : Muanda souligne, à propos de ce délai, qu\'il court à compter de la connaissance effective des faits par la partie lésée, et non de leur commission matérielle, ce qui protège l\'employeur ou le travailleur découvrant tardivement des agissements anciens, sous réserve toutefois que la connaissance elle-même ne soit pas artificiellement retardée par sa propre négligence.' },
+      { type: 'filet', titre: 'La suspension pour besoin d\'enquête, une mesure conservatoire distincte', texte: 'Pour les besoins de son enquête, l\'employeur peut notifier au travailleur, dans les deux jours ouvrables après avoir eu connaissance des faits, la suspension de ses fonctions. Cette mesure ne peut excéder quinze jours, portés à trente jours si le siège social de l\'entreprise ne se trouve pas sur le lieu d\'exécution du contrat. L\'article 72 précise expressément qu\'elle ne se confond pas avec la suspension du contrat de l\'article 57, et que la période concernée est considérée comme temps de service, ce qui préserve l\'ancienneté du travailleur suspendu à titre conservatoire.' },
+      { type: 'paragraphe', texte: 'Les articles 73 et 74 énumèrent, chacun de son côté, les fautes lourdes propres à l\'employeur et au travailleur, sans que ces listes soient exhaustives, le critère général de l\'article 72 restant le socle. Constitue une faute lourde de l\'employeur, notamment, l\'improbité, le harcèlement sexuel ou moral, l\'intimidation ou les injures graves imputables à lui-même ou à son préposé, un préjudice matériel intentionnellement causé, l\'exposition du travailleur à des dangers graves imprévisibles, des retenues indues sur la rémunération, ou la persistance à ne pas appliquer la législation du travail. Constitue, symétriquement, une faute lourde du travailleur l\'improbité, le harcèlement, les voies de fait ou injures graves envers l\'employeur ou son personnel, un préjudice matériel intentionnel, des faits immoraux pendant l\'exécution du contrat, ou une imprudence compromettant la sécurité de l\'entreprise.' },
+      { type: 'paragraphe', texte: 'Les conséquences indemnitaires, à l\'article 75, sont dissymétriques et reflètent la fonction distincte de chaque hypothèse : si la rupture procède d\'une faute lourde de l\'employeur, celui-ci est condamné à verser au travailleur des dommages-intérêts selon le mode d\'appréciation de l\'article 63 ; si elle procède d\'une faute lourde du travailleur, c\'est l\'employeur qui peut réclamer au travailleur la réparation du préjudice directement causé par cette faute. Toute résiliation, quelle qu\'en soit la cause, doit être notifiée par écrit et, à l\'initiative de l\'employeur, indiquer expressément le motif, rappel de l\'article 76 qui referme le régime commun de la notification déjà posé à l\'article 61 ter. Enfin, l\'article 77 protège le travailleur d\'une pratique répandue : la quittance pour solde de tout compte délivrée au moment où le contrat prend fin n\'implique aucune renonciation à ses droits, quelle que soit sa formulation.' },
+    ],
+  },
+  {
+    numero: '4.6',
+    titre: 'Licenciement collectif, certificat de fin de service, substitution d\'employeur et sous-entreprise',
+    navLabel: '4.6 Licenciement collectif et fin de contrat',
+    blocs: [
+      { type: 'paragraphe', texte: 'Les licenciements massifs sont interdits, sauf dérogations déterminées par arrêté ministériel. L\'article 78 organise, pour l\'employeur qui envisage de licencier un ou plusieurs travailleurs pour des raisons économiques telles que la diminution de l\'activité ou une réorganisation intérieure, une procédure exigeante : information écrite des représentants des travailleurs au moins quinze jours à l\'avance pour recueillir leurs suggestions, respect d\'un ordre de licenciement fondé sur la qualification professionnelle, l\'ancienneté et les charges de famille (l\'ancienneté étant majorée d\'un an pour le travailleur marié et d\'un an par enfant à charge), et priorité de réembauche pendant deux ans dans la même catégorie d\'emploi. L\'Inspecteur du Travail s\'assure du respect de cette procédure et des critères retenus ; en cas de manquement, il le notifie par écrit à l\'employeur, qui doit répondre avant de poursuivre. Tout licenciement économique intervenu en violation de ces dispositions est considéré comme abusif.' },
+      { type: 'paragraphe', texte: 'Lorsque le contrat prend fin, pour quelque cause que ce soit, l\'article 79 impose à l\'employeur de délivrer au travailleur, au plus tard deux jours ouvrables après la fin du contrat, un certificat attestant uniquement la nature et la durée des services prestés, la date de début et de fin des prestations, et le numéro d\'immatriculation à l\'Institut National de Sécurité Sociale, sans aucune autre indication, notamment appréciative, pouvant y être ajoutée. Ce certificat est exempt de droit de timbre ou d\'enregistrement.' },
+      { type: 'carte', titre: 'Substitution d\'employeur : une continuité protectrice', texte: 'En cas de substitution d\'employeur, notamment par cession, succession, fusion, transformation de fonds ou mise en société, l\'article 80 fait subsister tous les contrats de travail en cours au jour de la substitution, entre le nouvel employeur et le personnel. La cessation de l\'activité de l\'entreprise ne dispense pas, sauf force majeure, de respecter les règles de résiliation, et le texte précise expressément que la faillite et la liquidation judiciaire ne sont pas considérées comme des cas de force majeure. Est par ailleurs nulle, sauf désignation précise de l\'employeur ou des employeurs concernés, toute clause obligeant le travailleur à passer en cours de contrat au service d\'un autre employeur (article 81).' },
+      { type: 'paragraphe', texte: 'Le dernier chapitre du Titre IV organise enfin le régime de la sous-entreprise. Le sous-entrepreneur, personne physique ou morale qui contracte avec un entrepreneur pour l\'exécution d\'un travail moyennant un prix forfaitaire et engage lui-même la main-d\'œuvre nécessaire, expose l\'entrepreneur principal à une responsabilité de paiement des salaires en cas de son insolvabilité, lorsque les travaux sont exécutés hors des ateliers, magasins ou chantiers de l\'entrepreneur : le travailleur lésé dispose alors d\'une action directe contre celui-ci (articles 82 et 83). Le sous-entrepreneur doit indiquer sa qualité ainsi que le nom et l\'adresse de l\'entrepreneur par voie d\'affiche permanente, et ce dernier doit tenir à jour la liste de ses sous-entrepreneurs (article 84), une exigence de transparence qui protège tant les travailleurs que les autorités de contrôle.' },
+    ],
+  },
+]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BANQUE DE QUESTIONS — 20 questions, 5 propositions, distracteurs pièges.
-// ─────────────────────────────────────────────────────────────────────────────
-const QCM_CHAPITRE: QCMChapitre[] = [
+const QCM: Chapitre['qcm'] = [
   {
     id: 'q1', question: "Selon les articles 61 et 61 bis, comment un contrat de travail peut-il prendre fin ?",
     options: [
@@ -272,17 +311,7 @@ const QCM_CHAPITRE: QCMChapitre[] = [
   },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CAS PRATIQUES — 5 situations à plusieurs strates, art. 61 à 85 uniquement.
-// ─────────────────────────────────────────────────────────────────────────────
-interface CasPratique {
-  id: string
-  titre: string
-  contexte: string
-  questions: { num: number; enonce: string; correction: string }[]
-}
-
-const CAS_PRATIQUES: CasPratique[] = [
+const CAS: Chapitre['casPratiques'] = [
   {
     id: 'cp1',
     titre: "Le licenciement de M. Tshimanga pour incompatibilité d'humeur",
@@ -340,395 +369,59 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
 ]
 
-function QCMBankItem({ q }: { q: QCMChapitre }) {
-  const [selected, setSelected] = useState<string | null>(null)
-  const [showResult, setShowResult] = useState(false)
-  return (
-    <div className={cn('rounded-sm border p-4 space-y-3', LIGNE_FORTE, PAPIER_CARD)}>
-      <p className={cn('text-sm', ENCRE)}>{q.question}</p>
-      <div className="space-y-1.5">
-        {q.options.map(opt => {
-          let cls = 'w-full text-left text-xs px-3 py-2 rounded-sm border transition-colors '
-          if (!showResult) cls += selected === opt.id ? cn(VERT_BORDER, 'bg-[#1E4A3D]/10', ENCRE) : cn(LIGNE, 'hover:bg-black/[.02]')
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-600 bg-green-50 text-green-800'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
-          else cls += cn(LIGNE, 'opacity-50')
-          return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-mono font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
-        })}
-      </div>
-      {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className={cn('text-xs text-white rounded-sm px-4 py-1.5 disabled:opacity-40 transition-colors font-mono', VERT_BG)}>Vérifier</button>}
-      {showResult && (
-        <div className={cn('rounded-sm p-3 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700')}>
-          <div className="flex items-center gap-1 font-semibold mb-1">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct' : 'Incorrect'}<span className="ml-auto font-mono opacity-60">{q.articleRef}</span></div>
-          <p>{q.explication}</p>
-          <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function CasPratiqueBlock({ cp, index }: { cp: CasPratique; index: number }) {
-  const [open, setOpen] = useState(false)
-  const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
-  return (
-    <div className={cn('rounded-sm border overflow-hidden', LIGNE_FORTE, PAPIER_CARD)}>
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-black/[.02] transition-colors text-left">
-        <div className="flex items-center gap-3">
-          <span className={cn('font-serif font-bold text-lg shrink-0', VERT)}>{String(index + 1).padStart(2, '0')}</span>
-          <p className={cn('text-sm font-semibold', ENCRE)}>{cp.titre}</p>
-        </div>
-        <ChevronRight className={cn('h-4 w-4 shrink-0 transition-transform', VERT, open && 'rotate-90')} />
-      </button>
-      {open && (
-        <div className={cn('px-4 pb-4 space-y-4 border-t pt-4', LIGNE)}>
-          <div className={cn('rounded-sm p-3 border', LIGNE_FORTE, PAPIER)}>
-            <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', AMBRE)}>Contexte</p>
-            <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>{cp.contexte}</p>
-          </div>
-          <div className="space-y-3">
-            {cp.questions.map(q => (
-              <div key={q.num} className="space-y-2">
-                <p className={cn('text-xs font-semibold', ENCRE)}>Question {q.num} : {q.enonce}</p>
-                {corrVisible.has(q.num) ? (
-                  <div className="rounded-sm bg-green-50 border border-green-200 p-3">
-                    <p className="text-xs font-semibold text-green-800 mb-1">Correction</p>
-                    <p className="text-xs text-green-900 leading-relaxed">{q.correction}</p>
-                  </div>
-                ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className={cn('text-xs hover:underline font-medium', VERT)}>Voir la correction</button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-type Vue = 'lecture' | 'qcm' | 'cas' | 'devoir'
-
-export default function UE1Chapitre4Page() {
-  const goBack = useGoBack('/ue1-droit-travail')
-  const currentUser = useUser()
-  const isStudent = isStudentRole(currentUser)
-  const [vue, setVue] = useState<Vue>('lecture')
-  const [afficherRemonter, setAfficherRemonter] = useState(false)
-  const sommetRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    sommetRef.current?.scrollIntoView({ block: 'start' })
-    document.querySelector('main')?.scrollTo({ top: 0 })
-    window.scrollTo({ top: 0 })
-  }, [vue])
-
-  useEffect(() => {
-    const verifier = () => {
-      const main = document.querySelector('main')
-      setAfficherRemonter((main?.scrollTop ?? 0) > 400 || window.scrollY > 400)
+export const chapitre: Chapitre = {
+  ue: 'ue1',
+  numero: 4,
+  id: 'ue1-chapitre-4',
+  titre: 'La rupture du contrat de travail',
+  sousTitre: 'Titre IV du Code du travail (chapitres VI à VIII) · Loi n°015/2002, art. 61 à 85',
+  infoBulle: 'Résiliation, licenciement, préavis, faute lourde, licenciement collectif, substitution d\'employeur et sous-entreprise.',
+  loiRef: 'Titre IV (2/2), art. 61 à 85',
+  moduleLabel: 'UE 1 · Droit du travail',
+  retourRoute: '/ue1-droit-travail',
+  coursId: 'ue1-droit-travail',
+  objectifs: [
+    'Distinguer les modes de résiliation du contrat et le régime du licenciement pour motif lié à l\'aptitude ou à la conduite',
+    'Maîtriser le calcul et les effets du préavis, y compris ses régimes dérivés (articles 66, 67 et 71)',
+    'Connaître le régime spécifique de la rupture du contrat à durée déterminée',
+    'Maîtriser la procédure et les délais de la résiliation pour faute lourde',
+    'Connaître le régime du licenciement collectif, de la substitution d\'employeur et de la sous-entreprise',
+  ],
+  sections: SECTIONS,
+  aRetenir: [
+    'Le licenciement d\'un contrat à durée indéterminée exige un motif valable lié à l\'aptitude, à la conduite du travailleur ou aux nécessités de fonctionnement de l\'entreprise, ainsi qu\'un entretien contradictoire préalable ; à défaut, le travailleur a droit à réintégration ou à des dommages-intérêts plafonnés à trente-six mois de rémunération.',
+    'Le préavis légal minimal est de quatorze jours ouvrables, majoré de sept jours par année d\'ancienneté pour l\'employeur, réduit de moitié pour le travailleur ; les articles 66 et 67 organisent deux régimes de départ anticipé distincts, selon que le travailleur a ou non retrouvé un nouvel emploi.',
+    'Le contrat à durée déterminée prend fin au terme fixé, toute clause de préavis y étant nulle de plein droit ; sa rupture irrégulière donne lieu à des dommages-intérêts calculés sur la période restant à courir jusqu\'au terme, non sur un plafond de trente-six mois.',
+    'La faute lourde autorise une rupture immédiate sans préavis, sous un délai impératif de quinze jours ouvrables à compter de la connaissance des faits, distincte de la suspension conservatoire pour enquête qui l\'accompagne parfois.',
+    'Le licenciement collectif obéit à une procédure stricte (information, critères, priorité de réembauche) ; la substitution d\'employeur maintient les contrats en cours, et le recours à la sous-entreprise engage la responsabilité de l\'entrepreneur principal en cas d\'insolvabilité du sous-traitant.',
+  ],
+  references: [
+    {
+        genre: "article",
+        auteur: "Pimant C.",
+        titre: "Les impératifs légaux lors de la rupture du contrat de travail en droit congolais",
+        support: "Village Justice",
+        precision: "note professionnelle en ligne"
+    },
+    {
+        genre: "article",
+        auteur: "Muanda D. J.",
+        titre: "Comprendre la rupture du contrat de travail pour faute lourde en RDC",
+        support: "Avocats.cd",
+        precision: "note professionnelle en ligne"
+    },
+    {
+        genre: "ouvrage",
+        auteur: "Loko Mantuono G.",
+        titre: "Droit social, droit du travail et de la sécurité sociale en RDC",
+        editeur: "L'Harmattan",
+        lieu: "Paris",
+        annee: "2022"
     }
-    window.addEventListener('scroll', verifier, true)
-    verifier()
-    return () => window.removeEventListener('scroll', verifier, true)
-  }, [])
-
-  const remonterEnHaut = () => {
-    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const casPratiquesExistants: CasPratiqueExistant[] = CAS_PRATIQUES.map(cp => ({
-    id: cp.id,
-    titre: cp.titre,
-    enonce: cp.contexte + '\n' + cp.questions.map(q => `Question ${q.num} : ${q.enonce}`).join('\n'),
-    corrigeType: cp.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n'),
-  }))
-
-  return (
-    <div ref={sommetRef} className="space-y-4 pb-10 animate-fadeIn">
-      {afficherRemonter && (
-        <button
-          onClick={remonterEnHaut}
-          aria-label="Remonter en haut de la page"
-          className={cn('fixed bottom-20 md:bottom-6 right-4 z-40 h-10 w-10 rounded-full text-white shadow-lg flex items-center justify-center transition-transform hover:scale-105', VERT_BG)}
-        >
-          <ArrowUp className="h-4 w-4" />
-        </button>
-      )}
-      <div className="space-y-1">
-        <Breadcrumb
-          items={[
-            { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 1 · Droit du travail', route: '/ue1-droit-travail' },
-            { label: 'Chapitre 4' },
-          ]}
-          color="emerald"
-        />
-        <div className="flex items-center gap-2 flex-wrap">
-          <h1 className={cn('font-display text-lg font-bold leading-tight', ENCRE)}>La rupture du contrat de travail</h1>
-          <InfoTooltip texte="Résiliation, licenciement, préavis, faute lourde, licenciement collectif, substitution d'employeur et sous-entreprise." loi="Titre IV (2/2), art. 61 à 85" />
-        </div>
-        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Titre IV du Code du travail (chapitres VI à VIII) · Loi n°015/2002, art. 61 à 85</p>
-      </div>
-
-      {vue === 'lecture' && (
-        <div className={cn('rounded-sm border p-4 space-y-1', PAPIER_CARD, LIGNE)}>
-          {[
-            "Distinguer les modes de résiliation du contrat et le régime du licenciement pour motif lié à l'aptitude ou à la conduite",
-            "Maîtriser le calcul et les effets du préavis, y compris ses régimes dérivés (articles 66, 67 et 71)",
-            "Connaître le régime spécifique de la rupture du contrat à durée déterminée",
-            "Maîtriser la procédure et les délais de la résiliation pour faute lourde",
-            "Connaître le régime du licenciement collectif, de la substitution d'employeur et de la sous-entreprise",
-          ].map((o, i) => (
-            <p key={i} className={cn('flex items-start gap-2 text-xs', ENCRE_DOUX)}>
-              <span className={cn('font-mono shrink-0', VERT)}>{i + 1}.</span>
-              <span>{o}</span>
-            </p>
-          ))}
-        </div>
-      )}
-
-      {vue === 'lecture' && (
-        <div className="grid gap-0 lg:grid-cols-[180px_1fr] lg:gap-10">
-          <nav className="hidden lg:block">
-            <div className="sticky top-4 space-y-1 pt-2">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Dans ce chapitre</p>
-              {[
-                ['s1', '4.1 Les modes de résiliation'],
-                ['s2', '4.2 Le licenciement pour motif valable'],
-                ['s3', '4.3 Le préavis'],
-                ['s4', '4.4 Rupture du CDD et de l\'essai'],
-                ['s5', '4.5 La faute lourde'],
-                ['s6', '4.6 Licenciement collectif et fin de contrat'],
-              ].map(([id, label]) => (
-                <a key={id} href={`#${id}`} className={cn('block text-xs leading-snug py-1.5 pl-3 border-l-2', LIGNE, ENCRE_FAIBLE, 'hover:text-[#1E4A3D] hover:border-[#1E4A3D] transition-colors')}>{label}</a>
-              ))}
-            </div>
-          </nav>
-
-          <div className="min-w-0 space-y-14">
-            {/* 4.1 */}
-            <section id="s1" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>4.1</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Les modes de résiliation du contrat</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le chapitre précédent a étudié la formation, l'exécution et la suspension du contrat de travail. Ce chapitre en referme le cycle en étudiant sa rupture, sous ses différentes formes. L'article 61 pose le principe premier : tout contrat de travail peut être résilié à l'initiative soit de l'employeur, soit du travailleur. La loi de 2016 a complété ce principe par l'article 61 bis, qui admet expressément la résiliation d'un commun accord des parties, distincte des deux voies unilatérales et obéissant à ses propres conditions de validité, notamment l'absence de vice du consentement du travailleur, la partie structurellement la plus faible du rapport contractuel.</p>
-                <p>L'article 61 ter encadre la forme de cette résiliation, quelle qu'en soit l'initiative : elle doit être notifiée par écrit, et la lettre de notification, lorsque l'initiative est celle de l'employeur, doit en indiquer expressément le motif. À défaut d'un tel écrit, le texte ne laisse pas la relation de travail dans l'incertitude : tout acte d'une partie tendant à empêcher l'exécution de ses obligations par l'autre constitue une modification unilatérale équipollente à un acte de rupture. La partie qui s'en prévaut doit le faire savoir, dans les huit jours, à l'autre partie, l'Inspecteur du Travail étant informé.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>L'acte équipollent à rupture, un mécanisme protecteur</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>Cette notion, empruntée à une tradition juridique plus large, protège la partie de bonne foi contre une rupture déguisée : l'employeur qui, sans notification, retire au travailleur ses attributions essentielles, ou le travailleur qui cesse de fait toute prestation sans démission formelle, ne peuvent se réfugier derrière l'absence d'écrit pour échapper aux conséquences de la rupture qu'ils ont, en réalité, provoquée.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 4.2 */}
-            <section id="s2" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>4.2</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le licenciement pour motif lié à l'aptitude ou à la conduite</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>L'article 62, modifié par la loi de 2016, constitue le cœur du régime protecteur contre le licenciement arbitraire. Il pose que le contrat à durée indéterminée ne peut être résilié à l'initiative de l'employeur que pour un motif valable, qui se fonde soit sur des actes du travailleur perpétrés sur les lieux de travail ou trouvant leur origine dans l'exercice de ses fonctions, soit sur les nécessités du fonctionnement de l'entreprise, de l'établissement ou du service. La convenance pure de l'employeur, détachée de l'un de ces deux fondements, n'entre dans aucune de ces catégories.</p>
-                <p>Le texte prend soin d'énumérer, à l'inverse, une liste de motifs qui ne constituent jamais un licenciement valable : l'affiliation ou la non-affiliation syndicale, l'exercice d'un mandat de représentation des travailleurs, le fait d'avoir déposé une plainte ou participé à une procédure contre l'employeur, la race, le sexe, la situation matrimoniale, les responsabilités familiales, la grossesse, la religion, l'opinion politique, l'origine sociale ou ethnique, le statut sérologique au VIH avéré ou présumé, et l'absence pendant le congé de maternité. Cette liste, de nature manifestement anti-discriminatoire, prolonge et concrétise les principes généraux du Titre I déjà étudiés au chapitre 1. Le licenciement fondé sur les nécessités de fonctionnement de l'entreprise obéit en outre à des conditions fixées par arrêté ministériel, distinctes de la procédure de licenciement collectif étudiée à la section 4.6.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Le contradictoire préalable, une garantie procédurale</p>
-                  <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>Le dernier alinéa de l'article 62 impose, avant toute décision de licenciement fondée sur l'aptitude ou la conduite du travailleur, de permettre à l'intéressé de se défendre contre les reproches formulés ou de s'expliquer sur les motifs avancés. Cette exigence, distincte du motif de fond lui-même, ouvre un vice de procédure autonome : un motif par ailleurs valable, mais décidé sans que le travailleur ait pu s'expliquer, expose la rupture à être jugée irrégulière.</p>
-                </div>
-                <p>La sanction de la résiliation dépourvue de motif valable figure à l'article 63 : le travailleur a d'abord droit à une réintégration ; à défaut de celle-ci, des dommages-intérêts sont fixés par le Tribunal du travail, en tenant compte de la nature des services engagés, de l'ancienneté du travailleur, de son âge et des droits acquis à quelque titre que ce soit, dans la limite d'un plafond de trente-six mois de la dernière rémunération. À cette indemnisation de fond s'ajoute, indépendamment, l'indemnité de préavis non observé, prévue au dernier alinéa du même article et étudiée à la section suivante.</p>
-              </div>
-            </section>
-
-            {/* 4.3 */}
-            <section id="s3" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>4.3</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le préavis</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>L'article 64 fixe la durée légale minimale du préavis donné par l'employeur à quatorze jours ouvrables à compter du lendemain de la notification, majorée de sept jours ouvrables par année entière de services continus, comptée de date à date, sauf durée plus longue fixée par les parties ou une convention collective. Lorsque le préavis est donné par le travailleur, sa durée est réduite à la moitié de celle qu'aurait dû observer l'employeur s'il avait pris l'initiative de la résiliation, sans jamais pouvoir excéder cette limite, une dissymétrie qui traduit, une fois encore, la fonction protectrice du droit du travail envers la partie la plus vulnérable économiquement.</p>
-                <p>Pendant la durée du préavis, l'article 65 maintient l'ensemble des obligations réciproques des parties, et accorde au travailleur un jour de liberté par semaine, pris à son choix globalement ou par demi-journées, payé à plein salaire, afin de lui permettre de rechercher un autre emploi. L'article 68 protège par ailleurs le travailleur en congé ou dont le contrat est suspendu : le préavis ne peut lui être notifié pendant ces périodes, sauf les exceptions strictement délimitées de l'article 60.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Deux régimes de départ anticipé à ne pas confondre</p>
-                  <table className="w-full text-xs border-collapse mt-2">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Article</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Hypothèse</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Effet sur la rémunération</th></tr></thead>
-                    <tbody>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Art. 66</td><td className={cn('p-2 border', LIGNE)}>Cessation à la moitié du préavis reçu de l'employeur, sans condition particulière</td><td className={cn('p-2 border', LIGNE)}>Rémunération et allocations familiales dues pour le temps restant</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Art. 67</td><td className={cn('p-2 border', LIGNE)}>Départ pour un nouvel emploi trouvé, dans un délai maximal de sept jours à compter de ce nouvel engagement</td><td className={cn('p-2 border', LIGNE)}>Perte de la rémunération et des allocations pour le temps de préavis restant</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <p>Ce dernier régime, moins favorable en apparence, se justifie par l'idée que le travailleur ayant déjà retrouvé un emploi ne subit plus, à proprement parler, le préjudice économique que le préavis a précisément pour fonction de couvrir : la perte de rémunération pendant la recherche d'un nouvel emploi. C'est cette même logique compensatoire, retournée, qui explique le plafonnement à sept jours du délai de départ, afin d'éviter qu'un préavis nominal ne soit détourné en avantage indéfiniment reportable.</p>
-              </div>
-            </section>
-
-            {/* 4.4 */}
-            <section id="s4" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>4.4</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>La rupture du contrat à durée déterminée et de la clause d'essai</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le contrat à durée déterminée obéit à une logique de rupture radicalement distincte de celle du contrat à durée indéterminée, cohérente avec son économie générale étudiée au chapitre 3 : l'article 69 dispose qu'il prend fin à l'expiration du terme fixé par les parties, et frappe de nullité de plein droit toute clause qui prévoirait le droit d'y mettre fin par un simple préavis, comme s'il s'agissait d'un contrat à durée indéterminée déguisé. Toute rupture intervenue en violation de ce principe, avant le terme et hors les cas légalement admis, ouvre droit à des dommages-intérêts dont le calcul, à l'article 70, diffère sensiblement de celui de l'article 63 : lorsque la rupture irrégulière émane de l'employeur, ces dommages-intérêts correspondent aux salaires et avantages de toute nature dont le travailleur aurait bénéficié pendant la période restant à courir jusqu'au terme du contrat, sans référence au plafond de trente-six mois propre au contrat à durée indéterminée.</p>
-                <p>L'article 71 organise, quant à lui, le régime spécifique de la clause d'essai, dont les plafonds ont été étudiés au chapitre précédent. Chacune des parties peut, pour un motif valable lié à l'aptitude ou à la conduite de l'autre, mettre fin au contrat en cours d'essai, moyennant un préavis de trois jours ouvrables prenant cours le lendemain de la notification. Une exception subsiste toutefois pendant les trois premiers jours de l'essai : le contrat peut alors être résilié sans préavis, la totalité de la rémunération restant due pour toute journée commencée.</p>
-              </div>
-            </section>
-
-            {/* 4.5 */}
-            <section id="s5" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>4.5</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>La faute lourde</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>La faute lourde constitue la voie exceptionnelle permettant de rompre immédiatement tout contrat de travail, sans préavis, quel que soit son type. L'article 72 la définit non par une liste fermée, mais par un critère général : une partie est réputée avoir commis une faute lourde lorsque les règles de la bonne foi ne permettent pas d'exiger de l'autre qu'elle continue à exécuter le contrat. La partie qui entend s'en prévaloir doit notifier par écrit sa décision dans les quinze jours ouvrables au plus tard après avoir eu connaissance des faits qu'elle invoque : Muanda souligne, à propos de ce délai, qu'il court à compter de la connaissance effective des faits par la partie lésée, et non de leur commission matérielle, ce qui protège l'employeur ou le travailleur découvrant tardivement des agissements anciens, sous réserve toutefois que la connaissance elle-même ne soit pas artificiellement retardée par sa propre négligence.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>La suspension pour besoin d'enquête, une mesure conservatoire distincte</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>Pour les besoins de son enquête, l'employeur peut notifier au travailleur, dans les deux jours ouvrables après avoir eu connaissance des faits, la suspension de ses fonctions. Cette mesure ne peut excéder quinze jours, portés à trente jours si le siège social de l'entreprise ne se trouve pas sur le lieu d'exécution du contrat. L'article 72 précise expressément qu'elle ne se confond pas avec la suspension du contrat de l'article 57, et que la période concernée est considérée comme temps de service, ce qui préserve l'ancienneté du travailleur suspendu à titre conservatoire.</p>
-                </div>
-                <p>Les articles 73 et 74 énumèrent, chacun de son côté, les fautes lourdes propres à l'employeur et au travailleur, sans que ces listes soient exhaustives, le critère général de l'article 72 restant le socle. Constitue une faute lourde de l'employeur, notamment, l'improbité, le harcèlement sexuel ou moral, l'intimidation ou les injures graves imputables à lui-même ou à son préposé, un préjudice matériel intentionnellement causé, l'exposition du travailleur à des dangers graves imprévisibles, des retenues indues sur la rémunération, ou la persistance à ne pas appliquer la législation du travail. Constitue, symétriquement, une faute lourde du travailleur l'improbité, le harcèlement, les voies de fait ou injures graves envers l'employeur ou son personnel, un préjudice matériel intentionnel, des faits immoraux pendant l'exécution du contrat, ou une imprudence compromettant la sécurité de l'entreprise.</p>
-                <p>Les conséquences indemnitaires, à l'article 75, sont dissymétriques et reflètent la fonction distincte de chaque hypothèse : si la rupture procède d'une faute lourde de l'employeur, celui-ci est condamné à verser au travailleur des dommages-intérêts selon le mode d'appréciation de l'article 63 ; si elle procède d'une faute lourde du travailleur, c'est l'employeur qui peut réclamer au travailleur la réparation du préjudice directement causé par cette faute. Toute résiliation, quelle qu'en soit la cause, doit être notifiée par écrit et, à l'initiative de l'employeur, indiquer expressément le motif, rappel de l'article 76 qui referme le régime commun de la notification déjà posé à l'article 61 ter. Enfin, l'article 77 protège le travailleur d'une pratique répandue : la quittance pour solde de tout compte délivrée au moment où le contrat prend fin n'implique aucune renonciation à ses droits, quelle que soit sa formulation.</p>
-              </div>
-            </section>
-
-            {/* 4.6 */}
-            <section id="s6" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>4.6</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Licenciement collectif, certificat de fin de service, substitution d'employeur et sous-entreprise</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Les licenciements massifs sont interdits, sauf dérogations déterminées par arrêté ministériel. L'article 78 organise, pour l'employeur qui envisage de licencier un ou plusieurs travailleurs pour des raisons économiques telles que la diminution de l'activité ou une réorganisation intérieure, une procédure exigeante : information écrite des représentants des travailleurs au moins quinze jours à l'avance pour recueillir leurs suggestions, respect d'un ordre de licenciement fondé sur la qualification professionnelle, l'ancienneté et les charges de famille (l'ancienneté étant majorée d'un an pour le travailleur marié et d'un an par enfant à charge), et priorité de réembauche pendant deux ans dans la même catégorie d'emploi. L'Inspecteur du Travail s'assure du respect de cette procédure et des critères retenus ; en cas de manquement, il le notifie par écrit à l'employeur, qui doit répondre avant de poursuivre. Tout licenciement économique intervenu en violation de ces dispositions est considéré comme abusif.</p>
-                <p>Lorsque le contrat prend fin, pour quelque cause que ce soit, l'article 79 impose à l'employeur de délivrer au travailleur, au plus tard deux jours ouvrables après la fin du contrat, un certificat attestant uniquement la nature et la durée des services prestés, la date de début et de fin des prestations, et le numéro d'immatriculation à l'Institut National de Sécurité Sociale, sans aucune autre indication, notamment appréciative, pouvant y être ajoutée. Ce certificat est exempt de droit de timbre ou d'enregistrement.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Substitution d'employeur : une continuité protectrice</p>
-                  <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>En cas de substitution d'employeur, notamment par cession, succession, fusion, transformation de fonds ou mise en société, l'article 80 fait subsister tous les contrats de travail en cours au jour de la substitution, entre le nouvel employeur et le personnel. La cessation de l'activité de l'entreprise ne dispense pas, sauf force majeure, de respecter les règles de résiliation, et le texte précise expressément que la faillite et la liquidation judiciaire ne sont pas considérées comme des cas de force majeure. Est par ailleurs nulle, sauf désignation précise de l'employeur ou des employeurs concernés, toute clause obligeant le travailleur à passer en cours de contrat au service d'un autre employeur (article 81).</p>
-                </div>
-                <p>Le dernier chapitre du Titre IV organise enfin le régime de la sous-entreprise. Le sous-entrepreneur, personne physique ou morale qui contracte avec un entrepreneur pour l'exécution d'un travail moyennant un prix forfaitaire et engage lui-même la main-d'œuvre nécessaire, expose l'entrepreneur principal à une responsabilité de paiement des salaires en cas de son insolvabilité, lorsque les travaux sont exécutés hors des ateliers, magasins ou chantiers de l'entrepreneur : le travailleur lésé dispose alors d'une action directe contre celui-ci (articles 82 et 83). Le sous-entrepreneur doit indiquer sa qualité ainsi que le nom et l'adresse de l'entrepreneur par voie d'affiche permanente, et ce dernier doit tenir à jour la liste de ses sous-entrepreneurs (article 84), une exigence de transparence qui protège tant les travailleurs que les autorités de contrôle.</p>
-              </div>
-            </section>
-
-            {/* à retenir */}
-            <div className={cn('pt-8 border-t-2', 'border-[#262019]')}>
-              <p className={cn('font-serif font-bold text-base mb-4', ENCRE)}>À retenir</p>
-              <ul className="space-y-0">
-                {[
-                  "Le licenciement d'un contrat à durée indéterminée exige un motif valable lié à l'aptitude, à la conduite du travailleur ou aux nécessités de fonctionnement de l'entreprise, ainsi qu'un entretien contradictoire préalable ; à défaut, le travailleur a droit à réintégration ou à des dommages-intérêts plafonnés à trente-six mois de rémunération.",
-                  "Le préavis légal minimal est de quatorze jours ouvrables, majoré de sept jours par année d'ancienneté pour l'employeur, réduit de moitié pour le travailleur ; les articles 66 et 67 organisent deux régimes de départ anticipé distincts, selon que le travailleur a ou non retrouvé un nouvel emploi.",
-                  "Le contrat à durée déterminée prend fin au terme fixé, toute clause de préavis y étant nulle de plein droit ; sa rupture irrégulière donne lieu à des dommages-intérêts calculés sur la période restant à courir jusqu'au terme, non sur un plafond de trente-six mois.",
-                  "La faute lourde autorise une rupture immédiate sans préavis, sous un délai impératif de quinze jours ouvrables à compter de la connaissance des faits, distincte de la suspension conservatoire pour enquête qui l'accompagne parfois.",
-                  "Le licenciement collectif obéit à une procédure stricte (information, critères, priorité de réembauche) ; la substitution d'employeur maintient les contrats en cours, et le recours à la sous-entreprise engage la responsabilité de l'entrepreneur principal en cas d'insolvabilité du sous-traitant.",
-                ].map((l, i) => (
-                  <li key={i} className={cn('flex items-start gap-3 text-sm py-2.5 border-b', LIGNE, ENCRE_DOUX)}>
-                    <span className={VERT}>▪</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* bibliographie */}
-            <div className="pt-6 border-t border-[#D9CFA9]">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Références citées</p>
-              <ul className="space-y-0">
-                {[
-                  <>Pimant C., « Les impératifs légaux lors de la rupture du contrat de travail en droit congolais », <i>Village Justice</i>, note professionnelle en ligne.</>,
-                  <>Muanda D. J., « Comprendre la rupture du contrat de travail pour faute lourde en RDC », <i>Avocats.cd</i>, note professionnelle en ligne.</>,
-                  <>Loko Mantuono G., <i>Droit social, droit du travail et de la sécurité sociale en RDC</i>, L'Harmattan, Paris, 2022.</>,
-                ].map((ref, i) => (
-                  <li key={i} className={cn('text-xs py-2 border-b', LIGNE, ENCRE_FAIBLE)}>{ref}</li>
-                ))}
-              </ul>
-            </div>
-
-            {/* s'exercer */}
-            <div className={cn('pt-10 border-t-2', 'border-[#262019]')}>
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', AMBRE)}>Le chapitre est terminé : passez à l'épreuve</p>
-              <h2 className={cn('font-serif font-bold text-2xl mb-3', ENCRE)}>S'exercer</h2>
-              <p className={cn('text-sm leading-relaxed mb-6 max-w-xl', ENCRE_DOUX)}>La lecture seule ne suffit pas à maîtriser une notion de droit. Les deux parcours ci-dessous couvrent l'ensemble du chapitre, pas seulement les points soulevés en cours de lecture.</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <button onClick={() => setVue('qcm')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>20</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Questionnaire</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>QCM du chapitre</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Vingt questions couvrant les six sections, du rappel de cours à l'articulation de plusieurs notions.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Commencer le questionnaire →</span>
-                </button>
-                <button onClick={() => setVue('cas')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>05</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Mise en situation</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>Cas pratiques</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Cinq situations à plusieurs strates, exigeant de croiser plusieurs notions du chapitre.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Ouvrir les cas pratiques →</span>
-                </button>
-              </div>
-            </div>
-
-            {!isStudent && (
-              <div className={cn('rounded-sm border border-dashed p-5 flex items-center justify-between gap-4 flex-wrap', LIGNE_FORTE, PAPIER_CARD)}>
-                <div>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', ENCRE_FAIBLE)}>Espace professeur</p>
-                  <p className={cn('text-xs', ENCRE_DOUX)}>20 questions QCM et 5 cas pratiques disponibles pour ce chapitre.</p>
-                </div>
-                <button onClick={() => setVue('devoir')} className={cn('text-xs font-mono px-4 py-2.5 rounded-sm text-white', VERT_BG)}>Créer un devoir à partir de ce chapitre →</button>
-              </div>
-            )}
-
-            <button onClick={goBack} className={cn('w-full flex items-center justify-center gap-2 py-3 rounded-sm text-white text-sm font-semibold transition-colors', VERT_BG)}>
-              <GraduationCap className="h-4 w-4" /> Terminer le chapitre 4
-            </button>
-
-            <p className="text-xs text-center text-muted-foreground/60 pb-2">
-              Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 61 à 85 · Loi n°16/010 du 15 juillet 2016
-            </p>
-          </div>
-        </div>
-      )}
-
-      {vue === 'qcm' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>QCM du chapitre : 20 questions</h2>
-          <div className="grid gap-3">
-            {QCM_CHAPITRE.map(q => <QCMBankItem key={q.id} q={q} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'cas' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Cas pratiques : 5 mises en situation</h2>
-          <div className="space-y-3">
-            {CAS_PRATIQUES.map((cp, i) => <CasPratiqueBlock key={cp.id} cp={cp} index={i} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'devoir' && !isStudent && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <DevoirChapitreCreateur
-            chapitreId="ue1-chapitre-4"
-            chapitreNom="Chapitre 4 : La rupture du contrat de travail"
-            questions={QCM_CHAPITRE}
-            coursId="ue1-droit-travail"
-            casPratiquesExistants={casPratiquesExistants}
-          />
-        </div>
-      )}
-    </div>
-  )
+],
+  qcm: QCM,
+  casPratiques: CAS,
+  sources: 'Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 61 à 85 · Loi n°16/010 du 15 juillet 2016',
 }
+
+export default chapitre
