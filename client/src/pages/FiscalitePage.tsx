@@ -287,6 +287,212 @@ function CatalogueListe({ titre, couleur, items, onSelect, exclusions, exclusion
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Catalogue groupé par article : pour les catégories dont le catalogue légal se
+// subdivise réellement en plusieurs sous-articles (Cat. 2 BIC : Art. 21 à 49 ;
+// Cat. 3 BNC : Art. 92/94/95/96 pour les recettes, Art. 98 pour les charges).
+// Une section « excluded » affiche ses postes grisés, non cliquables (postes
+// hors champ ou non déductibles listés à titre pédagogique).
+// ─────────────────────────────────────────────────────────────────────────────
+interface SectionCatalogue { cat: string; color: string; excluded?: boolean; items: string[] }
+
+function CatalogueGroupe({ sections, onSelect }: { sections: SectionCatalogue[]; onSelect: (label: string) => void }) {
+  return (
+    <details className="group">
+      <summary className="cursor-pointer text-xs text-primary font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
+        <span className="group-open:rotate-90 transition-transform inline-block text-xs">▶</span>
+        Catalogue : cliquer pour ajouter
+      </summary>
+      <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2">
+        <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
+        {sections.map((section, si) => (
+          <div key={si}>
+            <p className={`text-xs font-semibold mb-1 ${section.color}`}>{section.cat}</p>
+            <div className="flex flex-wrap gap-1">
+              {section.items.map((item, ii) => (
+                <button key={ii}
+                  disabled={section.excluded}
+                  onClick={() => { if (!section.excluded) onSelect(item) }}
+                  className={cn(
+                    'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
+                    section.excluded
+                      ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
+                      : section.color.includes('amber')
+                        ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 cursor-pointer'
+                        : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
+                  )}>
+                  {section.excluded ? '✕ ' : '+ '}{item}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )
+}
+
+// Catalogues produits/charges communs aux Bénéfices Industriels, Commerciaux,
+// Immobiliers et Artisanaux (BIC, Cat. 2 — Art. 14 pour les produits, Art. 20 à
+// 50 pour les charges). Réutilisés tels quels par la Cat. 4 (Agricole) : l'Art.
+// 104 renvoie « aux mêmes conditions que celles prévues en matière de
+// bénéfices [BIC] » — il n'existe pas de catalogue légal propre à l'agriculture,
+// donc pas de raison d'en reconstruire un distinct.
+const PRODUITS_BIC_CATALOGUE: SectionCatalogue[] = [
+  { cat: 'Produits imposables : Art. 14, Loi 23/053', color: 'text-indigo-600', items: [
+    "Ventes et recettes",
+    "Produits financiers",
+    "Revenus bruts des capitaux mobiliers inscrits à l'actif",
+    "Produits de la location des immeubles inscrits à l'actif, y compris revenus accessoires",
+    "Bonis sur reprises et cessions d'emballages",
+    "Travaux faits par l'entreprise pour elle-même",
+    "Subventions d'exploitation et d'équilibre",
+    "Travaux en cours",
+    "Reprises et transferts de charges",
+    "Dégrèvements obtenus de l'Administration au titre des impôts déductibles",
+    "Produits de cession d'éléments d'actif immobilisé",
+    "Gains de change effectivement réalisés",
+  ]},
+  { cat: '✕ Exclus : Art. 89 al. 2, Loi 23/053', color: 'text-red-500', excluded: true, items: [
+    "Revenus de capitaux mobiliers non inscrits à l'actif du bilan",
+    "Produits de la location d'immeubles bâtis non inscrits à l'actif du bilan",
+    "Produits de la location d'immeubles non bâtis non inscrits à l'actif du bilan",
+  ]},
+]
+
+const CHARGES_BIC_CATALOGUE: SectionCatalogue[] = [
+  { cat: 'A. Charges de personnel et autres rémunérations : Art. 21-24', color: 'text-indigo-600', items: [
+    "Traitements, salaires et rémunérations du personnel",
+    "Indemnités, allocations et avantages en nature du personnel",
+    "Rémunérations des associés actifs pour emploi effectif dans l'entreprise",
+    "Part du bénéfice répartie entre les membres du personnel",
+    "Rémunérations exceptionnelles des administrateurs (assemblée générale)",
+    "Salaires, commissions et honoraires déclarés aux impôts correspondants",
+  ]},
+  { cat: 'B. Dépenses locatives : Art. 25', color: 'text-indigo-600', items: [
+    "Loyer réellement payé des immeubles affectés à l'activité",
+    "Charges locatives des immeubles affectés à l'activité",
+    "Frais généraux d'entretien et éclairage des locaux professionnels",
+  ]},
+  { cat: "C. Frais de transport, d'assurance, de courtage, d'entretien et de commission : Art. 26", color: 'text-indigo-600', items: [
+    "Frais de transport",
+    "Frais de courtage",
+    "Commissions (justifiées : nom, domicile, date et montant du bénéficiaire)",
+    "Frais d'entretien et de réparation des biens immobiliers affectés à l'exploitation",
+    "Frais d'entretien et de réparation du matériel et objets mobiliers affectés à l'exploitation",
+  ]},
+  { cat: "D. Primes d'assurance : Art. 27", color: 'text-indigo-600', items: [
+    "Primes d'assurance couvrant un risque entraînant diminution de l'actif net de l'entreprise",
+  ]},
+  { cat: 'E. Amortissements : Art. 28-38', color: 'text-indigo-600', items: [
+    "Amortissement linéaire des immobilisations à l'actif soumises à dépréciation",
+    "Amortissement dégressif des biens neufs éligibles (matériels industriels, manutention, sécurité, informatique, hôteliers)",
+    "Amortissement exceptionnel (60% la 1ère année) pour entreprises exportant ≥20% du CA",
+    "Amortissement des biens en crédit-bail (Institution agréée BCC)",
+  ]},
+  { cat: 'F. Charges financières : Art. 39-42', color: 'text-indigo-600', items: [
+    "Intérêts des capitaux empruntés à des tiers engagés dans l'exploitation",
+    "Charges, rentes et redevances analogues relatives à l'exploitation",
+    "Intérêts servis aux associés (dans la limite du taux BCC + 2 points)",
+  ]},
+  { cat: 'G. Redevances : Art. 43', color: 'text-indigo-600', items: [
+    "Redevances de concession de licences d'exploitation (limite : 3,5% du CA HT)",
+    "Redevances de brevets d'invention (limite : 3,5% du CA HT)",
+    "Redevances de marques de fabrique, procédés ou formules de fabrication (limite : 3,5% du CA HT)",
+    "Redevances pour droits analogues en cours de validité (limite : 3,5% du CA HT)",
+  ]},
+  { cat: 'H. Libéralités, dons et subventions : Art. 44', color: 'text-indigo-600', items: [
+    "Versements au Fonds Social de la RDC (justifiés, limite : 0,5% du CA)",
+    "Dons à des organismes de recherche en RDC (justifiés, limite : 0,5% du CA)",
+    "Dons à des œuvres d'utilité publique philanthropiques ou sociales en RDC (limite : 0,5% du CA)",
+    "Dons à des associations sportives en RDC (justifiés, limite : 0,5% du CA)",
+  ]},
+  { cat: 'I. Impôts, droits et taxes : Art. 45', color: 'text-indigo-600', items: [
+    "Impôts, droits et taxes à charge de l'entreprise acquittés dans le délai (sauf IRPP lui-même)",
+  ]},
+  { cat: 'J. Sommes versées à des personnes non résidentes : Art. 46-48', color: 'text-indigo-600', items: [
+    "Sommes versées à une entité liée non résidente (service réel démontré, non disponible en RDC, montant normal)",
+    "Sommes versées à une entité non liée en pays à régime fiscal privilégié (réalité et montant normal prouvés)",
+  ]},
+  { cat: 'K. Autres charges déductibles : Art. 49', color: 'text-indigo-600', items: [
+    "Cadeaux publicitaires justifiés par factures (limite : 2‰ du CA HT)",
+    "Frais de représentation justifiés par factures (limite : 60% de leur montant)",
+    "Charges professionnelles des bâtiments et terrains donnés en location par sociétés immobilières",
+    "Pertes de change effectivement réalisées",
+    "Dépenses de formation professionnelle",
+    "Dépenses de recherche appliquée et développement sur projets individualisés (amorties sur 4 ans à 25%/an)",
+    "Frais de communication justifiés par factures (limite : 50% de leur montant)",
+    "Frais d'internet exclusivement professionnel (100% déductible)",
+  ]},
+  { cat: '⚠ Dépenses mixtes pro/perso : Art. 89 al. 4', color: 'text-amber-500', items: [
+    "Véhicule à usage mixte professionnel et personnel (50% admis à défaut de justificatif précis)",
+    "Logement servant partiellement de lieu d'activité (50% admis à défaut de justificatif précis)",
+  ]},
+  { cat: '✕ Charges NON déductibles : Art. 50', color: 'text-red-500', excluded: true, items: [
+    "Dépenses personnelles (ménage, instruction, congé, non nécessitées par la profession)",
+    "IRPP lui-même et impôts ne constituant pas une charge d'exploitation",
+    "Amendes, confiscations, pénalités fiscales, douanières et sociales",
+    "Dépenses relatives aux biens donnés en location et leurs amortissements",
+    "Provisions pour pertes, charges ou dépréciations d'actif (sauf provisions légalement autorisées)",
+    "Dépenses de chasse/pêche sportives, bateaux de plaisance, aéronefs de tourisme, résidences somptuaires",
+    "Frais généraux du siège social ou direction générale situés à l'étranger",
+  ]},
+]
+
+// Catalogues recettes/charges propres aux Bénéfices Non Commerciaux (Cat. 3 BNC).
+// Contrairement au BIC, la BNC a ses propres articles : les recettes viennent de
+// trois articles distincts (Art. 94/95/96) — l'Art. 92, lui, ne fixe pas de règle
+// de recettes mais la liste des revenus qui qualifient une activité comme BNC.
+const RECETTES_BNC_CATALOGUE: SectionCatalogue[] = [
+  { cat: 'Revenus visés par la catégorie BNC : Art. 92, Loi 23/053', color: 'text-indigo-600', items: [
+    "Produits de droits d'auteur (artistes, écrivains, compositeurs, héritiers ou légataires)",
+    "Produits pour usage ou concession d'un droit d'auteur, brevet, marque, dessin, modèle, procédé secret ou équipement industriel/commercial/scientifique",
+    "Revenus non salariaux des sportifs et artistes",
+    "Produits des opérations de bourse effectuées par des particuliers",
+    "Produits perçus par les organisateurs de spectacles",
+  ]},
+  { cat: 'A. Honoraires et cession d\'activité : Art. 94', color: 'text-indigo-600', items: [
+    "Honoraires perçus en contrepartie de prestations de services rendus à la clientèle",
+    "Gains sur réalisation d'éléments d'actif affectés à l'exercice de la profession, ou sur cession de charges/offices",
+    "Indemnités reçues en contrepartie de la cessation de l'exercice de la profession ou du transfert de clientèle",
+  ]},
+  { cat: 'B. Provisions et rétrocessions : Art. 95', color: 'text-indigo-600', items: [
+    "Provisions et avances sur honoraires effectivement encaissées",
+    "Honoraires rétrocédés par des confrères à l'occasion de remplacements",
+    "Prestations réglées sous forme de dons ou cadeaux, lorsqu'ils rémunèrent un service",
+  ]},
+  { cat: 'C. Sommes accessoires : Art. 96', color: 'text-indigo-600', items: [
+    "Remboursements de frais",
+    "Intérêts de créances",
+    "Produits financiers (activité exercée en société civile ou GIE)",
+    "Produits de placement de fonds reçus en dépôts",
+    "Subventions reçues",
+  ]},
+]
+
+const CHARGES_BNC_CATALOGUE: SectionCatalogue[] = [
+  { cat: 'Dépenses professionnelles déductibles : Art. 98', color: 'text-rose-600', items: [
+    "Loyer des locaux professionnels effectivement payé",
+    "Frais généraux nécessités directement par l'exploitation",
+    "Rémunérations pour frais d'études ou d'assistance payées à des personnes domiciliées à l'étranger",
+    "Dépenses de formation et de recherche",
+    "Frais d'inscription et de participation aux stages, colloques, séminaires (transport, hébergement, repas d'affaires — justificatifs requis)",
+    "Impôts, droits et taxes à charge du contribuable mis en recouvrement (sauf IRPP)",
+    "Droits de mutation à titre gratuit acquittés par les héritiers/donataires/légataires d'une exploitation, pour la part afférente, et intérêts payés",
+    "Amortissements selon les règles comptables et fiscales du régime BIC",
+    "Charges du personnel",
+  ]},
+  { cat: '✕ Non déductibles : Art. 99-100', color: 'text-red-500', excluded: true, items: [
+    "Dépenses personnelles, dépenses d'une activité exercée à titre bénévole",
+    "Dépenses d'agrément ou somptuaires dont le rapport avec la profession n'est pas établi",
+    "Local dont le professionnel est propriétaire, occupé à titre gratuit : aucune déduction de ce chef",
+    "Sommes engagées pour l'acquisition d'immobilisations",
+    "Dépenses ayant pour but l'extinction d'une dette en capital",
+    "Dépenses ayant le caractère d'un placement",
+    "Amendes, confiscations et pénalités de toute nature (fiscale, douanière, sociale, prix, circulation, lois RDC), et honoraires/frais liés",
+  ]},
+]
+
+// ─────────────────────────────────────────────────────────────────────────────
 // COMPOSANTS RÉSULTAT
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1479,65 +1685,7 @@ function Cat2BIC() {
                   className="shrink-0 text-red-400 text-xs px-1.5 rounded-lg border border-border/40 bg-background">✕</button>
               </div>
             ))}
-            {/* Catalogue produits sélectionnable */}
-            <details className="group">
-              <summary className="cursor-pointer text-xs text-primary font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
-                <span className="group-open:rotate-90 transition-transform inline-block text-xs">▶</span>
-                Catalogue : cliquer pour ajouter
-              </summary>
-              <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2">
-                <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
-                {[
-                  { cat: 'Produits imposables : Art. 14, Loi 23/053', color: 'text-indigo-600', items: [
-                    "Ventes et recettes=",
-                    "Produits financiers=",
-                    "Revenus bruts des capitaux mobiliers inscrits à l'actif",
-                    "Produits de la location des immeubles inscrits à l'actif, y compris revenus accessoires=",
-                    "Bonis sur reprises et cessions d'emballages",
-                    "Travaux faits par l'entreprise pour elle-même",
-                    "Subventions d'exploitation et d'équilibre",
-                    "Travaux en cours=",
-                    "Reprises et transferts de charges=",
-                    "Dégrèvements obtenus de l'Administration au titre des impôts déductibles",
-                    "Produits de cession d'éléments d'actif immobilisé",
-                    "Gains de change effectivement réalisés",
-                  ]},
-                  { cat: '✕ Exclus : Art. 89 al. 2, Loi 23/053', color: 'text-red-500', items: [
-                    "Revenus de capitaux mobiliers non inscrits à l'actif du bilan=",
-                    "Produits de la location d'immeubles bâtis non inscrits à l'actif du bilan=",
-                    "Produits de la location d'immeubles non bâtis non inscrits à l'actif du bilan=",
-                  ]},
-                ].map((section, si) => (
-                  <div key={si}>
-                    <p className={`text-xs font-semibold mb-1 ${section.color}`}>{section.cat}</p>
-                    <div className="flex flex-wrap gap-1">
-                      {section.items.map((item, ii) => {
-                        const excluded = section.cat.includes('Exclus')
-                        return (
-                          <button key={ii}
-                            disabled={excluded}
-                            onClick={() => {
-                              if (excluded) return
-                              setProduits((prev: any[]) => {
-                                if (prev.some((r: any) => r.label === item)) return prev
-                                return [...prev, { label: item, montant: '', fromCat: true }]
-                              })
-                            }}
-                            className={cn(
-                              'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
-                              excluded
-                                ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
-                                : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
-                            )}>
-                            {excluded ? '✕ ' : '+ '}{item}
-                          </button>
-                        )
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </details>
+            <CatalogueGroupe sections={PRODUITS_BIC_CATALOGUE} onSelect={label => setProduits((prev: any[]) => prev.some((r: any) => r.label === label) ? prev : [...prev, { label, montant: '', fromCat: true }])} />
           </div>
 
           {/* Charges */}
@@ -1571,121 +1719,7 @@ function Cat2BIC() {
                   className="shrink-0 text-red-400 text-xs px-1.5 rounded-lg border border-border/40 bg-background">✕</button>
               </div>
             ))}
-            {/* Catalogue charges sélectionnable */}
-            <details className="group">
-              <summary className="cursor-pointer text-xs text-primary font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
-                <span className="group-open:rotate-90 transition-transform inline-block text-xs">▶</span>
-                Catalogue : cliquer pour ajouter
-              </summary>
-              <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2">
-                <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
-                {[
-                  { cat: 'A. Charges de personnel et autres rémunérations : Art. 21-24', color: 'text-indigo-600', excluded: false, items: [
-                    "Traitements, salaires et rémunérations du personnel=",
-                    "Indemnités, allocations et avantages en nature du personnel=",
-                    "Rémunérations des associés actifs pour emploi effectif dans l'entreprise",
-                    "Part du bénéfice répartie entre les membres du personnel=",
-                    "Rémunérations exceptionnelles des administrateurs (assemblée générale)",
-                    "Salaires, commissions et honoraires déclarés aux impôts correspondants=",
-                  ]},
-                  { cat: 'B. Dépenses locatives : Art. 25', color: 'text-indigo-600', excluded: false, items: [
-                    "Loyer réellement payé des immeubles affectés à l'activité",
-                    "Charges locatives des immeubles affectés à l'activité",
-                    "Frais généraux d'entretien et éclairage des locaux professionnels=",
-                  ]},
-                  { cat: "C. Frais de transport, d'assurance, de courtage, d'entretien et de commission : Art. 26", color: 'text-indigo-600', excluded: false, items: [
-                    "Frais de transport=",
-                    "Frais de courtage=",
-                    "Commissions (justifiées : nom, domicile, date et montant du bénéficiaire)",
-                    "Frais d'entretien et de réparation des biens immobiliers affectés à l'exploitation",
-                    "Frais d'entretien et de réparation du matériel et objets mobiliers affectés à l'exploitation",
-                  ]},
-                  { cat: "D. Primes d'assurance : Art. 27", color: 'text-indigo-600', excluded: false, items: [
-                    "Primes d'assurance couvrant un risque entraînant diminution de l'actif net de l'entreprise",
-                  ]},
-                  { cat: 'E. Amortissements : Art. 28-38', color: 'text-indigo-600', excluded: false, items: [
-                    "Amortissement linéaire des immobilisations à l'actif soumises à dépréciation",
-                    "Amortissement dégressif des biens neufs éligibles (matériels industriels, manutention, sécurité, informatique, hôteliers)",
-                    "Amortissement exceptionnel (60% la 1ère année) pour entreprises exportant ≥20% du CA=",
-                    "Amortissement des biens en crédit-bail (Institution agréée BCC)",
-                  ]},
-                  { cat: 'F. Charges financières : Art. 39-42', color: 'text-indigo-600', excluded: false, items: [
-                    "Intérêts des capitaux empruntés à des tiers engagés dans l'exploitation",
-                    "Charges, rentes et redevances analogues relatives à l'exploitation",
-                    "Intérêts servis aux associés (dans la limite du taux BCC + 2 points)",
-                  ]},
-                  { cat: 'G. Redevances : Art. 43', color: 'text-indigo-600', excluded: false, items: [
-                    "Redevances de concession de licences d'exploitation (limite : 3,5% du CA HT)",
-                    "Redevances de brevets d'invention (limite : 3,5% du CA HT)",
-                    "Redevances de marques de fabrique, procédés ou formules de fabrication (limite : 3,5% du CA HT)",
-                    "Redevances pour droits analogues en cours de validité (limite : 3,5% du CA HT)",
-                  ]},
-                  { cat: 'H. Libéralités, dons et subventions : Art. 44', color: 'text-indigo-600', excluded: false, items: [
-                    "Versements au Fonds Social de la RDC (justifiés, limite : 0,5% du CA)",
-                    "Dons à des organismes de recherche en RDC (justifiés, limite : 0,5% du CA)",
-                    "Dons à des œuvres d'utilité publique philanthropiques ou sociales en RDC (limite : 0,5% du CA)",
-                    "Dons à des associations sportives en RDC (justifiés, limite : 0,5% du CA)",
-                  ]},
-                  { cat: 'I. Impôts, droits et taxes : Art. 45', color: 'text-indigo-600', excluded: false, items: [
-                    "Impôts, droits et taxes à charge de l'entreprise acquittés dans le délai (sauf IRPP lui-même)",
-                  ]},
-                  { cat: 'J. Sommes versées à des personnes non résidentes : Art. 46-48', color: 'text-indigo-600', excluded: false, items: [
-                    "Sommes versées à une entité liée non résidente (service réel démontré, non disponible en RDC, montant normal)",
-                    "Sommes versées à une entité non liée en pays à régime fiscal privilégié (réalité et montant normal prouvés)",
-                  ]},
-                  { cat: 'K. Autres charges déductibles : Art. 49', color: 'text-indigo-600', excluded: false, items: [
-                    "Cadeaux publicitaires justifiés par factures (limite : 2‰ du CA HT)",
-                    "Frais de représentation justifiés par factures (limite : 60% de leur montant)",
-                    "Charges professionnelles des bâtiments et terrains donnés en location par sociétés immobilières",
-                    "Pertes de change effectivement réalisées",
-                    "Dépenses de formation professionnelle=",
-                    "Dépenses de recherche appliquée et développement sur projets individualisés (amorties sur 4 ans à 25%/an)",
-                    "Frais de communication justifiés par factures (limite : 50% de leur montant)",
-                    "Frais d'internet exclusivement professionnel (100% déductible)",
-                  ]},
-                  { cat: '⚠ Dépenses mixtes pro/perso : Art. 89 al. 4', color: 'text-amber-500', excluded: false, items: [
-                    "Véhicule à usage mixte professionnel et personnel (50% admis à défaut de justificatif précis)",
-                    "Logement servant partiellement de lieu d'activité (50% admis à défaut de justificatif précis)",
-                  ]},
-                  { cat: '✕ Charges NON déductibles : Art. 50', color: 'text-red-500', excluded: true, items: [
-                    "Dépenses personnelles (ménage, instruction, congé, non nécessitées par la profession)",
-                    "IRPP lui-même et impôts ne constituant pas une charge d'exploitation",
-                    "Amendes, confiscations, pénalités fiscales, douanières et sociales=",
-                    "Dépenses relatives aux biens donnés en location et leurs amortissements=",
-                    "Provisions pour pertes, charges ou dépréciations d'actif (sauf provisions légalement autorisées)",
-                    "Dépenses de chasse/pêche sportives, bateaux de plaisance, aéronefs de tourisme, résidences somptuaires=",
-                    "Frais généraux du siège social ou direction générale situés à l'étranger",
-                  ]},
-                ].map((section, si) => (
-                  <div key={si}>
-                    <p className={`text-xs font-semibold mb-1 ${section.color}`}>{section.cat}</p>
-                    <div className="flex flex-wrap gap-1">
-                      {section.items.map((item, ii) => (
-                        <button key={ii}
-                          disabled={section.excluded}
-                          onClick={() => {
-                            if (section.excluded) return
-                            setCharges((prev: any[]) => {
-                              if (prev.some((r: any) => r.label === item)) return prev
-                              return [...prev, { label: item, montant: '', fromCat: true }]
-                            })
-                          }}
-                          className={cn(
-                            'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
-                            section.excluded
-                              ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
-                              : section.color.includes('amber')
-                                ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 cursor-pointer'
-                                : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
-                          )}>
-                          {section.excluded ? '✕ ' : '+ '}{item}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </details>
+            <CatalogueGroupe sections={CHARGES_BIC_CATALOGUE} onSelect={label => setCharges((prev: any[]) => prev.some((r: any) => r.label === label) ? prev : [...prev, { label, montant: '', fromCat: true }])} />
           </div>
 
           {/* Déductions spécifiques Art. 90 */}
@@ -2961,44 +2995,6 @@ function Cat3BNC() {
   const [showDeductions, setShowDeductions] = useState(false)
   const [res, setRes] = useState<any>(null)
 
-  const RECETTES_CAT = [
-    { label: 'Honoraires professionnels' },
-    { label: 'Acomptes et provisions effectivement encaissés' },
-    { label: 'Honoraires rétro-cédés par des confrères' },
-    { label: 'Gains sur cession d\'actifs professionnels' },
-    { label: 'Indemnités de cessation et transfert de clientèle' },
-    { label: 'Remboursements de frais professionnels' },
-    { label: 'Intérêts de créances professionnelles' },
-    { label: 'Produits financiers (société civile et GIE)' },
-    { label: 'Produits de placement de fonds reçus en dépôts' },
-    { label: 'Subventions reçues liées à l\'activité' },
-    { label: 'Prestations règlées sous forme de dons ou cadeaux (si rémunération)' },
-    { label: 'Droits d\'auteur (artistes, écrivains, compositeurs, héritiers)' },
-    { label: 'Redevances de propriété intellectuelle (brevets, marques, œuvres)' },
-    { label: 'Revenus non salariaux d\'artistes et sportifs' },
-    { label: 'Produits d\'opérations de bourse réalisés par des particuliers' },
-    { label: 'Recettes d\'organisateurs de spectacles' },
-  ]
-
-  const CHARGES_CAT = [
-    { label: 'Loyers des locaux professionnels' },
-    { label: 'Frais généraux d\'exploitation' },
-    { label: 'Rémunérations d\'assistance à des personnes à l\'étranger' },
-    { label: 'Dépenses de formation et de recherche' },
-    { label: 'Frais de stages, colloques et séminaires (avec justificatifs)' },
-    { label: 'Impôts et taxes (hors IRPP)' },
-    { label: 'Amortissements des équipements professionnels' },
-    { label: 'Charges du personnel (collaborateurs, sous-traitants)' },
-    { label: 'Frais de déplacement professionnels' },
-    { label: 'Abonnements à des bases documentaires' },
-    { label: 'Frais de communication (téléphone, internet : part professionnelle)' },
-  ]
-
-  const CHARGES_NON_DEDUCTIBLES = [
-    'Dépenses sans lien établi avec la profession (Art. 99)',
-    'Dépenses somptuaires (Art. 99)',
-    'Impôt sur le Revenu des Personnes Physiques (IRPP) lui-même',
-  ]
 
   function calculer() {
     const totalRecettes = recettes.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
@@ -3105,8 +3101,8 @@ function Cat3BNC() {
         <div className="flex items-center gap-1 mb-2">
           <p className="text-xs font-semibold text-indigo-700">Recettes professionnelles</p>
           <InfoTooltip
-            texte="Tous les produits effectivement encaissés dans le cadre de l'activité : honoraires, provisions et acomptes encaissés, gains sur cessions d'actifs professionnels, indemnités de cessation ou de transfert de clientèle, remboursements de frais, intérêts de créances, subventions liées à l'activité."
-            loi="Art. 94 et 96, Loi 23/053"
+            texte="Le bénéfice qualifie d'abord l'activité comme BNC (Art. 92 : droits d'auteur, redevances de brevets/marques, revenus de sportifs/artistes, opérations de bourse, spectacles). Les recettes elles-mêmes viennent de trois articles distincts : Art. 94 (honoraires, gains sur cession d'actifs/offices, indemnités de cessation ou transfert de clientèle), Art. 95 (provisions/avances encaissées, honoraires rétrocédés par confrères, dons/cadeaux rémunérant un service), Art. 96 (remboursements de frais, intérêts de créances, produits financiers en société civile/GIE, produits de placement, subventions)."
+            loi="Art. 92, 94, 95 et 96, Loi 23/053"
           />
         </div>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-3 space-y-2">
@@ -3127,7 +3123,7 @@ function Cat3BNC() {
               </div>
             </div>
           ))}
-          <CatalogueListe titre="Catalogue des recettes (Art. 94)" couleur="indigo" items={RECETTES_CAT} onSelect={label => addFromList(setRecettes, label)} />
+          <CatalogueGroupe sections={RECETTES_BNC_CATALOGUE} onSelect={label => addFromList(setRecettes, label)} />
         </div>
       </div>
 
@@ -3143,8 +3139,8 @@ function Cat3BNC() {
         <div className="flex items-center gap-1 mb-2">
           <p className="text-xs font-semibold text-rose-700">Dépenses professionnelles déductibles</p>
           <InfoTooltip
-            texte="Dépenses professionnelles déductibles (Art. 98) : loyers, frais généraux, rémunérations d'assistance à l'étranger, formation, stages et colloques, impôts et taxes (hors IRPP), amortissements, charges du personnel. Dépenses mixtes : 50% admis à défaut de justificatif précis (Art. 99). Non déductibles : dépenses sans lien avec la profession et dépenses somptuaires (Art. 99)."
-            loi="Art. 98-99, Loi 23/053"
+            texte="Dépenses professionnelles déductibles (Art. 98, 9 postes) : loyers, frais généraux, rémunérations d'assistance à l'étranger, formation/recherche, stages et colloques, impôts et taxes (hors IRPP), droits de mutation à titre gratuit sur une exploitation transmise, amortissements, charges du personnel. Dépenses mixtes pro/perso : 50% admis à défaut de justificatif précis (Art. 99). Non déductibles : dépenses personnelles/bénévoles/somptuaires (Art. 99), et dépenses qui ne sont pas de vraies charges — acquisition d'immobilisations, remboursement de dette en capital, placement, amendes et pénalités (Art. 100)."
+            loi="Art. 98, 99 et 100, Loi 23/053"
           />
         </div>
         <div className="rounded-xl border border-rose-200 bg-rose-50/40 p-3 space-y-2">
@@ -3165,8 +3161,7 @@ function Cat3BNC() {
               </div>
             </div>
           ))}
-          <CatalogueListe titre="Catalogue des charges déductibles (Art. 98)" couleur="rose" items={CHARGES_CAT} onSelect={label => addFromList(setCharges, label)}
-            exclusions={CHARGES_NON_DEDUCTIBLES} exclusionsTitre="✕ Charges NON déductibles (Art. 99)" />
+          <CatalogueGroupe sections={CHARGES_BNC_CATALOGUE} onSelect={label => addFromList(setCharges, label)} />
         </div>
       </div>
 
@@ -3363,34 +3358,39 @@ function Cat4Agricole() {
   const [showDeductions, setShowDeductions] = useState(false)
   const [res, setRes] = useState<any>(null)
 
-  const PRODUITS_CAT = [
-    { label: 'Ventes de récoltes (cultures vivrières ou industrielles)' },
-    { label: 'Ventes de produits transformés (farine, huile, conserves...)' },
-    { label: 'Revenus d\'élevage (bovins, caprins, ovins, porcins...)' },
-    { label: 'Revenus d\'aviculture (volailles, œufs...)' },
-    { label: 'Revenus de pisciculture (poissons, alevins...)' },
-    { label: 'Revenus d\'apiculture (miel, cire...)' },
-    { label: 'Subventions d\'exploitation reçues' },
-    { label: 'Indemnités d\'assurance agricole perçues' },
-    { label: 'Ventes de sous-produits et déchets agricoles' },
-    { label: 'Locations de matériel agricole' },
-    { label: 'Prestations de services agricoles rendus à des tiers' },
+  // Art. 104 : le bénéfice agricole se détermine « dans les mêmes conditions que
+  // celles prévues en matière de bénéfices [BIC] » — pas de catalogue légal propre
+  // à l'agriculture. Les catalogues BIC (PRODUITS_BIC_CATALOGUE / CHARGES_BIC_
+  // CATALOGUE, définis en tête de fichier) sont donc repris tels quels ; les
+  // exemples agricoles concrets sont ajoutés en tête, sous la condition générale
+  // de déductibilité de l'Art. 20 (charges nécessitées par l'exploitation,
+  // justifiées) — pas sous un article spécifique qui ne les vise pas nommément.
+  const PRODUITS_AGRICOLE_CATALOGUE: SectionCatalogue[] = [
+    { cat: 'Exemples usuels de produits agricoles (illustrations de l\'Art. 14, 1° : ventes et recettes)', color: 'text-lime-600', items: [
+      "Ventes de récoltes (cultures vivrières ou industrielles)",
+      "Ventes de produits transformés (farine, huile, conserves...)",
+      "Revenus d'élevage (bovins, caprins, ovins, porcins...)",
+      "Revenus d'aviculture (volailles, œufs...)",
+      "Revenus de pisciculture (poissons, alevins...)",
+      "Revenus d'apiculture (miel, cire...)",
+      "Indemnités d'assurance agricole perçues",
+      "Ventes de sous-produits et déchets agricoles",
+      "Locations de matériel agricole",
+      "Prestations de services agricoles rendues à des tiers",
+    ]},
+    ...PRODUITS_BIC_CATALOGUE,
   ]
 
-  const CHARGES_CAT = [
-    { label: 'Achats de semences et plants' },
-    { label: 'Achats d\'engrais et amendements' },
-    { label: 'Achats de pesticides et produits phytosanitaires' },
-    { label: 'Achats d\'aliments pour animaux' },
-    { label: 'Charges de main-d\'œuvre agricole (salaires et charges sociales)' },
-    { label: 'Frais d\'entretien des équipements et matériels' },
-    { label: 'Amortissements du matériel agricole' },
-    { label: 'Frais logistiques (transport, stockage, conditionnement)' },
-    { label: 'Loyers de terres et de locaux agricoles' },
-    { label: 'Impôts et taxes (hors IRPP)' },
-    { label: 'Frais d\'irrigation et d\'eau' },
-    { label: 'Frais vétérinaires et médicaments pour animaux' },
-    { label: 'Frais généraux d\'exploitation' },
+  const CHARGES_AGRICOLE_CATALOGUE: SectionCatalogue[] = [
+    { cat: "Exemples usuels de charges d'exploitation agricole (condition générale de déductibilité, Art. 20)", color: 'text-lime-600', items: [
+      "Achats de semences et plants",
+      "Achats d'engrais et amendements",
+      "Achats de pesticides et produits phytosanitaires",
+      "Achats d'aliments pour animaux",
+      "Frais d'irrigation et d'eau",
+      "Frais vétérinaires et médicaments pour animaux",
+    ]},
+    ...CHARGES_BIC_CATALOGUE,
   ]
 
   function calculer() {
@@ -3657,8 +3657,8 @@ function Cat4Agricole() {
             <div className="flex items-center gap-1 mb-2">
               <p className="text-xs font-semibold text-lime-700">Produits agricoles</p>
               <InfoTooltip
-                texte="Tous les produits encaissés dans l'exploitation : ventes de récoltes, produits transformés, revenus d'élevage et d'activités annexes, subventions perçues, indemnités d'assurance. Base : recettes de l'année fiscale (Art. 104, Loi 23/053)."
-                loi="Art. 104, Loi 23/053"
+                texte="L'Art. 104 ne fixe pas de liste propre à l'agriculture : le bénéfice agricole se détermine « dans les mêmes conditions » que le bénéfice BIC (Cat. 2), donc avec la même liste de produits imposables (Art. 14). Les exemples agricoles concrets (ventes de récoltes, produits transformés, élevage...) sont des illustrations du principe général « ventes et recettes » de l'Art. 14, 1°."
+                loi="Art. 104 renvoyant à Art. 14, Loi 23/053"
               />
             </div>
             <div className="rounded-xl border border-lime-200 bg-lime-50/40 p-3 space-y-2">
@@ -3675,7 +3675,7 @@ function Cat4Agricole() {
                   </div>
                 </div>
               ))}
-              <CatalogueListe titre="Catalogue des produits (Art. 104)" couleur="lime" items={PRODUITS_CAT} onSelect={label => addFromList(setProduits, label)} />
+              <CatalogueGroupe sections={PRODUITS_AGRICOLE_CATALOGUE} onSelect={label => addFromList(setProduits, label)} />
             </div>
           </div>
 
@@ -3691,8 +3691,8 @@ function Cat4Agricole() {
             <div className="flex items-center gap-1 mb-2">
               <p className="text-xs font-semibold text-rose-700">Charges d'exploitation déductibles</p>
               <InfoTooltip
-                texte="Charges directement liées à l'activité agricole : intrants (semences, engrais, pesticides), main-d'œuvre, entretien, amortissements, logistique, loyers, impôts et taxes hors IRPP. Dépenses mixtes : 50% à défaut de justificatif précis (Art. 89, Loi 23/053)."
-                loi="Art. 104 renvoyant à Art. 89 et 98, Loi 23/053"
+                texte="Comme pour les produits, l'Art. 104 renvoie aux règles BIC (Cat. 2) pour les charges — pas à l'Art. 98, qui est propre aux professions non commerciales (Cat. 3 BNC). Les charges déductibles suivent donc le même régime détaillé aux Art. 20 à 49 : intrants agricoles (semences, engrais, pesticides...) au titre de la condition générale de déductibilité (Art. 20), puis les catégories spécifiquement réglementées (personnel, locatif, amortissements, financier, redevances, dons, impôts, autres). Dépenses mixtes : 50% à défaut de justificatif précis (Art. 89 al. 4)."
+                loi="Art. 104 renvoyant à Art. 20 à 49, Loi 23/053"
               />
             </div>
             <div className="rounded-xl border border-rose-200 bg-rose-50/40 p-3 space-y-2">
@@ -3709,7 +3709,7 @@ function Cat4Agricole() {
                   </div>
                 </div>
               ))}
-              <CatalogueListe titre="Catalogue des charges (Art. 104)" couleur="rose" items={CHARGES_CAT} onSelect={label => addFromList(setCharges, label)} />
+              <CatalogueGroupe sections={CHARGES_AGRICOLE_CATALOGUE} onSelect={label => addFromList(setCharges, label)} />
             </div>
           </div>
 
