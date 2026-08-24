@@ -606,6 +606,66 @@ function BlocLiquidationIRPP({
   )
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// CARREAU DE CHOIX — sélecteur à 2-4 options en tuiles (régime d'imposition,
+// taille d'entreprise, type de bien...), un seul gabarit visuel pour tout le
+// module fiscalité : IRPP (Cat. 1 à 6) et IS partageaient jusqu'ici trois
+// styles différents pour la même idée (bouton plein `bg-primary`, bouton
+// couleur de catégorie sans tooltip, petit bouton plat sans sous-titre). Ce
+// composant les unifie et porte l'entrée en tuile (délai échelonné) + le
+// retour tactile au clic, sans rien d'excessif.
+// ─────────────────────────────────────────────────────────────────────────────
+const COULEURS_CARREAU: Record<string, { bg: string; hoverBorder: string }> = {
+  primary: { bg: 'bg-primary',      hoverBorder: 'hover:border-primary/30' },
+  violet:  { bg: 'bg-violet-600',   hoverBorder: 'hover:border-violet-300' },
+  lime:    { bg: 'bg-lime-600',     hoverBorder: 'hover:border-lime-300' },
+  emerald: { bg: 'bg-emerald-600',  hoverBorder: 'hover:border-emerald-300' },
+  orange:  { bg: 'bg-orange-600',   hoverBorder: 'hover:border-orange-300' },
+}
+
+interface OptionCarreau<T extends string> {
+  value: T
+  label: string
+  sub?: string
+  badge?: string
+  tooltip?: { texte: string; loi?: string }
+}
+
+function CarreauChoix<T extends string>({ options, value, onChange, couleur = 'primary', cols }: {
+  options: OptionCarreau<T>[]
+  value: T
+  onChange: (v: T) => void
+  couleur?: keyof typeof COULEURS_CARREAU
+  cols?: 2 | 3 | 4
+}) {
+  const c = COULEURS_CARREAU[couleur]
+  const gridCols = cols === 2 ? 'grid-cols-2' : cols === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3'
+  return (
+    <div className={cn('grid gap-3', gridCols)}>
+      {options.map((o, i) => (
+        <div key={o.value} className="relative animate-scaleIn" style={{ animationDelay: `${i * 60}ms` }}>
+          <button onClick={() => onChange(o.value)}
+            className={cn(
+              'w-full rounded-xl border px-2 py-2.5 text-center transition-all duration-200 active:scale-95',
+              value === o.value
+                ? cn(c.bg, 'border-transparent text-white shadow-md scale-[1.03]')
+                : cn('border-border bg-card hover:bg-muted/30 hover:scale-[1.015]', c.hoverBorder)
+            )}>
+            <p className={cn('text-xs font-bold', value === o.value ? 'text-white' : 'text-foreground')}>{o.label}</p>
+            {o.sub && <p className={cn('text-xs leading-tight mt-0.5', value === o.value ? 'text-white/80' : 'text-muted-foreground')}>{o.sub}</p>}
+            {o.badge && <p className={cn('text-xs mt-0.5', value === o.value ? 'text-white/70' : 'text-muted-foreground/70')}>{o.badge}</p>}
+          </button>
+          {o.tooltip && (
+            <span className="absolute top-1 right-1">
+              <InfoTooltip texte={o.tooltip.texte} loi={o.tooltip.loi} />
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function BtnCalculer({ onClick }: { onClick: () => void }) {
   return (
     <button onClick={onClick}
@@ -899,6 +959,7 @@ function Cat1Salaires() {
             onRemove={i => removeRow(setE661, i)}
             onUpdate={(i, f, v) => updateRow(setE661, i, f, v)}
             note=""
+            catalogueOnly
             tooltip={{
               texte: "Compte 661 : toutes les rémunérations directes versées au personnel national (salaires, primes, congés payés, avantages en nature, etc.). Ces montants forment la base de calcul de l'IRPP et de la QPO.=",
               loi: "Compte 661 SYSCOHADA="
@@ -915,6 +976,7 @@ function Cat1Salaires() {
             onRemove={i => removeRow(setE663, i)}
             onUpdate={(i, f, v) => updateRow(setE663, i, f, v)}
             note=""
+            catalogueOnly
             tooltip={{
               texte: "Compte 663 : le 663 n'est PAS non imposable en bloc — chaque ligne est qualifiée séparément (Art. 69, 8°). Logement (6631) : exonéré dans la limite de 30% de la rémunération (661), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) — ce plafond en FC n'est pas vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables, ajoutés à l'assiette au même titre que le 661.",
               loi: "Art. 69, 8°, Loi 23/053"
@@ -1012,6 +1074,7 @@ function Cat1Salaires() {
             onRemove={i => removeRow(setE662, i)}
             onUpdate={(i, f, v) => updateRow(setE662, i, f, v)}
             note=""
+            catalogueOnly
             tooltip={{
               texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et à l'IERE (charge patronale)",
               loi: "Compte 662 SYSCOHADA="
@@ -1028,6 +1091,7 @@ function Cat1Salaires() {
             onRemove={i => removeRow(setE663Exp, i)}
             onUpdate={(i, f, v) => updateRow(setE663Exp, i, f, v)}
             note=""
+            catalogueOnly
             tooltip={{
               texte: "Compte 663 : le 663 n'est PAS non imposable en bloc, ni pour l'IRPP ni pour l'IERE — les immunités de l'Art. 69 s'appliquent identiquement aux deux (Art. 147). Logement (6631) : exonéré dans la limite de 30% de la rémunération (662), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses) — plafond en FC non vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables.",
               loi: "Art. 69, 8° et Art. 147, Loi 23/053"
@@ -1543,45 +1607,31 @@ function Cat2BIC() {
             loi="Art. 89, 127 et 128, Loi 23/053"
           />
         </div>
-        <div className="grid grid-cols-3 gap-3">
-          {([
+        <CarreauChoix
+          couleur="primary"
+          value={regime}
+          onChange={r => { setRegime(r); setRes(null) }}
+          options={[
             {
-              key: 'micro',
+              value: 'micro',
               label: 'Micro-entreprise',
               sub: 'CA ≤ 25 000 000 FC',
-              tooltip: "Micro-entreprise (Art. 107) : CA annuel HT ≤ 25 000 000 FC. L'impôt est forfaitairement fixé à l'équivalent de 30 USD en FC par l'Arrêté Ministériel n°015 du 19/02/2025 (Art. 128). Aucune comptabilité détaillée exigée.",
-              loi: 'Art. 107 (seuil) + Art. 128 (taux), Loi 23/053 : Arrêté n°015 du 19/02/2025'
+              tooltip: { texte: "Micro-entreprise (Art. 107) : CA annuel HT ≤ 25 000 000 FC. L'impôt est forfaitairement fixé à l'équivalent de 30 USD en FC par l'Arrêté Ministériel n°015 du 19/02/2025 (Art. 128). Aucune comptabilité détaillée exigée.", loi: 'Art. 107 (seuil) + Art. 128 (taux), Loi 23/053 : Arrêté n°015 du 19/02/2025' },
             },
             {
-              key: 'petit',
+              value: 'petit',
               label: 'Petite entreprise',
               sub: '25M : 300M FC',
-              tooltip: "Petite entreprise (Art. 109-111) : CA annuel HT entre 25 000 001 FC et 300 000 000 FC. Impôt proportionnel : 1% du CA pour les ventes de biens, 2% pour les prestations de services (Art. 127, Loi 23/053). En cas d'activités mixtes (vente ET service), les chiffres d'affaires respectifs sont cumulés et imposés suivant le taux de l'activité principale (Art. 127 al. 2). Option possible pour le régime réel sur notification écrite avant le 1er février (valable 3 ans, irrévocable).",
-              loi: 'Art. 109-111 (seuil) + Art. 127 (taux), Loi 23/053'
+              tooltip: { texte: "Petite entreprise (Art. 109-111) : CA annuel HT entre 25 000 001 FC et 300 000 000 FC. Impôt proportionnel : 1% du CA pour les ventes de biens, 2% pour les prestations de services (Art. 127, Loi 23/053). En cas d'activités mixtes (vente ET service), les chiffres d'affaires respectifs sont cumulés et imposés suivant le taux de l'activité principale (Art. 127 al. 2). Option possible pour le régime réel sur notification écrite avant le 1er février (valable 3 ans, irrévocable).", loi: 'Art. 109-111 (seuil) + Art. 127 (taux), Loi 23/053' },
             },
             {
-              key: 'reel',
+              value: 'reel',
               label: 'Régime réel',
               sub: 'CA > 300 000 000 FC',
-              tooltip: "Régime réel : CA annuel HT supérieur à 300 000 000 FC. Impôt calculé sur le bénéfice réel (produits − charges déductibles), soumis au barème progressif IRPP. Comptabilité complète obligatoire. Passage immédiat si le CA dépasse 300M FC.=",
-              loi: 'Art. 112-113, Loi 23/053'
+              tooltip: { texte: "Régime réel : CA annuel HT supérieur à 300 000 000 FC. Impôt calculé sur le bénéfice réel (produits − charges déductibles), soumis au barème progressif IRPP. Comptabilité complète obligatoire. Passage immédiat si le CA dépasse 300M FC.=", loi: 'Art. 112-113, Loi 23/053' },
             },
-          ] as const).map(r => (
-            <div key={r.key} className="relative">
-              <button onClick={() => { setRegime(r.key); setRes(null) }}
-                className={cn('w-full py-2.5 rounded-xl border text-xs font-semibold transition-all duration-300 ease-out pr-5',
-                  regime === r.key
-                    ? 'bg-primary text-primary-foreground border-transparent shadow-md scale-[1.03]'
-                    : 'border-border bg-card text-muted-foreground hover:border-primary/30 hover:bg-muted/30 hover:scale-[1.01]')}>
-                <div>{r.label}</div>
-                <div className="font-normal opacity-70 text-xs">{r.sub}</div>
-              </button>
-              <span className="absolute top-1 right-1">
-                <InfoTooltip texte={r.tooltip} loi={r.loi} />
-              </span>
-            </div>
-          ))}
-        </div>
+          ]}
+        />
       </div>
 
       {/* ── Micro-entreprise ── */}
@@ -2461,19 +2511,16 @@ function SimulateurIS() {
               loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée — continuité non confirmée"
             />
           </label>
-          <div className="flex gap-2">
-            {(['grande', 'moyenne', 'petite'] as TailleEntreprise[]).map(t => (
-              <button key={t} onClick={() => { setTailleEntreprise(t); setRes(null) }}
-                className={cn(
-                  'flex-1 rounded-lg border px-2 py-1.5 text-xs font-medium capitalize transition-all',
-                  tailleEntreprise === t
-                    ? 'bg-emerald-600 border-transparent text-white'
-                    : 'border-border bg-card hover:bg-muted/30'
-                )}>
-                {t === 'grande' ? 'Grande' : t === 'moyenne' ? 'Moyenne' : 'Petite'}
-              </button>
-            ))}
-          </div>
+          <CarreauChoix
+            couleur="emerald"
+            value={tailleEntreprise}
+            onChange={t => { setTailleEntreprise(t); setRes(null) }}
+            options={[
+              { value: 'grande',  label: 'Grande' },
+              { value: 'moyenne', label: 'Moyenne' },
+              { value: 'petite',  label: 'Petite' },
+            ]}
+          />
           {/* Cessation d'activités sans radiation RCCM (Art. 91 §3 CGI) */}
           <button
             onClick={() => { setCessationActivite(v => !v); setRes(null) }}
@@ -2999,6 +3046,13 @@ const COLOR_LIGHT: Record<string, string> = {
 // Art. 92-101 + Art. 90, Loi 23/053
 // ───────────────────────────────────────────────────────────────────────────────
 function Cat3BNC() {
+  // Art. 105 : les trois régimes (micro-entreprises, petites entreprises, régime réel)
+  // s'appliquent indistinctement aux BIC, aux bénéfices agricoles ET aux bénéfices non
+  // commerciaux — les mêmes seuils et les mêmes taux qu'en Cat. 2 BIC et Cat. 4 Agricole.
+  const [regime, setRegime] = useState<'micro' | 'petite' | 'reel'>('reel')
+  const [tauxBCC, setTauxBCC] = useState('')
+  const [caMicro, setCaMicro] = useState('')
+  const [typeActivite, setTypeActivite] = useState<'ventes' | 'services'>('services')
   const [recettes, setRecettes] = useState<{label: string; montant: string}[]>([])
   const [charges, setCharges] = useState<{label: string; montant: string}[]>([])
   const [cotisationsSociales, setCotisationsSociales] = useState('')
@@ -3011,6 +3065,21 @@ function Cat3BNC() {
 
 
   function calculer() {
+    // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi —
+    // y compris les régimes micro et petite entreprise, pas seulement le régime réel.
+    if (regime === 'micro') {
+      const taux = parseFloat(tauxBCC) || 0
+      const impot = arrondiIS(30 * taux)
+      setRes({ regime: 'micro', impot, taux })
+      return
+    }
+    if (regime === 'petite') {
+      const ca = parseFloat(caMicro) || 0
+      const taux = typeActivite === 'ventes' ? 0.01 : 0.02
+      const impot = arrondiIS(ca * taux)
+      setRes({ regime: 'petite', ca, taux, impot, typeActivite })
+      return
+    }
     const totalRecettes = recettes.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
     const totalCharges  = charges.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
     const beneficeBrut  = totalRecettes - totalCharges
@@ -3063,12 +3132,13 @@ function Cat3BNC() {
     const acompte2 = impotN1 * 0.30
     const acompte3 = impotN1 * 0.20
 
-    setRes({ totalRecettes, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, impotApresPCArrondi, reductionPlafonnee, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
+    setRes({ regime: 'reel', totalRecettes, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, impotApresPCArrondi, reductionPlafonnee, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
   }
 
   function reset() {
     setRes(null); setRecettes([]); setCharges([])
     setCotisationsSociales(''); setFraisMedicaux(''); setBeneficeN1(''); setNbPersonnesCharge('0')
+    setTauxBCC(''); setCaMicro(''); setTypeActivite('services')
   }
 
   function removeRow(set: React.Dispatch<React.SetStateAction<{label: string; montant: string}[]>>, i: number) {
@@ -3117,6 +3187,87 @@ function Cat3BNC() {
         </div>
       </div>
 
+      {/* Sélecteur de régime */}
+      <div>
+        <p className="text-xs font-semibold text-foreground mb-2">Régime d'imposition (Art. 105)</p>
+        <CarreauChoix
+          couleur="violet"
+          value={regime}
+          onChange={r => { setRegime(r); setRes(null) }}
+          options={[
+            { value: 'micro',   label: 'Micro',          sub: 'CA ≤ 25 000 000 FC',  badge: 'Art. 107' },
+            { value: 'petite',  label: 'Petite ent.',     sub: '25M < CA ≤ 300M FC',  badge: 'Art. 109' },
+            { value: 'reel',    label: 'Régime réel',     sub: 'CA > 300 000 000 FC', badge: 'Art. 112' },
+          ]}
+        />
+      </div>
+
+      {/* ── MICRO ── */}
+      {regime === 'micro' && (
+        <div className="rounded-xl border border-violet-200 bg-violet-50/40 p-3 space-y-3">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Forfait annuel fixé à <strong>30 USD</strong> converti en FC au taux BCC du jour (Art. 128 + Arrêté n° 015 du 19/02/2025).
+          </p>
+          <div>
+            <label className="text-xs font-medium text-muted-foreground mb-1 flex items-center gap-1">
+              Taux BCC du jour (FC pour 1 USD)
+              <InfoTooltip
+                texte="Le montant forfaitaire est de 30 USD/an, converti au taux de change officiel de la Banque Centrale du Congo à la date de paiement (Art. 128, Loi 23/053 + Arrêté Ministériel n° 015 du 19/02/2025). Consultez le taux officiel sur bcc.cd.="
+                loi="Art. 128, Loi 23/053 : Arrêté n° 015 du 19/02/2025"
+              />
+            </label>
+            <input type="number" min={0} placeholder="Ex : 2800" value={tauxBCC}
+              onChange={e => setTauxBCC(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            {tauxBCC && (
+              <p className="text-xs text-violet-700 mt-1.5 font-medium">
+                IRPP forfaitaire : 30 × {tauxBCC} = <strong>{formatFC(30 * (parseFloat(tauxBCC) || 0))} FC</strong>
+              </p>
+            )}
+            <a href="https://www.bcc.cd" target="_blank" rel="noopener noreferrer="
+              className="text-xs text-blue-600 hover:underline mt-1 inline-block">
+              Consulter le taux BCC →
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* ── PETITE ENTREPRISE ── */}
+      {regime === 'petite' && (
+        <div className="rounded-xl border border-violet-200 bg-violet-50/40 p-3 space-y-3">
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            Impôt calculé sur les recettes annuelles : <strong>1%</strong> pour les ventes, <strong>2%</strong> pour les prestations de services (Art. 127).
+          </p>
+          <div>
+            <label className="text-xs font-medium text-muted-foreground mb-1 block">Type d'activité principale</label>
+            <div className="flex gap-2">
+              {([
+                { id: 'ventes',   label: 'Ventes (1%)',    art: 'Art. 127' },
+                { id: 'services', label: 'Services (2%)',  art: 'Art. 127' },
+              ] as const).map(t => (
+                <button key={t.id} onClick={() => setTypeActivite(t.id)}
+                  className={cn(
+                    'flex-1 rounded-lg border px-3 py-2 text-center text-xs font-medium transition-all duration-200',
+                    typeActivite === t.id
+                      ? 'bg-violet-600 border-transparent text-white'
+                      : 'border-border bg-card hover:bg-muted/30'
+                  )}>
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-muted-foreground mb-1 block">Recettes annuelles (FC)</label>
+            <input type="number" min={0} placeholder="Ex : 150 000 000" value={caMicro}
+              onChange={e => setCaMicro(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+          </div>
+        </div>
+      )}
+
+      {regime === 'reel' && (
+        <>
       {/* Recettes */}
       <div>
         <div className="flex items-center gap-1 mb-2">
@@ -3247,12 +3398,39 @@ function Cat3BNC() {
         )}
       </div>
 
+        </>
+      )}
+
       <div className="flex gap-2">
         <BtnCalculer onClick={calculer} />
         <BtnReset onClick={reset} />
       </div>
 
-      {res && (
+      {res && res.regime === 'micro' && (
+        <ResultatWrap titre="IRPP : Cat. 3 : Régime micro-entreprise=">
+          <EtapeResultat numero={1} titre="Calcul forfaitaire (Art. 128)">
+            <LigneR label="Montant USD fixé par Arrêté n° 015 du 19/02/2025" val="30 USD=" />
+            <LigneR label={`Taux BCC du jour`} val={`${res.taux} FC / USD`} />
+            <Separateur />
+            <LigneR signe="=" label="30 USD × taux BCC=" val={formatFC(res.impot)} bold accent />
+          </EtapeResultat>
+          <BoxFinal label="IRPP forfaitaire annuel dû" val={formatFC(res.impot)} />
+        </ResultatWrap>
+      )}
+
+      {res && res.regime === 'petite' && (
+        <ResultatWrap titre="IRPP : Cat. 3 : Régime petite entreprise=">
+          <EtapeResultat numero={1} titre="Calcul proportionnel (Art. 127)">
+            <LigneR label="Recettes annuelles=" val={formatFC(res.ca)} />
+            <LigneR label={`Taux applicable (${res.typeActivite === 'ventes' ? 'ventes' : 'services'})`} val={`${res.taux * 100}%`} />
+            <Separateur />
+            <LigneR signe="=" label={`${formatFC(res.ca)} × ${res.taux * 100}%`} val={formatFC(res.impot)} bold accent />
+          </EtapeResultat>
+          <BoxFinal label="IRPP annuel dû" val={formatFC(res.impot)} />
+        </ResultatWrap>
+      )}
+
+      {res && res.regime === 'reel' && (
         <ResultatWrap titre="IRPP : Cat. 3 : Bénéfices non commerciaux=">
 
           <EtapeResultat numero={1} titre="Recettes professionnelles (Art. 94)">
@@ -3588,25 +3766,16 @@ function Cat4Agricole() {
       {/* Sélecteur de régime */}
       <div>
         <p className="text-xs font-semibold text-foreground mb-2">Régime d'imposition (Art. 105)</p>
-        <div className="grid grid-cols-3 gap-3">
-          {([
-            { id: 'micro',   label: 'Micro',          sub: 'CA ≤ 25 000 000 FC',       art: 'Art. 107' },
-            { id: 'petite',  label: 'Petite ent.',     sub: '25M < CA ≤ 300M FC',        art: 'Art. 109' },
-            { id: 'reel',    label: 'Régime réel',     sub: 'CA > 300 000 000 FC',       art: 'Art. 112' },
-          ] as const).map(r => (
-            <button key={r.id} onClick={() => { setRegime(r.id); setRes(null) }}
-              className={cn(
-                'rounded-xl border px-2 py-2.5 text-center transition-all duration-200',
-                regime === r.id
-                  ? 'bg-lime-600 border-transparent text-white shadow-md scale-[1.03]'
-                  : 'border-border bg-card hover:bg-muted/30 hover:border-lime-300'
-              )}>
-              <p className={cn('text-xs font-bold', regime === r.id ? 'text-white' : 'text-foreground')}>{r.label}</p>
-              <p className={cn('text-xs leading-tight', regime === r.id ? 'text-white/80' : 'text-muted-foreground')}>{r.sub}</p>
-              <p className={cn('text-xs mt-0.5', regime === r.id ? 'text-white/70' : 'text-muted-foreground/70')}>{r.art}</p>
-            </button>
-          ))}
-        </div>
+        <CarreauChoix
+          couleur="lime"
+          value={regime}
+          onChange={r => { setRegime(r); setRes(null) }}
+          options={[
+            { value: 'micro',   label: 'Micro',          sub: 'CA ≤ 25 000 000 FC',  badge: 'Art. 107' },
+            { value: 'petite',  label: 'Petite ent.',     sub: '25M < CA ≤ 300M FC',  badge: 'Art. 109' },
+            { value: 'reel',    label: 'Régime réel',     sub: 'CA > 300 000 000 FC', badge: 'Art. 112' },
+          ]}
+        />
       </div>
 
       {/* ── MICRO ── */}
@@ -4116,20 +4285,13 @@ function Cat6PlusValues() {
           {/* Type de bien */}
           <div>
             <p className="text-xs font-semibold text-foreground mb-2">Type de bien cédé</p>
-            <div className="grid grid-cols-2 gap-3">
-              {TYPES_BIENS.map(t => (
-                <button key={t.id} onClick={() => { setTypeBien(t.id); setRes(null) }}
-                  className={cn(
-                    'rounded-xl border px-2 py-2 text-left transition-all duration-200',
-                    typeBien === t.id
-                      ? 'bg-orange-600 border-transparent text-white shadow-md scale-[1.03]'
-                      : 'border-border bg-card hover:bg-muted/30 hover:border-orange-300 hover:scale-[1.01]'
-                  )}>
-                  <p className={cn('text-xs font-bold', typeBien === t.id ? 'text-white' : 'text-foreground')}>{t.label}</p>
-                  <p className={cn('text-xs leading-tight', typeBien === t.id ? 'text-white/80' : 'text-muted-foreground')}>{t.sub}</p>
-                </button>
-              ))}
-            </div>
+            <CarreauChoix
+              couleur="orange"
+              cols={2}
+              value={typeBien}
+              onChange={id => { setTypeBien(id); setRes(null) }}
+              options={TYPES_BIENS.map(t => ({ value: t.id, label: t.label, sub: t.sub }))}
+            />
           </div>
 
           {/* Prix de cession */}
