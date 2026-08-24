@@ -393,16 +393,19 @@ function Cat1Salaires() {
 
       const { lignes, iprBrut, iprMax } = calculerBareme(baseImposable)
       const charge = Math.min(Math.max(0, nbCharge), 9)
-      // Art. 125 : réduction charges de famille INAPPLICABLE si revenu imposable > 3 600 000 FC/mois (3ème tranche)
-      const reductionInapplicable = baseImposable > 3_600_000
+      // Art. 125 : « Aucune réduction pour charge de famille n'est accordée sur l'impôt afférent
+      // à la part du revenu imposable qui excède la troisième tranche du barème » — la réduction
+      // n'est donc pas supprimée en bloc dès que le revenu dépasse 3 600 000 FC/mois : seule la
+      // portion d'IRPP correspondant à la 4ème tranche (40%) est exclue de son assiette.
+      const impotHorsDerniereTranche = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
+      const reductionPlafonnee = lignes.some(l => l.taux === '40%')
       // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre de liquidation :
       // barème → réduction → plafond, Art. 118 + 123-125)
-      const reduction = reductionInapplicable ? 0 : iprBrut * (charge * 0.02)
+      const reduction = impotHorsDerniereTranche * (charge * 0.02)
       const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
-      // IPR net : appliquer plancher 2 000 FC (si revenu imposable > 0)
-      const iprAvantPlancher = iprFinal
-      const iprNet = baseImposable > 0 ? Math.max(2000, iprAvantPlancher) : 0
-      const iprPlancher = iprNet > iprAvantPlancher // true si plancher appliqué
+      // IPR net : aucun plancher légal en Loi 23/053 (l'ancien plancher de 2 000 FC relevait du
+      // régime IPR abrogé) — l'impôt net est le résultat du calcul, y compris s'il est nul.
+      const iprNet = iprFinal
 
       const syndicatVal = parseFloat(syndicat) || 0
       const avancesVal  = parseFloat(avances)  || 0
@@ -420,7 +423,7 @@ function Cat1Salaires() {
         mode: 'national',
         brut661, brut663, brutTotal: brut661 + brut663,
         qpo, baseImposable, lignes, iprBrut, iprMax, plafonne,
-        reduction, charge, reductionInapplicable, iprNet, iprPlancher,
+        reduction, charge, reductionPlafonnee, iprNet,
         syndicatVal, avancesVal,
         cnssPatron, inpp, inppTaux, onem,
         totalRetenues,
@@ -439,15 +442,15 @@ function Cat1Salaires() {
       const baseImposableE = brut662 - qpoE
       const { lignes, iprBrut, iprMax: iprMaxE } = calculerBareme(baseImposableE)
       const chargeE = Math.min(Math.max(0, nbChargeExp), 9)
-      // Art. 125 : réduction charges de famille INAPPLICABLE si revenu imposable > 3 600 000 FC/mois
-      const reductionInapplicableE = baseImposableE > 3_600_000
+      // Art. 125 : seule la portion d'IRPP correspondant à la 4ème tranche (40%) est exclue de
+      // l'assiette de la réduction — voir le commentaire équivalent pour les nationaux ci-dessus.
+      const impotHorsDerniereTrancheE = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
+      const reductionPlafonneeE = lignes.some(l => l.taux === '40%')
       // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement
-      const reductionE = reductionInapplicableE ? 0 : iprBrut * (chargeE * 0.02)
+      const reductionE = impotHorsDerniereTrancheE * (chargeE * 0.02)
       const { plafonne, iprFinal: iprFinalE } = appliquerReductionEtPlafond(iprBrut, iprMaxE, reductionE)
-      // IPR net expatrié : même plancher 2 000 FC
-      const iprAvantPlancherE = iprFinalE
-      const iprNetExp = baseImposableE > 0 ? Math.max(2000, iprAvantPlancherE) : 0
-      const iprPlancherE = iprNetExp > iprAvantPlancherE
+      // IPR net expatrié : aucun plancher légal en Loi 23/053 (voir national ci-dessus)
+      const iprNetExp = iprFinalE
 
       const syndicatValE = parseFloat(syndicatExp) || 0
       const avancesValE  = parseFloat(avancesExp)  || 0
@@ -471,7 +474,7 @@ function Cat1Salaires() {
         mode: 'expatrie',
         brut662, brut663e, brutTotal: brut662 + brut663e,
         qpoE, baseImposableE, lignes, iprBrut, iprMax: iprMaxE, plafonne,
-        chargeE, reductionE, reductionInapplicableE, iprNetExp, iprPlancherE,
+        chargeE, reductionE, reductionPlafonneeE, iprNetExp,
         syndicatValE, avancesValE,
         tauxIere, iere, secteurMinier,
         cnssPatronE, inppE, inppTauxE, onemE,
@@ -789,18 +792,19 @@ function Cat1Salaires() {
                 <Separateur />
                 <LigneR label="IRPP brut=" val={formatFC(res.iprBrut)} />
                 {res.charge > 0 && (
-                  res.reductionInapplicable ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                      <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                      <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
-                    </div>
-                  ) : (
+                  <>
                     <LigneR signe="−"
                       label={`Réduction charges de famille (${res.charge} pers. × 2%)`}
                       val={formatFC(res.reduction)} neg
-                      tooltip={{ texte: "Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Sont admis : conjoint légal, enfants célibataires reconnus/adoptés/sous tutelle, ascendants des deux conjoints vivant au foyer. Condition : revenu propre ≤ 162 000 FC/mois. Maximum 9 personnes. Inapplicable si revenu imposable > 3 600 000 FC/mois.", loi: "Art. 123-125 : Loi IRPP 23/053" }}
+                      tooltip={{ texte: "Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Sont admis : conjoint légal, enfants célibataires reconnus/adoptés/sous tutelle, ascendants des deux conjoints vivant au foyer. Condition : revenu propre ≤ 162 000 FC/mois. Maximum 9 personnes. Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu qui excède la 3ème tranche du barème (Art. 125).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
                     />
-                  )
+                    {res.reductionPlafonnee && (
+                      <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
+                        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                        <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% (au-delà de 3 600 000 FC/mois) est exclue de l'assiette de la réduction.</span>
+                      </div>
+                    )}
+                  </>
                 )}
                 <LigneR signe="=" label="IRPP net dû" val={formatFC(res.iprNet)} bold accent />
                 {/* Formule textuelle IRPP */}
@@ -830,9 +834,7 @@ function Cat1Salaires() {
 
               <EtapeResultat numero={4} titre="Récapitulatif des retenues salariales=">
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpo)} neg />
-                <LigneR signe="−"
-                  label={`IRPP net${res.iprPlancher ? ' – plancher 2 000 FC appliqué' : ''}`}
-                  val={formatFC(res.iprNet)} neg />
+                <LigneR signe="−" label="IRPP net" val={formatFC(res.iprNet)} neg />
                 {res.syndicatVal > 0 && (
                   <LigneR signe="−" label="Cotisation syndicale=" val={formatFC(res.syndicatVal)} neg />
                 )}
@@ -905,18 +907,19 @@ function Cat1Salaires() {
                 <Separateur />
                 <LigneR label="IRPP brut=" val={formatFC(res.iprBrut)} />
                 {res.chargeE > 0 && (
-                  res.reductionInapplicableE ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                      <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                      <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
-                    </div>
-                  ) : (
+                  <>
                     <LigneR signe="−"
                       label={`Réduction charges de famille (${res.chargeE} pers. × 2%)`}
                       val={formatFC(res.reductionE)} neg
-                      tooltip={{ texte: "Même règle que les nationaux. Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Maximum 9 personnes. Inapplicable si revenu imposable > 3 600 000 FC/mois.", loi: "Art. 123-125 : Loi IRPP 23/053" }}
+                      tooltip={{ texte: "Même règle que les nationaux. Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Maximum 9 personnes. Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu qui excède la 3ème tranche du barème (Art. 125).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
                     />
-                  )
+                    {res.reductionPlafonneeE && (
+                      <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
+                        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                        <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% (au-delà de 3 600 000 FC/mois) est exclue de l'assiette de la réduction.</span>
+                      </div>
+                    )}
+                  </>
                 )}
                 <LigneR signe="=" label="IRPP net retenu sur salaire=" val={formatFC(res.iprNetExp)} bold accent />
                 {/* Plafond Art. 118 : toujours visible */}
@@ -947,9 +950,7 @@ function Cat1Salaires() {
 
               <EtapeResultat numero={5} titre="Récapitulatif des retenues salariales=">
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpoE)} neg />
-                <LigneR signe="−"
-                  label={`IRPP net${res.iprPlancherE ? ' – plancher 2 000 FC appliqué' : ''}`}
-                  val={formatFC(res.iprNetExp)} neg />
+                <LigneR signe="−" label="IRPP net" val={formatFC(res.iprNetExp)} neg />
                 {res.syndicatValE > 0 && (
                   <LigneR signe="−" label="Cotisation syndicale=" val={formatFC(res.syndicatValE)} neg />
                 )}
@@ -1019,6 +1020,8 @@ function Cat2BIC() {
   const [cotisationsSociales, setCotisationsSociales] = useState('')
   const [fraisMedicaux, setFraisMedicaux] = useState('')
   const [nbPersonnesCharge, setNbPersonnesCharge] = useState('0')
+  const [beneficeN1, setBeneficeN1] = useState('')
+  const [impotNmoins1, setImpotNmoins1] = useState('')
   const [showDeductions, setShowDeductions] = useState(false)
   const [tauxUsd, setTauxUsd] = useState('2800')
   const [res, setRes] = useState<any>(null)
@@ -1051,8 +1054,11 @@ function Cat2BIC() {
       const tc = charges.reduce((s: number, r: any) => s + (parseFloat(r.montant) || 0), 0)
       const beneficeBrut = tp - tc
       const beneficeAvantDed = Math.max(0, beneficeBrut)
-      // Déductions spécifiques Art. 90 : cotisations max 20% du bénéfice, frais médicaux justifiés
-      const plafondCotSoc = beneficeAvantDed * 0.20
+      // Déductions spécifiques Art. 90 : cotisations max 20% du bénéfice de l'exercice PRÉCÉDENT
+      // (N−1), et non de l'exercice courant — cohérent avec Cat. 3 BNC et Cat. 4 Agricole, qui
+      // appliquent déjà correctement cette assiette N−1.
+      const bnN1 = parseFloat(beneficeN1) || 0
+      const plafondCotSoc = bnN1 * 0.20
       const cotSocAdmise = Math.min(cotSoc, plafondCotSoc)
       const beneficeNet = Math.max(0, beneficeAvantDed - cotSocAdmise - fraisMed)
       // Barème progressif annuel IRPP (Art. 118 : tranches annuelles = mensuelles × 12)
@@ -1071,11 +1077,13 @@ function Cat2BIC() {
       } else {
         impotBareme = t1max * 0.03 + (t2max - t1max) * 0.15 + (t3max - t2max) * 0.30 + (beneficeNetArrondi - t3max) * 0.40
       }
-      // Réduction personnes à charge Art. 123 : 2% par personne, max 9, inapplicable si revenu > t3max
-      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre de liquidation :
-      // barème → réduction → plafond, Art. 118 + 123-125)
+      // Réduction personnes à charge Art. 123-125 : 2% par personne, max 9. Seule la part d'impôt
+      // afférente à la portion du bénéfice au-delà de t3max (4ème tranche, 40%) est exclue de
+      // l'assiette de la réduction — pas la réduction en bloc dès que le bénéfice dépasse t3max.
       const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
-      const reductionPC = beneficeNetArrondi <= t3max ? impotBareme * 0.02 * nbPC : 0
+      const impotAt3max = t1max * 0.03 + (t2max - t1max) * 0.15 + (t3max - t2max) * 0.30
+      const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3max)
+      const reductionPC = impotHorsDerniereTranche * 0.02 * nbPC
       const impotApresReduction = Math.max(0, impotBareme - reductionPC)
       // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
       const plafond30 = beneficeNetArrondi * 0.30
@@ -1085,11 +1093,18 @@ function Cat2BIC() {
       const minimum122 = tp * 0.01
       const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
       const impot = minimumApplique ? minimum122 : impotApresPC
+      // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1),
+      // saisi séparément — jamais sur l'impôt de l'exercice courant qui vient d'être liquidé.
+      const impotN1 = parseFloat(impotNmoins1) || 0
+      const acompte1 = impotN1 * 0.30
+      const acompte2 = impotN1 * 0.30
+      const acompte3 = impotN1 * 0.20
       setRes({
         regime, produits: tp, charges: tc, beneficeBrut, beneficeAvantDed,
-        cotSoc, cotSocAdmise, plafondCotSoc, fraisMed,
+        cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed,
         beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne,
         nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot,
+        impotN1, acompte1, acompte2, acompte3,
         q1: impot * 0.6, q2: impot * 0.4
       })
     }
@@ -1407,7 +1422,7 @@ function Cat2BIC() {
             <div className="flex items-center gap-1">
               <p className="text-xs font-semibold text-foreground">Charges déductibles</p>
               <InfoTooltip
-                texte="Charges déductibles énumérées aux Art. 21 à 49 de la Loi 23/053 : personnel (Art. 21), loyers (Art. 25), transport/assurance/courtage/entretien (Art. 26-27), amortissements (Art. 28), charges financières (Art. 41), redevances (Art. 43), dons (Art. 44), impôts (Art. 45), autres charges (Art. 49). Dépenses mixtes : 50% admis à défaut de justificatif précis (Art. 89 al. 4). Charges non déductibles à l'Art. 50."
+                texte="Charges déductibles énumérées aux Art. 21 à 49 de la Loi 23/053 : personnel (Art. 21), loyers (Art. 25), transport/assurance/courtage/entretien (Art. 26-27), amortissements (Art. 28), intérêts entités liées (Art. 42), redevances (Art. 43), dons (Art. 44), impôts (Art. 45), autres charges (Art. 49). Dépenses mixtes : 50% admis à défaut de justificatif précis (Art. 89 al. 4). Charges non déductibles à l'Art. 50."
                 loi="Art. 20 à 50, Loi 23/053"
               />
             </div>
@@ -1592,11 +1607,10 @@ function Cat2BIC() {
                   </label>
                   <input type="number" min={0} max={9} placeholder="0" value={nbPersonnesCharge}
                     onChange={e => setNbPersonnesCharge(e.target.value)}
-                    disabled={!!res && res.beneficeNetArrondi > 43200000}
-                    className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed=" : "bg-background")} />
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                   {res && res.beneficeNetArrondi > 43200000
-                    ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
-                    : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes : réduction inapplicable si revenu imposable &gt; 43 200 000 FC</p>
+                    ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : la part de la réduction correspondant à la portion du bénéfice au-delà de 43 200 000 FC (4ème tranche, 40%) est exclue de l'assiette.</p>
+                    : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes.</p>
                   }
                 </div>
               </div>
@@ -1746,10 +1760,16 @@ function Cat2BIC() {
                     loi="Art. 57 bis + Art. 57 ter, Loi procédures fiscales="
                   />
                 </div>
-                <LigneR label="1er acompte (30% de l'impôt N−1) : avant le 25 juillet" val={formatFC(res.impot * 0.30)} />
-                <LigneR label="2ème acompte (30% de l'impôt N−1) : avant le 25 septembre" val={formatFC(res.impot * 0.30)} />
-                <LigneR label="3ème acompte (20% de l'impôt N−1) : avant le 25 novembre" val={formatFC(res.impot * 0.20)} />
-                <LigneR label="Solde (20%) : au dépôt de la déclaration annuelle" val={formatFC(res.impot * 0.20)} />
+                <div className="mb-2">
+                  <label className="text-xs font-medium text-muted-foreground mb-1 block">Impôt de l'exercice précédent N−1 (FC)</label>
+                  <input type="number" min={0} placeholder="IRPP payé l'année dernière" value={impotNmoins1}
+                    onChange={e => { setImpotNmoins1(e.target.value); setRes(null) }}
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                </div>
+                <LigneR label="1er acompte (30% de l'impôt N−1) : au plus tard le 25 juillet" val={formatFC(res.acompte1)} />
+                <LigneR label="2ème acompte (30% de l'impôt N−1) : au plus tard le 25 septembre" val={formatFC(res.acompte2)} />
+                <LigneR label="3ème acompte (20% de l'impôt N−1) : au plus tard le 25 novembre" val={formatFC(res.acompte3)} />
+                <LigneR label="Solde (impôt N − total acomptes N−1) : au dépôt de la déclaration annuelle" val={formatFC(Math.max(0, res.impot - (res.acompte1 + res.acompte2 + res.acompte3)))} />
                 <p className="text-xs text-muted-foreground mt-1">Dates modifiées par Art. 60 LF 2025 (n° 24/011), confirmées par Art. 31 LF 2026. Versements par bordereau d'acomptes provisionnels.</p>
               </>
             )}
@@ -2000,7 +2020,7 @@ const REINTAGRATIONS_CATALOGUE: ElementCatalogue[] = [
   { code: 'RI-05', label: "Dépenses somptuaires : bateaux, avions de tourisme, résidences d'agrément (Art. 50 §6)" },
   { code: 'RI-06', label: 'Charges personnelles du dirigeant (Art. 50 §1)' },
   { code: 'RI-07', label: 'Rémunérations fictives ou exagérées des dirigeants (Art. 22)' },
-  { code: 'RI-08', label: 'Intérêts excédentaires entités liées (> 15% résultat retraité : Art. 41)' },
+  { code: 'RI-08', label: 'Intérêts excédentaires entités liées (> 15% résultat retraité : Art. 42)' },
   { code: 'RI-09', label: 'Redevances excédentaires entités liées (> 3,5% CA HT : Art. 43)' },
   { code: 'RI-10', label: 'Dons/libéralités excédentaires (> 0,5% CA : Art. 44)' },
   { code: 'RI-11', label: 'Cadeaux publicitaires excédentaires (> 2‰ CA HT : Art. 49 §1)' },
@@ -2122,9 +2142,11 @@ function SimulateurIS() {
       isMinimumRaw = forfaitCessation[tailleEntreprise]
       casMinimum = 'cessation'
     } else if (ca > 0) {
-      // §1 : CA réalisé — minimum = MAX(1% du CA, plancher forfaitaire du régime)
-      // Car 1% d'un petit CA peut être inférieur au plancher (ex. grande entreprise, CA 50M → 500K < 2,5M)
-      isMinimumRaw = Math.max(ca * 0.01, forfaitSansCA[tailleEntreprise])
+      // §1 : CA réalisé — minimum = 1% du CA, sans plancher forfaitaire (Art. 57, Loi 23/053).
+      // Les forfaits par taille (forfaitSansCA) proviennent de l'Art. 91 de l'Ordonnance-loi
+      // 69/009, abrogée depuis le 1er janvier 2026 : ils ne s'appliquent qu'aux cas §2/§3
+      // ci-dessous, où aucun chiffre d'affaires n'existe pour asseoir le 1%.
+      isMinimumRaw = ca * 0.01
       casMinimum = 'ca'
     } else {
       // §2 : en activité, CA = 0 → forfait fixe selon taille (régime non confirmé, voir réserve ci-dessus)
@@ -2400,7 +2422,7 @@ function SimulateurIS() {
               <LigneR
                 label={
                   res.casMinimum === 'ca'
-                    ? `IS minimum : MAX(1% CA = ${formatFC(Math.round(res.ca * 0.01))}, plancher ${res.tailleEntreprise === 'grande' ? '2 500 000' : res.tailleEntreprise === 'moyenne' ? '750 000' : '30 000'} FC) (Art. 57 ; plancher non confirmé, voir réserve)`
+                    ? `IS minimum : 1% du CA = ${formatFC(Math.round(res.ca * 0.01))} (Art. 57, Loi 23/053)`
                     : res.casMinimum === 'sansCA'
                     ? `IS minimum forfaitaire CA=0 — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
                     : `IS forfaitaire — cessation sans radiation RCCM — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
@@ -2516,7 +2538,7 @@ function SimulateurIS() {
         >
           <span className="flex items-center gap-2">
             Acomptes provisionnels (Art. 57 bis)
-            <InfoTooltip texte="L'IS est payé par acomptes provisionnels calculés sur la base de l'IS de l'exercice précédent (N-1). Trois acomptes : 30% avant le 25 juillet, 30% avant le 25 septembre, 20% avant le 25 novembre (dates modifiées par Art. 60 LF 2025). Le solde (IS dû − total acomptes versés) est payé lors du dépôt de la déclaration annuelle au plus tard le 30 avril (Art. 57 bis, Loi 23/053 mod. LF 2025)." loi="Art. 57 bis, Loi 23/053 mod. Art. 60 LF 2025, conf. Art. 31 LF 2026" />
+            <InfoTooltip texte="L'IS est payé par acomptes provisionnels calculés sur la base de l'IS de l'exercice précédent (N-1). Trois acomptes : 30% au plus tard le 25 juillet, 30% au plus tard le 25 septembre, 20% au plus tard le 25 novembre (dates modifiées par Art. 60 LF 2025). Le solde (IS dû − total acomptes versés) est payé lors du dépôt de la déclaration annuelle au plus tard le 30 avril (Art. 57 bis, Loi 23/053 mod. LF 2025)." loi="Art. 57 bis, Loi 23/053 mod. Art. 60 LF 2025, conf. Art. 31 LF 2026" />
           </span>
           <span className="text-xs opacity-60">{showAcomptes ? '▲ Masquer' : '▼ Afficher'}</span>
         </button>
@@ -2530,9 +2552,9 @@ function SimulateurIS() {
             </div>
             {res && res.isN1 > 0 && (
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-2.5 space-y-1.5">
-                <LigneR label={`1er acompte (avant 25 juillet ${exercice}) : IS N-1 × 30%`} val={formatFC(res.acompte1)} />
-                <LigneR label={`2e acompte (avant 25 sept. ${exercice}) : IS N-1 × 30%`} val={formatFC(res.acompte2)} />
-                <LigneR label={`3e acompte (avant 25 nov. ${exercice}) : IS N-1 × 20%`} val={formatFC(res.acompte3)} />
+                <LigneR label={`1er acompte (au plus tard le 25 juillet ${exercice}) : IS N-1 × 30%`} val={formatFC(res.acompte1)} />
+                <LigneR label={`2e acompte (au plus tard le 25 sept. ${exercice}) : IS N-1 × 30%`} val={formatFC(res.acompte2)} />
+                <LigneR label={`3e acompte (au plus tard le 25 nov. ${exercice}) : IS N-1 × 20%`} val={formatFC(res.acompte3)} />
                 <Separateur />
                 <LigneR label="Total acomptes versés (80% IS N-1)" val={formatFC(res.totalAcomptes)} bold />
                 <LigneR
@@ -2804,6 +2826,7 @@ function Cat3BNC() {
   const [fraisMedicaux, setFraisMedicaux] = useState('')
   const [beneficeN1, setBeneficeN1] = useState('')
   const [nbPersonnesCharge, setNbPersonnesCharge] = useState('0')
+  const [impotNmoins1, setImpotNmoins1] = useState('')
   const [showDeductions, setShowDeductions] = useState(false)
   const [res, setRes] = useState<any>(null)
 
@@ -2869,10 +2892,13 @@ function Cat3BNC() {
     else if (beneficeNetArrondi <= t2)  impotBareme = t1 * 0.03 + (beneficeNetArrondi - t1) * 0.15
     else if (beneficeNetArrondi <= t3)  impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (beneficeNetArrondi - t2) * 0.30
     else                                 impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30 + (beneficeNetArrondi - t3) * 0.40
-    // Réduction personnes à charge Art. 123 : 2% par personne, max 9, inapplicable si revenu > t3
-    // Assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre : barème → réduction → plafond)
+    // Réduction personnes à charge Art. 123-125 : 2% par personne, max 9. Seule la part d'impôt
+    // afférente à la portion du bénéfice au-delà de t3 (4ème tranche, 40%) est exclue de
+    // l'assiette de la réduction — pas la réduction en bloc dès que le bénéfice dépasse t3.
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
-    const reductionPC = beneficeNetArrondi <= t3 ? impotBareme * 0.02 * nbPC : 0
+    const impotAt3 = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30
+    const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3)
+    const reductionPC = impotHorsDerniereTranche * 0.02 * nbPC
     const impotApresReduction = Math.max(0, impotBareme - reductionPC)
     // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
     const plafond30 = beneficeNetArrondi * 0.30
@@ -2882,8 +2908,13 @@ function Cat3BNC() {
     const minimum122 = totalRecettes * 0.01
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
     const impot = minimumApplique ? minimum122 : impotApresPC
+    // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1)
+    const impotN1 = parseFloat(impotNmoins1) || 0
+    const acompte1 = impotN1 * 0.30
+    const acompte2 = impotN1 * 0.30
+    const acompte3 = impotN1 * 0.20
 
-    setRes({ totalRecettes, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot })
+    setRes({ totalRecettes, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
   }
 
   function reset() {
@@ -3192,10 +3223,16 @@ function Cat3BNC() {
                 loi="Art. 57 bis et Art. 57 ter, Loi procédures fiscales="
               />
             </div>
-            <LigneR label="1er acompte (30% de l'impôt N−1) : avant le 25 juillet" val={formatFC(res.impot * 0.30)} />
-            <LigneR label="2ème acompte (30% de l'impôt N−1) : avant le 25 septembre" val={formatFC(res.impot * 0.30)} />
-            <LigneR label="3ème acompte (20% de l'impôt N−1) : avant le 25 novembre" val={formatFC(res.impot * 0.20)} />
-            <LigneR label="Solde (20%) : au dépôt de la déclaration annuelle" val={formatFC(res.impot * 0.20)} />
+            <div className="mb-2">
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">Impôt de l'exercice précédent N−1 (FC)</label>
+              <input type="number" min={0} placeholder="IRPP payé l'année dernière" value={impotNmoins1}
+                onChange={e => { setImpotNmoins1(e.target.value); setRes(null) }}
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <LigneR label="1er acompte (30% de l'impôt N−1) : au plus tard le 25 juillet" val={formatFC(res.acompte1)} />
+            <LigneR label="2ème acompte (30% de l'impôt N−1) : au plus tard le 25 septembre" val={formatFC(res.acompte2)} />
+            <LigneR label="3ème acompte (20% de l'impôt N−1) : au plus tard le 25 novembre" val={formatFC(res.acompte3)} />
+            <LigneR label="Solde (impôt N − total acomptes N−1) : au dépôt de la déclaration annuelle" val={formatFC(Math.max(0, res.impot - (res.acompte1 + res.acompte2 + res.acompte3)))} />
             <p className="text-xs text-muted-foreground mt-1">Dates modifiées par Art. 60 LF 2025 (n° 24/011), confirmées par Art. 31 LF 2026. Versements par bordereau d'acomptes provisionnels.</p>
           </EtapeResultat>
 
@@ -3218,6 +3255,7 @@ function Cat4Agricole() {
   const [beneficeN1, setBeneficeN1] = useState('')
   const [fraisMedicaux, setFraisMedicaux] = useState('')
   const [nbPersonnesCharge, setNbPersonnesCharge] = useState('0')
+  const [impotNmoins1, setImpotNmoins1] = useState('')
   const [showDeductions, setShowDeductions] = useState(false)
   const [res, setRes] = useState<any>(null)
 
@@ -3288,10 +3326,13 @@ function Cat4Agricole() {
     else if (beneficeNetArrondi <= t2)  impotBareme = t1 * 0.03 + (beneficeNetArrondi - t1) * 0.15
     else if (beneficeNetArrondi <= t3)  impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (beneficeNetArrondi - t2) * 0.30
     else                                 impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30 + (beneficeNetArrondi - t3) * 0.40
-    // Réduction personnes à charge Art. 123 : 2% par personne, max 9, inapplicable si revenu > t3
-    // Assise sur l'IRPP brut (barème), AVANT tout plafonnement (ordre : barème → réduction → plafond)
+    // Réduction personnes à charge Art. 123-125 : 2% par personne, max 9. Seule la part d'impôt
+    // afférente à la portion du bénéfice au-delà de t3 (4ème tranche, 40%) est exclue de
+    // l'assiette de la réduction — pas la réduction en bloc dès que le bénéfice dépasse t3.
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
-    const reductionPC = beneficeNetArrondi <= t3 ? impotBareme * 0.02 * nbPC : 0
+    const impotAt3 = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30
+    const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3)
+    const reductionPC = impotHorsDerniereTranche * 0.02 * nbPC
     const impotApresReduction = Math.max(0, impotBareme - reductionPC)
     // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
     const plafond30 = beneficeNetArrondi * 0.30
@@ -3301,8 +3342,13 @@ function Cat4Agricole() {
     const minimum122 = totalProduits * 0.01
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
     const impot = minimumApplique ? minimum122 : impotApresPC
+    // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1)
+    const impotN1 = parseFloat(impotNmoins1) || 0
+    const acompte1 = impotN1 * 0.30
+    const acompte2 = impotN1 * 0.30
+    const acompte3 = impotN1 * 0.20
 
-    setRes({ regime: 'reel', totalProduits, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot })
+    setRes({ regime: 'reel', totalProduits, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
   }
 
   function reset() {
@@ -3418,14 +3464,14 @@ function Cat4Agricole() {
       {regime === 'petite' && (
         <div className="rounded-xl border border-lime-200 bg-lime-50/40 p-3 space-y-3">
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Impôt calculé sur le chiffre d'affaires : <strong>1%</strong> pour les ventes, <strong>2%</strong> pour les prestations de services (Art. 109).
+            Impôt calculé sur le chiffre d'affaires : <strong>1%</strong> pour les ventes, <strong>2%</strong> pour les prestations de services (Art. 127).
           </p>
           <div>
             <label className="text-xs font-medium text-muted-foreground mb-1 block">Type d'activité principale</label>
             <div className="flex gap-2">
               {([
-                { id: 'ventes',   label: 'Ventes (1%)',    art: 'Art. 109' },
-                { id: 'services', label: 'Services (2%)',  art: 'Art. 109' },
+                { id: 'ventes',   label: 'Ventes (1%)',    art: 'Art. 127' },
+                { id: 'services', label: 'Services (2%)',  art: 'Art. 127' },
               ] as const).map(t => (
                 <button key={t.id} onClick={() => setTypeActivite(t.id)}
                   className={cn(
@@ -3586,11 +3632,10 @@ function Cat4Agricole() {
                   </label>
                   <input type="number" min={0} max={9} placeholder="0" value={nbPersonnesCharge}
                     onChange={e => setNbPersonnesCharge(e.target.value)}
-                    disabled={!!res && res.beneficeNetArrondi > 43200000}
-                    className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed=" : "bg-background")} />
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                   {res && res.beneficeNetArrondi > 43200000
-                    ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
-                    : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes : réduction inapplicable si revenu imposable &gt; 43 200 000 FC</p>
+                    ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : la part de la réduction correspondant à la portion du bénéfice au-delà de 43 200 000 FC (4ème tranche, 40%) est exclue de l'assiette.</p>
+                    : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes.</p>
                   }
                 </div>
               </div>
@@ -3619,7 +3664,7 @@ function Cat4Agricole() {
 
       {res && res.regime === 'petite' && (
         <ResultatWrap titre="IRPP : Cat. 4 : Régime petite entreprise=">
-          <EtapeResultat numero={1} titre="Calcul proportionnel (Art. 109)">
+          <EtapeResultat numero={1} titre="Calcul proportionnel (Art. 127)">
             <LigneR label="Chiffre d'affaires annuel=" val={formatFC(res.ca)} />
             <LigneR label={`Taux applicable (${res.typeActivite === 'ventes' ? 'ventes' : 'services'})`} val={`${res.taux * 100}%`} />
             <Separateur />
@@ -3718,10 +3763,16 @@ function Cat4Agricole() {
                 loi="Art. 57 bis et Art. 57 ter, Loi procédures fiscales="
               />
             </div>
-            <LigneR label="1er acompte (30% de l'impôt N−1) : avant le 25 juillet" val={formatFC(res.impot * 0.30)} />
-            <LigneR label="2ème acompte (30% de l'impôt N−1) : avant le 25 septembre" val={formatFC(res.impot * 0.30)} />
-            <LigneR label="3ème acompte (20% de l'impôt N−1) : avant le 25 novembre" val={formatFC(res.impot * 0.20)} />
-            <LigneR label="Solde (20%) : au dépôt de la déclaration annuelle" val={formatFC(res.impot * 0.20)} />
+            <div className="mb-2">
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">Impôt de l'exercice précédent N−1 (FC)</label>
+              <input type="number" min={0} placeholder="IRPP payé l'année dernière" value={impotNmoins1}
+                onChange={e => { setImpotNmoins1(e.target.value); setRes(null) }}
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <LigneR label="1er acompte (30% de l'impôt N−1) : au plus tard le 25 juillet" val={formatFC(res.acompte1)} />
+            <LigneR label="2ème acompte (30% de l'impôt N−1) : au plus tard le 25 septembre" val={formatFC(res.acompte2)} />
+            <LigneR label="3ème acompte (20% de l'impôt N−1) : au plus tard le 25 novembre" val={formatFC(res.acompte3)} />
+            <LigneR label="Solde (impôt N − total acomptes N−1) : au dépôt de la déclaration annuelle" val={formatFC(Math.max(0, res.impot - (res.acompte1 + res.acompte2 + res.acompte3)))} />
             <p className="text-xs text-muted-foreground mt-1">Dates modifiées par Art. 60 LF 2025 (n° 24/011), confirmées par Art. 31 LF 2026. Versements par bordereau d'acomptes provisionnels.</p>
           </EtapeResultat>
 
@@ -4625,7 +4676,7 @@ function SimulateurPenalitesAssiette() {
                 <label className="text-xs font-semibold text-foreground flex items-center gap-1">Mois de retard
                   <InfoTooltip
                     texte="Nombre de mois écoulés entre la date légale d’échéance et le paiement effectif. Tout mois commencé est compté en entier. L’intérêt court dès le 1er jour du mois suivant l’échéance. Exemple : échéance le 30 avril, paiement le 15 juillet = 3 mois (mai, juin, juillet). L’intérêt est plafonné à 50% de l’impôt principal, quelle que soit la durée du retard."
-                    loi="Art. 91 CGI 2023"
+                    loi="Art. 91 Loi n°004/2003 (LPF)"
                   />
                 </label>
                 <input
@@ -4871,7 +4922,7 @@ function ProceduresFiscales() {
             <p className="text-xs font-bold text-foreground flex items-center gap-1.5"><AlertCircle className="h-3.5 w-3.5 text-indigo-500" />Vérification de comptabilité (Art. 25–35)</p>
             <div className="space-y-1.5 text-xs text-foreground/80 leading-relaxed">
               <p>• L'administration fiscale peut procéder à la vérification des déclarations, actes et documents déposés par les contribuables (Art. 25).</p>
-              <p>• Un <span className="font-semibold">avis de vérification</span> doit être remis au contribuable au moins <span className="font-semibold">8 jours avant</span> le début des opérations (Art. 28).</p>
+              <p>• Un <span className="font-semibold">avis de vérification</span> doit être remis au contribuable au moins <span className="font-semibold">8 jours avant</span> le début des opérations (Art. 30).</p>
               <p>• Le contribuable peut se faire assister par un <span className="font-semibold">conseil de son choix</span> (Art. 29).</p>
               <p>• La durée maximale de vérification sur place dépend de la taille du contribuable (Art. 30 bis, mod. LF 2022) :</p>
               <p className="pl-3">— <span className="font-semibold">Petite Entreprise (PE)</span> : 3 mois maximum</p>
@@ -4999,7 +5050,7 @@ function ProceduresFiscales() {
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
             <p className="text-xs font-bold text-foreground flex items-center gap-1.5"><Percent className="h-3.5 w-3.5 text-rose-500" />Intérêt moratoire et frais de poursuites (Art. 89–95)</p>
             <div className="space-y-1.5 text-xs text-foreground/80 leading-relaxed">
-              <p>• Tout impôt non payé à l'échéance est majoré d'un <span className="font-semibold">intérêt moratoire de 2% par mois</span> de retard (Art. 91 CGI 2023). Cet intérêt est plafonné à 50% de l'impôt principal (Art. 89).</p>
+              <p>• Tout impôt non payé à l'échéance est majoré d'un <span className="font-semibold">intérêt moratoire de 2% par mois</span> de retard (Art. 91 Loi n°004/2003, LPF). Cet intérêt est plafonné à 50% de l'impôt principal (Art. 89).</p>
               <p>• <span className="font-semibold">Astreinte communication de pièces</span> (Art. 92) : 100 000 FC/jour (personne morale) — 25 000 FC/jour (personne physique).</p>
               <p>• <span className="font-semibold">Astreinte documentation prix de transfert</span> (Art. 92 bis, créé par Art. 33 LF 2026) : <span className="font-semibold text-rose-600">10 000 000 FC/jour</span> en cas de défaut de réponse à la demande d'informations ou documents sur les prix de transfert (Art. 29 bis).</p>
               <p>• <span className="font-semibold">Responsabilité personnelle du débiteur de retenue</span> (Art. 96 bis, créé par Art. 35 LF 2026) : toute personne tenue d'opérer une retenue à la source qui ne l'effectue pas — ou l'effectue insuffisamment — est <span className="font-semibold">personnellement redevable</span> du montant de la retenue non effectuée et des pénalités y afférentes.</p>
@@ -5109,7 +5160,7 @@ function ProceduresFiscales() {
         <div className="space-y-3">
           <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
             <p className="text-xs font-bold text-orange-700 uppercase tracking-wide mb-1">Calculateur de pénalités de retard</p>
-            <p className="text-xs text-orange-600/80">Intérêt moratoire : 2% par mois de retard, plafonné à 50% du principal (Art. 91 CGI 2023)</p>
+            <p className="text-xs text-orange-600/80">Intérêt moratoire : 2% par mois de retard, plafonné à 50% du principal (Art. 91 Loi n°004/2003, LPF)</p>
           </div>
 
           <div className="rounded-xl border border-border bg-card p-4 space-y-4">
@@ -5153,7 +5204,7 @@ function ProceduresFiscales() {
                     <span className="font-bold text-foreground">Total dû (principal + pénalités)</span>
                     <span className="font-mono font-bold text-orange-600">{formatFC(totalDu)}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-2">Base légale : Art. 91 CGI 2023 (Loi n°004/2003 mod.). Taux : 2% par mois de retard, plafonné à 50% du principal (Art. 89). Sans capitalisation des pénalités.</p>
+                  <p className="text-xs text-muted-foreground mt-2">Base légale : Art. 91, Loi n°004/2003 (LPF). Taux : 2% par mois de retard, plafonné à 50% du principal (Art. 89). Sans capitalisation des pénalités.</p>
                 </div>
               </div>
             )}
