@@ -5,10 +5,7 @@ import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  AlertCircle, BookOpen, GraduationCap, Sparkles, Eye, EyeOff, KeyRound, UserPlus,
-  Calculator, Heart, Scale, Landmark, Globe, Receipt, ClipboardList, ClipboardCheck,
-} from 'lucide-react'
+import { AlertCircle, Eye, EyeOff, KeyRound, UserPlus } from 'lucide-react'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 
@@ -160,119 +157,45 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const show = 'opacity-100 translate-y-0'
   const hide = 'opacity-0 translate-y-6'
 
-  // Modules réellement couverts par Orbit (panneau gauche + résumé mobile)
-  const modules = [
-    { icon: Calculator, label: 'Comptabilité générale' },
-    { icon: Heart,       label: 'SYCEBNL' },
-    { icon: Scale,       label: 'Droit des sociétés' },
-    { icon: Landmark,    label: 'Finances publiques' },
-    { icon: Globe,       label: 'IFRS' },
-    { icon: Receipt,     label: 'Fiscalité' },
-  ]
-  // Parcours étudiant en 4 étapes
-  const journey = [
-    { icon: BookOpen,        label: 'Cours' },
-    { icon: GraduationCap,   label: 'Exercices' },
-    { icon: ClipboardList,   label: 'Devoirs' },
-    { icon: ClipboardCheck,  label: 'Présences' },
-  ]
-
   return (
-    <div className="min-h-screen bg-background flex overflow-hidden relative">
+    <div className="min-h-screen bg-background flex items-center justify-center p-6 relative overflow-hidden">
 
-      {/* ── Panneau gauche décoratif (desktop) ────────────────────────────── */}
-      <div className={`hidden lg:flex flex-col justify-between w-[420px] shrink-0 relative overflow-hidden
-        bg-gradient-to-br from-[#2E6FD9] via-[#1E4FAE] to-[#0F2E6E]
-        ${base} ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}
-        style={{ transitionDuration: '600ms' }}
-      >
-        {/* Texture "grand livre" : colonnes et lignes réglées */}
-        <div className="absolute inset-0 opacity-90" style={{
-          backgroundImage: `repeating-linear-gradient(to bottom, rgba(255,255,255,.055) 0, rgba(255,255,255,.055) 1px, transparent 1px, transparent 44px),
-            linear-gradient(to right, transparent 0 78px, rgba(255,255,255,.09) 78px 79px, transparent 79px)`
-        }} />
-        {/* Halo ambre décoratif */}
-        <div className="absolute -bottom-40 -right-40 h-[420px] w-[420px] rounded-full bg-secondary/35 blur-2xl animate-heroOrb" />
-
-        {/* Header panneau */}
-        <div className="relative z-10 p-10">
-          <div className={`flex items-center gap-3 mb-12 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '200ms' }}>
-            <div className="relative">
-              <div className="absolute inset-0 rounded-2xl bg-secondary/30 animate-pulseGlow" />
-              <div className="relative h-14 w-14 rounded-2xl bg-white/10 ring-2 ring-white/20 flex items-center justify-center overflow-hidden backdrop-blur-sm">
-                <img
-                  src="./assets/orbit-mark.svg"
-                  alt="Orbit"
-                  className="w-11 h-11 animate-float"
-                  style={{ animationDelay: '0.5s' }}
-                  onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-                />
-              </div>
-            </div>
-            <div>
-              <p className="font-display font-extrabold text-white text-lg leading-tight tracking-tight">Orbit</p>
-              <p className="text-white/60 text-xs">SYSCOHADA Révisé</p>
-            </div>
-          </div>
-
-          <div className={`${base} ${mounted ? show : hide}`} style={{ transitionDelay: '350ms' }}>
-            <h2 className="font-display text-3xl font-extrabold text-white leading-snug">
-              La compta OHADA,<br />
-              <span className="text-secondary">écriture après écriture.</span>
-            </h2>
-            <p className="text-white/70 mt-3 text-sm leading-relaxed">
-              Journal, grand livre, bilan et cas pratiques corrigés : le même référentiel que vos examens, en ligne.
-            </p>
-          </div>
-        </div>
-
-        {/* Modules couverts + parcours étudiant */}
-        <div className="relative z-10 px-10 pb-6 space-y-6">
-          <div className={`${base} ${mounted ? show : hide}`} style={{ transitionDelay: '450ms' }}>
-            <p className="text-[10px] font-mono uppercase tracking-widest text-white/55 mb-2.5">Ce que couvre Orbit</p>
-            <div className="flex flex-wrap gap-1.5">
-              {modules.map((m, i) => (
-                <span
-                  key={m.label}
-                  className={`flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-2.5 py-1.5 text-xs font-medium text-white/85 ${base} ${mounted ? show : hide}`}
-                  style={{ transitionDelay: `${480 + i * 50}ms` }}
-                >
-                  <m.icon className="h-3 w-3 text-secondary shrink-0" />
-                  {m.label}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className={`${base} ${mounted ? show : hide}`} style={{ transitionDelay: '750ms' }}>
-            <p className="text-[10px] font-mono uppercase tracking-widest text-white/55 mb-3">Le parcours étudiant</p>
-            <div className="flex items-start">
-              {journey.map((j, i) => (
-                <div key={j.label} className="flex-1 flex flex-col items-center relative">
-                  {i < journey.length - 1 && (
-                    <div className="absolute top-4 left-1/2 w-full h-px bg-white/20" />
-                  )}
-                  <div className={`relative h-8 w-8 rounded-full flex items-center justify-center mb-1.5 border ${i === 0 ? 'bg-secondary border-secondary' : 'bg-white/10 border-white/25'}`}>
-                    <j.icon className={`h-3.5 w-3.5 ${i === 0 ? 'text-[#241C0C]' : 'text-white/80'}`} />
-                  </div>
-                  <span className="text-[10.5px] text-white/75 font-medium text-center leading-tight">{j.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <p className="text-white/50 text-xs pt-2 border-t border-white/15 flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-secondary shrink-0" />
-            Orbit © {new Date().getFullYear()}
-          </p>
-        </div>
+      {/* ── Motif de fond décoratif ──────────────────────────────────────────
+          Thème blanc conservé, rien à gauche (desktop et mobile) : deux aplats
+          doux + arcs elliptiques fins, à peine perceptibles — reprend le motif
+          validé de la maquette (orbit-login-simple-v4), jamais appliqué au
+          vrai composant jusqu'ici. */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="orbitArcGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#1E4FAE" />
+              <stop offset="100%" stopColor="#5B9BF5" />
+            </linearGradient>
+            <linearGradient id="orbitBlobGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#DCE8FC" />
+              <stop offset="100%" stopColor="#EAF1FC" />
+            </linearGradient>
+          </defs>
+          <circle cx="1260" cy="60" r="360" fill="url(#orbitBlobGrad)" />
+          <circle cx="40" cy="920" r="330" fill="url(#orbitBlobGrad)" />
+          <g stroke="url(#orbitArcGrad)" fill="none">
+            <ellipse cx="1230" cy="30" rx="300" ry="115" opacity=".55" strokeWidth="2" />
+            <ellipse cx="1230" cy="30" rx="220" ry="82" opacity=".38" strokeWidth="1.6" />
+          </g>
+          <circle cx="1230" cy="30" r="6" fill="#1E4FAE" opacity=".6" />
+          <g stroke="url(#orbitArcGrad)" fill="none">
+            <ellipse cx="60" cy="900" rx="260" ry="100" opacity=".45" strokeWidth="1.8" />
+          </g>
+          <circle cx="60" cy="900" r="5" fill="#1E4FAE" opacity=".5" />
+          <path d="M -50 470 C 350 380, 950 560, 1450 440" stroke="url(#orbitArcGrad)" strokeWidth="1.4" fill="none" opacity=".18" />
+        </svg>
       </div>
 
-      {/* ── Panneau droit : formulaire ────────────────────────────────────── */}
-      <div className="flex-1 flex flex-col items-center justify-center p-6 relative">
+      <div className="relative z-10 w-full max-w-sm flex flex-col items-center">
 
-        {/* Logo mobile uniquement */}
-        <div className={`lg:hidden flex flex-col items-center mb-8 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '100ms' }}>
+        {/* Logo + wordmark : au-dessus de la carte, toujours visible (desktop et mobile) */}
+        <div className={`flex flex-col items-center mb-8 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '100ms' }}>
           <div className="relative mb-3">
             <div className="absolute inset-0 rounded-2xl bg-primary/20 animate-pulseGlow" />
             <div className="relative h-16 w-16 rounded-2xl bg-primary flex items-center justify-center overflow-hidden ring-2 ring-primary/30">
@@ -293,32 +216,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <p className="text-muted-foreground text-sm mt-0.5">Comptabilité SYSCOHADA Révisé</p>
         </div>
 
-        {/* Modules + parcours : résumé compact, mobile uniquement */}
-        <div className={`lg:hidden w-full max-w-sm mb-6 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '170ms' }}>
-          <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1">
-            {modules.map(m => (
-              <span
-                key={m.label}
-                className="flex items-center gap-1.5 rounded-full bg-primary/8 border border-primary/15 px-2.5 py-1.5 text-xs font-medium text-foreground/80 shrink-0 whitespace-nowrap"
-              >
-                <m.icon className="h-3 w-3 text-primary shrink-0" />
-                {m.label}
-              </span>
-            ))}
-          </div>
-          <div className="flex items-center justify-center gap-1.5 mt-3 text-[11px] text-muted-foreground font-medium">
-            {journey.map((j, i) => (
-              <React.Fragment key={j.label}>
-                <span className="flex items-center gap-1"><j.icon className="h-3 w-3 text-primary" />{j.label}</span>
-                {i < journey.length - 1 && <span className="text-muted-foreground/40">›</span>}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
         {/* Card formulaire */}
         <div
-          className={`w-full max-w-sm ${base} ${mounted ? show : hide}`}
+          className={`w-full ${base} ${mounted ? show : hide}`}
           style={{ transitionDelay: '250ms' }}
         >
           {/* Onglets Connexion / Rejoindre */}
