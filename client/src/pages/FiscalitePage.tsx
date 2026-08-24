@@ -454,9 +454,12 @@ function Cat1Salaires() {
 
       const nbEff = parseInt(effectif) || 0
       const inppTaux = nbEff > 300 ? 0.02 : nbEff >= 51 ? 0.03 : 0.035
-      // CNSS patronale : même assiette que la QPO (loi 16/009, Art. 13) — voir ci-dessus.
+      // CNSS et INPP patronales : même assiette de sécurité sociale (loi 16/009, Art. 13 ; le
+      // skill parafiscalite-sociale confirme explicitement que l'INPP partage cette assiette,
+      // et non celle de l'IRPP). ONEM non vérifié faute de texte source disponible : laissé sur
+      // le 661 seul plutôt que d'étendre la correction sans confirmation.
       const cnssPatron = (brut661 + imposable663) * 0.13
-      const inpp = brut661 * inppTaux
+      const inpp = (brut661 + imposable663) * inppTaux
       const onem = brut661 * 0.005
 
       const totalRetenues = qpo + iprNet + syndicatVal + avancesVal
@@ -516,9 +519,9 @@ function Cat1Salaires() {
       // Charges patronales habituelles sur expatriés
       const nbEffE = parseInt(effectifExp) || 0
       const inppTauxE = nbEffE > 300 ? 0.02 : nbEffE >= 51 ? 0.03 : 0.035
-      // CNSS patronale : même assiette que la QPO (loi 16/009, Art. 13) — voir ci-dessus.
+      // CNSS et INPP patronales : même assiette de sécurité sociale (voir national ci-dessus).
       const cnssPatronE = (brut662 + imposable663E) * 0.13
-      const inppE = brut662 * inppTauxE
+      const inppE = (brut662 + imposable663E) * inppTauxE
       const onemE = brut662 * 0.005
 
       const totalRetenuesE = qpoE + iprNetExp + syndicatValE + avancesValE
@@ -914,7 +917,7 @@ function Cat1Salaires() {
                   tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% (6,5% prestations aux familles + 5% pensions + 1,5% risques professionnels) calculée sur l'assiette CNSS — le 661 plus la part imposable du 663 (Loi 16/009 du 15/07/2016, Art. 13, qui exclut nommément logement et transport). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
                 <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inpp)}
-                  tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%. Elle finance la formation professionnelle.=", loi: "INPP : charge patronale=" }}
+                  tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%. Assiette : la même assiette de sécurité sociale que la CNSS (661 + part imposable du 663), pas l'assiette IRPP. Elle finance la formation professionnelle.", loi: "Arrêté du 24/09/2025 (INPP) ; Art. 13, Loi 16/009 du 15/07/2016 (assiette)" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onem)}
                   tooltip={{ texte: "L'ONEM (Office National de l'Emploi) perçoit une cotisation patronale de 0,5% de la rémunération brute. | Taux 0,5% fixé par l'Arrêté Ministériel N°028/CAB/MIN.ET/FMM/RK/09/2025. | Elle finance les politiques de l'emploi et est à la charge exclusive de l'employeur. | Écriture : Débit 6641 / Crédit 4332 (ONEM dette patronale *).", loi: "AM N°028/CAB/MIN.ET/FMM/RK/09/2025" }}
