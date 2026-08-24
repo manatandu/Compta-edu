@@ -213,7 +213,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </div>
           </div>
           <h1 className="font-display text-2xl font-bold text-primary">Orbit</h1>
-          <p className="text-muted-foreground text-sm mt-0.5">Comptabilité SYSCOHADA Révisé</p>
         </div>
 
         {/* Card formulaire */}
@@ -453,7 +452,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           )}
 
           <div className={`text-center mt-8 ${base} ${mounted ? show : hide}`} style={{ transitionDelay: '600ms' }}>
-            <p className="text-xs text-muted-foreground">Orbit © {new Date().getFullYear()} : SYSCOHADA Révisé</p>
+            <p className="text-xs text-muted-foreground">Orbit © {new Date().getFullYear()}</p>
             <p className="text-xs text-muted-foreground/60 mt-0.5">Propriété de Manassé TANDU</p>
           </div>
         </div>
