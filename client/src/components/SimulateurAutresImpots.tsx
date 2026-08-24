@@ -709,10 +709,10 @@ const COLOR_MAP: Record<string, string> = {
   purple: 'bg-purple-100 text-purple-700 border-purple-300',
 }
 const COLOR_ACTIVE: Record<string, string> = {
-  amber:  'border-amber-500 bg-amber-50',
-  green:  'border-green-500 bg-green-50',
-  blue:   'border-blue-500 bg-blue-50',
-  purple: 'border-purple-500 bg-purple-50',
+  amber:  'bg-amber-600 border-transparent text-white shadow-md scale-[1.03]',
+  green:  'bg-green-600 border-transparent text-white shadow-md scale-[1.03]',
+  blue:   'bg-blue-600 border-transparent text-white shadow-md scale-[1.03]',
+  purple: 'bg-purple-600 border-transparent text-white shadow-md scale-[1.03]',
 }
 
 export default function SimulateurAutresImpots() {
@@ -738,14 +738,14 @@ export default function SimulateurAutresImpots() {
           return (
             <button key={o.id} onClick={() => setOngletActif(o.id)}
               className={cn(
-                'flex flex-col items-center gap-1 rounded-xl border-2 p-3 transition-all text-center',
-                isActive ? COLOR_ACTIVE[o.color] : 'border-border bg-background hover:bg-muted/50'
+                'flex flex-col items-center gap-1 rounded-xl border p-3 transition-all duration-200 text-center',
+                isActive ? COLOR_ACTIVE[o.color] : 'border-border bg-card hover:bg-muted/50 hover:scale-[1.01]'
               )}>
-              <div className={cn('flex h-8 w-8 items-center justify-center rounded-lg border', COLOR_MAP[o.color])}>
+              <div className={cn('flex h-8 w-8 items-center justify-center rounded-lg border', isActive ? 'bg-white/15 border-white/25 text-white' : COLOR_MAP[o.color])}>
                 <Icon className="h-4 w-4" />
               </div>
-              <span className={cn('text-xs font-bold', isActive ? 'text-foreground' : 'text-muted-foreground')}>{o.label}</span>
-              <span className="text-xs text-muted-foreground leading-tight">{o.sublabel}</span>
+              <span className={cn('text-xs font-bold', isActive ? 'text-white' : 'text-muted-foreground')}>{o.label}</span>
+              <span className={cn('text-xs leading-tight', isActive ? 'text-white/80' : 'text-muted-foreground')}>{o.sublabel}</span>
             </button>
           )
         })}
