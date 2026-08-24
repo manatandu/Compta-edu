@@ -2,7 +2,6 @@ import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
   BookOpen, BookMarked, ClipboardList, Clock, Users, GraduationCap,
-  CheckCircle2, ChevronRight,
 } from 'lucide-react'
 import { useAllCours, useFacultes, useUniversites, useAllSoumissions } from '@/lib/useFirestore'
 import { getUsersAsync } from '@/lib/db-firebase'
@@ -18,11 +17,21 @@ import { DashboardFooter } from '@/components/DashboardFooter'
 // Le staff n'a ici ni relevé de notes ni devoirs personnels : le travail de
 // suivi pédagogique lui-même — cours, progression, présences, cotes — vit
 // dans l'Espace pédagogique (/professeurs), pas ici. Cette page reste donc un
-// point d'entrée, mais un point d'entrée qui dit ce qui attend : les copies à
-// corriger et les inscriptions à valider étaient jusqu'ici affichées comme de
-// simples compteurs inertes dans le bandeau, alors que ce sont précisément les
-// deux choses qui appellent une action. Elles sont désormais cliquables et
-// mènent là où l'action se fait.
+// simple point d'entrée.
+//
+// Une section « Ce qui m'attend » (copies à corriger, inscriptions à valider)
+// a été essayée puis retirée : les deux actions qu'elle proposait n'existent
+// pas dans l'application.
+//   - Corriger une copie : le seul bouton qui ouvre la fenêtre de correction
+//     vit dans l'onglet « Devoirs » de ProfesseurPage, désactivé en dur
+//     (`{false && ...}`, commentaire « désactivé — devoirs depuis chapitres »).
+//   - Valider une inscription : `statutInscription` n'est écrit qu'une fois,
+//     à 'en_attente' (LoginPage), et jamais modifié ensuite ; l'activation
+//     d'un compte (`actif`) n'est proposée que dans l'onglet « Prof /
+//     Assistants », qui ne liste que les admins (`role === 'admin'`).
+// Tant que ces deux actions n'existent pas, les compteurs correspondants
+// restent de simples indicateurs : les rendre cliquables ne ferait que
+// promettre une action impossible.
 // ─────────────────────────────────────────────────────────────────────────────
 export default function DashboardStaff() {
   const [, navigate] = useHashLocation()
@@ -53,8 +62,8 @@ export default function DashboardStaff() {
 
   const stats: DashboardStat[] = [
     { label: 'Étudiants actifs', value: nbEtudiants,   icon: Users,         color: 'text-green-300', onClick: () => navigate('/gestion-etudiants') },
-    { label: 'En attente',        value: nbEnAttente,   icon: Clock,         color: nbEnAttente > 0 ? 'text-amber-300' : 'text-blue-300/80', onClick: () => navigate('/professeurs') },
-    { label: 'Non corrigés',      value: nbNonCorriges, icon: ClipboardList, color: nbNonCorriges > 0 ? 'text-rose-300' : 'text-blue-300/80', onClick: () => navigate('/professeurs') },
+    { label: 'En attente',        value: nbEnAttente,   icon: Clock,         color: nbEnAttente > 0 ? 'text-amber-300' : 'text-blue-300/80' },
+    { label: 'Non corrigés',      value: nbNonCorriges, icon: ClipboardList, color: nbNonCorriges > 0 ? 'text-rose-300' : 'text-blue-300/80' },
     { label: 'Cours',             value: allCours.length, icon: BookOpen,    color: 'text-blue-300/80', onClick: () => navigate('/professeurs') },
   ]
 
@@ -97,29 +106,6 @@ export default function DashboardStaff() {
     </>
   )
 
-  // Ce qui appelle une action de la part du staff, dans l'ordre où il faut s'en
-  // occuper : une copie rendue attend une note, une inscription attend un accord.
-  // Les deux destinations reprennent celles déjà utilisées par la cloche de
-  // notifications, qui renvoie également vers l'Espace pédagogique.
-  const enAttente = [
-    {
-      cle: 'corrections',
-      nombre: nbNonCorriges,
-      label: nbNonCorriges > 1 ? 'copies à corriger' : 'copie à corriger',
-      icon: ClipboardList,
-      classeIcone: 'bg-rose-50 text-rose-600',
-      vers: '/professeurs',
-    },
-    {
-      cle: 'inscriptions',
-      nombre: nbEnAttente,
-      label: nbEnAttente > 1 ? 'inscriptions à valider' : 'inscription à valider',
-      icon: Clock,
-      classeIcone: 'bg-amber-50 text-amber-600',
-      vers: '/professeurs',
-    },
-  ].filter(item => item.nombre > 0)
-
   return (
     <div className="space-y-6 pb-8">
       <DashboardHero
@@ -127,39 +113,6 @@ export default function DashboardStaff() {
         identity={identity}
         stats={stats}
       />
-
-      {/* ══ CE QUI M'ATTEND ══════════════════════════════════════════════════ */}
-      <div className="animate-slideUp" style={{ animationDelay: '450ms' }}>
-        <h2 className="text-base font-display font-semibold text-foreground mb-3">Ce qui m&apos;attend</h2>
-        {enAttente.length === 0 ? (
-          <div className="rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-2.5">
-            <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
-            <p className="text-sm text-muted-foreground">Rien en attente : tout est corrigé et validé.</p>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {enAttente.map((item, i) => {
-              const Icon = item.icon
-              return (
-                <button
-                  key={item.cle}
-                  onClick={() => navigate(item.vers)}
-                  className="w-full rounded-xl border border-border bg-card px-4 py-3 text-left flex items-center gap-3 hover:bg-muted/40 hover:border-primary/30 transition-colors animate-slideUp"
-                  style={{ animationDelay: `${500 + i * 60}ms` }}
-                >
-                  <div className={`h-9 w-9 rounded-lg flex items-center justify-center shrink-0 ${item.classeIcone}`}>
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <p className="flex-1 text-sm text-foreground">
-                    <span className="font-semibold tabular-nums">{item.nombre}</span> {item.label}
-                  </p>
-                  <ChevronRight className="h-4 w-4 text-muted-foreground/40 shrink-0" />
-                </button>
-              )
-            })}
-          </div>
-        )}
-      </div>
 
       <DashboardModulesGrid navigate={navigate} />
       <DashboardFooter />
