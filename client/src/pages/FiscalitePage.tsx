@@ -1239,8 +1239,8 @@ function Cat2BIC() {
               <button onClick={() => { setRegime(r.key); setRes(null) }}
                 className={cn('w-full py-2.5 rounded-xl border text-xs font-semibold transition-all duration-300 ease-out pr-5',
                   regime === r.key
-                    ? 'bg-primary text-primary-foreground border-primary'
-                    : 'border-border bg-card text-muted-foreground hover:border-primary/30')}>
+                    ? 'bg-primary text-primary-foreground border-transparent shadow-md scale-[1.03]'
+                    : 'border-border bg-card text-muted-foreground hover:border-primary/30 hover:bg-muted/30 hover:scale-[1.01]')}>
                 <div>{r.label}</div>
                 <div className="font-normal opacity-70 text-xs">{r.sub}</div>
               </button>
@@ -3967,8 +3967,8 @@ function Cat6PlusValues() {
                   className={cn(
                     'rounded-xl border px-2 py-2 text-left transition-all duration-200',
                     typeBien === t.id
-                      ? 'bg-orange-600 border-transparent text-white shadow-md scale-[1.02]'
-                      : 'border-border bg-card hover:bg-muted/30 hover:border-orange-300'
+                      ? 'bg-orange-600 border-transparent text-white shadow-md scale-[1.03]'
+                      : 'border-border bg-card hover:bg-muted/30 hover:border-orange-300 hover:scale-[1.01]'
                   )}>
                   <p className={cn('text-xs font-bold', typeBien === t.id ? 'text-white' : 'text-foreground')}>{t.label}</p>
                   <p className={cn('text-xs leading-tight', typeBien === t.id ? 'text-white/80' : 'text-muted-foreground')}>{t.sub}</p>
