@@ -138,13 +138,24 @@ export default function GestionEtudiantsPage() {
             <p className="text-sm text-muted-foreground">Étudiants internes et externes — toutes universités</p>
           </div>
           {isAdmin && (
-            <button
-              onClick={() => navigate('/inscription-plateforme')}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition-colors"
-            >
-              <UserPlus className="w-4 h-4" />
-              Inscrire un étudiant
-            </button>
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={() => navigate('/nouvel-etudiant')}
+                className="inline-flex items-center gap-2 px-4 py-2 border border-indigo-200 hover:bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-xl transition-colors"
+                title="Enregistrer un étudiant interne ou externe, sans compte de connexion"
+              >
+                <UserPlus className="w-4 h-4" />
+                Enregistrer un étudiant
+              </button>
+              <button
+                onClick={() => navigate('/inscription-plateforme')}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition-colors"
+                title="Créer un compte de connexion pour un étudiant interne"
+              >
+                <UserPlus className="w-4 h-4" />
+                Inscrire sur la plateforme
+              </button>
+            </div>
           )}
         </div>
       </div>
