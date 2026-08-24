@@ -2504,7 +2504,7 @@ function SimulateurIS() {
               <LigneR
                 label={
                   res.casMinimum === 'ca'
-                    ? `IS minimum : 1% du CA = ${formatFC(Math.round(res.ca * 0.01))} (Art. 57, Loi 23/053)`
+                    ? `IS minimum : 1% du CA = ${formatFC(res.isMinimum)} (Art. 57, Loi 23/053)`
                     : res.casMinimum === 'sansCA'
                     ? `IS minimum forfaitaire CA=0 — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
                     : `IS forfaitaire — cessation sans radiation RCCM — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
@@ -2684,10 +2684,10 @@ function SimulateurIS() {
             <div className="space-y-1.5">
               <p className="text-xs font-semibold text-rose-700 flex items-center gap-1">
                 Prélèvement exceptionnel personnel expatrié (Art. 148)
-                <InfoTooltip texte="Prélèvement de 25% sur le montant brut des rémunérations versées au personnel expatrié. Dû mensuellement, versé dans les 15 jours suivant le mois de paiement des rémunérations (Art. 19, Loi procédures fiscales). Ce prélèvement n'est pas déductible de l'IS (Art. 50 §2)." loi="Art. 148, Loi 23/053" />
+                <InfoTooltip texte="Prélèvement de 25% assis sur les rémunérations de l'art. 68, immunités de l'art. 69 déduites (Art. 147) — la même assiette que l'IRPP salarial de l'expatrié, mais avant la retenue QPO de l'art. 71. Ne pas saisir le salaire brut total : en retrancher d'abord la part exonérée des indemnités (663) selon l'art. 69 — logement plafonné à 30% de la rémunération, transport, etc. — comme dans le simulateur IRPP Cat. 1, section expatriés. Dû mensuellement, versé dans les 15 jours suivant le mois de paiement des rémunérations (Art. 19, Loi procédures fiscales). Ce prélèvement n'est pas déductible de l'IS (Art. 50 §2)." loi="Art. 147-148, Loi 23/053" />
               </p>
-              <label className="text-xs font-medium text-muted-foreground mb-1 block">Rémunérations brutes expatriés (FC)</label>
-              <input type="number" min={0} placeholder="Salaires bruts du personnel expatrié" value={remunsExpatries}
+              <label className="text-xs font-medium text-muted-foreground mb-1 block">Rémunérations imposables expatriés, immunités Art. 69 déjà déduites (FC)</label>
+              <input type="number" min={0} placeholder="Base après immunités Art. 69 (voir tooltip)" value={remunsExpatries}
                 onChange={e => { setRemunsExpatries(e.target.value); setRes(null) }}
                 className={inputCls} />
               {res && res.remuns > 0 && (
