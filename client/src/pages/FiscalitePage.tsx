@@ -918,6 +918,7 @@ function Cat1Salaires() {
                   </>
                 )}
                 <LigneR signe="=" label="IRPP net dû" val={formatFC(res.iprNet)} bold accent />
+                <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
                 {/* Formule textuelle IRPP */}
                 <div className="mt-2 rounded-lg border border-green-300 bg-green-50 px-3 py-2">
                   <p className="text-xs font-bold text-green-800 text-center">
@@ -1043,6 +1044,7 @@ function Cat1Salaires() {
                   </>
                 )}
                 <LigneR signe="=" label="IRPP net retenu sur salaire=" val={formatFC(res.iprNetExp)} bold accent />
+                <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
                 {/* Plafond Art. 118 : toujours visible */}
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs ${
                   res.plafonne
@@ -1161,15 +1163,16 @@ function Cat2BIC() {
 
     if (regime === 'micro') {
       // Micro-entreprise : 30 USD × taux du jour (Art. 128 + Arrêté n°015 du 19/02/2025)
+      // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi.
       const taux = parseFloat(tauxUsd) || 2800
-      const impot = 30 * taux
+      const impot = arrondiIS(30 * taux)
       setRes({ regime, impot, tauxUsd: taux })
 
     } else if (regime === 'petit') {
       // Petite entreprise : CA × 1% (vente) ou 2% (services) (Art. 127, Loi 23/053)
       const caVal = parseFloat(ca) || 0
       const taux = activite === 'vente' ? 0.01 : 0.02
-      const impot = caVal * taux
+      const impot = arrondiIS(caVal * taux)
       setRes({ regime, ca: caVal, taux, impot, q1: impot * 0.6, q2: impot * 0.4 })
 
     } else {
@@ -1839,6 +1842,7 @@ function Cat2BIC() {
                 {res.minimumApplique && (
                   <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% du CA = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
                 )}
+                <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
               </EtapeResultat>
             </>
           )}
@@ -2111,6 +2115,7 @@ function Cat5Mobiliers() {
                 <LigneR signe="=" label="Total base imposable=" val={formatFC(res.totalBase)} />
               </>
             )}
+            <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : chaque retenue individuelle est arrondie à la centaine de FC (tranche ≥ 50 FC → supérieure, sinon inférieure).</p>
           </EtapeResultat>
 
           <EtapeResultat numero={2} titre="Modalités de versement (Art. 18 bis)">
@@ -3311,6 +3316,7 @@ function Cat3BNC() {
             {res.minimumApplique && (
               <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% des recettes = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
             )}
+            <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
           </EtapeResultat>
 
           <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement=">
@@ -3388,16 +3394,18 @@ function Cat4Agricole() {
   ]
 
   function calculer() {
+    // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi —
+    // y compris les régimes micro et petite entreprise, pas seulement le régime réel.
     if (regime === 'micro') {
       const taux = parseFloat(tauxBCC) || 0
-      const impot = 30 * taux
+      const impot = arrondiIS(30 * taux)
       setRes({ regime: 'micro', impot, taux })
       return
     }
     if (regime === 'petite') {
       const ca = parseFloat(caMicro) || 0
       const taux = typeActivite === 'ventes' ? 0.01 : 0.02
-      const impot = ca * taux
+      const impot = arrondiIS(ca * taux)
       setRes({ regime: 'petite', ca, taux, impot, typeActivite })
       return
     }
@@ -3876,6 +3884,7 @@ function Cat4Agricole() {
             {res.minimumApplique && (
               <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% des produits = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
             )}
+            <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
           </EtapeResultat>
 
           <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement=">
@@ -4328,6 +4337,7 @@ function Cat6PlusValues() {
             <EtapeResultat numero={4} titre="Calcul de la retenue à la source (Art. 120)">
               <LigneR label="Plus-value nette imposable=" val={formatFC(res.imposable)} />
               <LigneR signe="×" label={`${formatFC(res.imposable)} × 20%`} val={formatFC(res.retenue)} bold accent />
+              <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
               <Separateur />
               <div className="flex items-center gap-1 mt-1">
                 <p className="text-xs text-muted-foreground">Versement par l'acquéreur au Trésor ≤ 15 du mois suivant :</p>
