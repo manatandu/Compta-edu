@@ -243,50 +243,6 @@ function SectionSaisieModal({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Catalogue à liste plate : recettes/produits et charges des catégories dont le
-// catalogue légal n'est pas subdivisé par article (Cat. 3 BNC, Cat. 4 Agricole).
-// Sert à éviter la duplication de la même structure JSX (4 occurrences avant
-// harmonisation : recettes+charges en Cat. 3, produits+charges en Cat. 4).
-// ─────────────────────────────────────────────────────────────────────────────
-const CATALOGUE_COULEURS: Record<string, { texte: string; hover: string }> = {
-  indigo: { texte: 'text-indigo-600', hover: 'hover:text-indigo-700 hover:bg-indigo-50' },
-  rose:   { texte: 'text-rose-600',   hover: 'hover:text-rose-700 hover:bg-rose-50' },
-  lime:   { texte: 'text-lime-600',   hover: 'hover:text-lime-700 hover:bg-lime-50' },
-}
-
-function CatalogueListe({ titre, couleur, items, onSelect, exclusions, exclusionsTitre }: {
-  titre: string
-  couleur: keyof typeof CATALOGUE_COULEURS
-  items: { label: string }[]
-  onSelect: (label: string) => void
-  exclusions?: string[]
-  exclusionsTitre?: string
-}) {
-  const c = CATALOGUE_COULEURS[couleur]
-  return (
-    <details className="group">
-      <summary className={cn('cursor-pointer text-xs font-medium hover:underline flex items-center gap-1 select-none list-none mt-1', c.texte)}>
-        <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> {titre}
-      </summary>
-      <div className="mt-2 space-y-1 pl-3">
-        {items.map((it, i) => (
-          <button key={i} onClick={() => onSelect(it.label)}
-            className={cn('block w-full text-left text-xs text-foreground px-2 py-1 rounded transition-colors duration-200', c.hover)}>
-            + {it.label}
-          </button>
-        ))}
-      </div>
-      {exclusions && exclusions.length > 0 && (
-        <div className="mt-3 rounded-lg border border-red-200 bg-red-50/60 p-2">
-          <p className="text-xs font-bold text-red-600 mb-1">{exclusionsTitre || '✕ Non déductibles'}</p>
-          {exclusions.map((ex, i) => <p key={i} className="text-xs text-red-600">• {ex}</p>)}
-        </div>
-      )}
-    </details>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
 // Catalogue groupé par article : pour les catégories dont le catalogue légal se
 // subdivise réellement en plusieurs sous-articles (Cat. 2 BIC : Art. 21 à 49 ;
 // Cat. 3 BNC : Art. 92/94/95/96 pour les recettes, Art. 98 pour les charges).
@@ -558,6 +514,105 @@ function BoxFinal({ label, sublabel, val, credit, couleur }: { label: string; su
       )}
       <p className={cn('text-lg font-bold leading-tight', textColor)}>{val}</p>
     </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BLOC DE LIQUIDATION IRPP — séquence commune aux catégories imposées au barème
+// progressif (Cat. 1 salaires, Cat. 2 BIC, Cat. 3 BNC, Cat. 4 agricole).
+//
+// L'ordre affiché ici reproduit exactement l'ordre de liquidation appliqué par
+// le moteur de calcul :
+//   1. IRPP barème (Art. 118, sur base arrondie au millier inférieur)
+//   2. − réduction pour charges de famille (Art. 123-125)
+//   3. = IRPP net dû
+//   4. plafond de 30% du revenu imposable (Art. 118 in fine)
+//   5. le cas échéant, impôt minimum (Art. 122)
+//   6. arrondi à la centaine (Art. 150)
+//
+// Ce composant existe parce que Cat. 2, Cat. 3 et Cat. 4 affichaient la mention
+// du plafond AVANT la ligne de réduction, c'est-à-dire l'inverse de l'ordre
+// qu'elles appliquaient réellement — et libellaient « IRPP après réduction
+// famille » un montant qui, plafond joué, était celui du plafond. Regrouper la
+// séquence en un seul endroit empêche les quatre catégories de redivergerie.
+// ─────────────────────────────────────────────────────────────────────────────
+function BlocLiquidationIRPP({
+  impotBareme, nbPersonnesCharge, reduction, reductionPlafonnee,
+  baseImposable, plafond, plafonne, impotNet, minimum,
+}: {
+  impotBareme: number
+  nbPersonnesCharge: number
+  reduction: number
+  reductionPlafonnee?: boolean
+  baseImposable: number
+  plafond: number
+  plafonne: boolean
+  /** Impôt après réduction et plafond, déjà arrondi selon l'Art. 150. */
+  impotNet: number
+  /** Impôt minimum de l'Art. 122, propre aux Cat. 2/3/4 (absent en Cat. 1). */
+  minimum?: { montant: number; applique: boolean; assiette: string; impotRetenu: number }
+}) {
+  return (
+    <>
+      <Separateur />
+      <LigneR signe="=" label="IRPP barème" val={formatFC(impotBareme)} />
+
+      {nbPersonnesCharge > 0 && (
+        <>
+          <LigneR signe="−"
+            label={`Réduction charges de famille (${nbPersonnesCharge} pers. × 2%)`}
+            val={formatFC(reduction)} neg
+            tooltip={{ texte: "Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Sont admis : conjoint légal, enfants célibataires reconnus/adoptés/sous tutelle, ascendants des deux conjoints vivant au foyer. Condition : revenu propre ≤ 162 000 FC/mois. Maximum 9 personnes. Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu qui excède la 3ème tranche du barème (Art. 125).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
+          />
+          {reductionPlafonnee && (
+            <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
+              <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+              <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction.</span>
+            </div>
+          )}
+        </>
+      )}
+
+      <LigneR signe="=" label="IRPP net dû" val={formatFC(impotNet)} bold accent />
+
+      {/* Formule textuelle IRPP */}
+      <div className="mt-2 rounded-lg border border-green-300 bg-green-50 px-3 py-2">
+        <p className="text-xs font-bold text-green-800 text-center">
+          IRPP = min(IRPP max, IRPP net)
+        </p>
+        <p className="text-xs text-green-700 text-center mt-0.5">
+          IRPP max = 30% du revenu imposable (Art. 118) : IRPP net = calcul barème progressif
+        </p>
+      </div>
+
+      {/* Plafond Art. 118 : toujours visible, plafond joué ou non */}
+      <div className={cn(
+        'flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs',
+        plafonne
+          ? 'bg-amber-50 border border-amber-300 text-amber-700'
+          : 'bg-green-50 border border-green-300 text-green-700'
+      )}>
+        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+        <span>
+          IRPP max (Art. 118) : <strong>{formatFC(plafond)}</strong> (30% × {formatFC(baseImposable)})
+          {plafonne
+            ? <> : <strong>Plafonné</strong> : IRPP retenu = {formatFC(impotNet)}</>
+            : <> : <strong>Conforme</strong> : IRPP ({formatFC(impotNet)}) ≤ IRPP max</>}
+        </span>
+      </div>
+
+      {minimum?.applique && (
+        <div className="flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs bg-orange-50 border border-orange-300 text-orange-700">
+          <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+          <span>
+            <strong>Impôt minimum (Art. 122)</strong> : 1% {minimum.assiette} = {formatFC(minimum.montant)} FC.
+            L'IRPP net dû ({formatFC(impotNet)} FC) lui étant inférieur, l'impôt retenu est <strong>{formatFC(minimum.impotRetenu)} FC</strong>.
+          </span>
+        </div>
+      )}
+
+      <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
+    </>
   )
 }
 
@@ -1106,48 +1161,16 @@ function Cat1Salaires() {
                     label={`${l.tranche} → base réelle : ${formatFC(l.baseReelle)} × ${l.taux}`}
                     val={formatFC(l.impot)} indent />
                 ))}
-                <Separateur />
-                <LigneR label="IRPP brut=" val={formatFC(res.iprBrut)} />
-                {res.charge > 0 && (
-                  <>
-                    <LigneR signe="−"
-                      label={`Réduction charges de famille (${res.charge} pers. × 2%)`}
-                      val={formatFC(res.reduction)} neg
-                      tooltip={{ texte: "Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Sont admis : conjoint légal, enfants célibataires reconnus/adoptés/sous tutelle, ascendants des deux conjoints vivant au foyer. Condition : revenu propre ≤ 162 000 FC/mois. Maximum 9 personnes. Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu qui excède la 3ème tranche du barème (Art. 125).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
-                    />
-                    {res.reductionPlafonnee && (
-                      <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                        <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% (au-delà de 3 600 000 FC/mois) est exclue de l'assiette de la réduction.</span>
-                      </div>
-                    )}
-                  </>
-                )}
-                <LigneR signe="=" label="IRPP net dû" val={formatFC(res.iprNet)} bold accent />
-                <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
-                {/* Formule textuelle IRPP */}
-                <div className="mt-2 rounded-lg border border-green-300 bg-green-50 px-3 py-2">
-                  <p className="text-xs font-bold text-green-800 text-center">
-                    IRPP = min(IRPP max, IRPP net)
-                  </p>
-                  <p className="text-xs text-green-700 text-center mt-0.5">
-                    IRPP max = 30% du revenu imposable (Art. 118) : IRPP net = calcul barème progressif
-                  </p>
-                </div>
-                {/* Plafond Art. 118 : toujours visible */}
-                <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs ${
-                  res.plafonne
-                    ? 'bg-amber-50 border border-amber-300 text-amber-700'
-                    : 'bg-green-50 border border-green-300 text-green-700'
-                }`}>
-                  <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                  <span>
-                    IRPP max (Art. 118) : <strong>{formatFC(res.iprMax)}</strong> (30% × {formatFC(res.baseImposable)})
-                    {res.plafonne
-                      ? <> : <strong>Plafonné</strong> : IRPP retenu = {formatFC(res.iprNet)}</>
-                      : <> : <strong>Conforme</strong> : IRPP ({formatFC(res.iprNet)}) ≤ IRPP max</>}
-                  </span>
-                </div>
+                <BlocLiquidationIRPP
+                  impotBareme={res.iprBrut}
+                  nbPersonnesCharge={res.charge}
+                  reduction={res.reduction}
+                  reductionPlafonnee={res.reductionPlafonnee}
+                  baseImposable={res.baseImposable}
+                  plafond={res.iprMax}
+                  plafonne={res.plafonne}
+                  impotNet={res.iprNet}
+                />
               </EtapeResultat>
 
               <EtapeResultat numero={4} titre="Récapitulatif des retenues salariales=">
@@ -1232,39 +1255,16 @@ function Cat1Salaires() {
                     label={`${l.tranche} → base réelle : ${formatFC(l.baseReelle)} × ${l.taux}`}
                     val={formatFC(l.impot)} indent />
                 ))}
-                <Separateur />
-                <LigneR label="IRPP brut=" val={formatFC(res.iprBrut)} />
-                {res.chargeE > 0 && (
-                  <>
-                    <LigneR signe="−"
-                      label={`Réduction charges de famille (${res.chargeE} pers. × 2%)`}
-                      val={formatFC(res.reductionE)} neg
-                      tooltip={{ texte: "Même règle que les nationaux. Chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut. Maximum 9 personnes. Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu qui excède la 3ème tranche du barème (Art. 125).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
-                    />
-                    {res.reductionPlafonneeE && (
-                      <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-1.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                        <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% (au-delà de 3 600 000 FC/mois) est exclue de l'assiette de la réduction.</span>
-                      </div>
-                    )}
-                  </>
-                )}
-                <LigneR signe="=" label="IRPP net retenu sur salaire=" val={formatFC(res.iprNetExp)} bold accent />
-                <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
-                {/* Plafond Art. 118 : toujours visible */}
-                <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-2 text-xs ${
-                  res.plafonne
-                    ? 'bg-amber-50 border border-amber-300 text-amber-700'
-                    : 'bg-green-50 border border-green-300 text-green-700'
-                }`}>
-                  <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                  <span>
-                    IRPP max (Art. 118) : <strong>{formatFC(res.iprMax)}</strong> (30% × {formatFC(res.baseImposableE)})
-                    {res.plafonne
-                      ? <> : <strong>Plafonné</strong> : IRPP retenu = {formatFC(res.iprNetExp)}</>
-                      : <> : <strong>Conforme</strong> : IRPP ({formatFC(res.iprNetExp)}) ≤ IRPP max</>}
-                  </span>
-                </div>
+                <BlocLiquidationIRPP
+                  impotBareme={res.iprBrut}
+                  nbPersonnesCharge={res.chargeE}
+                  reduction={res.reductionE}
+                  reductionPlafonnee={res.reductionPlafonneeE}
+                  baseImposable={res.baseImposableE}
+                  plafond={res.iprMax}
+                  plafonne={res.plafonne}
+                  impotNet={res.iprNetExp}
+                />
               </EtapeResultat>
 
               <EtapeResultat numero={4} titre="IERE : Charge patronale (Art. 148 Loi 23/053)">
@@ -1416,6 +1416,10 @@ function Cat2BIC() {
       const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
       const impotAt3max = t1max * 0.03 + (t2max - t1max) * 0.15 + (t3max - t2max) * 0.30
       const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3max)
+      // Art. 125 : la réduction ne porte pas sur la part d'impôt afférente à la
+      // tranche à 40%. Le min() ci-dessus l'écrête ; on retient l'information pour
+      // pouvoir la signaler à l'écran, comme le fait déjà la Cat. 1.
+      const reductionPlafonnee = impotBareme > impotAt3max
       const reductionPC = impotHorsDerniereTranche * 0.02 * nbPC
       const impotApresReduction = Math.max(0, impotBareme - reductionPC)
       // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
@@ -1428,6 +1432,9 @@ function Cat2BIC() {
       // Art. 150 : arrondi à la centaine de FC la plus proche — vaut pour l'IRPP comme pour l'IS
       // et « tous autres prélèvements de la présente Loi » (voir Cat1Salaires pour la référence).
       const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
+      // Impôt après réduction et plafond, arrondi Art. 150 : c'est la valeur
+      // affichée comme « IRPP net dû », avant confrontation à l'impôt minimum.
+      const impotApresPCArrondi = arrondiIS(impotApresPC)
       // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1),
       // saisi séparément — jamais sur l'impôt de l'exercice courant qui vient d'être liquidé.
       const impotN1 = parseFloat(impotNmoins1) || 0
@@ -1438,7 +1445,7 @@ function Cat2BIC() {
         regime, produits: tp, charges: tc, beneficeBrut, beneficeAvantDed,
         cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed,
         beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne,
-        nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot,
+        nbPC, reductionPC, impotApresPC, impotApresPCArrondi, reductionPlafonnee, minimum122, minimumApplique, impot,
         impotN1, acompte1, acompte2, acompte3,
         q1: impot * 0.6, q2: impot * 0.4
       })
@@ -1862,21 +1869,17 @@ function Cat2BIC() {
                     <LigneR label={`${formatFC(res.beneficeNetArrondi - 43200000)} × 40%`} val={formatFC((res.beneficeNetArrondi - 43200000) * 0.40)} />
                   </>
                 )}
-                <Separateur />
-                <LigneR signe="=" label="IRPP barème" val={formatFC(res.impotBareme)} bold />
-                {res.plafonne && res.beneficeNetArrondi > 0 && (
-                  <p className="text-xs text-amber-600 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
-                )}
-                {res.nbPC > 0 && (
-                  <>
-                    <LigneR signe="−" label={`Réduction personnes à charge : ${res.nbPC} × 2% = ${(res.nbPC * 2)}%`} val={formatFC(res.reductionPC)} neg />
-                    <LigneR signe="=" label="IRPP après réduction famille=" val={formatFC(res.impotApresPC)} bold />
-                  </>
-                )}
-                {res.minimumApplique && (
-                  <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% du CA = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
-                )}
-                <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
+                <BlocLiquidationIRPP
+                  impotBareme={res.impotBareme}
+                  nbPersonnesCharge={res.nbPC}
+                  reduction={res.reductionPC}
+                  reductionPlafonnee={res.reductionPlafonnee}
+                  baseImposable={res.beneficeNetArrondi}
+                  plafond={res.plafond30}
+                  plafonne={res.plafonne}
+                  impotNet={res.impotApresPCArrondi}
+                  minimum={{ montant: res.minimum122, applique: res.minimumApplique, assiette: 'du chiffre d’affaires', impotRetenu: res.impot }}
+                />
               </EtapeResultat>
             </>
           )}
@@ -2606,7 +2609,7 @@ function SimulateurIS() {
                 val={formatFC(res.isMinimum)}
               />
               <InfoTooltip
-                texte="⚠️ Réserve : seul le minimum de 1% du CA (Art. 57, Loi 23/053) est confirmé par le texte en vigueur. Les planchers et forfaits par taille d'entreprise ci-dessous reproduisent l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 (Art. 152, Loi 23/053) — leur continuité sous le régime actuel n'est pas confirmée par le texte, seulement reproduite ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. §1 : si CA > 0 → minimum = MAX(1% du CA, plancher du régime). §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
+                texte="⚠️ Réserve : seul le minimum de 1% du CA (Art. 57, Loi 23/053) est confirmé par le texte en vigueur. Les planchers et forfaits par taille d'entreprise ci-dessous reproduisent l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 (Art. 152, Loi 23/053) — leur continuité sous le régime actuel n'est pas confirmée par le texte, seulement reproduite ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. §1 : si CA > 0 → minimum = 1% du CA, sans plancher forfaitaire (les forfaits ci-dessous ne jouent que lorsqu'aucun chiffre d'affaires n'existe pour asseoir le 1%). §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
                 loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée — continuité non confirmée"
               />
             </div>
@@ -3036,6 +3039,10 @@ function Cat3BNC() {
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
     const impotAt3 = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30
     const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3)
+    // Art. 125 : la réduction ne porte pas sur la part d'impôt afférente à la
+    // tranche à 40%. Le min() ci-dessus l'écrête ; on retient l'information pour
+    // pouvoir la signaler à l'écran, comme le fait déjà la Cat. 1.
+    const reductionPlafonnee = impotBareme > impotAt3
     const reductionPC = impotHorsDerniereTranche * 0.02 * nbPC
     const impotApresReduction = Math.max(0, impotBareme - reductionPC)
     // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
@@ -3047,13 +3054,16 @@ function Cat3BNC() {
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
     // Art. 150 : arrondi à la centaine de FC la plus proche (voir Cat1Salaires pour la référence).
     const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
+    // Impôt après réduction et plafond, arrondi Art. 150 : c'est la valeur
+    // affichée comme « IRPP net dû », avant confrontation à l'impôt minimum.
+    const impotApresPCArrondi = arrondiIS(impotApresPC)
     // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1)
     const impotN1 = parseFloat(impotNmoins1) || 0
     const acompte1 = impotN1 * 0.30
     const acompte2 = impotN1 * 0.30
     const acompte3 = impotN1 * 0.20
 
-    setRes({ totalRecettes, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
+    setRes({ totalRecettes, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, impotApresPCArrondi, reductionPlafonnee, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
   }
 
   function reset() {
@@ -3308,21 +3318,17 @@ function Cat3BNC() {
                 <LigneR label={`${formatFC(res.beneficeNetArrondi - 43200000)} × 40%`} val={formatFC((res.beneficeNetArrondi - 43200000) * 0.40)} />
               </>
             )}
-            <Separateur />
-            <LigneR signe="=" label="IRPP barème" val={formatFC(res.impotBareme)} bold />
-            {res.plafonne && res.beneficeNetArrondi > 0 && (
-              <p className="text-xs text-amber-600 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
-            )}
-            {res.nbPC > 0 && (
-              <>
-                <LigneR signe="−" label={`Réduction personnes à charge : ${res.nbPC} × 2% = ${(res.nbPC * 2)}%`} val={formatFC(res.reductionPC)} neg />
-                <LigneR signe="=" label="IRPP après réduction famille=" val={formatFC(res.impotApresPC)} bold />
-              </>
-            )}
-            {res.minimumApplique && (
-              <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% des recettes = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
-            )}
-            <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
+            <BlocLiquidationIRPP
+              impotBareme={res.impotBareme}
+              nbPersonnesCharge={res.nbPC}
+              reduction={res.reductionPC}
+              reductionPlafonnee={res.reductionPlafonnee}
+              baseImposable={res.beneficeNetArrondi}
+              plafond={res.plafond30}
+              plafonne={res.plafonne}
+              impotNet={res.impotApresPCArrondi}
+              minimum={{ montant: res.minimum122, applique: res.minimumApplique, assiette: 'des recettes', impotRetenu: res.impot }}
+            />
           </EtapeResultat>
 
           <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement=">
@@ -3449,6 +3455,10 @@ function Cat4Agricole() {
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
     const impotAt3 = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30
     const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3)
+    // Art. 125 : la réduction ne porte pas sur la part d'impôt afférente à la
+    // tranche à 40%. Le min() ci-dessus l'écrête ; on retient l'information pour
+    // pouvoir la signaler à l'écran, comme le fait déjà la Cat. 1.
+    const reductionPlafonnee = impotBareme > impotAt3
     const reductionPC = impotHorsDerniereTranche * 0.02 * nbPC
     const impotApresReduction = Math.max(0, impotBareme - reductionPC)
     // Plafond 30% (Art. 118), appliqué APRÈS la réduction pour charges de famille
@@ -3460,13 +3470,16 @@ function Cat4Agricole() {
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
     // Art. 150 : arrondi à la centaine de FC la plus proche (voir Cat1Salaires pour la référence).
     const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
+    // Impôt après réduction et plafond, arrondi Art. 150 : c'est la valeur
+    // affichée comme « IRPP net dû », avant confrontation à l'impôt minimum.
+    const impotApresPCArrondi = arrondiIS(impotApresPC)
     // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1)
     const impotN1 = parseFloat(impotNmoins1) || 0
     const acompte1 = impotN1 * 0.30
     const acompte2 = impotN1 * 0.30
     const acompte3 = impotN1 * 0.20
 
-    setRes({ regime: 'reel', totalProduits, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
+    setRes({ regime: 'reel', totalProduits, totalCharges, beneficeBrut, beneficeAvantDed, cotSoc, cotSocAdmise, plafondCotSoc, bnN1, fraisMed, beneficeNet, beneficeNetArrondi, impotBareme, plafond30, plafonne, nbPC, reductionPC, impotApresPC, impotApresPCArrondi, reductionPlafonnee, minimum122, minimumApplique, impot, impotN1, acompte1, acompte2, acompte3 })
   }
 
   function reset() {
@@ -3881,21 +3894,17 @@ function Cat4Agricole() {
                 <LigneR label={`${formatFC(res.beneficeNetArrondi - 43200000)} × 40%`} val={formatFC((res.beneficeNetArrondi - 43200000) * 0.40)} />
               </>
             )}
-            <Separateur />
-            <LigneR signe="=" label="IRPP barème" val={formatFC(res.impotBareme)} bold />
-            {res.plafonne && res.beneficeNetArrondi > 0 && (
-              <p className="text-xs text-amber-600 mt-1">Plafond appliqué : 30% du revenu imposable = {formatFC(res.plafond30)} FC (Art. 118).</p>
-            )}
-            {res.nbPC > 0 && (
-              <>
-                <LigneR signe="−" label={`Réduction personnes à charge : ${res.nbPC} × 2% = ${(res.nbPC * 2)}%`} val={formatFC(res.reductionPC)} neg />
-                <LigneR signe="=" label="IRPP après réduction famille=" val={formatFC(res.impotApresPC)} bold />
-              </>
-            )}
-            {res.minimumApplique && (
-              <p className="text-xs text-orange-600 mt-1 font-medium">Impôt minimum appliqué : 1% des produits = {formatFC(res.minimum122)} FC (Art. 122). L'impôt calculé ({formatFC(res.impotApresPC)} FC) est inférieur à ce seuil.</p>
-            )}
-            <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
+            <BlocLiquidationIRPP
+              impotBareme={res.impotBareme}
+              nbPersonnesCharge={res.nbPC}
+              reduction={res.reductionPC}
+              reductionPlafonnee={res.reductionPlafonnee}
+              baseImposable={res.beneficeNetArrondi}
+              plafond={res.plafond30}
+              plafonne={res.plafonne}
+              impotNet={res.impotApresPCArrondi}
+              minimum={{ montant: res.minimum122, applique: res.minimumApplique, assiette: 'des produits', impotRetenu: res.impot }}
+            />
           </EtapeResultat>
 
           <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement=">
