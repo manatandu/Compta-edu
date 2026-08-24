@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { BookMarked, Search, X, ChevronRight, ArrowUp, ArrowLeft } from 'lucide-react'
-import { DICTIONNAIRE, CATEGORIES_DICT, TermeDict } from '@/data/dictionnaire'
+import { DICTIONNAIRE, DOMAINES_DICT, UES_DICT, TermeDict, DomaineDict } from '@/data/dictionnaire'
 import { cn } from '@/lib/utils'
 
-const CAT_COLORS: Record<TermeDict['categorie'], string> = {
-  comptabilite: 'bg-blue-100 text-blue-700',
-  fiscalite:    'bg-orange-100 text-orange-700',
-  droit:        'bg-purple-100 text-purple-700',
-  finance:      'bg-green-100 text-green-700',
-  gestion:      'bg-rose-100 text-rose-700',
+const DOMAINE_COLORS: Record<DomaineDict, string> = {
+  comptabilite:         'bg-blue-100 text-blue-700',
+  'normes-ifrs':        'bg-sky-100 text-sky-700',
+  fiscalite:            'bg-orange-100 text-orange-700',
+  droit:                'bg-purple-100 text-purple-700',
+  finance:              'bg-green-100 text-green-700',
+  'finances-publiques': 'bg-amber-100 text-amber-700',
+  audit:                'bg-teal-100 text-teal-700',
+  management:           'bg-rose-100 text-rose-700',
 }
 
 const PAGE_SIZE = 20
@@ -20,7 +23,8 @@ const normalize = (s: string) =>
 export default function DictionnairePage() {
   const [location, navigate] = useHashLocation()
   const [search, setSearch] = useState('')
-  const [catFiltre, setCatFiltre] = useState<TermeDict['categorie'] | 'tous'>('tous')
+  const [domaineFiltre, setDomaineFiltre] = useState<DomaineDict | 'tous'>('tous')
+  const [ueFiltre, setUeFiltre] = useState<string | 'toutes'>('toutes')
   const [termeActif, setTermeActif] = useState<string | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [page, setPage] = useState(1)
@@ -52,9 +56,12 @@ export default function DictionnairePage() {
   const termesFiltres = (() => {
     const q = normalize(search.trim())
     const filtered = DICTIONNAIRE.filter(t => {
-      const matchCat = catFiltre === 'tous' || t.categorie === catFiltre
+      const matchDomaine = domaineFiltre === 'tous' || t.domaine === domaineFiltre
+      // Une liste `ues` vide = terme du socle commun : il reste visible quel
+      // que soit le cours filtré, puisqu'il n'appartient à aucun en propre.
+      const matchUe = ueFiltre === 'toutes' || t.ues.length === 0 || t.ues.includes(ueFiltre)
       const matchSearch = !q || normalize(t.terme).includes(q) || normalize(t.definition).includes(q)
-      return matchCat && matchSearch
+      return matchDomaine && matchUe && matchSearch
     })
     if (!q) return filtered.sort((a, b) => a.terme.localeCompare(b.terme, 'fr'))
     // Trier : d'abord ceux dont le terme commence par q, ensuite les autres
@@ -73,7 +80,8 @@ export default function DictionnairePage() {
   const handleVoirAussi = (id: string) => {
     setTermeActif(id)
     setSearch('')
-    setCatFiltre('tous')
+    setDomaineFiltre('tous')
+    setUeFiltre('toutes')
     setPage(1)
     setTimeout(() => {
       const el = termeRefs.current[id]
@@ -112,7 +120,7 @@ export default function DictionnairePage() {
         <div>
           <h1 className="text-xl font-display font-bold">Dictionnaire</h1>
           <p className="text-sm text-muted-foreground">
-            {DICTIONNAIRE.length} termes : Comptabilité, Fiscalité, Droit, Finance, Gestion
+            {DICTIONNAIRE.length} termes, chacun avec sa source
           </p>
         </div>
       </div>
@@ -137,36 +145,56 @@ export default function DictionnairePage() {
         )}
       </div>
 
-      {/* Filtres par catégorie */}
+      {/* Filtres par domaine — un domaine sans terme n'est pas affiché,
+          le dictionnaire se remplissant UE par UE. */}
       <div className="flex flex-wrap gap-2">
         <button
-          onClick={() => { setCatFiltre('tous'); setPage(1) }}
+          onClick={() => { setDomaineFiltre('tous'); setPage(1) }}
           className={cn(
             'px-3 py-1 rounded-full text-xs font-medium transition-colors',
-            catFiltre === 'tous'
+            domaineFiltre === 'tous'
               ? 'bg-primary text-primary-foreground'
               : 'bg-muted text-muted-foreground hover:bg-muted/80'
           )}
         >
           Tous ({DICTIONNAIRE.length})
         </button>
-        {(Object.keys(CATEGORIES_DICT) as TermeDict['categorie'][]).map(cat => {
-          const count = DICTIONNAIRE.filter(t => t.categorie === cat).length
+        {(Object.keys(DOMAINES_DICT) as DomaineDict[]).map(dom => {
+          const count = DICTIONNAIRE.filter(t => t.domaine === dom).length
+          if (count === 0) return null
           return (
             <button
-              key={cat}
-              onClick={() => { setCatFiltre(cat); setPage(1) }}
+              key={dom}
+              onClick={() => { setDomaineFiltre(dom); setPage(1) }}
               className={cn(
                 'px-3 py-1 rounded-full text-xs font-medium transition-colors',
-                catFiltre === cat
+                domaineFiltre === dom
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-muted text-muted-foreground hover:bg-muted/80'
               )}
             >
-              {CATEGORIES_DICT[cat]} ({count})
+              {DOMAINES_DICT[dom]} ({count})
             </button>
           )
         })}
+      </div>
+
+      {/* Filtre par cours : « le vocabulaire de mon UE ». Les termes du socle
+          commun (liste `ues` vide) restent affichés quel que soit le choix. */}
+      <div>
+        <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Vocabulaire d&apos;un cours</label>
+        <select
+          value={ueFiltre}
+          onChange={e => { setUeFiltre(e.target.value); setPage(1) }}
+          className="w-full sm:w-80 rounded-xl border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+        >
+          <option value="toutes">Tous les cours</option>
+          {Object.entries(UES_DICT).map(([key, label]) => {
+            const count = DICTIONNAIRE.filter(t => t.ues.includes(key)).length
+            if (count === 0) return null
+            return <option key={key} value={key}>{label} ({count})</option>
+          })}
+        </select>
       </div>
 
       {/* Résultats */}
@@ -202,8 +230,8 @@ export default function DictionnairePage() {
                 >
                   <div className="flex items-center gap-2.5 flex-1 min-w-0">
                     <span className="font-semibold text-sm">{t.terme}</span>
-                    <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium shrink-0', CAT_COLORS[t.categorie])}>
-                      {CATEGORIES_DICT[t.categorie]}
+                    <span className={cn('text-xs px-2 py-0.5 rounded-full font-medium shrink-0', DOMAINE_COLORS[t.domaine])}>
+                      {DOMAINES_DICT[t.domaine]}
                     </span>
                   </div>
                   <ChevronRight className={cn('h-4 w-4 text-muted-foreground shrink-0 transition-transform', isActif && 'rotate-90')} />
@@ -222,6 +250,26 @@ export default function DictionnairePage() {
                         <p className="text-sm text-foreground">{t.exemple}</p>
                       </div>
                     )}
+
+                    {/* Cours où le terme est enseigné */}
+                    {t.ues.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="text-xs text-muted-foreground font-medium">Enseigné en :</span>
+                        {t.ues.map(ue => (
+                          <span key={ue} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
+                            {UES_DICT[ue] || ue}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Source — le champ existait déjà en base mais n'était
+                        affiché nulle part : les citations écrites restaient
+                        invisibles. Il est désormais obligatoire et montré. */}
+                    <div className="flex items-start gap-1.5 border-t border-border/50 pt-2.5">
+                      <BookMarked className="h-3.5 w-3.5 text-muted-foreground/60 shrink-0 mt-0.5" />
+                      <p className="text-xs text-muted-foreground italic">{t.source}</p>
+                    </div>
 
                     {/* Voir aussi */}
                     {t.voirAussi && t.voirAussi.length > 0 && (
