@@ -2177,26 +2177,35 @@ function Cat5Mobiliers() {
 // Doc. Prof. MAPOTI SAYA MBONGO (FEC-UNI KIN, Mars 2025)
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Catalogue confronté au texte verbatim de la Loi 23/053 (code-general-2026,
+// Titre II), poste par poste, et rangé dans l'ordre des articles pour se lire
+// comme la loi. Trois corrections issues de cette confrontation :
+//  - l'Art. 50, 4° (biens donnés en location) ne figurait nulle part ;
+//  - les deux derniers postes citaient l'Art. 31, qui traite en réalité de
+//    l'amortissement dégressif : leur contenu vient de l'Art. 11, 4° et 5° ;
+//  - l'Art. 50, 1° vise les dépenses personnelles en général, pas seulement
+//    celles du dirigeant.
 const REINTAGRATIONS_CATALOGUE: ElementCatalogue[] = [
-  { code: 'RI-01', label: "IS et impôt minimum de l'exercice (Art. 50 §2)" },
-  { code: 'RI-02', label: 'Prélèvement exceptionnel expatriés : IERE (Art. 50 §2)' },
-  { code: 'RI-03', label: 'Amendes, pénalités, confiscations fiscales/douanières (Art. 50 §3)' },
-  { code: 'RI-04', label: 'Provisions non autorisées par la loi (Art. 50 §5)' },
-  { code: 'RI-05', label: "Dépenses somptuaires : bateaux, avions de tourisme, résidences d'agrément (Art. 50 §6)" },
-  { code: 'RI-06', label: 'Charges personnelles du dirigeant (Art. 50 §1)' },
-  { code: 'RI-07', label: 'Rémunérations fictives ou exagérées des dirigeants (Art. 22)' },
-  { code: 'RI-08', label: 'Intérêts excédentaires entités liées (> 15% résultat retraité : Art. 42)' },
-  { code: 'RI-09', label: 'Redevances excédentaires entités liées (> 3,5% CA HT : Art. 43)' },
-  { code: 'RI-10', label: 'Dons/libéralités excédentaires (> 0,5% CA : Art. 44)' },
-  { code: 'RI-11', label: 'Cadeaux publicitaires excédentaires (> 2‰ CA HT : Art. 49 §1)' },
-  { code: 'RI-12', label: 'Frais de représentation excédentaires (> 60% : Art. 49 §2)' },
-  { code: 'RI-13', label: 'Frais de communication excédentaires (> 50% : Art. 49 §7)' },
-  { code: 'RI-14', label: 'Augmentation annuité amort. sur valeur réévaluée (Art. 133)' },
-  { code: 'RI-15', label: 'Charges établissements stables : frais siège étranger (Art. 50 §7)' },
-  { code: 'RI-16', label: 'Sommes versées à États non coopératifs (Art. 48)' },
-  { code: 'RI-17', label: 'Commissions/honoraires sans identification bénéficiaire (Art. 26)' },
-  { code: 'RI-18', label: 'Libéralités et avantages aux associés non-actifs ou héritiers dans les sociétés autres que par actions (Art. 31 mod. LF 2025)' },
-  { code: 'RI-19', label: 'Sommes affectées au remboursement d\'emprunts ou à l\'extension de l\'entreprise comptabilisées en charges au mépris des règles comptables (Art. 31 mod. LF 2025)' },
+  { code: 'RI-01', label: "Libéralités et avantages aux associés non-actifs ou à leurs héritiers, dans les sociétés autres que par actions (Art. 11, 4°)" },
+  { code: 'RI-02', label: "Sommes affectées au remboursement de capitaux empruntés, à l'extension de l'entreprise ou à la plus-value de l'outillage, comptabilisées en charges au mépris de toute règle comptable (Art. 11, 5°)" },
+  { code: 'RI-03', label: "Rémunérations fictives ou exagérées des associés dirigeants ou de leurs conjoints (Art. 22)" },
+  { code: 'RI-04', label: "Commissions, courtages, honoraires et gratifications sans indication exacte du nom, du domicile du bénéficiaire, de la date et du montant (Art. 26)" },
+  { code: 'RI-05', label: "Intérêts excédentaires versés à une entité liée (> 15% du résultat retraité : Art. 42)" },
+  { code: 'RI-06', label: "Redevances excédentaires versées à une entité liée (> 3,5% du CA HT : Art. 43)" },
+  { code: 'RI-07', label: "Dons et libéralités excédentaires (> 0,5% du CA : Art. 44)" },
+  { code: 'RI-08', label: "Sommes versées à des personnes établies dans un État ou territoire non coopératif (Art. 48)" },
+  { code: 'RI-09', label: "Cadeaux et objets publicitaires excédentaires (> 2‰ du CA HT : Art. 49, 1°)" },
+  { code: 'RI-10', label: "Frais de représentation excédentaires (> 60% de leur montant : Art. 49, 2°)" },
+  { code: 'RI-11', label: "Frais de communication excédentaires (> 50% de leur montant : Art. 49, 7°)" },
+  { code: 'RI-12', label: "Dépenses à caractère personnel : entretien du ménage, frais d'instruction, de congé et autres dépenses non nécessitées par la profession (Art. 50, 1°)" },
+  { code: 'RI-13', label: "IS et impôt minimum de l'exercice, et autres impôts ne constituant pas une charge d'exploitation (Art. 50, 2°)" },
+  { code: 'RI-14', label: "Prélèvement exceptionnel à charge des entreprises employant du personnel expatrié : IERE (Art. 50, 2°)" },
+  { code: 'RI-15', label: "Amendes, amendes transactionnelles, confiscations et pénalités de toute nature, ainsi que les honoraires et frais payés à cet effet (Art. 50, 3°)" },
+  { code: 'RI-16', label: "Dépenses relatives aux biens donnés en location, amortissements compris, sauf location par une institution de crédit-bail agréée par la Banque Centrale du Congo (Art. 50, 4°)" },
+  { code: 'RI-17', label: "Provisions pour pertes, charges ou dépréciations d'actif, hors gisements miniers, créances des établissements de crédit et de microfinance, et engagements réglementés des assurances (Art. 50, 5°)" },
+  { code: 'RI-18', label: "Dépenses somptuaires : chasse et pêche sportives, bateaux de plaisance, aéronefs de tourisme, résidences d'agrément (Art. 50, 6°)" },
+  { code: 'RI-19', label: "Charges des établissements stables : frais généraux et d'administration du siège à l'étranger, et frais exposés à l'étranger par la société non-résidente (Art. 50, 7°)" },
+  { code: 'RI-20', label: "Augmentation de l'annuité d'amortissement des immobilisations réévaluées (Art. 133)" },
 ]
 
 const DEDUCTIONS_CATALOGUE: ElementCatalogue[] = [
@@ -2362,8 +2371,10 @@ function SimulateurIS() {
   function reset() {
     setCaHT(''); setExercice(new Date().getFullYear().toString())
     setResultatComptable('')
-    setReinteg([{ code: 'RI-01', label: "IS et impôt minimum de l'exercice (Art. 50 §2)", montant: '' }])
-    setDeductions([{ code: 'DE-01', label: 'Plus-values non réalisées comptabilisées (Art. 19)', montant: '' }])
+    // Les deux listes démarrent vides (useState([])) : « Réinitialiser » doit
+    // rendre la page à cet état, et non y réinsérer une ligne.
+    setReinteg([])
+    setDeductions([])
     setDefN1(''); setDefN2(''); setDefN3('')
     setAmortDifferes('')
     setReevalMode('none'); setReevalPlusValue('')
