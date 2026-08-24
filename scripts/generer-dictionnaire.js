@@ -99,11 +99,36 @@ for (const f of fichiers) {
       ues: uesDe(nom, domaine),
       definition: corps,
       source: 'AUDCIF, Titre VI — Définitions des termes',
-      voirAussi: renvoi ? [slug(renvoi[1])] : undefined,
-      renvoiSeul: !!renvoi,
+      renvoiVers: renvoi ? renvoi[1].trim() : null,
     })
   }
 }
+
+// ── Seconde passe : résolution des renvois « Voir « X » »
+// Le libellé cité ne correspond pas toujours au titre exact de l'entrée
+// visée : le texte renvoie à « Dons » alors que l'entrée s'intitule « DONS ET
+// LIBÉRALITÉS », à « Survaleur » pour « SURVALEUR (ou GOODWILL) », ou emploie
+// le pluriel là où l'entrée est au singulier. Une simple slugification du
+// libellé cité produisait donc des liens morts, silencieusement masqués à
+// l'affichage. On résout par égalité normalisée, puis par préfixe, puis en
+// tolérant le pluriel — et on abandonne le lien si la cible est réellement
+// absente du glossaire (le texte du renvoi, lui, reste affiché).
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+const parNom = new Map(termes.map(t => [norm(t.terme), t.id]))
+
+let resolus = 0, abandonnes = 0
+for (const t of termes) {
+  if (!t.renvoiVers) { delete t.renvoiVers; continue }
+  const cible = norm(t.renvoiVers)
+  const sansS = cible.replace(/s\b/g, '')
+  let id = parNom.get(cible)
+  if (!id) for (const [nom, tid] of parNom) { if (nom.startsWith(cible + ' ') || nom === cible) { id = tid; break } }
+  if (!id) for (const [nom, tid] of parNom) { if (norm(nom).replace(/s\b/g, '') === sansS) { id = tid; break } }
+  if (!id) for (const [nom, tid] of parNom) { if (nom.replace(/s\b/g, '').startsWith(sansS + ' ')) { id = tid; break } }
+  if (id && id !== t.id) { t.voirAussi = [id]; resolus++ } else { abandonnes++ }
+  delete t.renvoiVers
+}
+console.log(`Renvois : ${resolus} résolus, ${abandonnes} sans cible dans le glossaire`)
 
 const esc = s => JSON.stringify(s)
 const lignes = termes.map(t => {

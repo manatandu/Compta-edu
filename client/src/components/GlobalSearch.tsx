@@ -6,6 +6,7 @@ import { User } from '@/lib/db'
 import { isStaffRole, isStudentRole } from '@/lib/permissions'
 import { useUniversites, useAllCours, useDevoirs } from '@/lib/useFirestore'
 import { onUsersSnapshot } from '@/lib/db-firebase'
+import { DICTIONNAIRE, DOMAINES_DICT } from '@/data/dictionnaire'
 
 interface SearchResult {
   id: string
@@ -136,6 +137,33 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           sublabel: d.dateLimit ? `Limite : ${new Date(d.dateLimit).toLocaleDateString('fr-FR')}` : undefined,
           type: 'devoir',
           path: isStudent ? '/' : '/professeurs',
+        })
+      })
+
+    // Dictionnaire : accessible à tous, aucune donnée personnelle.
+    // Le type 'dictionnaire' existait déjà (icône et libellé prévus plus bas),
+    // mais aucun résultat de ce type n'était jamais produit : chercher un
+    // terme depuis la barre du haut ne renvoyait rien. La recherche porte sur
+    // le libellé du terme, priorité à ceux qui commencent par la saisie, et
+    // mène directement à la définition via le lien profond ?terme=<id>.
+    const normDict = (v: string) => v.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    const qDict = normDict(q)
+    DICTIONNAIRE
+      .filter(t => normDict(t.terme).includes(qDict))
+      .sort((a, b) => {
+        const aDebut = normDict(a.terme).startsWith(qDict)
+        const bDebut = normDict(b.terme).startsWith(qDict)
+        if (aDebut !== bDebut) return aDebut ? -1 : 1
+        return a.terme.localeCompare(b.terme, 'fr')
+      })
+      .slice(0, 4)
+      .forEach(t => {
+        res.push({
+          id: t.id,
+          label: t.terme,
+          sublabel: DOMAINES_DICT[t.domaine],
+          type: 'dictionnaire',
+          path: `/dictionnaire?terme=${encodeURIComponent(t.id)}`,
         })
       })
 
