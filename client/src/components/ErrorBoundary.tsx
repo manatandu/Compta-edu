@@ -17,6 +17,16 @@ import React from 'react'
 // après avoir cliqué vers une autre page).
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Décalage de déploiement : un onglet resté ouvert pendant qu'un nouveau build est
+// publié demande, en changeant de page, un chunk JS dont le nom (haché) a changé ou
+// disparu — Vite/le navigateur lève une de ces erreurs, pas une vraie erreur de rendu.
+// Un simple rechargement complet règle ça (nouveau index.html → nouveaux chunks).
+const MOTIF_ERREUR_CHUNK = /failed to fetch dynamically imported module|error loading dynamically imported module|importing a module script failed|loading chunk .* failed/i
+// Exporté pour que main.tsx efface ce verrou une fois l'appli stable (voir main.tsx) —
+// sinon un déploiement suivant, plus tard dans la même session d'onglet, ne
+// bénéficierait plus jamais du rechargement automatique.
+export const CLE_RECHARGEMENT_UNIQUE = 'orbit-chunk-reload'
+
 interface Props {
   children: React.ReactNode
 }
@@ -34,6 +44,20 @@ export default class ErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error('[ErrorBoundary] Erreur de rendu interceptée :', error, info.componentStack)
+    if (MOTIF_ERREUR_CHUNK.test(error.message)) {
+      // Un seul rechargement automatique par onglet : si le problème persiste après
+      // (vrai souci réseau, pas juste un déploiement en cours), on n'entre pas en
+      // boucle — l'écran d'erreur classique s'affiche normalement au second essai.
+      try {
+        if (!sessionStorage.getItem(CLE_RECHARGEMENT_UNIQUE)) {
+          sessionStorage.setItem(CLE_RECHARGEMENT_UNIQUE, '1')
+          window.location.reload()
+        }
+      } catch {
+        // sessionStorage indisponible (navigation privée stricte, etc.) : tant pis,
+        // l'écran d'erreur habituel avec bouton « Réessayer » prend le relais.
+      }
+    }
   }
 
   render() {
