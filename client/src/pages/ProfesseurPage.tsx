@@ -40,7 +40,7 @@ import { Switch } from '@/components/ui/switch'
 import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
   ChevronDown, ChevronRight, UserPlus, MapPin, Phone, BookOpen, X, ShieldCheck, LibraryBig,
-  Paperclip, FileDown, FileText, CalendarCheck, Award, Check, Minus, TrendingDown, Clock, Download,
+  Paperclip, FileDown, FileText, CalendarCheck, Award, Check, CheckCircle2, Minus, TrendingDown, Clock, Download,
   Lock, CheckCheck, Unlock, KeyRound, Eye, EyeOff, RefreshCw, Search
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
@@ -115,7 +115,7 @@ const emptyUniForm = { nom: '', ville: '', adresse: '', facultes: [] as string[]
 // type sert ces trois groupes. L'ancien tableau TABS plat (et le visibleTabs
 // qui en dérivait) a été retiré : calculé mais jamais rendu, remplacé de fait
 // par les groupes ci-dessous sans avoir été supprimé à l'époque.
-type Tab = 'cours' | 'universites' | 'staff' | 'progression' | 'presences' | 'cotes' | 'notes'
+type Tab = 'cours' | 'universites' | 'staff' | 'inscriptions' | 'progression' | 'presences' | 'cotes' | 'notes'
 
 // ─── DevoirCard : composant isolé pour respecter les règles des hooks ──────────────
 function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, setDeleteDevoirId, setCorrectionSoumId, setCorrectionNote, setCorrectionComment, setViewSoumission }: {
@@ -567,6 +567,19 @@ export default function ProfesseurPage() {
     updateUserAsync(userId, { actif: !currentActif }).then(() => {
       toast({ title: !currentActif ? 'Compte activé' : 'Compte suspendu', variant: !currentActif ? 'default' : 'destructive' })
     }).catch(() => toast({ title: 'Erreur lors de la mise à jour', variant: 'destructive' }))
+  }
+
+  // ── Validation / refus d'une inscription par code d'accès ──
+  const validerInscription = (userId: string, nomComplet: string) => {
+    updateUserAsync(userId, { actif: true, statutInscription: 'valide' } as any).then(() => {
+      toast({ title: 'Inscription validée', description: `${nomComplet} peut désormais se connecter.` })
+    }).catch(() => toast({ title: 'Erreur lors de la validation', variant: 'destructive' }))
+  }
+
+  const refuserInscription = (userId: string, nomComplet: string) => {
+    updateUserAsync(userId, { actif: false, statutInscription: 'refuse' } as any).then(() => {
+      toast({ title: 'Inscription refusée', description: `${nomComplet} ne pourra pas se connecter.`, variant: 'destructive' })
+    }).catch(() => toast({ title: 'Erreur lors du refus', variant: 'destructive' }))
   }
 
   const handleDeleteDevoir = () => {
@@ -1077,6 +1090,15 @@ export default function ProfesseurPage() {
   const staff = users.filter(u => ['professeur', 'assistant'].includes(u.role))
   const admins = users.filter(u => u.role === 'admin')
 
+  // Étudiants ayant rejoint par code d'accès et attendant un accord. Ils sont
+  // créés par LoginPage avec actif:false + statutInscription:'en_attente' ;
+  // c'est `actif` qui bloque réellement la connexion (voir loginAsync), le
+  // statut ne sert qu'à choisir le message affiché. Jusqu'ici aucun écran ne
+  // les listait — ni ici (la liste existait mais n'était pas rendue), ni dans
+  // Gestion des étudiants (qui lit la collection `etudiants`, pas `users`) :
+  // ils restaient donc bloqués dehors indéfiniment.
+  const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
+
   const universiteIds = new Set(universites.map(u => u.id))
   const etudiantsParUni = universites.map(uni => ({
     uni,
@@ -1377,6 +1399,19 @@ export default function ProfesseurPage() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
             >
               <Users className="h-3.5 w-3.5" /> Étudiants
+            </button>
+            <button
+              onClick={() => setTab('inscriptions')}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
+                tab === 'inscriptions' ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}>
+              <Clock className="h-3.5 w-3.5" /> Inscriptions
+              {inscriptionsEnAttente.length > 0 && (
+                <span className="ml-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold px-1.5 py-px tabular-nums">
+                  {inscriptionsEnAttente.length}
+                </span>
+              )}
             </button>
             {(isAdmin ? [
               { id: 'universites' as Tab, label: 'Universités', icon: <Building2 className="h-3.5 w-3.5" /> },
@@ -3071,6 +3106,71 @@ export default function ProfesseurPage() {
         </div>
         )
       })()}
+
+      {/* ═══════════════════ ONGLET INSCRIPTIONS ═══════════════════ */}
+      {tab === 'inscriptions' && (
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-lg font-display font-bold text-foreground">Inscriptions en attente</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Étudiants ayant rejoint via un code d'accès. Tant qu'une inscription n'est pas validée, l'étudiant ne peut pas se connecter.
+            </p>
+          </div>
+
+          {inscriptionsEnAttente.length === 0 ? (
+            <Card className="border-border">
+              <CardContent className="py-8 flex flex-col items-center gap-2 text-center">
+                <CheckCircle2 className="h-8 w-8 text-green-600" />
+                <p className="text-sm font-medium text-foreground">Aucune inscription en attente</p>
+                <p className="text-xs text-muted-foreground max-w-sm">
+                  Les étudiants qui rejoindront une classe avec un code d'accès apparaîtront ici pour être validés.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="border-border overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/40">
+                    <tr>
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Étudiant</th>
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Classe</th>
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Université</th>
+                      <th className="text-right px-4 py-2.5 font-medium text-muted-foreground">Décision</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {inscriptionsEnAttente.map(u => {
+                      const uni = universites.find(x => x.id === (u as any).universiteId)
+                      const nomComplet = `${u.prenom || ''} ${u.nom}`.trim()
+                      return (
+                        <tr key={u.id} className="border-t border-border/50 hover:bg-muted/20">
+                          <td className="px-4 py-2.5">
+                            <p className="font-medium text-foreground">{nomComplet}</p>
+                            <p className="text-xs text-muted-foreground font-mono">@{u.username}</p>
+                          </td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{(u as any).classe || '—'}</td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{uni ? uni.nom : '—'}</td>
+                          <td className="px-4 py-2.5">
+                            <div className="flex gap-2 justify-end">
+                              <Button size="sm" className="h-7 text-xs px-3" onClick={() => validerInscription(u.id, nomComplet)}>
+                                Valider
+                              </Button>
+                              <Button size="sm" variant="outline" className="h-7 text-xs px-3 text-destructive hover:text-destructive" onClick={() => refuserInscription(u.id, nomComplet)}>
+                                Refuser
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          )}
+        </div>
+      )}
 
       {/* ═══════════════════ ONGLET DEVOIRS ═══════════════════ */}
       {false && (tab as string) === 'devoirs' && ( /* désactivé — devoirs depuis chapitres */
