@@ -1364,8 +1364,8 @@ export default function ProfesseurPage() {
               <ShieldCheck className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Espace Administrateur</h1>
-              <p className="text-xs text-muted-foreground mt-0.5">Gérez les étudiants, universités, exercices et suivez la progression</p>
+              <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Espace pédagogique</h1>
+              <p className="text-xs text-muted-foreground mt-0.5">Suivi des étudiants pour tout le corps enseignant — administration de la plateforme réservée aux groupes marqués « Gestion »</p>
             </div>
           </div>
         </div>
