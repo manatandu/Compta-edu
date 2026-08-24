@@ -110,16 +110,12 @@ const emptyUserForm = {
 const emptyUniForm = { nom: '', ville: '', adresse: '', facultes: [] as string[] }
 
 // ─── Tabs ─────────────────────────────────────────────────
+// La navigation réellement affichée est construite inline, groupée en 3
+// sections (Gestion / Pédagogie / Suivi — voir plus bas dans le rendu) : ce
+// type sert ces trois groupes. L'ancien tableau TABS plat (et le visibleTabs
+// qui en dérivait) a été retiré : calculé mais jamais rendu, remplacé de fait
+// par les groupes ci-dessous sans avoir été supprimé à l'époque.
 type Tab = 'cours' | 'universites' | 'staff' | 'progression' | 'presences' | 'cotes' | 'notes'
-
-const TABS: { id: Tab; label: string; icon: React.ReactNode; adminOnly?: boolean }[] = [
-  { id: 'cours',        label: 'Cours',        icon: <LibraryBig className="h-4 w-4" />, adminOnly: true },
-  { id: 'universites',  label: 'Universités',  icon: <Building2 className="h-4 w-4" />, adminOnly: true },
-  { id: 'staff',        label: 'Prof / Assistants', icon: <GraduationCap className="h-4 w-4" />, adminOnly: true },
-  { id: 'progression',  label: 'Progression',  icon: <BarChart2 className="h-4 w-4" /> },
-  { id: 'presences',    label: 'Présences',    icon: <CalendarCheck className="h-4 w-4" /> },
-  { id: 'cotes',        label: 'Cotes',        icon: <Award className="h-4 w-4" /> },
-]
 
 // ─── DevoirCard : composant isolé pour respecter les règles des hooks ──────────────
 function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, setDeleteDevoirId, setCorrectionSoumId, setCorrectionNote, setCorrectionComment, setViewSoumission }: {
@@ -1330,9 +1326,6 @@ export default function ProfesseurPage() {
 
     return { etudiant: et, totalSeances, nbPresent, tauxPresence, cotePresence, coteDevoirs, totalDevoirsNotes, cumulNotes, total, mention }
   })
-
-  // ── Rendu onglets ──
-  const visibleTabs = TABS.filter(t => !t.adminOnly || isAdmin)
 
   // Garde de rôle (point 7 de l'audit) : /professeurs n'était protégée que par
   // l'authentification (voir le wrapper W dans App.tsx), pas par le rôle — un

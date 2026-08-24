@@ -8,6 +8,7 @@ import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { EtudiantFiche, NoteManuelle, StatutEtudiant } from '@/lib/db'
+import { anneeAcademiqueEnCours } from '@/lib/utils'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import {
   User, BookOpen, Edit3, Save, X, Plus, Trash2,
@@ -74,7 +75,7 @@ export default function FicheEtudiantPage() {
     chapitreLabel: '',
     note: '',
     commentaire: '',
-    anneeAcademique: '2025-2026',
+    anneeAcademique: anneeAcademiqueEnCours(),
   })
   const [savingNote, setSavingNote] = useState(false)
   const [confirmDeleteNote, setConfirmDeleteNote] = useState<string | null>(null)
@@ -162,7 +163,7 @@ export default function FicheEtudiantPage() {
       }
       const ref = await addDoc(collection(db, 'notes_manuelles'), data)
       setNotes(prev => [{ id: ref.id, ...data } as NoteManuelle, ...prev])
-      setFormNote({ ueLabel: '', chapitreLabel: '', note: '', commentaire: '', anneeAcademique: '2025-2026' })
+      setFormNote({ ueLabel: '', chapitreLabel: '', note: '', commentaire: '', anneeAcademique: anneeAcademiqueEnCours() })
       setShowFormNote(false)
       toast({ title: 'Note ajoutée', description: `${noteVal}/20 enregistré.` })
     } catch (e) {
