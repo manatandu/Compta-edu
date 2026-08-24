@@ -772,109 +772,16 @@ function getOpTypeTVA(code: TypeOpTVA): string {
 // ─────────────────────────────────────────────────────────────────────────────
 // ONGLET : TAUX APPLICABLES — consultation (Art. 27, 35)
 // ─────────────────────────────────────────────────────────────────────────────
-function OngletTauxApplicables() {
+// ─────────────────────────────────────────────────────────────────────────────
+// ONGLET : TAUX & BASE (Art. 27-35) — consultation + calculateur, un seul taux
+// partagé entre les deux sous-vues pour ne jamais avoir à le rechoisir.
+// ─────────────────────────────────────────────────────────────────────────────
+function OngletTauxBase() {
   type Taux = '16' | '1' | '5' | '0'
+  const [vue, setVue] = useState<'consultation' | 'calculateur'>('consultation')
   const [taux, setTaux] = useState<Taux>('16')
   const [showCatalogue, setShowCatalogue] = useState(false)
-
-  return (
-    <div className="space-y-4">
-      <DefinitionBox titre="Base d'imposition : Art. 27">
-        <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l\'opération, y compris subventions et tous frais, impôts, droits et taxes, à l\'<strong>exclusion de la TVA elle-même</strong>.</p>
-      </DefinitionBox>
-
-      {/* ── Résumé des 4 taux (LF 2026 : ex-8% remplacé par 1%/5%) ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-        {[
-          { taux: '16%', sublabel: 'Normal',  couleur: 'rose',   desc: 'Toutes opérations imposables' },
-          { taux: '1%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique' },
-          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion — trafic aérien national' },
-          { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations — droit à déduction' },
-        ].map(t => (
-          <div key={t.taux} className={cn(
-            'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
-            t.couleur === 'rose'   ? 'border-rose-200 bg-rose-50' :
-            t.couleur === 'orange' ? 'border-orange-200 bg-orange-50' :
-            t.couleur === 'amber'  ? 'border-amber-200 bg-amber-50' :
-                                     'border-blue-200 bg-blue-50'
-          )}>
-            <p className={cn('text-xl font-bold leading-none',
-              t.couleur === 'rose'   ? 'text-rose-600' :
-              t.couleur === 'orange' ? 'text-orange-600' :
-              t.couleur === 'amber'  ? 'text-amber-600' :
-                                       'text-blue-600'
-            )}>{t.taux}</p>
-            <p className="text-xs font-semibold text-foreground/70">{t.sublabel}</p>
-            <p className="text-xs text-muted-foreground leading-tight text-center">{t.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Sélecteur + catalogue ── */}
-      <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-        <div className="px-4 py-3 border-b border-border/40 bg-muted/30">
-          <p className="text-xs font-bold text-foreground uppercase tracking-wide">Opérations imposables par taux <span className="font-normal text-muted-foreground ml-1">Art. 35</span></p>
-        </div>
-        <div className="p-4 space-y-3">
-          <div className="grid grid-cols-4 gap-1.5">
-            {TAUX_CONFIG.map(t => (
-              <button
-                key={t.v}
-                onClick={() => { setTaux(t.v); setShowCatalogue(false) }}
-                className={cn(
-                  'rounded-lg border py-3 transition-all flex flex-col items-center justify-center gap-0.5',
-                  taux === t.v
-                    ? `${t.activeBg} ${t.activeTxt} ${t.borderActive} shadow-sm`
-                    : `${t.inactiveBg} ${t.inactiveBorder} hover:brightness-95`
-                )}
-              >
-                <p className={cn('text-sm font-bold leading-none', taux === t.v ? 'text-white' : t.color)}>{t.label}</p>
-                <p className={cn('text-xs mt-0.5 leading-none', taux === t.v ? 'text-white/80' : 'text-muted-foreground')}>{t.sublabel}</p>
-              </button>
-            ))}
-          </div>
-
-          <button
-            onClick={() => setShowCatalogue(v => !v)}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg border border-border bg-muted/30 hover:bg-muted/50 transition-colors text-xs"
-          >
-            <span className="flex items-center gap-1.5 font-medium text-foreground">
-              <BookOpen className="h-3.5 w-3.5 text-primary/60" />
-              Voir les opérations imposables à {taux}%
-            </span>
-            <span className="flex items-center gap-1 text-muted-foreground">
-              <span className="text-xs">{showCatalogue ? 'Replier' : 'Déplier'}</span>
-              {showCatalogue ? <ChevronDown className="h-3.5 w-3.5 shrink-0" /> : <ChevronRight className="h-3.5 w-3.5 shrink-0" />}
-            </span>
-          </button>
-          {showCatalogue && (
-            <div className="rounded-lg border border-border/60 bg-background overflow-hidden">
-              <div className="max-h-72 overflow-y-auto divide-y divide-border/30">
-                {CATALOGUE_PAR_TAUX[taux].map((it, i) => (
-                  <div key={i} className="flex items-start gap-2.5 px-3 py-2 hover:bg-muted/30 transition-colors">
-                    <span className="text-xs font-mono text-primary/60 shrink-0 pt-0.5 min-w-[52px]">{it.code}</span>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs text-foreground leading-snug">{it.label}</p>
-                      {it.ref && <p className="text-xs text-muted-foreground/70 mt-0.5">{it.ref}</p>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ONGLET : CALCULATEUR DE BASE TVA (Art. 27-35)
-// ─────────────────────────────────────────────────────────────────────────────
-function OngletCalculateurBaseTVA() {
-  type Taux = '16' | '1' | '5' | '0'
   const [typeOp, setTypeOp] = useState<TypeOpTVA>('standard')
-  const [taux, setTaux] = useState<Taux>('16')
   const [baseHT, setBaseHT] = useState('')
   const [cifVal, setCifVal] = useState('')
   const [droitsEntree, setDroitsEntree] = useState('')
@@ -896,6 +803,7 @@ function OngletCalculateurBaseTVA() {
   function handleTauxChange(t: Taux) {
     setTaux(t)
     setRes(null)
+    setShowCatalogue(false)
     const firstOp = OPS_PAR_TAUX[t][0]?.value
     if (firstOp) setTypeOp(firstOp)
   }
@@ -1015,137 +923,195 @@ function OngletCalculateurBaseTVA() {
 
   return (
     <div className="space-y-4">
-      <DefinitionBox titre="Calculateur : 8 formules de base d'imposition (Art. 27-35)">
-        <p className="text-xs text-muted-foreground">Chaque type d\'opération a sa propre base de calcul — voir l\'onglet « Taux & Base » pour le détail des taux applicables et le catalogue par taux.</p>
+      <DefinitionBox titre="Base d'imposition : Art. 27">
+        <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l\'opération, y compris subventions et tous frais, impôts, droits et taxes, à l\'<strong>exclusion de la TVA elle-même</strong>.</p>
       </DefinitionBox>
 
-      <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-        <div className="p-4 space-y-4">
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Taux applicable <span className="font-normal normal-case">Art. 35</span></p>
-            <div className="grid grid-cols-4 gap-1.5">
-              {TAUX_CONFIG.map(t => (
-                <button
-                  key={t.v}
-                  onClick={() => handleTauxChange(t.v)}
-                  className={cn(
-                    'rounded-lg border py-3 transition-all flex flex-col items-center justify-center gap-0.5',
-                    taux === t.v
-                      ? `${t.activeBg} ${t.activeTxt} ${t.borderActive} shadow-sm`
-                      : `${t.inactiveBg} ${t.inactiveBorder} hover:brightness-95`
-                  )}
-                >
-                  <p className={cn('text-sm font-bold leading-none', taux === t.v ? 'text-white' : t.color)}>{t.label}</p>
-                  <p className={cn('text-xs mt-0.5 leading-none', taux === t.v ? 'text-white/80' : 'text-muted-foreground')}>{t.sublabel}</p>
-                </button>
-              ))}
-            </div>
+      {/* ── Résumé des 4 taux (LF 2026 : ex-8% remplacé par 1%/5%) ── */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        {[
+          { taux: '16%', sublabel: 'Normal',  couleur: 'rose',   desc: 'Toutes opérations imposables' },
+          { taux: '1%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique' },
+          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion — trafic aérien national' },
+          { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations — droit à déduction' },
+        ].map(t => (
+          <div key={t.taux} className={cn(
+            'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
+            t.couleur === 'rose'   ? 'border-rose-200 bg-rose-50' :
+            t.couleur === 'orange' ? 'border-orange-200 bg-orange-50' :
+            t.couleur === 'amber'  ? 'border-amber-200 bg-amber-50' :
+                                     'border-blue-200 bg-blue-50'
+          )}>
+            <p className={cn('text-xl font-bold leading-none',
+              t.couleur === 'rose'   ? 'text-rose-600' :
+              t.couleur === 'orange' ? 'text-orange-600' :
+              t.couleur === 'amber'  ? 'text-amber-600' :
+                                       'text-blue-600'
+            )}>{t.taux}</p>
+            <p className="text-xs font-semibold text-foreground/70">{t.sublabel}</p>
+            <p className="text-xs text-muted-foreground leading-tight text-center">{t.desc}</p>
           </div>
+        ))}
+      </div>
 
-          <div>
-            <p className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Type d'opération</p>
-            <select
-              value={typeOp}
-              onChange={e => { setTypeOp(e.target.value as TypeOpTVA); setRes(null) }}
-              className={cls}
-            >
-              {OPS_PAR_TAUX[taux].map(op => (
-                <option key={op.value} value={op.value}>{op.label} — {op.ref}</option>
-              ))}
-            </select>
-            {(() => {
-              const opSelected = OPS_PAR_TAUX[taux].find(op => op.value === typeOp)
-              if (!opSelected) return null
-              return (
-                <div className="mt-2 rounded-lg border border-primary/20 bg-primary/5 p-3 space-y-1.5">
-                  <p className="text-xs font-semibold text-primary/80 uppercase tracking-wide">Formule de calcul — {opSelected.ref}</p>
-                  <div className="space-y-1">
-                    {opSelected.formule.split(' | ').map((ligne, i) => (
-                      <p key={i} className={cn('text-xs', i === 0 ? 'text-foreground font-medium' : 'text-muted-foreground')}>
-                        {i > 0 && <span className="text-primary/60 mr-1">→</span>}{ligne}
-                      </p>
-                    ))}
+      {/* ── Sélecteur de taux, partagé par les deux sous-vues ── */}
+      <div className="grid grid-cols-4 gap-1.5">
+        {TAUX_CONFIG.map(t => (
+          <button
+            key={t.v}
+            onClick={() => handleTauxChange(t.v)}
+            className={cn(
+              'rounded-lg border py-3 transition-all flex flex-col items-center justify-center gap-0.5',
+              taux === t.v
+                ? `${t.activeBg} ${t.activeTxt} ${t.borderActive} shadow-sm`
+                : `${t.inactiveBg} ${t.inactiveBorder} hover:brightness-95`
+            )}
+          >
+            <p className={cn('text-sm font-bold leading-none', taux === t.v ? 'text-white' : t.color)}>{t.label}</p>
+            <p className={cn('text-xs mt-0.5 leading-none', taux === t.v ? 'text-white/80' : 'text-muted-foreground')}>{t.sublabel}</p>
+          </button>
+        ))}
+      </div>
+
+      {/* ── Sous-onglets : consultation du catalogue / calculateur ── */}
+      <div className="flex gap-1 rounded-xl border border-border bg-muted/30 p-2">
+        <button onClick={() => setVue('consultation')}
+          className={cn('flex-1 rounded-lg py-1.5 text-xs font-medium transition-colors', vue === 'consultation' ? 'bg-card shadow text-foreground' : 'text-muted-foreground hover:text-foreground')}>
+          Opérations imposables à {taux}%
+        </button>
+        <button onClick={() => setVue('calculateur')}
+          className={cn('flex-1 rounded-lg py-1.5 text-xs font-medium transition-colors', vue === 'calculateur' ? 'bg-card shadow text-foreground' : 'text-muted-foreground hover:text-foreground')}>
+          Calculateur de base
+        </button>
+      </div>
+
+      {vue === 'consultation' && (
+        <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
+          <div className="px-4 py-3 border-b border-border/40 bg-muted/30">
+            <p className="text-xs font-bold text-foreground uppercase tracking-wide">Opérations imposables à {taux}% <span className="font-normal text-muted-foreground ml-1">Art. 35</span></p>
+          </div>
+          <div className="max-h-96 overflow-y-auto divide-y divide-border/30">
+            {CATALOGUE_PAR_TAUX[taux].map((it, i) => (
+              <div key={i} className="flex items-start gap-2.5 px-3 py-2 hover:bg-muted/30 transition-colors">
+                <span className="text-xs font-mono text-primary/60 shrink-0 pt-0.5 min-w-[52px]">{it.code}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-foreground leading-snug">{it.label}</p>
+                  {it.ref && <p className="text-xs text-muted-foreground/70 mt-0.5">{it.ref}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {vue === 'calculateur' && (
+        <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
+          <div className="p-4 space-y-4">
+            <div>
+              <p className="text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Type d'opération, au taux de {taux}%</p>
+              <select
+                value={typeOp}
+                onChange={e => { setTypeOp(e.target.value as TypeOpTVA); setRes(null) }}
+                className={cls}
+              >
+                {OPS_PAR_TAUX[taux].map(op => (
+                  <option key={op.value} value={op.value}>{op.label} — {op.ref}</option>
+                ))}
+              </select>
+              {(() => {
+                const opSelected = OPS_PAR_TAUX[taux].find(op => op.value === typeOp)
+                if (!opSelected) return null
+                return (
+                  <div className="mt-2 rounded-lg border border-primary/20 bg-primary/5 p-3 space-y-1.5">
+                    <p className="text-xs font-semibold text-primary/80 uppercase tracking-wide">Formule de calcul — {opSelected.ref}</p>
+                    <div className="space-y-1">
+                      {opSelected.formule.split(' | ').map((ligne, i) => (
+                        <p key={i} className={cn('text-xs', i === 0 ? 'text-foreground font-medium' : 'text-muted-foreground')}>
+                          {i > 0 && <span className="text-primary/60 mr-1">→</span>}{ligne}
+                        </p>
+                      ))}
+                    </div>
+                    <p className="text-xs text-muted-foreground/70 italic border-t border-border/30 pt-1.5 mt-1.5">
+                      {opSelected.loi}
+                    </p>
                   </div>
-                  <p className="text-xs text-muted-foreground/70 italic border-t border-border/30 pt-1.5 mt-1.5">
-                    {opSelected.loi}
-                  </p>
+                )
+              })()}
+            </div>
+
+            {(() => {
+              const opType = getOpTypeTVA(typeOp)
+              const field = (label: string, ref: string, val: string, setter: (v: string) => void, placeholder: string) => (
+                <div>
+                  <div className="flex items-baseline justify-between mb-1">
+                    <label className="text-xs font-medium text-foreground">{label}</label>
+                    <span className="text-xs text-muted-foreground/70">{ref}</span>
+                  </div>
+                  <input type="number" value={val} onChange={e => { setter(e.target.value); setRes(null) }} placeholder={placeholder} className={cls} />
                 </div>
               )
-            })()}
-          </div>
+              const note = (text: string) => <p className="text-xs text-muted-foreground/80 italic">{text}</p>
 
-          {(() => {
-            const opType = getOpTypeTVA(typeOp)
-            const field = (label: string, ref: string, val: string, setter: (v: string) => void, placeholder: string) => (
-              <div>
-                <div className="flex items-baseline justify-between mb-1">
-                  <label className="text-xs font-medium text-foreground">{label}</label>
-                  <span className="text-xs text-muted-foreground/70">{ref}</span>
+              if (opType === 'standard') return field('Base hors taxe (FC)', 'Art. 27', baseHT, setBaseHT, 'Ex : 1 000 000')
+              if (opType === 'travaux_immo') return field('Montant marché / mémoire / facture HT (FC)', 'Art. 27 §7', montantMarche, setMontantMarche, 'Ex : 5 000 000')
+              if (opType === 'credit_bail') return field('Loyers facturés HT (FC)', 'Art. 27 §11', loyers, setLoyers, 'Ex : 800 000')
+              if (opType === 'promoteur') return field('Prix de vente HT immeuble (FC)', 'Art. 27 §4 + Art. 24 §6', prixVenteProm, setPrixVenteProm, 'Ex : 50 000 000')
+              if (opType === 'export_fob') return field('Valeur FOB — Franco à Bord (FC)', 'Art. 27 §2', valeurFOB, setValeurFOB, 'Ex : 10 000 000')
+              if (opType === 'import') return (
+                <div className="space-y-3">
+                  {field('Valeur CIF (Coût + Assurance + Fret)', 'Art. 27 §1', cifVal, setCifVal, 'Valeur CIF')}
+                  {field('Droits d\'entrée douaniers (FC)', 'Tarif douanier', droitsEntree, setDroitsEntree, 'Droits de douane')}
+                  {field('Droits de consommation (FC)', 'Si applicable', droitsConsommation, setDroitsConsommation, 'Droits de consommation')}
+                  {note('Base = CIF + Droits d\'entrée + Droits de consommation')}
                 </div>
-                <input type="number" value={val} onChange={e => { setter(e.target.value); setRes(null) }} placeholder={placeholder} className={cls} />
-              </div>
-            )
-            const note = (text: string) => <p className="text-xs text-muted-foreground/80 italic">{text}</p>
+              )
+              if (opType === 'occasion') return (
+                <div className="space-y-3">
+                  {field('Prix de vente (FC)', 'Art. 31', prixVente, setPrixVente, 'Prix de vente')}
+                  {field('Prix d\'achat auprès du non-assujetti (FC)', 'Art. 31', prixAchat, setPrixAchat, 'Prix d\'achat')}
+                  {note('Base d\'imposition = Prix de vente − Prix d\'achat (marge brute)')}
+                </div>
+              )
+              if (opType === 'agence') return (
+                <div className="space-y-3">
+                  {field('Prix total payé par le client (FC)', 'Art. 32', prixClient, setPrixClient, 'Prix client')}
+                  {field('Total factures fournisseurs (FC)', 'Art. 32', factureFournisseurs, setFactureFournisseurs, 'Factures fournisseurs')}
+                  {note('Base = Prix client − Factures fournisseurs (marge de l\'agence)')}
+                </div>
+              )
+              if (opType === 'transitaire') return (
+                <div className="space-y-3">
+                  {field('Total sommes encaissées TTC (FC)', 'Art. 34', remunerationBrute, setRemunerationBrute, 'Total encaissé TTC')}
+                  {field('Débours (transport + dédouanement) (FC)', 'Art. 34', debours, setDebours, 'Débours justifiés')}
+                  {note('Base = Rémunération brute − Débours − TVA incluse')}
+                </div>
+              )
+              return null
+            })()}
 
-            if (opType === 'standard') return field('Base hors taxe (FC)', 'Art. 27', baseHT, setBaseHT, 'Ex : 1 000 000')
-            if (opType === 'travaux_immo') return field('Montant marché / mémoire / facture HT (FC)', 'Art. 27 §7', montantMarche, setMontantMarche, 'Ex : 5 000 000')
-            if (opType === 'credit_bail') return field('Loyers facturés HT (FC)', 'Art. 27 §11', loyers, setLoyers, 'Ex : 800 000')
-            if (opType === 'promoteur') return field('Prix de vente HT immeuble (FC)', 'Art. 27 §4 + Art. 24 §6', prixVenteProm, setPrixVenteProm, 'Ex : 50 000 000')
-            if (opType === 'export_fob') return field('Valeur FOB — Franco à Bord (FC)', 'Art. 27 §2', valeurFOB, setValeurFOB, 'Ex : 10 000 000')
-            if (opType === 'import') return (
-              <div className="space-y-3">
-                {field('Valeur CIF (Coût + Assurance + Fret)', 'Art. 27 §1', cifVal, setCifVal, 'Valeur CIF')}
-                {field('Droits d\'entrée douaniers (FC)', 'Tarif douanier', droitsEntree, setDroitsEntree, 'Droits de douane')}
-                {field('Droits de consommation (FC)', 'Si applicable', droitsConsommation, setDroitsConsommation, 'Droits de consommation')}
-                {note('Base = CIF + Droits d\'entrée + Droits de consommation')}
-              </div>
-            )
-            if (opType === 'occasion') return (
-              <div className="space-y-3">
-                {field('Prix de vente (FC)', 'Art. 31', prixVente, setPrixVente, 'Prix de vente')}
-                {field('Prix d\'achat auprès du non-assujetti (FC)', 'Art. 31', prixAchat, setPrixAchat, 'Prix d\'achat')}
-                {note('Base d\'imposition = Prix de vente − Prix d\'achat (marge brute)')}
-              </div>
-            )
-            if (opType === 'agence') return (
-              <div className="space-y-3">
-                {field('Prix total payé par le client (FC)', 'Art. 32', prixClient, setPrixClient, 'Prix client')}
-                {field('Total factures fournisseurs (FC)', 'Art. 32', factureFournisseurs, setFactureFournisseurs, 'Factures fournisseurs')}
-                {note('Base = Prix client − Factures fournisseurs (marge de l\'agence)')}
-              </div>
-            )
-            if (opType === 'transitaire') return (
-              <div className="space-y-3">
-                {field('Total sommes encaissées TTC (FC)', 'Art. 34', remunerationBrute, setRemunerationBrute, 'Total encaissé TTC')}
-                {field('Débours (transport + dédouanement) (FC)', 'Art. 34', debours, setDebours, 'Débours justifiés')}
-                {note('Base = Rémunération brute − Débours − TVA incluse')}
-              </div>
-            )
-            return null
-          })()}
+            <div className="flex gap-2">
+              <BtnCalculer onClick={calculer} />
+              <BtnReset onClick={resetAll} />
+            </div>
 
-          <div className="flex gap-2">
-            <BtnCalculer onClick={calculer} />
-            <BtnReset onClick={resetAll} />
+            {res && (
+              <ResultatWrap titre="Calcul TVA">
+                <EtapeResultat numero={1} titre="Détail du calcul">
+                  {res.detail.map((l: any, i: number) => (
+                    <LigneR key={i} signe={l.signe} label={l.label} val={l.val} bold={l.bold} accent={l.accent} neg={l.neg} />
+                  ))}
+                </EtapeResultat>
+                <div className="grid grid-cols-2 gap-2">
+                  <BoxFinal label="TVA collectée" val={formatFC(res.tvaCalc)} />
+                  {res.taux !== '0' && <BoxFinal label="Prix TTC" val={formatFC(res.base + res.tvaCalc)} />}
+                  {res.taux === '0' && <BoxFinal label="TVA = 0 FC — Taux zéro" val="Exportation" couleur="orange" />}
+                </div>
+                {res.taux === '0' && <AlertInfo texte="Au taux zéro, aucune TVA n'est facturée sur l'exportation. Vous conservez néanmoins votre droit à déduction de la TVA payée sur vos achats liés à cette exportation." type="success" />}
+              </ResultatWrap>
+            )}
           </div>
-
-          {res && (
-            <ResultatWrap titre="Calcul TVA">
-              <EtapeResultat numero={1} titre="Détail du calcul">
-                {res.detail.map((l: any, i: number) => (
-                  <LigneR key={i} signe={l.signe} label={l.label} val={l.val} bold={l.bold} accent={l.accent} neg={l.neg} />
-                ))}
-              </EtapeResultat>
-              <div className="grid grid-cols-2 gap-2">
-                <BoxFinal label="TVA collectée" val={formatFC(res.tvaCalc)} />
-                {res.taux !== '0' && <BoxFinal label="Prix TTC" val={formatFC(res.base + res.tvaCalc)} />}
-                {res.taux === '0' && <BoxFinal label="TVA = 0 FC — Taux zéro" val="Exportation" couleur="orange" />}
-              </div>
-              {res.taux === '0' && <AlertInfo texte="Au taux zéro, aucune TVA n'est facturée sur l'exportation. Vous conservez néanmoins votre droit à déduction de la TVA payée sur vos achats liés à cette exportation." type="success" />}
-            </ResultatWrap>
-          )}
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -2906,8 +2872,7 @@ const ONGLETS_TVA = [
   { id: 'exigibilite',     groupe: 'champ',        label: 'Fait générateur & Exigibilité', sublabel: 'Art. 24–26', icon: Clock },
 
   { id: 'exonerations',    groupe: 'base',         label: 'Exonérations',           sublabel: 'Art. 15–20', icon: CheckCircle2 },
-  { id: 'taux',            groupe: 'base',         label: 'Taux & Base',            sublabel: 'Art. 27, 35', icon: Percent },
-  { id: 'calcul-base',     groupe: 'base',         label: 'Calculateur de base',    sublabel: 'Art. 27–35', icon: Calculator },
+  { id: 'taux',            groupe: 'base',         label: 'Taux & Base',            sublabel: 'Art. 27–35', icon: Percent },
   { id: 'listes',          groupe: 'base',         label: 'Listes réglementaires',  sublabel: 'Positions tarifaires', icon: Search },
   { id: 'derogatoires',    groupe: 'base',         label: 'Régimes dérogatoires',   sublabel: 'Suspensions sectorielles', icon: ShieldAlert },
 
@@ -2932,22 +2897,14 @@ export default function SimulateurTVA() {
   const [onglet, setOnglet] = useState('champ')
   const actif = ONGLETS_TVA.find(o => o.id === onglet)!
   const currentIndex = ONGLETS_TVA.findIndex(o => o.id === onglet)
-  // Le groupe affiché dans la 2e barre suit l'onglet actif par défaut, mais reste
-  // pilotable seul (cliquer un groupe affiche ses onglets sans changer le contenu).
-  const [groupeAffiche, setGroupeAffiche] = useState<string>(actif.groupe)
 
   function goNext() {
     const next = ONGLETS_TVA[currentIndex + 1]
-    if (next) { setOnglet(next.id); setGroupeAffiche(next.groupe) }
+    if (next) setOnglet(next.id)
   }
   function goPrev() {
     const prev = ONGLETS_TVA[currentIndex - 1]
-    if (prev) { setOnglet(prev.id); setGroupeAffiche(prev.groupe) }
-  }
-  function choisirOnglet(id: string) {
-    setOnglet(id)
-    const o = ONGLETS_TVA.find(x => x.id === id)
-    if (o) setGroupeAffiche(o.groupe)
+    if (prev) setOnglet(prev.id)
   }
 
   return (
@@ -2992,44 +2949,49 @@ export default function SimulateurTVA() {
         </button>
       </div>
 
-      {/* Niveau 1 : les 4 groupes */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-        {GROUPES_TVA.map(g => (
-          <button key={g.id} onClick={() => setGroupeAffiche(g.id)}
-            className={cn('rounded-lg border px-2 py-1.5 text-xs font-semibold text-center transition-colors duration-200',
-              groupeAffiche === g.id ? 'border-rose-300 bg-rose-100 text-rose-700' : 'border-border bg-card text-muted-foreground hover:bg-muted/30')}>
-            {g.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Niveau 2 : les onglets du groupe affiché, scrollable horizontal */}
+      {/* Tous les onglets, à plat, dans une seule bande défilable — un simple repère
+          de groupe (texte discret) précède le premier onglet de chaque groupe, sans
+          rien cacher derrière un clic : on voit et on atteint tout directement. */}
       <div className="overflow-x-auto">
-        <div className="flex gap-1 pb-1 min-w-max">
-          {ONGLETS_TVA.filter(o => o.groupe === groupeAffiche).map(o => {
+        <div className="flex items-stretch gap-1 pb-1 min-w-max">
+          {ONGLETS_TVA.map((o, i) => {
             const Icon = o.icon
+            const nouveauGroupe = i === 0 || ONGLETS_TVA[i - 1].groupe !== o.groupe
+            const groupe = GROUPES_TVA.find(g => g.id === o.groupe)
             return (
-              <button key={o.id} onClick={() => choisirOnglet(o.id)}
-                className={cn('flex flex-col items-center gap-0.5 rounded-xl border px-3 py-2 transition-colors shrink-0 min-w-[80px]',
-                  onglet === o.id ? 'border-rose-300 bg-rose-50 text-rose-700' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30')}>
-                <Icon className="h-3.5 w-3.5" />
-                <p className="text-xs font-semibold text-center leading-tight">{o.label}</p>
-                <p className="text-xs opacity-60 text-center">{o.sublabel}</p>
-              </button>
+              <React.Fragment key={o.id}>
+                {nouveauGroupe && i > 0 && <div className="w-px bg-border shrink-0 my-1" />}
+                <div className="flex flex-col shrink-0">
+                  {nouveauGroupe && (
+                    <p className="text-xs text-muted-foreground/70 font-medium mb-0.5 px-0.5 truncate max-w-[80px]">{groupe?.label}</p>
+                  )}
+                  <button onClick={() => setOnglet(o.id)}
+                    className={cn('flex flex-col items-center gap-0.5 rounded-xl border px-3 py-2 transition-colors min-w-[80px] flex-1',
+                      onglet === o.id ? 'border-rose-300 bg-rose-50 text-rose-700' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30')}>
+                    <Icon className="h-3.5 w-3.5" />
+                    <p className="text-xs font-semibold text-center leading-tight">{o.label}</p>
+                    <p className="text-xs opacity-60 text-center">{o.sublabel}</p>
+                  </button>
+                </div>
+              </React.Fragment>
             )
           })}
         </div>
       </div>
 
-      {/* Contenu — la pastille sélectionnée juste au-dessus porte déjà le titre et
-          l'article : pas de bandeau de titre redondant ici. Chaque bloc de contenu
-          ouvre de toute façon sur son propre DefinitionBox. */}
+      {/* Titre onglet actif */}
+      <div className="flex items-center gap-2">
+        <div className="h-5 w-1 rounded-full bg-rose-500" />
+        <p className="text-sm font-bold text-foreground">{actif.label}</p>
+        <BadgeLoi loi={actif.sublabel} />
+      </div>
+
+      {/* Contenu */}
       {onglet === 'champ' && <OngletChampApplication />}
       {onglet === 'assujettis' && <OngletAssujettis />}
       {onglet === 'exigibilite' && <OngletFaitGenerateurExigibilite />}
       {onglet === 'exonerations' && <OngletExonerations />}
-      {onglet === 'taux' && <OngletTauxApplicables />}
-      {onglet === 'calcul-base' && <OngletCalculateurBaseTVA />}
+      {onglet === 'taux' && <OngletTauxBase />}
       {onglet === 'listes' && <OngletListesReglementaires />}
       {onglet === 'derogatoires' && <OngletRegimesDerogatoires />}
       {onglet === 'deductions' && <OngletDeductions />}
