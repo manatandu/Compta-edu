@@ -3,7 +3,7 @@ import {
   Calculator, Info, RotateCcw, FileText, Receipt,
   Building2, Users, AlertCircle, CheckCircle2, Percent,
   Briefcase, Wheat, TrendingUp, Coins, BarChart2, X, Plus,
-  ChevronDown, ChevronUp, ChevronRight, FolderOpen, Scale, Search
+  ChevronRight, FolderOpen, Scale
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -147,8 +147,6 @@ function SectionSaisieModal({
   tooltip?: { texte: string; loi?: string }
   catalogueOnly?: boolean
 }) {
-  const [showDropdown, setShowDropdown] = useState(false)
-  const [recherche, setRecherche] = useState('')
   const styles: Record<string, string> = {
     blue:   'border-blue-200 bg-blue-50 text-blue-700',
     slate:  'border-slate-200 bg-slate-50 text-slate-700',
@@ -156,9 +154,6 @@ function SectionSaisieModal({
     green:  'border-green-200 bg-green-50 text-green-700',
     orange: 'border-orange-200 bg-orange-50 text-orange-700',
   }
-  const filtres = (catalogue || []).filter(e =>
-    e.label.toLowerCase().includes(recherche.toLowerCase()) || e.code.includes(recherche)
-  )
   return (
     <div className={cn('rounded-xl border p-4 space-y-3', styles[couleur])}>
       <p className="text-xs font-semibold uppercase tracking-wide flex items-center">
@@ -187,56 +182,19 @@ function SectionSaisieModal({
             className="shrink-0 text-red-400 hover:text-red-600 text-xs px-1.5 rounded-lg border border-border/40 bg-background transition-colors">✕</button>
         </div>
       ))}
-      <div className="flex gap-3 pt-1">
-        {catalogue && onAddFromCatalogue && (
-          <button
-            onClick={() => { setShowDropdown(v => !v); setRecherche('') }}
-            className="flex items-center gap-1.5 text-xs font-medium opacity-80 hover:opacity-100 transition-opacity border border-current/30 rounded-lg px-3 py-1.5">
-            <BarChart2 className="h-3 w-3" />
-            Catalogue
-            {showDropdown
-              ? <ChevronUp className="h-3 w-3" />
-              : <ChevronDown className="h-3 w-3" />}
-          </button>
-        )}
-        {!catalogueOnly && (
-          <button onClick={onAdd}
-            className="flex items-center gap-1 text-xs font-medium opacity-70 hover:opacity-100 transition-opacity">
-            <Plus className="h-3 w-3" /> Ajouter manuellement
-          </button>
-        )}
-      </div>
-      {/* Dropdown catalogue inline */}
-      {showDropdown && catalogue && onAddFromCatalogue && (
-        <div className="rounded-xl border border-border bg-card shadow-lg overflow-hidden">
-          <div className="px-3 py-2 border-b border-border bg-muted/30">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-              <input
-                autoFocus
-                placeholder="Rechercher..."
-                value={recherche}
-                onChange={e => setRecherche(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background pl-8 pr-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-            </div>
-          </div>
-          <div className="max-h-52 overflow-y-auto divide-y divide-border/30">
-            {filtres.map(e => (
-              <button
-                key={e.code}
-                onClick={() => { onAddFromCatalogue(e); setShowDropdown(false); setRecherche('') }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-primary/8 text-left transition-colors group">
-                <span className="text-xs font-mono text-primary/60 shrink-0 min-w-[50px]">{e.code}</span>
-                <span className="text-xs text-foreground group-hover:text-primary transition-colors flex-1">{e.label}</span>
-                <Plus className="h-3.5 w-3.5 text-muted-foreground/40 group-hover:text-primary shrink-0 transition-colors" />
-              </button>
-            ))}
-            {filtres.length === 0 && (
-              <p className="text-center text-xs text-muted-foreground py-4">Aucun élément trouvé</p>
-            )}
-          </div>
-        </div>
+      {!catalogueOnly && (
+        <button onClick={onAdd}
+          className="flex items-center gap-1 text-xs font-medium opacity-70 hover:opacity-100 transition-opacity pt-1">
+          <Plus className="h-3 w-3" /> Ajouter manuellement
+        </button>
+      )}
+      {/* Catalogue à sélection unique, sans recherche — même composant que Cat. 2/3/4 */}
+      {catalogue && onAddFromCatalogue && (
+        <CatalogueGroupe
+          sections={[{ cat: '', color: styles[couleur].split(' ').pop() || 'text-primary', items: catalogue }]}
+          selected={rows.map(r => r.label)}
+          onSelect={item => { if (typeof item === 'object') onAddFromCatalogue(item) }}
+        />
       )}
     </div>
   )
@@ -249,9 +207,32 @@ function SectionSaisieModal({
 // Une section « excluded » affiche ses postes grisés, non cliquables (postes
 // hors champ ou non déductibles listés à titre pédagogique).
 // ─────────────────────────────────────────────────────────────────────────────
-interface SectionCatalogue { cat: string; color: string; excluded?: boolean; items: string[] }
+// Un poste de catalogue est soit un simple libellé (Cat. 2/3/4 : la loi ne lui
+// attache pas de code), soit un couple { code, label } (comptes SYSCOHADA du
+// plan — Cat. 1, réintégrations/déductions IS) : dans ce second cas le code
+// s'affiche en préfixe, mais la sélection et l'anti-doublon se font toujours
+// sur le libellé.
+type ItemCatalogue = string | { code: string; label: string }
+interface SectionCatalogue { cat: string; color: string; excluded?: boolean; items: ItemCatalogue[] }
 
-function CatalogueGroupe({ sections, onSelect }: { sections: SectionCatalogue[]; onSelect: (label: string) => void }) {
+function libelleItem(item: ItemCatalogue): string {
+  return typeof item === 'string' ? item : item.label
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Catalogue à sélection unique, groupé par section légale, sans champ de
+// recherche : les catalogues sont courts (quelques dizaines de postes au plus)
+// et un étudiant qui découvre l'article gagne à parcourir la liste plutôt qu'à
+// filtrer un texte qu'il ne connaît pas encore. Un poste déjà ajouté à la
+// liste de saisie est grisé et non cliquable — impossible de l'ajouter deux
+// fois — au même titre qu'un poste hors champ (`excluded`).
+// ─────────────────────────────────────────────────────────────────────────────
+function CatalogueGroupe({ sections, onSelect, selected = [] }: {
+  sections: SectionCatalogue[]
+  onSelect: (item: ItemCatalogue) => void
+  /** Libellés déjà présents dans la liste de saisie : ces postes sont grisés. */
+  selected?: string[]
+}) {
   return (
     <details className="group">
       <summary className="cursor-pointer text-xs text-primary font-medium hover:underline flex items-center gap-1 select-none list-none mt-1">
@@ -262,23 +243,32 @@ function CatalogueGroupe({ sections, onSelect }: { sections: SectionCatalogue[];
         <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
         {sections.map((section, si) => (
           <div key={si}>
-            <p className={`text-xs font-semibold mb-1 ${section.color}`}>{section.cat}</p>
+            {section.cat && <p className={`text-xs font-semibold mb-1 ${section.color}`}>{section.cat}</p>}
             <div className="flex flex-wrap gap-1">
-              {section.items.map((item, ii) => (
-                <button key={ii}
-                  disabled={section.excluded}
-                  onClick={() => { if (!section.excluded) onSelect(item) }}
-                  className={cn(
-                    'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
-                    section.excluded
-                      ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
-                      : section.color.includes('amber')
-                        ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 cursor-pointer'
-                        : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
-                  )}>
-                  {section.excluded ? '✕ ' : '+ '}{item}
-                </button>
-              ))}
+              {section.items.map((item, ii) => {
+                const label = libelleItem(item)
+                const dejaAjoute = !section.excluded && selected.includes(label)
+                const bloque = section.excluded || dejaAjoute
+                return (
+                  <button key={ii}
+                    disabled={bloque}
+                    onClick={() => { if (!bloque) onSelect(item) }}
+                    className={cn(
+                      'text-xs px-2 py-1 rounded-lg border transition-all duration-200 ease-out',
+                      section.excluded
+                        ? 'border-red-200 text-red-400 bg-red-50 cursor-not-allowed opacity-60'
+                        : dejaAjoute
+                          ? 'border-border text-muted-foreground bg-muted/50 cursor-not-allowed opacity-60'
+                          : section.color.includes('amber')
+                            ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 cursor-pointer'
+                            : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
+                    )}>
+                    {section.excluded ? '✕ ' : dejaAjoute ? '✓ ' : '+ '}
+                    {typeof item === 'object' && <span className="font-mono opacity-70">{item.code} </span>}
+                    {label}
+                  </button>
+                )
+              })}
             </div>
           </div>
         ))}
@@ -1692,7 +1682,7 @@ function Cat2BIC() {
                   className="shrink-0 text-red-400 text-xs px-1.5 rounded-lg border border-border/40 bg-background">✕</button>
               </div>
             ))}
-            <CatalogueGroupe sections={PRODUITS_BIC_CATALOGUE} onSelect={label => setProduits((prev: any[]) => prev.some((r: any) => r.label === label) ? prev : [...prev, { label, montant: '', fromCat: true }])} />
+            <CatalogueGroupe sections={PRODUITS_BIC_CATALOGUE} selected={produits.map((r: any) => r.label)} onSelect={item => { const label = libelleItem(item); setProduits((prev: any[]) => prev.some((r: any) => r.label === label) ? prev : [...prev, { label, montant: '', fromCat: true }]) }} />
           </div>
 
           {/* Charges */}
@@ -1726,7 +1716,7 @@ function Cat2BIC() {
                   className="shrink-0 text-red-400 text-xs px-1.5 rounded-lg border border-border/40 bg-background">✕</button>
               </div>
             ))}
-            <CatalogueGroupe sections={CHARGES_BIC_CATALOGUE} onSelect={label => setCharges((prev: any[]) => prev.some((r: any) => r.label === label) ? prev : [...prev, { label, montant: '', fromCat: true }])} />
+            <CatalogueGroupe sections={CHARGES_BIC_CATALOGUE} selected={charges.map((r: any) => r.label)} onSelect={item => { const label = libelleItem(item); setCharges((prev: any[]) => prev.some((r: any) => r.label === label) ? prev : [...prev, { label, montant: '', fromCat: true }]) }} />
           </div>
 
           {/* Déductions spécifiques Art. 90 */}
@@ -2089,15 +2079,25 @@ function Cat5Mobiliers() {
             <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span> Catalogue des revenus mobiliers
           </summary>
           <div className="mt-2 space-y-1 pl-3">
-            {TYPES_REVENUS.map((t, i) => (
-              <div key={i} className="flex items-start gap-1.5">
-                <button onClick={() => addLigne(t)}
-                  className="flex-1 text-left text-xs text-foreground hover:text-teal-700 hover:bg-teal-50 px-2 py-1.5 rounded transition-colors duration-200">
-                  + {t.label}
-                </button>
-                <InfoTooltip texte={t.texte} loi={t.loi} />
-              </div>
-            ))}
+            {TYPES_REVENUS.map((t, i) => {
+              const dejaAjoute = lignes.some(l => l.label === t.label)
+              return (
+                <div key={i} className="flex items-start gap-1.5">
+                  <button
+                    disabled={dejaAjoute}
+                    onClick={() => { if (!dejaAjoute) addLigne(t) }}
+                    className={cn(
+                      'flex-1 text-left text-xs px-2 py-1.5 rounded transition-colors duration-200',
+                      dejaAjoute
+                        ? 'text-muted-foreground bg-muted/50 cursor-not-allowed opacity-60'
+                        : 'text-foreground hover:text-teal-700 hover:bg-teal-50'
+                    )}>
+                    {dejaAjoute ? '✓ ' : '+ '}{t.label}
+                  </button>
+                  <InfoTooltip texte={t.texte} loi={t.loi} />
+                </div>
+              )
+            })}
           </div>
         </details>
       </div>
@@ -3144,7 +3144,7 @@ function Cat3BNC() {
               </div>
             </div>
           ))}
-          <CatalogueGroupe sections={RECETTES_BNC_CATALOGUE} onSelect={label => addFromList(setRecettes, label)} />
+          <CatalogueGroupe sections={RECETTES_BNC_CATALOGUE} selected={recettes.map(r => r.label)} onSelect={item => addFromList(setRecettes, libelleItem(item))} />
         </div>
       </div>
 
@@ -3182,7 +3182,7 @@ function Cat3BNC() {
               </div>
             </div>
           ))}
-          <CatalogueGroupe sections={CHARGES_BNC_CATALOGUE} onSelect={label => addFromList(setCharges, label)} />
+          <CatalogueGroupe sections={CHARGES_BNC_CATALOGUE} selected={charges.map(r => r.label)} onSelect={item => addFromList(setCharges, libelleItem(item))} />
         </div>
       </div>
 
@@ -3699,7 +3699,7 @@ function Cat4Agricole() {
                   </div>
                 </div>
               ))}
-              <CatalogueGroupe sections={PRODUITS_AGRICOLE_CATALOGUE} onSelect={label => addFromList(setProduits, label)} />
+              <CatalogueGroupe sections={PRODUITS_AGRICOLE_CATALOGUE} selected={produits.map(r => r.label)} onSelect={item => addFromList(setProduits, libelleItem(item))} />
             </div>
           </div>
 
@@ -3733,7 +3733,7 @@ function Cat4Agricole() {
                   </div>
                 </div>
               ))}
-              <CatalogueGroupe sections={CHARGES_AGRICOLE_CATALOGUE} onSelect={label => addFromList(setCharges, label)} />
+              <CatalogueGroupe sections={CHARGES_AGRICOLE_CATALOGUE} selected={charges.map(r => r.label)} onSelect={item => addFromList(setCharges, libelleItem(item))} />
             </div>
           </div>
 
