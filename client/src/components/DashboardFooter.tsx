@@ -10,7 +10,7 @@ export function DashboardFooter() {
       <div className="h-px flex-1 bg-border" />
       <div className="flex flex-col items-center px-3">
         <p className="text-xs text-muted-foreground">
-          Orbit © {new Date().getFullYear()} : SYSCOHADA Révisé
+          Orbit © {new Date().getFullYear()}
         </p>
         <p className="text-xs text-muted-foreground/60 mt-0.5">
           Propriété de Manassé TANDU

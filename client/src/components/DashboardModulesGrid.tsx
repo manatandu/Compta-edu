@@ -6,8 +6,18 @@ import { COURS_SYSTEME } from '@/lib/db-firebase'
 // ─────────────────────────────────────────────────────────────────────────────
 // GRILLE DE MODULES — identique pour l'étudiant et le staff, donc extraite une
 // bonne fois plutôt que dupliquée dans les deux tableaux de bord.
+//
+// `afficherMesCours` : la tuile « Mes cours » fait doublon quand le tableau
+// « Mes cours ce semestre » la précède déjà sur la même page — pire, les deux
+// annonçaient des nombres différents (la tuile comptait le catalogue système,
+// le tableau les cours de l'étudiant). L'appelant qui affiche déjà ce tableau
+// passe donc false. Par défaut la tuile reste affichée (cas du staff, et cas
+// de l'étudiant sans cours inscrit, où aucun tableau ne la précède).
 // ─────────────────────────────────────────────────────────────────────────────
-export function DashboardModulesGrid({ navigate }: { navigate: (path: string) => void }) {
+export function DashboardModulesGrid({ navigate, afficherMesCours = true }: {
+  navigate: (path: string) => void
+  afficherMesCours?: boolean
+}) {
   return (
     <div className="animate-slideRight" style={{ animationDelay: '600ms' }}>
       <div className="flex items-center justify-between mb-3">
@@ -16,6 +26,7 @@ export function DashboardModulesGrid({ navigate }: { navigate: (path: string) =>
       </div>
       <div className="grid grid-cols-2 gap-3">
         {/* Carreau Mes cours */}
+        {afficherMesCours && (
         <button
           onClick={() => navigate('/mes-cours')}
           className={cn(
@@ -34,6 +45,7 @@ export function DashboardModulesGrid({ navigate }: { navigate: (path: string) =>
           </div>
           <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-200" />
         </button>
+        )}
 
         {/* Carreau Bibliothèque */}
         <button

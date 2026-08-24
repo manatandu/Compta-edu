@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
-  BookMarked, ClipboardList, GraduationCap, BookOpen, MessageSquare,
+  BookMarked, ClipboardList, GraduationCap, BookOpen,
   ChevronRight, Award, LibraryBig, Lock, CheckCircle2, Clock, FileDown, User, Download,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -320,7 +320,13 @@ export default function DashboardEtudiant() {
     }).length, icon: ClipboardList },
     { label: 'Exercices', value: allExercices.filter(e => e.actif).length, icon: GraduationCap },
     { label: 'Cours',     value: userCours.length,                          icon: BookOpen },
-    { label: 'Messages',  value: 0,                                         icon: MessageSquare },
+    // Anciennement « Messages », dont la valeur était écrite en dur à 0 : jamais
+    // calculée, donc toujours fausse. Un vrai compteur de non-lus n'est pas
+    // possible en l'état — les messages portent bien un champ `lu`, mis à false
+    // à l'envoi, mais aucun code ne le repasse jamais à true : le compteur ne
+    // ferait que croître sans jamais redescendre. Remplacé par la cote, qui est
+    // une donnée réelle et déjà calculée plus haut.
+    { label: 'Ma cote',   value: totalCoteEtudiant !== null ? `${totalCoteEtudiant}/10` : '—', icon: Award },
   ]
 
   const identity = (
@@ -438,7 +444,9 @@ export default function DashboardEtudiant() {
         </div>
       )}
 
-      <DashboardModulesGrid navigate={navigate} />
+      {/* La tuile « Mes cours » est masquée quand le tableau ci-dessus est là :
+          elle mènerait au même endroit tout en annonçant un autre nombre. */}
+      <DashboardModulesGrid navigate={navigate} afficherMesCours={userCours.length === 0} />
 
       {/* ══ MES DEVOIRS ══════════════════════════════════════════════════════ */}
       {userCoursIds.length > 0 && (() => {
