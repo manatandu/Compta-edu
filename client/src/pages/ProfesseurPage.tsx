@@ -40,7 +40,7 @@ import { Switch } from '@/components/ui/switch'
 import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
   ChevronDown, ChevronRight, UserPlus, MapPin, Phone, BookOpen, X, ShieldCheck, LibraryBig,
-  Paperclip, FileDown, FileText, CalendarCheck, Award, Check, CheckCircle2, Minus, TrendingDown, Clock, Download,
+  Paperclip, FileDown, FileText, CalendarCheck, Award, Check, CheckCircle2, ClipboardList, Minus, TrendingDown, Clock, Download,
   Lock, CheckCheck, Unlock, KeyRound, Eye, EyeOff, RefreshCw, Search
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
@@ -115,7 +115,7 @@ const emptyUniForm = { nom: '', ville: '', adresse: '', facultes: [] as string[]
 // type sert ces trois groupes. L'ancien tableau TABS plat (et le visibleTabs
 // qui en dérivait) a été retiré : calculé mais jamais rendu, remplacé de fait
 // par les groupes ci-dessous sans avoir été supprimé à l'époque.
-type Tab = 'cours' | 'universites' | 'staff' | 'inscriptions' | 'progression' | 'presences' | 'cotes' | 'notes'
+type Tab = 'cours' | 'universites' | 'staff' | 'inscriptions' | 'copies' | 'progression' | 'presences' | 'cotes' | 'notes'
 
 // ─── DevoirCard : composant isolé pour respecter les règles des hooks ──────────────
 function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, setDeleteDevoirId, setCorrectionSoumId, setCorrectionNote, setCorrectionComment, setViewSoumission }: {
@@ -592,8 +592,13 @@ export default function ProfesseurPage() {
   const handleCorrigerSoumission = () => {
     if (!correctionSoumId) return
     const note = parseFloat(correctionNote)
-    if (isNaN(note) || note < 0 || note > 20) {
-      toast({ title: 'Note invalide (0-20)', variant: 'destructive' }); return
+    // Barème sur 10, et non sur 20 : c'est l'échelle utilisée partout ailleurs
+    // — correction automatique des QCM ((score / nbQuestions) × 10), affichage
+    // de la note à l'étudiant, bulletin PDF, et surtout le calcul de la cote
+    // devoirs (5 × cumul / (nbDevoirs × 10)). Le dialogue acceptait jusqu'à 20,
+    // ce qui affichait « 15/10 » à l'étudiant et gonflait sa cote.
+    if (isNaN(note) || note < 0 || note > 10) {
+      toast({ title: 'Note invalide (0-10)', variant: 'destructive' }); return
     }
     corrigerSoumissionAsync(correctionSoumId, note, correctionComment.trim()).then(() => {
       setCorrectionSoumId(null); setCorrectionNote(''); setCorrectionComment('')
@@ -1296,6 +1301,18 @@ export default function ProfesseurPage() {
   // ── Toutes les soumissions (pour calcul cote devoirs) ──
   const { soumissions: allSoumissions } = useAllSoumissions()
 
+  // Copies rendues attendant une note. La création de devoirs classiques a été
+  // volontairement retirée (bloc « ONGLET DEVOIRS », désactivé en dur avec le
+  // commentaire « devoirs depuis chapitres »), mais le retrait est resté
+  // incomplet : côté étudiant les devoirs déjà existants restent visibles et
+  // soumissibles, et leurs copies s'accumulaient sans qu'aucun écran ne
+  // permette de les corriger — le bouton « Corriger » vivait lui aussi dans le
+  // bloc désactivé. Cet onglet rend la correction accessible, sans rouvrir la
+  // création, qui elle reste abandonnée.
+  const copiesACorriger = allSoumissions.filter(
+    s => s.statut === 'soumis' && devoirsList.some(d => d.id === s.devoirId)
+  )
+
   // ── Cotes (calcul) ──
   // Tous les étudiants qui apparaissent dans au moins une séance de présence
   // (inclut ceux créés par d'autres admins s'ils sont dans les séances)
@@ -1434,6 +1451,7 @@ export default function ProfesseurPage() {
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest px-1">Pédagogie</p>
           <div className="flex flex-wrap gap-1.5">
             {([
+              { id: 'copies',    label: 'Copies à corriger', icon: <ClipboardList className="h-3.5 w-3.5" /> },
               { id: 'notes',     label: 'Notes de cours', icon: <FileText className="h-3.5 w-3.5" /> },
             ] as {id: Tab, label: string, icon: React.ReactNode}[]).map(t => (
               <button key={t.id} onClick={() => setTab(t.id as Tab)}
@@ -3107,6 +3125,85 @@ export default function ProfesseurPage() {
         )
       })()}
 
+      {/* ═══════════════════ ONGLET COPIES À CORRIGER ═══════════════════ */}
+      {tab === 'copies' && (
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-lg font-display font-bold text-foreground">Copies à corriger</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Copies rendues par vos étudiants et en attente d'une note. Tant qu'une copie n'est pas corrigée, elle ne compte pas dans la cote de l'étudiant.
+            </p>
+          </div>
+
+          {copiesACorriger.length === 0 ? (
+            <Card className="border-border">
+              <CardContent className="py-8 flex flex-col items-center gap-2 text-center">
+                <CheckCircle2 className="h-8 w-8 text-green-600" />
+                <p className="text-sm font-medium text-foreground">Aucune copie en attente</p>
+                <p className="text-xs text-muted-foreground max-w-sm">
+                  Toutes les copies rendues sur vos devoirs ont été corrigées.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="border-border overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/40">
+                    <tr>
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Étudiant</th>
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Devoir</th>
+                      <th className="text-left px-4 py-2.5 font-medium text-muted-foreground">Rendue le</th>
+                      <th className="text-right px-4 py-2.5 font-medium text-muted-foreground">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {copiesACorriger.map(soum => {
+                      const etu = users.find(u => u.id === soum.etudiantId)
+                      const dev = devoirsList.find(d => d.id === soum.devoirId)
+                      return (
+                        <tr key={soum.id} className="border-t border-border/50 hover:bg-muted/20">
+                          <td className="px-4 py-2.5">
+                            <p className="font-medium text-foreground">
+                              {etu ? `${etu.prenom || ''} ${etu.nom}`.trim() : 'Étudiant inconnu'}
+                            </p>
+                            {etu?.username && <p className="text-xs text-muted-foreground font-mono">@{etu.username}</p>}
+                          </td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{dev?.titre || '—'}</td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">
+                            {(soum as any).dateSoumission
+                              ? new Date((soum as any).dateSoumission).toLocaleDateString('fr-FR')
+                              : '—'}
+                          </td>
+                          <td className="px-4 py-2.5">
+                            <div className="flex gap-2 justify-end">
+                              <Button size="sm" variant="outline" className="h-7 text-xs px-3" onClick={() => setViewSoumission(soum)}>
+                                Voir
+                              </Button>
+                              <Button
+                                size="sm"
+                                className="h-7 text-xs px-3"
+                                onClick={() => {
+                                  setCorrectionSoumId(soum.id)
+                                  setCorrectionNote(String(soum.note || ''))
+                                  setCorrectionComment(soum.commentaire || '')
+                                }}
+                              >
+                                Corriger
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          )}
+        </div>
+      )}
+
       {/* ═══════════════════ ONGLET INSCRIPTIONS ═══════════════════ */}
       {tab === 'inscriptions' && (
         <div className="space-y-4">
@@ -3423,8 +3520,8 @@ export default function ProfesseurPage() {
           </DialogHeader>
           <div className="space-y-3">
             <div>
-              <Label>Note (0 à 20) *</Label>
-              <Input type="number" min="0" max="20" step="0.5" value={correctionNote} onChange={e => setCorrectionNote(e.target.value)} placeholder="Ex : 14" className="mt-1" />
+              <Label>Note (0 à 10) *</Label>
+              <Input type="number" min="0" max="10" step="0.5" value={correctionNote} onChange={e => setCorrectionNote(e.target.value)} placeholder="Ex : 7" className="mt-1" />
             </div>
             <div>
               <Label>Commentaire</Label>
