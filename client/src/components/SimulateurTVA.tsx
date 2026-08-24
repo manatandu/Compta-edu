@@ -297,7 +297,7 @@ const CATALOGUE_TAUX_1 = [
   { code: 'T1-19', position: '1901.90.90', label: 'Autres préparations de lait (produits n° 04.01 à 04.04), moins de 5% de cacao', taux: '1%' },
   { code: 'T1-20', position: '04.02', label: 'Lait et crème de lait, concentrés ou additionnés de sucre ou édulcorants', taux: '1%' },
   { code: 'T1-21', position: '2201.90.10', label: 'Eaux conditionnées pour la table', taux: '1%' },
-  { code: 'T1-22', position: '2501.00.10', label: 'Sel iodé', taux: '1%' },
+  { code: 'T1-22', position: '2501.00.00', label: 'Sel iodé', taux: '1%' },
   { code: 'T1-23', position: '3401.19.10', label: 'Savons de ménage présentés en barres, pains ou morceaux', taux: '1%' },
   { code: 'T1-24', position: '3605.00.00', label: 'Allumettes (autres qu\'articles de pyrotechnie)', taux: '1%' },
   { code: 'T1-25', position: '—', label: 'Matières premières pour la valorisation de l\'industrie locale : cuivre, étain, plomb, aluminium, zinc, sous forme de produit brut', taux: '1%' },
@@ -362,12 +362,16 @@ const CATALOGUE_EXCLUSIONS_DEDUCTION = [
   { code: 'EXD-16', label: 'Véhicules acquis par entreprises de location de voitures : exception', article: 'Art. 42-1', deductible: true },
   { code: 'EXD-17', label: 'Transports de personnes et opérations accessoires', article: 'Art. 42-2', deductible: false },
   { code: 'EXD-18', label: 'Factures émises hors dispositifs électroniques fiscaux (DEF) par assujettis soumis à l\'obligation DEF', article: 'Art. 42-3', deductible: false },
+  // Exclusion créée par la L.F. n° 25/060 du 29/12/2025 (LF 2026), art. 47.
+  { code: 'EXD-19', label: 'Facture émise par un fournisseur introuvable à l\'adresse communiquée à l\'Administration des Impôts', article: 'Art. 42-4', deductible: false },
 ]
 
 const CATALOGUE_INFRACTIONS = [
-  { code: 'INF-01', label: 'Absence de déclaration d\'assujettissement dans le délai', amende: 500_000, type: 'fixe', article: 'Art. 69' },
+  // Art. 69 : amende portée de 500 000 à 5 000 000 FC par la L.F. n° 24/011 du 20/12/2024, art. 54.
+  { code: 'INF-01', label: 'Absence de déclaration d\'assujettissement dans le délai', amende: 5_000_000, type: 'fixe', article: 'Art. 69' },
   { code: 'INF-02', label: 'Défaut de souscription d\'une déclaration TVA créditrice dans le délai', amende: 1_500_000, perte_credit: 10, type: 'fixe', article: 'Art. 69 bis' },
   { code: 'INF-03', label: 'Déclaration TVA d\'un montant zéro non souscrite', amende: 500_000, type: 'fixe', article: 'Art. 69 bis' },
+  { code: 'INF-03bis', label: 'Taxation d\'office pour absence de dépôt de la déclaration TVA', type: 'perte_deduction', article: 'Art. 69 ter' },
   { code: 'INF-04', label: 'Mention abusive de TVA sur facture', amende: 3, type: 'triple', article: 'Art. 70' },
   { code: 'INF-05', label: 'Émission de fausse facture comprenant la TVA ou falsification de facture justifiant une déduction', amende: 3, type: 'triple', article: 'Art. 71' },
   { code: 'INF-06', label: 'Absence de facture ou document en tenant lieu lors d\'une livraison ou prestation', amende: 2, type: 'double', article: 'Art. 72' },
@@ -381,6 +385,8 @@ const CATALOGUE_INFRACTIONS = [
   { code: 'INF-14', label: 'Récidive : transaction sans facture normalisée', amende: 10, type: 'multiple_tva', min: 50_000_000, article: 'Art. 74 sexies' },
   { code: 'INF-15', label: 'Modification illégale du système de facturation / usurpation d\'identité pour fausses factures', amende: 10_000_000, type: 'par_facture', article: 'Art. 74 octies' },
   { code: 'INF-16', label: 'Fournisseurs de logiciels de facturation non homologués', amende: 50_000_000, type: 'fixe', article: 'Art. 74 nonies' },
+  { code: 'INF-17', label: 'Facture normalisée de valeur/quantité minorée, ou dysfonctionnement causé au DEF', amende: 10_000_000, type: 'fixe', article: 'Art. 74 septies' },
+  { code: 'INF-18', label: 'Manquement non spécifié à la réglementation des dispositifs électroniques fiscaux', amende: 10_000_000, type: 'fixe', article: 'Art. 74 decies' },
 ]
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -744,7 +750,7 @@ function OngletTauxBase() {
         value: 'EX-01',
         label: 'Exportation de marchandises hors RDC (taux zéro)',
         ref: 'Art. 35 al. 3 + Art. 7',
-        formule: 'Base = Valeur FOB (Franco à Bord) | TVA = Base × 0% = 0 FC | Aucune TVA facturée sur l\'exportation | DROIT À DÉDUCTION MAINTENU : la TVA payée sur les achats liés à cette exportation reste déductible | Remboursement du crédit TVA possible (Art. 39)',
+        formule: 'Base = Valeur FOB (Franco à Bord) | TVA = Base × 0% = 0 FC | Aucune TVA facturée sur l\'exportation | DROIT À DÉDUCTION MAINTENU : la TVA payée sur les achats liés à cette exportation reste déductible | Remboursement du crédit TVA possible, sous condition d\'effectivité de l\'export (Art. 39) — voir Art. 63-64 pour le remboursement lui-même',
         loi: 'Art. 35 al. 3 CGI RDC : taux 0% applicable aux exportations et opérations assimilées (Art. 7). Art. 27 §2 : base = valeur FOB pour les exportations de marchandises'
       },
     ],
@@ -1450,7 +1456,7 @@ function OngletTVANette() {
             <div className="grid gap-2">
               <BoxFinal
                 label={res.solde >= 0 ? 'TVA nette à verser au Trésor' : 'Crédit TVA à reporter'}
-                sublabel={res.solde >= 0 ? `Date limite : 15 ${res.dateLimit}` : 'Imputable sur la TVA du mois suivant'}
+                sublabel={res.solde >= 0 ? `Date limite : ${res.dateLimit}` : 'Imputable sur la TVA du mois suivant'}
                 val={formatFC(Math.abs(res.solde))}
                 credit={res.solde < 0}
               />
