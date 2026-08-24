@@ -1674,7 +1674,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     ues: [],
     definition: "Voir « Monnaies étrangères ».",
     source: "AUDCIF, Titre VI — Définitions des termes",
-    voirAussi: ["monnaies-etrangeres"],
+    voirAussi: ["monnaie-etrangere"],
   },
   {
     id: "differences-de-change",
@@ -2270,7 +2270,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     ues: [],
     definition: "Voir « Survaleur ».",
     source: "AUDCIF, Titre VI — Définitions des termes",
-    voirAussi: ["survaleur"],
+    voirAussi: ["survaleur-ou-goodwill"],
   },
   {
     id: "grand-livre",
@@ -2704,7 +2704,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     ues: [],
     definition: "Voir « Dons ».",
     source: "AUDCIF, Titre VI — Définitions des termes",
-    voirAussi: ["dons"],
+    voirAussi: ["dons-et-liberalites"],
   },
   {
     id: "licences-concession-de",
@@ -2721,7 +2721,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     ues: [],
     definition: "Voir « Disponibilités ».",
     source: "AUDCIF, Titre VI — Définitions des termes",
-    voirAussi: ["disponibilites"],
+    voirAussi: ["disponibilites-ou-liquidites"],
   },
   {
     id: "livres-comptables",
@@ -4647,7 +4647,6 @@ export const TERMES_AUDCIF: TermeDict[] = [
     ues: [],
     definition: "Voir « Coût de remplacement ».",
     source: "AUDCIF, Titre VI — Définitions des termes",
-    voirAussi: ["cout-de-remplacement"],
   },
   {
     id: "valeur-de-rendement-d-un-titre",
