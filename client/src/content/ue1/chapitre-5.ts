@@ -1,35 +1,69 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useGoBack } from '@/lib/navContext'
-import { Breadcrumb } from '@/components/Breadcrumb'
-import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { useUser } from '@/lib/userContext'
-import { isStudentRole } from '@/lib/permissions'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
-import { QCMChapitre } from '@/lib/db'
-import { InfoTooltip } from '@/components/InfoTooltip'
+// Chapitre 5 du module UE1, Droit du travail : contenu pur.
+// La mise en forme appartient au moteur components/chapitre/ChapitreManuscrit.tsx.
+import type { Chapitre } from '@/lib/chapitre-types'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// IDENTITÉ VISUELLE — reprise à l'identique des chapitres 1-4.
-// ─────────────────────────────────────────────────────────────────────────────
-const ENCRE = 'text-[#262019]'
-const ENCRE_DOUX = 'text-[#6B6047]'
-const ENCRE_FAIBLE = 'text-[#948868]'
-const PAPIER = 'bg-[#EDE6D3]'
-const PAPIER_CARD = 'bg-[#F8F4E8]'
-const LIGNE = 'border-[#D9CFA9]'
-const LIGNE_FORTE = 'border-[#C6B788]'
-const VERT = 'text-[#1E4A3D]'
-const VERT_BG = 'bg-[#1E4A3D]'
-const VERT_BORDER = 'border-[#1E4A3D]'
-const VERT_SOFT = 'bg-[#1E4A3D]/8'
-const AMBRE = 'text-[#8A6416]'
-const LETTRINE = "first-letter:font-serif first-letter:font-bold first-letter:text-5xl first-letter:float-left first-letter:leading-[0.8] first-letter:pr-2 first-letter:pt-1 first-letter:text-[#1E4A3D]"
+const SECTIONS: Chapitre['sections'] = [
+  {
+    numero: '5.1',
+    titre: 'La détermination du salaire',
+    navLabel: '5.1 La détermination du salaire',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le Titre V ouvre le régime de la rémunération sur un principe d\'égalité : l\'article 86 impose un salaire égal pour tous les travailleurs, à conditions égales de travail, de qualification professionnelle et de rendement, quels que soient leur origine, leur sexe et leur âge. Ce principe, prolongement direct des garanties anti-discriminatoires déjà rencontrées au chapitre 4 à propos du licenciement, s\'étend au travail à la tâche ou aux pièces, dont la rémunération doit procurer au travailleur de capacité moyenne un salaire au moins égal à celui du travailleur rémunéré au temps pour un travail analogue. Le même article pose cependant un principe inverse de celui souvent supposé : aucun salaire n\'est dû en cas d\'absence, sauf les cas prévus par la législation ou la réglementation et sauf accord entre les parties, qui restent libres de convenir d\'un régime plus favorable.' },
+      { type: 'paragraphe', texte: 'La rémunération elle-même est fixée par des contrats individuels librement conclus ou par voie de conventions collectives, mais cette liberté rencontre une limite impérative à l\'article 88 : est nulle de plein droit toute clause fixant une rémunération inférieure aux salaires minima interprofessionnels garantis. L\'article 89 impose en outre que la rémunération soit stipulée en monnaie ayant cours légal en République Démocratique du Congo, déterminée à l\'heure, à la journée, à la semaine, au mois, à la pièce ou à la tâche selon le choix des parties, tandis que l\'article 90 impose à l\'employeur d\'appliquer une classification couvrant tous les emplois, de l\'exécution jusqu\'au cadre de collaboration.' },
+      { type: 'filet', titre: 'À défaut de rémunération convenue', texte: 'L\'article 92 comble le silence des parties : à défaut de preuve d\'une rémunération convenue, l\'employeur doit la rémunération déterminée par la convention collective applicable ou, à défaut, par le décret fixant les salaires minima, ou par les usages du lieu d\'exécution, compte tenu de la nature du travail, de la qualification et de l\'ancienneté du travailleur.' },
+    ],
+  },
+  {
+    numero: '5.2',
+    titre: 'Le salaire minimum interprofessionnel garanti',
+    navLabel: '5.2 Le salaire minimum interprofessionnel',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le mécanisme de fixation du salaire minimum interprofessionnel garanti, ou SMIG, repose sur une procédure à trois étages : un décret du Président de la République, pris sur proposition du Ministre ayant le Travail dans ses attributions, après avis du Conseil National du Travail (articles 87 et 96). L\'article 91 institue une zone unique du SMIG sur l\'ensemble du territoire, sous la seule réserve de dispositions spécifiques pouvant alléger les difficultés des secteurs agro-industriel et pastoral. Le salaire de la première catégorie professionnelle, base de l\'échelle barémique évoquée à l\'article 94, est fixé en fonction des besoins essentiels d\'une famille du travailleur comprenant le père, la mère et les enfants à charge, déterminés après enquêtes périodiques menées dans chaque province et à Kinshasa (article 95). Kabamba souligne, à propos de cette procédure, que le SMIG congolais occupe une fonction double, à la fois norme juridique impérative et instrument de politique économique, dont l\'ajustement périodique reste néanmoins tributaire de la volonté gouvernementale de mettre en œuvre l\'indexation prévue à l\'article 97.' },
+      { type: 'carte', titre: 'Le SMIG en vigueur : Décret n°25/22 du 30 mai 2025', tableau: { entetes: ['Période', 'SMIG journalier (manœuvre)'], lignes: [['2018 à mai 2025 (montant historique)', '7 075 FC'], ['Dès la paie de mai 2025 (palier transitoire)', '**14 500 FC**'], ['Dès la paie de janvier 2026 (montant plein, en vigueur)', '**21 500 FC**']] }, note: 'Le décret organise également le montant des allocations familiales minima, fixées à un vingt-septième du SMIG par enfant à charge, et de la contre-valeur du logement, fixée à un cinquième des allocations familiales. Une entrée en application progressive de cette nature, par paliers successifs, doit être distinguée d\'une simple annonce : seul le texte réglementaire publié fait foi de la date exacte et du montant applicable à un exercice de paie donné.' },
+      { type: 'paragraphe', texte: 'L\'article 97 organise l\'indexation des salaires minima sur l\'évolution de l\'indice des prix à la consommation, dans les modalités que détermine le décret de l\'article 96. Cette mécanique d\'ajustement périodique, qui explique l\'écart considérable entre le montant de 7 075 FC fixé en 2018 et celui de 21 500 FC applicable depuis janvier 2026, soit une hausse de plus de 200 % en sept ans, illustre concrètement la fonction protectrice du salaire minimum face à l\'érosion monétaire, sans que cette indexation ne soit pour autant automatique ou continue : chaque ajustement requiert un nouveau décret présidentiel.' },
+    ],
+  },
+  {
+    numero: '5.3',
+    titre: 'Le mode de paiement du salaire',
+    navLabel: '5.3 Le mode de paiement',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 98 impose que la rémunération soit payée en espèces, pendant les heures de travail, au temps et au lieu convenus, et interdit le paiement dans un débit de boissons ou un magasin de vente, sauf pour les travailleurs qui y sont employés. Ce même article interdit à l\'employeur de restreindre de quelque manière que ce soit la liberté du travailleur de disposer de sa rémunération à son gré, une garantie de libre disposition qui prolonge la protection du salaire au-delà du seul montant versé.' },
+      { type: 'carte', titre: 'Les délais de paiement de l\'article 99, à ne pas confondre', tableau: { entetes: ['Nature de la somme', 'Délai de paiement'], lignes: [['Rémunération périodique ordinaire', '**6 jours après la période concernée**'], ['Commissions trimestrielles', '**3 mois après la fin du trimestre**'], ['Participations aux bénéfices', '**9 mois après l\'exercice**'], ['Décompte final (fin du contrat)', '**2 jours ouvrables (art. 100)**']] } },
+      { type: 'paragraphe', texte: 'Le paiement en nature reste, par principe, interdit (article 101), sauf les hypothèses des articles 138 et 139 relatives aux avantages en nature. L\'employeur doit remettre au travailleur, au moment du paiement, un décompte écrit de la rémunération payée (article 103) ; à défaut, ses allégations sur les paiements effectués sont rejetées, sauf preuve contraire à sa charge. L\'article 104 protège enfin le travailleur d\'une pratique répandue, déjà rencontrée au chapitre 4 à propos de la quittance pour solde de tout compte : l\'acceptation sans réserve d\'un décompte, même signée, n\'emporte aucune renonciation à ses droits, ni ne vaut compte arrêté et réglé.' },
+    ],
+  },
+  {
+    numero: '5.4',
+    titre: 'Le paiement en cas de maladie ou d\'accident',
+    navLabel: '5.4 Maladie et accident',
+    blocs: [
+      { type: 'paragraphe', texte: 'Lorsque le travailleur est dans l\'incapacité de fournir ses services par suite de maladie ou d\'accident ordinaire, l\'article 105 lui maintient, pendant toute la durée de la suspension du contrat déjà étudiée au chapitre 3, les deux tiers de la rémunération en espèces et la totalité des allocations familiales, ainsi que le droit aux avantages contractuels en nature, sauf demande de contre-valeur en espèces, le logement ne pouvant toutefois jamais être ainsi remplacé. Lorsque la maladie ou l\'accident est réputé maladie professionnelle ou accident du travail au sens de la réglementation de la sécurité sociale, l\'article 106 maintient le même taux des deux tiers pendant les six premiers mois de la suspension, mais autorise l\'employeur à déduire mensuellement les sommes versées au travailleur par l\'Institut National de Sécurité Sociale, sur pièces justificatives vérifiées par cet Institut.' },
+      { type: 'filet', titre: 'Le risque spécial, une exclusion totale d\'indemnisation', texte: 'Aucune somme ni avantage n\'est dû lorsque la maladie ou l\'accident résulte d\'un risque spécial auquel le travailleur s\'est volontairement exposé en connaissance du danger, ou d\'une négligence à utiliser les services médicaux disponibles. L\'article 108 énumère limitativement ces risques spéciaux : infraction ayant entraîné une condamnation définitive, sport dangereux hors compétitions organisées par l\'employeur, excès de boisson ou de drogue, faute intentionnelle, travaux pour compte d\'un tiers, ou faits de guerre et de troubles, sauf lorsque l\'accident survient par le fait ou à l\'occasion du travail lui-même.' },
+    ],
+  },
+  {
+    numero: '5.5',
+    titre: 'Garanties de la créance de salaire, retenues et saisies',
+    navLabel: '5.5 Garanties et retenues',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le Code protège la créance de salaire du travailleur par un double dispositif de garantie. D\'une part, l\'article 109 interdit que les sommes dues aux employeurs soient frappées de saisie-arrêt ou d\'opposition au préjudice des travailleurs auxquels des salaires sont dus, une protection qui vise les créanciers de l\'employeur lui-même. D\'autre part, l\'article 110 confère aux travailleurs, en cas de faillite ou de liquidation judiciaire, un rang de créanciers privilégiés sur tous les autres créanciers, y compris le Trésor Public, ce privilège s\'exerçant sur l\'ensemble des biens meubles et immeubles de l\'employeur, pour les salaires dus au titre de services antérieurs à la procédure.' },
+      { type: 'paragraphe', texte: 'Le pouvoir de l\'employeur d\'opérer des retenues sur salaire reste, à l\'inverse, strictement encadré. L\'article 111 frappe de nullité toute clause attribuant à l\'employeur le droit d\'infliger des amendes, et l\'article 112 fait de même pour toute réduction de rémunération à titre de dommages-intérêts, tout en énumérant limitativement les retenues autorisées : retenues fiscales, cotisation à l\'Institut National de Sécurité Sociale, avances, indemnités compensatoires ou cautionnement liés à l\'obligation de l\'article 52, prêts, et saisie-arrêt. Le cautionnement fait l\'objet d\'un régime de protection propre à l\'article 113 : l\'employeur doit accepter sa libération dans les trente jours suivant la fin du contrat, sauf demande en justice introduite dans ce délai ou autorisation judiciaire de maintien.' },
+      { type: 'carte', titre: 'Les quotités saisissables et cessibles de l\'article 114', tableau: { entetes: ['Nature de la créance', 'Quotité maximale'], lignes: [['Créance ordinaire, jusqu\'à 5 fois le SMIG mensuel', '**Un cinquième**'], ['Créance ordinaire, au-delà de ce seuil', '**Un tiers**'], ['Obligation alimentaire légale', '**Deux cinquièmes**']] }, note: 'Ces deux catégories de saisie peuvent s\'opérer cumulativement, le calcul se faisant après déduction des retenues fiscales, sociales et de l\'évaluation forfaitaire du logement.' },
+    ],
+  },
+  {
+    numero: '5.6',
+    titre: 'Les économats',
+    navLabel: '5.6 Les économats',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'économat, défini à l\'article 115 comme toute organisation où l\'employeur pratique la vente ou la cession de denrées alimentaires et de marchandises de première nécessité aux travailleurs exclusivement, répond à un besoin fréquent dans les sites industriels ou miniers éloignés de tout centre commercial. Le Code l\'admet, mais sous une triple condition cumulative posée à l\'article 116 : les travailleurs ne doivent pas être obligés de s\'y fournir, la vente doit se faire à des prix raisonnables établis après avis de la délégation syndicale et à l\'exclusion de toute recherche de bénéfice, et la comptabilité de l\'économat doit rester entièrement autonome.' },
+      { type: 'paragraphe', texte: 'Ces conditions de fond s\'accompagnent d\'exigences de transparence et de contrôle : les prix doivent être affichés lisiblement et communiqués à l\'Inspecteur du Travail du ressort, et la vente comme la consommation d\'alcools, de spiritueux, de tabacs ou de toute forme de drogue y sont interdites, ainsi que sur les lieux d\'emploi en général (article 117). L\'ouverture d\'un économat est soumise à autorisation ministérielle préalable, après avis de l\'Inspecteur du Travail, cette ouverture pouvant même être imposée à une entreprise sur proposition de cet inspecteur ; en cas d\'abus constaté, l\'article 118 permet d\'en ordonner la fermeture provisoire ou définitive, dans les mêmes conditions procédurales que celles requises pour l\'ouverture.' },
+    ],
+  },
+]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BANQUE DE QUESTIONS — 20 questions, 5 propositions, distracteurs pièges.
-// ─────────────────────────────────────────────────────────────────────────────
-const QCM_CHAPITRE: QCMChapitre[] = [
+const QCM: Chapitre['qcm'] = [
   {
     id: 'q1', question: "Sur quels critères l'article 86 fonde-t-il le principe d'égalité de rémunération entre travailleurs ?",
     options: [
@@ -272,17 +306,7 @@ const QCM_CHAPITRE: QCMChapitre[] = [
   },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CAS PRATIQUES — 5 situations à plusieurs strates, art. 86 à 118 uniquement.
-// ─────────────────────────────────────────────────────────────────────────────
-interface CasPratique {
-  id: string
-  titre: string
-  contexte: string
-  questions: { num: number; enonce: string; correction: string }[]
-}
-
-const CAS_PRATIQUES: CasPratique[] = [
+const CAS: Chapitre['casPratiques'] = [
   {
     id: 'cp1',
     titre: "Les commissions retardées de M. Nsimba, vendeur itinérant",
@@ -340,408 +364,57 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
 ]
 
-function QCMBankItem({ q }: { q: QCMChapitre }) {
-  const [selected, setSelected] = useState<string | null>(null)
-  const [showResult, setShowResult] = useState(false)
-  return (
-    <div className={cn('rounded-sm border p-4 space-y-3', LIGNE_FORTE, PAPIER_CARD)}>
-      <p className={cn('text-sm', ENCRE)}>{q.question}</p>
-      <div className="space-y-1.5">
-        {q.options.map(opt => {
-          let cls = 'w-full text-left text-xs px-3 py-2 rounded-sm border transition-colors '
-          if (!showResult) cls += selected === opt.id ? cn(VERT_BORDER, 'bg-[#1E4A3D]/10', ENCRE) : cn(LIGNE, 'hover:bg-black/[.02]')
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-600 bg-green-50 text-green-800'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
-          else cls += cn(LIGNE, 'opacity-50')
-          return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-mono font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
-        })}
-      </div>
-      {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className={cn('text-xs text-white rounded-sm px-4 py-1.5 disabled:opacity-40 transition-colors font-mono', VERT_BG)}>Vérifier</button>}
-      {showResult && (
-        <div className={cn('rounded-sm p-3 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700')}>
-          <div className="flex items-center gap-1 font-semibold mb-1">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct' : 'Incorrect'}<span className="ml-auto font-mono opacity-60">{q.articleRef}</span></div>
-          <p>{q.explication}</p>
-          <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function CasPratiqueBlock({ cp, index }: { cp: CasPratique; index: number }) {
-  const [open, setOpen] = useState(false)
-  const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
-  return (
-    <div className={cn('rounded-sm border overflow-hidden', LIGNE_FORTE, PAPIER_CARD)}>
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-black/[.02] transition-colors text-left">
-        <div className="flex items-center gap-3">
-          <span className={cn('font-serif font-bold text-lg shrink-0', VERT)}>{String(index + 1).padStart(2, '0')}</span>
-          <p className={cn('text-sm font-semibold', ENCRE)}>{cp.titre}</p>
-        </div>
-        <ChevronRight className={cn('h-4 w-4 shrink-0 transition-transform', VERT, open && 'rotate-90')} />
-      </button>
-      {open && (
-        <div className={cn('px-4 pb-4 space-y-4 border-t pt-4', LIGNE)}>
-          <div className={cn('rounded-sm p-3 border', LIGNE_FORTE, PAPIER)}>
-            <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', AMBRE)}>Contexte</p>
-            <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>{cp.contexte}</p>
-          </div>
-          <div className="space-y-3">
-            {cp.questions.map(q => (
-              <div key={q.num} className="space-y-2">
-                <p className={cn('text-xs font-semibold', ENCRE)}>Question {q.num} : {q.enonce}</p>
-                {corrVisible.has(q.num) ? (
-                  <div className="rounded-sm bg-green-50 border border-green-200 p-3">
-                    <p className="text-xs font-semibold text-green-800 mb-1">Correction</p>
-                    <p className="text-xs text-green-900 leading-relaxed">{q.correction}</p>
-                  </div>
-                ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className={cn('text-xs hover:underline font-medium', VERT)}>Voir la correction</button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-type Vue = 'lecture' | 'qcm' | 'cas' | 'devoir'
-
-export default function UE1Chapitre5Page() {
-  const goBack = useGoBack('/ue1-droit-travail')
-  const currentUser = useUser()
-  const isStudent = isStudentRole(currentUser)
-  const [vue, setVue] = useState<Vue>('lecture')
-  const [afficherRemonter, setAfficherRemonter] = useState(false)
-  const sommetRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    sommetRef.current?.scrollIntoView({ block: 'start' })
-    document.querySelector('main')?.scrollTo({ top: 0 })
-    window.scrollTo({ top: 0 })
-  }, [vue])
-
-  useEffect(() => {
-    const verifier = () => {
-      const main = document.querySelector('main')
-      setAfficherRemonter((main?.scrollTop ?? 0) > 400 || window.scrollY > 400)
+export const chapitre: Chapitre = {
+  ue: 'ue1',
+  numero: 5,
+  id: 'ue1-chapitre-5',
+  titre: 'La rémunération : salaire, SMIG et sa protection',
+  sousTitre: 'Titre V du Code du travail · Loi n°015/2002, art. 86 à 118 · Décret n°25/22 du 30 mai 2025',
+  infoBulle: 'Détermination et paiement du salaire, salaire minimum interprofessionnel garanti, paiement en cas de maladie, garanties et retenues, économats.',
+  loiRef: 'Titre V, art. 86 à 118',
+  moduleLabel: 'UE 1 · Droit du travail',
+  retourRoute: '/ue1-droit-travail',
+  coursId: 'ue1-droit-travail',
+  objectifs: [
+    'Maîtriser le principe d\'égalité de rémunération et les modalités de détermination du salaire',
+    'Connaître le mécanisme de fixation du salaire minimum interprofessionnel garanti et ses montants actuels',
+    'Maîtriser les règles de paiement du salaire : forme, périodicité, décompte',
+    'Connaître le régime du salaire en cas de maladie ou d\'accident, professionnel ou non',
+    'Maîtriser les garanties de la créance de salaire, les retenues autorisées et le régime des économats',
+  ],
+  sections: SECTIONS,
+  aRetenir: [
+    'Le salaire est égal pour tous à conditions égales de travail, de qualification et de rendement ; toute clause fixant une rémunération inférieure au SMIG est nulle de plein droit.',
+    'Le SMIG, fixé par décret présidentiel après avis du Conseil National du Travail, s\'établit en zone unique et est actuellement de 21 500 FC par jour depuis la paie de janvier 2026 (Décret n°25/22 du 30 mai 2025), contre 7 075 FC entre 2018 et 2025.',
+    'Le paiement du salaire obéit à des délais stricts et différenciés : six jours pour la rémunération ordinaire, trois mois pour les commissions trimestrielles, neuf mois pour les participations aux bénéfices, deux jours ouvrables pour le décompte final.',
+    'En cas de maladie ou d\'accident, le travailleur conserve les deux tiers de sa rémunération en espèces et la totalité des allocations familiales ; le risque spécial, limitativement énuméré, exclut toute indemnisation.',
+    'Les travailleurs bénéficient d\'un privilège de premier rang sur les biens de l\'employeur en cas de faillite ; les retenues sur salaire sont limitativement énumérées, et la rémunération n\'est saisissable qu\'à hauteur d\'un cinquième à un tiers selon la tranche, deux cinquièmes pour une créance alimentaire.',
+  ],
+  references: [
+    {
+        genre: "article",
+        auteur: "Kabamba G.",
+        titre: "Le Salaire Minimum Interprofessionnel Garanti (SMIG) : entre norme juridique et instrument économique",
+        support: "Village Justice",
+        precision: "note professionnelle en ligne"
+    },
+    {
+        genre: "texte",
+        intitule: "Décret n°25/22 du 30 mai 2025 portant fixation du salaire minimum interprofessionnel garanti, des allocations familiales minima et de la contre-valeur du logement",
+        precision: "Journal officiel de la République Démocratique du Congo"
+    },
+    {
+        genre: "ouvrage",
+        auteur: "Loko Mantuono G.",
+        titre: "Droit social, droit du travail et de la sécurité sociale en RDC",
+        editeur: "L'Harmattan",
+        lieu: "Paris",
+        annee: "2022"
     }
-    window.addEventListener('scroll', verifier, true)
-    verifier()
-    return () => window.removeEventListener('scroll', verifier, true)
-  }, [])
-
-  const remonterEnHaut = () => {
-    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const casPratiquesExistants: CasPratiqueExistant[] = CAS_PRATIQUES.map(cp => ({
-    id: cp.id,
-    titre: cp.titre,
-    enonce: cp.contexte + '\n' + cp.questions.map(q => `Question ${q.num} : ${q.enonce}`).join('\n'),
-    corrigeType: cp.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n'),
-  }))
-
-  return (
-    <div ref={sommetRef} className="space-y-4 pb-10 animate-fadeIn">
-      {afficherRemonter && (
-        <button
-          onClick={remonterEnHaut}
-          aria-label="Remonter en haut de la page"
-          className={cn('fixed bottom-20 md:bottom-6 right-4 z-40 h-10 w-10 rounded-full text-white shadow-lg flex items-center justify-center transition-transform hover:scale-105', VERT_BG)}
-        >
-          <ArrowUp className="h-4 w-4" />
-        </button>
-      )}
-      <div className="space-y-1">
-        <Breadcrumb
-          items={[
-            { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 1 · Droit du travail', route: '/ue1-droit-travail' },
-            { label: 'Chapitre 5' },
-          ]}
-          color="emerald"
-        />
-        <div className="flex items-center gap-2 flex-wrap">
-          <h1 className={cn('font-display text-lg font-bold leading-tight', ENCRE)}>La rémunération : salaire, SMIG et sa protection</h1>
-          <InfoTooltip texte="Détermination et paiement du salaire, salaire minimum interprofessionnel garanti, paiement en cas de maladie, garanties et retenues, économats." loi="Titre V, art. 86 à 118" />
-        </div>
-        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Titre V du Code du travail · Loi n°015/2002, art. 86 à 118 · Décret n°25/22 du 30 mai 2025</p>
-      </div>
-
-      {vue === 'lecture' && (
-        <div className={cn('rounded-sm border p-4 space-y-1', PAPIER_CARD, LIGNE)}>
-          {[
-            "Maîtriser le principe d'égalité de rémunération et les modalités de détermination du salaire",
-            "Connaître le mécanisme de fixation du salaire minimum interprofessionnel garanti et ses montants actuels",
-            "Maîtriser les règles de paiement du salaire : forme, périodicité, décompte",
-            "Connaître le régime du salaire en cas de maladie ou d'accident, professionnel ou non",
-            "Maîtriser les garanties de la créance de salaire, les retenues autorisées et le régime des économats",
-          ].map((o, i) => (
-            <p key={i} className={cn('flex items-start gap-2 text-xs', ENCRE_DOUX)}>
-              <span className={cn('font-mono shrink-0', VERT)}>{i + 1}.</span>
-              <span>{o}</span>
-            </p>
-          ))}
-        </div>
-      )}
-
-      {vue === 'lecture' && (
-        <div className="grid gap-0 lg:grid-cols-[180px_1fr] lg:gap-10">
-          <nav className="hidden lg:block">
-            <div className="sticky top-4 space-y-1 pt-2">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Dans ce chapitre</p>
-              {[
-                ['s1', '5.1 La détermination du salaire'],
-                ['s2', '5.2 Le salaire minimum interprofessionnel'],
-                ['s3', '5.3 Le mode de paiement'],
-                ['s4', '5.4 Maladie et accident'],
-                ['s5', '5.5 Garanties et retenues'],
-                ['s6', '5.6 Les économats'],
-              ].map(([id, label]) => (
-                <a key={id} href={`#${id}`} className={cn('block text-xs leading-snug py-1.5 pl-3 border-l-2', LIGNE, ENCRE_FAIBLE, 'hover:text-[#1E4A3D] hover:border-[#1E4A3D] transition-colors')}>{label}</a>
-              ))}
-            </div>
-          </nav>
-
-          <div className="min-w-0 space-y-14">
-            {/* 5.1 */}
-            <section id="s1" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>5.1</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>La détermination du salaire</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le Titre V ouvre le régime de la rémunération sur un principe d'égalité : l'article 86 impose un salaire égal pour tous les travailleurs, à conditions égales de travail, de qualification professionnelle et de rendement, quels que soient leur origine, leur sexe et leur âge. Ce principe, prolongement direct des garanties anti-discriminatoires déjà rencontrées au chapitre 4 à propos du licenciement, s'étend au travail à la tâche ou aux pièces, dont la rémunération doit procurer au travailleur de capacité moyenne un salaire au moins égal à celui du travailleur rémunéré au temps pour un travail analogue. Le même article pose cependant un principe inverse de celui souvent supposé : aucun salaire n'est dû en cas d'absence, sauf les cas prévus par la législation ou la réglementation et sauf accord entre les parties, qui restent libres de convenir d'un régime plus favorable.</p>
-                <p>La rémunération elle-même est fixée par des contrats individuels librement conclus ou par voie de conventions collectives, mais cette liberté rencontre une limite impérative à l'article 88 : est nulle de plein droit toute clause fixant une rémunération inférieure aux salaires minima interprofessionnels garantis. L'article 89 impose en outre que la rémunération soit stipulée en monnaie ayant cours légal en République Démocratique du Congo, déterminée à l'heure, à la journée, à la semaine, au mois, à la pièce ou à la tâche selon le choix des parties, tandis que l'article 90 impose à l'employeur d'appliquer une classification couvrant tous les emplois, de l'exécution jusqu'au cadre de collaboration.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>À défaut de rémunération convenue</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>L'article 92 comble le silence des parties : à défaut de preuve d'une rémunération convenue, l'employeur doit la rémunération déterminée par la convention collective applicable ou, à défaut, par le décret fixant les salaires minima, ou par les usages du lieu d'exécution, compte tenu de la nature du travail, de la qualification et de l'ancienneté du travailleur.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 5.2 */}
-            <section id="s2" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>5.2</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le salaire minimum interprofessionnel garanti</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le mécanisme de fixation du salaire minimum interprofessionnel garanti, ou SMIG, repose sur une procédure à trois étages : un décret du Président de la République, pris sur proposition du Ministre ayant le Travail dans ses attributions, après avis du Conseil National du Travail (articles 87 et 96). L'article 91 institue une zone unique du SMIG sur l'ensemble du territoire, sous la seule réserve de dispositions spécifiques pouvant alléger les difficultés des secteurs agro-industriel et pastoral. Le salaire de la première catégorie professionnelle, base de l'échelle barémique évoquée à l'article 94, est fixé en fonction des besoins essentiels d'une famille du travailleur comprenant le père, la mère et les enfants à charge, déterminés après enquêtes périodiques menées dans chaque province et à Kinshasa (article 95). Kabamba souligne, à propos de cette procédure, que le SMIG congolais occupe une fonction double, à la fois norme juridique impérative et instrument de politique économique, dont l'ajustement périodique reste néanmoins tributaire de la volonté gouvernementale de mettre en œuvre l'indexation prévue à l'article 97.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Le SMIG en vigueur : Décret n°25/22 du 30 mai 2025</p>
-                  <table className="w-full text-xs border-collapse mt-2">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Période</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>SMIG journalier (manœuvre)</th></tr></thead>
-                    <tbody>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>2018 à mai 2025 (montant historique)</td><td className={cn('p-2 border', LIGNE)}>7 075 FC</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Dès la paie de mai 2025 (palier transitoire)</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>14 500 FC</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Dès la paie de janvier 2026 (montant plein, en vigueur)</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>21 500 FC</td></tr>
-                    </tbody>
-                  </table>
-                  <p className={cn('text-xs mt-2', ENCRE_DOUX)}>Le décret organise également le montant des allocations familiales minima, fixées à un vingt-septième du SMIG par enfant à charge, et de la contre-valeur du logement, fixée à un cinquième des allocations familiales. Une entrée en application progressive de cette nature, par paliers successifs, doit être distinguée d'une simple annonce : seul le texte réglementaire publié fait foi de la date exacte et du montant applicable à un exercice de paie donné.</p>
-                </div>
-                <p>L'article 97 organise l'indexation des salaires minima sur l'évolution de l'indice des prix à la consommation, dans les modalités que détermine le décret de l'article 96. Cette mécanique d'ajustement périodique, qui explique l'écart considérable entre le montant de 7 075 FC fixé en 2018 et celui de 21 500 FC applicable depuis janvier 2026, soit une hausse de plus de 200 % en sept ans, illustre concrètement la fonction protectrice du salaire minimum face à l'érosion monétaire, sans que cette indexation ne soit pour autant automatique ou continue : chaque ajustement requiert un nouveau décret présidentiel.</p>
-              </div>
-            </section>
-
-            {/* 5.3 */}
-            <section id="s3" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>5.3</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le mode de paiement du salaire</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>L'article 98 impose que la rémunération soit payée en espèces, pendant les heures de travail, au temps et au lieu convenus, et interdit le paiement dans un débit de boissons ou un magasin de vente, sauf pour les travailleurs qui y sont employés. Ce même article interdit à l'employeur de restreindre de quelque manière que ce soit la liberté du travailleur de disposer de sa rémunération à son gré, une garantie de libre disposition qui prolonge la protection du salaire au-delà du seul montant versé.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Les délais de paiement de l'article 99, à ne pas confondre</p>
-                  <table className="w-full text-xs border-collapse mt-2">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Nature de la somme</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Délai de paiement</th></tr></thead>
-                    <tbody>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Rémunération périodique ordinaire</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>6 jours après la période concernée</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Commissions trimestrielles</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>3 mois après la fin du trimestre</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Participations aux bénéfices</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>9 mois après l'exercice</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Décompte final (fin du contrat)</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>2 jours ouvrables (art. 100)</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <p>Le paiement en nature reste, par principe, interdit (article 101), sauf les hypothèses des articles 138 et 139 relatives aux avantages en nature. L'employeur doit remettre au travailleur, au moment du paiement, un décompte écrit de la rémunération payée (article 103) ; à défaut, ses allégations sur les paiements effectués sont rejetées, sauf preuve contraire à sa charge. L'article 104 protège enfin le travailleur d'une pratique répandue, déjà rencontrée au chapitre 4 à propos de la quittance pour solde de tout compte : l'acceptation sans réserve d'un décompte, même signée, n'emporte aucune renonciation à ses droits, ni ne vaut compte arrêté et réglé.</p>
-              </div>
-            </section>
-
-            {/* 5.4 */}
-            <section id="s4" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>5.4</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le paiement en cas de maladie ou d'accident</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Lorsque le travailleur est dans l'incapacité de fournir ses services par suite de maladie ou d'accident ordinaire, l'article 105 lui maintient, pendant toute la durée de la suspension du contrat déjà étudiée au chapitre 3, les deux tiers de la rémunération en espèces et la totalité des allocations familiales, ainsi que le droit aux avantages contractuels en nature, sauf demande de contre-valeur en espèces, le logement ne pouvant toutefois jamais être ainsi remplacé. Lorsque la maladie ou l'accident est réputé maladie professionnelle ou accident du travail au sens de la réglementation de la sécurité sociale, l'article 106 maintient le même taux des deux tiers pendant les six premiers mois de la suspension, mais autorise l'employeur à déduire mensuellement les sommes versées au travailleur par l'Institut National de Sécurité Sociale, sur pièces justificatives vérifiées par cet Institut.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>Le risque spécial, une exclusion totale d'indemnisation</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>Aucune somme ni avantage n'est dû lorsque la maladie ou l'accident résulte d'un risque spécial auquel le travailleur s'est volontairement exposé en connaissance du danger, ou d'une négligence à utiliser les services médicaux disponibles. L'article 108 énumère limitativement ces risques spéciaux : infraction ayant entraîné une condamnation définitive, sport dangereux hors compétitions organisées par l'employeur, excès de boisson ou de drogue, faute intentionnelle, travaux pour compte d'un tiers, ou faits de guerre et de troubles, sauf lorsque l'accident survient par le fait ou à l'occasion du travail lui-même.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 5.5 */}
-            <section id="s5" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>5.5</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Garanties de la créance de salaire, retenues et saisies</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>Le Code protège la créance de salaire du travailleur par un double dispositif de garantie. D'une part, l'article 109 interdit que les sommes dues aux employeurs soient frappées de saisie-arrêt ou d'opposition au préjudice des travailleurs auxquels des salaires sont dus, une protection qui vise les créanciers de l'employeur lui-même. D'autre part, l'article 110 confère aux travailleurs, en cas de faillite ou de liquidation judiciaire, un rang de créanciers privilégiés sur tous les autres créanciers, y compris le Trésor Public, ce privilège s'exerçant sur l'ensemble des biens meubles et immeubles de l'employeur, pour les salaires dus au titre de services antérieurs à la procédure.</p>
-                <p>Le pouvoir de l'employeur d'opérer des retenues sur salaire reste, à l'inverse, strictement encadré. L'article 111 frappe de nullité toute clause attribuant à l'employeur le droit d'infliger des amendes, et l'article 112 fait de même pour toute réduction de rémunération à titre de dommages-intérêts, tout en énumérant limitativement les retenues autorisées : retenues fiscales, cotisation à l'Institut National de Sécurité Sociale, avances, indemnités compensatoires ou cautionnement liés à l'obligation de l'article 52, prêts, et saisie-arrêt. Le cautionnement fait l'objet d'un régime de protection propre à l'article 113 : l'employeur doit accepter sa libération dans les trente jours suivant la fin du contrat, sauf demande en justice introduite dans ce délai ou autorisation judiciaire de maintien.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Les quotités saisissables et cessibles de l'article 114</p>
-                  <table className="w-full text-xs border-collapse mt-2">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Nature de la créance</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Quotité maximale</th></tr></thead>
-                    <tbody>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Créance ordinaire, jusqu'à 5 fois le SMIG mensuel</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Un cinquième</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Créance ordinaire, au-delà de ce seuil</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Un tiers</td></tr>
-                      <tr className="even:bg-black/[.02]"><td className={cn('p-2 border', LIGNE)}>Obligation alimentaire légale</td><td className={cn('p-2 border font-semibold', LIGNE, VERT)}>Deux cinquièmes</td></tr>
-                    </tbody>
-                  </table>
-                  <p className={cn('text-xs mt-2', ENCRE_DOUX)}>Ces deux catégories de saisie peuvent s'opérer cumulativement, le calcul se faisant après déduction des retenues fiscales, sociales et de l'évaluation forfaitaire du logement.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 5.6 */}
-            <section id="s6" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>5.6</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Les économats</h2>
-              </div>
-              <div className={cn('space-y-4 text-[15px] leading-[1.75]', ENCRE)}>
-                <p className={LETTRINE}>L'économat, défini à l'article 115 comme toute organisation où l'employeur pratique la vente ou la cession de denrées alimentaires et de marchandises de première nécessité aux travailleurs exclusivement, répond à un besoin fréquent dans les sites industriels ou miniers éloignés de tout centre commercial. Le Code l'admet, mais sous une triple condition cumulative posée à l'article 116 : les travailleurs ne doivent pas être obligés de s'y fournir, la vente doit se faire à des prix raisonnables établis après avis de la délégation syndicale et à l'exclusion de toute recherche de bénéfice, et la comptabilité de l'économat doit rester entièrement autonome.</p>
-                <p>Ces conditions de fond s'accompagnent d'exigences de transparence et de contrôle : les prix doivent être affichés lisiblement et communiqués à l'Inspecteur du Travail du ressort, et la vente comme la consommation d'alcools, de spiritueux, de tabacs ou de toute forme de drogue y sont interdites, ainsi que sur les lieux d'emploi en général (article 117). L'ouverture d'un économat est soumise à autorisation ministérielle préalable, après avis de l'Inspecteur du Travail, cette ouverture pouvant même être imposée à une entreprise sur proposition de cet inspecteur ; en cas d'abus constaté, l'article 118 permet d'en ordonner la fermeture provisoire ou définitive, dans les mêmes conditions procédurales que celles requises pour l'ouverture.</p>
-              </div>
-            </section>
-
-            {/* à retenir */}
-            <div className={cn('pt-8 border-t-2', 'border-[#262019]')}>
-              <p className={cn('font-serif font-bold text-base mb-4', ENCRE)}>À retenir</p>
-              <ul className="space-y-0">
-                {[
-                  "Le salaire est égal pour tous à conditions égales de travail, de qualification et de rendement ; toute clause fixant une rémunération inférieure au SMIG est nulle de plein droit.",
-                  "Le SMIG, fixé par décret présidentiel après avis du Conseil National du Travail, s'établit en zone unique et est actuellement de 21 500 FC par jour depuis la paie de janvier 2026 (Décret n°25/22 du 30 mai 2025), contre 7 075 FC entre 2018 et 2025.",
-                  "Le paiement du salaire obéit à des délais stricts et différenciés : six jours pour la rémunération ordinaire, trois mois pour les commissions trimestrielles, neuf mois pour les participations aux bénéfices, deux jours ouvrables pour le décompte final.",
-                  "En cas de maladie ou d'accident, le travailleur conserve les deux tiers de sa rémunération en espèces et la totalité des allocations familiales ; le risque spécial, limitativement énuméré, exclut toute indemnisation.",
-                  "Les travailleurs bénéficient d'un privilège de premier rang sur les biens de l'employeur en cas de faillite ; les retenues sur salaire sont limitativement énumérées, et la rémunération n'est saisissable qu'à hauteur d'un cinquième à un tiers selon la tranche, deux cinquièmes pour une créance alimentaire.",
-                ].map((l, i) => (
-                  <li key={i} className={cn('flex items-start gap-3 text-sm py-2.5 border-b', LIGNE, ENCRE_DOUX)}>
-                    <span className={VERT}>▪</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* bibliographie */}
-            <div className="pt-6 border-t border-[#D9CFA9]">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Références citées</p>
-              <ul className="space-y-0">
-                {[
-                  <>Kabamba G., « Le Salaire Minimum Interprofessionnel Garanti (SMIG) : entre norme juridique et instrument économique », <i>Village Justice</i>, note professionnelle en ligne.</>,
-                  <>Décret n°25/22 du 30 mai 2025 portant fixation du salaire minimum interprofessionnel garanti, des allocations familiales minima et de la contre-valeur du logement, Journal officiel de la République Démocratique du Congo.</>,
-                  <>Loko Mantuono G., <i>Droit social, droit du travail et de la sécurité sociale en RDC</i>, L'Harmattan, Paris, 2022.</>,
-                ].map((ref, i) => (
-                  <li key={i} className={cn('text-xs py-2 border-b', LIGNE, ENCRE_FAIBLE)}>{ref}</li>
-                ))}
-              </ul>
-            </div>
-
-            {/* s'exercer */}
-            <div className={cn('pt-10 border-t-2', 'border-[#262019]')}>
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', AMBRE)}>Le chapitre est terminé : passez à l'épreuve</p>
-              <h2 className={cn('font-serif font-bold text-2xl mb-3', ENCRE)}>S'exercer</h2>
-              <p className={cn('text-sm leading-relaxed mb-6 max-w-xl', ENCRE_DOUX)}>La lecture seule ne suffit pas à maîtriser une notion de droit. Les deux parcours ci-dessous couvrent l'ensemble du chapitre, pas seulement les points soulevés en cours de lecture.</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <button onClick={() => setVue('qcm')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>20</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Questionnaire</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>QCM du chapitre</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Vingt questions couvrant les six sections, du rappel de cours à l'articulation de plusieurs notions.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Commencer le questionnaire →</span>
-                </button>
-                <button onClick={() => setVue('cas')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>05</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Mise en situation</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>Cas pratiques</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Cinq situations à plusieurs strates, exigeant de croiser plusieurs notions du chapitre.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Ouvrir les cas pratiques →</span>
-                </button>
-              </div>
-            </div>
-
-            {!isStudent && (
-              <div className={cn('rounded-sm border border-dashed p-5 flex items-center justify-between gap-4 flex-wrap', LIGNE_FORTE, PAPIER_CARD)}>
-                <div>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', ENCRE_FAIBLE)}>Espace professeur</p>
-                  <p className={cn('text-xs', ENCRE_DOUX)}>20 questions QCM et 5 cas pratiques disponibles pour ce chapitre.</p>
-                </div>
-                <button onClick={() => setVue('devoir')} className={cn('text-xs font-mono px-4 py-2.5 rounded-sm text-white', VERT_BG)}>Créer un devoir à partir de ce chapitre →</button>
-              </div>
-            )}
-
-            <button onClick={goBack} className={cn('w-full flex items-center justify-center gap-2 py-3 rounded-sm text-white text-sm font-semibold transition-colors', VERT_BG)}>
-              <GraduationCap className="h-4 w-4" /> Terminer le chapitre 5
-            </button>
-
-            <p className="text-xs text-center text-muted-foreground/60 pb-2">
-              Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 86 à 118 · Décret n°25/22 du 30 mai 2025
-            </p>
-          </div>
-        </div>
-      )}
-
-      {vue === 'qcm' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>QCM du chapitre : 20 questions</h2>
-          <div className="grid gap-3">
-            {QCM_CHAPITRE.map(q => <QCMBankItem key={q.id} q={q} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'cas' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Cas pratiques : 5 mises en situation</h2>
-          <div className="space-y-3">
-            {CAS_PRATIQUES.map((cp, i) => <CasPratiqueBlock key={cp.id} cp={cp} index={i} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'devoir' && !isStudent && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <DevoirChapitreCreateur
-            chapitreId="ue1-chapitre-5"
-            chapitreNom="Chapitre 5 : La rémunération (salaire, SMIG et sa protection)"
-            questions={QCM_CHAPITRE}
-            coursId="ue1-droit-travail"
-            casPratiquesExistants={casPratiquesExistants}
-          />
-        </div>
-      )}
-    </div>
-  )
+],
+  qcm: QCM,
+  casPratiques: CAS,
+  sources: 'Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 86 à 118 · Décret n°25/22 du 30 mai 2025',
 }
+
+export default chapitre

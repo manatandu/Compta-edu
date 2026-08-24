@@ -1,39 +1,83 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useGoBack } from '@/lib/navContext'
-import { Breadcrumb } from '@/components/Breadcrumb'
-import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { useUser } from '@/lib/userContext'
-import { isStudentRole } from '@/lib/permissions'
-import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
-import { QCMChapitre } from '@/lib/db'
-import { InfoTooltip } from '@/components/InfoTooltip'
+// Chapitre 1 du module UE1, Droit du travail : contenu pur.
+// La mise en forme appartient au moteur components/chapitre/ChapitreManuscrit.tsx.
+import type { Chapitre } from '@/lib/chapitre-types'
 
-// ─────────────────────────────────────────────────────────────────────────────
-// IDENTITÉ VISUELLE — reprise à l'identique de UE1DroitTravailPage.tsx, plus
-// les tokens propres au registre « manuscrit » : encre, papier, filet, vert
-// faculté, ambre pour la marginalia. Aucune classe Tailwind dynamique : tout
-// est posé en valeurs arbitraires littérales.
-// ─────────────────────────────────────────────────────────────────────────────
-const ENCRE = 'text-[#262019]'
-const ENCRE_DOUX = 'text-[#6B6047]'
-const ENCRE_FAIBLE = 'text-[#948868]'
-const PAPIER = 'bg-[#EDE6D3]'
-const PAPIER_CARD = 'bg-[#F8F4E8]'
-const LIGNE = 'border-[#D9CFA9]'
-const LIGNE_FORTE = 'border-[#C6B788]'
-const VERT = 'text-[#1E4A3D]'
-const VERT_BG = 'bg-[#1E4A3D]'
-const VERT_BORDER = 'border-[#1E4A3D]'
-const VERT_SOFT = 'bg-[#1E4A3D]/8'
-const AMBRE = 'text-[#8A6416]'
-const LETTRINE = "first-letter:font-serif first-letter:font-bold first-letter:text-5xl first-letter:float-left first-letter:leading-[0.8] first-letter:pr-2 first-letter:pt-1 first-letter:text-[#1E4A3D]"
+const SECTIONS: Chapitre['sections'] = [
+  {
+    numero: '1.1',
+    titre: 'Objet et finalité du droit du travail',
+    navLabel: '1.1 Objet et finalité',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le droit du travail est la branche du droit qui régit les rapports individuels et collectifs nés à l\'occasion du travail salarié. En République Démocratique du Congo, il repose sur la loi n°015/2002 du 16 octobre 2002 portant Code du travail, modifiée et complétée par la loi n°16/010 du 15 juillet 2016. Le Code compte seize titres et trois cent trente-quatre articles ; il constitue le socle de référence de l\'ensemble de ce manuel.' },
+      { type: 'paragraphe', texte: 'Cette branche du droit poursuit une finalité qui la distingue nettement du droit commun des contrats : elle organise une relation structurellement inégale, celle du travailleur, économiquement dépendant de son emploi pour assurer sa subsistance et celle de sa famille, face à l\'employeur, qui détient le pouvoir de direction, d\'organisation et, en dernier ressort, de rupture du lien contractuel. Le législateur ne s\'est pas contenté d\'encadrer un échange de prestations ; il a construit, article après article, un dispositif de protection minimale auquel le contrat individuel ne peut déroger que dans un sens plus favorable au travailleur.' },
+      { type: 'paragraphe', texte: 'Cette prémisse permet de trancher un débat récurrent dans la doctrine congolaise : le contrat de travail est-il véritablement négocié entre les parties, ou n\'est-il, dans la grande majorité des cas, qu\'un contrat d\'adhésion que le travailleur accepte en bloc, faute de pouvoir en discuter les termes ? Kapuku (2026) observe que l\'égalité juridique proclamée par le droit commun des obligations masque, dans les faits, une inégalité économique structurelle entre l\'employeur qui fixe les conditions d\'engagement et le travailleur qui les accepte par nécessité. C\'est précisément pour corriger ce déséquilibre que le Code du travail impose des règles impératives là où le droit civil se contenterait de règles supplétives.' },
+      { type: 'filet', titre: 'Principe de faveur', texte: 'La loi fixe un plancher de protection, jamais un plafond. Toute clause du contrat, du règlement intérieur ou d\'une convention collective qui abaisserait ce plancher est réputée non écrite.' },
+      { type: 'paragraphe', texte: 'Cette logique protectrice explique pourquoi le droit du travail se lit rarement comme un texte supplétif : la plupart de ses dispositions sont d\'ordre public social, c\'est-à-dire qu\'elles s\'imposent indépendamment de la volonté des parties. Elle n\'est du reste pas une invention récente du législateur de 2002. Luwenyema Lulue relevait déjà, dans son Précis de droit du travail zaïrois publié à Kinshasa en 1989, que le droit du travail zaïrois s\'était construit sur cette même vocation protectrice, héritée pour partie de la législation coloniale du travail et prolongée par les réformes successives de l\'État congolais. Le Code de 2002 poursuit ainsi une tradition doctrinale continue, plutôt qu\'il ne rompt avec elle.' },
+      { type: 'paragraphe', texte: 'Comprendre cette finalité en amont conditionne la lecture de tous les chapitres qui suivent, du contrat de travail à la rémunération, en passant par la rupture et le décompte final. Chaque règle technique étudiée dans ce manuel, aussi précise soit-elle, se justifie in fine par cette recherche d\'équilibre entre la protection du travailleur et les nécessités de gestion de l\'employeur.' },
+    ],
+  },
+  {
+    numero: '1.2',
+    titre: 'Sources et hiérarchie des normes',
+    navLabel: '1.2 Sources et hiérarchie',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le droit du travail congolais se déploie à plusieurs niveaux hiérarchisés, chacun ne pouvant que préciser ou améliorer le niveau supérieur, jamais le contredire en défaveur du travailleur.' },
+      { type: 'tableau', tableau: { entetes: ['Niveau', 'Source', 'Exemple'], lignes: [['Constitutionnel', 'Constitution du 18 février 2006 (droit et devoir au travail)', 'Art. 36'], ['Législatif', 'Loi n°015/2002, mod. loi n°16/010', 'Code du travail, art. 1–334'], ['Réglementaire', 'Décrets et arrêtés d\'exécution', 'Décret n°25/22 du 30/05/2025 (SMIG)'], ['Conventionnel', 'Conventions et accords collectifs', 'Convention d\'entreprise ou de branche'], ['Contractuel', 'Le contrat individuel et le règlement d\'entreprise', 'CDD, CDI']] } },
+      { type: 'paragraphe', texte: 'À ces sources internes s\'ajoutent les conventions de l\'Organisation internationale du travail ratifiées par la RDC, qui s\'intègrent à l\'ordre juridique interne dès leur ratification et priment sur toute loi nationale contraire. La RDC figure parmi la cinquantaine d\'États membres de l\'OIT ayant ratifié l\'ensemble des huit conventions fondamentales de l\'Organisation, dont la convention n°138 sur l\'âge minimum d\'admission à l\'emploi et la convention n°182 sur les pires formes de travail des enfants, toutes deux ratifiées en 2001. Ces deux textes irriguent directement les articles 3 à 6 du Code, étudiés à la section 1.6 du présent chapitre.' },
+      { type: 'paragraphe', texte: 'La hiérarchie ainsi construite reste vivante : elle continue d\'évoluer au gré des ratifications et des réformes réglementaires. La convention n°190 de l\'OIT, relative à la violence et au harcèlement dans le monde du travail, n\'est à ce jour pas ratifiée par la RDC ; des organisations syndicales et de la société civile en plaident la ratification, ce qui illustre qu\'une source de droit peut exister sur le plan international sans encore produire d\'effet en droit interne tant que l\'acte de ratification n\'est pas intervenu.' },
+      { type: 'paragraphe', texte: 'La doctrine, enfin, n\'est pas une source de droit au sens strict : elle ne crée aucune règle contraignante. Elle joue néanmoins un rôle d\'interprétation et de systématisation indispensable à la pratique du droit du travail, en particulier dans un contexte où la jurisprudence publiée reste peu accessible. L\'ouvrage collectif de Loko Mantuono, Droit social, droit du travail et de la sécurité sociale en RDC, publié chez L\'Harmattan en 2022, en offre une synthèse récente qui reprend et actualise cette architecture des sources.' },
+    ],
+  },
+  {
+    numero: '1.3',
+    titre: 'Champ d\'application du Code du travail',
+    navLabel: '1.3 Champ d\'application',
+    blocs: [
+      { type: 'paragraphe', texte: 'Le champ d\'application du Code est défini par son article 1er. Il régit les relations individuelles et collectives de travail entre travailleurs et employeurs sur toute l\'étendue du territoire, mais un nombre limité de catégories en est expressément exclu, parce qu\'elles relèvent de statuts particuliers distincts du régime contractuel de droit privé.' },
+      { type: 'carte', titre: 'Article 1er, Loi n°015/2002', note: '« La présente loi est applicable aux travailleurs et aux employeurs exerçant leur activité professionnelle sur toute l\'étendue de la République Démocratique du Congo. Elle ne s\'applique pas : aux magistrats ; aux juges consulaires et assesseurs des tribunaux du travail ; aux agents de carrière des services publics de l\'État régis par le statut général et les statuts particuliers de la fonction publique ; aux membres des Forces armées et de la Police nationale. »' },
+      { type: 'paragraphe', texte: 'Ces exclusions ne signifient pas une absence de protection : les catégories concernées relèvent d\'un statut légal ou réglementaire propre plutôt que du régime organisé par le Code. Un magistrat ou un fonctionnaire de carrière ne peut donc jamais se prévaloir des règles de préavis, de licenciement ou de décompte final étudiées dans ce manuel. Il relève d\'un contentieux et d\'une procédure disciplinaire distincts.' },
+      { type: 'paragraphe', texte: 'Chacune de ces quatre exclusions répond à une même logique : celle de statuts déjà pourvus d\'un régime disciplinaire et contentieux propre, dont la superposition avec le Code créerait un conflit de compétence. Le magistrat relève du statut de la magistrature et de l\'autorité du Conseil supérieur de la magistrature ; l\'agent de carrière de la fonction publique relève de la loi portant statut des agents de carrière des services publics de l\'État ; le militaire ou le policier relève de la justice militaire. Le juge consulaire et l\'assesseur des tribunaux du travail, quant à eux, ne sont pas des salariés du tribunal auprès duquel ils siègent : ils exercent une fonction juridictionnelle bénévole ou indemnisée, étrangère par nature au salariat.' },
+      { type: 'paragraphe', texte: 'Le champ d\'application ainsi délimité n\'est pas figé. Il fait aujourd\'hui l\'objet d\'un débat qui dépasse le strict commentaire de l\'article 1er : celui de la place des travailleurs domestiques, chauffeurs et femmes de ménage employés par des particuliers. Ces travailleurs ne figurent pas parmi les catégories exclues et relèvent donc, en droit positif, du Code du travail commun. La pratique révèle cependant une protection largement théorique, faute de contrat écrit, d\'affiliation à la CNSS ou de contrôle de l\'inspection du travail dans la sphère domestique. Une proposition de loi déposée le 15 mai 2026 par le député Prince Kangila Kawele entend précisément instituer un régime légal spécifique pour cette catégorie de travailleurs. Il s\'agit à ce stade d\'une initiative législative, non d\'un texte en vigueur : elle doit être présentée comme telle, sans être confondue avec le droit positif applicable aujourd\'hui.' },
+    ],
+  },
+  {
+    numero: '1.4',
+    titre: 'Définitions fondamentales',
+    navLabel: '1.4 Définitions fondamentales',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 7 fixe onze définitions qui conditionnent l\'interprétation de l\'ensemble du Code. Les plus structurantes pour la suite du manuel sont le travailleur, l\'employeur, le contrat de travail et la rémunération, notion reprise telle quelle au chapitre 5 et mobilisée dans le calcul du décompte final au chapitre 10. Les définitions suivantes, moins fréquemment commentées, n\'en conditionnent pas moins la lecture de plusieurs chapitres ultérieurs.' },
+      { type: 'tableau', tableau: { entetes: ['Notion', 'Définition (art. 7)'], lignes: [['Travailleur', 'Personne physique engagée à mettre son activité professionnelle, moyennant rémunération, sous la direction et l\'autorité d\'autrui.'], ['Employeur', 'Personne physique ou morale, publique ou privée, qui utilise les services d\'un ou plusieurs travailleurs en vertu d\'un contrat de travail.'], ['Contrat de travail', 'Convention par laquelle le travailleur s\'engage à fournir une prestation, sous la subordination de l\'employeur, moyennant rémunération.'], ['Entreprise', 'Organisation économique de production ou de distribution de biens ou de services, exploitée par une ou plusieurs personnes.'], ['Établissement', 'Unité technique de production, distincte de l\'entreprise qui peut en compter plusieurs, où s\'exécute la relation de travail.'], ['Recrutement', 'Toute activité visant à rassembler des candidats en vue de leur offrir un emploi salarié.'], ['Jour ouvrable', 'Tout jour où il est possible de travailler, à l\'exclusion du repos hebdomadaire et des jours fériés légaux.'], ['Temps de services', 'Durée pendant laquelle le travailleur a été occupé de manière effective ou assimilée au service d\'un même employeur.'], ['Famille du travailleur', 'Conjoint et enfants à charge, ces derniers ouvrant droit jusqu\'à vingt-cinq ans s\'ils poursuivent des études.']] } },
+      { type: 'paragraphe', texte: 'La définition de la rémunération distingue explicitement ce qui entre dans son assiette de ce qui en est exclu :' },
+      { type: 'tableau', tableau: { entetes: ['Compris', 'Exclu'], lignes: [['Salaire, commissions, indemnité de vie chère, primes, gratifications, avantages en nature.', 'Soins de santé, indemnité de logement, allocations familiales légales, indemnité de transport, frais de voyage.']] } },
+      { type: 'paragraphe', texte: 'Cette distinction, en apparence purement définitionnelle, alimente une part importante des litiges pratiques en matière de paie. Une gratification annuelle qualifiée de libérale par l\'employeur, mais versée avec une régularité telle qu\'elle en devient prévisible, tend en pratique à être requalifiée en élément de rémunération soumis aux cotisations sociales. Kiyana relève, à propos du contrat de travail en RDC, que la rédaction du contrat et des bulletins de paie gagne à anticiper cette distinction plutôt qu\'à la découvrir lors d\'un contentieux.' },
+    ],
+  },
+  {
+    numero: '1.5',
+    titre: 'Le lien de subordination',
+    navLabel: '1.5 Lien de subordination',
+    blocs: [
+      { type: 'paragraphe', texte: 'La définition légale du contrat de travail met en avant un critère central : la subordination. C\'est lui, et non la seule existence d\'une rémunération, qui distingue le contrat de travail d\'un contrat d\'entreprise ou d\'un mandat, distinction dont dépend l\'accès au régime protecteur du Code. Un prestataire indépendant, aussi régulièrement rémunéré soit-il, n\'est pas un travailleur au sens de l\'article 7 s\'il n\'est pas placé sous l\'autorité d\'un employeur.' },
+      { type: 'paragraphe', texte: 'La subordination se caractérise par l\'exécution d\'un travail sous l\'autorité d\'un employeur qui dispose du pouvoir de donner des ordres et des directives, d\'en contrôler l\'exécution et de sanctionner les manquements de son subordonné. La jurisprudence congolaise, comme l\'observe la doctrine, ne s\'arrête pas à une définition abstraite : elle apprécie un faisceau d\'indices concrets, dont aucun n\'est à lui seul décisif.' },
+      { type: 'tableau', tableau: { entetes: ['Indice', 'Manifestation concrète'], lignes: [['Pouvoir de direction', 'L\'employeur fixe les tâches, les méthodes et les objectifs du travailleur.'], ['Pouvoir de surveillance', 'L\'employeur vérifie l\'exécution du travail, par une hiérarchie ou un contrôle direct.'], ['Organisation du travail', 'Le lieu et l\'horaire de travail sont imposés par l\'employeur, non choisis librement.'], ['Exclusivité', 'Le travailleur consacre son activité à un employeur unique, à l\'exclusion d\'une clientèle propre.'], ['Pouvoir de sanction', 'L\'employeur peut sanctionner disciplinairement les manquements constatés.']] } },
+      { type: 'paragraphe', texte: 'Ce raisonnement par faisceau d\'indices explique pourquoi la qualification donnée par les parties elles-mêmes au contrat, qu\'elles l\'aient appelé prestation de service ou convention de sous-traitance, ne lie pas le juge. Si les faits révèlent une subordination réelle, la relation sera requalifiée en contrat de travail, avec toutes les conséquences que cela emporte : affiliation à la CNSS, application du régime de préavis et de licenciement, droit aux congés payés.' },
+      { type: 'filet', titre: 'Distinction pratique', texte: 'Contrat de travail : l\'employeur fixe les moyens et les méthodes, le travailleur exécute sous contrôle. Contrat d\'entreprise : le prestataire s\'engage sur un résultat, en choisissant librement ses moyens. Mandat : le mandataire représente le mandant dans un acte juridique déterminé, sans lien de subordination.' },
+    ],
+  },
+  {
+    numero: '1.6',
+    titre: 'Capacité de contracter et travail des enfants',
+    navLabel: '1.6 Capacité de contracter',
+    blocs: [
+      { type: 'paragraphe', texte: 'L\'article 6 fixe l\'âge minimum de capacité à contracter un contrat de travail à dix-huit ans révolus. Ce principe connaît une dérogation strictement encadrée, et non un simple assouplissement laissé à l\'appréciation des parties.' },
+      { type: 'carte', titre: 'Article 6, Loi n°015/2002, synthèse des conditions', note: 'Le mineur doit avoir au moins quinze ans. L\'engagement requiert une autorisation du Président du Tribunal de paix du ressort, délivrée sur avis conforme d\'un examen psycho-médical et après avis de l\'inspecteur du travail du ressort. Entre seize et dix-huit ans, seuls des travaux légers déterminés par arrêté du ministre ayant le Travail dans ses attributions peuvent être autorisés, à l\'exclusion de tout travail dangereux ou de nuit.' },
+      { type: 'paragraphe', texte: 'Cette architecture doit être lue en cohérence avec les articles 3 à 5 du même titre, consacrés aux pires formes de travail des enfants et à la mise en place d\'un Comité national de lutte contre ce phénomène. Elle prolonge en droit interne deux engagements internationaux ratifiés par la RDC en 2001 : la convention n°138 de l\'OIT sur l\'âge minimum d\'admission à l\'emploi, et la convention n°182 sur l\'interdiction des pires formes de travail des enfants, qui inclut notamment les travaux susceptibles de nuire à la santé, à la sécurité ou à la moralité de l\'enfant.' },
+      { type: 'paragraphe', texte: 'La difficulté, largement documentée par la doctrine et les organisations internationales, tient moins à l\'existence de la règle qu\'à son application effective dans le secteur informel, où l\'essentiel du travail des enfants échappe structurellement au contrôle de l\'inspection du travail. Ce constat ne retire rien à la valeur normative de l\'article 6 : il invite à distinguer, dans l\'analyse d\'un cas, la règle de droit applicable de son effectivité pratique, deux questions qu\'un juriste doit savoir traiter séparément.' },
+    ],
+  },
+]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BANQUE DE QUESTIONS — 20 questions, difficulté progressive (rappel de cours
-// jusqu'à l'articulation de plusieurs notions du chapitre).
-// ─────────────────────────────────────────────────────────────────────────────
-const QCM_CHAPITRE: QCMChapitre[] = [
+const QCM: Chapitre['qcm'] = [
   {
     id: 'q1', question: 'Quelle loi constitue actuellement le Code du travail congolais ?',
     options: [
@@ -276,18 +320,7 @@ const QCM_CHAPITRE: QCMChapitre[] = [
   },
 ]
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CAS PRATIQUES — 5 situations à plusieurs strates, exigeant de croiser
-// plusieurs notions du chapitre plutôt que d'appliquer une règle isolée.
-// ─────────────────────────────────────────────────────────────────────────────
-interface CasPratique {
-  id: string
-  titre: string
-  contexte: string
-  questions: { num: number; enonce: string; correction: string }[]
-}
-
-const CAS_PRATIQUES: CasPratique[] = [
+const CAS: Chapitre['casPratiques'] = [
   {
     id: 'cp1',
     titre: 'Le livreur à vélo',
@@ -346,479 +379,68 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
 ]
 
-function QCMBankItem({ q }: { q: QCMChapitre }) {
-  const [selected, setSelected] = useState<string | null>(null)
-  const [showResult, setShowResult] = useState(false)
-  return (
-    <div className={cn('rounded-sm border p-4 space-y-3', LIGNE_FORTE, PAPIER_CARD)}>
-      <p className={cn('text-sm', ENCRE)}>{q.question}</p>
-      <div className="space-y-1.5">
-        {q.options.map(opt => {
-          let cls = 'w-full text-left text-xs px-3 py-2 rounded-sm border transition-colors '
-          if (!showResult) cls += selected === opt.id ? cn(VERT_BORDER, 'bg-[#1E4A3D]/10', ENCRE) : cn(LIGNE, 'hover:bg-black/[.02]')
-          else if (opt.id === q.reponseCorrecte) cls += 'border-green-600 bg-green-50 text-green-800'
-          else if (opt.id === selected) cls += 'border-red-400 bg-red-50 text-red-600'
-          else cls += cn(LIGNE, 'opacity-50')
-          return <button key={opt.id} className={cls} onClick={() => { if (!showResult) setSelected(opt.id) }} disabled={showResult}><span className="font-mono font-bold mr-1.5">{opt.id.toUpperCase()}.</span>{opt.texte}</button>
-        })}
-      </div>
-      {!showResult && <button onClick={() => { if (selected) setShowResult(true) }} disabled={!selected} className={cn('text-xs text-white rounded-sm px-4 py-1.5 disabled:opacity-40 transition-colors font-mono', VERT_BG)}>Vérifier</button>}
-      {showResult && (
-        <div className={cn('rounded-sm p-3 text-xs', selected === q.reponseCorrecte ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-700')}>
-          <div className="flex items-center gap-1 font-semibold mb-1">{selected === q.reponseCorrecte ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}{selected === q.reponseCorrecte ? 'Correct' : 'Incorrect'}<span className="ml-auto font-mono opacity-60">{q.articleRef}</span></div>
-          <p>{q.explication}</p>
-          <button onClick={() => { setSelected(null); setShowResult(false) }} className="mt-1.5 text-xs underline opacity-70 hover:opacity-100">Réessayer</button>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function CasPratiqueBlock({ cp, index }: { cp: CasPratique; index: number }) {
-  const [open, setOpen] = useState(false)
-  const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
-  return (
-    <div className={cn('rounded-sm border overflow-hidden', LIGNE_FORTE, PAPIER_CARD)}>
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-black/[.02] transition-colors text-left">
-        <div className="flex items-center gap-3">
-          <span className={cn('font-serif font-bold text-lg shrink-0', VERT)}>{String(index + 1).padStart(2, '0')}</span>
-          <p className={cn('text-sm font-semibold', ENCRE)}>{cp.titre}</p>
-        </div>
-        <ChevronRight className={cn('h-4 w-4 shrink-0 transition-transform', VERT, open && 'rotate-90')} />
-      </button>
-      {open && (
-        <div className={cn('px-4 pb-4 space-y-4 border-t pt-4', LIGNE)}>
-          <div className={cn('rounded-sm p-3 border', LIGNE_FORTE, PAPIER)}>
-            <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', AMBRE)}>Contexte</p>
-            <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>{cp.contexte}</p>
-          </div>
-          <div className="space-y-3">
-            {cp.questions.map(q => (
-              <div key={q.num} className="space-y-2">
-                <p className={cn('text-xs font-semibold', ENCRE)}>Question {q.num} : {q.enonce}</p>
-                {corrVisible.has(q.num) ? (
-                  <div className="rounded-sm bg-green-50 border border-green-200 p-3">
-                    <p className="text-xs font-semibold text-green-800 mb-1">Correction</p>
-                    <p className="text-xs text-green-900 leading-relaxed">{q.correction}</p>
-                  </div>
-                ) : (
-                  <button onClick={() => setCorrVisible(s => new Set([...s, q.num]))} className={cn('text-xs hover:underline font-medium', VERT)}>Voir la correction</button>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-type Vue = 'lecture' | 'qcm' | 'cas' | 'devoir'
-
-export default function UE1Chapitre1Page() {
-  const goBack = useGoBack('/ue1-droit-travail')
-  const currentUser = useUser()
-  const isStudent = isStudentRole(currentUser)
-  const [vue, setVue] = useState<Vue>('lecture')
-  const [afficherRemonter, setAfficherRemonter] = useState(false)
-  const sommetRef = useRef<HTMLDivElement>(null)
-
-  // Remonte en haut de la page à chaque changement de vue (lecture ↔ qcm ↔ cas ↔ devoir).
-  // Le conteneur qui défile réellement est le <main> du Layout, pas la fenêtre : on
-  // remonte donc les deux, sans présumer lequel est actif.
-  useEffect(() => {
-    sommetRef.current?.scrollIntoView({ block: 'start' })
-    document.querySelector('main')?.scrollTo({ top: 0 })
-    window.scrollTo({ top: 0 })
-  }, [vue])
-
-  // Affiche un bouton « remonter en haut » dès que l'un des conteneurs défilables
-  // dépasse 400px. Écoute en phase de capture : les événements de scroll ne
-  // remontent pas naturellement depuis un conteneur imbriqué en overflow-auto.
-  useEffect(() => {
-    const verifier = () => {
-      const main = document.querySelector('main')
-      setAfficherRemonter((main?.scrollTop ?? 0) > 400 || window.scrollY > 400)
+export const chapitre: Chapitre = {
+  ue: 'ue1',
+  numero: 1,
+  id: 'ue1-chapitre-1',
+  titre: 'Notions fondamentales et sources du droit du travail',
+  sousTitre: 'Titre I du Code du travail · Loi n°015/2002, art. 1 à 7',
+  infoBulle: 'Champ d\'application, sources et définitions légales du droit du travail congolais.',
+  loiRef: 'Titre I, art. 1 à 7',
+  moduleLabel: 'UE 1 · Droit du travail',
+  retourRoute: '/ue1-droit-travail',
+  coursId: 'ue1-droit-travail',
+  objectifs: [
+    'Situer le droit du travail congolais dans sa hiérarchie des normes et connaître ses sources',
+    'Délimiter le champ d\'application du Code du travail et ses catégories exclues',
+    'Maîtriser les définitions légales de l\'article 7, en particulier travailleur, employeur, contrat de travail et rémunération',
+    'Distinguer le contrat de travail des conventions voisines par le critère du lien de subordination',
+    'Connaître les règles de capacité de contracter et la protection des mineurs',
+  ],
+  sections: SECTIONS,
+  aRetenir: [
+    'Le Code du travail organise un socle impératif de protection ; le contrat ne peut y déroger que favorablement au travailleur.',
+    'Son champ d\'application exclut magistrats, juges consulaires, agents de carrière et membres des FARDC/PNC ; les travailleurs domestiques n\'en sont, à ce jour, pas exclus.',
+    'Le contrat de travail se distingue par le lien de subordination, apprécié à travers un faisceau d\'indices, non par la seule rémunération.',
+    'La rémunération inclut salaire et primes, mais exclut soins de santé, logement, transport et allocations familiales légales.',
+    'La capacité de contracter est fixée à dix-huit ans, avec une dérogation encadrée dès quinze ans et des travaux légers seuls admis entre seize et dix-huit ans.',
+  ],
+  references: [
+    {
+        genre: "ouvrage",
+        auteur: "Luwenyema Lulue",
+        titre: "Précis de droit du travail zaïrois",
+        editeur: "éditions Lule",
+        lieu: "Kinshasa",
+        annee: "1989"
+    },
+    {
+        genre: "ouvrage",
+        auteur: "Loko Mantuono G.",
+        titre: "Droit social, droit du travail et de la sécurité sociale en RDC",
+        editeur: "L'Harmattan",
+        lieu: "Paris",
+        annee: "2022"
+    },
+    {
+        genre: "article",
+        auteur: "Kapuku H.",
+        titre: "Le contrat de travail dans le contexte congolais : un contrat négocié ou un contrat d'adhésion ?",
+        support: "Village Justice",
+        precision: "janvier 2026"
+    },
+    {
+        genre: "texte",
+        intitule: "Kiyana M., « Le contrat de travail en République Démocratique du Congo », note professionnelle en ligne"
+    },
+    {
+        genre: "texte",
+        intitule: "Organisation internationale du Travail, conventions n°138 (1973) et n°182 (1999), ratifiées par la RDC en 2001"
     }
-    window.addEventListener('scroll', verifier, true)
-    verifier()
-    return () => window.removeEventListener('scroll', verifier, true)
-  }, [])
-
-  const remonterEnHaut = () => {
-    document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const casPratiquesExistants: CasPratiqueExistant[] = CAS_PRATIQUES.map(cp => ({
-    id: cp.id,
-    titre: cp.titre,
-    enonce: cp.contexte + '\n' + cp.questions.map(q => `Question ${q.num} : ${q.enonce}`).join('\n'),
-    corrigeType: cp.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n'),
-  }))
-
-  return (
-    <div ref={sommetRef} className="space-y-4 pb-10 animate-fadeIn">
-      {afficherRemonter && (
-        <button
-          onClick={remonterEnHaut}
-          aria-label="Remonter en haut de la page"
-          className={cn('fixed bottom-20 md:bottom-6 right-4 z-40 h-10 w-10 rounded-full text-white shadow-lg flex items-center justify-center transition-transform hover:scale-105', VERT_BG)}
-        >
-          <ArrowUp className="h-4 w-4" />
-        </button>
-      )}
-      <div className="space-y-1">
-        <Breadcrumb
-          items={[
-            { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 1 · Droit du travail', route: '/ue1-droit-travail' },
-            { label: 'Chapitre 1' },
-          ]}
-          color="emerald"
-        />
-        <div className="flex items-center gap-2 flex-wrap">
-          <h1 className={cn('font-display text-lg font-bold leading-tight', ENCRE)}>Notions fondamentales et sources du droit du travail</h1>
-          <InfoTooltip texte="Champ d'application, sources et définitions légales du droit du travail congolais." loi="Titre I, art. 1 à 7" />
-        </div>
-        <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Titre I du Code du travail · Loi n°015/2002, art. 1 à 7</p>
-      </div>
-
-      {vue === 'lecture' && (
-        <div className={cn('rounded-sm border p-4 space-y-1', PAPIER_CARD, LIGNE)}>
-          {[
-            'Situer le droit du travail congolais dans sa hiérarchie des normes et connaître ses sources',
-            "Délimiter le champ d'application du Code du travail et ses catégories exclues",
-            "Maîtriser les définitions légales de l'article 7, en particulier travailleur, employeur, contrat de travail et rémunération",
-            'Distinguer le contrat de travail des conventions voisines par le critère du lien de subordination',
-            'Connaître les règles de capacité de contracter et la protection des mineurs',
-          ].map((o, i) => (
-            <p key={i} className={cn('flex items-start gap-2 text-xs', ENCRE_DOUX)}>
-              <span className={cn('font-mono shrink-0', VERT)}>{i + 1}.</span>
-              <span>{o}</span>
-            </p>
-          ))}
-        </div>
-      )}
-
-      {vue === 'lecture' && (
-        <div className="grid gap-0 lg:grid-cols-[180px_1fr] lg:gap-10">
-          <nav className="hidden lg:block">
-            <div className="sticky top-4 space-y-1 pt-2">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Dans ce chapitre</p>
-              {[
-                ['s1', '1.1 Objet et finalité'],
-                ['s2', '1.2 Sources et hiérarchie'],
-                ['s3', "1.3 Champ d'application"],
-                ['s4', '1.4 Définitions fondamentales'],
-                ['s5', '1.5 Lien de subordination'],
-                ['s6', '1.6 Capacité de contracter'],
-              ].map(([id, label]) => (
-                <a key={id} href={`#${id}`} className={cn('block text-xs leading-snug py-1.5 pl-3 border-l-2', LIGNE, ENCRE_FAIBLE, 'hover:text-[#1E4A3D] hover:border-[#1E4A3D] transition-colors')}>{label}</a>
-              ))}
-            </div>
-          </nav>
-
-          <div className="min-w-0 space-y-14">
-            {/* 1.1 */}
-            <section id="s1" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>1.1</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Objet et finalité du droit du travail</h2>
-              </div>
-              <div className={cn("space-y-4 text-[15px] leading-[1.75]", ENCRE)}>
-                <p className={LETTRINE}>
-                  Le droit du travail est la branche du droit qui régit les rapports individuels et collectifs nés à l'occasion du travail salarié. En République Démocratique du Congo, il repose sur la loi n°015/2002 du 16 octobre 2002 portant Code du travail, modifiée et complétée par la loi n°16/010 du 15 juillet 2016. Le Code compte seize titres et trois cent trente-quatre articles ; il constitue le socle de référence de l'ensemble de ce manuel.
-                </p>
-                <p>Cette branche du droit poursuit une finalité qui la distingue nettement du droit commun des contrats : elle organise une relation structurellement inégale, celle du travailleur, économiquement dépendant de son emploi pour assurer sa subsistance et celle de sa famille, face à l'employeur, qui détient le pouvoir de direction, d'organisation et, en dernier ressort, de rupture du lien contractuel. Le législateur ne s'est pas contenté d'encadrer un échange de prestations ; il a construit, article après article, un dispositif de protection minimale auquel le contrat individuel ne peut déroger que dans un sens plus favorable au travailleur.</p>
-                <p>Cette prémisse permet de trancher un débat récurrent dans la doctrine congolaise : le contrat de travail est-il véritablement négocié entre les parties, ou n'est-il, dans la grande majorité des cas, qu'un contrat d'adhésion que le travailleur accepte en bloc, faute de pouvoir en discuter les termes ? Kapuku (2026) observe que l'égalité juridique proclamée par le droit commun des obligations masque, dans les faits, une inégalité économique structurelle entre l'employeur qui fixe les conditions d'engagement et le travailleur qui les accepte par nécessité. C'est précisément pour corriger ce déséquilibre que le Code du travail impose des règles impératives là où le droit civil se contenterait de règles supplétives.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>Principe de faveur</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>La loi fixe un plancher de protection, jamais un plafond. Toute clause du contrat, du règlement intérieur ou d'une convention collective qui abaisserait ce plancher est réputée non écrite.</p>
-                </div>
-                <p>Cette logique protectrice explique pourquoi le droit du travail se lit rarement comme un texte supplétif : la plupart de ses dispositions sont d'ordre public social, c'est-à-dire qu'elles s'imposent indépendamment de la volonté des parties. Elle n'est du reste pas une invention récente du législateur de 2002. Luwenyema Lulue relevait déjà, dans son Précis de droit du travail zaïrois publié à Kinshasa en 1989, que le droit du travail zaïrois s'était construit sur cette même vocation protectrice, héritée pour partie de la législation coloniale du travail et prolongée par les réformes successives de l'État congolais. Le Code de 2002 poursuit ainsi une tradition doctrinale continue, plutôt qu'il ne rompt avec elle.</p>
-                <p>Comprendre cette finalité en amont conditionne la lecture de tous les chapitres qui suivent, du contrat de travail à la rémunération, en passant par la rupture et le décompte final. Chaque règle technique étudiée dans ce manuel, aussi précise soit-elle, se justifie in fine par cette recherche d'équilibre entre la protection du travailleur et les nécessités de gestion de l'employeur.</p>
-              </div>
-            </section>
-
-            {/* 1.2 */}
-            <section id="s2" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>1.2</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Sources et hiérarchie des normes</h2>
-              </div>
-              <div className={cn("space-y-4 text-[15px] leading-[1.75]", ENCRE)}>
-                <p className={LETTRINE}>Le droit du travail congolais se déploie à plusieurs niveaux hiérarchisés, chacun ne pouvant que préciser ou améliorer le niveau supérieur, jamais le contredire en défaveur du travailleur.</p>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs border-collapse">
-                    <thead>
-                      <tr className={VERT_SOFT}>
-                        <th className={cn('text-left p-2 border font-semibold', LIGNE)}>Niveau</th>
-                        <th className={cn('text-left p-2 border font-semibold', LIGNE)}>Source</th>
-                        <th className={cn('text-left p-2 border font-semibold', LIGNE)}>Exemple</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        ['Constitutionnel', 'Constitution du 18 février 2006 (droit et devoir au travail)', 'Art. 36'],
-                        ['Législatif', 'Loi n°015/2002, mod. loi n°16/010', 'Code du travail, art. 1–334'],
-                        ['Réglementaire', "Décrets et arrêtés d'exécution", 'Décret n°25/22 du 30/05/2025 (SMIG)'],
-                        ['Conventionnel', 'Conventions et accords collectifs', "Convention d'entreprise ou de branche"],
-                        ['Contractuel', "Le contrat individuel et le règlement d'entreprise", 'CDD, CDI'],
-                      ].map(([niveau, source, ex], i) => (
-                        <tr key={i} className="even:bg-black/[.02]">
-                          <td className={cn('p-2 border font-medium', LIGNE)}>{niveau}</td>
-                          <td className={cn('p-2 border', LIGNE)}>{source}</td>
-                          <td className={cn('p-2 border italic', LIGNE, ENCRE_FAIBLE)}>{ex}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p>À ces sources internes s'ajoutent les conventions de l'Organisation internationale du travail ratifiées par la RDC, qui s'intègrent à l'ordre juridique interne dès leur ratification et priment sur toute loi nationale contraire. La RDC figure parmi la cinquantaine d'États membres de l'OIT ayant ratifié l'ensemble des huit conventions fondamentales de l'Organisation, dont la convention n°138 sur l'âge minimum d'admission à l'emploi et la convention n°182 sur les pires formes de travail des enfants, toutes deux ratifiées en 2001. Ces deux textes irriguent directement les articles 3 à 6 du Code, étudiés à la section 1.6 du présent chapitre.</p>
-                <p>La hiérarchie ainsi construite reste vivante : elle continue d'évoluer au gré des ratifications et des réformes réglementaires. La convention n°190 de l'OIT, relative à la violence et au harcèlement dans le monde du travail, n'est à ce jour pas ratifiée par la RDC ; des organisations syndicales et de la société civile en plaident la ratification, ce qui illustre qu'une source de droit peut exister sur le plan international sans encore produire d'effet en droit interne tant que l'acte de ratification n'est pas intervenu.</p>
-                <p>La doctrine, enfin, n'est pas une source de droit au sens strict : elle ne crée aucune règle contraignante. Elle joue néanmoins un rôle d'interprétation et de systématisation indispensable à la pratique du droit du travail, en particulier dans un contexte où la jurisprudence publiée reste peu accessible. L'ouvrage collectif de Loko Mantuono, Droit social, droit du travail et de la sécurité sociale en RDC, publié chez L'Harmattan en 2022, en offre une synthèse récente qui reprend et actualise cette architecture des sources.</p>
-              </div>
-            </section>
-
-            {/* 1.3 */}
-            <section id="s3" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>1.3</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Champ d'application du Code du travail</h2>
-              </div>
-              <div className={cn("space-y-4 text-[15px] leading-[1.75]", ENCRE)}>
-                <p className={LETTRINE}>Le champ d'application du Code est défini par son article 1er. Il régit les relations individuelles et collectives de travail entre travailleurs et employeurs sur toute l'étendue du territoire, mais un nombre limité de catégories en est expressément exclu, parce qu'elles relèvent de statuts particuliers distincts du régime contractuel de droit privé.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Article 1er, Loi n°015/2002</p>
-                  <p className={cn('italic text-sm leading-relaxed', ENCRE_DOUX)}>« La présente loi est applicable aux travailleurs et aux employeurs exerçant leur activité professionnelle sur toute l'étendue de la République Démocratique du Congo. Elle ne s'applique pas : aux magistrats ; aux juges consulaires et assesseurs des tribunaux du travail ; aux agents de carrière des services publics de l'État régis par le statut général et les statuts particuliers de la fonction publique ; aux membres des Forces armées et de la Police nationale. »</p>
-                </div>
-                <p>Ces exclusions ne signifient pas une absence de protection : les catégories concernées relèvent d'un statut légal ou réglementaire propre plutôt que du régime organisé par le Code. Un magistrat ou un fonctionnaire de carrière ne peut donc jamais se prévaloir des règles de préavis, de licenciement ou de décompte final étudiées dans ce manuel. Il relève d'un contentieux et d'une procédure disciplinaire distincts.</p>
-                <p>Chacune de ces quatre exclusions répond à une même logique : celle de statuts déjà pourvus d'un régime disciplinaire et contentieux propre, dont la superposition avec le Code créerait un conflit de compétence. Le magistrat relève du statut de la magistrature et de l'autorité du Conseil supérieur de la magistrature ; l'agent de carrière de la fonction publique relève de la loi portant statut des agents de carrière des services publics de l'État ; le militaire ou le policier relève de la justice militaire. Le juge consulaire et l'assesseur des tribunaux du travail, quant à eux, ne sont pas des salariés du tribunal auprès duquel ils siègent : ils exercent une fonction juridictionnelle bénévole ou indemnisée, étrangère par nature au salariat.</p>
-                <p>Le champ d'application ainsi délimité n'est pas figé. Il fait aujourd'hui l'objet d'un débat qui dépasse le strict commentaire de l'article 1er : celui de la place des travailleurs domestiques, chauffeurs et femmes de ménage employés par des particuliers. Ces travailleurs ne figurent pas parmi les catégories exclues et relèvent donc, en droit positif, du Code du travail commun. La pratique révèle cependant une protection largement théorique, faute de contrat écrit, d'affiliation à la CNSS ou de contrôle de l'inspection du travail dans la sphère domestique. Une proposition de loi déposée le 15 mai 2026 par le député Prince Kangila Kawele entend précisément instituer un régime légal spécifique pour cette catégorie de travailleurs. Il s'agit à ce stade d'une initiative législative, non d'un texte en vigueur : elle doit être présentée comme telle, sans être confondue avec le droit positif applicable aujourd'hui.</p>
-              </div>
-            </section>
-
-            {/* 1.4 */}
-            <section id="s4" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>1.4</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Définitions fondamentales</h2>
-              </div>
-              <div className={cn("space-y-4 text-[15px] leading-[1.75]", ENCRE)}>
-                <p className={LETTRINE}>L'article 7 fixe onze définitions qui conditionnent l'interprétation de l'ensemble du Code. Les plus structurantes pour la suite du manuel sont le travailleur, l'employeur, le contrat de travail et la rémunération, notion reprise telle quelle au chapitre 5 et mobilisée dans le calcul du décompte final au chapitre 10. Les définitions suivantes, moins fréquemment commentées, n'en conditionnent pas moins la lecture de plusieurs chapitres ultérieurs.</p>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs border-collapse">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Notion</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Définition (art. 7)</th></tr></thead>
-                    <tbody>
-                      {[
-                        ['Travailleur', "Personne physique engagée à mettre son activité professionnelle, moyennant rémunération, sous la direction et l'autorité d'autrui."],
-                        ['Employeur', "Personne physique ou morale, publique ou privée, qui utilise les services d'un ou plusieurs travailleurs en vertu d'un contrat de travail."],
-                        ['Contrat de travail', "Convention par laquelle le travailleur s'engage à fournir une prestation, sous la subordination de l'employeur, moyennant rémunération."],
-                        ['Entreprise', "Organisation économique de production ou de distribution de biens ou de services, exploitée par une ou plusieurs personnes."],
-                        ['Établissement', "Unité technique de production, distincte de l'entreprise qui peut en compter plusieurs, où s'exécute la relation de travail."],
-                        ['Recrutement', "Toute activité visant à rassembler des candidats en vue de leur offrir un emploi salarié."],
-                        ['Jour ouvrable', "Tout jour où il est possible de travailler, à l'exclusion du repos hebdomadaire et des jours fériés légaux."],
-                        ['Temps de services', "Durée pendant laquelle le travailleur a été occupé de manière effective ou assimilée au service d'un même employeur."],
-                        ['Famille du travailleur', "Conjoint et enfants à charge, ces derniers ouvrant droit jusqu'à vingt-cinq ans s'ils poursuivent des études."],
-                      ].map(([n, d], i) => (
-                        <tr key={i} className="even:bg-black/[.02]">
-                          <td className={cn('p-2 border font-medium', LIGNE, VERT)}>{n}</td>
-                          <td className={cn('p-2 border', LIGNE, ENCRE_DOUX)}>{d}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p>La définition de la rémunération distingue explicitement ce qui entre dans son assiette de ce qui en est exclu :</p>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <div className={cn('rounded-sm border p-3', LIGNE_FORTE, PAPIER_CARD)}>
-                    <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1.5', VERT)}>Compris</p>
-                    <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>Salaire, commissions, indemnité de vie chère, primes, gratifications, avantages en nature.</p>
-                  </div>
-                  <div className={cn('rounded-sm border p-3', LIGNE_FORTE, PAPIER_CARD)}>
-                    <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1.5', AMBRE)}>Exclu</p>
-                    <p className={cn('text-xs leading-relaxed', ENCRE_DOUX)}>Soins de santé, indemnité de logement, allocations familiales légales, indemnité de transport, frais de voyage.</p>
-                  </div>
-                </div>
-                <p>Cette distinction, en apparence purement définitionnelle, alimente une part importante des litiges pratiques en matière de paie. Une gratification annuelle qualifiée de libérale par l'employeur, mais versée avec une régularité telle qu'elle en devient prévisible, tend en pratique à être requalifiée en élément de rémunération soumis aux cotisations sociales. Kiyana relève, à propos du contrat de travail en RDC, que la rédaction du contrat et des bulletins de paie gagne à anticiper cette distinction plutôt qu'à la découvrir lors d'un contentieux.</p>
-              </div>
-            </section>
-
-            {/* 1.5 */}
-            <section id="s5" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>1.5</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Le lien de subordination</h2>
-              </div>
-              <div className={cn("space-y-4 text-[15px] leading-[1.75]", ENCRE)}>
-                <p className={LETTRINE}>La définition légale du contrat de travail met en avant un critère central : la subordination. C'est lui, et non la seule existence d'une rémunération, qui distingue le contrat de travail d'un contrat d'entreprise ou d'un mandat, distinction dont dépend l'accès au régime protecteur du Code. Un prestataire indépendant, aussi régulièrement rémunéré soit-il, n'est pas un travailleur au sens de l'article 7 s'il n'est pas placé sous l'autorité d'un employeur.</p>
-                <p>La subordination se caractérise par l'exécution d'un travail sous l'autorité d'un employeur qui dispose du pouvoir de donner des ordres et des directives, d'en contrôler l'exécution et de sanctionner les manquements de son subordonné. La jurisprudence congolaise, comme l'observe la doctrine, ne s'arrête pas à une définition abstraite : elle apprécie un faisceau d'indices concrets, dont aucun n'est à lui seul décisif.</p>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs border-collapse">
-                    <thead><tr className={VERT_SOFT}><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Indice</th><th className={cn('text-left p-2 border font-semibold', LIGNE)}>Manifestation concrète</th></tr></thead>
-                    <tbody>
-                      {[
-                        ['Pouvoir de direction', "L'employeur fixe les tâches, les méthodes et les objectifs du travailleur."],
-                        ['Pouvoir de surveillance', "L'employeur vérifie l'exécution du travail, par une hiérarchie ou un contrôle direct."],
-                        ['Organisation du travail', "Le lieu et l'horaire de travail sont imposés par l'employeur, non choisis librement."],
-                        ['Exclusivité', "Le travailleur consacre son activité à un employeur unique, à l'exclusion d'une clientèle propre."],
-                        ['Pouvoir de sanction', "L'employeur peut sanctionner disciplinairement les manquements constatés."],
-                      ].map(([n, d], i) => (
-                        <tr key={i} className="even:bg-black/[.02]">
-                          <td className={cn('p-2 border font-medium', LIGNE)}>{n}</td>
-                          <td className={cn('p-2 border', LIGNE, ENCRE_DOUX)}>{d}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <p>Ce raisonnement par faisceau d'indices explique pourquoi la qualification donnée par les parties elles-mêmes au contrat, qu'elles l'aient appelé prestation de service ou convention de sous-traitance, ne lie pas le juge. Si les faits révèlent une subordination réelle, la relation sera requalifiée en contrat de travail, avec toutes les conséquences que cela emporte : affiliation à la CNSS, application du régime de préavis et de licenciement, droit aux congés payés.</p>
-                <div className={cn('rounded-sm border-l-[3px] pl-4 py-1 my-2', VERT_BORDER)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', VERT)}>Distinction pratique</p>
-                  <p className={cn('text-xs italic', ENCRE_DOUX)}>Contrat de travail : l'employeur fixe les moyens et les méthodes, le travailleur exécute sous contrôle. Contrat d'entreprise : le prestataire s'engage sur un résultat, en choisissant librement ses moyens. Mandat : le mandataire représente le mandant dans un acte juridique déterminé, sans lien de subordination.</p>
-                </div>
-              </div>
-            </section>
-
-            {/* 1.6 */}
-            <section id="s6" className="scroll-mt-16">
-              <div className="flex items-baseline gap-3 mb-4">
-                <span className={cn('font-serif font-bold text-sm', VERT)}>1.6</span>
-                <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Capacité de contracter et travail des enfants</h2>
-              </div>
-              <div className={cn("space-y-4 text-[15px] leading-[1.75]", ENCRE)}>
-                <p className={LETTRINE}>L'article 6 fixe l'âge minimum de capacité à contracter un contrat de travail à dix-huit ans révolus. Ce principe connaît une dérogation strictement encadrée, et non un simple assouplissement laissé à l'appréciation des parties.</p>
-                <div className={cn('rounded-sm p-4 border', LIGNE_FORTE, PAPIER_CARD)}>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', ENCRE_FAIBLE)}>Article 6, Loi n°015/2002, synthèse des conditions</p>
-                  <p className={cn('text-sm leading-relaxed', ENCRE_DOUX)}>Le mineur doit avoir au moins quinze ans. L'engagement requiert une autorisation du Président du Tribunal de paix du ressort, délivrée sur avis conforme d'un examen psycho-médical et après avis de l'inspecteur du travail du ressort. Entre seize et dix-huit ans, seuls des travaux légers déterminés par arrêté du ministre ayant le Travail dans ses attributions peuvent être autorisés, à l'exclusion de tout travail dangereux ou de nuit.</p>
-                </div>
-                <p>Cette architecture doit être lue en cohérence avec les articles 3 à 5 du même titre, consacrés aux pires formes de travail des enfants et à la mise en place d'un Comité national de lutte contre ce phénomène. Elle prolonge en droit interne deux engagements internationaux ratifiés par la RDC en 2001 : la convention n°138 de l'OIT sur l'âge minimum d'admission à l'emploi, et la convention n°182 sur l'interdiction des pires formes de travail des enfants, qui inclut notamment les travaux susceptibles de nuire à la santé, à la sécurité ou à la moralité de l'enfant.</p>
-                <p>La difficulté, largement documentée par la doctrine et les organisations internationales, tient moins à l'existence de la règle qu'à son application effective dans le secteur informel, où l'essentiel du travail des enfants échappe structurellement au contrôle de l'inspection du travail. Ce constat ne retire rien à la valeur normative de l'article 6 : il invite à distinguer, dans l'analyse d'un cas, la règle de droit applicable de son effectivité pratique, deux questions qu'un juriste doit savoir traiter séparément.</p>
-              </div>
-            </section>
-
-            {/* à retenir */}
-            <div className={cn('pt-8 border-t-2', 'border-[#262019]')}>
-              <p className={cn('font-serif font-bold text-base mb-4', ENCRE)}>À retenir</p>
-              <ul className="space-y-0">
-                {[
-                  'Le Code du travail organise un socle impératif de protection ; le contrat ne peut y déroger que favorablement au travailleur.',
-                  "Son champ d'application exclut magistrats, juges consulaires, agents de carrière et membres des FARDC/PNC ; les travailleurs domestiques n'en sont, à ce jour, pas exclus.",
-                  "Le contrat de travail se distingue par le lien de subordination, apprécié à travers un faisceau d'indices, non par la seule rémunération.",
-                  'La rémunération inclut salaire et primes, mais exclut soins de santé, logement, transport et allocations familiales légales.',
-                  'La capacité de contracter est fixée à dix-huit ans, avec une dérogation encadrée dès quinze ans et des travaux légers seuls admis entre seize et dix-huit ans.',
-                ].map((l, i) => (
-                  <li key={i} className={cn('flex items-start gap-3 text-sm py-2.5 border-b', LIGNE, ENCRE_DOUX)}>
-                    <span className={VERT}>▪</span>
-                    <span>{l}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* bibliographie */}
-            <div className="pt-6 border-t border-[#D9CFA9]">
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Références citées</p>
-              <ul className="space-y-0">
-                {[
-                  <>Luwenyema Lulue, <i>Précis de droit du travail zaïrois</i>, éditions Lule, Kinshasa, 1989.</>,
-                  <>Loko Mantuono G., <i>Droit social, droit du travail et de la sécurité sociale en RDC</i>, L'Harmattan, Paris, 2022.</>,
-                  <>Kapuku H., « Le contrat de travail dans le contexte congolais : un contrat négocié ou un contrat d'adhésion ? », <i>Village Justice</i>, janvier 2026.</>,
-                  <>Kiyana M., « Le contrat de travail en République Démocratique du Congo », note professionnelle en ligne.</>,
-                  <>Organisation internationale du Travail, conventions n°138 (1973) et n°182 (1999), ratifiées par la RDC en 2001.</>,
-                ].map((ref, i) => (
-                  <li key={i} className={cn('text-xs py-2 border-b', LIGNE, ENCRE_FAIBLE)}>{ref}</li>
-                ))}
-              </ul>
-            </div>
-
-            {/* s'exercer */}
-            <div className={cn('pt-10 border-t-2', 'border-[#262019]')}>
-              <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-2', AMBRE)}>Le chapitre est terminé : passez à l'épreuve</p>
-              <h2 className={cn('font-serif font-bold text-2xl mb-3', ENCRE)}>S'exercer</h2>
-              <p className={cn('text-sm leading-relaxed mb-6 max-w-xl', ENCRE_DOUX)}>La lecture seule ne suffit pas à maîtriser une notion de droit. Les deux parcours ci-dessous couvrent l'ensemble du chapitre, pas seulement les points soulevés en cours de lecture.</p>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <button onClick={() => setVue('qcm')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>20</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Questionnaire</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>QCM du chapitre</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Vingt questions couvrant les six sections, du rappel de cours à l'articulation de plusieurs notions.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Commencer le questionnaire →</span>
-                </button>
-                <button onClick={() => setVue('cas')} className={cn('text-left rounded-sm border p-5 hover:border-[#1E4A3D] transition-colors', LIGNE_FORTE, PAPIER_CARD)}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className={cn('font-serif font-bold text-2xl', VERT)}>05</span>
-                    <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>Mise en situation</span>
-                  </div>
-                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>Cas pratiques</p>
-                  <p className={cn('text-xs leading-relaxed mb-4', ENCRE_DOUX)}>Cinq situations à plusieurs strates, exigeant de croiser plusieurs notions du chapitre.</p>
-                  <span className={cn('text-xs font-mono font-semibold', VERT)}>Ouvrir les cas pratiques →</span>
-                </button>
-              </div>
-            </div>
-
-            {!isStudent && (
-              <div className={cn('rounded-sm border border-dashed p-5 flex items-center justify-between gap-4 flex-wrap', LIGNE_FORTE, PAPIER_CARD)}>
-                <div>
-                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', ENCRE_FAIBLE)}>Espace professeur</p>
-                  <p className={cn('text-xs', ENCRE_DOUX)}>20 questions QCM et 5 cas pratiques disponibles pour ce chapitre.</p>
-                </div>
-                <button onClick={() => setVue('devoir')} className={cn('text-xs font-mono px-4 py-2.5 rounded-sm text-white', VERT_BG)}>Créer un devoir à partir de ce chapitre →</button>
-              </div>
-            )}
-
-            <button onClick={goBack} className={cn('w-full flex items-center justify-center gap-2 py-3 rounded-sm text-white text-sm font-semibold transition-colors', VERT_BG)}>
-              <GraduationCap className="h-4 w-4" /> Terminer le chapitre 1
-            </button>
-
-            <p className="text-xs text-center text-muted-foreground/60 pb-2">
-              Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 1 à 7 · Loi n°16/010 du 15 juillet 2016
-            </p>
-          </div>
-        </div>
-      )}
-
-      {vue === 'qcm' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>QCM du chapitre : 20 questions</h2>
-          <div className="grid gap-3">
-            {QCM_CHAPITRE.map(q => <QCMBankItem key={q.id} q={q} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'cas' && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <h2 className={cn('font-serif font-bold text-xl', ENCRE)}>Cas pratiques : 5 mises en situation</h2>
-          <div className="space-y-3">
-            {CAS_PRATIQUES.map((cp, i) => <CasPratiqueBlock key={cp.id} cp={cp} index={i} />)}
-          </div>
-        </div>
-      )}
-
-      {vue === 'devoir' && !isStudent && (
-        <div className="space-y-4">
-          <button onClick={() => setVue('lecture')} className={cn('flex items-center gap-1.5 text-xs font-mono', VERT)}>
-            <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
-          </button>
-          <DevoirChapitreCreateur
-            chapitreId="ue1-chapitre-1"
-            chapitreNom="Chapitre 1 : Notions fondamentales et sources du droit du travail"
-            questions={QCM_CHAPITRE}
-            coursId="ue1-droit-travail"
-            casPratiquesExistants={casPratiquesExistants}
-          />
-        </div>
-      )}
-    </div>
-  )
+],
+  qcm: QCM,
+  casPratiques: CAS,
+  sources: 'Sources : Loi n°015/2002 du 16 octobre 2002 portant Code du travail, art. 1 à 7 · Loi n°16/010 du 15 juillet 2016',
 }
+
+export default chapitre
