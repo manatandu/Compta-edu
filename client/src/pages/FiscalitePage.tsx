@@ -1172,7 +1172,9 @@ function Cat2BIC() {
       // Impôt minimum 1% du CA (Art. 122) : applicable régime réel seulement, hors micro
       const minimum122 = tp * 0.01
       const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
-      const impot = minimumApplique ? minimum122 : impotApresPC
+      // Art. 150 : arrondi à la centaine de FC la plus proche — vaut pour l'IRPP comme pour l'IS
+      // et « tous autres prélèvements de la présente Loi » (voir Cat1Salaires pour la référence).
+      const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
       // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1),
       // saisi séparément — jamais sur l'impôt de l'exercice courant qui vient d'être liquidé.
       const impotN1 = parseFloat(impotNmoins1) || 0
@@ -1927,7 +1929,9 @@ function Cat5Mobiliers() {
       const brut = parseFloat(l.montant) || 0
       const coeff = l.baseReduite ?? 1
       const base = brut * coeff
-      return { label: l.label, brut, base, coeff, retenue: base * 0.20 }
+      // Art. 150 : arrondi à la centaine de FC la plus proche, appliqué à chaque retenue — chaque
+      // ligne correspond à un versement distinct opéré par un débiteur distinct (Art. 18 bis).
+      return { label: l.label, brut, base, coeff, retenue: arrondiIS(base * 0.20) }
     })
     const totalBrut = details.reduce((s, d) => s + d.brut, 0)
     const totalBase = details.reduce((s, d) => s + d.base, 0)
@@ -2985,7 +2989,8 @@ function Cat3BNC() {
     // Impôt minimum 1% des recettes (Art. 122)
     const minimum122 = totalRecettes * 0.01
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
-    const impot = minimumApplique ? minimum122 : impotApresPC
+    // Art. 150 : arrondi à la centaine de FC la plus proche (voir Cat1Salaires pour la référence).
+    const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
     // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1)
     const impotN1 = parseFloat(impotNmoins1) || 0
     const acompte1 = impotN1 * 0.30
@@ -3419,7 +3424,8 @@ function Cat4Agricole() {
     // Impôt minimum 1% des produits (Art. 122)
     const minimum122 = totalProduits * 0.01
     const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
-    const impot = minimumApplique ? minimum122 : impotApresPC
+    // Art. 150 : arrondi à la centaine de FC la plus proche (voir Cat1Salaires pour la référence).
+    const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
     // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1)
     const impotN1 = parseFloat(impotNmoins1) || 0
     const acompte1 = impotN1 * 0.30
@@ -3927,7 +3933,8 @@ function Cat6PlusValues() {
 
     const plusValueNette = prixCessionNet - prixAcqAjuste
     const imposable = Math.max(0, plusValueNette)
-    const retenue = imposable * 0.20
+    // Art. 150 : arrondi à la centaine de FC la plus proche (voir Cat1Salaires pour la référence).
+    const retenue = arrondiIS(imposable * 0.20)
 
     setRes({
       exonere: false,
