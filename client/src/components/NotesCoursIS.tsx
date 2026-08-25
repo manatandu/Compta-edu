@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Building2, Calculator, ListChecks, AlertTriangle } from 'lucide-react'
-import { Section, Depliant, Exemple, ARetenir, Ref } from './coursHelpers'
+import { Section, Depliant, Exemple, ARetenir, Ref, PageDeCours } from './coursHelpers'
 
 const SOUS = [
   { id: 'assiette', label: 'Assiette & taux' },
@@ -13,7 +13,7 @@ export default function NotesCoursIS() {
   const [actif, setActif] = useState<typeof SOUS[number]['id']>('assiette')
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-1.5">
         {SOUS.map(s => (
           <button
@@ -28,6 +28,12 @@ export default function NotesCoursIS() {
         ))}
       </div>
 
+      <PageDeCours aRetenir={[
+        "L'IS frappe le résultat des personnes morales, au taux de 30% (Loi n°23/052 du 30 novembre 2023, entrée en vigueur le 1er janvier 2026).",
+        "Le résultat fiscal se calcule à partir du résultat comptable, retraité par réintégrations et déductions — jamais l'inverse.",
+        "Trois acomptes provisionnels dans l'année : 25 juillet (30%), 25 septembre (30%), 25 novembre (20%) de l'impôt de l'exercice précédent (échéances LF 2026).",
+        "L'IS et l'IRPP sont mutuellement exclusifs : la forme juridique de l'activité détermine lequel des deux s'applique.",
+      ]}>
       {actif === 'assiette' && (
         <Section titre="Champ d'application et assiette" icon={Building2}>
           <p className="text-xs text-foreground/80 leading-relaxed">
@@ -106,6 +112,7 @@ export default function NotesCoursIS() {
           </p>
         </Section>
       )}
+      </PageDeCours>
     </div>
   )
 }

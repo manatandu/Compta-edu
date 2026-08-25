@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Pickaxe, Coins, Users, ShieldAlert } from 'lucide-react'
-import { Section, Depliant, ARetenir, Ref } from './coursHelpers'
+import { Section, Depliant, ARetenir, Ref, PageDeCours } from './coursHelpers'
 
 const SOUS = [
   { id: 'redevance', label: 'Redevance minière' },
@@ -12,7 +12,7 @@ export default function NotesCoursMines() {
   const [actif, setActif] = useState<typeof SOUS[number]['id']>('redevance')
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-1.5">
         {SOUS.map(s => (
           <button
@@ -27,6 +27,12 @@ export default function NotesCoursMines() {
         ))}
       </div>
 
+      <PageDeCours aRetenir={[
+        "La redevance minière est assise sur la valeur des ventes, pas sur le résultat — elle est due même sans bénéfice.",
+        'Le cobalt, le germanium et le coltan sont des substances stratégiques, taxées à 10% (Décret n°18/042/2018).',
+        'La redevance est répartie entre pouvoir central, provinces, ETD, FONAREV et FOMIN, selon une clé révisable par décret.',
+        'La dotation communautaire (0,3% du CA minimum) est cumulative avec la fiscalité minière, pas alternative.',
+      ]}>
       {actif === 'redevance' && (
         <Section titre="La redevance minière" icon={Coins}>
           <p className="text-xs text-foreground/80 leading-relaxed">
@@ -69,6 +75,7 @@ export default function NotesCoursMines() {
           </div>
         </Section>
       )}
+      </PageDeCours>
     </div>
   )
 }

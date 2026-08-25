@@ -18,6 +18,7 @@ import SimulateurAutresImpots from '@/components/SimulateurAutresImpots'
 import SimulateurDouane from '@/components/SimulateurDouane'
 import SimulateurFiscaliteMiniere from '@/components/SimulateurFiscaliteMiniere'
 import ChapitreIntroductionFiscalite from '@/components/ChapitreIntroductionFiscalite'
+import NotesCoursIRPP from '@/components/NotesCoursIRPP'
 import NotesCoursIS from '@/components/NotesCoursIS'
 import NotesCoursTVA from '@/components/NotesCoursTVA'
 import NotesCoursAutresImpots from '@/components/NotesCoursAutresImpots'
@@ -26,8 +27,9 @@ import NotesCoursDouane from '@/components/NotesCoursDouane'
 import NotesCoursMines from '@/components/NotesCoursMines'
 import { BandeauModeChapitre } from '@/components/coursHelpers'
 
-// Notes de cours associées à chaque chapitre 2 à 8 (hors IRPP, qui a sa propre navigation par catégorie)
+// Notes de cours associées à chaque chapitre 2 à 8
 const NOTES_COURS: Partial<Record<string, React.ComponentType>> = {
+  irpp: NotesCoursIRPP,
   is: NotesCoursIS,
   tva: NotesCoursTVA,
   irl: NotesCoursAutresImpots,
@@ -5820,8 +5822,21 @@ export default function FiscalitePage() {
           </div>
         )}
 
-        {/* ── Niveau 2 : sous-onglets IRPP (6 catégories) ── */}
-        {impotActif === 'irpp' && (
+        {/* Bascule Notes de cours / Simulateur — pour tous les chapitres 2 à 8, y compris l'IRPP */}
+        {impotActif !== 'intro' && NOTES_COURS[impotActif] && (
+          <BandeauModeChapitre
+            mode={modeChapitre}
+            onChangeMode={setModeChapitre}
+            chapitreLabel={impotActif === 'irpp' ? 'IRPP' : ONGLETS_PRINCIPAUX.find(o => o.id === impotActif)!.label}
+            colorActive={COLOR_MAP[impotActif === 'irpp' ? 'blue' : ONGLETS_PRINCIPAUX.find(o => o.id === impotActif)!.color].split(' ').find(c => c.startsWith('bg-'))!}
+          />
+        )}
+
+        {/* ── Chapitre IRPP, mode Notes de cours ── */}
+        {impotActif === 'irpp' && modeChapitre === 'cours' && <NotesCoursIRPP />}
+
+        {/* ── Niveau 2 : sous-onglets IRPP (6 catégories) — mode Simulateur uniquement ── */}
+        {impotActif === 'irpp' && modeChapitre === 'simulateur' && (
           <div className="mb-4">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-0.5">
               Dossier IRPP : Choisir une catégorie
@@ -5852,17 +5867,8 @@ export default function FiscalitePage() {
           </div>
         )}
 
-        {/* Bascule Notes de cours / Simulateur, pour les chapitres qui ont des notes de cours dédiées */}
-        {impotActif !== 'intro' && impotActif !== 'irpp' && NOTES_COURS[impotActif] && (
-          <BandeauModeChapitre
-            mode={modeChapitre}
-            onChangeMode={setModeChapitre}
-            colorActive={COLOR_MAP[ONGLETS_PRINCIPAUX.find(o => o.id === impotActif)!.color].split(' ').find(c => c.startsWith('bg-'))!}
-          />
-        )}
-
-        {/* Description onglet actif (chapitres 2 à 8 uniquement — le chapitre 1 a son propre rendu ci-dessus) */}
-        {ongletDesc && (
+        {/* Description onglet actif (chapitres 2 à 8, en mode Simulateur pour l'IRPP — le chapitre 1 a son propre rendu ci-dessus) */}
+        {ongletDesc && (impotActif !== 'irpp' || modeChapitre === 'simulateur') && (
         <Card className="mb-4 overflow-hidden">
           <CardHeader className="pb-2 pt-4">
             <div className="flex items-center gap-2.5">

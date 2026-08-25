@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Ship, Calculator, Package, Gavel } from 'lucide-react'
-import { Section, Depliant, Exemple, ARetenir, Ref } from './coursHelpers'
+import { Section, Depliant, Exemple, ARetenir, Ref, PageDeCours } from './coursHelpers'
 
 const SOUS = [
   { id: 'valeur', label: 'Valeur en douane' },
@@ -13,7 +13,7 @@ export default function NotesCoursDouane() {
   const [actif, setActif] = useState<typeof SOUS[number]['id']>('valeur')
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-1.5">
         {SOUS.map(s => (
           <button
@@ -28,6 +28,12 @@ export default function NotesCoursDouane() {
         ))}
       </div>
 
+      <PageDeCours aRetenir={[
+        'La valeur en douane suit une hiérarchie stricte de 6 méthodes — la valeur transactionnelle est la méthode de référence, à utiliser en priorité.',
+        "L'entrepôt de douane (stockage), l'admission temporaire (usage provisoire) et la réimportation en l'état sont trois régimes suspensifs distincts, souvent confondus.",
+        'Le perfectionnement actif (transformation en RDC puis export) et passif (export puis transformation à l\'étranger) sont symétriques mais inversés.',
+        'Le contentieux douanier suit trois paliers : Directeur Général des douanes, puis Commission de règlement des litiges ou Ministre, puis Conseil d\'État.',
+      ]}>
       {actif === 'valeur' && (
         <Section titre="Déterminer la valeur en douane" icon={Calculator}>
           <p className="text-xs text-foreground/80 leading-relaxed">
@@ -97,6 +103,7 @@ export default function NotesCoursDouane() {
           </div>
         </Section>
       )}
+      </PageDeCours>
     </div>
   )
 }

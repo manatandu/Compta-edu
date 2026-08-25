@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FileText, Search, Gavel, Scale } from 'lucide-react'
-import { Section, Depliant, ARetenir, Ref } from './coursHelpers'
+import { Section, Depliant, ARetenir, Ref, PageDeCours } from './coursHelpers'
 
 const SOUS = [
   { id: 'declarations', label: 'Déclarations' },
@@ -13,7 +13,7 @@ export default function NotesCoursProcedures() {
   const [actif, setActif] = useState<typeof SOUS[number]['id']>('declarations')
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-1.5">
         {SOUS.map(s => (
           <button
@@ -28,6 +28,12 @@ export default function NotesCoursProcedures() {
         ))}
       </div>
 
+      <PageDeCours aRetenir={[
+        'Le Numéro Impôt est le préalable obligatoire à toute déclaration ou opération fiscale formelle.',
+        "Le contrôle fiscal est gradué : communication, contrôle sur pièces, vérification de comptabilité, puis droit d'enquête et de visite/saisie.",
+        "L'Avis de Mise en Recouvrement (AMR) est le titre exécutoire qui ouvre la voie au recouvrement forcé.",
+        'Les pénalités (majorations, amendes fixes, astreintes) obéissent chacune à leur propre régime — elles ne se cumulent pas de façon uniforme.',
+      ]}>
       {actif === 'declarations' && (
         <Section titre="Obligations déclaratives et Numéro Impôt" icon={FileText}>
           <p className="text-xs text-foreground/80 leading-relaxed">
@@ -85,6 +91,7 @@ export default function NotesCoursProcedures() {
           </p>
         </Section>
       )}
+      </PageDeCours>
     </div>
   )
 }
