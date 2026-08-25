@@ -5701,6 +5701,72 @@ export default function FiscalitePage() {
           </div>
         )}
 
+        {/* ── Encadré intro IS ── */}
+        {impotActif === 'is' && (
+          <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-2">
+            <p className="text-sm font-bold text-emerald-800">IS : Impôt sur les Sociétés</p>
+            <p className="text-xs text-emerald-700 leading-relaxed">
+              L'IS frappe le résultat des personnes morales (sociétés, établissements). Il se calcule en partant du résultat comptable de l'exercice, retraité par une série de réintégrations (charges non déductibles) et de déductions (produits non imposables ou déjà imposés) pour obtenir le résultat fiscal, auquel s'applique le taux de 30%.
+              Base légale : Loi n°23/052 du 30 novembre 2023, entrée en vigueur le 1er janvier 2026, qui remplace l'ancien impôt professionnel de l'O.-L. n°69/009 (Titre IV, désormais abrogé).
+            </p>
+          </div>
+        )}
+
+        {/* ── Encadré intro TVA ── */}
+        {impotActif === 'tva' && (
+          <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 p-4 space-y-2">
+            <p className="text-sm font-bold text-rose-800">TVA : Taxe sur la Valeur Ajoutée</p>
+            <p className="text-xs text-rose-700 leading-relaxed">
+              Impôt sur la dépense, la TVA est collectée à chaque stade du circuit économique et supportée in fine par le consommateur final. L'assujetti reverse au Trésor la différence entre la TVA collectée sur ses ventes et la TVA déductible sur ses achats.
+              Taux normal de 16%, taux réduits de 1% et 5% selon les biens et services concernés (Loi de Finances 2026) — ces taux réduits ont été révisés à la baisse par rapport au taux de 8% appliqué antérieurement.
+            </p>
+          </div>
+        )}
+
+        {/* ── Encadré intro Autres impôts réels et provinciaux ── */}
+        {impotActif === 'irl' && (
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-2">
+            <p className="text-sm font-bold text-amber-800">Autres impôts réels et provinciaux</p>
+            <p className="text-xs text-amber-700 leading-relaxed">
+              À côté de l'IS et de l'IRPP (impôts d'État), le système fiscal congolais comprend des impôts réels de compétence provinciale, rétrocédés en grande partie aux Entités Territoriales Décentralisées (ETD) : impôt sur les revenus locatifs (IRL), impôt foncier (IF), impôt sur les véhicules (IV), taxe spéciale de circulation routière (TSCR) et taxe sur la superficie des concessions minières (TSMC).
+              Ces impôts ne relèvent pas de la réforme IS/IRPP de la loi 23/053 : leurs taux sont fixés par des textes distincts, parfois provinciaux (voir l'onglet IRL/IF pour le barème vérifié propre à la Ville-Province de Kinshasa).
+            </p>
+          </div>
+        )}
+
+        {/* ── Encadré intro Procédures fiscales ── */}
+        {impotActif === 'procedures' && (
+          <div className="mb-4 rounded-xl border border-purple-200 bg-purple-50 p-4 space-y-2">
+            <p className="text-sm font-bold text-purple-800">Procédures fiscales</p>
+            <p className="text-xs text-purple-700 leading-relaxed">
+              Quel que soit l'impôt concerné, son établissement et son recouvrement obéissent à un cadre procédural commun : obligations déclaratives, droit de contrôle et de vérification de l'Administration, avis de mise en recouvrement (AMR), pénalités (majorations, amendes, astreintes) et voies de réclamation et de recours.
+              Base légale : Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales, modifiée notamment par les lois 23/052 et 23/053 (échéances des acomptes provisionnels) et la Loi de Finances 2026.
+            </p>
+          </div>
+        )}
+
+        {/* ── Encadré intro Douane ── */}
+        {impotActif === 'douane' && (
+          <div className="mb-4 rounded-xl border border-cyan-200 bg-cyan-50 p-4 space-y-2">
+            <p className="text-sm font-bold text-cyan-800">Douane</p>
+            <p className="text-xs text-cyan-700 leading-relaxed">
+              La fiscalité douanière frappe les marchandises à l'importation et à l'exportation : droits de douane liquidés sur la valeur en douane, régimes suspensifs (entrepôt, transit, admission temporaire, perfectionnement actif/passif) et régime du contentieux douanier (saisies, amendes, recours).
+              Base légale : Ordonnance-loi n°10/002 du 20 août 2010 portant Code des douanes. La TVA et les droits d'accise à l'importation s'articulent avec cette liquidation douanière, la valeur en douane servant souvent d'assiette de départ.
+            </p>
+          </div>
+        )}
+
+        {/* ── Encadré intro Fiscalité minière ── */}
+        {impotActif === 'mines' && (
+          <div className="mb-4 rounded-xl border border-stone-200 bg-stone-50 p-4 space-y-2">
+            <p className="text-sm font-bold text-stone-800">Fiscalité minière</p>
+            <p className="text-xs text-stone-700 leading-relaxed">
+              Le secteur minier obéit à un régime fiscal, douanier et de redevance minière spécifique, dérogatoire au droit commun : redevance minière assise sur la valeur des ventes (taux variable selon la substance, majoré pour les substances stratégiques), IS au taux de 30%, impôt spécial sur le profit excédentaire, et taux préférentiels selon la phase (recherche, développement, exploitation).
+              Base légale : Code minier (Loi n°007/2002 modifiée par la Loi n°18/001 du 9 mars 2018), Titre IX.
+            </p>
+          </div>
+        )}
+
         {/* ── Niveau 2 : sous-onglets IRPP (6 catégories) ── */}
         {impotActif === 'irpp' && (
           <div className="mb-4">
