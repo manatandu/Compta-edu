@@ -371,7 +371,7 @@ function TitreI() {
 function TitreII() {
   return (
     <div>
-      <SectionHeader icon={Shield} label="Titre II : Contrôle fiscal (Art. 25-56)" color="bg-violet-50 text-violet-800" />
+      <SectionHeader icon={Shield} label="Titre II : Contrôle fiscal (Art. 25-56 quarto)" color="bg-violet-50 text-violet-800" />
 
       <div className="mb-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
@@ -383,19 +383,30 @@ function TitreII() {
           <Ref>Art. 25, Loi n° 004/2003</Ref>
         </ArticleBox>
 
-        <ArticleBox num="26" titre="Demande d'explications">
-          <p>L'Administration des Impôts peut inviter tout redevable à fournir verbalement ou par écrit des explications, éclaircissements ou justifications et à communiquer, sans déplacement, ses écritures et documents comptables. Ces demandes peuvent porter sur <strong>toutes les opérations auxquelles le redevable a été partie</strong>, et les informations recueillies peuvent être invoquées en vue de l'imposition de tiers.</p>
-          <Ref>Art. 26, Loi n° 004/2003</Ref>
+        <ArticleBox num="26" titre="Contrôle sur pièces">
+          <p>L'Administration des Impôts procède au contrôle des déclarations souscrites, <strong>à partir du bureau, sans envoi d'avis préalable</strong>, dans le cadre de contrôles sur pièces. Ces contrôles se limitent à l'examen des déclarations, des actes utilisés pour l'établissement des impôts et des documents déposés en vue d'une déduction ou d'un remboursement. Dans ce cadre, l'Administration peut inviter tout redevable à fournir verbalement ou par écrit des explications, éclaircissements ou justifications et à communiquer, sans déplacement, ses écritures et documents comptables. Ces demandes peuvent porter sur <strong>toutes les opérations auxquelles le redevable a été partie</strong>, et les informations recueillies peuvent être invoquées en vue de l'imposition de tiers.</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Le contrôle sur pièces est un <strong>contrôle de cohérence</strong> des déclarations, et non un contrôle général de comptabilité (qui relève de la vérification sur place, Art. 28).</p>
+          <Ref>Art. 26, Loi n° 004/2003 mod. L.F. n° 22/071 du 28/12/2022</Ref>
         </ArticleBox>
 
-        <ArticleBox num="28" titre="Ordre de vérification et modalités">
-          <p>Les agents de l'Administration des Impôts, <strong>munis d'un ordre de vérification signé par le fonctionnaire compétent</strong>, peuvent vérifier sur place l'exactitude des déclarations. La vérification s'exerce :</p>
+        <ArticleBox num="27" titre="Établissement d'office des impôts">
+          <p>L'Administration des Impôts établit d'office les impôts et autres droits dus par les redevables dans les cas prévus à l'Art. 41 (taxation d'office).</p>
+          <Ref>Art. 27, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="28" titre="Ordre de vérification et modalités : générale ou ponctuelle">
+          <p>Les agents de l'Administration des Impôts, <strong>munis d'un ordre de vérification signé par le fonctionnaire compétent</strong>, peuvent vérifier sur place l'exactitude des déclarations. La vérification peut être :</p>
           <ul className="list-disc pl-4 space-y-1 mt-1">
-            <li>Au siège de l'entreprise ou au lieu de son principal établissement</li>
-            <li>Pendant les heures de service</li>
-            <li>Pour des raisons objectives, dans les locaux de l'Administration des Impôts, sur demande expresse du redevable</li>
+            <li><strong>Générale</strong> : porte sur tous les impôts et taxes, sur toute la période non prescrite</li>
+            <li><strong>Ponctuelle</strong> : contrôle d'un seul impôt sur une période inférieure à un exercice fiscal</li>
           </ul>
-          <Ref>Art. 28, Loi n° 004/2003</Ref>
+          <p className="mt-1">Elle s'exerce au siège de l'entreprise ou au lieu de son principal établissement, pendant les heures de service. Si, pour des raisons objectives, le contrôle ne peut s'y dérouler, le redevable doit expressément demander qu'il ait lieu dans les bureaux de son comptable ou dans les locaux de l'Administration des Impôts.</p>
+          <Ref>Art. 28, Loi n° 004/2003 mod. O.-L. n° 13/005 du 23/02/2013</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="29" titre="Opérations de vérification">
+          <p>Les opérations de vérification consistent à <strong>confronter la comptabilité présentée à certaines données de fait ou matérielles</strong>, afin de contrôler la sincérité des déclarations souscrites et de procéder, le cas échéant, à l'établissement des impôts ou autres droits éludés. Le contrôle peut également consister en l'examen de la cohérence entre les éléments déclarés et la situation patrimoniale, la situation de trésorerie et/ou d'autres indices d'où résulte une aisance supérieure à ces éléments.</p>
+          <Ref>Art. 29, Loi n° 004/2003</Ref>
         </ArticleBox>
 
         <ArticleBox num="30" titre="Avis de vérification : délai 8 jours">
@@ -409,6 +420,28 @@ function TitreII() {
           <Ref>Art. 30, Loi n° 004/2003</Ref>
         </ArticleBox>
 
+        <ArticleBox num="30 bis" titre="Durée maximale de la vérification sur place : sous peine de nullité" modifie="créé L.F. 22/071">
+          <p>Sous peine de <strong>nullité des impositions</strong>, la vérification sur place ne peut s'étendre sur une durée supérieure à :</p>
+          <div className="overflow-x-auto rounded border border-border/40 mt-1">
+            <table className="w-full text-xs">
+              <thead className="bg-muted/40">
+                <tr>
+                  <th className="px-2 py-1.5 text-left">Taille de l'entreprise</th>
+                  <th className="px-2 py-1.5 text-left">Durée maximale</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border/30">
+                <tr><td className="px-2 py-1.5">Petite entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700">3 mois</td></tr>
+                <tr><td className="px-2 py-1.5">Moyenne entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700">6 mois</td></tr>
+                <tr><td className="px-2 py-1.5">Grande entreprise</td><td className="px-2 py-1.5 font-bold text-amber-700">9 mois</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-1.5">Pour le <strong>contrôle ponctuel</strong>, la durée des interventions sur place ne peut excéder <strong>un mois</strong>.</p>
+          <p className="mt-1">Ces délais sont prorogés du temps nécessaire à l'Administration pour obtenir les éléments requis (y compris les relevés bancaires) non intégralement produits par le contribuable, et du temps pris par les autorités étrangères pour répondre à une demande de renseignements. L'expiration de ces délais n'est pas opposable à l'Administration pour l'examen de requêtes postérieures à l'achèvement des opérations, ni en cas de manœuvres frauduleuses et de poursuites pénales.</p>
+          <Ref>Art. 30 bis, Loi n° 004/2003 (créé par L.F. n° 22/071 du 28/12/2022)</Ref>
+        </ArticleBox>
+
         <ArticleBox num="31" titre="Vérification inopinée">
           <p>Lorsque les intérêts du Trésor risquent d'être compromis, l'Administration des Impôts peut procéder <strong>sans délai à une vérification inopinée</strong>. Dans ce cas :</p>
           <ul className="list-disc pl-4 space-y-1 mt-1">
@@ -419,10 +452,21 @@ function TitreII() {
           <Ref>Art. 31, Loi n° 004/2003</Ref>
         </ArticleBox>
 
+        <ArticleBox num="32-33" titre="Étendue de l'ordre de vérification et appel à conseils techniques">
+          <p><strong>Art. 32</strong> : Lorsque l'ordre de vérification ne précise pas les impôts ou droits ni les années ou périodes soumises, l'agent peut vérifier l'ensemble des impôts et droits dont le contribuable est redevable au titre des exercices non encore vérifiés (sans préjudice de l'Art. 43).</p>
+          <p className="mt-1"><strong>Art. 33</strong> : Lorsqu'une vérification de comptabilité ou une procédure de redressement requiert des connaissances techniques particulières, l'Administration peut faire appel aux conseils techniques d'agents de l'État ou d'établissements publics.</p>
+          <Ref>Art. 32-33, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
         <ArticleBox num="28 bis" titre="Vérification de la situation fiscale personnelle d'ensemble" modifie="Loi 23/052">
           <p>Tout contribuable soumis à l'IRPP peut faire l'objet d'une <strong>vérification de sa situation fiscale personnelle d'ensemble</strong>. À l'occasion de ce contrôle, l'Administration peut vérifier la cohérence entre, d'une part, les revenus déclarés et, d'autre part, <strong>la situation patrimoniale, la situation de trésorerie et les éléments de son train de vie</strong>.</p>
-          <p className="mt-1 text-xs text-muted-foreground italic">Cet article fonde légalement le contrôle de cohérence de l'Art. 29 du texte original (contrôle du train de vie) en l'appliquant spécifiquement aux personnes physiques soumises à l'IRPP.</p>
           <Ref>Art. 28 bis, Loi n° 004/2003 (introduit par Loi n° 23/052 du 30 novembre 2023)</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="29 ter-29 quater" titre="Acte anormal de gestion et rectification par comparaison" modifie="créés L.F. 19/005">
+          <p><strong>Art. 29 ter</strong> : Les opérations constitutives d'un <strong>acte anormal de gestion</strong> (au sens de l'Art. 31 bis de l'O.-L. n° 69/009) ne sont pas opposables à l'Administration des Impôts et peuvent être écartées afin de reconstituer leur véritable caractère, lorsqu'elles visent à éluder l'impôt ou à en réduire le montant.</p>
+          <p className="mt-1"><strong>Art. 29 quater</strong> : Pour la rectification du résultat fiscal ou du chiffre d'affaires déclaré en cas de transfert de bénéfices entre entreprises dépendantes, les prix d'achat ou de vente sont déterminés par comparaison au prix de pleine concurrence, à ceux d'entreprises similaires indépendantes, ou par voie d'appréciation directe sur base des informations dont dispose l'Administration.</p>
+          <Ref>Art. 29 ter-29 quater, Loi n° 004/2003 (créés par L.F. n° 19/005 du 31/12/2019)</Ref>
         </ArticleBox>
 
         <ArticleBox num="29 bis" titre="Demande d'informations sur les transferts de bénéfices présumés" modifie="LF 2026 Art. 28">
@@ -514,16 +558,46 @@ function TitreII() {
           </ul>
           <Ref>Art. 45, Loi n° 004/2003 mod. Art. 39, LF 2025 : n° 24/011</Ref>
         </ArticleBox>
+
+        <ArticleBox num="40" titre="Inopposabilité des opérations dissimulées">
+          <p>Toute opération conclue sous la forme de contrats ou d'actes juridiques quelconques <strong>dissimulant une réalisation ou un transfert d'éléments imposables</strong>, effectué directement ou par personnes interposées, n'est pas opposable à l'Administration des Impôts. Celle-ci dispose du droit de restituer à l'opération son véritable caractère et de déterminer en conséquence les bases imposables.</p>
+          <Ref>Art. 40, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="41 bis" titre="Évaluation par signes ou indices">
+          <p>Sauf preuve contraire, l'évaluation de la base imposable peut être faite, pour les sociétés comme pour les personnes physiques, soit d'après les <strong>signes ou indices d'où résulte une aisance supérieure</strong> à celle qu'attestent les revenus déclarés, soit eu égard aux <strong>bénéfices normaux d'un ou plusieurs redevables similaires</strong>, compte tenu du capital investi, du chiffre d'affaires, du nombre d'établissements, d'employés, d'ouvriers, et de tous autres renseignements utiles.</p>
+          <Ref>Art. 41 bis, Loi n° 004/2003 (créé par L.F. n° 14/027 du 31/12/2014)</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="44" titre="Nouvelle cotisation après annulation d'imposition">
+          <p>Lorsqu'une imposition a été annulée pour n'avoir pas été établie conformément à une règle légale, l'Administration peut établir, à charge du même redevable, une <strong>nouvelle cotisation</strong> sur tout ou partie des mêmes éléments d'imposition, dans les <strong>six mois</strong> de la décision administrative ou judiciaire coulée en force de chose jugée. Sont assimilés au même redevable : ses héritiers, son conjoint, ou les associés d'une société autre que par actions (et réciproquement).</p>
+          <Ref>Art. 44, Loi n° 004/2003</Ref>
+        </ArticleBox>
       </div>
 
       <div className="mb-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-          Chapitre II : Droit de communication
+          Chapitre II : Droit de communication et de recherche
         </p>
 
         <ArticleBox num="46" titre="Droit général de communication">
           <p>Les agents de l'Administration des Impôts ont le <strong>droit général d'obtenir, des personnes physiques ou morales, publiques ou privées, communication de toutes pièces ou documents nécessaires à l'établissement des impôts</strong>.</p>
           <Ref>Art. 46, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="46 bis" titre="Droit de recherche et d'investigation" modifie="créé LF 2020, mod. LF 2022/2023">
+          <p>Les agents des impôts, munis d'un <strong>ordre de mission</strong>, ont le droit de mener toutes opérations de recherche et d'investigation en vue de collecter des renseignements à incidence fiscale et de mettre en évidence les systèmes de fraude fiscale. À l'exception des <strong>locaux affectés au domicile privé</strong>, ils peuvent, durant les heures d'activité professionnelle, avoir accès aux locaux professionnels, terrains, entrepôts, moyens de transport à usage professionnel, procéder à la constatation matérielle des éléments physiques de l'exploitation, et entendre le contribuable ou toute personne utile.</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Les opérations de recherche ne peuvent, à elles seules, donner lieu à une notification de suppléments d'impôts — sauf régularisation de la situation fiscale de nouveaux contribuables découverts à cette occasion.</p>
+          <Ref>Art. 46 bis, Loi n° 004/2003 (créé par L.F. n° 20/020 du 28/12/2020, mod. L.F. n° 22/071 du 28/12/2022 et L.F. n° 23/056 du 10/12/2023)</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="48-53" titre="Levée du secret, banques, autorité judiciaire">
+          <p><strong>Art. 48</strong> : Les administrations publiques, entités territoriales décentralisées, entreprises publiques ou d'économie mixte ne peuvent opposer le secret professionnel pour se soustraire à l'obligation de communication de leurs documents de service.</p>
+          <p className="mt-1"><strong>Art. 49</strong> : Les banques intervenant dans les exportations adressent un relevé des opérations dans les <strong>dix jours du mois suivant</strong>. Elles communiquent également, dans le même délai, les comptes ouverts par les commerçants, professions libérales et personnes morales (identité, adresse, contact), ainsi que toute modification ultérieure.</p>
+          <p className="mt-1"><strong>Art. 51</strong> : L'autorité judiciaire doit donner connaissance à l'Administration de toute indication de fraude fiscale recueillie dans une instance, même terminée par un acquittement ou un classement sans suite. Les pièces restent, dans les quinze jours du prononcé, déposées au greffe à disposition de l'Administration.</p>
+          <p className="mt-1"><strong>Art. 52</strong> : Toute personne dont l'activité entre dans le champ d'application des impôts doit fournir, dans les <strong>vingt jours</strong>, les renseignements demandés et présenter les livres et pièces annexes.</p>
+          <p className="mt-1"><strong>Art. 53</strong> : Tout renseignement, pièce ou acte découvert par un agent dans l'exercice de ses fonctions peut être invoqué pour l'établissement des impôts.</p>
+          <Ref>Art. 48-53, Loi n° 004/2003</Ref>
         </ArticleBox>
 
         <ArticleBox num="54-55" titre="Secret professionnel des agents">
@@ -564,6 +638,47 @@ function TitreII() {
             <li>Le montant toutes taxes comprises payé à chacun d'eux</li>
           </ul>
           <Ref>Art. 47 ter, Loi n° 004/2003 (introduit par LF 2026 : n° 25/060, Art. 30)</Ref>
+        </ArticleBox>
+      </div>
+
+      <div className="mb-3">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+          Chapitre III : Droit d'enquête
+        </p>
+
+        <ArticleBox num="56 bis" titre="Présentation et copie de factures, livres et documents">
+          <p>Les agents des impôts, munis d'un <strong>ordre de mission</strong>, peuvent se faire présenter et prendre copie des factures, livres, registres et documents professionnels se rapportant à des opérations ayant donné ou devant donner lieu à facturation, ainsi que des documents douaniers justifiant la perception de la TVA à l'importation, la réalité d'une exportation, ou l'application d'un régime suspensif. À l'exception des locaux affectés au domicile privé, ils ont accès, durant les heures d'activité professionnelle, aux locaux professionnels, terrains, entrepôts, moyens de transport professionnels, et peuvent y procéder à la constatation matérielle des éléments physiques de l'exploitation, recueillir des renseignements sur place, et entendre le contribuable ou toute personne utile.</p>
+          <Ref>Art. 56 bis, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="56 ter A-C" titre="Formalités : remise de l'ordre, procès-verbal, portée">
+          <p><strong>Art. 56 ter A</strong> : Lors de la première intervention, une copie de l'ordre de mission est remise, pour une personne physique, au contribuable, à ses employés ou à toute personne travaillant avec lui ; pour une personne morale, au gérant, au représentant légal, aux employés ou à toute personne travaillant avec le contribuable. En cas de refus d'accuser réception, mention en est faite au procès-verbal établi sur le champ.</p>
+          <p className="mt-1"><strong>Art. 56 ter B</strong> : Chaque intervention fait l'objet d'un procès-verbal relatant les opérations effectuées. À l'issue de l'enquête, un procès-verbal consignant les manquements constatés (ou leur absence) est établi, signé par les agents et le contribuable ou son représentant ; mention est faite du refus éventuel de signer.</p>
+          <p className="mt-1"><strong>Art. 56 ter C</strong> : Le droit d'enquête ne peut, à lui seul, donner lieu à une notification de redressement. Les constatations du procès-verbal ne peuvent être opposées au contribuable et aux tiers impliqués que dans le cadre des procédures de contrôle fiscal.</p>
+          <p className="mt-1 text-amber-700"><strong>Sanction (Art. 97 ter) :</strong> l'opposition au droit d'enquête est sanctionnée par une amende de <strong>1 000 000 FC</strong> (doublée en cas de récidive), et peut entraîner la fermeture provisoire des installations jusqu'à soumission à l'enquête.</p>
+          <Ref>Art. 56 ter A-C, Loi n° 004/2003 (créés par l'O.-L. n° 13/005 du 23/02/2013)</Ref>
+        </ArticleBox>
+      </div>
+
+      <div className="mb-3">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+          Chapitre IV : Droit de visite et de saisie
+        </p>
+
+        <ArticleBox num="56 quarto A-C" titre="Autorisation du Procureur de la République">
+          <p><strong>Art. 56 quarto A</strong> : L'Administration des Impôts saisit le <strong>Procureur de la République</strong> territorialement compétent pour l'autoriser à effectuer des visites en tous lieux, même privés, où des pièces et documents utiles à ses investigations sont susceptibles d'être détenus, et à procéder à leur saisie, lorsqu'elle présume qu'un contribuable se soustrait à l'impôt en achetant/vendant sans facture, en utilisant de fausses factures, ou en passant sciemment des écritures inexactes ou fictives. La demande motivée précise l'adresse des lieux, l'identité du contribuable et l'agent chargé de la visite.</p>
+          <p className="mt-1"><strong>Art. 56 quarto B</strong> : Le Procureur vérifie concrètement le bien-fondé de la demande et motive son autorisation en indiquant les éléments de fait et de droit retenus.</p>
+          <p className="mt-1"><strong>Art. 56 quarto C</strong> : Seuls les Agents des Impôts revêtus de la qualité d'<strong>officier de police judiciaire</strong> peuvent procéder à la recherche de la preuve de ces agissements.</p>
+          <Ref>Art. 56 quarto A-C, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="56 quarto D-I" titre="Déroulement de la visite et de la saisie, recours, restitution">
+          <p><strong>Art. 56 quarto D-E</strong> : La visite et la saisie s'effectuent sous l'autorité de l'Administration fiscale. L'autorisation est notifiée sur place à l'occupant des lieux (copie intégrale contre récépissé) ou, en son absence, après la visite par pli recommandé ou remise en mains propres.</p>
+          <p className="mt-1"><strong>Art. 56 quarto F</strong> : L'autorisation du Procureur est susceptible de <strong>recours devant le Tribunal de Grande Instance</strong> ; ce recours ne suspend pas les opérations de visite et de saisie.</p>
+          <p className="mt-1"><strong>Art. 56 quarto G</strong> : En cas d'urgence, le Procureur peut autoriser les visites et saisies <strong>avant 6h du matin et après 21h</strong>.</p>
+          <p className="mt-1"><strong>Art. 56 quarto H</strong> : Un procès-verbal relatant le déroulement de l'opération, avec inventaire des pièces saisies, est dressé sur le champ et signé par les agents et l'occupant (ou son représentant) ; en cas de difficulté d'inventaire sur place, les pièces sont placées sous scellés.</p>
+          <p className="mt-1"><strong>Art. 56 quarto I</strong> : Les pièces et documents saisis sont <strong>restitués dans les six mois</strong> suivant la visite (sauf poursuites pénales, où la restitution requiert l'autorisation de l'autorité judiciaire). L'Administration ne peut opposer au contribuable les informations recueillies qu'après cette restitution.</p>
+          <Ref>Art. 56 quarto D-I, Loi n° 004/2003</Ref>
         </ArticleBox>
       </div>
     </div>
@@ -673,11 +788,30 @@ function TitreIII() {
           <Ref>Art. 74, Loi n° 004/2003</Ref>
         </ArticleBox>
 
-        <ArticleBox num="75-82" titre="Garanties du Trésor">
-          <p><strong>Art. 75 : Privilège du Trésor</strong> : Le Trésor a privilège général sur tous les biens meubles et immeubles du redevable, s'exerçant avant tout autre et pendant deux ans à compter de la date de dépôt de la déclaration ou de l'émission de l'AMR.</p>
-          <p className="mt-1"><strong>Art. 76 : Hypothèque légale</strong> : Le Trésor a droit d'hypothèque légale sur les immeubles du redevable, exerçable dès que les droits sont exigibles et au plus tard le 31 décembre de l'année qui suit celle de l'exigibilité.</p>
-          <p className="mt-1"><strong>Art. 82 : Quitus fiscal</strong> : La sortie du territoire national est subordonnée à la présentation d'un <strong>quitus fiscal délivré par le Receveur des Impôts</strong>, attestant que le redevable est quitte des impôts en RDC.</p>
-          <Ref>Art. 75, 76, 82, Loi n° 004/2003</Ref>
+        <ArticleBox num="74 bis" titre="Créances irrécouvrables : procès-verbal de carence">
+          <p>Le Receveur des Impôts présente, par voie hiérarchique, au Directeur Général des Impôts la situation des <strong>créances irrécouvrables</strong> constatées par un procès-verbal de carence, appuyée de tous documents justifiant les mesures de recouvrement déjà prises. Le Receveur peut en obtenir décharge et être dégagé de sa responsabilité lorsque ces créances ont été admises en non-valeur par décision du Ministre des Finances. <strong>Les contribuables ne sont pas libérés de leur dette</strong> du fait de cette admission en non-valeur : le Receveur doit reprendre le recouvrement si le débiteur est retrouvé ou redevient solvable.</p>
+          <Ref>Art. 74 bis, Loi n° 004/2003 (créé par L.F. n° 15/021 du 31/12/2015)</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="75-76" titre="Garanties du Trésor : privilège et hypothèque">
+          <p><strong>Art. 75 : Privilège du Trésor</strong> : Le Trésor a privilège général sur tous les biens meubles et immeubles du redevable — et, dans la mesure où le recouvrement peut être poursuivi sur ses biens (Art. 81), de son conjoint — s'exerçant avant tout autre et pendant deux ans à compter de la date de dépôt de la déclaration ou de l'émission de l'AMR. La saisie des biens avant l'expiration de ce délai conserve le privilège jusqu'à leur réalisation.</p>
+          <p className="mt-1"><strong>Art. 76 : Hypothèque légale</strong> : Le Trésor a droit d'hypothèque légale sur les immeubles du redevable — et de son conjoint dans la même mesure —, exerçable dès que les droits sont exigibles et au plus tard le 31 décembre de l'année qui suit celle de l'exigibilité.</p>
+          <Ref>Art. 75-76, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="77-81 bis" titre="Solidarité au paiement de l'impôt">
+          <p><strong>Art. 77</strong> : Le recouvrement de l'impôt établi à charge du prestataire d'assistance peut être poursuivi sur les biens du bénéficiaire des prestations, solidairement responsable de l'impôt éludé.</p>
+          <p className="mt-1"><strong>Art. 78</strong> : Les sociétés étrangères et redevables sans domicile ou résidence en RDC mais y possédant un établissement doivent avoir un <strong>représentant</strong> en RDC, solidairement tenu au paiement des impôts, pénalités et frais.</p>
+          <p className="mt-1"><strong>Art. 79</strong> : En cas de cession complète des éléments d'actif ou d'un secteur d'activité, cédant et cessionnaire doivent en aviser l'Administration ; à défaut de notification par le cessionnaire, celui-ci est tenu au paiement, solidairement avec le cédant.</p>
+          <p className="mt-1"><strong>Art. 80</strong> : En cas de dissolution ou liquidation, le liquidateur doit aviser l'Administration ; à défaut, il est tenu au paiement, solidairement avec la société.</p>
+          <p className="mt-1"><strong>Art. 81</strong> : Le recouvrement de l'impôt à charge du mari peut être poursuivi sur les biens de la femme, sauf preuve qu'elle les possédait avant le mariage ou qu'ils proviennent de succession, donation d'un tiers, ou de ses revenus personnels. La quote-part afférente aux revenus de la femme peut être poursuivie sur tous ses biens.</p>
+          <p className="mt-1"><strong>Art. 81 bis</strong> : Les héritiers d'un redevable décédé sont tenus, à concurrence de leurs parts héréditaires, au paiement des impôts dus par le défunt.</p>
+          <Ref>Art. 77-81 bis, Loi n° 004/2003</Ref>
+        </ArticleBox>
+
+        <ArticleBox num="82" titre="Autorisation de sortie du territoire">
+          <p>Le Directeur Général des Impôts peut saisir le <strong>Service de la Sûreté de l'État</strong> pour empêcher la sortie du territoire national de tout redevable <strong>non en règle de paiement des impôts</strong> ou sur lequel des faits avérés de fraude fiscale sont constatés à l'occasion des missions de recherche.</p>
+          <Ref>Art. 82, Loi n° 004/2003 (créé par L.F. n° 21/029 du 31/12/2021, mod. L.F. n° 22/071 du 28/12/2022)</Ref>
         </ArticleBox>
 
         <ArticleBox num="82 bis" titre="Quitus fiscal élargi (marchés publics et documents administratifs)" modifie="LF 2026">
@@ -738,18 +872,6 @@ function TitreIV() {
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
-              <td className="px-3 py-2 font-medium">Autres cas de taxation d'office</td>
-              <td className="px-3 py-2 text-red-700 font-bold">25%</td>
-              <td className="px-3 py-2">Sur l'impôt dû</td>
-              <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
-            </tr>
-            <tr className="hover:bg-muted/20">
-              <td className="px-3 py-2 font-medium">Récidive (autres cas taxation d'office)</td>
-              <td className="px-3 py-2 text-red-700 font-bold">50%</td>
-              <td className="px-3 py-2">Sur l'impôt dû</td>
-              <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
-            </tr>
-            <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Redressement contradictoire</td>
               <td className="px-3 py-2 text-red-700 font-bold">20%</td>
               <td className="px-3 py-2">Sur le montant de l'impôt éludé</td>
@@ -762,15 +884,33 @@ function TitreIV() {
               <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
             </tr>
             <tr className="hover:bg-muted/20">
+              <td className="px-3 py-2 font-medium">Taxation d'office (tous motifs, Art. 41)</td>
+              <td className="px-3 py-2 text-red-700 font-bold">50%</td>
+              <td className="px-3 py-2">Sur le montant de l'impôt reconstitué</td>
+              <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
+            </tr>
+            <tr className="hover:bg-muted/20">
+              <td className="px-3 py-2 font-medium">Récidive (taxation d'office)</td>
+              <td className="px-3 py-2 text-red-700 font-bold">100%</td>
+              <td className="px-3 py-2">Sur le montant de l'impôt reconstitué</td>
+              <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
+            </tr>
+            <tr className="hover:bg-muted/20 bg-orange-50/40">
+              <td className="px-3 py-2 font-medium">Intérêt de retard (redressement ou taxation d'office)</td>
+              <td className="px-3 py-2 text-orange-700 font-bold">2% par mois, plafonné à 50%</td>
+              <td className="px-3 py-2">Sur l'impôt éludé/reconstitué, en sus de la majoration ci-dessus</td>
+              <td className="px-3 py-2 text-muted-foreground">Art. 89</td>
+            </tr>
+            <tr className="hover:bg-muted/20">
               <td className="px-3 py-2 font-medium">Défaut de paiement d'acompte provisionnel</td>
               <td className="px-3 py-2 text-red-700 font-bold">50%</td>
               <td className="px-3 py-2">Sur le montant de l'acompte dû</td>
-              <td className="px-3 py-2 text-muted-foreground">Art. 90</td>
+              <td className="px-3 py-2 text-muted-foreground">Art. 98 bis</td>
             </tr>
             <tr className="hover:bg-muted/20 bg-red-50/40">
-              <td className="px-3 py-2 font-medium">Retard de paiement (intérêt moratoire)</td>
-              <td className="px-3 py-2 text-red-700 font-bold">10% par mois</td>
-              <td className="px-3 py-2">Tout mois commencé compté intégralement</td>
+              <td className="px-3 py-2 font-medium">Retard de paiement (majoration de recouvrement)</td>
+              <td className="px-3 py-2 text-red-700 font-bold">2% par mois</td>
+              <td className="px-3 py-2">Tout mois commencé compté intégralement, non plafonné</td>
               <td className="px-3 py-2 text-muted-foreground">Art. 91</td>
             </tr>
             <tr className="hover:bg-muted/20 bg-amber-50/40">
@@ -855,20 +995,27 @@ function TitreIV() {
         <Ref>Art. 93 bis, Loi n° 004/2003 mod. LF 2026 n° 25/060 Art. 34</Ref>
       </ArticleBox>
 
-      <ArticleBox num="93-98" titre="Amendes administratives">
+      <ArticleBox num="93-98 ter" titre="Amendes administratives">
+        <p className="text-amber-700 font-medium mb-1.5">⚠ Les montants ci-dessous sont exprimés en <strong>Francs congolais (FC)</strong>, et non en « francs fiscaux » : une unité de compte abrogée depuis l'O.-L. n° 13/005 du 23/02/2013, qui a converti toutes les amendes de la Loi en FC.</p>
         <ul className="list-disc pl-4 space-y-1">
-          <li><strong>Art. 93</strong> : Absence d'annexes à la déclaration IS : <strong>100 Ff par annexe</strong> (récidive : 200 Ff)</li>
-          <li><strong>Art. 94</strong> : Absence d'une déclaration ne servant pas au calcul de l'impôt (ex. relevé trimestriel des tiers, relevé mensuel précomptes) : <strong>500 Ff (PM) / 250 Ff (PP)</strong></li>
-          <li><strong>Art. 95</strong> : Défaut de paiement du précompte (non retenu) : amende égale au montant du précompte reconstitué. Défaut ou insuffisance de reversement du précompte collecté : amende égale au montant du précompte dû, en plus du principal</li>
+          <li><strong>Art. 93</strong> : Absence d'annexes à la déclaration de l'impôt sur les bénéfices : <strong>100 000 FC par annexe</strong> (récidive : 200 000 FC). Défaut d'annexes à la déclaration de l'impôt professionnel du dernier mois : 1 000 000 FC (état récapitulatif), 500 000 FC (relevé nominatif), 25 000 FC par fiche individuelle</li>
+          <li><strong>Art. 93 ter</strong> (LF 2023) : Défaut de certification des états financiers annuels par un expert-comptable inscrit à l'Ordre : <strong>100 000 000 FC</strong> (1er manquement), <strong>200 000 000 FC</strong> (récidive)</li>
+          <li><strong>Art. 94</strong> : Absence d'une déclaration ne servant pas au calcul de l'impôt (ex. relevé trimestriel des tiers, déclaration de l'Art. 2) : <strong>5 000 000 FC</strong> (grande entreprise), <strong>2 500 000 FC</strong> (moyenne entreprise / ASBL), <strong>250 000 FC</strong> (petite entreprise)</li>
+          <li><strong>Art. 95</strong> : <em>Abrogé (conformément à l'O.-L. n° 13/004 du 23/02/2013)</em></li>
           <li><strong>Art. 96</strong> : Défaut de retenue sur loyers ou de reversement : amende égale au montant de la retenue due</li>
           <li><strong>Art. 96 bis</strong> (LF 2026) : Toute personne tenue de retenir à la source un impôt qui n'a pas effectué cette retenue ou qui aurait opéré une retenue insuffisante est <strong>personnellement redevable du montant de la retenue non effectuée et des pénalités y afférentes</strong>.</li>
-          <li><strong>Art. 96 ter</strong> (LF 2025) : Le défaut de déclaration de l'IRPP par tout fonctionnaire ou agent de l'Administration Publique, même avec mention « Néant », est sanctionné par une amende de <strong>2 000 000 FC par déclaration manquante</strong>.</li>
-          <li><strong>Art. 97</strong> : Communication de faux renseignements : <strong>1 500 Ff (PM) / 250 Ff (PP)</strong>. Renseignements incomplets : <strong>750 Ff (PM) / 125 Ff (PP)</strong></li>
+          <li><strong>Art. 96 ter</strong> (LF 2025) : Le défaut de déclaration de l'impôt professionnel par tout agent public, même avec mention « Néant », est sanctionné par une amende de <strong>2 000 000 FC par déclaration manquante</strong>, due par l'ordonnateur du service concerné.</li>
+          <li><strong>Art. 97</strong> : Communication de faux renseignements : <strong>1 500 000 FC (PM) / 250 000 FC (PP)</strong>. Renseignements incomplets : <strong>750 000 FC (PM) / 125 000 FC (PP)</strong></li>
+          <li><strong>Art. 97 bis</strong> : Omission d'une mention obligatoire sur une facture ou document en tenant lieu : <strong>750 000 FC (PM) / 250 000 FC (PP)</strong>, par omission</li>
+          <li><strong>Art. 97 ter</strong> : Opposition au droit d'enquête : <strong>1 000 000 FC</strong> (doublée en cas de récidive), + fermeture provisoire des installations</li>
+          <li><strong>Art. 97 quater</strong> (LF 2023) : Défaut de réponse à l'obligation de communication de l'Art. 49 (banques) : astreinte de <strong>1 000 000 FC/jour</strong> jusqu'à communication</li>
+          <li><strong>Art. 97 quinquies</strong> (LF 2023) : Expert-comptable certifiant des états financiers non sincères : <strong>50 000 000 FC</strong> (grande entreprise) / <strong>20 000 000 FC</strong> (moyenne entreprise)</li>
           <li><strong>Art. 97 sexies</strong> : <em>Supprimé par la Loi de Finances 2026 : n° 25/060, Art. 36</em></li>
-          <li><strong>Art. 98</strong> : Exercice d'une activité sans numéro impôt : <strong>1 000 Ff (PM) / 100 Ff (commerçant/profession libérale) / 50 Ff (revenus locatifs)</strong>. Même sanction pour l'absence du numéro impôt de l'acheteur sur la facture lors d'une transaction entre professionnels</li>
+          <li><strong>Art. 98</strong> : Exercice d'une activité sans numéro impôt : fermeture provisoire + amende de <strong>1 000 000 FC (PM) / 100 000 FC (commerçant/profession libérale) / 50 000 FC (revenus locatifs)</strong>. Même sanction pour l'absence du numéro impôt de l'acheteur sur la facture lors d'une transaction entre professionnels</li>
+          <li><strong>Art. 98 ter</strong> : Le Ministre des Finances peut, par arrêté, <strong>modifier les montants des pénalités</strong> de la présente Loi lorsque les circonstances l'exigent</li>
         </ul>
-        <p className="mt-1.5 text-xs text-muted-foreground italic">PM = personnes morales · PP = personnes physiques · Ff = francs fiscaux (unité conventionnelle)</p>
-        <Ref>Art. 93-98, Loi n° 004/2003 , Art. 96 bis mod. LF 2026 (Art. 35) , Art. 96 ter introduit par LF 2025 (Art. 47)</Ref>
+        <p className="mt-1.5 text-xs text-muted-foreground italic">PM = personnes morales · PP = personnes physiques</p>
+        <Ref>Art. 93-98 ter, Loi n° 004/2003 · Art. 93 ter et 97 quater-quinquies introduits par L.F. n° 23/056 du 10/12/2023 · Art. 94 mod. L.F. n° 22/071 et L.F. n° 23/056 · Art. 96 bis mod. LF 2026 (Art. 35) · Art. 96 ter introduit par LF 2025 (Art. 47)</Ref>
       </ArticleBox>
 
       <ArticleBox num="100" titre="Frais de poursuites">
@@ -907,12 +1054,13 @@ function TitreIV() {
 function TitreV() {
   return (
     <div>
-      <SectionHeader icon={MessageSquare} label="Titre V : Réclamations et Recours (Art. 104-110)" color="bg-orange-50 text-orange-800" />
+      <SectionHeader icon={MessageSquare} label="Titre V : Réclamations et Recours (Art. 104-110) · Titre VI : Computation des délais (Art. 110 bis)" color="bg-orange-50 text-orange-800" />
 
-      <ArticleBox num="104" titre="Droit à réclamation contentieuse">
-        <p>Les redevables ainsi que leurs mandataires peuvent <strong>se pourvoir par écrit en réclamation contre le montant de leur imposition auprès du Directeur des Impôts compétent, sans justifier du paiement de l'impôt</strong>.</p>
-        <p className="mt-1">Pour être recevable, la réclamation doit être <strong>motivée</strong>. Elle doit être notifiée dans les <strong>six mois qui suivent la date de réception de l'AMR</strong>. L'absence de décision dans le délai est considérée comme une décision de rejet.</p>
-        <Ref>Art. 104, Loi n° 004/2003</Ref>
+      <ArticleBox num="104" titre="Droit à réclamation contentieuse : délai 3 mois">
+        <p>Les redevables ainsi que leurs mandataires justifiant d'un mandat général ou spécial doivent, <strong>avant toute saisine du juge, se pourvoir par écrit en réclamation contre le montant de leur imposition auprès du Directeur ou du Chef de Centre compétent, sans justifier du paiement de l'impôt</strong>.</p>
+        <p className="mt-1">Pour être recevable, la réclamation doit être <strong>motivée</strong>. Sous peine de déchéance, elle doit être introduite dans les <strong>trois (3) mois à partir de la date de la déclaration ou de la réception de l'AMR</strong>. Il est délivré reçu de la réclamation au redevable.</p>
+        <p className="mt-1 text-amber-700 font-medium">⚠ Le délai est de trois mois, et non six : à ne pas confondre avec le délai de décision de l'Administration (Art. 105, également trois mois).</p>
+        <Ref>Art. 104, Loi n° 004/2003 mod. L. n° 06/003 du 27/02/2006, L.F. n° 15/021 du 31/12/2015, L.F. n° 20/020 du 28/12/2020</Ref>
       </ArticleBox>
 
       <ArticleBox num="105" titre="Décision de réclamation : délai 3 mois" modifie="Art. 49, LF 2025">
@@ -943,21 +1091,27 @@ function TitreV() {
         <Ref>Art. 105 bis, Loi n° 004/2003 mod. Art. 50, LF 2025 : n° 24/011</Ref>
       </ArticleBox>
 
-      <ArticleBox num="108" titre="Recours devant la Cour d'Appel">
-        <p>La décision de rejet total ou partiel peut faire l'objet d'un <strong>recours devant la Cour d'Appel</strong>. Ce recours doit être introduit dans un <strong>délai de six mois à partir de la notification de la décision</strong> (ou à compter de la date d'expiration du délai de réponse de l'Administration).</p>
-        <Ref>Art. 108, Loi n° 004/2003</Ref>
+      <ArticleBox num="106-107" titre="Instruction de la réclamation">
+        <p><strong>Art. 106</strong> : Pour l'instruction de la réclamation, l'Administration peut vérifier les écritures du redevable, s'assurer de la conformité des pièces produites, et user de tous les moyens de preuve du droit commun (sauf le serment). Si le redevable s'abstient plus de vingt jours de fournir les renseignements ou pièces demandés, sa réclamation est rejetée.</p>
+        <p className="mt-1"><strong>Art. 107</strong> : L'Administration peut exiger communication de tous renseignements utiles auprès des services publics, créanciers ou débiteurs du redevable.</p>
+        <Ref>Art. 106-107, Loi n° 004/2003</Ref>
       </ArticleBox>
 
-      <ArticleBox num="108 bis" titre="Commission Nationale de Médiation Fiscale : institution" modifie="Art. 51, LF 2025">
-        <p>Il est institué une <strong>Commission Nationale de Médiation Fiscale</strong>, instance consultative, paritaire et indépendante.</p>
+      <ArticleBox num="108" titre="Recours devant la Cour administrative d'appel : délai 3 mois">
+        <p>La décision de rejet total ou partiel peut faire l'objet d'un <strong>recours devant la Cour administrative d'appel</strong>. Sous peine de déchéance, ce recours doit être introduit dans un <strong>délai de trois (3) mois à partir de la notification de la décision</strong> (ou, en l'absence de décision, à compter de la date d'expiration du délai de l'Art. 105). Aucune demande nouvelle ne peut être présentée à l'occasion de ce recours.</p>
+        <p className="mt-1 text-amber-700 font-medium">⚠ Le délai est de trois mois, et non six, et la juridiction est la <strong>Cour administrative d'appel</strong> (et non une « Cour d'Appel » de droit commun).</p>
+        <Ref>Art. 108, Loi n° 004/2003 mod. O.-L. n° 13/005 du 23/02/2013, L.F. n° 17/005 du 23/06/2017, L.F. n° 17/014 du 24/12/2017, L.F. n° 20/020 du 28/12/2020</Ref>
+      </ArticleBox>
+
+      <ArticleBox num="108 bis" titre="Commission Nationale de Médiation Fiscale : institution et effet contraignant" modifie="LF 2025 art. 51, mod. LFR 25/044">
+        <p>Il est institué une <strong>Commission Nationale de Médiation Fiscale</strong>, instance consultative, paritaire et indépendante, destinée à formuler des avis au Ministre des Finances en vue de résoudre les litiges persistants, à l'issue de l'examen de la réclamation en phase administrative.</p>
         <ul className="list-disc pl-4 space-y-1 mt-1">
-          <li><strong>Nature :</strong> Instance consultative, paritaire (représentants de l'Administration et des contribuables) et indépendante</li>
-          <li><strong>Saisine :</strong> Facultative, intervient <strong>avant tout recours judiciaire</strong> (phase précontentieuse)</li>
-          <li><strong>Objet :</strong> Prévention et règlement amiable des différends fiscaux entre l'Administration des Impôts et les contribuables</li>
-          <li><strong>Composition et fonctionnement :</strong> Fixés par voie réglementaire</li>
+          <li><strong>Saisine :</strong> Ne peut s'effectuer <strong>qu'avant le recours juridictionnel</strong> (phase précontentieuse)</li>
+          <li><strong>Effet de l'avis :</strong> Sur base de l'avis de la Commission, le Ministre peut soit demander à l'Administration de réexaminer le litige (avis favorable au contribuable), soit notifier au contribuable la confirmation (avis conforme à la décision de l'Administration)</li>
+          <li className="text-amber-700 font-medium"><strong>Effet contraignant :</strong> Saisie dans ce cadre, l'Administration <strong>ne peut statuer dans un sens contraire à l'avis</strong> de la Commission</li>
+          <li><strong>Composition et fonctionnement :</strong> Fixés par Arrêté du Ministre ayant les Finances dans ses attributions</li>
         </ul>
-        <p className="mt-1 text-xs text-muted-foreground italic">Distinct de l'Art. 108 ter (LF 2026) qui précise l'<strong>effet suspensif</strong> de la saisine sur les délais de recours judiciaire.</p>
-        <Ref>Art. 108 bis, Loi n° 004/2003 (introduit par Art. 51, LF 2025 : n° 24/011)</Ref>
+        <Ref>Art. 108 bis, Loi n° 004/2003 (inséré par L.F. n° 24/011 du 20/12/2024, art. 51 ; mod. par la L.F.R. n° 25/044 du 28/06/2025, art. 9)</Ref>
       </ArticleBox>
 
       <ArticleBox num="108 ter" titre="Commission Nationale de Médiation Fiscale : effet suspensif" modifie="LF 2026">
@@ -966,14 +1120,31 @@ function TitreV() {
       </ArticleBox>
 
       <ArticleBox num="109" titre="Pourvoi en cassation">
-        <p>Le pourvoi en cassation est ouvert contre les arrêts de la Cour d'Appel dans les conditions fixées par les dispositions légales régissant la matière. <strong>La juridiction compétente est la Cour Suprême de Justice.</strong></p>
-        <Ref>Art. 109, Loi n° 004/2003</Ref>
+        <p>Le pourvoi en cassation est ouvert contre les arrêts de la <strong>Cour administrative d'appel</strong> dans les conditions fixées par les dispositions légales régissant la matière.</p>
+        <Ref>Art. 109, Loi n° 004/2003 mod. L.F. n° 17/005 du 23/06/2017</Ref>
+      </ArticleBox>
+
+      <ArticleBox num="109 bis-109 ter" titre="Réexamen pour erreur de droit et maintien du sursis" modifie="LF 2017, mod. LFR 25/044">
+        <p><strong>Art. 109 bis</strong> : Lorsqu'une <strong>erreur de droit</strong> est découverte dans le fondement légal d'une imposition, postérieurement à la notification de la décision clôturant l'instruction d'une réclamation, le Ministre des Finances peut autoriser le <strong>réexamen du litige</strong>, à la demande de l'Administration ou sur requête du redevable. Le sursis de recouvrement déjà accordé (Art. 110) demeure valable, et est accordé de plein droit lorsque les impositions contestées ont été établies par taxation d'office. L'Administration dispose alors de <strong>trois mois</strong> pour notifier sa nouvelle décision.</p>
+        <p className="mt-1"><strong>Art. 109 ter</strong> : Le sursis de recouvrement déjà accordé demeure valable pendant toute la procédure devant la Commission Nationale de Médiation Fiscale, jusqu'à la notification de la confirmation ou de la décision après réexamen.</p>
+        <Ref>Art. 109 bis, Loi n° 004/2003 (créé par L.F. n° 17/005 du 23/06/2017) ; Art. 109 ter (inséré par L.F.R. n° 25/044 du 28/06/2025, art. 9)</Ref>
       </ArticleBox>
 
       <ArticleBox num="110" titre="Non-suspension de l'exigibilité">
         <p>Sauf en cas d'erreur matérielle ou de double emploi, l'introduction d'une réclamation, d'un recours en appel ou d'un pourvoi en cassation <strong>ne suspend pas l'exigibilité de l'impôt</strong> et autres droits dus ainsi que des pénalités.</p>
-        <p className="mt-1">Toutefois, lorsque la réclamation porte sur un supplément d'impôt, le contribuable peut bénéficier d'un sursis de recouvrement, à condition de verser <strong>au moins un cinquième du supplément d'impôt contesté</strong>.</p>
-        <Ref>Art. 110, Loi n° 004/2003</Ref>
+        <p className="mt-1">Toutefois, lorsque la réclamation porte sur un supplément d'impôt, le contribuable peut, à sa demande, bénéficier d'un sursis de recouvrement de l'impôt litigieux et des pénalités y afférentes, à condition de verser un montant égal <strong>au dixième du supplément d'impôt contesté</strong>.</p>
+        <ul className="list-disc pl-4 space-y-1 mt-1">
+          <li className="text-amber-700 font-medium">Le sursis <strong>ne s'applique pas aux cas de taxation d'office</strong> (sauf réexamen accordé de plein droit en vertu de l'Art. 109 bis)</li>
+          <li>En cas de silence de l'Administration valant rejet tacite de la réclamation, le sursis <strong>subsiste</strong> pendant la phase juridictionnelle</li>
+          <li>Le sursis ne dispense pas l'Administration d'appliquer les pénalités de recouvrement en cas de rejet de la réclamation (sauf rejet tacite)</li>
+        </ul>
+        <p className="mt-1 text-amber-700 font-medium">⚠ Le taux du dépôt conditionnant le sursis est <strong>un dixième</strong> (10%), et non un cinquième.</p>
+        <Ref>Art. 110, Loi n° 004/2003 mod. L.F. n° 14/027 du 31/12/2014, L.F. n° 15/021 du 31/12/2015, L.F. n° 17/014 du 24/12/2017, L.F. n° 20/020 du 28/12/2020, L.F. n° 21/029 du 31/12/2021</Ref>
+      </ArticleBox>
+
+      <ArticleBox num="110 bis" titre="Computation des délais (Titre VI)">
+        <p>Lorsque la législation fiscale exprime un délai en jours ou en mois pour l'établissement, la transmission ou la réaction à un acte, le délai prend cours le <strong>premier jour ouvrable qui suit celui de l'accusé de réception</strong>. Si le dernier jour du délai tombe un jour non ouvrable, l'exécution de l'obligation ou l'exercice du droit est reporté au <strong>premier jour ouvrable suivant</strong>. Par dérogation, l'Administration peut, en matière de déclaration et de paiement, fixer l'échéance au jour ouvrable <strong>précédant</strong> la date légale.</p>
+        <Ref>Art. 110 bis, Loi n° 004/2003, Titre VI (créé par L.F. n° 21/029 du 31/12/2021)</Ref>
       </ArticleBox>
 
       {/* Schéma des voies de recours */}
@@ -982,23 +1153,23 @@ function TitreV() {
         <div className="flex flex-col gap-1.5 text-xs">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-orange-400 shrink-0" />
-            <span><strong>1. Réclamation contentieuse</strong> : auprès du Directeur des Impôts compétent (délai : 6 mois après réception AMR) (Art. 104)</span>
+            <span><strong>1. Réclamation contentieuse</strong> : auprès du Directeur ou Chef de Centre compétent (délai : 3 mois à partir de la déclaration ou de la réception de l'AMR) (Art. 104)</span>
           </div>
-          <div className="ml-4 text-muted-foreground">↓ Décision dans <strong>3 mois</strong> (mod. LF 2025) : silence = rejet implicite</div>
+          <div className="ml-4 text-muted-foreground">↓ Décision dans <strong>3 mois</strong> (Art. 105) : silence = rejet implicite</div>
           <div className="ml-4 text-muted-foreground text-sm">Le redevable peut compléter sa réclamation dans les <strong>30 jours</strong> suivant son dépôt (Art. 105 al. 2 mod. LF 2025)</div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
-            <span><strong>2. [Optionnel] Commission Nationale de Médiation Fiscale</strong> : saisine facultative avant recours judiciaire : suspend les délais (Art. 108 bis LF 2025 + Art. 108 ter LF 2026)</span>
+            <span><strong>2. [Optionnel] Commission Nationale de Médiation Fiscale</strong> : saisine facultative avant recours judiciaire, avis contraignant pour l'Administration, suspend les délais (Art. 108 bis LF 2025 + Art. 108 ter LF 2026)</span>
           </div>
-          <div className="ml-4 text-muted-foreground">↓ Avis consultatif de la Commission</div>
+          <div className="ml-4 text-muted-foreground">↓ Avis de la Commission, lie l'Administration</div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-orange-500 shrink-0" />
-            <span><strong>3. Recours devant la Cour d'Appel</strong> (délai : 6 mois après notification de la décision) (Art. 108)</span>
+            <span><strong>3. Recours devant la Cour administrative d'appel</strong> (délai : 3 mois après notification de la décision) (Art. 108)</span>
           </div>
-          <div className="ml-4 text-muted-foreground">↓ Arrêt de la Cour d'Appel</div>
+          <div className="ml-4 text-muted-foreground">↓ Arrêt de la Cour administrative d'appel</div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-orange-600 shrink-0" />
-            <span><strong>4. Pourvoi en cassation</strong> devant la Cour Suprême de Justice (Art. 109)</span>
+            <span><strong>4. Pourvoi en cassation</strong>, dans les conditions fixées par les dispositions légales en la matière (Art. 109)</span>
           </div>
         </div>
       </div>
@@ -1023,29 +1194,41 @@ function SimulateurPenalites() {
     const mois = parseInt(moiRetard) || 0
 
     const taux: Record<string, number> = {
-      'taxation_absence': 0.50,
-      'taxation_autres': 0.25,
+      'taxation_office': 0.50,
+      'taxation_office_recidive': 1.00,
       'redressement': 0.20,
+      'redressement_recidive': 0.40,
       'regularisation_art5': 0.25,
       'acompte_defaut': 0.50,
     }
     const descPenalite: Record<string, string> = {
-      'taxation_absence': "Taxation d'office pour absence de déclaration (Art. 89)",
-      'taxation_autres': "Autres cas de taxation d'office (Art. 89)",
+      'taxation_office': "Taxation d'office, tous motifs de l'Art. 41 (Art. 89)",
+      'taxation_office_recidive': "Taxation d'office — récidive (Art. 89)",
       'redressement': 'Redressement contradictoire (Art. 89)',
+      'redressement_recidive': 'Redressement contradictoire — récidive (Art. 89)',
       'regularisation_art5': 'Régularisation après mise en demeure Art. 5 (Art. 89)',
-      'acompte_defaut': "Défaut de paiement d'acompte provisionnel (Art. 90)",
+      'acompte_defaut': "Défaut de paiement d'acompte provisionnel (Art. 98 bis)",
     }
+    // Art. 89 : l'intérêt de retard de 2%/mois, plafonné à 50% de l'impôt éludé/reconstitué,
+    // n'est prévu par la loi qu'en cas de redressement ou de taxation d'office.
+    const casPlafonnesArt89 = ['redressement', 'redressement_recidive', 'taxation_office', 'taxation_office_recidive']
 
     const tauxAssiette = taux[typePenalite] ?? 0
     const penaliteAssiette = base * tauxAssiette
-    const baseInterets = base + penaliteAssiette
-    const interetMoratoire = mois > 0 ? baseInterets * 0.10 * mois : 0
+    // Art. 85 : les majorations et l'intérêt de retard sont assis sur le montant de l'impôt
+    // dû, éludé ou reconstitué — pas sur la pénalité d'assiette déjà appliquée.
+    let interetMoratoire = mois > 0 ? base * 0.02 * mois : 0
+    if (casPlafonnesArt89.includes(typePenalite)) {
+      interetMoratoire = Math.min(interetMoratoire, base * 0.50)
+    }
     const total = base + penaliteAssiette + interetMoratoire
 
     const details: string[] = []
     if (typePenalite) details.push(`${descPenalite[typePenalite]} : ${(tauxAssiette * 100).toFixed(0)}% × ${base.toLocaleString('fr-FR')} FC = ${penaliteAssiette.toLocaleString('fr-FR')} FC`)
-    if (mois > 0) details.push(`Intérêt moratoire (Art. 91) : 10%/mois × ${mois} mois × ${baseInterets.toLocaleString('fr-FR')} FC = ${interetMoratoire.toLocaleString('fr-FR')} FC`)
+    if (mois > 0) {
+      const plafondTxt = casPlafonnesArt89.includes(typePenalite) ? ' (plafonné à 50% de l\'impôt éludé/reconstitué, Art. 89)' : ' (non plafonné, Art. 91)'
+      details.push(`Intérêt de retard : 2%/mois × ${mois} mois × ${base.toLocaleString('fr-FR')} FC = ${interetMoratoire.toLocaleString('fr-FR')} FC${plafondTxt}`)
+    }
 
     setResult({ penaliteAssiette, interetMoratoire, total, details })
   }
@@ -1061,7 +1244,7 @@ function SimulateurPenalites() {
       <div className="p-3 bg-rose-50/50 border border-rose-200 rounded-lg mb-3">
         <p className="text-xs text-muted-foreground italic">
           Fondé exclusivement sur la Loi n° 004/2003 du 13 mars 2003 portant réforme des procédures fiscales (Art. 83-100).
-          Taux d'intérêt moratoire : 10% par mois de retard (Art. 91). Tout mois commencé est compté intégralement.
+          Taux d'intérêt de retard : 2% par mois — plafonné à 50% de l'impôt éludé/reconstitué en cas de redressement ou de taxation d'office (Art. 89), non plafonné en cas de simple retard de paiement (Art. 91). Tout mois commencé est compté intégralement.
         </p>
       </div>
 
@@ -1103,11 +1286,12 @@ function SimulateurPenalites() {
           className="w-full border border-border rounded-md px-3 py-2 text-sm bg-background focus:ring-2 focus:ring-rose-400 focus:outline-none"
         >
           <option value="">-- Sélectionner --</option>
-          <option value="taxation_absence">Taxation d'office : absence de déclaration (50%) : Art. 89</option>
-          <option value="taxation_autres">Autres cas de taxation d'office (25%) : Art. 89</option>
           <option value="regularisation_art5">Régularisation après lettre de relance Art. 5 (25%) : Art. 89</option>
           <option value="redressement">Redressement contradictoire (20%) : Art. 89</option>
-          <option value="acompte_defaut">Défaut de paiement d'acompte provisionnel (50%) : Art. 90</option>
+          <option value="redressement_recidive">Redressement contradictoire — récidive (40%) : Art. 89</option>
+          <option value="taxation_office">Taxation d'office, tous motifs Art. 41 (50%) : Art. 89</option>
+          <option value="taxation_office_recidive">Taxation d'office — récidive (100%) : Art. 89</option>
+          <option value="acompte_defaut">Défaut de paiement d'acompte provisionnel (50%) : Art. 98 bis</option>
           <option value="aucune">Aucune pénalité d'assiette (retard pur)</option>
         </select>
       </div>
@@ -1139,7 +1323,7 @@ function SimulateurPenalites() {
                 <span className="font-medium text-amber-700">{formatFC(result.penaliteAssiette)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Intérêts moratoires (10%/mois)</span>
+                <span className="text-muted-foreground">Intérêt de retard (2%/mois)</span>
                 <span className="font-medium text-red-600">{formatFC(result.interetMoratoire)}</span>
               </div>
               <div className="flex justify-between text-sm font-bold border-t border-border/60 pt-1.5 mt-1">
