@@ -16,7 +16,7 @@ interface Immobilisation {
   categorie: string
   compteOHADA: string      // ex : '2411' (4 chiffres OHADA 2017)
   intituleCompte: string   // intitulé OHADA exact
-  duree: number | null     // durée fiscale (AR n°088)
+  duree: number | null     // durée fiscale (Arrêté n°013/CAB/MIN/FINANCES/2025)
   tauxLineaire: number | null
   eligibleDegressif: boolean
   raisonNonDegressif?: string
@@ -77,7 +77,7 @@ interface Immobilisation {
 // 2847 Amort. agencements et aménagements du matériel et actifs biologiques
 // 2848 Amort. autres matériels
 
-// ─── Données catalogue ── AR n°088 du 19/02/2025 (vigeur 01/01/2026) ──────────
+// ─── Données catalogue ── Arrêté ministériel n°013/CAB/MIN/FINANCES/2025 du 19/02/2025 (vigueur 01/01/2026) ──
 // Éligibilité dégressif : Art. 31 Loi IS (liste exhaustive ci-dessous)
 // Éligibilité exceptionnel : Art. 36-37 Loi IS = mêmes biens que dégressif (Art. 31) + exportation ≥ 20% CA
 // Exclusions dégressif (Art. 32) : durée < 4 ans OU > 20 ans OU incorporels
@@ -526,7 +526,7 @@ const CATALOGUE: Immobilisation[] = [
   // Véhicules de tourisme → EXCLUS dégressif (Art. 31 al. 1 "à l'exclusion des véhicules de tourisme")
   { designation: 'Véhicules automobiles de tourisme', categorie: 'V. Moyens de transport',
     compteOHADA: '2451', intituleCompte: 'Matériel automobile',
-    duree: 5, tauxLineaire: 20,
+    duree: 3, tauxLineaire: 33.33,
     eligibleDegressif: false, raisonNonDegressif: 'Véhicules de tourisme exclus (Art. 31 al. 1 Loi IS)',
     eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
 
@@ -1230,7 +1230,7 @@ export default function ImmobilisationsPage() {
           </div>
           <div>
             <h1 className="text-sm font-display font-bold text-foreground leading-tight">Immobilisations & Amortissements</h1>
-            <p className="text-xs text-muted-foreground">AR n°088 · Loi IS Art. 28-38 · OHADA 2017</p>
+            <p className="text-xs text-muted-foreground">Arrêté n°013/2025 · Loi IS Art. 28-38 · OHADA 2017</p>
           </div>
         </div>
       </div>
@@ -1265,7 +1265,7 @@ export default function ImmobilisationsPage() {
           <div className="space-y-4">
             <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3">
               <p className="text-xs text-emerald-800 font-medium">
-                Catalogue officiel : AR n°088 du 19/02/2025 (en vigueur au 01/01/2026). Éligibilité dégressif et exceptionnel selon Loi IS Art. 31-37. Comptes OHADA 2017.
+                Catalogue officiel : Arrêté n°013/CAB/MIN/FINANCES/2025 du 19/02/2025 (en vigueur au 01/01/2026). Éligibilité dégressif et exceptionnel selon Loi IS Art. 31-37. Comptes OHADA 2017.
               </p>
             </div>
 
@@ -1465,7 +1465,7 @@ export default function ImmobilisationsPage() {
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-muted-foreground">
                     Durée (ans)
-                    <InfoBulle texte="Durée fiscale issue de l'AR n°088. Modifiable si nécessaire." loi="AR n°088 du 19/02/2025" />
+                    <InfoBulle texte="Durée fiscale issue de l'Arrêté n°013/2025. Modifiable si nécessaire." loi="Arrêté n°013/CAB/MIN/FINANCES/2025 du 19/02/2025" />
                   </label>
                   <Input
                     value={formData.dureeCustom}
@@ -1478,7 +1478,7 @@ export default function ImmobilisationsPage() {
                     readOnly={!!immoPrechoisie}
                   />
                   {immoPrechoisie && (
-                    <p className="text-xs text-amber-600">Durée fiscale verrouillée (AR n°088)</p>
+                    <p className="text-xs text-amber-600">Durée fiscale verrouillée (Arrêté n°013/2025)</p>
                   )}
                 </div>
                 <div className="space-y-1">
@@ -1740,7 +1740,7 @@ export default function ImmobilisationsPage() {
                 "Point de départ : date de mise en service (Art. 30 al. 2)",
                 "1ère annuité proratisée à compter du 1er jour du mois de mise en service",
                 "En cas de cession, l'amortissement peut être pratiqué jusqu'au jour de cession",
-                "Taux = 100% ÷ Durée normale d'utilisation (AR n°088)",
+                "Taux = 100% ÷ Durée normale d'utilisation (Arrêté n°013/2025)",
                 "Base = valeur d'origine (prix de revient hors TVA récupérable)",
               ]}
               exemple={{
