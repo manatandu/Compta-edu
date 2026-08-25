@@ -1363,8 +1363,8 @@ export default function ImmobilisationsPage() {
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-emerald-50 flex items-center justify-center">
-            <Building2 className="h-4 w-4 text-emerald-600" />
+          <div className="h-8 w-8 rounded-xl bg-module-emerald/10 flex items-center justify-center">
+            <Building2 className="h-4 w-4 text-module-emerald" />
           </div>
           <div>
             <h1 className="text-sm font-display font-bold text-foreground leading-tight">Immobilisations & Amortissements</h1>
@@ -1374,7 +1374,7 @@ export default function ImmobilisationsPage() {
       </div>
 
       {/* Onglets */}
-      <div className="flex border-b border-border bg-background sticky top-[57px] z-20">
+      <div role="tablist" aria-label="Immobilisations & Amortissements" className="flex border-b border-border bg-background sticky top-[57px] z-20 overflow-x-auto">
         {[
           { id: 'catalogue', label: 'Catalogue', icon: BookOpen },
           { id: 'simulateur', label: 'Simulateur', icon: Calculator },
@@ -1384,11 +1384,13 @@ export default function ImmobilisationsPage() {
         ].map(({ id, label, icon: Icon }) => (
           <button
             key={id}
+            role="tab"
+            aria-selected={onglet === id}
             onClick={() => setOnglet(id as typeof onglet)}
             className={cn(
-              'flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all',
+              'flex-1 min-w-[84px] flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all whitespace-nowrap',
               onglet === id
-                ? 'border-emerald-500 text-emerald-600'
+                ? 'border-module-emerald text-module-emerald'
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             )}
           >
