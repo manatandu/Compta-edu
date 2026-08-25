@@ -5,21 +5,23 @@ import { cn } from '@/lib/utils'
 import { ModuleProvider } from '@/lib/moduleContext'
 import BilanPage from '@/pages/BilanPage'
 
+// Palette « module » de la marque Orbit, cohérente avec DocsComptablesHub
+// et ComptabiliteGeneralePage (voir PR #98, #100).
 const ONGLETS = [
   {
     id: 'bilan',
     label: 'Bilan',
     icon: FileText,
-    color: 'text-orange-600',
-    activeBorder: 'border-orange-500',
+    color: 'text-module-rose',
+    activeBorder: 'border-module-rose',
     mode: 'bilan' as const,
   },
   {
     id: 'compte-resultat',
     label: 'Compte de Résultat',
     icon: BarChart2,
-    color: 'text-amber-600',
-    activeBorder: 'border-amber-500',
+    color: 'text-module-emerald',
+    activeBorder: 'border-module-emerald',
     mode: 'cr' as const,
   },
 ]
@@ -27,8 +29,6 @@ const ONGLETS = [
 export default function EtatsFinanciersHub() {
   const [, navigate] = useHashLocation()
   const [actif, setActif] = useState('bilan')
-
-  const ongletActif = ONGLETS.find(o => o.id === actif)!
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -41,27 +41,30 @@ export default function EtatsFinanciersHub() {
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-orange-50 flex items-center justify-center">
-            <TrendingUp className="h-4 w-4 text-orange-600" />
+          <div className="h-8 w-8 rounded-xl bg-module-rose/10 flex items-center justify-center">
+            <TrendingUp className="h-4 w-4 text-module-rose" />
           </div>
           <div>
             <h1 className="text-sm font-display font-bold text-foreground leading-tight">États Financiers</h1>
-            <p className="text-xs text-muted-foreground">Dossier 2 · SYSCOHADA Révisé</p>
+            <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Module 2 · SYSCOHADA Révisé</p>
           </div>
         </div>
       </div>
 
       {/* Onglets */}
-      <div className="flex border-b border-border bg-background sticky top-[57px] z-20">
+      <div role="tablist" aria-label="États financiers" className="flex border-b border-border bg-background sticky top-[57px] z-20">
         {ONGLETS.map(o => {
           const Icon = o.icon
+          const estActif = actif === o.id
           return (
             <button
               key={o.id}
+              role="tab"
+              aria-selected={estActif}
               onClick={() => setActif(o.id)}
               className={cn(
                 'flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all',
-                actif === o.id
+                estActif
                   ? `${o.activeBorder} ${o.color}`
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               )}
@@ -75,11 +78,11 @@ export default function EtatsFinanciersHub() {
 
       {/* Contenu direct */}
       <ModuleProvider module="syscohada">
-        <div className={actif === 'bilan' ? '' : 'hidden'}>
-          <BilanPage mode="bilan" />
+        <div className={cn(actif === 'bilan' ? '' : 'hidden', 'px-4 pt-4')}>
+          <BilanPage mode="bilan" embedded />
         </div>
-        <div className={actif === 'compte-resultat' ? '' : 'hidden'}>
-          <BilanPage mode="cr" />
+        <div className={cn(actif === 'compte-resultat' ? '' : 'hidden', 'px-4 pt-4')}>
+          <BilanPage mode="cr" embedded />
         </div>
       </ModuleProvider>
     </div>

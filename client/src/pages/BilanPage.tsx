@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
 import { useModule } from "@/lib/moduleContext";
-import { formatMontant } from "@/lib/utils";
+import { formatMontant, cn } from "@/lib/utils";
 import { exportBilanPDF, exportResultatPDF } from "@/lib/exportPDF";
 import { useSessions, useEcritures } from '@/lib/useFirestore'
 
@@ -176,7 +176,7 @@ const CR_RUBRIQUES: RubriqueCR[] = [
 
 // ─── COMPOSANT PRINCIPAL ────────────────────────────────────────────────────
 
-export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" }) {
+export default function BilanPage({ mode = "bilan", embedded = false }: { mode?: "bilan" | "cr"; embedded?: boolean }) {
   const user = useUser()
   const module = useModule();
   const { sessions, loading: loadingSessions } = useSessions(user?.id, module);
@@ -666,65 +666,76 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
   const isBilan = mode === "bilan"
   const isCR    = mode === "cr"
 
+  const boutonExport = isBilan ? (
+    <Button variant="outline" size="sm" onClick={() => {
+      const actifRows = ACTIF_RUBRIQUES.map(r => {
+        const v = actifVals.get(r.ref) ?? { brut: 0, corr: 0, net: 0 };
+        return { ref: r.ref, label: r.label, brut: v.brut, amort: v.corr, net: v.net };
+      });
+      const passifRows = PASSIF_RUBRIQUES.map(r => {
+        const val = r.isResultat ? resultatNet : (passifVals.get(r.ref) ?? 0);
+        return { ref: r.ref, label: r.label, net: val };
+      });
+      exportBilanPDF(session?.nom ?? "Session", actifRows, passifRows);
+    }}>
+      <FileDown className="w-4 h-4 mr-1" /> PDF Bilan
+    </Button>
+  ) : (
+    <Button variant="outline" size="sm" onClick={() => {
+      const rows = CR_RUBRIQUES.map(r => {
+        const v = crVals.get(r.ref) ?? { montant: 0, compteUtilises: [...(r.comptes ?? [])] };
+        return { ref: r.ref, label: r.label, sens: r.sens, comptes: v.compteUtilises.join(", "), montant: v.montant };
+      });
+      exportResultatPDF(session?.nom ?? "Session", rows);
+    }}>
+      <FileDown className="w-4 h-4 mr-1" /> PDF Résultat
+    </Button>
+  )
+
   return (
-    <div className="space-y-5 animate-fadeIn">
+    <div className={cn('space-y-5', !embedded && 'animate-fadeIn')}>
 
-      {/* ── Bouton retour ── */}
-      <BackButton />
+      {!embedded && (
+        <>
+          {/* ── Bouton retour ── */}
+          <BackButton />
 
-      {/* ── Header Banner Animé ── */}
-      <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
-          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
-          <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
-                <FileDown className="h-6 w-6 text-primary" />
+          {/* ── Header Banner Animé ── */}
+          <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
+              <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
+                    <FileDown className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-display font-bold text-foreground tracking-tight">
+                      {isBilan ? "Bilan" : "Compte de Résultat"}
+                    </h1>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {isBilan ? "Actif et passif SYSCOHADA révisé" : "Charges et produits, résultat de l'exercice"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  {boutonExport}
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-display font-bold text-foreground tracking-tight">
-                  {isBilan ? "Bilan" : "Compte de Résultat"}
-                </h1>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {""}
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              {isBilan && (
-                <Button variant="outline" size="sm" onClick={() => {
-                  const actifRows = ACTIF_RUBRIQUES.map(r => {
-                    const v = actifVals.get(r.ref) ?? { brut: 0, corr: 0, net: 0 };
-                    return { ref: r.ref, label: r.label, brut: v.brut, amort: v.corr, net: v.net };
-                  });
-                  const passifRows = PASSIF_RUBRIQUES.map(r => {
-                    const val = r.isResultat ? resultatNet : (passifVals.get(r.ref) ?? 0);
-                    return { ref: r.ref, label: r.label, net: val };
-                  });
-                  exportBilanPDF(session?.nom ?? "Session", actifRows, passifRows);
-                }}>
-                  <FileDown className="w-4 h-4 mr-1" /> PDF Bilan
-                </Button>
-              )}
-              {isCR && (
-                <Button variant="outline" size="sm" onClick={() => {
-                  const rows = CR_RUBRIQUES.map(r => {
-                    const v = crVals.get(r.ref) ?? { montant: 0, compteUtilises: [...(r.comptes ?? [])] };
-                    return { ref: r.ref, label: r.label, sens: r.sens, comptes: v.compteUtilises.join(", "), montant: v.montant };
-                  });
-                  exportResultatPDF(session?.nom ?? "Session", rows);
-                }}>
-                  <FileDown className="w-4 h-4 mr-1" /> PDF Résultat
-                </Button>
-              )}
             </div>
           </div>
+        </>
+      )}
+
+      {embedded && (
+        <div className="flex justify-end">
+          {boutonExport}
         </div>
-      </div>
+      )}
 
       {/* Sélecteur session */}
-      <div className="animate-slideUp" style={{ animationDelay: '80ms' }}>
+      <div className={embedded ? undefined : 'animate-slideUp'} style={embedded ? undefined : { animationDelay: '80ms' }}>
         <Select value={selectedSession} onValueChange={setSelectedSession}>
           <SelectTrigger className="w-full sm:w-72">
             <SelectValue placeholder="Sélectionner une session" />
