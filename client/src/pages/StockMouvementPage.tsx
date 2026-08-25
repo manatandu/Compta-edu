@@ -123,9 +123,9 @@ export default function StockMouvementPage() {
   }
 
   return (
-    <div className="space-y-5 pb-4">
+    <div className="space-y-5 pb-4 animate-fadeIn">
       {/* En-tête */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 animate-slideDown" style={{ animationDelay: '0ms' }}>
         <button onClick={() => navigate('/stock/articles')}
           className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
@@ -141,12 +141,12 @@ export default function StockMouvementPage() {
       </div>
 
       {/* Stock actuel */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-xl border border-border bg-card px-4 py-3">
+      <div className="grid grid-cols-2 gap-3 animate-slideUp" style={{ animationDelay: '60ms' }}>
+        <div className="rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-primary/30">
           <p className="text-xs text-muted-foreground">Stock disponible</p>
           <p className="text-xl font-bold text-foreground">{stockActuel} <span className="text-sm font-normal text-muted-foreground">unités</span></p>
         </div>
-        <div className="rounded-xl border border-border bg-card px-4 py-3">
+        <div className="rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-primary/30">
           <p className="text-xs text-muted-foreground">
             {article.methode === 'CUMP' ? 'CUMP actuel' : 'CU moyen PEPS'}
           </p>
@@ -158,7 +158,7 @@ export default function StockMouvementPage() {
       </div>
 
       {/* Formulaire */}
-      <div className="rounded-xl border border-border bg-card p-5 space-y-4">
+      <div className="rounded-xl border border-border bg-card p-5 space-y-4 animate-slideUp" style={{ animationDelay: '120ms' }}>
 
         {/* Type de mouvement */}
         <div>

@@ -192,9 +192,9 @@ export default function StockFichePage() {
   const lignesAffichees = methodeAffichee === 'CUMP' ? lignesCUMP : lignesPEPS
 
   return (
-    <div className="space-y-5 pb-4">
+    <div className="space-y-5 pb-4 animate-fadeIn">
       {/* En-tête */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 animate-slideDown" style={{ animationDelay: '0ms' }}>
         <button onClick={() => navigate('/stock/articles')}
           className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
           <ArrowLeft className="h-4 w-4 text-muted-foreground" />
@@ -212,14 +212,14 @@ export default function StockFichePage() {
       </div>
 
       {/* Sélecteur méthode */}
-      <div className="rounded-xl border border-border bg-card p-1 flex gap-1">
+      <div className="rounded-xl border border-border bg-card p-1 flex gap-1 animate-slideUp" style={{ animationDelay: '60ms' }}>
         {(['CUMP', 'PEPS'] as const).map(m => (
           <button key={m}
             onClick={() => setMethodeAffichee(m)}
             className={cn(
-              'flex-1 rounded-lg py-2 text-xs font-semibold transition-all',
+              'flex-1 rounded-lg py-2 text-xs font-semibold transition-all duration-200',
               methodeAffichee === m
-                ? 'bg-purple-600 text-white shadow-sm'
+                ? 'bg-purple-600 text-white shadow-sm scale-[1.02]'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
             )}>
             {m === 'PEPS' ? 'PEPS / FIFO' : 'CUMP : après chaque entrée'}
@@ -228,7 +228,7 @@ export default function StockFichePage() {
       </div>
 
       {/* Rappel méthode */}
-      <div className="rounded-lg bg-muted/30 border border-border px-3 py-2">
+      <div className="rounded-lg bg-muted/30 border border-border px-3 py-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
         <p className="text-xs text-muted-foreground">
           {methodeAffichee === 'CUMP'
             ? 'CUMP : Coût Unitaire Moyen Pondéré recalculé après chaque entrée. Stock initial + entrée valorisés ensemble.'
@@ -240,7 +240,7 @@ export default function StockFichePage() {
       {loading ? (
         <div className="text-center py-12 text-muted-foreground text-sm">Calcul en cours…</div>
       ) : mouvements.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border bg-muted/20 py-10 text-center space-y-2">
+        <div className="rounded-xl border border-dashed border-border bg-muted/20 py-10 text-center space-y-2 animate-slideUp" style={{ animationDelay: '140ms' }}>
           <p className="text-sm text-muted-foreground">Aucun mouvement enregistré.</p>
           <button onClick={() => navigate(`/stock/mouvement/${articleId}`)}
             className="inline-flex items-center gap-1.5 text-xs text-purple-600 hover:underline">
@@ -248,7 +248,9 @@ export default function StockFichePage() {
           </button>
         </div>
       ) : (
-        <TableauFiche lignes={lignesAffichees} methode={methodeAffichee} />
+        <div className="animate-slideUp" style={{ animationDelay: '140ms' }}>
+          <TableauFiche lignes={lignesAffichees} methode={methodeAffichee} />
+        </div>
       )}
 
       {/* Lien journal */}

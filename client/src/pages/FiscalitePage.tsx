@@ -3,7 +3,7 @@ import {
   Calculator, Info, RotateCcw, FileText, Receipt,
   Building2, Users, AlertCircle, CheckCircle2, Percent,
   Briefcase, Wheat, TrendingUp, Coins, BarChart2, X, Plus,
-  ChevronRight, FolderOpen, Scale, Ship, Pickaxe, BookOpen
+  ChevronRight, FolderOpen, Scale, Ship, Pickaxe
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -17,7 +17,6 @@ import SimulateurTVA from '@/components/SimulateurTVA'
 import SimulateurAutresImpots from '@/components/SimulateurAutresImpots'
 import SimulateurDouane from '@/components/SimulateurDouane'
 import SimulateurFiscaliteMiniere from '@/components/SimulateurFiscaliteMiniere'
-import ChapitreIntroductionFiscalite from '@/components/ChapitreIntroductionFiscalite'
 import {
   calculerBaremeIRPP as calculerBareme,
   appliquerReductionEtPlafondIRPP as appliquerReductionEtPlafond,
@@ -2788,11 +2787,11 @@ const ONGLETS_PRINCIPAUX = [
   { id: 'mines',      label: 'Fisc. minière', sublabel: 'Code minier',    icon: Pickaxe,   color: 'stone' },
 ]
 
-// Chapitre 1 : introduction théorique (notions générales, hors barème/simulateur)
-const CHAPITRE_INTRO = { id: 'intro', label: 'Introduction', sublabel: 'Notions générales', icon: BookOpen, color: 'slate' }
-
-// Table des matières du module : Chapitre 1 (théorie) + Chapitres 2 à 8 (un par impôt/simulateur)
-const CHAPITRES = [CHAPITRE_INTRO, ...ONGLETS_PRINCIPAUX].map((o, i) => ({ ...o, numero: i + 1 }))
+// Table des matières du module : uniquement les simulateurs, un par impôt.
+// Le chapitre théorique d'introduction (notions générales, plan du cours) a
+// été retiré à la demande explicite de l'utilisateur : ce module ne doit
+// comporter que des simulateurs, pas de notes de cours.
+const CHAPITRES = ONGLETS_PRINCIPAUX.map((o, i) => ({ ...o, numero: i + 1 }))
 
 // Sous-onglets IRPP (6 catégories) : Loi IRPP 23/053 du 30/11/2023
 const SOUS_ONGLETS_IRPP = [
@@ -5437,7 +5436,7 @@ function ProceduresFiscales() {
 }
 
 export default function FiscalitePage() {
-  const [impotActif, setImpotActif] = useState('intro')
+  const [impotActif, setImpotActif] = useState('irpp')
   const [catIrpp, setCatIrpp]       = useState('irpp_cat1')
   const [, navigate] = useHashLocation()
   const { setNav } = useNav()
@@ -5446,10 +5445,8 @@ export default function FiscalitePage() {
     setImpotActif(id)
   }
 
-  // Pour la description : onglet courant (non pertinent pour le chapitre d'introduction)
-  const ongletDesc = impotActif === 'intro'
-    ? null
-    : impotActif === 'irpp'
+  // Pour la description : onglet courant
+  const ongletDesc = impotActif === 'irpp'
     ? ONGLETS.find(o => o.id === catIrpp)!
     : ONGLETS.find(o => o.id === impotActif)!
 
@@ -5522,9 +5519,6 @@ export default function FiscalitePage() {
             )
           })}
         </div>
-
-        {/* ── Chapitre 1 : introduction théorique ── */}
-        {impotActif === 'intro' && <ChapitreIntroductionFiscalite />}
 
         {/* ── Encadré intro IRPP ── */}
         {impotActif === 'irpp' && (

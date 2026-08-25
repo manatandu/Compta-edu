@@ -2020,13 +2020,13 @@ export default function ProfesseurPage() {
                             value={l.numeroCompte}
                             onChange={e => updateLigneSol(l.id, 'numeroCompte', e.target.value)}
                             placeholder="N° compte="
-                            className="font-mono text-sm"
+                            className="min-w-0 font-mono text-sm"
                           />
                           <Input
                             value={l.intitule}
                             onChange={e => updateLigneSol(l.id, 'intitule', e.target.value)}
                             placeholder="Intitulé"
-                            className="text-sm"
+                            className="min-w-0 text-sm"
                           />
                           {/* Toggle Débit / Crédit */}
                           <button
@@ -2045,7 +2045,7 @@ export default function ProfesseurPage() {
                             onChange={e => updateLigneSol(l.id, 'montant', e.target.value)}
                             placeholder="Montant"
                             type="number"
-                            className="text-sm text-right"
+                            className="min-w-0 text-sm text-right"
                           />
                           <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-destructive" onClick={() => removeLigneSol(l.id)}>
                             <Trash2 className="h-3.5 w-3.5" />
