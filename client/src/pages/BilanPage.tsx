@@ -4,6 +4,8 @@ import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
 import { FileDown } from "lucide-react";
 import { useModule } from "@/lib/moduleContext";
 import { formatMontant, cn } from "@/lib/utils";
@@ -454,7 +456,8 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
 
   function renderActif() {
     return (
-      <div>
+      <Card className="border-border">
+      <CardContent className="p-4">
         {renderEnTete("BILAN : ACTIF")}
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -521,13 +524,15 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
             </tbody>
           </table>
         </div>
-      </div>
+      </CardContent>
+      </Card>
     );
   }
 
   function renderPassif() {
     return (
-      <div>
+      <Card className="border-border">
+      <CardContent className="p-4">
         {renderEnTete("BILAN : PASSIF")}
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -593,13 +598,15 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
             </tbody>
           </table>
         </div>
-      </div>
+      </CardContent>
+      </Card>
     );
   }
 
   function renderCR() {
     return (
-      <div>
+      <Card className="border-border">
+      <CardContent className="p-4">
         {renderEnTete("COMPTE DE RÉSULTAT")}
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -657,7 +664,8 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
             </tbody>
           </table>
         </div>
-      </div>
+      </CardContent>
+      </Card>
     );
   }
 
@@ -667,7 +675,7 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
   const isCR    = mode === "cr"
 
   const boutonExport = isBilan ? (
-    <Button variant="outline" size="sm" onClick={() => {
+    <Button variant="outline" size="sm" className="animate-slideDown" style={{ animationDelay: '100ms' }} onClick={() => {
       const actifRows = ACTIF_RUBRIQUES.map(r => {
         const v = actifVals.get(r.ref) ?? { brut: 0, corr: 0, net: 0 };
         return { ref: r.ref, label: r.label, brut: v.brut, amort: v.corr, net: v.net };
@@ -711,7 +719,7 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
                     <FileDown className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h1 className="text-xl font-display font-bold text-foreground tracking-tight">
+                    <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">
                       {isBilan ? "Bilan" : "Compte de Résultat"}
                     </h1>
                     <p className="text-xs text-muted-foreground mt-0.5">
@@ -736,20 +744,35 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
 
       {/* Sélecteur session */}
       <div className={embedded ? undefined : 'animate-slideUp'} style={embedded ? undefined : { animationDelay: '80ms' }}>
-        <Select value={selectedSession} onValueChange={setSelectedSession}>
-          <SelectTrigger className="w-full sm:w-72">
-            <SelectValue placeholder="Sélectionner une session" />
-          </SelectTrigger>
-          <SelectContent>
-            {sessions.map(s => (
-              <SelectItem key={s.id} value={s.id}>{s.nom} ({s.exercice})</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <Card className="border-border">
+        <CardContent className="pt-4 pb-4">
+          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <Label className="text-sm font-medium shrink-0">Session :</Label>
+            <Select value={selectedSession} onValueChange={setSelectedSession}>
+              <SelectTrigger className="sm:w-80">
+                <SelectValue placeholder="Sélectionner une session" />
+              </SelectTrigger>
+              <SelectContent>
+                {sessions.map(s => (
+                  <SelectItem key={s.id} value={s.id}>{s.nom} ({s.exercice})</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+      </Card>
       </div>
 
       {/* Contenu */}
-      {isBilan ? (
+      {sessions.length === 0 ? (
+        <Card className="border-border">
+          <CardContent className="pt-8 pb-8 text-center text-muted-foreground">
+            <FileDown className="h-10 w-10 mx-auto mb-3 opacity-30" />
+            <p>Aucune donnée à afficher.</p>
+            <p className="text-sm mt-1">Créez une session et saisissez des écritures dans le Livre Journal pour les voir apparaître ici.</p>
+          </CardContent>
+        </Card>
+      ) : isBilan ? (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 animate-slideUp" style={{ animationDelay: '120ms' }}>
           <div>{renderActif()}</div>
           <div>{renderPassif()}</div>
