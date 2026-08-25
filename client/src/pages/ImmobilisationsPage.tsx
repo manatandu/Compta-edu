@@ -4,7 +4,7 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Building2, Search, Calculator,
   BookOpen, ArrowLeft, AlertCircle, CheckCircle2, HelpCircle, FileText,
-  ChevronDown, Lock, Layers, Plus, Trash2
+  ChevronDown, Lock, Layers, Plus, Trash2, TrendingUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -1280,7 +1280,7 @@ const COMPTES_OHADA_SIMULATEUR: { code: string; intitule: string }[] = [
 
 export default function ImmobilisationsPage() {
   const [, navigate] = useHashLocation()
-  const [onglet, setOnglet] = useState<'catalogue' | 'simulateur' | 'composants' | 'fiches'>('catalogue')
+  const [onglet, setOnglet] = useState<'catalogue' | 'simulateur' | 'composants' | 'reevaluation' | 'fiches'>('catalogue')
 
   // Catalogue
   const [recherche, setRecherche] = useState('')
@@ -1379,6 +1379,7 @@ export default function ImmobilisationsPage() {
           { id: 'catalogue', label: 'Catalogue', icon: BookOpen },
           { id: 'simulateur', label: 'Simulateur', icon: Calculator },
           { id: 'composants', label: 'Composants', icon: Layers },
+          { id: 'reevaluation', label: 'Réévaluation', icon: TrendingUp },
           { id: 'fiches', label: 'Fiches', icon: FileText },
         ].map(({ id, label, icon: Icon }) => (
           <button
@@ -2043,6 +2044,9 @@ export default function ImmobilisationsPage() {
 
         {/* ─── COMPOSANTS ────────────────────────────────────────────────────────── */}
         {onglet === 'composants' && <OngletComposants />}
+
+        {/* ─── RÉÉVALUATION ──────────────────────────────────────────────────────── */}
+        {onglet === 'reevaluation' && <OngletReevaluation />}
       </div>
     </div>
   )
@@ -2261,6 +2265,168 @@ function OngletComposants() {
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
             <p className="text-xs text-amber-800 leading-relaxed">
               <strong>Au renouvellement d'un composant</strong> (typiquement « Révisions majeures ») : sortie de l'ancien composant pour sa VNC (débit 812 Valeur comptable des cessions, débit du compte d'amortissement cumulé, crédit du sous-compte immobilisation), puis entrée du nouveau composant au coût réel de remplacement. Si le composant révisions n'a pas été identifié à l'origine, sa VNC peut être estimée par le « coût de révision actuel amorti », comme s'il avait été acquis à la date d'origine du bien.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Onglet : Réévaluation des immobilisations (Art. 62-65 AUDCIF, Titre VIII ch. 28) ─
+// Distinct de l'amortissement : ici la valeur d'origine elle-même est corrigée pour
+// tenir compte de l'inflation (image fidèle), via un coefficient de réévaluation
+// (méthode indiciaire). Écart isolé, jamais mélangé au résultat de l'exercice.
+// Deux schémas : 106 (Écart de réévaluation, capitaux propres, schéma général
+// AUDCIF) ou 154 (Provision spéciale de réévaluation, schéma avec neutralité
+// fiscale — c'est ce dernier qu'exige la pratique RDC depuis la LF 2023, repris
+// ici). Formules et exemple (Imprim. Canon) vérifiés contre le séminaire CPCC,
+// section II.3-II.5 : VBR = VO × CR, retombe exactement sur 526 500 pour
+// VO = 450 000 et CR = 1,17.
+function OngletReevaluation() {
+  const [premiereReeval, setPremiereReeval] = useState(true)
+  const [designation, setDesignation] = useState('')
+  const [baseValeur, setBaseValeur] = useState('')     // VO (1ère réévaluation) ou VBR(n-1) (successive)
+  const [coefficient, setCoefficient] = useState('')
+  const [cumulAvant, setCumulAvant] = useState('')      // amortissements pratiqués avant réévaluation (cumul à ce jour, incl. dotation de l'exercice déjà comptabilisée)
+  const [erreur, setErreur] = useState('')
+  const [resultat, setResultat] = useState<{ vbr: number; cv: number; ar: number; ca: number; er: number } | null>(null)
+
+  const calculer = () => {
+    setErreur('')
+    const vo = parseFloat(baseValeur.replace(/\s/g, '').replace(',', '.'))
+    const cr = parseFloat(coefficient.replace(',', '.'))
+    const cumul = parseFloat(cumulAvant.replace(/\s/g, '').replace(',', '.'))
+    if (!designation.trim()) { setErreur('Indiquez la désignation de l\'immobilisation.'); return }
+    if (isNaN(vo) || vo <= 0) { setErreur('Valeur de base invalide.'); return }
+    if (isNaN(cr) || cr <= 0) { setErreur('Coefficient de réévaluation invalide.'); return }
+    if (isNaN(cumul) || cumul < 0) { setErreur('Cumul des amortissements avant réévaluation invalide.'); return }
+    const vbr = vo * cr
+    const cv = vbr - vo   // valable en 1ère réévaluation (base = VO) comme en successive (base = VBR n-1)
+    const ar = cumul * cr
+    const ca = ar - cumul
+    const er = cv - ca
+    setResultat({ vbr, cv, ar, ca, er })
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3 space-y-1.5">
+        <p className="text-xs text-emerald-800 font-medium">
+          <strong>Art. 62-65 AUDCIF.</strong> Le coût historique s'éloigne, exercice après exercice, de la valeur réelle du bien (inflation). La réévaluation corrige cet écart — mais doit porter sur <strong>l'ensemble</strong> des immobilisations corporelles et financières : toute réévaluation partielle est interdite.
+        </p>
+        <p className="text-xs text-emerald-700">
+          Décision prise par les organes de gestion, qui fixent la méthode, la liste des postes concernés et le traitement fiscal de l'écart.
+        </p>
+      </div>
+
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 space-y-1">
+        <p className="text-xs font-semibold text-amber-800">Obligations RDC (innovations LF 2023)</p>
+        <ul className="text-xs text-amber-700 list-disc pl-4 space-y-0.5">
+          <li>L'écart de réévaluation des biens amortissables n'est <strong>pas distribuable</strong> ni utilisable pour compenser des pertes — il peut en revanche être incorporé au capital.</li>
+          <li>Déclaration spéciale des résultats de la réévaluation à transmettre au service des impôts <strong>avant le 30 avril</strong> de chaque année.</li>
+          <li>Astreinte de <strong>100 000 CDF par jour</strong> jusqu'à régularisation en l'absence de réévaluation et de déclaration ; à défaut, réintégration de l'écart dans les bénéfices imposables au taux de droit commun.</li>
+        </ul>
+      </div>
+
+      <div className="rounded-xl border border-border bg-card p-4 space-y-3.5">
+        <div>
+          <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Situation</label>
+          <div className="grid grid-cols-2 gap-2">
+            <button onClick={() => setPremiereReeval(true)}
+              className={cn('rounded-lg border-2 px-3 py-2 text-left transition-all',
+                premiereReeval ? 'border-emerald-500 bg-emerald-50' : 'border-border bg-background hover:border-emerald-300')}>
+              <p className="text-xs font-bold">Première réévaluation</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Base = valeur d'origine (V.O)</p>
+            </button>
+            <button onClick={() => setPremiereReeval(false)}
+              className={cn('rounded-lg border-2 px-3 py-2 text-left transition-all',
+                !premiereReeval ? 'border-emerald-500 bg-emerald-50' : 'border-border bg-background hover:border-emerald-300')}>
+              <p className="text-xs font-bold">Réévaluation successive</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Base = VBR de l'exercice précédent</p>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="col-span-2">
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Désignation</label>
+            <input value={designation} onChange={e => setDesignation(e.target.value)}
+              placeholder="ex : Imprimante Canon" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">{premiereReeval ? "Valeur d'origine (V.O)" : 'VBR de l\'exercice précédent'}</label>
+            <input type="number" value={baseValeur} onChange={e => setBaseValeur(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Coefficient de réévaluation</label>
+            <input type="number" step="0.01" value={coefficient} onChange={e => setCoefficient(e.target.value)}
+              placeholder="ex : 1,17" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          </div>
+          <div className="col-span-2">
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Cumul des amortissements avant réévaluation</label>
+            <input type="number" value={cumulAvant} onChange={e => setCumulAvant(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <p className="text-xs text-muted-foreground mt-1">À lire directement dans le tableau d'amortissement du bien (cumul à la date de réévaluation, dotation de l'exercice déjà comptabilisée incluse).</p>
+          </div>
+        </div>
+
+        {erreur && (
+          <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2">
+            <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
+            <p className="text-xs text-red-600">{erreur}</p>
+          </div>
+        )}
+
+        <button onClick={calculer}
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 py-2.5 text-sm font-semibold text-white transition-colors">
+          <Calculator className="h-4 w-4" />
+          Calculer la réévaluation
+        </button>
+      </div>
+
+      {resultat && (
+        <div className="space-y-4">
+          <div className="rounded-xl border border-border bg-card p-4 space-y-2">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Résultat</p>
+            {[
+              { label: 'Valeur brute réévaluée (VBR = base × CR)', val: resultat.vbr },
+              { label: 'Complément de valeur (CV)', val: resultat.cv },
+              { label: 'Amortissement réévalué (AR = cumul avant × CR)', val: resultat.ar },
+              { label: "Complément d'amortissement (CA = AR − cumul avant)", val: resultat.ca },
+              { label: 'Écart de réévaluation (ER = CV − CA)', val: resultat.er, accent: true },
+            ].map((l, i) => (
+              <div key={i} className={cn('flex items-center justify-between text-xs', l.accent && 'pt-2 border-t border-border')}>
+                <span className={l.accent ? 'font-semibold text-foreground' : 'text-muted-foreground'}>{l.label}</span>
+                <span className={cn('font-mono', l.accent ? 'font-bold text-emerald-700' : 'font-semibold')}>{fmt(Math.round(l.val))}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Écritures (schéma avec neutralité fiscale, compte 154)</p>
+            <table className="w-full text-xs">
+              <tbody className="divide-y divide-border/60">
+                <tr><td colSpan={2} className="pt-2 pb-1 text-xs font-semibold text-foreground">Complément de valeur</td></tr>
+                <tr><td className="py-1 font-mono font-bold">Classe 2</td><td className="py-1 text-muted-foreground">{designation || 'Immobilisation'}</td><td className="py-1 text-right font-mono">{fmt(Math.round(resultat.cv))}</td></tr>
+                <tr><td className="py-1 font-mono font-bold pl-6">154</td><td className="py-1 text-muted-foreground italic pl-6">Provisions spéciales de réévaluation</td><td className="py-1 text-right font-mono">{fmt(Math.round(resultat.cv))}</td></tr>
+                <tr><td colSpan={2} className="pt-2 pb-1 text-xs font-semibold text-foreground">Complément d'amortissement</td></tr>
+                <tr><td className="py-1 font-mono font-bold">154</td><td className="py-1 text-muted-foreground">Provisions spéciales de réévaluation</td><td className="py-1 text-right font-mono">{fmt(Math.round(resultat.ca))}</td></tr>
+                <tr><td className="py-1 font-mono font-bold pl-6">28xx</td><td className="py-1 text-muted-foreground italic pl-6">Amortissement {designation || 'de l\'immobilisation'}</td><td className="py-1 text-right font-mono">{fmt(Math.round(resultat.ca))}</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-xs text-amber-800 leading-relaxed">
+              <strong>Reprise en neutralité fiscale (exercices suivants) :</strong> débit 154 / crédit 861 « Reprises de provisions réglementées », à hauteur du <strong>supplément d'amortissement</strong> de chaque exercice suivant (nouvelle dotation calculée sur la VBR moins l'ancienne dotation sur la valeur d'origine) — jusqu'à épuisement du compte 154. Ce calcul dépend du plan d'amortissement futur du bien, non reproduit ici.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-border bg-muted/20 p-3">
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              <strong>Schéma général AUDCIF (sans neutralité fiscale)</strong> : le complément de valeur va au compte <strong>106 Écarts de réévaluation</strong> (capitaux propres) au lieu du 154, et il n'y a pas de reprise via le compte 861. C'est le schéma à retenir hors du régime de neutralité fiscale RDC.
             </p>
           </div>
         </div>
