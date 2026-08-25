@@ -181,7 +181,7 @@ const CATALOGUE: Immobilisation[] = [
 
   { designation: 'Bâtiments démontables ou provisoires', categorie: 'II. Constructions',
     compteOHADA: '2313', intituleCompte: 'Bâtiments administratifs et commerciaux (sol propre)',
-    duree: 10, tauxLineaire: 10,
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: false, raisonNonDegressif: 'Bâtiments non listés à l\'Art. 31 Loi IS',
     eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
 
@@ -291,7 +291,7 @@ const CATALOGUE: Immobilisation[] = [
 
   { designation: 'Pétrins mécaniques, malaxeurs', categorie: 'III. Machines, matériels, équipements',
     compteOHADA: '2411', intituleCompte: 'Matériel industriel',
-    duree: 10, tauxLineaire: 10,
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
   { designation: 'Excavateurs', categorie: 'III. Machines, matériels, équipements',
@@ -301,7 +301,7 @@ const CATALOGUE: Immobilisation[] = [
 
   { designation: 'Foudres, cuves brasseries et distillation', categorie: 'III. Machines, matériels, équipements',
     compteOHADA: '2411', intituleCompte: 'Matériel industriel',
-    duree: 5, tauxLineaire: 20,
+    duree: 10, tauxLineaire: 10,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
   { designation: 'Appareils d\'épuration et de triage', categorie: 'III. Machines, matériels, équipements',
@@ -316,7 +316,7 @@ const CATALOGUE: Immobilisation[] = [
 
   { designation: 'Machines-outils légères, tours, mortaiseuses', categorie: 'III. Machines, matériels, équipements',
     compteOHADA: '2411', intituleCompte: 'Matériel industriel',
-    duree: 10, tauxLineaire: 10,
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
   { designation: 'Raboteuses, perceuses', categorie: 'III. Machines, matériels, équipements',
