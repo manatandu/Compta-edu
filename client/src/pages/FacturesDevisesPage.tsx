@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
   ArrowLeft, Receipt, Plus, Trash2, Info, AlertCircle,
-  BookOpen, ArrowLeftRight, Wallet, Upload, Check, FileText,
+  BookOpen, ArrowLeftRight, Wallet, Upload, Check, FileText, Lock,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -29,6 +29,10 @@ import {
 function formatFC(n: number): string { return `${Math.round(n).toLocaleString('fr-CD')} FC` }
 function formatDevise(n: number, devise: Devise): string { return `${n.toLocaleString('fr-CD', { maximumFractionDigits: 2 })} ${devise}` }
 const arrondi = (n: number) => Math.round(n * 100) / 100
+
+// Catalogue fermé des réductions commerciales en cascade (RRR) : le libellé
+// se choisit dans cette liste, seul le taux % reste saisi librement.
+const REDUCTIONS_COMMERCIALES_CATALOGUE = ['Rabais', 'Remise', 'Ristourne']
 
 const ONGLETS = [
   { id: 'factures', label: 'Factures', icon: Receipt, color: 'text-module-rose', border: 'border-module-rose' },
@@ -453,12 +457,12 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
               {lignes.map((l, i) => (
                 <div key={i} className="grid grid-cols-[1fr_50px_70px_70px_24px] gap-1.5 px-3 py-1.5 border-t border-border/60 items-center">
                   <input value={l.designation} onChange={e => majLigne(i, { designation: e.target.value })} placeholder="Article"
-                    className="rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                    className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs" />
                   <input type="number" value={l.quantite || ''} onChange={e => majLigne(i, { quantite: Number(e.target.value) || 0 })}
-                    className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                    className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
                   <input type="number" value={l.prixUnitaire || ''} onChange={e => majLigne(i, { prixUnitaire: Number(e.target.value) || 0 })}
-                    className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
-                  <span className="text-xs font-mono text-right text-muted-foreground">{(l.quantite * l.prixUnitaire).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</span>
+                    className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                  <span className="min-w-0 rounded border border-border/60 bg-muted/30 px-1.5 py-1 text-xs font-mono text-right text-muted-foreground truncate">{(l.quantite * l.prixUnitaire).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</span>
                   <button onClick={() => setLignes(ls => ls.filter((_, idx) => idx !== i))} className="text-red-400 text-xs">✕</button>
                 </div>
               ))}
@@ -479,16 +483,20 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
                 </div>
                 {reductions.map((r, i) => (
                   <div key={i} className="grid grid-cols-[1fr_70px_24px] gap-1.5 px-3 py-1.5 border-t border-border/60 items-center">
-                    <input value={r.libelle} onChange={e => majReduction(i, { libelle: e.target.value })} placeholder="Rabais, remise…"
-                      className="rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                    <select value={r.libelle} onChange={e => majReduction(i, { libelle: e.target.value })}
+                      className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs">
+                      {REDUCTIONS_COMMERCIALES_CATALOGUE.map(lib => (
+                        <option key={lib} value={lib}>{lib}</option>
+                      ))}
+                    </select>
                     <input type="number" value={r.pct || ''} onChange={e => majReduction(i, { pct: Number(e.target.value) || 0 })}
-                      className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                      className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
                     <button onClick={() => setReductions(rs => rs.filter((_, idx) => idx !== i))} className="text-red-400 text-xs">✕</button>
                   </div>
                 ))}
               </div>
             )}
-            <button onClick={() => setReductions(rs => [...rs, { libelle: rs.length === 0 ? 'Rabais' : rs.length === 1 ? 'Remise' : 'Ristourne', pct: 0 }])}
+            <button onClick={() => setReductions(rs => [...rs, { libelle: REDUCTIONS_COMMERCIALES_CATALOGUE[rs.length % REDUCTIONS_COMMERCIALES_CATALOGUE.length], pct: 0 }])}
               className="flex items-center gap-1.5 text-xs font-semibold text-module-rose">
               <Plus className="h-3 w-3" /> Ajouter une réduction
             </button>
@@ -520,9 +528,12 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
           {/* TVA, emballages, avance */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Taux de TVA</label>
-              <input type="number" value={form.tauxTVA} onChange={e => setForm(f => ({ ...f, tauxTVA: e.target.value }))}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-rose/30" />
+              <label className="text-xs font-semibold text-muted-foreground mb-1 flex items-center gap-1">
+                Taux de TVA <Lock className="h-3 w-3 text-muted-foreground/60" />
+              </label>
+              <input type="number" value={form.tauxTVA} disabled readOnly
+                className="w-full rounded-lg border border-border bg-muted/40 px-3 py-2 text-sm font-mono text-muted-foreground cursor-not-allowed" />
+              <p className="text-xs text-muted-foreground mt-1">Taux légal RDC (verrouillé)</p>
             </div>
             <div>
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">Avance déjà reçue</label>
@@ -541,11 +552,11 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
                 {emballages.map((e, i) => (
                   <div key={i} className="grid grid-cols-[1fr_40px_70px_60px_24px] gap-1.5 px-3 py-1.5 border-t border-border/60 items-center">
                     <input value={e.designation} onChange={ev => majEmballage(i, { designation: ev.target.value })} placeholder="Palette, casier…"
-                      className="rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                      className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs" />
                     <input type="number" value={e.quantite || ''} onChange={ev => majEmballage(i, { quantite: Number(ev.target.value) || 0 })}
-                      className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                      className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
                     <input type="number" value={e.prixUnitaireConsigne || ''} onChange={ev => majEmballage(i, { prixUnitaireConsigne: Number(ev.target.value) || 0 })}
-                      className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                      className="min-w-0 rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
                     <input type="checkbox" checked={e.identifiable} onChange={ev => majEmballage(i, { identifiable: ev.target.checked })} className="justify-self-center" />
                     <button onClick={() => setEmballages(es => es.filter((_, idx) => idx !== i))} className="text-red-400 text-xs">✕</button>
                   </div>
