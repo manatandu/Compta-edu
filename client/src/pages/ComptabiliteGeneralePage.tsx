@@ -95,10 +95,9 @@ const MODULES: Module[] = [
     id: 'emprunts',
     number: 7,
     label: 'Gestion des Emprunts',
-    desc: 'Bientôt disponible.',
+    desc: 'Tableau d\'amortissement, écritures et écarts de conversion (comptes 16, 478-479).',
     icon: Landmark,
-    soon: true,
-    subModules: [],
+    subModules: [{ path: '/emprunts', label: 'Gestion des Emprunts', desc: '', icon: Landmark }],
   },
   {
     id: 'plan-comptable',
