@@ -115,12 +115,12 @@ export default function GrandLivrePage({ embedded = false }: { embedded?: boolea
                     <BookMarked className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Grand Livre</h1>
+                    <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">Grand Livre</h1>
                     <p className="text-xs text-muted-foreground mt-0.5">Suivi détaillé par compte SYSCOHADA</p>
                   </div>
                 </div>
                 {comptesData.length > 0 && (
-                  <Button variant="outline" size="sm" onClick={() => exportGrandLivrePDF(selectedSession?.nom || '', comptesData)} className="animate-slideDown" style={{ animationDelay: '200ms' }}>
+                  <Button variant="outline" size="sm" onClick={() => exportGrandLivrePDF(selectedSession?.nom || '', comptesData)} className="animate-slideDown" style={{ animationDelay: '100ms' }}>
                     <Download className="h-4 w-4 mr-1" /> PDF
                   </Button>
                 )}
@@ -194,7 +194,7 @@ export default function GrandLivrePage({ embedded = false }: { embedded?: boolea
             const displayTotalCredit = compte.totalCredit + compte.soldeDebiteur
 
             return (
-              <Card key={compte.numero} className="border-border">
+              <Card key={compte.numero} className="border-border hover:border-primary/30 transition-colors">
                 {/* Header - always visible */}
                 <div
                   className="flex items-center gap-3 p-3 cursor-pointer hover:bg-muted/30 rounded-lg transition-colors"

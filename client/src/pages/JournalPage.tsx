@@ -312,20 +312,20 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
                     <Settings2 className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h1 className="text-lg sm:text-xl font-display font-semibold text-foreground tracking-tight">Journal Comptable</h1>
+                    <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">Journal Comptable</h1>
                     <p className="text-xs text-muted-foreground mt-0.5">Saisie des écritures SYSCOHADA : Partie double</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 sm:ml-auto">
-                  <Button variant="outline" size="sm" onClick={() => setShowNewSession(true)} className="flex-1 sm:flex-none justify-center">
+                  <Button variant="outline" size="sm" onClick={() => setShowNewSession(true)} className="flex-1 sm:flex-none justify-center animate-slideDown" style={{ animationDelay: '100ms' }}>
                     <PlusCircle className="h-4 w-4 mr-1" /> Nouvelle session
                   </Button>
                   {sessionEcritures.length > 0 && (
-                    <Button variant="outline" size="sm" onClick={() => exportJournalPDF(selectedSession?.nom || '', sessionEcritures)} className="flex-1 sm:flex-none justify-center">
+                    <Button variant="outline" size="sm" onClick={() => exportJournalPDF(selectedSession?.nom || '', sessionEcritures)} className="flex-1 sm:flex-none justify-center animate-slideDown" style={{ animationDelay: '150ms' }}>
                       <Download className="h-4 w-4 mr-1" /> PDF
                     </Button>
                   )}
-                  <Button size="sm" onClick={() => setShowForm(true)} disabled={!selectedSessionId || sessionVerrouillee} className="flex-1 sm:flex-none justify-center">
+                  <Button size="sm" onClick={() => setShowForm(true)} disabled={!selectedSessionId || sessionVerrouillee} className="flex-1 sm:flex-none justify-center animate-slideDown" style={{ animationDelay: '200ms' }}>
                     <Plus className="h-4 w-4 mr-1" /> Nouvelle écriture
                   </Button>
                 </div>
@@ -353,6 +353,7 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
       )}
 
       {/* Session selector */}
+      <div className={embedded ? undefined : 'animate-slideUp'} style={embedded ? undefined : { animationDelay: '80ms' }}>
       <Card className="border-border">
         <CardContent className="pt-4 pb-4">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
@@ -407,6 +408,7 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Ecritures list */}
       {grouped.length === 0 ? (
@@ -425,7 +427,7 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
             const totalDebit = lines.reduce((s, l) => s + l.debit, 0)
             const totalCredit = lines.reduce((s, l) => s + l.credit, 0)
             return (
-              <Card key={groupe} className="border-border">
+              <Card key={groupe} className="border-border hover:border-primary/30 transition-colors">
                 <CardContent className="pt-3 pb-3">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-2 flex-wrap">

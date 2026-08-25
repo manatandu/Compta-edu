@@ -120,12 +120,12 @@ export default function BalancePage({ embedded = false }: { embedded?: boolean }
                     <Scale className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Balance Générale</h1>
+                    <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">Balance Générale</h1>
                     <p className="text-xs text-muted-foreground mt-0.5">Balance à 6 colonnes SYSCOHADA révisé</p>
                   </div>
                 </div>
                 {lignes.length > 0 && (
-                  <Button variant="outline" size="sm" onClick={() => exportBalancePDF(selectedSession?.nom || '', lignes)} className="animate-slideDown" style={{ animationDelay: '200ms' }}>
+                  <Button variant="outline" size="sm" onClick={() => exportBalancePDF(selectedSession?.nom || '', lignes)} className="animate-slideDown" style={{ animationDelay: '100ms' }}>
                     <Download className="h-4 w-4 mr-1" /> PDF
                   </Button>
                 )}
@@ -143,6 +143,7 @@ export default function BalancePage({ embedded = false }: { embedded?: boolean }
         </div>
       )}
 
+      <div className={embedded ? undefined : 'animate-slideUp'} style={embedded ? undefined : { animationDelay: '80ms' }}>
       <Card className="border-border">
         <CardContent className="pt-4 pb-4">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
@@ -162,6 +163,7 @@ export default function BalancePage({ embedded = false }: { embedded?: boolean }
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {lignes.length === 0 ? (
         <Card className="border-border">
@@ -195,7 +197,7 @@ export default function BalancePage({ embedded = false }: { embedded?: boolean }
                 </thead>
                 <tbody>
                   {lignes.map((l, i) => (
-                    <tr key={l.numero} className={i % 2 === 0 ? 'bg-background' : 'bg-muted/20'}>
+                    <tr key={l.numero} className={cn(i % 2 === 0 ? 'bg-background' : 'bg-muted/20', 'hover:bg-primary/5 transition-colors')}>
                       <td className="py-1.5 px-1.5 sm:px-3 font-mono font-medium text-primary whitespace-nowrap">{l.numero}</td>
                       <td className="py-1.5 px-1.5 sm:px-3 text-foreground max-w-[100px] sm:max-w-[200px] truncate">{l.intitule}</td>
                       <td className="py-1.5 px-3 text-right border-l border-border/50">{l.ouvertureD > 0 ? formatMontant(l.ouvertureD) : ''}</td>
