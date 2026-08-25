@@ -13,6 +13,7 @@ import {
   useEmprunts, creerEmprunt, supprimerEmprunt, calculerAmortissement, libelleMethode,
   genererEcritureReception, genererEcritureEcheance, genererEcritureInteretsCourus,
   calculerEcartConversion, genererEcritureEcartConversion, genererEcritureProvisionPerteChange,
+  calculerProvisionPerteChange,
   type Emprunt, type Devise, type MethodeAmortEmprunt,
   type EcritureEmpruntGeneree,
 } from '@/lib/useEmprunts'
@@ -560,7 +561,8 @@ function OngletEcarts({ emprunt, userId }: { emprunt: Emprunt; userId: string })
     [emprunt, capitalRestant, coursCloture]
   )
   const ecritureEcart = genererEcritureEcartConversion(emprunt, ecart, dateCloture)
-  const ecritureProvision = genererEcritureProvisionPerteChange(emprunt, ecart, dateCloture)
+  const provision = useMemo(() => calculerProvisionPerteChange(emprunt, ecart, dateCloture), [emprunt, ecart, dateCloture])
+  const ecritureProvision = genererEcritureProvisionPerteChange(emprunt, provision, dateCloture)
 
   if (emprunt.devise === 'CDF') {
     return (
@@ -668,6 +670,13 @@ function OngletEcarts({ emprunt, userId }: { emprunt: Emprunt; userId: string })
             </div>
             {ecritureProvision && (
               <div>
+                <div className="rounded-lg bg-muted/40 border border-border px-3 py-2.5 mb-2 text-xs">
+                  <p className="font-semibold text-foreground mb-0.5">Étalement de la provision (Art. 56 AUDCIF)</p>
+                  <p className="text-muted-foreground">
+                    Un emprunt affecte plusieurs exercices : la provision n'est pas égale à l'écart entier, elle est <strong>limitée à la fraction de mois déjà couverte par le contrat</strong> depuis la mise à disposition.
+                    {' '}{provision.moisEcoules} mois écoulés ÷ {provision.dureeTotaleMois} mois (durée totale) = {formatFC(ecart.ecart)} × {(provision.fraction * 100).toLocaleString('fr-CD', { maximumFractionDigits: 1 })} % = <strong className="text-foreground">{formatFC(provision.montant)}</strong>.
+                  </p>
+                </div>
                 <EcritureCard ec={ecritureProvision} numero={5} couleur="rose" />
                 <button onClick={() => setModalEcriture(ecritureProvision)}
                   className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-module-rose hover:opacity-80">
@@ -695,8 +704,8 @@ function OngletEcarts({ emprunt, userId }: { emprunt: Emprunt; userId: string })
         <div className="flex gap-3 text-xs">
           <span className="h-5 w-5 rounded-full bg-muted text-muted-foreground text-xs font-bold flex items-center justify-center shrink-0">↺</span>
           <div>
-            <p className="font-semibold">Reprise de la provision, si le risque disparaît</p>
-            <p className="text-muted-foreground mt-0.5">Débit 194 / Crédit 7971 — dans la limite du nouvel écart recalculé à la clôture suivante.</p>
+            <p className="font-semibold">Extourne intégrale de la provision de l'exercice</p>
+            <p className="text-muted-foreground mt-0.5">Débit 194 / Crédit 7971, pour la <strong>totalité</strong> de la provision constituée cette clôture — pas seulement l'excédent. À la clôture suivante, une provision entièrement nouvelle est calculée sur le nouvel écart et la nouvelle fraction de mois écoulés (Art. 56).</p>
           </div>
         </div>
       </div>
