@@ -215,7 +215,7 @@ export default function ChapitreIntroductionFiscalite() {
               Chapitre 1 — Notions générales de fiscalité et d'impôt
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Théorie générale du droit fiscal, adaptée et actualisée d'après le module « Fiscalité des Entreprises » (Prof. T.-G. Kalonji, avril 2023) et la Constitution du 18 février 2006
+              Théorie générale du droit fiscal, adaptée et actualisée à partir des principes fondamentaux du droit fiscal congolais et de la Constitution du 18 février 2006
             </p>
           </div>
         </div>
@@ -247,7 +247,7 @@ export default function ChapitreIntroductionFiscalite() {
 
       <div className="p-2 border-t border-border/40">
         <p className="text-sm text-muted-foreground text-center italic">
-          Contenu théorique adapté du module « Fiscalité des Entreprises » (Prof. Trésor-Gauthier M. Kalonji, avril 2023, 4METX Form-Ethics). Les développements chiffrés (taux, barèmes, seuils) sont traités dans les chapitres 2 à 8, actualisés selon la législation en vigueur.
+          Contenu théorique de portée générale, actualisé selon la législation en vigueur. Les développements chiffrés (taux, barèmes, seuils) sont traités dans les chapitres 2 à 8.
         </p>
       </div>
     </div>
