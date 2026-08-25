@@ -51,12 +51,12 @@ export default function DocsComptablesHub() {
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center">
-            <BookOpen className="h-4 w-4 text-blue-600" />
+          <div className="h-8 w-8 rounded-xl bg-module-blue/10 flex items-center justify-center">
+            <BookOpen className="h-4 w-4 text-module-blue" />
           </div>
           <div>
             <h1 className="text-sm font-display font-bold text-foreground leading-tight">Documents Comptables</h1>
-            <p className="text-xs text-muted-foreground">Dossier 1 · SYSCOHADA Révisé</p>
+            <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Module 1 · SYSCOHADA Révisé</p>
           </div>
         </div>
       </div>
@@ -85,14 +85,14 @@ export default function DocsComptablesHub() {
 
       {/* Contenu direct */}
       <ModuleProvider module="syscohada">
-        <div className={actif === 'journal' ? '' : 'hidden'}>
-          <JournalPage />
+        <div className={cn(actif === 'journal' ? '' : 'hidden', 'px-4 pt-4')}>
+          <JournalPage embedded />
         </div>
-        <div className={actif === 'grand-livre' ? '' : 'hidden'}>
-          <GrandLivrePage />
+        <div className={cn(actif === 'grand-livre' ? '' : 'hidden', 'px-4 pt-4')}>
+          <GrandLivrePage embedded />
         </div>
-        <div className={actif === 'balance' ? '' : 'hidden'}>
-          <BalancePage />
+        <div className={cn(actif === 'balance' ? '' : 'hidden', 'px-4 pt-4')}>
+          <BalancePage embedded />
         </div>
       </ModuleProvider>
     </div>
