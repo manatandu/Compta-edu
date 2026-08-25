@@ -493,3 +493,85 @@ export function exportResultatPDF(sessionName: string, lignes: { ref: string; la
 
   savePDF(doc, `compte-resultat-${sessionName.replace(/\s+/g, "-").toLowerCase()}.pdf`);
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Module 5 — Facturation : export du document (facture, pas un tableau
+// comptable) — en-tête + tableau des lignes + décompte (brut → RRR en
+// cascade → net commercial → escompte → net financier → TVA → net à payer).
+// ─────────────────────────────────────────────────────────────────────────────
+import type { FactureDevise, DecompteFacture, Devise } from './useFacturesDevises'
+
+function fmtDevisePDF(n: number, devise: Devise): string {
+  return `${fmtPDF(n)} ${devise}`
+}
+
+export function exportFacturePDF(facture: FactureDevise, decompte: DecompteFacture) {
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+  const startY = addHeader(doc, 'FACTURE', facture.reference)
+
+  doc.setFontSize(9)
+  doc.setFont('helvetica', 'bold')
+  doc.text(facture.type === 'achat' ? 'Fournisseur' : 'Client', 14, startY + 2)
+  doc.setFont('helvetica', 'normal')
+  doc.text(facture.tiers, 14, startY + 7)
+  doc.text(`Date : ${facture.dateFacture}`, 196, startY + 2, { align: 'right' })
+  doc.text(`Devise : ${facture.devise}`, 196, startY + 7, { align: 'right' })
+
+  const rows = facture.lignes.map(l => [
+    l.designation,
+    String(l.quantite),
+    fmtPDF(l.prixUnitaire),
+    fmtPDF(l.quantite * l.prixUnitaire),
+  ])
+
+  autoTable(doc, {
+    startY: startY + 14,
+    head: [['Désignation', 'Qté', 'P.U.', 'Montant']],
+    body: rows,
+    headStyles: { fillColor: BLUE_OHADA, textColor: 255, fontStyle: 'bold', fontSize: 9 },
+    bodyStyles: { fontSize: 8 },
+    columnStyles: {
+      1: { halign: 'right', cellWidth: 20 },
+      2: { halign: 'right', cellWidth: 30 },
+      3: { halign: 'right', cellWidth: 30 },
+    },
+    margin: { left: 14, right: 14 },
+  })
+
+  const y = (doc as any).lastAutoTable.finalY + 8
+
+  const decompteRows: [string, string][] = [['Montant brut', fmtDevisePDF(decompte.brut, facture.devise)]]
+  decompte.etapesReductions.forEach((e, i) => {
+    decompteRows.push([`− ${e.libelle} (${e.pct} %)`, fmtDevisePDF(e.montantReduit, facture.devise)])
+    decompteRows.push([`= Solde ${i + 1}${i === decompte.etapesReductions.length - 1 ? ' = Net commercial' : ''}`, fmtDevisePDF(e.solde, facture.devise)])
+  })
+  if (decompte.etapesReductions.length === 0) decompteRows.push(['Net commercial', fmtDevisePDF(decompte.netCommercial, facture.devise)])
+  if (decompte.escompte > 0) {
+    decompteRows.push(['− Escompte', fmtDevisePDF(decompte.escompte, facture.devise)])
+    decompteRows.push(['Net financier', fmtDevisePDF(decompte.netFinancier, facture.devise)])
+  }
+  decompteRows.push(['+ TVA', fmtDevisePDF(decompte.tva, facture.devise)])
+  decompteRows.push(['Net à payer', fmtDevisePDF(decompte.netAPayer, facture.devise)])
+  if (decompte.totalEmballages > 0) decompteRows.push(['+ Emballages consignés', fmtDevisePDF(decompte.totalEmballages, facture.devise)])
+  if (decompte.avanceRecue > 0) decompteRows.push(['− Avance déjà versée', fmtDevisePDF(decompte.avanceRecue, facture.devise)])
+  decompteRows.push(['Net à encaisser', fmtDevisePDF(decompte.netAEncaisser, facture.devise)])
+
+  autoTable(doc, {
+    startY: y,
+    body: decompteRows,
+    theme: 'plain',
+    styles: { fontSize: 8.5, cellPadding: 1.2 },
+    columnStyles: { 0: { cellWidth: 56 }, 1: { halign: 'right', cellWidth: 40, fontStyle: 'bold' } },
+    margin: { left: 100, right: 14 },
+    didParseCell: (data) => {
+      if (data.row.index === decompteRows.length - 1) {
+        data.cell.styles.fillColor = BLUE_OHADA
+        data.cell.styles.textColor = 255
+        data.cell.styles.fontStyle = 'bold'
+      }
+    },
+  })
+
+  addFooter(doc)
+  savePDF(doc, `Facture_${facture.reference.replace(/[^a-z0-9]/gi, '_')}.pdf`)
+}
