@@ -910,7 +910,7 @@ export default function SimulateurAutresImpots() {
   const onglet = ONGLETS.find(o => o.id === ongletActif)!
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fadeIn">
       {/* En-tête */}
       <div className="rounded-xl border border-border bg-gradient-to-br from-slate-50 to-slate-100 p-4">
         <h2 className="text-sm font-bold text-foreground mb-1">Autres impôts rétrocédés aux ETD</h2>
@@ -941,7 +941,7 @@ export default function SimulateurAutresImpots() {
       </div>
 
       {/* Contenu de l'onglet actif */}
-      <div className="rounded-xl border border-border bg-card p-4">
+      <div key={ongletActif} className="rounded-xl border border-border bg-card p-4 animate-fadeIn">
         {ongletActif === 'irl'  && <OngletIRL />}
         {ongletActif === 'if'   && <OngletIF />}
         {ongletActif === 'iv'   && <OngletIV />}

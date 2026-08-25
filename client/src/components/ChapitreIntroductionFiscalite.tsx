@@ -38,19 +38,22 @@ function Section({ icon: Icon, label, color }: { icon: any; label: string; color
 function Depliant({ titre, children }: { titre: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border border-border/60 rounded-lg mb-2 overflow-hidden">
+    <div className={cn(
+      'border rounded-lg mb-2 overflow-hidden transition-colors duration-200',
+      open ? 'border-primary/25' : 'border-border/60 hover:border-primary/20'
+    )}>
       <button
         onClick={() => setOpen(o => !o)}
         className="w-full flex items-start gap-2 px-3 py-2.5 bg-muted/30 hover:bg-muted/60 transition-colors text-left"
       >
         {open
-          ? <ChevronDown className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
-          : <ChevronRight className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground" />
+          ? <ChevronDown className="h-4 w-4 mt-0.5 shrink-0 text-primary transition-transform" />
+          : <ChevronRight className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground transition-transform" />
         }
         <span className="text-sm font-semibold text-foreground">{titre}</span>
       </button>
       {open && (
-        <div className="px-4 py-3 text-sm text-foreground leading-relaxed space-y-1.5 bg-background">
+        <div className="px-4 py-3 text-sm text-foreground leading-relaxed space-y-1.5 bg-background animate-fadeIn">
           {children}
         </div>
       )}
@@ -206,8 +209,8 @@ export default function ChapitreIntroductionFiscalite() {
   const Composant = SOUS_CHAPITRES.find(s => s.id === actif)!.component
 
   return (
-    <div className="space-y-4">
-      <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+    <div className="space-y-4 animate-fadeIn">
+      <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg animate-slideUp" style={{ animationDelay: '0ms' }}>
         <div className="flex items-start gap-2">
           <Sparkles className="h-4 w-4 mt-0.5 text-slate-600 shrink-0" />
           <div>
@@ -221,7 +224,7 @@ export default function ChapitreIntroductionFiscalite() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-1.5 animate-slideUp" style={{ animationDelay: '60ms' }}>
         {SOUS_CHAPITRES.map(s => {
           const Icon = s.icon
           const isActif = actif === s.id
@@ -230,10 +233,10 @@ export default function ChapitreIntroductionFiscalite() {
               key={s.id}
               onClick={() => setActif(s.id)}
               className={cn(
-                'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all border',
+                'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border',
                 isActif
-                  ? 'bg-slate-800 text-white border-slate-800'
-                  : 'bg-background text-muted-foreground border-border/60 hover:border-slate-400 hover:text-foreground'
+                  ? 'bg-slate-800 text-white border-slate-800 shadow-sm scale-[1.03]'
+                  : 'bg-background text-muted-foreground border-border/60 hover:border-slate-400 hover:text-foreground hover:scale-[1.02]'
               )}
             >
               <Icon className="h-3 w-3" />
@@ -243,7 +246,7 @@ export default function ChapitreIntroductionFiscalite() {
         })}
       </div>
 
-      <div><Composant /></div>
+      <div key={actif} className="animate-fadeIn"><Composant /></div>
 
       <div className="p-2 border-t border-border/40">
         <p className="text-sm text-muted-foreground text-center italic">

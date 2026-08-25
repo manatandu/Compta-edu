@@ -5454,35 +5454,48 @@ export default function FiscalitePage() {
     : ONGLETS.find(o => o.id === impotActif)!
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-10">
+    <div className="min-h-screen bg-background text-foreground pb-10 animate-fadeIn">
       <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 overflow-x-hidden">
 
-        {/* En-tête */}
-        <div className="mb-5">
-          <BackButton />
-          <div className="mt-4 flex items-start justify-between gap-3">
-            <div>
-              <h1 className="text-2xl font-display font-bold text-foreground">Fiscalité des entreprises</h1>
-            </div>
-            <div className="flex flex-col items-end gap-2 shrink-0">
-              <Badge variant="outline" className="text-xs">Loi n°23/053 du 26 déc. 2023 portant IS/IRPP : J.O. RDC</Badge>
-              <Button
-                size="sm" variant="outline"
-                className="gap-1.5 text-xs h-7 border-purple-300 text-purple-700 hover:bg-purple-50"
-                onClick={() => { setNav({ cours: 'fiscalite' }); navigate('/documents') }}
-              >
-                <FolderOpen className="h-3.5 w-3.5" /> Documents
-              </Button>
+        {/* ── Bouton retour ── */}
+        <BackButton />
+
+        {/* ── Header Banner Animé (cohérent avec Journal/Balance/Bilan/Exercices/Documents) ── */}
+        <div className="mb-5 animate-slideDown" style={{ animationDelay: '0ms' }}>
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
+            <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
+            <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6 shrink-0">
+                  <Scale className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">Fiscalité des entreprises</h1>
+                  <p className="text-xs text-muted-foreground mt-0.5">Loi n°23/053 du 26 déc. 2023 portant IS/IRPP : J.O. RDC</p>
+                </div>
+              </div>
+              <div className="flex flex-col items-end gap-2 shrink-0">
+                <Badge variant="outline" className="text-xs hidden sm:inline-flex">Loi n°23/053</Badge>
+                <Button
+                  size="sm" variant="outline"
+                  className="gap-1.5 text-xs h-7 border-purple-300 text-purple-700 hover:bg-purple-50 animate-slideDown"
+                  style={{ animationDelay: '100ms' }}
+                  onClick={() => { setNav({ cours: 'fiscalite' }); navigate('/documents') }}
+                >
+                  <FolderOpen className="h-3.5 w-3.5" /> Documents
+                </Button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* ── Sommaire du module : 8 chapitres (1 = théorie, 2 à 8 = un par impôt/simulateur) ── */}
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-0.5">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-0.5 animate-slideUp" style={{ animationDelay: '60ms' }}>
           Sommaire du module
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-          {CHAPITRES.map(o => {
+          {CHAPITRES.map((o, i) => {
             const Icon = o.icon
             const isActif = impotActif === o.id
             return (
@@ -5490,12 +5503,13 @@ export default function FiscalitePage() {
                 key={o.id}
                 onClick={() => choisirChapitre(o.id)}
                 className={cn(
-                  'relative rounded-xl border h-[68px] flex flex-col justify-center items-center px-2 py-2 text-center',
+                  'relative rounded-xl border h-[68px] flex flex-col justify-center items-center px-2 py-2 text-center animate-slideUp',
                   'transition-all duration-200 ease-out focus:outline-none',
                   isActif
                     ? `${COLOR_MAP[o.color]} shadow-md border-transparent scale-[1.03]`
-                    : 'border-border bg-card hover:border-primary/30 hover:bg-muted/30 hover:scale-[1.01]'
+                    : 'border-border bg-card hover:border-primary/30 hover:bg-muted/30 hover:shadow-sm hover:scale-[1.01]'
                 )}
+                style={{ animationDelay: `${80 + i * 30}ms` }}
               >
                 <span className={cn(
                   'absolute top-1 left-1.5 text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center',
@@ -5514,7 +5528,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro IRPP ── */}
         {impotActif === 'irpp' && (
-          <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-4 space-y-3">
+          <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 p-4 space-y-3 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-blue-800">IRPP : Impôt sur le Revenu des Personnes Physiques</p>
             <p className="text-xs text-blue-700 leading-relaxed">
               L'IRPP frappe l'ensemble des revenus des personnes physiques, quelle que soit leur nature ou leur source, dès lors qu'ils sont réalisés en RDC. Il est organisé en 6 catégories autonomes.
@@ -5550,7 +5564,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro IS ── */}
         {impotActif === 'is' && (
-          <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-2">
+          <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 space-y-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-emerald-800">IS : Impôt sur les Sociétés</p>
             <p className="text-xs text-emerald-700 leading-relaxed">
               L'IS frappe le résultat des personnes morales (sociétés, établissements). Il se calcule en partant du résultat comptable de l'exercice, retraité par une série de réintégrations (charges non déductibles) et de déductions (produits non imposables ou déjà imposés) pour obtenir le résultat fiscal, auquel s'applique le taux de 30%.
@@ -5566,7 +5580,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro TVA ── */}
         {impotActif === 'tva' && (
-          <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 p-4 space-y-2">
+          <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 p-4 space-y-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-rose-800">TVA : Taxe sur la Valeur Ajoutée</p>
             <p className="text-xs text-rose-700 leading-relaxed">
               Impôt sur la dépense, la TVA est collectée à chaque stade du circuit économique et supportée in fine par le consommateur final. L'assujetti reverse au Trésor la différence entre la TVA collectée sur ses ventes et la TVA déductible sur ses achats.
@@ -5582,7 +5596,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro Autres impôts réels et provinciaux ── */}
         {impotActif === 'irl' && (
-          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-2">
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-amber-800">Autres impôts réels et provinciaux</p>
             <p className="text-xs text-amber-700 leading-relaxed">
               À côté de l'IS et de l'IRPP (impôts d'État), le système fiscal congolais comprend des impôts réels de compétence provinciale, rétrocédés en grande partie aux Entités Territoriales Décentralisées (ETD) : impôt sur les revenus locatifs (IRL), impôt foncier (IF), impôt sur les véhicules (IV), taxe spéciale de circulation routière (TSCR) et taxe sur la superficie des concessions minières (TSMC).
@@ -5598,7 +5612,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro Procédures fiscales ── */}
         {impotActif === 'procedures' && (
-          <div className="mb-4 rounded-xl border border-purple-200 bg-purple-50 p-4 space-y-2">
+          <div className="mb-4 rounded-xl border border-purple-200 bg-purple-50 p-4 space-y-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-purple-800">Procédures fiscales</p>
             <p className="text-xs text-purple-700 leading-relaxed">
               Quel que soit l'impôt concerné, son établissement et son recouvrement obéissent à un cadre procédural commun : obligations déclaratives, droit de contrôle et de vérification de l'Administration, avis de mise en recouvrement (AMR), pénalités (majorations, amendes, astreintes) et voies de réclamation et de recours.
@@ -5614,7 +5628,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro Douane ── */}
         {impotActif === 'douane' && (
-          <div className="mb-4 rounded-xl border border-cyan-200 bg-cyan-50 p-4 space-y-2">
+          <div className="mb-4 rounded-xl border border-cyan-200 bg-cyan-50 p-4 space-y-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-cyan-800">Douane</p>
             <p className="text-xs text-cyan-700 leading-relaxed">
               La fiscalité douanière frappe les marchandises à l'importation et à l'exportation : droits de douane liquidés sur la valeur en douane, régimes suspensifs (entrepôt, transit, admission temporaire, perfectionnement actif/passif) et régime du contentieux douanier (saisies, amendes, recours).
@@ -5630,7 +5644,7 @@ export default function FiscalitePage() {
 
         {/* ── Encadré intro Fiscalité minière ── */}
         {impotActif === 'mines' && (
-          <div className="mb-4 rounded-xl border border-stone-200 bg-stone-50 p-4 space-y-2">
+          <div className="mb-4 rounded-xl border border-stone-200 bg-stone-50 p-4 space-y-2 animate-slideUp" style={{ animationDelay: '100ms' }}>
             <p className="text-sm font-bold text-stone-800">Fiscalité minière</p>
             <p className="text-xs text-stone-700 leading-relaxed">
               Le secteur minier obéit à un régime fiscal, douanier et de redevance minière spécifique, dérogatoire au droit commun : redevance minière assise sur la valeur des ventes (taux variable selon la substance, majoré pour les substances stratégiques), IS au taux de 30%, impôt spécial sur le profit excédentaire, et taux préférentiels selon la phase (recherche, développement, exploitation).
@@ -5646,12 +5660,12 @@ export default function FiscalitePage() {
 
         {/* ── Niveau 2 : sous-onglets IRPP (6 catégories) ── */}
         {impotActif === 'irpp' && (
-          <div className="mb-4">
+          <div className="mb-4 animate-fadeIn">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-0.5">
               Dossier IRPP : Choisir une catégorie
             </p>
             <div className="grid grid-cols-3 gap-3">
-              {SOUS_ONGLETS_IRPP.map(o => {
+              {SOUS_ONGLETS_IRPP.map((o, i) => {
                 const Icon = o.icon
                 const isActif = catIrpp === o.id
                 return (
@@ -5659,12 +5673,13 @@ export default function FiscalitePage() {
                     key={o.id}
                     onClick={() => setCatIrpp(o.id)}
                     className={cn(
-                      'relative rounded-xl border min-h-[72px] flex flex-col justify-center px-3 py-3 text-left',
+                      'relative rounded-xl border min-h-[72px] flex flex-col justify-center px-3 py-3 text-left animate-slideUp',
                       'transition-all duration-200 ease-out focus:outline-none',
                       isActif
                         ? `${COLOR_MAP[o.color]} shadow-md border-transparent scale-[1.03]`
-                        : 'border-border bg-card hover:border-primary/30 hover:bg-muted/30 hover:scale-[1.01]'
+                        : 'border-border bg-card hover:border-primary/30 hover:bg-muted/30 hover:shadow-sm hover:scale-[1.01]'
                     )}
+                    style={{ animationDelay: `${i * 30}ms` }}
                   >
                     <Icon className={cn('h-3.5 w-3.5 mb-1 shrink-0', isActif ? 'text-white' : COLOR_LIGHT[o.color])} />
                     <p className={cn('text-xs font-bold leading-tight', isActif ? 'text-white' : 'text-foreground')}>{o.label}</p>
@@ -5678,7 +5693,7 @@ export default function FiscalitePage() {
 
         {/* Description onglet actif (chapitres 2 à 8, y compris l'IRPP) */}
         {ongletDesc && (
-        <Card className="mb-4 overflow-hidden">
+        <Card className="mb-4 overflow-hidden animate-slideUp" style={{ animationDelay: '120ms' }}>
           <CardHeader className="pb-2 pt-4">
             <div className="flex items-center gap-2.5">
               <div className={cn(

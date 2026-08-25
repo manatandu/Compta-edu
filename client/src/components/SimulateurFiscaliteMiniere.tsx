@@ -479,7 +479,7 @@ export default function SimulateurFiscaliteMiniere() {
   const Composant = ONGLETS.find(o => o.id === actif)!.component
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fadeIn">
       <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
         <div className="flex items-start gap-2">
           <Pickaxe className="h-4 w-4 mt-0.5 text-slate-600 shrink-0" />
@@ -506,10 +506,10 @@ export default function SimulateurFiscaliteMiniere() {
               key={o.id}
               onClick={() => setActif(o.id)}
               className={cn(
-                'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all border',
+                'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 border',
                 isActif
-                  ? 'bg-orange-700 text-white border-orange-700'
-                  : 'bg-background text-muted-foreground border-border/60 hover:border-orange-400 hover:text-foreground'
+                  ? 'bg-orange-700 text-white border-orange-700 shadow-sm scale-[1.02]'
+                  : 'bg-background text-muted-foreground border-border/60 hover:border-orange-400 hover:text-foreground hover:scale-[1.02]'
               )}
             >
               <Icon className="h-3 w-3" />
@@ -520,7 +520,7 @@ export default function SimulateurFiscaliteMiniere() {
         })}
       </div>
 
-      <div>
+      <div key={actif} className="animate-fadeIn">
         <Composant />
       </div>
 
