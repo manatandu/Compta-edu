@@ -479,18 +479,23 @@ export default function ChargesPersonnelIPRPage() {
   }
 
   return (
-    <div className="space-y-5 pb-6">
-      {/* En-tête */}
-      <div className="flex items-center gap-3">
-        <BackButton />
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-100 shrink-0">
-              <Users className="h-4 w-4 text-sky-600" />
+    <div className="space-y-5 pb-6 animate-fadeIn">
+
+      {/* ── Bouton retour ── */}
+      <BackButton />
+
+      {/* ── Header Banner Animé (cohérent avec Journal/GrandLivre/Balance/Bilan/PlanComptable) ── */}
+      <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-module-blue/10 via-module-blue/5 to-transparent border border-module-blue/10 px-4 sm:px-6 py-4 sm:py-5">
+          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-module-blue/10 animate-pulseGlow" />
+          <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-module-blue/6 animate-float" />
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-module-blue/15 border border-module-blue/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
+              <Users className="h-6 w-6 text-module-blue" />
             </div>
             <div>
               <p className="text-xs text-muted-foreground uppercase tracking-wide">Charges du personnel</p>
-              <h1 className="text-base font-display font-bold text-foreground leading-tight">IRPP : Cat. 1 : Revenus salariaux et assimilés</h1>
+              <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">IRPP : Cat. 1 : Revenus salariaux et assimilés</h1>
             </div>
           </div>
         </div>
