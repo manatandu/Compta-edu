@@ -692,46 +692,149 @@ const CATALOGUE: Immobilisation[] = [
     eligibleDegressif: false, raisonNonDegressif: 'Autre matériel de bureau exclu (Art. 31 al. 6 Loi IS)',
     eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
 
+  { designation: 'Réfrigérateurs, fontaines réfrigérantes et assimilées', categorie: 'VII. Électroménager',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Électroménager non listé à l\'Art. 31 Loi IS',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Machines à laver', categorie: 'VII. Électroménager',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Électroménager non listé à l\'Art. 31 Loi IS',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
   // ── VIII. HÔTELS ET RESTAURATION ─────────────────────────────────────────────
   // Art. 31 al. 9 : "Immeubles et matériels des entreprises hôtelières, à l'exclusion
   // des entreprises exerçant uniquement l'activité de restaurateur ou de cafetier"
-  // → hôtels éligibles dégressif, restaurateurs/cafetiers NON
+  // → hôtels éligibles dégressif, restaurateurs/cafetiers NON.
+  // Retranscription intégrale des 20 lignes de l'Arrêté n°013/2025, Section VIII.
+  // À partir de la ligne 7, le texte officiel intitule "matériels d'hôtels et de
+  // restauration" des équipements qui sont en réalité de la plasturgie et de la
+  // blanchisserie industrielle (presses à injection, machines à métalliser, moules,
+  // lessiveuses...) — défaut de fond signalé par le texte source lui-même, pas une
+  // erreur de lecture. Ces lignes sont reproduites avec leurs taux exacts, mais leur
+  // éligibilité au régime dégressif de l'Art. 31 al. 9 (réservé aux "entreprises
+  // hôtelières") n'est pas tranchée ici, faute de savoir si le législateur visait
+  // réellement des entreprises hôtelières pour ces équipements industriels.
 
-  { designation: 'Matériels de cuisine professionnelle (hôtels)', categorie: 'VIII. Hôtels & Restauration',
+  { designation: 'Literie', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 3, tauxLineaire: 33.33,
+    eligibleDegressif: false, raisonNonDegressif: 'Durée < 4 ans (Art. 32 al. 1 Loi IS)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Matériels de cuisines et buanderie', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Argenterie', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Aménagements décoratifs', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Tapis, rideaux, tentures', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 4, tauxLineaire: 25,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Accessoires des piscines', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Presses à compression', categorie: 'VIII. Hôtels & Restauration',
     compteOHADA: '2411', intituleCompte: 'Matériel industriel',
     duree: 10, tauxLineaire: 10,
-    eligibleDegressif: true, eligibleExceptionnel: true },
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
 
-  { designation: 'Mobilier hôtelier (lits, tables, chaises)', categorie: 'VIII. Hôtels & Restauration',
-    compteOHADA: '2444', intituleCompte: 'Mobilier de bureau',
-    duree: 5, tauxLineaire: 20,
-    eligibleDegressif: true, eligibleExceptionnel: true },
-
-  { designation: 'Équipements de bar et restauration (hôtels)', categorie: 'VIII. Hôtels & Restauration',
-    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
-    duree: 5, tauxLineaire: 20,
-    eligibleDegressif: true, eligibleExceptionnel: true },
-
-  { designation: 'Réfrigérateurs et congélateurs professionnels (hôtels)', categorie: 'VIII. Hôtels & Restauration',
-    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
-    duree: 5, tauxLineaire: 20,
-    eligibleDegressif: true, eligibleExceptionnel: true },
-
-  { designation: 'Matériels de blanchisserie (hôtels)', categorie: 'VIII. Hôtels & Restauration',
+  { designation: 'Presses à transfert', categorie: 'VIII. Hôtels & Restauration',
     compteOHADA: '2411', intituleCompte: 'Matériel industriel',
     duree: 10, tauxLineaire: 10,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Préchauffeurs ou étuves', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Pastilleuses', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Presses à injection', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Machines à gélifier, à boudiner', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Machines à former par le vide', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Machines à métalliser', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Machines à souder et à découper', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Moules', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Lessiveuses, diffuseurs', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Appareils de récupération des produits', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: false, raisonNonDegressif: 'Classification incertaine : le texte source classe cette ligne sous « hôtels » mais il s\'agit en réalité de plasturgie industrielle (défaut signalé dans l\'arrêté lui-même)',
+    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
+
+  { designation: 'Appareils de blanchissage', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Appareils de cuisson', categorie: 'VIII. Hôtels & Restauration',
+    compteOHADA: '2411', intituleCompte: 'Matériel industriel',
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
   { designation: 'Matériels de cuisine professionnelle (restaurateurs/cafetiers)', categorie: 'VIII. Hôtels & Restauration',
     compteOHADA: '2411', intituleCompte: 'Matériel industriel',
-    duree: 10, tauxLineaire: 10,
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: false, raisonNonDegressif: 'Restaurateurs/cafetiers exclus (Art. 31 al. 9 Loi IS)',
-    eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
-
-  { designation: 'Matériels audiovisuels (hôtels)', categorie: 'VIII. Hôtels & Restauration',
-    compteOHADA: '2488', intituleCompte: 'Divers matériels mobiliers',
-    duree: 3, tauxLineaire: 33.33,
-    eligibleDegressif: false, raisonNonDegressif: 'Durée < 4 ans (Art. 32 al. 1 Loi IS)',
     eligibleExceptionnel: false, raisonNonExceptionnel: 'Non éligible dégressif donc non éligible exceptionnel (Art. 37)' },
 
   // ── IX. MATÉRIELS AGRICOLES, PÊCHE, CHASSE ────────────────────────────────────
@@ -745,12 +848,12 @@ const CATALOGUE: Immobilisation[] = [
 
   { designation: 'Moissonneuses-batteuses', categorie: 'IX. Matériels agricoles',
     compteOHADA: '2421', intituleCompte: 'Matériel agricole',
-    duree: 10, tauxLineaire: 10,
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
   { designation: 'Matériels d\'irrigation', categorie: 'IX. Matériels agricoles',
     compteOHADA: '2421', intituleCompte: 'Matériel agricole',
-    duree: 10, tauxLineaire: 10,
+    duree: 5, tauxLineaire: 20,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
   { designation: 'Plantations et cultures pérennes', categorie: 'IX. Matériels agricoles',
@@ -768,9 +871,34 @@ const CATALOGUE: Immobilisation[] = [
     duree: 5, tauxLineaire: 20,
     eligibleDegressif: true, eligibleExceptionnel: true },
 
+  { designation: 'Animaux inscrits en immobilisations (géniteurs, producteurs, labours)', categorie: 'IX. Matériels agricoles',
+    compteOHADA: '2426', intituleCompte: 'Cheptel (animaux de production/service)',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Animaux de production et animaux de service', categorie: 'IX. Matériels agricoles',
+    compteOHADA: '2426', intituleCompte: 'Cheptel (animaux de production/service)',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Travaux de conservation des eaux et du sol', categorie: 'IX. Matériels agricoles',
+    compteOHADA: '2421', intituleCompte: 'Matériel agricole',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Équipements d\'arrosage', categorie: 'IX. Matériels agricoles',
+    compteOHADA: '2421', intituleCompte: 'Matériel agricole',
+    duree: 5, tauxLineaire: 20,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
+  { designation: 'Puits', categorie: 'IX. Matériels agricoles',
+    compteOHADA: '2421', intituleCompte: 'Matériel agricole',
+    duree: 10, tauxLineaire: 10,
+    eligibleDegressif: true, eligibleExceptionnel: true },
+
   { designation: 'Silos agricoles', categorie: 'IX. Matériels agricoles',
     compteOHADA: '2421', intituleCompte: 'Matériel agricole',
-    duree: 20, tauxLineaire: 5,
+    duree: 10, tauxLineaire: 10,
     eligibleDegressif: true, eligibleExceptionnel: true },
 ]
 
