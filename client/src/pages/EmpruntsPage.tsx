@@ -163,28 +163,52 @@ function ModalExport({ ecriture, userId, onClose }: { ecriture: EcritureEmpruntG
 }
 
 // ─── Onglet 1 : Emprunts ──────────────────────────────────────────────────────
+// Banques les plus courantes en RDC (agréées BCC) : sélection rapide, plutôt
+// que de laisser un champ libre sans repère. « Autre » bascule sur la saisie
+// manuelle pour tout établissement non listé.
+const BANQUES_RDC = [
+  'Rawbank', 'BCDC (Banque Commerciale Du Congo)', 'Equity BCDC', 'TMB (Trust Merchant Bank)',
+  'Ecobank RDC', 'Access Bank RDC', 'FBNBank RDC', 'UBA RDC (United Bank for Africa)',
+  'Afriland First Bank RDC', 'ProCredit Bank Congo', 'Stanbic Bank RDC', 'Sofibanque',
+  'Advans Banque Congo', 'CRDB Bank Congo', 'BGFIBank RDC',
+] as const
+
+// Objets d'emprunt courants : suggestions cliquables pour un champ dont la
+// finalité n'est pas toujours évidente à remplir (retour utilisateur).
+const OBJETS_COURANTS = [
+  'Fonds de roulement', 'Équipement industriel', 'Acquisition de véhicules',
+  'Extension d\'activité', 'Construction / aménagement', 'Financement de stock',
+  'Trésorerie', 'Rachat de crédit',
+] as const
+
 function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
   emprunts: Emprunt[]; loading: boolean; selectionId: string | null
   onSelect: (id: string) => void; userId: string
 }) {
   const [form, setForm] = useState({
-    preteur: '', reference: '', devise: 'USD' as Devise,
+    preteur: '', preteurAutre: '', devise: 'USD' as Devise, reference: '',
     capital: '', coursEntree: '2800', tauxAnnuel: '8', dureeAnnees: '5',
     dateMiseADisposition: new Date().toISOString().split('T')[0],
     methode: 'constant' as MethodeAmortEmprunt,
   })
   const [saving, setSaving] = useState(false)
+  const [erreur, setErreur] = useState('')
   const [confirmSuppr, setConfirmSuppr] = useState<string | null>(null)
 
+  const preteurFinal = form.preteur === 'Autre' ? form.preteurAutre.trim() : form.preteur
+
   const valider = async () => {
-    if (!form.preteur.trim() || !form.reference.trim()) return
+    setErreur('')
+    if (!preteurFinal) { setErreur('Indiquez l\'établissement prêteur.'); return }
+    if (!form.reference.trim()) { setErreur('Indiquez la référence / objet de l\'emprunt (voir les suggestions sous le champ).'); return }
     const capital = Number(form.capital)
-    if (!capital || capital <= 0) return
+    if (!capital || capital <= 0) { setErreur('Le capital emprunté doit être un nombre supérieur à 0.'); return }
+    if (!userId) { setErreur('Session non chargée : rechargez la page et réessayez.'); return }
     setSaving(true)
     try {
       const id = await creerEmprunt({
         userId,
-        preteur: form.preteur.trim(),
+        preteur: preteurFinal,
         reference: form.reference.trim(),
         devise: form.devise,
         coursEntree: form.devise === 'CDF' ? 1 : Number(form.coursEntree) || 1,
@@ -195,7 +219,9 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
         methode: form.methode,
       })
       onSelect(id)
-      setForm(f => ({ ...f, preteur: '', reference: '', capital: '' }))
+      setForm(f => ({ ...f, preteur: '', preteurAutre: '', reference: '', capital: '' }))
+    } catch (e) {
+      setErreur("Erreur lors de la création de l'emprunt. Réessayez.")
     } finally {
       setSaving(false)
     }
@@ -254,13 +280,30 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">Établissement prêteur</label>
-              <input value={form.preteur} onChange={e => setForm(f => ({ ...f, preteur: e.target.value }))}
-                placeholder="ex : BCDC" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30" />
+              <select value={form.preteur} onChange={e => setForm(f => ({ ...f, preteur: e.target.value }))}
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30">
+                <option value="">-- Choisir une banque --</option>
+                {BANQUES_RDC.map(b => <option key={b} value={b}>{b}</option>)}
+                <option value="Autre">Autre (préciser)</option>
+              </select>
+              {form.preteur === 'Autre' && (
+                <input value={form.preteurAutre} onChange={e => setForm(f => ({ ...f, preteurAutre: e.target.value }))}
+                  placeholder="Nom de l'établissement" autoFocus
+                  className="w-full mt-1.5 rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30" />
+              )}
             </div>
             <div>
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">Référence / objet</label>
               <input value={form.reference} onChange={e => setForm(f => ({ ...f, reference: e.target.value }))}
                 placeholder="ex : Équipement industriel" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30" />
+              <div className="flex flex-wrap gap-1 mt-1.5">
+                {OBJETS_COURANTS.map(o => (
+                  <button key={o} type="button" onClick={() => setForm(f => ({ ...f, reference: o }))}
+                    className="text-xs px-2 py-0.5 rounded-full border border-border bg-muted/40 text-muted-foreground hover:border-module-violet/40 hover:text-module-violet transition-colors">
+                    {o}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">Devise</label>
@@ -317,6 +360,13 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
               ))}
             </div>
           </div>
+
+          {erreur && (
+            <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2">
+              <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
+              <p className="text-xs text-red-600">{erreur}</p>
+            </div>
+          )}
 
           <button onClick={valider} disabled={saving}
             className="w-full flex items-center justify-center gap-2 rounded-xl bg-module-violet hover:opacity-90 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-50">
