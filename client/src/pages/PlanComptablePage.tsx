@@ -84,26 +84,32 @@ export default function PlanComptablePage() {
               <ListTree className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Plan Comptable SYSCOHADA</h1>
+              <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">Plan Comptable SYSCOHADA</h1>
               <p className="text-xs text-muted-foreground mt-0.5">SYSCOHADA Révisé : 9 classes de comptes</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="animate-slideUp relative" style={{ animationDelay: '80ms' }}>
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
-          className="pl-9"
-          placeholder="Rechercher par numéro ou intitulé..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
+      <div className="animate-slideUp" style={{ animationDelay: '80ms' }}>
+        <Card className="border-border">
+          <CardContent className="pt-4 pb-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                className="pl-9"
+                placeholder="Rechercher par numéro ou intitulé..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {isSearching ? (
         /* Flat list for search results */
-        <Card className="border-border">
+        <Card className="border-border animate-slideUp" style={{ animationDelay: '120ms' }}>
           <CardContent className="px-0 pt-0 pb-0">
             {filtered.length === 0 ? (
               <div className="text-center text-muted-foreground py-8">Aucun compte trouvé.</div>
@@ -122,7 +128,7 @@ export default function PlanComptablePage() {
         </Card>
       ) : (
         /* Accordion tree */
-        <div className="space-y-2">
+        <div className="space-y-2 animate-slideUp" style={{ animationDelay: '120ms' }}>
           {[1,2,3,4,5,6,7,8,9].map(classe => {
             const classData = grouped.get(classe)
             if (!classData) return null
@@ -130,7 +136,7 @@ export default function PlanComptablePage() {
             const totalInClass = Array.from(classData.values()).reduce((s, m) => s + Array.from(m.values()).reduce((ss, arr) => ss + arr.length, 0), 0)
 
             return (
-              <Card key={classe} className="border-border overflow-hidden">
+              <Card key={classe} className="border-border overflow-hidden hover:border-primary/30 transition-colors">
                 <button
                   className={cn(
                     'w-full flex items-center gap-3 p-4 text-left transition-colors hover:bg-muted/30',
