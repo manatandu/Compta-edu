@@ -147,8 +147,15 @@ const COMPTE_TRESORERIE = { num: '521', lib: 'Banques locales' }
 const COMPTE_EMPRUNT = { num: '162', lib: 'Emprunts et dettes / établissements de crédit' }
 const COMPTE_INTERETS = { num: '6712', lib: 'Intérêts / emprunts établissements de crédit' }
 const COMPTE_INTERETS_COURUS = { num: '1662', lib: 'Intérêts courus / établissements de crédit' }
-const COMPTE_ECART_ACTIF = { num: '478', lib: 'Écarts de conversion – Actif' }
-const COMPTE_ECART_PASSIF = { num: '479', lib: 'Écarts de conversion – Passif' }
+// Subdivisions du 478/479 propres aux dettes FINANCIÈRES (un emprunt en est
+// une) : 4784 « augmentation des dettes financières » et 4794 « diminution
+// des dettes financières » (classe 4 SYSCOHADA), à distinguer des
+// subdivisions d'exploitation (4783/4793) et des subdivisions génériques
+// 478/479 utilisées pour les créances/dettes commerciales. Cf. séminaire
+// CPCC « Traitements comptables liés aux redressements des comptes du
+// patrimoine », exemple III.6 (emprunt SNEL en devises).
+const COMPTE_ECART_ACTIF = { num: '4784', lib: 'Écarts de conversion – Actif (augmentation dettes financières)' }
+const COMPTE_ECART_PASSIF = { num: '4794', lib: 'Écarts de conversion – Passif (diminution dettes financières)' }
 const COMPTE_DOTATION_PROV_FIN = { num: '6971', lib: 'Dotations provisions pour risques et charges financières' }
 const COMPTE_PROV_PERTE_CHANGE = { num: '194', lib: 'Provisions pour pertes de change' }
 const COMPTE_REPRISE_PROV_FIN = { num: '7971', lib: 'Reprises de provisions pour risques et charges financières' }
@@ -253,17 +260,52 @@ export function genererEcritureEcartConversion(emprunt: Emprunt, ecart: EcartCon
   }
 }
 
+// ─── Provision pour perte de change — étalement Art. 56 AUDCIF ──────────────
+// Un emprunt affecte, par nature, deux exercices ou plus : l'Art. 56 impose
+// d'ÉTALER la perte probable sur la durée du contrat plutôt que de la
+// provisionner intégralement dès le premier écart constaté. Pratique reprise
+// telle quelle du séminaire CPCC (exemple III.6, emprunt SNEL) : la provision
+// est limitée à la fraction de mois déjà couverte par le contrat depuis la
+// mise à disposition (mois écoulés ÷ durée totale en mois), et non à la
+// fraction de mois restant à courir jusqu'au terme — malgré l'intitulé
+// « mois restant à courir » employé dans ce même support, qui ne correspond
+// pas à son propre calcul (5/24 = mois ÉCOULÉS d'août à décembre, pas
+// restants). Le montant potentiel de la perte totale est recalculé à chaque
+// clôture (Art. 56 in fine).
+
+export interface ProvisionPerteChange {
+  moisEcoules: number
+  dureeTotaleMois: number
+  fraction: number     // moisEcoules / dureeTotaleMois, plafonnée à 1
+  montant: number      // ecart.ecart × fraction
+}
+
+function moisEntre(dateDebut: string, dateFin: string): number {
+  const d = new Date(dateDebut)
+  const f = new Date(dateFin)
+  const mois = (f.getFullYear() - d.getFullYear()) * 12 + (f.getMonth() - d.getMonth())
+  return Math.max(0, Math.round(mois + (f.getDate() - d.getDate()) / 30))
+}
+
+export function calculerProvisionPerteChange(emprunt: Pick<Emprunt, 'dateMiseADisposition' | 'dureeAnnees'>, ecart: EcartConversion, dateCloture: string): ProvisionPerteChange {
+  const dureeTotaleMois = emprunt.dureeAnnees * 12
+  const moisEcoules = Math.min(dureeTotaleMois, moisEntre(emprunt.dateMiseADisposition, dateCloture))
+  const fraction = dureeTotaleMois > 0 ? moisEcoules / dureeTotaleMois : 1
+  return { moisEcoules, dureeTotaleMois, fraction, montant: arrondi(ecart.ecart * fraction) }
+}
+
 // Écriture 5 : provision pour perte de change — UNIQUEMENT en cas de perte
-// latente (prudence, Art. 54). Aucune écriture symétrique pour un gain latent :
-// il n'entre jamais dans le résultat tant qu'il n'est pas réalisé.
-export function genererEcritureProvisionPerteChange(emprunt: Emprunt, ecart: EcartConversion, dateCloture: string): EcritureEmpruntGeneree | null {
-  if (ecart.sens !== 'perte') return null
+// latente (prudence, Art. 54), et limitée à la fraction étalée (Art. 56, voir
+// calculerProvisionPerteChange). Aucune écriture symétrique pour un gain
+// latent : il n'entre jamais dans le résultat tant qu'il n'est pas réalisé.
+export function genererEcritureProvisionPerteChange(emprunt: Emprunt, provision: ProvisionPerteChange, dateCloture: string): EcritureEmpruntGeneree | null {
+  if (provision.montant <= 0) return null
   return {
     libelle: `Provision pour perte de change : ${emprunt.preteur} : ${emprunt.reference}`,
     date: dateCloture,
     lignes: [
-      { compte: COMPTE_DOTATION_PROV_FIN.num, intitule: COMPTE_DOTATION_PROV_FIN.lib, debit: ecart.ecart, credit: 0 },
-      { compte: COMPTE_PROV_PERTE_CHANGE.num, intitule: COMPTE_PROV_PERTE_CHANGE.lib, debit: 0, credit: ecart.ecart },
+      { compte: COMPTE_DOTATION_PROV_FIN.num, intitule: COMPTE_DOTATION_PROV_FIN.lib, debit: provision.montant, credit: 0 },
+      { compte: COMPTE_PROV_PERTE_CHANGE.num, intitule: COMPTE_PROV_PERTE_CHANGE.lib, debit: 0, credit: provision.montant },
     ],
   }
 }
