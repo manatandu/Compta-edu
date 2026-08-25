@@ -24,7 +24,6 @@ export default function DictionnairePage() {
   const [location, navigate] = useHashLocation()
   const [search, setSearch] = useState('')
   const [domaineFiltre, setDomaineFiltre] = useState<DomaineDict | 'tous'>('tous')
-  const [ueFiltre, setUeFiltre] = useState<string | 'toutes'>('toutes')
   const [termeActif, setTermeActif] = useState<string | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [page, setPage] = useState(1)
@@ -57,11 +56,8 @@ export default function DictionnairePage() {
     const q = normalize(search.trim())
     const filtered = DICTIONNAIRE.filter(t => {
       const matchDomaine = domaineFiltre === 'tous' || t.domaine === domaineFiltre
-      // Une liste `ues` vide = terme du socle commun : il reste visible quel
-      // que soit le cours filtré, puisqu'il n'appartient à aucun en propre.
-      const matchUe = ueFiltre === 'toutes' || t.ues.length === 0 || t.ues.includes(ueFiltre)
       const matchSearch = !q || normalize(t.terme).includes(q) || normalize(t.definition).includes(q)
-      return matchDomaine && matchUe && matchSearch
+      return matchDomaine && matchSearch
     })
     if (!q) return filtered.sort((a, b) => a.terme.localeCompare(b.terme, 'fr'))
     // Trier : d'abord ceux dont le terme commence par q, ensuite les autres
@@ -81,7 +77,6 @@ export default function DictionnairePage() {
     setTermeActif(id)
     setSearch('')
     setDomaineFiltre('tous')
-    setUeFiltre('toutes')
     setPage(1)
     setTimeout(() => {
       const el = termeRefs.current[id]
@@ -90,14 +85,14 @@ export default function DictionnairePage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6 space-y-5">
+    <div className="max-w-3xl mx-auto px-4 py-6 space-y-5 animate-fadeIn">
 
       {/* Boutons flottants : retour page + scroll top */}
       <div className="fixed bottom-6 right-4 z-50 flex flex-col gap-2">
         <button
           onClick={() => window.history.back()}
           title="Retour"
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border shadow-md hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border shadow-md hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 transition-all"
         >
           <ArrowLeft className="h-4 w-4" />
         </button>
@@ -105,39 +100,43 @@ export default function DictionnairePage() {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             title="Retour en haut"
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground shadow-md hover:opacity-90 transition-all"
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground shadow-md hover:opacity-90 hover:scale-105 transition-all animate-fadeIn"
           >
             <ArrowUp className="h-4 w-4" />
           </button>
         )}
       </div>
 
-      {/* En-tête */}
-      <div className="flex items-center gap-3">
-        <div className="rounded-xl bg-primary/10 p-2.5">
-          <BookMarked className="h-5 w-5 text-primary" />
-        </div>
-        <div>
-          <h1 className="text-xl font-display font-bold">Dictionnaire</h1>
-          <p className="text-sm text-muted-foreground">
-            {DICTIONNAIRE.length} termes, chacun avec sa source
-          </p>
+      {/* ── Header Banner Animé (cohérent avec Journal/Balance/Bilan/Fiscalité) ── */}
+      <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
+          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
+          <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
+              <BookMarked className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-lg sm:text-xl font-display font-bold text-foreground tracking-tight">Dictionnaire</h1>
+              <p className="text-xs text-muted-foreground mt-0.5">{DICTIONNAIRE.length} termes, chacun avec sa source</p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Barre de recherche */}
-      <div className="relative">
+      <div className="relative animate-slideUp" style={{ animationDelay: '80ms' }}>
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         <input
           type="text"
           value={search}
           onChange={e => { setSearch(e.target.value); setTermeActif(null); setPage(1) }}
           placeholder="Rechercher un terme…"
-          className="w-full pl-9 pr-9 py-2.5 text-sm rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className="w-full pl-9 pr-9 py-2.5 text-sm rounded-xl border border-border bg-card focus:outline-none focus:ring-2 focus:ring-primary/30 transition-shadow"
         />
         {search && (
           <button
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             onClick={() => { setSearch(''); setPage(1) }}
           >
             <X className="h-4 w-4" />
@@ -145,16 +144,15 @@ export default function DictionnairePage() {
         )}
       </div>
 
-      {/* Filtres par domaine - un domaine sans terme n'est pas affiché,
-          le dictionnaire se remplissant UE par UE. */}
-      <div className="flex flex-wrap gap-2">
+      {/* Filtres par domaine - un domaine sans terme n'est pas affiché. */}
+      <div className="flex flex-wrap gap-2 animate-slideUp" style={{ animationDelay: '120ms' }}>
         <button
           onClick={() => { setDomaineFiltre('tous'); setPage(1) }}
           className={cn(
-            'px-3 py-1 rounded-full text-xs font-medium transition-colors',
+            'px-3 py-1 rounded-full text-xs font-medium transition-all duration-200',
             domaineFiltre === 'tous'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-muted text-muted-foreground hover:bg-muted/80'
+              ? 'bg-primary text-primary-foreground shadow-sm scale-[1.03]'
+              : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:scale-[1.02]'
           )}
         >
           Tous ({DICTIONNAIRE.length})
@@ -167,34 +165,16 @@ export default function DictionnairePage() {
               key={dom}
               onClick={() => { setDomaineFiltre(dom); setPage(1) }}
               className={cn(
-                'px-3 py-1 rounded-full text-xs font-medium transition-colors',
+                'px-3 py-1 rounded-full text-xs font-medium transition-all duration-200',
                 domaineFiltre === dom
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  ? 'bg-primary text-primary-foreground shadow-sm scale-[1.03]'
+                  : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:scale-[1.02]'
               )}
             >
               {DOMAINES_DICT[dom]} ({count})
             </button>
           )
         })}
-      </div>
-
-      {/* Filtre par cours : « le vocabulaire de mon UE ». Les termes du socle
-          commun (liste `ues` vide) restent affichés quel que soit le choix. */}
-      <div>
-        <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Vocabulaire d&apos;un cours</label>
-        <select
-          value={ueFiltre}
-          onChange={e => { setUeFiltre(e.target.value); setPage(1) }}
-          className="w-full sm:w-80 rounded-xl border border-border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-        >
-          <option value="toutes">Tous les cours</option>
-          {Object.entries(UES_DICT).map(([key, label]) => {
-            const count = DICTIONNAIRE.filter(t => t.ues.includes(key)).length
-            if (count === 0) return null
-            return <option key={key} value={key}>{label} ({count})</option>
-          })}
-        </select>
       </div>
 
       {/* Résultats */}
@@ -210,18 +190,19 @@ export default function DictionnairePage() {
             {termesFiltres.length} terme{termesFiltres.length > 1 ? 's' : ''} : page {page} / {totalPages}
           </p>
 
-          {termesPage.map(t => {
+          {termesPage.map((t, i) => {
             const isActif = termeActif === t.id
             return (
               <div
                 key={t.id}
                 ref={el => { termeRefs.current[t.id] = el }}
                 className={cn(
-                  'rounded-xl border bg-card transition-all duration-200 overflow-hidden',
+                  'rounded-xl border bg-card transition-all duration-200 overflow-hidden animate-slideUp hover:shadow-sm',
                   isActif
                     ? 'border-primary shadow-md ring-2 ring-primary/20'
                     : 'border-border hover:border-primary/40'
                 )}
+                style={{ animationDelay: `${Math.min(i, 12) * 25}ms` }}
               >
                 {/* En-tête du terme */}
                 <button
