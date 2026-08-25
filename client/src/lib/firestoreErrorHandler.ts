@@ -47,9 +47,16 @@ export function notifyFirestoreError(context: string, err: unknown): void {
   const now = Date.now()
   if (now - lastToastAt < TOAST_THROTTLE_MS) return
   lastToastAt = now
+  // Le code technique (ex. "permission-denied", "failed-precondition",
+  // "unavailable") est affiché directement dans le message : sur mobile,
+  // l'utilisateur n'a pas accès à la console navigateur pour le retrouver,
+  // et c'est ce code qui permet de diagnostiquer la vraie cause au lieu de
+  // deviner à partir d'un message générique.
+  const code = (err as { code?: string } | null)?.code
+  const detail = code ? ` (code : ${code})` : ''
   toast({
     title: 'Connexion interrompue',
-    description: 'La synchronisation avec le serveur a été interrompue. Vérifiez votre connexion, ou rechargez la page si le problème persiste.',
+    description: `La synchronisation avec le serveur a été interrompue${detail}. Vérifiez votre connexion, ou rechargez la page si le problème persiste.`,
     variant: 'destructive',
   })
 }
