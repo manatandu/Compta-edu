@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Home, Car, MapPin, Landmark } from 'lucide-react'
-import { Section, Depliant, Exemple, ARetenir, Ref } from './coursHelpers'
+import { Section, Depliant, Exemple, ARetenir, Ref, PageDeCours } from './coursHelpers'
 
 const SOUS = [
   { id: 'cadre', label: "Cadre général" },
@@ -13,7 +13,7 @@ export default function NotesCoursAutresImpots() {
   const [actif, setActif] = useState<typeof SOUS[number]['id']>('cadre')
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-1.5">
         {SOUS.map(s => (
           <button
@@ -28,6 +28,12 @@ export default function NotesCoursAutresImpots() {
         ))}
       </div>
 
+      <PageDeCours aRetenir={[
+        "Les impôts réels (IRL, IF, IV, TSCR, TSMC) sont de compétence provinciale (Art. 204.16 Constitution) — un taux valable dans une province ne l'est pas nécessairement dans une autre.",
+        "L'IRL a un taux national de référence de 22% flat, mais Kinshasa le module par rang de localité (22%/17%) depuis les arrêtés provinciaux de 2023.",
+        "L'impôt foncier distingue deux logiques de calcul : forfait par immeuble pour les personnes physiques, taux au m² pour les personnes morales.",
+        'Ces impôts ne relèvent pas de la réforme IS/IRPP de la loi 23/053 — ils restent régis par les Ordonnances-lois 69-006 et 69/009.',
+      ]}>
       {actif === 'cadre' && (
         <Section titre="Des impôts réels, de compétence provinciale" icon={Landmark}>
           <p className="text-xs text-foreground/80 leading-relaxed">
@@ -100,6 +106,7 @@ export default function NotesCoursAutresImpots() {
           </Depliant>
         </Section>
       )}
+      </PageDeCours>
     </div>
   )
 }

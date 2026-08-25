@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Percent, ArrowLeftRight, ShieldCheck, FileWarning } from 'lucide-react'
-import { Section, Depliant, Exemple, ARetenir, Ref } from './coursHelpers'
+import { Section, Depliant, Exemple, ARetenir, Ref, PageDeCours } from './coursHelpers'
 
 const SOUS = [
   { id: 'mecanisme', label: 'Mécanisme général' },
@@ -13,7 +13,7 @@ export default function NotesCoursTVA() {
   const [actif, setActif] = useState<typeof SOUS[number]['id']>('mecanisme')
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-1.5">
         {SOUS.map(s => (
           <button
@@ -28,6 +28,12 @@ export default function NotesCoursTVA() {
         ))}
       </div>
 
+      <PageDeCours aRetenir={[
+        "La TVA est collectée à chaque stade, mais l'assujetti ne reverse que la valeur ajoutée qu'il a lui-même créée (TVA collectée − TVA déductible).",
+        'Taux normal de 16%, taux réduits de 5% et 1% selon la liste réglementaire des biens et services concernés (LF 2026).',
+        'Le droit à déduction dépend de la facture normalisée et du circuit DEF — une facture non conforme n\'ouvre pas droit à déduction.',
+        'Un crédit de TVA structurel (exportateur, investissement lourd) peut faire l\'objet d\'un remboursement plutôt que d\'un simple report.',
+      ]}>
       {actif === 'mecanisme' && (
         <Section titre="Un impôt sur la dépense, à paiements fractionnés" icon={ArrowLeftRight}>
           <p className="text-xs text-foreground/80 leading-relaxed">
@@ -90,8 +96,16 @@ export default function NotesCoursTVA() {
           <p className="text-xs text-foreground/80 leading-relaxed">
             Cette procédure de remboursement est distincte de la réclamation contentieuse de droit commun (voir le chapitre Procédures fiscales) : elle suit ses propres délais et justificatifs, propres au régime de la TVA.
           </p>
+          <Exemple>
+            <p><strong>Cas d'un exportateur.</strong> Une entreprise achète 8 000 000 FC HT de matières premières (TVA déductible 1 280 000 FC au taux de 16%) qu'elle transforme puis exporte intégralement. Les exportations sont taxées au taux de 0% (le client étranger ne supporte aucune TVA congolaise) : la TVA collectée du mois est donc nulle.</p>
+            <p><strong>Crédit du mois = 1 280 000 FC.</strong> Comme cette entreprise n'aura structurellement jamais de TVA collectée suffisante pour absorber ce crédit (son activité principale est exportée), elle a intérêt à demander le remboursement plutôt que d'accumuler un report qui ne s'épongera jamais.</p>
+          </Exemple>
+          <Depliant titre="Pourquoi le report ne suffit pas toujours">
+            <p>Le report du crédit sur les déclarations suivantes n'est une solution satisfaisante que pour une entreprise dont l'activité alterne des mois de crédit et des mois de TVA nette à payer (saisonnalité des ventes, gros investissement ponctuel). Pour une entreprise structurellement exportatrice ou fortement capitalistique sur une longue période, le crédit s'accumulerait indéfiniment sans jamais être absorbé — d'où l'existence d'une procédure de remboursement dédiée, avec ses propres pièces justificatives (factures d'achat, preuves d'exportation) et son propre délai d'instruction par l'Administration.</p>
+          </Depliant>
         </Section>
       )}
+      </PageDeCours>
     </div>
   )
 }
