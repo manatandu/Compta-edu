@@ -136,7 +136,7 @@ function TableauCorrection({ lignes, methode }: { lignes: any[]; methode: 'CUMP'
 }
 
 // ─── Page principale ──────────────────────────────────────────────────────────
-export default function StockExercicePage() {
+export default function StockExercicePage({ embedded = false }: { embedded?: boolean } = {}) {
   const [, navigate] = useHashLocation()
   const user = useUser()
   const [etape, setEtape] = useState<'enonce' | 'correction'>('enonce')
@@ -226,10 +226,12 @@ export default function StockExercicePage() {
     <div className="space-y-5 pb-4">
       {/* En-tête */}
       <div className="flex items-center gap-3">
-        <button onClick={() => navigate('/stock')}
-          className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
-          <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-        </button>
+        {!embedded && (
+          <button onClick={() => navigate('/stock')}
+            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
+            <ArrowLeft className="h-4 w-4 text-muted-foreground" />
+          </button>
+        )}
         <div className="flex-1">
           <h1 className="text-lg font-display font-bold text-foreground">Exercice pédagogique</h1>
           <p className="text-xs text-muted-foreground flex items-center gap-1">
