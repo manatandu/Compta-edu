@@ -1066,9 +1066,19 @@ function calculerLineaire(valeur: number, duree: number, moisDebut: number): Lig
   return lignes
 }
 
-function calculerDegressif(valeur: number, duree: number, moisDebut: number): LigneAmort[] {
-  const coeff = getCoeffDegressif(duree)
-  const tauxLineaire = 1 / duree
+// dureeNormale : durée normale d'utilisation du bien (Art. 33 Loi 23/053), qui sert
+// à choisir le coefficient (1,5 / 2 / 2,5) et le taux linéaire de base. Distincte du
+// paramètre `duree`, qui ne fixe que le nombre de périodes à calculer dans cet appel :
+// pour un dégressif ordinaire les deux coïncident, mais pour la phase dégressive de
+// l'amortissement exceptionnel (Art. 38.2, calculerExceptionnel ci-dessous), il ne
+// reste que duree-1 périodes à calculer alors que le coefficient doit rester celui de
+// la durée normale d'origine (duree). Sans ce paramètre distinct, un bien de 4 ans
+// perdait son éligibilité au dégressif dès la 2e année de son régime exceptionnel
+// (getCoeffDegressif(4-1=3) renvoie 0, "exclu"), ce qui annulait à tort l'amortissement
+// de cette année-là.
+function calculerDegressif(valeur: number, duree: number, moisDebut: number, dureeNormale: number = duree): LigneAmort[] {
+  const coeff = getCoeffDegressif(dureeNormale)
+  const tauxLineaire = 1 / dureeNormale
   const tauxDegressif = tauxLineaire * coeff
   const lignes: LigneAmort[] = []
   let valResid = valeur
@@ -1161,7 +1171,7 @@ function calculerExceptionnel(valeur: number, duree: number, moisDebut: number):
   // Dégressif sur le résiduel (40%)
   const residuel = valeur - annee1
   if (residuel > 0 && duree > 1) {
-    const degressifLignes = calculerDegressif(residuel, duree - 1, 1)
+    const degressifLignes = calculerDegressif(residuel, duree - 1, 1, duree)
     for (const l of degressifLignes) {
       cumule += l.annuite
       lignes.push({
