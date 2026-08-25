@@ -8,6 +8,13 @@ import { cn } from '@/lib/utils'
 import BackButton from '@/components/BackButton'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { InfoTooltip } from '@/components/InfoTooltip'
+import {
+  calculerBaremeIRPP as calculerBareme,
+  appliquerReductionEtPlafondIRPP as appliquerReductionEtPlafond,
+  qualifier663,
+  arrondiCentaineFC,
+  type LigneBaremeIRPP as LigneBareme,
+} from '@/lib/irpp'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -17,57 +24,12 @@ function formatFC(n: number): string {
   return `${Math.round(n).toLocaleString('fr-FR')} FC`
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// BARÈME IRPP mensuel (annuel ÷ 12) : Art. 118 Loi 23/053
-// ─────────────────────────────────────────────────────────────────────────────
-const BAREME_MENSUEL = [
-  { min: 0,         max: 162_000,     taux: 0.03, label: '0 – 162 000 FC (3%)' },
-  { min: 162_000,   max: 1_800_000,   taux: 0.15, label: '162 000 – 1 800 000 FC (15%)' },
-  { min: 1_800_000, max: 3_600_000,   taux: 0.30, label: '1 800 000 – 3 600 000 FC (30%)' },
-  { min: 3_600_000, max: Infinity,    taux: 0.40, label: '> 3 600 000 FC (40%)' },
-]
-
-interface LigneBareme {
-  tranche: string
-  taux: string
-  baseReelle: number
-  impot: number
-}
-
-// N'applique QUE le barème progressif - ni la réduction pour charges de famille (Art. 123-125),
-// ni le plafond (Art. 118 in fine). Ordre de liquidation correct : barème → réduction → plafond
-// → arrondi. Le plafond est appliqué par l'appelant, APRÈS réduction (voir appliquerReductionEtPlafond).
-function calculerBareme(revenuNetImposable: number): {
-  lignes: LigneBareme[]
-  iprBrut: number
-  iprCalcule: number
-  iprMax: number
-} {
-  const lignes: LigneBareme[] = []
-  let iprBrut = 0
-  for (const t of BAREME_MENSUEL) {
-    if (revenuNetImposable <= t.min) break
-    const borneMax = t.max === Infinity ? revenuNetImposable : Math.min(revenuNetImposable, t.max)
-    const baseReelle = borneMax - t.min
-    if (baseReelle <= 0) continue
-    const impot = baseReelle * t.taux
-    lignes.push({ tranche: t.label, taux: `${(t.taux * 100).toFixed(0)}%`, baseReelle, impot })
-    iprBrut += impot
-  }
-  const iprMax = revenuNetImposable * 0.30
-  return { lignes, iprBrut, iprCalcule: iprBrut, iprMax }
-}
-
-// Applique, dans cet ordre, la réduction pour charges de famille (Art. 123-125) puis le plafond
-// de 30% (Art. 118 in fine) sur un IRPP brut déjà calculé par calculerBareme().
-function appliquerReductionEtPlafond(iprBrut: number, iprMax: number, reduction: number): {
-  plafonne: boolean
-  iprFinal: number
-} {
-  const iprApresReduction = Math.max(0, iprBrut - reduction)
-  const plafonne = iprApresReduction > iprMax
-  return { plafonne, iprFinal: plafonne ? iprMax : iprApresReduction }
-}
+// Barème, qualification du 663 (Art. 69, 8°) et arrondi Art. 150 : voir '@/lib/irpp'
+// (source unique, partagée avec FiscalitePage.tsx / Cat1Salaires — les deux moteurs
+// avaient divergé : celui-ci gardait un plancher de 2 000 FC aboli, ignorait la part
+// imposable du 663 dans l'assiette, et neutralisait à tort toute la réduction pour
+// charges dès que le revenu dépassait 3,6M FC/mois au lieu de n'exclure que la portion
+// afférente à la tranche à 40% - voir Art. 125).
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CATALOGUES OHADA
@@ -310,7 +272,7 @@ export default function ChargesPersonnelIPRPage() {
 
   // Nationaux
   const [e661, setE661] = useState<LigneSaisie[]>([{ code: '6611', label: 'Appointements et salaires', montant: '' }])
-  const [e663, setE663] = useState<LigneSaisie[]>([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
+  const [e663, setE663] = useState<LigneSaisie[]>([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
   const [nbCharge, setNbCharge] = useState(0)
   const [effectif, setEffectif] = useState('')
   const [syndicat, setSyndicat] = useState('')
@@ -318,7 +280,7 @@ export default function ChargesPersonnelIPRPage() {
 
   // Expatriés
   const [e662, setE662] = useState<LigneSaisie[]>([{ code: '6621', label: 'Salaires et appointements (expatriés)', montant: '' }])
-  const [e663Exp, setE663Exp] = useState<LigneSaisie[]>([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
+  const [e663Exp, setE663Exp] = useState<LigneSaisie[]>([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
   const [nbChargeExp, setNbChargeExp] = useState(0)
   const [effectifExp, setEffectifExp] = useState('')
   const [secteurMinier, setSecteurMinier] = useState(false)
@@ -358,33 +320,41 @@ export default function ChargesPersonnelIPRPage() {
     if (mode === 'national') {
       const brut661 = e661.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const brut663 = e663.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
-      const qpo = brut661 * 0.05
-      const baseImposable = brut661 - qpo
+      // Art. 69, 8° : le 663 n'est pas exonéré en bloc - chaque ligne est qualifiée séparément
+      // (logement plafonné à 30% de la rémunération, transport sous condition, le reste imposable).
+      const { exempte: exempte663, imposable: imposable663 } = qualifier663(e663, brut661)
+      // Assiette CNSS (loi 16/009, Art. 13, renvoi Art. 7 litera h du Code du travail) : la part
+      // imposable du 663 entre dans l'assiette CNSS/INPP au même titre que le 661.
+      const qpo = (brut661 + imposable663) * 0.05
+      const baseImposableAvantArrondi = brut661 - qpo + imposable663
+      // Art. 118 : le revenu net global s'arrondit au millier de FC INFÉRIEUR avant le barème.
+      const baseImposable = Math.floor(baseImposableAvantArrondi / 1000) * 1000
       const { lignes, iprBrut, iprMax } = calculerBareme(baseImposable)
       const charge = Math.min(Math.max(0, nbCharge), 9)
-      // Art. 125 : réduction inapplicable si revenu imposable > 3 600 000 FC/mois
-      const reductionInapplicable = baseImposable > 3_600_000
-      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement
-      const reduction = reductionInapplicable ? 0 : iprBrut * (charge * 0.02)
+      // Art. 125 : seule la portion d'IRPP correspondant à la tranche à 40% est exclue de
+      // l'assiette de la réduction - la réduction n'est pas supprimée en bloc au-delà de 3,6M FC.
+      const impotHorsDerniereTranche = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
+      const reductionPlafonnee = lignes.some(l => l.taux === '40%')
+      // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement
+      const reduction = impotHorsDerniereTranche * (charge * 0.02)
       const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
-      const iprAvantPlancher = iprFinal
-      const iprNet = baseImposable > 0 ? Math.max(2000, iprAvantPlancher) : 0
-      const iprPlancher = iprNet > iprAvantPlancher
+      // Art. 150 : arrondi à la centaine de FC la plus proche. Aucun plancher légal en Loi
+      // 23/053 (l'ancien plancher de 2 000 FC relevait du régime IPR abrogé).
+      const iprNet = arrondiCentaineFC(iprFinal)
       const syndicatVal = parseFloat(syndicat) || 0
       const avancesVal  = parseFloat(avances)  || 0
       const nbEff = parseInt(effectif) || 0
       const inppTaux = nbEff > 300 ? 0.02 : nbEff >= 51 ? 0.03 : 0.035
-      const cnssPatron = brut661 * 0.13
-      const inpp = brut661 * inppTaux
+      const cnssPatron = (brut661 + imposable663) * 0.13
+      const inpp = (brut661 + imposable663) * inppTaux
       const onem = brut661 * 0.005
       const totalRetenues = qpo + iprNet + syndicatVal + avancesVal
       const netAPayer = brut661 + brut663 - totalRetenues
       setRes({
         mode: 'national',
         brut661, brut663, brutTotal: brut661 + brut663,
-        qpo, baseImposable, lignes, iprBrut, iprMax, plafonne,
-        reductionInapplicable,
-        reduction, charge, iprNet, iprPlancher,
+        qpo, exempte663, imposable663, baseImposable, lignes, iprBrut, iprMax, plafonne,
+        reduction, charge, reductionPlafonnee, iprNet,
         syndicatVal, avancesVal,
         cnssPatron, inpp, inppTaux, onem,
         totalRetenues,
@@ -395,36 +365,44 @@ export default function ChargesPersonnelIPRPage() {
     } else {
       const brut662 = e662.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const brut663e = e663Exp.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
+      // Art. 69, 8° : même qualification ligne par ligne que pour les nationaux.
+      const { exempte: exempte663E, imposable: imposable663E } = qualifier663(e663Exp, brut662)
       // Art. 71 : QPO s'applique aussi aux expatriés (sauf convention bilatérale)
-      const qpoE = brut662 * 0.05
-      const baseImposableE = brut662 - qpoE
+      const qpoE = (brut662 + imposable663E) * 0.05
+      const baseImposableEAvantArrondi = brut662 - qpoE + imposable663E
+      // Art. 118 : arrondi au millier de FC inférieur avant le barème.
+      const baseImposableE = Math.floor(baseImposableEAvantArrondi / 1000) * 1000
       const { lignes, iprBrut, iprMax: iprMaxE } = calculerBareme(baseImposableE)
       const chargeE = Math.min(Math.max(0, nbChargeExp), 9)
-      // Art. 125 : réduction inapplicable si revenu imposable > 3 600 000 FC/mois
-      const reductionInapplicableE = baseImposableE > 3_600_000
-      // Assise sur l'IRPP brut (barème), AVANT tout plafonnement
-      const reductionE = reductionInapplicableE ? 0 : iprBrut * (chargeE * 0.02)
+      // Art. 125 : seule la portion d'IRPP correspondant à la 4ème tranche (40%) est exclue de
+      // l'assiette de la réduction.
+      const impotHorsDerniereTrancheE = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
+      const reductionPlafonneeE = lignes.some(l => l.taux === '40%')
+      // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement
+      const reductionE = impotHorsDerniereTrancheE * (chargeE * 0.02)
       const { plafonne, iprFinal: iprFinalE } = appliquerReductionEtPlafond(iprBrut, iprMaxE, reductionE)
-      const iprAvantPlancherE = iprFinalE
-      const iprNetExp = baseImposableE > 0 ? Math.max(2000, iprAvantPlancherE) : 0
-      const iprPlancherE = iprNetExp > iprAvantPlancherE
+      // Art. 150 : arrondi à la centaine de FC la plus proche. Aucun plancher légal (voir national).
+      const iprNetExp = arrondiCentaineFC(iprFinalE)
       const syndicatValE = parseFloat(syndicatExp) || 0
       const avancesValE  = parseFloat(avancesExp)  || 0
+      // IERE : Art. 148 Loi n°23/053 : taux unique 25% du brut des rémunérations de l'Art. 68
+      // (Art. 146), les immunités de l'Art. 69 s'y appliquant également (Art. 147) - donc la
+      // même base que l'IRPP : 662 + la part du 663 non couverte par une immunité.
       const tauxIere = 0.25
-      const iere = brut662 * tauxIere
+      const iere = (brut662 + imposable663E) * tauxIere
       const nbEffE = parseInt(effectifExp) || 0
       const inppTauxE = nbEffE > 300 ? 0.02 : nbEffE >= 51 ? 0.03 : 0.035
-      const cnssPatronE = brut662 * 0.13
-      const inppE = brut662 * inppTauxE
+      const cnssPatronE = (brut662 + imposable663E) * 0.13
+      const inppE = (brut662 + imposable663E) * inppTauxE
       const onemE = brut662 * 0.005
       const totalRetenuesE = qpoE + iprNetExp + syndicatValE + avancesValE
       const netAPayerE = brut662 + brut663e - totalRetenuesE
       setRes({
         mode: 'expatrie',
         brut662, brut663e, brutTotal: brut662 + brut663e,
-        qpoE, baseImposableE,
+        qpoE, exempte663E, imposable663E, baseImposableE,
         lignes, iprBrut, iprMax: iprMaxE, plafonne,
-        chargeE, reductionE, iprNetExp, iprPlancherE,
+        chargeE, reductionE, reductionPlafonneeE, iprNetExp,
         syndicatValE, avancesValE,
         tauxIere, iere, secteurMinier,
         cnssPatronE, inppE, inppTauxE, onemE,
@@ -441,25 +419,30 @@ export default function ChargesPersonnelIPRPage() {
       // Seuls les imposables entrent dans la base IRPP
       const brut = adminLignes.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const totalNI = adminLignesNI.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
-      const { lignes, iprBrut, iprCalcule, iprMax } = calculerBareme(brut)
+      // Art. 118 : le revenu net global s'arrondit au millier de FC inférieur avant le barème.
+      const brutArrondi = Math.floor(brut / 1000) * 1000
+      const { lignes, iprBrut, iprMax } = calculerBareme(brutArrondi)
       const charge = Math.min(Math.max(0, adminNbCharge), 9)
-      const reductionInapplicable = brut > 3_600_000
+      // Art. 125 : seule la portion d'IRPP correspondant à la tranche à 40% est exclue de
+      // l'assiette de la réduction.
+      const impotHorsDerniereTranche = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
+      const reductionPlafonnee = lignes.some(l => l.taux === '40%')
       // Assise sur l'IRPP brut (barème), AVANT tout plafonnement
-      const reduction = reductionInapplicable ? 0 : iprBrut * (charge * 0.02)
+      const reduction = impotHorsDerniereTranche * (charge * 0.02)
       const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
-      const iprAvantPlancher = iprFinal
-      const iprNet = brut > 0 ? Math.max(2000, iprAvantPlancher) : 0
-      const iprPlancher = iprNet > iprAvantPlancher
+      // Art. 150 : arrondi à la centaine de FC la plus proche. Aucun plancher légal en Loi
+      // 23/053 (l'ancien plancher de 2 000 FC relevait du régime IPR abrogé).
+      const iprNet = arrondiCentaineFC(iprFinal)
       const brutTotal = brut + totalNI          // total 6581 : imposable + non imposable
       const net = brutTotal - iprNet            // net à payer : total brut minus IRPP seulement
       setResAdmin({
         sousMode: 'mandataire',
-        brut, totalNI, brutTotal,
+        brut, brutArrondi, totalNI, brutTotal,
         adminLignes: [...adminLignes],
         adminLignesNI: [...adminLignesNI],
-        lignes, iprBrut, iprCalcule, iprMax, plafonne,
-        charge, reductionInapplicable, reduction,
-        iprNet, iprPlancher, net,
+        lignes, iprBrut, iprMax, plafonne,
+        charge, reductionPlafonnee, reduction,
+        iprNet, net,
       })
     } else {
       const ht  = parseFloat(cacHT) || 0
@@ -476,8 +459,8 @@ export default function ChargesPersonnelIPRPage() {
     setResAdmin(null)
     setE661([{ code: '6611', label: 'Appointements et salaires', montant: '' }])
     setE662([{ code: '6621', label: 'Salaires et appointements (expatriés)', montant: '' }])
-    setE663([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
-    setE663Exp([{ code: '6631', label: 'Indemnité de transport (légale)', montant: '' }])
+    setE663([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
+    setE663Exp([{ code: '6634', label: 'Indemnité de transport (légale)', montant: '' }])
     setNbCharge(0); setEffectif(''); setNbChargeExp(0); setEffectifExp(''); setSecteurMinier(false)
     setSyndicat(''); setAvances(''); setSyndicatExp(''); setAvancesExp('')
   }
@@ -578,27 +561,27 @@ export default function ChargesPersonnelIPRPage() {
             onAddFromCatalogue={e => addFromCatalogue(setE661, e)}
             onRemove={i => removeRow(setE661, i)} onUpdate={(i, f, v) => updateRow(setE661, i, f, v)} note="" />
 
-          <SectionSaisieModal titre="Non imposables (indemnités légales)" couleur="slate" rows={e663}
+          <SectionSaisieModal titre="Sous conditions : Indemnités et avantages (663)" couleur="slate" rows={e663}
             catalogue={ELEMENTS_663} onAdd={() => addRow(setE663)}
             onAddFromCatalogue={e => addFromCatalogue(setE663, e)}
-            onRemove={i => removeRow(setE663, i)} onUpdate={(i, f, v) => updateRow(setE663, i, f, v)} note="" />
+            onRemove={i => removeRow(setE663, i)} onUpdate={(i, f, v) => updateRow(setE663, i, f, v)}
+            note="Art. 69, 8° : qualifiées ligne par ligne - transport exonéré, logement exonéré à 30% de la rémunération, le reste imposable." />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Personnes à charge (max 9)
                 <InfoTooltip
-                  texte="Art. 123 Loi 23/053 : chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut calculé. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond de 9 personnes maximum. Réduction totalement inapplicable si le revenu net imposable mensuel dépasse 3 600 000 FC (4e tranche du barème progressif, Art. 118)."
+                  texte="Art. 123 Loi 23/053 : chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut calculé. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond de 9 personnes maximum. Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu qui excède la 3ème tranche du barème (donc sur la part imposée à 40%)."
                   loi="Art. 123-125 : Loi IRPP 23/053 du 30/11/2023"
                 />
               </label>
               <input type="number" min={0} max={9} value={nbCharge}
                 onChange={e => setNbCharge(parseInt(e.target.value) || 0)}
-                disabled={!!res && res.mode === 'national' && res.reductionInapplicable}
-                className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.mode === 'national' && res.reductionInapplicable ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
-              {res && res.mode === 'national' && res.reductionInapplicable
-                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
-                : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes sur IPR brut (Art. 123-125)</p>
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              {res && res.mode === 'national' && res.reductionPlafonnee
+                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction</p>
+                : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes sur IRPP brut (Art. 123-125)</p>
               }
             </div>
             <div>
@@ -683,28 +666,27 @@ export default function ChargesPersonnelIPRPage() {
             onAddFromCatalogue={e => addFromCatalogue(setE662, e)}
             onRemove={i => removeRow(setE662, i)} onUpdate={(i, f, v) => updateRow(setE662, i, f, v)} note="" />
 
-          <SectionSaisieModal titre="Non imposables (indemnités légales)" couleur="slate" rows={e663Exp}
+          <SectionSaisieModal titre="Sous conditions : Indemnités et avantages (663)" couleur="slate" rows={e663Exp}
             catalogue={ELEMENTS_663} onAdd={() => addRow(setE663Exp)}
             onAddFromCatalogue={e => addFromCatalogue(setE663Exp, e)}
             onRemove={i => removeRow(setE663Exp, i)} onUpdate={(i, f, v) => updateRow(setE663Exp, i, f, v)}
-            note="Ces éléments ne sont pas soumis à l'IPR ni à l'IERE." />
+            note="Art. 69, 8° : qualifiées ligne par ligne - transport exonéré, logement exonéré à 30% de la rémunération, le reste imposable à l'IRPP comme à l'IERE." />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Personnes à charge (max 9)
                 <InfoTooltip
-                  texte="Art. 123 Loi 23/053 : même règle que les nationaux : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes. Inapplicable si revenu net imposable > 3 600 000 FC/mois. | Les expatriés soumis à l'IRPP en RDC (Art. 84 Loi 23/053) bénéficient de ce même droit, sans distinction de nationalité."
+                  texte="Art. 123 Loi 23/053 : même règle que les nationaux : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes. Aucune réduction sur la portion d'impôt afférente à la tranche à 40%. | Les expatriés soumis à l'IRPP en RDC (Art. 84 Loi 23/053) bénéficient de ce même droit, sans distinction de nationalité."
                   loi="Art. 123-125 : Loi IRPP 23/053 du 30/11/2023"
                 />
               </label>
               <input type="number" min={0} max={9} value={nbChargeExp}
                 onChange={e => setNbChargeExp(parseInt(e.target.value) || 0)}
-                disabled={!!res && res.mode === 'expatrie' && res.reductionInapplicableE}
-                className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.mode === 'expatrie' && res.reductionInapplicableE ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
-              {res && res.mode === 'expatrie' && res.reductionInapplicableE
-                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
-                : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes sur IPR brut (Art. 123-125)</p>
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              {res && res.mode === 'expatrie' && res.reductionPlafonneeE
+                ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction</p>
+                : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes sur IRPP brut (Art. 123-125)</p>
               }
             </div>
             <div>
@@ -862,14 +844,13 @@ export default function ChargesPersonnelIPRPage() {
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                   Personnes à charge (max 9)
-                  <InfoTooltip texte="Réduction applicable aux administrateurs soumis à l'IRPP Cat. 1, identique aux salariés. | Art. 123 Loi 23/053 : 2% de réduction par personne à charge sur l'IRPP brut. | Art. 124 : Personnes admises : conjoint légal non séparé, enfants célibataires (reconnus, adoptés ou sous tutelle) de moins de 18 ans ou infirmes, ascendants des deux conjoints vivant au foyer. Revenu propre de la personne à charge : inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes à charge. Réduction inapplicable si le revenu imposable dépasse 3 600 000 FC/mois (4e tranche du barème)." loi="Art. 123-125 : Loi IRPP 23/053 du 30/11/2023" />
+                  <InfoTooltip texte="Réduction applicable aux administrateurs soumis à l'IRPP Cat. 1, identique aux salariés. | Art. 123 Loi 23/053 : 2% de réduction par personne à charge sur l'IRPP brut. | Art. 124 : Personnes admises : conjoint légal non séparé, enfants célibataires (reconnus, adoptés ou sous tutelle) de moins de 18 ans ou infirmes, ascendants des deux conjoints vivant au foyer. Revenu propre de la personne à charge : inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes à charge. Aucune réduction sur la portion d'impôt afférente à la tranche à 40%." loi="Art. 123-125 : Loi IRPP 23/053 du 30/11/2023" />
                 </label>
                 <input type="number" min={0} max={9} value={adminNbCharge}
                   onChange={e => setAdminNbCharge(parseInt(e.target.value) || 0)}
-                  disabled={!!resAdmin && resAdmin.reductionInapplicable}
-                  className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (resAdmin && resAdmin.reductionInapplicable ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
-                {resAdmin && resAdmin.reductionInapplicable
-                  ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 3 600 000 FC/mois (4e tranche)</p>
+                  className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                {resAdmin && resAdmin.reductionPlafonnee
+                  ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction</p>
                   : <p className="text-xs text-muted-foreground mt-1">Réduction 2% × nb personnes (Art. 123-125)</p>
                 }
               </div>
@@ -964,26 +945,28 @@ export default function ChargesPersonnelIPRPage() {
 
                   <EtapeResultat numero={2} titre="Calcul IRPP (barème progressif mensuel : Art. 118)">
                     <p className="text-xs text-muted-foreground mb-1">Aucune QPO CNSS : pas de contrat de travail (Art. 68)</p>
+                    <p className="text-xs text-muted-foreground mb-1">Base arrondie au millier de FC inférieur (Art. 118) : {formatFC(resAdmin.brutArrondi ?? resAdmin.brut)}</p>
                     {resAdmin.lignes.map((l: LigneBareme, i: number) => (
                       <LigneR key={i} signe="+"
                         label={`${l.tranche} → base réelle : ${formatFC(l.baseReelle)} × ${l.taux}`}
                         val={formatFC(l.impot)} indent />
                     ))}
                     <Separateur />
-                    <LigneR label="IRPP calculé (barème)" val={formatFC(resAdmin.iprCalcule ?? resAdmin.iprBrut)} />
+                    <LigneR label="IRPP calculé (barème)" val={formatFC(resAdmin.iprBrut)} />
                     {resAdmin.charge > 0 && (
-                      resAdmin.reductionInapplicable ? (
-                        <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                          <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                          <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois</span>
-                        </div>
-                      ) : (
+                      <>
                         <LigneR signe="−"
                           label={`Réduction charges de famille (${resAdmin.charge} pers. × 2%)`}
                           val={formatFC(resAdmin.reduction)} neg
-                          tooltip={{ texte: "Art. 123 Loi 23/053 : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : personnes admises : conjoint légal non séparé, enfants célibataires (reconnus, adoptés ou sous tutelle) de moins de 18 ans ou infirmes, ascendants des deux conjoints vivant au foyer. Revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes à charge. Réduction inapplicable si revenu imposable dépasse 3 600 000 FC/mois (4e tranche du barème). Applicable aux administrateurs soumis à l'IRPP Cat. 1 (Art. 68 Loi 23/053).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
+                          tooltip={{ texte: "Art. 123 Loi 23/053 : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : personnes admises : conjoint légal non séparé, enfants célibataires (reconnus, adoptés ou sous tutelle) de moins de 18 ans ou infirmes, ascendants des deux conjoints vivant au foyer. Revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes à charge. Aucune réduction sur la portion d'impôt afférente à la tranche à 40%. Applicable aux administrateurs soumis à l'IRPP Cat. 1 (Art. 68 Loi 23/053).", loi: "Art. 123-125 : Loi IRPP 23/053" }}
                         />
-                      )
+                        {resAdmin.reductionPlafonnee && (
+                          <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
+                            <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                            <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction</span>
+                          </div>
+                        )}
+                      </>
                     )}
                     {/* Bloc comparaison plafond : avant le résultat final */}
                     <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-3 text-xs ${
@@ -995,19 +978,19 @@ export default function ChargesPersonnelIPRPage() {
                       <div className="space-y-0.5">
                         <p><strong>Comparaison Art. 118 :</strong></p>
                         <p>
-                          IRPP calculé (barème) = <strong>{formatFC(resAdmin.iprCalcule ?? resAdmin.iprBrut)}</strong>
-                          {resAdmin.charge > 0 && !resAdmin.reductionInapplicable && (
-                            <> − réduction ({resAdmin.charge} pers. × 2%) = {formatFC(resAdmin.reduction)} → net avant plafond = <strong>{formatFC(Math.max(0, (resAdmin.iprCalcule ?? resAdmin.iprBrut) - resAdmin.reduction))}</strong></>
+                          IRPP calculé (barème) = <strong>{formatFC(resAdmin.iprBrut)}</strong>
+                          {resAdmin.charge > 0 && (
+                            <> − réduction ({resAdmin.charge} pers. × 2%) = {formatFC(resAdmin.reduction)} → net avant plafond = <strong>{formatFC(Math.max(0, resAdmin.iprBrut - resAdmin.reduction))}</strong></>
                           )}
                         </p>
-                        <p>Plafond 30% × RNI ({formatFC(resAdmin.brut)}) = <strong>{formatFC(resAdmin.iprMax)}</strong></p>
+                        <p>Plafond 30% × RNI ({formatFC(resAdmin.brutArrondi ?? resAdmin.brut)}) = <strong>{formatFC(resAdmin.iprMax)}</strong></p>
                         {resAdmin.plafonne
                           ? <p className="font-semibold">IRPP calculé &gt; plafond → on retient le plafond (Art. 118 al. 2)</p>
                           : <p>IRPP calculé ≤ plafond → on retient l'IRPP calculé</p>}
                       </div>
                     </div>
 
-                    <LigneR signe="=" label={`IRPP net retenu${resAdmin.iprPlancher ? ' (plancher 2 000 FC appliqué)' : ''}`} val={formatFC(resAdmin.iprNet)} bold accent />
+                    <LigneR signe="=" label="IRPP net retenu" val={formatFC(resAdmin.iprNet)} bold accent />
                   </EtapeResultat>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
@@ -1162,18 +1145,19 @@ export default function ChargesPersonnelIPRPage() {
                 <Separateur />
                 <LigneR label="IRPP brut" val={formatFC(res.iprBrut)} />
                 {res.charge > 0 && (
-                  res.reductionInapplicable ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                      <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                      <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
-                    </div>
-                  ) : (
+                  <>
                     <LigneR signe="−"
                       label={`Réduction charges de famille : Art. 123-125 (${res.charge} pers. × 2%)`}
                       val={formatFC(res.reduction)} neg
-                      tooltip={{ texte: "Art. 123 Loi 23/053 : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : sont admis comme personnes à charge : (1) le conjoint légal non séparé ; (2) les enfants célibataires reconnus, adoptés ou placés sous tutelle, de moins de 18 ans, ou infirmes et incapables de subvenir à leurs besoins ; (3) les ascendants des deux conjoints vivant au foyer. Condition commune : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond fixé à 9 personnes à charge maximum. Réduction totalement inapplicable si le revenu net imposable mensuel dépasse 3 600 000 FC (4e tranche du barème progressif, Art. 118).", loi: "Art. 123-125 : Loi IRPP 23/053 du 30/11/2023" }}
+                      tooltip={{ texte: "Art. 123 Loi 23/053 : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : sont admis comme personnes à charge : (1) le conjoint légal non séparé ; (2) les enfants célibataires reconnus, adoptés ou placés sous tutelle, de moins de 18 ans, ou infirmes et incapables de subvenir à leurs besoins ; (3) les ascendants des deux conjoints vivant au foyer. Condition commune : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond fixé à 9 personnes à charge maximum. Aucune réduction n'est accordée sur la portion d'impôt afférente à la tranche à 40%.", loi: "Art. 123-125 : Loi IRPP 23/053 du 30/11/2023" }}
                     />
-                  )
+                    {res.reductionPlafonnee && (
+                      <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
+                        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                        <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction</span>
+                      </div>
+                    )}
+                  </>
                 )}
                 <LigneR signe="=" label="IRPP net dû" val={formatFC(res.iprNet)} bold accent />
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-3 text-xs ${
@@ -1193,9 +1177,7 @@ export default function ChargesPersonnelIPRPage() {
 
               <EtapeResultat numero={4} titre="Récapitulatif des retenues salariales">
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpo)} neg />
-                <LigneR signe="−"
-                  label={`IRPP net${res.iprPlancher ? ' – plancher 2 000 FC appliqué' : ''}`}
-                  val={formatFC(res.iprNet)} neg />
+                <LigneR signe="−" label="IRPP net" val={formatFC(res.iprNet)} neg />
                 {res.syndicatVal > 0 && <LigneR signe="−" label="Cotisation syndicale" val={formatFC(res.syndicatVal)} neg />}
                 {res.avancesVal > 0 && <LigneR signe="−" label="Avances / Prêts" val={formatFC(res.avancesVal)} neg />}
                 <Separateur />
@@ -1257,18 +1239,19 @@ export default function ChargesPersonnelIPRPage() {
                 <Separateur />
                 <LigneR label="IRPP brut" val={formatFC(res.iprBrut)} />
                 {res.chargeE > 0 && (
-                  res.reductionInapplicableE ? (
-                    <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
-                      <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                      <span><strong>Art. 125 :</strong> Réduction charges de famille non applicable : revenu imposable supérieur à 3 600 000 FC/mois (4ème tranche du barème)</span>
-                    </div>
-                  ) : (
+                  <>
                     <LigneR signe="−"
                       label={`Réduction charges de famille : Art. 123-125 (${res.chargeE} pers. × 2%)`}
                       val={formatFC(res.reductionE)} neg
-                      tooltip={{ texte: "Art. 123 Loi 23/053 : même règle que les nationaux : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Revenu propre inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes. Inapplicable si revenu net imposable dépasse 3 600 000 FC/mois. | Applicable aux expatriés soumis à l'IRPP en RDC (Art. 84 Loi 23/053), quelle que soit leur nationalité.", loi: "Art. 123-125 : Loi IRPP 23/053 du 30/11/2023" }}
+                      tooltip={{ texte: "Art. 123 Loi 23/053 : même règle que les nationaux : réduction de 2% par personne à charge sur l'IRPP brut. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Revenu propre inférieur ou égal à 162 000 FC/mois. | Art. 125 : maximum 9 personnes. Aucune réduction sur la portion d'impôt afférente à la tranche à 40%. | Applicable aux expatriés soumis à l'IRPP en RDC (Art. 84 Loi 23/053), quelle que soit leur nationalité.", loi: "Art. 123-125 : Loi IRPP 23/053 du 30/11/2023" }}
                     />
-                  )
+                    {res.reductionPlafonneeE && (
+                      <div className="flex items-start gap-2 mt-1 rounded-lg px-3 py-2.5 text-xs bg-orange-50 border border-orange-200 text-orange-700">
+                        <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                        <span><strong>Art. 125 :</strong> la portion d'IRPP correspondant à la tranche à 40% est exclue de l'assiette de la réduction</span>
+                      </div>
+                    )}
+                  </>
                 )}
                 <LigneR signe="=" label="IRPP net retenu sur salaire" val={formatFC(res.iprNetExp)} bold accent />
                 <div className={`flex items-start gap-2 mt-2 rounded-lg px-3 py-3 text-xs ${
@@ -1298,9 +1281,7 @@ export default function ChargesPersonnelIPRPage() {
 
               <EtapeResultat numero={5} titre="Récapitulatif des retenues salariales">
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpoE)} neg />
-                <LigneR signe="−"
-                  label={`IRPP net${res.iprPlancherE ? ' – plancher 2 000 FC appliqué' : ''}`}
-                  val={formatFC(res.iprNetExp)} neg />
+                <LigneR signe="−" label="IRPP net" val={formatFC(res.iprNetExp)} neg />
                 {res.syndicatValE > 0 && <LigneR signe="−" label="Cotisation syndicale" val={formatFC(res.syndicatValE)} neg />}
                 {res.avancesValE > 0 && <LigneR signe="−" label="Avances / Prêts" val={formatFC(res.avancesValE)} neg />}
                 <Separateur />
