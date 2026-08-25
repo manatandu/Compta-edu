@@ -3,7 +3,7 @@ import {
   Calculator, Info, RotateCcw, FileText, Receipt,
   Building2, Users, AlertCircle, CheckCircle2, Percent,
   Briefcase, Wheat, TrendingUp, Coins, BarChart2, X, Plus,
-  ChevronRight, FolderOpen, Scale
+  ChevronRight, FolderOpen, Scale, Ship, Pickaxe
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,6 +15,8 @@ import { useNav } from '@/lib/navContext'
 import { InfoTooltip } from '@/components/InfoTooltip'
 import SimulateurTVA from '@/components/SimulateurTVA'
 import SimulateurAutresImpots from '@/components/SimulateurAutresImpots'
+import SimulateurDouane from '@/components/SimulateurDouane'
+import SimulateurFiscaliteMiniere from '@/components/SimulateurFiscaliteMiniere'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -2938,6 +2940,8 @@ const ONGLETS_PRINCIPAUX = [
   { id: 'tva',        label: 'TVA',         sublabel: 'Déclaration',      icon: Percent,   color: 'rose' },
   { id: 'irl',        label: 'Autres imp.', sublabel: 'ETD',              icon: Receipt,   color: 'amber' },
   { id: 'procedures', label: 'Procédures fiscales',  sublabel: 'Loi 004/2003',     icon: Scale,     color: 'purple' },
+  { id: 'douane',     label: 'Douane',      sublabel: 'Code des douanes', icon: Ship,      color: 'cyan' },
+  { id: 'mines',      label: 'Fisc. minière', sublabel: 'Code minier',    icon: Pickaxe,   color: 'stone' },
 ]
 
 // Sous-onglets IRPP (6 catégories) : Loi IRPP 23/053 du 30/11/2023
@@ -3010,6 +3014,8 @@ const ONGLETS = [
   { id: 'irl',       label: 'Autres impôts',  sublabel: 'Impôts rétrocédés aux ETD',                      icon: Receipt,   color: 'amber',   desc: 'IRL (22%) · IF · IV · TSCR · TSMC : impôts réels provinciaux et locaux' },
   { id: 'tva',        label: 'TVA',        sublabel: 'Taxe sur la Valeur Ajoutée',                          icon: Percent,   color: 'rose',    desc: 'TVA collectée − TVA déductible, taux normal 16%, taux réduits 1%/5% (LF 2026)' },
   { id: 'procedures', label: 'Procédures fiscales', sublabel: 'Obligations, contrôle, recouvrement',                    icon: Scale,     color: 'purple',  desc: 'Déclarations, vérification, AMR, pénalités et recours : Loi n°004/2003 du 13 mars 2003' },
+  { id: 'douane',     label: 'Douane',     sublabel: 'Tarif, valeur, régimes douaniers, contentieux',                   icon: Ship,      color: 'cyan',    desc: 'Valeur en douane, entrepôt, transit, admission temporaire, dette douanière : O.-L. n°10/002 du 20 août 2010' },
+  { id: 'mines',      label: 'Fiscalité minière', sublabel: 'Régime fiscal, douanier et redevance minière',             icon: Pickaxe,   color: 'stone',   desc: 'Redevance minière, IS 30%, impôt sur profits excédentaires, taux préférentiels : Code minier Titre IX' },
 ]
 
 const COLOR_MAP: Record<string, string> = {
@@ -3025,6 +3031,8 @@ const COLOR_MAP: Record<string, string> = {
   orange:  'border-orange-500 bg-orange-500 text-white',
   purple:  'border-purple-500 bg-purple-500 text-white',
   slate:   'border-slate-500 bg-slate-500 text-white',
+  cyan:    'border-cyan-500 bg-cyan-500 text-white',
+  stone:   'border-stone-500 bg-stone-500 text-white',
 }
 
 const COLOR_LIGHT: Record<string, string> = {
@@ -3038,6 +3046,8 @@ const COLOR_LIGHT: Record<string, string> = {
   teal:    'text-teal-600',
   orange:  'text-orange-600',
   purple:  'text-purple-600',
+  cyan:    'text-cyan-600',
+  stone:   'text-stone-600',
 }
 
 // Placeholder pour catégories à venir
@@ -5611,8 +5621,8 @@ export default function FiscalitePage() {
           </div>
         </div>
 
-        {/* ── Niveau 1 : IRPP | IS | Autres impôts | TVA ── */}
-        <div className="grid grid-cols-4 gap-2 mb-4">
+        {/* ── Niveau 1 : IRPP | IS | Autres impôts | TVA | Procédures | Douane | Mines ── */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-4">
           {ONGLETS_PRINCIPAUX.map(o => {
             const Icon = o.icon
             const isActif = impotActif === o.id
@@ -5740,6 +5750,8 @@ export default function FiscalitePage() {
             {impotActif === 'irl'        && <SimulateurAutresImpots />}
             {impotActif === 'tva'        && <SimulateurTVA />}
             {impotActif === 'procedures' && <ProceduresFiscales />}
+            {impotActif === 'douane'     && <SimulateurDouane />}
+            {impotActif === 'mines'      && <SimulateurFiscaliteMiniere />}
           </CardContent>
         </Card>
 
