@@ -135,7 +135,7 @@ export default function DebuggingAdminPage() {
         <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
         <div className="text-sm text-blue-800 space-y-1">
           <p className="font-semibold">Règles de sécurité Firestore - État</p>
-          <p>Les règles côté serveur Firebase Firestore sont configurées dans la <strong>Console Firebase</strong> (campus-ohada project).</p>
+          <p>Les règles côté serveur Firebase Firestore sont configurées dans la <strong>Console Firebase</strong>.</p>
           <p>La règle recommandée pour isoler les étudiants par admin est :</p>
           <pre className="bg-black/10 rounded p-2 text-xs font-mono mt-2 overflow-x-auto whitespace-pre-wrap">
 {`match /users/{userId} {
