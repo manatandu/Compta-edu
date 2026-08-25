@@ -5,34 +5,60 @@
       <stop offset="55%" stop-color="#3D7DF2"/>
       <stop offset="100%" stop-color="#15296B"/>
     </linearGradient>
+    <radialGradient id="orbitCoreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BFD6FF"/>
+      <stop offset="60%" stop-color="#3D7DF2"/>
+      <stop offset="100%" stop-color="#15296B"/>
+    </radialGradient>
   </defs>
 
-  <!-- masse pleine : anneau planétaire épais -->
-  <path d="M 100 18 A 82 82 0 1 1 34 145"
-        fill="none" stroke="url(#orbitRingGrad)" stroke-width="34" stroke-linecap="round"/>
+  <style>
+    @keyframes orbit-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes orbit-pulse { 0%, 100% { opacity: 0.55; r: 15px; } 50% { opacity: 0.9; r: 17px; } }
+    @keyframes orbit-satellite-glow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+    .orbit-ring-group { transform-origin: 100px 100px; animation: orbit-spin 16s linear infinite; }
+    .orbit-core-glow { transform-origin: 146px 46px; animation: orbit-pulse 3s ease-in-out infinite; }
+    .orbit-satellite { animation: orbit-satellite-glow 2.4s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .orbit-ring-group, .orbit-core-glow, .orbit-satellite { animation: none; }
+    }
+  </style>
 
-  <!-- gravures circuit sur l'anneau -->
-  <path d="M 105 26 A 74 74 0 0 1 155 62" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.55"/>
-  <path d="M 165 82 A 74 74 0 0 1 160 122" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.5"/>
-  <path d="M 148 140 A 74 74 0 0 1 118 160" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.45"/>
+  <g class="orbit-ring-group">
+    <!-- masse pleine : anneau planétaire épais -->
+    <path d="M 100 18 A 82 82 0 1 1 34 145"
+          fill="none" stroke="url(#orbitRingGrad)" stroke-width="34" stroke-linecap="round"/>
 
-  <!-- noyau -->
-  <circle cx="146" cy="46" r="15" fill="url(#orbitRingGrad)"/>
+    <!-- gravures circuit sur l'anneau -->
+    <path d="M 105 26 A 74 74 0 0 1 155 62" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.55"/>
+    <path d="M 165 82 A 74 74 0 0 1 160 122" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.5"/>
+    <path d="M 148 140 A 74 74 0 0 1 118 160" fill="none" stroke="#0A1230" stroke-width="2" opacity="0.45"/>
 
-  <!-- transition : la trajectoire se prolonge en traits fins -->
-  <g stroke="#3D7DF2" stroke-width="1.4" opacity="0.75">
-    <line x1="34" y1="145" x2="18" y2="118"/>
-    <line x1="34" y1="145" x2="16" y2="158"/>
-    <line x1="18" y1="118" x2="30" y2="90"/>
-    <line x1="18" y1="118" x2="8" y2="132"/>
-    <line x1="30" y1="90" x2="26" y2="62"/>
+    <!-- noyau, avec halo pulsant derrière -->
+    <circle class="orbit-core-glow" cx="146" cy="46" r="15" fill="#8FB4FF" opacity="0.55"/>
+    <circle cx="146" cy="46" r="15" fill="url(#orbitCoreGlow)"/>
+
+    <!-- transition : la trajectoire se prolonge en traits fins -->
+    <g stroke="#3D7DF2" stroke-width="1.4" opacity="0.75">
+      <line x1="34" y1="145" x2="18" y2="118"/>
+      <line x1="34" y1="145" x2="16" y2="158"/>
+      <line x1="18" y1="118" x2="30" y2="90"/>
+      <line x1="18" y1="118" x2="8" y2="132"/>
+      <line x1="30" y1="90" x2="26" y2="62"/>
+    </g>
+
+    <!-- nœuds / constellation -->
+    <circle cx="34" cy="145" r="7" fill="#7FA8FF"/>
+    <circle cx="18" cy="118" r="9" fill="#3D7DF2"/>
+    <circle cx="16" cy="158" r="4" fill="#5C8FF0"/>
+    <circle cx="30" cy="90" r="5.5" fill="#5C8FF0"/>
+    <circle cx="8" cy="132" r="3.5" fill="#8FB4FF"/>
+    <circle cx="26" cy="62" r="4.5" fill="#8FB4FF"/>
   </g>
 
-  <!-- nœuds / constellation -->
-  <circle cx="34" cy="145" r="7" fill="#7FA8FF"/>
-  <circle cx="18" cy="118" r="9" fill="#3D7DF2"/>
-  <circle cx="16" cy="158" r="4" fill="#5C8FF0"/>
-  <circle cx="30" cy="90" r="5.5" fill="#5C8FF0"/>
-  <circle cx="8" cy="132" r="3.5" fill="#8FB4FF"/>
-  <circle cx="26" cy="62" r="4.5" fill="#8FB4FF"/>
+  <!-- satellite en orbite libre, indépendant de la rotation de l'anneau -->
+  <circle class="orbit-satellite" cx="0" cy="0" r="5" fill="#BFD6FF">
+    <animateMotion dur="4s" repeatCount="indefinite"
+      path="M 100,42 A 58,58 0 1,1 99.9,42" rotate="auto"/>
+  </circle>
 </svg>
