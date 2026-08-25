@@ -4,7 +4,7 @@ import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import type { Ecriture } from '@/lib/db'
 import { useModule } from '@/lib/moduleContext'
-import { formatMontant } from '@/lib/utils'
+import { formatMontant, cn } from '@/lib/utils'
 import { exportGrandLivrePDF } from '@/lib/exportPDF'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -25,7 +25,7 @@ interface CompteData {
   soldeCrediteur: number
 }
 
-export default function GrandLivrePage() {
+export default function GrandLivrePage({ embedded = false }: { embedded?: boolean } = {}) {
   const user = useUser()
   const module = useModule()
   const { sessions, loading: loadingSessions } = useSessions(user?.id, module)
@@ -97,36 +97,48 @@ export default function GrandLivrePage() {
   if (loadingSessions || loadingEcritures) return <PageLoader message="Chargement du grand-livre..." />
 
   return (
-    <div className="space-y-5 animate-fadeIn">
+    <div className={cn('space-y-5', !embedded && 'animate-fadeIn')}>
 
-      {/* ── Bouton retour ── */}
-      <BackButton />
+      {!embedded && (
+        <>
+          {/* ── Bouton retour ── */}
+          <BackButton />
 
-      {/* ── Header Banner Animé ── */}
-      <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
-          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
-          <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
-                <BookMarked className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Grand Livre</h1>
-                <p className="text-xs text-muted-foreground mt-0.5">Suivi détaillé par compte SYSCOHADA</p>
+          {/* ── Header Banner Animé ── */}
+          <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
+              <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
+                    <BookMarked className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Grand Livre</h1>
+                    <p className="text-xs text-muted-foreground mt-0.5">Suivi détaillé par compte SYSCOHADA</p>
+                  </div>
+                </div>
+                {comptesData.length > 0 && (
+                  <Button variant="outline" size="sm" onClick={() => exportGrandLivrePDF(selectedSession?.nom || '', comptesData)} className="animate-slideDown" style={{ animationDelay: '200ms' }}>
+                    <Download className="h-4 w-4 mr-1" /> PDF
+                  </Button>
+                )}
               </div>
             </div>
-            {comptesData.length > 0 && (
-              <Button variant="outline" size="sm" onClick={() => exportGrandLivrePDF(selectedSession?.nom || '', comptesData)} className="animate-slideDown" style={{ animationDelay: '200ms' }}>
-                <Download className="h-4 w-4 mr-1" /> PDF
-              </Button>
-            )}
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
-      <div className="animate-slideUp" style={{ animationDelay: '80ms' }}>
+      {embedded && comptesData.length > 0 && (
+        <div className="flex justify-end">
+          <Button variant="outline" size="sm" onClick={() => exportGrandLivrePDF(selectedSession?.nom || '', comptesData)}>
+            <Download className="h-4 w-4 mr-1" /> PDF
+          </Button>
+        </div>
+      )}
+
+      <div className={embedded ? undefined : 'animate-slideUp'} style={embedded ? undefined : { animationDelay: '80ms' }}>
       <Card className="border-border">
         <CardContent className="pt-4 pb-4">
           <div className="flex flex-col sm:flex-row gap-3">

@@ -41,7 +41,7 @@ const emptyLigne = (): LigneSaisie => ({
   credit: ''
 })
 
-export default function JournalPage() {
+export default function JournalPage({ embedded = false }: { embedded?: boolean } = {}) {
   const { toast } = useToast()
   const module = useModule()
   const user = useUser()
@@ -294,42 +294,63 @@ export default function JournalPage() {
   if (loadingSessions || loadingEcritures) return <PageLoader message="Chargement du journal..." />
 
   return (
-    <div className="space-y-5 animate-fadeIn">
+    <div className={cn('space-y-5', !embedded && 'animate-fadeIn')}>
 
-      {/* ── Bouton retour ── */}
-      <BackButton />
+      {!embedded && (
+        <>
+          {/* ── Bouton retour ── */}
+          <BackButton />
 
-      {/* ── Header Banner Animé ── */}
-      <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
-          <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
-          <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
-                <Settings2 className="h-6 w-6 text-primary" />
+          {/* ── Header Banner Animé ── */}
+          <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>
+            <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/10 px-4 sm:px-6 py-4 sm:py-5">
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/10 animate-pulseGlow" />
+              <div className="pointer-events-none absolute -right-2 bottom-0 h-14 w-14 rounded-full bg-primary/6 animate-float" />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 border border-primary/20 shadow-sm transition-all duration-300 hover:scale-110 hover:rotate-6">
+                    <Settings2 className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h1 className="text-lg sm:text-xl font-display font-semibold text-foreground tracking-tight">Journal Comptable</h1>
+                    <p className="text-xs text-muted-foreground mt-0.5">Saisie des écritures SYSCOHADA : Partie double</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 sm:ml-auto">
+                  <Button variant="outline" size="sm" onClick={() => setShowNewSession(true)} className="flex-1 sm:flex-none justify-center">
+                    <PlusCircle className="h-4 w-4 mr-1" /> Nouvelle session
+                  </Button>
+                  {sessionEcritures.length > 0 && (
+                    <Button variant="outline" size="sm" onClick={() => exportJournalPDF(selectedSession?.nom || '', sessionEcritures)} className="flex-1 sm:flex-none justify-center">
+                      <Download className="h-4 w-4 mr-1" /> PDF
+                    </Button>
+                  )}
+                  <Button size="sm" onClick={() => setShowForm(true)} disabled={!selectedSessionId || sessionVerrouillee} className="flex-1 sm:flex-none justify-center">
+                    <Plus className="h-4 w-4 mr-1" /> Nouvelle écriture
+                  </Button>
+                </div>
               </div>
-              <div>
-                <h1 className="text-lg sm:text-xl font-display font-semibold text-foreground tracking-tight">Journal Comptable</h1>
-                <p className="text-xs text-muted-foreground mt-0.5">Saisie des écritures SYSCOHADA : Partie double</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2 sm:ml-auto">
-              <Button variant="outline" size="sm" onClick={() => setShowNewSession(true)} className="flex-1 sm:flex-none justify-center">
-                <PlusCircle className="h-4 w-4 mr-1" /> Nouvelle session
-              </Button>
-              {sessionEcritures.length > 0 && (
-                <Button variant="outline" size="sm" onClick={() => exportJournalPDF(selectedSession?.nom || '', sessionEcritures)} className="flex-1 sm:flex-none justify-center">
-                  <Download className="h-4 w-4 mr-1" /> PDF
-                </Button>
-              )}
-              <Button size="sm" onClick={() => setShowForm(true)} disabled={!selectedSessionId || sessionVerrouillee} className="flex-1 sm:flex-none justify-center">
-                <Plus className="h-4 w-4 mr-1" /> Nouvelle écriture
-              </Button>
             </div>
           </div>
+        </>
+      )}
+
+      {/* ── Barre d'actions compacte, en mode intégré au hub ── */}
+      {embedded && (
+        <div className="flex flex-wrap gap-2 justify-end">
+          <Button variant="outline" size="sm" onClick={() => setShowNewSession(true)}>
+            <PlusCircle className="h-4 w-4 mr-1" /> Nouvelle session
+          </Button>
+          {sessionEcritures.length > 0 && (
+            <Button variant="outline" size="sm" onClick={() => exportJournalPDF(selectedSession?.nom || '', sessionEcritures)}>
+              <Download className="h-4 w-4 mr-1" /> PDF
+            </Button>
+          )}
+          <Button size="sm" onClick={() => setShowForm(true)} disabled={!selectedSessionId || sessionVerrouillee}>
+            <Plus className="h-4 w-4 mr-1" /> Nouvelle écriture
+          </Button>
         </div>
-      </div>
+      )}
 
       {/* Session selector */}
       <Card className="border-border">
