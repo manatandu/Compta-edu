@@ -3,7 +3,7 @@ import {
   Calculator, Info, RotateCcw, FileText, Receipt,
   Building2, Users, AlertCircle, CheckCircle2, Percent,
   Briefcase, Wheat, TrendingUp, Coins, BarChart2, X, Plus,
-  ChevronRight, FolderOpen, Scale, Ship, Pickaxe
+  ChevronRight, FolderOpen, Scale, Ship, Pickaxe, BookOpen
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -17,6 +17,7 @@ import SimulateurTVA from '@/components/SimulateurTVA'
 import SimulateurAutresImpots from '@/components/SimulateurAutresImpots'
 import SimulateurDouane from '@/components/SimulateurDouane'
 import SimulateurFiscaliteMiniere from '@/components/SimulateurFiscaliteMiniere'
+import ChapitreIntroductionFiscalite from '@/components/ChapitreIntroductionFiscalite'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -2933,7 +2934,7 @@ function SimulateurIRL() {
 // STRUCTURE PRINCIPALE
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Onglets niveau 1 (impôts principaux)
+// Onglets niveau 1 (impôts principaux) — chacun correspond à un chapitre du cours (2 à 8)
 const ONGLETS_PRINCIPAUX = [
   { id: 'irpp',       label: 'IRPP',        sublabel: '6 catégories',     icon: Users,     color: 'blue' },
   { id: 'is',         label: 'IS',          sublabel: 'Impôt Sociétés',   icon: Building2, color: 'emerald' },
@@ -2943,6 +2944,12 @@ const ONGLETS_PRINCIPAUX = [
   { id: 'douane',     label: 'Douane',      sublabel: 'Code des douanes', icon: Ship,      color: 'cyan' },
   { id: 'mines',      label: 'Fisc. minière', sublabel: 'Code minier',    icon: Pickaxe,   color: 'stone' },
 ]
+
+// Chapitre 1 : introduction théorique (notions générales, hors barème/simulateur)
+const CHAPITRE_INTRO = { id: 'intro', label: 'Introduction', sublabel: 'Notions générales', icon: BookOpen, color: 'slate' }
+
+// Table des matières du module : Chapitre 1 (théorie) + Chapitres 2 à 8 (un par impôt/simulateur)
+const CHAPITRES = [CHAPITRE_INTRO, ...ONGLETS_PRINCIPAUX].map((o, i) => ({ ...o, numero: i + 1 }))
 
 // Sous-onglets IRPP (6 catégories) : Loi IRPP 23/053 du 30/11/2023
 const SOUS_ONGLETS_IRPP = [
@@ -5587,13 +5594,15 @@ function ProceduresFiscales() {
 }
 
 export default function FiscalitePage() {
-  const [impotActif, setImpotActif] = useState('irpp')
+  const [impotActif, setImpotActif] = useState('intro')
   const [catIrpp, setCatIrpp]       = useState('irpp_cat1')
   const [, navigate] = useHashLocation()
   const { setNav } = useNav()
 
-  // Pour la description : onglet courant
-  const ongletDesc = impotActif === 'irpp'
+  // Pour la description : onglet courant (non pertinent pour le chapitre d'introduction)
+  const ongletDesc = impotActif === 'intro'
+    ? null
+    : impotActif === 'irpp'
     ? ONGLETS.find(o => o.id === catIrpp)!
     : ONGLETS.find(o => o.id === impotActif)!
 
@@ -5621,9 +5630,12 @@ export default function FiscalitePage() {
           </div>
         </div>
 
-        {/* ── Niveau 1 : IRPP | IS | Autres impôts | TVA | Procédures | Douane | Mines ── */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-4">
-          {ONGLETS_PRINCIPAUX.map(o => {
+        {/* ── Sommaire du module : 8 chapitres (1 = théorie, 2 à 8 = un par impôt/simulateur) ── */}
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 px-0.5">
+          Sommaire du module
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+          {CHAPITRES.map(o => {
             const Icon = o.icon
             const isActif = impotActif === o.id
             return (
@@ -5631,13 +5643,17 @@ export default function FiscalitePage() {
                 key={o.id}
                 onClick={() => setImpotActif(o.id)}
                 className={cn(
-                  'relative rounded-xl border h-[64px] flex flex-col justify-center items-center px-2 py-2 text-center',
+                  'relative rounded-xl border h-[68px] flex flex-col justify-center items-center px-2 py-2 text-center',
                   'transition-all duration-200 ease-out focus:outline-none',
                   isActif
                     ? `${COLOR_MAP[o.color]} shadow-md border-transparent scale-[1.03]`
                     : 'border-border bg-card hover:border-primary/30 hover:bg-muted/30 hover:scale-[1.01]'
                 )}
               >
+                <span className={cn(
+                  'absolute top-1 left-1.5 text-[9px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center',
+                  isActif ? 'bg-white/25 text-white' : 'bg-muted text-muted-foreground'
+                )}>{o.numero}</span>
                 <Icon className={cn('h-4 w-4 mb-1 shrink-0', isActif ? 'text-white' : COLOR_LIGHT[o.color])} />
                 <p className={cn('text-[12px] font-bold leading-tight', isActif ? 'text-white' : 'text-foreground')}>{o.label}</p>
                 <p className={cn('text-xs leading-tight truncate w-full text-center', isActif ? 'text-white/80' : 'text-muted-foreground')}>{o.sublabel}</p>
@@ -5645,6 +5661,9 @@ export default function FiscalitePage() {
             )
           })}
         </div>
+
+        {/* ── Chapitre 1 : introduction théorique ── */}
+        {impotActif === 'intro' && <ChapitreIntroductionFiscalite />}
 
         {/* ── Encadré intro IRPP ── */}
         {impotActif === 'irpp' && (
@@ -5714,7 +5733,8 @@ export default function FiscalitePage() {
           </div>
         )}
 
-        {/* Description onglet actif */}
+        {/* Description onglet actif (chapitres 2 à 8 uniquement — le chapitre 1 a son propre rendu ci-dessus) */}
+        {ongletDesc && (
         <Card className="mb-4 overflow-hidden">
           <CardHeader className="pb-2 pt-4">
             <div className="flex items-center gap-2.5">
@@ -5754,6 +5774,7 @@ export default function FiscalitePage() {
             {impotActif === 'mines'      && <SimulateurFiscaliteMiniere />}
           </CardContent>
         </Card>
+        )}
 
         {/* Note légale */}
         <p className="text-center text-xs text-muted-foreground mt-4 px-4">
