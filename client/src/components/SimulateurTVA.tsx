@@ -1387,11 +1387,11 @@ function OngletTVANette() {
             {lignesCol.map((l, i) => (
               <div key={i} className="grid grid-cols-[1fr_100px_60px_24px] gap-1.5 items-center">
                 <input placeholder="Libellé de la vente=" value={l.label} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, label: e.target.value } : r)); setRes(null) }}
-                  className="rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                  className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <input type="number" placeholder="Base HT=" value={l.baseHT} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, baseHT: e.target.value } : r)); setRes(null) }}
-                  className="rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                  className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <select value={l.taux} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
-                  className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
+                  className="min-w-0 rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
                   <option value="16">16%</option>
                   <option value="1">1%</option>
                   <option value="5">5%</option>
@@ -1411,9 +1411,9 @@ function OngletTVANette() {
             {lignesDed.map((l, i) => (
               <div key={i} className="grid grid-cols-[1fr_100px_60px_24px] gap-1.5 items-center">
                 <input placeholder="Libellé de l'achat" value={l.label} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, label: e.target.value } : r)); setRes(null) }}
-                  className="rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                  className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <input type="number" placeholder="Base HT=" value={l.baseHT} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, baseHT: e.target.value } : r)); setRes(null) }}
-                  className="rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                  className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <select value={l.taux} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
                   <option value="16">16%</option>
