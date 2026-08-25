@@ -356,7 +356,7 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
       <Card className="border-border">
         <CardContent className="pt-4 pb-4">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <Label className="text-sm font-medium shrink-0">Session active :</Label>
+            <Label className="text-sm font-medium shrink-0">Session :</Label>
             <Select value={selectedSessionId} onValueChange={setSelectedSessionId}>
               <SelectTrigger className="sm:w-80">
                 <SelectValue placeholder="Sélectionner une session" />

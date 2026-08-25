@@ -7,38 +7,35 @@ import JournalPage from '@/pages/JournalPage'
 import GrandLivrePage from '@/pages/GrandLivrePage'
 import BalancePage from '@/pages/BalancePage'
 
+// Palette « module » de la marque Orbit — cohérente avec le header du hub
+// (module-blue) et avec la refonte de ComptabiliteGeneralePage (PR #98).
 const ONGLETS = [
   {
     id: 'journal',
     label: 'Livre Journal',
     icon: BookOpen,
-    color: 'text-blue-600',
-    bg: 'bg-blue-50',
-    activeBorder: 'border-blue-500',
+    color: 'text-module-blue',
+    activeBorder: 'border-module-blue',
   },
   {
     id: 'grand-livre',
     label: 'Grand Livre',
     icon: BookMarked,
-    color: 'text-indigo-600',
-    bg: 'bg-indigo-50',
-    activeBorder: 'border-indigo-500',
+    color: 'text-module-violet',
+    activeBorder: 'border-module-violet',
   },
   {
     id: 'balance',
     label: 'Balance Générale',
     icon: Scale,
-    color: 'text-cyan-600',
-    bg: 'bg-cyan-50',
-    activeBorder: 'border-cyan-500',
+    color: 'text-module-teal',
+    activeBorder: 'border-module-teal',
   },
 ]
 
 export default function DocsComptablesHub() {
   const [, navigate] = useHashLocation()
   const [actif, setActif] = useState('journal')
-
-  const ongletActif = ONGLETS.find(o => o.id === actif)!
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -62,16 +59,19 @@ export default function DocsComptablesHub() {
       </div>
 
       {/* Onglets */}
-      <div className="flex border-b border-border bg-background sticky top-[57px] z-20">
+      <div role="tablist" aria-label="Documents comptables" className="flex border-b border-border bg-background sticky top-[57px] z-20">
         {ONGLETS.map(o => {
           const Icon = o.icon
+          const estActif = actif === o.id
           return (
             <button
               key={o.id}
+              role="tab"
+              aria-selected={estActif}
               onClick={() => setActif(o.id)}
               className={cn(
                 'flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all',
-                actif === o.id
+                estActif
                   ? `${o.activeBorder} ${o.color}`
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               )}
