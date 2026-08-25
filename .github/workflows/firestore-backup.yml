@@ -19,7 +19,7 @@ name: Sauvegarde des données Firestore
 
 on:
   schedule:
-    - cron: '0 3 * * 0'  # tous les dimanches à 03h00 UTC
+    - cron: '0 3 * * *'  # tous les jours à 03h00 UTC
   workflow_dispatch:      # déclenchement manuel depuis l'onglet Actions
 
 jobs:
