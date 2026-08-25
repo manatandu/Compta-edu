@@ -568,7 +568,7 @@ const LECONS: Lecon[] = [
     id: 'l5',
     icone: <TrendingUp className="h-5 w-5" />,
     titre: 'Budget-programme et demarche de performance (Art. 43, 230 LOFIP)',
-    soustitre: 'PAP, RAP, programmes, gouvernance — Circulaire N° 004/ME/MIN.BUDGET/2025',
+    soustitre: 'PAP, RAP, programmes, gouvernance - Circulaire N° 004/ME/MIN.BUDGET/2025',
     contenu: (
       <div className="space-y-4">
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
@@ -621,7 +621,7 @@ const LECONS: Lecon[] = [
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-            <Award className="h-4 w-4 text-emerald-600" /> Le Projet Annuel de Performance (PAP) — §§ 227-233 Circulaire
+            <Award className="h-4 w-4 text-emerald-600" /> Le Projet Annuel de Performance (PAP) - §§ 227-233 Circulaire
             <InfoTooltip texte="Le PAP est l'instrument central du budget-programme. Il est prévu à l'Art. 79 pt. 6 LOFIP (mod. 2023) comme document accompagnant obligatoire du PLF. La Circulaire § 228 précise sa nature juridique." loi="Art. 79 pt. 6 LOFIP ; §§ 227-233 Circulaire N° 004/ME/MIN.BUDGET/2025" />
           </h3>
           <div className="space-y-2">
@@ -637,7 +637,7 @@ const LECONS: Lecon[] = [
                   label: 'Structure du PAP', couleur: 'emerald',
                   items: [
                     'Stratégie du programme et objectifs généraux',
-                    'Objectifs spécifiques (max 3 par programme — § 229)',
+                    'Objectifs spécifiques (max 3 par programme - § 229)',
                     'Indicateurs de performance (max 3 par objectif)',
                     'Cibles à atteindre par exercice',
                     'Coûts associés et crédits alloués'
@@ -671,7 +671,7 @@ const LECONS: Lecon[] = [
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-            <Building2 className="h-4 w-4 text-emerald-600" /> Gouvernance des programmes — §§ 239-254 Circulaire
+            <Building2 className="h-4 w-4 text-emerald-600" /> Gouvernance des programmes - §§ 239-254 Circulaire
           </h3>
           <div className="space-y-2">
             <div className="rounded-lg border border-border bg-muted/30 p-3">
@@ -702,7 +702,7 @@ const LECONS: Lecon[] = [
               </ul>
             </div>
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-2">Evaluation du coût d'un programme — 6 étapes (§ 243)</p>
+              <p className="text-xs font-bold text-foreground mb-2">Evaluation du coût d'un programme - 6 étapes (§ 243)</p>
               <div className="space-y-1">
                 {[
                   { num: '1', label: 'Inventaire des activités et tâches' },
@@ -732,7 +732,7 @@ const LECONS: Lecon[] = [
           <h3 className="text-sm font-bold text-foreground mb-3">PAP vs RAP : l'aller-retour de la performance</h3>
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-lg border border-emerald-200 bg-emerald-50/30 p-3">
-              <p className="text-xs font-bold text-emerald-700 mb-2">PAP — Art. 79 pt. 6 LOFIP</p>
+              <p className="text-xs font-bold text-emerald-700 mb-2">PAP - Art. 79 pt. 6 LOFIP</p>
               <p className="text-xs text-muted-foreground mb-1">Joint au PLF au début de l'exercice</p>
               <ul className="space-y-1 text-xs text-foreground">
                 <li className="flex gap-1"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Prévisionnel : objectifs et cibles à atteindre</span></li>
@@ -741,7 +741,7 @@ const LECONS: Lecon[] = [
               </ul>
             </div>
             <div className="rounded-lg border border-violet-200 bg-violet-50/30 p-3">
-              <p className="text-xs font-bold text-violet-700 mb-2">RAP — Art. 82 pt. 4 LOFIP</p>
+              <p className="text-xs font-bold text-violet-700 mb-2">RAP - Art. 82 pt. 4 LOFIP</p>
               <p className="text-xs text-muted-foreground mb-1">Joint à la loi de reddition des comptes</p>
               <ul className="space-y-1 text-xs text-foreground">
                 <li className="flex gap-1"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-violet-500" /><span>Rétrospectif : résultats réellement atteints</span></li>
@@ -2085,7 +2085,7 @@ export default function UE5Chapitre5Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 5' },
           ]}
           color="emerald"

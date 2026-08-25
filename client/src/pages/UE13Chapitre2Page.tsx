@@ -43,18 +43,18 @@ type Lecon = {
 const LECONS: Lecon[] = [
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 1 — IAS 16 : Champ d'application, definitions et comptabilisation
+  // LECON 1 - IAS 16 : Champ d'application, definitions et comptabilisation
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l1',
     icone: <BookOpen className="h-5 w-5" />,
-    titre: 'IAS 16 — Champ d\'application, définitions et conditions de comptabilisation',
+    titre: 'IAS 16 - Champ d\'application, définitions et conditions de comptabilisation',
     badge: 'IAS 16 §1 à §14 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <p>
           La <strong>Norme comptable internationale 16</strong>
-          <InfoTooltip texte="IAS 16 (Immobilisations corporelles) prescrit le traitement comptable des immobilisations corporelles. Elle traité de la comptabilisation des actifs, de la détermination de leur valeur comptable, des dotations aux amortissements et des pertes de valeur." loi="IAS 16 §1 — IFRS Foundation" />
+          <InfoTooltip texte="IAS 16 (Immobilisations corporelles) prescrit le traitement comptable des immobilisations corporelles. Elle traité de la comptabilisation des actifs, de la détermination de leur valeur comptable, des dotations aux amortissements et des pertes de valeur." loi="IAS 16 §1 - IFRS Foundation" />
           {' '}a pour objectif de prescrire le traitement comptable pour les <strong>immobilisations corporelles</strong>, de sorte que les utilisateurs des états financiers puissent distinguer les informations relatives aux investissements d'une entité dans ses immobilisations corporelles et les variations de ces investissements. Les questions fondamentales concernent la comptabilisation des actifs, la détermination de leur valeur comptable, ainsi que des dotations aux amortissements et pertes de valeur correspondantes.
         </p>
 
@@ -130,50 +130,50 @@ const LECONS: Lecon[] = [
           </p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — Comptabilisation initiale et coûts ultérieurs (IAS 16 §7 et §13)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - Comptabilisation initiale et coûts ultérieurs (IAS 16 §7 et §13)</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 space-y-4">
           <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
-            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte — Société FABRICO SA</p>
+            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte - Société FABRICO SA</p>
             <p className="text-xs text-amber-900">
               FABRICO SA acquiert une machine industrielle le 01/01/N. Prix catalogue : <strong>80 000 €</strong>. Transport et installation : <strong>4 200 €</strong>. Formation du personnel à son utilisation : <strong>3 000 €</strong>. En N+3, une pièce de rechange majeure est remplacée pour <strong>12 000 €</strong> ; la valeur comptable de l'ancienne pièce était de <strong>8 500 €</strong> (cumul amortissements : 1 500 €, valeur brute : 10 000 €).
             </p>
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-foreground mb-2">Étape 1 — Détermination du coût d'entrée (IAS 16 §16) :</p>
+            <p className="text-xs font-semibold text-foreground mb-2">Étape 1 - Détermination du coût d'entrée (IAS 16 §16) :</p>
             <div className="rounded-lg bg-white border border-sky-100 p-3">
-              <p className="text-xs text-foreground/80 mb-1">Prix catalogue : 80 000 € — Inclus car prix d'acquisition direct.</p>
-              <p className="text-xs text-foreground/80 mb-1">Transport + installation : 4 200 € — Inclus car coûts directement attribuables (IAS 16 §16b).</p>
-              <p className="text-xs text-foreground/80 mb-1">Formation du personnel : 3 000 € — <strong>Exclus</strong>, car liés à l'usage et non à la mise en état de l'actif (IAS 16 §19e).</p>
+              <p className="text-xs text-foreground/80 mb-1">Prix catalogue : 80 000 € - Inclus car prix d'acquisition direct.</p>
+              <p className="text-xs text-foreground/80 mb-1">Transport + installation : 4 200 € - Inclus car coûts directement attribuables (IAS 16 §16b).</p>
+              <p className="text-xs text-foreground/80 mb-1">Formation du personnel : 3 000 € - <strong>Exclus</strong>, car liés à l'usage et non à la mise en état de l'actif (IAS 16 §19e).</p>
               <BlockMath math={String.raw`\text{Co\hat{u}t d'entr\'{e}e} = 80\,000 + 4\,200 = \mathbf{84\,200\,\text{\euro}}`} />
             </div>
           </div>
 
           <JournalTable
-            titre="Écriture d'acquisition de la machine — 01/01/N (IAS 16 §7 + §16)"
+            titre="Écriture d'acquisition de la machine - 01/01/N (IAS 16 §7 + §16)"
             lignes={[
-              { libelle: "Immobilisations corporelles — Machine industrielle", debit: "84 200", credit: "" },
+              { libelle: "Immobilisations corporelles - Machine industrielle", debit: "84 200", credit: "" },
               { libelle: "Banque / Fournisseurs d'immobilisations", debit: "", credit: "84 200" },
             ]}
           />
 
           <div>
-            <p className="text-xs font-semibold text-foreground mb-2">Étape 2 — Remplacement partiel en N+3 (IAS 16 §13) :</p>
+            <p className="text-xs font-semibold text-foreground mb-2">Étape 2 - Remplacement partiel en N+3 (IAS 16 §13) :</p>
             <p className="text-xs text-foreground/80 mb-2">
               Le remplacement satisfait aux critères de §7 (AEF probables, coût fiable). On capitalise la nouvelle pièce et on décomptabilise l'ancienne.
             </p>
             <JournalTable
-              titre="Étape 2a — Décomptabilisation de l'ancienne pièce (IAS 16 §13 + §67)"
+              titre="Étape 2a - Décomptabilisation de l'ancienne pièce (IAS 16 §13 + §67)"
               lignes={[
-                { libelle: "Amortissements cumulés — Pièce remplacée", debit: "1 500", credit: "" },
+                { libelle: "Amortissements cumulés - Pièce remplacée", debit: "1 500", credit: "" },
                 { libelle: "Perte sur sortie d'actif", debit: "8 500", credit: "" },
-                { libelle: "Immobilisations corporelles — Pièce (valeur brute)", debit: "", credit: "10 000" },
+                { libelle: "Immobilisations corporelles - Pièce (valeur brute)", debit: "", credit: "10 000" },
               ]}
             />
             <JournalTable
-              titre="Étape 2b — Capitalisation de la nouvelle pièce (IAS 16 §7 + §13)"
+              titre="Étape 2b - Capitalisation de la nouvelle pièce (IAS 16 §7 + §13)"
               lignes={[
-                { libelle: "Immobilisations corporelles — Pièce de remplacement", debit: "12 000", credit: "" },
+                { libelle: "Immobilisations corporelles - Pièce de remplacement", debit: "12 000", credit: "" },
                 { libelle: "Banque / Fournisseurs", debit: "", credit: "12 000" },
               ]}
             />
@@ -185,12 +185,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 2 — IAS 16 : Évaluation lors de la comptabilisation et éléments du coût
+  // LECON 2 - IAS 16 : Évaluation lors de la comptabilisation et éléments du coût
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l2',
     icone: <PenLine className="h-5 w-5" />,
-    titre: 'IAS 16 — Évaluation lors de la comptabilisation : éléments du coût et écritures',
+    titre: 'IAS 16 - Évaluation lors de la comptabilisation : éléments du coût et écritures',
     badge: 'IAS 16 §15 à §28 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -227,7 +227,7 @@ const LECONS: Lecon[] = [
           </ul>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — Classification des coûts : immobilisables ou non ? (IAS 16 §16-19)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - Classification des coûts : immobilisables ou non ? (IAS 16 §16-19)</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 mt-2">
           <p className="text-xs text-foreground/80 mb-3">
             Une ligne de mise en bouteilles est acquise par un producteur de vins. Chaque coût doit être qualifié selon IAS 16.
@@ -310,7 +310,7 @@ const LECONS: Lecon[] = [
         <h3 className="font-bold text-foreground mt-4">Production interne d'une immobilisation (§22)</h3>
         <p>
           Les immobilisations corporelles <strong>produites par l'entité pour elle-même</strong>
-          <InfoTooltip texte="Selon IAS 16 §22, le coût d'une immobilisation corporelle construite par l'entité est déterminé en appliquant les mêmes principes que pour un actif acquis. Tous les coûts anormaux (gaspillages, erreurs de conception) sont exclus." loi="IAS 16 §22 — IFRS Foundation" />
+          <InfoTooltip texte="Selon IAS 16 §22, le coût d'une immobilisation corporelle construite par l'entité est déterminé en appliquant les mêmes principes que pour un actif acquis. Tous les coûts anormaux (gaspillages, erreurs de conception) sont exclus." loi="IAS 16 §22 - IFRS Foundation" />
           {' '}sont évaluées selon les mêmes principes que ceux applicables aux immobilisations acquises : prix de revient incluant les coûts directement attribuables à la mise en état d'utilisation, à l'exclusion de tout coût anormal. Les coûts de développement internes qualifiés selon IAS 38 peuvent également être capitalisés.
         </p>
 
@@ -320,7 +320,7 @@ const LECONS: Lecon[] = [
         </p>
 
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 mt-2">
-          <p className="text-xs font-semibold text-sky-700 mb-2">Illustration — Machine acquise avec paiement échelonné (IAS 16 §23)</p>
+          <p className="text-xs font-semibold text-sky-700 mb-2">Illustration - Machine acquise avec paiement échelonné (IAS 16 §23)</p>
           <p className="text-xs text-foreground/80 mb-2">
             Une machine est achetée moyennant un acompte de <strong>100 K€ comptant</strong>, puis <strong>110 K€ dans un an</strong> et <strong>121 K€ dans deux ans</strong>. Taux d'actualisation : 10 %.
           </p>
@@ -414,12 +414,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 3 — IAS 16 : Évaluation postérieure : modèle du coût et réévaluation
+  // LECON 3 - IAS 16 : Évaluation postérieure : modèle du coût et réévaluation
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l3',
     icone: <RefreshCw className="h-5 w-5" />,
-    titre: 'IAS 16 — Évaluation postérieure : modèle du coût et modèle de la réévaluation',
+    titre: 'IAS 16 - Évaluation postérieure : modèle du coût et modèle de la réévaluation',
     badge: 'IAS 16 §29 à §42 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -465,34 +465,34 @@ const LECONS: Lecon[] = [
           </div>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration complète — Cycle de réévaluation sur 3 exercices (IAS 16 §31, §39, §40, §41)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration complète - Cycle de réévaluation sur 3 exercices (IAS 16 §31, §39, §40, §41)</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 space-y-6">
 
           {/* Données de base */}
           <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
-            <p className="text-xs font-semibold text-amber-800 mb-2">Données de base — Société REVALCO</p>
+            <p className="text-xs font-semibold text-amber-800 mb-2">Données de base - Société REVALCO</p>
             <ul className="text-xs text-amber-900 space-y-1">
               <li>Immeuble industriel acquis le 01/01/N au coût de <strong>100 000 €</strong></li>
-              <li>Durée d'utilité : <strong>20 ans</strong> — amortissement linéaire</li>
+              <li>Durée d'utilité : <strong>20 ans</strong> - amortissement linéaire</li>
               <li>Option retenue : <strong>modèle de la réévaluation</strong> (IAS 16 §31)</li>
-              <li>Méthode d'application : <strong>méthode b</strong> — écrasement du cumul des amortissements (IAS 16 §35b)</li>
+              <li>Méthode d'application : <strong>méthode b</strong> - écrasement du cumul des amortissements (IAS 16 §35b)</li>
               <li>Réévaluation au 31/12/N+2 : juste valeur = <strong>108 000 €</strong></li>
               <li>Réévaluation au 31/12/N+3 : juste valeur = <strong>88 200 €</strong></li>
             </ul>
           </div>
 
-          {/* Exercice N+2 — Réévaluation positive */}
+          {/* Exercice N+2 - Réévaluation positive */}
           <div>
-            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Exercice N+2 — Réévaluation positive (IAS 16 §39)</p>
+            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Exercice N+2 - Réévaluation positive (IAS 16 §39)</p>
             <p className="text-xs text-foreground/80 mb-3">
               Après 2 ans d'amortissement (N+1 et N+2), on procède à une réévaluation. La juste valeur (IFRS 13) est de 108 000 €.
             </p>
             <div className="rounded-lg bg-white border border-sky-100 p-3 mb-3">
-              <p className="text-xs font-semibold text-foreground mb-1">Étape 1 — Calcul de la valeur comptable avant réévaluation :</p>
+              <p className="text-xs font-semibold text-foreground mb-1">Étape 1 - Calcul de la valeur comptable avant réévaluation :</p>
               <BlockMath math={String.raw`\text{Amort. annuel} = \dfrac{100\,000}{20} = 5\,000\,\text{€/an}`} />
               <BlockMath math={String.raw`\text{Cumul amort. (2 ans)} = 5\,000 \times 2 = 10\,000\,\text{€}`} />
               <BlockMath math={String.raw`\text{VC avant réévaluation} = 100\,000 - 10\,000 = \mathbf{90\,000\,\text{€}}`} />
-              <p className="text-xs font-semibold text-foreground mt-2 mb-1">Étape 2 — Calcul de l'écart de réévaluation :</p>
+              <p className="text-xs font-semibold text-foreground mt-2 mb-1">Étape 2 - Calcul de l'écart de réévaluation :</p>
               <BlockMath math={String.raw`\text{Écart} = 108\,000 - 90\,000 = \mathbf{+18\,000\,\text{€}\;\text{(positif → AERG)}}`} />
             </div>
             <p className="text-xs text-foreground/80 mb-2">
@@ -500,11 +500,11 @@ const LECONS: Lecon[] = [
             </p>
             <p className="text-xs text-foreground/80 mb-2">Méthode b : on annule d'abord le cumul des amortissements, puis on ajuste la valeur brute à la juste valeur.</p>
             <JournalTable
-              titre="Écriture de réévaluation positive — 31/12/N+2 (IAS 16 §35b + §39)"
+              titre="Écriture de réévaluation positive - 31/12/N+2 (IAS 16 §35b + §39)"
               lignes={[
-                { libelle: "Amortissements cumulés — Immeuble (annulation cumul 10 000)", debit: "10 000", credit: "" },
-                { libelle: "Immobilisations corporelles — Immeuble (ajustement à JV)", debit: "8 000", credit: "" },
-                { libelle: "Écart de réévaluation (AERG — capitaux propres)", debit: "", credit: "18 000" },
+                { libelle: "Amortissements cumulés - Immeuble (annulation cumul 10 000)", debit: "10 000", credit: "" },
+                { libelle: "Immobilisations corporelles - Immeuble (ajustement à JV)", debit: "8 000", credit: "" },
+                { libelle: "Écart de réévaluation (AERG - capitaux propres)", debit: "", credit: "18 000" },
               ]}
             />
             <div className="rounded-lg bg-sky-50 border border-sky-200 p-3 mt-2">
@@ -513,9 +513,9 @@ const LECONS: Lecon[] = [
             </div>
           </div>
 
-          {/* Exercice N+3 — Amortissement sur base réévaluée */}
+          {/* Exercice N+3 - Amortissement sur base réévaluée */}
           <div>
-            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Exercice N+3 — Amortissement sur la base réévaluée (IAS 16 §50)</p>
+            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Exercice N+3 - Amortissement sur la base réévaluée (IAS 16 §50)</p>
             <p className="text-xs text-foreground/80 mb-3">
               Après réévaluation, le nouvel amortissement est calculé sur la <strong>valeur réévaluée de 108 000 €</strong> et sur la durée résiduelle restante. La durée consommée était de 2 ans sur 20, il reste donc <strong>18 ans</strong>.
             </p>
@@ -524,10 +524,10 @@ const LECONS: Lecon[] = [
               <BlockMath math={String.raw`\text{VC au 31/12/N+3} = 108\,000 - 6\,000 = \mathbf{102\,000\,\text{€}}`} />
             </div>
             <JournalTable
-              titre="Écriture de dotation aux amortissements — 31/12/N+3"
+              titre="Écriture de dotation aux amortissements - 31/12/N+3"
               lignes={[
                 { libelle: "Dotation aux amortissements (immeuble)", debit: "6 000", credit: "" },
-                { libelle: "Amortissements cumulés — Immeuble", debit: "", credit: "6 000" },
+                { libelle: "Amortissements cumulés - Immeuble", debit: "", credit: "6 000" },
               ]}
             />
             <p className="text-xs text-foreground/80 mt-2">
@@ -535,9 +535,9 @@ const LECONS: Lecon[] = [
             </p>
           </div>
 
-          {/* Exercice N+3 — Réévaluation négative */}
+          {/* Exercice N+3 - Réévaluation négative */}
           <div>
-            <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">Exercice N+3 — Réévaluation négative (IAS 16 §40)</p>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">Exercice N+3 - Réévaluation négative (IAS 16 §40)</p>
             <p className="text-xs text-foreground/80 mb-3">
               Au 31/12/N+3, après dotation, la valeur comptable est de 102 000 €. La juste valeur tombe à <strong>88 200 €</strong>. L'écart est négatif. Selon IAS 16 §40 : l'écart négatif s'impute <em>en priorité</em> sur l'écart de réévaluation créditeur en capitaux propres (AERG), puis l'excédent va en résultat net (charge).
             </p>
@@ -553,11 +553,11 @@ const LECONS: Lecon[] = [
               Ici l'écart de réévaluation (17 000 €) couvre intégralement la baisse (13 800 €) : <strong>aucune charge en résultat net</strong>. Si l'AERG avait été insuffisant, le solde aurait été enregistré en charges.
             </p>
             <JournalTable
-              titre="Écriture de réévaluation négative — 31/12/N+3 (IAS 16 §35b + §40)"
+              titre="Écriture de réévaluation négative - 31/12/N+3 (IAS 16 §35b + §40)"
               lignes={[
-                { libelle: "Écart de réévaluation (annulation partielle AERG — CP)", debit: "13 800", credit: "" },
-                { libelle: "Amortissements cumulés — Immeuble (annulation cumul N+3)", debit: "6 000", credit: "" },
-                { libelle: "Immobilisations corporelles — Immeuble (ajustement à JV)", debit: "", credit: "19 800" },
+                { libelle: "Écart de réévaluation (annulation partielle AERG - CP)", debit: "13 800", credit: "" },
+                { libelle: "Amortissements cumulés - Immeuble (annulation cumul N+3)", debit: "6 000", credit: "" },
+                { libelle: "Immobilisations corporelles - Immeuble (ajustement à JV)", debit: "", credit: "19 800" },
               ]}
             />
             <div className="rounded-lg bg-sky-50 border border-sky-200 p-3 mt-2">
@@ -568,7 +568,7 @@ const LECONS: Lecon[] = [
 
           {/* Synthèse pédagogique */}
           <div className="rounded-lg border border-sky-300 bg-sky-100/50 p-3">
-            <p className="text-xs font-bold text-sky-800 mb-2">Synthèse pédagogique — Logique de symétrie IAS 16 §39-40</p>
+            <p className="text-xs font-bold text-sky-800 mb-2">Synthèse pédagogique - Logique de symétrie IAS 16 §39-40</p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
                 <thead><tr className="bg-sky-200">
@@ -580,7 +580,7 @@ const LECONS: Lecon[] = [
                 </tr></thead>
                 <tbody>
                   <tr><td className="border border-border p-1.5 font-medium">N+2</td><td className="border border-border p-1.5 text-right">108 000</td><td className="border border-border p-1.5 text-right">90 000</td><td className="border border-border p-1.5 text-right font-bold text-green-600">+18 000</td><td className="border border-border p-1.5 text-center">AERG (CP)</td></tr>
-                  <tr className="bg-muted/20"><td className="border border-border p-1.5 font-medium">N+3 (amort.)</td><td className="border border-border p-1.5 text-right">—</td><td className="border border-border p-1.5 text-right">102 000</td><td className="border border-border p-1.5 text-right">—</td><td className="border border-border p-1.5 text-center">Charges (6 000)</td></tr>
+                  <tr className="bg-muted/20"><td className="border border-border p-1.5 font-medium">N+3 (amort.)</td><td className="border border-border p-1.5 text-right">-</td><td className="border border-border p-1.5 text-right">102 000</td><td className="border border-border p-1.5 text-right">-</td><td className="border border-border p-1.5 text-center">Charges (6 000)</td></tr>
                   <tr><td className="border border-border p-1.5 font-medium">N+3 (rév.)</td><td className="border border-border p-1.5 text-right">88 200</td><td className="border border-border p-1.5 text-right">102 000</td><td className="border border-border p-1.5 text-right font-bold text-red-600">(13 800)</td><td className="border border-border p-1.5 text-center">AERG d'abord, résultat si excès</td></tr>
                 </tbody>
               </table>
@@ -599,12 +599,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 4 — IAS 16 : Amortissement et approche par composants
+  // LECON 4 - IAS 16 : Amortissement et approche par composants
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l4',
     icone: <Layers className="h-5 w-5" />,
-    titre: 'IAS 16 — Amortissement, modes et approche par composants',
+    titre: 'IAS 16 - Amortissement, modes et approche par composants',
     badge: 'IAS 16 §43 à §62 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -612,7 +612,7 @@ const LECONS: Lecon[] = [
         <h3 className="font-bold text-foreground mt-2">Principe de l'amortissement par composants (§43 et §44)</h3>
         <p>
           IAS 16 §43 impose que <strong>chaque partie d'une immobilisation corporelle ayant un coût significatif par rapport au coût total de l'élément soit amortie séparément.</strong>
-          <InfoTooltip texte="L'approche par composants (component approach) est une innovation majeure d'IAS 16 par rapport aux référentiels traditionnels. Elle impose de décomposer chaque immobilisation en ses parties significatives, chacune ayant sa propre durée d'utilité et son propre mode d'amortissement." loi="IAS 16 §43 — IFRS Foundation" />
+          <InfoTooltip texte="L'approche par composants (component approach) est une innovation majeure d'IAS 16 par rapport aux référentiels traditionnels. Elle impose de décomposer chaque immobilisation en ses parties significatives, chacune ayant sa propre durée d'utilité et son propre mode d'amortissement." loi="IAS 16 §43 - IFRS Foundation" />
           {' '}Par exemple, pour un avion : la cellule et les réacteurs constituent des composants distincts aux durées d'utilité différentes.
         </p>
         <p>
@@ -667,18 +667,18 @@ const LECONS: Lecon[] = [
           </p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — Avion ALPHA : amortissement par unites d'oeuvre avec révision</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - Avion ALPHA : amortissement par unites d'oeuvre avec révision</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
           <p className="text-xs text-foreground/80 mb-2">
             Avion ALPHA acquis pour <strong>10 M€</strong>, valeur résiduelle <strong>8 M€</strong>, kilométrage total prévu <strong>3 M km</strong>.
           </p>
           <div className="rounded-lg bg-white border border-sky-100 p-3 mt-2">
-            <p className="text-xs font-semibold text-foreground mb-1">Étape 1 — Calcul amortissement Année N (unités d'œuvre) :</p>
+            <p className="text-xs font-semibold text-foreground mb-1">Étape 1 - Calcul amortissement Année N (unités d'œuvre) :</p>
             <div className="space-y-1 overflow-x-auto">
               <BlockMath math={String.raw`A_N = \dfrac{(10\,000\,000 - 8\,000\,000) \times 450\,000}{3\,000\,000} = \mathbf{300\,000\,\text{€}}`} />
             </div>
-            <p className="text-xs font-semibold text-foreground mt-3 mb-1">Étape 2 — Révision N+1 (changement d'estimation IAS 8) :</p>
-            <p className="text-xs text-foreground/70 mb-1">Valeur résiduelle révisée : 6,5 M€ — Km total révisé : 4 M km</p>
+            <p className="text-xs font-semibold text-foreground mt-3 mb-1">Étape 2 - Révision N+1 (changement d'estimation IAS 8) :</p>
+            <p className="text-xs text-foreground/70 mb-1">Valeur résiduelle révisée : 6,5 M€ - Km total révisé : 4 M km</p>
             <div className="space-y-1 overflow-x-auto">
               <BlockMath math={String.raw`\text{VC début N+1} = 10\,000\,000 - 300\,000 = 9\,700\,000\,\text{€}`} />
               <BlockMath math={String.raw`\text{Mont. amort. restant} = 9\,700\,000 - 6\,500\,000 = 3\,200\,000\,\text{€}`} />
@@ -693,12 +693,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 5 — IAS 16 : Dépréciation, dévaluation et cession
+  // LECON 5 - IAS 16 : Dépréciation, dévaluation et cession
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l5',
     icone: <TrendingDown className="h-5 w-5" />,
-    titre: 'IAS 16 — Dépréciation et décomptabilisation (cession, mise au rebut)',
+    titre: 'IAS 16 - Dépréciation et décomptabilisation (cession, mise au rebut)',
     badge: 'IAS 16 §63 à §72 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -706,11 +706,11 @@ const LECONS: Lecon[] = [
         <h3 className="font-bold text-foreground mt-2">Dépréciation (§63)</h3>
         <p>
           Pour determiner si une immobilisation corporelle est dépréciée, une entité applique <strong>IAS 36 Dépréciation d'actifs</strong>
-          <InfoTooltip texte="IAS 36 explique comment une entité examine la valeur comptable de ses actifs, comment elle détermine la valeur recouvrable (la plus élevée entre juste valeur nette de coûts de cession et valeur d'utilité), et dans quels cas elle comptabilisé ou reprend une perte de valeur." loi="IAS 16 §63 — IAS 36" />
+          <InfoTooltip texte="IAS 36 explique comment une entité examine la valeur comptable de ses actifs, comment elle détermine la valeur recouvrable (la plus élevée entre juste valeur nette de coûts de cession et valeur d'utilité), et dans quels cas elle comptabilisé ou reprend une perte de valeur." loi="IAS 16 §63 - IAS 36" />
           . IAS 16 renvoie integralement a cette norme pour le test de dépréciation, la determination de la valeur recouvrable et la comptabilisation des pertes de valeur.
         </p>
 
-        <h3 className="font-bold text-foreground mt-4">Décomptabilisation — Conditions (§67)</h3>
+        <h3 className="font-bold text-foreground mt-4">Décomptabilisation - Conditions (§67)</h3>
         <p>La valeur comptable d'une immobilisation corporelle doit etre <strong>décomptabilisée</strong> :</p>
         <ul className="list-disc pl-5 space-y-1 text-sm">
           <li><strong>Lors de sa sortie</strong> (vente, cession-bail IFRS 16, donation) ; ou</li>
@@ -731,12 +731,12 @@ const LECONS: Lecon[] = [
           Résultat de cession = Prix de cession net - Valeur comptable de l'actif
         </p>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — Cession avec profit et cession à perte (IAS 16 §68 et §71)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - Cession avec profit et cession à perte (IAS 16 §68 et §71)</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4 space-y-5">
 
-          {/* Cas A — Cession avec profit */}
+          {/* Cas A - Cession avec profit */}
           <div>
-            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Cas A — Cession avec profit</p>
+            <p className="text-xs font-bold text-sky-700 uppercase tracking-wide mb-2">Cas A - Cession avec profit</p>
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
               <p className="text-xs text-amber-900">
                 Machine : coût historique <strong>200 000 €</strong> · Amortissements cumulés <strong>150 000 €</strong> · Prix de cession <strong>80 000 €</strong>
@@ -747,20 +747,20 @@ const LECONS: Lecon[] = [
               <BlockMath math={String.raw`\text{Profit de cession} = 80\,000 - 50\,000 = \mathbf{+30\,000\,\text{€}}`} />
             </div>
             <JournalTable
-              titre="Écriture de cession avec profit — IAS 16 §68"
+              titre="Écriture de cession avec profit - IAS 16 §68"
               lignes={[
-                { libelle: "Amortissements cumulés — Machine", debit: "150 000", credit: "" },
+                { libelle: "Amortissements cumulés - Machine", debit: "150 000", credit: "" },
                 { libelle: "Banque (prix de cession)", debit: "80 000", credit: "" },
-                { libelle: "Immobilisations corporelles — Machine (valeur brute)", debit: "", credit: "200 000" },
+                { libelle: "Immobilisations corporelles - Machine (valeur brute)", debit: "", credit: "200 000" },
                 { libelle: "Profit sur cession d'immobilisations (résultat net)", debit: "", credit: "30 000" },
               ]}
             />
             <p className="text-xs text-muted-foreground mt-1 italic">IAS 16 §68 : le profit est présenté séparément et ne constitue pas un produit des activités ordinaires.</p>
           </div>
 
-          {/* Cas B — Cession à perte */}
+          {/* Cas B - Cession à perte */}
           <div>
-            <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">Cas B — Cession à perte</p>
+            <p className="text-xs font-bold text-red-600 uppercase tracking-wide mb-2">Cas B - Cession à perte</p>
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
               <p className="text-xs text-amber-900">
                 Équipement : coût historique <strong>120 000 €</strong> · Amortissements cumulés <strong>80 000 €</strong> · Prix de cession <strong>25 000 €</strong>
@@ -771,12 +771,12 @@ const LECONS: Lecon[] = [
               <BlockMath math={String.raw`\text{Perte de cession} = 25\,000 - 40\,000 = \mathbf{(15\,000)\,\text{€}}`} />
             </div>
             <JournalTable
-              titre="Écriture de cession à perte — IAS 16 §68 et §71"
+              titre="Écriture de cession à perte - IAS 16 §68 et §71"
               lignes={[
-                { libelle: "Amortissements cumulés — Équipement", debit: "80 000", credit: "" },
+                { libelle: "Amortissements cumulés - Équipement", debit: "80 000", credit: "" },
                 { libelle: "Banque (prix de cession)", debit: "25 000", credit: "" },
                 { libelle: "Perte sur cession d'immobilisations (résultat net)", debit: "15 000", credit: "" },
-                { libelle: "Immobilisations corporelles — Équipement (valeur brute)", debit: "", credit: "120 000" },
+                { libelle: "Immobilisations corporelles - Équipement (valeur brute)", debit: "", credit: "120 000" },
               ]}
             />
             <p className="text-xs text-muted-foreground mt-1 italic">IAS 16 §71 : la perte et le profit sont des résultats nets distincts, jamais compensés entre eux.</p>
@@ -794,18 +794,18 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 6 — IAS 38 : Champ d'application, definitions, critères
+  // LECON 6 - IAS 38 : Champ d'application, definitions, critères
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l6',
     icone: <Scale className="h-5 w-5" />,
-    titre: 'IAS 38 — Champ d\'application, définitions et critères de comptabilisation',
+    titre: 'IAS 38 - Champ d\'application, définitions et critères de comptabilisation',
     badge: 'IAS 38 §1 à §23 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <p>
           La <strong>Norme comptable internationale 38</strong>
-          <InfoTooltip texte="IAS 38 (Immobilisations incorporelles) prescrit le traitement comptable des immobilisations incorporelles qui ne sont pas spécifiquement traitées par une autre norme. Elle impose à l'entité des critères de comptabilisation stricts et définit les modes d'évaluation et d'information à fournir." loi="IAS 38 §1 — IFRS Foundation" />
+          <InfoTooltip texte="IAS 38 (Immobilisations incorporelles) prescrit le traitement comptable des immobilisations incorporelles qui ne sont pas spécifiquement traitées par une autre norme. Elle impose à l'entité des critères de comptabilisation stricts et définit les modes d'évaluation et d'information à fournir." loi="IAS 38 §1 - IFRS Foundation" />
           {' '}a pour objectif de prescrire le traitement comptable des immobilisations incorporelles qui ne sont pas specifiquement traités par une autre norme.
         </p>
 
@@ -927,12 +927,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 7 — IAS 38 : Générée en interne — Recherche vs Développement
+  // LECON 7 - IAS 38 : Générée en interne - Recherche vs Développement
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l7',
     icone: <Wrench className="h-5 w-5" />,
-    titre: 'IAS 38 — Immobilisations générées en interne : phase de recherche vs phase de développement',
+    titre: 'IAS 38 - Immobilisations générées en interne : phase de recherche vs phase de développement',
     badge: 'IAS 38 §51 à §67 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -985,7 +985,7 @@ const LECONS: Lecon[] = [
           </p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — Brevet pharmaceutique (IAS 38 §57)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - Brevet pharmaceutique (IAS 38 §57)</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
           <p className="text-xs text-foreground/80 mb-2">
             Un laboratoire pharmaceutique engage les dépenses suivantes pour le développement d'un nouveau medicament :
@@ -1046,12 +1046,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 8 — IAS 38 : Évaluation postérieure, durée d'utilité et cession
+  // LECON 8 - IAS 38 : Évaluation postérieure, durée d'utilité et cession
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l8',
     icone: <RotateCcw className="h-5 w-5" />,
-    titre: 'IAS 38 — Évaluation postérieure, durée d\'utilité et décomptabilisation',
+    titre: 'IAS 38 - Évaluation postérieure, durée d\'utilité et décomptabilisation',
     badge: 'IAS 38 §72 à §117 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -1062,7 +1062,7 @@ const LECONS: Lecon[] = [
         <h3 className="font-bold text-foreground mt-4">Particularité du modèle de réévaluation pour les incorporelles (§75 et §78)</h3>
         <p>
           Le modèle de la réévaluation n'est applicable que si la juste valeur de l'immobilisation incorporelle peut etre évaluée <strong>par reference a un marché actif</strong>
-          <InfoTooltip texte="Un marché actif existe lorsque des transactions fréquentes ont lieu sur des actifs homogènes, et que les prix sont disponibles au public. Pour les immobilisations incorporelles, cela est exceptionnel." loi="IAS 38 §75 et §78 — IFRS Foundation" />
+          <InfoTooltip texte="Un marché actif existe lorsque des transactions fréquentes ont lieu sur des actifs homogènes, et que les prix sont disponibles au public. Pour les immobilisations incorporelles, cela est exceptionnel." loi="IAS 38 §75 et §78 - IFRS Foundation" />
           . Ce cas est exceptionnel. IAS 38 §78 cite comme exemples : licences de taxis, licences de pêche, quotas de production dans certaines juridictions.
         </p>
         <div className="rounded-xl border border-red-200 bg-red-50/50 p-4 mt-2">
@@ -1113,7 +1113,7 @@ const LECONS: Lecon[] = [
           </p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — Échange de licence informatique (IAS 38 §45)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - Échange de licence informatique (IAS 38 §45)</h3>
         <div className="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
           <p className="text-xs text-foreground/80 mb-2">
             Échange d'une licence informatique (valeur comptable <strong>100 000 €</strong>) contre un droit de diffusion (juste valeur <strong>60 000 €</strong>) avec soulte recue de <strong>40 000 €</strong>. L'operation a une substance commerciale.
@@ -1171,7 +1171,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 16 §7 pose deux et seulement deux conditions cumulatives : (a) la probabilité des avantages économiques futurs vers l'entité, et (b) la fiabilité de l'évaluation du coût. Il n'existe pas de seuil monetaire, de registre officiel, ni d'exigence de propriété juridique dans IAS 16.",
-    articleRef: "IAS 16 §7 — IFRS Foundation"
+    articleRef: "IAS 16 §7 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q2',
@@ -1185,7 +1185,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'd',
     explication: "IAS 16 §19 liste explicitement les coûts qui ne font pas partie du coût d'une immobilisation corporelle : (a) coûts d'ouverture d'une nouvelle installation ; (b) coûts de lancement de nouveaux produits ; (c) coûts d'exploitation dans un nouveau lieu ; (d) frais administratifs et autres frais generaux. Les options a, b, c et e sont des coûts directement attribuables reconnus aux §16 et §17.",
-    articleRef: "IAS 16 §16, §17, §19 — IFRS Foundation"
+    articleRef: "IAS 16 §16, §17, §19 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q3',
@@ -1199,7 +1199,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 16 §23 dispose que le coût d'une immobilisation corporelle est le prix comptant equivalent à la date de comptabilisation. Si le règlement est differe, la différence entre le prix comptant et le total des paiements est comptabilisée en charges financieres sur la période de credit, sauf incorporation au coût selon IAS 23.",
-    articleRef: "IAS 16 §23 — IFRS Foundation"
+    articleRef: "IAS 16 §23 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q4',
@@ -1213,7 +1213,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 16 §39 impose que l'augmentation de valeur resultant d'une réévaluation soit comptabilisée dans les autres éléments du résultat global (AERG) et cumulee en capitaux propres sous la rubrique écarts de réévaluation. Exception : si elle compense une diminution antérieure comptabilisée en résultat net, elle est comptabilisée en résultat net a due concurrence.",
-    articleRef: "IAS 16 §39 — IFRS Foundation"
+    articleRef: "IAS 16 §39 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q5',
@@ -1227,7 +1227,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'd',
     explication: "IAS 16 §62A précisé qu'il n'est pas approprie d'avoir recours à un mode d'amortissement fonde sur les produits tires de l'utilisation de l'actif. Les produits refletent des facteurs autres que la consommation des AEF : volumes, prix, inflation. Ce mode est interdit car il ne mesure pas la consommation de l'actif mais le niveau d'activite de l'entreprise.",
-    articleRef: "IAS 16 §62A — IFRS Foundation"
+    articleRef: "IAS 16 §62A - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q6',
@@ -1241,7 +1241,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 38 §54 est sans ambiguite : aucune immobilisation incorporelle resultant de la recherche ne doit etre comptabilisée. Les dépenses de recherche doivent etre comptabilisées en charges lorsqu'elles sont engagées. L'entité ne peut pas, lors de la phase de recherche, demontrer l'existence d'une immobilisation incorporelle qui générera des AEF probables.",
-    articleRef: "IAS 38 §54 et §55 — IFRS Foundation"
+    articleRef: "IAS 38 §54 et §55 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q7',
@@ -1255,7 +1255,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 38 §63 interdit explicitement la comptabilisation en tant qu'immobilisations incorporelles des marques, cartouches de titre, titres de publication, listes de clients et autres éléments similaires générés en interne. Raison : ces dépenses ne peuvent pas etre distinguees du coût de développement de l'entreprise dans son ensemble (§64).",
-    articleRef: "IAS 38 §63 et §64 — IFRS Foundation"
+    articleRef: "IAS 38 §63 et §64 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q8',
@@ -1269,7 +1269,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 38 §100 dispose que la valeur résiduelle d'une immobilisation incorporelle a durée d'utilité déterminée doit etre présumée nulle, sauf : (a) si un tiers s'est engage a racheter l'actif à la fin de sa durée d'utilité ; ou (b) s'il existe un marché actif pour cet actif et si la valeur résiduelle peut etre déterminée par reference a ce marché et s'il est probable qu'un tel marché existera à la fin de la durée d'utilité.",
-    articleRef: "IAS 38 §100 — IFRS Foundation"
+    articleRef: "IAS 38 §100 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q9',
@@ -1283,7 +1283,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 38 §107 : une immobilisation incorporelle a durée d'utilité indéterminée ne doit pas etre amortie. IAS 38 §108 impose un test de dépréciation IAS 36 : (a) annuellement ; et (b) chaque fois qu'il y a une indication que l'actif peut s'etre dépréciée. De plus, la durée d'utilité doit etre reexaminee à chaque période (§109).",
-    articleRef: "IAS 38 §107, §108, §109 — IFRS Foundation"
+    articleRef: "IAS 38 §107, §108, §109 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q10',
@@ -1297,7 +1297,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 38 §45 dispose que le coût d'une immobilisation incorporelle acquise par échange est évalué a la juste valeur, sauf si l'operation n'a pas de substance commerciale ou si la JV ne peut etre évaluée de facon fiable. IAS 38 §47 précisé : si l'entité peut évaluer la JV de l'actif recu ou cede, la JV de l'actif cede est utilisee pour évaluer le coût, sauf si la JV de l'actif recu est plus clairement evidente.",
-    articleRef: "IAS 38 §45 et §47 — IFRS Foundation"
+    articleRef: "IAS 38 §45 et §47 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q11',
@@ -1311,7 +1311,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'a',
     explication: "IAS 16 §68 exigé que les profits de cession soient présentés séparément et non classes en produits des activites ordinaires. Cette réglé est fondamentale pour la qualite de l'information : elle permet aux analystes de distinguer les produits recurrents du cycle normal d'exploitation des gains exceptionnels et ponctuels lies a la sortie d'actifs, qui ne se reproduisent pas de facon systematique.",
-    articleRef: "IAS 16 §68 — IFRS Foundation"
+    articleRef: "IAS 16 §68 - IFRS Foundation"
   },
   {
     type: 'qcm', id: 'q12',
@@ -1325,7 +1325,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 38 §71 pose un principe absolu et irreversible : les dépenses relatives a un élément incorporel qui ont ete initialement comptabilisées en charges ne doivent pas etre incorporées dans le coût d'une immobilisation incorporelle a une date ulterieure. Cette interdiction de revenir en arriere est fondamentale pour la cohérence et la fiabilité des etats financiers.",
-    articleRef: "IAS 38 §71 — IFRS Foundation"
+    articleRef: "IAS 38 §71 - IFRS Foundation"
   },
 ]
 
@@ -1374,7 +1374,7 @@ function JournalTable({ titre, lignes }: {
 }
 
 // ─────────────────────────────────────────────────────────────────
-// ETUDES DE CAS (5 cas pratiques) — type CasPratiqueExistant pour DevoirChapitreCreateur
+// ETUDES DE CAS (5 cas pratiques) - type CasPratiqueExistant pour DevoirChapitreCreateur
 // ─────────────────────────────────────────────────────────────────
 interface EtudeDeCasIAS {
   titre: string
@@ -1384,7 +1384,7 @@ interface EtudeDeCasIAS {
 
 const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
   {
-    titre: "Cas 1 — Acquisition d'une installation industrielle avec paiement échelonné et coûts de démantèlement (IAS 16)",
+    titre: "Cas 1 - Acquisition d'une installation industrielle avec paiement échelonné et coûts de démantèlement (IAS 16)",
     contexte: "La société MINEREX acquiert le 1er janvier N une installation de traitement mineralurgique pour un prix catalogue de 500 000 €, payable comme suit : 200 000 € comptant, 165 000 € au 31 décembre N, 181 500 € au 31 décembre N+1. Le taux d'actualisation applicable est de 10 %. Le contrat impose a MINEREX de remettre en etat le site a l'issue d'une exploitation de 20 ans, coût estime en valeur actuelle : 80 000 €. Des tests de bon fonctionnement sont réalisés pour 15 000 €. Des frais de publicité pour le lancement commercial de l'unite : 25 000 €. Des frais administratifs de la direction generale : 10 000 €.",
     questions: [
       {
@@ -1415,7 +1415,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: "Cas 2 — Immobilisation générée en interne : projet de développement logiciel (IAS 38)",
+    titre: "Cas 2 - Immobilisation générée en interne : projet de développement logiciel (IAS 38)",
     contexte: "La société TECHSOL développe en interne un logiciel de gestion comptable destiné à être commercialise. Le projet débuté le 1er février N. La phase de recherche (étude de faisabilité, benchmark) court du 1er février au 30 juin N : coûts engages 120 000 €. À partir du 1er juillet N, les 6 critères du §57 sont tous satisfaits : faisabilité technique démontré, intention d'achèvement confirmée, ressources disponibles, marché identifié. Frais de développement du 1er juillet au 31 décembre N : 280 000 €. Frais d'enregistrement du copyright : 8 500 €. Frais de formation du personnel pour utiliser le logiciel : 18 000 €. Frais de publicité et de promotion du logiciel : 22 000 €.",
     questions: [
       {
@@ -1446,7 +1446,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: "Cas 3 — Réévaluation d'immobilisations corporelles et traitement des écarts (IAS 16 §31 a §42)",
+    titre: "Cas 3 - Réévaluation d'immobilisations corporelles et traitement des écarts (IAS 16 §31 a §42)",
     contexte: "La société IMMOTECH possede un immeuble comptabilisé au coût de 1 200 000 €, amortissable sur 40 ans (linéaire), acquis le 1er janvier N-5. Au 31 décembre N (apres 6 ans), une réévaluation est decidee sur l'ensemble de la categorie 'immeubles'. La juste valeur (IFRS 13) est estimee a 1 380 000 €. Au 31 décembre N+2, suite a une baisse du marché immobilier, la juste valeur tombe a 900 000 € (valeur comptable avant réévaluation N+2 = 1 349 500 €).",
     questions: [
       {
@@ -1477,7 +1477,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: "Cas 4 — Immobilisations corporelles : approche par composants et révision d'estimations (IAS 16 §43, §51)",
+    titre: "Cas 4 - Immobilisations corporelles : approche par composants et révision d'estimations (IAS 16 §43, §51)",
     contexte: "La société AEROTEC acquiert un avion commercial le 1er janvier N pour un coût global de 15 000 000 €. L'approche par composants est obligatoire selon IAS 16 §43. Trois composants sont identifies : (1) Cellule : 9 000 000 €, durée 25 ans, valeur résiduelle 1 500 000 € ; (2) Moteurs : 4 000 000 €, durée 15 ans, valeur résiduelle 400 000 € ; (3) Révision majeure : 2 000 000 €, a effectuer tous les 5 ans (composant 'inspection'). L'avion effectue 800 000 km la premiere annee.",
     questions: [
       {
@@ -1508,7 +1508,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: "Cas 5 — Comparaison IAS 16 / IAS 38 : traitement des dépenses de R&D et limites de la capitalisation",
+    titre: "Cas 5 - Comparaison IAS 16 / IAS 38 : traitement des dépenses de R&D et limites de la capitalisation",
     contexte: "La société BIOTECH SA exercé dans la recherche pharmaceutique. En N, elle engage les dépenses suivantes : (A) Études epidemiologiques generales sans cible moleculaire (recherche fondamentale) : 200 000 € ; (B) Tests precliniques sur la molecule B7, critères IAS 38 §57 satisfaits depuis le 1er juillet N : 350 000 € (dont 180 000 € avant le 1er juillet et 170 000 € apres) ; (C) Depot de brevet pour la molecule B7 : 45 000 € ; (D) Formation des chercheurs a l'utilisation d'un nouvel equipement : 30 000 € ; (E) Acquisition d'une licence d'exploitation tierce pour une molecule connexe : 280 000 €. Toutes les dépenses sont reglees comptant.",
     questions: [
       {
@@ -1544,9 +1544,9 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
 // CAS RICHES : corrections avec tableaux de journal JSX
 // ─────────────────────────────────────────────────────────────────
 const CAS_RICHES: CasRiche[] = [
-  // CAS 1 — MINEREX
+  // CAS 1 - MINEREX
   {
-    titre: "Cas 1 — Acquisition d'une installation industrielle avec paiement échelonné et coûts de démantèlement (IAS 16)",
+    titre: "Cas 1 - Acquisition d'une installation industrielle avec paiement échelonné et coûts de démantèlement (IAS 16)",
     contexte: "La société MINEREX acquiert le 1er janvier N une installation de traitement minéralurgique pour un prix catalogue de 500 000 €, payable comme suit : 200 000 € comptant, 165 000 € au 31 décembre N, 181 500 € au 31 décembre N+1. Le taux d'actualisation applicable est de 10 %. Le contrat impose à MINEREX de remettre en état le site à l'issue d'une exploitation de 20 ans, coût estimé en valeur actuelle : 80 000 €. Des tests de bon fonctionnement sont réalisés pour 15 000 €. Des frais de publicité pour le lancement commercial de l'unité : 25 000 €. Des frais administratifs de la direction générale : 10 000 €.",
     questions: [
       {
@@ -1568,11 +1568,11 @@ const CAS_RICHES: CasRiche[] = [
                   <th className="border border-sky-200 p-1.5 text-center">Réf.</th>
                 </tr></thead>
                 <tbody>
-                  <tr><td className="border border-border p-1.5">Prix comptant équivalent</td><td className="border border-border p-1.5 text-right">500 000</td><td className="border border-border p-1.5">Inclus — coût de l'actif actualisé</td><td className="border border-border p-1.5 text-center">§23</td></tr>
-                  <tr className="bg-muted/20"><td className="border border-border p-1.5">Tests de bon fonctionnement</td><td className="border border-border p-1.5 text-right">15 000</td><td className="border border-border p-1.5">Inclus — coût directement attribuable</td><td className="border border-border p-1.5 text-center">§17e</td></tr>
-                  <tr><td className="border border-border p-1.5">Coûts de démantèlement (VAN)</td><td className="border border-border p-1.5 text-right">80 000</td><td className="border border-border p-1.5">Inclus — obligation contractuelle (IAS 37)</td><td className="border border-border p-1.5 text-center">§16c</td></tr>
-                  <tr className="bg-muted/20"><td className="border border-border p-1.5">Frais de publicité</td><td className="border border-border p-1.5 text-right">25 000</td><td className="border border-border p-1.5 text-red-600">EXCLUS — coûts de lancement</td><td className="border border-border p-1.5 text-center">§19b</td></tr>
-                  <tr><td className="border border-border p-1.5">Frais administratifs</td><td className="border border-border p-1.5 text-right">10 000</td><td className="border border-border p-1.5 text-red-600">EXCLUS — frais généraux</td><td className="border border-border p-1.5 text-center">§19d</td></tr>
+                  <tr><td className="border border-border p-1.5">Prix comptant équivalent</td><td className="border border-border p-1.5 text-right">500 000</td><td className="border border-border p-1.5">Inclus - coût de l'actif actualisé</td><td className="border border-border p-1.5 text-center">§23</td></tr>
+                  <tr className="bg-muted/20"><td className="border border-border p-1.5">Tests de bon fonctionnement</td><td className="border border-border p-1.5 text-right">15 000</td><td className="border border-border p-1.5">Inclus - coût directement attribuable</td><td className="border border-border p-1.5 text-center">§17e</td></tr>
+                  <tr><td className="border border-border p-1.5">Coûts de démantèlement (VAN)</td><td className="border border-border p-1.5 text-right">80 000</td><td className="border border-border p-1.5">Inclus - obligation contractuelle (IAS 37)</td><td className="border border-border p-1.5 text-center">§16c</td></tr>
+                  <tr className="bg-muted/20"><td className="border border-border p-1.5">Frais de publicité</td><td className="border border-border p-1.5 text-right">25 000</td><td className="border border-border p-1.5 text-red-600">EXCLUS - coûts de lancement</td><td className="border border-border p-1.5 text-center">§19b</td></tr>
+                  <tr><td className="border border-border p-1.5">Frais administratifs</td><td className="border border-border p-1.5 text-right">10 000</td><td className="border border-border p-1.5 text-red-600">EXCLUS - frais généraux</td><td className="border border-border p-1.5 text-center">§19d</td></tr>
                   <tr className="font-bold bg-sky-50"><td className="border border-sky-300 p-1.5">TOTAL COÛT D'ENTRÉE</td><td className="border border-sky-300 p-1.5 text-right">595 000</td><td className="border border-sky-300 p-1.5" colSpan={2}></td></tr>
                 </tbody>
               </table>
@@ -1586,7 +1586,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
             <JournalTable
-              titre="Écriture du 1er janvier N — Comptabilisation de l'installation (IAS 16 §15)"
+              titre="Écriture du 1er janvier N - Comptabilisation de l'installation (IAS 16 §15)"
               lignes={[
                 { libelle: "Immobilisations corporelles (installation)", debit: "595 000", credit: "" },
                 { libelle: "Banque (acompte comptant)", debit: "", credit: "200 000" },
@@ -1606,7 +1606,7 @@ const CAS_RICHES: CasRiche[] = [
           <div className="space-y-3 text-xs text-foreground/90">
             <p><strong>Entretien courant (IAS 16 §12) :</strong> comptabilisé en charges immédiatement, ne s'incorpore pas à la valeur comptable.</p>
             <JournalTable
-              titre="Écriture 1 — Entretien courant (IAS 16 §12)"
+              titre="Écriture 1 - Entretien courant (IAS 16 §12)"
               lignes={[
                 { libelle: "Charges d'entretien et réparations", debit: "12 000", credit: "" },
                 { libelle: "Banque", debit: "", credit: "12 000" },
@@ -1614,7 +1614,7 @@ const CAS_RICHES: CasRiche[] = [
             />
             <p><strong>Remplacement moteur (IAS 16 §13) :</strong> le composant remplacé est décomptabilisé ; le nouveau est capitalisé.</p>
             <JournalTable
-              titre="Écriture 2a — Décomptabilisation composant ancien (IAS 16 §13 et §70)"
+              titre="Écriture 2a - Décomptabilisation composant ancien (IAS 16 §13 et §70)"
               lignes={[
                 { libelle: "Amortissements cumulés (moteur ancien)", debit: "60 000", credit: "" },
                 { libelle: "Perte sur sortie composant", debit: "20 000", credit: "" },
@@ -1622,7 +1622,7 @@ const CAS_RICHES: CasRiche[] = [
               ]}
             />
             <JournalTable
-              titre="Écriture 2b — Capitalisation moteur neuf (IAS 16 §13)"
+              titre="Écriture 2b - Capitalisation moteur neuf (IAS 16 §13)"
               lignes={[
                 { libelle: "Immobilisations corporelles (moteur neuf)", debit: "95 000", credit: "" },
                 { libelle: "Banque", debit: "", credit: "95 000" },
@@ -1644,8 +1644,8 @@ const CAS_RICHES: CasRiche[] = [
             </div>
             <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
               <p className="font-semibold text-amber-800 mb-1">Différence fondamentale :</p>
-              <p><strong>Changement d'estimation (IAS 8 §36) :</strong> traitement <em>prospectif</em> — seules les périodes courante et futures sont affectées. Aucun retraitement.</p>
-              <p className="mt-1"><strong>Correction d'erreur (IAS 8 §41) :</strong> traitement <em>rétrospectif</em> — retraitement de tous les exercices antérieurs publiés.</p>
+              <p><strong>Changement d'estimation (IAS 8 §36) :</strong> traitement <em>prospectif</em> - seules les périodes courante et futures sont affectées. Aucun retraitement.</p>
+              <p className="mt-1"><strong>Correction d'erreur (IAS 8 §41) :</strong> traitement <em>rétrospectif</em> - retraitement de tous les exercices antérieurs publiés.</p>
             </div>
           </div>
         )
@@ -1668,7 +1668,7 @@ const CAS_RICHES: CasRiche[] = [
               ]}
             />
             <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
-              <p className="font-semibold text-amber-800 mb-1">IAS 16 §68 — Présentation obligatoire :</p>
+              <p className="font-semibold text-amber-800 mb-1">IAS 16 §68 - Présentation obligatoire :</p>
               <p>Le profit de 40 000 € <strong>ne doit PAS être classé en produits des activités ordinaires.</strong> Il est présenté séparément. Sans cette règle, les analystes surestimerait la rentabilité récurrente de MINEREX. Sa présentation séparée garantit la qualité prédictive de l'information (Cadre IASB §QC6).</p>
             </div>
           </div>
@@ -1676,9 +1676,9 @@ const CAS_RICHES: CasRiche[] = [
       }
     ]
   },
-  // CAS 2 — TECHSOL
+  // CAS 2 - TECHSOL
   {
-    titre: "Cas 2 — Immobilisation générée en interne : projet de développement logiciel (IAS 38)",
+    titre: "Cas 2 - Immobilisation générée en interne : projet de développement logiciel (IAS 38)",
     contexte: "La société TECHSOL développe en interne un logiciel de gestion comptable destiné à être commercialisé. Le projet débute le 1er février N. La phase de recherche (faisabilité, benchmark) court du 1er février au 30 juin N : coûts engagés 120 000 €. À partir du 1er juillet N, les 6 critères du §57 sont tous satisfaits. Frais de développement du 1er juillet au 31 décembre N : 280 000 €. Frais d'enregistrement du copyright : 8 500 €. Frais de formation du personnel : 18 000 €. Frais de publicité et de promotion : 22 000 €.",
     questions: [
       {
@@ -1694,8 +1694,8 @@ const CAS_RICHES: CasRiche[] = [
                 <th className="border border-sky-200 p-1.5 text-center">Réf. IAS 38</th>
               </tr></thead>
               <tbody>
-                <tr><td className="border border-border p-1.5">Phase recherche (février — juin N)</td><td className="border border-border p-1.5 text-right">120 000 €</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§54</td></tr>
-                <tr className="bg-muted/20"><td className="border border-border p-1.5">Développement logiciel (juil. — déc. N)</td><td className="border border-border p-1.5 text-right">280 000 €</td><td className="border border-border p-1.5 text-center font-bold text-green-600">CAPITALISÉ</td><td className="border border-border p-1.5 text-center">§57</td></tr>
+                <tr><td className="border border-border p-1.5">Phase recherche (février - juin N)</td><td className="border border-border p-1.5 text-right">120 000 €</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§54</td></tr>
+                <tr className="bg-muted/20"><td className="border border-border p-1.5">Développement logiciel (juil. - déc. N)</td><td className="border border-border p-1.5 text-right">280 000 €</td><td className="border border-border p-1.5 text-center font-bold text-green-600">CAPITALISÉ</td><td className="border border-border p-1.5 text-center">§57</td></tr>
                 <tr><td className="border border-border p-1.5">Enregistrement copyright</td><td className="border border-border p-1.5 text-right">8 500 €</td><td className="border border-border p-1.5 text-center font-bold text-green-600">CAPITALISÉ</td><td className="border border-border p-1.5 text-center">§66c</td></tr>
                 <tr className="bg-muted/20"><td className="border border-border p-1.5">Formation du personnel</td><td className="border border-border p-1.5 text-right">18 000 €</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§67c</td></tr>
                 <tr><td className="border border-border p-1.5">Publicité et promotion</td><td className="border border-border p-1.5 text-right">22 000 €</td><td className="border border-border p-1.5 text-center font-bold text-red-600">CHARGES</td><td className="border border-border p-1.5 text-center">§69c</td></tr>
@@ -1723,7 +1723,7 @@ const CAS_RICHES: CasRiche[] = [
             <JournalTable
               titre="(b) Immobilisation incorporelle générée en interne (IAS 38 §57 + §65)"
               lignes={[
-                { libelle: "Immobilisations incorporelles — Logiciel en cours", debit: "288 500", credit: "" },
+                { libelle: "Immobilisations incorporelles - Logiciel en cours", debit: "288 500", credit: "" },
                 { libelle: "Production immobilisée (produits)", debit: "", credit: "288 500" },
               ]}
             />
@@ -1741,10 +1741,10 @@ const CAS_RICHES: CasRiche[] = [
               <BlockMath math={String.raw`\text{Dotation} = \dfrac{288\,500 - 0}{4} = \mathbf{72\,125\,\text{€/an}}`} />
             </div>
             <JournalTable
-              titre="Écriture de dotation annuelle — 31 décembre N+1"
+              titre="Écriture de dotation annuelle - 31 décembre N+1"
               lignes={[
                 { libelle: "Dotation aux amortissements (II)", debit: "72 125", credit: "" },
-                { libelle: "Amortissements cumulés (II — logiciel)", debit: "", credit: "72 125" },
+                { libelle: "Amortissements cumulés (II - logiciel)", debit: "", credit: "72 125" },
               ]}
             />
             <p><strong>Valeur résiduelle nulle (IAS 38 §100) :</strong> présumée nulle sauf (a) engagement ferme de rachat par un tiers, ou (b) existence d'un marché actif. Pour ce logiciel propriétaire, aucune de ces conditions n'est remplie.</p>
@@ -1757,7 +1757,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
             <div className="rounded-lg border border-red-200 bg-red-50/50 p-3">
-              <p className="font-semibold text-red-700 mb-1">Interdiction absolue — IAS 38 §71</p>
+              <p className="font-semibold text-red-700 mb-1">Interdiction absolue - IAS 38 §71</p>
               <p className="italic">« Les dépenses relatives à un élément incorporel qui ont été initialement comptabilisées en charges ne doivent pas être incorporées dans le coût d'une immobilisation incorporelle à une date ultérieure. » (IAS 38 §71)</p>
             </div>
             <p>Ce principe d'irréversibilité est <strong>absolu</strong>, sans aucune exception. Il protège la fiabilité des états financiers (Cadre IASB §QC12) en empêchant les entités de manipuler leurs résultats en requalifiant des charges passées en actifs.</p>
@@ -1771,11 +1771,11 @@ const CAS_RICHES: CasRiche[] = [
           <div className="space-y-2 text-xs text-foreground/90">
             <p><strong>IAS 38 §112 :</strong> décomptabilisation lors de la sortie OU lorsqu'aucun AEF futur n'est attendu. L'abandon correspond à la deuxième condition.</p>
             <JournalTable
-              titre="Écriture de mise hors service — 31 décembre N+3 (IAS 38 §112)"
+              titre="Écriture de mise hors service - 31 décembre N+3 (IAS 38 §112)"
               lignes={[
                 { libelle: "Amortissements cumulés II (3 ans × 72 125)", debit: "216 375", credit: "" },
                 { libelle: "Perte sur mise hors service (résultat net)", debit: "72 125", credit: "" },
-                { libelle: "Immobilisations incorporelles — Logiciel", debit: "", credit: "288 500" },
+                { libelle: "Immobilisations incorporelles - Logiciel", debit: "", credit: "288 500" },
               ]}
             />
             <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
@@ -1788,9 +1788,9 @@ const CAS_RICHES: CasRiche[] = [
       }
     ]
   },
-  // CAS 3 — IMMOTECH
+  // CAS 3 - IMMOTECH
   {
-    titre: "Cas 3 — Réévaluation d'immobilisations corporelles et traitement des écarts (IAS 16 §31 à §42)",
+    titre: "Cas 3 - Réévaluation d'immobilisations corporelles et traitement des écarts (IAS 16 §31 à §42)",
     contexte: "La société IMMOTECH possède un immeuble comptabilisé au coût de 1 200 000 €, amortissable sur 40 ans (linéaire), acquis le 1er janvier N-5. Au 31 décembre N (après 6 ans), une réévaluation est décidée. La juste valeur (IFRS 13) est estimée à 1 380 000 €. Au 31 décembre N+2, la juste valeur tombe à 900 000 € (valeur comptable avant réévaluation N+2 = 1 349 500 €).",
     questions: [
       {
@@ -1814,20 +1814,20 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-3 text-xs text-foreground/90">
             <JournalTable
-              titre="Étape 1 — Annulation du cumul des amortissements"
+              titre="Étape 1 - Annulation du cumul des amortissements"
               lignes={[
                 { libelle: "Amortissements cumulés immeuble", debit: "180 000", credit: "" },
-                { libelle: "Immobilisations corporelles — Immeuble", debit: "", credit: "180 000" },
+                { libelle: "Immobilisations corporelles - Immeuble", debit: "", credit: "180 000" },
               ]}
             />
             <JournalTable
-              titre="Étape 2 — Ajustement à la juste valeur (360 000 € d'écart)"
+              titre="Étape 2 - Ajustement à la juste valeur (360 000 € d'écart)"
               lignes={[
-                { libelle: "Immobilisations corporelles — Immeuble", debit: "360 000", credit: "" },
-                { libelle: "Écart de réévaluation (AERG — capitaux propres)", debit: "", credit: "360 000" },
+                { libelle: "Immobilisations corporelles - Immeuble", debit: "360 000", credit: "" },
+                { libelle: "Écart de réévaluation (AERG - capitaux propres)", debit: "", credit: "360 000" },
               ]}
             />
-            <p className="text-xs text-muted-foreground">Après réévaluation : Valeur brute = 1 380 000 € — Amortissements cumulés = 0 € — Valeur comptable = <strong>1 380 000 €</strong></p>
+            <p className="text-xs text-muted-foreground">Après réévaluation : Valeur brute = 1 380 000 € - Amortissements cumulés = 0 € - Valeur comptable = <strong>1 380 000 €</strong></p>
           </div>
         )
       },
@@ -1841,7 +1841,7 @@ const CAS_RICHES: CasRiche[] = [
               <BlockMath math={String.raw`\text{VC au 31/12/N+1} = 1\,380\,000 - 40\,588 = 1\,339\,412\,\text{€}`} />
               <BlockMath math={String.raw`\text{VC au 31/12/N+2} \approx 1\,339\,412 - 40\,588 = 1\,298\,824\,\text{€}`} />
             </div>
-            <p className="text-xs text-muted-foreground italic">L'énoncé retient 1 349 500 € (arrondi différent) — nous appliquons la valeur donnée pour la suite.</p>
+            <p className="text-xs text-muted-foreground italic">L'énoncé retient 1 349 500 € (arrondi différent) - nous appliquons la valeur donnée pour la suite.</p>
           </div>
         )
       },
@@ -1855,10 +1855,10 @@ const CAS_RICHES: CasRiche[] = [
               <p className="text-xs mt-1">Imputation : 360 000 € sur AERG (annulation écart antérieur) + 89 500 € en résultat net (charges).</p>
             </div>
             <JournalTable
-              titre="Écriture de réévaluation négative — 31/12/N+2 (IAS 16 §40)"
+              titre="Écriture de réévaluation négative - 31/12/N+2 (IAS 16 §40)"
               lignes={[
                 { libelle: "Écart de réévaluation (annulation AERG)", debit: "360 000", credit: "" },
-                { libelle: "Perte de réévaluation (résultat net — charges)", debit: "89 500", credit: "" },
+                { libelle: "Perte de réévaluation (résultat net - charges)", debit: "89 500", credit: "" },
                 { libelle: "Amortissements cumulés (annulation cumul N+1 + N+2)", debit: "81 176", credit: "" },
                 { libelle: "Immobilisations corporelles (réduction à JV)", debit: "", credit: "530 676" },
               ]}
@@ -1885,9 +1885,9 @@ const CAS_RICHES: CasRiche[] = [
       }
     ]
   },
-  // CAS 4 — AEROTEC
+  // CAS 4 - AEROTEC
   {
-    titre: "Cas 4 — Immobilisations corporelles : approche par composants et révision d'estimations (IAS 16 §43, §51)",
+    titre: "Cas 4 - Immobilisations corporelles : approche par composants et révision d'estimations (IAS 16 §43, §51)",
     contexte: "La société AEROTEC acquiert un avion commercial le 1er janvier N pour un coût global de 15 000 000 €. L'approche par composants est obligatoire selon IAS 16 §43. Trois composants identifiés : (1) Cellule : 9 000 000 €, durée 25 ans, VR 1 500 000 € ; (2) Moteurs : 4 000 000 €, durée 15 ans, VR 400 000 € ; (3) Révision majeure : 2 000 000 €, tous les 5 ans. L'avion effectue 800 000 km la première année.",
     questions: [
       {
@@ -1906,7 +1906,7 @@ const CAS_RICHES: CasRiche[] = [
                 </tr></thead>
                 <tbody>
                   <tr><td className="border border-border p-1.5">Cellule</td><td className="border border-border p-1.5 text-right">9 000 000 €</td><td className="border border-border p-1.5 text-center">25 ans</td><td className="border border-border p-1.5">Durée de vie physique</td></tr>
-                  <tr className="bg-muted/20"><td className="border border-border p-1.5">Moteurs</td><td className="border border-border p-1.5 text-right">4 000 000 €</td><td className="border border-border p-1.5 text-center">15 ans</td><td className="border border-border p-1.5">Durée plus courte — remplacement planifié</td></tr>
+                  <tr className="bg-muted/20"><td className="border border-border p-1.5">Moteurs</td><td className="border border-border p-1.5 text-right">4 000 000 €</td><td className="border border-border p-1.5 text-center">15 ans</td><td className="border border-border p-1.5">Durée plus courte - remplacement planifié</td></tr>
                   <tr><td className="border border-border p-1.5">Révision majeure</td><td className="border border-border p-1.5 text-right">2 000 000 €</td><td className="border border-border p-1.5 text-center">5 ans</td><td className="border border-border p-1.5">Cyclé entre deux révisions obligatoires</td></tr>
                 </tbody>
               </table>
@@ -1923,7 +1923,7 @@ const CAS_RICHES: CasRiche[] = [
             <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Cellule (linéaire) :</p>
               <BlockMath math={String.raw`A_{\text{cellule}} = \dfrac{9\,000\,000 - 1\,500\,000}{25} = \mathbf{300\,000\,\text{€}}`} />
-              <p className="font-semibold mt-2 mb-1">Moteurs (unités d'œuvre — 800 000 km sur 15 M km) :</p>
+              <p className="font-semibold mt-2 mb-1">Moteurs (unités d'œuvre - 800 000 km sur 15 M km) :</p>
               <BlockMath math={String.raw`A_{\text{moteurs}} = \dfrac{(4\,000\,000 - 400\,000) \times 800\,000}{15\,000\,000} = \mathbf{192\,000\,\text{€}}`} />
               <p className="font-semibold mt-2 mb-1">Révision majeure (linéaire, 5 ans) :</p>
               <BlockMath math={String.raw`A_{\text{révision}} = \dfrac{2\,000\,000}{5} = \mathbf{400\,000\,\text{€}}`} />
@@ -1940,16 +1940,16 @@ const CAS_RICHES: CasRiche[] = [
           <div className="space-y-3 text-xs text-foreground/90">
             <p>Valeur comptable du composant révision en fin N+5 : entièrement amorti sur 5 ans. <strong>VC = 0 €</strong>.</p>
             <JournalTable
-              titre="Écriture 1 — Décomptabilisation composant ancien (VC = 0) (IAS 16 §13 + §70)"
+              titre="Écriture 1 - Décomptabilisation composant ancien (VC = 0) (IAS 16 §13 + §70)"
               lignes={[
-                { libelle: "Amortissements cumulés — inspection", debit: "2 000 000", credit: "" },
-                { libelle: "Immobilisations corporelles — inspection (ancienne)", debit: "", credit: "2 000 000" },
+                { libelle: "Amortissements cumulés - inspection", debit: "2 000 000", credit: "" },
+                { libelle: "Immobilisations corporelles - inspection (ancienne)", debit: "", credit: "2 000 000" },
               ]}
             />
             <JournalTable
-              titre="Écriture 2 — Capitalisation nouvelle révision (IAS 16 §13)"
+              titre="Écriture 2 - Capitalisation nouvelle révision (IAS 16 §13)"
               lignes={[
-                { libelle: "Immobilisations corporelles — inspection (nouvelle)", debit: "2 200 000", credit: "" },
+                { libelle: "Immobilisations corporelles - inspection (nouvelle)", debit: "2 200 000", credit: "" },
                 { libelle: "Banque / Fournisseurs", debit: "", credit: "2 200 000" },
               ]}
             />
@@ -1961,7 +1961,7 @@ const CAS_RICHES: CasRiche[] = [
         enonce: "En N+8, AEROTEC révise ses estimations : durée résiduelle cellule portée à 20 ans, valeur résiduelle révisée de 1 500 000 € à 2 000 000 €. Calculez le nouvel amortissement annuel.",
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90">
-            <p><strong>IAS 16 §51 + IAS 8 §36 :</strong> changement d'estimation — traitement prospectif uniquement.</p>
+            <p><strong>IAS 16 §51 + IAS 8 §36 :</strong> changement d'estimation - traitement prospectif uniquement.</p>
             <div className="rounded-lg bg-white border border-sky-100 p-3">
               <p className="font-semibold mb-1">Calcul :</p>
               <BlockMath math={String.raw`\text{VC cellule début N+8} = 9\,000\,000 - (7 \times 300\,000) = 6\,900\,000\,\text{€}`} />
@@ -1991,9 +1991,9 @@ const CAS_RICHES: CasRiche[] = [
       }
     ]
   },
-  // CAS 5 — BIOTECH
+  // CAS 5 - BIOTECH
   {
-    titre: "Cas 5 — Comparaison IAS 16 / IAS 38 : traitement des dépenses de R&D et limites de la capitalisation",
+    titre: "Cas 5 - Comparaison IAS 16 / IAS 38 : traitement des dépenses de R&D et limites de la capitalisation",
     contexte: "La société BIOTECH SA exerce dans la recherche pharmaceutique. En N, elle engage : (A) Études épidémiologiques sans cible : 200 000 € ; (B) Tests précliniques molécule B7 : 350 000 € (dont 180 000 € avant le 1er juillet et 170 000 € après, critères §57 satisfaits à partir du 1er juillet N) ; (C) Dépôt de brevet B7 : 45 000 € ; (D) Formation chercheurs : 30 000 € ; (E) Licence externe molécule connexe : 280 000 €.",
     questions: [
       {
@@ -2039,8 +2039,8 @@ const CAS_RICHES: CasRiche[] = [
             <JournalTable
               titre="(2) Immobilisations incorporelles (B après 1/07 + C + E)"
               lignes={[
-                { libelle: "Immobilisations incorporelles — Brevet B7 en cours (B après 1/07 + C)", debit: "215 000", credit: "" },
-                { libelle: "Immobilisations incorporelles — Licence externe (E)", debit: "280 000", credit: "" },
+                { libelle: "Immobilisations incorporelles - Brevet B7 en cours (B après 1/07 + C)", debit: "215 000", credit: "" },
+                { libelle: "Immobilisations incorporelles - Licence externe (E)", debit: "280 000", credit: "" },
                 { libelle: "Banque / Production immobilisée", debit: "", credit: "495 000" },
               ]}
             />
@@ -2075,8 +2075,8 @@ const CAS_RICHES: CasRiche[] = [
             <JournalTable
               titre="Écriture de dépréciation (IAS 36 + IAS 38 §111)"
               lignes={[
-                { libelle: "Dotation dépréciation — Immobilisations incorporelles", debit: "79 000", credit: "" },
-                { libelle: "Dépréciation cumulée — II (brevet B7)", debit: "", credit: "79 000" },
+                { libelle: "Dotation dépréciation - Immobilisations incorporelles", debit: "79 000", credit: "" },
+                { libelle: "Dépréciation cumulée - II (brevet B7)", debit: "", credit: "79 000" },
               ]}
             />
             <p>Valeur comptable après test : <strong>50 000 €</strong>. Si la valeur recouvrable remonte ultérieurement, une reprise est possible (IAS 36 §117), limitée à la VC nette qui aurait existé sans la dépréciation.</p>
@@ -2089,7 +2089,7 @@ const CAS_RICHES: CasRiche[] = [
         correctionJSX: (
           <div className="space-y-2 text-xs text-foreground/90 leading-relaxed">
             <div className="rounded-lg border border-red-200 bg-red-50/50 p-3">
-              <p className="font-semibold text-red-700 mb-1">Interdiction formelle — IAS 38 §63</p>
+              <p className="font-semibold text-red-700 mb-1">Interdiction formelle - IAS 38 §63</p>
               <p className="italic">« Lorsqu'ils sont générés en interne, les marques (...) ne doivent pas être comptabilisés en tant qu'immobilisations incorporelles. » (IAS 38 §63)</p>
             </div>
             <div className="rounded-lg border border-sky-200 bg-sky-50/30 p-3">
@@ -2275,7 +2275,7 @@ export default function UE13Chapitre2Page() {
         />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">IAS 16 Immobilisations corporelles et IAS 38 Immobilisations incorporelles</h1>
-          <InfoTooltip texte="IAS 16 : traitement comptable des immobilisations corporelles (comptabilisation, évaluation initiale et postérieure, amortissement, composants). IAS 38 : traitement comptable des immobilisations incorporelles (critères, phases R&D, amortissement)." loi="IAS 16 §1 · IAS 38 §1 — IFRS Foundation" />
+          <InfoTooltip texte="IAS 16 : traitement comptable des immobilisations corporelles (comptabilisation, évaluation initiale et postérieure, amortissement, composants). IAS 38 : traitement comptable des immobilisations incorporelles (critères, phases R&D, amortissement)." loi="IAS 16 §1 · IAS 38 §1 - IFRS Foundation" />
         </div>
         <p className="text-xs text-muted-foreground">IAS 16 · IAS 38 · Évaluation initiale et postérieure · Amortissement</p>
       </div>

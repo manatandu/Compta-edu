@@ -74,18 +74,18 @@ function JournalTable({ rows }: { rows: { libelle: string; debit?: string; credi
 const LECONS: Lecon[] = [
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 1 — IAS 36 : Champ d'application, principe fondamental, indices
+  // LECON 1 - IAS 36 : Champ d'application, principe fondamental, indices
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l1',
     icone: <AlertTriangle className="h-5 w-5" />,
-    titre: "IAS 36 — Champ d'application, principe fondamental et indices de perte de valeur",
+    titre: "IAS 36 - Champ d'application, principe fondamental et indices de perte de valeur",
     badge: 'IAS 36 §1 à §14 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <p>
           La <strong>Norme IAS 36</strong>
-          <InfoTooltip texte="IAS 36 (Dépréciation d'actifs) a pour objectif de prescrire les procédures qu'une entité applique pour s'assurer que la valeur comptable de ses actifs n'est pas supérieure à leur valeur recouvrable. Elle s'applique à pratiquement tous les actifs non financiers et constitue le pilier normatif du test de dépréciation." loi="IAS 36 §1 — IFRS Foundation" />
+          <InfoTooltip texte="IAS 36 (Dépréciation d'actifs) a pour objectif de prescrire les procédures qu'une entité applique pour s'assurer que la valeur comptable de ses actifs n'est pas supérieure à leur valeur recouvrable. Elle s'applique à pratiquement tous les actifs non financiers et constitue le pilier normatif du test de dépréciation." loi="IAS 36 §1 - IFRS Foundation" />
           {' '}a pour objectif de prescrire les procédures qu'une entité applique pour s'assurer que ses actifs sont comptabilisés pour une valeur n'excédant pas leur valeur recouvrable. Un actif est comptabilisé pour une valeur excédant sa valeur recouvrable si sa valeur comptable est supérieure au montant qui sera recouvré par son utilisation ou par sa vente.
         </p>
 
@@ -125,7 +125,7 @@ const LECONS: Lecon[] = [
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
           <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 text-center">
             <p className="font-semibold text-amber-800 text-xs mb-1">Goodwill</p>
-            <p className="text-xs text-foreground/80">Issu d'un regroupement d'entreprises — jamais amorti, toujours testé</p>
+            <p className="text-xs text-foreground/80">Issu d'un regroupement d'entreprises - jamais amorti, toujours testé</p>
             <p className="text-xs text-muted-foreground mt-1">IFRS 3 + IAS 36 §96</p>
           </div>
           <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-3 text-center">
@@ -166,8 +166,8 @@ const LECONS: Lecon[] = [
         </div>
 
         <div className="rounded-lg bg-sky-50 border border-sky-200 p-3 mt-3">
-          <p className="text-xs font-semibold text-sky-700 mb-1">Point pédagogique — Cadre du raisonnement</p>
-          <p className="text-xs text-sky-900">L'existence d'un indice interne ou externe ne conduit pas automatiquement à une perte de valeur. Elle oblige seulement l'entité à estimer la valeur recouvrable et à la comparer à la valeur comptable. C'est cette comparaison qui détermine l'existence — ou non — d'une perte.</p>
+          <p className="text-xs font-semibold text-sky-700 mb-1">Point pédagogique - Cadre du raisonnement</p>
+          <p className="text-xs text-sky-900">L'existence d'un indice interne ou externe ne conduit pas automatiquement à une perte de valeur. Elle oblige seulement l'entité à estimer la valeur recouvrable et à la comparer à la valeur comptable. C'est cette comparaison qui détermine l'existence - ou non - d'une perte.</p>
         </div>
       </div>
     ),
@@ -175,12 +175,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 2 — IAS 36 : Valeur recouvrable : VNC vs valeur d'utilité, DCF
+  // LECON 2 - IAS 36 : Valeur recouvrable : VNC vs valeur d'utilité, DCF
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l2',
     icone: <Scale className="h-5 w-5" />,
-    titre: "IAS 36 — Valeur recouvrable : juste valeur nette et valeur d'utilité",
+    titre: "IAS 36 - Valeur recouvrable : juste valeur nette et valeur d'utilité",
     badge: 'IAS 36 §18 à §57 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -197,7 +197,7 @@ const LECONS: Lecon[] = [
         </div>
         <p>
           La <strong>valeur recouvrable</strong>
-          <InfoTooltip texte="La valeur recouvrable est le montant le plus élevé entre la juste valeur nette des coûts de sortie et la valeur d'utilité. L'idée est que l'entité peut récupérer la valeur de l'actif soit en le vendant (JVN), soit en continuant à l'utiliser (VU). On retient le maximum car c'est la décision rationnelle que prendrait un gestionnaire." loi="IAS 36 §18 — IFRS Foundation" />
+          <InfoTooltip texte="La valeur recouvrable est le montant le plus élevé entre la juste valeur nette des coûts de sortie et la valeur d'utilité. L'idée est que l'entité peut récupérer la valeur de l'actif soit en le vendant (JVN), soit en continuant à l'utiliser (VU). On retient le maximum car c'est la décision rationnelle que prendrait un gestionnaire." loi="IAS 36 §18 - IFRS Foundation" />
           {' '}est le montant le plus élevé entre la <strong>juste valeur diminuée des coûts de sortie</strong> et la <strong>valeur d'utilité</strong>. Si l'un ou l'autre de ces montants est supérieur à la valeur comptable, il n'y a pas lieu de déprécier.
         </p>
 
@@ -212,13 +212,13 @@ const LECONS: Lecon[] = [
             <div className="flex gap-2"><span className="font-bold text-sky-600 w-5 shrink-0">2.</span><span>Prix du marché actif (cours boursier, cotation), diminué des coûts de sortie</span></div>
             <div className="flex gap-2"><span className="font-bold text-sky-600 w-5 shrink-0">3.</span><span>Meilleure information disponible reflétant le montant qu'une entité pourrait obtenir de la sortie de l'actif dans une transaction dans des conditions de concurrence normale entre parties bien informées et consentantes</span></div>
           </div>
-          <p className="text-xs text-muted-foreground">Les coûts de sortie incluent : honoraires juridiques, taxes de transfert, coûts d'enlèvement et de remise en état — mais excluent les avantages du personnel et les charges d'exploitation futures.</p>
+          <p className="text-xs text-muted-foreground">Les coûts de sortie incluent : honoraires juridiques, taxes de transfert, coûts d'enlèvement et de remise en état - mais excluent les avantages du personnel et les charges d'exploitation futures.</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">3. Valeur d'utilité (§30 à §57)</h3>
         <p>
           La <strong>valeur d'utilité</strong>
-          <InfoTooltip texte="La valeur d'utilité est la valeur actualisée des flux de trésorerie futurs attendus de l'utilisation continue d'un actif jusqu'à sa sortie. Elle repose sur un modèle DCF (Discounted Cash Flow) propre à l'entité, et non sur les conditions du marché. Elle intègre les projections de flux de trésorerie, les variations futures probables, la valeur temps de l'argent et les risques spécifiques à l'actif." loi="IAS 36 §30 — IFRS Foundation" />
+          <InfoTooltip texte="La valeur d'utilité est la valeur actualisée des flux de trésorerie futurs attendus de l'utilisation continue d'un actif jusqu'à sa sortie. Elle repose sur un modèle DCF (Discounted Cash Flow) propre à l'entité, et non sur les conditions du marché. Elle intègre les projections de flux de trésorerie, les variations futures probables, la valeur temps de l'argent et les risques spécifiques à l'actif." loi="IAS 36 §30 - IFRS Foundation" />
           {' '}est la valeur actualisée des flux de trésorerie futurs susceptibles de découler d'un actif ou d'une unité génératrice de trésorerie. Elle est déterminée selon un modèle d'actualisation (DCF) :
         </p>
         <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
@@ -251,7 +251,7 @@ const LECONS: Lecon[] = [
           <p className="text-muted-foreground">IAS 36 §56 : le taux doit être estimé à partir du coût du capital spécifique à l'actif, déterminé à l'aide du modèle CAPM ou d'équivalents sectoriels observables.</p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — INDUSTRIA SA (IAS 36 §18)</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - INDUSTRIA SA (IAS 36 §18)</h3>
         <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
           <p className="text-xs font-semibold text-amber-800 mb-1">Données</p>
           <p className="text-xs text-amber-900">Valeur comptable nette (VNC) d'une machine : 700 000 · Juste valeur de marché : 690 000 · Coûts de sortie estimés : 10 000 · Valeur d'utilité (DCF) : 760 000</p>
@@ -274,12 +274,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 3 — IAS 36 : Constatation, comptabilisation et reprise
+  // LECON 3 - IAS 36 : Constatation, comptabilisation et reprise
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l3',
     icone: <TrendingDown className="h-5 w-5" />,
-    titre: "IAS 36 — Constatation, comptabilisation et reprise de la perte de valeur",
+    titre: "IAS 36 - Constatation, comptabilisation et reprise de la perte de valeur",
     badge: 'IAS 36 §59 à §117 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -291,27 +291,27 @@ const LECONS: Lecon[] = [
         <h3 className="font-bold text-foreground mt-4 text-sm">1.1 Actif au coût historique (§60)</h3>
         <p>La perte de valeur est comptabilisée directement en <strong>résultat net</strong> :</p>
         <JournalTable rows={[
-          { libelle: '31/12/N — Constatation de la perte de valeur', isHeader: true },
+          { libelle: '31/12/N - Constatation de la perte de valeur', isHeader: true },
           { libelle: 'Charges de dépréciation (6816 ou équivalent)', debit: 'Montant', credit: '' },
-          { libelle: 'Cumul des dépréciations — actif concerné', debit: '', credit: 'Montant' },
+          { libelle: 'Cumul des dépréciations - actif concerné', debit: '', credit: 'Montant' },
           { libelle: "Dépréciation de l'actif (VNC - Valeur recouvrable)", isHeader: true },
         ]} />
 
-        <h3 className="font-bold text-foreground mt-4 text-sm">1.2 Actif réévalué antérieurement — Imputation en cascade (§60)</h3>
+        <h3 className="font-bold text-foreground mt-4 text-sm">1.2 Actif réévalué antérieurement - Imputation en cascade (§60)</h3>
         <p>
-          Lorsque l'actif a fait l'objet d'une réévaluation antérieure avec constitution d'un écart de réévaluation (AERG — Autres Éléments du Résultat Global) en capitaux propres, la perte de valeur doit être imputée <strong>en priorité sur l'AERG</strong>, et seulement le solde éventuel est porté en résultat net.
+          Lorsque l'actif a fait l'objet d'une réévaluation antérieure avec constitution d'un écart de réévaluation (AERG - Autres Éléments du Résultat Global) en capitaux propres, la perte de valeur doit être imputée <strong>en priorité sur l'AERG</strong>, et seulement le solde éventuel est porté en résultat net.
         </p>
         <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-3 mt-2">
-          <p className="text-xs font-semibold text-sky-700 mb-1">Illustration — TRANSLOG SA</p>
+          <p className="text-xs font-semibold text-sky-700 mb-1">Illustration - TRANSLOG SA</p>
           <p className="text-xs text-foreground/80 mb-2">Perte de valeur totale : 20 000 · AERG disponible : 12 000 · Solde en résultat : 8 000</p>
         </div>
         <JournalTable rows={[
-          { libelle: "Étape 1 — Imputation sur l'AERG (capitaux propres)", isHeader: true },
-          { libelle: 'Autres éléments du résultat global — AERG', debit: '12 000', credit: '' },
-          { libelle: 'Cumul des dépréciations — actif', debit: '', credit: '12 000' },
-          { libelle: 'Étape 2 — Solde en résultat net', isHeader: true },
+          { libelle: "Étape 1 - Imputation sur l'AERG (capitaux propres)", isHeader: true },
+          { libelle: 'Autres éléments du résultat global - AERG', debit: '12 000', credit: '' },
+          { libelle: 'Cumul des dépréciations - actif', debit: '', credit: '12 000' },
+          { libelle: 'Étape 2 - Solde en résultat net', isHeader: true },
           { libelle: 'Charges de dépréciation (résultat net)', debit: '8 000', credit: '' },
-          { libelle: 'Cumul des dépréciations — actif (solde)', debit: '', credit: '8 000' },
+          { libelle: 'Cumul des dépréciations - actif (solde)', debit: '', credit: '8 000' },
         ]} />
         <div className="rounded-lg bg-white border border-sky-100 p-3 my-2">
           <BlockMath math={String.raw`\text{Perte totale} = \underbrace{12\,000}_{\text{AERG}} + \underbrace{8\,000}_{\text{Résultat net}} = 20\,000`} />
@@ -338,8 +338,8 @@ const LECONS: Lecon[] = [
           </div>
         </div>
         <JournalTable rows={[
-          { libelle: '31/12/N+k — Reprise de la perte de valeur', isHeader: true },
-          { libelle: 'Cumul des dépréciations — actif', debit: 'Montant repris', credit: '' },
+          { libelle: '31/12/N+k - Reprise de la perte de valeur', isHeader: true },
+          { libelle: 'Cumul des dépréciations - actif', debit: 'Montant repris', credit: '' },
           { libelle: 'Reprises de dépréciation (produit)', debit: '', credit: 'Montant repris' },
           { libelle: 'Reprise plafonnée à la VNC sans dépréciation passée', isHeader: true },
         ]} />
@@ -348,8 +348,8 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-red-200 bg-red-50/50 p-4">
           <p className="font-semibold text-red-700 text-sm mb-1">Interdiction formelle de reprise sur le goodwill</p>
           <p className="text-sm text-foreground/90 italic">"Une perte de valeur comptabilisée pour un goodwill ne doit pas être reprise lors d'une période ultérieure."</p>
-          <p className="text-xs text-muted-foreground mt-1">IAS 36 §124 — IFRS Foundation</p>
-          <p className="text-sm mt-2 text-foreground">Cette règle est absolue. Elle repose sur le principe qu'une augmentation de la valeur recouvrable de l'UGT après la perte ne correspond probablement pas à une reprise du goodwill acquis, mais plutôt à la génération d'un goodwill interne — non comptabilisable selon IAS 38 §48.</p>
+          <p className="text-xs text-muted-foreground mt-1">IAS 36 §124 - IFRS Foundation</p>
+          <p className="text-sm mt-2 text-foreground">Cette règle est absolue. Elle repose sur le principe qu'une augmentation de la valeur recouvrable de l'UGT après la perte ne correspond probablement pas à une reprise du goodwill acquis, mais plutôt à la génération d'un goodwill interne - non comptabilisable selon IAS 38 §48.</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">4. Impact sur l'amortissement futur (§63)</h3>
@@ -365,12 +365,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 4 — IAS 36 : UGT + Goodwill
+  // LECON 4 - IAS 36 : UGT + Goodwill
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l4',
     icone: <Layers className="h-5 w-5" />,
-    titre: "IAS 36 — Unités Génératrices de Trésorerie (UGT) et Goodwill",
+    titre: "IAS 36 - Unités Génératrices de Trésorerie (UGT) et Goodwill",
     badge: 'IAS 36 §65 à §108 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -379,7 +379,7 @@ const LECONS: Lecon[] = [
           Dans la majorité des cas, les actifs ne génèrent pas de flux de trésorerie indépendamment d'autres actifs. IAS 36 §65 prévoit que lorsqu'il n'est pas possible d'estimer la valeur recouvrable d'un actif individuel, l'entité doit identifier l'<strong>Unité Génératrice de Trésorerie</strong> à laquelle appartient l'actif.
         </p>
         <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 space-y-2">
-          <p className="font-semibold text-sky-700 text-sm">Définition légale — IAS 36 §6</p>
+          <p className="font-semibold text-sky-700 text-sm">Définition légale - IAS 36 §6</p>
           <p className="text-sm text-foreground/90 italic">"Une unité génératrice de trésorerie est le plus petit groupe identifiable d'actifs qui génère des entrées de trésorerie provenant d'une utilisation continue et qui sont largement indépendantes des entrées de trésorerie générées par d'autres actifs ou groupes d'actifs."</p>
           <p className="text-xs text-muted-foreground">IAS 36 §6</p>
         </div>
@@ -429,7 +429,7 @@ const LECONS: Lecon[] = [
           </div>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Illustration numérique — UGT avec goodwill</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration numérique - UGT avec goodwill</h3>
         <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
           <p className="text-xs font-semibold text-amber-800 mb-1">Données</p>
           <p className="text-xs text-amber-900">UGT Alpha : Actifs nets (machines + stocks + créances) VC = 900 000 · Goodwill affecté = 150 000 · VC UGT totale = 1 050 000 · Valeur recouvrable UGT = 850 000</p>
@@ -445,11 +445,11 @@ const LECONS: Lecon[] = [
         </div>
         <JournalTable rows={[
           { libelle: 'Dépréciation du goodwill UGT Alpha', isHeader: true },
-          { libelle: 'Charges de dépréciation — goodwill', debit: '150 000', credit: '' },
+          { libelle: 'Charges de dépréciation - goodwill', debit: '150 000', credit: '' },
           { libelle: 'Cumul dépréciations goodwill', debit: '', credit: '150 000' },
           { libelle: 'Dépréciation actifs résiduels (prorata VC)', isHeader: true },
-          { libelle: 'Charges de dépréciation — actifs UGT', debit: '50 000', credit: '' },
-          { libelle: 'Cumul dépréciations — actifs identifiables', debit: '', credit: '50 000' },
+          { libelle: 'Charges de dépréciation - actifs UGT', debit: '50 000', credit: '' },
+          { libelle: 'Cumul dépréciations - actifs identifiables', debit: '', credit: '50 000' },
         ]} />
       </div>
     ),
@@ -457,12 +457,12 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 5 — IAS 40 : Immeubles de placement
+  // LECON 5 - IAS 40 : Immeubles de placement
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l5',
     icone: <Building2 className="h-5 w-5" />,
-    titre: "IAS 40 — Immeubles de placement : modèle juste valeur vs modèle du coût",
+    titre: "IAS 40 - Immeubles de placement : modèle juste valeur vs modèle du coût",
     badge: 'IAS 40 §1 à §86 · IFRS Foundation',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -471,9 +471,9 @@ const LECONS: Lecon[] = [
           IAS 40 prescrit le traitement comptable des <strong>immeubles de placement</strong> et les informations à fournir les concernant. Un immeuble de placement est distinct des immobilisations corporelles utilisées dans le cadre de la production (IAS 16) et des stocks (IAS 2).
         </p>
         <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-4 space-y-2">
-          <p className="font-semibold text-sky-700 text-sm">Définition légale — IAS 40 §5</p>
-          <p className="text-sm text-foreground/90 italic">"Un immeuble de placement est un bien immobilier (terrain ou bâtiment — ou partie d'un bâtiment — ou les deux) détenu (par le propriétaire ou par le preneur dans le cadre d'un contrat de location) pour en retirer des loyers ou pour valoriser le capital ou les deux, plutôt que pour : (a) l'utiliser dans la production ou la fourniture de biens ou de services ou à des fins administratives ; ou (b) le vendre dans le cadre de l'activité ordinaire."</p>
-          <p className="text-xs text-muted-foreground">IAS 40 §5 — IFRS Foundation</p>
+          <p className="font-semibold text-sky-700 text-sm">Définition légale - IAS 40 §5</p>
+          <p className="text-sm text-foreground/90 italic">"Un immeuble de placement est un bien immobilier (terrain ou bâtiment - ou partie d'un bâtiment - ou les deux) détenu (par le propriétaire ou par le preneur dans le cadre d'un contrat de location) pour en retirer des loyers ou pour valoriser le capital ou les deux, plutôt que pour : (a) l'utiliser dans la production ou la fourniture de biens ou de services ou à des fins administratives ; ou (b) le vendre dans le cadre de l'activité ordinaire."</p>
+          <p className="text-xs text-muted-foreground">IAS 40 §5 - IFRS Foundation</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4 text-sm">Exemples d'immeubles de placement (§8)</h3>
@@ -487,7 +487,7 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4 text-sm">Exclusions (§9 et §10)</h3>
         <ul className="list-disc pl-5 space-y-1 text-sm">
-          <li>Les biens immobiliers détenus en vue de la vente dans le cadre de l'activité ordinaire (stocks — IAS 2)</li>
+          <li>Les biens immobiliers détenus en vue de la vente dans le cadre de l'activité ordinaire (stocks - IAS 2)</li>
           <li>Les biens immobiliers en cours de construction pour le compte de tiers (IFRS 15)</li>
           <li>Les biens immobiliers utilisés par le propriétaire pour sa propre production ou ses propres services administratifs (IAS 16)</li>
         </ul>
@@ -509,13 +509,13 @@ const LECONS: Lecon[] = [
           <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-4 space-y-2">
             <p className="font-bold text-sky-700 text-sm">Modèle de la juste valeur (§33 à §55)</p>
             <ul className="list-disc pl-4 space-y-1 text-xs text-foreground/80">
-              <li><strong>Aucun amortissement</strong> — l'immeuble n'est pas amorti</li>
+              <li><strong>Aucun amortissement</strong> - l'immeuble n'est pas amorti</li>
               <li>Réévaluation à chaque clôture à la juste valeur</li>
               <li>Toute variation de juste valeur (gain ou perte) est comptabilisée en <strong>résultat net</strong> de la période</li>
               <li>Aucun test IAS 36 n'est nécessaire</li>
               <li>La juste valeur doit refléter le prix de marché à la date de clôture</li>
             </ul>
-            <p className="text-xs text-muted-foreground">IAS 40 §35 — juste valeur reflète les conditions du marché à la date de clôture</p>
+            <p className="text-xs text-muted-foreground">IAS 40 §35 - juste valeur reflète les conditions du marché à la date de clôture</p>
           </div>
           <div className="rounded-xl border border-border bg-muted/20 p-4 space-y-2">
             <p className="font-bold text-foreground text-sm">Modèle du coût (§56)</p>
@@ -525,27 +525,27 @@ const LECONS: Lecon[] = [
               <li>La juste valeur doit être indiquée en <strong>annexe</strong> (information à fournir)</li>
               <li>Variation de juste valeur non comptabilisée au bilan ni au résultat</li>
             </ul>
-            <p className="text-xs text-muted-foreground">IAS 40 §56 — même traitement qu'IAS 16 modèle du coût</p>
+            <p className="text-xs text-muted-foreground">IAS 40 §56 - même traitement qu'IAS 16 modèle du coût</p>
           </div>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4 text-sm">3.1 Écriture comptable — Modèle juste valeur (gain)</h3>
+        <h3 className="font-bold text-foreground mt-4 text-sm">3.1 Écriture comptable - Modèle juste valeur (gain)</h3>
         <JournalTable rows={[
-          { libelle: '31/12/N — Hausse de juste valeur', isHeader: true },
+          { libelle: '31/12/N - Hausse de juste valeur', isHeader: true },
           { libelle: 'Immeuble de placement (hausse JV)', debit: 'Variation +', credit: '' },
           { libelle: 'Gains sur variation de juste valeur (résultat)', debit: '', credit: 'Variation +' },
           { libelle: 'Comptabilisation du gain en résultat net (IAS 40 §35)', isHeader: true },
         ]} />
 
-        <h3 className="font-bold text-foreground mt-4 text-sm">3.2 Écriture comptable — Modèle juste valeur (perte)</h3>
+        <h3 className="font-bold text-foreground mt-4 text-sm">3.2 Écriture comptable - Modèle juste valeur (perte)</h3>
         <JournalTable rows={[
-          { libelle: '31/12/N — Baisse de juste valeur', isHeader: true },
+          { libelle: '31/12/N - Baisse de juste valeur', isHeader: true },
           { libelle: 'Pertes sur variation de juste valeur (résultat)', debit: 'Variation -', credit: '' },
           { libelle: 'Immeuble de placement (baisse JV)', debit: '', credit: 'Variation -' },
           { libelle: 'Comptabilisation de la perte en résultat net (IAS 40 §35)', isHeader: true },
         ]} />
 
-        <h3 className="font-bold text-foreground mt-4">Illustration — IMMO PLUS SA</h3>
+        <h3 className="font-bold text-foreground mt-4">Illustration - IMMO PLUS SA</h3>
         <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3">
           <p className="text-xs font-semibold text-amber-800 mb-1">Données</p>
           <p className="text-xs text-amber-900">Coût d'acquisition N-1 : 5 000 000 · Juste valeur N : 4 300 000 · Durée d'amortissement (si modèle coût) : 40 ans · Amortissement annuel : 125 000</p>
@@ -556,26 +556,26 @@ const LECONS: Lecon[] = [
           <BlockMath math={String.raw`\text{Variation JV} = 4\,300\,000 - 5\,000\,000 = (700\,000)`} />
         </div>
         <JournalTable rows={[
-          { libelle: '31/12/N — Modèle juste valeur', isHeader: true },
+          { libelle: '31/12/N - Modèle juste valeur', isHeader: true },
           { libelle: 'Pertes sur variation de juste valeur', debit: '700 000', credit: '' },
           { libelle: 'Immeuble de placement', debit: '', credit: '700 000' },
         ]} />
 
-        <p className="text-xs font-semibold text-foreground mt-2">Modèle du coût — Amortissement :</p>
+        <p className="text-xs font-semibold text-foreground mt-2">Modèle du coût - Amortissement :</p>
         <div className="rounded-lg bg-white border border-sky-100 p-3 my-1">
           <BlockMath math={String.raw`\text{Amortissement annuel} = \dfrac{5\,000\,000}{40} = 125\,000`} />
         </div>
         <JournalTable rows={[
-          { libelle: '31/12/N — Modèle du coût', isHeader: true },
-          { libelle: "Dotation aux amortissements — Immeuble", debit: '125 000', credit: '' },
-          { libelle: "Amortissements cumulés — Immeuble", debit: '', credit: '125 000' },
+          { libelle: '31/12/N - Modèle du coût', isHeader: true },
+          { libelle: "Dotation aux amortissements - Immeuble", debit: '125 000', credit: '' },
+          { libelle: "Amortissements cumulés - Immeuble", debit: '', credit: '125 000' },
           { libelle: 'Test IAS 36 : VNC = 4 875 000 < VR = 4 300 000 (JV) : à vérifier', isHeader: true },
         ]} />
         <div className="rounded-lg bg-white border border-sky-100 p-3 my-1">
           <BlockMath math={String.raw`VNC = 5\,000\,000 - 125\,000 = 4\,875\,000`} />
         </div>
         <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
-          <p className="text-xs text-sky-800"><strong>Analyse comparée :</strong> Avec le modèle juste valeur, la perte de 700 000 est comptabilisée immédiatement en résultat. Avec le modèle du coût, seul l'amortissement de 125 000 est comptabilisé. Un test IAS 36 est requis car la VNC (4 875 000) est supérieure à la JV (4 300 000) — une dépréciation supplémentaire de 575 000 pourrait être nécessaire si la valeur recouvrable confirme cette infériorité.</p>
+          <p className="text-xs text-sky-800"><strong>Analyse comparée :</strong> Avec le modèle juste valeur, la perte de 700 000 est comptabilisée immédiatement en résultat. Avec le modèle du coût, seul l'amortissement de 125 000 est comptabilisé. Un test IAS 36 est requis car la VNC (4 875 000) est supérieure à la JV (4 300 000) - une dépréciation supplémentaire de 575 000 pourrait être nécessaire si la valeur recouvrable confirme cette infériorité.</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">4. Transferts (§57 à §65)</h3>
@@ -595,7 +595,7 @@ const LECONS: Lecon[] = [
 ]
 
 // ─────────────────────────────────────────────────────────────────
-// QCM — 15 questions (5 faciles, 5 moyens, 5 difficiles/pièges)
+// QCM - 15 questions (5 faciles, 5 moyens, 5 difficiles/pièges)
 // ─────────────────────────────────────────────────────────────────
 const QUESTIONS_QCM: QCMQuestion[] = [
   // ─── FACILES ───
@@ -611,7 +611,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 36 §18 définit la valeur recouvrable comme le montant le plus élevé entre la juste valeur nette des coûts de sortie (JVN) et la valeur d'utilité (VU). On retient le maximum car l'entité choisira l'option la plus avantageuse entre vendre et continuer à utiliser l'actif.",
-    articleRef: 'IAS 36 §18 — IFRS Foundation'
+    articleRef: 'IAS 36 §18 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q2',
@@ -625,7 +625,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 36 §10 impose un test annuel obligatoire pour trois catégories : (1) le goodwill issu de regroupements d'entreprises, (2) les immobilisations incorporelles à durée d'utilité indéterminée, et (3) les immobilisations incorporelles non encore disponibles à l'utilisation. Pour tous les autres actifs, le test n'est déclenché qu'en présence d'indices.",
-    articleRef: 'IAS 36 §10 — IFRS Foundation'
+    articleRef: 'IAS 36 §10 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q3',
@@ -639,7 +639,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 40 §5 définit un immeuble de placement comme un bien immobilier détenu pour en retirer des loyers, ou pour valoriser le capital, ou les deux. L'élément distinctif est l'absence d'utilisation pour la production propre ou la vente dans le cours normal des affaires.",
-    articleRef: 'IAS 40 §5 — IFRS Foundation'
+    articleRef: 'IAS 40 §5 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q4',
@@ -653,7 +653,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 36 §60 est explicite : pour un actif évalué selon le modèle du coût, la perte de valeur est immédiatement comptabilisée en résultat net de la période. Elle constitue une charge qui réduit le résultat de l'exercice.",
-    articleRef: 'IAS 36 §60 — IFRS Foundation'
+    articleRef: 'IAS 36 §60 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q5',
@@ -667,7 +667,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 40 §35 dispose que le gain ou la perte résultant d'une variation de la juste valeur d'un immeuble de placement est comptabilisé en résultat net de la période. Contrairement au modèle de réévaluation d'IAS 16, il n'y a pas d'OCI pour les immeubles de placement.",
-    articleRef: 'IAS 40 §35 — IFRS Foundation'
+    articleRef: 'IAS 40 §35 - IFRS Foundation'
   },
 
   // ─── MOYENS ───
@@ -683,7 +683,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 36 §6 définit l'UGT comme le plus petit groupe identifiable d'actifs qui génère des entrées de trésorerie provenant d'une utilisation continue et qui sont largement indépendantes des entrées générées par d'autres actifs ou groupes. Le critère d'indépendance des flux est fondamental.",
-    articleRef: 'IAS 36 §6 — IFRS Foundation'
+    articleRef: 'IAS 36 §6 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q7',
@@ -696,8 +696,8 @@ const QUESTIONS_QCM: QCMQuestion[] = [
       { id: 'e', texte: 'La valeur recouvrable calculée à la date de reprise, majorée de 10 %' },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 36 §117 est précis : la valeur comptable après reprise ne peut pas dépasser la valeur comptable qui aurait été déterminée — nette des amortissements calculés normalement — si aucune perte de valeur n'avait été comptabilisée. Ce plafond empêche que la reprise crée artificiellement une valeur supérieure à celle sans dépréciation.",
-    articleRef: 'IAS 36 §117 — IFRS Foundation'
+    explication: "IAS 36 §117 est précis : la valeur comptable après reprise ne peut pas dépasser la valeur comptable qui aurait été déterminée - nette des amortissements calculés normalement - si aucune perte de valeur n'avait été comptabilisée. Ce plafond empêche que la reprise crée artificiellement une valeur supérieure à celle sans dépréciation.",
+    articleRef: 'IAS 36 §117 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q8',
@@ -710,8 +710,8 @@ const QUESTIONS_QCM: QCMQuestion[] = [
       { id: 'e', texte: "Uniformément sur tous les actifs sans distinction, y compris le goodwill" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 36 §104 prescrit une cascade précise : la perte est d'abord imputée sur le goodwill affecté à l'UGT (jusqu'à son épuisement), puis le solde est réparti pro rata de la valeur comptable de chaque actif identifiable — sans que cela n'entraîne un actif sous son maximum entre JVN, VU individuelle et zéro.",
-    articleRef: 'IAS 36 §104 — IFRS Foundation'
+    explication: "IAS 36 §104 prescrit une cascade précise : la perte est d'abord imputée sur le goodwill affecté à l'UGT (jusqu'à son épuisement), puis le solde est réparti pro rata de la valeur comptable de chaque actif identifiable - sans que cela n'entraîne un actif sous son maximum entre JVN, VU individuelle et zéro.",
+    articleRef: 'IAS 36 §104 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q9',
@@ -725,7 +725,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 36 §50 exclut de la valeur d'utilité les flux liés aux restructurations futures pour lesquelles l'entité n'est pas encore engagée, et les flux liés aux investissements futurs qui amélioreraient ou accroîtraient la performance de l'actif au-delà de son niveau de performance initialement prévu. La VU est basée sur l'actif dans son état actuel.",
-    articleRef: 'IAS 36 §50 — IFRS Foundation'
+    articleRef: 'IAS 36 §50 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q10',
@@ -739,7 +739,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "IAS 40 §56 dispose que les entités appliquant le modèle du coût doivent néanmoins indiquer la juste valeur de leurs immeubles de placement en annexe. La juste valeur, bien que non comptabilisée au bilan, reste une information obligatoire pour les utilisateurs des états financiers.",
-    articleRef: 'IAS 40 §56 — IFRS Foundation'
+    articleRef: 'IAS 40 §56 - IFRS Foundation'
   },
 
   // ─── DIFFICILES / PIÈGES ───
@@ -755,7 +755,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "C'est le piège classique d'IAS 36. La valeur recouvrable est le MAX(JVN ; VU) = MAX(680 000 ; 760 000) = 760 000. Puisque VNC (700 000) < VR (760 000), aucune dépréciation n'est requise. La juste valeur seule ne suffit pas à déclencher une dépréciation si la valeur d'utilité est plus élevée.",
-    articleRef: 'IAS 36 §18 — IFRS Foundation'
+    articleRef: 'IAS 36 §18 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q12',
@@ -765,11 +765,11 @@ const QUESTIONS_QCM: QCMQuestion[] = [
       { id: 'b', texte: '30 000 en OCI (débit AERG) et 15 000 en résultat net' },
       { id: 'c', texte: '45 000 en OCI, l\'AERG est toujours suffisant dans ce cas' },
       { id: 'd', texte: '15 000 en résultat net et 30 000 reportés à la prochaine clôture' },
-      { id: 'e', texte: '30 000 en résultat net et 15 000 en OCI — ordre inverse de la règle' },
+      { id: 'e', texte: '30 000 en résultat net et 15 000 en OCI - ordre inverse de la règle' },
     ],
     reponseCorrecte: 'b',
     explication: "IAS 36 §60 impose une cascade : la perte est imputée en priorité sur l'AERG existant (30 000), puis le solde (45 000 - 30 000 = 15 000) est comptabilisé en résultat net. L'AERG est entièrement consommé et il ne reste aucun solde reportable.",
-    articleRef: 'IAS 36 §60 — IFRS Foundation'
+    articleRef: 'IAS 36 §60 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q13',
@@ -783,7 +783,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "IAS 36 §124 édicte une interdiction absolue et sans exception : une perte de valeur comptabilisée pour un goodwill ne doit pas être reprise lors d'une période ultérieure. Le fondement est qu'une hausse de la VR de l'UGT reflète probablement la génération d'un goodwill interne, non comptabilisable selon IAS 38 §48.",
-    articleRef: 'IAS 36 §124 — IFRS Foundation'
+    articleRef: 'IAS 36 §124 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q14',
@@ -797,7 +797,7 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'b',
     explication: "Avec le modèle juste valeur d'IAS 40 : aucun amortissement, et toute variation est en résultat. La baisse est de 5 000 000 - 4 300 000 = 700 000. L'écriture est : Débit Pertes sur variation de JV 700 000 / Crédit Immeuble de placement 700 000. Ce n'est pas de l'OCI (AERG), mais bien du résultat net.",
-    articleRef: 'IAS 40 §35 — IFRS Foundation'
+    articleRef: 'IAS 40 §35 - IFRS Foundation'
   },
   {
     type: 'qcm', id: 'q15',
@@ -810,8 +810,8 @@ const QUESTIONS_QCM: QCMQuestion[] = [
       { id: 'e', texte: 'Le CMPC après impôt de l\'entité, sans ajustement de risque spécifique à l\'actif' },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 36 §55 est précis : le taux d'actualisation est un taux avant impôt qui reflète (i) les appréciations actuelles du marché pour la valeur temps de l'argent, et (ii) les risques spécifiques à l'actif non reflétés dans les flux de trésorerie. Le point piège est 'avant impôt' — de nombreux praticiens utilisent un CMPC après impôt, ce qui n'est pas conforme.",
-    articleRef: 'IAS 36 §55 — IFRS Foundation'
+    explication: "IAS 36 §55 est précis : le taux d'actualisation est un taux avant impôt qui reflète (i) les appréciations actuelles du marché pour la valeur temps de l'argent, et (ii) les risques spécifiques à l'actif non reflétés dans les flux de trésorerie. Le point piège est 'avant impôt' - de nombreux praticiens utilisent un CMPC après impôt, ce qui n'est pas conforme.",
+    articleRef: 'IAS 36 §55 - IFRS Foundation'
   },
 ]
 
@@ -826,7 +826,7 @@ interface EtudeDeCasIAS {
 
 const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
   {
-    titre: 'Cas 1 — PHARMA CENTRAL SA : Test de dépréciation et valeur recouvrable',
+    titre: 'Cas 1 - PHARMA CENTRAL SA : Test de dépréciation et valeur recouvrable',
     contexte: "PHARMA CENTRAL SA est une société pharmaceutique qui exploite une ligne de production de médicaments génériques. Au 31/12/N, en raison d'une modification réglementaire interdisant la commercialisation d'un principe actif clé, la direction identifie un indice externe de perte de valeur sur cette ligne. Valeur comptable nette de la ligne : 2 800 000. Offre ferme de rachat reçue d'un concurrent : 2 600 000 (coûts de cession estimés : 40 000). Valeur d'utilité calculée par la direction sur la base de flux actualisés sur 6 ans : 2 900 000.",
     questions: [
       {
@@ -837,17 +837,17 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
       {
         num: 2,
         énoncé: "Supposons que la valeur d'utilité recalculée soit de 2 500 000 (et non 2 900 000). Quelle est la perte de valeur à comptabiliser ? Présentez l'écriture comptable.",
-        correction: "VR = MAX(2 560 000 ; 2 500 000) = 2 560 000. Perte de valeur = VNC (2 800 000) - VR (2 560 000) = 240 000. Écriture : Débit Charges de dépréciation 240 000 / Crédit Cumul des dépréciations — ligne de production 240 000. La dotation aux amortissements des exercices futurs sera recalculée sur la nouvelle VNC de 2 560 000, répartie sur la durée d'utilité restante (IAS 36 §63)."
+        correction: "VR = MAX(2 560 000 ; 2 500 000) = 2 560 000. Perte de valeur = VNC (2 800 000) - VR (2 560 000) = 240 000. Écriture : Débit Charges de dépréciation 240 000 / Crédit Cumul des dépréciations - ligne de production 240 000. La dotation aux amortissements des exercices futurs sera recalculée sur la nouvelle VNC de 2 560 000, répartie sur la durée d'utilité restante (IAS 36 §63)."
       },
       {
         num: 3,
         énoncé: "En N+2, la réglementation est assouplie et la valeur recouvrable de la ligne remonte à 2 650 000. La VNC sans la dépréciation passée aurait été de 2 400 000 (après amortissements normaux sur 2 ans). Expliquez le traitement de la reprise en application d'IAS 36 §117.",
-        correction: "La reprise est plafonnée par IAS 36 §117 à la VNC qui aurait existé sans la perte initiale, soit 2 400 000. La VNC actuelle après amortissement post-dépréciation doit être calculée et comparée à ce plafond. La reprise maximale autorisée est limitée à ce plafond — il est impossible de remonter au-delà. Si la VNC actuelle est inférieure à 2 400 000, la reprise est la différence entre 2 400 000 et la VNC actuelle. Écriture de reprise : Débit Cumul des dépréciations / Crédit Reprises de dépréciation (produit en résultat net)."
+        correction: "La reprise est plafonnée par IAS 36 §117 à la VNC qui aurait existé sans la perte initiale, soit 2 400 000. La VNC actuelle après amortissement post-dépréciation doit être calculée et comparée à ce plafond. La reprise maximale autorisée est limitée à ce plafond - il est impossible de remonter au-delà. Si la VNC actuelle est inférieure à 2 400 000, la reprise est la différence entre 2 400 000 et la VNC actuelle. Écriture de reprise : Débit Cumul des dépréciations / Crédit Reprises de dépréciation (produit en résultat net)."
       },
       {
         num: 4,
         énoncé: "Quelle est la règle applicable si la ligne de production avait fait l'objet d'une réévaluation en N-1 avec constitution d'un AERG de 180 000, et que la perte de valeur à comptabiliser en N est de 240 000 ?",
-        correction: "En application d'IAS 36 §60, la perte de 240 000 doit être imputée en priorité sur l'AERG existant (180 000). Le solde (240 000 - 180 000 = 60 000) est comptabilisé en résultat net. Écritures : (1) Débit AERG 180 000 / Crédit Cumul des dépréciations 180 000 — imputation sur OCI ; (2) Débit Charges de dépréciation 60 000 / Crédit Cumul des dépréciations 60 000 — solde en résultat net."
+        correction: "En application d'IAS 36 §60, la perte de 240 000 doit être imputée en priorité sur l'AERG existant (180 000). Le solde (240 000 - 180 000 = 60 000) est comptabilisé en résultat net. Écritures : (1) Débit AERG 180 000 / Crédit Cumul des dépréciations 180 000 - imputation sur OCI ; (2) Débit Charges de dépréciation 60 000 / Crédit Cumul des dépréciations 60 000 - solde en résultat net."
       },
       {
         num: 5,
@@ -857,7 +857,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: 'Cas 2 — METALCO SA : UGT avec goodwill et cascade de dépréciation',
+    titre: 'Cas 2 - METALCO SA : UGT avec goodwill et cascade de dépréciation',
     contexte: "METALCO SA a acquis en N-2 une division de métallurgie. Cette acquisition a généré un goodwill de 320 000, entièrement affecté à l'UGT Division Métal. Au 31/12/N, en raison d'une chute durable des prix du métal, la direction constate des indices de dépréciation. Composition de l'UGT : Machines (VC = 500 000), Brevets (VC = 200 000), Stocks (VC = 80 000), Créances commerciales (VC = 120 000). Goodwill affecté : 320 000. Total VC UGT : 1 220 000. Valeur recouvrable de l'UGT estimée : 850 000.",
     questions: [
       {
@@ -873,7 +873,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
       {
         num: 3,
         énoncé: "Répartissez le solde de 50 000 entre les Machines (VC 500 000), Brevets (VC 200 000), Stocks (VC 80 000) et Créances commerciales (VC 120 000). Notez que les stocks et créances sont exclus du champ d'IAS 36.",
-        correction: "Les stocks et créances commerciales sont exclus du champ d'IAS 36 (§2) — ils ne peuvent pas absorber la perte IAS 36. Seuls les actifs dans le champ d'IAS 36 absorbent : Machines (500 000) + Brevets (200 000) = 700 000. Répartition prorata : Machines = 50 000 × (500 000 / 700 000) = 35 714. Brevets = 50 000 × (200 000 / 700 000) = 14 286. Écriture : Débit Charges dépréciations goodwill 320 000 / Crédit Cumul dépréciations goodwill 320 000 ; Débit Charges dépréciations machines 35 714 / Crédit Cumul dépréciations machines 35 714 ; Débit Charges dépréciations brevets 14 286 / Crédit Cumul dépréciations brevets 14 286."
+        correction: "Les stocks et créances commerciales sont exclus du champ d'IAS 36 (§2) - ils ne peuvent pas absorber la perte IAS 36. Seuls les actifs dans le champ d'IAS 36 absorbent : Machines (500 000) + Brevets (200 000) = 700 000. Répartition prorata : Machines = 50 000 × (500 000 / 700 000) = 35 714. Brevets = 50 000 × (200 000 / 700 000) = 14 286. Écriture : Débit Charges dépréciations goodwill 320 000 / Crédit Cumul dépréciations goodwill 320 000 ; Débit Charges dépréciations machines 35 714 / Crédit Cumul dépréciations machines 35 714 ; Débit Charges dépréciations brevets 14 286 / Crédit Cumul dépréciations brevets 14 286."
       },
       {
         num: 4,
@@ -888,7 +888,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: 'Cas 3 — IMMO INVEST SA : Choix du modèle IAS 40 et impact sur les états financiers',
+    titre: 'Cas 3 - IMMO INVEST SA : Choix du modèle IAS 40 et impact sur les états financiers',
     contexte: "IMMO INVEST SA a acquis un immeuble de bureaux le 01/01/N pour 8 000 000. L'immeuble est loué à des tiers dans le cadre de baux commerciaux. La société hésite entre le modèle de la juste valeur et le modèle du coût (durée d'utilité : 40 ans, valeur résiduelle : 400 000). Au 31/12/N, un expert indépendant évalue la juste valeur de l'immeuble à 8 500 000.",
     questions: [
       {
@@ -919,7 +919,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
     ]
   },
   {
-    titre: 'Cas 4 — TRANSLOG AFRICA SA : Dépréciation d\'un actif réévalué et imputation en cascade',
+    titre: 'Cas 4 - TRANSLOG AFRICA SA : Dépréciation d\'un actif réévalué et imputation en cascade',
     contexte: "TRANSLOG AFRICA SA exploite une flotte de camions lourds. En N-2, la flotte a été réévaluée selon IAS 16, générant un AERG de 95 000 en capitaux propres. Au 31/12/N, en raison d'une dégradation des routes et d'une chute du trafic de marchandises, la direction identifie des indices internes et externes de perte de valeur. Valeur comptable nette de la flotte : 850 000. Juste valeur nette des coûts de sortie : 760 000. Valeur d'utilité calculée : 720 000.",
     questions: [
       {
@@ -940,23 +940,23 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
       {
         num: 4,
         énoncé: "Analysez le critère 'indice interne' retenu par la direction (dégradation des routes, chute du trafic) à la lumière d'IAS 36 §12. Ces éléments constituent-ils des indices valides ?",
-        correction: "Oui, ces éléments constituent des indices valides selon IAS 36 §12. La 'dégradation des routes' relève d'un changement important dans l'environnement d'utilisation de l'actif (§12b — dégradation physique de l'actif ou de son environnement). La 'chute du trafic de marchandises' correspond à des performances économiques inférieures aux prévisions initiales (§12b). Ces deux indices internes suffisent à obliger l'entité à estimer la valeur recouvrable."
+        correction: "Oui, ces éléments constituent des indices valides selon IAS 36 §12. La 'dégradation des routes' relève d'un changement important dans l'environnement d'utilisation de l'actif (§12b - dégradation physique de l'actif ou de son environnement). La 'chute du trafic de marchandises' correspond à des performances économiques inférieures aux prévisions initiales (§12b). Ces deux indices internes suffisent à obliger l'entité à estimer la valeur recouvrable."
       },
       {
         num: 5,
         énoncé: "Discutez des implications de ce traitement sur la présentation des états financiers de TRANSLOG AFRICA SA, notamment sur les autres éléments du résultat global (OCI) et le résultat net.",
-        correction: "Avec la perte de 90 000 entièrement absorbée par l'AERG (OCI) : le résultat net n'est pas affecté — la perte n'apparaît pas en compte de résultat mais dans les 'autres éléments du résultat global'. Les capitaux propres diminuent de 90 000 (réduction de l'AERG). Pour les utilisateurs, cette présentation peut masquer la réalité économique de la perte si l'on ne consulte pas le résultat global complet. IAS 1 §81A impose la présentation d'un état du résultat global comprenant à la fois le résultat net et les OCI, ce qui assure la transparence. Les analystes financiers doivent donc examiner le résultat global (et non uniquement le résultat net) pour évaluer la performance réelle."
+        correction: "Avec la perte de 90 000 entièrement absorbée par l'AERG (OCI) : le résultat net n'est pas affecté - la perte n'apparaît pas en compte de résultat mais dans les 'autres éléments du résultat global'. Les capitaux propres diminuent de 90 000 (réduction de l'AERG). Pour les utilisateurs, cette présentation peut masquer la réalité économique de la perte si l'on ne consulte pas le résultat global complet. IAS 1 §81A impose la présentation d'un état du résultat global comprenant à la fois le résultat net et les OCI, ce qui assure la transparence. Les analystes financiers doivent donc examiner le résultat global (et non uniquement le résultat net) pour évaluer la performance réelle."
       }
     ]
   },
   {
-    titre: 'Cas 5 — TECHNO INNOVATE SA : Test annuel obligatoire sur goodwill et immobilisations incorporelles à durée indéterminée',
+    titre: 'Cas 5 - TECHNO INNOVATE SA : Test annuel obligatoire sur goodwill et immobilisations incorporelles à durée indéterminée',
     contexte: "TECHNO INNOVATE SA a réalisé en N-3 l'acquisition de la société DIGITAL HUB pour 12 000 000. Cette acquisition a généré un goodwill de 2 500 000, affecté à l'UGT 'Solutions Numériques'. La société détient également une marque commerciale de durée indéterminée (VC = 800 000) et un brevet en cours de développement non encore en service (VC = 350 000). Au 31/12/N, la direction réalise son test annuel. L'UGT 'Solutions Numériques' a une VC totale de 9 800 000 (goodwill inclus) et une VR estimée de 10 200 000.",
     questions: [
       {
         num: 1,
         énoncé: "Justifiez pourquoi TECHNO INNOVATE SA est obligée de réaliser un test annuel sur le goodwill, la marque et le brevet, même en l'absence de tout indice de perte de valeur. Citez les dispositions normatives précises.",
-        correction: "IAS 36 §10 impose un test annuel obligatoire, indépendamment de tout indice, pour trois catégories : (a) le goodwill issu d'un regroupement d'entreprises (TECHNO a acquis DIGITAL HUB — le goodwill de 2 500 000 est concerné) ; (b) les immobilisations incorporelles à durée d'utilité indéterminée (la marque commerciale de durée indéterminée — VC 800 000 — est visée) ; (c) les immobilisations incorporelles pas encore disponibles à l'utilisation (le brevet en cours de développement — VC 350 000). Les trois actifs déclenchent donc le test annuel obligatoire."
+        correction: "IAS 36 §10 impose un test annuel obligatoire, indépendamment de tout indice, pour trois catégories : (a) le goodwill issu d'un regroupement d'entreprises (TECHNO a acquis DIGITAL HUB - le goodwill de 2 500 000 est concerné) ; (b) les immobilisations incorporelles à durée d'utilité indéterminée (la marque commerciale de durée indéterminée - VC 800 000 - est visée) ; (c) les immobilisations incorporelles pas encore disponibles à l'utilisation (le brevet en cours de développement - VC 350 000). Les trois actifs déclenchent donc le test annuel obligatoire."
       },
       {
         num: 2,
@@ -966,7 +966,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
       {
         num: 3,
         énoncé: "Supposez que la VR de l'UGT soit de 8 900 000 (au lieu de 10 200 000). Calculez et imputez la perte selon IAS 36 §104.",
-        correction: "Perte = 9 800 000 - 8 900 000 = 900 000. Cascade IAS 36 §104 : Étape 1 — Goodwill : 900 000 imputés sur le goodwill de 2 500 000, ramené à 1 600 000. La perte est entièrement absorbée par le goodwill. Aucune perte sur les actifs identifiables. Écriture : Débit Charges dépréciations goodwill 900 000 / Crédit Cumul dépréciations goodwill 900 000."
+        correction: "Perte = 9 800 000 - 8 900 000 = 900 000. Cascade IAS 36 §104 : Étape 1 - Goodwill : 900 000 imputés sur le goodwill de 2 500 000, ramené à 1 600 000. La perte est entièrement absorbée par le goodwill. Aucune perte sur les actifs identifiables. Écriture : Débit Charges dépréciations goodwill 900 000 / Crédit Cumul dépréciations goodwill 900 000."
       },
       {
         num: 4,
@@ -976,7 +976,7 @@ const ETUDES_DE_CAS: EtudeDeCasIAS[] = [
       {
         num: 5,
         énoncé: "Réfléchissez à la cohérence entre l'obligation de test annuel du goodwill (IAS 36 §10) et l'interdiction d'amortissement du goodwill (IFRS 3 §B63). En quoi ce dispositif normatif constitue-t-il un équilibre entre prudence et fidélité ?",
-        correction: "IFRS 3 §B63 interdit l'amortissement systématique du goodwill, contrairement à l'ancienne pratique SYSCOHADA. Cette interdiction repose sur l'idée que le goodwill représente des avantages économiques indéfinis, non consommés linéairement. En contrepartie, IAS 36 §10 impose un test annuel obligatoire pour vérifier que la valeur comptable du goodwill ne dépasse pas sa valeur recouvrable. L'équilibre est le suivant : pas d'amortissement automatique (prudence évitée — pas de charge arbitraire), mais test rigoureux annuel (fidélité — détection immédiate de la perte réelle). Ce système est plus contraignant opérationnellement mais plus fidèle à la réalité économique : une dépréciation constatée reflète une perte réelle d'avantages économiques, non une simple convention comptable."
+        correction: "IFRS 3 §B63 interdit l'amortissement systématique du goodwill, contrairement à l'ancienne pratique SYSCOHADA. Cette interdiction repose sur l'idée que le goodwill représente des avantages économiques indéfinis, non consommés linéairement. En contrepartie, IAS 36 §10 impose un test annuel obligatoire pour vérifier que la valeur comptable du goodwill ne dépasse pas sa valeur recouvrable. L'équilibre est le suivant : pas d'amortissement automatique (prudence évitée - pas de charge arbitraire), mais test rigoureux annuel (fidélité - détection immédiate de la perte réelle). Ce système est plus contraignant opérationnellement mais plus fidèle à la réalité économique : une dépréciation constatée reflète une perte réelle d'avantages économiques, non une simple convention comptable."
       }
     ]
   }
@@ -1093,7 +1093,7 @@ export default function UE13Chapitre3Page() {
         />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">IAS 36 Dépréciation d'actifs et IAS 40 Immeubles de placement</h1>
-          <InfoTooltip texte="IAS 36 : dépréciation d'actifs — test de valeur recouvrable, UGT, goodwill. IAS 40 : immeubles de placement — modèle juste valeur vs modèle du coût. Normes IFRS Foundation." loi="IAS 36 §1 · IAS 40 §1 — IFRS Foundation" />
+          <InfoTooltip texte="IAS 36 : dépréciation d'actifs - test de valeur recouvrable, UGT, goodwill. IAS 40 : immeubles de placement - modèle juste valeur vs modèle du coût. Normes IFRS Foundation." loi="IAS 36 §1 · IAS 40 §1 - IFRS Foundation" />
         </div>
         <p className="text-xs text-muted-foreground">IAS 36 · IAS 40 · Valeur recouvrable · UGT · Goodwill · Juste valeur</p>
       </div>

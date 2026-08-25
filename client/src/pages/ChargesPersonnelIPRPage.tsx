@@ -34,7 +34,7 @@ interface LigneBareme {
   impot: number
 }
 
-// N'applique QUE le barème progressif — ni la réduction pour charges de famille (Art. 123-125),
+// N'applique QUE le barème progressif - ni la réduction pour charges de famille (Art. 123-125),
 // ni le plafond (Art. 118 in fine). Ordre de liquidation correct : barème → réduction → plafond
 // → arrondi. Le plafond est appliqué par l'appelant, APRÈS réduction (voir appliquerReductionEtPlafond).
 function calculerBareme(revenuNetImposable: number): {
@@ -779,7 +779,7 @@ export default function ChargesPersonnelIPRPage() {
                 loi="Art. 145-148 Loi n°23/053 du 30/11/2023"
               />
             </p>
-            <p className="text-xs text-muted-foreground mt-0.5">Taux IERE : 25% du brut 662 — charge exclusive de l'employeur (Art. 148 Loi 23/053)</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Taux IERE : 25% du brut 662 - charge exclusive de l'employeur (Art. 148 Loi 23/053)</p>
           </div>
         </>
       ) : null}

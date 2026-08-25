@@ -43,7 +43,7 @@ const LECONS: Lecon[] = [
     id: 'l1',
     icone: <ChevronRight className="h-5 w-5 text-violet-600" />,
     titre: 'Les 4 phases de la chaîne de la dépense (Art. 90 LOFIP)',
-    soustitre: 'Engagement, Liquidation, Ordonnancement, Paiement — définitions légales',
+    soustitre: 'Engagement, Liquidation, Ordonnancement, Paiement - définitions légales',
     qcms: [
       {
         type: 'qcm', id: 'l1q1',
@@ -77,7 +77,7 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 90 LOFIP — Définition légale</p>
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 90 LOFIP - Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « En matière de dépenses, l\'engagement est l\'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge. La liquidation a pour objet de vérifier la réalité de la dette et d\'arrêter le montant exact de la dépense. L\'ordonnancement est l\'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l\'ordre est donné au caissier concerné de payer la dette du pouvoir central. Le paiement est l\'acte par lequel le pouvoir central se libère de sa dette. »
           </p>
@@ -105,7 +105,7 @@ const LECONS: Lecon[] = [
           ))}
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Phase 1 — L\'engagement (Art. 90 al. 1)</h3>
+        <h3 className="font-bold text-foreground mt-4">Phase 1 - L\'engagement (Art. 90 al. 1)</h3>
         <p>
           L\'<strong>engagement</strong> est « l\'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge » (Art. 90 al. 1 LOFIP). C\'est l\'acte juridique fondateur de la dépense. Il peut prendre la forme d\'un contrat, d\'un marché public, d\'une décision de recrutement ou de toute décision créant une obligation à la charge de l\'État.
           <InfoTooltip texte="L\'engagement peut être un engagement juridique (contrat, marché) ou un engagement comptable (mise à disposition des crédits). La LOFIP exige que l\'engagement ne dépasse pas les crédits ouverts par la loi de finances (Art. 10 LOFIP). Tout engagement au-delà des crédits disponibles est irrégulier." loi="Art. 90 al. 1, Art. 10 LOFIP" />
@@ -128,27 +128,27 @@ const LECONS: Lecon[] = [
           </ul>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Phase 2 — La liquidation (Art. 90 al. 2)</h3>
+        <h3 className="font-bold text-foreground mt-4">Phase 2 - La liquidation (Art. 90 al. 2)</h3>
         <p>
           La <strong>liquidation</strong> « a pour objet de vérifier la réalité de la dette et d\'arrêter le montant exact de la dépense » (Art. 90 al. 2 LOFIP). Elle intervient après que la prestation a été exécutée. L\'ordonnateur vérifie que le service a bien été fait (« service fait ») et calcule le montant exact dû par l\'État.
           <InfoTooltip texte="La règle du « service fait » est fondamentale : une dépense ne peut être liquidée que si la prestation correspondante a été effectivement réalisée. Payer une facture sans service fait constitue une irrégularité grave susceptible d\'engager la responsabilité personnelle de l\'ordonnateur." loi="Art. 90 al. 2 LOFIP" />
         </p>
 
-        <h3 className="font-bold text-foreground mt-4">Phase 3 — L\'ordonnancement (Art. 90 al. 3)</h3>
+        <h3 className="font-bold text-foreground mt-4">Phase 3 - L\'ordonnancement (Art. 90 al. 3)</h3>
         <p>
           L\'<strong>ordonnancement</strong> est « l\'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l\'ordre est donné au caissier concerné de payer la dette du pouvoir central » (Art. 90 al. 3 LOFIP). C\'est l\'acte de transmission entre l\'ordonnateur et le comptable public. Sans ordonnancement régulier, le comptable public ne peut pas effectuer le paiement (Art. 91 al. 3 LOFIP).
         </p>
         <div className="bg-amber-50 border border-amber-200 rounded p-3 text-xs">
-          <p className="font-semibold text-amber-800 mb-1">Art. 91 al. 3 LOFIP — Règle impérative</p>
+          <p className="font-semibold text-amber-800 mb-1">Art. 91 al. 3 LOFIP - Règle impérative</p>
           <p className="text-amber-700">« Toute dépense, régulièrement engagée et liquidée par l\'ordonnateur fait l\'objet, préalablement à son paiement, d\'un ordonnancement. »</p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Phase 4 — Le paiement (Art. 90 al. 4)</h3>
+        <h3 className="font-bold text-foreground mt-4">Phase 4 - Le paiement (Art. 90 al. 4)</h3>
         <p>
           Le <strong>paiement</strong> est « l\'acte par lequel le pouvoir central se libère de sa dette » (Art. 90 al. 4 LOFIP). C\'est la seule phase exécutée par le <strong>comptable public</strong> et non par l\'ordonnateur. Cette règle est le corollaire du principe de séparation ordonnateur/comptable (Art. 102 LOFIP). Le comptable public ne peut payer que dans la limite des crédits ouverts et sur présentation d\'un ordonnancement régulier.
         </p>
         <div className="bg-violet-50 border border-violet-200 rounded p-3 text-xs mt-2">
-          <p className="font-semibold text-violet-800 mb-1">Principe fondamental — Art. 92 LOFIP</p>
+          <p className="font-semibold text-violet-800 mb-1">Principe fondamental - Art. 92 LOFIP</p>
           <p className="text-violet-700">« Les dépenses sont prises en compte au titre du budget de l\'année au cours de laquelle elles sont prises en charge par le comptable public. Elles sont imputées sur les crédits de cette même année. »</p>
         </div>
         <div className="bg-muted/40 rounded p-3 text-xs mt-2">
@@ -198,7 +198,7 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 103 LOFIP — Définition légale</p>
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 103 LOFIP - Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « Est ordonnateur, le responsable d\'institution, le ministre, le responsable de budget annexe ou la personne déléguée par lui au niveau central et au niveau déconcentré. L\'ordonnateur a le pouvoir, dans la limite des crédits budgétaires qui lui sont accordés par les lois de finances, d\'engager, de liquider et d\'ordonnancer les dépenses nécessaires au fonctionnement de son institution ou ministère, ou service déconcentré, ou budget annexe rattaché. Il le fait dans le respect des lois, règlements et instructions qui régissent la matière, et sous réserve du pouvoir de régulation des crédits budgétaires du ministre ayant le budget dans ses attributions et du pouvoir de gestion de la trésorerie du ministre ayant les finances dans ses attributions. »
           </p>
@@ -206,7 +206,7 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground">Définition et pouvoirs de l\'ordonnateur</h3>
         <p>
-          L\'<strong>ordonnateur</strong> est l\'autorité compétente pour exécuter les trois premières phases de la chaîne de la dépense : engagement, liquidation et ordonnancement. Il est toujours une <em>autorité administrative</em> — jamais un comptable public.
+          L\'<strong>ordonnateur</strong> est l\'autorité compétente pour exécuter les trois premières phases de la chaîne de la dépense : engagement, liquidation et ordonnancement. Il est toujours une <em>autorité administrative</em> - jamais un comptable public.
           <InfoTooltip texte="L\'ordonnateur peut être principal (ministre, responsable d\'institution) ou secondaire (personne déléguée au niveau déconcentré). La délégation doit être formelle et ne peut pas transférer la responsabilité : l\'ordonnateur délégataire est responsable des actes accomplis dans les limites de la délégation reçue." loi="Art. 103 LOFIP" />
         </p>
         <p>
@@ -215,11 +215,11 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">L\'avis préalable obligatoire (Art. 107 LOFIP)</h3>
         <div className="bg-amber-50 border border-amber-200 rounded p-3 text-xs">
-          <p className="font-semibold text-amber-800 mb-1">Art. 107 LOFIP — Avis obligatoire du Ministre du Budget</p>
+          <p className="font-semibold text-amber-800 mb-1">Art. 107 LOFIP - Avis obligatoire du Ministre du Budget</p>
           <p className="text-amber-700">« Tout projet de loi, toute décision ou convention quelconque pouvant avoir une répercussion immédiate ou future, tant sur les recettes que sur les dépenses ainsi que tout acte d\'administration portant création d\'emploi, extension des cadres organiques, ou modification du statut pécuniaire des agents de carrière des services publics du pouvoir central, doivent être soumis à l\'avis préalable du ministre ayant le budget dans ses attributions. »</p>
         </div>
         <p className="text-sm">
-          Cette disposition étend l\'autorité budgétaire du Ministre du Budget au-delà de l\'exécution : toute décision ayant une incidence financière — y compris la création d\'emplois et la modification des statuts pécuniaires — ne peut être prise sans son avis préalable.
+          Cette disposition étend l\'autorité budgétaire du Ministre du Budget au-delà de l\'exécution : toute décision ayant une incidence financière - y compris la création d\'emplois et la modification des statuts pécuniaires - ne peut être prise sans son avis préalable.
         </p>
 
         <h3 className="font-bold text-foreground mt-4">Les deux ordonnateurs spéciaux</h3>
@@ -308,7 +308,7 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 109 LOFIP — Définition légale</p>
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 109 LOFIP - Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « Est comptable public, tout agent ayant qualité pour exécuter, au nom et pour compte du pouvoir central, des opérations de recettes et de dépenses, de maniement de fonds et de valeurs qu\'il détient ainsi que les opérations se rapportant aux biens publics. Le comptable public chargé de la tenue et de l\'établissement des comptes du pouvoir central veille au respect des principes et des règles de gestion des finances publiques. Il s\'assure notamment de la sincérité des enregistrements et du respect des procédures. Il relève de la responsabilité du ministre ayant les finances dans ses attributions. »
           </p>
@@ -354,7 +354,7 @@ const LECONS: Lecon[] = [
                 ['Autorité de tutelle', 'Ministre du Budget (Art. 105)', 'Ministre des Finances (Art. 106, 109)'],
                 ['Responsabilité', 'Administrative et pénale', 'Personnelle et pécuniaire (Cour des comptes)'],
                 ['Comptabilité tenue', 'Comptabilité administrative (Art. 96, 101)', 'Comptabilité budgétaire, générale, des matières (Art. 101)'],
-                ['Cumul autorisé ?', 'NON — incompatibilité absolue', 'NON — incompatibilité absolue'],
+                ['Cumul autorisé ?', 'NON - incompatibilité absolue', 'NON - incompatibilité absolue'],
               ].map(([crit, ord, cpt], i) => (
                 <tr key={i} className={i % 2 === 0 ? 'bg-background' : 'bg-muted/20'}>
                   <td className="p-2 border-b border-border font-medium">{crit}</td>
@@ -413,7 +413,7 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-5 text-sm text-foreground leading-relaxed">
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
-          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 112 LOFIP — Contrôle a priori</p>
+          <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 112 LOFIP - Contrôle a priori</p>
           <p className="text-xs text-foreground italic leading-relaxed">
             « Le contrôle administratif a priori des opérations budgétaires de dépenses du pouvoir central est assuré par le contrôleur budgétaire. Tous les actes portant engagement, liquidation et ordonnancement sont soumis à son visa préalable notamment, les contrats, arrêtés, mesures ou décisions émanant d\'un responsable d\'institution, d\'un ministre, d\'un responsable de service déconcentré ou d\'un fonctionnaire habilité de l\'administration. »
           </p>
@@ -530,7 +530,7 @@ const LECONS: Lecon[] = [
               num: '3', titre: 'Comptabilité des matières (Art. 98)',
               tenue: 'Comptable public',
               objet: 'Décrit les existants et les mouvements concernant les biens meubles et immeubles, les stocks de toute catégorie, et les titres et valeurs.',
-              regle: "Patrimoine physique de l\'État — complémentaire de la comptabilité générale.",
+              regle: "Patrimoine physique de l\'État - complémentaire de la comptabilité générale.",
             },
             {
               num: '4', titre: 'Comptabilité générale (Art. 99-100)',
@@ -581,7 +581,7 @@ const LECONS: Lecon[] = [
 // ============================================================
 const QCM_GLOBAL: { chapitreId: string; chapitreNom: string; questions: QCMChapitre[] } = {
   chapitreId: 'ue5-chapitre-7',
-  chapitreNom: 'Chapitre 7 - Exécution des dépenses — chaîne de la dépense',
+  chapitreNom: 'Chapitre 7 - Exécution des dépenses - chaîne de la dépense',
   questions: [
     {
       id: 'g1',
@@ -658,7 +658,7 @@ const QCM_GLOBAL: { chapitreId: string; chapitreNom: string; questions: QCMChapi
       question: "Selon l\'Art. 113 LOFIP, que peut faire le contrôleur budgétaire si les actes de l\'ordonnateur lui paraissent entachés d\'irrégularités ?",
       options: [
         { id: 'a', texte: 'Saisir la Cour des comptes directement' },
-        { id: 'b', texte: 'Refuser le visa — sans pouvoir être sanctionné pour ce refus' },
+        { id: 'b', texte: 'Refuser le visa - sans pouvoir être sanctionné pour ce refus' },
         { id: 'c', texte: "Annuler lui-même l\'acte irrégulier de l\'ordonnateur" },
         { id: 'd', texte: 'Transmettre le dossier au comptable public pour instruction' },
         { id: 'e', texte: 'Suspendre le paiement de tous les actes du ministère concerné' },
@@ -797,7 +797,7 @@ const QCM_GLOBAL: { chapitreId: string; chapitreNom: string; questions: QCMChapi
 }
 
 // ============================================================
-// CAS PRATIQUES (5 — purement juridiques, ancrés LOFIP)
+// CAS PRATIQUES (5 - purement juridiques, ancrés LOFIP)
 // ============================================================
 const ETUDES_DE_CAS = [
   {
@@ -836,7 +836,7 @@ const ETUDES_DE_CAS = [
       {
         num: '2',
         enonce: "Quelle est la responsabilité juridique du comptable public selon la LOFIP ? Le fait qu\'il ait agi sur « ordre » oral du Directeur général est-il un fait justificatif en droit des finances publiques congolais ?",
-        correction: "La responsabilité du comptable public est PERSONNELLE ET PECUNIAIRE. L\'Art. 109 LOFIP dispose que le comptable public « veille au respect des principes et des règles de gestion des finances publiques. Il s\'assure notamment de la sincérité des enregistrements et du respect des procédures. » En ignorant cette obligation, le comptable a engagé sa propre responsabilité. L\'ordre oral du Directeur général N\'EST PAS un fait justificatif en droit des finances publiques congolais pour plusieurs raisons : (1) La LOFIP exige un ordonnancement ECRIT — un ordre téléphonique n\'a aucune valeur juridique à ce stade de la chaîne ; (2) Le principe de séparation ordonnateur/comptable (Art. 102) interdit précisément que le comptable obéisse à des injonctions informelles de l\'ordonnateur qui contournent la procédure ; (3) La Cour des comptes peut condamner le comptable à rembourser sur ses deniers propres toute dépense payée irrégulièrement (Constitution Art. 178-180). L\'ordre irrégulier d\'un supérieur ne l\'exonère pas.",
+        correction: "La responsabilité du comptable public est PERSONNELLE ET PECUNIAIRE. L\'Art. 109 LOFIP dispose que le comptable public « veille au respect des principes et des règles de gestion des finances publiques. Il s\'assure notamment de la sincérité des enregistrements et du respect des procédures. » En ignorant cette obligation, le comptable a engagé sa propre responsabilité. L\'ordre oral du Directeur général N\'EST PAS un fait justificatif en droit des finances publiques congolais pour plusieurs raisons : (1) La LOFIP exige un ordonnancement ECRIT - un ordre téléphonique n\'a aucune valeur juridique à ce stade de la chaîne ; (2) Le principe de séparation ordonnateur/comptable (Art. 102) interdit précisément que le comptable obéisse à des injonctions informelles de l\'ordonnateur qui contournent la procédure ; (3) La Cour des comptes peut condamner le comptable à rembourser sur ses deniers propres toute dépense payée irrégulièrement (Constitution Art. 178-180). L\'ordre irrégulier d\'un supérieur ne l\'exonère pas.",
       },
       {
         num: '3',
@@ -864,7 +864,7 @@ const ETUDES_DE_CAS = [
       {
         num: '3',
         enonce: "Le Ministre du Budget, saisi par M. KABILA, peut-il annuler l\'arrêté ministériel du Ministre de la Santé ? Quelles actions peut-il mener en vertu des Art. 105 et 114 LOFIP, et quelle voie de recours reste ouverte pour M. KABILA ?",
-        correction: "Oui, le Ministre du Budget dispose de plusieurs leviers. (1) En vertu de l\'Art. 105 LOFIP, le Ministre du Budget est le « contrôleur général du budget du pouvoir central par le truchement des contrôleurs budgétaires qui relèvent de son autorité ». Les contrôleurs sont sous son autorité — pas sous celle du Ministre de la Santé. Il peut donc : adresser un rappel à l\'ordre au Ministre de la Santé, exiger le retrait de l\'arrêté illégal, et saisir le Premier Ministre pour arbitrage interministériel. (2) En vertu de l\'Art. 114, il peut étudier le fond du refus de visa et, s\'il estime le refus infondé, émettre une autorisation motivée écrite de passage outre — mais il ne peut PAS contraindre M. KABILA à viser. (3) M. KABILA peut saisir le Tribunal administratif compétent pour obtenir l\'annulation de l\'arrêté illégal (recours en excès de pouvoir), sur le fondement de l\'Art. 113 LOFIP et de l\'incompétence du Ministre de la Santé.",
+        correction: "Oui, le Ministre du Budget dispose de plusieurs leviers. (1) En vertu de l\'Art. 105 LOFIP, le Ministre du Budget est le « contrôleur général du budget du pouvoir central par le truchement des contrôleurs budgétaires qui relèvent de son autorité ». Les contrôleurs sont sous son autorité - pas sous celle du Ministre de la Santé. Il peut donc : adresser un rappel à l\'ordre au Ministre de la Santé, exiger le retrait de l\'arrêté illégal, et saisir le Premier Ministre pour arbitrage interministériel. (2) En vertu de l\'Art. 114, il peut étudier le fond du refus de visa et, s\'il estime le refus infondé, émettre une autorisation motivée écrite de passage outre - mais il ne peut PAS contraindre M. KABILA à viser. (3) M. KABILA peut saisir le Tribunal administratif compétent pour obtenir l\'annulation de l\'arrêté illégal (recours en excès de pouvoir), sur le fondement de l\'Art. 113 LOFIP et de l\'incompétence du Ministre de la Santé.",
       },
     ],
     articleRef: 'Art. 104, 105, 113, 114, 115 LOFIP',
@@ -876,13 +876,13 @@ const ETUDES_DE_CAS = [
     questions: [
       {
         num: '1',
-        enonce: "L\'emprunt signé en février 2026 est-il conforme à l\'Art. 108 LOFIP ? L\'argument du Ministre des Finances — selon lequel la LF 2026 autorise « généralement » les emprunts — est-il juridiquement fondé ?",
+        enonce: "L\'emprunt signé en février 2026 est-il conforme à l\'Art. 108 LOFIP ? L\'argument du Ministre des Finances - selon lequel la LF 2026 autorise « généralement » les emprunts - est-il juridiquement fondé ?",
         correction: "L\'emprunt pose un problème de conformité à l\'Art. 108 LOFIP. Cet article dispose que les opérations financières du Pouvoir central « ne peuvent entrer en vigueur que si une loi les autorise ». Le terme « une loi les autorise » implique une autorisation SPECIFIQUE et non une habilitation générale. La LF 2026 (Loi n° 25/060) contient une autorisation d\'emprunter, mais la question est de savoir si cet emprunt spécifique de 500 millions USD est couvert par cette autorisation et dans quelles limites. Si la LF 2026 fixe un plafond d\'emprunt et que cet emprunt reste dans ce plafond, il peut être régulier. Si le plafond est dépassé ou si l\'emprunt n\'est pas prévu par la LF 2026, il est irrégulier. Par ailleurs, l\'Art. 108 impose deux conditions cumulatives : (1) l\'emprunt est conclu par le Ministre des Finances après avis du Ministre du Budget (√ satisfait) ; (2) une loi l\'autorise (condition à vérifier).",
       },
       {
         num: '2',
         enonce: "L\'exception prévue par l\'Art. 108 al. 3 LOFIP en cas de vacances parlementaires s\'applique-t-elle en l\'espèce ? Le Gouvernement pouvait-il y recourir en février 2026 ? Analysez les conditions.",
-        correction: "NON, l\'exception de l\'Art. 108 al. 3 LOFIP NE S\'APPLIQUE PAS en l\'espèce. L\'Art. 108 al. 3 dispose qu\'« en cas de vacances parlementaires, les conventions financières de prêts ou d\'emprunts peuvent être approuvées par une ordonnance-loi du Président de la République ». Or, le Parlement était en <strong>session ordinaire</strong> en février 2026 — il ne s\'agit pas de vacances parlementaires. La condition essentielle de l\'exception (« vacances parlementaires ») n\'est pas réunie. Le Gouvernement ne pouvait donc pas utiliser l\'ordonnance-loi pour se substituer au Parlement. La seule voie légale était de soumettre un projet de loi d\'autorisation au Parlement en session, qui était disponible et compétent. Passer outre constitue une violation du principe de légalité financière et porte atteinte aux prérogatives du Parlement en matière budgétaire (Art. 122 pt. 3 Constitution).",
+        correction: "NON, l\'exception de l\'Art. 108 al. 3 LOFIP NE S\'APPLIQUE PAS en l\'espèce. L\'Art. 108 al. 3 dispose qu\'« en cas de vacances parlementaires, les conventions financières de prêts ou d\'emprunts peuvent être approuvées par une ordonnance-loi du Président de la République ». Or, le Parlement était en <strong>session ordinaire</strong> en février 2026 - il ne s\'agit pas de vacances parlementaires. La condition essentielle de l\'exception (« vacances parlementaires ») n\'est pas réunie. Le Gouvernement ne pouvait donc pas utiliser l\'ordonnance-loi pour se substituer au Parlement. La seule voie légale était de soumettre un projet de loi d\'autorisation au Parlement en session, qui était disponible et compétent. Passer outre constitue une violation du principe de légalité financière et porte atteinte aux prérogatives du Parlement en matière budgétaire (Art. 122 pt. 3 Constitution).",
       },
       {
         num: '3',
@@ -899,17 +899,17 @@ const ETUDES_DE_CAS = [
     questions: [
       {
         num: '1',
-        enonce: "L\'Action 1 — engager 8 milliards FC pour un nouveau marché de travaux le 15 novembre 2026 — est-elle légale au regard de l\'Art. 92 LOFIP ? Analysez la contrainte temporelle et ses conséquences.",
+        enonce: "L\'Action 1 - engager 8 milliards FC pour un nouveau marché de travaux le 15 novembre 2026 - est-elle légale au regard de l\'Art. 92 LOFIP ? Analysez la contrainte temporelle et ses conséquences.",
         correction: "L\'Action 1 est ILLEGALE au regard de l\'Art. 92 al. 3 LOFIP. Cet article dispose que « les engagements de dépenses, autres que celles de personnel, se rapportant aux autorisations d\'engagement annuelles ne peuvent intervenir après le 31 octobre de chaque année ». Le 15 novembre 2026 est postérieur au 31 octobre 2026. L\'engagement de 8 milliards FC pour un nouveau marché de travaux (dépense hors personnel) est donc irrecevable. CONSEQUENCES : (1) Le contrôleur budgétaire doit refuser son visa sur tout acte d\'engagement postérieur au 31 octobre (Art. 112 LOFIP) ; (2) Si l\'ordonnateur passe outre, sa responsabilité personnelle est engagée ; (3) Le comptable public ne pourra pas payer une dépense engagée irrégulièrement. Cette règle vise à préserver la clôture budgétaire et à permettre l\'établissement des comptes de fin d\'année dans un délai raisonnable.",
       },
       {
         num: '2',
-        enonce: "L\'Action 2 — demander le report des 12 milliards FC non consommés sur 2027 — est-elle possible selon l\'Art. 93 LOFIP ? Quelles sont les conditions précises et la procédure fixée par l\'Art. 94 LOFIP ?",
+        enonce: "L\'Action 2 - demander le report des 12 milliards FC non consommés sur 2027 - est-elle possible selon l\'Art. 93 LOFIP ? Quelles sont les conditions précises et la procédure fixée par l\'Art. 94 LOFIP ?",
         correction: "Le report est POSSIBLE mais soumis à des conditions strictes définies par l\'Art. 93 LOFIP. CONDITIONS : seules peuvent être reportées les « parties des crédits disponibles à la fin de l\'année budgétaire, destinées à couvrir des dépenses résultant d\'obligations existant à charge du pouvoir central à la date du 31 octobre et qui n\'ont pu être ordonnacées et payées au 31 décembre ». Donc les 12 milliards FC ne peuvent être reportés QUE si : (a) ils correspondent à des obligations juridiquement existantes au 31 octobre (contrats signés, marchés notifiés) et (b) ces dépenses n\'ont pas pu être payées avant le 31 décembre. Les crédits sans obligation sous-jacente ne peuvent pas être reportés. PROCEDURE (Art. 94) : l\'état des reports est approuvé par ordonnance-loi du Président de la République, sur proposition conjointe des Ministres des Finances et du Budget, dans les deux mois suivant la fin de l\'année budgétaire, puis ratifié dans la prochaine loi de finances.",
       },
       {
         num: '3',
-        enonce: "L\'Action 3 — utiliser 3 milliards FC pour financer une étude non prévue au programme — est-elle légale ? Analysez au regard du principe de spécialité (Art. 8 LOFIP), de la fongibilité des crédits (Art. 45 LOFIP) et des règles de virement de crédits (Art. 46-50 LOFIP).",
+        enonce: "L\'Action 3 - utiliser 3 milliards FC pour financer une étude non prévue au programme - est-elle légale ? Analysez au regard du principe de spécialité (Art. 8 LOFIP), de la fongibilité des crédits (Art. 45 LOFIP) et des règles de virement de crédits (Art. 46-50 LOFIP).",
         correction: "L\'Action 3 est potentiellement ILLEGALE en l\'état. Deux problèmes : (1) Le principe de spécialité (Art. 8 LOFIP) impose que les crédits soient utilisés conformément à leur destination. Les crédits du programme « Réhabilitation des routes nationales » ne peuvent être utilisés pour une étude « non prévue au programme initial » sans respecter une procédure de modification. (2) La fongibilité des crédits (Art. 45 LOFIP) permet au gestionnaire de redispatcher des crédits à l\'intérieur d\'un même programme entre titres, mais pas de créer de nouvelles actions sans autorisation. SOLUTION LEGALE : si l\'étude s\'inscrit dans le même programme, un virement de crédits (Art. 46-48 LOFIP) autorisé par arrêté du Ministre du Budget peut permettre ce redepéploiement. Si l\'étude relève d\'un programme différent, un transfert de crédits (Art. 49-50) par décret du Premier Ministre est nécessaire. En tout état de cause, la simple disponibilité des fonds ne suffit pas à autoriser une dépense non prévue : il faut le visa du contrôleur budgétaire (Art. 112) et le respect de la chaîne de la dépense (Art. 90-91 LOFIP).",
       },
     ],
@@ -964,7 +964,7 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
       </div>
       {showResult && (
         <div className={cn('text-xs p-2 rounded', selected === q.reponseCorrecte ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800')}>
-          <span className="font-semibold">{selected === q.reponseCorrecte ? '✓ Correct' : '✗ Incorrect'}</span> — {q.explication}
+          <span className="font-semibold">{selected === q.reponseCorrecte ? '✓ Correct' : '✗ Incorrect'}</span> - {q.explication}
         </div>
       )}
     </div>
@@ -990,7 +990,7 @@ function CasPratiqueBlock({ cas }: { cas: typeof ETUDES_DE_CAS[0] }) {
               onClick={() => setOpenQ(openQ === q.num ? null : q.num)}
               className="w-full text-left p-3 text-xs font-medium flex items-center justify-between hover:bg-muted/30"
             >
-              <span>Question {q.num} — {q.enonce.slice(0, 80)}{q.enonce.length > 80 ? '…' : ''}</span>
+              <span>Question {q.num} - {q.enonce.slice(0, 80)}{q.enonce.length > 80 ? '…' : ''}</span>
               <ChevronRight className={cn('h-3.5 w-3.5 shrink-0 transition-transform', openQ === q.num && 'rotate-90')} />
             </button>
             {openQ === q.num && (
@@ -1049,13 +1049,13 @@ export default function UE5Chapitre7Page() {
             <Breadcrumb
               items={[
                 { label: 'Mes cours', route: '/mes-cours' },
-                { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+                { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
                 { label: 'Chapitre 7' },
               ]}
               color="emerald"
             />
             <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="text-lg font-display font-bold text-foreground leading-tight">Exécution des dépenses — chaîne de la dépense</h1>
+              <h1 className="text-lg font-display font-bold text-foreground leading-tight">Exécution des dépenses - chaîne de la dépense</h1>
               <InfoTooltip texte="Ce chapitre analyse la chaîne de la dépense publique en RDC : les quatre phases obligatoires (Art. 90 LOFIP), les acteurs (ordonnateur, comptable public, contrôleur budgétaire) et les quatre comptabilités publiques (Art. 95-101 LOFIP). Contenu exclusivement juridique fondé sur la LOFIP et la Constitution." loi="Art. 88-115 LOFIP · RGCP" />
             </div>
           </div>
@@ -1144,20 +1144,20 @@ export default function UE5Chapitre7Page() {
 
             {/* Synthèse */}
             <div className="bg-violet-50 border border-violet-200 rounded-xl p-4">
-              <h3 className="text-sm font-bold text-violet-800 mb-2">Synthèse juridique — Art. 88–115 LOFIP</h3>
+              <h3 className="text-sm font-bold text-violet-800 mb-2">Synthèse juridique - Art. 88–115 LOFIP</h3>
               <ul className="space-y-1.5">
                 {[
                   'Art. 88 : Mise à disposition des crédits par arrêté du Ministre du Budget',
-                  'Art. 90 : 4 phases immuables — engagement, liquidation, ordonnancement (ordonnateur), paiement (comptable)',
+                  'Art. 90 : 4 phases immuables - engagement, liquidation, ordonnancement (ordonnateur), paiement (comptable)',
                   "Art. 91 al. 3 : Tout paiement doit être précédé d\'un ordonnancement régulier",
                   'Art. 92 : Engagement hors personnel interdit après le 31 octobre',
-                  'Art. 93-94 : Reports de crédits conditionnés — obligations au 31 octobre, ordonnance-loi Président',
+                  'Art. 93-94 : Reports de crédits conditionnés - obligations au 31 octobre, ordonnance-loi Président',
                   'Art. 95-101 : 4 comptabilités publiques (administrative, budgétaire, matières, générale)',
                   "Art. 102 : Seuls l\'ordonnateur et le comptable public exécutent le budget",
                   'Art. 103-106 : Ordonnateur (103), contrôleur budgétaire (104), Ministre Budget (105), Ministre Finances (106)',
                   'Art. 107-108 : Avis préalable du Ministre du Budget obligatoire ; opérations financières soumises à loi',
-                  'Art. 109 : Comptable public — responsabilité du Ministre des Finances, sincérité des enregistrements',
-                  'Art. 112-115 : Contrôleur budgétaire — visa a priori obligatoire, refus protégé, désaccord référé au Ministre du Budget',
+                  'Art. 109 : Comptable public - responsabilité du Ministre des Finances, sincérité des enregistrements',
+                  'Art. 112-115 : Contrôleur budgétaire - visa a priori obligatoire, refus protégé, désaccord référé au Ministre du Budget',
                 ].map((pt, i) => (
                   <li key={i} className="flex items-start gap-2 text-xs text-violet-700">
                     <CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-violet-600" />
@@ -1194,7 +1194,7 @@ export default function UE5Chapitre7Page() {
         {activeTab === 'devoir' && (
           <DevoirChapitreCreateur
             chapitreId="ue5-chapitre-7"
-            chapitreNom="Chapitre 7 - Exécution des dépenses — chaîne de la dépense"
+            chapitreNom="Chapitre 7 - Exécution des dépenses - chaîne de la dépense"
             questions={QCM_GLOBAL.questions}
             coursId="ue5-finances-publiques"
             casPratiquesExistants={casPratiquesForDevoir}

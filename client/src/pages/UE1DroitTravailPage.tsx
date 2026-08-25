@@ -5,7 +5,7 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import { cn } from '@/lib/utils'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// IDENTITÉ VISUELLE — « manuscrit de cours » : encre, papier, filet, vert
+// IDENTITÉ VISUELLE - « manuscrit de cours » : encre, papier, filet, vert
 // faculté, ambre pour la marginalia. Aucune classe Tailwind dynamique : tout
 // est posé en valeurs arbitraires littérales.
 // ─────────────────────────────────────────────────────────────────────────────

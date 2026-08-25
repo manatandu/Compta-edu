@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════
-//  Préchargement au survol — quand l'utilisateur passe la souris sur un
+//  Préchargement au survol - quand l'utilisateur passe la souris sur un
 //  lien de la barre latérale, on lance le téléchargement du code de la
 //  page AVANT le clic. Au moment du clic, le chunk est déjà en cache
 //  navigateur : la navigation paraît instantanée au lieu d'attendre le

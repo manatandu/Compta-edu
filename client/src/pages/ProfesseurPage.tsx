@@ -111,7 +111,7 @@ const emptyUniForm = { nom: '', ville: '', adresse: '', facultes: [] as string[]
 
 // ─── Tabs ─────────────────────────────────────────────────
 // La navigation réellement affichée est construite inline, groupée en 3
-// sections (Gestion / Pédagogie / Suivi — voir plus bas dans le rendu) : ce
+// sections (Gestion / Pédagogie / Suivi - voir plus bas dans le rendu) : ce
 // type sert ces trois groupes. L'ancien tableau TABS plat (et le visibleTabs
 // qui en dérivait) a été retiré : calculé mais jamais rendu, remplacé de fait
 // par les groupes ci-dessous sans avoir été supprimé à l'époque.
@@ -211,7 +211,7 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                         {soum?.statut === 'note' ? (
                           <span className={cn('font-bold text-sm', soum.note! >= 5 ? 'text-green-600' : 'text-red-500')}>{soum.note}/10</span>
                         ) : (
-                          <span className="text-muted-foreground text-xs">—</span>
+                          <span className="text-muted-foreground text-xs">-</span>
                         )}
                       </td>
                       <td className="px-3 py-2 text-center">
@@ -502,7 +502,7 @@ export default function ProfesseurPage() {
       // (hasAll(['coursId','createdBy','promotionId'])) pour tout devoir, pas
       // seulement les QCM-chapitre (seul type qui le renseignait jusqu'ici,
       // via DevoirChapitreCreateur.tsx). Repris de la promotion du cours
-      // choisi quand elle existe (Cours.promotion), sinon chaîne vide — ce
+      // choisi quand elle existe (Cours.promotion), sinon chaîne vide - ce
       // formulaire générique n'a pas son propre sélecteur de promotion, et
       // promotionId n'est pas exploité côté lecture pour ce type de devoir
       // (contrairement à coursId, seul vrai filtre d'isolation).
@@ -528,7 +528,7 @@ export default function ProfesseurPage() {
         await updateDevoirAsync(editDevoirId, data)
       } else {
         // Créer avec l'ID qu'on a généré (le cast est nécessaire ici car
-        // createDevoirAsync généré son propre id normalement — id doit être
+        // createDevoirAsync généré son propre id normalement - id doit être
         // imposé pour correspondre au chemin Storage du PDF déjà uploadé)
         await createDevoirAsync({ ...data, id: devoirId } as any)
       }
@@ -593,7 +593,7 @@ export default function ProfesseurPage() {
     if (!correctionSoumId) return
     const note = parseFloat(correctionNote)
     // Barème sur 10, et non sur 20 : c'est l'échelle utilisée partout ailleurs
-    // — correction automatique des QCM ((score / nbQuestions) × 10), affichage
+    // - correction automatique des QCM ((score / nbQuestions) × 10), affichage
     // de la note à l'étudiant, bulletin PDF, et surtout le calcul de la cote
     // devoirs (5 × cumul / (nbDevoirs × 10)). Le dialogue acceptait jusqu'à 20,
     // ce qui affichait « 15/10 » à l'étudiant et gonflait sa cote.
@@ -901,7 +901,7 @@ export default function ProfesseurPage() {
     if (editCoursId) {
       await updateCoursAsync(editCoursId, { nom: coursForm.nom.trim(), description: coursForm.description.trim(), actif: coursForm.actif, promotion: coursForm.promotion || undefined })
     } else {
-      // C7 : anti-doublon — vérifier si ce cours système est déjà assigné à cette faculté
+      // C7 : anti-doublon - vérifier si ce cours système est déjà assigné à cette faculté
       if (coursForm.coursSystemeId) {
         const doublon = coursList.some(
           c => (c as any).coursSystemeId === coursForm.coursSystemeId && c.faculteId === coursForm.faculteId
@@ -912,7 +912,7 @@ export default function ProfesseurPage() {
         }
       }
       // adminId : la règle firestore.rules exige ce champ à la création
-      // (hasAll(['adminId','createdBy'])) — repris de l'université choisie
+      // (hasAll(['adminId','createdBy'])) - repris de l'université choisie
       // (source de vérité de "qui possède ce cours") plutôt que de l'auteur
       // de l'action, car un professeur (pas seulement un admin) peut créer
       // un cours : son propre id ne serait pas un adminId valide.
@@ -1099,7 +1099,7 @@ export default function ProfesseurPage() {
   // créés par LoginPage avec actif:false + statutInscription:'en_attente' ;
   // c'est `actif` qui bloque réellement la connexion (voir loginAsync), le
   // statut ne sert qu'à choisir le message affiché. Jusqu'ici aucun écran ne
-  // les listait — ni ici (la liste existait mais n'était pas rendue), ni dans
+  // les listait - ni ici (la liste existait mais n'était pas rendue), ni dans
   // Gestion des étudiants (qui lit la collection `etudiants`, pas `users`) :
   // ils restaient donc bloqués dehors indéfiniment.
   const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
@@ -1306,7 +1306,7 @@ export default function ProfesseurPage() {
   // commentaire « devoirs depuis chapitres »), mais le retrait est resté
   // incomplet : côté étudiant les devoirs déjà existants restent visibles et
   // soumissibles, et leurs copies s'accumulaient sans qu'aucun écran ne
-  // permette de les corriger — le bouton « Corriger » vivait lui aussi dans le
+  // permette de les corriger - le bouton « Corriger » vivait lui aussi dans le
   // bloc désactivé. Cet onglet rend la correction accessible, sans rouvrir la
   // création, qui elle reste abandonnée.
   const copiesACorriger = allSoumissions.filter(
@@ -1367,7 +1367,7 @@ export default function ProfesseurPage() {
   })
 
   // Garde de rôle (point 7 de l'audit) : /professeurs n'était protégée que par
-  // l'authentification (voir le wrapper W dans App.tsx), pas par le rôle — un
+  // l'authentification (voir le wrapper W dans App.tsx), pas par le rôle - un
   // étudiant qui naviguait directement vers l'URL montait tout le composant de
   // gestion (données réelles filtrées côté Firestore, mais structure/libellés de
   // gestion exposés). Même garde que GestionEtudiantsPage/FicheEtudiantPage/
@@ -1397,7 +1397,7 @@ export default function ProfesseurPage() {
             </div>
             <div>
               <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Espace pédagogique</h1>
-              <p className="text-xs text-muted-foreground mt-0.5">Suivi des étudiants pour tout le corps enseignant — administration de la plateforme réservée aux groupes marqués « Gestion »</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Suivi des étudiants pour tout le corps enseignant - administration de la plateforme réservée aux groupes marqués « Gestion »</p>
             </div>
           </div>
         </div>
@@ -1852,7 +1852,7 @@ export default function ProfesseurPage() {
                               </span>
                             </td>
                             <td className="px-4 py-2.5 text-muted-foreground text-xs">
-                              {uni ? uni.nom : '—'}
+                              {uni ? uni.nom : '-'}
                             </td>
                             <td className="px-4 py-2.5">
                               <button
@@ -1886,7 +1886,7 @@ export default function ProfesseurPage() {
       )}
 
       {/* ═══════════════════ ONGLET EXERCICES ═══════════════════ */}
-      {false && (tab as string) === 'exercices' && ( /* désactivé — devoirs depuis chapitres */
+      {false && (tab as string) === 'exercices' && ( /* désactivé - devoirs depuis chapitres */
         <div className="space-y-5">
 
           {/* Liste des exercices existants */}
@@ -2454,27 +2454,27 @@ export default function ProfesseurPage() {
                           <td className="px-3 py-2.5 text-center">
                             {totalSeances > 0
                               ? <span className={cn('font-semibold text-sm', tauxPresence >= 75 ? 'text-green-600' : tauxPresence >= 50 ? 'text-yellow-600' : 'text-red-600')}>{nbPresent}/{totalSeances}</span>
-                              : <span className="text-muted-foreground text-xs">—</span>}
+                              : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {cotePresence !== null
                               ? <span className={cn('font-bold text-sm', cotePresence >= 4 ? 'text-green-600' : cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{cotePresence}</span>
-                              : <span className="text-muted-foreground text-xs">—</span>}
+                              : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {tentatives > 0
                               ? <span className="text-sm">{tentatives} <span className="text-xs text-muted-foreground">({moyenneTP}%)</span></span>
-                              : <span className="text-muted-foreground text-xs">—</span>}
+                              : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {coteTP !== null
                               ? <span className={cn('font-bold text-sm', coteTP >= 4 ? 'text-green-600' : coteTP >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{coteTP}</span>
-                              : <span className="text-muted-foreground text-xs">—</span>}
+                              : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {total !== null
                               ? <span className={cn('font-bold text-base', total >= 8 ? 'text-green-600' : total >= 5 ? 'text-yellow-600' : 'text-red-600')}>{total}</span>
-                              : <span className="text-muted-foreground text-xs">—</span>}
+                              : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {inactif ? (
@@ -2486,7 +2486,7 @@ export default function ProfesseurPage() {
                                 mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800' :
                                 'bg-red-100 text-red-800'
                               )}>{mention}</span>
-                            ) : <span className="text-muted-foreground text-xs">—</span>}
+                            ) : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                         </tr>
                       )
@@ -2829,7 +2829,7 @@ export default function ProfesseurPage() {
                                     {present ? '•' : '×'}
                                   </span>
                                 ) : (
-                                  <span className="text-muted-foreground opacity-30 text-xs">—</span>
+                                  <span className="text-muted-foreground opacity-30 text-xs">-</span>
                                 )}
                               </td>
                             )
@@ -2845,7 +2845,7 @@ export default function ProfesseurPage() {
                               <span className={cn('font-bold',
                                 cote >= 4 ? 'text-green-600' : cote >= 2.5 ? 'text-yellow-600' : 'text-red-600'
                               )}>{cote}</span>
-                            ) : <span className="opacity-30">—</span>}
+                            ) : <span className="opacity-30">-</span>}
                           </td>
                         </tr>
                       )
@@ -3028,7 +3028,7 @@ export default function ProfesseurPage() {
           </div>
 
           <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Cotes sur 10 — 5 pts présences + 5 pts devoirs</p>
+            <p className="text-sm text-muted-foreground">Cotes sur 10 - 5 pts présences + 5 pts devoirs</p>
             {cotesDataFiltres.length > 0 && (
               <Button
                 size="sm"
@@ -3086,22 +3086,22 @@ export default function ProfesseurPage() {
                           <p className="text-xs text-muted-foreground font-mono">@{e.username}</p>
                         </td>
                         <td className="px-4 py-2.5 text-center text-xs text-muted-foreground">
-                          {totalSeances > 0 ? `${nbPresent}/${totalSeances}` : <span className="opacity-40">—</span>}
+                          {totalSeances > 0 ? `${nbPresent}/${totalSeances}` : <span className="opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
                           {cotePresence !== null
                             ? <span className={cn('font-semibold', cotePresence >= 4 ? 'text-green-600' : cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{cotePresence}</span>
-                            : <span className="text-muted-foreground opacity-40">—</span>}
+                            : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
                           {coteDevoirs !== null
                             ? <span className={cn('font-semibold', coteDevoirs >= 4 ? 'text-green-600' : coteDevoirs >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{coteDevoirs}</span>
-                            : <span className="text-muted-foreground opacity-40">—</span>}
+                            : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
                           {total !== null
                             ? <span className={cn('font-bold text-base', total >= 8 ? 'text-green-600' : total >= 5 ? 'text-yellow-600' : 'text-red-600')}>{total}</span>
-                            : <span className="text-muted-foreground opacity-40">—</span>}
+                            : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
                           {mention ? (
@@ -3112,7 +3112,7 @@ export default function ProfesseurPage() {
                               mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800' :
                               'bg-red-100 text-red-800'
                             )}>{mention}</span>
-                          ) : <span className="text-muted-foreground opacity-40">—</span>}
+                          ) : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                       </tr>
                     ))}
@@ -3169,11 +3169,11 @@ export default function ProfesseurPage() {
                             </p>
                             {etu?.username && <p className="text-xs text-muted-foreground font-mono">@{etu.username}</p>}
                           </td>
-                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{dev?.titre || '—'}</td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{dev?.titre || '-'}</td>
                           <td className="px-4 py-2.5 text-muted-foreground text-xs">
                             {(soum as any).dateSoumission
                               ? new Date((soum as any).dateSoumission).toLocaleDateString('fr-FR')
-                              : '—'}
+                              : '-'}
                           </td>
                           <td className="px-4 py-2.5">
                             <div className="flex gap-2 justify-end">
@@ -3246,8 +3246,8 @@ export default function ProfesseurPage() {
                             <p className="font-medium text-foreground">{nomComplet}</p>
                             <p className="text-xs text-muted-foreground font-mono">@{u.username}</p>
                           </td>
-                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{(u as any).classe || '—'}</td>
-                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{uni ? uni.nom : '—'}</td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{(u as any).classe || '-'}</td>
+                          <td className="px-4 py-2.5 text-muted-foreground text-xs">{uni ? uni.nom : '-'}</td>
                           <td className="px-4 py-2.5">
                             <div className="flex gap-2 justify-end">
                               <Button size="sm" className="h-7 text-xs px-3" onClick={() => validerInscription(u.id, nomComplet)}>
@@ -3270,7 +3270,7 @@ export default function ProfesseurPage() {
       )}
 
       {/* ═══════════════════ ONGLET DEVOIRS ═══════════════════ */}
-      {false && (tab as string) === 'devoirs' && ( /* désactivé — devoirs depuis chapitres */
+      {false && (tab as string) === 'devoirs' && ( /* désactivé - devoirs depuis chapitres */
         <div className="space-y-5">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">{devoirsList.length} devoir{devoirsList.length > 1 ? 's' : ''} créé{devoirsList.length > 1 ? 's' : ''}</p>
@@ -3555,8 +3555,8 @@ export default function ProfesseurPage() {
               <div className="flex-1 overflow-y-auto pr-1 space-y-4 text-sm">
                 {/* Infos */}
                 <div className="grid grid-cols-2 gap-2">
-                  <div><p className="text-xs text-muted-foreground">Étudiant</p><p className="font-medium">{etu ? `${etu.prenom} ${etu.nom}` : '—'}</p></div>
-                  <div><p className="text-xs text-muted-foreground">Devoir</p><p className="font-medium">{dev?.titre || '—'}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Étudiant</p><p className="font-medium">{etu ? `${etu.prenom} ${etu.nom}` : '-'}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Devoir</p><p className="font-medium">{dev?.titre || '-'}</p></div>
                   <div><p className="text-xs text-muted-foreground">Type</p><p className="capitalize">{devType}</p></div>
                   <div><p className="text-xs text-muted-foreground">Soumis le</p><p>{new Date(viewSoumission.dateSoumission).toLocaleDateString('fr-FR')}</p></div>
                 </div>
@@ -3677,7 +3677,7 @@ export default function ProfesseurPage() {
                   <Select value={userForm.universiteId || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, universiteId: v === '__none__' ? '' : v, faculteId: '' } as any))}>
                     <SelectTrigger className="mt-1"><SelectValue placeholder="Sans université" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="__none__">— Aucune —</SelectItem>
+                      <SelectItem value="__none__">- Aucune -</SelectItem>
                       {universites.map(u => <SelectItem key={u.id} value={u.id}>{u.nom}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -3688,7 +3688,7 @@ export default function ProfesseurPage() {
                     <Select value={(userForm as any).faculteId || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, faculteId: v === '__none__' ? '' : v } as any))}>
                       <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner une faculté" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="__none__">— Aucune —</SelectItem>
+                        <SelectItem value="__none__">- Aucune -</SelectItem>
                         {facultesList.filter(f => f.universiteId === userForm.universiteId && f.actif).map(f => (
                           <SelectItem key={f.id} value={f.id}>{f.nom}</SelectItem>
                         ))}
@@ -3721,7 +3721,7 @@ export default function ProfesseurPage() {
                     <Select value={(userForm as any).faculteId || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, faculteId: v === '__none__' ? '' : v } as any))}>
                       <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner une faculté" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="__none__">— Aucune faculté —</SelectItem>
+                        <SelectItem value="__none__">- Aucune faculté -</SelectItem>
                         {facultesList.filter(f => f.universiteId === userForm.universiteId && f.actif).map(f => (
                           <SelectItem key={f.id} value={f.id}>{f.nom}</SelectItem>
                         ))}
@@ -3894,7 +3894,7 @@ export default function ProfesseurPage() {
                 <Select value={coursForm.universiteId || '__none__'} onValueChange={v => setCoursForm(f => ({ ...f, universiteId: v === '__none__' ? '' : v, faculteId: '' }))}>
                   <SelectTrigger className="mt-1"><SelectValue placeholder="Choisir une université" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="__none__">— Choisir —</SelectItem>
+                    <SelectItem value="__none__">- Choisir -</SelectItem>
                     {universites.map(u => <SelectItem key={u.id} value={u.id}>{u.nom}</SelectItem>)}
                   </SelectContent>
                 </Select>
@@ -3907,7 +3907,7 @@ export default function ProfesseurPage() {
                 <Select value={coursForm.faculteId || '__none__'} onValueChange={v => setCoursForm(f => ({ ...f, faculteId: v === '__none__' ? '' : v }))}>
                   <SelectTrigger className="mt-1"><SelectValue placeholder="Choisir une faculté" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="__none__">— Choisir —</SelectItem>
+                    <SelectItem value="__none__">- Choisir -</SelectItem>
                     {facultesList.filter(f => f.universiteId === coursForm.universiteId && f.actif).map(f => (
                       <SelectItem key={f.id} value={f.id}>{f.nom}</SelectItem>
                     ))}
@@ -3921,7 +3921,7 @@ export default function ProfesseurPage() {
               <Select value={coursForm.promotion || '__none__'} onValueChange={v => setCoursForm(f => ({ ...f, promotion: v === '__none__' ? '' : v }))}>
                 <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner une promotion" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="__none__">— Toutes promotions —</SelectItem>
+                  <SelectItem value="__none__">- Toutes promotions -</SelectItem>
                   {(['L1', 'L2', 'L3', 'M1', 'M2'] as const).map(p => (
                     <SelectItem key={p} value={p}>{p}</SelectItem>
                   ))}
@@ -3947,7 +3947,7 @@ export default function ProfesseurPage() {
                 >
                   <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner un cours" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="__none__">— Choisir —</SelectItem>
+                    <SelectItem value="__none__">- Choisir -</SelectItem>
                     {COURS_SYSTEME.map(c => (
                       <SelectItem key={c.id} value={c.id}>
                         {c.nom}{!c.actif ? ' (bientôt)' : ''}

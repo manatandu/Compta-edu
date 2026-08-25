@@ -153,7 +153,7 @@ export default function UE5FinancesPubliquesPage() {
           <Breadcrumb
             items={[
               { label: 'Mes cours', route: '/mes-cours' },
-              { label: 'UE 5 — Finances publiques' },
+              { label: 'UE 5 - Finances publiques' },
             ]}
             color="emerald"
           />

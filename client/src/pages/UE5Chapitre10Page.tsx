@@ -54,7 +54,7 @@ const C = {
 
 const LECONS: Lecon[] = [
   // ──────────────────────────────────────────────────────────────────────────
-  // LECON 1 — Chronologie des reformes (1982-2026)
+  // LECON 1 - Chronologie des reformes (1982-2026)
   // ──────────────────────────────────────────────────────────────────────────
   {
     id: 'L1',
@@ -110,7 +110,7 @@ const LECONS: Lecon[] = [
               </thead>
               <tbody className="divide-y divide-rose-100">
                 {[
-                  ["1983","Loi financière n° 83-003","Premier cadre légal des finances publiques — budget de moyens"],
+                  ["1983","Loi financière n° 83-003","Premier cadre légal des finances publiques - budget de moyens"],
                   ["1987","Ordonnance-loi n° 87-004","Modification de la loi financière de 1983"],
                   ["2002-2006","Réformes structurelles","Chaîne de la dépense, nomenclatures budgétaires"],
                   ["2011","LOFIP n° 11/011","Budget-programme, décentralisation, unité de trésorerie, Cour des comptes"],
@@ -118,7 +118,7 @@ const LECONS: Lecon[] = [
                   ["2015","Création 26 provinces","Multiplication des budgets provinciaux, enjeux de décentralisation"],
                   ["2018","Loi n° 18/010","1re prorogation du budget-programme (+5 ans, jusqu'en 2024)"],
                   ["2023","Loi n° 23/030","2e prorogation + enrichissement documents PLF, nouvelles définitions"],
-                  ["2024","Expérimentation","Déconcentration de l'ordonnancement — 9 ministères pilotes (Art. 5 LF 2026)"],
+                  ["2024","Expérimentation","Déconcentration de l'ordonnancement - 9 ministères pilotes (Art. 5 LF 2026)"],
                   ["2025","LFR n° 25/044","Ajustement macroéconomique face au conflit dans l'Est"],
                   ["2026","LF n° 25/060","Budget 59 020,5 Mds FC, poursuite des réformes structurelles"],
                 ].map(([y,t,i]) => (
@@ -182,7 +182,7 @@ const LECONS: Lecon[] = [
   },
 
   // ──────────────────────────────────────────────────────────────────────────
-  // LECON 2 — Le budget-programme : fondements juridiques et contenu
+  // LECON 2 - Le budget-programme : fondements juridiques et contenu
   // ──────────────────────────────────────────────────────────────────────────
   {
     id: 'L2',
@@ -222,7 +222,7 @@ const LECONS: Lecon[] = [
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li>Chaque ministère ou institution peut créer un programme intitulé "administration générale" pour recevoir les crédits non affectés à un programme spécifique.</li>
-            <li>Seule une disposition de loi de finances d'initiative gouvernementale peut créer ou supprimer un programme — la création et la suppression des programmes relèvent donc du domaine de la loi.</li>
+            <li>Seule une disposition de loi de finances d'initiative gouvernementale peut créer ou supprimer un programme - la création et la suppression des programmes relèvent donc du domaine de la loi.</li>
           </ul>
         </div>
 
@@ -239,11 +239,11 @@ const LECONS: Lecon[] = [
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-lg border border-rose-200 p-4 bg-rose-50/50">
-              <h5 className="font-semibold text-rose-700 mb-2">PAP — Projet Annuel de Performance</h5>
+              <h5 className="font-semibold text-rose-700 mb-2">PAP - Projet Annuel de Performance</h5>
               <p className="text-sm text-gray-700">Produit avant le vote du budget. Il expose pour chaque programme : les objectifs poursuivis, les résultats attendus, les indicateurs et leurs cibles. Il accompagne le PLF soumis au Parlement.</p>
             </div>
             <div className="rounded-lg border border-rose-200 p-4 bg-rose-50/50">
-              <h5 className="font-semibold text-rose-700 mb-2">RAP — Rapport Annuel de Performance</h5>
+              <h5 className="font-semibold text-rose-700 mb-2">RAP - Rapport Annuel de Performance</h5>
               <p className="text-sm text-gray-700">Produit en fin d'exercice. Il rend compte des résultats effectivement obtenus par rapport aux objectifs du PAP. Il accompagne la loi de reddition des comptes soumise au Parlement (Art. 28-31 LOFIP).</p>
             </div>
           </div>
@@ -278,7 +278,7 @@ const LECONS: Lecon[] = [
         id: 'l2q2',
         question: "Selon l'article 8 de la LOFIP, dans le cadre du budget-programme, quelle est la valeur juridique de la présentation des crédits par chapitre, article et littera ?",
         options: [
-          { id: 'a', texte: "Elle est obligatoire et limitative — aucun dépassement n'est possible" },
+          { id: 'a', texte: "Elle est obligatoire et limitative - aucun dépassement n'est possible" },
           { id: 'b', texte: "Elle est indicative et non limitative" },
           { id: 'c', texte: "Elle est supprimée et remplacée exclusivement par les programmes" },
           { id: 'd', texte: "Elle est réservée aux dépenses de personnel uniquement" },
@@ -291,7 +291,7 @@ const LECONS: Lecon[] = [
   },
 
   // ──────────────────────────────────────────────────────────────────────────
-  // LECON 3 — Etat d'avancement des reformes et defis (2024-2026)
+  // LECON 3 - Etat d'avancement des reformes et defis (2024-2026)
   // ──────────────────────────────────────────────────────────────────────────
   {
     id: 'L3',
@@ -324,7 +324,7 @@ const LECONS: Lecon[] = [
             <InfoTooltip texte="L'article 5 de la LF n° 25/060 du 29 décembre 2025 autorise la déconcentration de l'ordonnancement à 9 ministères pilotes, transfert progressif de la compétence d'ordonnancement du ministre du Budget vers les ministères sectoriels." loi="LF n° 25/060 Art. 5" />
           </h4>
           <p className="text-gray-700 mb-3">
-            L'une des réformes les plus significatives en cours est la déconcentration de l'ordonnancement. En vertu de l'article 5 de la Loi de finances n° 25/060 du 29 décembre 2025, 9 ministères pilotes se sont vu transférer progressivement la compétence d'ordonnanciement de leurs dépenses — une compétence qui relevait jusqu'alors exclusivement du ministre ayant le budget dans ses attributions.
+            L'une des réformes les plus significatives en cours est la déconcentration de l'ordonnancement. En vertu de l'article 5 de la Loi de finances n° 25/060 du 29 décembre 2025, 9 ministères pilotes se sont vu transférer progressivement la compétence d'ordonnanciement de leurs dépenses - une compétence qui relevait jusqu'alors exclusivement du ministre ayant le budget dans ses attributions.
           </p>
           <p className="text-gray-700 mb-3">
             Cette réforme vise à rapprocher la prise de décision budgétaire des ministères sectoriels, à renforcer leur responsabilité dans l'exécution de leurs programmes et à améliorer les taux d'exécution budgétaire. Lors du Conseil des ministres de décembre 2025, la Vice-ministre des Finances a présenté les avancées de cette réforme, soulignant qu'elle constitue une transformation majeure de la gestion publique.
@@ -420,7 +420,7 @@ const LECONS: Lecon[] = [
   },
 
   // ──────────────────────────────────────────────────────────────────────────
-  // LECON 4 — Enjeux macroeconomiques et programme FMI
+  // LECON 4 - Enjeux macroeconomiques et programme FMI
   // ──────────────────────────────────────────────────────────────────────────
   {
     id: 'L4',
@@ -471,7 +471,7 @@ const LECONS: Lecon[] = [
         <div>
           <h4 className="font-semibold text-gray-800 mb-2">
             4.2 Le programme FMI : Facilité élargie de crédit (FEC) et Facilité pour la résilience et la durabilité (FRD)
-            <InfoTooltip texte="La RDC bénéficie d'un programme triennal avec le FMI (FEC + FRD). Le 19 décembre 2025, le FMI a approuvé un décaissement de 445 millions USD. Un 3e examen a abouti en mai 2026." loi="LOFIP Art. 1 et 2 — contexte international des finances publiques" />
+            <InfoTooltip texte="La RDC bénéficie d'un programme triennal avec le FMI (FEC + FRD). Le 19 décembre 2025, le FMI a approuvé un décaissement de 445 millions USD. Un 3e examen a abouti en mai 2026." loi="LOFIP Art. 1 et 2 - contexte international des finances publiques" />
           </h4>
           <p className="text-gray-700 mb-3">
             La RDC est engagée dans un programme triennal avec le Fonds monétaire international comprenant deux volets : la Facilité élargie de crédit (FEC) pour la stabilisation macroéconomique, et la Facilité pour la résilience et la durabilité (FRD) pour le financement de l'adaptation climatique.
@@ -480,9 +480,9 @@ const LECONS: Lecon[] = [
             Chronologie des revues et décaissements :
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
-            <li><strong>Mai 2025 :</strong> Accord au niveau des services FMI-RDC sur la 1re revue FEC et FRD — rééquilibrage du cadre macroéconomique.</li>
+            <li><strong>Mai 2025 :</strong> Accord au niveau des services FMI-RDC sur la 1re revue FEC et FRD - rééquilibrage du cadre macroéconomique.</li>
             <li><strong>19 décembre 2025 :</strong> Le Conseil d'administration du FMI approuve la 2e revue et un décaissement de 445 millions USD (570,9 millions DTS au titre de la FEC + 133,25 millions DTS au titre du FRD), portant le total à plus de 570,9 millions DTS décaissés.</li>
-            <li><strong>6 mai 2026 :</strong> Fin de la mission FMI à Kinshasa — accord préliminaire sur la 3e revue FEC et 2e revue FRD. Ouverture de la voie à un nouveau décaissement d'environ 400 millions USD.</li>
+            <li><strong>6 mai 2026 :</strong> Fin de la mission FMI à Kinshasa - accord préliminaire sur la 3e revue FEC et 2e revue FRD. Ouverture de la voie à un nouveau décaissement d'environ 400 millions USD.</li>
           </ul>
           <p className="text-gray-700 mt-3">
             Ces programmes conditionnent les réformes structurelles des finances publiques, notamment la mobilisation des recettes (objectif : porter la pression fiscale de ~12% à 15-17% du PIB), la transparence budgétaire et la déconcentration de l'ordonnancement.
@@ -492,13 +492,13 @@ const LECONS: Lecon[] = [
         <div>
           <h4 className="font-semibold text-gray-800 mb-2">
             4.3 Défis persistants de l'exécution budgétaire
-            <InfoTooltip texte="Malgré les réformes, des défis structurels persistent : faible taux d'exécution, paiements hors système, migration des systèmes d'information (SYDONIA, ERAS), formation insuffisante des RPROG." loi="LOFIP Art. 43, 88-96 — cadre d'exécution du budget" />
+            <InfoTooltip texte="Malgré les réformes, des défis structurels persistent : faible taux d'exécution, paiements hors système, migration des systèmes d'information (SYDONIA, ERAS), formation insuffisante des RPROG." loi="LOFIP Art. 43, 88-96 - cadre d'exécution du budget" />
           </h4>
           <p className="text-gray-700 mb-3">
             Malgré les avancées normatives, plusieurs défis structurels entravent la mise en oeuvre effective du budget-programme :
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
-            <li><strong>Faible taux d'exécution :</strong> seulement 17,1% au premier trimestre 2025 selon l'ODEP — le taux d'exécution des investissements ne dépasse pas 4% au T1.</li>
+            <li><strong>Faible taux d'exécution :</strong> seulement 17,1% au premier trimestre 2025 selon l'ODEP - le taux d'exécution des investissements ne dépasse pas 4% au T1.</li>
             <li><strong>Persistance des paiements hors système :</strong> les avances de trésorerie régularisées tardivement violent le principe de l'unité de trésorerie (Art. 110 LOFIP).</li>
             <li><strong>Migration des systèmes d'information :</strong> le basculement vers de nouveaux systèmes intégrés (SYDONIA pour les douanes, ERAS pour les recettes) est en cours mais incomplet.</li>
             <li><strong>Formation insuffisante des RPROG :</strong> les responsables de programmes (RPROG) manquent encore de formation pour piloter leurs budgets selon la logique de performance.</li>
@@ -512,11 +512,11 @@ const LECONS: Lecon[] = [
         id: 'l4q1',
         question: "Selon les données macroéconomiques 2025, quel est le taux d'exécution budgétaire enregistré au 1er trimestre 2025 selon le rapport ODEP ?",
         options: [
-          { id: 'a', texte: "4,0% — exclusivement pour les investissements" },
-          { id: 'b', texte: "17,1% — taux global d'exécution T1 2025" },
-          { id: 'c', texte: "50,0% — objectif mi-parcours fixé par le FMI" },
-          { id: 'd', texte: "12,0% — correspondant à la pression fiscale" },
-          { id: 'e', texte: "16,4% — progression du budget 2026 sur la LFR 2025" },
+          { id: 'a', texte: "4,0% - exclusivement pour les investissements" },
+          { id: 'b', texte: "17,1% - taux global d'exécution T1 2025" },
+          { id: 'c', texte: "50,0% - objectif mi-parcours fixé par le FMI" },
+          { id: 'd', texte: "12,0% - correspondant à la pression fiscale" },
+          { id: 'e', texte: "16,4% - progression du budget 2026 sur la LFR 2025" },
         ],
         reponse: 'b',
         explication: "Selon le rapport de l'ODEP (Observatoire de la Dépense Publique) du T1 2025, le taux global d'exécution budgétaire au 1er trimestre 2025 était de 17,1%. Le taux d'exécution spécifique aux investissements était encore plus faible (4%). Ces données illustrent les défis persistants de l'exécution budgétaire en RDC.",
@@ -525,11 +525,11 @@ const LECONS: Lecon[] = [
         id: 'l4q2',
         question: "Quel article constitutionnel fonde le principe de bonne gouvernance des finances de l'État en RDC ?",
         options: [
-          { id: 'a', texte: "Article 122 point 3 — compétence législative sur les finances publiques" },
-          { id: 'b', texte: "Article 174 — gestion des finances selon le principe de bonne gouvernance financière" },
-          { id: 'c', texte: "Article 180 — Cour des comptes et contrôle des finances" },
-          { id: 'd', texte: "Article 178 — Parlement et loi de reddition des comptes" },
-          { id: 'e', texte: "Article 126 — domaine de la loi organique" },
+          { id: 'a', texte: "Article 122 point 3 - compétence législative sur les finances publiques" },
+          { id: 'b', texte: "Article 174 - gestion des finances selon le principe de bonne gouvernance financière" },
+          { id: 'c', texte: "Article 180 - Cour des comptes et contrôle des finances" },
+          { id: 'd', texte: "Article 178 - Parlement et loi de reddition des comptes" },
+          { id: 'e', texte: "Article 126 - domaine de la loi organique" },
         ],
         reponse: 'b',
         explication: "L'article 174 de la Constitution dispose que les finances de l'État sont gérées conformément au principe de bonne gouvernance financière. L'article 175 précise que le budget de l'État prévoit et autorise, en recettes et en dépenses, les ressources et les charges de l'État. Ces articles constituent le fondement constitutionnel de la gestion des finances publiques en RDC.",
@@ -538,7 +538,7 @@ const LECONS: Lecon[] = [
   },
 
   // ──────────────────────────────────────────────────────────────────────────
-  // LECON 5 — Perspectives et recommandations
+  // LECON 5 - Perspectives et recommandations
   // ──────────────────────────────────────────────────────────────────────────
   {
     id: 'L5',
@@ -552,7 +552,7 @@ const LECONS: Lecon[] = [
             <InfoTooltip texte="Les articles 218 à 222 de la LOFIP organisent la rétrocession de 40% des recettes à caractère national aux provinces. L'article 232 précise que ces dispositions sont d'application immédiate depuis 2011." loi="LOFIP Art. 218-222 et 232" />
           </h4>
           <p className="text-gray-700 mb-3">
-            L'article 218 de la LOFIP pose le principe de la rétrocession aux provinces de 40% des recettes à caractère national. L'article 219 précise les modalités de calcul, et l'article 220 organise les transferts mensuels automatiques. Conformément à l'article 232, ces dispositions sont d'application immédiate depuis la promulgation de la LOFIP en 2011 — elles ne faisaient pas partie des dispositions soumises au moratoire.
+            L'article 218 de la LOFIP pose le principe de la rétrocession aux provinces de 40% des recettes à caractère national. L'article 219 précise les modalités de calcul, et l'article 220 organise les transferts mensuels automatiques. Conformément à l'article 232, ces dispositions sont d'application immédiate depuis la promulgation de la LOFIP en 2011 - elles ne faisaient pas partie des dispositions soumises au moratoire.
           </p>
           <p className="text-gray-700 mb-3">
             La Loi de finances n° 25/060 du 29 décembre 2025 fixe à son article 8 la rétrocession aux provinces à 7 694,5 milliards de francs congolais pour l'exercice 2026, et l'article 9 fixe la dotation à la Caisse nationale de péréquation à 744,6 milliards FC.
@@ -617,7 +617,7 @@ const LECONS: Lecon[] = [
             <InfoTooltip texte="En juin 2026, l'Assemblée nationale a ouvert une session extraordinaire pour examiner un collectif budgétaire (révision à la hausse du budget 2026), en raison de la persistance des dépenses liées au conflit dans l'Est." loi="Constitution Art. 122 · LOFIP Art. 28" />
           </h4>
           <p className="text-gray-700 mb-3">
-            Le 26 juin 2026, l'Assemblée nationale de la RDC a ouvert une session extraordinaire dont l'ordre du jour comprenait notamment un collectif budgétaire — une révision à la hausse du budget 2026. Cette révision est rendue nécessaire par la persistance des dépenses liées au conflit armé dans l'Est du pays, qui continue de peser sur les finances publiques malgré la progression globale du budget.
+            Le 26 juin 2026, l'Assemblée nationale de la RDC a ouvert une session extraordinaire dont l'ordre du jour comprenait notamment un collectif budgétaire - une révision à la hausse du budget 2026. Cette révision est rendue nécessaire par la persistance des dépenses liées au conflit armé dans l'Est du pays, qui continue de peser sur les finances publiques malgré la progression globale du budget.
           </p>
           <p className="text-gray-700">
             Cette démarche illustre le mécanisme de la loi de finances rectificative prévu par la LOFIP, qui permet au Gouvernement d'adapter en cours d'exercice les prévisions initiales aux réalités économiques et sécuritaires. Elle rappelle l'importance du contrôle parlementaire comme mécanisme central de la gouvernance financière (Art. 127-130 LOFIP).
@@ -752,11 +752,11 @@ const LECONS: Lecon[] = [
         id: 'l6q1',
         question: "Selon le §34 de la Circulaire N° 004/ME/MIN.BUDGET/2025, quelle est la date limite imposee aux ministeres sectoriels pour le depot de leurs previsions budgetaires ?",
         options: [
-          { id: 'a', texte: "Le 15 septembre — date de depot du PLF" },
-          { id: 'b', texte: "Le 31 juillet — date de cloture de la session ordinaire" },
-          { id: 'c', texte: "Le 22 juillet — date limite imposee par la Circulaire" },
-          { id: 'd', texte: "Le 1er juin — avant le debut des conferences budgetaires sectorielles" },
-          { id: 'e', texte: "Le 30 juin — fin du premier semestre de l'exercice" },
+          { id: 'a', texte: "Le 15 septembre - date de depot du PLF" },
+          { id: 'b', texte: "Le 31 juillet - date de cloture de la session ordinaire" },
+          { id: 'c', texte: "Le 22 juillet - date limite imposee par la Circulaire" },
+          { id: 'd', texte: "Le 1er juin - avant le debut des conferences budgetaires sectorielles" },
+          { id: 'e', texte: "Le 30 juin - fin du premier semestre de l'exercice" },
         ],
         reponse: 'c',
         explication: "Le §34 de la Circulaire N° 004/ME/MIN.BUDGET/2025 fixe au 22 juillet la date limite pour le depot des previsions sectorielles par les ministeres. Ce delai est imperatif : il conditionne l'organisation des conferences budgetaires sectorielles et le respect du calendrier de depot du PLF au 15 septembre (Art. 83 al. 1 LOFIP et Art. 126 Constitution). Tout retard sectoriel propage un retard systemique sur l'ensemble de la procedure budgetaire.",
@@ -787,11 +787,11 @@ const QCM_GLOBAUX: QCM[] = [
     id: 'g1',
     question: "L'article 1er de la LOFIP dispose que cette loi a été adoptée conformément à quel article de la Constitution ?",
     options: [
-      { id: 'a', texte: "Article 122 point 1 — compétence sur les libertés publiques" },
-      { id: 'b', texte: "Article 122 point 3 — compétence sur les finances publiques" },
-      { id: 'c', texte: "Article 180 — institution de la Cour des comptes" },
-      { id: 'd', texte: "Article 174 — principe de bonne gouvernance financière" },
-      { id: 'e', texte: "Article 126 — domaine de la loi organique" },
+      { id: 'a', texte: "Article 122 point 1 - compétence sur les libertés publiques" },
+      { id: 'b', texte: "Article 122 point 3 - compétence sur les finances publiques" },
+      { id: 'c', texte: "Article 180 - institution de la Cour des comptes" },
+      { id: 'd', texte: "Article 174 - principe de bonne gouvernance financière" },
+      { id: 'e', texte: "Article 126 - domaine de la loi organique" },
     ],
     reponse: 'b',
     explication: "L'article 1er de la LOFIP dispose : 'La présente loi fixe, conformément à l'article 122 point 3 de la Constitution, les règles concernant les finances publiques.' L'article 122 point 3 de la Constitution réserve au législateur la compétence de fixer les règles relatives aux finances publiques de l'État, des provinces et des entités territoriales décentralisées.",
@@ -865,11 +865,11 @@ const QCM_GLOBAUX: QCM[] = [
     id: 'g7',
     question: "La loi n° 18/010 du 9 juillet 2018 constitue quelle modification de la LOFIP ?",
     options: [
-      { id: 'a', texte: "La 1re modification — 1re prorogation de 5 ans du budget-programme" },
-      { id: 'b', texte: "La 2e modification — institution de la Caisse nationale de péréquation" },
-      { id: 'c', texte: "La 3e modification — création du RGCP" },
-      { id: 'd', texte: "La 1re modification — suppression du budget de moyens" },
-      { id: 'e', texte: "La 2e modification — 2e prorogation jusqu'en 2029" },
+      { id: 'a', texte: "La 1re modification - 1re prorogation de 5 ans du budget-programme" },
+      { id: 'b', texte: "La 2e modification - institution de la Caisse nationale de péréquation" },
+      { id: 'c', texte: "La 3e modification - création du RGCP" },
+      { id: 'd', texte: "La 1re modification - suppression du budget de moyens" },
+      { id: 'e', texte: "La 2e modification - 2e prorogation jusqu'en 2029" },
     ],
     reponse: 'a',
     explication: "La loi n° 18/010 du 9 juillet 2018 constitue la 1re modification de la LOFIP. Elle a accordé au Gouvernement une première prorogation de 5 ans du délai de basculement vers le budget-programme, repoussant l'échéance de 2019 à 2024. La 2e modification est intervenue avec la loi n° 23/030 du 28 juin 2023 qui a prorogé à nouveau jusqu'en 2029.",
@@ -878,11 +878,11 @@ const QCM_GLOBAUX: QCM[] = [
     id: 'g8',
     question: "En vertu de quelle disposition la loi de finances de l'année fixe-t-elle les crédits par programme avec autorisation d'engagement (AE) et crédits de paiement (CP) ?",
     options: [
-      { id: 'a', texte: "Article 8 de la LOFIP — spécialité des crédits" },
-      { id: 'b', texte: "Article 22 de la LOFIP — contenu de la loi de finances de l'année" },
-      { id: 'c', texte: "Article 43 de la LOFIP — définition du programme" },
-      { id: 'd', texte: "Article 232 de la LOFIP — dispositions d'application immédiate" },
-      { id: 'e', texte: "Article 175 de la Constitution — contenu du budget de l'État" },
+      { id: 'a', texte: "Article 8 de la LOFIP - spécialité des crédits" },
+      { id: 'b', texte: "Article 22 de la LOFIP - contenu de la loi de finances de l'année" },
+      { id: 'c', texte: "Article 43 de la LOFIP - définition du programme" },
+      { id: 'd', texte: "Article 232 de la LOFIP - dispositions d'application immédiate" },
+      { id: 'e', texte: "Article 175 de la Constitution - contenu du budget de l'État" },
     ],
     reponse: 'b',
     explication: "L'article 22 de la LOFIP dispose : 'La loi de finances de l'année fixe pour le budget général, par ministère ou institution et par programme, le montant des autorisations d'engagement annuelles et pluriannuelles ainsi que des crédits de paiement.' La distinction AE/CP est une innovation majeure du budget-programme qui permet de gérer les engagements pluriannuels.",
@@ -904,11 +904,11 @@ const QCM_GLOBAUX: QCM[] = [
     id: 'g10',
     question: "Selon la LOFIP (Art. 234 combiné avec la Loi n° 23/030), à quelle date est désormais fixée l'entrée en vigueur intégrale du budget-programme en RDC ?",
     options: [
-      { id: 'a', texte: "Le 13 juillet 2011 — date de promulgation de la LOFIP" },
-      { id: 'b', texte: "Le 1er janvier 2019 — délai initial de la LOFIP" },
-      { id: 'c', texte: "Le 1er janvier 2024 — après la 1re prorogation" },
-      { id: 'd', texte: "Le 1er janvier 2029 — après la 2e prorogation" },
-      { id: 'e', texte: "Le 1er janvier 2035 — sous réserve d'une 3e prorogation éventuelle" },
+      { id: 'a', texte: "Le 13 juillet 2011 - date de promulgation de la LOFIP" },
+      { id: 'b', texte: "Le 1er janvier 2019 - délai initial de la LOFIP" },
+      { id: 'c', texte: "Le 1er janvier 2024 - après la 1re prorogation" },
+      { id: 'd', texte: "Le 1er janvier 2029 - après la 2e prorogation" },
+      { id: 'e', texte: "Le 1er janvier 2035 - sous réserve d'une 3e prorogation éventuelle" },
     ],
     reponse: 'd',
     explication: "Après deux prorogations successives (loi n° 18/010 de 2018 et loi n° 23/030 de 2023), l'entrée en vigueur intégrale du budget-programme est désormais fixée au 1er janvier 2029. Le délai initial de l'article 234 de la LOFIP était le 1er janvier 2019 (8e année après la promulgation en 2011). Deux prorogations ont décalé cette échéance de 10 ans.",
@@ -919,7 +919,7 @@ const QCM_GLOBAUX: QCM[] = [
     options: [
       { id: 'a', texte: "La loi de reddition des comptes de l'exercice 2024" },
       { id: 'b', texte: "La loi de finances initiale pour l'exercice 2027" },
-      { id: 'c', texte: "Un collectif budgétaire — révision à la hausse du budget 2026" },
+      { id: 'c', texte: "Un collectif budgétaire - révision à la hausse du budget 2026" },
       { id: 'd', texte: "La loi portant 3e prorogation du budget-programme" },
       { id: 'e', texte: "La ratification du programme FMI-RDC (3e revue)" },
     ],
@@ -930,10 +930,10 @@ const QCM_GLOBAUX: QCM[] = [
     id: 'g12',
     question: "Le programme FMI-RDC comprend deux facilités. Laquelle est destinée au financement de l'adaptation climatique ?",
     options: [
-      { id: 'a', texte: "La Facilité élargie de crédit (FEC) — stabilisation macroéconomique" },
-      { id: 'b', texte: "La Facilité pour la résilience et la durabilité (FRD) — adaptation climatique" },
-      { id: 'c', texte: "La Facilité de crédit rapide (FCR) — crises d'urgence" },
-      { id: 'd', texte: "La Facilité de protection de la dette (FPD) — restructuration de la dette" },
+      { id: 'a', texte: "La Facilité élargie de crédit (FEC) - stabilisation macroéconomique" },
+      { id: 'b', texte: "La Facilité pour la résilience et la durabilité (FRD) - adaptation climatique" },
+      { id: 'c', texte: "La Facilité de crédit rapide (FCR) - crises d'urgence" },
+      { id: 'd', texte: "La Facilité de protection de la dette (FPD) - restructuration de la dette" },
       { id: 'e', texte: "Le Fonds de Stabilisation des Cours des Matières premières (FSCMP)" },
     ],
     reponse: 'b',
@@ -956,11 +956,11 @@ const QCM_GLOBAUX: QCM[] = [
     id: 'g14',
     question: "Quel est le taux de pression fiscale actuel de la RDC en 2025, et quel est l'objectif visé selon les recommandations du FMI ?",
     options: [
-      { id: 'a', texte: "Actuel : 20% du PIB — objectif : 25% du PIB" },
-      { id: 'b', texte: "Actuel : 8,8% du PIB — objectif : 12% du PIB" },
-      { id: 'c', texte: "Actuel : ~12% du PIB — objectif : 15-17% du PIB" },
-      { id: 'd', texte: "Actuel : 17,1% du PIB — objectif : 20% du PIB" },
-      { id: 'e', texte: "Actuel : 5,3% du PIB — objectif : 10% du PIB" },
+      { id: 'a', texte: "Actuel : 20% du PIB - objectif : 25% du PIB" },
+      { id: 'b', texte: "Actuel : 8,8% du PIB - objectif : 12% du PIB" },
+      { id: 'c', texte: "Actuel : ~12% du PIB - objectif : 15-17% du PIB" },
+      { id: 'd', texte: "Actuel : 17,1% du PIB - objectif : 20% du PIB" },
+      { id: 'e', texte: "Actuel : 5,3% du PIB - objectif : 10% du PIB" },
     ],
     reponse: 'c',
     explication: "La pression fiscale actuelle de la RDC est d'environ 12% du PIB, un niveau insuffisant comparé à la moyenne africaine (15-17%). Les recommandations du FMI et les engagements dans le cadre de la FEC visent à porter ce taux à 15-17% du PIB, ce qui implique l'élargissement de l'assiette fiscale, la lutte contre la fraude et l'évasion fiscales, et la modernisation de l'administration fiscale.",
@@ -1052,13 +1052,13 @@ const QCM_GLOBAUX: QCM[] = [
 const CAS_PRATIQUES: CasPratique[] = [
   {
     id: 'cp1',
-    titre: "CP1 — La prorogation du budget-programme devant le Parlement",
+    titre: "CP1 - La prorogation du budget-programme devant le Parlement",
     contexte: "En 2023, le Gouvernement congolais dépose à l'Assemblée nationale un projet de loi modifiant la LOFIP afin de proroger pour la deuxième fois le délai de basculement vers le budget-programme. Plusieurs députés contestent cette prorogation en invoquant l'article 234 de la LOFIP et l'article 122 point 3 de la Constitution. Ils soutiennent que le Gouvernement n'a pas le droit de repousser indéfiniment une réforme consacrée par la loi. Le Gouvernement répond que la prorogation est elle-même une loi et qu'elle est donc constitutionnellement valide. Il invoque également les difficultés pratiques de mise en oeuvre.",
     questions: [
       {
         num: "1",
         enonce: "Sur le fondement de l'article 122 point 3 de la Constitution et de l'article 234 de la LOFIP, analysez la validité constitutionnelle et légale de la loi de prorogation n° 23/030 du 28 juin 2023.",
-        correction: "L'article 122 point 3 de la Constitution confère au législateur la compétence exclusive de fixer les règles relatives aux finances publiques. L'article 234 de la LOFIP, qui fixe le délai de basculement, est lui-même une disposition législative. La modification d'une loi par une autre loi est constitutionnellement valide dès lors que la forme et la procédure sont respectées. La loi n° 23/030 du 28 juin 2023 est une loi ordinaire votée par le Parlement à l'initiative du Gouvernement — elle modifie donc valablement l'article 234 de la LOFIP. La critique des députés est juridiquement inopérante : il n'existe pas de hiérarchie entre deux lois ordinaires, et le Parlement peut toujours modifier ou proroger une disposition qu'il a antérieurement adoptée, sous réserve du respect de la Constitution.",
+        correction: "L'article 122 point 3 de la Constitution confère au législateur la compétence exclusive de fixer les règles relatives aux finances publiques. L'article 234 de la LOFIP, qui fixe le délai de basculement, est lui-même une disposition législative. La modification d'une loi par une autre loi est constitutionnellement valide dès lors que la forme et la procédure sont respectées. La loi n° 23/030 du 28 juin 2023 est une loi ordinaire votée par le Parlement à l'initiative du Gouvernement - elle modifie donc valablement l'article 234 de la LOFIP. La critique des députés est juridiquement inopérante : il n'existe pas de hiérarchie entre deux lois ordinaires, et le Parlement peut toujours modifier ou proroger une disposition qu'il a antérieurement adoptée, sous réserve du respect de la Constitution.",
       },
       {
         num: "2",
@@ -1074,18 +1074,18 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
   {
     id: 'cp2',
-    titre: "CP2 — La déconcentration de l'ordonnancement et la responsabilité des ministères sectoriels",
+    titre: "CP2 - La déconcentration de l'ordonnancement et la responsabilité des ministères sectoriels",
     contexte: "En application de l'article 5 de la Loi de finances n° 25/060 du 29 décembre 2025, le Ministère de la Santé est désigné comme l'un des 9 ministères pilotes pour la déconcentration de l'ordonnancement. Le Secrétaire général du Ministère de la Santé, nouvellement nommé ordonnateur délégué, engage des dépenses de 50 millions FC pour l'acquisition de médicaments sans avoir obtenu au préalable le visa du contrôleur budgétaire déployé auprès du ministère. Il invoque l'urgence sanitaire et la nouvelle délégation de compétence accordée par l'article 5 de la LF 2026.",
     questions: [
       {
         num: "1",
         enonce: "La déconcentration de l'ordonnancement prévue par l'article 5 de la LF n° 25/060 supprime-t-elle le contrôle budgétaire préalable prévu par les articles 112-115 de la LOFIP ?",
-        correction: "Non. La déconcentration de l'ordonnancement, telle que prévue par l'article 5 de la LF n° 25/060, transfère la compétence d'ordonnancement du ministre du Budget vers les ministères sectoriels pilotes. Elle ne modifie pas et ne supprime pas le contrôle budgétaire préalable organisé par les articles 112-115 de la LOFIP. L'article 112 de la LOFIP impose que tout engagement de dépense soit précédé du visa du contrôleur budgétaire. Ce contrôle a priori est une règle organique inscrite dans la LOFIP — une loi de finances ordinaire ne peut pas le déroger implicitement. La déconcentration de l'ordonnancement modifie qui ordonnance, mais ne modifie pas le circuit de contrôle préalable. L'engagement réalisé sans visa est donc irrégulier.",
+        correction: "Non. La déconcentration de l'ordonnancement, telle que prévue par l'article 5 de la LF n° 25/060, transfère la compétence d'ordonnancement du ministre du Budget vers les ministères sectoriels pilotes. Elle ne modifie pas et ne supprime pas le contrôle budgétaire préalable organisé par les articles 112-115 de la LOFIP. L'article 112 de la LOFIP impose que tout engagement de dépense soit précédé du visa du contrôleur budgétaire. Ce contrôle a priori est une règle organique inscrite dans la LOFIP - une loi de finances ordinaire ne peut pas le déroger implicitement. La déconcentration de l'ordonnancement modifie qui ordonnance, mais ne modifie pas le circuit de contrôle préalable. L'engagement réalisé sans visa est donc irrégulier.",
       },
       {
         num: "2",
         enonce: "Analysez la responsabilité juridique du Secrétaire général du Ministère de la Santé au regard des articles 112 et 119 de la LOFIP. Le motif d'urgence sanitaire peut-il exonérer l'ordonnateur délégué de sa responsabilité ?",
-        correction: "L'article 112 de la LOFIP soumet tout engagement de dépense au visa préalable du contrôleur budgétaire. L'article 119 engage la responsabilité personnelle et pécuniaire de l'ordonnateur qui passe outre le refus de visa ou qui engage des dépenses sans visa. En l'espèce, le Secrétaire général a engagé 50 millions FC sans visa — sa responsabilité est engagée. L'urgence sanitaire n'est pas un motif légal d'exonération prévu par la LOFIP. La loi prévoit des procédures d'urgence (avances de trésorerie, régularisation a posteriori) qui doivent être suivies même en cas d'urgence. Le Secrétaire général aurait dû soit solliciter en urgence le visa du contrôleur, soit recourir à la procédure d'avance de trésorerie régularisable a posteriori. En agissant sans visa, il s'expose aux sanctions prévues par les articles 128-132 de la LOFIP.",
+        correction: "L'article 112 de la LOFIP soumet tout engagement de dépense au visa préalable du contrôleur budgétaire. L'article 119 engage la responsabilité personnelle et pécuniaire de l'ordonnateur qui passe outre le refus de visa ou qui engage des dépenses sans visa. En l'espèce, le Secrétaire général a engagé 50 millions FC sans visa - sa responsabilité est engagée. L'urgence sanitaire n'est pas un motif légal d'exonération prévu par la LOFIP. La loi prévoit des procédures d'urgence (avances de trésorerie, régularisation a posteriori) qui doivent être suivies même en cas d'urgence. Le Secrétaire général aurait dû soit solliciter en urgence le visa du contrôleur, soit recourir à la procédure d'avance de trésorerie régularisable a posteriori. En agissant sans visa, il s'expose aux sanctions prévues par les articles 128-132 de la LOFIP.",
       },
       {
         num: "3",
@@ -1096,13 +1096,13 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
   {
     id: 'cp3',
-    titre: "CP3 — La loi de finances rectificative et le principe d'équilibre budgétaire",
+    titre: "CP3 - La loi de finances rectificative et le principe d'équilibre budgétaire",
     contexte: "En mai 2025, le Gouvernement congolais soumet à l'Assemblée nationale un projet de loi de finances rectificative (LFR) réduisant le budget de 1,7% en raison du conflit armé dans l'Est. Certains parlementaires contestent cette révision à la baisse, arguant qu'une réduction du budget sans couverture de toutes les dépenses obligatoires (salaires, service de la dette) violerait le principe d'équilibre budgétaire posé par la LOFIP. D'autres parlementaires soutiennent au contraire que la LFR est une adaptation nécessaire et légale du budget aux réalités économiques.",
     questions: [
       {
         num: "1",
         enonce: "Sur le fondement des dispositions de la LOFIP relatives au principe d'équilibre budgétaire et à la procédure de la loi de finances rectificative, analysez la légalité de la LFR n° 25/044 adoptée par le Sénat le 13 juin 2025.",
-        correction: "La LOFIP consacre le principe d'équilibre budgétaire comme principe fondateur des finances publiques. Cet équilibre signifie que les recettes prévues doivent couvrir les dépenses autorisées — il n'implique pas que le budget ne peut pas être réduit. La loi de finances rectificative est un mécanisme légalement prévu qui permet au Gouvernement d'adapter le budget en cours d'exercice aux nouvelles réalités économiques, sécuritaires ou sociales. La LFR n° 25/044 a réduit le budget de 51 553,5 Mds FC à 50 691,8 Mds FC, en ajustant à la fois les recettes et les dépenses pour maintenir l'équilibre. Si les dépenses obligatoires (salaires, service de la dette) sont intégralement couvertes dans la LFR révisée, aucune violation du principe d'équilibre n'est caractérisée. La LFR est donc légale, à condition que l'équilibre recettes-dépenses soit maintenu dans le nouveau cadre budgétaire.",
+        correction: "La LOFIP consacre le principe d'équilibre budgétaire comme principe fondateur des finances publiques. Cet équilibre signifie que les recettes prévues doivent couvrir les dépenses autorisées - il n'implique pas que le budget ne peut pas être réduit. La loi de finances rectificative est un mécanisme légalement prévu qui permet au Gouvernement d'adapter le budget en cours d'exercice aux nouvelles réalités économiques, sécuritaires ou sociales. La LFR n° 25/044 a réduit le budget de 51 553,5 Mds FC à 50 691,8 Mds FC, en ajustant à la fois les recettes et les dépenses pour maintenir l'équilibre. Si les dépenses obligatoires (salaires, service de la dette) sont intégralement couvertes dans la LFR révisée, aucune violation du principe d'équilibre n'est caractérisée. La LFR est donc légale, à condition que l'équilibre recettes-dépenses soit maintenu dans le nouveau cadre budgétaire.",
       },
       {
         num: "2",
@@ -1118,18 +1118,18 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
   {
     id: 'cp4',
-    titre: "CP4 — La rétrocession des 40% aux provinces : inexécution et recours",
+    titre: "CP4 - La rétrocession des 40% aux provinces : inexécution et recours",
     contexte: "La province du Maniema constate que depuis trois mois, le pouvoir central n'a pas effectué les virements mensuels correspondant à sa quote-part des 40% des recettes à caractère national, prévue par les articles 218-222 de la LOFIP. Le gouverneur provincial envisage plusieurs recours : saisir l'IGF, saisir la Cour des comptes, saisir l'Assemblée nationale, ou suspendre le versement des recettes provinciales au Trésor national. Ses conseillers juridiques sont divisés sur la voie à suivre.",
     questions: [
       {
         num: "1",
         enonce: "Analysez le fondement juridique de la créance de la province du Maniema sur le pouvoir central au regard des articles 218-222 et 232 de la LOFIP. Cette créance est-elle soumise au moratoire sur le budget-programme ?",
-        correction: "Les articles 218 à 222 de la LOFIP organisent la rétrocession de 40% des recettes à caractère national aux provinces. L'article 232 de la LOFIP précise expressément que ces dispositions sont 'd'application immédiate' — elles ne font pas partie des dispositions soumises au moratoire sur le budget-programme. La créance de la province du Maniema sur le pouvoir central est donc une créance légale, exigible depuis 2011, et non une créance conditionnée par l'entrée en vigueur intégrale de la LOFIP. L'inexécution des virements pendant trois mois constitue une violation de la LOFIP. La province dispose d'une créance certaine, liquide (calculable selon les recettes nationales effectivement recouvrées) et exigible chaque mois.",
+        correction: "Les articles 218 à 222 de la LOFIP organisent la rétrocession de 40% des recettes à caractère national aux provinces. L'article 232 de la LOFIP précise expressément que ces dispositions sont 'd'application immédiate' - elles ne font pas partie des dispositions soumises au moratoire sur le budget-programme. La créance de la province du Maniema sur le pouvoir central est donc une créance légale, exigible depuis 2011, et non une créance conditionnée par l'entrée en vigueur intégrale de la LOFIP. L'inexécution des virements pendant trois mois constitue une violation de la LOFIP. La province dispose d'une créance certaine, liquide (calculable selon les recettes nationales effectivement recouvrées) et exigible chaque mois.",
       },
       {
         num: "2",
         enonce: "Parmi les recours envisagés (IGF, Cour des comptes, Assemblée nationale, suspension des versements provinciaux), lesquels sont juridiquement fondés selon la LOFIP et lesquels sont illégaux ? Justifiez votre réponse au regard des textes.",
-        correction: "Recours fondés : La saisine de l'IGF est fondée, car l'article 121 de la LOFIP confère à l'IGF une compétence générale de contrôle sur toutes les opérations financières du pouvoir central, y compris l'exécution des transferts aux provinces. La saisine de l'Assemblée nationale est fondée dans le cadre du contrôle parlementaire (Art. 127 LOFIP) : les parlementaires peuvent interpeller le Gouvernement et exiger des explications sur l'inexécution des virements. Recours non fondés ou illégaux : La saisine de la Cour des comptes sur ce point est limitée car la Cour des comptes contrôle les comptables publics a posteriori — elle n'est pas l'organe indiqué pour contraindre le pouvoir central à exécuter des virements en cours d'exercice. La suspension des versements provinciaux au Trésor national est illégale : la province ne peut unilatéralement refuser de verser ses recettes au Trésor central en compensation d'une créance qu'elle estime avoir sur le pouvoir central. Cela violerait le principe d'unité de trésorerie (Art. 110 LOFIP) et constituerait une inexécution budgétaire sanctionnable.",
+        correction: "Recours fondés : La saisine de l'IGF est fondée, car l'article 121 de la LOFIP confère à l'IGF une compétence générale de contrôle sur toutes les opérations financières du pouvoir central, y compris l'exécution des transferts aux provinces. La saisine de l'Assemblée nationale est fondée dans le cadre du contrôle parlementaire (Art. 127 LOFIP) : les parlementaires peuvent interpeller le Gouvernement et exiger des explications sur l'inexécution des virements. Recours non fondés ou illégaux : La saisine de la Cour des comptes sur ce point est limitée car la Cour des comptes contrôle les comptables publics a posteriori - elle n'est pas l'organe indiqué pour contraindre le pouvoir central à exécuter des virements en cours d'exercice. La suspension des versements provinciaux au Trésor national est illégale : la province ne peut unilatéralement refuser de verser ses recettes au Trésor central en compensation d'une créance qu'elle estime avoir sur le pouvoir central. Cela violerait le principe d'unité de trésorerie (Art. 110 LOFIP) et constituerait une inexécution budgétaire sanctionnable.",
       },
       {
         num: "3",
@@ -1140,18 +1140,18 @@ const CAS_PRATIQUES: CasPratique[] = [
   },
   {
     id: 'cp5',
-    titre: "CP5 — Budget-programme et reddition des comptes : la loi de reddition non déposée",
+    titre: "CP5 - Budget-programme et reddition des comptes : la loi de reddition non déposée",
     contexte: "Après l'exercice budgétaire 2024, le Gouvernement congolais ne dépose pas la loi de reddition des comptes dans le délai imparti par les articles 28-31 de la LOFIP. Il invoque la complexité de la transition vers le budget-programme et les difficultés de l'IGF à certifier les comptes. L'Assemblée nationale, sur proposition de sa Commission économique et financière, envisage de mettre en cause la responsabilité du Gouvernement. La Cour des comptes, de son côté, réclame la transmission des comptes des comptables pour pouvoir exercer son contrôle juridictionnel.",
     questions: [
       {
         num: "1",
         enonce: "Quelles sont les obligations légales du Gouvernement en matière de dépôt de la loi de reddition des comptes selon les articles 28-31 de la LOFIP, et quelles sont les conséquences juridiques du non-respect de ce délai ?",
-        correction: "Les articles 28 à 31 de la LOFIP organisent la loi de reddition des comptes. L'article 28 impose au Gouvernement de déposer, avant une date limite fixée par la loi, le projet de loi de reddition des comptes accompagné des rapports annuels de performance (RAP) de chaque programme. Ce projet rend compte de l'exécution de la loi de finances de l'exercice écoulé. Le non-respect du délai constitue une violation de la LOFIP. Les conséquences juridiques sont multiples : l'Assemblée nationale peut interpeller le Gouvernement et engager sa responsabilité politique ; la Cour des comptes ne peut exercer pleinement son contrôle juridictionnel faute de comptes transmis ; et les provinces et ETD ne peuvent pas contrôler la sincérité des montants qui leur ont été rétrocédés. Le motif invoqué par le Gouvernement (complexité de la transition) n'est pas un motif légal d'exonération — il constitue tout au plus une circonstance atténuante dans l'appréciation politique de la responsabilité.",
+        correction: "Les articles 28 à 31 de la LOFIP organisent la loi de reddition des comptes. L'article 28 impose au Gouvernement de déposer, avant une date limite fixée par la loi, le projet de loi de reddition des comptes accompagné des rapports annuels de performance (RAP) de chaque programme. Ce projet rend compte de l'exécution de la loi de finances de l'exercice écoulé. Le non-respect du délai constitue une violation de la LOFIP. Les conséquences juridiques sont multiples : l'Assemblée nationale peut interpeller le Gouvernement et engager sa responsabilité politique ; la Cour des comptes ne peut exercer pleinement son contrôle juridictionnel faute de comptes transmis ; et les provinces et ETD ne peuvent pas contrôler la sincérité des montants qui leur ont été rétrocédés. Le motif invoqué par le Gouvernement (complexité de la transition) n'est pas un motif légal d'exonération - il constitue tout au plus une circonstance atténuante dans l'appréciation politique de la responsabilité.",
       },
       {
         num: "2",
         enonce: "La Cour des comptes réclame la transmission des comptes des comptables publics. Sur le fondement des articles 123-126 de la LOFIP et de l'article 180 de la Constitution, analysez la nature du contrôle juridictionnel de la Cour des comptes et les sanctions qu'elle peut prononcer.",
-        correction: "L'article 180 de la Constitution institue la Cour des comptes et lui confie le contrôle des finances publiques. Les articles 123 à 126 de la LOFIP organisent ce contrôle juridictionnel. La Cour des comptes est une juridiction financière qui juge les comptes des comptables publics a posteriori. Elle peut rendre trois types de décisions : l'arrêt de quitus, accordé au comptable dont les comptes sont réguliers et sincères ; l'arrêt de débet, qui condamne personnellement et pécuniairement le comptable en cas de manquement constaté (Art. 131 LOFIP) ; et les injonctions, par lesquelles elle enjoint au comptable de produire les pièces manquantes ou de régulariser sa situation. L'article 126 précise que la Cour des comptes peut également certifier les comptes de l'État — cette certification est une prérogative clé dans la transition vers le budget-programme.",
+        correction: "L'article 180 de la Constitution institue la Cour des comptes et lui confie le contrôle des finances publiques. Les articles 123 à 126 de la LOFIP organisent ce contrôle juridictionnel. La Cour des comptes est une juridiction financière qui juge les comptes des comptables publics a posteriori. Elle peut rendre trois types de décisions : l'arrêt de quitus, accordé au comptable dont les comptes sont réguliers et sincères ; l'arrêt de débet, qui condamne personnellement et pécuniairement le comptable en cas de manquement constaté (Art. 131 LOFIP) ; et les injonctions, par lesquelles elle enjoint au comptable de produire les pièces manquantes ou de régulariser sa situation. L'article 126 précise que la Cour des comptes peut également certifier les comptes de l'État - cette certification est une prérogative clé dans la transition vers le budget-programme.",
       },
       {
         num: "3",
@@ -1303,7 +1303,7 @@ export default function UE5Chapitre10Page() {
             <Breadcrumb
               items={[
                 { label: 'Mes cours', route: '/mes-cours' },
-                { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+                { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
                 { label: 'Chapitre 10' },
               ]}
               color="emerald"
@@ -1381,7 +1381,7 @@ export default function UE5Chapitre10Page() {
         {onglet === 'qcm' && (
           <div className="space-y-4">
             <div className={cn('rounded-xl border p-4', C.bg, C.border)}>
-              <h2 className={cn('font-bold text-base', C.text)}>QCM globaux — Chapitre 10</h2>
+              <h2 className={cn('font-bold text-base', C.text)}>QCM globaux - Chapitre 10</h2>
               <p className="text-xs text-gray-500 mt-1">20 questions · 5 propositions chacune · LOFIP · LF n° 25/060 · Circulaire N° 004/ME/MIN.BUDGET/2025</p>
             </div>
             {QCM_GLOBAUX.map((q, i) => <QCMCard key={q.id} qcm={q} index={i} />)}
@@ -1392,7 +1392,7 @@ export default function UE5Chapitre10Page() {
         {onglet === 'cas' && (
           <div className="space-y-6">
             <div className={cn('rounded-xl border p-4', C.bg, C.border)}>
-              <h2 className={cn('font-bold text-base', C.text)}>Cas pratiques — Chapitre 10</h2>
+              <h2 className={cn('font-bold text-base', C.text)}>Cas pratiques - Chapitre 10</h2>
               <p className="text-xs text-gray-500 mt-1">6 cas purement juridiques · Fondes exclusivement sur les textes legaux · Inclut la Circulaire N° 004/ME/MIN.BUDGET/2025</p>
             </div>
             {CAS_PRATIQUES.map(cp => <CasPratiqueCard key={cp.id} cp={cp} />)}
@@ -1403,7 +1403,7 @@ export default function UE5Chapitre10Page() {
         {onglet === 'devoir' && (
           <div className="space-y-4">
             <div className={cn('rounded-xl border p-4', C.bg, C.border)}>
-              <h2 className={cn('font-bold text-base', C.text)}>Devoir — Chapitre 10</h2>
+              <h2 className={cn('font-bold text-base', C.text)}>Devoir - Chapitre 10</h2>
               <p className="text-xs text-gray-500 mt-1">Dissertation juridique · Noté sur 20</p>
             </div>
             <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
@@ -1433,9 +1433,9 @@ export default function UE5Chapitre10Page() {
                   <p className="font-bold text-blue-800">Eléments de réponse attendus :</p>
                   <div className="space-y-2 text-blue-800">
                     <p><strong>Introduction :</strong> Présenter la LOFIP comme révolution normative de 2011, le délai initial de l'Art. 234 (2019), et les deux prorogations (2018 et 2023). Poser la problématique : les prorogations révèlent-elles un manque de volonté ou des contraintes objectives ?</p>
-                    <p><strong>I. Les contraintes juridiques et institutionnelles objectives :</strong> (1) La LOFIP elle-même (Art. 43, 44, 47-49) impose des préalables techniques complexes (PAP, RAP, RPROG, systèmes d'information) ; (2) l'article 232 distingue les dispositions d'application immédiate des dispositions différées — montrer que le Parlement a prévu que certaines dispositions demandaient du temps ; (3) la création de 26 provinces en 2015 a complexifié la décentralisation fiscale (Art. 218-222).</p>
-                    <p><strong>II. Les indices d'insuffisance de la volonté politique :</strong> (1) Taux d'exécution budgétaire de 17,1% au T1 2025 — inadmissible après 14 ans ; (2) persistance des paiements hors système violant l'Art. 110 (unité de trésorerie) ; (3) formation insuffisante des RPROG malgré le délai ; (4) déconcentration de l'ordonnancement (Art. 5 LF 2026) encore expérimentale après plus d'une décennie.</p>
-                    <p><strong>Conclusion :</strong> Les deux prorogations révèlent à la fois des contraintes institutionnelles réelles et une appropriation insuffisante de la réforme. L'échéance de 2029 doit être impérative — une 3e prorogation serait constitutionnellement possible mais politiquement indéfendable.</p>
+                    <p><strong>I. Les contraintes juridiques et institutionnelles objectives :</strong> (1) La LOFIP elle-même (Art. 43, 44, 47-49) impose des préalables techniques complexes (PAP, RAP, RPROG, systèmes d'information) ; (2) l'article 232 distingue les dispositions d'application immédiate des dispositions différées - montrer que le Parlement a prévu que certaines dispositions demandaient du temps ; (3) la création de 26 provinces en 2015 a complexifié la décentralisation fiscale (Art. 218-222).</p>
+                    <p><strong>II. Les indices d'insuffisance de la volonté politique :</strong> (1) Taux d'exécution budgétaire de 17,1% au T1 2025 - inadmissible après 14 ans ; (2) persistance des paiements hors système violant l'Art. 110 (unité de trésorerie) ; (3) formation insuffisante des RPROG malgré le délai ; (4) déconcentration de l'ordonnancement (Art. 5 LF 2026) encore expérimentale après plus d'une décennie.</p>
+                    <p><strong>Conclusion :</strong> Les deux prorogations révèlent à la fois des contraintes institutionnelles réelles et une appropriation insuffisante de la réforme. L'échéance de 2029 doit être impérative - une 3e prorogation serait constitutionnellement possible mais politiquement indéfendable.</p>
                   </div>
                 </div>
               )}

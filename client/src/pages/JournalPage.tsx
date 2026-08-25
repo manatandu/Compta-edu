@@ -474,7 +474,7 @@ export default function JournalPage() {
             )
           })}
 
-          {/* Barre de statut — vue d'ensemble de la session, comme un vrai logiciel comptable */}
+          {/* Barre de statut - vue d'ensemble de la session, comme un vrai logiciel comptable */}
           {(() => {
             const sessionDebit = sessionEcritures.reduce((s, l) => s + l.debit, 0)
             const sessionCredit = sessionEcritures.reduce((s, l) => s + l.credit, 0)
@@ -492,7 +492,7 @@ export default function JournalPage() {
                 )}>
                   {equilibre ? <CheckCircle2 className="h-3.5 w-3.5" /> : <AlertCircle className="h-3.5 w-3.5" />}
                   {equilibre
-                    ? 'Équilibré — Débit = Crédit'
+                    ? 'Équilibré - Débit = Crédit'
                     : `Déséquilibre : ${formatMontant(Math.abs(sessionDebit - sessionCredit))}`}
                 </div>
               </div>

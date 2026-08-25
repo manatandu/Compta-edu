@@ -264,18 +264,18 @@ function ReponseTheoriqueForm({ devoir, etudiantId, soumission }: { devoir: any;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TABLEAU DE BORD — ÉTUDIANT
+// TABLEAU DE BORD - ÉTUDIANT
 //
 // Toute la richesse pédagogique (cours inscrits, devoirs, cotes) est propre à
 // l'étudiant : le staff n'a pas d'équivalent ici, son suivi se fait dans
 // l'Espace pédagogique (/professeurs). Ce composant ne partage donc plus son
-// arbre de rendu avec le staff — seuls le bandeau hero, la grille de modules
+// arbre de rendu avec le staff - seuls le bandeau hero, la grille de modules
 // et le pied de page sont des composants communs importés.
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Échéance exprimée telle qu'on la lit : « aujourd'hui », « demain »,
 // « dans 3 jours », puis la date brute au-delà. Les trois premiers jours sont
-// marqués urgents — c'est ce qui justifie la couleur d'alerte.
+// marqués urgents - c'est ce qui justifie la couleur d'alerte.
 function echeanceLisible(dateLimit: string): { label: string; urgent: boolean } {
   const aujourdhui = new Date(); aujourdhui.setHours(0, 0, 0, 0)
   const limite = new Date(dateLimit); limite.setHours(0, 0, 0, 0)
@@ -288,7 +288,7 @@ function echeanceLisible(dateLimit: string): { label: string; urgent: boolean } 
 
 // Amène une section de la page sous les yeux, depuis « À faire » ou depuis une
 // tuile du bandeau. Sans effet si la section n'est pas rendue (pas de devoir,
-// pas de cote) — le raccourci n'est alors de toute façon pas proposé.
+// pas de cote) - le raccourci n'est alors de toute façon pas proposé.
 function allerAuxDevoirs() {
   document.getElementById('mes-devoirs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
@@ -337,7 +337,7 @@ export default function DashboardEtudiant() {
 
   // Devoirs qui concernent réellement cet étudiant : un de ses cours, actif,
   // sa faculté, sa promotion. Ce filtre était écrit deux fois à l'identique
-  // (barre de stats et section « Mes devoirs ») — calculé une seule fois ici,
+  // (barre de stats et section « Mes devoirs ») - calculé une seule fois ici,
   // et réutilisé aussi par la section « À faire ».
   const userFaculteId = (user as any)?.faculteId || ''
   const userPromotion = (user as any)?.classe || ''
@@ -350,7 +350,7 @@ export default function DashboardEtudiant() {
   })
 
   // Ce qui appelle une action maintenant : ni rendu, ni expiré. Le plus urgent
-  // d'abord — c'est l'ordre dans lequel l'étudiant doit s'en occuper.
+  // d'abord - c'est l'ordre dans lequel l'étudiant doit s'en occuper.
   const devoirsAFaire = mesDevoirs
     .filter(d => !isDevoirExpire(d) && !mesSoumissions.some(s => s.devoirId === d.id))
     .sort((a, b) => new Date(a.dateLimit).getTime() - new Date(b.dateLimit).getTime())
@@ -361,11 +361,11 @@ export default function DashboardEtudiant() {
     { label: 'Cours',     value: userCours.length,                          icon: BookOpen, onClick: () => navigate('/mes-cours') },
     // Anciennement « Messages », dont la valeur était écrite en dur à 0 : jamais
     // calculée, donc toujours fausse. Un vrai compteur de non-lus n'est pas
-    // possible en l'état — les messages portent bien un champ `lu`, mis à false
+    // possible en l'état - les messages portent bien un champ `lu`, mis à false
     // à l'envoi, mais aucun code ne le repasse jamais à true : le compteur ne
     // ferait que croître sans jamais redescendre. Remplacé par la cote, qui est
     // une donnée réelle et déjà calculée plus haut.
-    { label: 'Ma cote',   value: totalCoteEtudiant !== null ? `${totalCoteEtudiant}/10` : '—', icon: Award, onClick: allerAuxCotes },
+    { label: 'Ma cote',   value: totalCoteEtudiant !== null ? `${totalCoteEtudiant}/10` : '-', icon: Award, onClick: allerAuxCotes },
   ]
 
   const identity = (
@@ -413,7 +413,7 @@ export default function DashboardEtudiant() {
            En tête de page, avant tout le reste : c'est la seule section qui
            répond à « qu'est-ce que je dois faire maintenant ? ». Les devoirs
            restaient jusqu'ici enterrés en quatrième position, sous une grille
-           de navigation. Ne montre que les trois plus urgents — au-delà, un
+           de navigation. Ne montre que les trois plus urgents - au-delà, un
            lien renvoie vers la section « Mes devoirs » complète. ══ */}
       {userCoursIds.length > 0 && (
         <div className="animate-slideUp" style={{ animationDelay: '450ms' }}>
@@ -475,7 +475,7 @@ export default function DashboardEtudiant() {
         </div>
       )}
 
-      {/* ══ MES COURS — registre par cours, pas de progression globale ═════════
+      {/* ══ MES COURS - registre par cours, pas de progression globale ═════════
            La progression n'a de sens que par cours : deux promotions n'ont pas
            forcément les mêmes cours, donc pas de moyenne unique entre étudiants. ══ */}
       {userCours.length > 0 && (
@@ -531,10 +531,10 @@ export default function DashboardEtudiant() {
                       <td className="py-3 px-4 text-xs">
                         {prochainDevoir ? (
                           <span className="text-foreground/80">
-                            {prochainDevoir.titre} — <span className="font-mono">{new Date(prochainDevoir.dateLimit).toLocaleDateString('fr-FR')}</span>
+                            {prochainDevoir.titre} - <span className="font-mono">{new Date(prochainDevoir.dateLimit).toLocaleDateString('fr-FR')}</span>
                           </span>
                         ) : (
-                          <span className="text-muted-foreground/60">—</span>
+                          <span className="text-muted-foreground/60">-</span>
                         )}
                       </td>
                       <td className="py-3 px-4 text-right">
@@ -748,7 +748,7 @@ export default function DashboardEtudiant() {
                     doc.text('ORBIT', pageW / 2, 14, { align: 'center' })
                     doc.setFontSize(11)
                     doc.setFont('helvetica', 'normal')
-                    doc.text('SYSCOHADA Révisé — Bulletin de Notes', pageW / 2, 22, { align: 'center' })
+                    doc.text('SYSCOHADA Révisé - Bulletin de Notes', pageW / 2, 22, { align: 'center' })
                     doc.setFontSize(9)
                     doc.text(`Édité le ${new Date().toLocaleDateString('fr-FR')}`, pageW / 2, 30, { align: 'center' })
                     doc.setTextColor(30, 30, 30)
@@ -759,9 +759,9 @@ export default function DashboardEtudiant() {
                     doc.setLineWidth(0.5)
                     doc.line(14, 54, pageW - 14, 54)
                     const nomComplet = [user?.nom, (user as any)?.prenom].filter(Boolean).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')
-                    const promotion = (user as any)?.classe || '—'
-                    const faculteNom = allFacultes.find((f: any) => f.id === (user as any)?.faculteId)?.nom || '—'
-                    const uniNom = allUniversites.find((u: any) => u.id === (user as any)?.universiteId)?.nom || '—'
+                    const promotion = (user as any)?.classe || '-'
+                    const faculteNom = allFacultes.find((f: any) => f.id === (user as any)?.faculteId)?.nom || '-'
+                    const uniNom = allUniversites.find((u: any) => u.id === (user as any)?.universiteId)?.nom || '-'
                     doc.setFont('helvetica', 'normal')
                     doc.setFontSize(10)
                     const infos: [string, string][] = [['Nom complet', nomComplet], ['Promotion', promotion], ['Faculté', faculteNom], ['Université', uniNom]]
@@ -782,7 +782,7 @@ export default function DashboardEtudiant() {
                     const soumissionsNoteesPdf = mesSoumissions.filter(s => s.statut === 'note' && typeof s.note === 'number')
                     const rowsDevoirs = soumissionsNoteesPdf.map(s => {
                       const dev = allDevoirs.find(d => d.id === s.devoirId)
-                      return [dev?.titre || '—', `${s.note}/10`, s.commentaire || '—', s.dateCorrection ? new Date(s.dateCorrection).toLocaleDateString('fr-FR') : '—']
+                      return [dev?.titre || '-', `${s.note}/10`, s.commentaire || '-', s.dateCorrection ? new Date(s.dateCorrection).toLocaleDateString('fr-FR') : '-']
                     })
                     if (rowsDevoirs.length > 0) {
                       ;(doc as any).autoTable({ startY: y, head: [['Devoir', 'Note', 'Commentaire', 'Date']], body: rowsDevoirs, theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 9 }, columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 18, halign: 'center' }, 2: { cellWidth: 70 }, 3: { cellWidth: 30, halign: 'center' } }, margin: { left: 14, right: 14 } })
@@ -796,7 +796,7 @@ export default function DashboardEtudiant() {
                     if (mesPresences.length > 0) {
                       const rowsPres = [...mesPresences].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map(p => {
                         const entry = p.etudiants?.find((e: any) => e.etudiantId === user?.id)
-                        return [new Date(p.date).toLocaleDateString('fr-FR'), p.titre || '—', entry?.present ? 'Présent(e)' : entry ? 'Absent(e)' : '—']
+                        return [new Date(p.date).toLocaleDateString('fr-FR'), p.titre || '-', entry?.present ? 'Présent(e)' : entry ? 'Absent(e)' : '-']
                       })
                       ;(doc as any).autoTable({ startY: y, head: [['Date', 'Séance', 'Statut']], body: rowsPres, theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 9 }, columnStyles: { 0: { cellWidth: 28, halign: 'center' }, 1: { cellWidth: 110 }, 2: { cellWidth: 30, halign: 'center' } }, margin: { left: 14, right: 14 } })
                       y = (doc as any).lastAutoTable.finalY + 8
@@ -806,7 +806,7 @@ export default function DashboardEtudiant() {
                     }
                     doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(30, 30, 30)
                     doc.text('Récapitulatif', 14, y); doc.line(14, y + 2, pageW - 14, y + 2); y += 6
-                    ;(doc as any).autoTable({ startY: y, head: [['Composante', 'Cote', 'Sur']], body: [['Présences', cotePresenceEtudiant !== null ? String(cotePresenceEtudiant) : '—', '5'], ['Devoirs', coteDevoirsEtudiant !== null ? String(coteDevoirsEtudiant) : '—', '5'], ['TOTAL', totalCoteEtudiant !== null ? String(totalCoteEtudiant) : '—', '10']], theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 10 }, columnStyles: { 0: { cellWidth: 80 }, 1: { cellWidth: 30, halign: 'center' }, 2: { cellWidth: 20, halign: 'center' } }, margin: { left: 14, right: 14 } })
+                    ;(doc as any).autoTable({ startY: y, head: [['Composante', 'Cote', 'Sur']], body: [['Présences', cotePresenceEtudiant !== null ? String(cotePresenceEtudiant) : '-', '5'], ['Devoirs', coteDevoirsEtudiant !== null ? String(coteDevoirsEtudiant) : '-', '5'], ['TOTAL', totalCoteEtudiant !== null ? String(totalCoteEtudiant) : '-', '10']], theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 10 }, columnStyles: { 0: { cellWidth: 80 }, 1: { cellWidth: 30, halign: 'center' }, 2: { cellWidth: 20, halign: 'center' } }, margin: { left: 14, right: 14 } })
                     if (mentionEtudiant) {
                       const fy = (doc as any).lastAutoTable.finalY + 6
                       doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(26, 50, 114)
@@ -814,7 +814,7 @@ export default function DashboardEtudiant() {
                     }
                     const pgH = doc.internal.pageSize.getHeight()
                     doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(150)
-                    doc.text('ORBIT © ' + new Date().getFullYear() + ' — Propriété de Manassé TANDU', pageW / 2, pgH - 8, { align: 'center' })
+                    doc.text('ORBIT © ' + new Date().getFullYear() + ' - Propriété de Manassé TANDU', pageW / 2, pgH - 8, { align: 'center' })
                     doc.save(`bulletin_${(user?.nom || 'etudiant').toLowerCase().replace(/\s+/g, '_')}_${new Date().getFullYear()}.pdf`)
                   })
                 })
@@ -837,7 +837,7 @@ export default function DashboardEtudiant() {
                     cotePresenceEtudiant === null ? 'text-muted-foreground' :
                     cotePresenceEtudiant >= 4 ? 'text-green-600' :
                     cotePresenceEtudiant >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                  )}>{cotePresenceEtudiant !== null ? `${cotePresenceEtudiant}/5` : '—'}</span>
+                  )}>{cotePresenceEtudiant !== null ? `${cotePresenceEtudiant}/5` : '-'}</span>
                 </div>
               </div>
               <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
@@ -861,7 +861,7 @@ export default function DashboardEtudiant() {
                     coteDevoirsEtudiant === null ? 'text-muted-foreground' :
                     coteDevoirsEtudiant >= 4 ? 'text-green-600' :
                     coteDevoirsEtudiant >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                  )}>{coteDevoirsEtudiant !== null ? `${coteDevoirsEtudiant}/5` : '—'}</span>
+                  )}>{coteDevoirsEtudiant !== null ? `${coteDevoirsEtudiant}/5` : '-'}</span>
                 </div>
               </div>
               <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
@@ -884,7 +884,7 @@ export default function DashboardEtudiant() {
                   totalCoteEtudiant >= 8 ? 'text-green-600' :
                   totalCoteEtudiant >= 5 ? 'text-yellow-600' : 'text-red-600'
                 )}>
-                  {totalCoteEtudiant !== null ? totalCoteEtudiant : '—'}<span className="text-sm font-normal text-muted-foreground">/10</span>
+                  {totalCoteEtudiant !== null ? totalCoteEtudiant : '-'}<span className="text-sm font-normal text-muted-foreground">/10</span>
                 </p>
               </div>
               <div className="h-14 w-14 rounded-full border-4 border-border flex items-center justify-center bg-background relative">
@@ -902,14 +902,14 @@ export default function DashboardEtudiant() {
                   totalCoteEtudiant === null ? 'text-muted-foreground' :
                   totalCoteEtudiant >= 8 ? 'text-green-600' :
                   totalCoteEtudiant >= 5 ? 'text-yellow-600' : 'text-red-600'
-                )}>{totalCoteEtudiant !== null ? `${Math.round((totalCoteEtudiant / 10) * 100)}%` : '—'}</span>
+                )}>{totalCoteEtudiant !== null ? `${Math.round((totalCoteEtudiant / 10) * 100)}%` : '-'}</span>
               </div>
             </div>
           </div>
 
           {/* Le détail ligne à ligne (historique des devoirs, grille des séances)
               occupait à lui seul l'essentiel de la page d'accueil. Il est replié :
-              l'essentiel — mention, cotes, score, bulletin PDF — reste visible
+              l'essentiel - mention, cotes, score, bulletin PDF - reste visible
               au-dessus, et le détail s'ouvre à la demande. */}
           {(soumissionsNotees.length > 0 || mesPresences.length > 0) && (
           <details className="group px-5 pb-5">
@@ -948,7 +948,7 @@ export default function DashboardEtudiant() {
                               {s.note}<span className="font-normal text-muted-foreground">/10</span>
                             </span>
                           </td>
-                          <td className="px-3 py-2 text-muted-foreground italic">{s.commentaire || '—'}</td>
+                          <td className="px-3 py-2 text-muted-foreground italic">{s.commentaire || '-'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1002,7 +1002,7 @@ export default function DashboardEtudiant() {
                                 )}>
                                   {present ? '•' : '×'}
                                 </span>
-                              ) : <span className="opacity-30">—</span>}
+                              ) : <span className="opacity-30">-</span>}
                             </td>
                           )
                         })}
@@ -1016,14 +1016,14 @@ export default function DashboardEtudiant() {
                           <span className={cn('font-bold',
                             cotePresenceEtudiant !== null && cotePresenceEtudiant >= 4 ? 'text-green-600' :
                             cotePresenceEtudiant !== null && cotePresenceEtudiant >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                          )}>{cotePresenceEtudiant ?? '—'}</span>
+                          )}>{cotePresenceEtudiant ?? '-'}</span>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Formule : 5 × ({nbP} présences ÷ {totalS} séances) = cote {cotePresenceEtudiant ?? '—'}/5
+                  Formule : 5 × ({nbP} présences ÷ {totalS} séances) = cote {cotePresenceEtudiant ?? '-'}/5
                 </p>
               </div>
             )

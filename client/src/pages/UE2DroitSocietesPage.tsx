@@ -166,7 +166,7 @@ export default function UE2DroitSocietesPage() {
           <Breadcrumb
             items={[
               { label: 'Mes cours', route: '/mes-cours' },
-              { label: 'UE 2 — Droit des sociétés' },
+              { label: 'UE 2 - Droit des sociétés' },
             ]}
             color="indigo"
           />

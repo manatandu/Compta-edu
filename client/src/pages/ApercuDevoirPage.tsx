@@ -484,7 +484,7 @@ export default function ApercuDevoirPage() {
                       </tr>
                     ))}
                     <tr className={`font-medium border-t border-border ${isDebiteur ? 'text-green-700' : 'text-red-700'}`}>
-                      <td className="py-1.5 px-3 font-mono italic text-muted-foreground">—</td>
+                      <td className="py-1.5 px-3 font-mono italic text-muted-foreground">-</td>
                       <td className="py-1.5 px-3 italic">{isDebiteur ? 'Solde débiteur' : 'Solde créditeur'}</td>
                       <td className="py-1.5 px-3 text-right font-mono">{!isDebiteur ? formatMontant(compte.soldeCrediteur) : ''}</td>
                       <td className="py-1.5 px-3 text-right font-mono">{isDebiteur ? formatMontant(compte.soldeDebiteur) : ''}</td>

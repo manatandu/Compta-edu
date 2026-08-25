@@ -1,6 +1,6 @@
 import React from 'react'
 
-// Pied de page du tableau de bord — identique pour l'étudiant et le staff.
+// Pied de page du tableau de bord - identique pour l'étudiant et le staff.
 export function DashboardFooter() {
   return (
     <div

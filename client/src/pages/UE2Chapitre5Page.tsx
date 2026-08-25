@@ -291,7 +291,7 @@ const qcmQuestions: QCMQuestion[] = [
 const casPratiques = [
   {
     id: 'cp1',
-    titre: "Cas 1 — Constitution d'une SARL en RDC",
+    titre: "Cas 1 - Constitution d'une SARL en RDC",
     contexte: "M. BATAMBA et Mme LUKOMBO souhaitent créer ensemble une SARL pour exploiter un salon de coiffure à Kinshasa. Ils prévoient un capital de 500 000 CDF, divisé en 100 parts de 5 000 CDF chacune. M. BATAMBA apporte 300 000 CDF en numéraire et Mme LUKOMBO apporte son matériel de coiffure évalué à 200 000 CDF. Ils souhaitent nommer M. BATAMBA comme gérant.",
     questions: [
       { q: "1. Le capital de 500 000 CDF est-il conforme au droit OHADA applicable en RDC ?", r: "Oui. L'Art. 311 AUSCGIE fixe le minimum à 1 000 000 FCFA, mais l'Arrêté interministériel RDC n° 002/243 du 30/12/2014 a usé de la clause dérogatoire OHADA pour rendre le capital entièrement libre. En RDC, il n'y a donc aucun minimum légal. 500 000 CDF est valide." },
@@ -302,7 +302,7 @@ const casPratiques = [
   },
   {
     id: 'cp2',
-    titre: "Cas 2 — Cession de parts à un tiers",
+    titre: "Cas 2 - Cession de parts à un tiers",
     contexte: "La SARL PHARMA-CONGO a 5 associés dont M. MUKADI qui détient 30 parts sur 100. M. MUKADI souhaite vendre ses 30 parts à un ami, M. TSHIAMALA, qui est extérieur à la société. Le capital est de 1 000 000 FCFA. Les autres associés hésitent à accepter cette cession.",
     questions: [
       { q: "1. La cession à M. TSHIAMALA est-elle libre ou soumise à agrément ?", r: "La cession à un tiers extérieur est soumise à agrément obligatoire (Art. 319). Le gérant doit notifier le projet de cession à tous les associés (et à la société). Les associés disposent de 3 mois pour se prononcer." },
@@ -313,7 +313,7 @@ const casPratiques = [
   },
   {
     id: 'cp3',
-    titre: "Cas 3 — Pouvoirs et révocation du gérant",
+    titre: "Cas 3 - Pouvoirs et révocation du gérant",
     contexte: "M. LOKWA est gérant de la SARL IMPORT-EXPORT LOMAMI. Les statuts stipulent qu'il ne peut pas contracter d'emprunt supérieur à 5 000 000 FCFA sans accord préalable des associés. Sans consulter personne, M. LOKWA signe un contrat de crédit bancaire de 8 000 000 FCFA avec une banque. Les associés, mécontents, décident de le révoquer lors d'une assemblée.",
     questions: [
       { q: "1. La banque peut-elle se prévaloir du contrat de crédit de 8 000 000 FCFA ?", r: "Oui. L'Art. 329 AUSCGIE dispose que les limitations statutaires des pouvoirs du gérant sont inopposables aux tiers de bonne foi. Si la banque ne savait pas (et ne pouvait pas savoir) que M. LOKWA dépassait sa limite interne, le contrat est valable et la SARL est engagée. La banque peut exiger le remboursement." },
@@ -324,8 +324,8 @@ const casPratiques = [
   },
   {
     id: 'cp4',
-    titre: "Cas 4 — Décisions collectives : majorités",
-    contexte: "La SARL AGROBIO-CONGO a 4 associés : A (40 parts), B (30 parts), C (20 parts), D (10 parts) — total 100 parts. Ordre du jour de l'assemblée : (1) approbation des comptes N, (2) modification de l'objet social, (3) transformation de la SARL en SNC.",
+    titre: "Cas 4 - Décisions collectives : majorités",
+    contexte: "La SARL AGROBIO-CONGO a 4 associés : A (40 parts), B (30 parts), C (20 parts), D (10 parts) - total 100 parts. Ordre du jour de l'assemblée : (1) approbation des comptes N, (2) modification de l'objet social, (3) transformation de la SARL en SNC.",
     questions: [
       { q: "1. Quelle majorité faut-il pour approuver les comptes de l'exercice N ?", r: "L'approbation des comptes est une décision ordinaire (Art. 346). Elle requiert les associés représentant plus de la moitié des parts (> 50 parts). Si A (40) + B (30) votent pour : 70 parts > 50 - décision adoptée. Si seulement A (40) vote pour : 40 < 50 - décision rejetée." },
       { q: "2. Quelle majorité faut-il pour modifier l'objet social ?", r: "La modification de l'objet social est une modification des statuts, donc une décision extraordinaire (Art. 358). Elle requiert les associés représentant au moins 3/4 du capital = au moins 75 parts. Possibilités : A+B+C = 90 parts (suffisant), ou A+B+D = 80 parts (suffisant), ou A+B = 70 parts (insuffisant)." },
@@ -334,7 +334,7 @@ const casPratiques = [
   },
   {
     id: 'cp5',
-    titre: "Cas 5 — CAC et capitaux propres dégradés",
+    titre: "Cas 5 - CAC et capitaux propres dégradés",
     contexte: "La SARL TECHNO-CONGO clôture l'exercice N avec les données suivantes : total bilan = 150 000 000 FCFA, chiffre d'affaires = 200 000 000 FCFA, effectif = 60 salariés. Par ailleurs, lors de la clôture, les capitaux propres s'élèvent à 8 000 000 FCFA pour un capital social de 20 000 000 FCFA.",
     questions: [
       { q: "1. La SARL TECHNO-CONGO est-elle obligée de nommer un CAC ?", r: "Oui. L'Art. 376 impose la nomination d'un CAC dès que la SARL remplit au moins 2 des 3 conditions. Ici : bilan 150 M FCFA > 125 M FCFA (condition 1 remplie), CA 200 M FCFA < 250 M FCFA (condition 2 non remplie), effectif 60 > 50 (condition 3 remplie). 2 conditions sur 3 remplies : CAC obligatoire." },
@@ -344,7 +344,7 @@ const casPratiques = [
   },
   {
     id: 'cp6',
-    titre: "Cas 6 — Conventions réglementées et interdites",
+    titre: "Cas 6 - Conventions réglementées et interdites",
     contexte: "Dans la SARL BATIMENT-KIVU, le gérant M. RWEMA est également associé (40 parts sur 100). Trois situations sont à analyser : (A) M. RWEMA loue son entrepôt personnel à la SARL pour 500 000 FCFA/mois ; (B) M. RWEMA emprunte 2 000 000 FCFA à la SARL ; (C) La SARL cautionne le prêt immobilier personnel de M. RWEMA auprès d'une banque.",
     questions: [
       { q: "1. Situation A : La location de l'entrepôt est-elle une convention réglementée ?", r: "Oui. La location d'un bien personnel du gérant à la SARL est une convention réglementée (Art. 353). M. RWEMA doit informer les associés avant la conclusion du bail. S'il existe un CAC, celui-ci établit un rapport spécial. L'AGO statue sur cette convention lors de l'assemblée annuelle. La convention est valable même si non approuvée, mais les conséquences préjudiciables sont à charge de M. RWEMA." },
@@ -354,7 +354,7 @@ const casPratiques = [
   },
   {
     id: 'cp7',
-    titre: "Cas 7 — Dissolution et liquidation d'une SARL",
+    titre: "Cas 7 - Dissolution et liquidation d'une SARL",
     contexte: "Les associés de la SARL TRANSPORT-MANIEMA décident de dissoudre la société par anticipation. Le bilan au jour de la dissolution est : actif = 50 000 000 FCFA (dont créances 20 000 000 FCFA), passif exigible = 35 000 000 FCFA, capital = 10 000 000 FCFA, réserves = 5 000 000 FCFA. Un liquidateur est nommé. Associés : X (60%), Y (40%).",
     questions: [
       { q: "1. Quelle majorité est nécessaire pour voter la dissolution anticipée ?", r: "La dissolution anticipée est une modification des statuts (décision extraordinaire). Elle requiert la majorité des associés représentant au moins 3/4 du capital (Art. 358). Avec X (60%) et Y (40%) : X seul = 60% < 75% - impossible. X+Y = 100% > 75% - suffisant. Il faut au minimum l'accord de X et d'une partie de Y." },
@@ -365,7 +365,7 @@ const casPratiques = [
   },
   {
     id: 'cp8',
-    titre: "Cas 8 — SARL unipersonnelle",
+    titre: "Cas 8 - SARL unipersonnelle",
     contexte: "Mme BIKELE crée seule une SARL-U (SARL unipersonnelle) pour exercer une activité de conseil juridique. Elle est à la fois associée unique et gérante. Elle souhaite louer un bureau appartenant à sa mère à la société. Elle veut aussi fixer sa propre rémunération de gérante.",
     questions: [
       { q: "1. Comment Mme BIKELE prend-elle les décisions normalement réservées à l'assemblée générale ?", r: "Dans la SARL-U, les décisions qui relèvent normalement de l'AGO ou de l'AGE sont prises seules par l'associée unique (Art. 334-1). Elles sont simplement constatées par écrit et consignées dans un registre spécial. Aucune formalité de convocation ou de quorum n'est requise." },
@@ -444,7 +444,7 @@ export default function UE2Chapitre5Page() {
     "Définition, nature hybride et capital (Art. 309-314)",
     "Parts sociales et régime de cession (Art. 317-322)",
     "La gérance de la SARL (Art. 323-332)",
-    "Décisions collectives — AGO et AGE (Art. 333-375)",
+    "Décisions collectives - AGO et AGE (Art. 333-375)",
     "CAC, capitaux propres et procédure d'alerte (Art. 371-384)",
     "Droits des associés (Art. 338-349)",
     "Rémunération du gérant et conventions (Art. 350-372)",
@@ -480,7 +480,7 @@ export default function UE2Chapitre5Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 5' },
           ]}
           color="indigo"
@@ -579,7 +579,7 @@ export default function UE2Chapitre5Page() {
           <div className="bg-white rounded-xl border-l-4 border-purple-500 shadow-sm p-5">
             <h2 className="text-base font-display font-bold text-purple-800 mb-4 flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
-              Leçon {activeLecon + 1} — {lecons[activeLecon]}
+              Leçon {activeLecon + 1} - {lecons[activeLecon]}
             </h2>
 
             {/* ── L1 ── */}
@@ -638,7 +638,7 @@ export default function UE2Chapitre5Page() {
                   </table>
                 </div>
 
-                <h3 className="font-semibold text-purple-800">Nature hybride — Comparaison SNC / SARL / SA</h3>
+                <h3 className="font-semibold text-purple-800">Nature hybride - Comparaison SNC / SARL / SA</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs border-collapse">
                     <thead><tr className="bg-purple-600 text-white">
@@ -720,7 +720,7 @@ export default function UE2Chapitre5Page() {
                   </div>
                 </div>
 
-                <h3 className="font-semibold text-purple-800">Régime de cession des parts — 3 cas</h3>
+                <h3 className="font-semibold text-purple-800">Régime de cession des parts - 3 cas</h3>
                 <div className="space-y-3">
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                     <p className="font-bold text-green-800 text-sm mb-2">1. Cession entre associés (Art. 317)</p>
@@ -847,7 +847,7 @@ export default function UE2Chapitre5Page() {
                   <div className="flex gap-3 text-slate-800">
                     <Scale className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold mb-1">Action sociale — Conditions (Art. 331)</p>
+                      <p className="font-semibold mb-1">Action sociale - Conditions (Art. 331)</p>
                       <p className="text-sm">Les associés représentant au moins <strong>le quart des associés ET le quart des parts sociales</strong> peuvent intenter l'action en responsabilité contre le gérant. Aucune clause des statuts ne peut subordonner cet exercice à un avis préalable de l'assemblée.</p>
                     </div>
                   </div>
@@ -862,7 +862,7 @@ export default function UE2Chapitre5Page() {
                   Dans la SARL, les associés exercent collectivement la souveraineté de la société. Il n'y a pas de conseil d'administration comme dans la SA : les décisions importantes sont prises directement par les associés réunis en assemblée ou par consultation écrite.
                 </p>
 
-                <h3 className="font-semibold text-purple-800">Tableau des majorités — SARL</h3>
+                <h3 className="font-semibold text-purple-800">Tableau des majorités - SARL</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs border-collapse">
                     <thead><tr className="bg-purple-600 text-white">
@@ -950,7 +950,7 @@ export default function UE2Chapitre5Page() {
                   Le mandat du CAC dans une SARL est de <strong>3 exercices</strong> (Art. 379), contre 6 exercices dans la SA. Il est nommé par les associés représentant plus de la moitié du capital.
                 </p>
 
-                <h3 className="font-semibold text-purple-800 mt-4">Procédure d'alerte — Capitaux propres dégradés (Art. 371)</h3>
+                <h3 className="font-semibold text-purple-800 mt-4">Procédure d'alerte - Capitaux propres dégradés (Art. 371)</h3>
                 <p>
                   Lorsque les <strong>capitaux propres</strong> deviennent inférieurs à <strong>la moitié du capital social</strong> du fait des pertes, l'AUSCGIE impose une procédure d'alerte stricte :
                 </p>
@@ -1175,7 +1175,7 @@ export default function UE2Chapitre5Page() {
           <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
             <h2 className="font-display font-bold text-gray-800 flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-purple-600" />
-              Cas Pratiques — SARL (8 cas)
+              Cas Pratiques - SARL (8 cas)
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
               Exercices d'application sur la constitution, la cession de parts, les pouvoirs du gérant, les décisions collectives et les conventions.
@@ -1226,7 +1226,7 @@ export default function UE2Chapitre5Page() {
 
       {/* Sources */}
       <p className="text-xs text-muted-foreground/60 text-center">
-        Sources : AUSCGIE révisé 30 janvier 2014 — Art. 309-384 | Arrêté interministériel RDC n° 002/243 du 30/12/2014
+        Sources : AUSCGIE révisé 30 janvier 2014 - Art. 309-384 | Arrêté interministériel RDC n° 002/243 du 30/12/2014
       </p>
     </div>
   )

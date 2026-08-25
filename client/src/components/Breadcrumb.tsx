@@ -13,7 +13,7 @@ export type BreadcrumbItem = {
 
 type Props = {
   items: BreadcrumbItem[]
-  /** Couleur d'accentuation du segment actif — ex: 'sky' | 'green' | 'blue' */
+  /** Couleur d'accentuation du segment actif - ex: 'sky' | 'green' | 'blue' */
   color?: string
 }
 

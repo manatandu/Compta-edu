@@ -145,7 +145,7 @@ export default function DictionnairePage() {
         )}
       </div>
 
-      {/* Filtres par domaine — un domaine sans terme n'est pas affiché,
+      {/* Filtres par domaine - un domaine sans terme n'est pas affiché,
           le dictionnaire se remplissant UE par UE. */}
       <div className="flex flex-wrap gap-2">
         <button
@@ -263,7 +263,7 @@ export default function DictionnairePage() {
                       </div>
                     )}
 
-                    {/* Source — le champ existait déjà en base mais n'était
+                    {/* Source - le champ existait déjà en base mais n'était
                         affiché nulle part : les citations écrites restaient
                         invisibles. Il est désormais obligatoire et montré. */}
                     <div className="flex items-start gap-1.5 border-t border-border/50 pt-2.5">

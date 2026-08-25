@@ -824,12 +824,12 @@ function getCompteAmort(compteImmo: string): string {
     '2160': '2816',  // Droit au bail → Amort. droit au bail
     '2181': '2818',  // Prospection ressources → Amort. autres droits incorporels
     // ─ Terrains → non amortissables (sauf travaux de mise en valeur)
-    '2221': '—',     // Terrains agricoles → non amortissable
-    '2222': '—',     // Terrains nus → non amortissable
-    '2223': '—',     // Terrains bâtis → non amortissable
+    '2221': '-',     // Terrains agricoles → non amortissable
+    '2222': '-',     // Terrains nus → non amortissable
+    '2223': '-',     // Terrains bâtis → non amortissable
     '2224': '2824',  // Travaux mise en valeur terrains → Amort. travaux mise en valeur
-    '2225': '—',     // Terrains de gisement → non amortissable
-    '2261': '—',     // Terrains aménagés → non amortissable (terrains nus aménagés)
+    '2225': '-',     // Terrains de gisement → non amortissable
+    '2261': '-',     // Terrains aménagés → non amortissable (terrains nus aménagés)
     // ─ Bâtiments, installations (sol propre) → 2831
     '2311': '2831',  // Bât. industriels sol propre → Amort. bât. industriels/agricoles/admin sol propre
     '2312': '2831',  // Bât. agricoles sol propre → idem
@@ -1313,8 +1313,8 @@ export default function ImmobilisationsPage() {
                               </div>
                             </div>
                             <div className="flex flex-col items-end gap-1 shrink-0">
-                              <span className="text-xs font-bold text-foreground">{item.tauxLineaire !== null ? item.tauxLineaire + '%' : '—'}</span>
-                              <span className="text-xs text-muted-foreground">{item.duree !== null ? item.duree + ' an' + (item.duree > 1 ? 's' : '') : '—'}</span>
+                              <span className="text-xs font-bold text-foreground">{item.tauxLineaire !== null ? item.tauxLineaire + '%' : '-'}</span>
+                              <span className="text-xs text-muted-foreground">{item.duree !== null ? item.duree + ' an' + (item.duree > 1 ? 's' : '') : '-'}</span>
                             </div>
                           </div>
 
@@ -1579,7 +1579,7 @@ export default function ImmobilisationsPage() {
                   <h4 className="text-xs font-bold text-emerald-800 mb-2">Récapitulatif</h4>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
                     <span className="text-muted-foreground">Immobilisation :</span>
-                    <span className="font-semibold text-foreground">{formData.designation || '—'}</span>
+                    <span className="font-semibold text-foreground">{formData.designation || '-'}</span>
                     <span className="text-muted-foreground">Compte OHADA :</span>
                     <span className="font-mono font-bold text-emerald-700">{formData.compteOHADA} : {formData.intituleCompte}</span>
                     <span className="text-muted-foreground">Valeur d'origine :</span>
@@ -1675,7 +1675,7 @@ export default function ImmobilisationsPage() {
                                     // Linéaire < dégressif = on reste dégressif, gris
                                     <span className="text-muted-foreground">{fmt(ligne.annuiteLineaireResid)}</span>
                                   )
-                                ) : <span className="text-muted-foreground">—</span>}
+                                ) : <span className="text-muted-foreground">-</span>}
                               </td>
                             )}
                             <td className="px-3 py-2 text-right font-mono text-foreground whitespace-nowrap">{fmt(ligne.amortCumule)}</td>
@@ -1830,9 +1830,9 @@ export default function ImmobilisationsPage() {
                   { immo: '2181', amort: '2818', label: 'Droit au bail' },
                   { immo: '2188', amort: '2818', label: 'Autres immobilisations incorporelles' },
                   // : Terrains
-                  { immo: '2211', amort: '—', label: 'Terrains nus (non amortissables)' },
-                  { immo: '2212', amort: '—', label: 'Terrains aménagés (non amortissables)' },
-                  { immo: '2213', amort: '—', label: 'Sous-sols et surfaçages (non amortissables)' },
+                  { immo: '2211', amort: '-', label: 'Terrains nus (non amortissables)' },
+                  { immo: '2212', amort: '-', label: 'Terrains aménagés (non amortissables)' },
+                  { immo: '2213', amort: '-', label: 'Sous-sols et surfaçages (non amortissables)' },
                   // : Constructions
                   { immo: '2311', amort: '2831', label: 'Bâtiments industriels (sol propre)' },
                   { immo: '2312', amort: '2831', label: 'Bâtiments administratifs (sol propre)' },
@@ -1883,17 +1883,17 @@ export default function ImmobilisationsPage() {
                   { immo: '2481', amort: '2848', label: 'Emballages récupérables' },
                   { immo: '2488', amort: '2848', label: 'Autres matériels et outillages divers' },
                   // : Immobilisations en cours
-                  { immo: '2711', amort: '—', label: 'Immobilisations incorporelles en cours' },
-                  { immo: '2712', amort: '—', label: 'Immobilisations corporelles en cours' },
+                  { immo: '2711', amort: '-', label: 'Immobilisations incorporelles en cours' },
+                  { immo: '2712', amort: '-', label: 'Immobilisations corporelles en cours' },
                   // : Avances et acomptes
-                  { immo: '2751', amort: '—', label: 'Avances et acomptes sur immobilisations incorporelles' },
-                  { immo: '2752', amort: '—', label: 'Avances et acomptes sur immobilisations corporelles' },
+                  { immo: '2751', amort: '-', label: 'Avances et acomptes sur immobilisations incorporelles' },
+                  { immo: '2752', amort: '-', label: 'Avances et acomptes sur immobilisations corporelles' },
                 ].map((r, i) => (
                   <div key={i} className={cn('flex items-center gap-2 text-xs py-1.5 border-b border-border/50 last:border-0',
-                    r.amort === '—' && 'opacity-50')}>
+                    r.amort === '-' && 'opacity-50')}>
                     <span className="font-mono font-bold text-emerald-700 w-16 shrink-0">{r.immo}</span>
                     <span className="flex-1 text-foreground">{r.label}</span>
-                    <span className={cn('font-mono font-bold w-10 text-right shrink-0', r.amort === '—' ? 'text-muted-foreground' : 'text-blue-600')}>{r.amort}</span>
+                    <span className={cn('font-mono font-bold w-10 text-right shrink-0', r.amort === '-' ? 'text-muted-foreground' : 'text-blue-600')}>{r.amort}</span>
                   </div>
                 ))}
               </div>

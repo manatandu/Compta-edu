@@ -98,7 +98,7 @@ export function libelleCompte(type: TypeStock): string {
 }
 
 export function compteAchat(type: TypeStock): { num: string; lib: string } {
-  // Compte 36 (Produits Finis) : pas d'achat externe — stock alimenté par production propre
+  // Compte 36 (Produits Finis) : pas d'achat externe - stock alimenté par production propre
   // L'écriture d'entrée est : Débit 36 / Crédit 736 (une seule écriture via compteVariation)
   return type === '31' ? { num: '6011', lib: 'Achats de marchandises' }
     : type === '32' ? { num: '6021', lib: 'Achats de MP et fournitures liées' }
@@ -399,7 +399,7 @@ export function genererEcritures(
   const cptAchat = compteAchat(article.typeCompte)
 
   if (mv.type === 'entree') {
-    // Compte 36 (Produits Finis) : production propre — UNE seule écriture
+    // Compte 36 (Produits Finis) : production propre - UNE seule écriture
     // SYSCOHADA 2017 : Débit 36 / Crédit 736 (pas d'écriture fournisseur 401)
     if (cptStock === '36') {
       return [

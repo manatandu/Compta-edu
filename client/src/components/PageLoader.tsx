@@ -5,7 +5,7 @@ interface PageLoaderProps {
 }
 
 // Affiché uniquement dans la zone de contenu (la sidebar reste montée) :
-// un squelette discret plutôt qu'un grand spinner qui recentre le regard —
+// un squelette discret plutôt qu'un grand spinner qui recentre le regard -
 // la transition doit se sentir comme une continuité, pas une interruption.
 export default function PageLoader({ message = 'Chargement...' }: PageLoaderProps) {
   return (

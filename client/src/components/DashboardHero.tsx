@@ -38,7 +38,7 @@ export interface DashboardStat {
 //
 // Structure commune aux deux tableaux de bord (étudiant, staff) : dégradé,
 // orbes décoratifs, barre de stats. Seul le contenu d'identité (à qui
-// s'adresse le message d'accueil) et la liste de stats changent — ils sont
+// s'adresse le message d'accueil) et la liste de stats changent - ils sont
 // donc reçus en props plutôt que redécidés ici par un test de rôle.
 // ─────────────────────────────────────────────────────────────────────────────
 export function DashboardHero({ greeting, identity, stats }: {
@@ -84,7 +84,7 @@ export function DashboardHero({ greeting, identity, stats }: {
         {stats.map((s, i) => {
           const Icon = s.icon
           const iconColor = s.color || 'text-white/80'
-          // Une stat munie d'une action devient un vrai bouton — sinon elle
+          // Une stat munie d'une action devient un vrai bouton - sinon elle
           // reste une simple div, pour ne pas annoncer aux lecteurs d'écran
           // (ni au curseur) une interaction qui n'existe pas.
           const Balise = s.onClick ? 'button' : 'div'
@@ -117,7 +117,7 @@ export function DashboardHero({ greeting, identity, stats }: {
   )
 }
 
-// Salutation selon l'heure — partagée par les deux tableaux de bord.
+// Salutation selon l'heure - partagée par les deux tableaux de bord.
 export function greeting() {
   const h = new Date().getHours()
   if (h >= 5 && h < 12)  return 'Bonjour'

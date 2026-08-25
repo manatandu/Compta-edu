@@ -39,10 +39,10 @@ const topItems: NavItem[] = [
 // Items staff uniquement (en dernier avant Modules)
 // « Gestion des étudiants » n'a plus sa propre entrée : elle est déjà
 // accessible en un clic depuis « Espace pédagogique » (groupe Gestion,
-// bouton Étudiants) — deux entrées de sidebar pour une même zone.
+// bouton Étudiants) - deux entrées de sidebar pour une même zone.
 // « Prépa ONEC » retirée : public totalement distinct (aspirants experts-
 // comptables candidats au concours ONEC, hors plateforme étudiante), page
-// encore à l'état de maquette verrouillée (aucune UE construite) — n'a pas
+// encore à l'état de maquette verrouillée (aucune UE construite) - n'a pas
 // sa place dans la navigation courante tant qu'elle n'existe pas vraiment.
 // Route et page conservées, seule l'entrée de sidebar est retirée.
 const staffItems: NavItem[] = [
@@ -58,7 +58,7 @@ const bottomItems: NavItem[] = []
 // Anciens dossiers accordéon (Comptabilité Générale / Fiscalité / Analyse
 // Financière) : supprimés. Les trois n'avaient plus aucun sous-item
 // (items: []) et le rendu qui les affichait était filtré sur
-// `f.items.length > 0` — ils ne s'affichaient donc plus du tout, dans aucun
+// `f.items.length > 0` - ils ne s'affichaient donc plus du tout, dans aucun
 // cas. Code mort, jamais visible ; le contenu réel de chaque module vit
 // désormais dans « Outils pratiques » et les « Cours additionnels ».
 
@@ -159,7 +159,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
 
   const SidebarContent = ({ searchBar }: { searchBar?: React.ReactNode }) => (
     <div className="flex flex-col h-full">
-      {/* En-tête — bloc identité façon registre académique */}
+      {/* En-tête - bloc identité façon registre académique */}
       <div className="px-4 pt-5 pb-4 border-b border-white/10">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
@@ -211,7 +211,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         {middleItems.map(item => <NavButton key={item.path} item={item} />)}
 
         {/* Cours additionnels créés manuellement par un professeur (hors programme des 13 UE,
-            déjà listées sur la page "Mes cours" — on ne les reproduit plus ici pour éviter le
+            déjà listées sur la page "Mes cours" - on ne les reproduit plus ici pour éviter le
             doublon). N'apparaît que s'il en existe au moins un. */}
         {(() => {
           const systemIds = COURS_SYSTEME.map(c => c.id)

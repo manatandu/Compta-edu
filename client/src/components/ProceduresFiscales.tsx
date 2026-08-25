@@ -206,7 +206,7 @@ function TitreI() {
         <ArticleBox num="12" titre="Délai de dépôt de la déclaration IS : 30 avril" modifie="LF 2026 Art. 18">
           <p>La déclaration IS (Impôt sur les Sociétés) doit être souscrite et déposée <strong>au plus tard le 30 avril de l'année civile qui suit celle de la clôture de l'exercice</strong>.</p>
           <p className="mt-1">Exemple : pour l'exercice clos le 31 décembre N, la déclaration IS doit être déposée au plus tard le <strong>30 avril N+1</strong>.</p>
-          <p className="mt-1 text-blue-700 text-xs">ℹ Ce délai a été uniformisé par la LF 2026 (Art. 18) pour le mettre en cohérence avec le délai IRPP (Art. 17 de la même loi — voir Art. 17 ci-dessous).</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Ce délai a été uniformisé par la LF 2026 (Art. 18) pour le mettre en cohérence avec le délai IRPP (Art. 17 de la même loi - voir Art. 17 ci-dessous).</p>
           <Ref>Art. 12, Loi n° 004/2003 mod. LF 2026 : n° 25/060 du 29/12/2025, Art. 18</Ref>
         </ArticleBox>
 
@@ -297,7 +297,7 @@ function TitreI() {
           <Ref>Art. 22 quarter, Loi n° 004/2003 (introduit par LF 2026 : n° 25/060, Art. 39)</Ref>
         </ArticleBox>
 
-        {/* Section Prix de transfert — LF 2026 */}
+        {/* Section Prix de transfert - LF 2026 */}
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2 mt-3">
           Prix de transfert et déclaration pays par pays (LF 2026)
         </p>
@@ -525,7 +525,7 @@ function TitreII() {
         </ArticleBox>
 
         <div className="border border-red-200 rounded-lg mb-2 overflow-hidden bg-red-50/30 px-3 py-2.5">
-          <p className="text-sm font-semibold text-red-700">❌ Art. 41 ter — Supprimé par LF 2026</p>
+          <p className="text-sm font-semibold text-red-700">❌ Art. 41 ter - Supprimé par LF 2026</p>
           <p className="text-xs text-muted-foreground mt-1">L'article 41 ter de la Loi n° 004/2003 a été expressément <strong>supprimé</strong> par l'article 29 de la Loi de Finances 2026 (n° 25/060 du 29 décembre 2025). Il ne produit plus aucun effet juridique à compter de l'entrée en vigueur de ladite loi.</p>
           <p className="text-xs text-muted-foreground mt-1">
             <span className="font-mono bg-muted/50 rounded px-1 py-0.5">Abrogé par Art. 29, LF 2026 n° 25/060 du 29/12/2025</span>
@@ -533,7 +533,7 @@ function TitreII() {
         </div>
 
         <ArticleBox num="43" titre="Délai de rappel : exercice en cours + 4 années précédentes" modifie="Art. 38, LF 2025">
-          <p>L'Administration des Impôts dispose du droit de rappeler les impôts ou suppléments d'impôts dus <strong>au titre de l'exercice fiscal en cours et de quatre années précédentes</strong> (texte modifié par Art. 38, LF 2025 — réduit de 5 à 4 années).</p>
+          <p>L'Administration des Impôts dispose du droit de rappeler les impôts ou suppléments d'impôts dus <strong>au titre de l'exercice fiscal en cours et de quatre années précédentes</strong> (texte modifié par Art. 38, LF 2025 - réduit de 5 à 4 années).</p>
           <p className="mt-1">Ce délai est interrompu par :</p>
           <ul className="list-disc pl-4 space-y-1 mt-1">
             <li>La notification de redressement</li>
@@ -587,7 +587,7 @@ function TitreII() {
 
         <ArticleBox num="46 bis" titre="Droit de recherche et d'investigation" modifie="créé LF 2020, mod. LF 2022/2023">
           <p>Les agents des impôts, munis d'un <strong>ordre de mission</strong>, ont le droit de mener toutes opérations de recherche et d'investigation en vue de collecter des renseignements à incidence fiscale et de mettre en évidence les systèmes de fraude fiscale. À l'exception des <strong>locaux affectés au domicile privé</strong>, ils peuvent, durant les heures d'activité professionnelle, avoir accès aux locaux professionnels, terrains, entrepôts, moyens de transport à usage professionnel, procéder à la constatation matérielle des éléments physiques de l'exploitation, et entendre le contribuable ou toute personne utile.</p>
-          <p className="mt-1 text-blue-700 text-xs">ℹ Les opérations de recherche ne peuvent, à elles seules, donner lieu à une notification de suppléments d'impôts — sauf régularisation de la situation fiscale de nouveaux contribuables découverts à cette occasion.</p>
+          <p className="mt-1 text-blue-700 text-xs">ℹ Les opérations de recherche ne peuvent, à elles seules, donner lieu à une notification de suppléments d'impôts - sauf régularisation de la situation fiscale de nouveaux contribuables découverts à cette occasion.</p>
           <Ref>Art. 46 bis, Loi n° 004/2003 (créé par L.F. n° 20/020 du 28/12/2020, mod. L.F. n° 22/071 du 28/12/2022 et L.F. n° 23/056 du 10/12/2023)</Ref>
         </ArticleBox>
 
@@ -794,8 +794,8 @@ function TitreIII() {
         </ArticleBox>
 
         <ArticleBox num="75-76" titre="Garanties du Trésor : privilège et hypothèque">
-          <p><strong>Art. 75 : Privilège du Trésor</strong> : Le Trésor a privilège général sur tous les biens meubles et immeubles du redevable — et, dans la mesure où le recouvrement peut être poursuivi sur ses biens (Art. 81), de son conjoint — s'exerçant avant tout autre et pendant deux ans à compter de la date de dépôt de la déclaration ou de l'émission de l'AMR. La saisie des biens avant l'expiration de ce délai conserve le privilège jusqu'à leur réalisation.</p>
-          <p className="mt-1"><strong>Art. 76 : Hypothèque légale</strong> : Le Trésor a droit d'hypothèque légale sur les immeubles du redevable — et de son conjoint dans la même mesure —, exerçable dès que les droits sont exigibles et au plus tard le 31 décembre de l'année qui suit celle de l'exigibilité.</p>
+          <p><strong>Art. 75 : Privilège du Trésor</strong> : Le Trésor a privilège général sur tous les biens meubles et immeubles du redevable - et, dans la mesure où le recouvrement peut être poursuivi sur ses biens (Art. 81), de son conjoint - s'exerçant avant tout autre et pendant deux ans à compter de la date de dépôt de la déclaration ou de l'émission de l'AMR. La saisie des biens avant l'expiration de ce délai conserve le privilège jusqu'à leur réalisation.</p>
+          <p className="mt-1"><strong>Art. 76 : Hypothèque légale</strong> : Le Trésor a droit d'hypothèque légale sur les immeubles du redevable, et de son conjoint dans la même mesure, exerçable dès que les droits sont exigibles et au plus tard le 31 décembre de l'année qui suit celle de l'exigibilité.</p>
           <Ref>Art. 75-76, Loi n° 004/2003</Ref>
         </ArticleBox>
 
@@ -1203,9 +1203,9 @@ function SimulateurPenalites() {
     }
     const descPenalite: Record<string, string> = {
       'taxation_office': "Taxation d'office, tous motifs de l'Art. 41 (Art. 89)",
-      'taxation_office_recidive': "Taxation d'office — récidive (Art. 89)",
+      'taxation_office_recidive': "Taxation d'office - récidive (Art. 89)",
       'redressement': 'Redressement contradictoire (Art. 89)',
-      'redressement_recidive': 'Redressement contradictoire — récidive (Art. 89)',
+      'redressement_recidive': 'Redressement contradictoire - récidive (Art. 89)',
       'regularisation_art5': 'Régularisation après mise en demeure Art. 5 (Art. 89)',
       'acompte_defaut': "Défaut de paiement d'acompte provisionnel (Art. 98 bis)",
     }
@@ -1216,7 +1216,7 @@ function SimulateurPenalites() {
     const tauxAssiette = taux[typePenalite] ?? 0
     const penaliteAssiette = base * tauxAssiette
     // Art. 85 : les majorations et l'intérêt de retard sont assis sur le montant de l'impôt
-    // dû, éludé ou reconstitué — pas sur la pénalité d'assiette déjà appliquée.
+    // dû, éludé ou reconstitué - pas sur la pénalité d'assiette déjà appliquée.
     let interetMoratoire = mois > 0 ? base * 0.02 * mois : 0
     if (casPlafonnesArt89.includes(typePenalite)) {
       interetMoratoire = Math.min(interetMoratoire, base * 0.50)
@@ -1244,7 +1244,7 @@ function SimulateurPenalites() {
       <div className="p-3 bg-rose-50/50 border border-rose-200 rounded-lg mb-3">
         <p className="text-xs text-muted-foreground italic">
           Fondé exclusivement sur la Loi n° 004/2003 du 13 mars 2003 portant réforme des procédures fiscales (Art. 83-100).
-          Taux d'intérêt de retard : 2% par mois — plafonné à 50% de l'impôt éludé/reconstitué en cas de redressement ou de taxation d'office (Art. 89), non plafonné en cas de simple retard de paiement (Art. 91). Tout mois commencé est compté intégralement.
+          Taux d'intérêt de retard : 2% par mois - plafonné à 50% de l'impôt éludé/reconstitué en cas de redressement ou de taxation d'office (Art. 89), non plafonné en cas de simple retard de paiement (Art. 91). Tout mois commencé est compté intégralement.
         </p>
       </div>
 
@@ -1288,9 +1288,9 @@ function SimulateurPenalites() {
           <option value="">-- Sélectionner --</option>
           <option value="regularisation_art5">Régularisation après lettre de relance Art. 5 (25%) : Art. 89</option>
           <option value="redressement">Redressement contradictoire (20%) : Art. 89</option>
-          <option value="redressement_recidive">Redressement contradictoire — récidive (40%) : Art. 89</option>
+          <option value="redressement_recidive">Redressement contradictoire - récidive (40%) : Art. 89</option>
           <option value="taxation_office">Taxation d'office, tous motifs Art. 41 (50%) : Art. 89</option>
-          <option value="taxation_office_recidive">Taxation d'office — récidive (100%) : Art. 89</option>
+          <option value="taxation_office_recidive">Taxation d'office - récidive (100%) : Art. 89</option>
           <option value="acompte_defaut">Défaut de paiement d'acompte provisionnel (50%) : Art. 98 bis</option>
           <option value="aucune">Aucune pénalité d'assiette (retard pur)</option>
         </select>
@@ -1376,7 +1376,7 @@ function TitreVI() {
           <Ref>Art. 149 quinquies, Loi n° 23/053 (introduit par LF 2026 n° 25/060, Art. 44)</Ref>
         </ArticleBox>
 
-        {/* Déclaration — Art. 22 quarter / Point L Titre I LF 2026 */}
+        {/* Déclaration - Art. 22 quarter / Point L Titre I LF 2026 */}
         <div className="mt-3 p-3 bg-teal-50/50 border border-teal-200 rounded-lg">
           <p className="text-xs font-semibold text-teal-800 mb-1">Déclaration (Art. 22 quarter)</p>
           <p className="text-xs text-foreground">Les sociétés établies en RDC qui paient des revenus des capitaux mobiliers à des non-résidents souscrivent une déclaration <strong>au plus tard le 15 du mois suivant le paiement</strong>, accompagnée du paiement, auprès du Service gestionnaire compétent de l'Administration des Impôts.</p>
@@ -1439,7 +1439,7 @@ export default function ProceduresFiscales() {
             >
               <Icon className="h-3 w-3" />
               <span>{t.label}</span>
-              <span className="hidden sm:inline text-sm opacity-70">— {t.sublabel}</span>
+              <span className="hidden sm:inline text-sm opacity-70">- {t.sublabel}</span>
             </button>
           )
         })}

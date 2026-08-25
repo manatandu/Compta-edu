@@ -123,7 +123,7 @@ export default function DevoirChapitreCreateur({
     return d.toISOString().slice(0, 16)
   })
 
-  // Sélection QCM — libre, pas de limite max
+  // Sélection QCM - libre, pas de limite max
   const [selection, setSelection] = useState<Set<string>>(new Set())
 
   const toggleQuestion = (id: string) => {
@@ -386,7 +386,7 @@ export default function DevoirChapitreCreateur({
             />
           </div>
 
-          {/* Sélection QCM — libre */}
+          {/* Sélection QCM - libre */}
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs font-semibold text-foreground">

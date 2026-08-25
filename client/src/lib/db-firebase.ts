@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════
-//  CAMPUS OHADA — Couche de données Firebase (remplace localStorage)
+//  CAMPUS OHADA - Couche de données Firebase (remplace localStorage)
 //  Toutes les fonctions gardent les mêmes signatures qu'avant
 //  pour éviter de modifier les pages existantes.
 // ═══════════════════════════════════════════════════════════════════════
@@ -44,7 +44,7 @@ const firebaseConfig = {
 const secondaryApp = getApps().find(a => a.name === 'secondary') ||
   initializeApp(firebaseConfig, 'secondary')
 const secondaryAuth = initializeAuth(secondaryApp, { persistence: browserLocalPersistence })
-// Firestore secondaire — utilisé pour les écritures authentifiées via secondaryAuth
+// Firestore secondaire - utilisé pour les écritures authentifiées via secondaryAuth
 const secondaryDb = getFirestore(secondaryApp)
 
 // ─── Noms des collections Firestore ──────────────────────────────────────────
@@ -83,7 +83,7 @@ function cleanUndefined(obj: Record<string, any>): Record<string, any> {
 }
 
 // ───────────────────────────────────────────────────────────────────────────────
-//  FIREBASE STORAGE — Upload / Download PDF
+//  FIREBASE STORAGE - Upload / Download PDF
 // ───────────────────────────────────────────────────────────────────────────────
 
 /**
@@ -173,7 +173,7 @@ export async function deleteStorageFile(fileUrl: string): Promise<void> {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-//  AUTH — Connexion / Déconnexion
+//  AUTH - Connexion / Déconnexion
 // ══════════════════════════════════════════════════════════════════════════════
 
 // Utilisateur Firebase courant en mémoire
@@ -202,7 +202,7 @@ export async function loginAsync(username: string, password: string): Promise<Us
     // Si le profil Firestore n'existe pas → le recréer automatiquement
     // (cas de migration : compte Auth existe mais Firestore vide)
     if (!userSnap.exists()) {
-      console.warn('Profil Firestore absent pour', username, '— reconstruction automatique')
+      console.warn('Profil Firestore absent pour', username, '- reconstruction automatique')
       // Déterminer le rôle : manasse.tandu est admin par défaut
       const isDefaultAdmin = username.toLowerCase() === 'manasse.tandu'
       const reconstructed: User = {
@@ -309,17 +309,17 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
     useSecondaryDb = true  // secondaryAuth est connecté → on peut écrire avec secondaryDb
   } catch (e: any) {
     if (e.code === 'auth/email-already-in-use') {
-      // Le compte Auth existe (ancienne session) — récupérer l'UID et mettre à jour
+      // Le compte Auth existe (ancienne session) - récupérer l'UID et mettre à jour
       try {
         const cred2 = await signInWithEmailAndPassword(secondaryAuth, email, data.password)
         uid = cred2.user.uid
         // Le compte Auth existe déjà ET accepte ce mot de passe : ça peut être la même
         // personne qui retente son inscription (légitime, il faut alors compléter/mettre
         // à jour son profil), OU deux personnes différentes ayant généré le même
-        // identifiant+mot de passe par défaut (ex. homonymes — l'identifiant suggéré ne
+        // identifiant+mot de passe par défaut (ex. homonymes - l'identifiant suggéré ne
         // contient pas de suffixe garantissant l'unicité). Un profil Firestore déjà
         // présent pour cet uid signifie que ce compte a déjà été réclamé : ne JAMAIS
-        // l'écraser silencieusement ici — createUserAsync sert à CRÉER, pas à modifier
+        // l'écraser silencieusement ici - createUserAsync sert à CRÉER, pas à modifier
         // un profil existant (updateUserAsync existe pour ça). On rejette la collision
         // et on laisse l'appelant demander un identifiant différent.
         const existingProfile = await getDoc(doc(secondaryDb, C.USERS, uid))
@@ -330,13 +330,13 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
         useSecondaryDb = true
       } catch (e2: any) {
         if (e2?.message === 'Ce nom d\'utilisateur est déjà utilisé.') throw e2
-        // Mot de passe différent — vérifier si un profil Firestore existe déjà avec ce username
+        // Mot de passe différent - vérifier si un profil Firestore existe déjà avec ce username
         await signOut(secondaryAuth).catch(() => {})
         const existing = await getDocs(query(collection(db, C.USERS), where('username', '==', data.username.toLowerCase())))
         if (!existing.empty) {
           throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
         }
-        // Compte Auth avec autre MDP : impossible de récupérer — générer un ID unique
+        // Compte Auth avec autre MDP : impossible de récupérer - générer un ID unique
         uid = generateId()
         useSecondaryDb = false
       }
@@ -519,10 +519,10 @@ export async function saveTentativeAsync(data: Omit<Tentative, 'id' | 'dateCreat
 
 export async function getDocumentsAsync(userId?: string, promotionId?: string, coursId?: string): Promise<Document[]> {
   // Isolation : quand un coursId précis est fourni (appel étudiant, un par cours
-  // inscrit — voir DocumentsPage), la requête Firestore elle-même doit être
+  // inscrit - voir DocumentsPage), la requête Firestore elle-même doit être
   // contrainte par ce coursId. firestore.rules refuse désormais une lecture non
   // filtrée de toute la collection dès que la règle dépend de resource.data.
-  // Sans coursId (appel prof/admin), la lecture reste non filtrée — déjà
+  // Sans coursId (appel prof/admin), la lecture reste non filtrée - déjà
   // autorisée par isProf() côté règles.
   const q = coursId
     ? query(collection(db, C.DOCUMENTS), where('coursId', '==', coursId))
@@ -531,7 +531,7 @@ export async function getDocumentsAsync(userId?: string, promotionId?: string, c
   const all = snap.docs.map(d => fromDoc<Document>(d))
   // ISOLATION STRICTE :
   // Si l'appelant est un étudiant (promotionId fourni), un document ne lui est visible
-  // QUE si son promotionId ET son coursId correspondent exactement — OU si le document
+  // QUE si son promotionId ET son coursId correspondent exactement - OU si le document
   // n'a aucune restriction (pas de promotionId ET pas de coursId = document système global).
   // Un document avec promotionId mais sans coursId = visible pour toute la promotion.
   // Un document avec coursId mais sans promotionId = visible pour tout le cours.
@@ -743,7 +743,7 @@ export async function corrigerSoumissionAsync(id: string, note: number, commenta
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-//  INITIALISATION — Créer l'admin principal au premier lancement
+//  INITIALISATION - Créer l'admin principal au premier lancement
 // ──────────────────────────────────────────────────────────────────────────────
 
 export async function initAdminIfNeeded(): Promise<void> {
@@ -783,8 +783,8 @@ export async function initAdminIfNeeded(): Promise<void> {
       return // Tout est en ordre
     }
 
-    // Le profil n'existe pas (ou est sous un autre UID) — forcer la création
-    console.warn('⚠️ Profil Firestore admin absent — création forcée')
+    // Le profil n'existe pas (ou est sous un autre UID) - forcer la création
+    console.warn('⚠️ Profil Firestore admin absent - création forcée')
     const adminUser: User = {
       id: uid,
       username: 'manasse.tandu',
@@ -813,7 +813,7 @@ export async function initAdminIfNeeded(): Promise<void> {
 export async function createPresenceAsync(data: Omit<Presence, 'id'>): Promise<Presence> {
   const id = generateId()
   // etudiantIds est dérivé de etudiants (tableau plat requis par firestore.rules
-  // et par la requête array-contains ci-dessous — voir le commentaire sur ce champ
+  // et par la requête array-contains ci-dessous - voir le commentaire sur ce champ
   // dans db.ts).
   const presence = { ...data, id, etudiantIds: data.etudiants.map(e => e.etudiantId) }
   await setDoc(doc(db, C.PRESENCES, id), cleanUndefined(presence) as any)
@@ -835,7 +835,7 @@ export function onPresencesSnapshot(createdBy: string, callback: (presences: Pre
 }
 
 export function onPresencesByEtudiantSnapshot(etudiantId: string, callback: (presences: Presence[]) => void): Unsubscribe {
-  // Requête filtrée côté serveur via le champ plat etudiantIds (voir db.ts) — avant,
+  // Requête filtrée côté serveur via le champ plat etudiantIds (voir db.ts) - avant,
   // ceci écoutait TOUTE la collection sans filtre et triait côté client, ce qui, en
   // plus d'être un problème de passage à l'échelle, ne correspondait à aucune règle
   // de lecture valide (voir le correctif dans firestore.rules).
@@ -949,7 +949,7 @@ export async function updateTentativeELAsync(id: string, data: Partial<Tentative
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-//  COURS SYSTÈME — Initialisation des cours par défaut
+//  COURS SYSTÈME - Initialisation des cours par défaut
 // ══════════════════════════════════════════════════════════════════════════════
 import type { CoursEtudiantStatut } from './db'
 
@@ -958,7 +958,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue1_droit_travail',
     ue: 'UE 1',
-    nom: 'UE 1 — Droit du travail',
+    nom: 'UE 1 - Droit du travail',
     description: 'Contrats de travail, licenciement, droit social OHADA',
     moduleKey: 'ue1-droit-travail',
     icon: 'BookOpen',
@@ -968,7 +968,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue2_droit_societes',
     ue: 'UE 2',
-    nom: 'UE 2 — Droit des sociétés OHADA',
+    nom: 'UE 2 - Droit des sociétés OHADA',
     description: 'Droit des sociétés dans l\'espace OHADA',
     moduleKey: 'ue2-droit-societes',
     icon: 'BookOpen',
@@ -978,8 +978,8 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue3_compta_societes',
     ue: 'UE 3',
-    nom: 'UE 3 — Comptabilité des sociétés',
-    description: 'Comptabilité des sociétés — SYSCOHADA Révisé',
+    nom: 'UE 3 - Comptabilité des sociétés',
+    description: 'Comptabilité des sociétés - SYSCOHADA Révisé',
     moduleKey: 'ue3-compta-societes',
     icon: 'BookOpen',
     systeme: true,
@@ -988,8 +988,8 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_fiscalite',
     ue: 'UE 4',
-    nom: 'UE 4 — Fiscalité des entreprises',
-    description: 'Fiscalité des entreprises — IS, TVA, IRPP, RDC',
+    nom: 'UE 4 - Fiscalité des entreprises',
+    description: 'Fiscalité des entreprises - IS, TVA, IRPP, RDC',
     moduleKey: 'fiscalite',
     icon: 'FileText',
     systeme: true,
@@ -1008,7 +1008,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue6_gestion_financiere',
     ue: 'UE 6',
-    nom: 'UE 6 — Analyse financière',
+    nom: 'UE 6 - Analyse financière',
     description: 'Analyse financière, ratios, VAN, TIR, emprunts',
     moduleKey: 'analyse-financiere',
     icon: 'BarChart2',
@@ -1018,7 +1018,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue7_management',
     ue: 'UE 7',
-    nom: 'UE 7 — Management',
+    nom: 'UE 7 - Management',
     description: 'Théories et pratiques du management',
     moduleKey: 'ue7-management',
     icon: 'BookOpen',
@@ -1028,8 +1028,8 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue8_consolidation',
     ue: 'UE 8',
-    nom: 'UE 8 — Consolidation des états financiers',
-    description: 'Consolidation des comptes de groupe — SYSCOHADA',
+    nom: 'UE 8 - Consolidation des états financiers',
+    description: 'Consolidation des comptes de groupe - SYSCOHADA',
     moduleKey: 'ue8-consolidation',
     icon: 'BookOpen',
     systeme: true,
@@ -1038,8 +1038,8 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_comptabilite_generale',
     ue: 'UE 9',
-    nom: 'UE 9 — Comptabilité générale',
-    description: 'Comptabilité générale — SYSCOHADA Révisé',
+    nom: 'UE 9 - Comptabilité générale',
+    description: 'Comptabilité générale - SYSCOHADA Révisé',
     moduleKey: 'comptabilite-generale',
     icon: 'Calculator',
     systeme: true,
@@ -1048,8 +1048,8 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue10_compta_approfondie',
     ue: 'UE 10',
-    nom: 'UE 10 — Comptabilité approfondie',
-    description: 'Comptabilité approfondie — cas complexes SYSCOHADA',
+    nom: 'UE 10 - Comptabilité approfondie',
+    description: 'Comptabilité approfondie - cas complexes SYSCOHADA',
     moduleKey: 'ue10-compta-approfondie',
     icon: 'BookOpen',
     systeme: true,
@@ -1058,7 +1058,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_controle_de_gestion',
     ue: 'UE 11',
-    nom: 'UE 11 — Contrôle de gestion',
+    nom: 'UE 11 - Contrôle de gestion',
     description: 'Budgets, écarts, tableaux de bord',
     moduleKey: 'controle-de-gestion',
     icon: 'Target',
@@ -1068,7 +1068,7 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue12_audit',
     ue: 'UE 12',
-    nom: 'UE 12 — Audit',
+    nom: 'UE 12 - Audit',
     description: 'Audit légal et contractuel',
     moduleKey: 'ue12-audit',
     icon: 'BookOpen',
@@ -1078,8 +1078,8 @@ export const COURS_SYSTEME = [
   {
     id: 'sys_ue13_ias_ifrs',
     ue: 'UE 13',
-    nom: 'UE 13 — Normes IAS/IFRS',
-    description: 'Normes comptables internationales IAS/IFRS — Cadre conceptuel IASB, Due Process, architecture institutionnelle',
+    nom: 'UE 13 - Normes IAS/IFRS',
+    description: 'Normes comptables internationales IAS/IFRS - Cadre conceptuel IASB, Due Process, architecture institutionnelle',
     moduleKey: 'ue13-ifrs-ias',
     icon: 'BookOpen',
     systeme: true,
@@ -1099,7 +1099,7 @@ export async function initCoursSystemeAsync(): Promise<void> {
         universiteId: '',
         createdBy: 'system',
         // adminId requis par firestore.rules (hasAll(['adminId','createdBy']))
-        // à la création — ces cours système n'appartiennent à aucun admin en
+        // à la création - ces cours système n'appartiennent à aucun admin en
         // particulier (visibles de tous, cf. allow read: if isAuth() sur
         // /cours), donc pas de vraie valeur à mettre : présence du champ
         // suffit à satisfaire la règle.

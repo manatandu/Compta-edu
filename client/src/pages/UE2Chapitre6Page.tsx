@@ -480,13 +480,13 @@ export default function UE2Chapitre6Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 6' },
           ]}
           color="indigo"
         />
         <h1 className="text-xl font-display font-bold text-foreground mt-0.5">Le Groupement d'Intérêt Économique (GIE)</h1>
-        <p className="text-sm text-muted-foreground">AUSCGIE — Articles 869 à 885 — OHADA</p>
+        <p className="text-sm text-muted-foreground">AUSCGIE - Articles 869 à 885 - OHADA</p>
       </div>
 
       {/* ── Stats ── */}
@@ -567,7 +567,7 @@ export default function UE2Chapitre6Page() {
 
           {/* Titre leçon active */}
           <div className="border-l-4 border-teal-500 bg-card rounded-r-xl p-4">
-            <h2 className="font-display font-bold text-foreground">{lecons[activeLecon].id} — {lecons[activeLecon].titre}</h2>
+            <h2 className="font-display font-bold text-foreground">{lecons[activeLecon].id} - {lecons[activeLecon].titre}</h2>
           </div>
 
           {/* ── Contenu L1 ── */}
@@ -662,7 +662,7 @@ export default function UE2Chapitre6Page() {
                 </p>
 
                 <h3 className="font-semibold text-teal-700 flex items-center gap-2">
-                  <ChevronRight className="w-4 h-4" /> Conditions de fond — Qui peut constituer un GIE ? (Art. 871)
+                  <ChevronRight className="w-4 h-4" /> Conditions de fond - Qui peut constituer un GIE ? (Art. 871)
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   L'article 871 ouvre largement la constitution du GIE. Peuvent être membres : toutes personnes physiques (commerçants, artisans, agriculteurs, professions libérales), toutes personnes morales (sociétés commerciales, associations, autres GIE). L'article 871 mentionne expressément les personnes exerçant une profession libérale soumise à un statut législatif ou réglementaire ou dont le titre est protégé (médecins, avocats, experts-comptables, architectes, etc.).
@@ -714,7 +714,7 @@ export default function UE2Chapitre6Page() {
                 </div>
 
                 <h3 className="font-semibold text-teal-700 flex items-center gap-2">
-                  <ChevronRight className="w-4 h-4" /> Personnalité morale — Naissance à l'immatriculation (Art. 872)
+                  <ChevronRight className="w-4 h-4" /> Personnalité morale - Naissance à l'immatriculation (Art. 872)
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   L'article 872 conditionne la personnalité morale et la pleine capacité juridique du GIE à son immatriculation au RCCM (Registre du Commerce et du Crédit Mobilier). Avant l'immatriculation, le GIE n'a pas d'existence juridique propre : il ne peut pas contracter, ester en justice, ni posséder de patrimoine.
@@ -870,7 +870,7 @@ export default function UE2Chapitre6Page() {
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-900 flex gap-2">
                   <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                  <div><strong>Art. 880 :</strong> Lorsque le GIE émet des obligations, le commissaire aux comptes est nommé pour un mandat de SIX (6) exercices — durée identique à celle des CAC dans les SA.</div>
+                  <div><strong>Art. 880 :</strong> Lorsque le GIE émet des obligations, le commissaire aux comptes est nommé pour un mandat de SIX (6) exercices - durée identique à celle des CAC dans les SA.</div>
                 </div>
 
                 <h3 className="font-semibold text-teal-700 flex items-center gap-2">
@@ -1084,12 +1084,12 @@ export default function UE2Chapitre6Page() {
         <div className="space-y-3">
           <div className="bg-card border border-border rounded-xl p-4">
             <h2 className="font-display font-bold text-foreground flex items-center gap-2 mb-1">
-              <FileText className="w-5 h-5 text-teal-600" /> Cas Pratiques — Chapitre 6 : Le GIE
+              <FileText className="w-5 h-5 text-teal-600" /> Cas Pratiques - Chapitre 6 : Le GIE
             </h2>
             <p className="text-sm text-muted-foreground">4 cas pratiques basés sur les articles 869 à 885 de l'AUSCGIE et la jurisprudence CCJA.</p>
             {isProf && (
               <span className="mt-2 inline-flex items-center gap-1 bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full">
-                <CheckCircle2 className="w-3 h-3" /> Mode professeur — corrections visibles
+                <CheckCircle2 className="w-3 h-3" /> Mode professeur - corrections visibles
               </span>
             )}
           </div>
@@ -1135,7 +1135,7 @@ export default function UE2Chapitre6Page() {
 
       {/* ── Sources ── */}
       <p className="text-xs text-muted-foreground/60 text-center">
-        Sources : AUSCGIE Art. 869-885 — CCJA n°48/2015 — CCJA n°95/2024 — TC Ouagadougou n°55/2021
+        Sources : AUSCGIE Art. 869-885 - CCJA n°48/2015 - CCJA n°95/2024 - TC Ouagadougou n°55/2021
       </p>
     </div>
   )

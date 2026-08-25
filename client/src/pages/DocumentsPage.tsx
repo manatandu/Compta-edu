@@ -6,7 +6,7 @@ import { useNav } from '@/lib/navContext'
 import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, onUsersSnapshot } from '@/lib/db-firebase'
 import { uploadDocumentFile } from '@/lib/db-firebase'
 import { useAllCours } from '@/lib/useFirestore'
-// PROMOTIONS statique supprimé — on dérive depuis les cours réels
+// PROMOTIONS statique supprimé - on dérive depuis les cours réels
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -84,7 +84,7 @@ const SYSTEM_DOCS_FISCALITE = [
   },
   {
     id: '__system_fiscalite_is__',
-    titre: 'Loi n°23/052 du 30/11/2023 — Impôt sur les Sociétés (IS)',
+    titre: 'Loi n°23/052 du 30/11/2023 - Impôt sur les Sociétés (IS)',
     type: 'référence',
     description: 'Loi n°23/052 portant Impôt sur les Sociétés (IS) en RDC. Taux : 30% bénéfice net + minimum 1% CA. Acomptes : juil./sept./nov.',
     filename: 'Loi-Impot-sur-les-Societes.pdf',
@@ -92,7 +92,7 @@ const SYSTEM_DOCS_FISCALITE = [
   },
   {
     id: '__system_fiscalite_lf2025__',
-    titre: 'LF 2025 — Présentation FEC-UniKin (Innovations fiscales)',
+    titre: 'LF 2025 - Présentation FEC-UniKin (Innovations fiscales)',
     type: 'référence',
     description: 'Présentation des innovations de la Loi de Finances Mars 2025 par le Prof. MAPOTI, FEC-Université de Kinshasa. 176 slides.',
     filename: 'Loi-Finances-Mars-2025.pdf',
@@ -128,7 +128,7 @@ const SYSTEM_DOCS_FISCALITE = [
   },
   {
     id: '__system_cpcc_circulaire_2025__',
-    titre: 'Circulaire CPCC N°757/2025 — Dépôt états financiers SYSCOHADA/SYCEBNL',
+    titre: 'Circulaire CPCC N°757/2025 - Dépôt états financiers SYSCOHADA/SYCEBNL',
     type: 'référence',
     description: 'Note circulaire du Conseil Permanent de la Comptabilité au Congo (CPCC) relative à la réception des états financiers et au recouvrement des astreintes pour non-dépôt. Date butoir : 30 juin N+1. Astreinte : USD 100 + USD 100/jour de retard. Signée le 17 juin 2025 par le Prof. William MBUYAMBA KALOMBAYI.',
     filename: 'Circulaire-CPCC-SYSCOHADA-SYCEBNL-juin-2025L-1.pdf',
@@ -213,7 +213,7 @@ export default function DocumentsPage() {
     }
   }, [user?.id, isEtudiant, userPromotion, JSON.stringify(userCoursIds)])
 
-  // Notes de cours : ISOLATION STRICTE — promotion + cours obligatoires
+  // Notes de cours : ISOLATION STRICTE - promotion + cours obligatoires
   const { notes: notesCours } = useNotesCours(
     isEtudiant ? userCoursIds : [],
     isEtudiant ? userPromotion : undefined
@@ -257,7 +257,7 @@ export default function DocumentsPage() {
         pdfNom,
         userId: user?.id || '',
         // firestore.rules exige createdBy à la création (hasAll(['createdBy']))
-        // et s'en sert pour autoriser update/delete — absent jusqu'ici, toute
+        // et s'en sert pour autoriser update/delete - absent jusqu'ici, toute
         // création de document échouait (PERMISSION_DENIED).
         createdBy: user?.id || '',
         promotionId: form.promotionId || undefined,
@@ -761,7 +761,7 @@ export default function DocumentsPage() {
                 <SelectContent>
                   {allCours.filter(c => c.actif).map(c => (
                     <SelectItem key={c.id} value={c.id}>
-                      {c.nom}{(c as any).promotion ? ` — ${(c as any).promotion}` : ''}
+                      {c.nom}{(c as any).promotion ? ` - ${(c as any).promotion}` : ''}
                     </SelectItem>
                   ))}
                 </SelectContent>

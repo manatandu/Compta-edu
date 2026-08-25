@@ -45,12 +45,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     const n = normaliser(nom)
     const p = normaliser(postnom)
     if (!n || !p) return
-    // Simple suggestion — pas de numéro d'ordre fiable calculable ici : cette page
+    // Simple suggestion - pas de numéro d'ordre fiable calculable ici : cette page
     // n'est pas encore authentifiée, et firestore.rules exige isAuth() pour lire
     // `users` (un ancien essai de comptage échouait donc systématiquement et
     // silencieusement). L'identifiant est explicitement présenté comme modifiable
     // ci-dessous, et handleJoinSubmit rejette désormais toute collision avec un
-    // compte existant (voir createUserAsync) au lieu de l'écraser silencieusement —
+    // compte existant (voir createUserAsync) au lieu de l'écraser silencieusement -
     // l'utilisateur devra alors ajuster ce champ, comme déjà indiqué à l'écran.
     setJoinUsername(`${n}.${p}`)
     setJoinPassword(`${n.charAt(0)}${p}1`)
@@ -123,7 +123,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     setLoading(true)
     // Une connexion réussie fait basculer instantanément le contexte d'authentification
     // Firestore : les onSnapshot() montés par le tableau de bord juste après peuvent
-    // essuyer un refus transitoire le temps que le nouveau jeton d'auth se propage —
+    // essuyer un refus transitoire le temps que le nouveau jeton d'auth se propage -
     // ce n'est pas une coupure réseau. Même fenêtre de suppression que pour le logout
     // (App.tsx), refermée par onAuthStateChanged une fois la session confirmée.
     setFirestoreErrorSuppressed(true)
@@ -166,7 +166,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           Chaque coin est un bloc indépendant ancré en CSS (top-right /
           bottom-left), plutôt qu'un seul SVG à viewBox large en "slice" : ce
           dernier, pensé pour un écran large, ne montrait presque rien sur un
-          écran mobile étroit et haut — le "slice" ne conservait que la bande
+          écran mobile étroit et haut - le "slice" ne conservait que la bande
           centrale du viewBox et coupait les deux coins où vivait le motif. */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         {/* Aplats doux, en dérive très lente */}
@@ -175,7 +175,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         <div className="absolute -bottom-16 -left-16 h-56 w-56 sm:h-80 sm:w-80 rounded-full opacity-80 animate-driftBlob motion-reduce:animate-none"
           style={{ background: 'radial-gradient(circle, #DCE8FC, #EAF1FC)', animationDelay: '5s' }} />
 
-        {/* Anneaux en rotation — les ellipses sont centrées dans leur viewBox,
+        {/* Anneaux en rotation - les ellipses sont centrées dans leur viewBox,
             la rotation CSS du <svg> pivote donc autour de leur propre centre.
             Le point posé sur l'anneau extérieur décrit une orbite : d'où le nom
             du produit. Mouvement volontairement très lent (60 et 90 s/tour),

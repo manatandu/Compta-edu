@@ -43,7 +43,7 @@ interface LigneBareme {
   impot: number     // baseReelle × taux
 }
 
-// N'applique QUE le barème progressif — ni la réduction pour charges de famille (Art. 123-125),
+// N'applique QUE le barème progressif - ni la réduction pour charges de famille (Art. 123-125),
 // ni le plafond (Art. 118 in fine). L'ordre de liquidation retenu par le texte et la pratique est :
 // barème → réduction pour charges → plafond 30% → arrondi. Appliquer le plafond ici, avant la
 // réduction, sous-évaluerait la réduction (assise sur un IRPP déjà plafonné) et surévaluerait
@@ -51,7 +51,7 @@ interface LigneBareme {
 function calculerBareme(revenuNetImposable: number): {
   lignes: LigneBareme[]
   iprBrut: number
-  iprMax: number   // plafond Art. 118 = 30% du revenu net imposable — à appliquer après réduction
+  iprMax: number   // plafond Art. 118 = 30% du revenu net imposable - à appliquer après réduction
 } {
   const lignes: LigneBareme[] = []
   let iprBrut = 0
@@ -127,7 +127,7 @@ const ELEMENTS_662 = [
 interface ElementCatalogue { code: string; label: string }
 interface LigneSaisie { code: string; label: string; montant: string }
 
-// ModalElements supprimé — remplacé par CatalogueDropdown inline
+// ModalElements supprimé - remplacé par CatalogueDropdown inline
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION SAISIE AVEC CATALOGUE DROPDOWN
@@ -188,7 +188,7 @@ function SectionSaisieModal({
           <Plus className="h-3 w-3" /> Ajouter manuellement
         </button>
       )}
-      {/* Catalogue à sélection unique, sans recherche — même composant que Cat. 2/3/4 */}
+      {/* Catalogue à sélection unique, sans recherche - même composant que Cat. 2/3/4 */}
       {catalogue && onAddFromCatalogue && (
         <CatalogueGroupe
           sections={[{ cat: '', color: styles[couleur].split(' ').pop() || 'text-primary', items: catalogue }]}
@@ -209,7 +209,7 @@ function SectionSaisieModal({
 // ─────────────────────────────────────────────────────────────────────────────
 // Un poste de catalogue est soit un simple libellé (Cat. 2/3/4 : la loi ne lui
 // attache pas de code), soit un couple { code, label } (comptes SYSCOHADA du
-// plan — Cat. 1, réintégrations/déductions IS) : dans ce second cas le code
+// plan - Cat. 1, réintégrations/déductions IS) : dans ce second cas le code
 // s'affiche en préfixe, mais la sélection et l'anti-doublon se font toujours
 // sur le libellé.
 type ItemCatalogue = string | { code: string; label: string }
@@ -224,8 +224,8 @@ function libelleItem(item: ItemCatalogue): string {
 // recherche : les catalogues sont courts (quelques dizaines de postes au plus)
 // et un étudiant qui découvre l'article gagne à parcourir la liste plutôt qu'à
 // filtrer un texte qu'il ne connaît pas encore. Un poste déjà ajouté à la
-// liste de saisie est grisé et non cliquable — impossible de l'ajouter deux
-// fois — au même titre qu'un poste hors champ (`excluded`).
+// liste de saisie est grisé et non cliquable - impossible de l'ajouter deux
+// fois - au même titre qu'un poste hors champ (`excluded`).
 // ─────────────────────────────────────────────────────────────────────────────
 function CatalogueGroupe({ sections, onSelect, selected = [] }: {
   sections: SectionCatalogue[]
@@ -278,10 +278,10 @@ function CatalogueGroupe({ sections, onSelect, selected = [] }: {
 }
 
 // Catalogues produits/charges communs aux Bénéfices Industriels, Commerciaux,
-// Immobiliers et Artisanaux (BIC, Cat. 2 — Art. 14 pour les produits, Art. 20 à
+// Immobiliers et Artisanaux (BIC, Cat. 2 - Art. 14 pour les produits, Art. 20 à
 // 50 pour les charges). Réutilisés tels quels par la Cat. 4 (Agricole) : l'Art.
 // 104 renvoie « aux mêmes conditions que celles prévues en matière de
-// bénéfices [BIC] » — il n'existe pas de catalogue légal propre à l'agriculture,
+// bénéfices [BIC] » - il n'existe pas de catalogue légal propre à l'agriculture,
 // donc pas de raison d'en reconstruire un distinct.
 const PRODUITS_BIC_CATALOGUE: SectionCatalogue[] = [
   { cat: 'Produits imposables : Art. 14, Loi 23/053', color: 'text-indigo-600', items: [
@@ -386,7 +386,7 @@ const CHARGES_BIC_CATALOGUE: SectionCatalogue[] = [
 
 // Catalogues recettes/charges propres aux Bénéfices Non Commerciaux (Cat. 3 BNC).
 // Contrairement au BIC, la BNC a ses propres articles : les recettes viennent de
-// trois articles distincts (Art. 94/95/96) — l'Art. 92, lui, ne fixe pas de règle
+// trois articles distincts (Art. 94/95/96) - l'Art. 92, lui, ne fixe pas de règle
 // de recettes mais la liste des revenus qui qualifient une activité comme BNC.
 const RECETTES_BNC_CATALOGUE: SectionCatalogue[] = [
   { cat: 'Revenus visés par la catégorie BNC : Art. 92, Loi 23/053', color: 'text-indigo-600', items: [
@@ -421,7 +421,7 @@ const CHARGES_BNC_CATALOGUE: SectionCatalogue[] = [
     "Frais généraux nécessités directement par l'exploitation",
     "Rémunérations pour frais d'études ou d'assistance payées à des personnes domiciliées à l'étranger",
     "Dépenses de formation et de recherche",
-    "Frais d'inscription et de participation aux stages, colloques, séminaires (transport, hébergement, repas d'affaires — justificatifs requis)",
+    "Frais d'inscription et de participation aux stages, colloques, séminaires (transport, hébergement, repas d'affaires - justificatifs requis)",
     "Impôts, droits et taxes à charge du contribuable mis en recouvrement (sauf IRPP)",
     "Droits de mutation à titre gratuit acquittés par les héritiers/donataires/légataires d'une exploitation, pour la part afférente, et intérêts payés",
     "Amortissements selon les règles comptables et fiscales du régime BIC",
@@ -508,7 +508,7 @@ function BoxFinal({ label, sublabel, val, credit, couleur }: { label: string; su
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// BLOC DE LIQUIDATION IRPP — séquence commune aux catégories imposées au barème
+// BLOC DE LIQUIDATION IRPP - séquence commune aux catégories imposées au barème
 // progressif (Cat. 1 salaires, Cat. 2 BIC, Cat. 3 BNC, Cat. 4 agricole).
 //
 // L'ordre affiché ici reproduit exactement l'ordre de liquidation appliqué par
@@ -522,7 +522,7 @@ function BoxFinal({ label, sublabel, val, credit, couleur }: { label: string; su
 //
 // Ce composant existe parce que Cat. 2, Cat. 3 et Cat. 4 affichaient la mention
 // du plafond AVANT la ligne de réduction, c'est-à-dire l'inverse de l'ordre
-// qu'elles appliquaient réellement — et libellaient « IRPP après réduction
+// qu'elles appliquaient réellement - et libellaient « IRPP après réduction
 // famille » un montant qui, plafond joué, était celui du plafond. Regrouper la
 // séquence en un seul endroit empêche les quatre catégories de redivergerie.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -607,7 +607,7 @@ function BlocLiquidationIRPP({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CARREAU DE CHOIX — sélecteur à 2-4 options en tuiles (régime d'imposition,
+// CARREAU DE CHOIX - sélecteur à 2-4 options en tuiles (régime d'imposition,
 // taille d'entreprise, type de bien...), un seul gabarit visuel pour tout le
 // module fiscalité : IRPP (Cat. 1 à 6) et IS partageaient jusqu'ici trois
 // styles différents pour la même idée (bouton plein `bg-primary`, bouton
@@ -704,11 +704,11 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 // CAT. 1 : Revenus salariaux (IPR) : NATIONAL + EXPATRIÉ
 // ─────────────────────────────────────────────────────────────────────────────
 // Art. 69, 8° : les indemnités et avantages du compte 663 ne sont exonérés que sous condition,
-// ligne par ligne — ce n'est jamais la catégorie 663 dans son ensemble qui est immunisée :
+// ligne par ligne - ce n'est jamais la catégorie 663 dans son ensemble qui est immunisée :
 //   a) logement (6631) : exonéré dans la limite de 30% de la rémunération (661/662) ; l'excédent
 //      est imposable (il « remonte » conceptuellement en 661/662, donc traité ici comme imposable) ;
 //   b) transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné
-//      au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) —
+//      au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) -
 //      ce plafond en FC dépend d'un tarif local que le simulateur ne connaît pas : exonéré par
 //      défaut, avec un avertissement explicite plutôt qu'un faux calcul du plafond ;
 //   c) tout le reste (6632 représentation, 6633 expatriation, 6638 autres, ou un code non reconnu) :
@@ -772,13 +772,13 @@ function Cat1Salaires() {
     if (mode === 'national') {
       const brut661 = e661.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const brut663 = e663.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
-      // Art. 69, 8° : le 663 n'est pas exonéré en bloc — chaque ligne est qualifiée séparément
+      // Art. 69, 8° : le 663 n'est pas exonéré en bloc - chaque ligne est qualifiée séparément
       // (logement plafonné à 30% de la rémunération, transport sous condition, le reste imposable).
       const { exempte: exempte663, imposable: imposable663 } = qualifier663(e663, brut661)
       // Assiette CNSS (loi 16/009 du 15/07/2016, Art. 13) : « l'ensemble de la rémunération » au
-      // sens de l'Art. 7, litera h, du Code du travail — qui exclut nommément l'indemnité de
+      // sens de l'Art. 7, litera h, du Code du travail - qui exclut nommément l'indemnité de
       // logement, l'indemnité de transport et les frais de voyage. La part imposable du 663
-      // (représentation, expatriation, autres — jamais logement/transport, déjà exclus par
+      // (représentation, expatriation, autres - jamais logement/transport, déjà exclus par
       // construction de qualifier663) entre donc dans l'assiette CNSS au même titre que le 661.
       const qpo = (brut661 + imposable663) * 0.05      // Quote-part ouvrière CNSS 5%
       // Revenu net imposable = 661 (moins QPO) + la part du 663 non couverte par une immunité.
@@ -789,7 +789,7 @@ function Cat1Salaires() {
       const { lignes, iprBrut, iprMax } = calculerBareme(baseImposable)
       const charge = Math.min(Math.max(0, nbCharge), 9)
       // Art. 125 : « Aucune réduction pour charge de famille n'est accordée sur l'impôt afférent
-      // à la part du revenu imposable qui excède la troisième tranche du barème » — la réduction
+      // à la part du revenu imposable qui excède la troisième tranche du barème » - la réduction
       // n'est donc pas supprimée en bloc dès que le revenu dépasse 3 600 000 FC/mois : seule la
       // portion d'IRPP correspondant à la 4ème tranche (40%) est exclue de son assiette.
       const impotHorsDerniereTranche = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
@@ -798,7 +798,7 @@ function Cat1Salaires() {
       // barème → réduction → plafond, Art. 118 + 123-125)
       const reduction = impotHorsDerniereTranche * (charge * 0.02)
       const { plafonne, iprFinal } = appliquerReductionEtPlafond(iprBrut, iprMax, reduction)
-      // Art. 150 : le montant de l'impôt s'arrondit à la centaine de FC la plus proche — cette
+      // Art. 150 : le montant de l'impôt s'arrondit à la centaine de FC la plus proche - cette
       // règle vise nommément l'IRPP, pas seulement l'IS (d'où la réutilisation d'arrondiIS).
       // Aucun plancher légal en Loi 23/053 (l'ancien plancher de 2 000 FC relevait du régime IPR
       // abrogé) : l'impôt net est le résultat arrondi du calcul, y compris s'il est nul.
@@ -836,13 +836,13 @@ function Cat1Salaires() {
       // EXPATRIÉS : Art. 118 : même barème progressif que nationaux
       const brut662 = e662.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
       const brut663e = e663Exp.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
-      // Art. 69, 8° : même qualification ligne par ligne que pour les nationaux — voir le
+      // Art. 69, 8° : même qualification ligne par ligne que pour les nationaux - voir le
       // commentaire de qualifier663() ci-dessus.
       const { exempte: exempte663E, imposable: imposable663E } = qualifier663(e663Exp, brut662)
 
       // IRPP expatrié sur même barème (Art. 118 + Art. 119 Loi 23/053)
       // Art. 71 : QPO s'applique aussi aux expatriés (sauf convention bilatérale)
-      // Assiette CNSS (loi 16/009, Art. 13) : voir le commentaire équivalent pour les nationaux —
+      // Assiette CNSS (loi 16/009, Art. 13) : voir le commentaire équivalent pour les nationaux -
       // la part imposable du 663 entre dans l'assiette CNSS au même titre que le 662.
       const qpoE = (brut662 + imposable663E) * 0.05
       const baseImposableEAvantArrondi = brut662 - qpoE + imposable663E
@@ -851,7 +851,7 @@ function Cat1Salaires() {
       const { lignes, iprBrut, iprMax: iprMaxE } = calculerBareme(baseImposableE)
       const chargeE = Math.min(Math.max(0, nbChargeExp), 9)
       // Art. 125 : seule la portion d'IRPP correspondant à la 4ème tranche (40%) est exclue de
-      // l'assiette de la réduction — voir le commentaire équivalent pour les nationaux ci-dessus.
+      // l'assiette de la réduction - voir le commentaire équivalent pour les nationaux ci-dessus.
       const impotHorsDerniereTrancheE = lignes.filter(l => l.taux !== '40%').reduce((s, l) => s + l.impot, 0)
       const reductionPlafonneeE = lignes.some(l => l.taux === '40%')
       // Réduction assise sur l'IRPP brut (barème), AVANT tout plafonnement
@@ -865,7 +865,7 @@ function Cat1Salaires() {
       const avancesValE  = parseFloat(avancesExp)  || 0
 
       // IERE : Art. 148 Loi n°23/053 du 30/11/2023 : taux unique 25% du brut des rémunérations
-      // de l'Art. 68 (Art. 146), les immunités de l'Art. 69 s'y appliquant également (Art. 147) —
+      // de l'Art. 68 (Art. 146), les immunités de l'Art. 69 s'y appliquant également (Art. 147) -
       // donc la même base que l'IRPP : 662 + la part du 663 non couverte par une immunité.
       // (l'Ord.-Loi n°69/007 du 10/02/1969 et son taux réduit minier sont abrogés : Art. 152 Loi 23/053)
       const tauxIere = 0.25
@@ -978,7 +978,7 @@ function Cat1Salaires() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc — chaque ligne est qualifiée séparément (Art. 69, 8°). Logement (6631) : exonéré dans la limite de 30% de la rémunération (661), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) — ce plafond en FC n'est pas vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables, ajoutés à l'assiette au même titre que le 661.",
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc - chaque ligne est qualifiée séparément (Art. 69, 8°). Logement (6631) : exonéré dans la limite de 30% de la rémunération (661), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) - ce plafond en FC n'est pas vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables, ajoutés à l'assiette au même titre que le 661.",
               loi: "Art. 69, 8°, Loi 23/053"
             }}
           />
@@ -988,7 +988,7 @@ function Cat1Salaires() {
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Personnes à charge (max 9)
                 <InfoTooltip
-                  texte="Art. 123 Loi 23/053 : chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut calculé. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond de 9 personnes maximum. ⚠ Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu net imposable qui excède 3 600 000 FC/mois (4e tranche du barème progressif, Art. 118) — seule cette portion est exclue, pas la réduction en bloc."
+                  texte="Art. 123 Loi 23/053 : chaque personne à charge donne droit à une réduction de 2% sur l'IRPP brut calculé. | Art. 124 : personnes admises : (1) conjoint légal non séparé ; (2) enfants célibataires reconnus, adoptés ou sous tutelle, de moins de 18 ans ou infirmes ; (3) ascendants des deux conjoints vivant au foyer. Condition : revenu propre de la personne à charge inférieur ou égal à 162 000 FC/mois. | Art. 125 : plafond de 9 personnes maximum. ⚠ Aucune réduction n'est accordée sur la part d'impôt afférente à la portion du revenu net imposable qui excède 3 600 000 FC/mois (4e tranche du barème progressif, Art. 118) - seule cette portion est exclue, pas la réduction en bloc."
                   loi="Art. 123 à 125 : Loi 23/053"
                 />
               </label>
@@ -1093,7 +1093,7 @@ function Cat1Salaires() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc, ni pour l'IRPP ni pour l'IERE — les immunités de l'Art. 69 s'appliquent identiquement aux deux (Art. 147). Logement (6631) : exonéré dans la limite de 30% de la rémunération (662), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses) — plafond en FC non vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables.",
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc, ni pour l'IRPP ni pour l'IERE - les immunités de l'Art. 69 s'appliquent identiquement aux deux (Art. 147). Logement (6631) : exonéré dans la limite de 30% de la rémunération (662), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses) - plafond en FC non vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables.",
               loi: "Art. 69, 8° et Art. 147, Loi 23/053"
             }}
           />
@@ -1167,7 +1167,7 @@ function Cat1Salaires() {
           </div>
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
-            <p className="text-xs text-blue-700"><span className="font-semibold">IERE : taux unique 25%</span> — Art. 148 Loi n°23/053.</p>
+            <p className="text-xs text-blue-700"><span className="font-semibold">IERE : taux unique 25%</span> - Art. 148 Loi n°23/053.</p>
           </div>
         </>
       )}
@@ -1191,7 +1191,7 @@ function Cat1Salaires() {
               <EtapeResultat numero={2} titre="Base imposable nette=">
                 <LigneR signe="+" label="Revenus imposables bruts=" val={formatFC(res.brut661)} />
                 <LigneR signe="−" label="QPO : Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpo)} neg note="Art. 71"
-                  tooltip={{ texte: "La QPO (Quote-Part Ouvrière) est la cotisation obligatoire retenue sur le salaire du travailleur au titre de la sécurité sociale (CNSS). Elle représente 5% de l'assiette CNSS — l'ensemble de la rémunération au sens du Code du travail (Loi 16/009 du 15/07/2016, Art. 13), qui EXCLUT nommément le logement et le transport (Art. 7.8 CT) : donc le 661 plus la part du 663 imposable (représentation, expatriation, autres). Déduite avant le calcul de l'IRPP.", loi: "Art. 71, Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016" }}
+                  tooltip={{ texte: "La QPO (Quote-Part Ouvrière) est la cotisation obligatoire retenue sur le salaire du travailleur au titre de la sécurité sociale (CNSS). Elle représente 5% de l'assiette CNSS - l'ensemble de la rémunération au sens du Code du travail (Loi 16/009 du 15/07/2016, Art. 13), qui EXCLUT nommément le logement et le transport (Art. 7.8 CT) : donc le 661 plus la part du 663 imposable (représentation, expatriation, autres). Déduite avant le calcul de l'IRPP.", loi: "Art. 71, Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016" }}
                 />
                 {res.imposable663 > 0 && (
                   <LigneR signe="+" label="Part imposable du 663 (non couverte par une immunité)" val={formatFC(res.imposable663)}
@@ -1242,7 +1242,7 @@ function Cat1Salaires() {
 
               <EtapeResultat numero={5} titre="Charges sociales patronales (employeur)">
                 <LigneR signe="+" label={`CNSS patronal (13%)`} val={formatFC(res.cnssPatron)}
-                  tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% (6,5% prestations aux familles + 5% pensions + 1,5% risques professionnels) calculée sur l'assiette CNSS — le 661 plus la part imposable du 663 (Loi 16/009 du 15/07/2016, Art. 13, qui exclut nommément logement et transport). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
+                  tooltip={{ texte: "La CNSS (Caisse Nationale de Sécurité Sociale) est une charge patronale de 13% (6,5% prestations aux familles + 5% pensions + 1,5% risques professionnels) calculée sur l'assiette CNSS - le 661 plus la part imposable du 663 (Loi 16/009 du 15/07/2016, Art. 13, qui exclut nommément logement et transport). | Art. 112(b) Code du Travail RDC (Loi 015-2002) : les cotisations dues à la CNSS (désignée 'Institut National de Sécurité Sociale') constituent des retenues autorisées sur le salaire. | C'est l'employeur qui verse directement la QPP à la CNSS. Elle est distincte de la QPO salariale de 5%. | Écriture : Débit 6641 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016 ; Art. 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
                 <LigneR signe="+" label={`INPP (${(res.inppTaux * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inpp)}
                   tooltip={{ texte: "L'INPP (Institut National de Préparation Professionnelle) est une charge patronale dont le taux dépend de l'effectif : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%. Assiette : la même assiette de sécurité sociale que la CNSS (661 + part imposable du 663), pas l'assiette IRPP. Elle finance la formation professionnelle.", loi: "Arrêté du 24/09/2025 (INPP) ; Art. 13, Loi 16/009 du 15/07/2016 (assiette)" }}
@@ -1442,7 +1442,7 @@ function Cat2BIC() {
       const beneficeBrut = tp - tc
       const beneficeAvantDed = Math.max(0, beneficeBrut)
       // Déductions spécifiques Art. 90 : cotisations max 20% du bénéfice de l'exercice PRÉCÉDENT
-      // (N−1), et non de l'exercice courant — cohérent avec Cat. 3 BNC et Cat. 4 Agricole, qui
+      // (N−1), et non de l'exercice courant - cohérent avec Cat. 3 BNC et Cat. 4 Agricole, qui
       // appliquent déjà correctement cette assiette N−1.
       const bnN1 = parseFloat(beneficeN1) || 0
       const plafondCotSoc = bnN1 * 0.20
@@ -1466,7 +1466,7 @@ function Cat2BIC() {
       }
       // Réduction personnes à charge Art. 123-125 : 2% par personne, max 9. Seule la part d'impôt
       // afférente à la portion du bénéfice au-delà de t3max (4ème tranche, 40%) est exclue de
-      // l'assiette de la réduction — pas la réduction en bloc dès que le bénéfice dépasse t3max.
+      // l'assiette de la réduction - pas la réduction en bloc dès que le bénéfice dépasse t3max.
       const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
       const impotAt3max = t1max * 0.03 + (t2max - t1max) * 0.15 + (t3max - t2max) * 0.30
       const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3max)
@@ -1483,14 +1483,14 @@ function Cat2BIC() {
       // Impôt minimum 1% du CA (Art. 122) : applicable régime réel seulement, hors micro
       const minimum122 = tp * 0.01
       const minimumApplique = impotApresPC < minimum122 && minimum122 > 0
-      // Art. 150 : arrondi à la centaine de FC la plus proche — vaut pour l'IRPP comme pour l'IS
+      // Art. 150 : arrondi à la centaine de FC la plus proche - vaut pour l'IRPP comme pour l'IS
       // et « tous autres prélèvements de la présente Loi » (voir Cat1Salaires pour la référence).
       const impot = arrondiIS(minimumApplique ? minimum122 : impotApresPC)
       // Impôt après réduction et plafond, arrondi Art. 150 : c'est la valeur
       // affichée comme « IRPP net dû », avant confrontation à l'impôt minimum.
       const impotApresPCArrondi = arrondiIS(impotApresPC)
       // Acomptes provisionnels (Art. 57 bis LPF) : assis sur l'impôt de l'exercice PRÉCÉDENT (N−1),
-      // saisi séparément — jamais sur l'impôt de l'exercice courant qui vient d'être liquidé.
+      // saisi séparément - jamais sur l'impôt de l'exercice courant qui vient d'être liquidé.
       const impotN1 = parseFloat(impotNmoins1) || 0
       const acompte1 = impotN1 * 0.30
       const acompte2 = impotN1 * 0.30
@@ -2054,7 +2054,7 @@ function Cat5Mobiliers() {
       const brut = parseFloat(l.montant) || 0
       const coeff = l.baseReduite ?? 1
       const base = brut * coeff
-      // Art. 150 : arrondi à la centaine de FC la plus proche, appliqué à chaque retenue — chaque
+      // Art. 150 : arrondi à la centaine de FC la plus proche, appliqué à chaque retenue - chaque
       // ligne correspond à un versement distinct opéré par un débiteur distinct (Art. 18 bis).
       return { label: l.label, brut, base, coeff, retenue: arrondiIS(base * 0.20) }
     })
@@ -2097,7 +2097,7 @@ function Cat5Mobiliers() {
           <div className="mt-2 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs font-bold text-amber-700 mb-0.5">⚠ Exonérations (Art. 80)</p>
             <p className="text-xs text-amber-700 leading-relaxed">
-              Sont exonérés d'IRPP : intérêts sur titres d'emprunt émis par l'État, les Provinces et les ETD —
+              Sont exonérés d'IRPP : intérêts sur titres d'emprunt émis par l'État, les Provinces et les ETD -
               intérêts des comptes d'épargne classiques : intérêts des bons de caisse (sous conditions).
             </p>
           </div>
@@ -2352,10 +2352,10 @@ function SimulateurIS() {
 
     // IS théorique 30% (Art. 56)
     const isTheoriqueRaw = rfNet * 0.30
-    // IS minimum — 3 cas. Seul le cas §1 (1% du CA) est confirmé par le texte en vigueur
+    // IS minimum - 3 cas. Seul le cas §1 (1% du CA) est confirmé par le texte en vigueur
     // (Art. 57, Loi 23/053). Les cas §2/§3 (forfaits par taille) reproduisent l'art. 91 de
     // l'Ordonnance-loi 69/009 (ancien CGI), abrogée depuis le 1er janvier 2026 (Art. 152,
-    // Loi 23/053) — continuité non confirmée par le texte, conservée à titre indicatif.
+    // Loi 23/053) - continuité non confirmée par le texte, conservée à titre indicatif.
     // §1 : CA > 0 ET (déficit OU IS théorique < 1% CA) → minimum = 1% du CA (grandes+moyennes, hors petites)
     // §2 : en activité mais CA = 0 → forfait fixe par taille
     // §3 : cessation d'activités sans radiation RCCM → forfait réduit par taille
@@ -2369,7 +2369,7 @@ function SimulateurIS() {
       isMinimumRaw = forfaitCessation[tailleEntreprise]
       casMinimum = 'cessation'
     } else if (ca > 0) {
-      // §1 : CA réalisé — minimum = 1% du CA, sans plancher forfaitaire (Art. 57, Loi 23/053).
+      // §1 : CA réalisé - minimum = 1% du CA, sans plancher forfaitaire (Art. 57, Loi 23/053).
       // Les forfaits par taille (forfaitSansCA) proviennent de l'Art. 91 de l'Ordonnance-loi
       // 69/009, abrogée depuis le 1er janvier 2026 : ils ne s'appliquent qu'aux cas §2/§3
       // ci-dessous, où aucun chiffre d'affaires n'existe pour asseoir le 1%.
@@ -2507,8 +2507,8 @@ function SimulateurIS() {
           <label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
             Taille de l'entreprise (classement fiscal)
             <InfoTooltip
-              texte="⚠️ Réserve : ce régime forfaitaire par taille d'entreprise (§2 et §3 ci-dessous) provient de l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 par l'art. 152 de la Loi 23/053. L'art. 57 de la loi actuelle prévoit expressément un minimum uniforme de 1% du chiffre d'affaires déclaré, sans mentionner de forfaits par taille ni de régime de cessation — la continuité de ce régime forfaitaire n'est donc pas confirmée par le texte en vigueur. Reproduit ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. | §1 : si CA réalisé, minimum = 1% du CA (seule règle certaine, Art. 57). §2 : si CA = 0 (en activité) → forfait fixe reproduit de l'ancien régime : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : si cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
-              loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée — continuité non confirmée"
+              texte="⚠️ Réserve : ce régime forfaitaire par taille d'entreprise (§2 et §3 ci-dessous) provient de l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 par l'art. 152 de la Loi 23/053. L'art. 57 de la loi actuelle prévoit expressément un minimum uniforme de 1% du chiffre d'affaires déclaré, sans mentionner de forfaits par taille ni de régime de cessation - la continuité de ce régime forfaitaire n'est donc pas confirmée par le texte en vigueur. Reproduit ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. | §1 : si CA réalisé, minimum = 1% du CA (seule règle certaine, Art. 57). §2 : si CA = 0 (en activité) → forfait fixe reproduit de l'ancien régime : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : si cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
+              loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée - continuité non confirmée"
             />
           </label>
           <CarreauChoix
@@ -2650,14 +2650,14 @@ function SimulateurIS() {
                   res.casMinimum === 'ca'
                     ? `IS minimum : 1% du CA = ${formatFC(res.isMinimum)} (Art. 57, Loi 23/053)`
                     : res.casMinimum === 'sansCA'
-                    ? `IS minimum forfaitaire CA=0 — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
-                    : `IS forfaitaire — cessation sans radiation RCCM — ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
+                    ? `IS minimum forfaitaire CA=0 - ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
+                    : `IS forfaitaire - cessation sans radiation RCCM - ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
                 }
                 val={formatFC(res.isMinimum)}
               />
               <InfoTooltip
-                texte="⚠️ Réserve : seul le minimum de 1% du CA (Art. 57, Loi 23/053) est confirmé par le texte en vigueur. Les planchers et forfaits par taille d'entreprise ci-dessous reproduisent l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 (Art. 152, Loi 23/053) — leur continuité sous le régime actuel n'est pas confirmée par le texte, seulement reproduite ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. §1 : si CA > 0 → minimum = 1% du CA, sans plancher forfaitaire (les forfaits ci-dessous ne jouent que lorsqu'aucun chiffre d'affaires n'existe pour asseoir le 1%). §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
-                loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée — continuité non confirmée"
+                texte="⚠️ Réserve : seul le minimum de 1% du CA (Art. 57, Loi 23/053) est confirmé par le texte en vigueur. Les planchers et forfaits par taille d'entreprise ci-dessous reproduisent l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 (Art. 152, Loi 23/053) - leur continuité sous le régime actuel n'est pas confirmée par le texte, seulement reproduite ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. §1 : si CA > 0 → minimum = 1% du CA, sans plancher forfaitaire (les forfaits ci-dessous ne jouent que lorsqu'aucun chiffre d'affaires n'existe pour asseoir le 1%). §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
+                loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée - continuité non confirmée"
               />
             </div>
             <Separateur />
@@ -2828,7 +2828,7 @@ function SimulateurIS() {
             <div className="space-y-1.5">
               <p className="text-xs font-semibold text-rose-700 flex items-center gap-1">
                 Prélèvement exceptionnel personnel expatrié (Art. 148)
-                <InfoTooltip texte="Prélèvement de 25% assis sur les rémunérations de l'art. 68, immunités de l'art. 69 déduites (Art. 147) — la même assiette que l'IRPP salarial de l'expatrié, mais avant la retenue QPO de l'art. 71. Ne pas saisir le salaire brut total : en retrancher d'abord la part exonérée des indemnités (663) selon l'art. 69 — logement plafonné à 30% de la rémunération, transport, etc. — comme dans le simulateur IRPP Cat. 1, section expatriés. Dû mensuellement, versé dans les 15 jours suivant le mois de paiement des rémunérations (Art. 19, Loi procédures fiscales). Ce prélèvement n'est pas déductible de l'IS (Art. 50 §2)." loi="Art. 147-148, Loi 23/053" />
+                <InfoTooltip texte="Prélèvement de 25% assis sur les rémunérations de l'art. 68, immunités de l'art. 69 déduites (Art. 147) - la même assiette que l'IRPP salarial de l'expatrié, mais avant la retenue QPO de l'art. 71. Ne pas saisir le salaire brut total : en retrancher d'abord la part exonérée des indemnités (663) selon l'art. 69 - logement plafonné à 30% de la rémunération, transport, etc. - comme dans le simulateur IRPP Cat. 1, section expatriés. Dû mensuellement, versé dans les 15 jours suivant le mois de paiement des rémunérations (Art. 19, Loi procédures fiscales). Ce prélèvement n'est pas déductible de l'IS (Art. 50 §2)." loi="Art. 147-148, Loi 23/053" />
               </p>
               <label className="text-xs font-medium text-muted-foreground mb-1 block">Rémunérations imposables expatriés, immunités Art. 69 déjà déduites (FC)</label>
               <input type="number" min={0} placeholder="Base après immunités Art. 69 (voir tooltip)" value={remunsExpatries}
@@ -3048,7 +3048,7 @@ const COLOR_LIGHT: Record<string, string> = {
 function Cat3BNC() {
   // Art. 105 : les trois régimes (micro-entreprises, petites entreprises, régime réel)
   // s'appliquent indistinctement aux BIC, aux bénéfices agricoles ET aux bénéfices non
-  // commerciaux — les mêmes seuils et les mêmes taux qu'en Cat. 2 BIC et Cat. 4 Agricole.
+  // commerciaux - les mêmes seuils et les mêmes taux qu'en Cat. 2 BIC et Cat. 4 Agricole.
   const [regime, setRegime] = useState<'micro' | 'petite' | 'reel'>('reel')
   const [tauxBCC, setTauxBCC] = useState('')
   const [caMicro, setCaMicro] = useState('')
@@ -3065,7 +3065,7 @@ function Cat3BNC() {
 
 
   function calculer() {
-    // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi —
+    // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi -
     // y compris les régimes micro et petite entreprise, pas seulement le régime réel.
     if (regime === 'micro') {
       const taux = parseFloat(tauxBCC) || 0
@@ -3104,7 +3104,7 @@ function Cat3BNC() {
     else                                 impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30 + (beneficeNetArrondi - t3) * 0.40
     // Réduction personnes à charge Art. 123-125 : 2% par personne, max 9. Seule la part d'impôt
     // afférente à la portion du bénéfice au-delà de t3 (4ème tranche, 40%) est exclue de
-    // l'assiette de la réduction — pas la réduction en bloc dès que le bénéfice dépasse t3.
+    // l'assiette de la réduction - pas la réduction en bloc dès que le bénéfice dépasse t3.
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
     const impotAt3 = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30
     const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3)
@@ -3311,7 +3311,7 @@ function Cat3BNC() {
         <div className="flex items-center gap-1 mb-2">
           <p className="text-xs font-semibold text-rose-700">Dépenses professionnelles déductibles</p>
           <InfoTooltip
-            texte="Dépenses professionnelles déductibles (Art. 98, 9 postes) : loyers, frais généraux, rémunérations d'assistance à l'étranger, formation/recherche, stages et colloques, impôts et taxes (hors IRPP), droits de mutation à titre gratuit sur une exploitation transmise, amortissements, charges du personnel. Dépenses mixtes pro/perso : 50% admis à défaut de justificatif précis (Art. 99). Non déductibles : dépenses personnelles/bénévoles/somptuaires (Art. 99), et dépenses qui ne sont pas de vraies charges — acquisition d'immobilisations, remboursement de dette en capital, placement, amendes et pénalités (Art. 100)."
+            texte="Dépenses professionnelles déductibles (Art. 98, 9 postes) : loyers, frais généraux, rémunérations d'assistance à l'étranger, formation/recherche, stages et colloques, impôts et taxes (hors IRPP), droits de mutation à titre gratuit sur une exploitation transmise, amortissements, charges du personnel. Dépenses mixtes pro/perso : 50% admis à défaut de justificatif précis (Art. 99). Non déductibles : dépenses personnelles/bénévoles/somptuaires (Art. 99), et dépenses qui ne sont pas de vraies charges - acquisition d'immobilisations, remboursement de dette en capital, placement, amendes et pénalités (Art. 100)."
             loi="Art. 98, 99 et 100, Loi 23/053"
           />
         </div>
@@ -3554,12 +3554,12 @@ function Cat4Agricole() {
   const [res, setRes] = useState<any>(null)
 
   // Art. 104 : le bénéfice agricole se détermine « dans les mêmes conditions que
-  // celles prévues en matière de bénéfices [BIC] » — pas de catalogue légal propre
+  // celles prévues en matière de bénéfices [BIC] » - pas de catalogue légal propre
   // à l'agriculture. Les catalogues BIC (PRODUITS_BIC_CATALOGUE / CHARGES_BIC_
   // CATALOGUE, définis en tête de fichier) sont donc repris tels quels ; les
   // exemples agricoles concrets sont ajoutés en tête, sous la condition générale
   // de déductibilité de l'Art. 20 (charges nécessitées par l'exploitation,
-  // justifiées) — pas sous un article spécifique qui ne les vise pas nommément.
+  // justifiées) - pas sous un article spécifique qui ne les vise pas nommément.
   const PRODUITS_AGRICOLE_CATALOGUE: SectionCatalogue[] = [
     { cat: 'Exemples usuels de produits agricoles (illustrations de l\'Art. 14, 1° : ventes et recettes)', color: 'text-lime-600', items: [
       "Ventes de récoltes (cultures vivrières ou industrielles)",
@@ -3589,7 +3589,7 @@ function Cat4Agricole() {
   ]
 
   function calculer() {
-    // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi —
+    // Art. 150 : arrondi à la centaine de FC, comme pour tout prélèvement de cette loi -
     // y compris les régimes micro et petite entreprise, pas seulement le régime réel.
     if (regime === 'micro') {
       const taux = parseFloat(tauxBCC) || 0
@@ -3629,7 +3629,7 @@ function Cat4Agricole() {
     else                                 impotBareme = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30 + (beneficeNetArrondi - t3) * 0.40
     // Réduction personnes à charge Art. 123-125 : 2% par personne, max 9. Seule la part d'impôt
     // afférente à la portion du bénéfice au-delà de t3 (4ème tranche, 40%) est exclue de
-    // l'assiette de la réduction — pas la réduction en bloc dès que le bénéfice dépasse t3.
+    // l'assiette de la réduction - pas la réduction en bloc dès que le bénéfice dépasse t3.
     const nbPC = Math.min(Math.max(0, parseInt(nbPersonnesCharge) || 0), 9)
     const impotAt3 = t1 * 0.03 + (t2 - t1) * 0.15 + (t3 - t2) * 0.30
     const impotHorsDerniereTranche = Math.min(impotBareme, impotAt3)
@@ -3758,7 +3758,7 @@ function Cat4Agricole() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground italic">
-            Rappel : les cultures vivrières sur moins de 10 hectares restent exonérées quel que soit le régime (Art. 103) — voir l'encadré ci-dessus.
+            Rappel : les cultures vivrières sur moins de 10 hectares restent exonérées quel que soit le régime (Art. 103) - voir l'encadré ci-dessus.
           </p>
         </div>
       </details>
@@ -3884,7 +3884,7 @@ function Cat4Agricole() {
             <div className="flex items-center gap-1 mb-2">
               <p className="text-xs font-semibold text-rose-700">Charges d'exploitation déductibles</p>
               <InfoTooltip
-                texte="Comme pour les produits, l'Art. 104 renvoie aux règles BIC (Cat. 2) pour les charges — pas à l'Art. 98, qui est propre aux professions non commerciales (Cat. 3 BNC). Les charges déductibles suivent donc le même régime détaillé aux Art. 20 à 49 : intrants agricoles (semences, engrais, pesticides...) au titre de la condition générale de déductibilité (Art. 20), puis les catégories spécifiquement réglementées (personnel, locatif, amortissements, financier, redevances, dons, impôts, autres). Dépenses mixtes : 50% à défaut de justificatif précis (Art. 89 al. 4)."
+                texte="Comme pour les produits, l'Art. 104 renvoie aux règles BIC (Cat. 2) pour les charges - pas à l'Art. 98, qui est propre aux professions non commerciales (Cat. 3 BNC). Les charges déductibles suivent donc le même régime détaillé aux Art. 20 à 49 : intrants agricoles (semences, engrais, pesticides...) au titre de la condition générale de déductibilité (Art. 20), puis les catégories spécifiquement réglementées (personnel, locatif, amortissements, financier, redevances, dons, impôts, autres). Dépenses mixtes : 50% à défaut de justificatif précis (Art. 89 al. 4)."
                 loi="Art. 104 renvoyant à Art. 20 à 49, Loi 23/053"
               />
             </div>
@@ -4586,7 +4586,7 @@ function CalendrierFiscal() {
       echeance: '30 avril N+1',
       periodicite: 'Annuelle',
       modePaiement: 'Déclaration auto-liquidative + solde',
-      consequences: 'Amende 3 000 000 FC (déclaration créditrice après MED) — Taxation d’office + majoration 50% si défaut persistant (Art. 89)',
+      consequences: 'Amende 3 000 000 FC (déclaration créditrice après MED) - Taxation d’office + majoration 50% si défaut persistant (Art. 89)',
       base: 'Art. 12 Loi 004/2003 mod. Art. 18 LF 2026 ; Art. 93 bis mod. Art. 34 LF 2026'
     },
     {
@@ -4647,13 +4647,13 @@ function CalendrierFiscal() {
       echeance: '30 avril N+1',
       periodicite: 'Annuelle',
       modePaiement: 'Déclaration auto-liquidative accompagnée du paiement',
-      consequences: 'Amende 400 000 FC (néant/exonéré) — Taxation d’office + 50% si défaut (Art. 89)',
+      consequences: 'Amende 400 000 FC (néant/exonéré) - Taxation d’office + 50% si défaut (Art. 89)',
       base: 'Art. 17 Loi 004/2003 mod. Art. 20 LF 2026 ; Art. 93 bis mod. Art. 34 LF 2026'
     },
     {
       impot: 'IRPP',
       couleur: 'blue',
-      type: 'Retenue IRPP sur salaires (Cat. 1 — ex-IPR)',
+      type: 'Retenue IRPP sur salaires (Cat. 1 - ex-IPR)',
       echeance: '15 du mois suivant',
       periodicite: 'Mensuelle',
       modePaiement: 'Déclaration mensuelle + versement retenue par l\'employeur',
@@ -4673,7 +4673,7 @@ function CalendrierFiscal() {
     {
       impot: 'IRPP',
       couleur: 'blue',
-      type: 'Retenue IRPP sur revenus mobiliers (Cat. 4 — ex-IM)',
+      type: 'Retenue IRPP sur revenus mobiliers (Cat. 4 - ex-IM)',
       echeance: '15 du mois suivant',
       periodicite: 'Mensuelle',
       modePaiement: 'Déclaration + versement par le débiteur des revenus',
@@ -4697,7 +4697,7 @@ function CalendrierFiscal() {
       type: 'Dépôt états financiers SYSCOHADA / SYCEBNL (exercice N)',
       echeance: '30 juin N+1 à 16h00',
       periodicite: 'Annuelle',
-      modePaiement: 'Dépôt physique sur imprimés CPCC — Division Provinciale des Finances (cachet obligatoire)',
+      modePaiement: 'Dépôt physique sur imprimés CPCC - Division Provinciale des Finances (cachet obligatoire)',
       consequences: 'Astreinte USD 100 pour non-dépôt + USD 100/jour de retard jusqu\'au dépôt effectif. Recouvrement exercices 2020-2024 en campagne depuis le 1er juillet 2025.',
       base: 'Circulaire CPCC N° CPCC/SG/WMK/757/DASTR/JLL/118/2025 du 17 juin 2025 ; Arrêté Ministériel n°024/CAB/MIN/FINANCES/2024 du 30 juillet 2024'
     },
@@ -4709,7 +4709,7 @@ function CalendrierFiscal() {
       echeance: '15 du mois suivant',
       periodicite: 'Mensuelle',
       modePaiement: 'Déclaration + paiement simultanés (Art. 60 CGI-TVA)',
-      consequences: 'Amende 1 500 000 FC (défaut déclaration) + intérêt 2%/mois sur TVA due — Amende 500 000 FC si aucune opération (néant non déclaré)',
+      consequences: 'Amende 1 500 000 FC (défaut déclaration) + intérêt 2%/mois sur TVA due - Amende 500 000 FC si aucune opération (néant non déclaré)',
       base: 'Art. 60 CGI 2023 ; LF 2023 peine TVA (Art. 7 CGI-TVA patchs)'
     },
     {
@@ -4757,7 +4757,7 @@ function CalendrierFiscal() {
     <div className="space-y-4">
       <div className="rounded-xl border border-teal-200 bg-teal-50 p-4">
         <p className="text-xs font-bold text-teal-700 uppercase tracking-wide mb-0.5">Calendrier fiscal de référence</p>
-        <p className="text-xs text-teal-600/80">Délais légaux de déclaration et de paiement — IS, IRPP, TVA. CGI 2023 + LF 2025 + LF 2026.</p>
+        <p className="text-xs text-teal-600/80">Délais légaux de déclaration et de paiement - IS, IRPP, TVA. CGI 2023 + LF 2025 + LF 2026.</p>
       </div>
 
       {/* Filtres */}
@@ -4923,7 +4923,7 @@ function SimulateurPenalitesAssiette() {
             texte="Une majoration d’assiette est une pénalité calculée en pourcentage de l’impôt qui aurait dû être déclaré. L’assiette est la base sur laquelle l’impôt est calculé (bénéfice, salaire brut, chiffre d’affaires...). Ces majorations sanctionnent l’inexactitude ou l’absence de déclaration, en ajoutant un pourcentage supplémentaire à l’impôt principal."
             loi="Art. 89 Loi n°004/2003 portant réforme des procédures fiscales"
           />
-          — Art. 89 Loi 004/2003</p>
+          - Art. 89 Loi 004/2003</p>
         <p className="text-xs text-muted-foreground">Sélectionnez le type d’infraction, saisissez le montant de l’impôt éludé ou reconstitué et le nombre de mois de retard.</p>
 
         {/* Choix infraction */}
@@ -4947,7 +4947,7 @@ function SimulateurPenalitesAssiette() {
                 )}
               >
                 <p className="font-semibold text-foreground">{inf.label}</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5">{inf.description} — <span className="font-medium">{(inf.taux * 100).toFixed(0)}%</span></p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">{inf.description} - <span className="font-medium">{(inf.taux * 100).toFixed(0)}%</span></p>
                 <p className="text-[10px] text-muted-foreground mt-0.5 font-mono">{inf.art}</p>
               </button>
             ))}
@@ -4970,7 +4970,7 @@ function SimulateurPenalitesAssiette() {
                 texte="La récidive est retenue quand le contribuable a déjà été sanctionné pour la même infraction et recommence dans un délai de 2 ans (impôts annuels : IS, IRPP) ou 6 mois (impôts mensuels : TVA, retenues). En cas de récidive, les taux sont doublés : redressement passe de 20% à 40%, taxation d’office de 50% à 100%. L’administration doit prouver la première infraction antérieure."
                 loi="Art. 89 al. dernier Loi 004/2003"
               />
-              — même infraction dans les 2 ans (IS/IRPP) ou 6 mois (TVA/retenues)
+              - même infraction dans les 2 ans (IS/IRPP) ou 6 mois (TVA/retenues)
             </label>
           </div>
         )}
@@ -5009,19 +5009,19 @@ function SimulateurPenalitesAssiette() {
         {/* Résultat Art. 89 */}
         {infraction89 && impot > 0 && (
           <div className={cn('rounded-xl border p-4 space-y-2', COLOR_BORDER[infraction89.couleur])}>
-            <p className={cn('text-xs font-bold mb-2', COLOR_TEXT[infraction89.couleur])}>Résultat — {infraction89.label}</p>
+            <p className={cn('text-xs font-bold mb-2', COLOR_TEXT[infraction89.couleur])}>Résultat - {infraction89.label}</p>
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs">
                 <span className="text-foreground/80">Montant de l’impôt de base</span>
                 <span className="font-mono font-semibold text-foreground">{formatFC(impot)}</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-foreground/80">Majoration ({(infraction89.taux * 100).toFixed(0)}%) — <span className="font-mono">{infraction89.art}</span></span>
+                <span className="text-foreground/80">Majoration ({(infraction89.taux * 100).toFixed(0)}%) - <span className="font-mono">{infraction89.art}</span></span>
                 <span className="font-mono font-semibold text-rose-600">{formatFC(majoration)}</span>
               </div>
               {interetRetard > 0 && (
                 <div className="flex justify-between text-xs">
-                  <span className="text-foreground/80">Intérêt de retard (2%/mois × {mois} mois, plafonné 50%) — Art. 89 al. 5</span>
+                  <span className="text-foreground/80">Intérêt de retard (2%/mois × {mois} mois, plafonné 50%) - Art. 89 al. 5</span>
                   <span className="font-mono font-semibold text-rose-600">{formatFC(interetRetard)}</span>
                 </div>
               )}
@@ -5035,7 +5035,7 @@ function SimulateurPenalitesAssiette() {
               )}
               <div className="mt-2 rounded-lg bg-white/60 border border-current/10 p-2">
                 <p className="text-[11px] text-foreground/70">
-                  <span className="font-semibold">Référence légale :</span> {infraction89.art} — Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (RDC), mod. par O.-L. n°13/005 du 23/02/2013 et L.F. n°18/025 du 13/12/2018.
+                  <span className="font-semibold">Référence légale :</span> {infraction89.art} - Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (RDC), mod. par O.-L. n°13/005 du 23/02/2013 et L.F. n°18/025 du 13/12/2018.
                   {recidive && ' Récidive : même infraction commise dans les 2 ans (impôts annuels) ou 6 mois (autres).'}
                 </p>
               </div>
@@ -5051,7 +5051,7 @@ function SimulateurPenalitesAssiette() {
             texte="Une amende forfaitaire est un montant fixe imposé indépendamment du montant de l’impôt. Elle sanctionne le seul fait de ne pas avoir déposé une déclaration, même si aucun impôt n’est dû. À distinguer des majorations Art. 89 qui sont proportionnelles à l’impôt éludé. Les deux peuvent se cumuler."
             loi="Art. 93 bis Loi 004/2003 mod. Art. 34 LF 2026"
           />
-          — Art. 93 bis (mod. Art. 34 LF 2026)</p>
+          - Art. 93 bis (mod. Art. 34 LF 2026)</p>
         <p className="text-xs text-muted-foreground">Ces amendes s’appliquent indépendamment des majorations Art. 89. Montants révisés par la Loi de Finances 2026.</p>
 
         {/* Choix type déclaration */}
@@ -5092,7 +5092,7 @@ function SimulateurPenalitesAssiette() {
             </div>
             <div className="mt-2 rounded-lg bg-white/60 border border-current/10 p-2">
               <p className="text-[11px] text-foreground/70">
-                <span className="font-semibold">Référence légale :</span> {amende93.art} — Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales, tel que modifié par l’Art. 34 de la Loi de Finances n°25/060 du 29 déc. 2025 (LF 2026).
+                <span className="font-semibold">Référence légale :</span> {amende93.art} - Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales, tel que modifié par l’Art. 34 de la Loi de Finances n°25/060 du 29 déc. 2025 (LF 2026).
               </p>
             </div>
             <p className="text-[10px] text-muted-foreground mt-1">⚠ Ces amendes sont <span className="font-semibold">cumulables</span> avec les majorations Art. 89 si l’infraction déclenche également un contrôle d’assiette.</p>
@@ -5104,7 +5104,7 @@ function SimulateurPenalitesAssiette() {
       <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 space-y-1">
         <p className="text-xs font-semibold text-violet-700">Distinction à retenir</p>
         <p className="text-xs text-violet-600 leading-relaxed">
-          <span className="font-semibold">Art. 89</span> : pénalités <span className="font-semibold">proportionnelles</span> à l’impôt (25%, 20%, 50%, etc.) — elles s’appliquent quand un montant d’impôt est en cause. |
+          <span className="font-semibold">Art. 89</span> : pénalités <span className="font-semibold">proportionnelles</span> à l’impôt (25%, 20%, 50%, etc.) - elles s’appliquent quand un montant d’impôt est en cause. |
           <span className="font-semibold"> Art. 93 bis</span> : amendes <span className="font-semibold">forfaitaires</span> (montant fixe) pour le seul fait de ne pas avoir déposé une déclaration dans les délais, indépendamment de tout impôt dû.
         </p>
       </div>
@@ -5208,8 +5208,8 @@ function ProceduresFiscales() {
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
             <p className="text-xs font-bold text-foreground flex items-center gap-1.5"><FileText className="h-3.5 w-3.5 text-blue-500" />Obligations complémentaires (LF 2026)</p>
             <div className="space-y-1.5 text-xs text-foreground/80 leading-relaxed">
-              <p>• <span className="font-semibold">Procès-verbal d'Assemblée Générale (IS)</span> — Art. 13 bis (créé par Art. 19 LF 2026) : les sociétés soumises à l'IS sont tenues de déposer auprès de l'Administration des impôts, <span className="font-semibold">dans les 10 jours de la tenue de l'Assemblée générale ordinaire</span> approuvant les états financiers certifiés par les CAC, le procès-verbal de ladite Assemblée générale.</p>
-              <p>• <span className="font-semibold">Déclaration du prélèvement sur revenus versés à des non-résidents</span> — Art. 22 quarter (créé par Art. 39 LF 2026) : les sociétés établies en RDC qui versent des revenus de capitaux mobiliers à des personnes non-résidentes sont tenues de souscrire une déclaration, accompagnée du paiement, <span className="font-semibold">au plus tard le 15 du mois qui suit</span> celui du paiement ou de la mise à disposition de ces revenus.</p>
+              <p>• <span className="font-semibold">Procès-verbal d'Assemblée Générale (IS)</span> - Art. 13 bis (créé par Art. 19 LF 2026) : les sociétés soumises à l'IS sont tenues de déposer auprès de l'Administration des impôts, <span className="font-semibold">dans les 10 jours de la tenue de l'Assemblée générale ordinaire</span> approuvant les états financiers certifiés par les CAC, le procès-verbal de ladite Assemblée générale.</p>
+              <p>• <span className="font-semibold">Déclaration du prélèvement sur revenus versés à des non-résidents</span> - Art. 22 quarter (créé par Art. 39 LF 2026) : les sociétés établies en RDC qui versent des revenus de capitaux mobiliers à des personnes non-résidentes sont tenues de souscrire une déclaration, accompagnée du paiement, <span className="font-semibold">au plus tard le 15 du mois qui suit</span> celui du paiement ou de la mise à disposition de ces revenus.</p>
             </div>
           </div>
 
@@ -5241,9 +5241,9 @@ function ProceduresFiscales() {
               <p>• Un <span className="font-semibold">avis de vérification</span> doit être remis au contribuable au moins <span className="font-semibold">8 jours avant</span> le début des opérations (Art. 30).</p>
               <p>• Le contribuable peut se faire assister par un <span className="font-semibold">conseil de son choix</span> (Art. 29).</p>
               <p>• La durée maximale de vérification sur place dépend de la taille du contribuable (Art. 30 bis, mod. LF 2022) :</p>
-              <p className="pl-3">— <span className="font-semibold">Petite Entreprise (PE)</span> : 3 mois maximum</p>
-              <p className="pl-3">— <span className="font-semibold">Moyenne Entreprise (ME)</span> : 6 mois maximum</p>
-              <p className="pl-3">— <span className="font-semibold">Grande Entreprise (GE)</span> : 9 mois maximum</p>
+              <p className="pl-3">- <span className="font-semibold">Petite Entreprise (PE)</span> : 3 mois maximum</p>
+              <p className="pl-3">- <span className="font-semibold">Moyenne Entreprise (ME)</span> : 6 mois maximum</p>
+              <p className="pl-3">- <span className="font-semibold">Grande Entreprise (GE)</span> : 9 mois maximum</p>
             </div>
           </div>
 
@@ -5353,10 +5353,10 @@ function ProceduresFiscales() {
                 </thead>
                 <tbody className="divide-y divide-border/50">
                   <tr><td className="py-1.5 pr-2 text-foreground/80">Régularisation spontanée avant MED</td><td className="py-1.5 pr-2 font-semibold text-amber-600">+25% des droits dus</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 1</td></tr>
-                  <tr><td className="py-1.5 pr-2 text-foreground/80">Absence déclaration — taxation d'office</td><td className="py-1.5 pr-2 font-semibold text-rose-600">+50% des droits dus</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 2</td></tr>
-                  <tr><td className="py-1.5 pr-2 text-foreground/80">Récidive — taxation d'office</td><td className="py-1.5 pr-2 font-semibold text-rose-700">+100% des droits dus</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 3</td></tr>
+                  <tr><td className="py-1.5 pr-2 text-foreground/80">Absence déclaration - taxation d'office</td><td className="py-1.5 pr-2 font-semibold text-rose-600">+50% des droits dus</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 2</td></tr>
+                  <tr><td className="py-1.5 pr-2 text-foreground/80">Récidive - taxation d'office</td><td className="py-1.5 pr-2 font-semibold text-rose-700">+100% des droits dus</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 3</td></tr>
                   <tr><td className="py-1.5 pr-2 text-foreground/80">Insuffisance révélée par redressement</td><td className="py-1.5 pr-2 font-semibold text-rose-600">+20% des droits redressés</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 4</td></tr>
-                  <tr><td className="py-1.5 pr-2 text-foreground/80">Insuffisance — redressement (récidive)</td><td className="py-1.5 pr-2 font-semibold text-rose-600">+40% des droits redressés</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 5</td></tr>
+                  <tr><td className="py-1.5 pr-2 text-foreground/80">Insuffisance - redressement (récidive)</td><td className="py-1.5 pr-2 font-semibold text-rose-600">+40% des droits redressés</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 5</td></tr>
                   <tr><td className="py-1.5 pr-2 text-foreground/80">Plafond pénalités d'assiette</td><td className="py-1.5 pr-2 font-semibold text-rose-500">50% de l'impôt principal</td><td className="py-1.5 text-muted-foreground">Art. 89 al. 6</td></tr>
                 </tbody>
               </table>
@@ -5367,9 +5367,9 @@ function ProceduresFiscales() {
             <p className="text-xs font-bold text-foreground flex items-center gap-1.5"><Percent className="h-3.5 w-3.5 text-rose-500" />Intérêt moratoire et frais de poursuites (Art. 89–95)</p>
             <div className="space-y-1.5 text-xs text-foreground/80 leading-relaxed">
               <p>• Tout impôt non payé à l'échéance est majoré d'un <span className="font-semibold">intérêt moratoire de 2% par mois</span> de retard (Art. 91 Loi n°004/2003, LPF). Cet intérêt est plafonné à 50% de l'impôt principal (Art. 89).</p>
-              <p>• <span className="font-semibold">Astreinte communication de pièces</span> (Art. 92) : 100 000 FC/jour (personne morale) — 25 000 FC/jour (personne physique).</p>
+              <p>• <span className="font-semibold">Astreinte communication de pièces</span> (Art. 92) : 100 000 FC/jour (personne morale) - 25 000 FC/jour (personne physique).</p>
               <p>• <span className="font-semibold">Astreinte documentation prix de transfert</span> (Art. 92 bis, créé par Art. 33 LF 2026) : <span className="font-semibold text-rose-600">10 000 000 FC/jour</span> en cas de défaut de réponse à la demande d'informations ou documents sur les prix de transfert (Art. 29 bis).</p>
-              <p>• <span className="font-semibold">Responsabilité personnelle du débiteur de retenue</span> (Art. 96 bis, créé par Art. 35 LF 2026) : toute personne tenue d'opérer une retenue à la source qui ne l'effectue pas — ou l'effectue insuffisamment — est <span className="font-semibold">personnellement redevable</span> du montant de la retenue non effectuée et des pénalités y afférentes.</p>
+              <p>• <span className="font-semibold">Responsabilité personnelle du débiteur de retenue</span> (Art. 96 bis, créé par Art. 35 LF 2026) : toute personne tenue d'opérer une retenue à la source qui ne l'effectue pas - ou l'effectue insuffisamment - est <span className="font-semibold">personnellement redevable</span> du montant de la retenue non effectuée et des pénalités y afférentes.</p>
               <p>• Défaut d'acompte ou acompte insuffisant : <span className="font-semibold">amende 50%</span> de l'acompte non versé (Art. 98 bis).</p>
             </div>
           </div>
@@ -5387,8 +5387,8 @@ function ProceduresFiscales() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  <tr><td className="py-1.5 pr-2 text-foreground/80">Défaut déclaration (exonéré / néant)</td><td className="py-1.5 pr-2 font-semibold text-rose-600">400 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">—</td><td className="py-1.5 text-muted-foreground">Art. 93 bis mod. Art. 34 LF 2026</td></tr>
-                  <tr><td className="py-1.5 pr-2 text-foreground/80">IBP créditeur <InfoTooltip texte="IBP créditeur = Impôt sur les Bénéfices et Profits avec solde en faveur du contribuable (IS négatif après acomptes). Après Mise en Demeure (MED) sans dépôt de déclaration." loi="Art. 93 bis mod. Art. 34 LF 2026" /> (IS) après MED <InfoTooltip texte="MED = Mise en Demeure : notification officielle envoyée par l'Administration des Impôts invitant le contribuable à régulariser sa situation dans un délai fixé. Sans réponse, l'administration procède à la taxation d'office." loi="Art. 88 CGI 2023" /></td><td className="py-1.5 pr-2 font-semibold text-rose-600">3 000 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">—</td><td className="py-1.5 text-muted-foreground">Art. 93 bis mod. Art. 34 LF 2026</td></tr>
+                  <tr><td className="py-1.5 pr-2 text-foreground/80">Défaut déclaration (exonéré / néant)</td><td className="py-1.5 pr-2 font-semibold text-rose-600">400 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">-</td><td className="py-1.5 text-muted-foreground">Art. 93 bis mod. Art. 34 LF 2026</td></tr>
+                  <tr><td className="py-1.5 pr-2 text-foreground/80">IBP créditeur <InfoTooltip texte="IBP créditeur = Impôt sur les Bénéfices et Profits avec solde en faveur du contribuable (IS négatif après acomptes). Après Mise en Demeure (MED) sans dépôt de déclaration." loi="Art. 93 bis mod. Art. 34 LF 2026" /> (IS) après MED <InfoTooltip texte="MED = Mise en Demeure : notification officielle envoyée par l'Administration des Impôts invitant le contribuable à régulariser sa situation dans un délai fixé. Sans réponse, l'administration procède à la taxation d'office." loi="Art. 88 CGI 2023" /></td><td className="py-1.5 pr-2 font-semibold text-rose-600">3 000 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">-</td><td className="py-1.5 text-muted-foreground">Art. 93 bis mod. Art. 34 LF 2026</td></tr>
                   <tr><td className="py-1.5 pr-2 text-foreground/80">Déclaration sans calcul d'impôt</td><td className="py-1.5 pr-2 font-semibold text-rose-600">500 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">250 000 FC</td><td className="py-1.5 text-muted-foreground">Art. 94</td></tr>
                   <tr><td className="py-1.5 pr-2 text-foreground/80">Omission mention obligatoire facture</td><td className="py-1.5 pr-2 font-semibold text-rose-600">750 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">250 000 FC</td><td className="py-1.5 text-muted-foreground">Art. 97 bis</td></tr>
                   <tr><td className="py-1.5 pr-2 text-foreground/80">Opposition enquête / contrôle inopiné</td><td className="py-1.5 pr-2 font-semibold text-rose-700">1 000 000 FC</td><td className="py-1.5 pr-2 text-foreground/80">1 000 000 FC</td><td className="py-1.5 text-muted-foreground">Art. 97 ter</td></tr>
@@ -5440,7 +5440,7 @@ function ProceduresFiscales() {
             <div className="space-y-1.5 text-xs text-foreground/80 leading-relaxed">
               <p>• En cas de rejet de la réclamation administrative, le contribuable peut former un <span className="font-semibold">recours devant la Cour Administrative d'Appel</span> compétente dans un délai de <span className="font-semibold">3 mois</span> à compter de la décision de rejet (Art. 108).</p>
               <p>• Les arrêts de la Cour d'Appel peuvent faire l'objet d'un <span className="font-semibold">pourvoi en cassation</span> devant la Cour de Cassation dans les conditions du droit commun (Art. 108).</p>
-              <p>• L'Art. 110 de la loi 004/2003 précise que les réclamations ne suspendent pas l'exigibilité de l'impôt. Les délais de remboursement de l'indu sont régis par les lois spécifiques à chaque impôt (IRPP, IS) — à vérifier dans la loi applicable.</p>
+              <p>• L'Art. 110 de la loi 004/2003 précise que les réclamations ne suspendent pas l'exigibilité de l'impôt. Les délais de remboursement de l'indu sont régis par les lois spécifiques à chaque impôt (IRPP, IS) - à vérifier dans la loi applicable.</p>
             </div>
           </div>
 
@@ -5544,12 +5544,12 @@ function ProceduresFiscales() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  <tr><td className="py-1.5 pr-3 text-foreground/80">Intérêt moratoire <InfoTooltip texte="Intérêt moratoire : pénalité financière due pour tout impôt non payé à échéance. Court automatiquement dès le premier jour du mois suivant l'échéance. Tout mois commencé est comptabilisé en entier." loi="Art. 91 Loi n°004/2003 (mod. LF n°13/009 du 1er fév. 2013, O.-L. n°13/005 du 23 fév. 2013, LF n°18/025 du 13 déc. 2018, LF n°20/020 du 28 déc. 2020)" /></td><td className="py-1.5 pr-3 font-semibold text-rose-600">2% / mois (plafonné 50%)</td><td className="py-1.5 text-muted-foreground">Art. 91 — Loi n°004/2003</td></tr>
-                  <tr><td className="py-1.5 pr-3 text-foreground/80">Pénalités d'assiette <InfoTooltip texte="Pénalités d'assiette : majorations calculées sur le montant d'impôt éludé ou insuffisamment déclaré. Proportionnelles (%) contrairement aux amendes forfaitaires de l'Art. 93 bis. Plafondées à 50% de l'impôt éludé ou reconstitué (intérêt de retard)." loi="Art. 84 et Art. 89 Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (mod. O.-L. n°13/005 du 23 fév. 2013 et LF n°18/025 du 13 déc. 2018)" /> (plafond intérêt retard)</td><td className="py-1.5 pr-3 text-foreground/80">50% de l'impôt éludé</td><td className="py-1.5 text-muted-foreground">Art. 89 — Loi n°004/2003</td></tr>
-                  <tr><td className="py-1.5 pr-3 text-foreground/80">Astreinte PM <InfoTooltip texte="Astreinte : sanction journalière pour refus de répondre à une demande de renseignements de l'Administration dans le délai légal. PM = Personne Morale (société, entreprise). En dehors de toute procédure de contrôle." loi="Art. 92 Loi n°004/2003 (mod. O.-L. n°13/005 du 23 fév. 2013) — portant réforme des procédures fiscales" /> (communication pièces)</td><td className="py-1.5 pr-3 text-foreground/80">100 000 FC / jour</td><td className="py-1.5 text-muted-foreground">Art. 92 — Loi n°004/2003</td></tr>
-                  <tr><td className="py-1.5 pr-3 text-foreground/80">Astreinte PP <InfoTooltip texte="Astreinte : sanction journalière pour refus de répondre à une demande de renseignements dans le délai légal. PP = Personne Physique (individu, commerçant indépendant). En dehors de toute procédure de contrôle." loi="Art. 92 Loi n°004/2003 (mod. O.-L. n°13/005 du 23 fév. 2013) — portant réforme des procédures fiscales" /> (communication pièces)</td><td className="py-1.5 pr-3 text-foreground/80">25 000 FC / jour</td><td className="py-1.5 text-muted-foreground">Art. 92 — Loi n°004/2003</td></tr>
-                  <tr><td className="py-1.5 pr-3 text-foreground/80">Défaut acompte <InfoTooltip texte="Défaut ou insuffisance de paiement de l'acompte provisionnel. L'acompte est un versement anticipé calculé sur la base de l'impôt de l'exercice précédent. Trois acomptes IS : au plus tard le 25 juillet (30%), au plus tard le 25 septembre (30%), au plus tard le 25 novembre (20%) — Art. 57 bis LPF, tel que modifié par la LF n°25/060 du 29/12/2025 (LF 2026) ; la rédaction 2023 de la Loi 23/052 (« avant le 1er août/octobre/décembre ») est périmée. Sanction : amende égale à 50% du montant de l'acompte non versé." loi="Art. 98 bis Loi n°004/2003 (créé O.-L. n°13/005 du 23 fév. 2013, mod. LF n°14/027 du 31 déc. 2014) — portant réforme des procédures fiscales" /></td><td className="py-1.5 pr-3 font-semibold text-rose-600">50% de l'acompte non versé</td><td className="py-1.5 text-muted-foreground">Art. 98 bis — Loi n°004/2003</td></tr>
-                  <tr><td className="py-1.5 pr-3 text-foreground/80">Opposition contrôle <InfoTooltip texte="Opposition au droit d'enquête ou au contrôle inopiné de l'Administration fiscale. Amende fixe de 1 000 000 FC. En cas de récidive, cette amende est doublée. La communication de renseignements incomplets est sanctionnée séparément : 750 000 FC (PM) / 125 000 FC (PP)." loi="Art. 97 ter Loi n°004/2003 (créé par O.-L. n°13/005 du 23 fév. 2013) — portant réforme des procédures fiscales" /></td><td className="py-1.5 pr-3 font-semibold text-rose-700">1 000 000 FC</td><td className="py-1.5 text-muted-foreground">Art. 97 ter — Loi n°004/2003</td></tr>
+                  <tr><td className="py-1.5 pr-3 text-foreground/80">Intérêt moratoire <InfoTooltip texte="Intérêt moratoire : pénalité financière due pour tout impôt non payé à échéance. Court automatiquement dès le premier jour du mois suivant l'échéance. Tout mois commencé est comptabilisé en entier." loi="Art. 91 Loi n°004/2003 (mod. LF n°13/009 du 1er fév. 2013, O.-L. n°13/005 du 23 fév. 2013, LF n°18/025 du 13 déc. 2018, LF n°20/020 du 28 déc. 2020)" /></td><td className="py-1.5 pr-3 font-semibold text-rose-600">2% / mois (plafonné 50%)</td><td className="py-1.5 text-muted-foreground">Art. 91 - Loi n°004/2003</td></tr>
+                  <tr><td className="py-1.5 pr-3 text-foreground/80">Pénalités d'assiette <InfoTooltip texte="Pénalités d'assiette : majorations calculées sur le montant d'impôt éludé ou insuffisamment déclaré. Proportionnelles (%) contrairement aux amendes forfaitaires de l'Art. 93 bis. Plafondées à 50% de l'impôt éludé ou reconstitué (intérêt de retard)." loi="Art. 84 et Art. 89 Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (mod. O.-L. n°13/005 du 23 fév. 2013 et LF n°18/025 du 13 déc. 2018)" /> (plafond intérêt retard)</td><td className="py-1.5 pr-3 text-foreground/80">50% de l'impôt éludé</td><td className="py-1.5 text-muted-foreground">Art. 89 - Loi n°004/2003</td></tr>
+                  <tr><td className="py-1.5 pr-3 text-foreground/80">Astreinte PM <InfoTooltip texte="Astreinte : sanction journalière pour refus de répondre à une demande de renseignements de l'Administration dans le délai légal. PM = Personne Morale (société, entreprise). En dehors de toute procédure de contrôle." loi="Art. 92 Loi n°004/2003 (mod. O.-L. n°13/005 du 23 fév. 2013) - portant réforme des procédures fiscales" /> (communication pièces)</td><td className="py-1.5 pr-3 text-foreground/80">100 000 FC / jour</td><td className="py-1.5 text-muted-foreground">Art. 92 - Loi n°004/2003</td></tr>
+                  <tr><td className="py-1.5 pr-3 text-foreground/80">Astreinte PP <InfoTooltip texte="Astreinte : sanction journalière pour refus de répondre à une demande de renseignements dans le délai légal. PP = Personne Physique (individu, commerçant indépendant). En dehors de toute procédure de contrôle." loi="Art. 92 Loi n°004/2003 (mod. O.-L. n°13/005 du 23 fév. 2013) - portant réforme des procédures fiscales" /> (communication pièces)</td><td className="py-1.5 pr-3 text-foreground/80">25 000 FC / jour</td><td className="py-1.5 text-muted-foreground">Art. 92 - Loi n°004/2003</td></tr>
+                  <tr><td className="py-1.5 pr-3 text-foreground/80">Défaut acompte <InfoTooltip texte="Défaut ou insuffisance de paiement de l'acompte provisionnel. L'acompte est un versement anticipé calculé sur la base de l'impôt de l'exercice précédent. Trois acomptes IS : au plus tard le 25 juillet (30%), au plus tard le 25 septembre (30%), au plus tard le 25 novembre (20%) - Art. 57 bis LPF, tel que modifié par la LF n°25/060 du 29/12/2025 (LF 2026) ; la rédaction 2023 de la Loi 23/052 (« avant le 1er août/octobre/décembre ») est périmée. Sanction : amende égale à 50% du montant de l'acompte non versé." loi="Art. 98 bis Loi n°004/2003 (créé O.-L. n°13/005 du 23 fév. 2013, mod. LF n°14/027 du 31 déc. 2014) - portant réforme des procédures fiscales" /></td><td className="py-1.5 pr-3 font-semibold text-rose-600">50% de l'acompte non versé</td><td className="py-1.5 text-muted-foreground">Art. 98 bis - Loi n°004/2003</td></tr>
+                  <tr><td className="py-1.5 pr-3 text-foreground/80">Opposition contrôle <InfoTooltip texte="Opposition au droit d'enquête ou au contrôle inopiné de l'Administration fiscale. Amende fixe de 1 000 000 FC. En cas de récidive, cette amende est doublée. La communication de renseignements incomplets est sanctionnée séparément : 750 000 FC (PM) / 125 000 FC (PP)." loi="Art. 97 ter Loi n°004/2003 (créé par O.-L. n°13/005 du 23 fév. 2013) - portant réforme des procédures fiscales" /></td><td className="py-1.5 pr-3 font-semibold text-rose-700">1 000 000 FC</td><td className="py-1.5 text-muted-foreground">Art. 97 ter - Loi n°004/2003</td></tr>
                 </tbody>
               </table>
             </div>
@@ -5570,7 +5570,7 @@ function ProceduresFiscales() {
 
       {/* Pied de page référence légale */}
       <p className="text-center text-xs text-muted-foreground pt-2">
-        Référence : Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (RDC), mod. LF 2018, 2021, 2022 — CGI 2023 (Lois n°23/052 IS et n°23/053 IRPP)
+        Référence : Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales (RDC), mod. LF 2018, 2021, 2022 - CGI 2023 (Lois n°23/052 IS et n°23/053 IRPP)
       </p>
     </div>
   )

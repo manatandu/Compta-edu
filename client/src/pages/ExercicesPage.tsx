@@ -6,7 +6,7 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import { BAREME_DEFAUT } from '@/lib/db'
 import type { ExerciceLibreType } from '@/lib/db'
 
-// Type QCM local pour les exercices libres (format historique — différent de QCMChapitre)
+// Type QCM local pour les exercices libres (format historique - différent de QCMChapitre)
 interface QuestionQCM {
   enonce: string
   options: string[]
@@ -750,7 +750,7 @@ export default function ExercicesPage() {
           bareme: BAREME_DEFAUT,
           userId: user?.id || '',
           // firestore.rules exige createdBy pour autoriser update/delete
-          // (isProf() && createdBy()) — absent jusqu'ici, un prof pouvait
+          // (isProf() && createdBy()) - absent jusqu'ici, un prof pouvait
           // créer un exercice (allow create: if isProf(), pas d'exigence de
           // champ) mais ne pouvait plus jamais le modifier ni le supprimer :
           // resource.data.createdBy était toujours undefined, donc la

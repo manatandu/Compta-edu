@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════════
-//  CAMPUS OHADA — Page de débogage isolation admin
-//  Accessible uniquement aux admins — route /debug-isolation
+//  CAMPUS OHADA - Page de débogage isolation admin
+//  Accessible uniquement aux admins - route /debug-isolation
 //  Permet de vérifier que chaque admin ne voit que ses propres étudiants
 // ═══════════════════════════════════════════════════════════════════════
 import React, { useEffect, useState } from 'react'
@@ -26,7 +26,7 @@ export default function DebuggingAdminPage() {
   if (!currentUser || !['admin', 'professeur', 'assistant'].includes(currentUser.role)) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <p className="text-destructive font-semibold">Accès refusé — réservé aux administrateurs.</p>
+        <p className="text-destructive font-semibold">Accès refusé - réservé aux administrateurs.</p>
       </div>
     )
   }
@@ -66,7 +66,7 @@ export default function DebuggingAdminPage() {
       <div className="flex items-center gap-3 border-b pb-4">
         <Bug className="h-7 w-7 text-amber-500" />
         <div>
-          <h1 className="text-xl font-display font-bold text-foreground">Page de débogage — Isolation admin</h1>
+          <h1 className="text-xl font-display font-bold text-foreground">Page de débogage - Isolation admin</h1>
           <p className="text-sm text-muted-foreground">Vérifiez que vous ne voyez que vos propres étudiants.</p>
         </div>
       </div>
@@ -119,8 +119,8 @@ export default function DebuggingAdminPage() {
         <div>
           <p className="font-semibold text-sm text-foreground">
             {etudiantsAutresAdmins.length === 0
-              ? 'Isolation correcte — vous ne voyez pas les étudiants des autres admins dans votre liste.'
-              : `Attention — ${etudiantsAutresAdmins.length} étudiant(s) appartiennent à d'autres admins dans Firestore (filtrés côté JS).`
+              ? 'Isolation correcte - vous ne voyez pas les étudiants des autres admins dans votre liste.'
+              : `Attention - ${etudiantsAutresAdmins.length} étudiant(s) appartiennent à d'autres admins dans Firestore (filtrés côté JS).`
             }
           </p>
           <p className="text-xs text-muted-foreground mt-1">
@@ -134,7 +134,7 @@ export default function DebuggingAdminPage() {
       <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 flex items-start gap-3">
         <Info className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
         <div className="text-sm text-blue-800 space-y-1">
-          <p className="font-semibold">Règles de sécurité Firestore — État</p>
+          <p className="font-semibold">Règles de sécurité Firestore - État</p>
           <p>Les règles côté serveur Firebase Firestore sont configurées dans la <strong>Console Firebase</strong> (campus-ohada project).</p>
           <p>La règle recommandée pour isoler les étudiants par admin est :</p>
           <pre className="bg-black/10 rounded p-2 text-xs font-mono mt-2 overflow-x-auto whitespace-pre-wrap">
@@ -180,7 +180,7 @@ export default function DebuggingAdminPage() {
                   </p>
                   <p className="text-xs text-muted-foreground font-mono">@{e.username}</p>
                   <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1 text-xs text-muted-foreground">
-                    <span>createdBy : <code className="bg-black/5 px-1 rounded">{(e as any).createdBy || '—'}</code></span>
+                    <span>createdBy : <code className="bg-black/5 px-1 rounded">{(e as any).createdBy || '-'}</code></span>
                     {(e as any).classe && <span>Promo : {(e as any).classe}</span>}
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export default function DebuggingAdminPage() {
         <div className="space-y-2">
           <h2 className="font-display font-bold text-foreground text-amber-600 flex items-center gap-2">
             <ShieldAlert className="h-5 w-5" />
-            Étudiants orphelins — sans createdBy ({etudiantsSansCreatedBy.length})
+            Étudiants orphelins - sans createdBy ({etudiantsSansCreatedBy.length})
           </h2>
           <p className="text-xs text-muted-foreground">Ces étudiants n'ont pas de champ <code>createdBy</code>. Ils ne sont visibles que par l'admin principal (manasse.tandu).</p>
           <div className="space-y-2">
@@ -245,7 +245,7 @@ export default function DebuggingAdminPage() {
 
       {/* Bas de page */}
       <div className="border-t pt-4 text-xs text-muted-foreground">
-        Page réservée aux administrateurs — non accessible aux étudiants. Route : <code>/debug-isolation</code>
+        Page réservée aux administrateurs - non accessible aux étudiants. Route : <code>/debug-isolation</code>
       </div>
     </div>
   )

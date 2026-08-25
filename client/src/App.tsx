@@ -89,14 +89,14 @@ const NouvelEtudiantPage = React.lazy(() => import('@/pages/NouvelEtudiantPage')
 // écran qui fait disparaître toute l'interface).
 // Hoisté au niveau module (et non défini inline dans App()) : une fonction
 // composant recréée à chaque rendu de App change d'identité à chaque fois,
-// ce qui force React à démonter/remonter tout le sous-arbre enveloppé — y
-// compris l'ErrorBoundary et la page lazy — à chaque changement de `user`
+// ce qui force React à démonter/remonter tout le sous-arbre enveloppé - y
+// compris l'ErrorBoundary et la page lazy - à chaque changement de `user`
 // (ex. après connexion/déconnexion), perdant leur état et rejouant le loader.
 function W({ user, onLogout, children }: { user: User | null; onLogout: () => void; children: React.ReactNode }) {
   const [location] = useHashLocation()
   return user
     ? <Layout user={user} onLogout={onLogout}>
-        {/* key={location} : changer de page réarme l'ErrorBoundary — sans ça,
+        {/* key={location} : changer de page réarme l'ErrorBoundary - sans ça,
             une page qui plante resterait affichée en erreur même après avoir
             cliqué vers une autre page dans la sidebar. */}
         <ErrorBoundary key={location}>
@@ -312,7 +312,7 @@ export default function App() {
           {() => <ProtectedRoute component={MesCoursPage} user={user} onLogout={handleLogout} />}
         </Route>
 
-        {/* ── UE 1 — Droit du travail ── */}
+        {/* ── UE 1 - Droit du travail ── */}
         <Route path="/ue1-droit-travail">
           <W user={user} onLogout={handleLogout}><UE1DroitTravailPage /></W>
         </Route>
@@ -326,7 +326,7 @@ export default function App() {
           )}
         </Route>
 
-        {/* ── UE 2 — Droit des sociétés OHADA ── */}
+        {/* ── UE 2 - Droit des sociétés OHADA ── */}
         <Route path="/ue2-droit-societes">
           <W user={user} onLogout={handleLogout}><UE2DroitSocietesPage /></W>
         </Route>
@@ -364,7 +364,7 @@ export default function App() {
           <W user={user} onLogout={handleLogout}><UE2Chapitre11Page /></W>
         </Route>
 
-        {/* ── UE 5 — Finances publiques ── */}
+        {/* ── UE 5 - Finances publiques ── */}
         <Route path="/ue5-finances-publiques">
           <W user={user} onLogout={handleLogout}><UE5FinancesPubliquesPage /></W>
         </Route>

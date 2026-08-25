@@ -284,10 +284,10 @@ function CasPratiqueBlock({ cas }: { cas: CasPratique }) {
    CONTENU DES LEÇONS
 ───────────────────────────────────────────────────────────── */
 const lecons = [
-  "La société en participation (SEP) — Définition et constitution (Art. 854-856)",
-  "Régime juridique de la SEP — Preuve, gestion, responsabilité (Art. 857-861)",
+  "La société en participation (SEP) - Définition et constitution (Art. 854-856)",
+  "Régime juridique de la SEP - Preuve, gestion, responsabilité (Art. 857-861)",
   "Dissolution de la SEP (Art. 862-863)",
-  "La société de fait — Définition et qualification (Art. 864-866)",
+  "La société de fait - Définition et qualification (Art. 864-866)",
   "Régime juridique de la société de fait (Art. 865-868)",
 ]
 
@@ -311,7 +311,7 @@ export default function UE2Chapitre11Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 11' },
           ]}
           color="indigo"
@@ -431,8 +431,8 @@ export default function UE2Chapitre11Page() {
                   </tr></thead>
                   <tbody>
                     {[
-                      ["Personnalité morale", "Aucune — la SEP est dépourvue de personnalité morale", "Art. 854 al. 2"],
-                      ["Immatriculation", "Aucune — les associés ont convenu de ne pas l'immatriculer", "Art. 854 al. 1"],
+                      ["Personnalité morale", "Aucune - la SEP est dépourvue de personnalité morale", "Art. 854 al. 2"],
+                      ["Immatriculation", "Aucune - les associés ont convenu de ne pas l'immatriculer", "Art. 854 al. 1"],
                       ["Connaissance des tiers", "Non destinée à être connue des tiers (principe)", "Art. 854 al. 1"],
                       ["Objet", "Peut être civile ou commerciale", "Art. 854"],
                       ["Durée", "Déterminée ou indéterminée selon les statuts", "Art. 854"],
@@ -699,12 +699,12 @@ export default function UE2Chapitre11Page() {
                     <p className="font-semibold mb-1 text-xs">Points essentiels à retenir</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                       {[
-                        { titre: "Art. 854 — SEP", contenu: "Pas de personnalité morale, pas d'immatriculation, connue des seuls associés." },
-                        { titre: "Art. 856 — Apports SEP", contenu: "Chaque associé reste propriétaire de ses apports (pas de transfert à une personne morale)." },
-                        { titre: "Art. 858 — Responsabilité commerciale", contenu: "Seul l'associé contractant est engagé envers les tiers dans la SEP commerciale." },
-                        { titre: "Art. 864 — Société de fait", contenu: "Comportement de facto d'associés sans constitution formelle d'une société OHADA." },
-                        { titre: "Art. 865 — Régime SdF", contenu: "Règles SNC applicables : responsabilité indéfinie et solidaire de tous les associés de fait." },
-                        { titre: "Art. 866 — Invocabilité", contenu: "Associés ET tiers peuvent invoquer l'existence de la société de fait." },
+                        { titre: "Art. 854 - SEP", contenu: "Pas de personnalité morale, pas d'immatriculation, connue des seuls associés." },
+                        { titre: "Art. 856 - Apports SEP", contenu: "Chaque associé reste propriétaire de ses apports (pas de transfert à une personne morale)." },
+                        { titre: "Art. 858 - Responsabilité commerciale", contenu: "Seul l'associé contractant est engagé envers les tiers dans la SEP commerciale." },
+                        { titre: "Art. 864 - Société de fait", contenu: "Comportement de facto d'associés sans constitution formelle d'une société OHADA." },
+                        { titre: "Art. 865 - Régime SdF", contenu: "Règles SNC applicables : responsabilité indéfinie et solidaire de tous les associés de fait." },
+                        { titre: "Art. 866 - Invocabilité", contenu: "Associés ET tiers peuvent invoquer l'existence de la société de fait." },
                       ].map((item, i) => (
                         <div key={i} className="bg-amber-100 rounded p-2">
                           <p className="font-semibold text-amber-900 text-xs mb-0.5">{item.titre}</p>
@@ -771,7 +771,7 @@ export default function UE2Chapitre11Page() {
           <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
             <h2 className="font-display font-bold text-gray-800 flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-emerald-600" />
-              Cas Pratiques — SEP et Société de fait ({casPratiques.length} cas)
+              Cas Pratiques - SEP et Société de fait ({casPratiques.length} cas)
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
               Exercices d'application sur la qualification et le régime des sociétés sans personnalité morale.
@@ -820,7 +820,7 @@ export default function UE2Chapitre11Page() {
       </button>
 
       <p className="text-xs text-center text-muted-foreground/60 pb-2">
-        Sources : AUSCGIE révisé 30 janvier 2014 — Art. 854 à 868
+        Sources : AUSCGIE révisé 30 janvier 2014 - Art. 854 à 868
       </p>
     </div>
   )

@@ -5,7 +5,7 @@ import DashboardEtudiant from './DashboardEtudiant'
 import DashboardStaff from './DashboardStaff'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TABLEAU DE BORD — POINT D'ENTRÉE
+// TABLEAU DE BORD - POINT D'ENTRÉE
 //
 // Ce fichier ne fait plus que choisir entre les deux tableaux de bord réels :
 // DashboardEtudiant (cours, devoirs, cotes) et DashboardStaff (identité,

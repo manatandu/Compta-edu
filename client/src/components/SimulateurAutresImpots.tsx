@@ -177,7 +177,7 @@ function OngletIRL() {
           </div>
           <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
             <p className="text-sm text-blue-700 font-semibold mb-1">Base forfaitaire minimum (Loi n° 83/004 du 23/02/1983)</p>
-            <p className="text-sm text-blue-700">Si le loyer déclaré est inférieur à un minimum forfaitaire (surface totale développée × tarif minimum au m²), c'est ce minimum qui sert de base — sans empêcher l'Administration de redresser si les revenus réels sont supérieurs. Le tarif se décompose en 6 classes A à F selon le classement de la localité et le standing du local (Art. 3), avec un abattement de 30% sur le Tarif A et 10% sur le Tarif C pour les locaux industriels et commerciaux (au-delà des 200 premiers m²).</p>
+            <p className="text-sm text-blue-700">Si le loyer déclaré est inférieur à un minimum forfaitaire (surface totale développée × tarif minimum au m²), c'est ce minimum qui sert de base - sans empêcher l'Administration de redresser si les revenus réels sont supérieurs. Le tarif se décompose en 6 classes A à F selon le classement de la localité et le standing du local (Art. 3), avec un abattement de 30% sur le Tarif A et 10% sur le Tarif C pour les locaux industriels et commerciaux (au-delà des 200 premiers m²).</p>
             <p className="text-sm text-blue-700 mt-1">⚠️ Les montants au m² de chaque tarif ne sont pas chiffrés dans le texte consulté : à vérifier province par province avant tout usage engageant. Non applicable aux locations à l'État ou aux établissements publics ne vivant que de subventions (Art. 7).</p>
           </div>
         </ResultatWrap>
@@ -465,7 +465,7 @@ function OngletIV() {
 
   // Art. 42, alinéa 1 : puissance des véhicules terrestres, P = 4·CY + Poids/400.
   // Non utilisée par aucune catégorie IV aujourd'hui (les catégories véhicules sont
-  // toutes taxées par tranche forfaitaire de puissance, Art. 41.C) — conservée pour
+  // toutes taxées par tranche forfaitaire de puissance, Art. 41.C) - conservée pour
   // exactitude si une catégorie par formule est ajoutée un jour. Le terme 4·CY n'est
   // PAS divisé par 400 : seul le terme Poids l'est.
   function calculPuissanceVehicule(): number {
@@ -552,7 +552,7 @@ function OngletIV() {
             <InputField label="Course des pistons (C, en m)" value={course} onChange={setCourse} placeholder="Ex : 0.07" unit="m" />
             <InputField label="Nombre de cylindres (N)" value={nbCylindres} onChange={setNbCylindres} placeholder="Ex : 4" />
             <InputField
-              label={carburantBateau.startsWith('vapeur') ? 'Nombre de coups doubles (n), déclaré ou constaté' : `Régime moteur (n, tours/min) — défaut ${carb.nDefaut}`}
+              label={carburantBateau.startsWith('vapeur') ? 'Nombre de coups doubles (n), déclaré ou constaté' : `Régime moteur (n, tours/min) - défaut ${carb.nDefaut}`}
               value={regimeMoteur} onChange={setRegimeMoteur} placeholder={String(carb.nDefaut || 'à saisir')} unit="tr/min" />
           </div>
           {alesage && course && nbCylindres && (
@@ -767,7 +767,7 @@ function OngletTSCR() {
     <div className="space-y-4">
       <DefBox>
         <p className="font-semibold">Taxe Spéciale de Circulation Routière (TSCR) : O.-L. n° 88-029 du 15/07/1988</p>
-        <p>Droit de péage au profit du Trésor public, assis sur tous les véhicules admis à circuler sur le réseau routier public, quelle que soit la qualité du propriétaire (Art. 1er et 2) — distincte de l'Impôt sur les Véhicules (IV), bien que les mêmes catégories tarifaires s'appliquent (Art. 4).</p>
+        <p>Droit de péage au profit du Trésor public, assis sur tous les véhicules admis à circuler sur le réseau routier public, quelle que soit la qualité du propriétaire (Art. 1er et 2) - distincte de l'Impôt sur les Véhicules (IV), bien que les mêmes catégories tarifaires s'appliquent (Art. 4).</p>
         <p>Entreprises de transport public de personnes : la taxe est réduite de moitié pour les véhicules affectés à cet usage (Art. 3 ter).</p>
         <p className="text-xs mt-1">Impôt provincial et local (Art. 204 al. 16 Constitution). Montants non chiffrés dans le texte : mêmes catégories et mêmes montants indicatifs que l'onglet IV, à confirmer avec l'édit budgétaire provincial en vigueur.</p>
       </DefBox>

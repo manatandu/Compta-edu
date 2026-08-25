@@ -595,8 +595,8 @@ export default function ExerciceDetailPage() {
                       </div>
                       <div className={cn('rounded p-2', r.matchCompte === 'incorrect' ? 'bg-red-50' : 'bg-green-50')}>
                         <p className="text-xs text-muted-foreground mb-1 font-medium">Votre réponse</p>
-                        <p className={cn('font-mono font-semibold', r.matchCompte === 'incorrect' ? 'text-red-600' : 'text-green-600')}>{r.saisi.numeroCompte || '—'}</p>
-                        <p className="text-xs text-muted-foreground">{r.saisi.intituleCompte || '—'}</p>
+                        <p className={cn('font-mono font-semibold', r.matchCompte === 'incorrect' ? 'text-red-600' : 'text-green-600')}>{r.saisi.numeroCompte || '-'}</p>
+                        <p className="text-xs text-muted-foreground">{r.saisi.intituleCompte || '-'}</p>
                         <div className="flex gap-2 mt-1">
                           {(parseFloat(r.saisi.debit) > 0 || parseFloat(r.saisi.credit) > 0) && (
                             <Badge variant="outline" className={cn('text-xs',
