@@ -4,7 +4,7 @@ import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Building2, Search, Calculator,
   BookOpen, ArrowLeft, AlertCircle, CheckCircle2, HelpCircle, FileText,
-  ChevronDown, Lock
+  ChevronDown, Lock, Layers, Plus, Trash2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -1280,7 +1280,7 @@ const COMPTES_OHADA_SIMULATEUR: { code: string; intitule: string }[] = [
 
 export default function ImmobilisationsPage() {
   const [, navigate] = useHashLocation()
-  const [onglet, setOnglet] = useState<'catalogue' | 'simulateur' | 'fiches'>('catalogue')
+  const [onglet, setOnglet] = useState<'catalogue' | 'simulateur' | 'composants' | 'fiches'>('catalogue')
 
   // Catalogue
   const [recherche, setRecherche] = useState('')
@@ -1378,6 +1378,7 @@ export default function ImmobilisationsPage() {
         {[
           { id: 'catalogue', label: 'Catalogue', icon: BookOpen },
           { id: 'simulateur', label: 'Simulateur', icon: Calculator },
+          { id: 'composants', label: 'Composants', icon: Layers },
           { id: 'fiches', label: 'Fiches', icon: FileText },
         ].map(({ id, label, icon: Icon }) => (
           <button
@@ -2039,7 +2040,231 @@ export default function ImmobilisationsPage() {
             </div>
           </div>
         )}
+
+        {/* ─── COMPOSANTS ────────────────────────────────────────────────────────── */}
+        {onglet === 'composants' && <OngletComposants />}
       </div>
+    </div>
+  )
+}
+
+// ─── Onglet : Amortissement par composants (Art. 38-1 AUDCIF, Titre VIII ch. 4) ─
+// Distinct des 3 régimes fiscaux du Simulateur (linéaire/dégressif/exceptionnel,
+// qui portent sur UNE immobilisation) : ici on décompose une immobilisation dont
+// les éléments ont des durées d'utilité ou un rythme d'avantages différents, en
+// sous-comptes distincts, chacun avec son propre plan d'amortissement linéaire.
+// Cf. séminaire CPCC « Traitements comptables liés aux redressements des comptes
+// du patrimoine », section I.3 (exercices WILEX, matériel industriel, ascenseur).
+interface Composant {
+  id: string
+  nom: string
+  valeur: string
+  duree: string
+}
+
+function nouveauComposant(nom: string): Composant {
+  return { id: Math.random().toString(36).slice(2), nom, valeur: '', duree: '' }
+}
+
+function OngletComposants() {
+  const [designation, setDesignation] = useState('')
+  const [compteBase, setCompteBase] = useState('')
+  const [dateMiseEnService, setDateMiseEnService] = useState(new Date().toISOString().split('T')[0])
+  const [composants, setComposants] = useState<Composant[]>([
+    nouveauComposant('Structure'),
+    nouveauComposant('Composant A'),
+  ])
+  const [erreur, setErreur] = useState('')
+  const [resultat, setResultat] = useState<{ nom: string; valeur: number; duree: number; lignes: LigneAmort[] }[] | null>(null)
+
+  const majComposant = (id: string, champ: 'nom' | 'valeur' | 'duree', val: string) =>
+    setComposants(cs => cs.map(c => c.id === id ? { ...c, [champ]: val } : c))
+  const ajouterComposant = () => setComposants(cs => [...cs, nouveauComposant(`Composant ${String.fromCharCode(65 + cs.length - 1)}`)])
+  const supprimerComposant = (id: string) => setComposants(cs => cs.length > 1 ? cs.filter(c => c.id !== id) : cs)
+  const ajouterRevisions = () => {
+    if (composants.some(c => c.nom === 'Révisions majeures')) return
+    setComposants(cs => [...cs, nouveauComposant('Révisions majeures')])
+  }
+
+  const valeurTotale = composants.reduce((s, c) => s + (parseFloat(c.valeur) || 0), 0)
+
+  const genererTableau = () => {
+    setErreur('')
+    if (!designation.trim()) { setErreur('Indiquez la désignation de l\'immobilisation.'); return }
+    const mois = new Date(dateMiseEnService).getMonth() + 1
+    const parsed: { nom: string; valeur: number; duree: number; lignes: LigneAmort[] }[] = []
+    for (const c of composants) {
+      const valeur = parseFloat(c.valeur.replace(/\s/g, '').replace(',', '.'))
+      const duree = parseInt(c.duree)
+      if (!c.nom.trim()) { setErreur('Chaque composant doit avoir un nom.'); return }
+      if (isNaN(valeur) || valeur <= 0) { setErreur(`Valeur invalide pour « ${c.nom} ».`); return }
+      if (isNaN(duree) || duree < 1) { setErreur(`Durée invalide pour « ${c.nom} ».`); return }
+      parsed.push({ nom: c.nom, valeur, duree, lignes: calculerLineaire(valeur, duree, mois) })
+    }
+    setResultat(parsed)
+  }
+
+  // Dotation combinée par exercice (somme des composants, alignée sur le plus long)
+  const dotationCombinee = useMemo(() => {
+    if (!resultat) return []
+    const nbExercices = Math.max(...resultat.map(r => r.lignes.length))
+    return Array.from({ length: nbExercices }, (_, i) => ({
+      exercice: i + 1,
+      total: resultat.reduce((s, r) => s + (r.lignes[i]?.annuite ?? 0), 0),
+    }))
+  }, [resultat])
+
+  return (
+    <div className="space-y-4">
+      <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3 space-y-1.5">
+        <p className="text-xs text-emerald-800 font-medium">
+          <strong>Art. 38-1 AUDCIF.</strong> Lorsque des éléments d'un actif ont des durées d'utilité ou un rythme d'avantages économiques différents, chacun est comptabilisé séparément (sous-compte propre) avec son propre plan d'amortissement.
+        </p>
+        <p className="text-xs text-emerald-700">
+          Critère de décomposition : valeur significative + durée d'utilité propre (remplacement futur d'un montant significatif). Ne sont généralement pas décomposables : matériel informatique, véhicules de tourisme, mobilier de faible valeur.
+        </p>
+      </div>
+
+      <div className="rounded-xl border border-red-200 bg-red-50 p-3 flex items-start gap-2">
+        <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0 mt-0.5" />
+        <p className="text-xs text-red-700"><strong>Interdiction ferme :</strong> aucune provision pour grosses réparations ou gros entretien pluriannuel ne peut être comptabilisée. C'est la décomposition en composants — notamment le composant « Révisions majeures » — qui en tient lieu.</p>
+      </div>
+
+      <div className="rounded-xl border border-border bg-card p-4 space-y-3.5">
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Désignation de l'immobilisation</label>
+            <input value={designation} onChange={e => setDesignation(e.target.value)}
+              placeholder="ex : Installation complexe" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Compte OHADA racine (facultatif)</label>
+            <input value={compteBase} onChange={e => setCompteBase(e.target.value)}
+              placeholder="ex : 2341" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Date de mise en service</label>
+            <input type="date" value={dateMiseEnService} onChange={e => setDateMiseEnService(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Valeur totale</label>
+            <div className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-sm font-mono">{fmt(valeurTotale)}</div>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-xs font-semibold text-muted-foreground block">Composants</label>
+          {composants.map(c => (
+            <div key={c.id} className="flex gap-2 items-center">
+              <input value={c.nom} onChange={e => majComposant(c.id, 'nom', e.target.value)}
+                placeholder="Nom" className="flex-1 min-w-0 rounded-lg border border-border bg-background px-2.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="number" value={c.valeur} onChange={e => majComposant(c.id, 'valeur', e.target.value)}
+                placeholder="Valeur" className="w-28 shrink-0 rounded-lg border border-border bg-background px-2.5 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <input type="number" value={c.duree} onChange={e => majComposant(c.id, 'duree', e.target.value)}
+                placeholder="Durée (ans)" className="w-24 shrink-0 rounded-lg border border-border bg-background px-2.5 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              <button onClick={() => supprimerComposant(c.id)}
+                className="shrink-0 h-8 w-8 rounded-lg hover:bg-red-50 flex items-center justify-center transition-colors">
+                <Trash2 className="h-3.5 w-3.5 text-red-400" />
+              </button>
+            </div>
+          ))}
+          <div className="flex gap-3 pt-0.5">
+            <button onClick={ajouterComposant} className="flex items-center gap-1 text-xs font-medium text-emerald-700 hover:opacity-80">
+              <Plus className="h-3 w-3" /> Ajouter un composant
+            </button>
+            {!composants.some(c => c.nom === 'Révisions majeures') && (
+              <button onClick={ajouterRevisions} className="flex items-center gap-1 text-xs font-medium text-emerald-700 hover:opacity-80">
+                <Plus className="h-3 w-3" /> Ajouter « Révisions majeures »
+              </button>
+            )}
+          </div>
+        </div>
+
+        {erreur && (
+          <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2">
+            <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
+            <p className="text-xs text-red-600">{erreur}</p>
+          </div>
+        )}
+
+        <button onClick={genererTableau}
+          className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 py-2.5 text-sm font-semibold text-white transition-colors">
+          <Calculator className="h-4 w-4" />
+          Générer les plans d'amortissement
+        </button>
+      </div>
+
+      {resultat && (
+        <div className="space-y-4">
+          <div className="rounded-xl border border-border bg-card p-4">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Écriture d'acquisition</p>
+            <table className="w-full text-xs">
+              <tbody className="divide-y divide-border/60">
+                {resultat.map((r, i) => (
+                  <tr key={i}>
+                    <td className="py-1.5 font-mono font-bold">{compteBase ? `${compteBase}${i + 1}` : '—'}</td>
+                    <td className="py-1.5 text-muted-foreground">{designation} — {r.nom}</td>
+                    <td className="py-1.5 text-right font-mono">{fmt(r.valeur)}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <td className="py-1.5 font-mono font-bold pl-6">481</td>
+                  <td className="py-1.5 text-muted-foreground italic pl-6">Fournisseurs d'investissements</td>
+                  <td className="py-1.5 text-right font-mono">{fmt(valeurTotale)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {resultat.map((r, i) => (
+            <div key={i} className="rounded-xl border border-border bg-card p-4">
+              <p className="text-xs font-semibold text-foreground mb-2">{r.nom} — {fmt(r.valeur)}, {r.duree} ans linéaire</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs min-w-[480px]">
+                  <thead>
+                    <tr className="bg-muted/60">
+                      {['Exercice', 'Base', 'Taux', 'Annuité', 'Cumul', 'VNC'].map(h => (
+                        <th key={h} className="px-2.5 py-1.5 text-right font-mono uppercase text-xs text-muted-foreground font-semibold border-b border-border first:text-left">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/60">
+                    {r.lignes.map(l => (
+                      <tr key={l.exercice}>
+                        <td className="px-2.5 py-1.5">{l.exercice}</td>
+                        <td className="px-2.5 py-1.5 text-right font-mono">{fmt(l.valeurDebut)}</td>
+                        <td className="px-2.5 py-1.5 text-right font-mono">{l.taux}%</td>
+                        <td className="px-2.5 py-1.5 text-right font-mono">{fmt(l.annuite)}</td>
+                        <td className="px-2.5 py-1.5 text-right font-mono">{fmt(l.amortCumule)}</td>
+                        <td className="px-2.5 py-1.5 text-right font-mono">{fmt(l.valeurResiduelle)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+            <p className="text-xs font-semibold text-emerald-800 uppercase tracking-wide mb-2">Dotation combinée par exercice (681x / 28xx, tous composants)</p>
+            <div className="space-y-1">
+              {dotationCombinee.map(d => (
+                <div key={d.exercice} className="flex items-center justify-between text-xs">
+                  <span className="text-emerald-700">Exercice {d.exercice}</span>
+                  <span className="font-mono font-bold text-emerald-900">{fmt(d.total)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-xs text-amber-800 leading-relaxed">
+              <strong>Au renouvellement d'un composant</strong> (typiquement « Révisions majeures ») : sortie de l'ancien composant pour sa VNC (débit 812 Valeur comptable des cessions, débit du compte d'amortissement cumulé, crédit du sous-compte immobilisation), puis entrée du nouveau composant au coût réel de remplacement. Si le composant révisions n'a pas été identifié à l'origine, sa VNC peut être estimée par le « coût de révision actuel amorti », comme s'il avait été acquis à la date d'origine du bien.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
