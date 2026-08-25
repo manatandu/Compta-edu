@@ -5709,6 +5709,11 @@ export default function FiscalitePage() {
               L'IS frappe le résultat des personnes morales (sociétés, établissements). Il se calcule en partant du résultat comptable de l'exercice, retraité par une série de réintégrations (charges non déductibles) et de déductions (produits non imposables ou déjà imposés) pour obtenir le résultat fiscal, auquel s'applique le taux de 30%.
               Base légale : Loi n°23/052 du 30 novembre 2023, entrée en vigueur le 1er janvier 2026, qui remplace l'ancien impôt professionnel de l'O.-L. n°69/009 (Titre IV, désormais abrogé).
             </p>
+            <ul className="text-xs text-emerald-700 leading-relaxed list-disc pl-4 space-y-0.5">
+              <li>Trois acomptes provisionnels dans l'année, au plus tard le 25 juillet (30%), le 25 septembre (30%) et le 25 novembre (20%) de l'impôt de l'exercice précédent — échéances fixées par la Loi de Finances 2026 (Loi n°25/060), qui modifie l'Art. 57 bis LPF issu de la loi 23/052.</li>
+              <li>Régimes différenciés selon la taille de l'entreprise (Micro-Entreprise, Petite Entreprise, régime réel), qui reprennent et actualisent la logique de seuils de chiffre d'affaires de l'ancien régime IBP.</li>
+              <li>Un impôt minimum forfaitaire existait sous l'ancien régime (Art. 91 O.-L. 69/009, désormais abrogé) : sa reconduction éventuelle sous la loi 23/052 n'est pas confirmée dans les sources disponibles — à vérifier avant toute application.</li>
+            </ul>
           </div>
         )}
 
@@ -5720,6 +5725,11 @@ export default function FiscalitePage() {
               Impôt sur la dépense, la TVA est collectée à chaque stade du circuit économique et supportée in fine par le consommateur final. L'assujetti reverse au Trésor la différence entre la TVA collectée sur ses ventes et la TVA déductible sur ses achats.
               Taux normal de 16%, taux réduits de 1% et 5% selon les biens et services concernés (Loi de Finances 2026) — ces taux réduits ont été révisés à la baisse par rapport au taux de 8% appliqué antérieurement.
             </p>
+            <ul className="text-xs text-rose-700 leading-relaxed list-disc pl-4 space-y-0.5">
+              <li>Exonérations ciblées sur des listes réglementaires précises (positions tarifaires), notamment certains équipements agricoles et intrants pharmaceutiques — l'exonération dépend de la position tarifaire exacte, pas seulement de la catégorie générale du produit.</li>
+              <li>Suspensions sectorielles temporaires (aviation, produits de première nécessité, ciment/immobilier, secteur pétrolier/minier) : chaque dispositif a sa propre échéance, à vérifier avant d'appliquer une suspension à un exercice donné.</li>
+              <li>Obligations documentaires : facture normalisée et Déclaration Électronique de la Facture (DEF), remboursement de crédit de TVA selon une procédure propre, distincte du recours fiscal de droit commun.</li>
+            </ul>
           </div>
         )}
 
@@ -5731,6 +5741,11 @@ export default function FiscalitePage() {
               À côté de l'IS et de l'IRPP (impôts d'État), le système fiscal congolais comprend des impôts réels de compétence provinciale, rétrocédés en grande partie aux Entités Territoriales Décentralisées (ETD) : impôt sur les revenus locatifs (IRL), impôt foncier (IF), impôt sur les véhicules (IV), taxe spéciale de circulation routière (TSCR) et taxe sur la superficie des concessions minières (TSMC).
               Ces impôts ne relèvent pas de la réforme IS/IRPP de la loi 23/053 : leurs taux sont fixés par des textes distincts, parfois provinciaux (voir l'onglet IRL/IF pour le barème vérifié propre à la Ville-Province de Kinshasa).
             </p>
+            <ul className="text-xs text-amber-700 leading-relaxed list-disc pl-4 space-y-0.5">
+              <li>Compétence constitutionnelle : ces impôts réels relèvent de l'Art. 204, point 16 de la Constitution, qui attribue à chaque province le pouvoir de fixer son propre barème — un même impôt peut donc avoir des taux différents d'une province à l'autre.</li>
+              <li>L'impôt sur les revenus locatifs a un taux national de référence de 22% flat (Art. 11, O.-L. n°69/009), mais Kinshasa le module par rang de localité (22%/17%) depuis les arrêtés provinciaux du 07 décembre 2023.</li>
+              <li>Au-delà des impôts réels, existe aussi l'impôt personnel minimum (O.-L. n°71-087), impôt local distinct perçu au profit des Secteurs, Chefferies et Communes, à taux fixé par édit budgétaire provincial.</li>
+            </ul>
           </div>
         )}
 
@@ -5742,6 +5757,11 @@ export default function FiscalitePage() {
               Quel que soit l'impôt concerné, son établissement et son recouvrement obéissent à un cadre procédural commun : obligations déclaratives, droit de contrôle et de vérification de l'Administration, avis de mise en recouvrement (AMR), pénalités (majorations, amendes, astreintes) et voies de réclamation et de recours.
               Base légale : Loi n°004/2003 du 13 mars 2003 portant réforme des procédures fiscales, modifiée notamment par les lois 23/052 et 23/053 (échéances des acomptes provisionnels) et la Loi de Finances 2026.
             </p>
+            <ul className="text-xs text-purple-700 leading-relaxed list-disc pl-4 space-y-0.5">
+              <li>Pouvoirs de contrôle gradués : droit de communication et d'enquête, contrôle sur pièces, vérification générale ou ponctuelle de comptabilité, droit de visite et de saisie — chacun encadré par des garanties procédurales propres.</li>
+              <li>Identification du contribuable par le Numéro Impôt (Décret n°03/012), préalable obligatoire à toute déclaration ou opération fiscale formelle.</li>
+              <li>Le quitus fiscal, attestation de régularité délivrée par l'Administration, conditionne certaines opérations (marchés publics, transferts de fonds) — à ne pas confondre avec le certificat de non-redevance.</li>
+            </ul>
           </div>
         )}
 
@@ -5753,6 +5773,11 @@ export default function FiscalitePage() {
               La fiscalité douanière frappe les marchandises à l'importation et à l'exportation : droits de douane liquidés sur la valeur en douane, régimes suspensifs (entrepôt, transit, admission temporaire, perfectionnement actif/passif) et régime du contentieux douanier (saisies, amendes, recours).
               Base légale : Ordonnance-loi n°10/002 du 20 août 2010 portant Code des douanes. La TVA et les droits d'accise à l'importation s'articulent avec cette liquidation douanière, la valeur en douane servant souvent d'assiette de départ.
             </p>
+            <ul className="text-xs text-cyan-700 leading-relaxed list-disc pl-4 space-y-0.5">
+              <li>La valeur en douane à l'importation suit une hiérarchie stricte de six méthodes (valeur transactionnelle en priorité, puis méthodes de substitution) : on ne passe à la méthode suivante que si la précédente est inapplicable.</li>
+              <li>Distinction entre entrepôt de douane (public : 1 an ; privé : 3 ans), admission temporaire (taux de 3% par mois de la valeur des droits) et réimportation en l'état — trois régimes suspensifs aux logiques différentes, souvent confondus.</li>
+              <li>Contentieux à trois paliers : recours devant le Directeur Général des douanes, puis la Commission de règlement des litiges douaniers (espèce/origine/valeur) ou le Ministre des Finances selon la matière, puis le Conseil d'État.</li>
+            </ul>
           </div>
         )}
 
@@ -5764,6 +5789,11 @@ export default function FiscalitePage() {
               Le secteur minier obéit à un régime fiscal, douanier et de redevance minière spécifique, dérogatoire au droit commun : redevance minière assise sur la valeur des ventes (taux variable selon la substance, majoré pour les substances stratégiques), IS au taux de 30%, impôt spécial sur le profit excédentaire, et taux préférentiels selon la phase (recherche, développement, exploitation).
               Base légale : Code minier (Loi n°007/2002 modifiée par la Loi n°18/001 du 9 mars 2018), Titre IX.
             </p>
+            <ul className="text-xs text-stone-700 leading-relaxed list-disc pl-4 space-y-0.5">
+              <li>La redevance minière est répartie entre plusieurs bénéficiaires (pouvoir central, provinces, ETD, Fonds de réparation des victimes, Fonds Minier pour les Générations Futures), selon une clé fixée par décret et régulièrement révisée.</li>
+              <li>Le cobalt, le germanium et la colombo-tantalite (coltan) sont classés « substances minérales stratégiques » (Décret n°18/042/2018), avec un taux de redevance de 10%, supérieur au taux de droit commun applicable aux autres substances.</li>
+              <li>Obligation distincte de responsabilité sociétale : dotation d'au moins 0,3% du chiffre d'affaires au développement communautaire des zones d'implantation (Art. 258 bis et 285 octies du Code minier), encadrée par un manuel de procédures propre.</li>
+            </ul>
           </div>
         )}
 
