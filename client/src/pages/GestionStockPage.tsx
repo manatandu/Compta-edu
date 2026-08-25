@@ -18,8 +18,10 @@ const ONGLETS = [
     id: 'articles',
     label: 'Fiches de stock',
     icon: ClipboardList,
-    color: 'text-module-rose',
-    activeBorder: 'border-module-rose',
+    // Violet : reflète la couleur d'accent réellement utilisée dans
+    // StockArticlesPage (boutons, badges, sélecteurs internes).
+    color: 'text-module-violet',
+    activeBorder: 'border-module-violet',
   },
   {
     id: 'journal',
@@ -32,8 +34,11 @@ const ONGLETS = [
     id: 'exercice',
     label: 'Exercice pédagogique',
     icon: Sparkles,
-    color: 'text-module-emerald',
-    activeBorder: 'border-module-emerald',
+    // Violet : StockExercicePage utilise le violet comme couleur d'accent
+    // principale pour ses CTA/callouts (l'émeraude n'y sert qu'au balisage
+    // sémantique des entrées de stock, distinct de la couleur de marque).
+    color: 'text-module-violet',
+    activeBorder: 'border-module-violet',
   },
 ] as const
 
