@@ -2908,7 +2908,7 @@ export default function SimulateurTVA() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fadeIn">
       {/* Header */}
       <div className="rounded-xl border border-rose-200 bg-rose-50 p-3">
         <div className="flex items-center gap-2">
@@ -2966,8 +2966,8 @@ export default function SimulateurTVA() {
                     <p className="text-xs text-muted-foreground/70 font-medium mb-0.5 px-0.5 truncate max-w-[80px]">{groupe?.label}</p>
                   )}
                   <button onClick={() => setOnglet(o.id)}
-                    className={cn('flex flex-col items-center gap-0.5 rounded-xl border px-3 py-2 transition-colors min-w-[80px] flex-1',
-                      onglet === o.id ? 'border-rose-300 bg-rose-50 text-rose-700' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30')}>
+                    className={cn('flex flex-col items-center gap-0.5 rounded-xl border px-3 py-2 transition-all duration-200 min-w-[80px] flex-1',
+                      onglet === o.id ? 'border-rose-300 bg-rose-50 text-rose-700 shadow-sm' : 'border-border bg-card text-muted-foreground hover:text-foreground hover:bg-muted/30 hover:scale-[1.02]')}>
                     <Icon className="h-3.5 w-3.5" />
                     <p className="text-xs font-semibold text-center leading-tight">{o.label}</p>
                     <p className="text-xs opacity-60 text-center">{o.sublabel}</p>
@@ -2987,21 +2987,23 @@ export default function SimulateurTVA() {
       </div>
 
       {/* Contenu */}
-      {onglet === 'champ' && <OngletChampApplication />}
-      {onglet === 'assujettis' && <OngletAssujettis />}
-      {onglet === 'exigibilite' && <OngletFaitGenerateurExigibilite />}
-      {onglet === 'exonerations' && <OngletExonerations />}
-      {onglet === 'taux' && <OngletTauxBase />}
-      {onglet === 'listes' && <OngletListesReglementaires />}
-      {onglet === 'derogatoires' && <OngletRegimesDerogatoires />}
-      {onglet === 'deductions' && <OngletDeductions />}
-      {onglet === 'nette' && <OngletTVANette />}
-      {onglet === 'prorata' && <OngletProrata />}
-      {onglet === 'regularisations' && <OngletRegularisations />}
-      {onglet === 'def' && <OngletFactureDEF />}
-      {onglet === 'remboursement' && <OngletRemboursement />}
-      {onglet === 'declaration' && <OngletDeclarationPenalites />}
-      {onglet === 'comptabilite' && <OngletComptabiliteNumeroTVA />}
+      <div key={onglet} className="animate-fadeIn">
+        {onglet === 'champ' && <OngletChampApplication />}
+        {onglet === 'assujettis' && <OngletAssujettis />}
+        {onglet === 'exigibilite' && <OngletFaitGenerateurExigibilite />}
+        {onglet === 'exonerations' && <OngletExonerations />}
+        {onglet === 'taux' && <OngletTauxBase />}
+        {onglet === 'listes' && <OngletListesReglementaires />}
+        {onglet === 'derogatoires' && <OngletRegimesDerogatoires />}
+        {onglet === 'deductions' && <OngletDeductions />}
+        {onglet === 'nette' && <OngletTVANette />}
+        {onglet === 'prorata' && <OngletProrata />}
+        {onglet === 'regularisations' && <OngletRegularisations />}
+        {onglet === 'def' && <OngletFactureDEF />}
+        {onglet === 'remboursement' && <OngletRemboursement />}
+        {onglet === 'declaration' && <OngletDeclarationPenalites />}
+        {onglet === 'comptabilite' && <OngletComptabiliteNumeroTVA />}
+      </div>
     </div>
   )
 }
