@@ -107,7 +107,19 @@ function InputField({ label, value, onChange, placeholder, unit }: { label: stri
 // ─────────────────────────────────────────────────────────────────────────────
 // ONGLET 1 : IRL : Impôt sur les Revenus Locatifs
 // ─────────────────────────────────────────────────────────────────────────────
+// Taux IRL par rang de localité — Kinshasa : Arrêté du Ministre Provincial des
+// Finances et Économie n°015/CAB/MIN.PROV/FIN.ECO/2023 du 07/12/2023 (modifiant
+// l'Arrêté n°016/CAB/MIN.PROV/FIN.ECO/2022 du 14/10/2022), Art. 5 — J.O. RDC,
+// numéro spécial du 14 décembre 2023, en vigueur depuis le 1er janvier 2024.
+// Taux national de référence (tout rang confondu) : Art. 11, O.-L. n°69/009 du
+// 10/02/1969 — 22%. L'arrêté provincial de Kinshasa module ce taux par rang.
+const TAUX_IRL_KINSHASA: Record<string, { label: string; irl: number; retenue: number }> = {
+  '1': { label: '1er rang', irl: 0.22, retenue: 0.20 },
+  '2': { label: '2e, 3e et 4e rang', irl: 0.17, retenue: 0.15 },
+}
+
 function OngletIRL() {
+  const [rang, setRang] = useState('1')
   const [loyerMensuel, setLoyerMensuel] = useState('')
   const [nbMois, setNbMois] = useState('12')
   const [res, setRes] = useState<any>(null)
@@ -116,10 +128,11 @@ function OngletIRL() {
     const loyer = parseFloat(loyerMensuel) || 0
     const mois = parseInt(nbMois) || 12
     const totalBrut = loyer * mois
-    const irlTotal = totalBrut * 0.22
-    const retenuLocataire = totalBrut * 0.20
-    const soldeProprietaire = totalBrut * 0.02
-    setRes({ loyer, mois, totalBrut, irlTotal, retenuLocataire, soldeProprietaire })
+    const t = TAUX_IRL_KINSHASA[rang]
+    const irlTotal = totalBrut * t.irl
+    const retenuLocataire = totalBrut * t.retenue
+    const soldeProprietaire = irlTotal - retenuLocataire
+    setRes({ loyer, mois, totalBrut, irlTotal, retenuLocataire, soldeProprietaire, t })
   }
   function reset() { setLoyerMensuel(''); setNbMois('12'); setRes(null) }
 
@@ -127,12 +140,35 @@ function OngletIRL() {
     <div className="space-y-4">
       <DefBox>
         <p className="font-semibold">Impôt sur les Revenus Locatifs (IRL) : Art. 4 à 12, Livre I Partie II</p>
-        <p>Frappé les revenus de location de bâtiments et terrains situés en RDC. Taux global : <strong>22%</strong>.</p>
-        <p>Mécanisme : le locataire retient <strong>20%</strong> et le verse dans les 10 jours du mois suivant. Le propriétaire paie le solde de <strong>2%</strong> au plus tard le 1er février de l'année suivante.</p>
-        <p className="text-xs mt-1">Cet impôt est rétrocédé aux Entités Territoriales Décentralisées (ETD) : Art. 9 al. 5, Loi n° 11/011 du 13 juillet 2011 relative aux finances publiques.</p>
+        <p>Frappe les revenus de location de bâtiments et terrains situés en RDC. Taux national de référence (Art. 11, O.-L. n°69/009 du 10/02/1969) : <strong>22%</strong>, avec retenue à la source de 20% par le locataire et solde de 2% à charge du propriétaire.</p>
+        <p className="text-xs mt-1">Cet impôt est rétrocédé aux Entités Territoriales Décentralisées (ETD) : Art. 9 al. 5, Loi n° 11/011 du 13 juillet 2011 relative aux finances publiques — chaque province peut moduler le taux par rang de localité via son propre édit/arrêté budgétaire (Art. 204 al. 16 Constitution).</p>
       </DefBox>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+        <p className="text-sm text-emerald-800 font-semibold mb-1">✓ Barème vérifié — Ville-province de Kinshasa</p>
+        <p className="text-sm text-emerald-700">Le taux applicable à Kinshasa est différencié par rang de localité, « tout loyer confondu » (pas de seuil minimal) :</p>
+        <div className="overflow-x-auto rounded border border-emerald-200 mt-1.5 bg-white">
+          <table className="w-full text-sm">
+            <thead className="bg-emerald-100">
+              <tr><th className="px-2 py-1.5 text-left">Rang de localité</th><th className="px-2 py-1.5 text-left">Taux IRL</th><th className="px-2 py-1.5 text-left">Retenue locataire (RL)</th></tr>
+            </thead>
+            <tbody className="divide-y divide-emerald-100">
+              <tr><td className="px-2 py-1.5">1er rang</td><td className="px-2 py-1.5 font-bold text-emerald-700">22%</td><td className="px-2 py-1.5">20%</td></tr>
+              <tr><td className="px-2 py-1.5">2e, 3e et 4e rang</td><td className="px-2 py-1.5 font-bold text-emerald-700">17%</td><td className="px-2 py-1.5">15%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-sm text-emerald-700 mt-1.5">Source : Arrêté du Ministre Provincial des Finances et Économie n°015/CAB/MIN.PROV/FIN.ECO/2023 du 07 décembre 2023, Art. 5 — J.O. RDC, numéro spécial du 14 décembre 2023, en vigueur depuis le 1er janvier 2024. Ce barème est <strong>propre à la ville-province de Kinshasa</strong> ; les autres provinces fixent le leur par leur propre acte.</p>
+        <p className="text-sm text-emerald-700 mt-1">Cas distinct non couvert par ce simulateur : les <strong>indemnités de logement</strong> versées aux salariés (mise à disposition gratuite d'un logement par l'employeur) suivent un barème par tranche de montant, et non par rang — 22% au-delà de 301 USD/mois, 17% de 1 à 300 USD/mois (Arrêté n°016/CAB/MIN.PROV/FIN.ECO/2023 du 07/12/2023, Art. 5).</p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <SelectField
+          label="Rang de la localité (Kinshasa)"
+          value={rang}
+          onChange={v => { setRang(v); setRes(null) }}
+          options={Object.entries(TAUX_IRL_KINSHASA).map(([k, v]) => ({ value: k, label: `${v.label} (IRL ${(v.irl * 100).toFixed(0)}%)` }))}
+        />
         <InputField label="Loyer mensuel (FC)" value={loyerMensuel} onChange={setLoyerMensuel} placeholder="Ex : 1 500 000" unit="FC" />
         <InputField label="Nombre de mois imposés" value={nbMois} onChange={setNbMois} placeholder="12" unit="mois" />
       </div>
@@ -153,18 +189,18 @@ function OngletIRL() {
           <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
             <div className="flex items-center gap-2.5 px-3 py-3 bg-muted/40 border-b border-border/40">
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">2</span>
-              <p className="text-xs font-semibold text-foreground">Calcul de l'IRL</p>
+              <p className="text-xs font-semibold text-foreground">Calcul de l'IRL ({res.t.label})</p>
             </div>
             <div className="px-3 py-2.5 space-y-1.5">
-              <LigneR label={`IRL = ${formatFC(res.totalBrut)} × 22%`} val={formatFC(res.irlTotal)} bold />
-              <LigneR label="Retenu par le locataire (20%) : dans les 10 jours" val={formatFC(res.retenuLocataire)} indent />
-              <LigneR label="Solde propriétaire (2%) : au 1er février" val={formatFC(res.soldeProprietaire)} indent />
+              <LigneR label={`IRL = ${formatFC(res.totalBrut)} × ${(res.t.irl * 100).toFixed(0)}%`} val={formatFC(res.irlTotal)} bold />
+              <LigneR label={`Retenu par le locataire (${(res.t.retenue * 100).toFixed(0)}%) : dans les 10 jours`} val={formatFC(res.retenuLocataire)} indent />
+              <LigneR label="Solde propriétaire : au 1er février" val={formatFC(res.soldeProprietaire)} indent />
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-            <BoxFinal label="IRL total (22%)" val={formatFC(res.irlTotal)} />
-            <BoxFinal label="Retenu locataire (20%)" val={formatFC(res.retenuLocataire)} />
-            <BoxFinal label="Solde propriétaire (2%)" val={formatFC(res.soldeProprietaire)} credit />
+            <BoxFinal label={`IRL total (${(res.t.irl * 100).toFixed(0)}%)`} val={formatFC(res.irlTotal)} />
+            <BoxFinal label={`Retenu locataire (${(res.t.retenue * 100).toFixed(0)}%)`} val={formatFC(res.retenuLocataire)} />
+            <BoxFinal label="Solde propriétaire" val={formatFC(res.soldeProprietaire)} credit />
           </div>
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
             <p className="text-sm text-amber-700 font-semibold mb-1">Exonérations (Art. 12)</p>
@@ -178,7 +214,7 @@ function OngletIRL() {
           <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
             <p className="text-sm text-blue-700 font-semibold mb-1">Base forfaitaire minimum (Loi n° 83/004 du 23/02/1983)</p>
             <p className="text-sm text-blue-700">Si le loyer déclaré est inférieur à un minimum forfaitaire (surface totale développée × tarif minimum au m²), c'est ce minimum qui sert de base - sans empêcher l'Administration de redresser si les revenus réels sont supérieurs. Le tarif se décompose en 6 classes A à F selon le classement de la localité et le standing du local (Art. 3), avec un abattement de 30% sur le Tarif A et 10% sur le Tarif C pour les locaux industriels et commerciaux (au-delà des 200 premiers m²).</p>
-            <p className="text-sm text-blue-700 mt-1">⚠️ Les montants au m² de chaque tarif ne sont pas chiffrés dans le texte consulté : à vérifier province par province avant tout usage engageant. Non applicable aux locations à l'État ou aux établissements publics ne vivant que de subventions (Art. 7).</p>
+            <p className="text-sm text-blue-700 mt-1">⚠️ Les montants au m² de chaque tarif ne sont pas chiffrés dans le texte consulté : à vérifier province par province avant tout usage engageant. Non applicable aux locations à l'État ou aux établissements publics ne vivant que de subventions (Art. 7). À Kinshasa, la mise à disposition gratuite d'un bâtiment/terrain à usage professionnel suit un tarif minima propre, distinct de celui de la Loi 83/004 : 20 USD/m² (1er rang), 15 USD/m² (2e rang), 10 USD/m² (3e rang), 5 USD/m² (4e rang) — Arrêté n°015/2023, Art. 4.</p>
           </div>
         </ResultatWrap>
       )}
@@ -190,49 +226,48 @@ function OngletIRL() {
 // ONGLET 2 : IF : Impôt Foncier
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Barèmes IF (forfait annuel par catégorie : Art. 13 CGI, modifiable par edit budgétaire provincial)
-const BAREMES_IF: Record<string, { label: string; bati: { rang: string; montant: number }[]; nonBati: { rang: string; montant: number }[] }> = {
+// Barème IF vérifié — Ville-province de Kinshasa : Arrêté du Ministre Provincial
+// des Finances et Économie n°017/CAB/MIN.PROV/FIN.ECO/2023 du 07/12/2023
+// (modifiant l'Arrêté n°007/CAB/MIN.PROV/FIN.ECO/2022 du 30/03/2022), Annexe —
+// J.O. RDC, numéro spécial du 14 décembre 2023, en vigueur depuis le 1er janvier
+// 2024. Montants fixés en USD, acquittés en FC au taux officiel du jour du paiement.
+// PM = personnes morales autres que sociétés immobilières (taux $/m²) ;
+// Société immo = sociétés immobilières (taux $/m², plus élevé) ;
+// PP = personnes physiques (forfait par immeuble, indépendant de la superficie).
+type LigneIF = { rang: string; pm: number; societeImmo: number; pp: number }
+const BAREMES_IF: Record<string, { label: string; type: 'batie' | 'terrain'; lignes: LigneIF[] }> = {
   villa: {
-    label: 'Villas (superficie bâtie en m²)',
-    bati: [
-      { rang: 'Rang 1', montant: 1200 },
-      { rang: 'Rang 2', montant: 900 },
-      { rang: 'Rang 3', montant: 600 },
-      { rang: 'Rang 4', montant: 300 },
+    label: "Villas et immeubles autres qu'à étages",
+    type: 'batie',
+    lignes: [
+      { rang: '1er rang', pm: 3.5, societeImmo: 8, pp: 450 },
+      { rang: '2e rang', pm: 2.5, societeImmo: 5, pp: 150 },
+      { rang: '3e rang', pm: 2, societeImmo: 4, pp: 50 },
+      { rang: '4e rang', pm: 1.5, societeImmo: 3, pp: 10 },
     ],
-    nonBati: []
   },
-  immeuble: {
-    label: "Immeubles / bâtiments à usage d'habitation",
-    bati: [
-      { rang: 'Rang 1', montant: 80000 },
-      { rang: 'Rang 2', montant: 50000 },
-      { rang: 'Rang 3', montant: 30000 },
-      { rang: 'Rang 4', montant: 15000 },
+  appartement: {
+    label: 'Appartements',
+    type: 'batie',
+    lignes: [
+      { rang: '1er rang', pm: 3.5, societeImmo: 8, pp: 450 },
+      { rang: '2e rang', pm: 2.5, societeImmo: 5, pp: 150 },
+      { rang: '3e rang', pm: 2, societeImmo: 4, pp: 50 },
+      { rang: '4e rang', pm: 1.5, societeImmo: 3, pp: 10 },
     ],
-    nonBati: []
-  },
-  commercial: {
-    label: 'Immeubles à usage commercial / industriel',
-    bati: [
-      { rang: 'Rang 1', montant: 150000 },
-      { rang: 'Rang 2', montant: 100000 },
-      { rang: 'Rang 3', montant: 70000 },
-      { rang: 'Rang 4', montant: 40000 },
-    ],
-    nonBati: []
   },
   terrain: {
-    label: 'Terrain non bâti (en milieu urbain)',
-    bati: [],
-    nonBati: [
-      { rang: 'Rang 1', montant: 50 },
-      { rang: 'Rang 2', montant: 30 },
-      { rang: 'Rang 3', montant: 20 },
-      { rang: 'Rang 4', montant: 10 },
-    ]
-  }
+    label: 'Terrains non bâtis (1er palier, ≤ 5 000 m²)',
+    type: 'terrain',
+    lignes: [
+      { rang: '1er rang', pm: 1, societeImmo: 4, pp: 250 },
+      { rang: '2e rang', pm: 0.5, societeImmo: 3, pp: 50 },
+      { rang: '3e rang', pm: 0.3, societeImmo: 2, pp: 16.5 },
+      { rang: '4e rang', pm: 0.15, societeImmo: 1, pp: 10 },
+    ],
+  },
 }
+type TypeProprietaire = 'pm' | 'societeImmo' | 'pp'
 
 
 const RANGS_LOCALITES: Record<string, { titre: string; kinshasa: string; autres: string }> = {
@@ -261,34 +296,38 @@ const RANGS_LOCALITES: Record<string, { titre: string; kinshasa: string; autres:
 function OngletIF() {
   const [categorie, setCategorie] = useState('villa')
   const [rangIndex, setRangIndex] = useState('0')
+  const [typeProp, setTypeProp] = useState<TypeProprietaire>('pp')
   const [superficie, setSuperficie] = useState('')
   const [res, setRes] = useState<any>(null)
 
   const cat = BAREMES_IF[categorie]
-  const lignes = categorie === 'terrain' ? cat.nonBati : cat.bati
-  const rang = lignes[parseInt(rangIndex)]
+  const rang = cat.lignes[parseInt(rangIndex)]
+  const needSuperficie = typeProp !== 'pp'
 
   function calculer() {
     if (!rang) return
-    const s = parseFloat(superficie) || 0
     let impot = 0
     let detail = ''
-    if (categorie === 'villa') {
-      impot = s * rang.montant
-      detail = `${s} m² × ${rang.montant.toLocaleString('fr-FR')} FC/m²`
-    } else if (categorie === 'terrain') {
-      impot = s * rang.montant
-      detail = `${s} m² × ${rang.montant.toLocaleString('fr-FR')} FC/m²`
+    if (typeProp === 'pp') {
+      impot = rang.pp
+      detail = `Forfait par immeuble (${rang.rang})`
     } else {
-      // Forfait fixe pour immeubles
-      impot = rang.montant
-      detail = `Forfait annuel : ${rang.rang}`
+      const s = parseFloat(superficie) || 0
+      const tauxM2 = typeProp === 'pm' ? rang.pm : rang.societeImmo
+      if (cat.type === 'terrain' && s > 5000) {
+        // Palier : taux plein jusqu'à 5 000 m², puis 50% du taux sur le surplus (Art. 1er palier, Annexe B)
+        impot = 5000 * tauxM2 + (s - 5000) * tauxM2 * 0.5
+        detail = `5 000 m² × ${tauxM2} USD + ${(s - 5000).toLocaleString('fr-FR')} m² × ${tauxM2} USD × 50% (surplus)`
+      } else {
+        impot = s * tauxM2
+        detail = `${s} m² × ${tauxM2} USD/m²`
+      }
     }
-    setRes({ categorie, rang: rang.rang, superficie: s, impot, detail })
+    setRes({ categorie, rang: rang.rang, typeProp, superficie: parseFloat(superficie) || 0, impotUSD: impot, detail })
   }
   function reset() { setSuperficie(''); setRes(null) }
 
-  const needSuperficie = categorie === 'villa' || categorie === 'terrain'
+  const LABEL_TYPE: Record<TypeProprietaire, string> = { pm: 'Personne morale (hors société immobilière)', societeImmo: 'Société immobilière', pp: 'Personne physique (forfait)' }
 
   return (
     <div className="space-y-4">
@@ -299,12 +338,13 @@ function OngletIF() {
         <p className="text-xs mt-1">Rétrocédé aux ETD : impôt provincial et local.</p>
       </DefBox>
 
-      <div className="rounded-xl border border-red-200 bg-red-50 p-3">
-        <p className="text-sm text-red-700 font-semibold mb-1">⚠️ Barème non vérifié</p>
-        <p className="text-sm text-red-700">L'Art. 13 fixe l'impôt foncier « à titre d'impôt forfaitaire annuel dont le montant varie suivant la nature des immeubles et le rang des localités », mais le barème chiffré par rang de localité n'a pas été retrouvé dans le texte source consulté. Les montants ci-dessous ne sont donc <strong>pas confirmés</strong> par la loi : à vérifier obligatoirement auprès de l'édit budgétaire de la province concernée avant tout usage engageant.</p>
+      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+        <p className="text-sm text-emerald-800 font-semibold mb-1">✓ Barème vérifié — Ville-province de Kinshasa</p>
+        <p className="text-sm text-emerald-700">Source : Arrêté du Ministre Provincial des Finances et Économie n°017/CAB/MIN.PROV/FIN.ECO/2023 du 07 décembre 2023 (modifiant l'Arrêté n°007/CAB/MIN.PROV/FIN.ECO/2022 du 30 mars 2022), Annexe — J.O. RDC, numéro spécial du 14 décembre 2023, en vigueur depuis le 1er janvier 2024. Montants fixés en <strong>USD</strong>, acquittés en FC au taux officiel du jour du paiement.</p>
+        <p className="text-sm text-emerald-700 mt-1">Ce barème est <strong>propre à la ville-province de Kinshasa</strong> : chaque province fixe le sien par son propre édit/arrêté budgétaire (Art. 204 al. 16 Constitution). Le simulateur ci-dessous ne couvre que « villas et immeubles autres qu'à étages », « appartements » et « terrains non bâtis » ; les immeubles à étage (rez-de-chaussée + 50% de l'impôt par étage) et les « autres constructions » (Art. 3 : hangars, guérites, piscines…) suivent un barème par palier propre, non repris ici.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <SelectField
           label="Catégorie de bien"
           value={categorie}
@@ -315,13 +355,19 @@ function OngletIF() {
           label="Rang de localité"
           value={rangIndex}
           onChange={v => { setRangIndex(v); setRes(null) }}
-          options={lignes.map((l, i) => ({ value: String(i), label: l.rang }))}
+          options={cat.lignes.map((l, i) => ({ value: String(i), label: l.rang }))}
+        />
+        <SelectField
+          label="Nature du propriétaire"
+          value={typeProp}
+          onChange={v => { setTypeProp(v as TypeProprietaire); setRes(null) }}
+          options={(['pp', 'pm', 'societeImmo'] as TypeProprietaire[]).map(t => ({ value: t, label: LABEL_TYPE[t] }))}
         />
       </div>
 
       {needSuperficie && (
         <InputField
-          label={categorie === 'terrain' ? 'Superficie du terrain (m²)' : 'Superficie bâtie (m²)'}
+          label={cat.type === 'terrain' ? 'Superficie du terrain (m²)' : 'Superficie bâtie (m²)'}
           value={superficie}
           onChange={setSuperficie}
           placeholder="Ex : 250"
@@ -341,11 +387,12 @@ function OngletIF() {
             <div className="px-3 py-2.5 space-y-1.5">
               <LigneR label="Catégorie" val={BAREMES_IF[res.categorie].label} />
               <LigneR label="Localité" val={res.rang} />
+              <LigneR label="Propriétaire" val={LABEL_TYPE[res.typeProp as TypeProprietaire]} />
               {needSuperficie && <LigneR label="Superficie" val={`${res.superficie} m²`} />}
-              <LigneR label={`IF annuel = ${res.detail}`} val={formatFC(res.impot)} bold />
+              <LigneR label={`IF annuel = ${res.detail}`} val={formatUSD(res.impotUSD)} bold />
             </div>
           </div>
-          <BoxFinal label="Impôt Foncier annuel dû" val={formatFC(res.impot)} />
+          <BoxFinal label="Impôt Foncier annuel dû" val={formatUSD(res.impotUSD)} />
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
             <p className="text-sm text-amber-700 font-semibold mb-1">Règles pratiques (Art. 21 &amp; 23)</p>
             <ul className="text-sm text-amber-700 space-y-0.5 list-disc list-inside">
@@ -374,7 +421,7 @@ function OngletIF() {
       <div className="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
         <div className="px-3 py-2 bg-slate-100 border-b border-slate-200">
           <p className="text-sm font-bold text-slate-700">Classement des localités par rang (référence)</p>
-          <p className="text-sm text-slate-500 mt-0.5">Arrêté ministériel n°019/CAB/MIN/FIN/97 du 08 oct. 1997 · OL n°69-006 du 10 fév. 1969</p>
+          <p className="text-sm text-slate-500 mt-0.5">Classement Kinshasa vérifié : Arrêté n°017/CAB/MIN.PROV/FIN.ECO/2023 du 07/12/2023, Art. 13 (liste complète par commune/quartier, J.O. du 14/12/2023) · Classement des autres provinces : indicatif, non vérifié · OL n°69-006 du 10 fév. 1969</p>
         </div>
         <div className="divide-y divide-slate-200">
           {[
