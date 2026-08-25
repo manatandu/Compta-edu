@@ -11,6 +11,10 @@ name: Sauvegarde des données Firestore
 #
 # Restauration : gcloud firestore import gs://.../firestore-backups/<horodatage>
 # (voir la documentation Firestore "Importer et exporter des données").
+#
+# Bucket dédié (et non le bucket d'assets campus-ohada.firebasestorage.app,
+# situé en us-east1) : Firestore exige que le bucket de destination soit dans
+# la MÊME région que la base — la base de ce projet est en eu/europe-west1.
 # ─────────────────────────────────────────────────────────────────────────────
 
 on:
@@ -30,8 +34,14 @@ jobs:
       - name: Installer gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
+      - name: Créer le bucket de sauvegarde s'il n'existe pas encore
+        run: |
+          gcloud storage buckets describe gs://campus-ohada-firestore-backups >/dev/null 2>&1 || \
+          gcloud storage buckets create gs://campus-ohada-firestore-backups \
+            --project=campus-ohada --location=eu --uniform-bucket-level-access
+
       - name: Exporter Firestore vers Cloud Storage
         run: |
           HORODATAGE=$(date -u +%Y-%m-%d_%Hh%M)
-          gcloud firestore export "gs://campus-ohada.firebasestorage.app/firestore-backups/$HORODATAGE" \
+          gcloud firestore export "gs://campus-ohada-firestore-backups/$HORODATAGE" \
             --project=campus-ohada
