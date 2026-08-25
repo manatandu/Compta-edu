@@ -66,11 +66,11 @@ const LECONS: Lecon[] = [
 
         <p className="font-semibold">1.2 La procédure préalable aux poursuites (Art. 271)</p>
         <div className="rounded-xl border border-border bg-muted/30 p-3">
-          <p className="text-xs font-semibold mb-1">Art. 271 AUSCGIE — Condition préalable impérative</p>
+          <p className="text-xs font-semibold mb-1">Art. 271 AUSCGIE - Condition préalable impérative</p>
           <p className="text-xs text-muted-foreground">Avant de poursuivre un associé personnellement, le créancier doit : (1) mettre en demeure la société par acte d'huissier ou moyen traçable, et (2) attendre 60 jours sans paiement. Le juge peut proroger jusqu'à 30 jours supplémentaires. Sans cette mise en demeure, les poursuites contre les associés sont <strong>irrecevables</strong>.</p>
         </div>
 
-        <p className="font-semibold">1.3 L'intuitu personae — principe cardinal</p>
+        <p className="font-semibold">1.3 L'intuitu personae - principe cardinal</p>
         <p>
           Le principe d'intuitu personae (en considération de la personne) est le fondement philosophique de la SNC. Il explique les règles strictes en matière de cession (unanimité requise), de décès (dissolution en principe), et d'information (tout associé peut contrôler la gestion).
         </p>
@@ -163,7 +163,7 @@ const LECONS: Lecon[] = [
         </p>
 
         <div className="rounded-xl border border-border bg-card p-3">
-          <p className="text-xs font-semibold mb-2">Formalités de cession (Art. 275) — trois voies possibles</p>
+          <p className="text-xs font-semibold mb-2">Formalités de cession (Art. 275) - trois voies possibles</p>
           <div className="space-y-2">
             {[
               { num: "1", title: "Signification par acte d'huissier", desc: "Notification formelle à la société par acte extrajudiciaire. Voie la plus sécurisante juridiquement." },
@@ -197,7 +197,7 @@ const LECONS: Lecon[] = [
                 ["Aucune clause statutaire", "Tous les associés sont gérants de droit", "Art. 276 al. 3"],
                 ["Pouvoirs externes (vis-à-vis des tiers)", "Engage la société pour tout acte dans l'objet social", "Art. 277-1"],
                 ["Clauses limitant les pouvoirs du gérant", "Inopposables aux tiers de bonne foi", "Art. 277-1"],
-                ["Révocation gérant statutaire (associé)", "Unanimité des autres associés — peut entraîner dissolution", "Art. 279"],
+                ["Révocation gérant statutaire (associé)", "Unanimité des autres associés - peut entraîner dissolution", "Art. 279"],
                 ["Révocation gérant non statutaire", "Majorité en nombre et capital", "Art. 280"],
                 ["Révocation sans justes motifs", "Droit à dommages et intérêts pour le gérant", "Art. 281"],
               ].map(([sit, regle, art], i) => (
@@ -214,12 +214,12 @@ const LECONS: Lecon[] = [
         <p className="font-semibold">2.3 Rémunération du gérant (Art. 278)</p>
         <ul className="space-y-1.5 text-muted-foreground">
           <li className="flex items-start gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong>Gérant non-associé :</strong> rémunération fixée par les associés à la majorité en nombre et en capital (Art. 278 al. 1).</span></li>
-          <li className="flex items-start gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong>Gérant associé :</strong> rémunération fixée par la majorité des AUTRES associés — le gérant ne vote pas sur sa propre rémunération (Art. 278 al. 2). Délibération contraire = nulle (Art. 278 al. 3).</span></li>
+          <li className="flex items-start gap-2"><span className="text-slate-500 shrink-0">•</span><span><strong>Gérant associé :</strong> rémunération fixée par la majorité des AUTRES associés - le gérant ne vote pas sur sa propre rémunération (Art. 278 al. 2). Délibération contraire = nulle (Art. 278 al. 3).</span></li>
         </ul>
 
         <p className="font-semibold">2.4 Droit de retrait du gérant révoqué (Art. 280)</p>
         <p>
-          Le gérant-associé révoqué peut se retirer et demander le remboursement de ses parts. Valeur fixée par accord ou, à défaut, par un expert désigné par le juge à bref délai. Si la révocation est sans juste motif, le gérant a en plus droit à des dommages et intérêts (Art. 281) — ces droits sont cumulables.
+          Le gérant-associé révoqué peut se retirer et demander le remboursement de ses parts. Valeur fixée par accord ou, à défaut, par un expert désigné par le juge à bref délai. Si la révocation est sans juste motif, le gérant a en plus droit à des dommages et intérêts (Art. 281) - ces droits sont cumulables.
         </p>
       </div>
     ),
@@ -388,7 +388,7 @@ const LECONS: Lecon[] = [
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div className="rounded-xl border border-red-200 bg-red-50/50 p-3">
-            <p className="text-xs font-semibold text-red-700 mb-2">Commandités — Associés actifs</p>
+            <p className="text-xs font-semibold text-red-700 mb-2">Commandités - Associés actifs</p>
             <ul className="space-y-1 text-xs text-muted-foreground">
               {[
                 "Statut identique aux associés SNC (commerçants)",
@@ -400,11 +400,11 @@ const LECONS: Lecon[] = [
             </ul>
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
-            <p className="text-xs font-semibold text-emerald-700 mb-2">Commanditaires — Investisseurs passifs</p>
+            <p className="text-xs font-semibold text-emerald-700 mb-2">Commanditaires - Investisseurs passifs</p>
             <ul className="space-y-1 text-xs text-muted-foreground">
               {[
                 "Responsabilité limitée strictement à leurs apports",
-                "Aucun acte de gestion externe — même par procuration (Art. 299)",
+                "Aucun acte de gestion externe - même par procuration (Art. 299)",
                 "Avis, conseils, contrôle de surveillance : autorisés (Art. 301)",
                 "Nom JAMAIS dans la dénomination sociale (Art. 294)",
                 "Droit de communication 2 fois/an (Art. 307)",
@@ -534,7 +534,7 @@ const LECONS: Lecon[] = [
               {[
                 ["AG de droit peut être demandée par", "Un commandité OU 1/4 en nb et capital des commanditaires", "Art. 302 al. 3"],
                 ["Modifications des statuts", "Unanimité des commandités + majorité en nb et capital des commanditaires", "Art. 305"],
-                ["AG annuelle (comptes)", "Dans 6 mois clôture — quorum : 1/2 du capital", "Art. 306"],
+                ["AG annuelle (comptes)", "Dans 6 mois clôture - quorum : 1/2 du capital", "Art. 306"],
                 ["Droit de communication annuel", "2 fois/an pour commanditaires ET commandités non gérants", "Art. 307"],
               ].map(([dec, regle, art], i) => (
                 <tr key={i} className="even:bg-muted/20">
@@ -609,7 +609,7 @@ const LECONS: Lecon[] = [
         question: "Que se passe-t-il lors du décès d'un associé commanditaire dans une SCS ?",
         options: [
           { id: 'a', texte: "La SCS est dissoute de plein droit" },
-          { id: 'b', texte: "La SCS continue — le décès d'un commanditaire ne met pas fin à la société (Art. 308)" },
+          { id: 'b', texte: "La SCS continue - le décès d'un commanditaire ne met pas fin à la société (Art. 308)" },
           { id: 'c', texte: "Les héritiers doivent obligatoirement être agréés par les commandités" },
           { id: 'd', texte: "La SCS doit être transformée en SNC dans 1 an" },
         ],
@@ -662,9 +662,9 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
   {
     id: 'ec2',
     titre: 'SCS KIVU INVEST : immixtion du commanditaire',
-    contexte: "La SCS KIVU INVEST a un commandité (MUTOMBO) et deux commanditaires (TSHIMANGA — 80% du capital, KAYEMBE — 20%). Mécontent de la gestion de MUTOMBO, TSHIMANGA prend trois initiatives : (A) il envoie une note de conseils stratégiques, (B) il signe seul un contrat d'approvisionnement de 5 000 USD, (C) il consulte les livres de comptes deux fois dans l'année avec préavis de 15 jours.",
+    contexte: "La SCS KIVU INVEST a un commandité (MUTOMBO) et deux commanditaires (TSHIMANGA - 80% du capital, KAYEMBE - 20%). Mécontent de la gestion de MUTOMBO, TSHIMANGA prend trois initiatives : (A) il envoie une note de conseils stratégiques, (B) il signe seul un contrat d'approvisionnement de 5 000 USD, (C) il consulte les livres de comptes deux fois dans l'année avec préavis de 15 jours.",
     questions: [
-      { num: 1, enonce: "Analyser chacune des trois actions de TSHIMANGA", correction: "(A) Autorisé — L'Art. 301 AUSCGIE autorise les avis et conseils, qui ne constituent pas une gestion externe. (B) INTERDIT — L'Art. 299 interdit tout acte de gestion externe même par procuration. TSHIMANGA devient responsable indéfiniment et solidairement des engagements de cet acte (Art. 300). (C) Autorisé — Le droit de communication de l'Art. 307 permet aux commanditaires de contrôler la gestion sans gérer eux-mêmes. Avec le préavis de 15 jours, la procédure est parfaitement régulière." },
+      { num: 1, enonce: "Analyser chacune des trois actions de TSHIMANGA", correction: "(A) Autorisé - L'Art. 301 AUSCGIE autorise les avis et conseils, qui ne constituent pas une gestion externe. (B) INTERDIT - L'Art. 299 interdit tout acte de gestion externe même par procuration. TSHIMANGA devient responsable indéfiniment et solidairement des engagements de cet acte (Art. 300). (C) Autorisé - Le droit de communication de l'Art. 307 permet aux commanditaires de contrôler la gestion sans gérer eux-mêmes. Avec le préavis de 15 jours, la procédure est parfaitement régulière." },
     ],
     articleRef: 'Art. 299, 300, 301, 307 AUSCGIE',
   },
@@ -674,7 +674,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
     contexte: "La SNC BUKAVU NEGOCE doit 10 000 USD à RAWINDO. Sans paiement depuis 3 mois, RAWINDO veut poursuivre KEZA, l'une des trois associées. RAWINDO n'a pas encore formellement mis en demeure la société. Il envisage : (1) d'agir directement contre KEZA aujourd'hui, (2) d'agir dans 45 jours après une mise en demeure par téléphone.",
     questions: [
       { num: 1, enonce: "RAWINDO peut-il agir immédiatement contre KEZA ?", correction: "Non. L'Art. 271 AUSCGIE impose une mise en demeure de la société par acte d'huissier ou moyen traçable, suivie d'un délai de 60 jours sans paiement. Sans cela, les poursuites sont irrecevables, c'est-à-dire rejetées par le juge sans examen au fond." },
-      { num: 2, enonce: "Une mise en demeure par téléphone suffit-elle ? Et après 45 jours ?", correction: "Non — un appel téléphonique ne laisse pas de trace écrite opposable. Il faut un acte d'huissier, lettre recommandée avec AR, télécopie avec accusé, email avec confirmation de lecture. Et même avec une mise en demeure régulière, 45 jours sont insuffisants : le délai minimum légal est de 60 jours." },
+      { num: 2, enonce: "Une mise en demeure par téléphone suffit-elle ? Et après 45 jours ?", correction: "Non - un appel téléphonique ne laisse pas de trace écrite opposable. Il faut un acte d'huissier, lettre recommandée avec AR, télécopie avec accusé, email avec confirmation de lecture. Et même avec une mise en demeure régulière, 45 jours sont insuffisants : le délai minimum légal est de 60 jours." },
     ],
     articleRef: 'Art. 271 AUSCGIE',
   },
@@ -793,7 +793,7 @@ export default function UE2Chapitre3Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 3' },
           ]}
           color="indigo"

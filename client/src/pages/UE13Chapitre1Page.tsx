@@ -37,7 +37,7 @@ type Lecon = {
 
 const LECONS: Lecon[] = [
   // ─────────────────────────────────────────────────────────────────
-  // LECON 1 — Pourquoi les IFRS ?
+  // LECON 1 - Pourquoi les IFRS ?
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l1',
@@ -88,7 +88,7 @@ const LECONS: Lecon[] = [
         </ul>
 
         <div className="rounded-xl border border-border bg-muted/30 p-4 mt-2">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Cadre conceptuel IASB — Objectif fondamental</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Cadre conceptuel IASB - Objectif fondamental</p>
           <p className="italic text-foreground/80 text-xs">
             "L'objectif de l'information financière à usage général est de fournir, au sujet de l'entité présentant l'information financière, des informations utiles aux investisseurs actuels et potentiels, aux prêteurs et aux autres créanciers, pour les aider à prendre des décisions concernant la fourniture de ressources à l'entité."
           </p>
@@ -99,7 +99,7 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 2 — De la crise de 1929 à l'IASC : naissance du modèle anglo-saxon
+  // LECON 2 - De la crise de 1929 à l'IASC : naissance du modèle anglo-saxon
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l2',
@@ -207,7 +207,7 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 3 — Logique investisseurs vs logique fiscale : IFRS vs SYSCOHADA
+  // LECON 3 - Logique investisseurs vs logique fiscale : IFRS vs SYSCOHADA
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l3',
@@ -290,7 +290,7 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 4 — Architecture institutionnelle : IFRS Foundation, IASB, ISSB
+  // LECON 4 - Architecture institutionnelle : IFRS Foundation, IASB, ISSB
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l4',
@@ -309,7 +309,7 @@ const LECONS: Lecon[] = [
 
         <div className="space-y-3">
           <div className="rounded-xl border border-border bg-muted/20 p-3">
-            <p className="font-semibold text-foreground text-xs uppercase mb-1">1. Le Conseil de surveillance (Monitoring Board) — créé en 2009</p>
+            <p className="font-semibold text-foreground text-xs uppercase mb-1">1. Le Conseil de surveillance (Monitoring Board) - créé en 2009</p>
             <p className="text-xs text-foreground/80">
               Organe de <strong>supervision de la gouvernance</strong> de l'IASB, créé après la crise financière mondiale de 2008 pour renforcer la légitimité et la crédibilité des normes IFRS. Il <strong>ne rédige pas les normes</strong> et n'intervient pas dans les décisions techniques. Ses missions : superviser la gouvernance de la Fondation IFRS, nommer et approuver les administrateurs, veiller à l'indépendance de l'IASB, renforcer la confiance des autorités publiques dans les IFRS.
             </p>
@@ -321,7 +321,7 @@ const LECONS: Lecon[] = [
             </p>
           </div>
           <div className="rounded-xl border border-border bg-muted/20 p-3">
-            <p className="font-semibold text-foreground text-xs uppercase mb-1">3. L'IASB (International Accounting Standards Board) — créé en 2001</p>
+            <p className="font-semibold text-foreground text-xs uppercase mb-1">3. L'IASB (International Accounting Standards Board) - créé en 2001</p>
             <p className="text-xs text-foreground/80">
               Organe technique chargé de <strong>dresser l'ordre du jour technique, d'approuver les normes (IFRS), les exposés-sondages et les interprétations</strong>. Composé de 14 membres indépendants représentant la diversité géographique mondiale. C'est l'organe qui rédige et publie les normes IAS/IFRS.
             </p>
@@ -338,7 +338,7 @@ const LECONS: Lecon[] = [
         <p>
           En 2021, la IFRS Foundation a créé l'<strong>ISSB (International Sustainability Standards Board)</strong>
           <InfoTooltip texte="L'ISSB a été créé lors de la COP26 (Glasgow, novembre 2021) pour répondre à la demande croissante des marchés financiers en matière d'informations sur les risques climatiques et de durabilité. Il opère en parallèle de l'IASB, avec la même structure de gouvernance." loi="Annonce IFRS Foundation, COP26, novembre 2021" />
-          {' '}pour développer des normes mondiales d'information en matière de durabilité. Ses premières normes — <strong>IFRS S1</strong> (informations générales sur la durabilité) et <strong>IFRS S2</strong> (informations sur les risques climatiques) — ont été publiées en juin 2023 et sont en cours d'adoption dans plus de 36 juridictions en 2025-2026.
+          {' '}pour développer des normes mondiales d'information en matière de durabilité. Ses premières normes - <strong>IFRS S1</strong> (informations générales sur la durabilité) et <strong>IFRS S2</strong> (informations sur les risques climatiques) - ont été publiées en juin 2023 et sont en cours d'adoption dans plus de 36 juridictions en 2025-2026.
         </p>
         <div className="rounded-xl border border-sky-200 bg-sky-50/60 p-3 mt-2">
           <p className="text-xs font-semibold text-sky-700 mb-1">Actualité 2025-2026</p>
@@ -358,9 +358,9 @@ const LECONS: Lecon[] = [
             </thead>
             <tbody>
               {[
-                ["1973", "Création de l'IASC — publication des premières normes IAS"],
+                ["1973", "Création de l'IASC - publication des premières normes IAS"],
                 ["1980-1990", "Limites des IAS : trop flexibles, pas contraignantes, trop de choix alternatifs"],
-                ["2001", "Transformation en IASB — gouvernance renforcée, normes plus rigoureuses"],
+                ["2001", "Transformation en IASB - gouvernance renforcée, normes plus rigoureuses"],
                 ["2001+", "Naissance des IFRS : les nouvelles normes s'appellent IFRS ; les IAS restent valables tant qu'elles ne sont pas remplacées"],
                 ["2005", "Adoption obligatoire des IFRS pour les sociétés cotées en Union européenne"],
                 ["2009", "Création du Conseil de surveillance (Monitoring Board) après la crise de 2008"],
@@ -382,7 +382,7 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 5 — Le processus d'élaboration d'une norme IFRS (Due Process)
+  // LECON 5 - Le processus d'élaboration d'une norme IFRS (Due Process)
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l5',
@@ -393,7 +393,7 @@ const LECONS: Lecon[] = [
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <p>
           Le <strong>Due Process</strong>
-          <InfoTooltip texte="Le Due Process (procédure régulière) est le mécanisme par lequel l'IASB développe ses normes de manière transparente, participative et rigoureuse. Il garantit que toutes les parties prenantes — entreprises, auditeurs, régulateurs, investisseurs — peuvent commenter et influencer les normes avant leur adoption finale." loi="IFRS Foundation Due Process Handbook" />
+          <InfoTooltip texte="Le Due Process (procédure régulière) est le mécanisme par lequel l'IASB développe ses normes de manière transparente, participative et rigoureuse. Il garantit que toutes les parties prenantes - entreprises, auditeurs, régulateurs, investisseurs - peuvent commenter et influencer les normes avant leur adoption finale." loi="IFRS Foundation Due Process Handbook" />
           {' '}est le processus officiel par lequel l'IASB élabore ou révise ses normes IFRS. Il garantit la légitimité et la qualité des normes par une procédure <strong>transparente, ouverte et participative</strong>. Ce processus comporte <strong>6 étapes obligatoires</strong>.
         </p>
         <p>
@@ -415,7 +415,7 @@ const LECONS: Lecon[] = [
             {
               num: "03",
               titre: "Publication de l'exposé-sondage (Exposure Draft)",
-              detail: "L'IASB publie un projet de norme — l'Exposé-Sondage (ED) — qui présente les dispositions proposées. Toute personne ou organisation peut soumettre des commentaires écrits. Ce processus de consultation publique est ouvert à tous : entreprises, cabinets d'audit, gouvernements, universités."
+              detail: "L'IASB publie un projet de norme - l'Exposé-Sondage (ED) - qui présente les dispositions proposées. Toute personne ou organisation peut soumettre des commentaires écrits. Ce processus de consultation publique est ouvert à tous : entreprises, cabinets d'audit, gouvernements, universités."
             },
             {
               num: "04",
@@ -455,7 +455,7 @@ const LECONS: Lecon[] = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // LECON 6 — Le cadre conceptuel de l'IASB
+  // LECON 6 - Le cadre conceptuel de l'IASB
   // ─────────────────────────────────────────────────────────────────
   {
     id: 'l6',
@@ -466,7 +466,7 @@ const LECONS: Lecon[] = [
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <p>
           Le <strong>Cadre conceptuel</strong>
-          <InfoTooltip texte="Le cadre conceptuel de l'IASB (révisé en 2018) n'est pas une norme IFRS. Il ne prime pas sur les normes spécifiques. Toutefois, en l'absence de norme applicable à une situation donnée, le cadre conceptuel constitue le premier guide d'interprétation et de raisonnement comptable." loi="Cadre conceptuel IASB — Introduction" />
+          <InfoTooltip texte="Le cadre conceptuel de l'IASB (révisé en 2018) n'est pas une norme IFRS. Il ne prime pas sur les normes spécifiques. Toutefois, en l'absence de norme applicable à une situation donnée, le cadre conceptuel constitue le premier guide d'interprétation et de raisonnement comptable." loi="Cadre conceptuel IASB - Introduction" />
           {' '}constitue le <strong>socle théorique des normes IFRS</strong>. Il ne s'agit pas d'une norme, mais d'un référentiel intellectuel qui guide l'IASB dans l'élaboration et la révision des normes, aide les préparateurs à résoudre les situations non couvertes par une norme spécifique, et favorise la cohérence et la logique d'ensemble des IFRS.
         </p>
         <p>
@@ -733,14 +733,14 @@ const QUESTIONS_QCM: QCMQuestion[] = [
     ],
     reponseCorrecte: 'c',
     explication: "L'Union européenne a rendu l'application des IFRS obligatoire pour les comptes consolidés des sociétés cotées sur un marché réglementé européen à compter des exercices ouverts à partir du 1er janvier 2005. C'est un moment charnière de l'histoire de la normalisation comptable internationale.",
-    articleRef: "Règlement CE n° 1606/2002 — Cadre IASB §3.2"
+    articleRef: "Règlement CE n° 1606/2002 - Cadre IASB §3.2"
   },
   {
     type: 'qcm', id: 'q12',
     question: "Quel est le rôle exact du Monitoring Board (Conseil de surveillance) dans la gouvernance de l'IASB ?",
     options: [
       { id: 'a', texte: "Rédiger et approuver les normes IFRS en cas de désaccord entre les membres de l'IASB" },
-      { id: 'b', texte: "Superviser la gouvernance de la Fondation IFRS, nommer les administrateurs, veiller à l'indépendance de l'IASB — sans intervenir dans le contenu technique des normes" },
+      { id: 'b', texte: "Superviser la gouvernance de la Fondation IFRS, nommer les administrateurs, veiller à l'indépendance de l'IASB - sans intervenir dans le contenu technique des normes" },
       { id: 'c', texte: "Publier les interprétations officielles des normes IFRS (rôle de l'IFRIC)" },
       { id: 'd', texte: "Imposer aux entreprises des sanctions financières en cas de non-respect des IFRS" },
       { id: 'e', texte: "Réviser les exposés-sondages avant leur publication officielle" },
@@ -756,14 +756,14 @@ const QUESTIONS_QCM: QCMQuestion[] = [
 // ─────────────────────────────────────────────────────────────────
 const ETUDES_DE_CAS: EtudeDeCasRaw[] = [
   {
-    titre: "Cas 1 — La crise informationnelle de 1929 et ses enseignements pour aujourd'hui",
+    titre: "Cas 1 - La crise informationnelle de 1929 et ses enseignements pour aujourd'hui",
     contexte: "En 1929, les bourses mondiales s'effondrent. L'analyse historique révèle que de nombreuses entreprises cotées aux États-Unis publiaient des états financiers non audités, avec des résultats manipulés et aucune règle commune encadrant leur présentation. Les investisseurs ne pouvaient pas distinguer les entreprises solvables des entreprises en faillite imminente.",
     questions: [
       { num: 1, enonce: "Expliquez en quoi la crise de 1929 était aussi une crise de l'information comptable et non pas uniquement une crise boursière. Quels mécanismes spécifiques liés à l'absence de normalisation comptable ont amplifié la panique financière ?", correction: "La crise de 1929 était aussi une crise de l'information comptable car les entreprises cotées publiaient des états non audités, manipulaient leurs résultats et aucune règle commune n'encadrait la présentation des comptes. Sans information fiable et comparable, les investisseurs ne pouvaient évaluer la solidité réelle des entreprises, ce qui a amplifié la panique lorsque les premières faillites sont survenues. L'absence de normalisation supprimait tout mécanisme d'alerte précoce." },
       { num: 2, enonce: "Quelles réformes institutionnelles américaines ont été adoptées entre 1933 et 1934 en réponse à cette crise ? En quoi ces réformes constituent-elles le fondement de la logique IFRS actuelle ?", correction: "Le Securities Act (1933) a imposé la transparence pour les offres publiques de valeurs mobilières. Le Securities Exchange Act (1934) a créé la SEC (Securities and Exchange Commission) pour réguler les marchés. Ces lois ont fondé trois principes qui sont au cœur de la logique IFRS : protection de l'investisseur comme objectif premier, transparence financière obligatoire, et indépendance des normes comptables vis-à-vis de l'État fiscal." },
       { num: 3, enonce: "Un pays africain membre de l'OHADA connaît aujourd'hui une situation similaire : ses entreprises cotées publient des comptes peu fiables qui découragent l'investissement étranger. Sur la base des enseignements de 1929 et de la logique IFRS, quelles mesures institutionnelles recommanderiez-vous ?", correction: "Sur la base des enseignements de 1929 : (1) Rendre l'audit légal obligatoire pour toutes les sociétés cotées ; (2) Créer un régulateur boursier indépendant (à l'image de la SEC) chargé d'exiger la publication d'états financiers conformes à un référentiel normalisé ; (3) Adopter les IFRS ou un référentiel équivalent pour les sociétés cotées, garantissant la comparabilité internationale ; (4) Former les professionnels comptables et les auditeurs aux nouvelles normes." },
-      { num: 4, enonce: "Le Cadre conceptuel de l'IASB affirme que la normalisation comptable internationale n'est 'ni neutre ni purement technique'. Analysez cette affirmation à la lumière de l'histoire de la normalisation et du choix en faveur des marchés financiers et de l'investisseur.", correction: "La normalisation IFRS est le produit d'une histoire économique (essor du capitalisme financier, crise de 1929), d'une crise de confiance (opacité des comptes d'entreprises) et d'un choix idéologique en faveur des marchés financiers. En privilégiant l'investisseur comme utilisateur central, l'IASB a fait un choix politique : la comptabilité au service du marché plutôt qu'au service de l'État fiscal. Ce choix n'est pas neutre — il peut désavantager les pays dont les systèmes financiers sont moins développés et dont les investisseurs domestiques sont moins sophistiqués." },
-      { num: 5, enonce: "Le principe 'substance over form' (substance prime sur la forme juridique) est au cœur de la philosophie IFRS. À partir d'exemples concrets tirés de la réalité africaine, montrez comment ce principe peut créer des tensions avec le droit OHADA fondé sur la primauté de la forme juridique.", correction: "Exemples de tensions : (1) Crédit-bail — en OHADA, l'actif appartient juridiquement au bailleur. En IFRS 16, le preneur comptabilise un actif et un passif car il contrôle économiquement l'actif. Tension : l'OHADA ne reconnaît pas cet actif chez le preneur. (2) Cession de créances avec recours — en IFRS 9, si l'entité conserve les risques et avantages, la cession n'est pas reconnue. En droit OHADA, la cession juridique est effective dès la signature. Ces tensions obligent les entreprises à tenir deux jeux de comptes différents selon le référentiel utilisé." }
+      { num: 4, enonce: "Le Cadre conceptuel de l'IASB affirme que la normalisation comptable internationale n'est 'ni neutre ni purement technique'. Analysez cette affirmation à la lumière de l'histoire de la normalisation et du choix en faveur des marchés financiers et de l'investisseur.", correction: "La normalisation IFRS est le produit d'une histoire économique (essor du capitalisme financier, crise de 1929), d'une crise de confiance (opacité des comptes d'entreprises) et d'un choix idéologique en faveur des marchés financiers. En privilégiant l'investisseur comme utilisateur central, l'IASB a fait un choix politique : la comptabilité au service du marché plutôt qu'au service de l'État fiscal. Ce choix n'est pas neutre - il peut désavantager les pays dont les systèmes financiers sont moins développés et dont les investisseurs domestiques sont moins sophistiqués." },
+      { num: 5, enonce: "Le principe 'substance over form' (substance prime sur la forme juridique) est au cœur de la philosophie IFRS. À partir d'exemples concrets tirés de la réalité africaine, montrez comment ce principe peut créer des tensions avec le droit OHADA fondé sur la primauté de la forme juridique.", correction: "Exemples de tensions : (1) Crédit-bail - en OHADA, l'actif appartient juridiquement au bailleur. En IFRS 16, le preneur comptabilise un actif et un passif car il contrôle économiquement l'actif. Tension : l'OHADA ne reconnaît pas cet actif chez le preneur. (2) Cession de créances avec recours - en IFRS 9, si l'entité conserve les risques et avantages, la cession n'est pas reconnue. En droit OHADA, la cession juridique est effective dès la signature. Ces tensions obligent les entreprises à tenir deux jeux de comptes différents selon le référentiel utilisé." }
     ]
   }
 ]

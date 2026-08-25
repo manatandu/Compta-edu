@@ -321,7 +321,7 @@ const lecons = [
   },
   {
     id: 'L7',
-    titre: 'Liens de droit entre sociétés — Filiales, participations et contrôle',
+    titre: 'Liens de droit entre sociétés - Filiales, participations et contrôle',
     ref: 'AUSCGIE Art. 173-180',
   },
 ]
@@ -506,7 +506,7 @@ export default function UE2Chapitre9Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 9' },
           ]}
           color="indigo"
@@ -1212,8 +1212,8 @@ export default function UE2Chapitre9Page() {
                   <p className="text-xs text-amber-800 font-semibold mb-1">Schéma récapitulatif des seuils</p>
                   <div className="space-y-1 text-xs text-amber-700">
                     <p><strong>0% à 10% :</strong> simple détenteur, aucune qualification légale spéciale</p>
-                    <p><strong>10% à 50% :</strong> <em>participation</em> (Art. 173) — obligations d'information</p>
-                    <p><strong>Plus de 50% :</strong> <em>filiale</em> (Art. 174) — obligations de consolidation, restrictions participations réciproques</p>
+                    <p><strong>10% à 50% :</strong> <em>participation</em> (Art. 173) - obligations d'information</p>
+                    <p><strong>Plus de 50% :</strong> <em>filiale</em> (Art. 174) - obligations de consolidation, restrictions participations réciproques</p>
                     <p><strong>Contrôle de fait :</strong> mêmes conséquences juridiques que la filiale (Art. 175)</p>
                   </div>
                 </div>

@@ -188,8 +188,8 @@ const LECONS: Lecon[] = [
                 ["4", "Siège social", "123 Av. des Nations, Kinshasa"],
                 ["5", "Durée", "99 ans à compter de l'immatriculation"],
                 ["6", "Identité des apporteurs en numéraire", "Jean KAMBALE, 5 000 000 FCFA"],
-                ["7", "Identité des apporteurs en nature", "Véhicule Toyota Hilux — 8 000 000 FCFA"],
-                ["8", "Identité des apporteurs en industrie", "Alice MBEKI — expertise comptable"],
+                ["7", "Identité des apporteurs en nature", "Véhicule Toyota Hilux - 8 000 000 FCFA"],
+                ["8", "Identité des apporteurs en industrie", "Alice MBEKI - expertise comptable"],
                 ["9", "Avantages particuliers", "Droit de vote double, dividende prioritaire"],
                 ["10", "Montant du capital social", "10 000 000 FCFA"],
                 ["11", "Nombre et valeur nominale des titres", "1 000 parts de 10 000 FCFA chacune"],
@@ -479,7 +479,7 @@ const LECONS: Lecon[] = [
           <li className="flex items-start gap-2"><span className="text-violet-500 shrink-0">•</span><span><strong>Droit à l'information (Art. 57) :</strong> tout associé peut, à toute époque, consulter les documents sociaux au siège de la société.</span></li>
         </ul>
 
-        <p className="font-semibold">4.3 La clause léonine — interdiction absolue (Art. 54 al. 2)</p>
+        <p className="font-semibold">4.3 La clause léonine - interdiction absolue (Art. 54 al. 2)</p>
         <p>
           Est réputée léonine toute clause qui attribue à un associé la totalité des bénéfices, l'exonère de toute contribution aux pertes, l'exclut de tout partage des bénéfices, ou lui fait supporter la totalité des pertes.
         </p>
@@ -563,13 +563,13 @@ const LECONS: Lecon[] = [
         <p className="font-semibold">5.1 Les 7 étapes de la constitution</p>
         <div className="space-y-2">
           {[
-            { step: "1", title: "Rédaction et signature des statuts", desc: "Acte notarié ou SSP — signatures de tous les fondateurs", art: "Art. 10" },
+            { step: "1", title: "Rédaction et signature des statuts", desc: "Acte notarié ou SSP - signatures de tous les fondateurs", art: "Art. 10" },
             { step: "2", title: "Dépôt des fonds en numéraire", desc: "Versement sur compte bancaire bloqué au nom de la société en formation", art: "Art. 41-45" },
             { step: "3", title: "Évaluation des apports en nature", desc: "Rapport du Commissaire aux Apports si requis (Art. 312)", art: "Art. 46-50" },
             { step: "4", title: "Assemblée constitutive (si SA)", desc: "Réunion des souscripteurs pour approuver les statuts et nommer les premiers dirigeants", art: "Art. 396" },
             { step: "5", title: "Déclaration de régularité et de conformité", desc: "Document signé par les fondateurs attestant le respect de toutes les conditions légales", art: "Art. 73" },
             { step: "6", title: "Dépôt du dossier au RCCM", desc: "Dépôt des statuts, de la déclaration, de l'attestation de dépôt des fonds, du rapport CAA", art: "Art. 27" },
-            { step: "7", title: "Délivrance du certificat d'immatriculation", desc: "La société acquiert la personnalité morale — début de l'existence légale", art: "Art. 97" },
+            { step: "7", title: "Délivrance du certificat d'immatriculation", desc: "La société acquiert la personnalité morale - début de l'existence légale", art: "Art. 97" },
           ].map(({ step, title, desc, art }) => (
             <div key={step} className="flex gap-3 items-start rounded-xl border border-border bg-muted/20 p-3">
               <div className="bg-violet-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0">{step}</div>
@@ -601,11 +601,11 @@ const LECONS: Lecon[] = [
             </thead>
             <tbody>
               {[
-                ["Omission d'une mention obligatoire", "Nullité relative si préjudice prouvé", "Art. 74-1", "Oui — délai raisonnable"],
-                ["Absence de déclaration de régularité", "Rejet de l'immatriculation", "Art. 73", "Oui — dépôt de la déclaration"],
-                ["Absence de rapport CAA requis", "Responsabilité solidaire des fondateurs", "Art. 78", "Possible — désignation d'un CAA"],
+                ["Omission d'une mention obligatoire", "Nullité relative si préjudice prouvé", "Art. 74-1", "Oui - délai raisonnable"],
+                ["Absence de déclaration de régularité", "Rejet de l'immatriculation", "Art. 73", "Oui - dépôt de la déclaration"],
+                ["Absence de rapport CAA requis", "Responsabilité solidaire des fondateurs", "Art. 78", "Possible - désignation d'un CAA"],
                 ["Surévaluation frauduleuse d'un apport", "Responsabilité pénale des fondateurs", "Art. 78", "Non (acte intentionnel)"],
-                ["Clause léonine dans les statuts", "Clause réputée non écrite", "Art. 54 al. 2", "Oui — modification statutaire"],
+                ["Clause léonine dans les statuts", "Clause réputée non écrite", "Art. 54 al. 2", "Oui - modification statutaire"],
               ].map(([irr, sanc, ref, reg], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{irr}</td>
@@ -631,9 +631,9 @@ const LECONS: Lecon[] = [
             </thead>
             <tbody>
               {[
-                ["Acte annexé aux statuts, signé par tous", "Oui — automatique", "Simple immatriculation"],
-                ["Acte avec mandat, non annexé", "Oui — décision expresse", "Vote AG après immatriculation"],
-                ["Acte sans mandat, non annexé", "Oui — décision expresse", "Vote AG — associés libres de refuser"],
+                ["Acte annexé aux statuts, signé par tous", "Oui - automatique", "Simple immatriculation"],
+                ["Acte avec mandat, non annexé", "Oui - décision expresse", "Vote AG après immatriculation"],
+                ["Acte sans mandat, non annexé", "Oui - décision expresse", "Vote AG - associés libres de refuser"],
                 ["Acte non repris par la société", "Non", "Auteur reste seul responsable"],
               ].map(([sit, reprise, modal], i) => (
                 <tr key={i} className="even:bg-muted/20">
@@ -712,9 +712,9 @@ const LECONS: Lecon[] = [
         <p className="font-semibold">6.1 Les supports de publicité</p>
         <div className="space-y-2">
           {[
-            { name: "RCCM", desc: "Support primaire — l'immatriculation est la formalité centrale et obligatoire (Art. 97). Contient les informations officielles de toutes les sociétés immatriculées.", art: "Art. 97" },
+            { name: "RCCM", desc: "Support primaire - l'immatriculation est la formalité centrale et obligatoire (Art. 97). Contient les informations officielles de toutes les sociétés immatriculées.", art: "Art. 97" },
             { name: "Journal habilité (JAL/JO)", desc: "Un avis de constitution doit être publié dans un journal habilité dans les 15 jours suivant l'immatriculation.", art: "Art. 257" },
-            { name: "BODAC", desc: "Bulletin Officiel de Diffusion des Actes de Commerce — outil numérique introduit en 2014. Centralise la publication électronique des actes commerciaux.", art: "Art. 258-1" },
+            { name: "BODAC", desc: "Bulletin Officiel de Diffusion des Actes de Commerce - outil numérique introduit en 2014. Centralise la publication électronique des actes commerciaux.", art: "Art. 258-1" },
           ].map(({ name, desc, art }) => (
             <div key={name} className="rounded-xl border border-border bg-card p-3">
               <p className="text-xs font-semibold text-foreground mb-0.5">{name} <span className="text-muted-foreground font-normal">({art})</span></p>
@@ -751,7 +751,7 @@ const LECONS: Lecon[] = [
           </table>
         </div>
 
-        <p className="font-semibold">6.3 La SAS — spécificités (Art. 853-1 ss.)</p>
+        <p className="font-semibold">6.3 La SAS - spécificités (Art. 853-1 ss.)</p>
         <p>La SAS, introduite par la révision 2014, est une forme hybride particulièrement adaptée aux entreprises innovantes et aux joint-ventures :</p>
         <ul className="space-y-1.5 text-muted-foreground">
           <li className="flex items-start gap-2"><span className="text-violet-500 shrink-0">•</span><span><strong>Capital libre (Art. 853-1) :</strong> aucun minimum légal, fixé librement dans les statuts.</span></li>
@@ -759,7 +759,7 @@ const LECONS: Lecon[] = [
           <li className="flex items-start gap-2"><span className="text-violet-500 shrink-0">•</span><span><strong>Libération du capital (Art. 853-8) :</strong> 1/4 minimum à la constitution, solde dans les 3 ans.</span></li>
         </ul>
 
-        <p className="font-semibold">6.4 Tableau comparatif — constitution des 5 formes</p>
+        <p className="font-semibold">6.4 Tableau comparatif - constitution des 5 formes</p>
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
@@ -1002,7 +1002,7 @@ export default function UE2Chapitre2Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 2' },
           ]}
           color="indigo"

@@ -98,7 +98,7 @@ const LECONS: Lecon[] = [
           </table>
         </div>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/60 p-3">
-          <p className="text-xs font-semibold text-indigo-700 mb-1">Point clé — L'AUSCGIE est un droit autonome</p>
+          <p className="text-xs font-semibold text-indigo-700 mb-1">Point clé - L'AUSCGIE est un droit autonome</p>
           <p className="text-xs text-indigo-800">
             L'AUSCGIE n'est pas une adaptation du droit français. C'est un droit <strong>autonome et supranational</strong>. En cas de conflit avec une loi congolaise, c'est l'AUSCGIE qui prime. La loi nationale comble les silences : elle ne le contredit pas. La CCJA (Cour Commune de Justice et d'Arbitrage) est la juridiction suprême chargée d'interpréter les Actes Uniformes, avec primauté sur les cours nationales.
           </p>
@@ -191,7 +191,7 @@ const LECONS: Lecon[] = [
           Cette définition légale de l'Art. 4 révèle la nature <strong>contractuelle</strong> de la société commerciale : la société naît d'un accord de volontés entre au moins deux personnes. Mais ce contrat présente des particularités qui le distinguent des contrats ordinaires : il crée une <strong>personne morale nouvelle</strong>, distincte des associés, avec son propre patrimoine, sa propre identité juridique et sa propre capacité d'agir. La société est donc à la fois un <strong>contrat</strong> (accord de volontés) et une <strong>institution</strong> (entité juridique autonome).
         </p>
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4 space-y-3">
-          <p className="text-xs font-semibold text-indigo-700 uppercase mb-1">Art. 5 AUSCGIE : La société unipersonnelle — exception fondamentale</p>
+          <p className="text-xs font-semibold text-indigo-700 uppercase mb-1">Art. 5 AUSCGIE : La société unipersonnelle - exception fondamentale</p>
           <p className="italic text-foreground/80 text-xs">
             « La société peut être constituée par une seule personne dénommée « associé unique », dans les formes prévues par le présent Acte uniforme pour la <strong>SARL, la SA et la SAS</strong>. »
           </p>
@@ -311,7 +311,7 @@ const LECONS: Lecon[] = [
           </table>
         </div>
         <div className="rounded-xl border border-border bg-muted/30 p-3">
-          <p className="text-xs font-semibold mb-2">Distinction société — autres figures juridiques</p>
+          <p className="text-xs font-semibold mb-2">Distinction société - autres figures juridiques</p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
@@ -734,7 +734,7 @@ const LECONS: Lecon[] = [
           <div className="grid grid-cols-2 gap-1 text-xs text-muted-foreground">
             {[
               'RCCM (personnalité juridique, Art. 98 AUSCGIE)',
-              'NIF (Numéro d\'Identification Fiscale — DGI)',
+              'NIF (Numéro d\'Identification Fiscale - DGI)',
               'ID Nat (identité nationale économique)',
               'Numéro INSS (Sécurité Sociale)',
               'Numéro INPP (Institut Nat. de Préparation Prof.)',
@@ -1414,7 +1414,7 @@ export default function UE2Chapitre1Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 1' },
           ]}
           color="indigo"

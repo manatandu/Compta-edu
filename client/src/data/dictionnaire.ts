@@ -2,15 +2,15 @@
 //  DICTIONNAIRE ORBIT
 //
 //  Règle unique : aucune définition sans source. Le champ `source` est
-//  obligatoire au niveau du type — TypeScript refuse un terme non sourcé.
+//  obligatoire au niveau du type - TypeScript refuse un terme non sourcé.
 //
 //  Deux axes de classement, volontairement distincts :
-//   • `domaine` — la discipline (donne la couleur et le filtre principal) ;
-//   • `ues`     — les cours où le terme est enseigné, plusieurs possibles.
+//   • `domaine` - la discipline (donne la couleur et le filtre principal) ;
+//   • `ues`     - les cours où le terme est enseigné, plusieurs possibles.
 //  Un même terme relève souvent de plusieurs UE : « amortissement » est
 //  enseigné en comptabilité générale, en comptabilité approfondie, en
 //  fiscalité (dégressif) et en IFRS. Le forcer dans une seule UE le rendrait
-//  introuvable depuis les autres — d'où la liste.
+//  introuvable depuis les autres - d'où la liste.
 //  Une liste `ues` vide signifie « socle commun », sans rattachement.
 //
 //  Le gros du fonds vient du Titre VI de l'AUDCIF, glossaire officiel de
@@ -56,19 +56,19 @@ export const DOMAINES_DICT: Record<DomaineDict, string> = {
 
 /** moduleKey → libellé court, pour le filtre « vocabulaire de mon cours ». */
 export const UES_DICT: Record<string, string> = {
-  'ue1-droit-travail':      'UE 1 — Droit du travail',
-  'ue2-droit-societes':     'UE 2 — Droit des sociétés',
-  'ue3-compta-societes':    'UE 3 — Comptabilité des sociétés',
-  'fiscalite':              'UE 4 — Fiscalité',
-  'ue5-finances-publiques': 'UE 5 — Finances publiques',
-  'analyse-financiere':     'UE 6 — Analyse financière',
-  'ue7-management':         'UE 7 — Management',
-  'ue8-consolidation':      'UE 8 — Consolidation',
-  'comptabilite-generale':  'UE 9 — Comptabilité générale',
-  'ue10-compta-approfondie': 'UE 10 — Comptabilité approfondie',
-  'controle-de-gestion':    'UE 11 — Contrôle de gestion',
-  'ue12-audit':             'UE 12 — Audit',
-  'ue13-ifrs-ias':          'UE 13 — Normes IAS/IFRS',
+  'ue1-droit-travail':      'UE 1 - Droit du travail',
+  'ue2-droit-societes':     'UE 2 - Droit des sociétés',
+  'ue3-compta-societes':    'UE 3 - Comptabilité des sociétés',
+  'fiscalite':              'UE 4 - Fiscalité',
+  'ue5-finances-publiques': 'UE 5 - Finances publiques',
+  'analyse-financiere':     'UE 6 - Analyse financière',
+  'ue7-management':         'UE 7 - Management',
+  'ue8-consolidation':      'UE 8 - Consolidation',
+  'comptabilite-generale':  'UE 9 - Comptabilité générale',
+  'ue10-compta-approfondie': 'UE 10 - Comptabilité approfondie',
+  'controle-de-gestion':    'UE 11 - Contrôle de gestion',
+  'ue12-audit':             'UE 12 - Audit',
+  'ue13-ifrs-ias':          'UE 13 - Normes IAS/IFRS',
 }
 
 // ── Fiscalité et parafiscalité RDC ────────────────────────────────────
@@ -144,7 +144,7 @@ const TERMES_FISCALITE: TermeDict[] = [
     terme: 'Immunités sur indemnités et avantages',
     domaine: 'fiscalite',
     ues: ['fiscalite'],
-    definition: "Les indemnités et avantages versés au salarié ne sont pas exonérés en bloc : chaque ligne s'apprécie séparément. L'indemnité de logement est exonérée dans la limite de 30 % de la rémunération, l'excédent redevenant imposable. L'indemnité de transport est exonérée sous conditions de réalité et de nécessité, plafonnée au coût du billet local. Les indemnités non visées par le texte — représentation, expatriation, autres avantages — restent intégralement imposables.",
+    definition: "Les indemnités et avantages versés au salarié ne sont pas exonérés en bloc : chaque ligne s'apprécie séparément. L'indemnité de logement est exonérée dans la limite de 30 % de la rémunération, l'excédent redevenant imposable. L'indemnité de transport est exonérée sous conditions de réalité et de nécessité, plafonnée au coût du billet local. Les indemnités non visées par le texte - représentation, expatriation, autres avantages - restent intégralement imposables.",
     source: 'Art. 69, 8°, Loi n° 23/053',
     voirAussi: ['iere', 'assiette-securite-sociale'],
   },

@@ -497,13 +497,13 @@ export default function UE2Chapitre7Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 7' },
           ]}
           color="indigo"
         />
         <h1 className="text-xl font-display font-bold text-foreground mt-0.5">Les Dirigeants Sociaux</h1>
-        <p className="text-sm text-muted-foreground">AUSCGIE — Articles 121 à 338 — Pouvoirs, Responsabilité et Révocation</p>
+        <p className="text-sm text-muted-foreground">AUSCGIE - Articles 121 à 338 - Pouvoirs, Responsabilité et Révocation</p>
       </div>
 
       {/* ── Stats ── */}
@@ -584,7 +584,7 @@ export default function UE2Chapitre7Page() {
 
           {/* Titre */}
           <div className="border-l-4 border-amber-500 bg-card rounded-r-xl p-4">
-            <h2 className="font-display font-bold text-foreground">{lecons[activeLecon].id} — {lecons[activeLecon].titre}</h2>
+            <h2 className="font-display font-bold text-foreground">{lecons[activeLecon].id} - {lecons[activeLecon].titre}</h2>
           </div>
 
           {/* ── L1 ── */}
@@ -624,7 +624,7 @@ export default function UE2Chapitre7Page() {
                   </thead>
                   <tbody>
                     {[
-                      ['SARL', 'Gérant(s) — personne physique uniquement'],
+                      ['SARL', 'Gérant(s) - personne physique uniquement'],
                       ['SA avec Conseil d\'Administration', 'Administrateurs + Président-Directeur Général (PDG)'],
                       ['SA avec Administrateur Général', 'Administrateur Général (AG)'],
                       ['SAS', 'Président (statuts libres)'],
@@ -641,7 +641,7 @@ export default function UE2Chapitre7Page() {
 
               <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-emerald-900 flex gap-2">
                 <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <div><strong>Publicité obligatoire — Art. 124 AUSCGIE :</strong> La nomination et la cessation des fonctions de tout dirigeant doivent être publiées au RCCM. Sans publication : inopposable aux tiers. Cette règle protège la sécurité juridique des transactions.</div>
+                <div><strong>Publicité obligatoire - Art. 124 AUSCGIE :</strong> La nomination et la cessation des fonctions de tout dirigeant doivent être publiées au RCCM. Sans publication : inopposable aux tiers. Cette règle protège la sécurité juridique des transactions.</div>
               </div>
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-900 flex gap-2">
@@ -678,7 +678,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Rémunération — Art. 325 <InfoTooltip texte="Règle anti-conflit d'intérêts : le gérant associé ne peut pas voter sur sa propre rémunération. Sa participation fausserait le vote. Toute délibération contraire est nulle de plein droit." loi="Art. 325 al. 2 AUSCGIE" />
+                <ChevronRight className="w-4 h-4" /> Rémunération - Art. 325 <InfoTooltip texte="Règle anti-conflit d'intérêts : le gérant associé ne peut pas voter sur sa propre rémunération. Sa participation fausserait le vote. Toute délibération contraire est nulle de plein droit." loi="Art. 325 al. 2 AUSCGIE" />
               </h3>
               <ul className="space-y-1.5 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2"><ChevronRight className="w-3 h-3 mt-1 text-amber-500 flex-shrink-0" />La rémunération est fixée par décision des associés</li>
@@ -725,7 +725,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Pouvoirs dans les rapports avec les tiers — Art. 329
+                <ChevronRight className="w-4 h-4" /> Pouvoirs dans les rapports avec les tiers - Art. 329
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Dans les rapports avec les tiers, le gérant a les pouvoirs les plus étendus pour agir en toutes circonstances au nom de la société. Même les actes dépassant l'objet social <InfoTooltip texte="Principe ultra vires : acte dépassant l'objet social. En droit OHADA, la société reste engagée envers les tiers de bonne foi même pour les actes ultra vires, sauf preuve que le tiers savait." loi="Art. 329 AUSCGIE" /> engagent la société si le tiers était de bonne foi.
@@ -737,7 +737,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Engagement de la société — tableau récapitulatif
+                <ChevronRight className="w-4 h-4" /> Engagement de la société - tableau récapitulatif
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs border-collapse">
@@ -766,7 +766,7 @@ export default function UE2Chapitre7Page() {
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-900 flex gap-2">
                 <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <div><strong>Limitations statutaires — Art. 123 AUSCGIE :</strong> Dans les rapports entre associés uniquement, les statuts peuvent limiter les pouvoirs du gérant (ex : seuil d'engagement nécessitant une autorisation préalable). Ces limitations sont inopposables aux tiers de bonne foi (Art. 122-123).</div>
+                <div><strong>Limitations statutaires - Art. 123 AUSCGIE :</strong> Dans les rapports entre associés uniquement, les statuts peuvent limiter les pouvoirs du gérant (ex : seuil d'engagement nécessitant une autorisation préalable). Ces limitations sont inopposables aux tiers de bonne foi (Art. 122-123).</div>
               </div>
               <div className="space-y-3 pt-2">
                 <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide">Vérifiez votre compréhension</p>
@@ -794,7 +794,7 @@ export default function UE2Chapitre7Page() {
               </ul>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Révocation judiciaire — Art. 326 al. 3
+                <ChevronRight className="w-4 h-4" /> Révocation judiciaire - Art. 326 al. 3
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Tout associé peut saisir la juridiction compétente dans le ressort du siège social. Un juste motif est obligatoire (faute de gestion, conflit d'intérêts, inactivité). Outil privilégié pour les associés minoritaires qui ne peuvent pas atteindre la majorité requise en assemblée.
@@ -802,11 +802,11 @@ export default function UE2Chapitre7Page() {
 
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-900 flex gap-2">
                 <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <div><strong>Révocation ad nutum</strong> <InfoTooltip texte="Révocation à tout moment, sans motif, sans préavis, sans indemnité. Droit absolu du conseil d'administration ou de l'AG. NE S'APPLIQUE PAS aux gérants de SARL — uniquement aux administrateurs de SA." loi="Art. 432 AUSCGIE" /> : réservée aux SA uniquement (administrateurs). Les gérants de SARL sont protégés : révocation sans juste motif ouvre droit à D&I.</div>
+                <div><strong>Révocation ad nutum</strong> <InfoTooltip texte="Révocation à tout moment, sans motif, sans préavis, sans indemnité. Droit absolu du conseil d'administration ou de l'AG. NE S'APPLIQUE PAS aux gérants de SARL - uniquement aux administrateurs de SA." loi="Art. 432 AUSCGIE" /> : réservée aux SA uniquement (administrateurs). Les gérants de SARL sont protégés : révocation sans juste motif ouvre droit à D&I.</div>
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Démission — Art. 327
+                <ChevronRight className="w-4 h-4" /> Démission - Art. 327
               </h3>
               <ul className="space-y-1.5 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2"><ChevronRight className="w-3 h-3 mt-1 text-amber-500 flex-shrink-0" />Liberté de démissionner à tout moment</li>
@@ -859,7 +859,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> 3 sources de responsabilité civile — Art. 330
+                <ChevronRight className="w-4 h-4" /> 3 sources de responsabilité civile - Art. 330
               </h3>
               <div className="space-y-2">
                 {[
@@ -886,7 +886,7 @@ export default function UE2Chapitre7Page() {
               <p className="text-sm text-muted-foreground leading-relaxed">Le dirigeant de fait encourt la même responsabilité civile et pénale que le dirigeant de droit, dès lors qu'il exerce en toute indépendance les fonctions de direction. La jurisprudence de la CCJA est constante sur ce point.</p>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Actions en responsabilité — Art. 331
+                <ChevronRight className="w-4 h-4" /> Actions en responsabilité - Art. 331
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm">
@@ -905,7 +905,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Prescription des actions — Art. 332
+                <ChevronRight className="w-4 h-4" /> Prescription des actions - Art. 332
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs border-collapse">
@@ -956,7 +956,7 @@ export default function UE2Chapitre7Page() {
           {activeLecon === 5 && (
             <div className="bg-card border border-border rounded-xl p-4 space-y-4">
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Abus de majorité — Art. 130 <InfoTooltip texte="L'abus de majorité est une décision prise dans le seul intérêt des associés majoritaires, contraire à l'intérêt social et/ou aux droits des minoritaires, sans justification valable pour la société." loi="Art. 130 AUSCGIE" />
+                <ChevronRight className="w-4 h-4" /> Abus de majorité - Art. 130 <InfoTooltip texte="L'abus de majorité est une décision prise dans le seul intérêt des associés majoritaires, contraire à l'intérêt social et/ou aux droits des minoritaires, sans justification valable pour la société." loi="Art. 130 AUSCGIE" />
               </h3>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-900">
                 <p className="font-medium mb-2">Conditions de caractérisation (3 critères cumulatifs) :</p>
@@ -969,7 +969,7 @@ export default function UE2Chapitre7Page() {
               <p className="text-sm text-muted-foreground"><strong className="text-foreground">Conséquences :</strong> nullité de la délibération litigieuse + responsabilité civile des associés majoritaires vis-à-vis des minoritaires lésés.</p>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Abus de minorité et d'égalité — Art. 131
+                <ChevronRight className="w-4 h-4" /> Abus de minorité et d'égalité - Art. 131
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Blocage abusif d'une décision indispensable à la survie ou au développement de la société, dans un but contraire à l'intérêt social. Ex : blocage de l'augmentation de capital nécessaire pour éviter la cessation de paiements.
@@ -979,7 +979,7 @@ export default function UE2Chapitre7Page() {
               </p>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Expert de gestion — Art. 159-160
+                <ChevronRight className="w-4 h-4" /> Expert de gestion - Art. 159-160
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {[
@@ -995,7 +995,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Bénéfice distribuable — Art. 143
+                <ChevronRight className="w-4 h-4" /> Bénéfice distribuable - Art. 143
               </h3>
               <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm font-mono text-emerald-800">
                 Bénéfice distribuable = Résultat net + Report bénéficiaire antérieur - Pertes antérieures - Dividendes partiels versés - Réserves obligatoires
@@ -1003,7 +1003,7 @@ export default function UE2Chapitre7Page() {
               <p className="text-sm text-muted-foreground">Tout dividende distribué en violation de cette règle constitue un <strong className="text-foreground">dividende fictif</strong>, engageant la responsabilité pénale des dirigeants.</p>
 
               <h3 className="font-semibold text-amber-700 flex items-center gap-2">
-                <ChevronRight className="w-4 h-4" /> Groupes de sociétés — Art. 173-175
+                <ChevronRight className="w-4 h-4" /> Groupes de sociétés - Art. 173-175
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 <strong className="text-foreground">Présomption de contrôle (Art. 175) :</strong> une personne est présumée contrôler une société si elle détient directement ou indirectement plus de la moitié des droits de vote, OU si elle dispose de plus de la moitié des droits de vote par accord avec d'autres associés.
@@ -1019,12 +1019,12 @@ export default function UE2Chapitre7Page() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {[
-                  { titre: 'Art. 121 — Définition', contenu: 'Le dirigeant social est toute personne physique investie du pouvoir de gérer, diriger et représenter la société.' },
-                  { titre: 'Art. 323-324 — SARL', contenu: 'Gérant = personne physique uniquement. Durée : 4 ans par défaut, renouvelable sans limite.' },
-                  { titre: 'Art. 326-327 — Révocation/Démission', contenu: 'Les deux sont libres mais sans juste motif = D&I. Art. 338-1 : révocation possible même hors ordre du jour.' },
-                  { titre: 'Art. 329 — Pouvoirs vs tiers', contenu: 'Pouvoirs les plus étendus. Société engagée même hors objet social si tiers de bonne foi. Publication des statuts seule insuffisante.' },
-                  { titre: 'Art. 330-332 — Responsabilité', contenu: '3 sources civiles. Prescription 3 ans (10 ans si crime). Dirigeant de fait = même responsabilité.' },
-                  { titre: 'Art. 130-131 — Abus', contenu: 'Abus de majorité = nullité + responsabilité. Abus de minorité = mandataire ad hoc désigné par le tribunal.' },
+                  { titre: 'Art. 121 - Définition', contenu: 'Le dirigeant social est toute personne physique investie du pouvoir de gérer, diriger et représenter la société.' },
+                  { titre: 'Art. 323-324 - SARL', contenu: 'Gérant = personne physique uniquement. Durée : 4 ans par défaut, renouvelable sans limite.' },
+                  { titre: 'Art. 326-327 - Révocation/Démission', contenu: 'Les deux sont libres mais sans juste motif = D&I. Art. 338-1 : révocation possible même hors ordre du jour.' },
+                  { titre: 'Art. 329 - Pouvoirs vs tiers', contenu: 'Pouvoirs les plus étendus. Société engagée même hors objet social si tiers de bonne foi. Publication des statuts seule insuffisante.' },
+                  { titre: 'Art. 330-332 - Responsabilité', contenu: '3 sources civiles. Prescription 3 ans (10 ans si crime). Dirigeant de fait = même responsabilité.' },
+                  { titre: 'Art. 130-131 - Abus', contenu: 'Abus de majorité = nullité + responsabilité. Abus de minorité = mandataire ad hoc désigné par le tribunal.' },
                 ].map((item, i) => (
                   <div key={i} className="bg-amber-50 border border-amber-200 rounded-lg p-3">
                     <p className="font-semibold text-amber-800 text-xs mb-1">{item.titre}</p>
@@ -1093,7 +1093,7 @@ export default function UE2Chapitre7Page() {
               </div>
 
               <div className="bg-red-50 border-l-4 border-red-400 rounded-r-lg p-3">
-                <p className="text-xs text-red-800 font-semibold mb-1">Point clé — Art. 154</p>
+                <p className="text-xs text-red-800 font-semibold mb-1">Point clé - Art. 154</p>
                 <p className="text-xs text-red-700">Le CAC est <strong>délié du secret professionnel</strong> vis-à-vis du président de la juridiction saisie lors de la procédure d'alerte. Cette levée du secret est nécessaire pour permettre une intervention judiciaire efficace.</p>
               </div>
               <div className="space-y-3 pt-2">
@@ -1264,12 +1264,12 @@ export default function UE2Chapitre7Page() {
         <div className="space-y-3">
           <div className="bg-card border border-border rounded-xl p-4">
             <h2 className="font-display font-bold text-foreground flex items-center gap-2 mb-1">
-              <FileText className="w-5 h-5 text-amber-600" /> Cas Pratiques — Chapitre 7 : Les Dirigeants Sociaux
+              <FileText className="w-5 h-5 text-amber-600" /> Cas Pratiques - Chapitre 7 : Les Dirigeants Sociaux
             </h2>
             <p className="text-sm text-muted-foreground">4 cas pratiques couvrant les articles fondamentaux du droit des dirigeants sociaux OHADA.</p>
             {isProf && (
               <span className="mt-2 inline-flex items-center gap-1 bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">
-                <CheckCircle2 className="w-3 h-3" /> Mode professeur — corrections visibles
+                <CheckCircle2 className="w-3 h-3" /> Mode professeur - corrections visibles
               </span>
             )}
           </div>
@@ -1312,7 +1312,7 @@ export default function UE2Chapitre7Page() {
 
       {/* ── Sources ── */}
       <p className="text-xs text-muted-foreground/60 text-center">
-        Sources : AUSCGIE Art. 121-124, 130-131, 323-332, 338-1 — Jurisprudence CCJA
+        Sources : AUSCGIE Art. 121-124, 130-131, 323-332, 338-1 - Jurisprudence CCJA
       </p>
     </div>
   )

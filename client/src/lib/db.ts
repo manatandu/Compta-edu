@@ -95,7 +95,7 @@ export interface Exercice {
   dateCreation: string
   userId: string
   // Requis par firestore.rules pour autoriser update/delete (isProf() &&
-  // createdBy()) — distinct de userId par convention avec les autres
+  // createdBy()) - distinct de userId par convention avec les autres
   // collections prof-créées (cours, devoirs, documents), même si ici les
   // deux valent la même chose (l'auteur de l'exercice).
   createdBy?: string
@@ -129,7 +129,7 @@ export interface Document {
   type: string
   userId: string
   // Requis par firestore.rules (hasAll(['createdBy']) à la création, exploité
-  // par createdBy() pour update/delete) — distinct de userId par convention
+  // par createdBy() pour update/delete) - distinct de userId par convention
   // avec les autres collections prof-créées (cours, devoirs, exercices...),
   // même si ici les deux valent la même chose (l'auteur du document).
   createdBy?: string
@@ -174,10 +174,10 @@ export interface Cours {
   description?: string
   faculteId: string       // lié à une faculté
   universiteId: string    // redondant pour requêtes rapides
-  promotion?: string      // ex: 'L1', 'L2', 'M1' — null = visible toutes promotions
+  promotion?: string      // ex: 'L1', 'L2', 'M1' - null = visible toutes promotions
   dateCreation: string
   createdBy: string
-  // Admin propriétaire de ce cours (repris de l'université — voir
+  // Admin propriétaire de ce cours (repris de l'université - voir
   // firestore.rules, qui l'exige à la création). Optionnel côté type car les
   // cours système créés par initCoursSystemeAsync() n'ont pas d'université ;
   // ownsCours()/sameAdmin() dans firestore.rules gèrent son absence.
@@ -206,8 +206,8 @@ export interface NoteCours {
   titre: string
   contenu?: string          // texte libre (markdown simple)
   pdfUrl?: string           // lien PDF optionnel
-  coursId: string           // cours ciblé — OBLIGATOIRE
-  promotionId: string       // promotion ciblée — OBLIGATOIRE (isolation stricte)
+  coursId: string           // cours ciblé - OBLIGATOIRE
+  promotionId: string       // promotion ciblée - OBLIGATOIRE (isolation stricte)
   faculteId?: string
   universiteId?: string
   createdBy: string         // userId du prof/admin
@@ -222,7 +222,7 @@ export interface CasPratique {
   id: string                // identifiant unique ex: 'cas1'
   titre: string             // ex: 'Cas : Constitution SARL'
   enonce: string            // texte complet de la mise en situation
-  corrigeType: string       // réponse attendue — sert de référence pour Gemini
+  corrigeType: string       // réponse attendue - sert de référence pour Gemini
   pointsMax: number         // points alloués (ex: 5 ou 10)
 }
 
@@ -236,7 +236,7 @@ export interface QCMChapitre {
   articleRef: string   // référence légale
 }
 
-// Promotions disponibles — utilisé pour l'isolation stricte
+// Promotions disponibles - utilisé pour l'isolation stricte
 export const PROMOTIONS = ['L1', 'L2', 'L3', 'M1', 'M2'] as const
 export type Promotion = typeof PROMOTIONS[number]
 export type ExerciceLibreType = 'pratique' | 'theorique' | 'mixte' | 'qcm'
@@ -353,7 +353,7 @@ export interface Presence {
   }[]
   // Dérivé de `etudiants` (maintenu par createPresenceAsync/updatePresenceAsync) :
   // Firestore ne peut ni interroger ni vérifier par règle un sous-champ d'un
-  // tableau d'objets — ce tableau plat des etudiantId permet where('etudiantIds',
+  // tableau d'objets - ce tableau plat des etudiantId permet where('etudiantIds',
   // 'array-contains', uid) côté requête ET la règle de lecture côté firestore.rules.
   etudiantIds?: string[]
 }
@@ -390,7 +390,7 @@ export interface NoteManuelle {
   id: string
   etudiantFicheId: string      // id dans collection etudiants/
   chapitreId: string
-  chapitreLabel: string        // ex: "UE2 — Chapitre 3"
+  chapitreLabel: string        // ex: "UE2 - Chapitre 3"
   ueLabel: string              // ex: "UE2 Droit des sociétés"
   note: number                 // sur 20
   mode: ModeNote

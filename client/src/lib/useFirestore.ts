@@ -218,7 +218,7 @@ export function useDevoirs(createdBy?: string) {
 
 // ─── Tous les devoirs (pour les étudiants : filtrés par coursIds) ─────────────
 // La contrainte de requête est dérivée du rôle réel de l'utilisateur CONNECTÉ
-// (via useUser), pas d'un paramètre — c'est la même source que
+// (via useUser), pas d'un paramètre - c'est la même source que
 // studentCoursIds() dans firestore.rules. Un étudiant doit interroger avec
 // where('coursId','in', ...) : firestore.rules refuse toute lecture de
 // collection non contrainte dès que la règle dépend de resource.data
@@ -337,11 +337,11 @@ export function useAllEcritures(faculteId?: string) {
 // coursList : liste des cours chargés, pour récupérer la promotion du cours
 // NOTE isolation : la requête est contrainte par les coursIds RÉELS de
 // l'utilisateur connecté (rôle étudiant détecté via useUser), pas par les
-// paramètres — firestore.rules refuse une lecture non contrainte de toute la
+// paramètres - firestore.rules refuse une lecture non contrainte de toute la
 // collection pour un étudiant. Conséquence assumée : un exercice sans coursId
 // (contenu « global », en théorie visible de tous) n'apparaît plus dans cette
 // liste pour un étudiant, seulement pour un prof/admin (requête non contrainte,
-// déjà autorisée par isProf()) — cas marginal en pratique.
+// déjà autorisée par isProf()) - cas marginal en pratique.
 export function useExercices(coursIds?: string[], faculteId?: string, promotion?: string, coursList?: { id: string; promotion?: string }[]) {
   const [exercices, setExercices] = useState<Exercice[]>([])
   const [loading, setLoading] = useState(true)
@@ -488,10 +488,10 @@ export function usePresencesEtudiant(etudiantId?: string) {
     if (!etudiantId) { setPresences([]); return }
     // Délègue à onPresencesByEtudiantSnapshot (db-firebase.ts) : ce hook dupliquait
     // auparavant sa propre écoute NON FILTRÉE sur toute la collection en filtrant
-    // côté client — exactement le même bug que celui corrigé côté firestore.rules/
+    // côté client - exactement le même bug que celui corrigé côté firestore.rules/
     // db-firebase.ts (PR #21), mais dans une implémentation séparée qui n'était pas
     // touchée par ce correctif puisque ce hook n'appelait jamais cette fonction.
-    // C'était le vrai chemin utilisé en production par DashboardPage — donc, sans
+    // C'était le vrai chemin utilisé en production par DashboardPage - donc, sans
     // cette délégation, le bug d'origine restait entier malgré le correctif.
     const unsub = onPresencesByEtudiantSnapshot(etudiantId, setPresences)
     return () => unsub()

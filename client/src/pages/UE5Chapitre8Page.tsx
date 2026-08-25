@@ -396,7 +396,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: "Cas pratique 2 : Retenue à la source non effectuée — violation de l'article 220 LOFIP",
+    titre: "Cas pratique 2 : Retenue à la source non effectuée - violation de l'article 220 LOFIP",
     contexte: "Le Ministre des Finances, en raison d'un déficit global du Trésor national, suspend pendant trois mois la retenue à la source de 40% sur les recettes de catégorie A au profit de la Province du Sud-Kivu. Il invoque à cet effet un arrêté ministériel suspendant temporairement l'instruction permanente visée à l'article 220 LOFIP. La province estime que ses droits constitutionnels et légaux sont violés.",
     questions: [
       {
@@ -417,7 +417,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: 'Cas pratique 3 : Allocation de la Caisse nationale de péréquation contestée — article 222 LOFIP',
+    titre: 'Cas pratique 3 : Allocation de la Caisse nationale de péréquation contestée - article 222 LOFIP',
     contexte: "La Province du Lualaba, grande productrice de cobalt, conteste l'affectation de 10% de la Caisse nationale de péréquation à des provinces qu'elle qualifie de moins productives. Elle soutient que la répartition de cette caisse pénalise les provinces contributrices nettes et demande que la Caisse soit réservée aux provinces productrices de ressources ministères. Elle invoque également l'article 221 LOFIP pour réclamer une part plus grande au titre de la province productrice.",
     questions: [
       {
@@ -438,7 +438,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: 'Cas pratique 4 : Consolidation budgétaire non effectuée — violation des articles 223-224 LOFIP',
+    titre: 'Cas pratique 4 : Consolidation budgétaire non effectuée - violation des articles 223-224 LOFIP',
     contexte: "En juin 2026, le Gouvernement national n'a pas encore déposé le projet de loi de consolidation du budget du Pouvoir central avec les budgets provinciaux pour l'exercice 2025, contrairement aux articles 223 et 224 LOFIP qui exigent ce dépôt au plus tard le 31 mai. Le Ministère du Budget invoque des difficultés techniques pour obtenir les édits budgétaires de toutes les provinces et justifie ainsi le retard.",
     questions: [
       {
@@ -459,7 +459,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: 'Cas pratique 5 : Décision budgétaire de la Commune de Ngaliema — analyse de la régularité budgétaire',
+    titre: 'Cas pratique 5 : Décision budgétaire de la Commune de Ngaliema - analyse de la régularité budgétaire',
     contexte: "Le Conseil communal de Ngaliema adopte, en janvier 2026, une décision budgétaire pour l'exercice 2026 prévoyant des recettes de 2,5 milliards FC, composées pour 90% de transferts attendus du Gouvernement provincial et pour 10% de taxes locales. Les dépenses prévues s'élèvent à 3,1 milliards FC. Le Ministère de la Décentralisation conteste la régularité de cette décision budgétaire.",
     questions: [
       {
@@ -596,7 +596,7 @@ export default function UE5Chapitre8Page() {
 
   const lecons = [
     {
-      titre: 'Leçon 1 — Architecture de la décentralisation financière',
+      titre: 'Leçon 1 - Architecture de la décentralisation financière',
       source: 'Constitution Art. 175, LOFIP Art. 3 pt. 5, 19 et 218',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -674,7 +674,7 @@ export default function UE5Chapitre8Page() {
       ),
     },
     {
-      titre: 'Leçon 2 — La répartition des recettes à caractère national',
+      titre: 'Leçon 2 - La répartition des recettes à caractère national',
       source: 'Constitution Art. 175, LOFIP Art. 218-221',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -719,13 +719,13 @@ export default function UE5Chapitre8Page() {
             <h4 className="font-bold text-foreground mb-2">Mécanismes de répartition (Art. 220-221 LOFIP)</h4>
             <div className="space-y-3">
               <div className="rounded-lg bg-muted/40 p-3">
-                <p className="font-semibold text-foreground text-xs mb-1">Art. 220 LOFIP — Catégorie A (retenue automatique)</p>
+                <p className="font-semibold text-foreground text-xs mb-1">Art. 220 LOFIP - Catégorie A (retenue automatique)</p>
                 <p className="text-xs text-muted-foreground">
                   « Pour les recettes de la catégorie A, la retenue de 40% est portée au compte de la province génératrice de la recette, lors du nivellement au profit du Compte général du Trésor, sur instruction permanente du ministre ayant les finances dans ses attributions conformément aux prescrits du Règlement général sur la comptabilité publique. »
                 </p>
               </div>
               <div className="rounded-lg bg-muted/40 p-3">
-                <p className="font-semibold text-foreground text-xs mb-1">Art. 221 LOFIP — Catégorie B (répartition selon capacité contributive)</p>
+                <p className="font-semibold text-foreground text-xs mb-1">Art. 221 LOFIP - Catégorie B (répartition selon capacité contributive)</p>
                 <p className="text-xs text-muted-foreground">
                   La retenue de 40% sur la catégorie B s'effectue « suivant la capacité contributive et le poids démographique » des provinces, selon un arrêté conjoint des ministres des Finances et du Budget. Une allocation compensatoire de 10% de la part provinciale est attribuée à la province productrice de pétrole.
                 </p>
@@ -734,7 +734,7 @@ export default function UE5Chapitre8Page() {
           </div>
           <div className="rounded-lg bg-violet-50 border border-violet-200 p-3">
             <p className="text-xs font-semibold text-violet-800">
-              LF 2026 (Loi n° 25/060 du 29 décembre 2025) — Application chiffrée (Art. 8)
+              LF 2026 (Loi n° 25/060 du 29 décembre 2025) - Application chiffrée (Art. 8)
             </p>
             <p className="text-xs text-violet-700 mt-1">
               Rétrocession aux provinces au titre du 40% constitutionnel : <strong>7.694,5 milliards FC</strong>
@@ -747,7 +747,7 @@ export default function UE5Chapitre8Page() {
       ),
     },
     {
-      titre: 'Leçon 3 — La Caisse nationale de péréquation',
+      titre: 'Leçon 3 - La Caisse nationale de péréquation',
       source: 'Constitution Art. 181, LOFIP Art. 222',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -773,7 +773,7 @@ export default function UE5Chapitre8Page() {
           </div>
           <div className="rounded-lg bg-violet-50 border border-violet-200 p-3">
             <p className="text-xs font-semibold text-violet-800">
-              LF 2026 (Loi n° 25/060) — Dotation Caisse nationale de péréquation (Art. 9)
+              LF 2026 (Loi n° 25/060) - Dotation Caisse nationale de péréquation (Art. 9)
             </p>
             <p className="text-xs text-violet-700 mt-1">
               Montant inscrit : <strong>744,6 milliards FC</strong>
@@ -818,7 +818,7 @@ export default function UE5Chapitre8Page() {
       ),
     },
     {
-      titre: "Leçon 4 — L'édit budgétaire et la décision budgétaire : contenu légal",
+      titre: "Leçon 4 - L'édit budgétaire et la décision budgétaire : contenu légal",
       source: 'LOFIP Art. 132, 135-138',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -837,25 +837,25 @@ export default function UE5Chapitre8Page() {
             <h4 className="font-bold text-foreground mb-2">Contenu obligatoire de l'édit budgétaire (Art. 135-138 LOFIP)</h4>
             <div className="space-y-3">
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs text-foreground mb-1">Art. 135 LOFIP — Principe d'unité budgétaire</p>
+                <p className="font-semibold text-xs text-foreground mb-1">Art. 135 LOFIP - Principe d'unité budgétaire</p>
                 <p className="text-xs text-muted-foreground">
                   L'édit contient, pour une année civile, « toutes les ressources et toutes les charges » de la province qui traduisent, à travers un document unique, les programmes d'actions du Gouvernement provincial ou du Collège exécutif de l'ETD, avec évaluation des objectifs et résultats attendus.
                 </p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs text-foreground mb-1">Art. 136 LOFIP — Prévision des recettes</p>
+                <p className="font-semibold text-xs text-foreground mb-1">Art. 136 LOFIP - Prévision des recettes</p>
                 <p className="text-xs text-muted-foreground">
                   L'édit comporte les dispositions relatives à la perception des recettes de toute nature, les ressources affectant l'équilibre budgétaire, les affectations de recettes, et l'évaluation de chaque nature de recettes budgétaires de la province.
                 </p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs text-foreground mb-1">Art. 137 LOFIP — Détails des crédits</p>
+                <p className="font-semibold text-xs text-foreground mb-1">Art. 137 LOFIP - Détails des crédits</p>
                 <p className="text-xs text-muted-foreground">
                   L'édit fixe, par programme, le montant des autorisations d'engagement et des crédits de paiement, et par ministère ou Institution provinciale, les plafonds des autorisations d'emplois rémunérés.
                 </p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs text-foreground mb-1">Art. 138 LOFIP — Autorisations d'emprunt</p>
+                <p className="font-semibold text-xs text-foreground mb-1">Art. 138 LOFIP - Autorisations d'emprunt</p>
                 <p className="text-xs text-muted-foreground">
                   L'édit fixe le plafond des emprunts que le Gouvernement provincial peut être autorisé à contracter au cours de l'exercice.
                 </p>
@@ -869,7 +869,7 @@ export default function UE5Chapitre8Page() {
       ),
     },
     {
-      titre: 'Leçon 5 — Consolidation et rapports entre le Pouvoir central et les provinces',
+      titre: 'Leçon 5 - Consolidation et rapports entre le Pouvoir central et les provinces',
       source: 'Constitution Art. 175, LOFIP Art. 217, 223-224',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -963,7 +963,7 @@ export default function UE5Chapitre8Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 8' },
           ]}
           color="emerald"
@@ -1076,7 +1076,7 @@ export default function UE5Chapitre8Page() {
         <div className="space-y-4">
           <div className="rounded-xl border border-violet-200 bg-violet-50 p-3">
             <p className="text-xs text-violet-800 font-semibold">
-              5 cas pratiques — Décentralisation budgétaire (Art. 132-138, 217-224 LOFIP + Constitution Art. 175, 181)
+              5 cas pratiques - Décentralisation budgétaire (Art. 132-138, 217-224 LOFIP + Constitution Art. 175, 181)
             </p>
             <p className="text-xs text-violet-700 mt-1">
               Tous les cas exigent une analyse juridique rigoureuse fondée sur les textes légaux.
@@ -1092,7 +1092,7 @@ export default function UE5Chapitre8Page() {
       {activeTab === 'devoir' && (
         <DevoirChapitreCreateur
           chapitreId="ue5-ch8"
-          chapitreNom="Chapitre 8 — Décentralisation budgétaire"
+          chapitreNom="Chapitre 8 - Décentralisation budgétaire"
           questions={qcmQuestions}
           coursId="ue5-finances-publiques"
           casPratiquesExistants={casPratiquesDevoir}

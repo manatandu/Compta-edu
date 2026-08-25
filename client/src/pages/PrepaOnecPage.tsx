@@ -5,12 +5,12 @@ import { useUser } from '@/lib/userContext'
 import { isStudentRole } from '@/lib/permissions'
 import { useHashLocation } from 'wouter/use-hash-location'
 
-// Les 6 UE du DSCG — toutes verrouillées pour l'instant
+// Les 6 UE du DSCG - toutes verrouillées pour l'instant
 const UE_DSCG = [
   {
     code: 'UE 1',
     titre: 'Gestion juridique, fiscale et sociale',
-    heures: '200h — 20 ECTS',
+    heures: '200h - 20 ECTS',
     description: 'Droit des sociétés, fiscalité des entreprises, droit social et relations de travail.',
     icon: Scale,
     color: 'from-purple-500/20 to-purple-600/10',
@@ -20,7 +20,7 @@ const UE_DSCG = [
   {
     code: 'UE 2',
     titre: 'Finance',
-    heures: '140h — 15 ECTS',
+    heures: '140h - 15 ECTS',
     description: 'Valeur, diagnostic financier, évaluation d\'entreprise, investissement, trésorerie et ingénierie financière.',
     icon: TrendingUp,
     color: 'from-blue-500/20 to-blue-600/10',
@@ -30,7 +30,7 @@ const UE_DSCG = [
   {
     code: 'UE 3',
     titre: 'Management et contrôle de gestion',
-    heures: '200h — 20 ECTS',
+    heures: '200h - 20 ECTS',
     description: 'Stratégie, organisation, contrôle de gestion, tableaux de bord et performance.',
     icon: BarChart2,
     color: 'from-green-500/20 to-green-600/10',
@@ -40,7 +40,7 @@ const UE_DSCG = [
   {
     code: 'UE 4',
     titre: 'Comptabilité et audit',
-    heures: '200h — 20 ECTS',
+    heures: '200h - 20 ECTS',
     description: 'Comptabilité approfondie, consolidation, IFRS, normes d\'audit et commissariat aux comptes.',
     icon: BookOpen,
     color: 'from-amber-500/20 to-amber-600/10',
@@ -50,7 +50,7 @@ const UE_DSCG = [
   {
     code: 'UE 5',
     titre: 'Management des systèmes d\'information',
-    heures: '140h — 15 ECTS',
+    heures: '140h - 15 ECTS',
     description: 'Systèmes d\'information, gouvernance IT, sécurité et transformation numérique.',
     icon: Cpu,
     color: 'from-rose-500/20 to-rose-600/10',
@@ -73,7 +73,7 @@ export default function PrepaOnecPage() {
   const user = useUser()
   const [, navigate] = useHashLocation()
 
-  // Page réservée au staff — les étudiants ne doivent jamais arriver ici
+  // Page réservée au staff - les étudiants ne doivent jamais arriver ici
   if (!user || isStudentRole(user)) {
     navigate('/')
     return null
@@ -92,14 +92,14 @@ export default function PrepaOnecPage() {
           <div>
             <h1 className="text-2xl font-display font-bold text-foreground">Prépa ONEC</h1>
             <p className="text-sm text-muted-foreground">
-              Préparation aux examens d'admission au stage — Ordre National des Experts-Comptables (RDC)
+              Préparation aux examens d'admission au stage - Ordre National des Experts-Comptables (RDC)
             </p>
           </div>
         </div>
 
         {/* Bandeau info */}
         <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-muted-foreground">
-          <strong className="text-foreground">6 Unités d'Enseignement</strong> basées sur le programme DSCG —
+          <strong className="text-foreground">6 Unités d'Enseignement</strong> basées sur le programme DSCG -
           4 heures d'épreuve par UE, calculatrice seule autorisée, aucun document.
           Les modules seront déverrouillés progressivement.
         </div>

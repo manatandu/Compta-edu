@@ -269,7 +269,7 @@ export default function FicheEtudiantPage() {
                 <Building2 className="w-3 h-3" /> {etudiant.universite}
               </span>
               <span className="flex items-center gap-1">
-                <BookOpen className="w-3 h-3" /> {etudiant.filiere} — {etudiant.promotion}
+                <BookOpen className="w-3 h-3" /> {etudiant.filiere} - {etudiant.promotion}
               </span>
               <span className="flex items-center gap-1">
                 <Calendar className="w-3 h-3" /> {etudiant.anneeAcademique}
@@ -431,7 +431,7 @@ export default function FicheEtudiantPage() {
                     type="text"
                     value={formNote.chapitreLabel}
                     onChange={e => setFormNote(p => ({ ...p, chapitreLabel: e.target.value }))}
-                    placeholder="Ex: Devoir chapitre 3 — SARL"
+                    placeholder="Ex: Devoir chapitre 3 - SARL"
                     className="w-full px-3 py-2 rounded-xl border border-indigo-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                 </div>
@@ -551,7 +551,7 @@ export default function FicheEtudiantPage() {
                 </table>
 
                 <div className="px-5 py-3 border-t border-border/50 bg-muted/20 text-xs text-muted-foreground">
-                  {notes.length} note{notes.length > 1 ? 's' : ''} — Moyenne : {moyenne || '--'}/20
+                  {notes.length} note{notes.length > 1 ? 's' : ''} - Moyenne : {moyenne || '--'}/20
                 </div>
               </div>
             )}

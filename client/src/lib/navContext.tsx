@@ -36,7 +36,7 @@ export function useNav() {
 }
 
 /**
- * useGoBack — retourne une fonction qui navigue vers la route parent (fallback).
+ * useGoBack - retourne une fonction qui navigue vers la route parent (fallback).
  *
  * Architecture V : chaque page navigue toujours directement vers sa route parent
  * définie, sans dépendre de l'historique du navigateur. window.history.back()

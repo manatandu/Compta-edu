@@ -41,7 +41,7 @@ const LECONS: Lecon[] = [
   {
     id: 'l1',
     icone: <BookOpen className="h-5 w-5" />,
-    titre: 'Les 6 principes budgétaires — vue d\'ensemble',
+    titre: 'Les 6 principes budgétaires - vue d\'ensemble',
     badge: 'LOFIP Art. 4',
     contenu: (
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -51,7 +51,7 @@ const LECONS: Lecon[] = [
           {' '}pose que le Budget de l'Etat repose sur <strong>six principes fondamentaux</strong> qui encadrent l'ensemble du cycle budgétaire, de son élaboration à son exécution. Ces principes ne sont pas de simples règles techniques : ils constituent les garanties juridiques de la transparence, de la légalité et de la sincérité dans la gestion des deniers publics.
         </p>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-3">Art. 4 LOFIP — Les 6 principes</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-3">Art. 4 LOFIP - Les 6 principes</p>
           <div className="grid grid-cols-1 gap-2">
             {[
               { num: '1', principe: 'Annualité', art: 'Art. 5', resume: "L'exercice budgétaire couvre une année civile (1er jan. au 31 déc.)" },
@@ -75,7 +75,7 @@ const LECONS: Lecon[] = [
           </div>
         </div>
         <p>
-          Ces six principes forment un système cohérent. L'<strong>annualité</strong> définit le cadre temporel ; l'<strong>unité</strong> et l'<strong>universalité</strong> imposent la globalité et la transparence ; la <strong>spécialité</strong> garantit l'affectation précise des crédits ; la <strong>légalité</strong> protège contre l'arbitraire ; la <strong>sincérité</strong> impose l'honnêteté dans les prévisions. Ensemble, ils traduisent le principe démocratique fondamental : c'est le Parlement — représentant du peuple — qui autorise les recettes et les dépenses de l'État.
+          Ces six principes forment un système cohérent. L'<strong>annualité</strong> définit le cadre temporel ; l'<strong>unité</strong> et l'<strong>universalité</strong> imposent la globalité et la transparence ; la <strong>spécialité</strong> garantit l'affectation précise des crédits ; la <strong>légalité</strong> protège contre l'arbitraire ; la <strong>sincérité</strong> impose l'honnêteté dans les prévisions. Ensemble, ils traduisent le principe démocratique fondamental : c'est le Parlement - représentant du peuple - qui autorise les recettes et les dépenses de l'État.
         </p>
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
           <p className="text-xs font-semibold text-emerald-700 mb-1">Fondement démocratique</p>
@@ -105,11 +105,11 @@ const LECONS: Lecon[] = [
         id: 'l1q2',
         question: 'Quel est le fondement constitutionnel qui justifie l\'existence des principes budgétaires en RDC ?',
         options: [
-          { id: 'a', texte: 'Art. 122 pt. 3 Constitution — le Parlement légifère sur les finances publiques' },
-          { id: 'b', texte: 'Art. 175 Constitution — la règle des 40%' },
-          { id: 'c', texte: 'Art. 174 Constitution — définition des finances publiques' },
-          { id: 'd', texte: 'Art. 181 Constitution — la Caisse nationale de péréquation' },
-          { id: 'e', texte: 'Art. 120 Constitution — les libertés fondamentales' },
+          { id: 'a', texte: 'Art. 122 pt. 3 Constitution - le Parlement légifère sur les finances publiques' },
+          { id: 'b', texte: 'Art. 175 Constitution - la règle des 40%' },
+          { id: 'c', texte: 'Art. 174 Constitution - définition des finances publiques' },
+          { id: 'd', texte: 'Art. 181 Constitution - la Caisse nationale de péréquation' },
+          { id: 'e', texte: 'Art. 120 Constitution - les libertés fondamentales' },
         ],
         reponseCorrecte: 'a',
         explication: 'C\'est l\'Art. 122 pt. 3 de la Constitution qui habilite le Parlement à légiférer sur les finances publiques, créant ainsi le fondement démocratique de tous les principes budgétaires. C\'est sur cette base que la LOFIP a été adoptée.',
@@ -180,7 +180,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
-          <p className="text-xs font-semibold text-emerald-700 mb-1">Actualité 2025 — LFR n° 25/044 : annualité en pratique</p>
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Actualité 2025 - LFR n° 25/044 : annualité en pratique</p>
           <p className="text-xs text-emerald-800">La <strong>Loi de finances rectificative n° 25/044 du 28 juin 2025</strong> est une illustration parfaite du principe d'annualité et de sa dérogation via la LFR. En cours d'exercice 2025, le Gouvernement a révisé les hypothèses macroéconomiques (PIB revu à 5,3%, taux de change à 2 859,2 FC/USD) et ajusté le budget de 51 553,5 à 50 691,8 milliards FC. Cette révision a nécessité une loi, votée par le Parlement, conformément au principe d'annualité qui exige que toute modification du budget soit autorisée par le législateur.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : LOFIP Art. 5, 43-44, 53, 76-87 · LFR n° 25/044 du 28 juin 2025</p>
@@ -235,7 +235,7 @@ const LECONS: Lecon[] = [
           {' '}exige que toutes les ressources et toutes les charges d'une entité budgétaire soient regroupées dans <strong>un seul et même document budgétaire</strong>. Cette règle vise à donner au Parlement une vision d'ensemble des finances publiques et à éviter la dispersion des autorisations budgétaires.
         </p>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 6 LOFIP — Principe d'unité</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 6 LOFIP - Principe d'unité</p>
           <p className="italic text-foreground/80 text-xs">
             « Le budget retrace l'ensemble des ressources et des charges budgétaires de l'État. »
           </p>
@@ -259,7 +259,7 @@ const LECONS: Lecon[] = [
         <h3 className="font-bold text-foreground mt-4">2. Le principe d'universalité (Art. 7)</h3>
         <p>
           Le <strong>principe d'universalité</strong>
-          <InfoTooltip texte="Le principe d'universalité comprend deux règles : (1) la règle du produit brut — les recettes sont inscrites pour leur montant total, sans déduction des dépenses y afférentes ; (2) l'interdiction de l'affectation préalable — l'ensemble des recettes couvre l'ensemble des dépenses, sans que certaines recettes soient réservées à certaines dépenses." loi="Art. 7 LOFIP" />
+          <InfoTooltip texte="Le principe d'universalité comprend deux règles : (1) la règle du produit brut - les recettes sont inscrites pour leur montant total, sans déduction des dépenses y afférentes ; (2) l'interdiction de l'affectation préalable - l'ensemble des recettes couvre l'ensemble des dépenses, sans que certaines recettes soient réservées à certaines dépenses." loi="Art. 7 LOFIP" />
           {' '}se décompose en deux règles fondamentales posées par l'Art. 7 de la LOFIP :
         </p>
         <div className="grid grid-cols-1 gap-3">
@@ -357,7 +357,7 @@ const LECONS: Lecon[] = [
           {' '}est le principe qui donne aux autorisations budgétaires leur caractère précis et contraignant. L'article 8 de la LOFIP dispose que les crédits sont spécialisés par <strong>grande nature de dépenses (titres)</strong> et par <strong>source de financement</strong>, regroupés par programme au sein de chaque mission.
         </p>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 8 LOFIP — Principe de spécialité</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 8 LOFIP - Principe de spécialité</p>
           <p className="italic text-foreground/80 text-xs">
             « Les crédits sont spécialisés par grande nature de dépenses. Ils sont regroupés par programme. »
           </p>
@@ -400,11 +400,11 @@ const LECONS: Lecon[] = [
         </p>
         <div className="grid grid-cols-1 gap-2">
           <div className="rounded-lg bg-green-50 border border-green-200 p-3">
-            <p className="text-xs font-semibold text-green-700 mb-1">Autorisé — fongibilité vers les autres titres</p>
+            <p className="text-xs font-semibold text-green-700 mb-1">Autorisé - fongibilité vers les autres titres</p>
             <p className="text-xs text-green-800">Des crédits du Titre 1 (personnel) peuvent être redéployés vers les Titres 2, 3, 4 ou 5 si le gestionnaire estime que les postes prévus n'ont pas tous été pourvus.</p>
           </div>
           <div className="rounded-lg bg-red-50 border border-red-200 p-3">
-            <p className="text-xs font-semibold text-red-700 mb-1">Interdit — fongibilité vers le Titre 1 (personnel)</p>
+            <p className="text-xs font-semibold text-red-700 mb-1">Interdit - fongibilité vers le Titre 1 (personnel)</p>
             <p className="text-xs text-red-800">Il est formellement interdit de prélever sur les crédits des Titres 2, 3, 4 ou 5 pour abonder le Titre 1 (personnel). Cette règle protège le budget de l'Etat contre une dérive des dépenses salariales non programmées.</p>
           </div>
         </div>
@@ -434,7 +434,7 @@ const LECONS: Lecon[] = [
         options: [
           { id: 'a', texte: 'Autorisé librement par le gestionnaire' },
           { id: 'b', texte: 'Autorisé avec un arrêté du Ministre du Budget' },
-          { id: 'c', texte: 'Interdit — le Titre 1 ne peut recevoir de virements depuis les autres titres' },
+          { id: 'c', texte: 'Interdit - le Titre 1 ne peut recevoir de virements depuis les autres titres' },
           { id: 'd', texte: 'Autorisé si validé par le Parlement' },
           { id: 'e', texte: 'Autorisé uniquement en cas de force majeure déclarée' },
         ],
@@ -447,11 +447,11 @@ const LECONS: Lecon[] = [
         id: 'l4q2',
         question: 'Les dépenses d\'investissement (construction de routes, acquisition d\'équipements) correspondent à quel titre de la nomenclature budgétaire ?',
         options: [
-          { id: 'a', texte: 'Titre 2 — fonctionnement' },
-          { id: 'b', texte: 'Titre 3 — intervention' },
-          { id: 'c', texte: 'Titre 4 — investissement' },
-          { id: 'd', texte: 'Titre 5 — service de la dette' },
-          { id: 'e', texte: 'Titre 1 — personnel' },
+          { id: 'a', texte: 'Titre 2 - fonctionnement' },
+          { id: 'b', texte: 'Titre 3 - intervention' },
+          { id: 'c', texte: 'Titre 4 - investissement' },
+          { id: 'd', texte: 'Titre 5 - service de la dette' },
+          { id: 'e', texte: 'Titre 1 - personnel' },
         ],
         reponseCorrecte: 'c',
         explication: 'Le Titre 4 de la nomenclature budgétaire LOFIP regroupe les dépenses d\'investissement : construction d\'infrastructures (routes, écoles, hôpitaux), acquisition d\'équipements lourds, et investissements publics en général.',
@@ -470,7 +470,7 @@ const LECONS: Lecon[] = [
       <div className="space-y-4 text-sm text-foreground leading-relaxed">
         <p>
           Le <strong>principe de légalité</strong>
-          <InfoTooltip texte="Le principe de légalité budgétaire est double : légalité des recettes (seul le Parlement peut créer des impôts — Art. 9) et légalité des dépenses (toute dépense doit être effectuée dans des conditions définies par la loi — Art. 10). Il protège les citoyens contre l'arbitraire fiscal et financier de l'exécutif." loi="Art. 9-10 LOFIP" />
+          <InfoTooltip texte="Le principe de légalité budgétaire est double : légalité des recettes (seul le Parlement peut créer des impôts - Art. 9) et légalité des dépenses (toute dépense doit être effectuée dans des conditions définies par la loi - Art. 10). Il protège les citoyens contre l'arbitraire fiscal et financier de l'exécutif." loi="Art. 9-10 LOFIP" />
           {' '}est la traduction budgétaire du principe constitutionnel de l'État de droit. En finances publiques, il se décline en deux volets : la légalité des recettes et la légalité des dépenses.
         </p>
 
@@ -493,7 +493,7 @@ const LECONS: Lecon[] = [
             <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" />
             <span>Les <strong>Assemblées provinciales</strong>
               <InfoTooltip texte="Les Assemblées provinciales sont les organes législatifs des provinces. Elles peuvent voter des lois provinciales mais ne peuvent PAS créer d'impôts ni de taxes. Elles peuvent uniquement percevoir des taxes dont la liste et le taux maximum sont fixés par la loi nationale." loi="Art. 9 LOFIP · Art. 122 pt. 10 Constitution" />
-              {' '}et les organes des ETD <strong>ne peuvent ni créer ni supprimer des impôts</strong> — seule la loi nationale le peut
+              {' '}et les organes des ETD <strong>ne peuvent ni créer ni supprimer des impôts</strong> - seule la loi nationale le peut
             </span>
           </li>
           <li className="flex items-start gap-2">
@@ -504,7 +504,7 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-2">2. Légalité des dépenses (Art. 10)</h3>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 10 LOFIP — Conditions de légalité des dépenses</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 10 LOFIP - Conditions de légalité des dépenses</p>
           <p className="italic text-foreground/80 text-xs">
             « Aucune dépense ne peut être engagée, liquidée et ordonnancée si elle ne remplit pas les conditions suivantes : être de la compétence de l'ordonnateur ; être fondée sur un texte régulier ; avoir des crédits disponibles ; être accompagnée de la mobilisation des fonds extérieurs le cas échéant. »
           </p>
@@ -583,7 +583,7 @@ const LECONS: Lecon[] = [
           {' '}est le principe le plus récent, inspiré des réformes modernes de la gestion publique. L'article 11 de la LOFIP dispose que le budget doit présenter de façon <strong>sincère l'ensemble des ressources et des charges</strong> de l'État.
         </p>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 11 LOFIP — Principe de sincérité</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 11 LOFIP - Principe de sincérité</p>
           <p className="italic text-foreground/80 text-xs">
             « Le budget est présenté de façon sincère. La sincérité s'apprécie compte tenu des informations disponibles et des prévisions qui peuvent raisonnablement en découler. Les comptes doivent être réguliers, sincères et refléter une image fidèle du patrimoine et de la situation financière de l'État. »
           </p>
@@ -616,11 +616,11 @@ const LECONS: Lecon[] = [
         </div>
 
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
-          <p className="text-xs font-semibold text-emerald-700 mb-1">Actualité 2025-2026 — La sincérité comme exigence du Ministère du Budget</p>
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Actualité 2025-2026 - La sincérité comme exigence du Ministère du Budget</p>
           <p className="text-xs text-emerald-800">Lors de l'ouverture des <strong>conférences budgétaires pour l'exercice 2026</strong> (28 juillet 2025), le Ministère du Budget a explicitement exigé une <strong>«préfiguration budgétaire 2026 réaliste et sincère»</strong>. Cette formulation reprend mot pour mot le principe de l'Art. 11 de la LOFIP, illustrant son application concrète dans le processus de préparation du budget 2026. Par ailleurs, la révision à la baisse du budget 2025 via la LFR n° 25/044 (de 51 553,5 à 50 691,8 Mds FC) démontre une correction sincère des prévisions initiales jugées trop optimistes.</p>
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Tableau comparatif — Les 6 principes en synthèse</h3>
+        <h3 className="font-bold text-foreground mt-4">Tableau comparatif - Les 6 principes en synthèse</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
             <thead>
@@ -638,7 +638,7 @@ const LECONS: Lecon[] = [
                 ['Universalité', 'Art. 7', 'Produit brut, pas de compensation', 'Comptes spéciaux, fonds de concours'],
                 ['Spécialité', 'Art. 8', 'Crédits par titre et programme', 'Fongibilité asymétrique, virements, transferts'],
                 ['Légalité', 'Art. 9-10', 'Impôt par la loi ; dépense dans les formes', 'Habilitation limitée aux provinces pour certaines taxes'],
-                ['Sincérité', 'Art. 11', 'Image fidèle, prévisions réalistes', 'Aucune — principe absolu'],
+                ['Sincérité', 'Art. 11', 'Image fidèle, prévisions réalistes', 'Aucune - principe absolu'],
               ].map(([p, a, r, d], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-semibold text-emerald-700">{p}</td>
@@ -676,7 +676,7 @@ const LECONS: Lecon[] = [
         options: [
           { id: 'a', texte: 'Exacte' },
           { id: 'b', texte: 'Exacte uniquement pour les ETD' },
-          { id: 'c', texte: 'Fausse — c\'est précisément l\'inverse que ce principe impose' },
+          { id: 'c', texte: 'Fausse - c\'est précisément l\'inverse que ce principe impose' },
           { id: 'd', texte: 'Exacte pour les budgets annexes seulement' },
           { id: 'e', texte: 'Exacte uniquement pour les comptes spéciaux' },
         ],
@@ -801,7 +801,7 @@ const QCM_GLOBAL = [
     options: [
       { id: 'a', texte: 'Autorisé librement' },
       { id: 'b', texte: 'Autorisé avec arrêté du Ministre du Budget' },
-      { id: 'c', texte: 'Interdit — le Titre 1 ne peut recevoir de virements depuis d\'autres titres' },
+      { id: 'c', texte: 'Interdit - le Titre 1 ne peut recevoir de virements depuis d\'autres titres' },
       { id: 'd', texte: 'Autorisé si validé par le Parlement' },
       { id: 'e', texte: 'Autorisé en cas de déficience budgétaire prouvée' },
     ],
@@ -843,7 +843,7 @@ const QCM_GLOBAL = [
     options: [
       { id: 'a', texte: 'Exacte' },
       { id: 'b', texte: 'Exacte uniquement pour les ETD' },
-      { id: 'c', texte: 'Fausse — c\'est précisément l\'inverse que ce principe impose' },
+      { id: 'c', texte: 'Fausse - c\'est précisément l\'inverse que ce principe impose' },
       { id: 'd', texte: 'Exacte pour les budgets annexes seulement' },
       { id: 'e', texte: 'Exacte uniquement pour les comptes spéciaux du Trésor' },
     ],
@@ -899,7 +899,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
     questions: [
       {
         num: 1,
-        enonce: 'L\'Option A (prélever sur le Titre 1 pour financer l\'achat de médicaments — Titre 2) est-elle légale selon la LOFIP ? Justifiez en citant l\'article applicable.',
+        enonce: 'L\'Option A (prélever sur le Titre 1 pour financer l\'achat de médicaments - Titre 2) est-elle légale selon la LOFIP ? Justifiez en citant l\'article applicable.',
         correction: 'L\'Option A est LÉGALE. La fongibilité asymétrique prévue à l\'Art. 45 de la LOFIP autorise précisément le redéploiement de crédits du Titre 1 (personnel) vers les autres titres, dont le Titre 2 (fonctionnement). Si des postes de personnel n\'ont pas été pourvus et que les crédits correspondants sont disponibles, ils peuvent être redéployés vers les achats de médicaments. La procédure requiert cependant un arrêté du Ministre du Budget dans les plafonds fixés par la loi de finances.',
       },
       {
@@ -923,7 +923,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
       {
         num: 1,
         enonce: 'Analysez les deux irrégularités relevées au regard du principe de sincérité (Art. 11 LOFIP).',
-        correction: 'Deux violations du principe de sincérité (Art. 11 LOFIP) sont identifiables : (1) Surestimation des recettes : L\'Art. 11 exige que les prévisions soient sincères et «appréciées compte tenu des informations disponibles». Prévoir 8 milliards FC alors que la moyenne historique est de 3,2 milliards FC (soit 2,5 fois plus) sans base crédible constitue une insincérité manifeste des prévisions de recettes. La mise en service de 3 tronçons peut justifier une augmentation modeste mais pas une multiplication par 2,5. (2) Sous-évaluation des charges de personnel : Omettre délibérément 200 agents du Titre 1 constitue une insincérité des prévisions de dépenses. Cela fausse la lecture du budget et cache un dépassement futur inévitable. L\'Art. 11 exige que les comptes «reflètent une image fidèle» — ce qui n\'est pas le cas ici.',
+        correction: 'Deux violations du principe de sincérité (Art. 11 LOFIP) sont identifiables : (1) Surestimation des recettes : L\'Art. 11 exige que les prévisions soient sincères et «appréciées compte tenu des informations disponibles». Prévoir 8 milliards FC alors que la moyenne historique est de 3,2 milliards FC (soit 2,5 fois plus) sans base crédible constitue une insincérité manifeste des prévisions de recettes. La mise en service de 3 tronçons peut justifier une augmentation modeste mais pas une multiplication par 2,5. (2) Sous-évaluation des charges de personnel : Omettre délibérément 200 agents du Titre 1 constitue une insincérité des prévisions de dépenses. Cela fausse la lecture du budget et cache un dépassement futur inévitable. L\'Art. 11 exige que les comptes «reflètent une image fidèle» - ce qui n\'est pas le cas ici.',
       },
       {
         num: 2,
@@ -936,7 +936,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
   {
     id: 'cp3',
     titre: 'Principe d\'universalité violé : le Fonds spécial des infrastructures',
-    contexte: 'Lors du débat budgétaire 2026, le Gouvernement propose de créer un "Fonds spécial pour les infrastructures" qui capterait directement 15% des recettes douanières de la DGDA (LF 2026 — Loi n° 25/060 : recettes DGDA prévues à 7.522,0 milliards FC). Ce fonds serait géré hors budget général et alimenterait directement les travaux d\'infrastructure. Aucun texte spécial de la LOFIP ne le prévoit. L\'opposition parlementaire conteste la constitutionnalité du dispositif.',
+    contexte: 'Lors du débat budgétaire 2026, le Gouvernement propose de créer un "Fonds spécial pour les infrastructures" qui capterait directement 15% des recettes douanières de la DGDA (LF 2026 - Loi n° 25/060 : recettes DGDA prévues à 7.522,0 milliards FC). Ce fonds serait géré hors budget général et alimenterait directement les travaux d\'infrastructure. Aucun texte spécial de la LOFIP ne le prévoit. L\'opposition parlementaire conteste la constitutionnalité du dispositif.',
     questions: [
       {
         num: 1,
@@ -969,7 +969,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
       {
         num: 2,
         enonce: 'L\'Opération 2 (Titre 1 vers Titre 2) est-elle conforme à la fongibilité asymétrique (Art. 45 LOFIP) ? Dans quel sens la fongibilité joue-t-elle ici ?',
-        correction: 'L\'Opération 2 est CONFORME à la fongibilité asymétrique (Art. 45 LOFIP). La fongibilité est dite «asymétrique» car elle n\'autorise le mouvement que dans un sens : DEPUIS le Titre 1 (personnel) vers les autres titres. L\'inverse — abonder le Titre 1 depuis un autre titre — est formellement interdit. En l\'espèce, les crédits de personnel non consommés (postes vacants) peuvent être redéployés vers le Titre 2. Cette opération nécessite un arrêté du Ministre du Budget dans les plafonds fixés par la loi de finances, sans nécessiter de décret du Premier Ministre.',
+        correction: 'L\'Opération 2 est CONFORME à la fongibilité asymétrique (Art. 45 LOFIP). La fongibilité est dite «asymétrique» car elle n\'autorise le mouvement que dans un sens : DEPUIS le Titre 1 (personnel) vers les autres titres. L\'inverse - abonder le Titre 1 depuis un autre titre - est formellement interdit. En l\'espèce, les crédits de personnel non consommés (postes vacants) peuvent être redéployés vers le Titre 2. Cette opération nécessite un arrêté du Ministre du Budget dans les plafonds fixés par la loi de finances, sans nécessiter de décret du Premier Ministre.',
       },
       {
         num: 3,
@@ -997,7 +997,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
       {
         num: 3,
         enonce: 'L\'Art. 4 de la LF 2026 (Loi n° 25/060) pose-t-il un principe général ou une règle sectorielle ? En quoi renforce-t-il le contrôle démocratique sur les privilèges fiscaux en RDC et la préservation des recettes publiques ?',
-        correction: 'L\'Art. 4 de la LF 2026 pose un PRINCIPE GÉNÉRAL à portée transversale, valable pour l\'ensemble des impôts, taxes et droits fiscaux. Il n\'est pas sectoriel mais s\'applique à tout prélèvement. Il renforce le contrôle démocratique de trois manières : (1) Transparence : en exigeant que toute exonération soit votée par le Parlement, les dépenses fiscales (pertes de recettes) sont rendues publiques et débattues ; (2) Lutte contre la corruption : il empêche les exonérations discrétionnaires accordées par l\'exécutif à des intérêts privés ; (3) Préservation des recettes : dans un contexte où la LF 2026 programme des recettes DGI de 19.033,6 milliards FC et DGDA de 7.522,0 milliards FC, toute érosion non législative de la base fiscale compromet l\'équilibre budgétaire fixé à 54.335,8 milliards FC (Art. 6 LF 2026 — Loi n° 25/060).',
+        correction: 'L\'Art. 4 de la LF 2026 pose un PRINCIPE GÉNÉRAL à portée transversale, valable pour l\'ensemble des impôts, taxes et droits fiscaux. Il n\'est pas sectoriel mais s\'applique à tout prélèvement. Il renforce le contrôle démocratique de trois manières : (1) Transparence : en exigeant que toute exonération soit votée par le Parlement, les dépenses fiscales (pertes de recettes) sont rendues publiques et débattues ; (2) Lutte contre la corruption : il empêche les exonérations discrétionnaires accordées par l\'exécutif à des intérêts privés ; (3) Préservation des recettes : dans un contexte où la LF 2026 programme des recettes DGI de 19.033,6 milliards FC et DGDA de 7.522,0 milliards FC, toute érosion non législative de la base fiscale compromet l\'équilibre budgétaire fixé à 54.335,8 milliards FC (Art. 6 LF 2026 - Loi n° 25/060).',
       },
     ],
     articleRef: 'Art. 9 al. 2 LOFIP · Art. 4 LF 2026 (Loi n° 25/060 du 29 déc. 2025)',
@@ -1099,7 +1099,7 @@ export default function UE5Chapitre2Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 2' },
           ]}
           color="emerald"

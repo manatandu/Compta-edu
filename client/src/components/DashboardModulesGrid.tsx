@@ -4,11 +4,11 @@ import { cn } from '@/lib/utils'
 import { COURS_SYSTEME } from '@/lib/db-firebase'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GRILLE DE MODULES — identique pour l'étudiant et le staff, donc extraite une
+// GRILLE DE MODULES - identique pour l'étudiant et le staff, donc extraite une
 // bonne fois plutôt que dupliquée dans les deux tableaux de bord.
 //
 // `afficherMesCours` : la tuile « Mes cours » fait doublon quand le tableau
-// « Mes cours ce semestre » la précède déjà sur la même page — pire, les deux
+// « Mes cours ce semestre » la précède déjà sur la même page - pire, les deux
 // annonçaient des nombres différents (la tuile comptait le catalogue système,
 // le tableau les cours de l'étudiant). L'appelant qui affiche déjà ce tableau
 // passe donc false. Par défaut la tuile reste affichée (cas du staff, et cas
@@ -62,7 +62,7 @@ export function DashboardModulesGrid({ navigate, afficherMesCours = true }: {
           </div>
           <div className="flex-1">
             {/* Cette tuile s'intitulait « Bibliothèque » et annonçait « Lois, textes
-                officiels PDF » — deux erreurs : elle mène au Dictionnaire, un
+                officiels PDF » - deux erreurs : elle mène au Dictionnaire, un
                 glossaire de termes, et ce sont « Documents » qui portent les PDF.
                 Nom aligné sur celui de la barre latérale et de la page elle-même.
                 Le nombre de termes n'est volontairement pas affiché : importer

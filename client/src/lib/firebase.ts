@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig)
 // instantanément à la réouverture d'une page (ou après un rechargement),
 // pendant que Firestore resynchronise en tâche de fond. Sans ça, chaque
 // écran repart de zéro et attend un aller-retour réseau avant d'afficher
-// quoi que ce soit — la cause principale de la lenteur perçue à l'ouverture.
+// quoi que ce soit - la cause principale de la lenteur perçue à l'ouverture.
 export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
 })

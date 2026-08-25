@@ -442,7 +442,7 @@ export default function BilanPage({ mode = "bilan" }: { mode?: "bilan" | "cr" })
     return (
       <div className="mb-3">
         <div className="flex justify-between text-xs text-muted-foreground mb-1">
-          <span>Désignation entité : <span className="font-medium text-foreground">{session?.nom ?? "—"}</span></span>
+          <span>Désignation entité : <span className="font-medium text-foreground">{session?.nom ?? "-"}</span></span>
           <span>Exercice clos le 31/12/{exerciceLabel}</span>
         </div>
         <div className="text-center font-bold text-sm uppercase text-primary border-b border-primary pb-1">

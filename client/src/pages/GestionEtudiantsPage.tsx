@@ -135,7 +135,7 @@ export default function GestionEtudiantsPage() {
         <div className="flex items-center justify-between flex-wrap gap-3 mt-1">
           <div>
             <h1 className="text-xl font-display font-bold text-foreground leading-tight">Gestion des étudiants</h1>
-            <p className="text-sm text-muted-foreground">Étudiants internes et externes — toutes universités</p>
+            <p className="text-sm text-muted-foreground">Étudiants internes et externes - toutes universités</p>
           </div>
           {isAdmin && (
             <div className="flex items-center gap-2 flex-wrap">

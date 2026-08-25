@@ -1,11 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════
-//  FICHIER GÉNÉRÉ — NE PAS MODIFIER À LA MAIN
+//  FICHIER GÉNÉRÉ - NE PAS MODIFIER À LA MAIN
 //
 //  Régénérer avec :
 //    node scripts/generer-dictionnaire.js <references/titre-6-definitions-termes>
 //
 //  Source : AUDCIF (Acte uniforme OHADA relatif au droit comptable et à
-//  l'information financière), Titre VI — « Définitions des termes ».
+//  l'information financière), Titre VI - « Définitions des termes ».
 //  Glossaire officiel de l'OHADA : 592 termes.
 //
 //  Les notes de transcription du texte source ont été retirées ; le
@@ -20,7 +20,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Aides financières consenties par une entité à une autre avec laquelle elle est liée par des relations commerciales, financières ou de participation au capital.\n\nCes opérations à caractère extraordinaire visent à maintenir en activité l'entité débitrice ou à préserver les sources d'approvisionnement afin d'assurer la poursuite des relations avantageuses pour l'entité créancière.\n\nL'abandon de créance est une charge hors activité ordinaire (H.A.O.) pour l'entité qui le consent et un produit H.A.O. pour l'entité bénéficiaire.\n\nLa contrepartie d'un abandon de créance est :\n- soit une dette financière ou dette fournisseur ;\n- soit une créance liée à des participations ou créance client.\n\nLes renonciations à des recettes ne peuvent être assimilées à des abandons de créances. Il s'agit notamment de prêts ou avances consentis sans intérêts, d'intérêts non réclamés, de la non-facturation de ventes ou de services. En raison de l'absence de flux, ces renonciations n'entraînent aucune écriture comptable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "abondement",
@@ -28,7 +28,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est la participation de l'employeur, sous forme de versement complémentaire à celui du salarié, à un plan d'épargne salariale par exemple, ou sous forme d'attribution gratuite ou avec décote d'actions de l'entité au titre de l'actionnariat des salariés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "abonnement-systeme-d",
@@ -36,7 +36,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Répartition par fractions généralement égales du montant annuel des charges ou produits entre diverses périodes comptables (mois, trimestre...), afin d'obtenir des résultats périodiques. Il en est ainsi, par exemple, des primes d'assurance, des amortissements, de la taxe professionnelle.\n\nLes charges et produits abonnés sont enregistrés par nature. En fin d'exercice, il est procédé aux ajustements nécessaires pour que le montant réel soit enregistré.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "absorption",
@@ -44,7 +44,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Opération juridique par laquelle le patrimoine d'une société (absorbée) est intégralement apporté à une autre société existante (société absorbante). L'absorption est la forme la plus fréquente de la fusion ; elle entraîne la dissolution de la société absorbée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "accreditifs",
@@ -52,7 +52,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Crédits ouverts dans les banques au nom d'un tiers ou d'un agent de l'entité pour couvrir les besoins de trésorerie d'une succursale, d'un établissement, d'un chantier ou plus généralement d'une division de l'entité.\n\nLes accréditifs nécessitent un suivi de l'emploi des fonds et une reddition des comptes. Ils fonctionnent comme les comptes de trésorerie.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "achalandage",
@@ -60,7 +60,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Potentiel de bénéfice lié au rattachement d'une clientèle actuelle ou future, à un fonds de commerce ou à l'emplacement particulier de l'entité ou à la disposition des articles dans un magasin.\n\nL'achalandage est indissociable du fonds de commerce et ne doit pas faire l'objet d'une comptabilisation séparée. Immobilisation incorporelle, seul l'achalandage acquis est enregistré. Créé, il contribue à augmenter le patrimoine de l'entité sans pouvoir être inscrit à l'actif.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "achats",
@@ -68,7 +68,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Terme désignant les acquisitions de biens et services, de créances et de titres.\n\nToutefois, le compte ACHATS est réservé à l'enregistrement des biens liés au cycle d'exploitation, c'est-à-dire destinés à être vendus ou incorporés dans le processus de fabrication.\n\nLe compte ACHATS n'enregistre pas les achats d'immobilisations comptabilisés dans les comptes appropriés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "achats-et-ventes-a-terme",
@@ -76,7 +76,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les contrats d'achats et de ventes à terme sont caractérisés par le fait que leur conclusion n'entraîne pas transfert de propriété des marchandises à cette date, mais à la date de livraison des marchandises qui intervient ultérieurement. Le prix des marchandises, fixé lors de la conclusion du contrat, est réglé à l'échéance prévue par le contrat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "achevement-des-travaux-methode-a-l",
@@ -84,7 +84,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Méthode de comptabilisation des contrats pluri-exercices (chevauchant au moins deux exercices), selon laquelle les produits liés à de telles opérations ne sont acquis qu'après que le contrat ait été totalement exécuté.\n\nCette méthode consiste donc à appliquer les règles générales de prudence en matière de rattachement des produits à un exercice comptable. Elle est souvent moins pertinente que la méthode « à l'avancement » dans la recherche de l'image fidèle.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "acomptes-sur-dividendes",
@@ -92,7 +92,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Sommes versées aux associés, à valoir sur les dividendes relatifs à un exercice dont les comptes n'ont pas encore été approuvés par l'Assemblée générale. Une telle distribution n'est pas autorisée par l'Acte uniforme de l'OHADA relatif au droit des sociétés commerciales et du GIE.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "acompte-verse",
@@ -100,7 +100,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Somme généralement versée à des tiers, à valoir sur le montant d'une commande, d'un salaire, d'un impôt. Compte débiteur, il s'inscrit à l'actif du bilan comme créance à l'égard d'un tiers.\n\nLes acomptes ne doivent pas être confondus avec les avances, ces dernières étant antérieures au début d'exécution de la commande ou de la prestation.\n\nÀ titre d'exemple, les « acomptes sur salaires » versés au personnel correspondent, à la différence des « avances », à des prestations déjà fournies par les bénéficiaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "acte-uniforme-ohada",
@@ -108,7 +108,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Appellation des textes de l'Organisation pour l'Harmonisation en Afrique du Droit des Affaires (OHADA). Cet acte constitue la source de droit pour le Système Comptable OHADA. Ces textes sont directement applicables et obligatoires dans les Etats parties au Traité, nonobstant toute disposition contraire de droit interne antérieure ou postérieure.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actes-frais-d",
@@ -116,7 +116,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dépenses exposées dans l'accomplissement des formalités légales ou réglementaires de constitution, d'acquisition d'immobilisations ou d'inscription de privilèges (hypothèques).\n\nElles sont inscrites en charges de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-du-bilan",
@@ -124,7 +124,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Partie du bilan décrivant, à une date donnée, l'ensemble des emplois économiques sous contrôle de l'entité. Il comprend les immobilisations, les stocks, les créances et les disponibilités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-biologique",
@@ -132,7 +132,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un actif biologique est un animal vivant (vaches, moutons, etc.) ou une plante vivante (arbres d'une plantation forestière, plantes, etc.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-circulant",
@@ -140,7 +140,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Masse du bilan regroupant des éléments d'actif qui, en raison de leur destination ou de leur nature, ont vocation à se transformer au cours du cycle d'exploitation. Il s'agit de stocks et de créances.\n\nCertains éléments de l'actif circulant qui ne relèvent pas de l'exploitation normale et récurrente de l'entité sont classés « hors activité ordinaire ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-eventuel",
@@ -148,7 +148,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un actif éventuel est défini comme un actif potentiel résultant d'événements passés et dont l'existence ne sera confirmée que par la survenance (ou non) d'un ou plusieurs événements futurs incertains qui ne sont pas totalement sous le contrôle de l'entité.\n\nUn actif éventuel ne peut pas être comptabilisé, mais il fera l'objet d'une note en annexe lorsque l'entrée d'avantages économiques est probable et le montant significatif.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-identifiable",
@@ -156,7 +156,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un actif est identifiable s'il :\n- est séparable, c'est-à-dire susceptible d'être séparé ou dissocié de l'entité et d'être vendu, cédé, concédé par licence, loué ou échangé, soit individuellement, soit en même temps qu'un contrat, un actif ou un passif identifiable, peu importe si l'entité entend ou non en arriver là ; ou\n- résulte de droits contractuels ou d'autres droits légaux, que ces droits soient ou non cessibles ou séparables de l'entité ou d'autres droits et obligations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-immobilise",
@@ -164,7 +164,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Masse du bilan regroupant les éléments destinés à servir de façon durable à l'activité de l'entité et ne se consommant pas par le premier usage. Leur durée d'utilisation est, a priori, supérieure à un an. Certains biens de faible valeur ou de consommation très rapide (moins d'un an) ne peuvent pas être classés en actif immobilisé.\n\nL'actif immobilisé se compose d'immobilisations incorporelles, corporelles et financières. Il ne se confond pas avec la notion de « Formation brute de capital fixe » de la Comptabilité nationale, même si les critères de durée d'utilisation sont les mêmes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-net",
@@ -172,7 +172,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur patrimoniale de l'entité déterminée à partir de son bilan après affectation du résultat. Elle se confond avec les capitaux propres.\n\nCette notion est utilisée en analyse financière ainsi que dans les évaluations d'entités, à l'occasion de fusions et d'opérations assimilées. Elle équivaut à l'expression valeur mathématique ou valeur intrinsèque.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actif-qualifie",
@@ -180,7 +180,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Actif qui exige une longue période de préparation avant de pouvoir être utilisé ou vendu.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actifs",
@@ -188,7 +188,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un actif est un élément identifiable du patrimoine représentant une ressource économique actuelle contrôlée par l'entité du fait d'événements passés.\n\nUne ressource économique est un droit ou toute autre source de valeur qui est capable de produire des avantages économiques.\n\nLes retombées économiques générées par un actif sont le potentiel qu'a cet actif de contribuer, directement ou indirectement, à des flux nets de trésorerie au bénéfice de l'entité.\n\nLe potentiel de services attendus de l'utilisation d'un actif par une entité à but non lucratif est fonction de l'utilité sociale correspondant à son objet.\n\nUn actif contribue directement ou indirectement à un flux positif futur de trésorerie pour l'entité. La notion d'actif transcende celle de la propriété juridique. Par exemple, les biens pris en crédit-bail constituent des actifs pour l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actions",
@@ -196,7 +196,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Titres représentant les droits d'un actionnaire dans le capital d'une société par actions, notamment le droit de vote et les droits patrimoniaux.\n\nLors de leur acquisition et sous réserve de certaines conditions à remplir, les actions sont inscrites à l'actif en Titres de participation ou en Titres de placement, selon l'intention de l'entité.\n\nLes actions concourent à la formation du capital social dont le montant est égal au total de leurs valeurs nominales, qu'elles soient totalement libérées ou non.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actions-d-apport",
@@ -204,7 +204,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Titres rémunérant des apports en nature effectués à la constitution d'une société ou lors d'une augmentation de son capital.\n\nLeur suivi comptable est fondé sur les spécificités juridiques et leur distinction par rapport aux actions de numéraire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actions-de-jouissance",
@@ -212,7 +212,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Titres représentant des actions intégralement amorties. Les actions de jouissance perdent le droit au premier dividende ou intérêt statutaire et celui du remboursement du nominal après dissolution ou liquidation. Elles conservent le droit au super dividende ainsi que le droit à l'attribution d'actions gratuites.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actions-de-numeraire",
@@ -220,7 +220,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Titres dont le montant a été libéré en argent, ou par compensation de créances liquides exigibles et certaines.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actions-gratuites",
@@ -228,7 +228,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Actions attribuées aux anciens actionnaires à l'occasion d'une incorporation de réserves, de bénéfices ou de primes.\n\nCette attribution est faite au prorata du nombre d'actions possédées par les anciens actionnaires. Elle induit une dilution dans le capital et modifie le bénéfice par action.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "action-de-preference",
@@ -236,7 +236,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Actions qui donnent un avantage particulier à un ou plusieurs actionnaires nommément désignés.\n\nCes droits particuliers doivent être définis par les statuts ou l'assemblée générale extraordinaire. Ces droits peuvent être, un droit de jouissance d'avantages par rapport à toutes les autres actions, un droit d'attribution de siège d'administrateurs, un droit de vote double.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "activites",
@@ -244,7 +244,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des opérations accomplies par une entité en vue de réaliser l'objet social. Ces opérations se distinguent en :\n- activités principales, c'est-à-dire celles qui correspondent à la finalité de l'entité et représentent la partie la plus importante du chiffre d'affaires ou de la valeur ajoutée ;\n- activités accessoires, c'est-à-dire celles qui les complètent ou sont dans leur prolongement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "activite-conjointe",
@@ -252,7 +252,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Partenariat dans lequel les parties qui exercent un contrôle conjoint sur l'opération ont des droits sur les actifs, et des obligations au titre des passifs, relatifs à celle-ci.\n\nCes parties sont appelées coparticipant.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "activites-ordinaires",
@@ -260,7 +260,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opérations assumées par l'entité correspondant à son objet social dans les conditions normales d'exploitation qui se reproduisent de manière récurrente à structure et qualité de gestion similaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "activites-extraordinaires-hors-activites-ordinaires",
@@ -268,7 +268,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opérations et événements distincts des activités ordinaires de l'entité et n'étant pas en conséquence censés se reproduire de manière fréquente ou régulière.\n\nLa distinction entre activités ordinaires et activités extraordinaires revêt une importance dans la définition et le classement des postes des états financiers de synthèse ainsi que dans le calcul du résultat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "activites-pertinentes",
@@ -276,7 +276,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Activités de l'entité faisant l'objet d'un investissement qui ont une incidence importante sur ses rendements.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "actualisation",
@@ -284,7 +284,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Technique permettant de calculer à intérêts composés la valeur, au moment présent, d'un capital (ou d'une série de flux monétaires) dont le paiement aura lieu dans le futur, à moyen ou à long terme. Elle permet de rendre comparable un revenu ou une dépense future à un revenu ou une dépense immédiate.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "affacturage-ou-factoring",
@@ -292,7 +292,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Technique financière permettant à une entité de sous-traiter son poste clients à une société spécialisée, relevant en général de la catégorie des établissements de crédit. Cette société, subrogée à l'entité :\n- assure les recouvrements et prend à sa charge le risque de non-paiement ;\n- verse à l'entité le prix d'achat convenu des créances (montant inférieur au total nominal de ces créances), lui assurant ainsi une mobilisation de cet en-cours clients.\n\nLa différence entre le nominal des créances et le versement à l'entité rémunère le « facteur » et correspond à deux commissions distinctes :\n- une commission d'affacturage rémunérant le service rendu (gestion des comptes, recouvrement, risque assumé) et qui est un « service extérieur » ;\n- une commission de financement qui représente l'intérêt résultant de l'avance du paiement à l'entité (charge financière).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "affacturage-inverse",
@@ -300,7 +300,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Contrairement à l'affacturage classique qui se caractérise par la cession, par le fournisseur, de certaines de ses créances clients à un factor, l'affacturage inversé est à l'initiative du client qui transfère des factures à payer à certains de ses fournisseurs (après leur accord) à un factor.\n\nLe factor paie les fournisseurs au comptant, une fois la facture validée par le client, en déduisant un escompte de règlement. Le client, lui, paie les factures au factor dans le délai convenu, en supportant la commission d'affacturage.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "affectation-de-cout",
@@ -308,7 +308,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Attachement direct, c'est-à-dire sans calcul intermédiaire, des charges au coût des produits ou des activités. Il en est ainsi, par exemple, des frais directs externes de transport, de manutention, de montage et d'installation liés à l'acquisition d'une immobilisation et qui sont affectés au coût d'entrée de l'immobilisation.\n\nLa notion de charges directes étant relative, l'affectation obéit à des normes prédéfinies.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "agencements-et-amenagements",
@@ -316,7 +316,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Travaux destinés à mettre en état d'utilisation les diverses immobilisations de l'entité, essentiellement les terrains (clôtures, mouvements de terre...) et les bâtiments (cloisons et placards amovibles...). Les agencements et aménagements sont à rattacher à chacune des rubriques concernées : terrains, bâtiments, matériels.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "agios",
@@ -324,7 +324,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble de retenues prélevées sur une opération d'escompte ou de découvert.\n\nL'agio qui comprend la totalité des retenues doit être analysé en charges externes (commissions et autres rémunérations) et charges financières (intérêts).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ajustement-consolidation",
@@ -332,7 +332,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Corrections opérées dans les écritures des différentes sociétés incluses dans le périmètre de consolidation pour assurer l'homogénéité des comptes et des états financiers consolidés. Ces corrections trouvent leur origine dans les divergences de méthodes comptables utilisées, dans les erreurs ou insuffisances constatées à l'occasion de la consolidation, ainsi que dans les décalages temporels des dates de clôture et, le cas échéant, des dates d'enregistrement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amendes",
@@ -340,7 +340,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pénalités à payer à l'Etat ou aux collectivités publiques consécutives à des infractions fiscales, pénales ou sociales.\n\nElles sont analysées comme des charges d'impôt en fonction de leur nature, liée ou non à l'activité ordinaire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-comptable",
@@ -348,7 +348,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'amortissement consiste à répartir le montant amortissable du bien sur la durée d'utilité selon un plan prédéfini.\n\nLe montant amortissable est égal à la différence entre la valeur d'entrée du bien et sa valeur résiduelle probable à l'issue de la période d'utilisation prévue.\n\nLa valeur résiduelle prévisionnelle et la durée d'utilité d'un actif doivent être révisé au moins à chaque fin d'exercice et, si les attentes diffèrent par rapport aux estimations précédentes, les changements doivent être comptabilisés comme un changement d'estimation comptable. \n\nÀ ne pas confondre avec l'amortissement du capital ni avec l'amortissement d'un emprunt, lequel signifie remboursement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-d-un-emprunt",
@@ -356,7 +356,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Remboursement d'une fraction ou de la totalité d'une somme empruntée ; est souvent qualifié d'amortissement financier, par distinction d'avec l'amortissement comptable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-degressif-a-taux-decroissant",
@@ -364,7 +364,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le mode d'amortissement dégressif à taux décroissant ou méthode SOFTY (Sum Of The Year's digits) consiste à amortir l'immobilisation selon une suite arithmétique décroissante par l'application d'un taux décroissant à la base amortissable.\n\nL'amortissement dégressif à taux décroissant est utilisé lorsqu'il permet au mieux de traduire le rythme de consommation des avantages économiques attendus. Ce mode d'amortissement comptable ou économiquement justifié conduit à une charge décroissante sur la durée d'utilité de l'immobilisation.\n\n**Taux décroissant**\n\nLe taux décroissant est obtenu en faisant le rapport entre le nombre d'années restant à courir jusqu'à la fin de la durée d'utilité du bien et de la somme des numéros d'ordre de l'ensemble des années. Ainsi, pour une durée d'utilité de 5 ans par exemple, on fait la somme des numéros d'années : 1 + 2 + 3 + 4 + 5 = 15 ;\n\net ensuite, on détermine les taux décroissants de la façon suivante :\n\nAnnée 1 = 5/15 ; Année 2 = 4/15 ; Année 3 = 3/15 ; Année 4 = 2/15 ; Année 5 = 1/15.\n\n**L'annuité d'amortissement (AD) est égale à :**\n\nAD = base amortissable × taux décroissant de l'exercice.\n\nLa base d'amortissable reste constante d'un exercice à l'autre.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-degressif-fiscal",
@@ -372,7 +372,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'amortissement dégressif est déterminé par application d'un taux sur la valeur nette comptable au début de chaque exercice. Le taux applicable est obtenu en multipliant le taux linéaire par un coefficient déterminé en fonction de la durée d'utilité du bien. Ce type d'amortissement de nature purement fiscale est facultatif et son application est soumise au respect de certains critères liés généralement à la nature du bien et à sa durée de vie.\n\nLorsque ce mode d'amortissement est retenu par l'entité, la part d'amortissement jugée excédentaire par rapport à l'amortissement économiquement justifié est comptabilisée en amortissement dérogatoire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-derogatoire",
@@ -380,7 +380,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Amortissement ou fraction d'amortissement comptable ne correspondant pas à l'objet normal d'un amortissement et comptabilisé en application de textes particuliers (d'origine fiscale, le plus souvent). Les amortissements dérogatoires peuvent résulter d'une différence liée :\n- à la durée d'amortissement,\n- à la base amortissable,\n- au mode d'amortissement.\n\nLes amortissements dérogatoires sont classés en provisions réglementées et traités comme telles. Ils figurent en conséquence parmi les capitaux propres et ne concourent pas à la détermination de la valeur comptable nette du bien concerné, à la différence des amortissements comptables et des provisions pour dépréciation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-du-capital",
@@ -388,7 +388,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opération par laquelle une société rembourse aux associés une partie ou la totalité du montant nominal de leurs actions à titre d'avance sur le produit de la liquidation future de la société. Dans le second cas, les actions ainsi totalement amorties sont appelées « actions de jouissance ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-lineaire-ou-constant",
@@ -396,7 +396,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'amortissement linéaire (ou constant) consiste à imputer à chaque unité de temps un montant égal au produit de la base amortissable par un taux d'amortissement constant qui est égal à 100 divisé par le nombre d'années d'utilité du bien à amortir ;\n\nLa base de calcul de l'annuité d'amortissement reste constante d'un exercice à l'autre. L'annuité d'amortissement est constante, sauf à appliquer la règle du prorata temporis lorsque la première et/ou la dernière annuité sont incomplètes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "amortissement-par-unites-d-uvre-ou-unites-de-production",
@@ -404,7 +404,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il s'agit de la répartition d'un montant amortissable en fonction d'unités d'œuvre qui peuvent être le nombre de produits fabriqués, le nombre de kilomètres parcourus, le nombre d'heures de fonctionnement d'une machine, le nombre d'heures de travail, etc. L'annuité d'amortissement est obtenue en multipliant la base amortissable par le rapport entre le nombre d'unités d'œuvre consommées pendant l'exercice et le nombre total d'unités d'œuvre prévues.\n\nL'annuité d'amortissement (AD) est égale à :\n\nAD = base amortissable × (nombre d'unités d'œuvre consommées) / (total d'unités d'œuvre prévues)\n\nLe nombre total d'unités d'œuvre prévues est déterminé en fonction de la durée d'utilité de l'immobilisation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "annuite-de-remboursement-d-emprunt",
@@ -412,7 +412,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Versement périodique permettant à terme d'éteindre une dette. L'annuité comprend les charges d'intérêts calculées sur le montant restant dû après la dernière échéance, ainsi qu'une fraction du capital. Du fait de ce remboursement du capital, les dettes diminuent de la fraction en capital remboursée. Cette fraction est prise en compte pour l'élaboration du tableau des flux de trésorerie.\n\nLa part relative aux charges financières concourt à la détermination du résultat de l'exercice et de la capacité d'autofinancement globale (C.A.F.G.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "annulation-d-ecritures",
@@ -420,7 +420,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Correction effectuée à la suite d'une erreur d'imputation ou d'enregistrement dans le traitement comptable d'une opération. Elle s'effectue exclusivement par inscription en négatif des éléments erronés. L'enregistrement exact est ensuite opéré.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "antichrese",
@@ -428,7 +428,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Nantissement d'un bien immeuble. Il s'agit d'une sûreté immobilière, conventionnelle, qui emporte dépossession du constituant au profit du créancier ou d'un tiers convenu et qui confère au créancier, outre un droit de préférence sur la valeur de l'immeuble, la perception des fruits, à charge de les imputer sur les intérêts et subsidiairement sur le capital jusqu'à l'extinction de la dette.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "appel-public-a-l-epargne",
@@ -436,7 +436,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Diffusion des titres émis par une société dans le public par voie de publicité, de démarchage ou par placement grâce à des intermédiaires financiers.\n\nLes sociétés dont les titres sont admis à la négociation d'une Bourse des valeurs sont réputées faire appel public à l'épargne. Ces sociétés sont tenues généralement de publier des informations comptables plus étendues que les autres entités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "apport-partiel-d-actif",
@@ -444,7 +444,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Opération par laquelle une société transfère à une autre une partie de son patrimoine en contrepartie des parts ou actions nouvelles créées à titre d'augmentation de capital.\n\nLa société qui transmet une branche d'activité à titre d'apport partiel d'actif à une société existante ou à une société nouvelle ne disparaît pas. Les opérations d'apport partiel sont assimilées en comptabilité à des opérations de fusion et suivent le même traitement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "apports-en-societe",
@@ -452,7 +452,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Biens mobiliers ou immobiliers, créances ou dettes, et généralement tous autres droits et obligations transmis à la société bénéficiaire, à la suite de l'engagement qu'un associé a pris de souscrire au capital et de libérer les apports correspondants.\n\nCes apports peuvent être effectués en pleine propriété ou en usufruit.\n\nPour l'entité qui les reçoit, ils augmentent d'autant ses actifs.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "apporteur",
@@ -460,7 +460,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une personne physique ou morale qui fait apport d'un bien affecté à la réalisation de l'objet commun de l'entité. Cet apport peut être en numéraire, en nature ou en industrie.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "apporteur-defaillant",
@@ -468,7 +468,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ayant souscrit au capital d'une entité l'actionnaire ou l'associé qui ne s'acquitte pas dans les délais impartis (trente jours à compter de la mise en demeure) des sommes exigibles au titre de l'appel d'une fraction ou de la totalité du capital est dit défaillant.\n\nL'apporteur défaillant s'expose à une exécution en Bourse (titres cotés) ou à une cession aux enchères publiques. Les produits de cette cession servent à couvrir la fraction de capital libéré, antérieurement à la défaillance, ainsi que les frais mis à sa charge.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "approbation-des-etats-financiers",
@@ -476,7 +476,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Décision prise en Assemblée générale, des actionnaires, des associés ou des membres, de valider les comptes annuels (personnels, consolidés ou combinés) tels qu'établis et arrêtés par les dirigeants ou après modification.\n\nCette formalité obligatoire intervient au plus tard six mois après la clôture de l'exercice et précède la publicité des états financiers annuels.\n\nLes états financiers approuvés sont intangibles.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "approvisionnements",
@@ -484,7 +484,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets et substances achetés pour l'élaboration de biens et services à vendre ou à immobiliser. Ils comprennent les matières et fournitures liées, les matières et fournitures consommables, les emballages perdus.\n\nLes approvisionnements sont classés dans les différentes catégories des stocks concernés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "apurement-du-passif",
@@ -492,7 +492,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Phase de la procédure de liquidation des biens au cours de laquelle les produits provenant de la réalisation de l'actif servent à désintéresser les créanciers de l'entité.\n\nL'apurement de passif ne doit pas être confondu avec l'action en comblement du passif selon laquelle les dirigeants et autres personnes ayant directement ou indirectement contribué à créer le passif par leurs fautes de gestion, sont appelés au versement des fonds correspondants.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "archivage",
@@ -500,7 +500,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Phase de l'organisation comptable, qui consiste à classer et à stocker des documents et des données comptables après traitement. L'archivage permet ainsi de servir de moyen de preuve entre les entités pour faits de commerce.\n\nLes livres comptables ou les documents archivés, ainsi que les pièces justificatives y afférentes sont conservés pendant dix ans.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "arrerages",
@@ -508,7 +508,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Montants périodiques versés au crédirentier en paiement d'immobilisations contre rente viagère ou d'un emprunt contracté selon la même formule.\n\nLe versement des arrérages est imputé sur la dette jusqu'à son extinction. En cas de survie du crédirentier, les arrérages supplémentaires constituent des charges pour l'entité.\n\nEn cas de décès prématuré du crédirentier, la différence entre la valeur d'entrée et le cumul des arrérages versés correspond à un produit.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "arrhes",
@@ -516,7 +516,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sommes versées par une partie à l'autre à la conclusion d'un contrat pour en garantir l'exécution. Les arrhes permettent à l'acheteur de se dédire en abandonnant le montant versé au vendeur.\n\nEn cas de dédit de sa part, le vendeur doit verser le double des arrhes à l'acheteur.\n\nLes arrhes acquises sont enregistrées en produits ou en charges.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "associes",
@@ -524,7 +524,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sont réputés associés, les membres des sociétés de personnes, des sociétés à responsabilité limitée, des sociétés par actions simplifiées et des sociétés de fait qui :\n- participent aux bénéfices et aux pertes ;\n- ont eu la volonté de s'associer (affectio societatis) ;\n- ont fait un apport à la société ou ont acheté des actions ou parts de la société.\n\nL'associé est tenu par des obligations à l'égard de la société et de ses co-associés. À l'inverse, il détient des droits sur celle-ci.\n\nDans le SYSCOHADA le terme associé englobe les actionnaires par simplification.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "audit",
@@ -532,7 +532,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "audit",
     ues: ["ue12-audit"],
     definition: "Analyse critique des opérations réalisées par une entité menée par référence à des normes, techniques et procédures reconnues.\n\nL'audit comptable consiste à étudier la régularité, la sincérité et l'exhaustivité des comptes et états financiers de l'entité, afin de formuler et garantir une opinion auprès des destinataires du rapport d'audit.\n\nL'audit peut être contractuel ou légal (commissariat aux comptes).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "augmentation-de-capital",
@@ -540,7 +540,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opération réalisée par une société dans le but soit de lui procurer des ressources nouvelles en provenance d'associés, ou d'actionnaires (apports en numéraire, en nature), soit de conforter ses ressources acquises (incorporation de réserves ou de primes, ou d'écarts de réévaluation).\n\nL'augmentation de capital accroît la capacité financière de l'entité et améliore son autonomie.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ausgie",
@@ -548,7 +548,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Acte uniforme relatif au droit des sociétés commerciales et du GIE.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "autocontrole",
@@ -556,7 +556,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il y a autocontrôle lorsque des actions ou des droits de vote d'une société sont possédés par une ou plusieurs autres, dont la première détient le contrôle (directement ou indirectement) ; ainsi la société se trouve être son propre actionnaire.\n\nDes dispositions légales viennent limiter ou interdire l'exercice des droits de vote attachés aux actions d'autocontrôle.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "autofinancement",
@@ -564,7 +564,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "finance",
     ues: ["analyse-financiere"],
     definition: "Ressource de financement propre dégagée par l'entité en raison de son activité.\n\nSolde financier du tableau de flux de trésorerie, il est égal à la Capacité d'autofinancement globale (C.A.F.G.) diminuée des dividendes effectivement distribués au cours de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "autres-fonds-propres",
@@ -572,7 +572,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les « Autres fonds propres » sont une des composantes de la classe 1 des comptes de capitaux qui sont présentés dans une rubrique intermédiaire entre les capitaux propres et les dettes financières lorsque leur montant global est significatif. Les autres fonds propres comprennent notamment :\n- le montant des émissions de titres participatifs ;\n- les avances conditionnées reçues de l'Etat et dont le remboursement est à la fois à long terme et conditionnel ;\n- les titres subordonnés à durée indéterminée et les obligations remboursables en actions.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "aval",
@@ -580,7 +580,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Engagement dont l'exécution pourrait se dénouer en un paiement de tout ou partie de la dette, ainsi garantie par l'entité avaliste.\n\nL'aval est un risque susceptible de grever le patrimoine et la situation financière. Le montant des engagements financiers obtenus ou accordés par aval ne figure pas au bilan, mais doit être obligatoirement mentionné dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "avancement-des-travaux-methode-a-l",
@@ -588,7 +588,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Méthode de comptabilisation des opérations de longue durée ou à cheval sur deux exercices (pluri-exercices) selon laquelle les produits liés à celles-ci sont constatés dans le compte de résultat au fur et à mesure des travaux exécutés dans chaque exercice et qui ont été acceptés par le client. Le chiffre d'affaires est ainsi dégagé en fonction de ces travaux acceptés et non à la fin des travaux comme dans la méthode d'achèvement.\n\nCette méthode permet de dégager le bénéfice, le cas échéant, au prorata du degré d'avancement accepté par le client à la clôture de l'exercice.\n\nIl est constaté au cours de chaque exercice, autre que l'exercice de la facturation, des produits partiels soumis, par ailleurs, à des conditions légalement définies.\n\nDans les secteurs comme le Bâtiment et les Travaux Publics (B.T.P.), travaillant sous forme de lots, il peut être procédé à la facturation partielle, selon l'avancement (par exemple facturation lorsque les gros œuvres sont achevés ou lorsque la plomberie est terminée).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "avances-assorties-de-conditions-particulieres",
@@ -596,7 +596,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sommes mises à la disposition des entités par les associés, les dirigeants, l'État ou d'autres organismes, soumises à des conditions particulières de remboursement ou d'incorporation au capital.\n\nSelon leur nature et les clauses des contrats, elles peuvent figurer dans les dettes financières ou dans les « autres fonds propres ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "avances-et-acomptes",
@@ -604,7 +604,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Règlement partiel à valoir sur le prix stipulé au contrat, une fois la vente conclue.\n\nLes avances sont versées avant tout commencement d'exécution de la commande.\n\nLes avances et acomptes versés sont inscrits sur une ligne distincte du bilan :\n- dans les immobilisations, pour les avances et acomptes relatifs à celles-ci ;\n- dans les créances, pour les avances et acomptes sur matières et marchandises.\n\nLes avances et acomptes reçus sont inscrits, dans le passif circulant, dans le poste : « Clients, avances reçues ».\n\nLes avances et acomptes ne doivent pas être confondus avec les arrhes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "avances-remboursables",
@@ -612,7 +612,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'État peut octroyer aux entités des avances assorties ou non d'intérêts, en vue de faciliter le lancement d'études, le développement et la fabrication de certains matériels. Ces avances sont remboursables, avec ou sans prime, en cas de succès (dépassement d'un certain seuil de rentabilité par exemple). Elles sont transformables en subventions en cas d'échec.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "avances-sur-salaires",
@@ -620,7 +620,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Versements au personnel à valoir sur des prestations de travail non encore exécutées (différence avec les acomptes).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "avantages-en-nature",
@@ -628,7 +628,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Éléments de rémunération en nature (nourriture, logement et accessoires, électricité, téléphone, eau, domesticité, voyage pour congés...), dont bénéficient collectivement ou individuellement les travailleurs.\n\nEvalués, ces avantages en nature sont compris dans les charges de personnel pour la détermination d'assiettes fiscales et sociales.\n\nLorsqu'ils sont significatifs, l'entité doit les porter en « charges de personnel » par une écriture de « transfert de charges » ou de « production autoconsommée ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bail-commercial",
@@ -636,7 +636,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le bail dit commercial est le bail d'un local soumis à des dispositions protectrices du locataire définies par la loi qui organise le « statut des baux commerciaux ».\n\nLe bénéfice de ces dispositions pour le locataire est parfois appelé « propriété commerciale ».\n\nLa somme versée au début du contrat au propriétaire, ou au locataire précédent, est appelée droit d'entrée ; elle correspond selon le cas :\n- à un supplément de loyer payé, ab initio, les autres loyers périodiques étant d'autant plus faibles. Il s'agit dans ce cas, pour la location, d'une « charge d'avance » ;\n- à l'acquisition d'éléments incorporels liés au fonds de commerce et enregistrés en « droit au bail ».\n\nDans la comptabilité du locataire, l'acquisition de nouvel élément s'inscrit à l'actif du bilan. Sont rattachés à la notion de bail commercial, des concepts d'origine fiscale de « droit d'entrée » et de « pas-de-porte ». Le droit d'entrée est l'indemnité payée au propriétaire d'un immeuble libre de location. Le pas-de-porte est l'indemnité versée au précédent locataire lorsque l'immeuble était pris à bail.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bail-a-construction",
@@ -644,7 +644,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Contrat permettant à une entité de construire ou d'aménager sur sol d'autrui. Les constructions et aménagements concernés sont inscrits à l'actif du bilan dans un compte approprié. Le bail à construction nécessite un suivi comptable spécifique fondé sur l'analyse des clauses particulières du contrat en vue d'en tirer les conséquences comptables pour l'amortissement des biens.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "balance-generale-des-comptes",
@@ -652,7 +652,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etat récapitulatif obligatoire de tous les comptes établi à une date donnée. À la clôture de l'exercice, la balance générale comporte tous les comptes y compris ceux qui se trouvent soldés.\n\nElle fait apparaître, pour chaque compte, le solde débiteur ou créditeur, au début de l'exercice ; le cumul des mouvements débiteurs et des mouvements créditeurs de la période et le solde débiteur ou créditeur à la date considérée.\n\nLa balance générale des comptes est un outil de contrôle permettant de s'assurer que la technique de la partie double a été respectée.\n\nL'établissement d'une balance des comptes, fait partie des dispositions d'organisation comptable qui conditionnent la fiabilité des informations et des documents de synthèse.\n\nÀ ne pas confondre avec la « Balance des mutations », qui est un bilan différentiel.\n\nPar ailleurs, ne pas confondre la balance générale avec des balances « partielles » non équilibrées en débits et crédits, telles que les balances « clients », « fournisseurs », etc.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "banques",
@@ -660,7 +660,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Partenaires financiers de l'entité, susceptibles d'apporter à celle-ci :\n- des concours financiers à court terme (gestion de la trésorerie) ;\n- des financements à moyen et à long terme.\n\nLe compte Banque, inscrit à l'actif du bilan, est à solde débiteur et enregistre les entrées de disponibilités ainsi que les sorties. À ne pas confondre avec « Banques, crédit de trésorerie ou d'escompte » qui constituent des concours financiers inscrits au passif du bilan. Entre les deux catégories de comptes s'applique le principe de non-compensation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "batiments",
@@ -668,7 +668,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sont considérés comme tels, les fondations et leurs appuis, les murs, les planchers, les toitures, ainsi que les aménagements faisant corps avec eux, à l'exclusion de ceux qui peuvent être facilement détachés ou encore ceux qui, en raison de leur nature et de leur importance, justifient une inscription distincte en comptabilité, notamment pour des raisons de rythme d'amortissement différent de celui des bâtiments ; exemple : climatisation.\n\nLes bâtiments sont inscrits à l'actif du bilan séparément des terrains, même s'ils font partie d'un ensemble immobilier.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "benefice-consolide",
@@ -676,7 +676,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Ce bénéfice ou résultat du groupe (positif) inclut :\n- le résultat de la société-mère, consolidante, dans son intégralité ;\n- la quote-part des résultats des filiales intégrées globalement (en fonction des pourcentages d'intérêts détenus par le groupe) ;\n- la quote-part des résultats des sociétés intégrées proportionnellement ;\n- la quote-part des résultats des sociétés mises en équivalence.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "benefice-distribuable",
@@ -684,7 +684,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le bénéfice distribuable est le résultat de l'exercice, augmenté du report bénéficiaire et diminué des pertes antérieures, des dividendes partiels régulièrement distribués ainsi que des sommes portées en réserve en application de la loi ou des statuts.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "benefice-net-comptable",
@@ -692,7 +692,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Résultat positif enregistré par l'entité et correspondant à un excédent des produits de l'exercice sur les charges (voir résultat).\n\nLe bénéfice comptable sert de base au calcul du bénéfice fiscal, lequel est, en pratique, toujours différent du bénéfice comptable en raison de définitions différentes des charges et des produits.\n\nDernier solde significatif de gestion, il est calculé après les prélèvements obligatoires destinés à l'Etat (impôts) et, le cas échéant, au personnel (participations des travailleurs aux bénéfices).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "besoin-de-financement-d-exploitation-b-f-e",
@@ -700,7 +700,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "finance",
     ues: ["analyse-financiere"],
     definition: "Appelé aussi « besoin en fonds de roulement de l'exploitation » (B.F.R.E.), il correspond au montant des capitaux investis dans le cycle d'exploitation.\n\nIl est donc égal au montant des stocks et des créances d'exploitation liés aux activités ordinaires, diminué de celui des dettes d'exploitation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bilan",
@@ -708,7 +708,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etat financier de synthèse faisant partie des comptes annuels. Il décrit séparément les éléments actifs et les éléments passifs et fait apparaître de façon distincte les capitaux propres de l'entité.\n\nLe Bilan permet d'apprécier le patrimoine économique de l'entité qu'il décrit, à une date donnée, dans sa « situation » et non en termes de flux (rôle du Compte de résultat et du Tableau des flux de trésorerie).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bilan-consolide",
@@ -716,7 +716,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Etat financier de synthèse décrivant le patrimoine économique de l'ensemble des entités comprises dans un même périmètre de consolidation comme si elles ne formaient qu'une seule et même entité.\n\nLe Bilan consolidé est présenté conformément au modèle du Système comptable OHADA.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bilan-fonctionnel",
@@ -724,7 +724,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Bilan dont la structure des différentes rubriques et des postes est conçue sur la base de la fonction économique et financière des éléments : investissements, financements propres, dettes financières, actifs et passifs liés au cycle d'exploitation, trésorerie.\n\nLe bilan du Système comptable OHADA est fondé sur ce type d'analyse ; il permet, entre autres, de dégager un « fonds de roulement fonctionnel », à ne pas confondre avec le « fonds de roulement liquidité » (cf. terme ci-après).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bilan-liquidite",
@@ -732,7 +732,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Bilan dont les rubriques et postes sont fondés sur des critères de liquidité (actifs) et d'exigibilité (passifs). Le classement est en général dichotomique à l'actif comme au passif (plus d'un an/moins d'un an) et est présenté dans un ordre décroissant (anglo-saxon), ou croissant (France par exemple).\n\nIl met en évidence un « fonds de roulement liquidité ».\n\nLe bilan liquidité est largement axé sur une optique d'analyse sécuritaire en termes de solvabilité de l'entité (les actifs sont-ils suffisants pour faire face aux dettes ?) ; l'approche du bilan fonctionnel est plus axée sur la gestion de l'entité en continuité d'exploitation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bilan-social",
@@ -740,7 +740,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est une documentation unique récapitulant les principales données chiffrées qui permettent d'apprécier la situation de l'entité dans le domaine social, d'enregistrer les réalisations effectuées et de mesurer les changements intervenus au cours de l'année écoulée et des deux années précédentes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "billet-a-ordre",
@@ -748,7 +748,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Effet de commerce par lequel une personne, le souscripteur, s'engage à payer, à une échéance fixée, une somme d'argent déterminée, à une autre personne, le bénéficiaire, ou à son ordre. Le billet à ordre sert à la fois d'instrument de mobilisation de crédits et d'instrument de paiement.\n\nEn raison de sa spécificité liée au droit cambiaire, la créance mobilisée sous forme d'effet est rattachable aux comptes clients chez le bénéficiaire. La dette matérialisée par l'effet est rattachée aux comptes fournisseurs.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "billets-de-fonds",
@@ -756,7 +756,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Effets de commerce (billets à ordre) à échéance plus longue, constituant des moyens de financement pour l'entité ; ils sont généralement souscrits au profit de fournisseurs d'immobilisations (matériel, fonds de commerce...). Les billets de fonds sont négociables et font partie des dettes financières chez le souscripteur.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "billets-de-tresorerie",
@@ -764,7 +764,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres à court terme ou titres de créances négociables sur un marché réglementé, dont la durée initiale maximale est inférieure à un an. Les entités émettrices sont soumises à des conditions définies (deux années d'existence avec deux bilans certifiés ; sociétés par actions, entités du secteur public, sociétés coopératives d'une taille minimale...).\n\nLeur montant unitaire minimal est élevé, le taux de rémunération est fixe et les intérêts peuvent être précomptés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "boni-de-fusion",
@@ -772,7 +772,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Écart positif résultant de l'annulation des titres d'une société absorbée, détenus dans le portefeuille de l'entité absorbante.\n\nLe boni de fusion est, généralement, l'excédent de la valeur de fusion du titre sur son prix d'acquisition.\n\nLe boni de fusion est une composante de la prime de fusion inscrite parmi les capitaux propres.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "boni-de-liquidation",
@@ -780,7 +780,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Profit réalisé par les associés d'une société liquidée, lorsque les produits de cession des actifs ont permis de rembourser les dettes sociales, les mises initiales des associés et de dégager un surplus distribué entre les associés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bonis-sur-reprises-d-emballages-consignes",
@@ -788,7 +788,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits enregistrés, chez le fournisseur, sur la consignation d'emballages, lorsque le prix de reprise d'emballage est inférieur à celui de la consignation.\n\nLes bonis constituent des produits accessoires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bons-de-caisse-ou-du-tresor",
@@ -796,7 +796,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Instruments de trésorerie, titres négociables, émis par des établissements de crédit ou financiers, ou les entités ou l'Etat, représentatifs d'une créance de remboursement d'un prêt. À ordre ou au porteur, ils sont acquis par les entités pour la gestion de leur trésorerie.\n\nLes bons sont inscrits dans les titres de placement pour l'acquéreur et dans les emprunts pour l'émetteur.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bons-a-moyen-terme-negociables-b-m-t-n",
@@ -804,7 +804,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres relevant des mêmes conditions que les billets de trésorerie, mais dont la durée initiale est supérieure à un an.\n\nLe taux de rémunération peut être fixe ou révisable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bons-de-souscription",
@@ -812,7 +812,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le bon de souscription permet d'acquérir une action (B.S.A.), ou une obligation (B.S.O.), pendant une période limitée, dans des conditions, en principe avantageuses, définies dans le contrat d'émission.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "brevets",
@@ -820,7 +820,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Immobilisations incorporelles acquises ou créées en vue de s'assurer le monopole d'exploitation pendant une période déterminée, d'une invention susceptible de déboucher sur des applications industrielles.\n\nLes brevets sont amortissables sur la période d'exploitation économique. Celle-ci est le plus souvent sensiblement plus courte que la période d'exclusivité ou de protection. Les brevets forment avec les concessions, licences, marques un poste spécifique des immobilisations incorporelles.\n\nLes revenus qu'ils génèrent sont classés en « services extérieurs » dans l'entité utilisatrice, et en ventes chez le propriétaire. En Comptabilité nationale, ces revenus font partie des « revenus de la propriété ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "budget",
@@ -828,7 +828,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Prévision chiffrée de tous les éléments correspondant à un coût, une activité ou un programme déterminés.\n\nLes budgets sont à la base du système de pilotage de l'entité et de la gestion par analyse d'écarts entre les prévisions et les réalisations d'un coût ou d'une activité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "bureautique",
@@ -836,7 +836,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Application systématique et généralisée de l'informatique aux travaux de bureau. Par extension, la bureautique désigne les moyens matériels acquis pour la réalisation de ces travaux. Les dépenses relatives à la bureautique sont immobilisées dans le poste Matériel. Il ne faut cependant pas confondre bureautique et informatique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cadre-comptable",
@@ -844,7 +844,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Résumé du plan de comptes présentant les différentes classes de comptes et, pour chaque classe numérotée de 1 à 9, la liste des principaux comptes (à deux chiffres).\n\nLe cadre comptable ne se confond pas avec le plan de comptes établi lui-même par référence à ce cadre comptable.\n\nLe cadre comptable donne une vue globale de la codification des comptes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cadre-conceptuel",
@@ -852,7 +852,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un cadre conceptuel (Conceptual Framework) est un système cohérent d'objectifs et de principes fondamentaux liés entre eux qui a pour objet de donner une représentation utile de l'entité pour les différents utilisateurs de l'information financière. Il constitue la structure de référence théorique qui sert de support et de guide à l'élaboration des normes comptables.\n\nLe cadre conceptuel a pour objectifs d'aider :\n- à élaborer des normes cohérentes pouvant faciliter la production de données et d'états financiers ;\n- à faciliter l'interprétation des normes comptables et l'appréhension d'opérations ou d'événements non explicitement prévus par la réglementation comptable ;\n- les auditeurs à se faire une opinion sur la conformité des états financiers avec les normes d'information financière du Système comptable OHADA.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "capacite-d-autofinancement-globale-c-a-f-g",
@@ -860,7 +860,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "finance",
     ues: ["analyse-financiere"],
     definition: "Trésorerie potentielle dont l'entité peut disposer pour financer l'investissement, la C.A.F.G. est l'expression de l'aptitude de l'entité à renouveler ses investissements (maintien de son capital technique et, au-delà, à réaliser des investissements de croissance). Pour obtenir l'autofinancement, les distributions de dividendes effectuées durant l'exercice sont déduites de la C.A.F.G.\n\nPrincipal solde financier du tableau des flux de trésorerie, elle constitue un indicateur essentiel de performance de l'entité (potentiel de croissance).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "capital-par-dotation",
@@ -868,7 +868,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Capital constitué par les apports de l'Etat et autres collectivités publiques. Ces apports peuvent être sous forme de numéraire ou en nature. Ils peuvent également provenir de la conversion en capital de dettes antérieurement contractées auprès d'organismes publics.\n\nLe capital par dotation ne doit pas être confondu avec les diverses aides publiques, telles que les subventions, les avances conditionnées, etc.\n\nLe capital par dotation fait partie des capitaux propres proprement dits, contrairement aux subventions et autres avances classées dans les « autres fonds propres ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "capital-personnel",
@@ -876,7 +876,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "À la création de l'entité exploitée sous la forme individuelle, le capital initial est égal à la différence entre la valeur des éléments actifs et la valeur des éléments passifs que l'exploitant, à défaut de règle de droit, décide d'inscrire au bilan de son entité.\n\nLe capital initial est modifié ultérieurement par les apports et les retraits de capital et par l'affectation des résultats.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "capital-social",
@@ -884,7 +884,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "- Dans les sociétés de personnes, les apports des associés sont représentés par des « parts sociales ».\n- Dans les sociétés de capitaux (sociétés anonymes, Sociétés par actions simplifiées et aussi sociétés à responsabilité limitée), les apports des actionnaires ou des associés sont rémunérés par des actions ou des parts sociales.\n\nLa somme des valeurs nominales de ces actions ou parts sociales forme le capital social. Il représente le gage des créanciers sociaux.\n\nLe capital initial est ultérieurement augmenté ou diminué à la suite de nouveaux apports, d'incorporation de réserves au capital, de retraits de capital, d'imputation de pertes.\n\nDans toutes les sociétés, l'indication du montant du capital social doit figurer dans tous les documents ou actes émanant de la société et destinés aux tiers, notamment lettres, factures, annonces et publications diverses.\n\nDans ces sociétés, toutes les augmentations ou diminutions du capital social décidées par l'Assemblée extraordinaire (à une majorité renforcée) font l'objet d'une publicité légale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "capitaux-investis",
@@ -892,7 +892,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Cette expression, d'ordre économique et financier, désigne l'ensemble des valeurs employées de façon stable dans le processus productif :\n- sous forme d'immobilisations brutes ;\n- et sous forme de « besoin de financement d'exploitation » (B.F.E.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "carriere-terrains-de",
@@ -900,7 +900,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Terrains d'extraction des matières destinées soit aux besoins de l'entité, soit à être revendues en l'état ou après transformation. Sont assimilables aux carrières, les terrains de gravillons, les sablières et tourbières.\n\nD'un point de vue comptable, les carrières sont considérées comme des immobilisations. Pour leur dépréciation, il peut être procédé à une analyse distinguant :\n- le tréfonds, ou terrain de surface restant après épuisement des matériaux, qui constitue une immobilisation non amortissable ;\n- les gisements exploitables considérés comme des immobilisations amortissables.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cautionnements-depots-et",
@@ -908,7 +908,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sommes versées à titre de garantie (gage) à des tiers ; en l'occurrence, il s'agit principalement des propriétaires ou de fournisseurs d'immobilisations ou de services à l'entité. Par exemple, les dépôts versés aux propriétaires des locaux loués, aux sociétés fournissant l'eau, l'électricité ou le téléphone. Généralement indisponibles jusqu'à la fin du contrat et non productives d'intérêts, ces sommes sont enregistrées comme des immobilisations financières à l'actif du bilan.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cemac",
@@ -916,7 +916,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "(Communauté Economique et Monétaire de l'Afrique Centrale).\n\nEnsemble économique formé par six (6) Etats (Cameroun, Congo, Gabon, Guinée Equatoriale, République Centrafricaine, Tchad) pour favoriser la constitution d'un marché commun entre ces pays déjà membres de l'Union Douanière et Economique de l'Afrique Centrale (UDEAC).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "centrale-des-bilans",
@@ -924,7 +924,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Utilisateur de l'information comptable pour les besoins duquel se définit la pertinence partagée, la Centrale des Bilans a pour finalité de fournir, à partir d'une collecte systématique des états financiers annuels, des informations globales et sectorielles aux entités elles-mêmes, sur leurs structures et leurs performances économiques et financières. Ces informations sont utiles aux travaux d'analyse et aux prises de décisions de tous les agents économiques nationaux et étrangers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "certificat-de-droit-de-vote",
@@ -932,7 +932,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur mobilière provenant du démembrement des droits de l'action en deux parties, le certificat de droit de vote confère uniquement à son propriétaire le droit de vote dans les Assemblées générales.\n\nCe certificat est négociable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "certificat-d-investissement",
@@ -940,7 +940,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur mobilière de même origine que la précédente et complémentaire de celle-ci. Le certificat d'investissement confère à son propriétaire les droits pécuniaires attachés à l'action, mais seulement ces droits (droits aux dividendes, aux attributions d'actions gratuites). Négociables, ces certificats permettent aux sociétés émettrices d'accroître leurs fonds propres en permettant aux actionnaires anciens de conserver leur « majorité ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cession-bail",
@@ -948,7 +948,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une opération de cession-bail ou lease-back est une technique de crédit dans laquelle l'emprunteur transfère au prêteur la propriété d'un bien que l'emprunteur rachète progressivement suivant une formule de location assortie d'une promesse unilatérale de vente.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "changements-de-methode",
@@ -956,7 +956,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un changement de méthode comptable résulte :\n- soit d'un changement de réglementation comptable (passage du SYSCOHADA au SYSCOHADA révisé),\n- soit du remplacement d'une méthode comptable par une autre, lorsqu'une option implicite ou explicite existe.\n\nL'application d'une nouvelle méthode de se faire de façon rétrospective. \n\nLes changements de méthode comptables sont différents des changements dans les estimations et modalités d'application d'une méthode (application prospective).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges",
@@ -964,7 +964,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Emplois définitifs ou consommations de valeurs décaissées ou à décaisser par l'entité :\n- soit en contrepartie de marchandises, approvisionnements, travaux et services consommés par l'entité, ainsi que des avantages qui leur ont été consentis ;\n- soit en vertu d'une obligation légale que l'entité doit remplir ;\n- soit exceptionnellement, sans contrepartie directe.\n\nLes charges comprennent également pour la détermination du résultat de l'exercice :\n- les dotations aux amortissements, aux dépréciations et aux provisions ;\n- la valeur comptable des éléments d'actif cédés, détruits ou disparus.\n\nLes charges sont distinguées, selon leur nature, en charges d'exploitation, charges financières ou charges hors activités ordinaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-a-payer",
@@ -972,7 +972,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dettes effectives évaluées à l'arrêté des comptes, mais non encore comptabilisées à cette date, les charges à payer sont nettement précisées quant à leur objet, mais leur échéance ou leur montant est encore incertain.\n\nLes charges à payer ont vocation irréversible à se transformer ultérieurement en dettes, et sont rattachées aux postes correspondants du bilan (fournisseurs, organismes sociaux, Etat, etc.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-calculees-comptabilite-generale",
@@ -980,7 +980,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges introduites dans le calcul du résultat pour des raisons de pertinence économique, mais qui n'entraînent pas, en elles-mêmes, de décaissements, telles les dotations aux amortissements et aux provisions.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-constatees-d-avance",
@@ -988,7 +988,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges enregistrées au cours de l'exercice, mais qui correspondent à des consommations ou des prestations qui n'interviennent qu'ultérieurement. Elles représentent une créance « en nature » vis-à-vis des exercices suivants.\n\nCes charges constatées d'avance sont rattachées au poste « Autres créances ».\n\nPour les besoins de l'analyse, le détail de ce poste doit être donné dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-fixes-et-variables",
@@ -996,7 +996,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les charges fixes sont des charges qui ne varient pas en fonction du niveau d'activité de l'entité. Toutefois, un changement de niveau d'activité peut entraîner une variation des frais fixes qui n'est pas obligatoirement proportionnelle à cette modification. Les charges fixes évoluent généralement par paliers lorsque l'entité modifie sa capacité de production.\n\nLes charges variables sont des charges, appelées aussi « coûts proportionnels », qui sont directement liés au niveau d'activité de l'entité.\n\nLes charges semi-variables des charges qui comportent pour une période donnée une partie fixe liée à la structure de l'entité et une partie variable dépendant de son niveau d'activité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-hors-activites-ordinaires-h-a-o",
@@ -1004,7 +1004,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges non récurrentes, de nature non liée à l'activité ordinaire de l'entité ; elles sont généralement engendrées par des changements de structure, de stratégie de l'entité ou enfin par des changements importants dans l'environnement législatif, économique et financier.\n\nLes charges H.A.O. ne doivent pas être confondues avec les charges dites parfois « exceptionnelles » qui ne le sont que par leur montant et non par la nature du lien avec les activités ordinaires, car ce sont des charges d'exploitation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-de-personnel",
@@ -1012,7 +1012,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Elles sont constituées :\n- par l'ensemble des rémunérations du personnel de l'entité en contrepartie du travail fourni ;\n- par des charges, au profit des travailleurs, liées à ses rémunérations : cotisations de Sécurité sociale, congés payés, supplément familial, versements aux œuvres sociales ou aux mutuelles ;\n- par le coût des personnels intérimaires facturés à l'entité.\n\nLe contenu de cet ensemble diffère de la « rémunération des salariés », dont le montant est requis par la Comptabilité nationale dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-directes",
@@ -1020,7 +1020,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges qu'il est possible d'affecter « immédiatement », c'est-à-dire sans calcul intermédiaire, au coût d'un bien, d'une activité ou d'un service déterminé.\n\nLes charges directes constituent un élément du coût d'un bien déterminé. Elles sont d'origine externe (exemple : matières premières consommées) ou interne (exemple : frais de personnel, dotations aux amortissements) et peuvent être fixes ou variables.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-indirectes",
@@ -1028,7 +1028,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges qu'il n'est pas possible d'affecter « immédiatement ». Elles nécessitent un calcul intermédiaire de répartition pour être imputées au coût d'un bien déterminé ; encore convient-il, pour que cette imputation au coût d'acquisition ou de production soit possible, qu'elle repose sur un « rattachement raisonnable » de la charge au coût.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "charges-pour-depreciations-et-provisions-pour-risques-a-cour",
@@ -1036,7 +1036,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Elles correspondent :\n- pour les éléments de l'actif circulant, à la constatation d'une perte de leur valeur, par différence entre la valeur d'entrée et la valeur actuelle à la date du bilan ;\n- pour le passif, à des dettes probables à court terme résultant de charges prévisibles ou de risques déterminés.\n\nCes charges calculées, inscrites au compte de résultat, sont assimilées à des charges décaissables à court terme et ne sont donc pas incluses dans les « dotations ».\n\nLeur contrepartie est constituée par :\n- les dépréciations des éléments concernés (stocks, clients, titres de placement...) ;\n- les provisions pour risques à court terme considérées comme dettes du passif circulant.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "chemin-de-revision",
@@ -1044,7 +1044,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le chemin de révision (ou d'audit) est le processus logique permettant au vérificateur (auditeur, réviseur) de suivre les transformations des informations depuis l'entrée des données jusqu'à la sortie des résultats, ou de remonter des informations stockées jusqu'aux entrées correspondantes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cheptel",
@@ -1052,7 +1052,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Désignation du troupeau qui peut être immobilisé (animaux de trait, animaux reproducteurs) ou compris dans les stocks (animaux achetés ou élevés pour être vendus).\n\nDans les entités agricoles, le cheptel représente souvent une des principales immobilisations.\n\nLe cheptel figure à l'actif au poste « Actif biologique » pour ce qui est des animaux reproducteurs, de trait et de garde ; au poste « Stocks » pour les autres animaux.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cheque",
@@ -1060,7 +1060,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est un écrit qui, sous la forme d'un mandat de paiement, sert au tireur à effectuer le retrait, à son profit ou au profit d'un tiers, de tout ou partie des fonds portés au crédit de son compte chez le tiré et disponibles. Le chèque, payable à vue, n'est jamais un instrument de crédit.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "chiffre-d-affaires",
@@ -1068,7 +1068,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Montant hors taxes récupérables des ventes de produits et services liés aux activités ordinaires de l'entité. Il regroupe le montant des ventes de marchandises, de la production vendue et des produits accessoires.\n\nNe sont pas compris dans le chiffre d'affaires, les subventions d'exploitation reçues, les produits financiers.\n\nLe chiffre d'affaires est l'un des critères utilisés en Comptabilité nationale pour déterminer l'activité principale de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "chiffre-d-affaires-consolide",
@@ -1076,7 +1076,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Montant des ventes de produits et services liés aux activités courantes de l'ensemble constitué par les entités intégrées globalement et proportionnellement.\n\nIl comprend, après élimination des opérations internes à l'ensemble consolidé :\n- le montant net, après retraitement le cas échéant, du chiffre d'affaires réalisé par les sociétés consolidées par intégration globale et par la société consolidante ;\n- la quote-part de la société et des sociétés détentrices dans le montant net du chiffre d'affaires réalisé par les sociétés consolidées par intégration proportionnelle (après retraitement).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "circularisation",
@@ -1084,7 +1084,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La circularisation (encore appelée « confirmation directe ») est une technique de contrôle habituelle qui consiste à demander à un tiers ayant des liens d'affaires avec l'entité vérifiée de confirmer directement au réviseur des informations concernant l'existence d'opérations, de soldes ou de tout autre renseignement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "classes-de-comptes",
@@ -1092,7 +1092,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Principales divisions du cadre comptable, les classes regroupent les comptes par catégories homogènes. Les huit classes de la comptabilité générale comprennent :\n- des classes de comptes de situation ;\n- et des classes de comptes de gestion.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cloture-de-l-exercice-date-de",
@@ -1100,7 +1100,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La durée d'un exercice comptable est fixée à douze mois. Dans le présent Acte uniforme, la date de clôture des exercices comptables est fixée au 31 décembre de chaque année.\n\nCette date ne doit pas être confondue avec la date d'arrêté des comptes qui est celle de l'établissement des états financiers et de leur approbation par les organes compétents.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cloture-informatique",
@@ -1108,7 +1108,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Lorsqu'elle repose sur un traitement informatique, l'organisation comptable doit écarter toute possibilité d'insertion intercalaire ou d'addition ultérieure d'opérations. Pour figer cette chronologie le système de traitement comptable doit prévoir une procédure périodique (dite « clôture informatique ») au moins trimestrielle et mise en œuvre au plus tard à la fin du trimestre qui suit la fin de chaque période considérée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "coentreprise",
@@ -1116,7 +1116,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Partenariat dans lequel les parties qui exercent un contrôle conjoint sur l'opération ont des droits sur l'actif net de celle-ci.\n\nCes parties sont appelées coentrepreneurs.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "commande",
@@ -1124,7 +1124,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Contrat passé entre l'entité et un client ou un fournisseur et prévoyant l'exécution d'une prestation (livraison d'un bien, élaboration d'un service...) à une date donnée moyennant un prix convenu.\n\nLa commande a par elle-même des incidences comptables directes dans la « comptabilité des engagements », mais aussi en matière d'évaluation (risques de change, pertes à terminaison, évaluation des actifs commandés...).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "commissaire-aux-apports",
@@ -1132,7 +1132,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les commissaires aux apports est une personne mandatée, dans une société pour évaluer les apports en nature. A l'issue de sa mission, il est tenu de faire un rapport mentionnant la sincérité et la véracité des apports.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "commissaire-aux-comptes",
@@ -1140,7 +1140,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "audit",
     ues: ["ue12-audit"],
     definition: "Les commissaires aux comptes assurent une mission de contrôle et de surveillance des sociétés de capitaux et d'autres formes d'entités spécifiées par la loi. Cette mission d'intérêt général est menée dans l'intérêt des associés et/ou des actionnaires, mais aussi dans celui des tiers.\n\nCette mission de défense des associés et/ou des actionnaires, de l'intérêt public et de prévention des difficultés des entités prend la forme de certification des comptes.\n\nLes commissaires aux comptes :\n- soit émettent une opinion indiquant que les états financiers sont réguliers et sincères et donnent une image fidèle du résultat des opérations de l'exercice écoulé ainsi que de la situation financière et du patrimoine à la fin de cet exercice ;\n- soit expriment en la motivant, une opinion avec réserve ou défavorable ou indiquent qu'ils sont dans l'impossibilité d'exprimer une opinion.\n\nLes commissaires aux comptes se prononcent sur la sincérité et la concordance avec les états financiers, des informations données dans le rapport de gestion.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "commissariat-aux-comptes",
@@ -1148,7 +1148,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Contrôle légal des comptes effectué par un professionnel compétent et indépendant, le commissariat aux comptes a pour finalité essentielle de garantir la fiabilité de l'information comptable et financière produite par les entités et de concourir à la sécurité des relations commerciales, financières et boursières.\n\nSelon le droit des sociétés le commissaire aux comptes a pour mission permanente, à l'exclusion de toute immixtion dans la gestion :\n- de vérifier les valeurs et les documents comptables de la société,\n- de contrôler la conformité de sa comptabilité aux règles en vigueur,\n- de vérifier la sincérité et la concordance avec les états financiers des informations données dans le rapport de gestion des organes de gestion et dans les documents adressés aux actionnaires ou associés,\n- et de s'assurer que l'égalité entre les associés ou actionnaires est respectée.\n\nAinsi, au-delà de l'opinion formulée sur les états financiers personnels et consolidés (régularité, sincérité et image fidèle du résultat des opérations de l'exercice écoulé ainsi que de la situation financière et du patrimoine à la fin de cet exercice), les commissaires aux comptes sont conduits à intervenir lorsque des opérations particulières sont décidées par l'entité (modification), ou lorsque des événements particuliers surviennent et sont de nature à remettre en cause la continuité de l'exploitation.\n\nOutre sa mission censoriale : il peut donner son avis sur le bon fonctionnement des procédures comptables ainsi que sur la régularité de certaines opérations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptabilite",
@@ -1156,7 +1156,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La comptabilité est un système d'organisation de l'information financière qui permet :\n- de saisir, classer, enregistrer des données de base chiffrées ;\n- de fournir, après traitement approprié, un ensemble d'informations conforme aux besoins des divers utilisateurs intéressés.\n\nPour garantir la qualité et la compréhension de l'information, toute comptabilité implique :\n- le respect de principes ;\n- une organisation répondant aux exigences de contrôle et de vérification ;\n- la mise en œuvre de méthodes et de procédures ;\n- l'utilisation d'une terminologie commune.\n\nLa comptabilité est aussi un instrument de description et de modélisation de l'entité ainsi qu'une pratique sociale et organisationnelle mettant en relation divers acteurs (dirigeants, préparateurs de comptes, auditeurs et utilisateurs multiples).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptabilite-analytique-de-gestion-cage",
@@ -1164,7 +1164,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Système d'analyse et de traitement autonome de données permettant de calculer des coûts et des résultats « analytiques » de nature à fournir des informations utiles à la gestion de l'entité.\n\nLa finalité de la comptabilité analytique est la gestion. Elle n'est ni normalisée, ni obligatoire. Sa mise en place est vivement recommandée eu égard aux liens étroits qu'elle entretient avec la comptabilité générale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptabilite-creative",
@@ -1172,7 +1172,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La comptabilité créative peut désigner l'ensemble des techniques utilisées en comptabilité par les dirigeants d'une entité pour modifier légalement (souvent à la limite de la légalité) la présentation de leurs états financiers dans un sens plus favorable à leurs attentes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptabilite-integree",
@@ -1180,7 +1180,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Mode de traitement des données permettant de fournir, au moyen d'une seule comptabilité, à la fois les informations de la comptabilité analytique de gestion et les comptes de la comptabilité générale destinés à l'établissement des états financiers de synthèse.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptes-annuels",
@@ -1188,7 +1188,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Expression utilisée par certains pays comme les Etats parties de l'OHADA pour désigner les « états financiers annuels ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptes-combines",
@@ -1196,7 +1196,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Comptes et états financiers de synthèse de l'ensemble constitué de filiales situées dans une région de l'espace OHADA dépendantes d'une société-mère située en dehors de cette région, en vue de donner une image fidèle du patrimoine, de la situation financière et du résultat de l'ensemble ainsi constitué.\n\nLes filiales comprises dans le périmètre de combinaison peuvent être liées par des relations économiques de nature diverses, sans que leur intégration ne résulte de liens de participation organisant les sociétés-mères et les filiales.\n\nLes comptes combinés sont différents des comptes consolidés dans la mesure où le périmètre de combinaison ne comprend pas les sociétés dont le siège est situé hors de la région.\n\nLes comptes combinés peuvent être assimilés à une consolidation horizontale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "comptes-consolides",
@@ -1204,7 +1204,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Ensemble des comptes et des états financiers de synthèse de l'ensemble constitué par toutes les entités retenues dans le périmètre de consolidation. Les comptes consolidés ont pour but de donner une image fidèle du patrimoine, de la situation financière et des résultats de l'ensemble consolidé, comme si cet ensemble ne formait qu'une seule entité.\n\nSous l'influence des normes internationales, les comptes consolidés tendent à être plus proches de la réalité économique, car ils échappent à certaines contraintes juridiques et fiscales qui pèsent sur les comptes « personnels ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "compte-de-liaison-des-etablissements",
@@ -1212,7 +1212,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Compte ouvert par une entité au nom d'un établissement ou d'une succursale, et vice-versa, permettant d'enregistrer de manière symétrique, dans la même période comptable et sur la base des mêmes pièces justificatives, toutes les opérations réalisées entre l'entité et l'établissement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "compte-de-resultat",
@@ -1220,7 +1220,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etat financier de synthèse récapitulant les charges et les produits intervenus dans la formation du résultat net de l'exercice et mettant en évidence des soldes significatifs de gestion.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "compte-de-resultat-consolide",
@@ -1228,7 +1228,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Etat financier de synthèse des comptes consolidés, le compte de résultat reprend les charges et produits des entités intégrées globalement, ainsi que ceux des entités relevant de l'intégration proportionnelle, au prorata des droits détenus.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "concessions-et-droits-similaires",
@@ -1236,7 +1236,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Brevets ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["brevets"],
   },
   {
@@ -1245,7 +1245,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dettes à l'égard des banques contractées en raison des besoins de trésorerie résultant :\n- de l'exploitation courante ;\n- ou de l'ensemble des opérations de l'entité.\n\nIls sont aussi appelés crédits de trésorerie (voir ce terme).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "confort-lettre-de",
@@ -1253,7 +1253,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La lettre de confort (ou « lettre d'intention »), est un document né de la pratique bancaire adressé par un commerçant, généralement une société commerciale, à un établissement financier afin de recommander un autre commerçant, personne physique ou société, pour lui permettre d'obtenir un service bancaire particulier.\n\nLa lettre de confort est aussi un engagement moral qui est pris par une société mère vis-à-vis des créanciers de sa ou de ses filiales. La lettre de confort va donc fréquemment venir en garantie de prêts accordés à une ou des filiales d'un groupe. La lettre de confort va stipuler que la maison mère est informée de cet endettement et qu'elle ne s'en désintéressera pas.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "conservation-des-documents-comptables",
@@ -1261,7 +1261,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Archivage ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["archivage"],
   },
   {
@@ -1270,7 +1270,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Technique d'élaboration des comptes et des états financiers du groupe.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "constructions",
@@ -1278,7 +1278,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Bâtiments ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["batiments"],
   },
   {
@@ -1287,7 +1287,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les états financiers sont établis sur une base de continuité d'exploitation, c'est-à-dire en présumant que l'entité poursuivra ses activités dans un avenir prévisible, à moins que des événements ou des décisions survenus avant la date de publication des comptes rendent probable dans un avenir proche la liquidation ou la cessation d'activité.\n\nLorsque les états financiers ne sont pas établis sur cette base (non-continuité d'exploitation : liquidation de l'entité par exemple), les incertitudes quant à la continuité d'exploitation sont indiquées et justifiées, et la base sur laquelle ils ont été arrêtés est précisée.\n\nSelon les IFRS la continuité de l'exploitation est une hypothèse sous-jacente à la préparation des états financiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "continuite-d-utilisation-d-un-bien",
@@ -1295,7 +1295,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Cas particulier de l'application à un bien donné du principe de « continuité de l'exploitation » : les immobilisations, mais aussi les stocks, voient le calcul de leur « valeur actuelle » effectué dans le cadre, a priori, d'une continuité d'utilisation dans les conditions techniques et économiques initialement prévues lors de leur acquisition ou production. Si cette continuité est remise en cause, il faut alors tenir compte de la cession probable du bien dans l'évaluation.\n\nExemple : stock d'un bien considérablement déprécié par l'apparition sur le marché d'un nouveau produit nettement supérieur techniquement ; idem pour une immobilisation.\n\nLa continuité d'utilisation intervient tout particulièrement dans la définition du « plan d'amortissement » : durée d'utilisation et valeur résiduelle en dépendent.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "controle-conjoint",
@@ -1303,7 +1303,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le contrôle conjoint est le partage du contrôle d'une entité exploitée en commun par un nombre limité d'associés ou d'actionnaires, de sorte que les politiques financière et opérationnelle résultent de leur accord.\n\nUn contrôle conjoint est caractérisé par l'existence :\n- d'un nombre limité d'associés ou d'actionnaires partageant le contrôle ; le partage du contrôle suppose qu'aucun associé ou actionnaire n'est susceptible à lui seul de pouvoir exercer un contrôle exclusif en imposant ses décisions aux autres ; l'existence d'un contrôle conjoint n'exclut pas la présence d'associés ou d'actionnaires minoritaires ne participant pas au contrôle conjoint ;\n- d'un accord contractuel qui :\n  - prévoit l'exercice du contrôle conjoint sur l'activité économique de l'entité exploitée en commun ;\n  - établit les décisions qui sont essentielles à la réalisation des objectifs de l'entité exploitée en commun et qui nécessitent le consentement de tous les associés ou actionnaires participant au contrôle conjoint.\n\nPour l'établissement des comptes consolidés, le contrôle conjoint implique le choix de la méthode d'intégration proportionnelle.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "controle-d-un-actif",
@@ -1311,7 +1311,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le contrôle d'un actif suppose que l'entité :\n- a le pouvoir d'obtenir les avantages économiques de la ressource contrôlée, et peut aussi restreindre l'accès à ces avantages aux autres ;\n- a la capacité actuelle de décider de l'utilisation de l'actif ;\n- assume l'essentiel des risques.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "controle-d-une-entite",
@@ -1319,7 +1319,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le contrôle est le pouvoir de diriger les politiques financière et opérationnelle d'une entité afin de tirer des avantages économiques de ses activités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "controle-exclusif",
@@ -1327,7 +1327,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le contrôle exclusif est le pouvoir de diriger les politiques financière et opérationnelle d'une entité afin de tirer des avantages économiques de ses activités. Ce contrôle résulte :\n- soit de la détention directe ou indirecte de la majorité des droits de vote dans une autre entité ;\n- soit de la désignation, pendant deux exercices successifs de la majorité des membres des organes d'administration, de direction ou tout autre organe bénéficiant des mêmes prérogatives d'une autre entité ; l'entité consolidante est présumée avoir effectué cette désignation lorsqu'elle a disposé, au cours de cette période, directement ou indirectement, d'une fraction supérieure à quarante pour cent des droits de vote et qu'aucun autre associé ou actionnaire ne détenait, directement ou indirectement, une fraction supérieure à la sienne ;\n- soit du droit d'exercer une influence dominante sur une entité en vertu d'un contrat ou de clauses statutaires, lorsque le droit applicable le permet ; l'influence dominante existe dès lors que, dans les conditions décrites ci-dessus, l'entité consolidante a la possibilité d'utiliser ou d'orienter l'utilisation des actifs de la même façon qu'elle contrôle ses propres actifs.\n\nPour l'établissement des comptes consolidés, le contrôle exclusif implique le choix de la méthode d'intégration globale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "controle-de-gestion",
@@ -1335,7 +1335,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des techniques utilisées pour le suivi et la maîtrise de la gestion d'une entité. Il vise à assurer l'efficacité et l'efficience des consommations de ressources.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "controle-interne",
@@ -1343,7 +1343,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "audit",
     ues: ["ue12-audit"],
     definition: "Ensemble des sécurités contribuant à la maîtrise de l'entité. Il a pour but d'assurer :\n- d'un côté, la protection, la sauvegarde du patrimoine et la qualité de l'information ;\n- de l'autre, l'application des instructions de la direction.\n\nLe contrôle interne permet aussi de favoriser l'amélioration des performances.\n\nIl se manifeste par l'organisation, les méthodes et les procédures de chacune des activités de l'entité pour maintenir la pérennité de celle-ci.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "conventions-comptables",
@@ -1351,7 +1351,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Fondements de l'analyse comptable et de la préparation des états financiers, les conventions comptables ne sont généralement pas mentionnées expressément.\n\nLeur acceptation et leur utilisation sont supposées, et c'est dans l'hypothèse de dérogation à ces conventions que mention doit être faite, appuyée de justification, dans les Notes annexes.\n\nLes conventions comptables servant de guide pour l'élaboration des états financiers annuels du Système comptable OHADA sont les suivantes :\n- convention du coût historique,\n- convention de prudence,\n- convention de la transparence,\n- convention de la correspondance bilan de clôture - bilan d'ouverture,\n- convention de l'importance significative.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "conversion-des-comptes-des-entites-etrangeres-a-la-zone-mone",
@@ -1359,7 +1359,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opération qui consiste à exprimer en unités monétaires légales du pays les états financiers d'une entité à consolider tenus dans une autre monnaie.\n\nL'écart constaté suite à cette conversion est, selon la méthode de conversion retenue, inscrit distinctement soit dans les capitaux propres consolidés, soit au compte de résultat consolidé.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "coparticipant",
@@ -1367,7 +1367,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « activité conjointe ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["activite-conjointe"],
   },
   {
@@ -1376,7 +1376,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pour garantir la fiabilité de l'information comptable, satisfaire aux exigences de régularité et de sécurité qui assurent l'authenticité des écritures, les livres et documents comptables sont cotés et paraphés par l'autorité compétente dans chaque État-partie.\n\nCette formalité obligatoire, qui permet de conférer une valeur probante aux documents par des moyens légaux, est une disposition réglementaire.\n\nLe même formalisme vaut pour les traitements informatisés, où il vise à garantir le respect de la chronologie des opérations, de l'irréversibilité et de la durabilité des enregistrements comptables.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "coupons",
@@ -1384,7 +1384,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rémunérations sous forme d'intérêts pour les obligations et de dividendes pour les actions.\n\nL'acquisition d'un titre (immobilisation financière ou titre de placement) entraîne l'inscription au bilan du titre pour sa valeur, coupon détaché.\n\nLa fraction du prix payé correspondant au coupon est assimilée à une avance sur intérêts ou sur dividendes courus non échus.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cours-de-change",
@@ -1392,7 +1392,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Taux de conversion de deux monnaies différentes. Le cours de change est l'expression du rapport des valeurs des deux unités monétaires déterminées sur le marché de change.\n\nLes cours de change servent à évaluer les dettes et créances libellées en devises à la clôture de chaque exercice. À l'entrée dans le patrimoine, les biens acquis en monnaies étrangères sont enregistrés au cours de change de la date de l'opération.\n\nLes cours de change d'une monnaie convertible se forment sur le marché des changes, marché international immatériel entre banques mais d'où résultent des cotations officielles similaires dans le monde entier.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cours-de-cloture",
@@ -1400,7 +1400,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Cours retenu à la date d'inventaire pour l'évaluation de certains éléments actifs et passifs inscrits au bilan et correspondant à l'existence d'un marché spécifique.\n\nLe cours de clôture est la valeur d'inventaire retenue pour être rapprochée de la valeur d'entrée de l'élément concerné, en vue d'opérer les ajustements de valeur nécessaires pour donner une image fidèle du patrimoine de la situation financière et du résultat (exemple : cours des changes à la clôture).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cours-du-jour",
@@ -1408,7 +1408,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Cours en vigueur au jour de l'évaluation d'un bien, d'une créance ou d'une dette dont la valeur dépend d'un marché spécifique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "court-terme",
@@ -1416,7 +1416,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le court terme comptable est la période correspondant à la durée de l'exploitation normale des activités ordinaires ; cette durée étant variable selon les secteurs et les branches d'activité, une durée maximale d'un an est retenue.\n\nLes éléments à court terme sont ceux inscrits à l'actif circulant ou au passif circulant.\n\nLes créances et dettes classées par fonction ou par destination sont détaillées par échéances dans les Notes annexes.\n\nDans les bilans « liquidités », la limite court terme/moyen terme est à un an (bilans anglo-saxons).\n\nDans les comptes économiques (Comptabilité nationale), le court terme correspond à une durée initiale maximale de deux ans.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout",
@@ -1424,7 +1424,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Somme de charges, c'est-à-dire des consommations de ressources effectuées pour réaliser un objet, une activité.\n\nLa signification d'un coût est fonction, à la fois, du moment de son calcul, du champ d'application du calcul et de son contenu.\n\nD'après son champ d'application, le coût pourrait être calculé pour un produit, une activité, une fonction, une commande.\n\nD'après le moment de calcul, les coûts a priori (prévisionnels) et les coûts a posteriori (historiques) sont utiles à l'analyse des écarts.\n\nD'après le contenu, les coûts se distinguent en coûts complets et en coûts partiels, en considération du mode d'attachement de tout ou partie des charges.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-amorti",
@@ -1432,7 +1432,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le coût amorti, déterminé selon la méthode du taux d'intérêt effectif (TIE), sert de base pour l'évaluation de certains actifs et passifs financiers après leur évaluation initiale.\n\nIl correspond :\n- au montant de l'évaluation initiale de l'actif ou du passif financier ;\n- diminué des remboursements en principal ;\n- majoré ou diminué de l'amortissement cumulé (calculé selon la méthode du TIE) et de toute décote ou prime entre le montant initial et le montant à l'échéance ; et\n- diminué de toute réduction pour dépréciation ou irrecouvrabilité (actif financier).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-d-acquisition",
@@ -1440,7 +1440,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pour les biens achetés à des tiers, le coût d'acquisition se définit comme la somme du prix d'achat convenu, c'est-à-dire le montant définitif résultant de l'accord des parties, à la date de l'opération, majoré des impôts, taxes et droits non récupérables, des frais accessoires liés à l'acquisition du bien ou à sa mise en état d'utilisation ou à son entrée en stock.\n\nPar exemple, les frais de transport, d'installation et de montage, certaines commissions et honoraires sont considérés comme des frais accessoires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-d-emprunt",
@@ -1448,7 +1448,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Intérêts et autres coûts qu'une entité encourt dans le cadre d'un emprunt de fonds.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-de-production",
@@ -1456,7 +1456,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Est constitué du coût d'acquisition des matières et fournitures consommées pour la production du bien, augmenté des charges directes et indirectes de production, dans la mesure où ces dernières peuvent être raisonnablement rattachées à la production du bien.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-historique",
@@ -1464,7 +1464,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La convention du coût historique consiste à comptabiliser les opérations sur la base de la valeur nominale de la monnaie sans tenir compte des éventuelles variations de son pouvoir d'achat. Il repose sur la stabilité de l'unité monétaire qui doit permettre d'additionner des unités monétaires de différentes périodes, sans dénaturer l'information comptable.\n\nSelon la convention du coût historique, les actifs sont comptabilisés pour le montant payé ou pour la valeur de la contrepartie qui a été donnée pour les acquérir. Les passifs sont comptabilisés pour le montant des produits reçus en échange de l'obligation ou, dans certaines circonstances (par exemple, les impôts sur les bénéfices), le montant que l'on s'attend à verser pour éteindre le passif (passif externe) dans le cours normal de l'activité.\n\nSelon les articles 35 et 36 de l'Acte uniforme relatif au droit comptable et à l'information financière, la méthode d'évaluation des éléments inscrits en comptabilité est fondée sur la convention du coût historique. Ainsi donc, à leur date d'entrée dans le patrimoine de l'entité, la valeur des actifs est déterminée dans les conditions suivantes :\n- les actifs acquis à titre onéreux sont comptabilisés à leur coût d'acquisition ;\n- les actifs produits par l'entité sont comptabilisés à leur coût de production ;\n- les actifs acquis à titre gratuit sont comptabilisés à leur valeur actuelle ;\n- les actifs acquis par voie d'échange sont comptabilisés à la valeur actuelle de celui des deux éléments dont l'estimation est la plus sûre.\n\nLe coût historique est l'une des conventions comptables fondamentales retenues par le Système Comptable OHADA (convention du nominalisme monétaire).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-reel",
@@ -1472,7 +1472,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Coût ne comportant que des charges effectivement subies à l'exclusion de toutes charges « théoriques » supplétives ou de substitution.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cout-unitaire-moyen-pondere-c-u-m-p",
@@ -1480,7 +1480,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Coût moyen d'une unité en stock à une date donnée, calculé soit à partir d'un réajustement après chaque nouvelle entrée, soit à partir de la durée d'écoulement moyenne du stock. La méthode de calcul d'une moyenne annuelle est à rejeter, sauf dans le cas où la durée moyenne d'écoulement du stock est précisément d'une année.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "cnc-ohada",
@@ -1488,7 +1488,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La Commission de Normalisation Comptable OHADA en abrégé CNC-OHADA est un organe chargé d'assister le secrétariat permanent de l'OHADA dans l'élaboration, l'interprétation, harmonisation, l'actualisation des normes comptables dans les Etats parties.\n\nLa CNC-OHADA assure la coordination et la synthèse des recherches théoriques et méthodologiques relatives à la normalisation et à l'application des règles comptables.\n\nLa CNC-OHADA comprend deux (2) représentants par Etat partie, dont un expert-comptable désigné par l'Ordre national des Experts-Comptables ou l'organe national en tenant lieu et un autre désigné par l'autorité nationale chargée de la normalisation comptable.\n\nLa CNC-OHADA élit en son sein, pour une durée de trois (3) ans, renouvelable une (1) fois sans pouvoir excéder la durée du mandat des intéressés : un Président choisi parmi les membres Experts-comptables et un Vice-Président.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "creances",
@@ -1496,7 +1496,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droits personnels permettant à une personne d'exiger d'une autre une certaine prestation ou une abstention.\n\nDans l'immense majorité des cas, droits pécuniaires résultant de la cession par l'entité d'un bien ou d'un service.\n\nLes créances certaines sont inscrites au bilan dans les postes concernés de l'actif circulant.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "creances-douteuses-ou-litigieuses",
@@ -1504,7 +1504,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les créances douteuses sont celles sur lesquelles pèsent des risques de non-recouvrement, en raison des difficultés financières du débiteur.\n\nLes créances litigieuses sont celles pour lesquelles des litiges opposent l'entité au débiteur, portant sur l'existence ou sur le montant de la créance.\n\nDans un cas comme dans l'autre, une créance peut se trouver dépréciée de 1 à 100 % ; même dans ce dernier cas, elle continue de figurer au bilan (montant brut moins provisions) aussi longtemps que le processus juridique de recouvrement n'est pas clos.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "credit-bail",
@@ -1512,7 +1512,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Contrat de location d'un bien meuble ou immeuble, corporel ou incorporel, assorti d'une possibilité de rachat par le locataire à certaines dates et en particulier à la fin du contrat ; enregistré, initialement, comme location, ce contrat est « retraité » en fin d'exercice comme achat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "credits-d-escompte",
@@ -1520,7 +1520,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Montant brut (avant agios) des effets remis à l'escompte des banques et non encore échus et réglés.\n\nCe montant apparaît au passif du bilan comme une dette de trésorerie, ayant permis d'obtenir, à l'actif, le montant net après agios des effets.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "credits-de-tresorerie",
@@ -1528,7 +1528,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dettes à court terme envers les banques, contractées dans le cadre de la gestion des équilibres au jour le jour de la trésorerie de l'entité.\n\nLes crédits de trésorerie peuvent être classés en :\n- crédits de trésorerie généraux : découverts avances à terme fixe, crédits sur ventes à tempérament (chaîne d'effets), crédit global d'exploitation, cette dernière forme tendant à se substituer aux autres ;\n- crédits de trésorerie spécialisés, dont l'un des plus connus est le crédit de campagne ;\n- crédits confirmés dans lesquels l'établissement de crédit s'est engagé de façon irrévocable à octroyer tel ou tel crédit sur demande de l'entité : sur crédit-bail, crédit permanent, facilités de financement...",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "date-d-approbation-des-etats-financiers",
@@ -1536,7 +1536,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La décision d'approbation des états financiers incombe aux actionnaires et ou aux associés. Elle doit intervenir, dans les six mois de la date de clôture de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "date-d-arrete-des-etats-financiers",
@@ -1544,7 +1544,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La décision d'arrêter les états financiers est de la responsabilité des dirigeants.\n\nL'arrêté des comptes intervient dans quelques mois après la clôture de l'exercice, afin de permettre aux dirigeants de vérifier que les enregistrements comptables donnent une image fidèle des opérations et des situations de l'entité, procèdent à l'inventaire et aux corrections des valeurs des éléments du patrimoine de l'entité.\n\nConformément au présent Acte uniforme, la date d'arrêté des états financiers doit être impérativement fixée à quatre mois après la clôture de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "date-de-cloture-de-l-exercice",
@@ -1552,7 +1552,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Est uniformément fixée au 31 décembre de chaque année, sauf exception dûment motivée.\n\nLa date de clôture détermine le rattachement à l'exercice des charges et des produits le concernant qui permettent de déterminer le résultat de l'exercice.\n\nLes états financiers d'un exercice sont présumés donner une image fidèle du patrimoine de la situation financière et du résultat à la date de clôture.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "date-de-reglement",
@@ -1560,7 +1560,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Date fixée pour le paiement d'une dette ou pour l'encaissement d'une créance. Si l'engagement pris est respecté, un flux de trésorerie sera constaté à cette date.\n\nL'enregistrement des opérations dans les comptes se fait indépendamment des dates de règlement par application de la convention de comptabilité d'engagement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "date-de-valeur",
@@ -1568,7 +1568,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La date de valeur correspond à la date à laquelle une somme est effectivement débitée ou créditée sur le compte bancaire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "debit-credit",
@@ -1576,7 +1576,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le compte se présente sous forme de tableau séparé en deux parties appelées, par convention, débit pour la partie gauche et crédit par la partie droite.\n\nLes termes débit et crédit ont pour origine, la troisième personne du singulier de l'indicatif présent des verbes latin « debere = devoir » et « credere = avoir confiance ».\n\nDébiter un compte, c'est inscrire une somme dans la colonne numérique de gauche ; créditer un compte, c'est inscrire une somme dans la colonne numérique de droite.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "decideur",
@@ -1584,7 +1584,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une entité ayant des droits décisionnels qui agit pour son propre compte (ou à titre de mandant) ou pour le compte d'autrui (comme mandataire).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "deconsolidation",
@@ -1592,7 +1592,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Une entité consolidée peut sortir du périmètre de consolidation sans que le groupe ait cédé la totalité de ses droits ; il en est ainsi lorsque la participation passe au-dessous des seuils de signification retenus par le groupe (intérêt négligeable) ou lorsque ce dernier perd tout contrôle et toute influence notable consécutivement à une cession partielle de titres ou à une augmentation de capital non suivie.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dedits",
@@ -1600,7 +1600,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Arrhes ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["arrhes"],
   },
   {
@@ -1609,7 +1609,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Atténuation, suppression ou remise d'un impôt ou d'une taxe au profit de l'entité.\n\nLes dégrèvements constituent un produit de l'exercice au cours duquel la décision a été notifiée à l'entité.\n\nLorsque ces dégrèvements portent sur les taxes sur le chiffre d'affaires (la T.V.A. par exemple), ils sont destinés à être reversés à des clients. Dans cette hypothèse, ils constituent une recette pour le compte de tiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "demarque-inconnue",
@@ -1617,7 +1617,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Disparition habituelle d'articles exposés dans un magasin (super ou hypermarchés, libres services). Ces vols ont pour conséquence de diminuer le stock et de fausser le calcul des soldes significatifs de gestion (marge brute et valeur ajoutée).\n\nUne estimation correcte de cette perte appelée démarque inconnue, sur des bases comptables et statistiques, doit faire l'objet de retraitements pour une information pertinente.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "depots-et-cautionnements",
@@ -1625,7 +1625,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sommes versées à des tiers ou reçues de tiers à titre de garantie ou de cautionnement et indisponibles jusqu'à la réalisation d'une condition suspensive ou dépôts que l'entité peut recevoir à titre de garantie.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "depreciation",
@@ -1633,7 +1633,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La dépréciation permet de constater la une perte de valeur de l'actif. \n\nDifférence en moins entre la valeur d'entrée d'un bien dans le patrimoine et sa valeur actuelle.\n\nUne entité doit apprécier à chaque d'exercice, s'il existe un indice qu'un actif (immobilisation corporelle ou incorporelle) peut avoir subi une perte de valeur : \n- s'il n'existe pas d'indice de perte de valeur, aucun test de dépréciation n'est requis ;\n- en revanche, s'il existe un tel indice, l'entité doit estimer la valeur actuelle de l'immobilisation. Si la valeur actuelle de l'immobilisation est inférieure à sa valeur comptable, une dotation aux dépréciations doit être comptabilisée. Dans le cas contraire, aucune dépréciation n'est à constater.\n\nLes dotations aux dépréciations sont afférentes à des immobilisations, il s'agit généralement d'immobilisations non amortissables, telles que les terrains et les fonds de commerce.\n\nElles peuvent également concerner les dépréciations exceptionnelles subies par les immobilisations amortissables lorsque ces dépréciations ne peuvent raisonnablement être inscrites aux comptes d'amortissement, en raison de leur caractère définitif.\n\nLes dépréciations concernent aussi :\n- les éléments de l'actif circulant, constatation d'une perte de leur valeur, par différence entre la valeur d'entrée et la valeur actuelle à la date du bilan ;\n- le passif, dettes probables à court terme résultant de charges prévisibles ou de risques déterminés.\n\nCes charges calculées, inscrites au compte « Charges pour dépréciations et pour provisions et risques à court terme », sont assimilées à des charges décaissables à court terme et ne sont donc pas incluses dans les « dotations ».\n\nLeur contrepartie est constituée par :\n- les dépréciations des éléments concernés (stocks, clients, titres de placement...) ;\n- les provisions pour risques à court terme considérées comme dettes du passif circulant.\n\nÀ la différence des provisions pour pertes et charges, elles expriment des corrections d'actif de sens négatif.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "derives",
@@ -1641,7 +1641,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les produits dérivés sont des instruments de gestion des risques financiers (taux, change, cours…). Le terme « dérivé » s'explique par le fait que la valeur de ces contrats découle de la valeur d'autres produits, appelés sous-jacents. Ces produits sont négociés soit sur des marchés de gré à gré, soit sur des marchés organisés (options, contrats à terme ou « futurs », contrats de swap etc.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "derogation-aux-principes-comptables",
@@ -1649,7 +1649,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les états financiers annuels doivent donner une image fidèle du patrimoine, de la situation financière et du résultat de l'entité.\n\nLorsque l'application d'une prescription comptable ne suffit pas pour donner l'image fidèle recherchée ou se révèle impropre à la donner, il doit y être dérogé.\n\nLa dérogation doit être tout à fait exceptionnelle. L'utilisation des dérogations est justifiée et expliquée dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dettes-d-exploitation",
@@ -1657,7 +1657,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dettes nées à l'occasion des opérations liées au cycle d'exploitation et dettes assimilées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dettes-financieres",
@@ -1665,7 +1665,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ressources stables provenant d'emprunts ou de dettes contractées pour une durée supérieure à un an à l'origine.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "devises",
@@ -1673,7 +1673,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Monnaies étrangères ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["monnaie-etrangere"],
   },
   {
@@ -1682,7 +1682,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Lorsque les créances et les dettes libellées en monnaies étrangères subsistent au bilan à la date de clôture de l'exercice, leur enregistrement initial est corrigé sur la base du dernier cours de change à cette date.\n\nLes différences entre les valeurs initialement inscrites dans les comptes (coûts historiques) et celles résultant de la conversion sont appelées différences de change.\n\nLes différences de change sont inscrites directement au bilan dans des comptes d'écart de conversion (pertes probables) ou au passif (gains latents) ; les premières sont incluses dans le résultat sous la forme d'une dotation aux provisions ; les secondes ne sont pas intégrées audit résultat (principe de prudence).\n\nEn Comptabilité nationale, ces variations ne sont pas considérées comme des flux financiers effectifs, du fait de l'absence de transactions.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "differences-d-incorporation",
@@ -1690,7 +1690,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différences constatées :\n- d'une part, entre les charges figurant en comptabilité générale et les charges courantes incorporées aux coûts en comptabilité analytique de gestion ;\n- d'autre part, entre les produits figurant en comptabilité générale et les produits courants retenus en comptabilité analytique de gestion.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "differences-temporaires",
@@ -1698,7 +1698,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Décalages d'exercice dans l'inclusion de produits ou de charges dans le résultat comptable d'une part et le résultat fiscal d'autre part.\n\nExemples :\n- charges déductibles fiscalement au cours d'un exercice et non rattachables au résultat comptable de cet exercice, mais à celui d'un exercice ultérieur (amortissement dérogatoire...) ;\n- charges non déductibles fiscalement, donc imposées, mais qui se rattachent au résultat comptable de l'exercice.\n\nCes différences « temporaires » entraînent des créances et des dettes d'impôts différés (actifs ; passif), comptabilisées en consolidation, mais non dans les comptes personnels.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dirigeant-social",
@@ -1706,7 +1706,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ce terme désigne la personne qui a un pouvoir de décision auprès d'une personne morale ou de représentation de cette personne vis-à-vis des tiers. La responsabilité des dirigeants sociaux peut être mise en cause par les tiers, comme par les associés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "disponibilites-ou-liquidites",
@@ -1714,7 +1714,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Espèces ou valeurs assimilables à des espèces, et d'une manière générale, toutes valeurs qui, en raison de leur nature, sont immédiatement convertibles en espèces pour leur montant nominal.\n\nLes disponibilités comprennent notamment les bons remboursables à tout moment, de même que les comptes bancaires à terme lorsqu'il est possible d'en disposer par anticipation.\n\nPour le SYSCOHADA, Elles regroupent les banques, les établissements financiers et assimilés, les instruments de trésorerie, les instruments de monnaie électronique, les banques crédits de trésorerie et d'escompte, et la caisse.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dividendes",
@@ -1722,7 +1722,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Part du bénéfice distribuable qui est distribuée aux associés à la suite de l'affectation des résultats.\n\nLe dividende est constitué de l'intérêt statutaire ou premier dividende et du super-dividende.\n\nLes dividendes viennent en diminution de la capacité d'autofinancement globale (C.A.F.G.) dans le calcul de l'autofinancement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "doctrine-comptable",
@@ -1730,7 +1730,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble de la production des organismes professionnels ou de leurs membres, et de personnalités indépendantes (auteurs, professeurs, magistrats), destinée à éclairer ou à approfondir des sujets portant sur la comptabilité ou son organisation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dons-et-liberalites",
@@ -1738,7 +1738,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dons de toute nature effectués par l'entité au profit d'une autre personne juridique à l'occasion d'événements exceptionnels (catastrophes naturelles, guerres) ou dans le cadre d'une politique de mécénat destinée à favoriser le développement d'activités humanitaires, civiques, culturelles ou sportives.\n\nLes dons et libéralités ne doivent pas être confondus avec les dépenses de parrainage traitées comme des charges de publicité.\n\nLorsque les dons et libéralités sont effectués par une autre personne juridique en faveur de l'entité, celle-ci doit les comptabiliser en produits H.A.O.\n\nLes entités pour lesquelles ces ressources ont un caractère normal et récurrent les enregistrent en produits d'exploitation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "dotations-aux-amortissements-aux-depreciations-et-aux-provis",
@@ -1746,7 +1746,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges calculées relatives à la constatation :\n- de la dépréciation des immobilisations ;\n- de la répartition systématique du montant amortissable sur sa durée d'utilité ;\n- des pertes de valeur probables de certains éléments de l'actif ;\n- d'un passif externe (dette) dont l'échéance ou le montant est incertain.\n\nElles sont distinguées selon leur nature d'exploitation, financière ou hors activités ordinaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "droit-de-communication",
@@ -1754,7 +1754,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droit reconnu à un associé ou à des tiers de prendre connaissance et, au besoin, copie de certains documents comptables établis par l'entité.\n\nEn vertu de ce droit, le commissaire aux comptes, lorsqu'il existe, bénéficie d'une information comptable complète.\n\nEn ce qui concerne les associés, leur droit de communication, préalable à la tenue des Assemblées générales, porte sur les états financiers de synthèse, le rapport de gestion, les rapports général et spécial du commissaire aux comptes, les textes des résolutions proposées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "droits-de-douane",
@@ -1762,7 +1762,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Coût d'acquisition ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["cout-d-acquisition"],
   },
   {
@@ -1771,7 +1771,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Fonds commercial ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["fonds-commercial"],
   },
   {
@@ -1780,7 +1780,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droits de retirer au décideur son pouvoir décisionnel.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "duree-de-l-exercice",
@@ -1788,7 +1788,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Temps écoulé entre l'ouverture et la clôture de l'exercice.\n\nDes états financiers de synthèse regroupent les informations comptables au moins une fois par an sur une période de douze mois, appelée exercice.\n\nDans l'espace OHADA l'exercice coïncide avec l'année civile. Par dérogation, la durée de l'exercice peut être exceptionnellement :\n- inférieure à douze mois pour le premier exercice lorsqu'il débute au cours du premier semestre de l'année civile ;\n- supérieure à douze mois pour le premier exercice lorsqu'il débute au cours du deuxième semestre de l'année.\n\nPar ailleurs, en cas de cessation d'activité pour quelque cause que ce soit, la durée des opérations de liquidation est comptée pour un seul exercice sous réserve de l'établissement de situations provisoires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "duree-d-usage",
@@ -1796,7 +1796,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La durée d'usage est une durée qui tient compte des usages ou des pratiques généralement admis pour certaines catégories de biens (et non du rythme de consommation des avantages économiques procurés par l'actif).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "duree-d-utilite",
@@ -1804,7 +1804,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La durée d'utilité est :\n- soit la période pendant laquelle l'entité s'attend à utiliser un actif (unité de temps) ; ou\n- soit le nombre d'unités de production ou d'unités similaires que l'entité s'attend à obtenir de l'actif (unité d'œuvre).\n\nL'amortissement dépend de la façon dont l'entité entend utiliser le bien. Ainsi, la durée d'utilité d'un actif peut être plus courte que sa vie économique.\n\n**Pour les immobilisations dont la durée d'utilité est limitée**\n\nUn actif immobilisé dont la durée d'utilité est limitée fait l'objet d'un amortissement. Le cas échéant, il fait également l'objet d'une dépréciation.\n\nLe caractère limité de la durée d'utilité d'un actif est déterminé, soit à l'origine, soit en cours d'utilisation, au regard des critères suivants :\n\n**Physique** : l'actif subit une usure physique par l'usage qu'en fait l'entité ou par le passage du temps ;\n\n**Technique** : l'évolution technique entraîne une obsolescence de l'actif, son utilisation devenant inférieure à celle qui serait fondée sur sa seule usure physique ;\n\n**Juridique** : l'utilisation est limitée dans le temps pour des raisons légales ou contractuelles, notamment en raison de l'expiration d'une protection ;\n\n**Économique** : l'utilisation est limitée dans le temps en raison du cycle de vie des produits générés par cet actif.\n\nSi plusieurs critères sont pertinents, la durée d'utilité la plus courte résultant de l'application de ces critères est retenue.\n\nLes actifs corporels, physiques par essence, ont généralement une durée d'utilité limitée.\n\n**Pour les immobilisations dont la durée d'utilité est non limitée**\n\nLorsqu'il n'y a pas de limite prévisible à la durée durant laquelle il est attendu qu'un actif immobilisé procurera des avantages économiques à l'entité, la durée d'utilité de cet actif est non limitée et l'actif concerné ne fait pas l'objet d'amortissement. Le cas échéant, il fait l'objet d'une dépréciation (cas des terrains par exemple).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "droit-au-bail",
@@ -1812,7 +1812,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le droit au bail est le montant versé ou dû au locataire précédent, en considération du transfert à l'acheteur des droits résultant tant des conventions que de la législation sur la propriété commerciale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "droit-protectif",
@@ -1820,7 +1820,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droits qui ont pour but de protéger les intérêts de la partie qui les détient, sans toutefois lui donner le pouvoir sur l'entité à laquelle les droits se rattachent.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ecart-d-acquisition",
@@ -1828,7 +1828,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "L'écart d'acquisition (goodwill positif), est calculé par la différence entre :\n- d'une part, le coût d'acquisition des titres ;\n- et d'autre part, le montant net résultant de l'évaluation des actifs acquis et passifs repris identifiables à la date d'acquisition.\n\nL'écart d'acquisition positif est inscrit à l'actif immobilisé et amorti sur une durée qui doit refléter, aussi raisonnablement que possible, les hypothèses retenues et les objectifs fixés et documentés lors de l'acquisition.\n\nUn écart d'acquisition négatif correspond généralement soit à une plus-value potentielle du fait d'une acquisition effectuée dans des conditions avantageuses, soit à une rentabilité insuffisante de l'entité acquise.\n\nL'excédent négatif éventuel est rapporté au résultat sur une durée qui doit refléter les hypothèses retenues et les objectifs fixés lors de l'acquisition.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ecart-de-change",
@@ -1836,7 +1836,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'écart de change est l'écart provenant de la conversion d'un nombre donné d'unités d'une monnaie dans une autre monnaie à des cours de change différents.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ecart-de-premiere-consolidation",
@@ -1844,7 +1844,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Lors de la première consolidation d'une entité contrôlée exclusivement depuis plusieurs exercices, les valeurs d'entrée et l'écart d'acquisition sont déterminés comme si cette première consolidation était intervenue effectivement à la date de prise de contrôle.\n\nL'écart de première consolidation est inscrit en résultats consolidés, après déduction des dividendes reçus par le groupe et amortissement de l'écart d'acquisition.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ecart-de-reevaluation",
@@ -1852,7 +1852,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre la valeur réévaluée et la valeur nette comptable d'un élément non monétaire réévalué.\n\nIl est inscrit distinctement dans les capitaux propres au passif du bilan.\n\nL'écart de réévaluation n'a pas la nature d'un résultat, et ne peut être utilisé pour compenser les pertes de l'exercice de réévaluation. Il n'est pas distribuable ; il peut être incorporé en tout ou partie au capital.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ecart-d-evaluation",
@@ -1860,7 +1860,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'écart d'évaluation représente la différence à la date d'acquisition entre la valeur d'entrée dans le bilan consolidé et la valeur comptable du même élément dans le bilan de l'entité contrôlée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ecarts-de-conversion",
@@ -1868,7 +1868,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Différences de change ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["differences-de-change"],
   },
   {
@@ -1877,7 +1877,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des inscriptions comptables relatives à une même opération lors de son enregistrement en comptabilité (journal ou compte). Les écritures sont passées selon le système dit « en partie double ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "effets-de-commerce",
@@ -1885,7 +1885,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les effets de commerce, billet à ordre et lettre de change (traite), sont des instruments de mobilisation de créance et, partant, de crédit. Ils sont utilisés aussi comme instruments de paiement.\n\nLeur transmission s'effectue par endossement : le dernier bénéficiaire voit le paiement final garanti par les précédents endosseurs (garantie du droit cambiaire).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "elements-monetaires",
@@ -1893,7 +1893,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les éléments monétaires sont les unités monétaires détenues et les éléments d'actif et de passif devant être reçus ou payés dans un nombre d'unités monétaires déterminé ou déterminable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "emballages",
@@ -1901,7 +1901,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets utilisés pour contenir, envelopper, protéger, conditionner les produits et marchandises livrés à la clientèle en même temps que leur contenu.\n\nPar extension, tous objets employés dans le conditionnement de ce qui est livré.\n\nLes emballages sont distingués en deux catégories :\n- le matériel d'emballage, de valeur relativement importante, identifiable par l'entité, destiné à être utilisé de manière durable pour les besoins de l'entité et non livré aux clients ;\n- les emballages commerciaux, qui sont des objets de valeur relativement faible ou d'une durée d'utilisation généralement inférieure à un an.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "emballages-perdus-ou-non-recuperables",
@@ -1909,7 +1909,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Emballages réputés être livrés avec leur contenu, sans consignation ni reprise. La valeur des emballages non récupérables est incorporée dans le prix du contenu.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "emballages-recuperables",
@@ -1917,7 +1917,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Emballages susceptibles d'être provisoirement conservés par les tiers et que le fournisseur s'engage à reprendre dans des conditions déterminées. Ces emballages sont destinés à être prêtés ou consignés aux clients.\n\nCes emballages constituent normalement des immobilisations.\n\nToutefois, lorsqu'ils ne sont pas commodément identifiables, unité par unité, ils peuvent, compte tenu de leur nature et des pratiques, être assimilés à des stocks ; ils sont alors comptabilisés comme tels.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "emplois",
@@ -1925,7 +1925,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Utilisation des ressources financières de l'entité à l'acquisition de biens, services et créances. Ils figurent à l'actif. L'actif se compose d'emplois durables (immobilisations) et d'emplois cycliques ou actif circulant.\n\nL'emploi peut être considéré :\n- en dynamique : mouvement de valeur ou flux ;\n- en statique (emploi « net ») : montant des valeurs restant utilisées sous forme de l'élément considéré à l'issue d'un certain nombre de flux d'emplois et de ressources concernant l'élément.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "emprunts",
@@ -1933,7 +1933,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Dettes financières ».\n\nRessources contractées auprès d'établissement de crédit et/ou auprès de tiers divers afin de couvrir les besoins de financement durables de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "emprunts-obligataires",
@@ -1941,7 +1941,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dettes représentées par des obligations, titres négociables conférant au titulaire dans une même émission les mêmes droits de créance pour une même valeur nominale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "engagements",
@@ -1949,7 +1949,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droits et obligations dont les effets sur le montant ou la consistance du patrimoine sont subordonnés à la réalisation de conditions (exemple : cautions) ou d'opérations ultérieures (exemple : commandes).\n\nLes engagements reçus ou donnés peuvent être enregistrés dans des comptes facultatifs. Ils font l'objet de mentions dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ensemble-combine",
@@ -1957,7 +1957,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est l'ensemble économique formé par les entités incluses dans le périmètre de combinaison.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ensemble-consolide",
@@ -1965,7 +1965,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Ensemble économique composé de l'entité consolidante, des entités dépendantes, c'est-à-dire contrôlées en droit ou en fait, et des entités sur lesquelles l'entité consolidante ou les entités dépendantes exercent une influence notable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entite",
@@ -1973,7 +1973,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble organisé d'une ou plusieurs personnes physiques ou morales et d'éléments corporels ou incorporels permettant l'exercice d'une activité économique qui poursuit un objectif propre.\n\nPar activité économique, il faut entendre toute activité (civile ou commerciale) produisant des biens ou des services marchands ou non marchands exercée dans un but lucratif ou non.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entite-d-investissement",
@@ -1981,7 +1981,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une entité qui :\n- obtient des fonds d'un ou de plusieurs investisseurs en vue de leur fournir des services de gestion d'investissements ;\n- s'engage auprès de ses investisseurs à ce que l'objet de son activité soit d'investir des fonds dans le seul but de réaliser des rendements sous forme de plus-values en capital et/ou de revenus d'investissement ; et\n- évalue et apprécie la performance de la quasi-totalité de ses investissements sur la base de la juste valeur.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entite-mutuelle",
@@ -1989,7 +1989,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une entité, autre qu'une entité détenue par un investisseur, qui fournit des dividendes, des coûts réduits ou d'autres avantages économiques, directement à ses détenteurs, ses sociétaires ou ses participants. Ainsi, une compagnie d'assurance mutuelle, une coopérative d'épargne et une entité coopérative sont toutes des entités mutuelles.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entreprise",
@@ -1997,7 +1997,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'entreprise se définit comme une unité économique reposant sur une organisation préétablie et fonctionnant autour de moyens de production ou de distribution.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entreprise-acquise",
@@ -2005,7 +2005,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "En consolidation l'entreprise acquise signifie l'entreprise ou les entreprises dont l'acquéreur obtient le contrôle à l'occasion d'un regroupement d'entreprises.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entite-consolidante-ou-dominante",
@@ -2013,7 +2013,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "L'entité consolidante ou dominante est l'entité située au sommet de l'ensemble consolidé et qui n'est contrôlée par aucune autre entité dont le siège serait dans la même « région de l'espace OHADA », sous réserve de l'exception figurant à l'article 77 de l'Acte uniforme.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entite-integree-ou-dependante",
@@ -2021,7 +2021,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'entité intégrée ou dépendante est une entité contrôlée, en droit ou en fait, directement ou indirectement, par l'entité consolidante.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "entite-mise-en-equivalence",
@@ -2029,7 +2029,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "L'entité mise en équivalence est celle dans laquelle l'entité consolidante détient le pouvoir de participer aux décisions relatives aux politiques financières et opérationnelles de l'entité émettrice, sans toutefois exercer un contrôle exclusif ou un contrôle conjoint sur ces politiques. Elle exerce une influence notable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "equivalence-evaluation-par",
@@ -2037,7 +2037,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Inscription des titres de participation à la valeur correspondant à la quote-part dans les sociétés contrôlées de façon exclusive dans des comptes personnels. Cette méthode n'a pas été retenue dans le Système Comptable OHADA.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "erreurs-comptables",
@@ -2045,7 +2045,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Omissions matérielles, pouvant survenir dans les cas suivants :\n- erreurs de calcul,\n- erreurs dans l'application des méthodes comptables,\n- négligences, mauvaises interprétations des faits,\n- adoption d'une méthode comptable non admise,\n- fraudes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "escompte-d-effet-de-commerce",
@@ -2053,7 +2053,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opérations de crédit à court terme permettant au détenteur d'un effet de commerce qui l'endosse au profit d'un banquier d'obtenir auprès de ce dernier la disposition des sommes correspondantes sans attendre la date d'échéance de sa créance, et moyennant la retenue d'intérêts appelés « escompte » et de commissions.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "escompte-de-reglement",
@@ -2061,7 +2061,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réduction du montant à payer d'une dette accordée par un créancier à son débiteur qui acquitte sa dette avant l'échéance normale ou qui règle au comptant sans recourir au délai de paiement habituel.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "etats-financiers-consolides",
@@ -2069,7 +2069,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Les états financiers d'un groupe dans lesquels les actifs, les passifs, les capitaux propres, les produits, les charges et les flux de trésorerie de la société mère et de ses filiales sont présentées comme ceux d'une entité économique unique.\n\nLes états financiers consolidés comprennent :\n- un état consolidé de situation financière (Bilan consolidé) à la fin de l'exercice ;\n- un état consolidé du résultat net et des autres éléments du résultat global (Compte de résultat consolidé) de l'exercice ;\n- un tableau consolidé des flux de trésorerie de l'exercice ;\n- un état consolidé des variations de capitaux propres de l'exercice ;\n- les Notes annexes.\n\nIls forment un tout indissociable et sont établis conformément aux principes applicables aux états financiers consolidés.\n\nIls sont présentés conformément aux modèles fixés par le Système comptable OHADA.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "etats-financiers-de-synthese",
@@ -2077,7 +2077,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etats périodiques établis pour rendre compte du patrimoine, de la situation financière et du résultat de l'entité.\n\nFormant un tout indissociable, ils comprennent le bilan, le compte de résultat, le tableau financier des ressources et des emplois de l'exercice et les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "evenements-posterieurs-a-la-cloture-de-l-exercice",
@@ -2085,7 +2085,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Evénements d'importance significative qui surviennent après la date de clôture de l'exercice pour révéler ou préciser des éléments inclus ou à inclure dans les états financiers, dans la mesure où ces événements ont un lien direct et prépondérant avec des conditions existant à la clôture de l'exercice.\n\nEn application du principe d'indépendance des exercices, il doit être procédé, si ce lien est établi, à des ajustements d'écritures ou à une information dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "exercice-comptable",
@@ -2093,7 +2093,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Découpage de l'activité de l'entité en périodes de douze mois. L'exercice comptable coïncide avec l'année civile pour les entités de l'espace OHADA.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "expert-comptable",
@@ -2101,7 +2101,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Est expert-comptable celui qui fait profession habituelle de réviser et d'apprécier les comptabilités des entités auxquels il n'est pas lié par un contrat de travail. Il est habilité à attester la régularité et la sincérité des états financiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fiabilite-de-l-information",
@@ -2109,7 +2109,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Caractéristique qualitative de l'information qui vise à rendre celle-ci sûre, capable de traduire fidèlement la réalité économique et financière.\n\nCette fiabilité est liée aux dispositifs de fond et de forme à :\n- la définition des règles d'évaluation, de présentation ;\n- l'application de celles-ci avec régularité et sincérité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fasb",
@@ -2117,7 +2117,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le FASB (Financial Accounting Standards Board) est l'organisme de normalisation comptable aux Etats unis qui a pour but :\n- d'élaborer les normes comptables ayant force obligatoire et d'en promouvoir la comptabilité,\n- d'améliorer l'utilité de l'information financière.\n\nCette mission lui est confiée par délégation de la SEC (Securities Exchange Commission). Néanmoins la SEC surveille l'établissement des normes comptables par le FASB et surtout en vérifié l'application par les sociétés cotées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fichier-des-ecritures-comptables",
@@ -2125,7 +2125,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le fichier des écritures comptables contient l'ensemble des données comptables et des écritures retracées dans tous les journaux comptables au titre d'un exercice. Pour chaque écriture, l'ensemble des données comptables figurant dans le système informatisé comptable de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fiducie",
@@ -2133,7 +2133,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La fiducie est un mécanisme qui permet à une personne de transférer temporairement des biens dans un patrimoine d'affectation géré par un fiduciaire au profit d'un bénéficiaire, et cela afin de faciliter la constitution de sûretés ou d'assurer la gestion de biens pour le compte d'autrui.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fifo",
@@ -2141,7 +2141,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La méthode FIFO, de l'anglais « First in, first out », c'est-à-dire « premier entré, premier sorti » (PEPS), est une méthode d'évaluation du prix d'éléments fongibles par laquelle ceux-ci sont valorisés au prix le plus ancien.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "filiale",
@@ -2149,7 +2149,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une société est filiale lorsque son capital est détenu à plus de la moitié par une autre société.\n\nEn consolidation, une filiale est une entité contrôlée par une autre.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fonds-commercial",
@@ -2157,7 +2157,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble d'éléments incorporels ne pouvant faire l'objet d'une évaluation et d'une comptabilisation séparées, au bilan, et qui participent au maintien et au développement de l'activité de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fonds-commun-de-placement-f-c-p",
@@ -2165,7 +2165,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Organisme de placement collectif en valeurs mobilières non doté de la personnalité morale, le fonds commun de placement est une copropriété de valeurs mobilières, constitué à l'initiative conjointe d'une société commerciale chargée de sa gestion et d'une personne morale dépositaire des actifs de fonds.\n\nLes parts de F.C.P. sont comptabilisées à leur coût d'acquisition lors de leur entrée ; à l'inventaire elles sont estimées à leur valeur liquidative.\n\nMalgré l'absence de personnalité morale, la loi reconnaît au F.C.P. une autonomie patrimoniale, comptable et une représentation par un gérant.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fonds-reglemente",
@@ -2173,7 +2173,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Par dispositions législatives ou réglementaires, les pouvoirs publics soumettent les entités à une obligation de prélèvement sur leurs bénéfices pour doter un fonds de réserve. Les motifs du prélèvement sont, en général, la participation au budget d'équipement et d'investissement de l'État. En contrepartie, l'État délivre des certificats d'investissement comptabilisés comme des titres de créances.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fongibles-biens",
@@ -2181,7 +2181,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Biens non individualisés, interchangeables, parce qu'ils confèrent les mêmes droits et ont la même valeur.\n\nLes titres de participation ou de placement de même nature émis par une même entité sont fongibles.\n\nLes stocks de marchandises, de matières ou de produits finis, non identifiés individuellement, sont des biens fongibles.\n\nLes biens fongibles obéissent à des règles de transfert de propriété et d'évaluation particulières.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "frais-d-etablissement",
@@ -2189,7 +2189,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dépenses exposées dans le cadre d'opérations qui conditionnent l'existence, l'activité ou le développement de l'entité, dont le montant ne peut être rapporté à des productions de biens ou de services déterminés.\n\nLes frais d'établissement comprennent entre autres :\n- les frais de constitution, à savoir, les droits d'enregistrement sur apports, les honoraires, les paiements effectués au titre des formalités légales de publication, notamment auprès du Greffe ;\n- les frais de premier établissement (prospection, publicité, notamment) ;\n- les frais d'augmentation de capital et d'opérations diverses, liées notamment à la fusion, la scission ou toute autre transformation de société.\n\nLes frais d'établissement constituent des dépenses à inscrire dans les comptes de charges par nature.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "frais-de-recherche-et-de-developpement-f-r-d",
@@ -2197,7 +2197,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La recherche est définie comme une investigation originale et programmée réalisée par une entité en vue d'acquérir une compréhension et des connaissances scientifiques ou techniques nouvelles.\n\nEntrent dans la phase de recherche les activités suivantes :\n- les activités visant à obtenir de nouvelles connaissances ;\n- la recherche de l'application de résultats de recherche ou d'autres connaissances ainsi que leur évaluation et le choix retenu in fine ;\n- la recherche d'autres matériaux, dispositifs, produits, procédés, systèmes ou services ;\n- la formulation, la conception, l'évaluation et le choix final d'autres possibilités de matériaux, dispositifs, produits, procédés, systèmes ou services nouveaux ou améliorés.\n\nLes dépenses encourues pour la recherche, ou lors de la phase de recherche d'un projet interne, ne peuvent être immobilisées, mais doivent être systématiquement comptabilisée en charges de l'exercice au cours duquel elles sont encourues et ne peuvent être activées à une date ultérieure.\n\nLe développement est l'application des résultats de la recherche ou d'autres connaissances à un plan ou un modèle en vue de la production de matériaux, dispositifs, produits, procédés, systèmes ou services nouveaux ou substantiellement améliorés, avant le commencement de leur production commerciale ou de leur utilisation.\n\nEntrent dans la phase de développement, les activités suivantes :\n- conception, construction et tests de pré-production ou de pré-utilisation de modèles et prototypes ;\n- conception d'outils, de gabarits, moules et matrices impliquant une technologie nouvelle ;\n- conception, construction et exploitation d'une unité pilote qui n'est pas à une échelle permettant une production commerciale dans des conditions économiques ;\n- conception, construction et tests pour la solution choisie pour d'autres matériaux, dispositifs, produits, procédés, systèmes ou services nouveaux ou améliorés.\n\nLes dépenses encourues pour le développement sont immobilisées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "franchisage",
@@ -2205,7 +2205,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le franchisage est un contrat par lequel une entité (le franchiseur) concède à des entités indépendantes (franchisées), en contrepartie d'une redevance, le droit de se présenter sous sa raison sociale et sa marque, pour vendre des produits ou services.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "fusion",
@@ -2213,7 +2213,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "La fusion est l'opération par laquelle deux (2) ou plusieurs sociétés se réunissent pour n'en former qu'une soit par création d'une société soit par absorption par l'une d'entre elles.\n\nRegroupement d'entreprises ayant décidé de réunir leurs moyens ou leurs activités en vue de former une seule société.\n\nLes modalités de fusion sont diverses : deux sociétés préexistantes peuvent fusionner et créer une nouvelle société ou l'une absorbant l'autre.\n\nLes restructurations d'entreprises obéissent à des visions stratégiques.\n\nLes cas de fusion avec effet rétroactif conduisent à déroger à la règle de coïncidence entre bilan d'ouverture et bilan de clôture précédent.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "gains-de-change",
@@ -2221,7 +2221,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différences en faveur de l'entité entre le montant initialement enregistré et le montant finalement réglé. Ces différences sont constatées à l'occasion du dénouement d'opérations libellées en monnaies étrangères.\n\nLes gains de change constituent des produits financiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "gains-latents",
@@ -2229,7 +2229,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différences favorables non réalisées résultant de la conversion en unités monétaires légales du pays (UML) des créances et dettes en monnaies étrangères. Les gains latents, par prudence, ne sont pas comptés dans le résultat. Ne constituent pas des gains latents les écarts consécutifs à la conversion en UML de liquidités ou d'exigibilités immédiates en monnaies étrangères. Dans ce cas, les profits doivent être inscrits au compte de résultat.\n\nNe pas confondre avec la définition de la Comptabilité nationale qui ne les considère pas comme des flux financiers à cause de l'absence de transaction.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "gestion",
@@ -2237,7 +2237,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Mise en œuvre et administration des moyens et ressources requis en vue d'atteindre, dans une entité, des objectifs préalablement fixés dans le cadre d'une politique déterminée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "gestion-budgetaire",
@@ -2245,7 +2245,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Gestion basée sur l'établissement de budgets d'investissement, de fonctionnement, d'exploitation et de trésorerie. Dans ce mode de gestion, les programmes d'action chiffrés en fonction d'objectifs visés et de stratégies délibérément arrêtées, mettent les principaux agents de l'entité en responsabilité d'atteindre les résultats attendus, notamment grâce à une comparaison systématique entre les réalisations et les prévisions et à l'analyse des écarts constatés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "gestion-previsionnelle",
@@ -2253,7 +2253,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dispositif permettant aux différents responsables de prévenir les événements, de cibler des objectifs, de viser une utilisation optimale des ressources et des moyens requis afin d'atteindre ces objectifs.\n\nElle est à la base du système de pilotage de l'entité que constitue la gestion budgétaire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "gisement-terrains-de",
@@ -2261,7 +2261,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Terrains d'extraction de matières destinées soit aux besoins de l'entité, soit à être revendues en l'état ou après transformation. Sont assimilées à des terrains de gisement les carrières, les sablières, les tourbières.\n\nEn raison de leur exploitation programmée, les terrains de gisement sont amortissables.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "goodwill",
@@ -2269,7 +2269,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Survaleur ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["survaleur-ou-goodwill"],
   },
   {
@@ -2278,7 +2278,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Document regroupant l'ensemble des comptes de l'entité où sont reportés ou inscrits simultanément au journal, compte par compte, les différents mouvements.\n\nLe grand-livre fait partie des livres comptables et autres supports dont la tenue est obligatoire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "groupe-de-societes",
@@ -2286,7 +2286,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble constitué par plusieurs sociétés ayant chacune leur personnalité juridique propre. Elles sont unies entre elles par des participations dans le capital de telle sorte que l'une d'entre elles, appelée la société dominante, exerce un contrôle sur l'ensemble, en faisant prévaloir une unité de décisions.\n\nAu sens des comptes consolidés, le groupe désigne généralement l'ensemble constitué par la société dominante et les filiales ou les participations sur lesquelles elle exerce directement ou indirectement son contrôle ou son influence.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "groupement-d-interet-economique",
@@ -2294,7 +2294,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le groupement d'intérêt économique (GIE) est celui qui a pour but exécutif de mettre en œuvre pour une durée déterminée, tous les moyens propres à faciliter ou à développer l'activité économique de ses membres, à améliorer ou à accroître les résultats de cette activité. Son activité doit se rattacher à l'activité économique de ses membres et ne peut avoir qu'un caractère auxiliaire par rapport à celle-ci.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "honoraires",
@@ -2302,7 +2302,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rémunérations de services extérieurs, les honoraires sont des charges pour le bénéficiaire des prestations.\n\nCependant, les honoraires d'un architecte intervenant dans la construction d'un immeuble neuf ou dans des travaux de modernisation sont incorporés au coût de l'immobilisation concernée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "iasb",
@@ -2310,7 +2310,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'International Accounting Standards Board (IASB) est chargé d'élaborer les normes comptables internationales au sein de l'IFRS Foundation. Par ailleurs, il approuve les interprétations préparées par l'IFRS Interpretations Committee.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ifac",
@@ -2318,7 +2318,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Créée le 7 octobre 1977, l'International Federation of Accountants est une organisation internationale de droit privé dont le siège social est basé à New York. L'objectif de l'IFAC est de promouvoir et favoriser une profession comptable mondiale coordonnée et appliquant des normes harmonisées de grande qualité. Son rôle est essentiel dans le processus de normalisation de l'audit à l'échelle mondiale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ifrs-interpretations-committee",
@@ -2326,7 +2326,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "normes-ifrs",
     ues: ["ue13-ifrs-ias"],
     definition: "L'IFRS Interpretations Committee, anciennement dénommé SIC (Standing Interpretations Committee) puis IFRIC, est le comité permanent d'interprétation de l'IFRS Foundation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ifrs-pme",
@@ -2334,7 +2334,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "normes-ifrs",
     ues: ["ue13-ifrs-ias"],
     definition: "La norme IFRS pour PME est un référentiel complet élaboré par l'IASB et destiné à des entreprises n'ayant pas de responsabilité publique. Cette norme s'inspire très largement du référentiel IFRS complet, auquel certaines simplifications ont été apportées (suppression de certains traitements alternatifs, allègement des informations à fournir en annexe, ajout d'explications et d'illustrations...).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "image-fidele",
@@ -2342,7 +2342,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Finalité de la comptabilité, l'image fidèle est présumée résulter de l'application de bonne foi des règles et des procédures du SYSTÈME COMPTABLE OHADA en fonction de la connaissance que les responsables des comptes doivent normalement avoir de la réalité et de l'importance des opérations, des événements et des situations.\n\nL'image fidèle est un objectif supposé atteint lorsque les comptes sont réguliers et sincères. Si tel n'est pas le cas, des compléments doivent être apportés dans les Notes annexes. Dans des cas exceptionnels, des dérogations aux règles de base du SYSTÈME COMPTABLE OHADA doivent être pratiquées et justifiées dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "immobilisations",
@@ -2350,7 +2350,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Eléments corporels et incorporels destinés à servir de façon durable à l'activité de l'entité.\n\nIls ne se consomment pas par le premier usage. A priori, leur durée est de plus d'un an. Certains biens de peu de valeur ou dont la consommation est très rapide peuvent être considérés comme entièrement consommés dans l'exercice de leur mise en service et, par conséquent, ne peuvent pas être classés dans les immobilisations.\n\nIl est utile de distinguer les immobilisations d'exploitation des immobilisations hors activités ordinaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "immobilisations-corporelles",
@@ -2358,7 +2358,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Biens détenus par une entité soit pour être utilisés dans la production de biens et services soit pour être loués à des tiers, soit à des fins administratives. Ces biens doivent aussi être utilisés sur plusieurs exercices. Ils regroupent ceux acquis en pleine propriété, en nue-propriété, en usufruit, en location-vente et en crédit-bail.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "immobilisations-financieres",
@@ -2366,7 +2366,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Catégorie d'immobilisations constituées par les titres de participations, les autres titres immobilisés et les créances liées à ces participations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "immobilisations-incorporelles",
@@ -2374,7 +2374,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Actif non monétaire identifiable sans substance physique, contrôlé par l'entité qui a le pouvoir d'obtenir des avantages économiques futurs.\n\nUn actif est identifiable s'il :\na) est séparable, c'est-à-dire qu'il peut être séparé de l'entité et être vendu, transféré, concédé par licence, loué ou échangé, soit de façon individuelle, soit dans le cadre d'un contrat, avec un actif ou un passif liés ; ou\nb) résulte de droits contractuels ou d'autres droits légaux, que ces droits soient ou non cessibles ou séparables de l'entité ou d'autres droits et obligations.\n\nUne entité contrôle ses avantages si ces connaissances sont protégées par des droits légaux.\n\nLes avantages économiques futurs résultent des produits découlant de la vente de biens ou services, des économies de coûts ou d'autres avantages résultant de l'utilisation de l'actif par l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "importance-significative-convention-de-l",
@@ -2382,7 +2382,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Principe selon lequel l'information significative serait celle dont l'omission ou la déformation pourrait influencer l'opinion des lecteurs des états financiers.\n\nL'importance significative fait appel à la notion de seuil de signification. Elle s'applique, notamment, dans l'élaboration des Notes annexes où la production de certaines informations n'est requise que si elles ont une importance significative par rapport aux données des autres états financiers, sans préjudice des obligations légales.\n\nDe même, pour l'établissement des comptes consolidés, l'importance significative s'applique dans la définition du périmètre de consolidation lorsque l'intérêt ou l'incidence négligeable de certaines filiales sur les comptes consolidés pourrait amener à les laisser hors du périmètre.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "impots-differes",
@@ -2390,7 +2390,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Montant des impôts sur les bénéfices non compris dans l'impôt exigible et résultant de décalages temporaires d'exercices entre l'intégration de charges ou de produits dans le calcul du résultat comptable, d'une part, du résultat fiscal d'autre part.\n\nNon comptabilisés dans les comptes personnels, ils le sont dans les comptes consolidés. Les impôts différés constituent un poste spécifique du bilan consolidé figurant soit au passif (dette d'impôt) soit à l'actif (créance).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "impot-exigible",
@@ -2398,7 +2398,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Impôt dû sur le résultat dans l'exercice. Méthode de calcul de l'impôt retenue dans les comptes personnels, elle constitue une entorse au postulat de spécialisation des exercices.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "impots-et-taxes",
@@ -2406,7 +2406,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges correspondant :\n- d'une part, à des versements obligatoires à l'Etat et aux collectivités locales pour subvenir aux dépenses publiques ;\n- d'autre part, à des versements institués par l'autorité publique, notamment pour le financement d'actions d'intérêt économique et social.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "incoterms",
@@ -2414,7 +2414,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les Incoterms (International Commercial Terms) visent à uniformiser les termes commerciaux les plus utilisés dans le commerce international, en définissant par un terme unique une relation donnée entre un client et un fournisseur et plus particulièrement :\n- la répartition des frais liés au transport des marchandises ;\n- le transfert des risques au cours du transport des marchandises.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "indemnites-de-fonction",
@@ -2422,7 +2422,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rémunération versée aux membres du Conseil d'administration ou du Conseil de surveillance pour leur participation aux réunions. Ils constituent des charges de l'exercice et n'ont pas le caractère de répartition.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "indemnite-d-eviction",
@@ -2430,7 +2430,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Indemnité due au locataire qui remplit les conditions donnant droit à la propriété commerciale. En matière de baux commerciaux, le bailleur doit, en cas de refus de renouvellement du bail, payer au locataire évincé une indemnité d'éviction égale au préjudice causé par le défaut de renouvellement. Ce n'est que lorsqu'il peut justifier de circonstances particulières (motifs graves et légitimes ou droit de reprise) que l'indemnité n'est pas due.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "independance-ou-specialisation-des-exercices-postulat-d",
@@ -2438,7 +2438,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rattachement à chaque exercice de tous les produits et charges qui le concernent et ceux-là seulement.\n\nEn application de ce principe, il doit être tenu compte, sous des conditions déterminées, de tous les événements survenus après la clôture de l'exercice et avant l'arrêté des comptes.\n\nFont exception la comptabilisation de l'impôt selon la méthode de l'impôt exigible et la constatation du résultat à l'achèvement des travaux dans les contrats pluri-exercices.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "indexation",
@@ -2446,7 +2446,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une clause d'indexation est une clause qui, incluse dans un contrat, a pour objet de faire varier le prix donné en fonction de l'évolution de certains critères définis (indice de prix, coût de la construction, etc.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "inflation",
@@ -2454,7 +2454,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'inflation peut être définie soit comme une hausse continue du niveau général des prix, soit comme une diminution du pouvoir d'achat de la monnaie sur le plan intérieur.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "influence-notable",
@@ -2462,7 +2462,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'influence notable est le pouvoir de participer aux politiques financière et opérationnelle d'une entité sans en détenir le contrôle. L'influence notable peut notamment résulter d'une représentation dans les organes de direction ou tout autre organe bénéficiant des mêmes prérogatives, de la participation aux décisions stratégiques, de l'existence d'opérations inter-entités importantes, de l'échange de personnel de direction, de liens de dépendance technique.\n\nPour l'établissement des comptes consolidés, l'entité dominante est présumée exercer une influence notable sur la gestion et la politique financière d'une autre entité si elle détient directement ou indirectement une participation représentant au moins 1/5e des droits de vote.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "information-pro-forma",
@@ -2470,7 +2470,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'objectif global de l'information pro forma est de donner une information permettant une comparaison des données sur une base comparable.\n\nL'information pro forma doit permettre aux utilisateurs des états financiers de mesurer l'impact qu'aurait eu une opération si cette dernière s'était produite sur une période antérieure à celle de sa survenance.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "information-sectorielle",
@@ -2478,7 +2478,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'information concernant les divers types de produits et services offerts par une entité ainsi que ses opérations dans différents secteurs d'activités ou des zones géographiques, est souvent appelée « information sectorielle » ou « donnée segmentée ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "informatique",
@@ -2486,7 +2486,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Science du traitement rationnel de l'information, notamment par machines automatiques, considérée comme le support des connaissances humaines et des communications dans les domaines techniques, économiques et sociaux.\n\nAppliquée au traitement des données comptables, l'informatique exige de l'entité une organisation capable d'assurer, vis-à-vis des tiers, la valeur probante de la comptabilité en respectant notamment la chronologie des opérations, l'irréversibilité et la durabilité des enregistrements.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "installations-a-caractere-specifique",
@@ -2494,7 +2494,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Installations techniques qui, dans une profession, sont affectées à un usage spécifique et dont l'importance justifie une inscription comptable distincte.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "installations-complexes-specialisees",
@@ -2502,7 +2502,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Unités techniques complexes fixes, d'usage spécialisé, pouvant comprendre des constructions, des matériels ou des pièces qui, même séparés par nature, sont techniquement liés pour leur fonctionnement. Cette incorporation de caractère irréversible les rend passibles du même plan d'amortissement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "installations-generales",
@@ -2510,7 +2510,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble d'éléments dont la liaison organique est la condition nécessaire de leur utilisation. Ils sont distincts des unités techniques annexées à des installations d'exploitation.\n\nIl en est ainsi par exemple :\n- des installations téléphoniques dont la mise en place incombe à l'entité ;\n- des installations de climatisation du siège et des bureaux administratifs ;\n- des installations sanitaires pour le personnel ;\n- des groupes électrogènes, etc.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "instruments-de-monnaie-electronique",
@@ -2518,7 +2518,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'instrument de monnaie électronique est constitué d'une valeur monétaire stockée sous une forme électronique, y compris magnétique, représentant une créance sur l'émetteur, qui est émise contre la remise de fonds aux fins d'opérations de paiement et qui est acceptée par une personne physique ou morale autre que l'émetteur de monnaie électronique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "instruments-financiers",
@@ -2526,7 +2526,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Selon la norme I.A.S. 32, un instrument financier est un contrat donnant lieu tout à la fois :\n- à un actif financier d'une entité ;\n- à un passif financier ou à un instrument de capitaux propres d'une autre entité.\n\nUn actif financier désigne :\n- de la trésorerie ;\n- ou un droit contractuel de recevoir d'une autre entité de la trésorerie ou un autre actif financier ;\n- ou un droit contractuel d'échanger des instruments financiers avec une autre entité à des conditions favorables ;\n- ou un instrument de capitaux propres d'une autre entité.\n\nUn passif financier est une obligation contractuelle :\n- de verser de la trésorerie ;\n- ou de transférer un actif financier à une autre entité ;\n- ou d'échanger des instruments financiers avec une autre entité à des conditions défavorables.\n\nUn instrument de capitaux propres est un contrat qui constate un droit résiduel sur les actifs d'une entité, après déduction de l'ensemble de ses passifs.\n\nLes instruments financiers se composent :\n- des actions et titres assimilés ;\n- des titres de créances sur les personnes morales, transmissibles par inscription en compte ou tradition, à l'exclusion des effets de commerce et des bons de caisse ;\n- des parts ou actions d'organismes de placements collectifs (tels les fonds communs de placement) ;\n- des instruments financiers à terme (contrats financiers à terme sur tous effets, valeurs mobilières, devises ; sur taux d'intérêt ; contrats d'échange ; contrats d'options ; contrats sur marchandises et denrées).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "intangibilite-du-bilan-convention-d",
@@ -2534,7 +2534,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il s'agit d'une autre expression de convention du Système comptable OHADA selon lequel le bilan d'ouverture d'un exercice doit correspondre au bilan de clôture de l'exercice précédent.\n\nEn application intégrale de cette convention, il ne peut être imputé directement sur les capitaux propres, ni les incidences de changement de méthodes comptables, ni les produits et les charges sur exercices antérieurs. Lesdites corrections doivent transiter par le compte de résultat de l'exercice au cours duquel les omissions ont été constatées.\n\nToutefois, il est admis, dans le cadre du Système Comptable OHADA comme dans d'autres plans comptables, que l'incidence d'un changement de réglementation comptable soit imputée directement sur les capitaux propres.\n\nCette convention n'est pas d'application internationale unanime.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "integration-consolidation",
@@ -2542,7 +2542,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Ensemble des opérations consistant à inclure :\n- dans le bilan de l'entité consolidante, les éléments constitutifs du patrimoine de l'entité consolidée ;\n- dans son compte de résultat, les charges et les produits de cette entité consolidée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "integration-globale",
@@ -2550,7 +2550,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "L'intégration globale porte sur le montant total des actifs et des passifs de chaque entité contrôlée, directement ou indirectement, par l'entité consolidante. La part de capitaux propres revenant aux tiers est enregistrée dans le compte « Intérêts minoritaires ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "integration-proportionnelle",
@@ -2558,7 +2558,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "L'intégration proportionnelle concerne seulement, pour chaque élément d'actif et de passif de l'entité intégrée, le pourcentage d'intérêts correspondant à la participation détenue par l'entité consolidante exerçant un contrôle conjoint.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "interets-minoritaires",
@@ -2566,7 +2566,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il s'agit de la participation dans une filiale qui n'est pas attribuable, directement ou indirectement, à une société mère.\n\nLes intérêts minoritaires correspondent, dans les entités intégrées globalement, à la fraction de capitaux propres représentative des parts de capital des associés autres que la société consolidante.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "international-accounting-standards-committee-i-a-s-c",
@@ -2574,7 +2574,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Organisation comptable professionnelle créée en 1973, pour les nécessités de l'harmonisation et de l'amélioration des normes comptables. Ses objectifs sont :\n- de formuler et publier, dans l'intérêt du public, les normes comptables à respecter pour la présentation des états financiers et promouvoir leur acceptation et leur application mondiale ;\n- d'œuvrer généralement à l'amélioration et à l'harmonisation des réglementations, des normes comptables et des procédures concernant la présentation des états financiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "international-financial-reporting-standards-i-f-r-s",
@@ -2582,7 +2582,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "A l'occasion de la restructuration de l'IASC, l'une des premières décisions prises par le nouveau conseil (board) de l'organisme désormais dénommé International Accounting Standard Board (IASB), a été, le 1/04/2001 de changer le nom des futures normes internationales en « International Financial Reporting Standards » normes internationales d'information financières (IFRS) témoignant ainsi d'un souci de privilégier l'information financière.\n\nLes normes en vigueur au 1/04/2001 adoptées en son temps par l'IASC, continueront de s'appeler « Normes IAS » et seules les nouvelles normes émises par IASB à compter de cette date porteront le nom de « IFRS ».\n\nLa notion de « normes comptables internationales » retenue par le règlement européen correspond à la notion générique d'IFRS.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "inventaire-operation-d",
@@ -2590,7 +2590,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'inventaire est un relevé de tous les éléments d'actif et de passif au regard desquels sont mentionnées la quantité et la valeur de chacun d'eux à la date d'inventaire. Le terme « inventaire » recouvre à la fois, d'une part, l'ensemble des opérations de recensement exhaustif des éléments actifs et passifs de l'entité et, d'autre part, l'ensemble des documents donnant l'état descriptif et estimatif de ce patrimoine.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "inventaire-comptable-intermittent",
@@ -2598,7 +2598,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'inventaire comptable intermittent est une organisation comptable des stocks où seul un recollement périodique, au moins une fois par exercice, des existants chiffrés en quantité et en valeur est effectué.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "inventaire-comptable-permanent",
@@ -2606,7 +2606,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'inventaire comptable permanent est une organisation comptable des stocks qui, par l'enregistrement continu des mouvements, permet de connaître de façon constante, en cours d'exercice, les existants, chiffrés en quantité et en valeur.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "inventaire-physique",
@@ -2614,7 +2614,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'inventaire physique (appelé aussi inventaire extra-comptable) est le recensement matériel (un dénombrement détaillé article par article) des existants.\n\nL'inventaire physique portera par exemple sur :\n- les immobilisations,\n- les valeurs d'exploitation,\n- les effets,\n- les espèces.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "investissement",
@@ -2622,7 +2622,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'investissement désigne le flux ponctuel ou annuel d'acquisition ou de création d'immobilisations productives (investissements).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "investissement-de-creation",
@@ -2630,7 +2630,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sommes consacrées à la fabrication, à la production, à l'édition et à la distribution de phonogrammes, ou à des entités de spectacle, ou à des établissements exerçant des activités culturelles.\n\nDans l'industrie textile, les investissements de création concernent la conception.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "investissements",
@@ -2638,7 +2638,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Terme générique correspondant à l'ensemble des valeurs immobilisées (à une date donnée) susceptibles de procurer des flux futurs de trésorerie positive.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "journal-ou-livre-journal",
@@ -2646,7 +2646,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Livre coté et paraphé par les autorités compétentes dans chaque État, dont la loi impose la tenue à tout commerçant. Il est destiné à enregistrer, sans blanc ni altération, dans un ordre chronologique, tous les mouvements affectant le patrimoine de l'entité. Selon son organisation comptable propre, l'entité peut utiliser des journaux auxiliaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "juste-valeur",
@@ -2654,7 +2654,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "normes-ifrs",
     ues: ["ue13-ifrs-ias"],
     definition: "C'est le prix qui serait reçu pour la vente d'un actif ou payé lors du transfert d'un passif dans une transaction normale, réalisée entre intervenants de marché, à la date de l'évaluation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "justification-du-solde-d-un-compte",
@@ -2662,7 +2662,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Justifier le solde d'un compte, c'est identifier les écritures comptables qui constituent le solde du compte. Cela revient à décomposer différents éléments constitutifs du solde par date de transcription. Par exemple, le solde d'un compte d'emprunts figurant au passif externe du bilan se justifie à l'aide des tableaux d'amortissement des emprunts concernés : le solde correspond au cumul des montants restant dus à la clôture de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "lettrage-des-comptes",
@@ -2670,7 +2670,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Cette technique de justification du solde d'un compte s'applique principalement aux comptes de tiers et concerne les grands livres auxiliaires des clients et des fournisseurs. Elle consiste à rapprocher, pour chaque compte, les sommes figurant au débit de celles figurant au crédit (s'assurer qu'il s'agit du bon règlement sur chacune des factures). Les sommes concordantes sont identifiées par la même lettre (A, B, C…..) ou un groupe de lettres (AA, AB, AC…), d'où le nom du procédé (lettrage). A l'issue du lettrage, seules les écritures non lettrées justifient le solde du compte.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "lettre-de-change",
@@ -2678,7 +2678,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Effets de commerce ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["effets-de-commerce"],
   },
   {
@@ -2687,7 +2687,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "La liasse de consolidation (ou reporting) est le document normalisé qui permet aux entités comprises dans la consolidation de faire parvenir à la société consolidante les informations nécessaires à l'établissement des comptes consolidés.\n\nElle permet de rassembler l'ensemble des informations qui concourent à l'élaboration des notes annexes des comptes consolidés et du rapport de gestion groupe.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "libelle",
@@ -2695,7 +2695,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Mention explicative d'une écriture comptable. Il s'appuie sur la référence de la pièce comptable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "liberalites",
@@ -2703,7 +2703,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Dons ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["dons-et-liberalites"],
   },
   {
@@ -2712,7 +2712,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droits cédés à un acquéreur, lui permettant d'exploiter sur une durée déterminée un brevet, une marque, ou un procédé.\n\nLes concessions de licences sont inscrites, à l'actif du bilan de l'acquéreur, dans les immobilisations incorporelles.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "liquidites",
@@ -2720,7 +2720,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Disponibilités ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["disponibilites-ou-liquidites"],
   },
   {
@@ -2729,7 +2729,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Livres dont la tenue a été rendue obligatoire par les dispositions du Système comptable OHADA à toute entité soumise à l'obligation de tenir des comptes. Ils comprennent :\n- le livre-journal ;\n- le grand-livre ;\n- la balance générale des comptes ;\n- le livre d'inventaire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "livre-d-inventaire",
@@ -2737,7 +2737,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Livre coté et paraphé sur lequel sont transcrits le bilan, le compte de résultat ainsi que le résumé de l'opération d'inventaire.\n\nCette transcription a pour objet d'authentifier les états financiers annuels en figeant leur contenu.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "logiciels",
@@ -2745,7 +2745,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble de programmes, de procédés, de règles et de documentations, relatifs au fonctionnement d'un ensemble de traitement de données.\n\nLes logiciels acquis sont inscrits à l'actif du bilan au coût d'acquisition.\n\nLes logiciels créés sont soumis à des conditions particulières à satisfaire pour leur inscription au bilan.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "long-terme",
@@ -2753,7 +2753,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dans l'analyse micro-économique et de gestion, c'est un horizon temporel correspondant à des changements structurels.\n\nEn matière bancaire, c'est la durée conventionnelle de 7 à 10 ans correspondant au remboursement des créances et des dettes.\n\nLe Système Comptable OHADA n'utilise pas la dichotomie court terme/long terme au sens moins d'un an/plus d'un an, mais seulement le concept de court terme (voir ce terme).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "macro-economie",
@@ -2761,7 +2761,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etude des comportements économiques collectifs des grands ensembles constituant l'économie et communément appelés agents économiques. Ces agents constituent le centre d'intérêt des analyses macro-économiques dont la Comptabilité nationale représente l'instrument de mesure.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "mali-de-fusion",
@@ -2769,7 +2769,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Ecart défavorable résultant de l'annulation des titres d'une société absorbée, détenus préalablement à l'opération de fusion.\n\nLe mali de fusion résulte du fait que la valeur d'apport correspondant à chaque titre annulé est inférieure au prix d'acquisition.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "mali-de-liquidation",
@@ -2777,7 +2777,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Perte enregistrée par les associés d'une société liquidée.\n\nLorsque le produit de la réalisation des actifs ne suffit pas à apurer le passif externe et à rembourser les mises initiales des associés, les capitaux propres subsistants sont amputés du mali de liquidation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "manuel-de-consolidation",
@@ -2785,7 +2785,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Document utilisé pour les opérations de consolidation qui formalise les choix et opérations en matière de retraitements et de méthodes et de modes de consolidation. Il fait l'objet d'une mise à jour périodique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "manuel-de-procedures-comptables",
@@ -2793,7 +2793,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La loi prescrit aux entités d'établir une documentation décrivant les procédures d'enregistrement, de contrôle et d'organisation comptables. Rassemblée dans un manuel dit de procédures comptables, cette documentation fait partie des exigences à satisfaire pour garantir la fiabilité de l'information comptable et financière.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "marchandises",
@@ -2801,7 +2801,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets, matières et fournitures destinés à être revendus en l'état sans transformation notable ni intégration à d'autres biens et services.\n\nConstituent des marchandises, des éléments qui font l'objet même de l'activité de l'entité.\n\nSont à considérer comme marchandises, des immeubles, des terrains ou fonds de commerce qu'une entité, faisant le commerce de biens ou exerçant une activité de lotisseur, destine à la vente.\n\nDe même, un concessionnaire de véhicules qui achète des voitures pour les revendre ne les enregistre pas dans le compte Matériel de transport, mais dans son compte de charges « Achats de marchandises ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "marche-a-terme-operations-realisees-sur",
@@ -2809,7 +2809,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sont concernés essentiellement les instruments financiers portant sur des contrats et des options négociés sur des marchés réglementés, des options négociables traitées sur une Bourse des valeurs.\n\nLes produits (titres, devises, matières premières) négociés sur ce marché ne sont livrables qu'à une date ultérieure. Le marché à terme, grâce aux contrats à terme et aux options sur contrats à terme, permet non seulement à certains professionnels de spéculer mais surtout aux entités de se couvrir contre des évolutions défavorables des cours.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "marche-actif",
@@ -2817,7 +2817,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un marché actif est un marché sur lequel ont lieu des transactions sur les biens (quotas de production par exemple) selon une fréquence et un volume suffisants pour fournir de façon continue de l'information sur le prix.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "marge",
@@ -2825,7 +2825,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre un prix de vente et un prix d'achat ou un coût (partiel ou complet). Une marge est généralement qualifiée à partir du prix ou du coût auquel elle correspond : marge sur prix d'achat, marge sur coût de production, marge sur coût variable...",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "marge-commerciale",
@@ -2833,7 +2833,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Indicateur essentiel de l'activité des entités commerciales pour leur gestion. Différence entre le prix de vente d'une marchandise et le coût d'achat correspondant à cette marchandise vendue.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "marques",
@@ -2841,7 +2841,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Signes qui permettent de distinguer les produits ou services d'une entité de ceux des autres.\n\nÉlément servant à l'entité à identifier ses biens ou ses services ou à les différencier de ceux de ses concurrents, la marque garantit aux consommateurs l'origine et la qualité des produits qu'elle signale.\n\nLes marques acquises sont immobilisées à l'actif. Lorsqu'elles sont développées au sein de l'entité, elles suivent un processus de production dont l'inscription en immobilisations est soumise à des conditions particulières.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "materiel",
@@ -2849,7 +2849,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des équipements et machines utilisés de façon durable pour :\n- l'extraction, la transformation, le façonnage, le conditionnement des matières et fournitures ;\n- les prestations de services.\n\nLa remise à neuf et les transformations importantes des matériels sont comptabilisées avec les matériels eux-mêmes, pour peu que ces travaux entraînent une augmentation de leur durée de vie initiale, ou une meilleure adaptation aux exigences de la production de biens et de services par l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "materiel-bureautique",
@@ -2857,7 +2857,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Bureautique ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["bureautique"],
   },
   {
@@ -2866,7 +2866,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Machines et instruments tels que machines à écrire, machines comptables, ordinateurs... utilisés par les différents services de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "materiel-de-demonstration",
@@ -2874,7 +2874,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Matériel utilisé dans un premier temps à fin de démonstration puis ensuite revendu.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "materiel-d-emballage",
@@ -2882,7 +2882,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets destinés à contenir les produits ou marchandises ou employés dans leur conditionnement.\n\nEn général, le matériel d'emballage est une immobilisation corporelle identifiable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "materiel-de-transport",
@@ -2890,7 +2890,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le matériel de transport comprend tous les véhicules et appareils servant au transport par terre, par fer, par eau ou par air, des biens et des personnes.\n\nLes montants à enregistrer dans le compte y afférent doivent inclure également ceux relatifs à leurs transformations et améliorations importantes, ainsi que les frais annexes entraînés par l'achat d'occasion de ces matériels.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "matieres-et-fournitures-consommables",
@@ -2898,7 +2898,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets et substances plus ou moins élaborés, consommés au premier usage ou rapidement et qui concourent au traitement, à la fabrication ou à l'exploitation, sans entrer dans la composition des produits traités ou fabriqués.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "matieres-et-fournitures-d-emballage",
@@ -2906,7 +2906,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets et substances destinés à la fabrication des emballages ou à leur achèvement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "matieres-premieres-et-fournitures",
@@ -2914,7 +2914,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Objets plus ou moins élaborés destinés à entrer dans la composition des produits traités ou fabriqués.\n\nLes matières et fournitures premières sont plus précisément des objets, matières et fournitures acquis par l'entité et destinés à être incorporés aux produits fabriqués.\n\nElles sont différentes des matières dites consommables, ces dernières étant classées dans le compte « 33 - Autres approvisionnements », alors que les matières et fournitures premières relèvent du compte 32 du Système comptable OHADA.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "mecenat",
@@ -2922,7 +2922,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le mécénat est un soutien financier ou matériel apporté par une entité ou un particulier à une action ou activité d'intérêt général (fondations d'œuvres culturelles, humanitaires, sociales, dans le domaine de la santé, de la recherche…).\n\nLe mécénat se distingue généralement du sponsoring ou parrainage par la nature des actions soutenues et par le fait qu'il n'y a normalement pas de contreparties contractuelles publicitaires au soutien du mécène.\n\nLe mécène apparaît donc de manière relativement discrète autour de l'évènement ou de l'action soutenue, mais il peut par contre afficher son soutien sur ses propres supports de communication.\n\nLe mécénat correspond généralement à des objectifs d'image et de communication / mobilisation interne. Il peut également s'expliquer de temps en temps par un intérêt personnel du dirigeant pour la cause soutenue.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "medaille-du-travail",
@@ -2930,7 +2930,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Distinction honorifique destinée à récompenser l'ancienneté des salariés, la qualité exceptionnelle des services rendus ou leurs efforts pour acquérir une meilleure qualification. L'attribution de la médaille donne lieu au paiement par l'employeur d'une gratification si celle-ci est prévue par la convention collective ou les usages applicables dans l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "meso-economie",
@@ -2938,7 +2938,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etude des structures et des comportements des secteurs et branches d'activités de l'économie ; exemple : étude de l'industrie textile. Une Centrale des Bilans des entités doit largement contribuer aux études méso-économiques par l'agrégation des états financiers des entités des différents secteurs d'une ou plusieurs régions.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "methode-de-consolidation",
@@ -2946,7 +2946,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Méthode utilisée pour remplacer la valeur nette comptable des titres de l'entité consolidée, détenus par l'entité consolidante, par la fraction des capitaux propres qui lui correspond. Le choix de la méthode de consolidation est effectué en fonction du pourcentage de contrôle détenu.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "micro-economie",
@@ -2954,7 +2954,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etude des activités et des comportements économiques des individus qui sont soit des producteurs, soit des consommateurs. L'information comptable et financière nécessaire aux analyses micro-économiques est souvent présentée selon une optique ne permettant pas un passage direct à l'information agrégée utile à l'étude des comportements collectifs.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "mise-en-equivalence",
@@ -2962,7 +2962,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Méthode de consolidation consistant à remplacer la valeur nette des titres de participation par la fraction à laquelle ils équivalent dans les capitaux propres de l'entité émettrice.\n\nLa mise en équivalence est différente, dans son principe, des autres méthodes de consolidation. Elle équivaut en quelque sorte à une réévaluation des titres des sociétés sur lesquelles l'entité consolidante exerce une influence notable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "mobilier-de-bureau",
@@ -2970,7 +2970,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Meubles et objets tels que tables, chaises, classeurs et bureaux utilisés dans l'entité sur une période supérieure à un an et classés en immobilisations.\n\nCertaines dépenses de petit mobilier peuvent être classées dans les charges lorsque la valeur unitaire des meubles n'excède pas une certaine limite fixée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "mobilisation-de-creances",
@@ -2978,7 +2978,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Transformation de créances ordinaires en effets de commerce ou en effets financiers afin d'obtenir des crédits par cession de ces effets. Il en est ainsi de l'escompte des effets de commerce. En cas de mobilisation de créances, les comptes de créances et de disponibilités sont mouvementés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "moins-value",
@@ -2986,7 +2986,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il y a moins-value lorsque la valeur réelle d'un élément d'actif est d'un montant inférieur à sa valeur nette comptable, cette dernière étant la valeur d'origine diminuée des amortissements pratiqués.\n\nLes moins-values peuvent être latentes ou potentielles, réalisées et effectives.\n\nLes moins-values sur éléments d'actif, par application du principe de prudence, doivent être constatées en comptabilité sous forme de provision pour dépréciation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "monnaie-de-comptabilisation-ou-de-presentation",
@@ -2994,7 +2994,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Monnaie dans laquelle sont exprimés les états financiers publiés par l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "monnaie-etrangere",
@@ -3002,7 +3002,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Monnaie autre que celle dans laquelle sont exprimés les états financiers publiés par l'entité. Le terme de devise en est un synonyme.\n\nMonnaie différente de la monnaie fonctionnelle de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "monnaie-fonctionnelle-ou-de-fonctionnement",
@@ -3010,7 +3010,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est la monnaie de l'environnement économique principal dans lequel l'entité opère, c'est-à-dire celui dans lequel la trésorerie de l'entité est principalement générée et dépensée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "moratoire",
@@ -3018,7 +3018,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Suspension des paiements pendant un certain délai indiqué au moment de cette suspension ; une telle décision proroge ou ajourne le paiement par le débiteur des sommes dues.\n\nDans la mesure où cette information est significative, mention doit en être faite dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "moyen-terme",
@@ -3026,7 +3026,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pour l'organisation de leur plan de comptes, les entités sont autorisées à ventiler, pour autant que de besoin, leurs opérations selon qu'elles sont traitées à long terme ou à court terme.\n\nL'abandon des critères de classement liquidité - exigibilité n'interdit pas la ventilation des créances et des dettes selon leurs échéances de long, moyen et court terme.\n\nLe moyen terme est défini selon les usages en vigueur dans les divers secteurs : Banque (3 à 7 ans), Entités non financières (1 à 5 ans).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "nom-commercial",
@@ -3034,7 +3034,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Nom sous lequel une personne physique exerce une activité commerciale.\n\nLe nom commercial n'est ni l'enseigne ni la dénomination sociale. Il fait partie du fonds commercial et est enregistré comme tel en cas d'acquisition.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "nomenclature-comptable",
@@ -3042,7 +3042,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Liste méthodique des éléments entrant dans le champ de la comptabilité.\n\nAu sens le plus général, une nomenclature est un outil conceptuel qui permet le découpage d'un domaine donné. Elle permet de classer les informations relatives à ce domaine, de repérer et d'identifier les éléments qui la composent. Ainsi, l'énumération des positions les plus détaillées constitue une description complète du domaine considéré. Une nomenclature se présente alors comme une suite de catégories homogènes selon les critères choisis. Chaque catégorie d'un certain niveau se décompose en catégories plus fines.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "nomenclature-comptable-systeme-comptable-ohada",
@@ -3050,7 +3050,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Liste méthodique des comptes, la nomenclature retenue par le SYSTÈME COMPTABLE OHADA prévoit :\n- des masses ;\n- des rubriques ou postes ;\n- des comptes ;\n- des sous-comptes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "nominal",
@@ -3058,7 +3058,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Somme inscrite sur un effet de commerce, un titre, une monnaie, une créance.\n\nPour une action, le nominal représente la fraction du capital apportée ; pour une obligation, le nominal représente la base de calcul des intérêts.\n\nLe postulat du « coût historique » conduit au maintien dans les comptes, du nominal des créances et des dettes en valeur d'entrée (principe du nominalisme monétaire).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "non-compensation-regle-de",
@@ -3066,7 +3066,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Règle selon laquelle les éléments d'actifs et de passifs, les charges et les produits doivent être évalués séparément et enregistrés distinctement.\n\nPar exemple, les dépôts bancaires ne doivent pas servir de compensation aux découverts bancaires.\n\nLe produit des ventes aux administrations ne doit pas être compensé avec les impôts mis à la charge de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "normalisation-comptable",
@@ -3074,7 +3074,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La normalisation comptable au sens strict peut se comprendre comme le processus d'élaboration des dispositions standard, des références qui sont considérées comme les meilleures et ont alors vocation à acquérir le statut de dispositions « ordonnatrices ».\n\nL'élaboration des normes s'effectue dans le cadre d'organisations de législation et de normalisation professionnelle, publique ou privée (par exemple la CNC OHADA, l'I.A.S.B., F.A.S.B.).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "norme-comptable",
@@ -3082,7 +3082,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une norme (standard) comptable représente l'exposé de la méthode comptable reconnue comme la meilleure pour comptabiliser, évaluer et présenter une opération ou un événement dans les états financiers.\n\nUne norme remplie deux fonctions :\n- une fonction de guide professionnel,\n- un label de qualité pour les divers destinataires des états financiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "note-annexe",
@@ -3090,7 +3090,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les états (Bilan, Compte de résultat, et Tableau de flux de trésorerie) doivent être étayés par des informations explicatives et supplémentaires présentées sous forme de notes permettant une meilleure intelligibilité des états financiers. Ces notes font partie intégrante des états financiers.\n\nChacun des postes du bilan, du compte de résultat, et du tableau des flux de trésorerie doit en principe, faire l'objet d'une référence croisée vers l'information liée figurant dans les Notes annexes.\n\nLes notes annexes comportent des informations sur les points suivants, dès lors que ces informations présentent un caractère significatif ou sont utiles pour la compréhension des opérations figurant sur les états financiers :\n- une déclaration de conformité au Système comptable OHADA ;\n- les règles et les méthodes comptables adoptées pour la tenue de la comptabilité et l'établissement des états financiers (la conformité aux normes est précisée, et toute dérogation est expliquée et justifiée) ;\n- les compléments d'information nécessaires à une bonne compréhension du bilan, du compte de résultat, du tableau des flux de trésorerie ;\n- les informations à caractère général ou concernant certaines opérations particulières nécessaires à l'obtention d'une image fidèle.\n\nDe façon spécifique, les entités exerçant une activité économique ayant un impact sur l'environnement (secteur de l'industrie et des mines par exemple) doivent fournir des informations environnementales et sociétales.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "note-d-information",
@@ -3098,7 +3098,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Document d'information publié par une entité lors d'une émission de titres par appel public à l'épargne ou lors de son entrée en Bourse.\n\nLa note d'information contient des renseignements comptables nécessaires aux investisseurs, pour fonder leur jugement sur le patrimoine, la situation financière, les résultats et les perspectives de l'entité émettrice.\n\nLa note d'information n'est pas un document comptable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "nue-propriete",
@@ -3106,7 +3106,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Part du démembrement de la propriété restant au-delà de l'usage et de la jouissance effective d'une chose ou d'un droit.\n\nEn matière de valeurs mobilières, l'usufruitier bénéficie des intérêts et des dividendes et participe aux réunions des Assemblées générales ordinaires des actionnaires. En revanche, le nu-propriétaire exercera les droits de souscription et d'attribution gratuite et participera aux Assemblées générales extraordinaires. Le nu-propriétaire conserve le droit d'aliéner ses titres.\n\nLes biens acquis en nue-propriété sont inscrits au bilan pour leur valeur d'apport et sont, le cas échéant, amortissables sur cette base.\n\nLes frais engagés pour satisfaire les obligations du nu-propriétaire sont des charges.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "objectivite-comptable",
@@ -3114,7 +3114,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les états financiers sont le résultat des choix comptables. Ils sont une représentation de la réalité et non cette réalité.\n\nLa qualité de sincérité requise des comptes veut que ceux-ci soient objectifs, c'est-à-dire aussi exacts que possible.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "objectifs-de-la-comptabilite",
@@ -3122,7 +3122,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Buts poursuivis par la comptabilité ; ils sont multiples et contingents.\n\nJusqu'au début du 19e siècle, la comptabilité visait à protéger contre les faillites frauduleuses. Il fallait que la comptabilité soit régulière et sincère.\n\nActuellement, l'objectif des états financiers est de fournir des informations utiles sur la situation financière (bilan), la performance (compte de résultat) et les variations de la situation de trésorerie (tableau des flux de trésorerie) d'une entité afin de répondre aux besoins de l'ensemble des utilisateurs de ces informations. Les états financiers permettent de garantir la transparence de l'entité à travers une information complète et de fournir une présentation fidèle de l'information utile pour les besoins de la prise de décision.\n\nLa fourniture d'information financière utile aux diverses parties prenantes est caractérisée par la pertinence et l'image fidèle. Ces caractéristiques sont liées à la fois au fond et à la forme du dispositif comptable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "obligations",
@@ -3130,7 +3130,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres négociables qui, dans une même émission, confèrent les mêmes droits de créance sur la société émettrice de l'emprunt, pour une même valeur nominale.\n\nL'émission des obligations n'est permise qu'aux sociétés anonymes et aux groupements d'intérêt économique constitués de sociétés anonymes, ayant deux années d'existence et qui ont établi deux bilans régulièrement approuvés par les actionnaires.\n\nL'émission d'obligations est interdite aux sociétés dont le capital n'est pas entièrement libéré.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "obligations-cautionnees",
@@ -3138,7 +3138,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Effets de commerce, généralement billets à ordre souscrits par les entités au profit de l'administration fiscale ou douanière, libellés « valeur en paiement : des droits de douane ; ou taxes sur le chiffre d'affaires ; etc. » et nécessairement assortis d'une caution (bancaire), permettant au redevable de différer à une date ultérieure le paiement de droits liquidés et devenus exigibles, moyennant le versement d'un intérêt et le paiement d'une remise spéciale.\n\nLes obligations cautionnées sont utilisées notamment pour le paiement des droits de douane, des taxes sur le chiffre d'affaires, des droits indirects, des produits domaniaux et autres taxes et redevances à caractère économique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "obsolescence",
@@ -3146,7 +3146,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dépréciation qualitative des biens de production, non liée à l'usure physique, mais due à l'innovation technique et technologique.\n\nLa notion d'amortissement comptable prend en compte le concept d'obsolescence.\n\nLe plan d'amortissement d'un élément concourant à la production et susceptible d'être affecté par l'évolution des techniques et le changement des conditions du marché, doit tenir compte des effets de l'obsolescence.\n\nL'obsolescence peut également être constatée en comptabilité soit par des amortissements exceptionnels, soit par des provisions pour dépréciation en raison du caractère exceptionnel ou non définitif de la dépréciation subie.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "occasion-biens-d",
@@ -3154,7 +3154,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Biens ayant déjà fait l'objet d'une utilisation et qui sont susceptibles de réemploi, soit en l'état, soit après réparation.\n\nIls entrent dans le patrimoine au coût d'acquisition.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "operations-de-fin-d-exercice",
@@ -3162,7 +3162,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Enregistrements comptables complémentaires dits d'inventaire et effectués en fin d'exercice.\n\nCes écritures traduisent le respect du principe de la spécialisation des exercices qui veut que soient rattachées à un exercice toutes les opérations qui la concernent et celles-là seulement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "operations-faites-en-commun",
@@ -3170,7 +3170,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opérations effectuées conjointement avec une ou plusieurs entités.\n\nLes groupements d'intérêt économique et les sociétés en participation constituent des exemples de structures juridiques permettant la réalisation de telles opérations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "operations-pluri-exercices",
@@ -3178,7 +3178,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opérations ou contrats dont l'exécution chevauche au moins deux exercices, usuellement désignés par les expressions « opérations de longue durée ou contrats à long terme ». Le qualificatif « pluri-exercices » décrit mieux ces contrats qui peuvent avoir une durée inférieure à douze mois, mais chevauchant deux exercices ou d'une durée de plusieurs exercices.\n\nCes contrats ne doivent pas être confondus avec les contrats à exécutions successives.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "option-comptable",
@@ -3186,7 +3186,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une option comptable est un choix offert par les règles entre plusieurs méthodes comptables (méthodes et règles d'évaluation et méthodes et règles de présentation des comptes) pour traduire un même type d'opérations ou d'informations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "organisation-comptable",
@@ -3194,7 +3194,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble de procédures administratives et comptables mises en place dans l'entité pour satisfaire aux exigences de régularité, de sincérité, assurer l'authenticité des écritures, de façon à ce que la comptabilité puisse servir à la fois d'instrument de mesure des droits et obligations des partenaires de l'entité, d'instrument de preuve et d'information des tiers.\n\nPour ce faire, l'organisation comptable doit assurer :\n- un enregistrement exhaustif au jour le jour et sans retard des informations de base ;\n- le traitement en temps opportun des données enregistrées ;\n- la mise à la disposition des utilisateurs des documents requis dans les délais légaux fixés pour leur délivrance.\n\nUn document décrivant les procédures et l'organisation comptables doit être établi et conservé aussi longtemps qu'est exigée la présentation des états financiers successifs auxquels il se rapporte.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "outillage",
@@ -3202,7 +3202,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Instruments (outils, machines, matrices...) dont l'utilisation concurremment avec un matériel spécialise ce matériel dans un emploi déterminé.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ouvrages-d-infrastructure",
@@ -3210,7 +3210,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ouvrages destinés à assurer les communications sur terre, sous terre, par fer et par eau, ainsi que les barrages pour la retenue des eaux, les pistes d'aérodrome, etc.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "paraphe-des-livres-comptables",
@@ -3218,7 +3218,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Signature qu'appose, en application des formalités légales, toute autorité habilitée à cet effet sur les livres obligatoires de comptabilité, en vue d'en authentifier l'existence et de leur conférer une date certaine.\n\nLe journal et le livre d'inventaire doivent être enregistrés.\n\nLa cote et le paraphe sont des formalités obligatoires prévues pour éviter que les pages des documents précités ne soient supprimées, remplacées ou ajoutées.\n\nCes formalités doivent nécessairement être accomplies avant de recevoir toute écriture, afin de conserver leur force probante.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "parite-en-matiere-de-fusion",
@@ -3226,7 +3226,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "La parité d'échange est le résultat d'un compromis qui résulte d'une négociation entre les sociétés parties à une fusion. La détermination de la parité doit rechercher l'équité de l'opération et ne pas se confondre à l'évaluation des apports effectuée sur la base de méthodes ou critères tels que valeurs intrinsèques, valeurs boursières, valeurs de rendement, etc. La parité est un rapport d'échange.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "partage-de-capitaux-propres",
@@ -3234,7 +3234,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opération par laquelle les capitaux propres subsistant après remboursement des mises initiales sont répartis entre les actionnaires ou associés.\n\nCe partage est effectué entre les associés dans les mêmes proportions que leur participation au capital social.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "partenariat",
@@ -3242,7 +3242,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Un partenariat est une opération par laquelle deux parties ou plus exercent un contrôle conjoint.\n\nLe partenariat possède les caractéristiques suivantes :\n- les parties sont liées par un accord contractuel ;\n- l'accord conjoint confère à deux ou plus le contrôle conjoint de l'opération.\n\nLe partenariat est soit une activité conjointe, soit une coentreprise.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "participation-circulaire",
@@ -3250,7 +3250,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La participation circulaire est celle qui existe entre au moins trois sociétés : une Société A possède des participations dans la Société B ; la Société B détient une participation dans la Société C, associé de la Société A.\n\nSi A contrôle B détentrice des actions C, toute participation de C dans A constitue des actions ou parts d'auto-contrôle.\n\nPour l'établissement des comptes consolidés, la détermination des pourcentages de contrôle et d'intérêt doit tenir compte de cette particularité des participations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "participation-directe",
@@ -3258,7 +3258,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il y a participation directe lorsqu'une Société A souscrit en son nom propre une partie du capital d'une Société B.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "participation-indirecte",
@@ -3266,7 +3266,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Lorsqu'une Société A détient par l'intermédiaire d'une Société B une participation dans une Société C, cette participation est indirecte.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "participation-reciproque-ou-croisee",
@@ -3274,7 +3274,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il y a participation croisée lorsque la Société A détient une part du capital de la Société B, elle-même possédant une partie du capital de la Société A.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "participations",
@@ -3282,7 +3282,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Lorsqu'une société possède dans une autre société une fraction dans le capital égale ou supérieure à dix pour cent (10 %), la première est considérée comme ayant une participation dans la seconde.\n\nLes participations sont constituées par les droits détenus par une entité dans d'autres, créant un lien durable avec celles-ci et destinés à contribuer à l'activité de la société détentrice. Elles regroupent :\n- des titres de participation ;\n- des titres créant des droits d'association avec d'autres sociétés ;\n- d'autres moyens aux effets analogues.\n\nLes titres de participation et les créances liées aux participations sont inscrits dans les immobilisations financières, à l'actif du bilan.\n\nEn consolidation l'expression participation est utilisée au sens large pour désigner une participation dans des entités détenues par des investisseurs ainsi que des participations de détenteur, de sociétaire ou de participant dans des entités mutuelles.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "participations-ne-donnant-pas-le-controle",
@@ -3290,7 +3290,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Intérêts minoritaires ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["interets-minoritaires"],
   },
   {
@@ -3299,7 +3299,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Règle conventionnelle de fonctionnement des comptes en vertu de laquelle tout mouvement (ou variation) enregistré dans la comptabilité de l'entité est représenté par une écriture qui établit une équivalence entre ce qui est porté au crédit et ce qui est porté au débit des différents comptes affectés par cette écriture.\n\nPar convention, les comptes de l'actif du bilan et les comptes de charges sont des emplois augmentant par inscription au débit et diminuant par inscription à leur crédit. De même, les comptes du passif du bilan et les comptes de produits sont des ressources augmentant par inscription au crédit et diminuant par inscription à leur débit.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "parts-ou-actions-propres",
@@ -3307,7 +3307,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Parts ou actions émises par la société et détenues par la société elle-même.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "parts-sociales",
@@ -3315,7 +3315,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres représentant les droits d'un associé dans une société à responsabilité limitée, ou dans une société de personnes, notamment, le droit de vote et les droits patrimoniaux.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "pas-de-porte",
@@ -3323,7 +3323,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Somme versée au propriétaire d'un local commercial, en sus du prix de location, lors de l'entrée en jouissance du local. Cette indemnité correspond à un supplément de loyer à enregistrer en charges locatives.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "passif",
@@ -3331,7 +3331,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le passif du bilan décrit les ressources de l'entité. Celles-ci comprennent les capitaux propres (passif interne), les dettes financières et assimilées, les dettes d'exploitation, les dettes hors activité ordinaire et la trésorerie passive (passif externe).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "passif-externe",
@@ -3339,7 +3339,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le passif externe, constitue des ressources financières externes, payables ou remboursables selon des échéances déterminées.\n\nLe passif externe regroupe toutes les dettes envers les tiers et les provisions pour risques et charges.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "passif-interne",
@@ -3347,7 +3347,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le passif interne constitue des ressources financières internes (capitaux propres) de l'entité qui se décomposent ainsi :\n- apport des propriétaires (associés actionnaires ou membres) sous forme de capital ;\n- bénéfices non distribués sous forme de dividendes : primes, réserves, report à nouveau, résultat net de l'exercice ;\n- autres capitaux propres : subventions d'investissement, provisions règlementées et fonds assimilés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "passif-eventuel",
@@ -3355,7 +3355,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Obligation potentielle résultant d'événements passés et dont l'existence ne sera confirmée que par la survenance ou la non-survenance d'un ou plusieurs événements futurs incertains qui ne sont pas totalement sous le contrôle de l'entité ; ou\n\nObligation actuelle résultant d'événements passés mais qui n'est pas comptabilisée :\n- soit parce qu'il n'est pas probable qu'une sortie de ressources représentatives d'avantages économiques est nécessaire pour éteindre l'obligation ;\n- soit parce que le montant de l'obligation ne peut être évalué avec une fiabilité suffisante.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "patrimoine",
@@ -3363,7 +3363,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des actifs que l'entité a sous son contrôle et des ressources mises à sa disposition par les associés ou les tiers en vue de réaliser son exploitation.\n\nLe patrimoine est une notion centrale du Système Comptable OHADA : la comptabilité doit donner une image fidèle du patrimoine. Toute entité soumise à l'obligation de tenir des comptes doit procéder à l'enregistrement comptable des mouvements affectant son patrimoine.\n\nLe patrimoine de l'entité ne se limite plus à sa conception juridique, mais englobe tous les biens dont l'entité, sans en être propriétaire, a la maîtrise et supporte les risques.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "perimetre-de-consolidation",
@@ -3371,7 +3371,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Contour cernant l'ensemble des entités à consolider.\n\nLe périmètre de la consolidation définit les sociétés dont les comptes sont retenus en vue de l'établissement des comptes consolidés du groupe.\n\n« Toute entité qui a son siège social ou son activité principale dans l'un des Etats-parties et qui contrôle de manière exclusive une ou plusieurs autres entités ou établissements, ou qui exerce sur elles une influence notable, établit et publie chaque année les états financiers de l'ensemble constitué par toutes ces entités, ainsi qu'un rapport de gestion. »\n\nLe périmètre de consolidation est délimité en fonction de la nature et de l'importance des liens existant entre l'entité consolidante et les entités sur lesquelles elle peut, soit exercer un contrôle exclusif ou conjoint, soit disposer d'une influence notable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "periode-de-calcul",
@@ -3379,7 +3379,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Notion essentiellement utilisée en comptabilité analytique, la période de calcul est la durée retenue pour le calcul des prix de revient et des coûts.\n\nDans le cas où la période de calcul est différente de la période comptable utilisée en comptabilité générale, la divergence qui en résulte ne doit pas faire obstacle au rapprochement des deux comptabilités dans le courant de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "permanence-des-methodes",
@@ -3387,7 +3387,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Postulat comptable selon lequel l'application d'évaluation et de présentation des méthodes comptables doit être constante d'un exercice à l'autre, sauf changement exceptionnel dans la situation de l'entité ou de son environnement économique, juridique ou financier.\n\nLa comparabilité des états financiers annuels successifs nécessaires à l'analyse des utilisateurs repose sur cette permanence.\n\nLa dérogation à ce principe est soumise à des conditions exceptionnelles et strictes.\n\nLes modifications qui résulteraient d'un changement de méthode doivent être justifiées, et explicitées dans leur nature et leur incidence sur les états financiers dans les Notes annexes.\n\nCes modifications doivent en outre être signalées dans le rapport de gestion et, le cas échéant, dans le rapport du commissaire aux comptes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "perte-de-la-moitie-du-capital-social",
@@ -3395,7 +3395,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Si du fait des pertes constatées dans les états financiers de synthèse, les capitaux propres de la société deviennent inférieurs à la moitié du capital social, le conseil d'administration, l'administrateur général ou le gérant, selon le cas, est tenu dans les 4 mois qui suivent l'approbation des comptes ayant fait apparaitre cette perte, de convoquer l'assemblée générale extraordinaire à l'effet de décider si la dissolution anticipée de la société a lieu.\n\nSi la dissolution n'est pas prononcée, la société est tenue, au plus tard à la clôture du deuxième exercice suivant celui au cours duquel la constatation des pertes est intervenue, de réduire son capital social d'un montant au moins égal à celui des pertes qui n'ont pu être imputées sur les réserves à concurrence d'une valeur au moins égale à la moitié du capital social.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "pertes-de-change",
@@ -3403,7 +3403,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différences défavorables à l'entité au moment du règlement ou de l'encaissement de dettes et créances libellées en monnaies étrangères. Les pertes de change constituent des charges financières résultant de la conversion dans l'unité monétaire légale du pays (UML) des opérations libellées en devises.\n\nEn ce qui concerne les disponibilités en devises, leur évaluation à la clôture, à un cours différent de celui appliqué à la date de leur entrée, dégage un gain ou une perte de change à enregistrer dans le résultat de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "pertes-latentes",
@@ -3411,7 +3411,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différences défavorables de la conversion en UML des créances et dettes en monnaies étrangères. Les pertes latentes, par prudence, sont constatées sous forme de dotation aux provisions pour risque pour la détermination du résultat.\n\nLes écarts consécutifs à la conversion en UML de liquidités ou d'exigibilités immédiates en monnaies étrangères constituent des pertes de change et sont enregistrés comme tels dans le compte de résultat.\n\nNe pas confondre avec la conception de la Comptabilité nationale qui ne les considère pas comme des flux financiers à cause de l'absence de transaction.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "pertes-sur-cessions-de-titres-de-placement",
@@ -3419,7 +3419,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Charges nettes supportées par l'entité lorsque cette dernière accuse des pertes sur titres dont le prix de cession se trouverait être inférieur au prix d'acquisition.\n\nDifférence défavorable entre la valeur d'entrée des titres de placement et leur prix de cession.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "petit-outillage",
@@ -3427,7 +3427,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Outillage s'usant rapidement et fréquemment renouvelé (limes, marteaux, coupe-coupe), comptabilisé en charges de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "pieces-justificatives",
@@ -3435,7 +3435,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Documents servant de justification aux enregistrements comptables et de moyen de preuve entre commerçants en cas de litige. Il s'agit des factures, des talons de chèques, bulletins de paye, etc.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "pieces-de-rechange",
@@ -3443,7 +3443,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pièces destinées à l'entretien ou à la réparation des immobilisations de l'entité.\n\nLes pièces de rechange sont affectées aux immobilisations ou classées en stock en fonction des matières qui distinguent ces deux catégories.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "plan-comptable-general",
@@ -3451,7 +3451,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La comptabilité étant un système d'analyse, d'organisation et de traitement de l'information permettant de saisir, classer, enregistrer des données de base chiffrées afin de fournir, après traitement approprié, un ensemble d'informations conformes aux besoins des divers utilisateurs intéressés, le Plan comptable général est un ensemble des règles et modalités permettant de remplir correctement les fonctions comptables.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "plan-d-amortissement",
@@ -3459,7 +3459,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Tableau prévisionnel de réduction des valeurs inscrites au bilan sur une période déterminée et par tranches successives. Il est établi dès la mise en service du bien et ne peut être modifié que dans des circonstances bien précises.\n\nCette modification peut porter soit sur la durée, soit sur la méthode de calcul des amortissements, pour des raisons liées aux conditions d'utilisation interne ou à des causes économiques générales. Dans tous les cas, la révision d'un plan d'amortissement est un changement de méthode qui doit être mentionné dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "plan-de-comptes",
@@ -3467,7 +3467,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Liste méthodique des comptes créée par le Plan comptable général et mise à la disposition des entités. Chaque entité, compte tenu de ses besoins spécifiques et de ses caractéristiques particulières, adopte sa propre codification plus analytique. Le plan de comptes doit respecter les principes établis par le Plan comptable général.\n\nLe plan de comptes de chaque entité doit être suffisamment détaillé pour permettre l'enregistrement des opérations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "plus-values",
@@ -3475,7 +3475,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence positive entre la valeur réelle d'un élément d'actif (stock, immobilisation corporelle ou financière) et le montant pour lequel ce bien figure en comptabilité.\n\nIl y a plus-value constatée lorsque le prix de cession d'un élément de l'actif est supérieur à sa valeur comptable nette des amortissements.\n\nIl y a plus-value potentielle ou latente lorsque la valeur d'estimation d'un bien est supérieure à sa valeur nette comptable.\n\nEn application du principe de la spécialisation des exercices, la plus-value de cession est enregistrée au compte de résultat. Inversement, le principe de la prudence exclut la plus-value latente du résultat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "porte-monnaie-electronique",
@@ -3483,7 +3483,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le porte-monnaie électronique est un moyen de paiement qui se présente sous forme d'une carte bancaire ou d'autres moyens alimentés en unités monétaires par le porteur. Le porte-monnaie électronique se retire dans les banques en général. Il n'est pas nécessaire d'avoir un compte bancaire pour pouvoir obtenir un porte-monnaie électronique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "position-de-change",
@@ -3491,7 +3491,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La position de change est la différence positive ou négative entre les devises possédées ou à recevoir et les devises dues ou à livrer. La position de change s'apprécie devise par devise et échéance par échéance.\n- la position est dite courte (short) lorsque le montant des devises à livrer (achats, emprunts) est supérieur au montant des devises à revoir (ventes, prêts). Le risque est que le cours de la devise monte ;\n- la position est dite longue (long) lorsque le montant des devises à livrer (achats, emprunts) est inférieur au montant des devises à revoir (ventes, prêts). Le risque est que le cours de la devise baisse ;\n- la position est dite fermée lorsque le montant des devises à livrer (achats, emprunts) est égal au montant des devises à revoir (ventes, prêts).\n\nL'entité est exposée au risque de change dès lors que sa position de change est courte ou longue.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "position-globale-de-change",
@@ -3499,7 +3499,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Situation, devise par devise, de toutes les opérations engagées contractuellement par l'entité, même si elles ne sont pas encore inscrites dans les comptes.\n\nLorsque des opérations libellées en monnaies étrangères ont des échéances suffisamment voisines pour que les pertes probables sur les unes et les gains latents sur les autres concourent globalement à une même position de change, par application de la finalité d'image fidèle, il peut être dérogé à la règle de prudence.\n\nIl sera procédé alors à une limitation du montant de la dotation aux provisions à l'excédent des pertes sur les gains.\n\nLa position globale de change doit s'apprécier devise par devise et non pas pour l'ensemble des devises confondues. Elle doit prendre en compte des opérations figurant en engagements hors bilan.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "postes-du-bilan",
@@ -3507,7 +3507,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Regroupement de comptes inscrit sur une ligne du bilan. Un ensemble de postes forme une masse du bilan.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "postulat",
@@ -3515,7 +3515,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Principes comptables fondamentaux ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["principes-comptables-fondamentaux"],
   },
   {
@@ -3524,7 +3524,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droits effectifs qui confèrent la capacité actuelle de diriger les activités pertinentes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "preeminence-de-la-realite-sur-l-apparence",
@@ -3532,7 +3532,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pour satisfaire à la finalité d'image fidèle du patrimoine, de la situation financière, priorité doit être donnée à la réalité économique sur la forme ou l'apparence juridique dans l'établissement des états financiers. L'application de ce postulat conduit par exemple à inscrire, à l'actif du bilan des utilisateurs, des biens en crédit-bail et assimilés comme s'ils en étaient propriétaires, malgré l'apparence juridique.\n\nEn raison des difficultés d'application de ce postulat liées à l'analyse juridique et économique des contrats, le Système Comptable OHADA prévoit les cas d'application, limitatifs, du postulat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "preuve-d-impot",
@@ -3540,7 +3540,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le dispositif comptable relatif aux comptes consolidés et combinés impose de produire dans les Notes annexes une réconciliation entre la charge théorique d'impôt sur les bénéfices et la charge effective. Cette analyse, intitulée « preuve d'impôt », permet d'éclairer aussi bien les utilisateurs des comptes sur un élément substantiel de la formation du résultat d'un groupe que les consolideurs eux-mêmes dans leur vérification du calcul des impôts différés. Parmi ces analyses figure un rapprochement entre le taux normal d'impôt et le taux effectif.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prime-de-conversion",
@@ -3548,7 +3548,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre la valeur de conversion du ou des titres de créance et la valeur nominale des actions ou parts sociales rémunérant l'apport.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prime-d-apport",
@@ -3556,7 +3556,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre la valeur du ou des biens apportés et la valeur nominale des actions ou des parts sociales rémunérant cet apport, notamment dans le cadre d'une augmentation de capital par apport en nature.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prime-d-emission",
@@ -3564,7 +3564,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Excédent du prix d'émission sur la valeur nominale des actions ou parts sociales attribuées à l'apporteur.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prime-de-fusion",
@@ -3572,7 +3572,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Différence entre la valeur réelle de l'entité absorbée et la valeur nominale des actions ou parts sociales rémunérant l'apport.\n\nLa prime de fusion équivaut à la plus-value dégagée lors d'une opération de fusion.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prime-de-remboursement-des-obligations",
@@ -3580,7 +3580,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre la valeur d'émission de l'obligation et sa valeur de remboursement lorsque la valeur d'émission est inférieure à sa valeur nominale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "principes-comptables-fondamentaux",
@@ -3588,7 +3588,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les principes comptables fondamentaux structurent la représentation comptable de l'entité. Issus historiquement de la pratique comptable, ces principes sont intégrés dans les cadres conceptuels et les normes comptables, et tirent leur légitimité de leur reconnaissance par les acteurs du monde comptable. Ce sont les postulats et conventions comptables qui sont couramment regroupés sous le terme générique de principes comptables.\n\n**Les postulats** définissent le champ du modèle comptable du Système Comptable OHADA. Il s'agit du :\n- postulat de l'entité,\n- postulat de la comptabilité d'engagement,\n- postulat de la spécialisation des exercices,\n- postulat de la permanence des méthodes,\n- postulat de la prééminence de la réalité économique sur l'apparence juridique.\n\n**Les conventions** servent de guide pour l'élaboration des états financiers annuels du Système comptable OHADA. Il s'agit de la :\n- convention du coût historique,\n- convention de prudence,\n- convention de la transparence,\n- convention de la correspondance bilan de clôture - bilan d'ouverture,\n- convention de l'importance significative.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prix",
@@ -3596,7 +3596,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rapport d'échange entre deux actifs, le prix s'applique aux transactions d'une entité avec l'extérieur, notamment en ce qui concerne les achats « prix d'achat » et les ventes « prix de vente ».\n\nUn prix implique une notion de résultat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prix-d-emission",
@@ -3604,7 +3604,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Prix auquel sont souscrites les valeurs mobilières émises par une société.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "procedes",
@@ -3612,7 +3612,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des moyens techniques, formules, connaissances, et savoir-faire mis en œuvre dans le cadre de l'élaboration d'un produit ou de la prestation d'un service.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "production-immobilisee",
@@ -3620,7 +3620,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Coût de production des travaux faits par l'entité pour elle-même.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "productivite",
@@ -3628,7 +3628,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rapport entre une production en quantité ou en valeur et un ou plusieurs facteurs utilisés pour cette production. Par exemple, la productivité du travail mesure le rapport entre la production obtenue et la consommation de main-d'œuvre.\n\nLa productivité est dite globale lorsque le dénominateur est un ensemble pondéré des facteurs de production.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produit-fini",
@@ -3636,7 +3636,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produit ayant atteint un stade d'achèvement définitif dans un cycle de production.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits",
@@ -3644,7 +3644,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sommes ou valeurs reçues ou à recevoir :\n- soit en contrepartie de la fourniture par l'entité de biens, travaux, services, ainsi que des avantages qu'elle a consentis ;\n- soit en vertu d'une obligation légale existant à la charge d'un tiers ;\n- soit exceptionnellement sans contrepartie.\n\nLes produits comprennent également pour la détermination du résultat de l'exercice :\n- la production stockée au cours de l'exercice ;\n- la production immobilisée ;\n- les reprises sur amortissements et provisions ;\n- le prix de cession d'éléments d'actifs cédés, détruits ou disparus ;\n- le transfert de charges.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-accessoires",
@@ -3652,7 +3652,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits qui, tout en étant liés à l'activité de l'entité, ne constituent pas pour autant l'objet de son activité principale.\n\nCes produits accessoires sont utilisés au niveau du compte de résultat pour le calcul du chiffre d'affaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-a-recevoir",
@@ -3660,7 +3660,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits acquis à l'entité mais dont le montant, non définitivement arrêté, n'a pas encore été inscrit aux comptes de tiers débiteurs.\n\nLe terme acquis s'entend des ventes de biens ou de services pour lesquels le produit a été livré ou la prestation exécutée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-constates-d-avance",
@@ -3668,7 +3668,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits perçus ou comptabilisés avant que les prestations et fournitures les justifiant aient été effectuées ou fournies.\n\nDu fait de la perception de ces produits, l'entité se trouve obligée envers un tiers et, en conséquence, tenue de s'acquitter d'une dette.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-des-cessions-d-immobilisations",
@@ -3676,7 +3676,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Montant entrant dans la trésorerie de l'entité au terme de la cession d'une immobilisation, une fois réglés les commissions et frais de vente ou l'indemnité d'assurance versée à l'entité en contrepartie de la destruction de ladite immobilisation.\n\nPrix de vente résultant de l'accord entre les co-contractants et figurant sur l'acte de vente moins les commissions et frais de vente.\n\nEn cas d'indemnité d'assurance pour réparation, celle-ci figurera au crédit du compte 82 si l'entité décidait de ne pas effectuer cette réparation et de mettre l'immobilisation au rebut ou encore de la céder en l'état. Le prix de vente net viendrait, dans ce cas, en complément au crédit du compte 82.\n\nL'indemnité d'assurance perçue au cas où le bien est détruit est assimilée au prix de cession.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-en-cours",
@@ -3684,7 +3684,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Stocks et en-cours ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["stocks-et-en-cours"],
   },
   {
@@ -3693,7 +3693,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits à caractère financier qui ne proviennent pas directement de l'activité principale d'une société ou de son principal objet.\n\nLes produits financiers sont généralement issus des revenus de titres de participation ou de placement, des escomptes de paiement, des intérêts de prêt, notamment.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-hors-activites-ordinaires",
@@ -3701,7 +3701,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits non récurrents, de nature non liée à l'activité ordinaire de l'entité. Les produits H.A.O. ne doivent pas être confondus avec les produits dits exceptionnels, définis le plus souvent à partir des circonstances exceptionnelles à l'origine de leur survenance.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-intermediaires",
@@ -3709,7 +3709,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produits ayant atteint un stade d'achèvement, mais destinés à entrer dans une nouvelle phase du cycle de production.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "produits-residuels",
@@ -3717,7 +3717,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Chutes, déchets et autres rebuts de fabrication.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provision",
@@ -3725,7 +3725,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une provision est un passif externe (dette) dont l'échéance ou le montant est incertain. Selon le SYSCOHADA, le terme « provision » désigne les provisions pour risques et charges et de façon dérogatoire les provisions règlementées car elles ne correspondent ni à un risque ni à une charge future. Elles sont constituées uniquement en application de dispositions fiscales.\n\nUn passif externe est une obligation actuelle de l'entité de transférer une ressource économique à la suite d'événements passés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provision-de-propre-assureur",
@@ -3733,7 +3733,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provision destinée à couvrir la part de risque non couverte par une assurance lorsque ce risque est rattachable à des exercices clos.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provision-speciale-de-reevaluation",
@@ -3741,7 +3741,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les réévaluations d'immobilisations décidées par la puissance publique en franchise d'impôt nécessitent un ajustement des annuités d'amortissement sur éléments amortissables. En effet, par suite de la réévaluation de la valeur d'origine, la base amortissable se trouve modifiée et les annuités d'amortissement constatées deviennent supérieures à ce qu'elles auraient été sans réévaluation. Afin d'éliminer l'effet de la réévaluation sur le résultat, il a été créé un compte de « Provision spéciale de réévaluation » dans la catégorie des provisions réglementées.\n\nLa fraction excédentaire de la dotation aux amortissements est compensée par la reprise annuelle sur la provision spéciale.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-risques-et-charges",
@@ -3749,7 +3749,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Il s'agit d'un passif externe dont l'échéance ou le montant est incertain.\n\nProvisions évaluées à l'arrêté des comptes, destinées à couvrir des risques et des charges que les événements survenus ou en cours rendent probables, qui sont nettement précisées quant à leur objet, mais dont la réalisation est incertaine et la survenance estimée à plus d'un an.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-garanties",
@@ -3757,7 +3757,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dépenses susceptibles d'être engagées du fait de garanties données, en liaison notamment avec des biens vendus ou une prestation de services. L'estimation des charges y afférentes pourrait avoir des bases statistiques provenant de l'expérience des années antérieures.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-litiges",
@@ -3765,7 +3765,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provisions à constituer lorsque l'entité, engagée dans un procès, risque d'être condamnée au versement de dommages et intérêts ou autres indemnités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-pertes-de-change",
@@ -3773,7 +3773,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provisions permettant de tenir compte des pertes latentes sur les créances et les dettes dont la valeur dépend des fluctuations de monnaies étrangères.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-pertes-sur-marches-a-terme",
@@ -3781,7 +3781,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provisions constituées lorsqu'un risque de perte est à attendre de comparaisons entre :\n- le prix de vente effectif et le prix d'achat espéré à la date de clôture de l'exercice ;\n- le prix de vente espéré à la clôture de l'exercice et le prix d'achat effectif.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-retraites",
@@ -3789,7 +3789,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provisions relatives aux charges que peuvent engendrer des obligations légales ou contractuelles conférant au personnel des droits à la retraite.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-pour-risques",
@@ -3797,7 +3797,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provisions destinées à couvrir les risques identifiés inhérents à l'activité de l'entité tels que ceux résultant des garanties données aux clients ou des opérations traitées en monnaies étrangères.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "provisions-reglementees",
@@ -3805,7 +3805,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Provisions ne correspondant pas à l'objet normal d'une provision et comptabilisées en application de dispositions légales (et notamment fiscales).\n\nLes amortissements dérogatoires sont assimilés à des provisions réglementées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "prudence-convention-de",
@@ -3813,7 +3813,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Appréciation raisonnable des faits dans des conditions d'incertitude afin d'éviter le risque de transfert, sur l'avenir, d'incertitudes présentes susceptibles de grever le patrimoine ou le résultat de l'entité. Les actifs et les produits ne doivent pas être surévalués, et les passifs et les charges ne doivent pas être sous-évalués.\n\nSon application permet de protéger les utilisateurs externes des états financiers (et aussi les dirigeants) contre les illusions qui pourraient résulter d'une image non prudente ou trop flatteuse de l'entité.\n\nLa convention de prudence crée une dissymétrie de traitement des charges et des produits : toute perte probable est systématiquement enregistrée en charge alors que les gains potentiels ne le sont jamais.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "quittance",
@@ -3821,7 +3821,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Document écrit et dûment signé du créancier, constatant le paiement par le débiteur de la somme que ce dernier lui doit, afin de le déclarer quitte envers lui de ladite obligation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "quote-part-de-resultat-sur-operations-faites-en-commun",
@@ -3829,7 +3829,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Quote-part de bénéfice ou de perte due à des opérations réalisées en commun avec d'autres entités dans le cadre d'une société en participation ou d'un G.I.E., fiscalement transparents.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rabais",
@@ -3837,7 +3837,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réductions pratiquées exceptionnellement sur le prix de vente préalablement convenu, pour tenir compte, par exemple, d'un défaut de qualité ou de conformité des objets vendus.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rapport-de-gestion",
@@ -3845,7 +3845,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le rapport de gestion expose la situation de l'entité ou de l'ensemble constitué par les entités comprises dans la consolidation, les évolutions prévisibles, les événements importants survenus entre la date de clôture de l'exercice et la date à laquelle les comptes personnels ou consolidés sont établis ainsi que les activités en matière de recherche et de développement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rapport-du-commissaire-aux-comptes-a-l-assemblee-generale-an",
@@ -3853,7 +3853,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "audit",
     ues: ["ue12-audit"],
     definition: "Dans son rapport à l'Assemblée générale ordinaire, le commissaire aux comptes fait part de l'accomplissement de la mission qui lui est dévolue. Ainsi :\n- il certifie que les états financiers de synthèse sont réguliers et sincères et donnent une image fidèle du résultat des opérations de l'exercice écoulé ainsi que de la situation financière et du patrimoine de la société à la fin de cet exercice ;\n- il vérifie les valeurs et les documents comptables de la société et contrôle la conformité de la comptabilité de la société aux règles en vigueur ;\n- il vérifie la sincérité et la concordance avec les états financiers de synthèse des informations données dans le rapport de gestion du conseil d'administration ou de l'administrateur général, selon le cas, et dans les documents sur la situation financière et les états financiers de synthèse de la société adressés aux actionnaires, et fait état de ces observations dans son rapport à l'Assemblée générale ;\n- il signale à l'Assemblée générale les irrégularités et les inexactitudes relevées par lui au cours de l'accomplissement de sa mission.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rapport-du-commissaire-aux-comptes-au-conseil-d-administrati",
@@ -3861,7 +3861,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "audit",
     ues: ["ue12-audit"],
     definition: "Dans les sociétés anonymes, le commissaire aux comptes dresse un rapport dans lequel il porte à la connaissance du conseil d'administration ou de l'administrateur général :\n\n1) les contrôles et vérifications auxquels il a procédé et les différents sondages effectués ainsi que leurs résultats ;\n\n2) les postes du bilan et des autres documents comptables auxquels des modifications lui paraissent devoir être apportées, en faisant toutes les observations utiles sur les méthodes d'évaluation utilisées pour l'établissement de ces documents ;\n\n3) les irrégularités et les inexactitudes qu'il aurait découvertes ;\n\n4) les conclusions auxquelles conduisent les observations et rectifications précitées sur les résultats de l'exercice comparés à ceux du dernier exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rapport-special-du-commissaire-aux-comptes",
@@ -3869,7 +3869,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "audit",
     ues: ["ue12-audit"],
     definition: "Le commissaire aux comptes fournit un rapport spécial sur les conventions réglementées.\n\nCe rapport vise à informer les associés sur les conventions conclues d'une part entre la société et ses dirigeants et, d'autre part, entre la société et d'autres sociétés dans lesquelles ses dirigeants sont propriétaires, associés indéfiniment responsables.\n\nLe rapport spécial mentionne les indications suivantes :\n- l'énumération des conventions ;\n- le nom des administrateurs, des directeurs généraux et des gérants ;\n- la nature et l'objet desdites conventions, les prix et tarifs pratiqués, l'intérêt attaché à leur conclusion ;\n- l'importance des fournitures livrées ou prestations de service fournies.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rapprochement-etat-de",
@@ -3877,7 +3877,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etabli périodiquement, l'état de rapprochement permet de vérifier la concordance de deux comptes réciproques.\n\nPar exemple, le rapprochement bancaire permet de vérifier la concordance entre le compte « Banques » tenu par une entité et le relevé bancaire adressé périodiquement par la banque.\n\nL'état de rapprochement sert au récolement d'informations fractionnaires avec l'information globale correspondante.\n\nLa différence entre deux comptes réciproques peut s'expliquer par des erreurs, des omissions, ou des enregistrements à des dates différentes dans deux comptabilités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ratio",
@@ -3885,7 +3885,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "finance",
     ues: ["analyse-financiere"],
     definition: "Rapport entre deux grandeurs (postes ou rubriques) significatives et homogènes. Les ratios servent à analyser les performances et les structures financières de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ravalement-depenses-de",
@@ -3893,7 +3893,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dépenses afférentes aux travaux nécessités par la remise en état des façades d'un immeuble et s'opérant, selon la construction, par simple grattage ou brossage, ou bien par réfection des crépis ou des enduits.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "realisables-valeurs",
@@ -3901,7 +3901,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeurs dont la transformation en numéraire est possible dans un délai relativement court.\n\nLes valeurs réalisables sont constituées par les créances sur les clients et, au besoin, les marchandises et les matières premières.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "realisation-des-apports",
@@ -3909,7 +3909,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opération par laquelle s'opère le transfert de la propriété ou de la titularité du numéraire, des droits corporels, incorporels, des créances certaines et liquides, en application des engagements que les associés ont pris en faveur de la société lors de sa constitution.\n\nLa réalisation des apports constitue la deuxième phase de la constitution d'une société au cours de laquelle les associés effectuent leurs apports.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rebuts",
@@ -3917,7 +3917,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Produit résiduel ou matière de récupération n'ayant pas les qualités voulues (copeaux, sciures de bois par exemple) provenant de la fabrication d'un produit principal. Le rebut peut être détruit, recyclé ou vendu en l'état.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "recepisse-marchandises",
@@ -3925,7 +3925,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titre de propriété de marchandises déposées dans un magasin général, le récépissé, dûment signé par le directeur du magasin général, constitue la reconnaissance du dépôt desdites marchandises. Le récépissé permet de contrôler à l'inventaire les stocks appartenant à l'entité. Le rattachement des achats à l'exercice est facilité par l'existence de ce document.\n\nLe récépissé permet d'incorporer le droit de propriété qu'il transfère avec lui-même par voie d'endossement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reciprocite-des-comptes",
@@ -3933,7 +3933,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Sont dits réciproques les comptes enregistrant, dans chacune des comptabilités de deux agents économiques, les flux, de créances - dettes, reliant ces deux agents.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reclassement-comptes-consolides",
@@ -3941,7 +3941,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Le principe d'homogénéité veut que les comptes consolidés soient établis dans le respect des mêmes principes d'évaluation pour l'ensemble des sociétés retenues dans le périmètre de consolidation. En cas de différences dans les règles de présentation des comptes personnels, il est procédé à des reclassements de comptes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "redevances",
@@ -3949,7 +3949,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les redevances sont, pour celui qui les verse, des charges d'exploitation dues à un inventeur (pour brevets, licences, marques, procédés techniques) pour la concession de la licence d'exploitation d'un brevet ou des sommes payées à des sociétés de crédit-bail pour l'utilisation des biens pris en crédit-bail ou contrats assimilés.\n\nLe terme est également utilisé en matière fiscale pour désigner certains impôts.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reduction-du-capital",
@@ -3957,7 +3957,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Diminution du capital soit par remboursement du capital, soit par réduction de la valeur nominale des actions, soit par diminution du nombre des actions.\n\nLa réduction du capital peut être motivée par un capital trop élevé pour les besoins de la société ; dans ces conditions, une partie du capital peut être remboursée aux associés en espèces.\n\nPar ailleurs, la société peut avoir enregistré des pertes si importantes que les bénéfices attendus et les réserves constituées ne sauraient entièrement couvrir. L'amortissement des pertes implique, dans ces conditions, une réduction du capital conduisant chacun des associés à supporter un amoindrissement de la valeur de son apport.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reductions-commerciales",
@@ -3965,7 +3965,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Diminution des prix pratiqués hors factures : elles comprennent les rabais, les remises et les ristournes hors factures.\n\nCette définition est valable pour les réductions sur achats de biens et de services (rabais, remises et ristournes obtenus).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reductions-sur-ventes",
@@ -3973,7 +3973,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réductions pratiquées hors factures : elles comprennent les rabais, les remises et les ristournes hors factures.\n\nMutatis mutandis, cette définition est valable pour les réductions sur achats de biens et services (rabais, remises et ristournes obtenus).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reevaluation-des-immobilisations",
@@ -3981,7 +3981,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Substitution d'une valeur dite réévaluée à la valeur nette comptable telle qu'elle figure au bilan.\n\nLa réévaluation est une exception à la règle des coûts historiques motivée par la recherche d'une image fidèle. Il peut s'agir d'une réévaluation légale dont la mise en œuvre et les modalités techniques sont définies strictement par les pouvoirs publics. La réévaluation peut être libre, c'est-à-dire à l'initiative de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "regie-d-avances",
@@ -3989,7 +3989,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Fonds gérés par les régisseurs ou les comptables subordonnés.\n\nTout comme les accréditifs, ces fonds nécessitent une reddition de comptes et un suivi de leur emploi.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "region-de-l-espace-ohada",
@@ -3997,7 +3997,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble économique institutionnalisé formé par un certain nombre d'Etats-parties dans le but de favoriser leur développement économique et social, notamment par l'unification de leur marché intérieur et par la mise en œuvre de politiques sectorielles communes (CEMAC, UEMOA...).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reglementation-comptable",
@@ -4005,7 +4005,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est un mode de régulation comptable dans lequel intervient l'Etat ou de l'autorité publique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "regroupement-d-entreprise",
@@ -4013,7 +4013,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une transaction ou un autre événement au cours duquel un acquéreur obtient le contrôle d'une ou plusieurs entreprises. Les transactions parfois désignées sous le vocable de « vraies fusions » ou de « fusions entre égaux » sont également des regroupements d'entreprises.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "regularite",
@@ -4021,7 +4021,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Conformité aux règles et procédures en vigueur. C'est également l'obligation que doit satisfaire toute entité, en matière de tenue, de contrôle, de présentation et de communication des informations qu'elle aura traitées, pour assurer l'authenticité des écritures de sorte que la comptabilité puisse servir à la fois d'instrument de mesure des droits des partenaires de l'entité, d'instrument de preuve et d'instrument d'information des tiers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "regularisation-comptes-de",
@@ -4029,7 +4029,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Répartition des charges et des produits dans le temps, de manière à rattacher à un exercice déterminé toutes les charges et tous les produits le concernant effectivement.\n\nEntrent dans cette catégorie :\n- les charges constatées d'avance ;\n- les charges à payer ;\n- les produits constatés d'avance ;\n- les produits à recevoir.\n\nLes régularisations font l'objet d'inscriptions dans les comptes appropriés du bilan. C'est ainsi que les comptes de charges à payer et de produits à recevoir sont respectivement rattachés aux comptes de tiers concernés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "regulation-comptable",
@@ -4037,7 +4037,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Processus de production, de mise en œuvre et de contrôle de l'application des normes comptables. Il existe généralement trois modes de régulation comptable :\n- la régulation par l'Etat (réglementation comptable) ;\n- la régulation par la profession ;\n- la régulation par l'ensemble des acteurs intéressés par l'information financière.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "remere-clause-de",
@@ -4045,7 +4045,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Convention par laquelle le vendeur se réserve le droit de reprendre la chose vendue moyennant restitution du prix et des accessoires, dans un délai prévu par le contrat de vente.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "remises",
@@ -4053,7 +4053,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réductions pratiquées habituellement sur le prix courant de vente, en considération, par exemple, de l'importance de la vente ou de la profession du client, et généralement calculées par application d'un pourcentage du prix courant de vente.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rente-viagere",
@@ -4061,7 +4061,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le contrat de rente viagère appartient à la catégorie des contrats dits aléatoires. Cette classification de certains contrats à titre onéreux s'explique par le fait que la prestation à laquelle l'une des parties est obligée dépend, dans son existence ou son étendue, d'un événement incertain, d'un aléa.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "repartition",
@@ -4069,7 +4069,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Travail de classement des charges, aboutissant à l'inscription dans les comptes de reclassement et les centres d'analyse des éléments qui ne peuvent pas être affectés faute de moyens de mesure. Une répartition s'effectue à l'aide d'une clef de répartition fondée sur des relevés statistiques ou des raisonnements techniques et économiques appropriés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "repartition-des-resultats-projet-de",
@@ -4077,7 +4077,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Affectation du bénéfice de l'exercice clos entre dividendes et réserves ou report à nouveau, proposée par le Conseil d'administration et votée par l'Assemblée des actionnaires d'une société.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "report-a-nouveau-crediteur",
@@ -4085,7 +4085,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Bénéfices dont l'affectation est renvoyée, par l'organe compétent statuant sur les comptes de l'exercice, à une décision ultérieure.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "report-a-nouveau-debiteur",
@@ -4093,7 +4093,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pertes constatées à la clôture d'exercices antérieurs, qui n'ont pas été imputées sur des réserves ni résorbées par une réduction du capital social et qui devront être déduites du bénéfice de l'exercice suivant ou rajoutées au déficit dudit exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reprises-amortissements-ou-provisions",
@@ -4101,7 +4101,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réajustement de dotations antérieurement constituées, lorsque les raisons qui les ont motivées ont cessé d'exister.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserve-de-propriete-clause-de",
@@ -4109,7 +4109,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'effet de cette clause, dans un contrat de vente, est de différer le transfert de la propriété du bien à l'acheteur jusqu'à la date du paiement intégral du prix (principal et intérêts).\n\nLe Système Comptable OHADA prescrit la comptabilisation de telles opérations comme s'il s'agissait d'achats/ventes ordinaires, mais avec mentions spécifiques dans les Notes annexes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserve-de-reevaluation",
@@ -4117,7 +4117,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ecart entre valeur réévaluée et valeur d'origine des immobilisations non amortissables réévaluées dans le cadre d'une réévaluation fiscalement neutre.\n\nLa réserve de réévaluation peut être portée, pour partie ou pour la totalité, au compte capital (incorporation de réserves).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserve-legale",
@@ -4125,7 +4125,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La réserve légale est un prélèvement effectué sur les bénéfices, diminués des pertes antérieures, en vue de constituer en faveur des sociétés anonymes ou des sociétés à responsabilité limitée, un fonds de réserve, en application des dispositions légales en cette matière.\n\nLa réserve légale s'impose dans les sociétés où il n'existe pas une responsabilité illimitée des associés ou de certains d'entre eux.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserves",
@@ -4133,7 +4133,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Bénéfices affectés durablement à l'entité soit en application de dispositions légales ou statutaires, soit jusqu'à décision contraire des organes compétents.\n\nLa réserve légale a pour but de constater la dotation obligatoire en la matière.\n\nLes autres réserves sont constituées conformément aux statuts ou à l'initiative de l'entité et peuvent être utilisées selon ses besoins.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserves-consolidees",
@@ -4141,7 +4141,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Différence entre la part de capitaux propres de l'entité intégrée, correspondant au pourcentage d'intérêts détenu par l'entité consolidante et la valeur comptable (déduction faite de l'écart de première consolidation) de la participation. Elle correspond à l'accroissement des capitaux propres de l'entité intégrée depuis la date de prise de participation ou de la création (bénéfices non distribués, réévaluation d'actif).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserves-indisponibles",
@@ -4149,7 +4149,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble comprenant la réserve légale, les réserves statutaires et les réserves réglementées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserves-libres",
@@ -4157,7 +4157,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réserves dont l'Assemblée générale a la disposition. L'Assemblée générale peut ainsi prélever des dividendes sur ces réserves en indiquant expressément les postes sur lesquels les prélèvements sont effectués.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserves-reglementees",
@@ -4165,7 +4165,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Prélèvements effectués sur le bénéfice en application de dispositions légales et réglementaires. Les réserves réglementées peuvent comprendre notamment des réserves inhérentes à l'octroi d'une subvention d'investissement.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "reserves-statutaires",
@@ -4173,7 +4173,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réserves constituées en application des dispositions spécifiques des statuts d'une société.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-consolide",
@@ -4181,7 +4181,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Résultat réalisé par l'ensemble des entités consolidées, quel que soit le mode de consolidation utilisé (intégration proportionnelle, intégration globale, mise en équivalence), après retraitements nécessaires pour éviter les doubles emplois (dividendes, dotations aux provisions), pour homogénéiser les comptes des entités consolidées, pour neutraliser les effets de certaines règles fiscales (amortissements dérogatoires, provisions réglementées...) et après élimination des profits internes.\n\nLe résultat consolidé est partagé entre la société consolidante et les actionnaires minoritaires des sociétés intégrées globalement.\n\nConstitué du résultat de l'entité consolidante, de celui des entités consolidées par intégration globale et de la fraction du résultat des entités consolidées par intégration proportionnelle représentative des intérêts de l'entité consolidante, ou d'autres entités détentrices incluses dans l'ensemble consolidé, le résultat consolidé comprend aussi la fraction du résultat des entités consolidées par mise en équivalence.\n\nLe compte de résultat consolidé fait apparaître, de façon distincte, la part de l'entité consolidante et la part des associés minoritaires dans le résultat net de l'ensemble des entités consolidées par intégration, ainsi que la quote-part des résultats nets des entités consolidées par mise en équivalence.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-d-exploitation",
@@ -4189,7 +4189,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Solde significatif de gestion égal à la différence entre les produits d'exploitation et les charges d'exploitation.\n\nCe solde représente la ressource tirée de l'activité d'exploitation avant la prise en compte des éléments financiers et hors activités ordinaires.\n\nCe solde contribue à rémunérer les capitaux propres et empruntés et à assurer le paiement de l'impôt et de la participation.\n\nLe résultat d'exploitation est un solde qui peut être utilisé pour des comparaisons inter entités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-des-activites-ordinaires",
@@ -4197,7 +4197,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Résultat susceptible de se reproduire, à qualité de gestion égale, d'une année à l'autre. Il est égal à la somme du résultat d'exploitation et du résultat financier. C'est un solde caractéristique de gestion. Il est utilisé dans l'analyse des performances de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-financier",
@@ -4205,7 +4205,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Résultat des opérations financières, le résultat financier fait partie des soldes significatifs de gestion. Il renseigne sur la politique de financement de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-fiscal",
@@ -4213,7 +4213,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Résultat déterminé selon les règles et les dispositions fiscales. Le résultat fiscal est un bénéfice fiscal ou un déficit fiscal. En pratique, le résultat fiscal est calculé à partir du résultat comptable auquel sont apportées des corrections (en plus ou en moins).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-hors-activites-ordinaires",
@@ -4221,7 +4221,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Résultat obtenu sur les opérations non récurrentes. Ce solde de gestion est utilisé pour analyser les changements de structure ou de stratégie de l'entité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-net-de-l-exercice",
@@ -4229,7 +4229,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre les produits et les charges liés à l'ensemble des activités de l'entité.\n\nLe résultat de l'exercice est aussi égal à la variation des capitaux propres entre le début et la fin de l'exercice. Il s'agit de la variation brute diminuée des apports nouveaux et augmentée des répartitions aux ayants droit aux capitaux propres.\n\nSouvent, l'intervention d'opérations affectant directement le montant des capitaux propres, sans transiter par le résultat, ne permet pas de constater cette équivalence sans analyse préalable.\n\nLorsque le total des produits est supérieur aux charges, le solde créditeur qui apparaît est un bénéfice. Dans le cas contraire, c'est une perte.\n\nLe solde de ce compte constitue le résultat de la période. Son affectation devra être décidée au cours de la période suivante. Il sera donc soldé lors de la comptabilisation de cette affectation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultat-par-action",
@@ -4237,7 +4237,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Constitue une des mesures de performance utilisées par les investisseurs. En conséquence, une information relative à son calcul doit être donnée dans les Notes annexes.\n\nAinsi, les entités cotées en Bourse calculeront le résultat de base par action et le résultat dilué par action.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "resultats-analytiques",
@@ -4245,7 +4245,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre les ventes et le coût de revient correspondant d'un produit. Il permet de déterminer la contribution du produit à la formation du résultat.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "retenue-a-la-source",
@@ -4253,7 +4253,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Prélèvement effectué par l'organisme payeur, pour le compte de l'Administration fiscale, représentatif de l'impôt exigible par le redevable, à l'occasion de versement de sommes d'argent cédées aux tiers (personnes physiques et morales).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "retenue-de-garantie",
@@ -4261,7 +4261,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Partie du prix retenue temporairement par un client à titre de garantie de la bonne exécution d'un contrat. La retenue de garantie est notamment pratiquée par le maître de l'ouvrage dans les marchés de travaux immobiliers.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "retraitement-d-homogeneite",
@@ -4269,7 +4269,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Rectification subie par les documents comptables des entités consolidées afin de faciliter les opérations ou d'éliminer l'hétérogénéité éventuelle des évaluations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "ristournes",
@@ -4277,7 +4277,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Réductions de prix calculées sur l'ensemble des opérations faites avec le même tiers pour une période déterminée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rompus",
@@ -4285,7 +4285,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Fractions de capital inférieures à la valeur nominale d'un titre.\n- Rompus de souscription ou d'attribution, lorsqu'un détenteur de titres doit acheter ou vendre des droits parce que le nombre d'actions anciennes qu'il possède, exprimé en droits d'attribution ou de souscription, ne correspond pas à un nombre entier d'actions nouvelles qu'il faut acquérir ou se faire attribuer.\n- Rompus de regroupement lorsqu'en cas de regroupement d'actions (diminution de capital par exemple) le nombre d'actions anciennes que l'on possède n'est pas un multiple de celles à échanger contre une action regroupée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "rotation-des-stocks",
@@ -4293,7 +4293,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Renouvellement des stocks dans une entité, au cours d'un exercice, exprimé :\n- soit par un taux annuel dit taux de rotation ou d'écoulement (exemple : taux de rotation 8 par an) ;\n- soit par une durée, qui est l'inverse du taux précédent (exemple : durée d'écoulement 1/8 d'année, soit 1,5 mois ou 45 jours).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "scission",
@@ -4301,7 +4301,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue3-compta-societes"],
     definition: "Opération par laquelle le patrimoine d'une société scindée est partagé en plusieurs fractions simultanément transmises à plusieurs sociétés existantes ou nouvelles.\n\nLa scission entraîne la dissolution de la société scindée, la constitution ou l'augmentation de capital des sociétés substituées à la société dissoute.\n\nLa scission apparaît comme le contraire d'une fusion. Toutefois, elle peut aboutir à une concentration d'entités.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "seuil-de-signification",
@@ -4309,7 +4309,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Le seuil de signification exprime donc la mesure de l'importance significative. Est significative, toute information dont la communication est susceptible de modifier le jugement du lecteur de comptes.\n\nSi la notion de caractère significatif n'est pas exclusivement liée à un critère quantitatif, ce dernier peut, sur un plan pratique, aider à sa mise en œuvre. Ainsi, on peut considérer par exemple qu'une information quantifiée sur le plan financier a un caractère significatif (tout en rappelant que sur ce point le jugement personnel est primordial) :\n- lorsque le poste qu'elle explique ou précise représente un certain pourcentage du total du bilan (par exemple entre 5 et 10 % au moins) ;\n- ou lorsque la partie de variation du poste expliquée par l'information représente entre 10 et 20 % du montant total du poste ;\n- ou lorsque le montant considéré représente plus de 10 % du bénéfice net.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "sincerite",
@@ -4317,7 +4317,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Application de bonne foi de la règle de prudence, des obligations de régularité et de transparence inhérentes à la tenue, au contrôle, à la présentation et à la communication de toutes les procédures comptables en vigueur, en fonction de la réalité et de l'importance des opérations, des événements et des situations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "societe-mere",
@@ -4325,7 +4325,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Une société est mère lorsqu'elle possède plus de la moitié du capital d'une autre société.\n\nEn consolidation, une entité mère est une entité qui en contrôle une ou plusieurs autres.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "sol-sous-sol-sur-sol",
@@ -4333,7 +4333,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Termes utilisés lorsque l'entité n'est pas propriétaire de ces trois éléments attachés à une même parcelle de terrain.\n\nC'est ainsi que « sur-sol » est le terme utilisé lorsque l'entité a un droit de construction ou d'utilisation de l'espace situé au-dessus d'un sol dont elle n'est pas propriétaire.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "solde",
@@ -4341,7 +4341,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre le total des crédits et le total des débits.\n\nLe solde peut être créditeur au cas où le crédit est supérieur au débit.\n\nLe solde peut être débiteur dans le cas contraire.\n\nLe solde peut également être nul en cas d'égalité du débit et du crédit, ce qui est la situation d'un compte soldé.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "soldes-significatifs-de-gestion",
@@ -4349,7 +4349,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Grandeurs calculées à partir des comptes de gestion pour faire ressortir, en même temps que les phases successives de la formation du résultat net, le comportement économique d'une entité.\n\nCes soldes comprennent pour le Système normal :\n\n1 - Marge commerciale\n2 - Valeur ajoutée\n3 - Excédent brut d'exploitation\n4 - Résultat d'exploitation\n5 - Résultat financier\n6 - Résultat des activités ordinaires\n7 - Résultat hors activités ordinaires\n8 - Résultat net",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "sorties-de-stocks",
@@ -4357,7 +4357,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Valorisation des biens fongibles ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["valorisation-des-biens-fongibles"],
   },
   {
@@ -4366,7 +4366,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Niveau d'activité se situant en deçà des capacités normales de production, ou de la production que l'entité peut raisonnablement attendre des moyens dont elle dispose.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "sous-ensemble-consolide",
@@ -4374,7 +4374,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: ["ue8-consolidation"],
     definition: "Ensemble d'entités liées entre elles par des liens de dépendance financière, mais dont l'entité dominante est elle-même contrôlée par une autre entité. Ces sous-ensembles constituent les regroupements utilisés dans la technique dite de « consolidation par paliers ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "sous-produit",
@@ -4382,7 +4382,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Bien ou produit découlant accessoirement de la fabrication d'une autre substance principale du fait de la mise en œuvre d'un procédé de fabrication.\n\nUn sous-produit peut également être issu du traitement de déchets et de rebuts.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "stocks-et-en-cours",
@@ -4390,7 +4390,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Ensemble des biens ou des services qui interviennent dans le cycle d'exploitation de l'entité pour être :\n- soit vendus en l'état ou au terme d'un processus de production à venir ou en cours ;\n- soit consommés en général au premier usage.\n\nOn distingue les stocks proprement dits des en-cours.\n\nLes stocks proprement dits comprennent :\n- les approvisionnements : matières premières et fournitures, matières consommables et fournitures ;\n- les produits : produits intermédiaires, produits finis, produits résiduels ;\n- les marchandises.\n\nLes stocks peuvent être directement inventoriés par rapport à une nomenclature.\n\nLes en-cours sont des biens ou des services en cours de formation au travers du processus de production. Ils peuvent être inventoriés par assimilation conventionnelle à d'autres biens de la nomenclature ou par inscription sous une rubrique « non ventilable » de cette nomenclature.\n\nLe stock outil, en bonne gestion, doit être incorporé dans les immobilisations plutôt que dans les actifs circulants.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "stock-options",
@@ -4398,7 +4398,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est un mécanisme incitatif qui permet aux salariés et dirigeants d'une société par actions (cotée ou non cotée) de souscrire ou d'acheter des actions de l'entité à un prix d'exercice fixé le jour où l'option est consentie. Les bénéficiaires de tels plans auront intérêt à lever l'option lorsque le cours de bourse ou la valeur de l'action deviendra supérieur au prix fixé initialement. Ils pourront ainsi dégager une plus-value lors de la cession des titres.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "subventions-d-equilibre",
@@ -4406,7 +4406,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Subvention dont bénéficie l'entité pour compenser tout ou partie de la perte globale qu'elle aurait subie si cette subvention ne lui avait pas été accordée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "subventions-d-exploitation",
@@ -4414,7 +4414,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Subvention dont bénéficie l'entité pour lui permettre de compenser l'insuffisance de prix de vente de certains produits ou de faire face à certaines charges d'exploitation.\n\nLes subventions d'exploitation sont accordées par l'Etat, les collectivités publiques ou les tiers. Elles ne sont ni des fonds de dotation, ni des subventions d'investissement.\n\nElles comprennent, par exemple, les indemnités compensatrices pour insuffisance du prix de vente administré.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "subventions-d-investissement",
@@ -4422,7 +4422,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Aide financière accordée à l'entité en vue d'acquérir ou de créer des valeurs immobilisées (subventions d'équipement) ou de financer des activités à long terme.\n\nLes subventions d'investissement sont accordées par l'Etat, les collectivités publiques, les organismes internationaux ou les tiers. Dans certains cas, l'entité reçoit cette subvention d'investissement sous la forme d'un transfert direct d'immobilisations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "survaleur-ou-goodwill",
@@ -4430,7 +4430,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Dans le cadre d'une évaluation de l'entité, la survaleur est l'écart constaté entre la valeur globale calculée et la valeur mathématique de l'entité ; elle trouve son origine dans les éléments incorporels non comptabilisés, ainsi que dans une rentabilité de l'ensemble, différente de celle attendue de ses éléments constitutifs. Le terme est essentiellement utilisé dans le cas d'un excédent de la valeur globale sur la valeur mathématique (survaleur positive).\n\nEn consolidation, le Goodwill ou écart d'acquisition (survaleur) est un actif représentant les avantages économiques futurs résultant des autres actifs acquis lors d'un regroupement d'entreprises qui ne sont pas identifiés individuellement et comptabilisés séparément.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "systeme-minimal-de-tresorerie",
@@ -4438,7 +4438,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Système de comptabilité admis pour les très petites entités dont les recettes annuelles ne dépassent pas un certain seuil. Il répond à des conditions de forme et de fond, dérogatoires par rapport aux dispositions comptables de droit commun.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "systeme-normal",
@@ -4446,7 +4446,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Système comptable applicable aux entités soumises à l'obligation de tenue de comptabilité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "tableau-des-flux-de-tresorerie",
@@ -4454,7 +4454,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Etat de synthèse à part entière, dont la finalité est d'expliquer la variation de la trésorerie de l'entité. Il recense donc les encaissements (sources des flux de trésorerie) et les décaissements (affectations des flux de trésorerie) qui ont un impact sur la trésorerie au cours de la période considérée. Par ailleurs, il classe les flux de trésorerie selon leur origine : activités opérationnelles, activités d'investissement, activités de financement. Il permet de connaitre la provenance des flux de liquidités et la manière dont ces flux ont été utilisés au cours de l'exercice.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "taxe-sur-la-valeur-ajoutee",
@@ -4462,7 +4462,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Taxe sur le chiffre d'affaires facturée par l'entité qui la reverse à un Trésor public. La T.V.A. est supportée par le consommateur final. En effet, le vendeur paie la T.V.A. sur ses achats à ses propres fournisseurs. Il déclare la T.V.A. facturée, la T.V.A. qu'il a déjà payée sur ses achats et verse la différence au fisc. Lorsque cette différence est négative (cas des exportateurs), le vendeur dispose d'un crédit de T.V.A. Il peut utiliser ce crédit pour payer la T.V.A. au cours des périodes suivantes ou en réclamer le remboursement.\n\nSi elle est déductible, la T.V.A. n'est ni une charge, ni un produit : elle est enregistrée dans les comptes de tiers.\n\nDans le cas où elle n'est pas « déductible », elle est comptabilisée dans les charges ou comprise dans le coût d'acquisition des immobilisations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "terrains-batis",
@@ -4470,7 +4470,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les terrains bâtis sont ceux sur lesquels des constructions sont édifiées. Toutefois, ils font l'objet d'une inscription séparée au bilan.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "terrains-nus",
@@ -4478,7 +4478,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Terrains pouvant constituer le sol de bâtiment ou d'ouvrages. Ils sont par conséquent sans construction.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "terrains-de-gisement",
@@ -4486,7 +4486,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Terrains d'extraction de matières destinées soit aux besoins de l'entité, soit à être revendues en l'état ou après transformation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-de-participation",
@@ -4494,7 +4494,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres conférant des droits sur le capital d'autres entités et dont la possession durable est estimée utile à l'activité de l'entité, notamment parce qu'elle permet d'exercer une influence notable sur la société émettrice des titres ou d'en assurer le contrôle.\n\nSont présumés être des titres de participation, les titres acquis en tout ou partie par offre publique d'achat ou d'échange et les titres représentant au moins 10 % du capital social d'une entité.\n\nLes autres titres de participation sont les titres d'une société n'entraînant pour leur propriétaire aucun contrôle déterminant sur les décisions de l'entité, selon la définition donnée ci-dessus, mais lui permettant, néanmoins, d'exercer une influence notable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-de-placement",
@@ -4502,7 +4502,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres négociables acquis et cessibles à tout moment en vue d'en retirer un revenu direct ou une plus-value. Les titres de placement sont représentatifs de créances souscrites généralement pour moins de cinq ans. Ils sont réalisables, immédiatement, en cas de nécessité. Ils sont productifs d'intérêts et constituent des placements financiers. Il peut s'agir de titres négociables sur un marché assurant la liquidité et la sécurité des transactions ou non.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-fongibles",
@@ -4510,7 +4510,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeurs mobilières interchangeables car susceptibles d'être admises en remplacement d'autres valeurs mobilières.\n\nGénéralement, les titres fongibles sont différents de ceux qui ont été initialement déposés et que le banquier ou l'agent de change remet lors de la restitution aux déposants. Les titres fongibles doivent comporter les mêmes droits, être de même nature et généralement ne portent pas les mêmes numéros.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-immobilises",
@@ -4518,7 +4518,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les titres immobilisés sont des titres autres que des titres de participation que l'entité a l'intention de conserver durablement ou qu'elle n'a pas la possibilité de revendre à bref délai.\n\nLes titres immobilisés sont représentatifs de parts de capital ou de placements à long terme.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-immobilises-de-l-activite-de-portefeuille-t-i-a-p",
@@ -4526,7 +4526,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'activité « de portefeuille » d'une entité consiste à investir tout ou partie de ses actifs dans un portefeuille de titres pour en retirer, à plus ou moins longue échéance, une rentabilité satisfaisante, sans intervention dans la gestion des entités dont les titres sont détenus.\n\nLes T.I.A.P. ne sauraient être confondus avec les « titres de placement » (Trésorerie), ni avec les « Participations » (qui supposent une intervention dans la gestion et qui sont « consolidables »).\n\nLes T.I.A.P. consistent principalement en actions et en parts sociales, mais aussi en obligations transformables en actions (remboursables, convertibles ou échangeables en actions).",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-participatifs",
@@ -4534,7 +4534,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres de nature hybride, entre les actions et les obligations, les titres participatifs sont émis généralement par des sociétés publiques, para-publiques et les sociétés coopératives. Les titres participatifs ne donnent ni le droit de vote, ni le droit aux réserves et au boni de liquidation. Ils sont rémunérés par un droit fixe, plus une partie variable considérée comme la participation des titulaires au bénéfice de l'entité.\n\nLes produits d'émission de titres participatifs sont compris dans les autres fonds propres.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titres-sociaux",
@@ -4542,7 +4542,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Titres émis par une société en contrepartie des apports faits par les associés. Ces titres représentent les droits des associés et sont dénommés actions dans les sociétés par actions et parts sociales dans les autres sociétés.\n\nLes titres sociaux confèrent à leur titulaire :\n\n1) un droit sur les bénéfices réalisés lorsque leur distribution a été décidée ;\n\n2) un droit sur les actifs nets de la société lors de leur répartition, à sa dissolution ou à l'occasion d'une réduction de son capital ;\n\n3) le cas échéant, l'obligation de contribuer aux pertes sociales ;\n\n4) le droit de voter et de participer aux décisions collectives des associés.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "titrisation",
@@ -4550,7 +4550,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La titrisation est l'opération par laquelle une entité cède des créances qu'elle détient sur sa clientèle à une entité ad hoc, qui finance l'acquisition de ces créances en émettant des titres sur le marché des capitaux. Le terme « titrisation » désigne cette transformation de créances en titres. Il s'agit d'une technique de mobilisation de créances.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "transferts-de-charges",
@@ -4558,7 +4558,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Compte servant à corriger l'imputation de charges qui auraient dû, en raison de leur nature, être affectées à un compte de bilan ou à un autre compte de charges.\n\nLes transferts de charges, en actif circulant, concernent les dépenses de l'entité mises à la charge de tiers (remboursement de débours et frais divers).\n\nLes transferts de charges à charges (exemple : avantages en nature du personnel) doivent rester exceptionnels, car ils peuvent fausser les soldes de gestion.\n\nTous ces transferts sont, le plus souvent, effectués en fin d'exercice, après analyses et calculs ad hoc.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "transparence-convention-de",
@@ -4566,7 +4566,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Principe en vertu duquel les informations importantes doivent être présentées et communiquées clairement, sans intention de dissimuler la réalité derrière l'apparence.\n\nCe principe se retrouve sous des appellations diverses telles que clarté, bonne information, régularité et sincérité objective.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "trefonds",
@@ -4574,7 +4574,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Pour un terrain de gisement, le tréfonds est le terrain de surface restant après épuisement des matériaux, qui constitue une immobilisation non amortissable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "uemoa",
@@ -4582,7 +4582,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "(Union Economique et Monétaire Ouest Africaine)\n\nEnsemble économique formé par huit (8) Etats (Bénin, Burkina, Côte d'Ivoire, Guinée-Bissau, Mali, Niger, Sénégal, Togo) dans le but de favoriser leur développement économique et social grâce à l'harmonisation de leur législation, à l'unification de leurs marchés intérieurs et à la mise en œuvre de politiques sectorielles communes.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "unite-d-uvre",
@@ -4590,7 +4590,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Unité de mesure dans un centre d'analyse servant notamment à imputer le coût de ce centre aux autres produits.\n\nL'unité d'œuvre est l'unité de mesure des œuvres d'un centre d'analyse. Elle est généralement exprimée en unité de temps ou en une autre unité physique.\n\nL'unité d'œuvre permet de répartir équitablement le coût d'un centre de travail à d'autres centres de travail.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "usufruit",
@@ -4598,7 +4598,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Droit réel issu du démembrement du droit de propriété et en vertu duquel le titulaire utilise un bien et en perçoit les fruits sans pour autant pouvoir en disposer.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-actuelle",
@@ -4606,7 +4606,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur d'estimation du moment qui s'apprécie en fonction du marché et de l'utilité d'un bien pour l'entité. Cette valeur est déterminée dans le cadre de la continuité de l'exploitation ou d'utilisation, ou le cas échéant, dans l'hypothèse de non-continuité.\n\nÀ la fin de chaque exercice, l'entité doit procéder au recensement et à l'évaluation de ses biens, créances et dettes, à la valeur effective du moment, dite valeur actuelle.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-actuelle-nette",
@@ -4614,7 +4614,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Critère de choix d'investissement couramment utilisé. Il permet d'apprécier l'importance de la trésorerie nette, dégagée par un projet, actualisée à sa date de lancement.\n\nIl consiste à ramener la valeur de l'ensemble des flux de trésorerie, générés par le projet à sa date de lancement, à l'aide d'un taux d'actualisation.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-ajoutee",
@@ -4622,7 +4622,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Création de valeur ou accroissement de valeur que l'entité apporte aux biens et services en provenance des tiers dans l'exercice de ses activités professionnelles courantes. La valeur ajoutée se mesure par la différence entre la production de la période et les consommations de biens et de services nécessaires à cette production.\n\nSolde significatif de gestion, elle mesure la richesse créée par l'entité.\n\nLa valeur ajoutée déterminée dans le Système Comptable OHADA est une grandeur de « gestion », différente du concept macro-économique de valeur ajoutée.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-comptable-des-cessions-d-immobilisations",
@@ -4630,7 +4630,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Différence entre la valeur brute d'une immobilisation cédée et la somme des amortissements pratiqués depuis son entrée dans le patrimoine jusqu'à la date de son retrait de l'actif du bilan.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-de-marche",
@@ -4638,7 +4638,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Prix fixé par le marché, à une date précise, pour un bien ou un élément nettement précisé quant à sa nature et à son objet.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-de-remplacement",
@@ -4646,7 +4646,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Coût de remplacement ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-de-rendement-d-un-titre",
@@ -4654,7 +4654,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'acquisition d'un titre (action, obligation) est assimilée à un investissement dont le rendement s'apprécie en actualisant les flux de revenus générés.\n\nLa valeur de rendement est égale au montant du capital qui, placé à un taux déterminé, produirait un revenu égal au bénéfice de l'entité.\n\nLa valeur de rendement peut servir, à l'occasion d'une fusion, à déterminer le rapport d'échange.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-d-inventaire",
@@ -4662,7 +4662,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur actuelle à la date de clôture de l'exercice. Elle est comparée à la valeur d'entrée au bilan. Si la valeur d'inventaire est supérieure à la valeur d'entrée, cette dernière est maintenue dans les comptes, sauf cas expressément prévus par la législation. Si la valeur d'inventaire est inférieure à la valeur d'entrée, la dépréciation est constatée, de façon distincte, sous forme d'un amortissement ou d'une provision selon que la dépréciation est jugée définitive ou non.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-d-utilite",
@@ -4670,7 +4670,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Prix présumé qu'accepterait de décaisser l'entité pour acquérir un bien dans l'état où il se trouve.\n\nCette valeur s'apprécie en fonction du marché et de l'utilité de l'élément pour l'entité.\n\nDans le cadre d'une réévaluation d'immobilisation, la valeur d'utilité sert de limite dans la détermination des valeurs réévaluées.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-liquidative",
@@ -4678,7 +4678,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur de réalisation, nette de frais des éléments actifs et passifs.\n\nLa valeur liquidative est celle qui est retenue dans l'hypothèse où la continuité de l'exploitation est compromise ou dans l'hypothèse de non-continuité.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-nette-comptable",
@@ -4686,7 +4686,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "La valeur nette comptable correspond à la valeur brute d'un actif diminuée des amortissements cumulés et des dépréciations.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-nominale",
@@ -4694,7 +4694,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur inscrite sur un titre mobilier.\n\nLa valeur nominale d'une action correspond à sa valeur d'émission lors de la constitution d'une société.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-residuelle",
@@ -4702,7 +4702,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Valeur probable de réalisation d'un bien à l'issue de sa durée d'utilisation. Lorsque la valeur résiduelle est significative, elle entre en ligne de compte pour la détermination du montant amortissable.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valeur-venale",
@@ -4710,7 +4710,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Voir « Valeur d'utilité ».",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
     voirAussi: ["valeur-d-utilite"],
   },
   {
@@ -4719,7 +4719,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Effets, chèques et autres valeurs reçus par l'entité dans l'attente de leur présentation à l'encaissement à l'échéance.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "valorisation-des-biens-fongibles",
@@ -4727,7 +4727,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "L'axiomatique comptable impose une égalité systématique, dans tout compte, des sorties et des entrées en valeurs, dès lors que toutes les unités entrées sont sorties.\n\nEn conséquence :\n- les biens individualisés sont « sortis » pour la valeur qu'ils avaient à l'entrée (quel que soit leur prix de vente) ;\n- les biens fongibles présentent une difficulté spécifique ; seules quelques méthodes permettent un correct raccordement des sorties aux entrées.\n\nAssurent ce raccordement logique les méthodes suivantes :\n- **coût moyen pondéré annuel** : chaque sortie est évaluée au coût moyen annuel ;\n- **coût moyen après chaque entrée (C.M.P.A.C.E.)** : chaque sortie est valorisée au coût moyen du stock détenu à la date de cette sortie ; chaque nouvelle entrée modifie donc le calcul (sauf hasard arithmétique) ;\n- **coût moyen de période de stockage** : on calcule la date d'entrée moyenne du stock existant en fin d'exercice, on en déduit le coût unitaire moyen d'entrée à cette date. Le stock final est évalué à ce coût moyen ;\n- **premier entré, premier sorti (P.E.P.S.)** : chaque article est supposé sortir au prix d'entrée des articles « les plus anciens ». Le stock « final » est donc, de ce fait, évalué à des prix récents (méthode dite, en anglais, F.I.F.O.) ;\n- **dernier entré, premier sorti (D.E.P.S.)** : mécanisme inverse du précédent ; chaque sortie est évaluée au prix de l'entrée la plus récente (méthode dite, en anglais, L.I.F.O.).\n\nParmi ces cinq méthodes, le SYSTÈME COMPTABLE OHADA en accepte trois ; celle qui est retenue doit être mentionnée dans les Notes annexes :\n- P.E.P.S. ;\n- C.M.P.A.C.E. ;\n- C.M.P. de période de stockage.\n\nCette dernière méthode est compatible avec la pratique de l'inventaire intermittent, alors que les deux autres reposent sur celle de l'inventaire permanent.\n\nD'autres méthodes retenues en gestion sont inacceptables en comptabilité générale, car elles n'assurent pas le raccordement entre les valeurs des sorties et celles des entrées. Exemple : méthode du prochain entré, premier sorti, ou NIFO (Next In, First Out), ou coût de remplacement, dans laquelle chaque sortie est valorisée au prix des dernières entrées, voire des prochaines.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "vehicule-distinct",
@@ -4735,7 +4735,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Structure financière séparément identifiable, qui peut être notamment une entité juridique distincte ou une entité définie par la loi ; qu'elle soit dotée ou non de la personnalité juridique.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "virements-de-fonds",
@@ -4743,7 +4743,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Opérations internes consistant à transférer des sommes d'un compte de disponibilités (caisse ou banque) à un autre compte de disponibilités (chèques postaux, caisse). Les comptes de virement internes assurent la centralisation des opérations sans risque de double emploi.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "virements-internes",
@@ -4751,7 +4751,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Les comptes de virements internes sont des comptes de passage utilisés pour la comptabilisation pratique d'opérations au terme desquelles ils sont soldés. Ces comptes sont notamment utilisés dans le système centralisateur afin de permettre la centralisation sans risque de double emploi :\n- des virements de fonds d'un compte de trésorerie (caisse ou banque) à un autre compte de trésorerie (banque ou caisse) ;\n- et, plus généralement, de toute opération devant faire l'objet d'un enregistrement dans plusieurs journaux auxiliaires.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "warrant",
@@ -4759,7 +4759,7 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Document délivré en reconnaissance de marchandises déposées dans un magasin général.\n\nLe warrant comprend à la fois un titre de propriété (le récépissé), qui permet de vendre les marchandises sans les déplacer, et un effet de commerce, qui permet d'emprunter en donnant les marchandises en gage. Le warrant est aussi utilisé pour désigner le bon de souscription, d'acquisition ou d'échange de valeurs mobilières.",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
     id: "zone-franc-euro",
@@ -4767,6 +4767,6 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "Regroupe les Etats ayant en commun l'usage du franc CFA relié au franc français puis à l'EURO par une parité fixe. Sous l'égide de l'Organisation pour l'Harmonisation en Afrique du Droit des Affaires (OHADA), ces Etats ont uniformisé leur « Droit des Affaires », lequel inclut le Droit comptable qui se concrétise par le « Système comptable OHADA ».\n\n---",
-    source: "AUDCIF, Titre VI — Définitions des termes",
+    source: "AUDCIF, Titre VI - Définitions des termes",
   },
 ]

@@ -37,7 +37,7 @@ export default function HistoriquePage() {
   const getSessionName = (id: string) => sessions.find(s => s.id === id)?.nom || id
   const getUserName = (id: string) => {
     const u = users.find(u => u.id === id)
-    return u ? `${u.nom} ${u.prenom || ''}`.trim() : '—'
+    return u ? `${u.nom} ${u.prenom || ''}`.trim() : '-'
   }
 
   const totalDebit = filtered.reduce((s, e) => s + e.debit, 0)

@@ -330,7 +330,7 @@ export default function StockExercicePage() {
                       <td className="border border-border px-3 py-1.5 text-right">
                         {e.cuSaisi ? e.cuSaisi.toLocaleString('fr-CD') : <span className="text-muted-foreground italic text-xs">à calculer</span>}
                       </td>
-                      <td className="border border-border px-3 py-1.5 text-center text-muted-foreground">{e.numeroBon || '—'}</td>
+                      <td className="border border-border px-3 py-1.5 text-center text-muted-foreground">{e.numeroBon || '-'}</td>
                     </tr>
                   ))}
                 </tbody>

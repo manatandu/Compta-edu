@@ -1005,7 +1005,7 @@ const QCM_GLOBAL: QCMQuestion[] = [
       { id: 'b', texte: 'Au plus egal au taux interbancaire de meme echeance' },
       { id: 'c', texte: 'Fixe a 0% (prets sans intérêt)' },
       { id: 'd', texte: 'Fixe librement par le Ministre des Finances' },
-      { id: 'e', texte: 'Nul — les prêts sont toujours sans intérêt par principe constitutionnel' },
+      { id: 'e', texte: 'Nul - les prêts sont toujours sans intérêt par principe constitutionnel' },
     ],
     reponseCorrecte: 'b',
     explication: 'L\'Art. 67 LOFIP dispose : « Excepte les avances sur dépenses de personnel, ils sont assortis d\'un taux d\'intérêt qui doit etre au plus egal au taux interbancaire de meme echeance, ou, a defaut, d\'echeance la plus proche, fixe par arrete du ministre ayant les finances dans ses attributions. » Le plafond est donc le taux interbancaire, pas le taux directeur.',
@@ -1158,7 +1158,7 @@ Ce mecanisme de report du solde des comptes speciaux constitue une incitation a 
     ]
   },
   {
-    titre: 'Cas pratique 3 : Mise en jeu de la responsabilite — compte d\'affectation speciale depassé',
+    titre: 'Cas pratique 3 : Mise en jeu de la responsabilite - compte d\'affectation speciale depassé',
     contexte: `Le Directeur du Fonds national de developpement agricole (FNDA), un compte d\'affectation speciale alimente par une fraction de la TVA agricole, a engage des dépenses de 980 milliards FC au titre de l\'exercice 2026 (LF 2026, Loi n° 25/060). Les recettes effectivement constatees a la date d\'engagement ne s\'elèvent qu\'a 810 milliards FC. Il justifie son depassement par les «perspectives favorables» de collecte de la TVA agricole d\'ici fin decembre 2026. Par ailleurs, il a cree, sans aucune autorisation legale, un sous-compte de tresorerie destine a recevoir des versements volontaires d\'entreprises prives pour financer des projets speciaux.
 
 Question de fond : L\'Inspecteur general des finances, saisi par le Ministre des Finances, analyse la legalite de ces operations.`,
@@ -1171,7 +1171,7 @@ Question de fond : L\'Inspecteur general des finances, saisi par le Ministre des
       {
         num: '2',
         enonce: 'La creation d\'un sous-compte de tresorerie destine a recevoir des versements d\'entreprises privees est-elle legale selon les Art. 59-60 LOFIP ?',
-        correction: `NON, cette creation est illegal. Les Art. 59 et 60 LOFIP sont clairs : « La creation ou la suppression d\'un compte special et l\'affectation d\'une recette a un tel compte s\'operent exclusivement par les lois de finances. » Aucune autorité administrative — meme le Ministre des Finances ou le Premier Ministre — ne peut creer un compte special par simple decision. Seule la loi de finances (votée par le Parlement) peut le faire. Par ailleurs, la reception de versements d\'entreprises privées sans base légale constitue une violation du principe d\'universalite (Art. 7 LOFIP) et du principe de légalité des recettes (Art. 9 LOFIP). Ces fonds recus illégalement doivent etre reverses au Tresor et l\'ordonnateur peut etre poursuivi.`
+        correction: `NON, cette creation est illegal. Les Art. 59 et 60 LOFIP sont clairs : « La creation ou la suppression d\'un compte special et l\'affectation d\'une recette a un tel compte s\'operent exclusivement par les lois de finances. » Aucune autorité administrative - meme le Ministre des Finances ou le Premier Ministre - ne peut creer un compte special par simple decision. Seule la loi de finances (votée par le Parlement) peut le faire. Par ailleurs, la reception de versements d\'entreprises privées sans base légale constitue une violation du principe d\'universalite (Art. 7 LOFIP) et du principe de légalité des recettes (Art. 9 LOFIP). Ces fonds recus illégalement doivent etre reverses au Tresor et l\'ordonnateur peut etre poursuivi.`
       },
       {
         num: '3',
@@ -1181,7 +1181,7 @@ Question de fond : L\'Inspecteur general des finances, saisi par le Ministre des
     ]
   },
   {
-    titre: 'Cas pratique 4 : Reddition des comptes et loi de reglements — Art. 28-31 LOFIP',
+    titre: 'Cas pratique 4 : Reddition des comptes et loi de reglements - Art. 28-31 LOFIP',
     contexte: `A la cloture de l\'exercice 2025, le Ministere des Finances prepare le projet de loi de reglements (Art. 28 LOFIP). Les donnees suivantes sont disponibles pour le budget general :
 
 BUDGET GENERAL 2025 (en milliards FC) :
@@ -1195,13 +1195,13 @@ Par ailleurs, deux comptes d\'affectation speciale presentent des soldes positif
       {
         num: '1',
         enonce: 'Etablissez le compte de resultats prevu par l\'Art. 30 LOFIP pour le budget general 2025. Calculez le deficit ou excedent en respectant la nomenclature legale.',
-        correction: `COMPTE DE RESULTATS — Budget general 2025 (Art. 30 LOFIP) :
+        correction: `COMPTE DE RESULTATS - Budget general 2025 (Art. 30 LOFIP) :
 
 Recettes realisees : 39 876,2 milliards FC
 Moins : Dépenses payees : 42 180,5 milliards FC
 = Deficit du budget general : (2 304,3) milliards FC
 
-Nota : Conformement aux Art. 29 et 30 LOFIP, la loi portant reddition des comptes presente ce resultat en comparant les recettes realisees et les dépenses effectivement payees au 31 decembre. L\'Art. 29 al. 4 LOFIP prevoit que la difference entre credits ouverts (50 691,8 milliards FC) et dépenses payees (42 180,5 milliards FC), soit 8 511,3 milliards FC, est annulee par la loi de reglements — ce sont les crédits non consommes. La valeur entre parentheses du solde du Compte general du Tresor confirme la position debitrice (deficit de tresorerie).`
+Nota : Conformement aux Art. 29 et 30 LOFIP, la loi portant reddition des comptes presente ce resultat en comparant les recettes realisees et les dépenses effectivement payees au 31 decembre. L\'Art. 29 al. 4 LOFIP prevoit que la difference entre credits ouverts (50 691,8 milliards FC) et dépenses payees (42 180,5 milliards FC), soit 8 511,3 milliards FC, est annulee par la loi de reglements - ce sont les crédits non consommes. La valeur entre parentheses du solde du Compte general du Tresor confirme la position debitrice (deficit de tresorerie).`
       },
       {
         num: '2',
@@ -1216,7 +1216,7 @@ Nota : Conformement aux Art. 29 et 30 LOFIP, la loi portant reddition des compte
     ]
   },
   {
-    titre: 'Cas pratique 5 : Budget 2026 et retrocession aux provinces — Art. 24 LOFIP et LF 2026',
+    titre: 'Cas pratique 5 : Budget 2026 et retrocession aux provinces - Art. 24 LOFIP et LF 2026',
     contexte: `La Loi de Finances 2026 (Loi n° 25/060 du 29 decembre 2025) fixe le budget total en equilibre a 54.335,8 milliards FC (Art. 6). Les recettes du budget general s\'elevent a 48.969,3 milliards FC (Art. 7). L\'Art. 8 de la LF 2026 fixe la retrocession aux provinces a 7.694,5 milliards FC (40% des recettes a caractere national). La Caisse de perequation est dotee de 744,6 milliards FC (Art. 9 LF 2026).
 
 Le Gouverneur de la Province du Kasai affirme en conference de presse : « Le Pouvoir central ne nous verse que 30% de nos droits constitutionnels. Notre province devrait recevoir beaucoup plus. » Par ailleurs, un conseiller ministeriel suggere de creer, par simple arrete interministeriel, une «Caisse provinciale supplementaire» hors budget, alimentee par 5% des recettes minieres de la province.`,
@@ -1226,7 +1226,7 @@ Le Gouverneur de la Province du Kasai affirme en conference de presse : « Le Po
         enonce: 'Verifiez chiffralement si la retrocession de 7.694,5 milliards FC prevue par l\'Art. 8 LF 2026 respecte la regle constitutionnelle des 40% (Art. 175 Constitution et Art. 24 LOFIP). L\'affirmation du Gouverneur est-elle exacte ?',
         correction: `VERIFICATION CHIFFRALE :
 
-Base de calcul : recettes a caractere national = recettes totales du budget general (48.969,3 milliards FC) moins les recettes non nationales (ressources propres des provinces, dons affectes, etc.). Sans la decomposition exacte, on peut verifier par la proportion : 7.694,5 / 48.969,3 = 15,7% — ce ratio semble bas. Cependant, la retrocession de 40% s\'applique aux seules «recettes a caractere national», pas au total des recettes. Si les recettes a caractere national sont de l\'ordre de 19.236 milliards FC, alors 40% = 7.694,5 milliards FC, ce qui est cohérent. L\'affirmation du Gouverneur (30% au lieu de 40%) n\'est pas etayee par les chiffres de la LF 2026. L\'Art. 8 de la Loi n° 25/060 et l\'Art. 24 al. 3 LOFIP garantissent expressement les 40% constitutionnels. Si le Gouverneur conteste, il peut saisir la Cour constitutionnelle — mais non modifier unilateralement le budget.`
+Base de calcul : recettes a caractere national = recettes totales du budget general (48.969,3 milliards FC) moins les recettes non nationales (ressources propres des provinces, dons affectes, etc.). Sans la decomposition exacte, on peut verifier par la proportion : 7.694,5 / 48.969,3 = 15,7% - ce ratio semble bas. Cependant, la retrocession de 40% s\'applique aux seules «recettes a caractere national», pas au total des recettes. Si les recettes a caractere national sont de l\'ordre de 19.236 milliards FC, alors 40% = 7.694,5 milliards FC, ce qui est cohérent. L\'affirmation du Gouverneur (30% au lieu de 40%) n\'est pas etayee par les chiffres de la LF 2026. L\'Art. 8 de la Loi n° 25/060 et l\'Art. 24 al. 3 LOFIP garantissent expressement les 40% constitutionnels. Si le Gouverneur conteste, il peut saisir la Cour constitutionnelle - mais non modifier unilateralement le budget.`
       },
       {
         num: '2',
@@ -1236,7 +1236,7 @@ Base de calcul : recettes a caractere national = recettes totales du budget gene
       {
         num: '3',
         enonce: 'Comment la LF 2026 (Loi n° 25/060) articule-t-elle la Caisse de perequation (Art. 9) avec la retrocession provinciale (Art. 8) ? Quels sont leurs fondements respectifs dans la LOFIP et la Constitution ?',
-        correction: `La LF 2026 (Loi n° 25/060 du 29 décembre 2025) distingue deux mecanismes complementaires : (1) Retrocession 40% (Art. 8 LF 2026 — 7.694,5 milliards FC) : il s\'agit de la part des recettes a caractere national revenant directement aux provinces selon l\'Art. 175 al. 2 de la Constitution. Son fondement dans la LOFIP est l\'Art. 24 al. 3. C\'est un droit constitutionnel absolu, non soumis a la discretion du Gouvernement central. (2) Caisse de perequation (Art. 9 LF 2026 — 744,6 milliards FC) : c\'est un mecanisme de solidarite nationale visant a corriger les desequilibres de developpement entre provinces riches en ressources et provinces pauvres. Son fondement est l\'Art. 181 de la Constitution. La LOFIP y fait reference mais ne le cree pas — c\'est la Constitution qui l\'institue. Ces deux mecanismes sont distincts : la retrocession est un droit de chaque province sur ses propres recettes generees ; la perequation est une redistribution nationale au profit des provinces les moins dotees.`
+        correction: `La LF 2026 (Loi n° 25/060 du 29 décembre 2025) distingue deux mecanismes complementaires : (1) Retrocession 40% (Art. 8 LF 2026 - 7.694,5 milliards FC) : il s\'agit de la part des recettes a caractere national revenant directement aux provinces selon l\'Art. 175 al. 2 de la Constitution. Son fondement dans la LOFIP est l\'Art. 24 al. 3. C\'est un droit constitutionnel absolu, non soumis a la discretion du Gouvernement central. (2) Caisse de perequation (Art. 9 LF 2026 - 744,6 milliards FC) : c\'est un mecanisme de solidarite nationale visant a corriger les desequilibres de developpement entre provinces riches en ressources et provinces pauvres. Son fondement est l\'Art. 181 de la Constitution. La LOFIP y fait reference mais ne le cree pas - c\'est la Constitution qui l\'institue. Ces deux mecanismes sont distincts : la retrocession est un droit de chaque province sur ses propres recettes generees ; la perequation est une redistribution nationale au profit des provinces les moins dotees.`
       },
     ]
   },
@@ -1261,7 +1261,7 @@ export default function UE5Chapitre3Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 3' },
           ]}
           color="emerald"

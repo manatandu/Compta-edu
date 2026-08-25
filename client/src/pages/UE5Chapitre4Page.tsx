@@ -149,7 +149,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Pourquoi une reforme budgétaire ?</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            Avant l\'adoption de la LOFIP en 2011, le budget de la RDC etait présenté par <strong>lignes de crédit</strong> — ce que l\'on appelle le budget de moyens. Chaque ministère recevait des dotations par nature de dépense (personnel, fonctionnement, investissement) sans avoir a justifier des résultats obtenus en contrepartie. Cette approche presentait deux defauts majeurs :
+            Avant l\'adoption de la LOFIP en 2011, le budget de la RDC etait présenté par <strong>lignes de crédit</strong> - ce que l\'on appelle le budget de moyens. Chaque ministère recevait des dotations par nature de dépense (personnel, fonctionnement, investissement) sans avoir a justifier des résultats obtenus en contrepartie. Cette approche presentait deux defauts majeurs :
           </p>
           <ul className="space-y-1 ml-3 text-xs text-foreground">
             <li className="flex items-start gap-2"><span className="text-red-500 font-bold mt-0.5">x</span><span><strong>Absence de lien entre crédits et résultats :</strong> les ministères recevaient des fonds sans obligation de rendre compte des politiques publiques financees.</span></li>
@@ -438,15 +438,15 @@ const LECONS: Lecon[] = [
           <h3 className="text-sm font-bold text-foreground mb-3">Virements et transferts de crédits (Art. 46-50)</h3>
           <div className="space-y-2">
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-1">Virements (Art. 47) — entre titres d\'un meme programme</p>
+              <p className="text-xs font-bold text-foreground mb-1">Virements (Art. 47) - entre titres d\'un meme programme</p>
               <p className="text-xs text-foreground">Operes entre les titres des dépenses d\'un meme programme, par <strong>arrete du ministre ayant le budget dans ses attributions</strong>, sur proposition du ministre ou responsable d\'institution concerne. Ex : virer des crédits du Titre IV (Biens) vers le Titre V (Prestations) au sein du meme programme.</p>
             </div>
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 48) — entre programmes d\'un meme ministère</p>
+              <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 48) - entre programmes d\'un meme ministère</p>
               <p className="text-xs text-foreground">Operees entre programmes d\'un meme ministère, pour les titres de meme nature. Autorises par <strong>décret du Premier ministre</strong> delibere en Conseil des ministres. Font l\'objet de propositions d\'ouverture en LFR. Ex : transferer des crédits du programme Sante de base vers Hopitaux généraux.</p>
             </div>
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 49) — entre programmes de ministères differents</p>
+              <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 49) - entre programmes de ministères differents</p>
               <p className="text-xs text-foreground">Operees entre programmes de differents ministères. Interviennent par <strong>décret du Premier ministre apres avis prealable du Ministre du Budget</strong>, sur proposition des ministres concernes. Font l\'objet de propositions en LFR. Ex : transferer des crédits du Ministere de la Sante vers le Ministere de l\'Education pour un programme commun.</p>
             </div>
           </div>
@@ -612,7 +612,7 @@ const LECONS: Lecon[] = [
               { id: 'd', texte: 'L\'annexe explicative avec l\'analyse des recettes et le detail des crédits' },
             ],
             reponseCorrecte: 'c',
-            explication: 'L\'Art. 79 LOFIP liste 5 categories de documents annexes au PLF : expose général, rapport d\'evaluation exécution precedente, rapport exécution 1er semestre, projet loi reddition des comptes, et annexe explicative. Le « bilan patrimonial certifie par la Cour des comptes » n\'y figure pas — il n\'existe pas sous cette forme dans la LOFIP.',
+            explication: 'L\'Art. 79 LOFIP liste 5 categories de documents annexes au PLF : expose général, rapport d\'evaluation exécution precedente, rapport exécution 1er semestre, projet loi reddition des comptes, et annexe explicative. Le « bilan patrimonial certifie par la Cour des comptes » n\'y figure pas - il n\'existe pas sous cette forme dans la LOFIP.',
             articleRef: 'Art. 79 LOFIP'
           },
         ]} />
@@ -1073,12 +1073,12 @@ Pour creer le programme "Irrigation agricole", le Gouvernement doit :
     ]
   },
   {
-    titre: 'Cas pratique 3 : Fongibilité asymétrique et gestion par programme — Art. 45-50 LOFIP',
+    titre: 'Cas pratique 3 : Fongibilité asymétrique et gestion par programme - Art. 45-50 LOFIP',
     contexte: `Le gestionnaire du programme «Enseignement primaire» du Ministère de l\'Education nationale (MEN) dispose, pour l\'exercice 2026 (LF 2026, Loi n° 25/060), des crédits suivants :
 
-- Titre I (Personnel) : 18.000 milliards FC — consommé à 85% au 30 septembre
-- Titre II (Fonctionnement) : 3.200 milliards FC — consommé à 97% au 30 septembre
-- Titre IV (Investissement — construction salles de classe) : 5.500 milliards FC — consommé à 12%
+- Titre I (Personnel) : 18.000 milliards FC - consommé à 85% au 30 septembre
+- Titre II (Fonctionnement) : 3.200 milliards FC - consommé à 97% au 30 septembre
+- Titre IV (Investissement - construction salles de classe) : 5.500 milliards FC - consommé à 12%
 
 Face à une urgence de réhabilitation de 150 écoles suite aux inondations de septembre 2026, le gestionnaire envisage les options suivantes :
 - Option A : Prélever 800 milliards FC sur le Titre I (postes vacants non pourvus) pour abonder le Titre II
@@ -1088,11 +1088,11 @@ Face à une urgence de réhabilitation de 150 écoles suite aux inondations de s
       {
         num: '1',
         enonce: 'Analysez la légalité de chaque option (A, B, C) au regard de la fongibilité asymétrique (Art. 45 LOFIP) et du principe de spécialité (Art. 8 LOFIP). Quelle(s) option(s) sont légales ?',
-        correction: `OPTION A — LÉGALE (Art. 45 LOFIP) : La fongibilité asymétrique autorise expresseement le redéploiement des crédits du Titre I (personnel) vers les autres titres lorsque des postes sont vacants. Prélever sur les crédits de personnel non consommés (15% de 18.000 = 2.700 milliards FC disponibles) pour abonder le Titre II est la direction autorisée par la loi. Procédure : arrêté du Ministre du Budget dans les plafonds fixés par la LF 2026.
+        correction: `OPTION A - LÉGALE (Art. 45 LOFIP) : La fongibilité asymétrique autorise expresseement le redéploiement des crédits du Titre I (personnel) vers les autres titres lorsque des postes sont vacants. Prélever sur les crédits de personnel non consommés (15% de 18.000 = 2.700 milliards FC disponibles) pour abonder le Titre II est la direction autorisée par la loi. Procédure : arrêté du Ministre du Budget dans les plafonds fixés par la LF 2026.
 
-OPTION B — ILLÉGALE (Art. 45 LOFIP) : La fongibilité est dite «asymétrique» précisément parce que les mouvements VERS le Titre I sont interdits, mais aussi parce que les mouvements entre titres autres que depuis le Titre I nécessitent une procédure de virement (Art. 46-48) ou de transfert (Art. 49-50). Prélever sur le Titre IV pour le Titre II constitue un virement inter-titres hors Titre I, qui nécessite un arrêté du Ministre du Budget — ce n\'est pas une simple décision du gestionnaire.
+OPTION B - ILLÉGALE (Art. 45 LOFIP) : La fongibilité est dite «asymétrique» précisément parce que les mouvements VERS le Titre I sont interdits, mais aussi parce que les mouvements entre titres autres que depuis le Titre I nécessitent une procédure de virement (Art. 46-48) ou de transfert (Art. 49-50). Prélever sur le Titre IV pour le Titre II constitue un virement inter-titres hors Titre I, qui nécessite un arrêté du Ministre du Budget - ce n\'est pas une simple décision du gestionnaire.
 
-OPTION C — LÉGALE dans les limites du programme : Les crédits d\'investissement restants (Titre IV, 88% non consommés = 4.840 milliards FC) peuvent financer les travaux de réhabilitation urgents si ceux-ci relèvent bien du Titre IV (construction/réhabilitation). La réhabilitation de salles de classe entre dans le Titre IV conformément à Art. 37 LOFIP.`
+OPTION C - LÉGALE dans les limites du programme : Les crédits d\'investissement restants (Titre IV, 88% non consommés = 4.840 milliards FC) peuvent financer les travaux de réhabilitation urgents si ceux-ci relèvent bien du Titre IV (construction/réhabilitation). La réhabilitation de salles de classe entre dans le Titre IV conformément à Art. 37 LOFIP.`
       },
       {
         num: '2',
@@ -1107,12 +1107,12 @@ OPTION C — LÉGALE dans les limites du programme : Les crédits d\'investissem
     ]
   },
   {
-    titre: 'Cas pratique 4 : Mission, programme et objectifs de performance — Art. 43-54 LOFIP',
+    titre: 'Cas pratique 4 : Mission, programme et objectifs de performance - Art. 43-54 LOFIP',
     contexte: `Dans le cadre de la préparation du budget 2026, le Ministère de la Santé publique (MSP) soumet au Ministère du Budget le projet de PAP pour sa mission «Santé publique». La mission comprend trois programmes :
 
-- Programme 1 : «Soins de santé primaires» — crédits demandés : 12.500 milliards FC
-- Programme 2 : «Lutte contre les maladies endémiques» — crédits demandés : 4.200 milliards FC  
-- Programme 3 : «Hôpitaux et infrastructures sanitaires» — crédits demandés : 8.800 milliards FC
+- Programme 1 : «Soins de santé primaires» - crédits demandés : 12.500 milliards FC
+- Programme 2 : «Lutte contre les maladies endémiques» - crédits demandés : 4.200 milliards FC  
+- Programme 3 : «Hôpitaux et infrastructures sanitaires» - crédits demandés : 8.800 milliards FC
 
 Le Directeur du Budget du Ministère du Budget soulève deux problèmes : (1) le Programme 1 n\'a aucun indicateur de performance chiffré ; (2) le Programme 2 inclut une dotation de 500 milliards FC pour «recherche fondamentale» sans lien direct avec les soins.`,
     questions: [
@@ -1124,18 +1124,18 @@ Le Directeur du Budget du Ministère du Budget soulève deux problèmes : (1) le
       {
         num: '2',
         enonce: 'La dotation «recherche fondamentale» du Programme 2 (500 milliards FC) est-elle compatible avec l\'Art. 43 LOFIP qui exige un «ensemble cohérent d\'actions» ? Peut-on la maintenir dans le Programme 2 ou doit-elle être réallouée ?',
-        correction: `La dotation «recherche fondamentale» du Programme 2 pose un problème de cohérence au sens de l\'Art. 43 LOFIP. L\'Art. 43 exige que les crédits d\'un programme constituent «un ensemble cohérent d\'actions» relevant d\'un même ministère et d\'une même finalité d\'intérêt général. Le Programme 2 «Lutte contre les maladies endémiques» a une finalité opérationnelle (traitement et prévention des maladies). La recherche fondamentale — sans lien direct avec les soins — ne constitue pas une action «cohérente» avec cette finalité. SOLUTION : (1) Si la recherche est directement liée à la lutte contre les endémies (ex. : recherche sur le paludisme), elle peut être maintenue dans le Programme 2 avec une justification détaillée dans le PAP. (2) Si c\'est de la recherche fondamentale pure, elle devrait constituer un programme distinct (ex. : Programme 4 «Recherche et innovation sanitaire») ou être réallouée au Ministère de la Recherche scientifique, conformément au principe de cohérence de l\'Art. 43.`
+        correction: `La dotation «recherche fondamentale» du Programme 2 pose un problème de cohérence au sens de l\'Art. 43 LOFIP. L\'Art. 43 exige que les crédits d\'un programme constituent «un ensemble cohérent d\'actions» relevant d\'un même ministère et d\'une même finalité d\'intérêt général. Le Programme 2 «Lutte contre les maladies endémiques» a une finalité opérationnelle (traitement et prévention des maladies). La recherche fondamentale - sans lien direct avec les soins - ne constitue pas une action «cohérente» avec cette finalité. SOLUTION : (1) Si la recherche est directement liée à la lutte contre les endémies (ex. : recherche sur le paludisme), elle peut être maintenue dans le Programme 2 avec une justification détaillée dans le PAP. (2) Si c\'est de la recherche fondamentale pure, elle devrait constituer un programme distinct (ex. : Programme 4 «Recherche et innovation sanitaire») ou être réallouée au Ministère de la Recherche scientifique, conformément au principe de cohérence de l\'Art. 43.`
       },
       {
         num: '3',
         enonce: 'Les crédits du Programme 3 «Hôpitaux et infrastructures» sont-ils soumis au même régime juridique (limitatif/évaluatif) que les crédits du Programme 1 ? Selon quels articles de la LOFIP ? Quel est l\'impact sur la fongibilité asymétrique ?',
-        correction: `Oui, les crédits des trois programmes sont en principe soumis au régime des crédits LIMITATIFS (Art. 38 LOFIP), qui constitue la règle générale. Exception pour les crédits évaluatifs (Art. 39 LOFIP) qui s\'appliquent uniquement aux charges de la dette du Pouvoir central — non applicable ici. La fongibilité asymétrique (Art. 45 LOFIP) s\'applique identiquement aux trois programmes : dans chaque programme, les crédits de personnel (Titre I) peuvent être redéployés vers les autres titres, mais les transferts vers le Titre I sont interdits. La particularité du Programme 3 (infrastructures) est que ses crédits de Titre IV (investissement) ne peuvent être réduits au profit du Titre I — c\'est l\'asymétrie protectrice. En revanche, si le Programme 3 dispose d\'excédents de Titre I (postes vacants), ceux-ci peuvent abonder le Titre IV pour accélérer les constructions d\'hôpitaux, dans les plafonds fixés par la LF 2026 (Loi n° 25/060).`
+        correction: `Oui, les crédits des trois programmes sont en principe soumis au régime des crédits LIMITATIFS (Art. 38 LOFIP), qui constitue la règle générale. Exception pour les crédits évaluatifs (Art. 39 LOFIP) qui s\'appliquent uniquement aux charges de la dette du Pouvoir central - non applicable ici. La fongibilité asymétrique (Art. 45 LOFIP) s\'applique identiquement aux trois programmes : dans chaque programme, les crédits de personnel (Titre I) peuvent être redéployés vers les autres titres, mais les transferts vers le Titre I sont interdits. La particularité du Programme 3 (infrastructures) est que ses crédits de Titre IV (investissement) ne peuvent être réduits au profit du Titre I - c\'est l\'asymétrie protectrice. En revanche, si le Programme 3 dispose d\'excédents de Titre I (postes vacants), ceux-ci peuvent abonder le Titre IV pour accélérer les constructions d\'hôpitaux, dans les plafonds fixés par la LF 2026 (Loi n° 25/060).`
       },
     ]
   },
   {
-    titre: 'Cas pratique 5 : Contrôle parlementaire de la performance — Art. 52-54 LOFIP et LF 2026',
-    contexte: `Lors de la session budgétaire d\'octobre 2026, l\'Assemblée nationale examine le projet de Loi de Finances 2027. Un groupe de députés mandate la Commission des finances pour contrôler l\'exécution du budget 2026 (LF 2026 — Loi n° 25/060 du 29 décembre 2025). Les RAP provisoires transmis par le Ministère du Budget révèlent :
+    titre: 'Cas pratique 5 : Contrôle parlementaire de la performance - Art. 52-54 LOFIP et LF 2026',
+    contexte: `Lors de la session budgétaire d\'octobre 2026, l\'Assemblée nationale examine le projet de Loi de Finances 2027. Un groupe de députés mandate la Commission des finances pour contrôler l\'exécution du budget 2026 (LF 2026 - Loi n° 25/060 du 29 décembre 2025). Les RAP provisoires transmis par le Ministère du Budget révèlent :
 
 - Le taux d\'exécution des crédits d\'investissement (Titre IV) est de 9% à fin septembre 2026, contre un objectif PAP de 60%
 - Le Programme «Infrastructure routière» a redéployé 1.200 milliards FC de Titre IV (investissement) vers le Titre I (personnel) sans aucune autorisation
@@ -1144,7 +1144,7 @@ Le Directeur du Budget du Ministère du Budget soulève deux problèmes : (1) le
       {
         num: '1',
         enonce: 'Le redéploiement de 1.200 milliards FC du Titre IV vers le Titre I est-il légal selon l\'Art. 45 LOFIP ? Quelles sont les sanctions encourues par l\'ordonnateur responsable ?',
-        correction: `Ce redéploiement est ILLÉGAL et constitue une violation flagrante de la fongibilité asymétrique (Art. 45 LOFIP). L\'Art. 45 interdit expresseement tout mouvement de crédits VERS le Titre I (personnel) depuis les autres titres. Le sens autorisé est uniquement Titre I → autres titres. Redéployer 1.200 milliards FC du Titre IV (investissement) vers le Titre I viole : (1) Art. 45 LOFIP (fongibilité asymétrique) ; (2) Art. 8 LOFIP (principe de spécialité — les crédits d\'investissement ne peuvent financer du personnel) ; (3) Art. 10 LOFIP (légalité des dépenses — toute dépense doit être conforme à un texte régulier). Sanctions : la Cour des comptes peut condamner l\'ordonnateur à reverser personnellement les sommes irrégulièrement engagées. L\'ordonnateur peut aussi faire l\'objet de poursuites pénales pour détournement de crédits publics.`
+        correction: `Ce redéploiement est ILLÉGAL et constitue une violation flagrante de la fongibilité asymétrique (Art. 45 LOFIP). L\'Art. 45 interdit expresseement tout mouvement de crédits VERS le Titre I (personnel) depuis les autres titres. Le sens autorisé est uniquement Titre I → autres titres. Redéployer 1.200 milliards FC du Titre IV (investissement) vers le Titre I viole : (1) Art. 45 LOFIP (fongibilité asymétrique) ; (2) Art. 8 LOFIP (principe de spécialité - les crédits d\'investissement ne peuvent financer du personnel) ; (3) Art. 10 LOFIP (légalité des dépenses - toute dépense doit être conforme à un texte régulier). Sanctions : la Cour des comptes peut condamner l\'ordonnateur à reverser personnellement les sommes irrégulièrement engagées. L\'ordonnateur peut aussi faire l\'objet de poursuites pénales pour détournement de crédits publics.`
       },
       {
         num: '2',
@@ -1179,7 +1179,7 @@ export default function UE5Chapitre4Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 4' },
           ]}
           color="emerald"

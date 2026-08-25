@@ -1229,7 +1229,7 @@ export default function UE5Chapitre6Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 6' },
           ]}
           color="emerald"

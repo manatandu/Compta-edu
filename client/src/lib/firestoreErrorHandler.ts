@@ -10,14 +10,14 @@
 // l'utilisateur ni tentative de reconnexion.
 //
 // `toast` (client/src/components/ui/use-toast.ts) est exporté comme une fonction
-// autonome, pas seulement comme hook — utilisable aussi bien depuis les hooks de
+// autonome, pas seulement comme hook - utilisable aussi bien depuis les hooks de
 // useFirestore.ts que depuis les fonctions onXSnapshot() de db-firebase.ts, qui
 // ne sont pas des composants React et ne peuvent pas appeler useToast().
 // ─────────────────────────────────────────────────────────────────────────────
 import { toast } from '@/components/ui/use-toast'
 
 // Évite une rafale de toasts identiques si plusieurs écoutes échouent au même
-// instant (ex. coupure réseau, session expirée) — un seul message suffit à
+// instant (ex. coupure réseau, session expirée) - un seul message suffit à
 // prévenir l'utilisateur ; TOAST_LIMIT=1 dans use-toast.ts les aurait de toute
 // façon écrasés les uns après les autres, mais autant éviter le clignotement.
 const TOAST_THROTTLE_MS = 8000

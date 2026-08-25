@@ -19,7 +19,7 @@ function formatPct(n: number): string { return `${n.toFixed(2)}%` }
 
 // Arrondi de liquidation TVA (Décret n° 011/42, Art. 137) : la décimale est arrondie
 // à l'unité (≥ 0,5 → unité sup., sinon unité inf.), puis la tranche de FC est ramenée
-// à la centaine la plus proche (≥ 50 FC → centaine sup., sinon centaine inf.) — même
+// à la centaine la plus proche (≥ 50 FC → centaine sup., sinon centaine inf.) - même
 // mécanique en deux temps que l'Art. 150 pour l'IRPP et l'IS.
 function arrondiTVA(val: number): number {
   const u = Math.round(val)
@@ -282,11 +282,11 @@ const CATALOGUE_EXONERATIONS_TAXATIONS_SPECIALES = [
   { code: 'EXT-05', label: 'Gains de parieurs dans le cadre des jeux de hasard', article: 'Art. 18-4' },
 ]
 
-// Taux réduit — refonte par l'Art. 46 de la Loi de Finances n° 25/060 du 29/12/2025 (LF 2026),
+// Taux réduit - refonte par l'Art. 46 de la Loi de Finances n° 25/060 du 29/12/2025 (LF 2026),
 // modifiant l'Art. 35 CGI-TVA, en vigueur depuis le 1er janvier 2026.
 // L'ancien taux réduit unique de 8% (LF 21/029 et LF 22/071) est supprimé et remplacé par
 // une structure à deux paliers : 1% (ex-produits à 8% + nouvelles opérations) et 5% (billets
-// d'avion sur trafic aérien national uniquement — seul cas visé par ce taux).
+// d'avion sur trafic aérien national uniquement - seul cas visé par ce taux).
 const CATALOGUE_TAUX_1 = [
   { code: 'T1-01', position: '02.01', label: 'Viandes fraîches ou réfrigérées des animaux de l\'espèce bovine', taux: '1%' },
   { code: 'T1-02', position: '02.02', label: 'Viandes congelées des animaux de l\'espèce bovine', taux: '1%' },
@@ -312,14 +312,14 @@ const CATALOGUE_TAUX_1 = [
   { code: 'T1-22', position: '2501.00.00', label: 'Sel iodé', taux: '1%' },
   { code: 'T1-23', position: '3401.19.10', label: 'Savons de ménage présentés en barres, pains ou morceaux', taux: '1%' },
   { code: 'T1-24', position: '3605.00.00', label: 'Allumettes (autres qu\'articles de pyrotechnie)', taux: '1%' },
-  { code: 'T1-25', position: '—', label: 'Matières premières pour la valorisation de l\'industrie locale : cuivre, étain, plomb, aluminium, zinc, sous forme de produit brut', taux: '1%' },
-  { code: 'T1-26', position: '—', label: 'Acquisition de produits agricoles bruts et intrants pour l\'agro-industrie (engrais, équipements agricoles inclus)', taux: '1%' },
-  { code: 'T1-27', position: '—', label: 'Acquisition d\'intrants pour la fabrication locale du ciment', taux: '1%' },
-  { code: 'T1-28', position: '—', label: 'Acquisition de matériaux et services de construction pour les projets publics d\'infrastructures d\'intérêt national', taux: '1%' },
+  { code: 'T1-25', position: '-', label: 'Matières premières pour la valorisation de l\'industrie locale : cuivre, étain, plomb, aluminium, zinc, sous forme de produit brut', taux: '1%' },
+  { code: 'T1-26', position: '-', label: 'Acquisition de produits agricoles bruts et intrants pour l\'agro-industrie (engrais, équipements agricoles inclus)', taux: '1%' },
+  { code: 'T1-27', position: '-', label: 'Acquisition d\'intrants pour la fabrication locale du ciment', taux: '1%' },
+  { code: 'T1-28', position: '-', label: 'Acquisition de matériaux et services de construction pour les projets publics d\'infrastructures d\'intérêt national', taux: '1%' },
 ]
 
 const CATALOGUE_TAUX_5 = [
-  { code: 'T5-01', position: '—', label: 'Billets d\'avion sur le trafic aérien national', taux: '5%' },
+  { code: 'T5-01', position: '-', label: 'Billets d\'avion sur le trafic aérien national', taux: '5%' },
 ]
 
 const CATALOGUE_TAUX_0 = [
@@ -432,8 +432,8 @@ function OngletChampApplication() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Définition de la TVA : Art. 1er">
-        <p className="text-xs text-foreground">La TVA est un <strong>impôt général sur la consommation</strong> institué conformément aux articles 122 et 174 de la Constitution. C\'est un impôt indirect qui touche tous les biens et services de toutes origines <strong>consommés ou utilisés en RDC</strong>.</p>
-        <p className="text-xs text-muted-foreground mt-1">Base légale : Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à la LF n° 25/060 du 29 décembre 2025 (LF 2026).</p>
+        <p className="text-xs text-foreground">La TVA est un <strong>impôt général sur la consommation</strong> institué conformément aux articles 122 et 174 de la Constitution. C'est un impôt indirect qui touche tous les biens et services de toutes origines <strong>consommés ou utilisés en RDC</strong>.</p>
+        <p className="text-xs text-muted-foreground mt-1">Base légale : Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu'à la LF n° 25/060 du 29 décembre 2025 (LF 2026).</p>
       </DefinitionBox>
 
       <div className="space-y-3">
@@ -470,7 +470,7 @@ function OngletChampApplication() {
       <div className="space-y-3">
         <SectionTitre texte="Territorialité" loi="Art. 21–23" />
         <div className="rounded-xl border border-border/60 bg-card p-3 space-y-2">
-          <p className="text-xs text-foreground">Sont soumises à la TVA <strong>toutes les opérations réalisées en RDC</strong>, même si l\'assujetti est établi à l\'étranger.</p>
+          <p className="text-xs text-foreground">Sont soumises à la TVA <strong>toutes les opérations réalisées en RDC</strong>, même si l'assujetti est établi à l'étranger.</p>
           <div className="grid gap-1.5">
             <DefLigne terme="Livraison de bien=" def="Opération réputée en RDC si le bien se trouve sur le territoire au moment de la vente.=" />
             <DefLigne terme="Travaux immobiliers=" def="Réputés en RDC s'ils sont effectués sur le territoire.=" />
@@ -486,7 +486,7 @@ function OngletChampApplication() {
           <p className="text-xs text-muted-foreground">Sélectionnez une opération pour savoir si elle est imposable, exonérée ou hors champ.</p>
           <select value={typeOp} onChange={e => { setTypeOp(e.target.value); setResultat(null) }}
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
-            <option value="">— Choisir une opération —</option>
+            <option value="">- Choisir une opération -</option>
             <optgroup label="Opérations courantes=">
               {operations.slice(0, 8).map(o => <option key={o.id} value={o.id}>{o.label}</option>)}
             </optgroup>
@@ -533,8 +533,8 @@ function OngletAssujettis() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Qui est assujetti à la TVA ? : Art. 13">
-        <p className="text-xs text-foreground">Sont assujetties à la TVA les <strong>personnes physiques ou morales</strong>, y compris l\'État et les organismes publics, qui effectuent de manière <strong>indépendante</strong>, à titre <strong>habituel ou occasionnel</strong>, des opérations économiques imposables.</p>
-        <p className="text-xs text-muted-foreground mt-1">L\'assujettissement s\'applique quels que soient le statut juridique, la situation fiscale, la forme ou la nature des interventions.</p>
+        <p className="text-xs text-foreground">Sont assujetties à la TVA les <strong>personnes physiques ou morales</strong>, y compris l'État et les organismes publics, qui effectuent de manière <strong>indépendante</strong>, à titre <strong>habituel ou occasionnel</strong>, des opérations économiques imposables.</p>
+        <p className="text-xs text-muted-foreground mt-1">L'assujettissement s'applique quels que soient le statut juridique, la situation fiscale, la forme ou la nature des interventions.</p>
       </DefinitionBox>
 
       <div className="space-y-3">
@@ -542,7 +542,7 @@ function OngletAssujettis() {
         <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-center">
           <p className="text-xs text-rose-600 uppercase font-semibold tracking-wider mb-1">Seuil obligatoire</p>
           <p className="text-2xl font-bold text-rose-700">80 000 000 FC</p>
-          <p className="text-xs text-muted-foreground mt-1">Chiffre d\'affaires annuel</p>
+          <p className="text-xs text-muted-foreground mt-1">Chiffre d'affaires annuel</p>
         </div>
         <div className="grid gap-2">
           <AlertInfo texte="Si le CA atteint le seuil en cours d'année : déclaration d'assujettissement avant le 15 du mois suivant celui au cours duquel le seuil a été dépassé. (Art. 55)" type="info" />
@@ -568,7 +568,7 @@ function OngletAssujettis() {
       <div className="space-y-3">
         <SectionTitre texte="Simulateur : Suis-je assujetti ?" />
         <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
-          <label className="block text-xs font-medium text-foreground">Chiffre d\'affaires annuel (FC)</label>
+          <label className="block text-xs font-medium text-foreground">Chiffre d'affaires annuel (FC)</label>
           <input type="number" value={ca} onChange={e => { setCa(e.target.value); setRes(null) }} placeholder="Ex : 120 000 000"
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
           <div className="flex gap-2"><BtnCalculer onClick={evaluer} /><BtnReset onClick={() => { setCa(''); setRes(null) }} /></div>
@@ -598,7 +598,7 @@ function OngletExonerations() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Principe des exonérations : Art. 15–20">
-        <p className="text-xs text-foreground">Certaines opérations sont exonérées de TVA, ce qui signifie que le vendeur/prestataire <strong>ne collecte pas de TVA</strong>. Attention : l\'exonération peut entraîner la <strong>perte du droit à déduction</strong> de la TVA payée en amont.</p>
+        <p className="text-xs text-foreground">Certaines opérations sont exonérées de TVA, ce qui signifie que le vendeur/prestataire <strong>ne collecte pas de TVA</strong>. Attention : l'exonération peut entraîner la <strong>perte du droit à déduction</strong> de la TVA payée en amont.</p>
         <p className="text-xs text-muted-foreground mt-1"><strong>Règle importante (Art. 20) :</strong> Aucune exonération ne peut être accordée en dehors de celles prévues aux articles 15 à 19. Tout texte particulier prétendant accorder une exonération est sans effet.</p>
       </DefinitionBox>
 
@@ -754,7 +754,7 @@ const OPS_PAR_TAUX: Record<'16' | '1' | '5' | '0', { value: TypeOpTVA; label: st
       value: 'EX-01',
       label: 'Exportation de marchandises hors RDC (taux zéro)',
       ref: 'Art. 35 al. 3 + Art. 7',
-      formule: 'Base = Valeur FOB (Franco à Bord) | TVA = Base × 0% = 0 FC | Aucune TVA facturée sur l\'exportation | DROIT À DÉDUCTION MAINTENU : la TVA payée sur les achats liés à cette exportation reste déductible | Remboursement du crédit TVA possible, sous condition d\'effectivité de l\'export (Art. 39) — voir Art. 63-64 pour le remboursement lui-même',
+      formule: 'Base = Valeur FOB (Franco à Bord) | TVA = Base × 0% = 0 FC | Aucune TVA facturée sur l\'exportation | DROIT À DÉDUCTION MAINTENU : la TVA payée sur les achats liés à cette exportation reste déductible | Remboursement du crédit TVA possible, sous condition d\'effectivité de l\'export (Art. 39) - voir Art. 63-64 pour le remboursement lui-même',
       loi: 'Art. 35 al. 3 CGI RDC : taux 0% applicable aux exportations et opérations assimilées (Art. 7). Art. 27 §2 : base = valeur FOB pour les exportations de marchandises'
     },
   ],
@@ -770,10 +770,10 @@ function getOpTypeTVA(code: TypeOpTVA): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ONGLET : TAUX APPLICABLES — consultation (Art. 27, 35)
+// ONGLET : TAUX APPLICABLES - consultation (Art. 27, 35)
 // ─────────────────────────────────────────────────────────────────────────────
 // ─────────────────────────────────────────────────────────────────────────────
-// ONGLET : TAUX & BASE (Art. 27-35) — consultation + calculateur, un seul taux
+// ONGLET : TAUX & BASE (Art. 27-35) - consultation + calculateur, un seul taux
 // partagé entre les deux sous-vues pour ne jamais avoir à le rechoisir.
 // ─────────────────────────────────────────────────────────────────────────────
 function OngletTauxBase() {
@@ -924,7 +924,7 @@ function OngletTauxBase() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Base d'imposition : Art. 27">
-        <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l\'opération, y compris subventions et tous frais, impôts, droits et taxes, à l\'<strong>exclusion de la TVA elle-même</strong>.</p>
+        <p className="text-xs text-muted-foreground">Toutes les sommes, valeurs, biens ou services reçus <strong>en contrepartie</strong> de l'opération, y compris subventions et tous frais, impôts, droits et taxes, à l'<strong>exclusion de la TVA elle-même</strong>.</p>
       </DefinitionBox>
 
       {/* ── Résumé des 4 taux (LF 2026 : ex-8% remplacé par 1%/5%) ── */}
@@ -932,8 +932,8 @@ function OngletTauxBase() {
         {[
           { taux: '16%', sublabel: 'Normal',  couleur: 'rose',   desc: 'Toutes opérations imposables' },
           { taux: '1%',  sublabel: 'Réduit',  couleur: 'orange', desc: '24 produits 1ère nécessité + matières premières industrielles + agriculture/ciment/construction publique' },
-          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion — trafic aérien national' },
-          { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations — droit à déduction' },
+          { taux: '5%',  sublabel: 'Réduit',  couleur: 'amber',  desc: 'Billets d\'avion - trafic aérien national' },
+          { taux: '0%',  sublabel: 'Export',  couleur: 'blue',   desc: 'Exportations - droit à déduction' },
         ].map(t => (
           <div key={t.taux} className={cn(
             'rounded-lg border p-3 text-center flex flex-col items-center justify-center gap-0.5',
@@ -1015,7 +1015,7 @@ function OngletTauxBase() {
                 className={cls}
               >
                 {OPS_PAR_TAUX[taux].map(op => (
-                  <option key={op.value} value={op.value}>{op.label} — {op.ref}</option>
+                  <option key={op.value} value={op.value}>{op.label} - {op.ref}</option>
                 ))}
               </select>
               {(() => {
@@ -1023,7 +1023,7 @@ function OngletTauxBase() {
                 if (!opSelected) return null
                 return (
                   <div className="mt-2 rounded-lg border border-primary/20 bg-primary/5 p-3 space-y-1.5">
-                    <p className="text-xs font-semibold text-primary/80 uppercase tracking-wide">Formule de calcul — {opSelected.ref}</p>
+                    <p className="text-xs font-semibold text-primary/80 uppercase tracking-wide">Formule de calcul - {opSelected.ref}</p>
                     <div className="space-y-1">
                       {opSelected.formule.split(' | ').map((ligne, i) => (
                         <p key={i} className={cn('text-xs', i === 0 ? 'text-foreground font-medium' : 'text-muted-foreground')}>
@@ -1056,7 +1056,7 @@ function OngletTauxBase() {
               if (opType === 'travaux_immo') return field('Montant marché / mémoire / facture HT (FC)', 'Art. 27 §7', montantMarche, setMontantMarche, 'Ex : 5 000 000')
               if (opType === 'credit_bail') return field('Loyers facturés HT (FC)', 'Art. 27 §11', loyers, setLoyers, 'Ex : 800 000')
               if (opType === 'promoteur') return field('Prix de vente HT immeuble (FC)', 'Art. 27 §4 + Art. 24 §6', prixVenteProm, setPrixVenteProm, 'Ex : 50 000 000')
-              if (opType === 'export_fob') return field('Valeur FOB — Franco à Bord (FC)', 'Art. 27 §2', valeurFOB, setValeurFOB, 'Ex : 10 000 000')
+              if (opType === 'export_fob') return field('Valeur FOB - Franco à Bord (FC)', 'Art. 27 §2', valeurFOB, setValeurFOB, 'Ex : 10 000 000')
               if (opType === 'import') return (
                 <div className="space-y-3">
                   {field('Valeur CIF (Coût + Assurance + Fret)', 'Art. 27 §1', cifVal, setCifVal, 'Valeur CIF')}
@@ -1104,7 +1104,7 @@ function OngletTauxBase() {
                 <div className="grid grid-cols-2 gap-2">
                   <BoxFinal label="TVA collectée" val={formatFC(res.tvaCalc)} />
                   {res.taux !== '0' && <BoxFinal label="Prix TTC" val={formatFC(res.base + res.tvaCalc)} />}
-                  {res.taux === '0' && <BoxFinal label="TVA = 0 FC — Taux zéro" val="Exportation" couleur="orange" />}
+                  {res.taux === '0' && <BoxFinal label="TVA = 0 FC - Taux zéro" val="Exportation" couleur="orange" />}
                 </div>
                 {res.taux === '0' && <AlertInfo texte="Au taux zéro, aucune TVA n'est facturée sur l'exportation. Vous conservez néanmoins votre droit à déduction de la TVA payée sur vos achats liés à cette exportation." type="success" />}
               </ResultatWrap>
@@ -1153,7 +1153,7 @@ function OngletDeductions() {
 
 
       <DefinitionBox titre="Principe de déduction : Art. 36">
-        <p className="text-xs text-foreground">La TVA qui a grevé en amont les éléments du prix d\'une opération imposable est déductible. Les assujettis peuvent déduire de leur TVA collectée, la TVA payée sur leurs <strong>achats, importations et investissements</strong> liés à leur activité imposable.</p>
+        <p className="text-xs text-foreground">La TVA qui a grevé en amont les éléments du prix d'une opération imposable est déductible. Les assujettis peuvent déduire de leur TVA collectée, la TVA payée sur leurs <strong>achats, importations et investissements</strong> liés à leur activité imposable.</p>
       </DefinitionBox>
 
       <div className="space-y-3">
@@ -1347,7 +1347,7 @@ function OngletTVANette() {
 
     // Date limite : 15 du mois suivant
     const moisNums: Record<string, string> = { '01': 'Février', '02': 'Mars', '03': 'Avril', '04': 'Mai', '05': 'Juin', '06': 'Juillet', '07': 'Août', '08': 'Septembre', '09': 'Octobre', '10': 'Novembre', '11': 'Décembre', '12': 'Janvier' }
-    const dateLimit = mois ? `15 ${moisNums[mois]} ${mois === '12' ? parseInt(annee) + 1 : annee}` : '—'
+    const dateLimit = mois ? `15 ${moisNums[mois]} ${mois === '12' ? parseInt(annee) + 1 : annee}` : '-'
     setRes({ tvaCollectee, tvaDeductible, credit, solde, moisLabel, dateLimit, lignesCol, lignesDed })
   }
 
@@ -1361,7 +1361,7 @@ function OngletTVANette() {
     <div className="space-y-4">
       <DefinitionBox titre="Déclaration TVA mensuelle : Art. 60">
         <p className="text-xs text-foreground"><strong>TVA nette due = TVA collectée − TVA déductible − Crédit TVA du mois précédent</strong></p>
-        <p className="text-xs text-muted-foreground mt-1">La déclaration mensuelle doit être souscrite au plus tard le <strong>15 du mois suivant</strong>, accompagnée du paiement. Elle est obligatoire même si aucune opération n\'a été réalisée (mention "Néant").</p>
+        <p className="text-xs text-muted-foreground mt-1">La déclaration mensuelle doit être souscrite au plus tard le <strong>15 du mois suivant</strong>, accompagnée du paiement. Elle est obligatoire même si aucune opération n'a été réalisée (mention "Néant").</p>
       </DefinitionBox>
 
       <div className="rounded-xl border border-border/60 bg-card p-4 space-y-4">
@@ -1370,7 +1370,7 @@ function OngletTVANette() {
             <label className="block text-xs font-medium mb-1">Mois déclaré</label>
             <select value={mois} onChange={e => { setMois(e.target.value); setRes(null) }}
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
-              <option value="">— Sélectionner —</option>
+              <option value="">- Sélectionner -</option>
               {MOIS.map(m => <option key={m.v} value={m.v}>{m.l}</option>)}
             </select>
           </div>
@@ -1509,7 +1509,7 @@ function OngletProrata() {
         <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
           <p className="text-xs font-bold text-blue-700 mb-1">Formule du prorata</p>
           <p className="text-xs font-mono text-foreground">Prorata = Recettes imposables (+ exports) / Total recettes × 100</p>
-          <p className="text-xs text-muted-foreground mt-1">Arrondi à l\'unité supérieure : Art. 43</p>
+          <p className="text-xs text-muted-foreground mt-1">Arrondi à l'unité supérieure : Art. 43</p>
         </div>
 
         <div className="space-y-2">
@@ -1522,7 +1522,7 @@ function OngletProrata() {
             <label className="block text-xs font-medium mb-1">Total recettes de toutes natures (FC) <BadgeLoi loi="Dénominateur" /></label>
             <input type="number" value={totalRecettes} onChange={e => { setTotalRecettes(e.target.value); setRes(null) }} placeholder="Ex : 100 000 000"
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            <p className="text-xs text-muted-foreground mt-0.5">Sont exclus : cessions d\'actifs immobilisés, subventions d\'équipements, indemnités d\'assurance hors TVA, débours (Art. 43)</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Sont exclus : cessions d'actifs immobilisés, subventions d'équipements, indemnités d'assurance hors TVA, débours (Art. 43)</p>
           </div>
           <div>
             <label className="block text-xs font-medium mb-1">TVA en amont (sur tous achats) (FC)</label>
@@ -1568,9 +1568,9 @@ function OngletProrata() {
             <p className="text-xs font-semibold text-foreground mb-1">Au dénominateur (total recettes)</p>
             <p className="text-xs text-muted-foreground">Toutes les recettes (imposables + exonérées), <strong>sauf</strong> :</p>
             <ul className="text-xs text-muted-foreground space-y-0.5 mt-0.5">
-              <li>• Cessions d\'éléments d\'actifs immobilisés</li>
-              <li>• Subventions d\'équipements</li>
-              <li>• Indemnités d\'assurance non liées à une opération TVA</li>
+              <li>• Cessions d'éléments d'actifs immobilisés</li>
+              <li>• Subventions d'équipements</li>
+              <li>• Indemnités d'assurance non liées à une opération TVA</li>
               <li>• Débours (remboursements exacts au client)</li>
               <li>• Livraisons et prestations à soi-même (exclues des deux termes)</li>
             </ul>
@@ -1624,7 +1624,7 @@ function OngletRegularisations() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Régularisations TVA : Art. 50–52">
-        <p className="text-xs text-foreground">Dans certains cas, la TVA précédemment déduite doit être <strong>reversée partiellement ou totalement</strong> au Trésor. Ces régularisations concernent principalement les actifs (sortie ou changement d\'affectation), les ventes à perte et les créances irrécouvrables.</p>
+        <p className="text-xs text-foreground">Dans certains cas, la TVA précédemment déduite doit être <strong>reversée partiellement ou totalement</strong> au Trésor. Ces régularisations concernent principalement les actifs (sortie ou changement d'affectation), les ventes à perte et les créances irrécouvrables.</p>
       </DefinitionBox>
 
       <div className="flex gap-1 rounded-xl border border-border bg-muted/30 p-2">
@@ -1642,7 +1642,7 @@ function OngletRegularisations() {
 
       {typeReg === 'actif' && (
         <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
-          <p className="text-xs text-muted-foreground">Lorsqu\'un bien immobilisé sort des actifs ou change d\'affectation avant la fin de la période de surveillance, une fraction de la TVA déduite doit être reversée.</p>
+          <p className="text-xs text-muted-foreground">Lorsqu'un bien immobilisé sort des actifs ou change d'affectation avant la fin de la période de surveillance, une fraction de la TVA déduite doit être reversée.</p>
           <div className="grid grid-cols-2 gap-2">
             <button onClick={() => setTypeBien('meuble')} className={cn('rounded-xl border p-3 text-center transition-colors', typeBien === 'meuble' ? 'border-primary bg-primary/10 text-primary' : 'border-border bg-card text-muted-foreground')}>
               <p className="text-xs font-semibold">Bien meuble</p>
@@ -1656,7 +1656,7 @@ function OngletRegularisations() {
           <div className="space-y-2">
             <div><label className="block text-xs font-medium mb-1">TVA initialement déduite (FC)</label><input type="number" value={tvaDeduite} onChange={e => { setTvaDeduite(e.target.value); setRes(null) }} placeholder="Montant TVA déduit lors de l'achat" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
             <div className="grid grid-cols-2 gap-2">
-              <div><label className="block text-xs font-medium mb-1">Année d\'acquisition</label><input type="number" value={anneeAcq} onChange={e => { setAnneeAcq(e.target.value); setRes(null) }} placeholder="Ex : 2022" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
+              <div><label className="block text-xs font-medium mb-1">Année d'acquisition</label><input type="number" value={anneeAcq} onChange={e => { setAnneeAcq(e.target.value); setRes(null) }} placeholder="Ex : 2022" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
               <div><label className="block text-xs font-medium mb-1">Année de sortie/régularisation</label><input type="number" value={anneeReg} onChange={e => { setAnneeReg(e.target.value); setRes(null) }} placeholder="Ex : 2024" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
             </div>
           </div>
@@ -1681,9 +1681,9 @@ function OngletRegularisations() {
 
       {typeReg === 'perte' && (
         <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
-          <p className="text-xs text-muted-foreground">En cas de vente à perte, la déduction de la TVA amont est limitée au montant de la TVA due sur la vente. L\'excédent doit être reversé.</p>
+          <p className="text-xs text-muted-foreground">En cas de vente à perte, la déduction de la TVA amont est limitée au montant de la TVA due sur la vente. L'excédent doit être reversé.</p>
           <div className="space-y-2">
-            <div><label className="block text-xs font-medium mb-1">TVA amont (sur l\'achat du bien) (FC)</label><input type="number" value={tvaAmont} onChange={e => { setTvaAmont(e.target.value); setRes(null) }} placeholder="TVA payée lors de l'achat" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
+            <div><label className="block text-xs font-medium mb-1">TVA amont (sur l'achat du bien) (FC)</label><input type="number" value={tvaAmont} onChange={e => { setTvaAmont(e.target.value); setRes(null) }} placeholder="TVA payée lors de l'achat" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
             <div><label className="block text-xs font-medium mb-1">TVA aval (sur la vente, au prix de vente inférieur) (FC)</label><input type="number" value={tvaAval} onChange={e => { setTvaAval(e.target.value); setRes(null) }} placeholder="TVA collectée sur la vente à perte=" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
           </div>
           <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={() => { setTvaAmont(''); setTvaAval(''); setRes(null) }} /></div>
@@ -1704,10 +1704,10 @@ function OngletRegularisations() {
 
       {typeReg === 'impaye' && (
         <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
-          <p className="text-xs text-muted-foreground">En cas d\'annulation, de résiliation ou de créance irrécouvrable, la TVA précédemment acquittée peut être récupérée par imputation sur la TVA due ultérieure.</p>
+          <p className="text-xs text-muted-foreground">En cas d'annulation, de résiliation ou de créance irrécouvrable, la TVA précédemment acquittée peut être récupérée par imputation sur la TVA due ultérieure.</p>
           <AlertInfo texte="Procédure : Pour une annulation ou résiliation, envoyer au client une nouvelle facture rectificative annulant l'ancienne. Pour un impayé définitif : envoyer un duplicata de facture avec la mention du montant impayé HT et TVA correspondante non récupérable. (Art. 52)" type="info" />
           <div className="space-y-2">
-            <div><label className="block text-xs font-medium mb-1">Montant HT de l\'opération annulée/impayée (FC)</label><input type="number" value={montantImpaye} onChange={e => { setMontantImpaye(e.target.value); setRes(null) }} placeholder="Montant HT=" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
+            <div><label className="block text-xs font-medium mb-1">Montant HT de l'opération annulée/impayée (FC)</label><input type="number" value={montantImpaye} onChange={e => { setMontantImpaye(e.target.value); setRes(null) }} placeholder="Montant HT=" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
             <div><label className="block text-xs font-medium mb-1">TVA acquittée sur cette opération (FC)</label><input type="number" value={tvaImpayee} onChange={e => { setTvaImpayee(e.target.value); setRes(null) }} placeholder="TVA déjà versée au Trésor" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
           </div>
           <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={() => { setMontantImpaye(''); setTvaImpayee(''); setRes(null) }} /></div>
@@ -1760,12 +1760,12 @@ function OngletRemboursement() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Remboursement du crédit TVA : Art. 63–67">
-        <p className="text-xs text-foreground">En principe, le crédit TVA <strong>ne peut pas être remboursé</strong> et s\'impute sur la TVA des mois suivants. Par exception, certains assujettis peuvent demander le remboursement sur demande expresse adressée à l\'Administration des Impôts.</p>
+        <p className="text-xs text-foreground">En principe, le crédit TVA <strong>ne peut pas être remboursé</strong> et s'impute sur la TVA des mois suivants. Par exception, certains assujettis peuvent demander le remboursement sur demande expresse adressée à l'Administration des Impôts.</p>
       </DefinitionBox>
 
       <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
         <div>
-          <label className="block text-xs font-medium mb-2">Profil de l\'entreprise</label>
+          <label className="block text-xs font-medium mb-2">Profil de l'entreprise</label>
           <div className="grid grid-cols-2 gap-1.5">
             {[
               { v: 'export', label: 'Exportateur', desc: 'Plafond : TVA taux normal × Exports du mois', loi: 'Art. 64' },
@@ -1793,7 +1793,7 @@ function OngletRemboursement() {
 
         {/* Délais de traitement par catégorie de risque, A.M. n° 018 du 18/03/2016 */}
         <div className="rounded-xl border border-border bg-muted/20 p-3 space-y-2">
-          <p className="text-xs font-semibold text-foreground">Délai de traitement, selon la catégorie de risque de l\'entreprise</p>
+          <p className="text-xs font-semibold text-foreground">Délai de traitement, selon la catégorie de risque de l'entreprise</p>
           <div className="grid grid-cols-3 gap-1.5">
             {[
               { cat: 'A', risque: 'Faible', delai: '30 jours', desc: 'Contrôle formel uniquement', couleur: 'green' },
@@ -1821,12 +1821,12 @@ function OngletRemboursement() {
           <div className="px-3 pb-3 space-y-1.5">
             <p className="text-xs text-muted-foreground">Dans tous les cas : copie de la dernière déclaration mensuelle faisant apparaître le crédit, état récapitulatif des factures fournisseurs (n°, n° impôt, nom du fournisseur, montant HT), copies des factures fournisseurs.</p>
             <ul className="text-xs text-foreground space-y-1 pl-1">
-              <li>• <strong>Exportation :</strong> document bancaire du paiement client, titre de transport, déclarations d\'exportation/réexportation visées par la douane.</li>
+              <li>• <strong>Exportation :</strong> document bancaire du paiement client, titre de transport, déclarations d'exportation/réexportation visées par la douane.</li>
               <li>• <strong>Importation :</strong> déclarations de mise à la consommation, preuves de paiement des droits de douane.</li>
-              <li>• <strong>Perte de la qualité d\'assujetti :</strong> copie de la déclaration modificative (changement d\'activité).</li>
-              <li>• <strong>Cessation d\'activités :</strong> copie de la déclaration de cessation.</li>
+              <li>• <strong>Perte de la qualité d'assujetti :</strong> copie de la déclaration modificative (changement d'activité).</li>
+              <li>• <strong>Cessation d'activités :</strong> copie de la déclaration de cessation.</li>
             </ul>
-            <p className="text-xs text-amber-600">Demande incomplète ou hors ordre chronologique : retournée dans les 7 jours, régularisation possible dans les 3 mois — passé ce délai, rejet.</p>
+            <p className="text-xs text-amber-600">Demande incomplète ou hors ordre chronologique : retournée dans les 7 jours, régularisation possible dans les 3 mois - passé ce délai, rejet.</p>
           </div>
         </details>
 
@@ -1998,12 +1998,12 @@ function OngletDeclarationPenalites() {
       {ongletDP === 'penalites' && (
         <div className="space-y-4">
           <DefinitionBox titre="Infractions et sanctions TVA : Art. 69–76">
-            <p className="text-xs text-foreground">Le CGI 2023 prévoit un arsenal de sanctions en matière de TVA, allant de <strong>500 000 FC</strong> pour les infractions légères à <strong>100 000 000 FC</strong> pour les infractions graves liées aux DEF. Les sanctions pénales s\'appliquent en parallèle des amendes fiscales.</p>
+            <p className="text-xs text-foreground">Le CGI 2023 prévoit un arsenal de sanctions en matière de TVA, allant de <strong>500 000 FC</strong> pour les infractions légères à <strong>100 000 000 FC</strong> pour les infractions graves liées aux DEF. Les sanctions pénales s'appliquent en parallèle des amendes fiscales.</p>
           </DefinitionBox>
 
           <div className="rounded-xl border border-border/60 bg-card p-4 space-y-3">
             <div>
-              <label className="block text-xs font-medium mb-1">Sélectionner l\'infraction</label>
+              <label className="block text-xs font-medium mb-1">Sélectionner l'infraction</label>
               <div className="space-y-1.5 max-h-60 overflow-y-auto">
                 {CATALOGUE_INFRACTIONS.map(inf => (
                   <button key={inf.code} onClick={() => { setInfraction(inf); setRes(null) }}
@@ -2071,55 +2071,55 @@ function OngletDeclarationPenalites() {
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LISTES RÉGLEMENTAIRES — positions tarifaires exonérées (Art. 15-6 et 15-10)
+// LISTES RÉGLEMENTAIRES - positions tarifaires exonérées (Art. 15-6 et 15-10)
 // Extraites intégralement des arrêtés interministériels sources (44 positions
 // agricoles, 376 intrants pharmaceutiques) : seule la position tarifaire exacte
 // exonère, jamais l'appartenance à une catégorie générale.
 // ─────────────────────────────────────────────────────────────────────────────
 const LISTE_EQUIPEMENTS_AGRICOLES: { n: number; code: string; designation: string; sousPositions: string[] }[] = [
-  { n: 1, code: '45.04', designation: 'Liège aggloméré (avec ou sans liant) et ouvrages en liège aggloméré.', sousPositions: ['90.91 — Autres : flotteurs pour la pêche.'] },
-  { n: 2, code: '55.09', designation: 'Fils de fibres synthétiques discontinues (autres que les fils à coudre), non conditionnés pour la vente au détail — contenant au moins 85 % en poids de fibres discontinues de nylon ou d\'autres polyamides.', sousPositions: ['12.00 — Retors ou câblés.'] },
-  { n: 3, code: '56.08', designation: 'Filets à mailles nouées, en nappes ou en pièces, obtenus à partir de ficelles, cordes ou cordages ; filets confectionnés pour la pêche et autres filets confectionnés, en matières textiles.', sousPositions: ['11.00 — En matières textiles synthétiques ou artificielles : filets confectionnés pour la pêche.'] },
-  { n: 4, code: '73.14', designation: 'Toiles métalliques (y compris les toiles continues ou sans fin), grillages et treillis, en fils de fer ou d\'acier ; tôles et bandes déployées, en fer ou en acier.', sousPositions: ['20.00 — Grillages et treillis soudés aux points de rencontre, en fils dont la plus grande dimension de coupe transversale est ≥ 3 mm et dont les mailles ont une surface d\'au moins 100 cm² (autres grillages et treillis soudés aux points de rencontre) : 31.00 Zingués ; 39.00 Autres.', 'Autres toiles métalliques, grillages et treillis : 41.00 Zingués ; 42.00 Recouverts de matières plastiques ; 49.00 Autres.'] },
-  { n: 5, code: '73.26', designation: 'Autres ouvrages en fer ou en acier — ouvrages en fils de fer ou d\'acier.', sousPositions: ['20.20 — Batteries pour élevage.', '90.20 — Autres : matériels et équipements de stabulation pour fermes bovine, porcine et avicole.'] },
+  { n: 1, code: '45.04', designation: 'Liège aggloméré (avec ou sans liant) et ouvrages en liège aggloméré.', sousPositions: ['90.91 - Autres : flotteurs pour la pêche.'] },
+  { n: 2, code: '55.09', designation: 'Fils de fibres synthétiques discontinues (autres que les fils à coudre), non conditionnés pour la vente au détail - contenant au moins 85 % en poids de fibres discontinues de nylon ou d\'autres polyamides.', sousPositions: ['12.00 - Retors ou câblés.'] },
+  { n: 3, code: '56.08', designation: 'Filets à mailles nouées, en nappes ou en pièces, obtenus à partir de ficelles, cordes ou cordages ; filets confectionnés pour la pêche et autres filets confectionnés, en matières textiles.', sousPositions: ['11.00 - En matières textiles synthétiques ou artificielles : filets confectionnés pour la pêche.'] },
+  { n: 4, code: '73.14', designation: 'Toiles métalliques (y compris les toiles continues ou sans fin), grillages et treillis, en fils de fer ou d\'acier ; tôles et bandes déployées, en fer ou en acier.', sousPositions: ['20.00 - Grillages et treillis soudés aux points de rencontre, en fils dont la plus grande dimension de coupe transversale est ≥ 3 mm et dont les mailles ont une surface d\'au moins 100 cm² (autres grillages et treillis soudés aux points de rencontre) : 31.00 Zingués ; 39.00 Autres.', 'Autres toiles métalliques, grillages et treillis : 41.00 Zingués ; 42.00 Recouverts de matières plastiques ; 49.00 Autres.'] },
+  { n: 5, code: '73.26', designation: 'Autres ouvrages en fer ou en acier - ouvrages en fils de fer ou d\'acier.', sousPositions: ['20.20 - Batteries pour élevage.', '90.20 - Autres : matériels et équipements de stabulation pour fermes bovine, porcine et avicole.'] },
   { n: 6, code: '82.01', designation: 'Bêches, pelles, pioches, pics, houes, binettes, fourches, râteaux et racloirs ; haches, serpes et outils similaires à taillants ; sécateurs de tous types ; faux et faucilles, couteaux à foin ou à paille, cisailles à haies, coins et autres outils agricoles, horticoles ou forestiers, à main.', sousPositions: ['10.00 Bêches et pelles ; 30.00 Pioches, pics, houes, binettes, râteaux et racloirs ; 40.00 Haches, serpes et outils similaires à taillants ; 50.00 Sécateurs (y compris cisailles à volaille) maniés à une main ; 60.00 Cisailles à haies, sécateurs et outils similaires maniés à deux mains ; 90.00 Autres outils agricoles, horticoles ou forestiers à main.'] },
-  { n: 7, code: '84.13', designation: 'Pompes pour liquides, même comportant un dispositif mesureur ; élévateurs à liquides.', sousPositions: ['50.10 — Autres pompes volumétriques alternatives, à usages agricoles.', '60.10 — Autres pompes volumétriques rotatives, à usages agricoles.', '70.10 — Autres pompes centrifuges, à usages agricoles.', '81.10 — Pompe à usage agricole.', '82.10 — Élévateur à liquide, à usage agricole.'] },
-  { n: 8, code: '84.24', designation: 'Appareils mécaniques (même à main) à projeter, disperser ou pulvériser des matières liquides ou en poudre ; extincteurs, même chargés ; pistolets aérographes et appareils similaires ; machines et appareils à jet de sable, à jet de vapeur et appareils à jet similaires.', sousPositions: ['81.00 — Pour l\'agriculture ou l\'horticulture.'] },
+  { n: 7, code: '84.13', designation: 'Pompes pour liquides, même comportant un dispositif mesureur ; élévateurs à liquides.', sousPositions: ['50.10 - Autres pompes volumétriques alternatives, à usages agricoles.', '60.10 - Autres pompes volumétriques rotatives, à usages agricoles.', '70.10 - Autres pompes centrifuges, à usages agricoles.', '81.10 - Pompe à usage agricole.', '82.10 - Élévateur à liquide, à usage agricole.'] },
+  { n: 8, code: '84.24', designation: 'Appareils mécaniques (même à main) à projeter, disperser ou pulvériser des matières liquides ou en poudre ; extincteurs, même chargés ; pistolets aérographes et appareils similaires ; machines et appareils à jet de sable, à jet de vapeur et appareils à jet similaires.', sousPositions: ['81.00 - Pour l\'agriculture ou l\'horticulture.'] },
   { n: 9, code: '84.32', designation: 'Machines, appareils et engins agricoles, horticoles ou sylvicoles pour la préparation ou le travail du sol ou pour la culture ; rouleaux pour pelouses ou terrains de sport.', sousPositions: ['10.00 Charrues ; 21.00 Herses à disques (pulvériseurs) ; 29.00 Autres (herses, scarificateurs, cultivateurs, extirpateurs, houes, sarcleuses et bineuses) ; 30.00 Semoirs, plantoirs et repiqueurs ; 40.00 Épandeurs de fumier et distributeurs d\'engrais ; 80.10 Autres machines, appareils et engins utilisés dans l\'agriculture, l\'horticulture ou la sylviculture pour la préparation/le travail du sol ou la culture.'] },
   { n: 10, code: '84.33', designation: 'Machines, appareils et engins pour la récolte ou le battage des produits agricoles, y compris les presses à paille ou à fourrage ; tondeuses à gazon et faucheuses ; machines pour le nettoyage ou le triage des œufs, fruits ou autres produits agricoles (autres que celles du n° 84.37).', sousPositions: ['11.00 Tondeuses à gazon à moteur, dispositif de coupe tournant dans un plan horizontal ; 19.00 Autres tondeuses ; 20.00 Faucheuses, y compris barres de coupe à monter sur tracteur ; 30.00 Autres machines et appareils de fenaison ; 40.00 Presses à paille ou à fourrage, y compris presses ramasseuses ; 51.00 Moissonneuses-batteuses ; 52.00 Autres machines et appareils pour le battage ; 53.00 Machines pour la récolte des racines ou tubercules ; 59.00 Autres machines pour la récolte ; 60.00 Machines pour le nettoyage ou le triage des œufs, fruits ou autres produits agricoles.'] },
   { n: 11, code: '84.34', designation: 'Machines à traire et machines et appareils de laiterie.', sousPositions: ['10.00 Machines à traire ; 20.00 Machines et appareils de laiterie.'] },
   { n: 12, code: '84.35', designation: 'Presses et pressoirs, fouloirs et machines et appareils analogues pour la fabrication du vin, du cidre, des jus de fruits ou de boissons similaires.', sousPositions: ['10.00 Machines et appareils.'] },
   { n: 13, code: '84.36', designation: 'Autres machines et appareils pour l\'agriculture, l\'horticulture, la sylviculture, l\'aviculture ou l\'apiculture, y compris les germoirs à dispositifs mécaniques ou thermiques et les couveuses et éleveuses pour l\'aviculture.', sousPositions: ['10.00 Machines et appareils pour la préparation des aliments ou provendes pour animaux ; 21.00 Couveuses et éleveuses ; 29.00 Autres machines/appareils pour l\'aviculture ; 80.10 Autres machines et appareils pour l\'agriculture, l\'horticulture, la sylviculture et l\'apiculture, y compris germoirs à dispositifs mécaniques ou thermiques.'] },
   { n: 14, code: '84.37', designation: 'Machines pour le nettoyage, le triage ou le criblage des grains ou des légumes secs, machines et appareils pour la minoterie ou le traitement des céréales ou légumes secs, autres que les machines et appareils du type fermier.', sousPositions: ['10.00 Machines pour le nettoyage, le triage ou le criblage des grains ou légumes secs ; 80.00 Autres machines et appareils.'] },
-  { n: 15, code: '85.39', designation: 'Lampes et tubes électriques à incandescence ou à décharge, y compris les articles dits « phares et projecteurs scellés » et les lampes et tubes à rayons ultraviolets ou infrarouges ; lampes à arc.', sousPositions: ['49.00 — Autres (lampes et tubes à rayons ultraviolets et infrarouges pour l\'élevage).'] },
+  { n: 15, code: '85.39', designation: 'Lampes et tubes électriques à incandescence ou à décharge, y compris les articles dits « phares et projecteurs scellés » et les lampes et tubes à rayons ultraviolets ou infrarouges ; lampes à arc.', sousPositions: ['49.00 - Autres (lampes et tubes à rayons ultraviolets et infrarouges pour l\'élevage).'] },
   { n: 16, code: '87.01', designation: 'Tracteurs (à l\'exclusion des chariots-tracteurs du n° 87.09).', sousPositions: ['10.00 Motoculteurs ; 90.00 Autres (tracteurs agricoles).'] },
   { n: 17, code: '87.16', designation: 'Remorques et semi-remorques pour tous véhicules ; autres véhicules non automobiles ; leurs parties.', sousPositions: ['20.00 Remorques et semi-remorques autochargeuses ou autodéchargeuses, pour usages agricoles ; 39.00 Autres remorques agricoles et semi-remorques pour le transport de marchandises.'] },
   { n: 18, code: '89.02', designation: 'Bateaux de pêche, navires-usines et autres bateaux pour le traitement ou la mise en conserve des produits de la pêche.', sousPositions: ['00.01 Pour la navigation maritime ; 00.20 Pour la navigation intérieure.'] },
-  { n: 19, code: '90.18', designation: 'Instruments et appareils pour la médecine, la chirurgie, l\'art dentaire ou l\'art vétérinaire, y compris les appareils de scintigraphie et autres appareils électromédicaux ainsi que les appareils pour tests visuels.', sousPositions: ['90.00 — Autres instruments et appareils (pour l\'art vétérinaire).'] },
+  { n: 19, code: '90.18', designation: 'Instruments et appareils pour la médecine, la chirurgie, l\'art dentaire ou l\'art vétérinaire, y compris les appareils de scintigraphie et autres appareils électromédicaux ainsi que les appareils pour tests visuels.', sousPositions: ['90.00 - Autres instruments et appareils (pour l\'art vétérinaire).'] },
   { n: 20, code: '95.07', designation: 'Cannes à pêche, hameçons et autres articles pour la pêche à la ligne ; épuisettes pour tous usages ; leurres (autres que ceux des n°s 92.08 ou 97.05) et articles de chasse similaires.', sousPositions: ['10.00 Cannes à pêche ; 20.00 Hameçons, même montés sur avançons ; 30.00 Moulinets pour la pêche ; 90.10 Autres, de pêche.'] },
-  { n: 21, code: '96.17', designation: 'Bouteilles isolantes et autres récipients isothermiques montés, dont l\'isolation est assurée par le vide, ainsi que leurs parties (à l\'exclusion des ampoules en verre).', sousPositions: ['00.11 — Récipients isothermiques pour la pêche.'] },
+  { n: 21, code: '96.17', designation: 'Bouteilles isolantes et autres récipients isothermiques montés, dont l\'isolation est assurée par le vide, ainsi que leurs parties (à l\'exclusion des ampoules en verre).', sousPositions: ['00.11 - Récipients isothermiques pour la pêche.'] },
   { n: 22, code: '01.01', designation: 'Chevaux, ânes, mulets et bardots, vivants.', sousPositions: ['31.00 Ânes reproducteurs de race pure ; 91.00 Autres (mulets et bardots) reproducteurs de race pure.'] },
-  { n: 23, code: '01.02', designation: 'Animaux vivants de l\'espèce bovine.', sousPositions: ['21.00 — Bovins domestiques reproducteurs de race pure.'] },
-  { n: 24, code: '01.03', designation: 'Animaux vivants de l\'espèce porcine.', sousPositions: ['10.00 — Reproducteurs de race pure.'] },
+  { n: 23, code: '01.02', designation: 'Animaux vivants de l\'espèce bovine.', sousPositions: ['21.00 - Bovins domestiques reproducteurs de race pure.'] },
+  { n: 24, code: '01.03', designation: 'Animaux vivants de l\'espèce porcine.', sousPositions: ['10.00 - Reproducteurs de race pure.'] },
   { n: 25, code: '01.04', designation: 'Animaux vivants de l\'espèce ovine ou caprine.', sousPositions: ['10.00 De l\'espèce ovine, reproducteurs de race pure ; 20.00 De l\'espèce caprine, reproducteurs de race pure.'] },
-  { n: 26, code: '01.05', designation: 'Coqs, poulets, canards, oies, dindons, dindes et pintades, vivants, des espèces domestiques, d\'un poids n\'excédant pas 185 g.', sousPositions: ['11.10 — Coqs et poules : poussins d\'un jour.'] },
-  { n: 27, code: '04.07', designation: 'Œufs d\'oiseaux, en coquilles, frais, conservés ou cuits — œufs fertilisés destinés à l\'incubation.', sousPositions: ['11.00 De volailles de l\'espèce Gallus domesticus ; 19.00 Autres.'] },
-  { n: 28, code: '07.01', designation: 'Pommes de terre, à l\'état frais ou réfrigéré.', sousPositions: ['10.00 — De semence.'] },
+  { n: 26, code: '01.05', designation: 'Coqs, poulets, canards, oies, dindons, dindes et pintades, vivants, des espèces domestiques, d\'un poids n\'excédant pas 185 g.', sousPositions: ['11.10 - Coqs et poules : poussins d\'un jour.'] },
+  { n: 27, code: '04.07', designation: 'Œufs d\'oiseaux, en coquilles, frais, conservés ou cuits - œufs fertilisés destinés à l\'incubation.', sousPositions: ['11.00 De volailles de l\'espèce Gallus domesticus ; 19.00 Autres.'] },
+  { n: 28, code: '07.01', designation: 'Pommes de terre, à l\'état frais ou réfrigéré.', sousPositions: ['10.00 - De semence.'] },
   { n: 29, code: '07.13', designation: 'Légumes à cosse secs, écossés, même décortiqués ou cassés (uniquement les sous-positions « de semence ») : 10.10 Pois (Pisum sativum) de semence ; 20.10 Pois chiches de semence ; 31.10 Haricots des espèces Vigna mungo (L.) Hepper ou Vigna radiata (L.) Wilczek, de semence ; 32.10 Haricot « Petits rouges » (haricot adzuki, Phaseolus ou Vigna angularis), de semence ; 33.10 Haricots communs (Phaseolus vulgaris), de semence ; 34.10 Pois bambara/pois de terre (Vigna subterranea ou Voandzeia subterranea), de semence ; 35.10 Dolique à œil noir/pois de Brésil/niébé (Vigna unguiculata), de semence ; 39.10 Autres haricots, de semence ; 40.10 Lentilles de semence ; 50.10 Fèves (Vicia faba var. major) et féveroles (Vicia faba var. equina, var. minor), de semence.', sousPositions: [] },
-  { n: 30, code: '10.05', designation: 'Maïs.', sousPositions: ['10.10 — De semence.'] },
-  { n: 31, code: '10.06', designation: 'Riz.', sousPositions: ['10.10 — Riz en paille (riz paddy), de semence.'] },
+  { n: 30, code: '10.05', designation: 'Maïs.', sousPositions: ['10.10 - De semence.'] },
+  { n: 31, code: '10.06', designation: 'Riz.', sousPositions: ['10.10 - Riz en paille (riz paddy), de semence.'] },
   { n: 32, code: '12.09', designation: 'Graines, fruits et spores à ensemencer.', sousPositions: ['10.00 Graines de betteraves à sucre ; 21.00 Graines fourragères de luzerne ; 22.00 De trèfle (Trifolium spp.) ; 23.00 De fétuque ; 24.00 Du pâturin des prés du Kentucky (Poa pratensis L.) ; 25.00 De ray-grass (Lolium multiflorum Lam., Lolium perenne L.) ; 29.00 Autres graines fourragères ; 30.00 Graines de plantes herbacées utilisées principalement pour leurs fleurs ; 91.00 Autres, graines de légumes ; 99.00 Autres.'] },
   { n: 33, code: '23.01', designation: 'Farines, poudres et agglomérées sous forme de pellets, de viandes, d\'abats, de poissons ou de crustacés, de mollusques ou d\'autres invertébrés aquatiques, impropres à l\'alimentation humaine ; cretons.', sousPositions: ['10.00 Farines, poudres et agglomérées sous forme de pellets, de viandes, d\'abats ; cretons.', 'Farines, poudres et agglomérées sous forme de pellets de poissons.'] },
   { n: 34, code: '2304.00.00', designation: 'Tourteaux et autres résidus solides, même broyés ou agglomérés sous forme de pellets, de l\'extraction de l\'huile de soja.', sousPositions: [] },
   { n: 35, code: '23.09', designation: 'Préparations des types utilisés pour l\'alimentation des animaux.', sousPositions: ['90.10 Additifs alimentaires ; 90.90 Autres.'] },
   { n: 36, code: '29.36', designation: 'Provitamines et vitamines, naturelles ou reproduites par synthèse (y compris les concentrés naturels), ainsi que leurs dérivés utilisés principalement en tant que vitamines, mélangés ou non entre eux, même en solutions.', sousPositions: ['21.00 Vitamine A et ses dérivés ; 22.00 Vitamine B1 et ses dérivés ; 23.00 Vitamine B2 et ses dérivés ; 24.00 Acide D- ou DL-pantothénique (vitamine B3/B5) et ses dérivés ; 25.00 Vitamine B6 et ses dérivés ; 26.00 Vitamine B12 et ses dérivés ; 27.00 Vitamine C et ses dérivés ; 28.00 Vitamine E et ses dérivés ; 29.00 Autres vitamines et leurs dérivés ; 90.00 Autres, y compris les concentrats naturels.'] },
-  { n: 37, code: '30.02', designation: 'Sang humain ; sang animal préparé en vue d\'usages thérapeutiques, prophylactiques ou de diagnostic ; antisérums, autres fractions du sang et produits immunologiques, même modifiés ou obtenus par voie biotechnologique ; vaccins, toxines, cultures de micro-organismes (à l\'exclusion des levures) et produits similaires.', sousPositions: ['30.00 — Vaccins pour la médecine vétérinaire.'] },
-  { n: 38, code: '30.03', designation: 'Médicaments (à l\'exclusion des produits des n°s 30.02, 30.05 ou 30.06) constitués de produits mélangés entre eux, préparés à des fins thérapeutiques ou prophylactiques, ni présentés sous forme de doses ni conditionnés pour la vente au détail.', sousPositions: ['90.00 — Autres.'] },
-  { n: 39, code: '30.04', designation: 'Médicaments (à l\'exclusion des produits des n°s 30.02, 30.05 ou 30.06) constitués de produits mélangés ou non, préparés à des fins thérapeutiques ou prophylactiques, présentés sous forme de doses (y compris ceux administrés par voie percutanée) ou conditionnés pour la vente au détail.', sousPositions: ['90.90 — Autres.'] },
-  { n: 40, code: '31.02', designation: 'Engrais minéraux ou chimiques azotés.', sousPositions: ['10.00 — Urée, même en solution aqueuse.'] },
-  { n: 41, code: '31.03', designation: 'Engrais minéraux ou chimiques phosphatés.', sousPositions: ['10.00 — Superphosphates.'] },
-  { n: 42, code: '31.04', designation: 'Engrais minéraux ou chimiques potassiques.', sousPositions: ['30.00 — Sulfate de potassium.'] },
-  { n: 43, code: '31.05', designation: 'Engrais minéraux ou chimiques contenant deux ou trois des éléments fertilisants azote, phosphore et potassium ; autres engrais ; produits du chapitre présentés en tablettes ou formes similaires, ou en emballages d\'un poids brut n\'excédant pas 10 kg.', sousPositions: ['20.00 — Engrais minéraux ou chimiques contenant les trois éléments fertilisants azote, phosphore et potassium.'] },
+  { n: 37, code: '30.02', designation: 'Sang humain ; sang animal préparé en vue d\'usages thérapeutiques, prophylactiques ou de diagnostic ; antisérums, autres fractions du sang et produits immunologiques, même modifiés ou obtenus par voie biotechnologique ; vaccins, toxines, cultures de micro-organismes (à l\'exclusion des levures) et produits similaires.', sousPositions: ['30.00 - Vaccins pour la médecine vétérinaire.'] },
+  { n: 38, code: '30.03', designation: 'Médicaments (à l\'exclusion des produits des n°s 30.02, 30.05 ou 30.06) constitués de produits mélangés entre eux, préparés à des fins thérapeutiques ou prophylactiques, ni présentés sous forme de doses ni conditionnés pour la vente au détail.', sousPositions: ['90.00 - Autres.'] },
+  { n: 39, code: '30.04', designation: 'Médicaments (à l\'exclusion des produits des n°s 30.02, 30.05 ou 30.06) constitués de produits mélangés ou non, préparés à des fins thérapeutiques ou prophylactiques, présentés sous forme de doses (y compris ceux administrés par voie percutanée) ou conditionnés pour la vente au détail.', sousPositions: ['90.90 - Autres.'] },
+  { n: 40, code: '31.02', designation: 'Engrais minéraux ou chimiques azotés.', sousPositions: ['10.00 - Urée, même en solution aqueuse.'] },
+  { n: 41, code: '31.03', designation: 'Engrais minéraux ou chimiques phosphatés.', sousPositions: ['10.00 - Superphosphates.'] },
+  { n: 42, code: '31.04', designation: 'Engrais minéraux ou chimiques potassiques.', sousPositions: ['30.00 - Sulfate de potassium.'] },
+  { n: 43, code: '31.05', designation: 'Engrais minéraux ou chimiques contenant deux ou trois des éléments fertilisants azote, phosphore et potassium ; autres engrais ; produits du chapitre présentés en tablettes ou formes similaires, ou en emballages d\'un poids brut n\'excédant pas 10 kg.', sousPositions: ['20.00 - Engrais minéraux ou chimiques contenant les trois éléments fertilisants azote, phosphore et potassium.'] },
   { n: 44, code: '38.08', designation: 'Insecticides, antirongeurs, fongicides, herbicides, inhibiteurs de germination et régulateurs de croissance pour plantes, désinfectants et produits similaires, présentés dans des formes ou emballages de vente au détail ou à l\'état de préparations, ou sous forme d\'articles (rubans, mèches, bougies soufrées, papier tue-mouches).', sousPositions: ['92.00 Fongicides ; 93.00 Herbicides, inhibiteurs de germination et régulateurs de croissance pour plantes ; Autres (antirongeurs).'] },
 ]
 
@@ -2512,7 +2512,7 @@ const CAS_FAIT_GENERATEUR = [
   { n: 3, texte: 'Franchissement des frontières de la RDC, pour les importations et les exportations.' },
   { n: 4, texte: 'Mise à la consommation, pour les marchandises placées sous régime douanier suspensif.' },
   { n: 5, texte: 'Sortie des marchandises de la zone franche, en vue de leur mise à la consommation en RDC.' },
-  { n: 6, texte: 'Acte de mutation ou de transfert de propriété — à défaut d\'acte, l\'entrée en jouissance — pour les opérations immobilières des promoteurs immobiliers.' },
+  { n: 6, texte: 'Acte de mutation ou de transfert de propriété - à défaut d\'acte, l\'entrée en jouissance - pour les opérations immobilières des promoteurs immobiliers.' },
   { n: 7, texte: 'Acte de mutation, de jouissance ou, à défaut, l\'entrée en jouissance, pour les locations de terrains nus ou de locaux nus par des promoteurs immobiliers.' },
   { n: 8, texte: 'Première utilisation ou première mise en service, pour les biens et services que les redevables se livrent à eux-mêmes.' },
   { n: 9, texte: 'Expiration des périodes de décompte ou d\'encaissement, pour les opérations à décomptes ou paiements successifs (hors vente à tempérament, location, location-vente).' },
@@ -2526,20 +2526,20 @@ const CAS_EXIGIBILITE = [
   { n: 4, texte: 'Échéance de l\'effet, en cas d\'escompte d\'un effet de commerce.' },
   { n: 5, texte: 'Échéance des intérêts ou des loyers, pour le crédit à la consommation ou le crédit-bail des établissements financiers.' },
   { n: 6, texte: 'Livraison des produits ou perception du préfinancement, pour les opérations liées aux cultures pérennes.' },
-  { n: 7, texte: 'Date de mutation ou de transfert de propriété, pour les mutations d\'immeuble — sauf location-vente en habitat social et locations de terrains/locaux nus par les promoteurs immobiliers, où l\'exigibilité intervient à chaque échéance.' },
+  { n: 7, texte: 'Date de mutation ou de transfert de propriété, pour les mutations d\'immeuble - sauf location-vente en habitat social et locations de terrains/locaux nus par les promoteurs immobiliers, où l\'exigibilité intervient à chaque échéance.' },
 ]
 
 function OngletFaitGenerateurExigibilite() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Deux notions distinctes : Art. 24-26">
-        <p className="text-xs text-foreground">Le <strong>fait générateur</strong> est l\'événement qui fait naître la dette de TVA. L\'<strong>exigibilité</strong> est le moment à partir duquel le Trésor peut en réclamer le paiement — les deux coïncident pour les livraisons de biens, mais pas pour les prestations de services (exigibles à l\'encaissement, pas à l\'exécution).</p>
+        <p className="text-xs text-foreground">Le <strong>fait générateur</strong> est l'événement qui fait naître la dette de TVA. L'<strong>exigibilité</strong> est le moment à partir duquel le Trésor peut en réclamer le paiement - les deux coïncident pour les livraisons de biens, mais pas pour les prestations de services (exigibles à l'encaissement, pas à l'exécution).</p>
       </DefinitionBox>
 
       <details className="group rounded-xl border border-border/60 bg-card">
         <summary className="cursor-pointer select-none list-none flex items-center gap-2 px-3 py-2.5">
           <span className="group-open:rotate-90 transition-transform inline-block text-xs text-muted-foreground">▶</span>
-          <p className="text-xs font-bold text-foreground uppercase tracking-wide flex-1">Fait générateur — les {CAS_FAIT_GENERATEUR.length} cas</p>
+          <p className="text-xs font-bold text-foreground uppercase tracking-wide flex-1">Fait générateur - les {CAS_FAIT_GENERATEUR.length} cas</p>
           <BadgeLoi loi="Art. 24" />
         </summary>
         <div className="px-3 pb-3 grid gap-1.5">
@@ -2555,7 +2555,7 @@ function OngletFaitGenerateurExigibilite() {
       <details className="group rounded-xl border border-blue-200 bg-blue-50/20">
         <summary className="cursor-pointer select-none list-none flex items-center gap-2 px-3 py-2.5">
           <span className="group-open:rotate-90 transition-transform inline-block text-xs text-blue-600/70">▶</span>
-          <p className="text-xs font-bold text-foreground uppercase tracking-wide flex-1">Exigibilité — les {CAS_EXIGIBILITE.length} cas</p>
+          <p className="text-xs font-bold text-foreground uppercase tracking-wide flex-1">Exigibilité - les {CAS_EXIGIBILITE.length} cas</p>
           <BadgeLoi loi="Art. 25" />
         </summary>
         <div className="px-3 pb-3 grid gap-1.5">
@@ -2570,7 +2570,7 @@ function OngletFaitGenerateurExigibilite() {
 
       <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 space-y-1.5">
         <p className="text-xs font-bold text-amber-700">Option : le régime des débits (Art. 26)</p>
-        <p className="text-xs text-foreground">Les entrepreneurs de travaux publics/immobiliers et les prestataires de services qui justifient de circonstances particulières peuvent être autorisés, sur décision du DGI (ou son délégué provincial), à acquitter la TVA <strong>d\'après les débits</strong> — l\'exigibilité intervient alors à l\'inscription au débit du compte du client, et non à l\'encaissement. L\'autorisation reste valable tant que le redevable ne demande pas par écrit à en sortir. Elle ne dispense pas d\'acquitter la TVA à l\'encaissement si celui-ci intervient avant le débit.</p>
+        <p className="text-xs text-foreground">Les entrepreneurs de travaux publics/immobiliers et les prestataires de services qui justifient de circonstances particulières peuvent être autorisés, sur décision du DGI (ou son délégué provincial), à acquitter la TVA <strong>d'après les débits</strong> - l'exigibilité intervient alors à l'inscription au débit du compte du client, et non à l'encaissement. L'autorisation reste valable tant que le redevable ne demande pas par écrit à en sortir. Elle ne dispense pas d'acquitter la TVA à l'encaissement si celui-ci intervient avant le débit.</p>
       </div>
     </div>
   )
@@ -2595,7 +2595,7 @@ function OngletListesReglementaires() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Seule la position tarifaire exonère : Art. 15-6 et 15-10">
-        <p className="text-xs text-foreground">Les intrants agricoles (Art. 15-6) et les produits pharmaceutiques (Art. 15-10) sont exonérés <strong>sur la base d\'une liste limitative</strong> fixée par arrêté. L\'appartenance à une catégorie générale (« matériel agricole », « produit pharmaceutique ») ne suffit pas — seule la position tarifaire listée ci-dessous exonère.</p>
+        <p className="text-xs text-foreground">Les intrants agricoles (Art. 15-6) et les produits pharmaceutiques (Art. 15-10) sont exonérés <strong>sur la base d'une liste limitative</strong> fixée par arrêté. L'appartenance à une catégorie générale (« matériel agricole », « produit pharmaceutique ») ne suffit pas - seule la position tarifaire listée ci-dessous exonère.</p>
       </DefinitionBox>
 
       <div className="flex gap-1 rounded-xl border border-border bg-muted/30 p-2">
@@ -2627,7 +2627,7 @@ function OngletListesReglementaires() {
               {it.sousPositions.length > 0 && (
                 <div className="mt-1.5 pl-1 space-y-0.5">
                   {it.sousPositions.map((s, i) => (
-                    <p key={i} className="text-xs text-muted-foreground">— {s}</p>
+                    <p key={i} className="text-xs text-muted-foreground">- {s}</p>
                   ))}
                 </div>
               )}
@@ -2655,7 +2655,7 @@ function OngletListesReglementaires() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ONGLET : RÉGIMES DÉROGATOIRES — suspensions sectorielles
+// ONGLET : RÉGIMES DÉROGATOIRES - suspensions sectorielles
 // ─────────────────────────────────────────────────────────────────────────────
 const REGIMES_DEROGATOIRES = [
   {
@@ -2682,7 +2682,7 @@ const REGIMES_DEROGATOIRES = [
   {
     nom: 'Entreprises pétrolières et minières conventionnelles',
     texte: 'Suspension de la perception de la TVA à l\'importation sur les marchandises importées par les entreprises pétrolières de production et les entreprises minières relevant d\'un régime conventionnel (exonération totale antérieure en matière d\'impôt sur le chiffre d\'affaires).',
-    duree: '« Jusqu\'à nouvel ordre » — sans échéance fixe',
+    duree: '« Jusqu\'à nouvel ordre » - sans échéance fixe',
     statut: 'verifier',
     loi: 'Arrêté Ministériel n° 072 du 30/12/2011',
   },
@@ -2695,7 +2695,7 @@ const REGIMES_DEROGATOIRES = [
   },
   {
     nom: 'Marchés publics à financement extérieur',
-    texte: 'La fiscalité indirecte (dont la TVA) liée à l\'exécution du marché est prise en charge par l\'État via un titre de paiement — le fournisseur/prestataire ne la supporte pas.',
+    texte: 'La fiscalité indirecte (dont la TVA) liée à l\'exécution du marché est prise en charge par l\'État via un titre de paiement - le fournisseur/prestataire ne la supporte pas.',
     duree: 'Durée du marché concerné',
     statut: 'conditionnel',
     loi: 'Arrêté Ministériel n° 076 du 13/01/2012',
@@ -2711,14 +2711,14 @@ const REGIMES_DEROGATOIRES = [
 
 function OngletRegimesDerogatoires() {
   const badgeStatut: Record<string, { texte: string; classe: string }> = {
-    expire:      { texte: '⚠ Échéance dépassée — vérifier une prorogation', classe: 'bg-red-100 text-red-700 border-red-200' },
-    verifier:    { texte: '⚠ Sans échéance fixe — vérifier qu\'aucun texte n\'y a mis fin', classe: 'bg-amber-100 text-amber-700 border-amber-200' },
+    expire:      { texte: '⚠ Échéance dépassée - vérifier une prorogation', classe: 'bg-red-100 text-red-700 border-red-200' },
+    verifier:    { texte: '⚠ Sans échéance fixe - vérifier qu\'aucun texte n\'y a mis fin', classe: 'bg-amber-100 text-amber-700 border-amber-200' },
     conditionnel:{ texte: 'Sous conditions d\'agrément', classe: 'bg-blue-100 text-blue-700 border-blue-200' },
   }
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Des régimes distincts du droit commun">
-        <p className="text-xs text-foreground">Ces suspensions de TVA sont des <strong>régimes dérogatoires</strong>, accordés secteur par secteur, distincts de la liste limitative d\'exonérations de droit commun (Art. 15-19). Vérifier systématiquement l\'éligibilité précise (secteur, produit exact, échéance non expirée) avant d\'affirmer qu\'une suspension s\'applique à une opération donnée.</p>
+        <p className="text-xs text-foreground">Ces suspensions de TVA sont des <strong>régimes dérogatoires</strong>, accordés secteur par secteur, distincts de la liste limitative d'exonérations de droit commun (Art. 15-19). Vérifier systématiquement l'éligibilité précise (secteur, produit exact, échéance non expirée) avant d'affirmer qu'une suspension s'applique à une opération donnée.</p>
       </DefinitionBox>
 
       <div className="grid gap-2">
@@ -2751,7 +2751,7 @@ function OngletFactureDEF() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Dispositifs électroniques fiscaux (DEF) : Décret n° 23/10 du 03/03/2023">
-        <p className="text-xs text-foreground">Un DEF est un appareil ou un logiciel <strong>homologué</strong> par l\'Administration des Impôts, destiné à produire la facture normalisée. Il existe sous forme physique ou dématérialisée.</p>
+        <p className="text-xs text-foreground">Un DEF est un appareil ou un logiciel <strong>homologué</strong> par l'Administration des Impôts, destiné à produire la facture normalisée. Il existe sous forme physique ou dématérialisée.</p>
       </DefinitionBox>
 
       <div className="space-y-3">
@@ -2760,8 +2760,8 @@ function OngletFactureDEF() {
           {[
             { sigle: 'UF', nom: 'Unité de Facturation', desc: 'Appareil physique homologué qui enregistre les données de facturation, gère les articles, imprime les factures et transmet les données au serveur de l\'Administration.' },
             { sigle: 'MCF', nom: 'Module de Contrôle de Facturation', desc: 'Appareil physique homologué, connecté à un Système de Facturation d\'Entreprise (SFE) homologué : collecte, traite et transmet les données de facturation.' },
-            { sigle: 'e-UF', nom: 'Unité de Facturation dématérialisée', desc: 'Application de l\'Administration mise à disposition des entreprises sans système de facturation propre — mêmes fonctions que l\'UF, sans appareil physique.' },
-            { sigle: 'e-MCF', nom: 'Module de Contrôle dématérialisé', desc: 'Application de l\'Administration pour les entreprises disposant déjà d\'un SFE homologué — mêmes fonctions que le MCF, sans appareil physique.' },
+            { sigle: 'e-UF', nom: 'Unité de Facturation dématérialisée', desc: 'Application de l\'Administration mise à disposition des entreprises sans système de facturation propre - mêmes fonctions que l\'UF, sans appareil physique.' },
+            { sigle: 'e-MCF', nom: 'Module de Contrôle dématérialisé', desc: 'Application de l\'Administration pour les entreprises disposant déjà d\'un SFE homologué - mêmes fonctions que le MCF, sans appareil physique.' },
           ].map((d, i) => (
             <div key={i} className="rounded-lg border border-border/60 bg-card p-3 flex items-start gap-3">
               <span className="text-xs font-mono font-bold text-primary bg-primary/10 rounded-lg px-2 py-1 shrink-0">{d.sigle}</span>
@@ -2789,16 +2789,16 @@ function OngletFactureDEF() {
           </div>
           <div className="mt-2 flex items-center gap-1.5">
             <QrCode className="h-3.5 w-3.5 text-rose-600 shrink-0" />
-            <span className="text-xs rounded-lg border border-rose-200 bg-rose-50 px-2 py-1 text-rose-700 font-medium">N° d\'identification du DEF + code d\'authentification et QR code</span>
+            <span className="text-xs rounded-lg border border-rose-200 bg-rose-50 px-2 py-1 text-rose-700 font-medium">N° d'identification du DEF + code d'authentification et QR code</span>
           </div>
-          <p className="text-xs text-muted-foreground mt-1.5">Un document tenant lieu de facture normalisée reprend toutes ces mentions, sauf les deux dernières (n° DEF, code d\'authentification/QR).</p>
+          <p className="text-xs text-muted-foreground mt-1.5">Un document tenant lieu de facture normalisée reprend toutes ces mentions, sauf les deux dernières (n° DEF, code d'authentification/QR).</p>
         </div>
       </div>
 
       <div className="space-y-3">
         <SectionTitre texte="Retenue à la source par le Trésor Public" loi="Circ. n° 002 du 03/07/2023" />
         <div className="rounded-xl border border-blue-200 bg-blue-50/40 p-3 space-y-2">
-          <p className="text-xs text-foreground">Sur les paiements aux fournisseurs et prestataires de l\'État, la TVA facturée est retenue à la source et reversée directement au Trésor, selon trois procédures possibles :</p>
+          <p className="text-xs text-foreground">Sur les paiements aux fournisseurs et prestataires de l'État, la TVA facturée est retenue à la source et reversée directement au Trésor, selon trois procédures possibles :</p>
           <div className="grid gap-1.5">
             {[
               { n: '1', titre: 'Procédure normale', desc: 'Deux ordres de paiement (fournisseur : montant HT ; DGI : TVA retenue), via la chaîne de la dépense publique.' },
@@ -2828,7 +2828,7 @@ function OngletComptabiliteNumeroTVA() {
   return (
     <div className="space-y-4">
       <DefinitionBox titre="Numéro TVA : Art. 54">
-        <p className="text-xs text-foreground">Tout assujetti à la TVA est identifié par un <strong>numéro TVA</strong> dont les modalités d\'attribution sont fixées par Arrêté du Ministre des Finances. Il doit, à cet effet, souscrire une <strong>déclaration d\'assujettissement</strong> auprès de l\'Administration des Impôts <strong>avant le début de ses activités</strong>.</p>
+        <p className="text-xs text-foreground">Tout assujetti à la TVA est identifié par un <strong>numéro TVA</strong> dont les modalités d'attribution sont fixées par Arrêté du Ministre des Finances. Il doit, à cet effet, souscrire une <strong>déclaration d'assujettissement</strong> auprès de l'Administration des Impôts <strong>avant le début de ses activités</strong>.</p>
       </DefinitionBox>
 
       <div className="space-y-3">
@@ -2846,7 +2846,7 @@ function OngletComptabiliteNumeroTVA() {
           ))}
         </div>
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
-          <p className="text-xs text-foreground">La comptabilité doit être <strong>disponible en RDC</strong>, au siège social ou au principal établissement de l\'entreprise — ou, en cas de représentant agréé (redevable établi hors RDC, Art. 23), chez ce dernier. Les pièces justificatives d\'une opération ouvrant droit à déduction doivent être des <strong>documents originaux</strong>.</p>
+          <p className="text-xs text-foreground">La comptabilité doit être <strong>disponible en RDC</strong>, au siège social ou au principal établissement de l'entreprise - ou, en cas de représentant agréé (redevable établi hors RDC, Art. 23), chez ce dernier. Les pièces justificatives d'une opération ouvrant droit à déduction doivent être des <strong>documents originaux</strong>.</p>
         </div>
       </div>
     </div>
@@ -2915,7 +2915,7 @@ export default function SimulateurTVA() {
           <Percent className="h-4 w-4 text-rose-600 shrink-0" />
           <div>
             <p className="text-xs font-bold text-rose-700">Simulateur TVA : CGI 2023</p>
-            <p className="text-xs text-muted-foreground">Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu\'à LF n° 25/060 du 29 décembre 2025 (LF 2026)</p>
+            <p className="text-xs text-muted-foreground">Ordonnance-Loi n° 10/001 du 20 août 2010, modifiée jusqu'à LF n° 25/060 du 29 décembre 2025 (LF 2026)</p>
           </div>
         </div>
       </div>
@@ -2949,7 +2949,7 @@ export default function SimulateurTVA() {
         </button>
       </div>
 
-      {/* Tous les onglets, à plat, dans une seule bande défilable — un simple repère
+      {/* Tous les onglets, à plat, dans une seule bande défilable - un simple repère
           de groupe (texte discret) précède le premier onglet de chaque groupe, sans
           rien cacher derrière un clic : on voit et on atteint tout directement. */}
       <div className="overflow-x-auto">

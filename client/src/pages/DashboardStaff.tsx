@@ -12,10 +12,10 @@ import { DashboardModulesGrid } from '@/components/DashboardModulesGrid'
 import { DashboardFooter } from '@/components/DashboardFooter'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TABLEAU DE BORD — ADMIN / PROFESSEUR / ASSISTANT
+// TABLEAU DE BORD - ADMIN / PROFESSEUR / ASSISTANT
 //
 // Le staff n'a ici ni relevé de notes ni devoirs personnels : le travail de
-// suivi pédagogique lui-même — cours, progression, présences, cotes — vit
+// suivi pédagogique lui-même - cours, progression, présences, cotes - vit
 // dans l'Espace pédagogique (/professeurs), pas ici. Cette page reste donc un
 // simple point d'entrée.
 //
@@ -24,7 +24,7 @@ import { DashboardFooter } from '@/components/DashboardFooter'
 // pas dans l'application.
 //   - Corriger une copie : le seul bouton qui ouvre la fenêtre de correction
 //     vit dans l'onglet « Devoirs » de ProfesseurPage, désactivé en dur
-//     (`{false && ...}`, commentaire « désactivé — devoirs depuis chapitres »).
+//     (`{false && ...}`, commentaire « désactivé - devoirs depuis chapitres »).
 //   - Valider une inscription : `statutInscription` n'est écrit qu'une fois,
 //     à 'en_attente' (LoginPage), et jamais modifié ensuite ; l'activation
 //     d'un compte (`actif`) n'est proposée que dans l'onglet « Prof /

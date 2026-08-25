@@ -375,7 +375,7 @@ const QCM_GLOBAUX: QCMData[] = [
 // ============================================================
 const ETUDES_DE_CAS: EtudeCas[] = [
   {
-    titre: "Cas pratique 1 : Engagement de dépense sans visa du contrôleur budgétaire — violation de l'article 112 LOFIP",
+    titre: "Cas pratique 1 : Engagement de dépense sans visa du contrôleur budgétaire - violation de l'article 112 LOFIP",
     contexte: "Le Directeur de l'administration du Ministère de l'Éducation nationale signe un contrat de marché public de 500 millions FC avec une entreprise de construction sans soumettre le contrat au visa préalable du contrôleur budgétaire. Il justifie cette omission par l'urgence des travaux devant commencer avant la rentrée scolaire. Le contrôleur budgétaire, informé après la signature, refuse de valider rétroactivement l'acte. Le comptable public reçoit les mandats de paiement pour exécuter la dépense.",
     questions: [
       {
@@ -396,7 +396,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: "Cas pratique 2 : Le contrôleur budgétaire révoqué après refus de visa — violation de l'article 113 LOFIP",
+    titre: "Cas pratique 2 : Le contrôleur budgétaire révoqué après refus de visa - violation de l'article 113 LOFIP",
     contexte: "Le contrôleur budgétaire du Ministère des Infrastructures refuse de viser un contrat d'un milliard FC en raison d'une imputation budgétaire erronée et de l'absence de crédits disponibles. Le Ministre des Infrastructures, mécontent de ce refus, adresse au Ministre du Budget une demande de révocation immédiate du contrôleur pour « obstruction au fonctionnement des services. » Deux jours après, le contrôleur est remplacé et son successeur vise l'acte sans réserver.",
     questions: [
       {
@@ -417,7 +417,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: "Cas pratique 3 : Comptable de fait — violation de l'article 130 LOFIP",
+    titre: "Cas pratique 3 : Comptable de fait - violation de l'article 130 LOFIP",
     contexte: "Un chef de service du Ministère de la Santé, sans titre de comptable public, perçoit directement des fonds de bailleurs internationaux destinés à un programme de vaccination. Il gère ces fonds de manière autonome, effectue des paiements aux prestataires et tient une comptabilité informelle. L'IGF, lors d'une mission de contrôle, découvre que 200 millions FC ne peuvent être justifiés par aucune pièce. Le chef de service soutient que sa gestion était « informelle mais efficace ».",
     questions: [
       {
@@ -438,7 +438,7 @@ const ETUDES_DE_CAS: EtudeCas[] = [
     ],
   },
   {
-    titre: "Cas pratique 4 : Refus de communication d'informations au Parlement — violation de l'article 127 LOFIP",
+    titre: "Cas pratique 4 : Refus de communication d'informations au Parlement - violation de l'article 127 LOFIP",
     contexte: "La commission des finances de l'Assemblée nationale demande au Ministre du Budget la communication de tous les rapports d'exécution budgétaire du premier semestre 2026, ainsi que les rapports de performance des ministres émetteurs de programmes. Le Ministre répond que « certains documents sont couverts par le secret de l'administration » et refuse de les transmettre. La commission invite également le Ministre des Finances à une audition qu'il décline.",
     questions: [
       {
@@ -454,12 +454,12 @@ const ETUDES_DE_CAS: EtudeCas[] = [
       {
         num: '3',
         enonce: "Quels mécanismes constitutionnels et légaux l'Assemblée nationale peut-elle activer pour contraindre le Gouvernement à respecter ses obligations de communication budgétaire ?",
-        correction: "L'Assemblée nationale dispose de plusieurs leviers : (1) Question orale avec débat (Art. 138 Constitution) pour contraindre le Gouvernement à s'expliquer publiquement. (2) Motion de censure (Art. 146 Constitution) si le Gouvernement refuse systématiquement le contrôle parlementaire — sanction ultime engageant la responsabilité du Gouvernement. (3) Saisine de la Cour des comptes pour qu'elle assiste le Parlement dans l'obtention des documents (Art. 124 LOFIP). (4) Résolution parlementaire enjoignant au Gouvernement de communiquer les documents sous un délai fixé. Le non-respect de ces procédures peut conduire à une crise institutionnelle relevant de la Cour constitutionnelle.",
+        correction: "L'Assemblée nationale dispose de plusieurs leviers : (1) Question orale avec débat (Art. 138 Constitution) pour contraindre le Gouvernement à s'expliquer publiquement. (2) Motion de censure (Art. 146 Constitution) si le Gouvernement refuse systématiquement le contrôle parlementaire - sanction ultime engageant la responsabilité du Gouvernement. (3) Saisine de la Cour des comptes pour qu'elle assiste le Parlement dans l'obtention des documents (Art. 124 LOFIP). (4) Résolution parlementaire enjoignant au Gouvernement de communiquer les documents sous un délai fixé. Le non-respect de ces procédures peut conduire à une crise institutionnelle relevant de la Cour constitutionnelle.",
       },
     ],
   },
   {
-    titre: 'Cas pratique 5 : Loi de reddition des comptes non déposée — analyse des articles 28-31 LOFIP',
+    titre: 'Cas pratique 5 : Loi de reddition des comptes non déposée - analyse des articles 28-31 LOFIP',
     contexte: "En juin 2026, le Gouvernement n'a pas encore déposé le projet de loi portant reddition des comptes de l'exercice 2024. La Cour des comptes a publié en mai 2026 son rapport sur l'exécution du budget 2024 (LF 2024), faisant état de dépassements de crédits de 450 milliards FC ouverts par Ordonnance-loi présidentielle et de 73 milliards FC de dépenses sans ordonnancement préalable. Le Gouvernement invoque des difficultés de centralisation des comptes de certaines provinces.",
     questions: [
       {
@@ -581,7 +581,7 @@ export default function UE5Chapitre9Page() {
 
   const lecons = [
     {
-      titre: "Leçon 1 — Vue d'ensemble des types de contrôle",
+      titre: "Leçon 1 - Vue d'ensemble des types de contrôle",
       source: 'LOFIP Art. 111, 127 · Constitution Art. 178-180',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -651,7 +651,7 @@ export default function UE5Chapitre9Page() {
       ),
     },
     {
-      titre: 'Leçon 2 — Le contrôleur budgétaire (Art. 112-115 LOFIP)',
+      titre: 'Leçon 2 - Le contrôleur budgétaire (Art. 112-115 LOFIP)',
       source: 'LOFIP Art. 112, 113, 114, 115',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -688,7 +688,7 @@ export default function UE5Chapitre9Page() {
       ),
     },
     {
-      titre: "Leçon 3 — L'Inspection Générale des Finances (Art. 121-122 LOFIP)",
+      titre: "Leçon 3 - L'Inspection Générale des Finances (Art. 121-122 LOFIP)",
       source: 'LOFIP Art. 116-122',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -696,11 +696,11 @@ export default function UE5Chapitre9Page() {
             <h4 className="font-bold text-foreground mb-2">Contrôles de l'ordonnateur et du comptable (Art. 116-120 LOFIP)</h4>
             <div className="space-y-2">
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs text-foreground mb-1">Art. 116 — Contrôle de l'ordonnateur</p>
+                <p className="font-semibold text-xs text-foreground mb-1">Art. 116 - Contrôle de l'ordonnateur</p>
                 <p className="text-xs text-muted-foreground">Porte sur : la régularité des opérations, l'exhaustivité de leur enregistrement, l'efficacité de la dépense en conformité avec le budget, le suivi et la maîtrise des coûts.</p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs text-foreground mb-1">Art. 117-120 — Contrôle du comptable public</p>
+                <p className="font-semibold text-xs text-foreground mb-1">Art. 117-120 - Contrôle du comptable public</p>
                 <p className="text-xs text-muted-foreground">
                   Porte sur trois domaines exclusifs :<br />
                   • Recettes (Art. 118) : autorisation de perception, exactitude liquidation, régularité des annulations<br />
@@ -730,7 +730,7 @@ export default function UE5Chapitre9Page() {
       ),
     },
     {
-      titre: 'Leçon 4 — La Cour des comptes (Art. 123-126 LOFIP + Art. 180 Constitution)',
+      titre: 'Leçon 4 - La Cour des comptes (Art. 123-126 LOFIP + Art. 180 Constitution)',
       source: 'Constitution Art. 178-180 · LOFIP Art. 123-126, 131',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -751,11 +751,11 @@ export default function UE5Chapitre9Page() {
             <h4 className="font-bold text-foreground mb-2">Contrôle juridictionnel et décisions (Art. 125-126 LOFIP)</h4>
             <div className="space-y-2">
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs mb-1">Art. 125 — Contrôle sur les ordonnateurs</p>
+                <p className="font-semibold text-xs mb-1">Art. 125 - Contrôle sur les ordonnateurs</p>
                 <p className="text-xs text-muted-foreground">Porte sur « la régularité de leurs actes, règlements ou décisions. »</p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs mb-1">Art. 126 — Contrôle sur les comptables publics</p>
+                <p className="font-semibold text-xs mb-1">Art. 126 - Contrôle sur les comptables publics</p>
                 <p className="text-xs text-muted-foreground">La Cour « juge les comptes des comptables publics pour aboutir soit à des arrêts de quitus, soit à des arrêts de débet. » Les comptables adressent leurs comptes à la Cour dans le délai de l'article 82 LOFIP.</p>
               </div>
             </div>
@@ -774,7 +774,7 @@ export default function UE5Chapitre9Page() {
       ),
     },
     {
-      titre: 'Leçon 5 — Le contrôle parlementaire et la loi de reddition des comptes (Art. 127-130, 28-31 LOFIP)',
+      titre: 'Leçon 5 - Le contrôle parlementaire et la loi de reddition des comptes (Art. 127-130, 28-31 LOFIP)',
       source: 'LOFIP Art. 28-31, 127-130 · Constitution Art. 178',
       contenu: (
         <div className="space-y-4 text-sm text-foreground leading-relaxed">
@@ -788,15 +788,15 @@ export default function UE5Chapitre9Page() {
             <h4 className="font-bold text-foreground mb-2">La loi de reddition des comptes (Art. 28-30 LOFIP)</h4>
             <div className="space-y-2">
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs mb-1">Art. 28 — Objet</p>
+                <p className="font-semibold text-xs mb-1">Art. 28 - Objet</p>
                 <p className="text-xs text-muted-foreground">Constate les résultats définitifs de l'exécution de la LF et approuve les écarts résultats/prévisions.</p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs mb-1">Art. 29 — Contenu</p>
+                <p className="font-semibold text-xs mb-1">Art. 29 - Contenu</p>
                 <p className="text-xs text-muted-foreground">Arrête le compte général du Pouvoir central, règle définitivement le budget, ratifie les crédits ouverts par Ordonnance-loi présidentielle, approuve les dépassements de force majeure, annule les crédits non utilisés au 31 décembre.</p>
               </div>
               <div className="rounded-lg border border-border p-3">
-                <p className="font-semibold text-xs mb-1">Art. 30 — Compte de résultats</p>
+                <p className="font-semibold text-xs mb-1">Art. 30 - Compte de résultats</p>
                 <p className="text-xs text-muted-foreground">Comprend : déficit/excédent budget général et budgets annexes, profits/pertes comptes spéciaux, profits/pertes opérations de trésorerie.</p>
               </div>
             </div>
@@ -835,7 +835,7 @@ export default function UE5Chapitre9Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 9' },
           ]}
           color="emerald"
@@ -918,7 +918,7 @@ export default function UE5Chapitre9Page() {
       {activeTab === 'cas' && isAdmin && (
         <div className="space-y-4">
           <div className="rounded-xl border border-orange-200 bg-orange-50 p-3">
-            <p className="text-xs text-orange-800 font-semibold">5 cas pratiques — Contrôle des finances publiques (LOFIP Art. 111-132 + Constitution Art. 178-180)</p>
+            <p className="text-xs text-orange-800 font-semibold">5 cas pratiques - Contrôle des finances publiques (LOFIP Art. 111-132 + Constitution Art. 178-180)</p>
             <p className="text-xs text-orange-700 mt-1">Tous les cas exigent une analyse juridique rigoureuse fondée sur les textes légaux.</p>
           </div>
           {ETUDES_DE_CAS.map((ec, i) => <CasPratiqueBlock key={i} ec={ec} index={i} />)}
@@ -929,7 +929,7 @@ export default function UE5Chapitre9Page() {
       {activeTab === 'devoir' && (
         <DevoirChapitreCreateur
           chapitreId="ue5-ch9"
-          chapitreNom="Chapitre 9 — Contrôle des finances publiques"
+          chapitreNom="Chapitre 9 - Contrôle des finances publiques"
           questions={qcmQuestions}
           coursId="ue5-finances-publiques"
           casPratiquesExistants={casPratiquesDevoir}

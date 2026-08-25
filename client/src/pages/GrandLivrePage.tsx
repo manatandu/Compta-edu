@@ -224,7 +224,7 @@ export default function GrandLivrePage() {
                           ))}
                           {/* Solde line */}
                           <tr className={`font-medium border-t border-border ${isDebiteur ? 'text-green-700' : 'text-red-700'}`}>
-                            <td className="py-1.5 px-2 font-mono italic text-muted-foreground">—</td>
+                            <td className="py-1.5 px-2 font-mono italic text-muted-foreground">-</td>
                             <td className="py-1.5 px-2 italic">
                               {isDebiteur ? 'Solde débiteur' : 'Solde créditeur'}
                             </td>

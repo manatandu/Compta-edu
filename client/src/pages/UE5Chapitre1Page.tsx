@@ -85,7 +85,7 @@ const LECONS: Lecon[] = [
             </thead>
             <tbody>
               {[
-                ['Objet', 'Intérêt général — service public', 'Intérêt particulier — profit'],
+                ['Objet', 'Intérêt général - service public', 'Intérêt particulier - profit'],
                 ['Contrainte juridique', 'Principe de légalité obligatoire (LOFIP)', 'Liberté contractuelle'],
                 ['Ressources', 'Impôts, taxes, contributions (contrainte)', 'Ventes, emprunts volontaires, bénéfices'],
                 ['Finalité', 'Satisfaction des besoins collectifs', 'Maximisation du profit'],
@@ -132,7 +132,7 @@ const LECONS: Lecon[] = [
           { id: 'e', texte: 'Il n\'y a aucune différence, les deux gèrent de l\'argent de la même façon' },
         ],
         reponseCorrecte: 'b',
-        explication: 'Les finances publiques se distinguent par leur finalité (intérêt général), leur régime juridique (légalité obligatoire — LOFIP) et leurs ressources (impôts contraints). Les finances privées visent le profit et obéissent à la liberté contractuelle.',
+        explication: 'Les finances publiques se distinguent par leur finalité (intérêt général), leur régime juridique (légalité obligatoire - LOFIP) et leurs ressources (impôts contraints). Les finances privées visent le profit et obéissent à la liberté contractuelle.',
         articleRef: 'Art. 1 et 3 LOFIP · Art. 122 Constitution',
       },
     ],
@@ -278,7 +278,7 @@ const LECONS: Lecon[] = [
           Les finances publiques en RDC reposent sur un <strong>fondement constitutionnel solide</strong>. La Constitution du 18 février 2006 consacre plusieurs articles essentiels qui organisent et encadrent les finances de l'État, en répartissant les compétences entre le niveau national et les niveaux décentralisés.
         </p>
 
-        <h3 className="font-bold text-foreground">Art. 122 pt. 3 et 10 — Compétence législative du Parlement</h3>
+        <h3 className="font-bold text-foreground">Art. 122 pt. 3 et 10 - Compétence législative du Parlement</h3>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 122 Constitution RDC (2006)</p>
           <p className="italic text-foreground/80 text-xs">
@@ -287,10 +287,10 @@ const LECONS: Lecon[] = [
           </p>
         </div>
         <p>
-          L'article 122 point 3 réserve au <strong>Parlement national</strong> la compétence exclusive pour fixer les règles des finances publiques. C'est sur ce fondement que la LOFIP (Loi n° 11/011) a été adoptée comme loi organique. L'article 122 point 10 précise que les règles d'assiette, de taux et de recouvrement des impositions relèvent également du domaine de la loi nationale — excluant toute création d'impôt par les provinces ou les ETD.
+          L'article 122 point 3 réserve au <strong>Parlement national</strong> la compétence exclusive pour fixer les règles des finances publiques. C'est sur ce fondement que la LOFIP (Loi n° 11/011) a été adoptée comme loi organique. L'article 122 point 10 précise que les règles d'assiette, de taux et de recouvrement des impositions relèvent également du domaine de la loi nationale - excluant toute création d'impôt par les provinces ou les ETD.
         </p>
 
-        <h3 className="font-bold text-foreground">Art. 174 — Définition constitutionnelle des finances publiques</h3>
+        <h3 className="font-bold text-foreground">Art. 174 - Définition constitutionnelle des finances publiques</h3>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 174 Constitution RDC (2006)</p>
           <p className="italic text-foreground/80 text-xs">
@@ -303,7 +303,7 @@ const LECONS: Lecon[] = [
           {' '}et des ETD. Cette disposition fonde directement les articles 2 et 3 de la LOFIP.
         </p>
 
-        <h3 className="font-bold text-foreground">Art. 175 — La règle des 40% : clé constitutionnelle de la décentralisation financière</h3>
+        <h3 className="font-bold text-foreground">Art. 175 - La règle des 40% : clé constitutionnelle de la décentralisation financière</h3>
         <div className="rounded-xl border border-border bg-muted/30 p-4">
           <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Art. 175 Constitution RDC (2006)</p>
           <p className="italic text-foreground/80 text-xs">
@@ -331,7 +331,7 @@ const LECONS: Lecon[] = [
           Cette règle est <strong>d'application directe</strong> : la retenue se fait sur le lieu de perception, sans passage par le Trésor central. Elle est destinée à garantir l'autonomie financière des provinces et à corriger les déséquilibres historiques de développement.
         </p>
 
-        <h3 className="font-bold text-foreground">Art. 176 — Autonomie de gestion des provinces</h3>
+        <h3 className="font-bold text-foreground">Art. 176 - Autonomie de gestion des provinces</h3>
         <p>
           L'article 176 de la Constitution garantit que <strong>chaque province dispose de la libre administration de ses ressources</strong>. Les recettes propres des provinces et leur quote-part des recettes nationales sont gérées de façon autonome, sous le contrôle de l'Assemblée provinciale et, pour les finances, sous le contrôle de la Cour des comptes.
         </p>
@@ -503,7 +503,7 @@ const LECONS: Lecon[] = [
         </div>
 
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-3">
-          <p className="text-xs font-semibold text-emerald-700 mb-1">Point clé — Séparation ordonnateur / comptable</p>
+          <p className="text-xs font-semibold text-emerald-700 mb-1">Point clé - Séparation ordonnateur / comptable</p>
           <p className="text-xs text-emerald-800">La LOFIP consacre le principe fondamental de séparation entre l'<strong>ordonnateur</strong> (qui décide de la dépense : les ministres sectoriels et le Ministre du Budget) et le <strong>comptable public</strong> (qui exécute le paiement : nommé par le Ministre des Finances). Cette séparation est un gage de contrôle et d'intégrité dans la gestion des fonds publics.</p>
         </div>
         <p className="text-xs text-muted-foreground italic">Source : LOFIP Exposé des motifs · Art. 88-115 LOFIP · Décret portant organisation du Gouvernement</p>
@@ -554,7 +554,7 @@ const LECONS: Lecon[] = [
         </p>
 
         <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Loi n° 25/044 du 28 juin 2025 — Budget rectifié de la RDC</p>
+          <p className="text-xs font-semibold text-muted-foreground uppercase mb-2">Loi n° 25/044 du 28 juin 2025 - Budget rectifié de la RDC</p>
           <div className="grid grid-cols-2 gap-3 mt-3">
             {[
               { label: 'Budget rectifié', value: '50 691,8 Mds FC', detail: 'environ 17,2 milliards USD' },
@@ -597,7 +597,7 @@ const LECONS: Lecon[] = [
           </li>
           <li className="flex items-start gap-2">
             <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" />
-            <span><strong>Compétence exclusive du Parlement</strong> : la révision nécessite une loi, conformément à l'Art. 122 pt. 3 de la Constitution — le Gouvernement seul ne peut pas modifier le budget</span>
+            <span><strong>Compétence exclusive du Parlement</strong> : la révision nécessite une loi, conformément à l'Art. 122 pt. 3 de la Constitution - le Gouvernement seul ne peut pas modifier le budget</span>
           </li>
         </ul>
 
@@ -630,7 +630,7 @@ const LECONS: Lecon[] = [
         question: 'Une province souhaite créer un nouvel impôt pour financer ses écoles. Selon la Constitution et la LOFIP, cette décision est :',
         options: [
           { id: 'a', texte: 'Possible car la province gère ses propres ressources' },
-          { id: 'b', texte: 'Impossible — seul le Parlement national peut créer des impôts' },
+          { id: 'b', texte: 'Impossible - seul le Parlement national peut créer des impôts' },
           { id: 'c', texte: 'Possible sur autorisation du Gouverneur' },
           { id: 'd', texte: 'Possible si approuvée par l\'Assemblée provinciale' },
           { id: 'e', texte: 'Possible uniquement si l\'impôt ne dépasse pas 2% du revenu imposable' },
@@ -845,7 +845,7 @@ const QCM_GLOBAL = [
     question: 'Un étudiant affirme que « le budget de la Province » et « le budget provincial » sont des notions identiques. Est-ce correct ?',
     options: [
       { id: 'a', texte: 'Oui, les deux termes sont identiques' },
-      { id: 'b', texte: 'Non — le budget provincial intègre les budgets des ETD en son sein' },
+      { id: 'b', texte: 'Non - le budget provincial intègre les budgets des ETD en son sein' },
       { id: 'c', texte: 'Oui, sauf pour les ETD rurales' },
       { id: 'd', texte: 'Non, le budget provincial est voté par l\'Assemblée nationale' },
       { id: 'e', texte: 'Oui, car les ETD sont des entités autonomes sans lien avec le budget provincial' },
@@ -877,7 +877,7 @@ const QCM_GLOBAL = [
     question: 'Une province souhaite créer un nouvel impôt pour financer ses écoles. Selon la LOFIP (Art. 9) et la Constitution (Art. 122 pt. 10), cette décision est :',
     options: [
       { id: 'a', texte: 'Possible car la province gère ses propres ressources' },
-      { id: 'b', texte: 'Impossible — seul le Parlement national peut créer des impôts' },
+      { id: 'b', texte: 'Impossible - seul le Parlement national peut créer des impôts' },
       { id: 'c', texte: 'Possible sur autorisation du Gouverneur' },
       { id: 'd', texte: 'Possible si approuvée par l\'Assemblée provinciale' },
       { id: 'e', texte: 'Possible avec l\'accord du Ministre des Finances' },
@@ -917,7 +917,7 @@ const ETUDES_DE_CAS: CasPratiqueEtude[] = [
     titre: 'Le budget de la commune de Ngaliema et ses sources de financement',
     contexte: 'La commune de Ngaliema (ETD de la ville de Kinshasa) prépare son budget pour l\'exercice prochain. Le Bourgmestre présente au Conseil communal un projet de budget comprenant : (1) des recettes propres de taxes locales pour 450 millions FC ; (2) une quote-part attendue des impôts provinciaux pour 380 millions FC ; (3) des transferts de la Province de Kinshasa pour 200 millions FC. Un conseiller communal propose d\'ajouter une ligne de « subvention nationale directe » de 100 millions FC, en arguant que la commune est en droit de recevoir des fonds directement de l\'Etat central.',
     questions: [
-      { num: 1, enonce: 'Analysez la structure de financement proposée à la lumière de l\'Art. 3 pt. 25 de la LOFIP. Est-elle conforme ?', correction: 'La structure de base est conforme à l\'Art. 3 pt. 25 de la LOFIP qui prévoit trois sources de financement des ETD : (1) les ressources propres (taxes locales : 450 M FC — conforme) ; (2) la quote-part des impôts provinciaux d\'intérêt commun (380 M FC — conforme) ; (3) les transferts de la Province (200 M FC — conforme). Les trois composantes légales sont présentes et régulières.' },
+      { num: 1, enonce: 'Analysez la structure de financement proposée à la lumière de l\'Art. 3 pt. 25 de la LOFIP. Est-elle conforme ?', correction: 'La structure de base est conforme à l\'Art. 3 pt. 25 de la LOFIP qui prévoit trois sources de financement des ETD : (1) les ressources propres (taxes locales : 450 M FC - conforme) ; (2) la quote-part des impôts provinciaux d\'intérêt commun (380 M FC - conforme) ; (3) les transferts de la Province (200 M FC - conforme). Les trois composantes légales sont présentes et régulières.' },
       { num: 2, enonce: 'La proposition du conseiller d\'ajouter une « subvention nationale directe » est-elle juridiquement fondée selon la LOFIP et la Constitution ?', correction: 'La proposition est juridiquement discutable. L\'Art. 3 pt. 25 de la LOFIP liste les ressources des ETD : elles proviennent du niveau provincial, pas directement du Pouvoir central. Les transferts du Pouvoir central transitent normalement par le budget provincial (Art. 174 Constitution : le budget de l\'Etat comprend les budgets des provinces qui intègrent les budgets ETD). Toutefois, la Caisse nationale de péréquation (Art. 181 Constitution) peut financer directement des projets dans les ETD. Le conseiller devrait préciser le fondement de cette subvention.' },
       { num: 3, enonce: 'Comment les budgets des ETD s\'articulent-ils avec le budget de l\'Etat ? Décrivez le schéma de consolidation.', correction: 'Selon la LOFIP et l\'Art. 174 de la Constitution, la consolidation se fait en deux étapes : (1) les budgets des ETD (communes, secteurs, chefferies) sont intégrés dans le budget provincial de leur Province de rattachement, formant le « budget provincial » au sens de l\'Art. 175 Constitution ; (2) les budgets de toutes les provinces sont consolidés avec le budget du Pouvoir central pour former le « Budget de l\'Etat » soumis au Parlement national. Ainsi, le budget de la commune de Ngaliema fait partie du budget provincial de Kinshasa, lui-même composante du Budget de l\'Etat.' },
     ],
@@ -1053,7 +1053,7 @@ export default function UE5Chapitre1Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 5 — Finances publiques', route: '/ue5-finances-publiques' },
+            { label: 'UE 5 - Finances publiques', route: '/ue5-finances-publiques' },
             { label: 'Chapitre 1' },
           ]}
           color="emerald"

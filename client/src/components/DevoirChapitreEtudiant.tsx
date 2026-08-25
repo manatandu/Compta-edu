@@ -1,6 +1,6 @@
 /**
  * DevoirChapitreEtudiant.tsx
- * Affiché dans le Dashboard étudiant — onglet "Mes devoirs"
+ * Affiché dans le Dashboard étudiant - onglet "Mes devoirs"
  * Gère deux types de devoirs depuis les chapitres UE :
  *   - qcm_chapitre : N QCM (sélection libre) × 1pt → note ramenée /20
  *   - qcm_cas      : N QCM (10 pts) + cas pratiques évalués par Gemini (10 pts) = /20
@@ -335,11 +335,11 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
       <div className="space-y-3">
         {/* Bandeau info */}
         <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 text-xs text-indigo-800">
-          <p className="font-semibold mb-1">Devoir QCM + Cas pratiques — /20</p>
+          <p className="font-semibold mb-1">Devoir QCM + Cas pratiques - /20</p>
           <p>Partie 1 : {questions.length} QCM × 2 pts = 10 pts</p>
           <p>Partie 2 : {casPratiques.length} cas pratique{casPratiques.length > 1 ? 's' : ''} = 10 pts (corrigé par IA)</p>
         </div>
-        <p className="text-xs font-semibold text-foreground px-1">Partie 1 — QCM ({questions.length} questions)</p>
+        <p className="text-xs font-semibold text-foreground px-1">Partie 1 - QCM ({questions.length} questions)</p>
         <QCMForm
           questions={questions}
           reponses={reponsesQCM}
@@ -358,9 +358,9 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
     return (
       <div className="space-y-3">
         <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-xs text-amber-800">
-          <p className="font-semibold">Partie 2 — Cas pratiques</p>
+          <p className="font-semibold">Partie 2 - Cas pratiques</p>
           <p className="mt-0.5">QCM validé ({Object.values(reponsesQCM).length}/{questions.length}). Répondez maintenant aux cas pratiques.</p>
-          <p className="mt-0.5 text-amber-600">La correction est effectuée par IA — répondez avec vos mots, la logique est évaluée.</p>
+          <p className="mt-0.5 text-amber-600">La correction est effectuée par IA - répondez avec vos mots, la logique est évaluée.</p>
         </div>
 
         {casPratiques.map((cas, i) => (
@@ -640,7 +640,7 @@ function QCMDetailsDisplay({ questions, details }: QCMDetailsDisplayProps) {
             </div>
             {!correct && (
               <p className="text-red-600 pl-6">
-                Votre réponse : {choixEtu?.texte || '—'}
+                Votre réponse : {choixEtu?.texte || '-'}
               </p>
             )}
             <p className="text-emerald-700 pl-6">
@@ -891,7 +891,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
     )
   }
 
-  // Devoir noté — qcm_cas avec évaluations Gemini
+  // Devoir noté - qcm_cas avec évaluations Gemini
   if (devoir.type === 'qcm_cas' && soumission.evaluationsCasPratiques && devoir.casPratiques) {
     return (
       <div className="space-y-3">
@@ -905,9 +905,9 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
             {noteSur20}<span className="text-sm font-normal text-muted-foreground">/20</span>
           </p>
           <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <span>QCM : {soumission.scoreQCMCas ?? '—'}/10</span>
+            <span>QCM : {soumission.scoreQCMCas ?? '-'}/10</span>
             <span className="text-border">|</span>
-            <span>Cas : {soumission.scoreCasPratiques ?? '—'}/10</span>
+            <span>Cas : {soumission.scoreCasPratiques ?? '-'}/10</span>
           </div>
           <p className="text-xs text-muted-foreground">
             Soumis le {new Date(soumission.dateSoumission).toLocaleDateString('fr-FR')}
@@ -958,7 +958,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
     )
   }
 
-  // Devoir noté — qcm_chapitre classique
+  // Devoir noté - qcm_chapitre classique
   return (
     <div className="space-y-3">
       <div className={cn(

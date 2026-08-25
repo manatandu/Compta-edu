@@ -272,7 +272,7 @@ export default function NouvelEtudiantPage() {
               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
             {universites.length === 0 && (
-              <p className="text-xs text-amber-600">Aucune université dans le système — créez-en dans l'espace ADM.</p>
+              <p className="text-xs text-amber-600">Aucune université dans le système - créez-en dans l'espace ADM.</p>
             )}
             {errors.universiteId && <p className="text-xs text-red-500">{errors.universiteId}</p>}
           </div>
@@ -297,7 +297,7 @@ export default function NouvelEtudiantPage() {
               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
             {form.universiteId && facultes.length === 0 && (
-              <p className="text-xs text-amber-600">Aucune faculté pour cette université — créez-en dans l'espace ADM.</p>
+              <p className="text-xs text-amber-600">Aucune faculté pour cette université - créez-en dans l'espace ADM.</p>
             )}
             {errors.faculteId && <p className="text-xs text-red-500">{errors.faculteId}</p>}
           </div>
@@ -316,17 +316,17 @@ export default function NouvelEtudiantPage() {
               >
                 <option value="">-- Sélectionner un cours (optionnel) --</option>
                 {cours.map(c => (
-                  <option key={c.id} value={c.id}>{c.nom}{c.promotion ? ` — ${c.promotion}` : ''}</option>
+                  <option key={c.id} value={c.id}>{c.nom}{c.promotion ? ` - ${c.promotion}` : ''}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
             </div>
             {form.faculteId && cours.length === 0 && (
-              <p className="text-xs text-amber-600">Aucun cours pour cette faculté — créez-en dans l'espace ADM.</p>
+              <p className="text-xs text-amber-600">Aucun cours pour cette faculté - créez-en dans l'espace ADM.</p>
             )}
           </div>
 
-          {/* Promotion — catalogue fixe */}
+          {/* Promotion - catalogue fixe */}
           <div className="space-y-1">
             <label className="text-xs font-medium text-muted-foreground">Promotion <span className="text-red-500">*</span></label>
             <div className="relative">

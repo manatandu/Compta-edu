@@ -226,7 +226,7 @@ const qcmQuestions: QCMQuestion[] = [
 const casPratiques = [
   {
     id: 'cp1',
-    titre: "Cas 1 — Constitution d'une SA au Cameroun",
+    titre: "Cas 1 - Constitution d'une SA au Cameroun",
     contexte: "La famille MBEKI souhaite constituer une Société Anonyme pour exploiter une chaîne de supermarchés au Cameroun. Ils sont 4 associés et envisagent un capital de 50 000 000 FCFA, dont 20 000 000 FCFA d'apports en nature (véhicules et mobilier). Les apports en numéraire seront libérés à hauteur du minimum légal à la constitution. La société ne fera pas appel public à l'épargne.",
     questions: [
       {
@@ -249,7 +249,7 @@ const casPratiques = [
   },
   {
     id: 'cp2',
-    titre: "Cas 2 — Actions et cessions dans une SA",
+    titre: "Cas 2 - Actions et cessions dans une SA",
     contexte: "La SA COTON-EXPORT a un capital de 200 000 000 FCFA divisé en 20 000 actions de 10 000 FCFA chacune. Les statuts prévoient une clause d'agrément et une clause de préemption. M. DIALLO, actionnaire détenant 3 000 actions, souhaite céder 1 000 actions à un tiers extérieur. Par ailleurs, le conseil d'administration envisage de créer 2 000 actions à dividende prioritaire sans droit de vote (ADP).",
     questions: [
       {
@@ -268,7 +268,7 @@ const casPratiques = [
   },
   {
     id: 'cp3',
-    titre: "Cas 3 — Choix du mode de gouvernance",
+    titre: "Cas 3 - Choix du mode de gouvernance",
     contexte: "Trois entrepreneurs (A, B, C) veulent créer une SA au Sénégal. A souhaite une structure légère car ils ne sont que 3. B préfère une structure avec séparation stricte entre direction et contrôle. C propose un modèle classique avec un PDG unique à la tête d'un Conseil d'Administration. Analysez les options disponibles.",
     questions: [
       {
@@ -287,7 +287,7 @@ const casPratiques = [
   },
   {
     id: 'cp4',
-    titre: "Cas 4 — Assemblées Générales d'une SA",
+    titre: "Cas 4 - Assemblées Générales d'une SA",
     contexte: "La SA AGRO-IVOIRE doit tenir deux assemblées : une AGO pour approuver les comptes de l'exercice N et distribuer des dividendes, et une AGE pour modifier l'objet social et augmenter le capital. Le capital est réparti entre 50 actionnaires. Lors de la 1ère convocation de l'AGO, des actionnaires représentant seulement 40% du capital sont présents. A l'AGE (1ère convocation), des actionnaires représentant 48% du capital sont présents.",
     questions: [
       {
@@ -306,7 +306,7 @@ const casPratiques = [
   },
   {
     id: 'cp5',
-    titre: "Cas 5 — La SAS et ses caractéristiques",
+    titre: "Cas 5 - La SAS et ses caractéristiques",
     contexte: "M. KAMARA, entrepreneur ivoirien, veut créer seul une société pour son activité de conseil en stratégie. Il souhaite une grande liberté dans l'organisation de la gouvernance, ne pas avoir de capital minimum imposé, mais ne pas faire appel à des investisseurs publics. Son avocat lui propose la SAS.",
     questions: [
       {
@@ -329,7 +329,7 @@ const casPratiques = [
   },
   {
     id: 'cp6',
-    titre: "Cas 6 — Droits des actionnaires et protection minoritaire",
+    titre: "Cas 6 - Droits des actionnaires et protection minoritaire",
     contexte: "Dans la SA MINES-AFRIQUE, M. OUEDRAOGO détient 22% du capital. Il suspecte que le Directeur Général a signé des contrats désavantageux pour la société au bénéfice d'entreprises liées. M. OUEDRAOGO souhaite agir. Par ailleurs, une décision d'AGO lui semble irrégulière car les formalités de convocation n'ont pas été respectées.",
     questions: [
       {
@@ -348,7 +348,7 @@ const casPratiques = [
   },
   {
     id: 'cp7',
-    titre: "Cas 7 — SA avec Directoire et Conseil de Surveillance",
+    titre: "Cas 7 - SA avec Directoire et Conseil de Surveillance",
     contexte: "La SA PETROLE-CONGO veut adopter une structure de gouvernance duale avec Directoire et Conseil de Surveillance. Elle compte 8 membres fondateurs souhaitant participer à la gouvernance. Le projet prévoit : un Directoire de 6 membres et un Conseil de Surveillance de 8 membres. Deux fondateurs souhaitent siéger dans les deux organes simultanément.",
     questions: [
       {
@@ -367,7 +367,7 @@ const casPratiques = [
   },
   {
     id: 'cp8',
-    titre: "Cas 8 — Transformation SA et rôle du CAC",
+    titre: "Cas 8 - Transformation SA et rôle du CAC",
     contexte: "La SA TRANSIT-MALI, dont les affaires déclinent, souhaite se transformer en Société en Nom Collectif (SNC) pour bénéficier d'une gouvernance plus souple. L'assemblée extraordinaire réunit des actionnaires représentant 70% du capital. Par ailleurs, le mandat du CAC arrive à expiration et il faut le renouveler.",
     questions: [
       {
@@ -485,7 +485,7 @@ export default function UE2Chapitre4Page() {
     "Les Actions de la SA (Art. 744-778-1)",
     "Les 4 Modes de Gouvernance de la SA (Art. 414-490)",
     "Assemblées Générales et CAC (Art. 516-562)",
-    "La Société par Actions Simplifiée — SAS (Art. 853-1 à 853-23)",
+    "La Société par Actions Simplifiée - SAS (Art. 853-1 à 853-23)",
     "Droits des Actionnaires de la SA (Art. 525-545)",
     "Les Actions de Préférence (Art. 778-1 à 778-15)",
   ]
@@ -519,7 +519,7 @@ export default function UE2Chapitre4Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 4' },
           ]}
           color="indigo"
@@ -616,7 +616,7 @@ export default function UE2Chapitre4Page() {
           <div className="bg-white rounded-xl border-l-4 border-cyan-500 shadow-sm p-5">
             <h2 className="text-base font-display font-bold text-cyan-800 mb-4 flex items-center gap-2">
               <BookOpen className="w-5 h-5" />
-              Leçon {activeLecon + 1} — {lecons[activeLecon]}
+              Leçon {activeLecon + 1} - {lecons[activeLecon]}
             </h2>
 
             {/* ── LEÇON 1 ── */}
@@ -674,7 +674,7 @@ export default function UE2Chapitre4Page() {
                   <div className="flex gap-3 text-amber-800">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold mb-1">Apports en nature — Règle fondamentale</p>
+                      <p className="font-semibold mb-1">Apports en nature - Règle fondamentale</p>
                       <p className="text-sm">Contrairement aux apports en numéraire qui peuvent être libérés progressivement, les <strong>apports en nature doivent être intégralement libérés dès la souscription</strong> (Art. 400). Un <strong>Commissaire aux Apports</strong> doit être désigné pour évaluer leur valeur réelle.</p>
                     </div>
                   </div>
@@ -948,7 +948,7 @@ export default function UE2Chapitre4Page() {
                   Les assemblées générales sont les organes souverains de la SA. L'AUSCGIE distingue deux types d'assemblées : l'<strong>AGO</strong> pour les décisions ordinaires et l'<strong>AGE</strong> pour les décisions extraordinaires modificatives des statuts.
                 </p>
 
-                <h3 className="font-semibold text-cyan-800">AGO vs AGE — Comparaison des règles</h3>
+                <h3 className="font-semibold text-cyan-800">AGO vs AGE - Comparaison des règles</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs border-collapse">
                     <thead><tr className="bg-cyan-600 text-white">
@@ -978,7 +978,7 @@ export default function UE2Chapitre4Page() {
                   <div className="flex gap-3 text-amber-800">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold mb-1">Exception à l'unanimité — Transformation en SNC</p>
+                      <p className="font-semibold mb-1">Exception à l'unanimité - Transformation en SNC</p>
                       <p className="text-sm">L'article 559 : la <strong>transformation d'une SA en SNC requiert l'unanimité absolue</strong> de tous les actionnaires. La transformation aggrave la responsabilité des associés (de limitée à illimitée et solidaire). Cette règle protège les actionnaires minoritaires.</p>
                     </div>
                   </div>
@@ -1098,12 +1098,12 @@ export default function UE2Chapitre4Page() {
                   ))}
                 </div>
 
-                <h3 className="font-semibold text-cyan-800">La SASU — SAS Unipersonnelle</h3>
+                <h3 className="font-semibold text-cyan-800">La SASU - SAS Unipersonnelle</h3>
                 <p>
                   La <strong>SASU</strong> est la SAS avec un seul associé. Elle permet à un entrepreneur individuel de bénéficier de la responsabilité limitée tout en conservant une totale liberté d'organisation. Dans la SASU, les décisions normalement réservées aux associés sont prises <strong>seul par l'associé unique</strong>, simplement constatées par écrit dans un registre spécial. Aucune formalité d'assemblée n'est requise.
                 </p>
 
-                <h3 className="font-semibold text-cyan-800">Clauses statutaires de protection — SAS (Art. 853-17 à 853-22)</h3>
+                <h3 className="font-semibold text-cyan-800">Clauses statutaires de protection - SAS (Art. 853-17 à 853-22)</h3>
                 <p>
                   L'AUSCGIE autorise les statuts de la SAS à insérer des <strong>clauses restrictives de la cession ou de l'acquisition d'actions</strong>. Ces clauses sont des mécanismes contractuels destinés à protéger la cohésion des associés et à contrôler la composition de l'actionnariat.
                 </p>
@@ -1137,7 +1137,7 @@ export default function UE2Chapitre4Page() {
                   <div className="flex gap-3 text-amber-800">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold mb-1">Clause d'exclusion — conditions requises (Art. 853-20 à 853-22)</p>
+                      <p className="font-semibold mb-1">Clause d'exclusion - conditions requises (Art. 853-20 à 853-22)</p>
                       <p className="text-sm">La clause d'exclusion doit obligatoirement : (1) prévoir les <strong>cas précis</strong> justifiant l'exclusion dans les statuts, (2) fixer les <strong>modalités de rachat</strong> des actions (prix, délai), (3) respecter le <strong>droit à la défense</strong> de l'associé visé avant toute décision. L'exclusion prononcée sans respecter ces conditions est nulle.</p>
                     </div>
                   </div>
@@ -1218,7 +1218,7 @@ export default function UE2Chapitre4Page() {
                   <div className="flex gap-3 text-cyan-800">
                     <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold mb-1">Expertise de gestion — mécanisme de protection (Art. 159 al. 2)</p>
+                      <p className="font-semibold mb-1">Expertise de gestion - mécanisme de protection (Art. 159 al. 2)</p>
                       <p className="text-sm">Les actionnaires représentant au moins <strong>1/5 (20%) du capital</strong> peuvent saisir le président du tribunal pour demander la désignation d'un ou plusieurs experts chargés d'examiner une ou plusieurs opérations de gestion. Le simple doute sur des opérations suspectes suffit.</p>
                     </div>
                   </div>
@@ -1284,7 +1284,7 @@ export default function UE2Chapitre4Page() {
                     { titre: "Catégorie d'actions", contenu: "Les ADP constituent une catégorie distincte. Toute modification des droits attachés à une catégorie nécessite l'accord de l'AGE et de l'assemblée spéciale des porteurs d'ADP concernés.", art: "Art. 778-6" },
                   ].map((item, i) => (
                     <div key={i} className="bg-cyan-50 border border-cyan-200 rounded-lg p-3">
-                      <p className="font-semibold text-cyan-800 text-xs mb-1">{item.titre} — <span className="font-normal text-cyan-600">{item.art}</span></p>
+                      <p className="font-semibold text-cyan-800 text-xs mb-1">{item.titre} - <span className="font-normal text-cyan-600">{item.art}</span></p>
                       <p className="text-xs text-gray-700">{item.contenu}</p>
                     </div>
                   ))}
@@ -1312,7 +1312,7 @@ export default function UE2Chapitre4Page() {
                   <div className="flex gap-3 text-amber-800">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold mb-1">Point clé — ADP sans droit de vote (Art. 778-3)</p>
+                      <p className="font-semibold mb-1">Point clé - ADP sans droit de vote (Art. 778-3)</p>
                       <p className="text-sm">Les actions de préférence sans droit de vote ne peuvent représenter <strong>plus de la moitié du capital social</strong> dans les SA non cotées, ni plus d'un quart dans les SA cotées. Si ce seuil est dépassé, les ADP sans droit de vote retrouvent automatiquement le droit de vote jusqu'au retour sous le seuil.</p>
                     </div>
                   </div>
@@ -1373,7 +1373,7 @@ export default function UE2Chapitre4Page() {
           <div className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
             <h2 className="font-display font-bold text-gray-800 flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-cyan-600" />
-              Cas Pratiques — SA et SAS (8 cas)
+              Cas Pratiques - SA et SAS (8 cas)
             </h2>
             <p className="text-sm text-muted-foreground mt-1">
               Exercices d'application sur la constitution, les actions, la gouvernance, les assemblées et la SAS.
@@ -1424,7 +1424,7 @@ export default function UE2Chapitre4Page() {
 
       {/* Sources */}
       <p className="text-xs text-muted-foreground/60 text-center">
-        Sources : AUSCGIE révisé 30 janvier 2014 — Art. 385-412, 414-490, 516-562, 694-697, 744-778-1, 853-1 à 853-23
+        Sources : AUSCGIE révisé 30 janvier 2014 - Art. 385-412, 414-490, 516-562, 694-697, 744-778-1, 853-1 à 853-23
       </p>
     </div>
   )

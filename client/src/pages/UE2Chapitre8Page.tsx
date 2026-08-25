@@ -875,7 +875,7 @@ const LECONS: Lecon[] = [
                   { conv: '1re', quorum: '1/2 des actions avec droit de vote', majorite: '2/3 voix exprimées' },
                   { conv: '2e', quorum: '1/4 des actions avec droit de vote', majorite: '2/3 voix exprimées' },
                   { conv: '3e (dans 2 mois max)', quorum: '1/4 des actions avec droit de vote', majorite: '2/3 voix exprimées' },
-                  { conv: 'Transfert siège autre État', quorum: '—', majorite: 'Unanimité présents/représentés' },
+                  { conv: 'Transfert siège autre État', quorum: '-', majorite: 'Unanimité présents/représentés' },
                 ].map(r => (
                   <tr key={r.conv}>
                     <td className="py-1.5 pr-3 font-semibold">{r.conv}</td>
@@ -1050,7 +1050,7 @@ export default function UE2Chapitre8Page() {
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
-            { label: 'UE 2 — Droit des sociétés', route: '/ue2-droit-societes' },
+            { label: 'UE 2 - Droit des sociétés', route: '/ue2-droit-societes' },
             { label: 'Chapitre 8' },
           ]}
           color="indigo"
