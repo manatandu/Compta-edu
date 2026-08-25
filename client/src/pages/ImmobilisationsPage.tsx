@@ -1358,7 +1358,7 @@ export default function ImmobilisationsPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b border-border px-4 py-3 flex items-center gap-3">
+      <div className="sticky top-0 z-30 bg-background border-b border-border px-4 py-3 flex items-center gap-3">
         <button onClick={() => navigate('/comptabilite-generale')} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
@@ -1374,7 +1374,7 @@ export default function ImmobilisationsPage() {
       </div>
 
       {/* Onglets */}
-      <div role="tablist" aria-label="Immobilisations & Amortissements" className="flex border-b border-border bg-background sticky top-[57px] z-20 overflow-x-auto">
+      <div role="tablist" aria-label="Immobilisations & Amortissements" className="flex border-b border-border bg-background sticky top-[57px] z-20 overflow-x-auto shadow-sm">
         {[
           { id: 'catalogue', label: 'Catalogue', icon: BookOpen },
           { id: 'simulateur', label: 'Simulateur', icon: Calculator },
@@ -2072,6 +2072,13 @@ function nouveauComposant(nom: string): Composant {
   return { id: Math.random().toString(36).slice(2), nom, valeur: '', duree: '' }
 }
 
+// Liste des désignations du catalogue, dédupliquées et triées, pour le
+// sélecteur de l'onglet Composants (chaque désignation garde son compte
+// OHADA racine, pré-rempli automatiquement à la sélection).
+const DESIGNATIONS_CATALOGUE = Array.from(
+  new Map(CATALOGUE.map(item => [item.designation, item.compteOHADA])).entries()
+).sort(([a], [b]) => a.localeCompare(b, 'fr'))
+
 function OngletComposants() {
   const [designation, setDesignation] = useState('')
   const [compteBase, setCompteBase] = useState('')
@@ -2140,13 +2147,26 @@ function OngletComposants() {
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-xs font-semibold text-muted-foreground mb-1 block">Désignation de l'immobilisation</label>
-            <input value={designation} onChange={e => setDesignation(e.target.value)}
-              placeholder="ex : Installation complexe" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+            <select
+              value={designation}
+              onChange={e => {
+                const nom = e.target.value
+                setDesignation(nom)
+                const compte = DESIGNATIONS_CATALOGUE.find(([d]) => d === nom)?.[1]
+                if (compte) setCompteBase(compte)
+              }}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            >
+              <option value="">Choisir dans le catalogue…</option>
+              {DESIGNATIONS_CATALOGUE.map(([nom]) => (
+                <option key={nom} value={nom}>{nom}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="text-xs font-semibold text-muted-foreground mb-1 block">Compte OHADA racine (facultatif)</label>
             <input value={compteBase} onChange={e => setCompteBase(e.target.value)}
-              placeholder="ex : 2341" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
+              placeholder="Rempli automatiquement selon la désignation" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/30" />
           </div>
           <div>
             <label className="text-xs font-semibold text-muted-foreground mb-1 block">Date de mise en service</label>
@@ -2210,7 +2230,7 @@ function OngletComposants() {
                 {resultat.map((r, i) => (
                   <tr key={i}>
                     <td className="py-1.5 font-mono font-bold">{compteBase ? `${compteBase}${i + 1}` : '—'}</td>
-                    <td className="py-1.5 text-muted-foreground">{designation} — {r.nom}</td>
+                    <td className="py-1.5 text-muted-foreground">{designation} : {r.nom}</td>
                     <td className="py-1.5 text-right font-mono">{fmt(r.valeur)}</td>
                   </tr>
                 ))}
@@ -2225,7 +2245,7 @@ function OngletComposants() {
 
           {resultat.map((r, i) => (
             <div key={i} className="rounded-xl border border-border bg-card p-4">
-              <p className="text-xs font-semibold text-foreground mb-2">{r.nom} — {fmt(r.valeur)}, {r.duree} ans linéaire</p>
+              <p className="text-xs font-semibold text-foreground mb-2">{r.nom} : {fmt(r.valeur)}, {r.duree} ans linéaire</p>
               <div className="overflow-x-auto">
                 <table className="w-full text-xs min-w-[480px]">
                   <thead>

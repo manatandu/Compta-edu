@@ -21,7 +21,6 @@
 import { TERMES_AUDCIF } from './dictionnaire-audcif'
 import { TERMES_IFRS } from './dictionnaire-ifrs'
 import { TERMES_DROIT } from './dictionnaire-droit'
-import { TERMES_FINANCE } from './dictionnaire-finance'
 import { TERMES_FINANCES_PUBLIQUES } from './dictionnaire-finances-publiques'
 import { TERMES_AUDIT } from './dictionnaire-audit'
 import { TERMES_MANAGEMENT } from './dictionnaire-management'
@@ -213,7 +212,7 @@ const TERMES_FISCALITE: TermeDict[] = [
 /**
  * Fonds complet : glossaire officiel AUDCIF (comptabilité), termes
  * fiscaux sourcés (Loi 23/053, Loi 16/009, décrets d'application), et
- * les six domaines complémentaires ci-dessus — chacun sourcé sur le
+ * les cinq domaines complémentaires ci-dessus — chacun sourcé sur le
  * texte de norme, la loi ou l'ouvrage de référence approprié plutôt
  * que sur l'AUDCIF seul, qui ne couvre que la comptabilité générale.
  */
@@ -222,7 +221,6 @@ export const DICTIONNAIRE: TermeDict[] = [
   ...TERMES_FISCALITE,
   ...TERMES_IFRS,
   ...TERMES_DROIT,
-  ...TERMES_FINANCE,
   ...TERMES_FINANCES_PUBLIQUES,
   ...TERMES_AUDIT,
   ...TERMES_MANAGEMENT,
