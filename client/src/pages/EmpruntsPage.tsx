@@ -181,9 +181,9 @@ const OBJETS_COURANTS = [
   'Trésorerie', 'Rachat de crédit',
 ] as const
 
-function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
+function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, userId }: {
   emprunts: Emprunt[]; loading: boolean; selectionId: string | null
-  onSelect: (id: string) => void; userId: string
+  onSelect: (id: string) => void; onCreated: (emprunt: Emprunt) => void; userId: string
 }) {
   const [form, setForm] = useState({
     preteur: '', preteurAutre: '', devise: 'USD' as Devise, reference: '',
@@ -206,7 +206,7 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
     if (!userId) { setErreur('Session non chargée : rechargez la page et réessayez.'); return }
     setSaving(true)
     try {
-      const id = await creerEmprunt({
+      const donnees = {
         userId,
         preteur: preteurFinal,
         reference: form.reference.trim(),
@@ -217,8 +217,15 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, userId }: {
         dureeAnnees: Number(form.dureeAnnees) || 1,
         dateMiseADisposition: form.dateMiseADisposition,
         methode: form.methode,
-      })
-      onSelect(id)
+      }
+      const id = await creerEmprunt(donnees)
+      // Mise à jour optimiste : on passe l'emprunt complet au parent tout de
+      // suite, sans attendre que l'écoute temps réel Firestore (useEmprunts)
+      // le fasse redescendre dans la liste. Sans ça, le changement immédiat
+      // vers l'onglet Tableau pouvait tomber sur « aucun emprunt sélectionné »
+      // pendant les quelques centaines de ms où le nouvel enregistrement
+      // n'était pas encore remonté par l'écoute temps réel.
+      onCreated({ id, ...donnees })
       setForm(f => ({ ...f, preteur: '', preteurAutre: '', reference: '', capital: '' }))
     } catch (e) {
       setErreur("Erreur lors de la création de l'emprunt. Réessayez.")
@@ -776,8 +783,12 @@ export default function EmpruntsPage() {
   const { emprunts, loading } = useEmprunts(user?.id)
   const [actif, setActif] = useState<OngletId>('emprunts')
   const [selectionId, setSelectionId] = useState<string | null>(null)
+  // Voir le commentaire dans OngletEmprunts.valider() : comble le délai entre
+  // la création Firestore et la remontée par l'écoute temps réel useEmprunts.
+  const [empruntOptimiste, setEmpruntOptimiste] = useState<Emprunt | null>(null)
 
-  const empruntSelectionne = emprunts.find(e => e.id === selectionId) ?? null
+  const empruntSelectionne = emprunts.find(e => e.id === selectionId)
+    ?? (empruntOptimiste?.id === selectionId ? empruntOptimiste : null)
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -817,7 +828,9 @@ export default function EmpruntsPage() {
       <div className="px-4 pt-4">
         {actif === 'emprunts' && (
           <OngletEmprunts emprunts={emprunts} loading={loading} selectionId={selectionId}
-            onSelect={id => { setSelectionId(id); setActif('tableau') }} userId={user?.id ?? ''} />
+            onSelect={id => { setSelectionId(id); setActif('tableau') }}
+            onCreated={emprunt => { setEmpruntOptimiste(emprunt); setSelectionId(emprunt.id); setActif('tableau') }}
+            userId={user?.id ?? ''} />
         )}
         {actif === 'tableau' && (
           empruntSelectionne
