@@ -78,10 +78,9 @@ const MODULES: Module[] = [
     id: 'factures',
     number: 5,
     label: 'Enregistrement des Factures',
-    desc: 'Bientôt disponible.',
+    desc: 'Créances et dettes commerciales en devises, écarts de conversion (comptes 401/411, 478-479).',
     icon: Receipt,
-    soon: true,
-    subModules: [],
+    subModules: [{ path: '/factures', label: 'Enregistrement des Factures', desc: '', icon: Receipt }],
   },
   {
     id: 'personnels',

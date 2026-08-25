@@ -45,6 +45,7 @@ const PrepaOnecPage = React.lazy(() => import('@/pages/PrepaOnecPage'))
 const DebuggingAdminPage = React.lazy(() => import('@/pages/DebuggingAdminPage'))
 const GestionStockPage = React.lazy(() => import('@/pages/GestionStockPage'))
 const EmpruntsPage = React.lazy(() => import('@/pages/EmpruntsPage'))
+const FacturesDevisesPage = React.lazy(() => import('@/pages/FacturesDevisesPage'))
 const StockArticlesPage = React.lazy(() => import('@/pages/StockArticlesPage'))
 const StockMouvementPage = React.lazy(() => import('@/pages/StockMouvementPage'))
 const StockFichePage = React.lazy(() => import('@/pages/StockFichePage'))
@@ -268,6 +269,9 @@ export default function App() {
         </Route>
         <Route path="/emprunts">
           {() => <ProtectedRoute component={EmpruntsPage} user={user} onLogout={handleLogout} />}
+        </Route>
+        <Route path="/factures">
+          {() => <ProtectedRoute component={FacturesDevisesPage} user={user} onLogout={handleLogout} />}
         </Route>
 
         {/* ── Autres ── */}
