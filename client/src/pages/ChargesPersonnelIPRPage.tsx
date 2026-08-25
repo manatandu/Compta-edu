@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {
   Calculator, Info, RotateCcw,
   Users, AlertCircle, CheckCircle2,
-  BarChart2, X, Plus, BookOpen, ChevronDown, ChevronUp, Search
+  Plus, BookOpen
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import BackButton from '@/components/BackButton'
@@ -15,6 +15,7 @@ import {
   arrondiCentaineFC,
   type LigneBaremeIRPP as LigneBareme,
 } from '@/lib/irpp'
+import { CatalogueGroupe } from '@/components/CatalogueGroupe'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -94,15 +95,16 @@ interface LigneSaisie { code: string; label: string; montant: string }
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION SAISIE AVEC CATALOGUE DROPDOWN
 // ─────────────────────────────────────────────────────────────────────────────
-function SectionSaisieModal({ titre, couleur, rows, catalogue, onAdd, onAddFromCatalogue, onRemove, onUpdate, note, tooltip }: {
+// Même composant que Cat1Salaires (FiscalitePage.tsx) : catalogue à sélection
+// unique via CatalogueGroupe, plutôt qu'un dropdown avec recherche - même
+// contenu (IRPP Cat. 1), même interface de saisie.
+function SectionSaisieModal({ titre, couleur, rows, catalogue, onAdd, onAddFromCatalogue, onRemove, onUpdate, note, tooltip, catalogueOnly }: {
   titre: string; couleur: 'blue' | 'slate' | 'purple' | 'green' | 'orange'
   rows: LigneSaisie[]; catalogue?: ElementCatalogue[]
   onAdd: () => void; onAddFromCatalogue?: (e: ElementCatalogue) => void
   onRemove: (i: number) => void; onUpdate: (i: number, f: 'label' | 'montant', v: string) => void
-  note?: string; tooltip?: { texte: string; loi: string }
+  note?: string; tooltip?: { texte: string; loi: string }; catalogueOnly?: boolean
 }) {
-  const [showDropdown, setShowDropdown] = useState(false)
-  const [recherche, setRecherche] = useState('')
   const styles: Record<string, string> = {
     blue:   'border-blue-200 bg-blue-50 text-blue-700',
     slate:  'border-slate-200 bg-slate-50 text-slate-700',
@@ -110,9 +112,6 @@ function SectionSaisieModal({ titre, couleur, rows, catalogue, onAdd, onAddFromC
     green:  'border-green-200 bg-green-50 text-green-700',
     orange: 'border-orange-200 bg-orange-50 text-orange-700',
   }
-  const filtres = (catalogue || []).filter(e =>
-    e.label.toLowerCase().includes(recherche.toLowerCase()) || e.code.includes(recherche)
-  )
   return (
     <div className={cn('rounded-xl border p-4 space-y-3', styles[couleur])}>
       <p className="text-xs font-semibold uppercase tracking-wide flex items-center">
@@ -125,62 +124,32 @@ function SectionSaisieModal({ titre, couleur, rows, catalogue, onAdd, onAddFromC
         </div>
       )}
       {rows.map((r, i) => (
-        <div key={i} className="flex gap-1.5 min-w-0">
-          <input placeholder="Libellé" value={r.label} onChange={e => onUpdate(i, 'label', e.target.value)}
-            className="min-w-0 flex-1 rounded-lg border border-border/60 bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
+        <div key={i} className="flex gap-1.5 min-w-0 items-center">
+          {catalogueOnly ? (
+            <span className="min-w-0 flex-1 rounded-lg border border-border/40 bg-background/60 px-2 py-2 text-xs text-foreground truncate">{r.label}</span>
+          ) : (
+            <input placeholder="Libellé" value={r.label} onChange={e => onUpdate(i, 'label', e.target.value)}
+              className="min-w-0 flex-1 rounded-lg border border-border/60 bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
+          )}
           <input type="number" placeholder="Montant" value={r.montant} onChange={e => onUpdate(i, 'montant', e.target.value)}
             className="w-24 sm:w-32 shrink-0 rounded-lg border border-border/60 bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
-          {rows.length > 1 && (
-            <button onClick={() => onRemove(i)}
-              className="shrink-0 text-red-400 hover:text-red-600 text-xs px-1.5 rounded-lg border border-border/40 bg-background transition-colors">✕</button>
-          )}
+          <button onClick={() => onRemove(i)}
+            className="shrink-0 text-red-400 hover:text-red-600 text-xs px-1.5 rounded-lg border border-border/40 bg-background transition-colors">✕</button>
         </div>
       ))}
-      <div className="flex gap-3 pt-1">
-        {catalogue && onAddFromCatalogue && (
-          <button
-            onClick={() => { setShowDropdown(v => !v); setRecherche('') }}
-            className="flex items-center gap-1.5 text-xs font-medium opacity-80 hover:opacity-100 transition-opacity border border-current/30 rounded-lg px-3 py-1.5">
-            <BarChart2 className="h-3 w-3" />
-            Catalogue
-            {showDropdown ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-          </button>
-        )}
-        <button onClick={onAdd} className="flex items-center gap-1 text-xs font-medium opacity-70 hover:opacity-100 transition-opacity">
+      {!catalogueOnly && (
+        <button onClick={onAdd}
+          className="flex items-center gap-1 text-xs font-medium opacity-70 hover:opacity-100 transition-opacity pt-1">
           <Plus className="h-3 w-3" /> Ajouter manuellement
         </button>
-      </div>
-      {/* Dropdown catalogue inline */}
-      {showDropdown && catalogue && onAddFromCatalogue && (
-        <div className="rounded-xl border border-border bg-card shadow-lg overflow-hidden">
-          <div className="px-3 py-2 border-b border-border bg-muted/30">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-              <input
-                autoFocus
-                placeholder="Rechercher..."
-                value={recherche}
-                onChange={e => setRecherche(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background pl-8 pr-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-            </div>
-          </div>
-          <div className="max-h-52 overflow-y-auto divide-y divide-border/30">
-            {filtres.map(e => (
-              <button
-                key={e.code}
-                onClick={() => { onAddFromCatalogue(e); setShowDropdown(false); setRecherche('') }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-primary/8 text-left transition-colors group">
-                <span className="text-xs font-mono text-primary/60 shrink-0 min-w-[50px]">{e.code}</span>
-                <span className="text-xs text-foreground group-hover:text-primary transition-colors flex-1">{e.label}</span>
-                <Plus className="h-3.5 w-3.5 text-muted-foreground/40 group-hover:text-primary shrink-0 transition-colors" />
-              </button>
-            ))}
-            {filtres.length === 0 && (
-              <p className="text-center text-xs text-muted-foreground py-4">Aucun élément trouvé</p>
-            )}
-          </div>
-        </div>
+      )}
+      {/* Catalogue à sélection unique, sans recherche - même composant que Cat1Salaires */}
+      {catalogue && onAddFromCatalogue && (
+        <CatalogueGroupe
+          sections={[{ cat: '', color: styles[couleur].split(' ').pop() || 'text-primary', items: catalogue }]}
+          selected={rows.map(r => r.label)}
+          onSelect={item => { if (typeof item === 'object') onAddFromCatalogue(item) }}
+        />
       )}
     </div>
   )
@@ -538,6 +507,32 @@ export default function ChargesPersonnelIPRPage() {
         </div>
       </div>
 
+      {/* Bandeau légal Cat. 1 : même contenu que Cat1Salaires (FiscalitePage.tsx) */}
+      <div className="rounded-xl border border-blue-200 bg-blue-50 p-3 space-y-2">
+        <p className="text-xs text-blue-700 leading-relaxed">
+          <strong>Revenus salariaux et assimilés</strong> : tout revenu perçu en contrepartie d'un travail subordonné.
+          Imposition mensuelle via retenue à la source par l'employeur (Art. 119, Loi 23/053).
+        </p>
+        <div className="rounded-lg border border-blue-300 bg-white/60 p-2.5">
+          <p className="text-xs font-semibold text-blue-800 mb-1.5">Qui est concerné par cette catégorie ?</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-lg bg-green-50 border border-green-200 p-3">
+              <p className="text-xs font-bold text-green-700 mb-0.5">✓ IRPP Cat. 1 : Salariés et assimilés <span className="font-normal opacity-70">(Art. 58, Loi n°23/053)</span></p>
+              <p className="text-xs text-green-700 leading-relaxed">
+                Toute personne liée par un <strong>contrat de travail</strong> ou lien de subordination. Exemples : employé de bureau, ouvrier, directeur salarié, agent de l'État, personnel expatrié.
+              </p>
+            </div>
+            <div className="rounded-lg bg-rose-50 border border-rose-200 p-3">
+              <p className="text-xs font-bold text-rose-700 mb-0.5">✗ Hors Cat. 1 : Travailleurs indépendants</p>
+              <p className="text-xs text-rose-700 leading-relaxed">
+                Un indépendant sans lien de subordination relève de la <strong>Cat. 2 (BIC)</strong> s'il exerce une activité commerciale, ou d'une autre catégorie selon la nature de son revenu.
+              </p>
+            </div>
+          </div>
+          <p className="text-xs text-blue-600 mt-1.5 italic">L'IRPP est retenu chaque mois directement par l'employeur et versé au Trésor public (Art. 119, Loi 23/053).</p>
+        </div>
+      </div>
+
       {/* Choix national / expatrié / administrateurs */}
       <div className="flex gap-2">
         {([
@@ -556,16 +551,39 @@ export default function ChargesPersonnelIPRPage() {
 
       {mode === 'national' ? (
         <>
-          <SectionSaisieModal titre="Revenus imposables" couleur="blue" rows={e661}
-            catalogue={ELEMENTS_661} onAdd={() => addRow(setE661)}
+          <SectionSaisieModal
+            titre="Revenus imposables (661)"
+            couleur="blue"
+            rows={e661}
+            catalogue={ELEMENTS_661}
+            onAdd={() => addRow(setE661)}
             onAddFromCatalogue={e => addFromCatalogue(setE661, e)}
-            onRemove={i => removeRow(setE661, i)} onUpdate={(i, f, v) => updateRow(setE661, i, f, v)} note="" />
+            onRemove={i => removeRow(setE661, i)}
+            onUpdate={(i, f, v) => updateRow(setE661, i, f, v)}
+            note=""
+            catalogueOnly
+            tooltip={{
+              texte: "Compte 661 : toutes les rémunérations directes versées au personnel national (salaires, primes, congés payés, avantages en nature, etc.). Ces montants forment la base de calcul de l'IRPP et de la QPO.",
+              loi: "Compte 661 SYSCOHADA"
+            }}
+          />
 
-          <SectionSaisieModal titre="Sous conditions : Indemnités et avantages (663)" couleur="slate" rows={e663}
-            catalogue={ELEMENTS_663} onAdd={() => addRow(setE663)}
+          <SectionSaisieModal
+            titre="Sous conditions : Indemnités et avantages (663)"
+            couleur="slate"
+            rows={e663}
+            catalogue={ELEMENTS_663}
+            onAdd={() => addRow(setE663)}
             onAddFromCatalogue={e => addFromCatalogue(setE663, e)}
-            onRemove={i => removeRow(setE663, i)} onUpdate={(i, f, v) => updateRow(setE663, i, f, v)}
-            note="Art. 69, 8° : qualifiées ligne par ligne - transport exonéré, logement exonéré à 30% de la rémunération, le reste imposable." />
+            onRemove={i => removeRow(setE663, i)}
+            onUpdate={(i, f, v) => updateRow(setE663, i, f, v)}
+            note=""
+            catalogueOnly
+            tooltip={{
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc - chaque ligne est qualifiée séparément (Art. 69, 8°). Logement (6631) : exonéré dans la limite de 30% de la rémunération (661), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses de taxi pour les cadres, de bus pour les autres) - ce plafond en FC n'est pas vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables, ajoutés à l'assiette au même titre que le 661.",
+              loi: "Art. 69, 8°, Loi 23/053"
+            }}
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -661,16 +679,39 @@ export default function ChargesPersonnelIPRPage() {
             </div>
           </div>
 
-          <SectionSaisieModal titre="Revenus imposables" couleur="purple" rows={e662}
-            catalogue={ELEMENTS_662} onAdd={() => addRow(setE662)}
+          <SectionSaisieModal
+            titre="Revenus imposables (662)"
+            couleur="purple"
+            rows={e662}
+            catalogue={ELEMENTS_662}
+            onAdd={() => addRow(setE662)}
             onAddFromCatalogue={e => addFromCatalogue(setE662, e)}
-            onRemove={i => removeRow(setE662, i)} onUpdate={(i, f, v) => updateRow(setE662, i, f, v)} note="" />
+            onRemove={i => removeRow(setE662, i)}
+            onUpdate={(i, f, v) => updateRow(setE662, i, f, v)}
+            note=""
+            catalogueOnly
+            tooltip={{
+              texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et à l'IERE (charge patronale)",
+              loi: "Compte 662 SYSCOHADA"
+            }}
+          />
 
-          <SectionSaisieModal titre="Sous conditions : Indemnités et avantages (663)" couleur="slate" rows={e663Exp}
-            catalogue={ELEMENTS_663} onAdd={() => addRow(setE663Exp)}
+          <SectionSaisieModal
+            titre="Sous conditions : Indemnités et avantages (663)"
+            couleur="slate"
+            rows={e663Exp}
+            catalogue={ELEMENTS_663}
+            onAdd={() => addRow(setE663Exp)}
             onAddFromCatalogue={e => addFromCatalogue(setE663Exp, e)}
-            onRemove={i => removeRow(setE663Exp, i)} onUpdate={(i, f, v) => updateRow(setE663Exp, i, f, v)}
-            note="Art. 69, 8° : qualifiées ligne par ligne - transport exonéré, logement exonéré à 30% de la rémunération, le reste imposable à l'IRPP comme à l'IERE." />
+            onRemove={i => removeRow(setE663Exp, i)}
+            onUpdate={(i, f, v) => updateRow(setE663Exp, i, f, v)}
+            note=""
+            catalogueOnly
+            tooltip={{
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc - chaque ligne est qualifiée séparément (Art. 69, 8°), même règle que pour les nationaux. Ces éléments servent de base à l'IRPP comme à l'IERE.",
+              loi: "Art. 69, 8°, Loi 23/053"
+            }}
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
