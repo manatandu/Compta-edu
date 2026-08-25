@@ -163,7 +163,7 @@ const LECONS: Lecon[] = [
             <Layers className="h-4 w-4" /> Fondement legal : Art. 20 LOFIP
           </h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
-            L\'article 20 de la LOFIP dispose que : <em>« La loi de finances de l\'année contient, pour une année civile, toutes les ressources et toutes les charges du pouvoir central qui traduisent, a travers un document unique appele budget du pouvoir central, le plan d\'actions du Gouvernement, ainsi que son evaluation en termes d\'objectifs et de résultats attendus. »</em>
+            L'article 20 de la LOFIP dispose que : <em>« La loi de finances de l'année contient, pour une année civile, toutes les ressources et toutes les charges du pouvoir central qui traduisent, a travers un document unique appele budget du pouvoir central, le plan d'actions du Gouvernement, ainsi que son evaluation en termes d'objectifs et de résultats attendus. »</em>
           </p>
           <p className="text-xs text-foreground leading-relaxed">
             Ce meme article precise que : <em>« Le budget du pouvoir central comprend le budget général, les budgets annexes et les comptes speciaux tels que definis aux articles 55 et 62 de la présenté loi. »</em>
@@ -180,14 +180,14 @@ const LECONS: Lecon[] = [
               <span className="text-xs font-bold text-white bg-emerald-600 rounded-full px-2 py-0.5">1</span>
               <h4 className="text-sm font-bold text-foreground">
                 Le budget général{' '}
-                <InfoTooltip texte="Le budget général retrace l\'ensemble des ressources et des charges ordinaires de l\'Etat. Il constitue la composante principale du budget du Pouvoir central et est présenté par programme, par ministère ou institution." loi="Art. 20, 22 LOFIP" />
+                <InfoTooltip texte="Le budget général retrace l'ensemble des ressources et des charges ordinaires de l'Etat. Il constitue la composante principale du budget du Pouvoir central et est présenté par programme, par ministère ou institution." loi="Art. 20, 22 LOFIP" />
               </h4>
             </div>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              Le budget général retrace l\'ensemble des ressources et des charges ordinaires de l\'Etat. C\'est la composante principale du budget du Pouvoir central. Conformement a l\'Art. 22 de la LOFIP, la loi de finances de l\'année fixe, pour le budget général, <strong>par ministère ou institution et par programme</strong>, le montant des autorisations d\'engagement annuelles et pluriannuelles ainsi que des crédits de paiement.
+              Le budget général retrace l'ensemble des ressources et des charges ordinaires de l'Etat. C'est la composante principale du budget du Pouvoir central. Conformement a l'Art. 22 de la LOFIP, la loi de finances de l'année fixe, pour le budget général, <strong>par ministère ou institution et par programme</strong>, le montant des autorisations d'engagement annuelles et pluriannuelles ainsi que des crédits de paiement.
             </p>
             <p className="text-xs text-foreground leading-relaxed mb-3">
-              L\'Art. 24 precise que la loi de finances fixe les plafonds des charges du budget général et arrete les donnees générales de l\'équilibre budgétaire. Elle fixe globalement la dotation de <strong>40% des recettes a caractere national</strong> allouees aux provinces conformement a la Constitution.
+              L'Art. 24 precise que la loi de finances fixe les plafonds des charges du budget général et arrete les donnees générales de l'équilibre budgétaire. Elle fixe globalement la dotation de <strong>40% des recettes a caractere national</strong> allouees aux provinces conformement a la Constitution.
             </p>
             <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
               <p className="text-xs font-bold text-emerald-800 mb-1">Budget général 2025 (Loi de finances initiale) :</p>
@@ -201,17 +201,17 @@ const LECONS: Lecon[] = [
               <span className="text-xs font-bold text-white bg-cyan-600 rounded-full px-2 py-0.5">2</span>
               <h4 className="text-sm font-bold text-foreground">
                 Les budgets annexes{' '}
-                <InfoTooltip texte="Les budgets annexes retracent les operations de certains services du Pouvoir central non dotes de la personnalite juridique, s\'adonnant a titre principal a une activité de production de biens ou de prestations de services remuneres sous forme de redevances (Art. 56 LOFIP)." loi="Art. 55-58 LOFIP" />
+                <InfoTooltip texte="Les budgets annexes retracent les operations de certains services du Pouvoir central non dotes de la personnalite juridique, s'adonnant a titre principal a une activité de production de biens ou de prestations de services remuneres sous forme de redevances (Art. 56 LOFIP)." loi="Art. 55-58 LOFIP" />
               </h4>
             </div>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              Selon l\'Art. 56 de la LOFIP : <em>« Des budgets annexes retracent les seules operations de certains services du pouvoir central non dotes de la personnalite juridique s\'adonnant a titre principal a une activité de production de biens ou de prestations de services remuneres sous forme de redevances. »</em>
+              Selon l'Art. 56 de la LOFIP : <em>« Des budgets annexes retracent les seules operations de certains services du pouvoir central non dotes de la personnalite juridique s'adonnant a titre principal a une activité de production de biens ou de prestations de services remuneres sous forme de redevances. »</em>
             </p>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              L\'Art. 55 dispose que : <em>« Un budget annexe constitue un programme tel que defini a l\'article 44 de la présenté loi. La creation ou la suppression d\'un budget annexe et l\'affectation d\'une recette a un tel budget s\'operent par les lois de finances. »</em>
+              L'Art. 55 dispose que : <em>« Un budget annexe constitue un programme tel que defini a l'article 44 de la présenté loi. La creation ou la suppression d'un budget annexe et l'affectation d'une recette a un tel budget s'operent par les lois de finances. »</em>
             </p>
             <p className="text-xs text-foreground leading-relaxed mb-3">
-              L\'Art. 57 precise leur presentation en <strong>deux sections</strong> : la section des operations courantes (recettes et dépenses d\'exploitation) et la section des operations en capital (dépenses d\'investissement et ressources affectees). L\'équilibre est assure soit par un versement au budget général en cas d\'excedent, soit par une subvention en cas de déficit dument justifie (Art. 56 al. 2).
+              L'Art. 57 precise leur presentation en <strong>deux sections</strong> : la section des operations courantes (recettes et dépenses d'exploitation) et la section des operations en capital (dépenses d'investissement et ressources affectees). L'équilibre est assure soit par un versement au budget général en cas d'excedent, soit par une subvention en cas de déficit dument justifie (Art. 56 al. 2).
             </p>
             <div className="rounded-lg bg-cyan-50 border border-cyan-200 p-3">
               <p className="text-xs font-bold text-cyan-800 mb-1">Budgets annexes 2025 :</p>
@@ -225,14 +225,14 @@ const LECONS: Lecon[] = [
               <span className="text-xs font-bold text-white bg-violet-600 rounded-full px-2 py-0.5">3</span>
               <h4 className="text-sm font-bold text-foreground">
                 Les comptes speciaux{' '}
-                <InfoTooltip texte="Les comptes speciaux sont constitues des comptes d\'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances (Art. 60 LOFIP)." loi="Art. 59-73 LOFIP" />
+                <InfoTooltip texte="Les comptes speciaux sont constitues des comptes d'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances (Art. 60 LOFIP)." loi="Art. 59-73 LOFIP" />
               </h4>
             </div>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              L\'Art. 60 de la LOFIP dispose : <em>« Les comptes speciaux sont constitues des comptes d\'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances. L\'affectation d\'une recette a un compte special ne peut resulter que d\'une disposition de loi de finances. »</em>
+              L'Art. 60 de la LOFIP dispose : <em>« Les comptes speciaux sont constitues des comptes d'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances. L'affectation d'une recette a un compte special ne peut resulter que d'une disposition de loi de finances. »</em>
             </p>
             <p className="text-xs text-foreground leading-relaxed mb-3">
-              Un compte special constitue un programme au sens de l\'Art. 43. Aucun mouvement de crédits ne peut etre effectue entre un compte special et le budget auquel il est rattache, ni entre comptes speciaux (Art. 59 al. 2). Sauf dispositions contraires, le solde de chaque compte special est reporte sur l\'année suivante (Art. 61).
+              Un compte special constitue un programme au sens de l'Art. 43. Aucun mouvement de crédits ne peut etre effectue entre un compte special et le budget auquel il est rattache, ni entre comptes speciaux (Art. 59 al. 2). Sauf dispositions contraires, le solde de chaque compte special est reporte sur l'année suivante (Art. 61).
             </p>
             <div className="rounded-lg bg-violet-50 border border-violet-200 p-3">
               <p className="text-xs font-bold text-violet-800 mb-1">Comptes speciaux 2025 :</p>
@@ -282,7 +282,7 @@ const LECONS: Lecon[] = [
           <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1">
             <AlertTriangle className="h-3.5 w-3.5" /> Regle importante (Art. 58 et 59 LOFIP)
           </p>
-          <p className="text-xs text-amber-700">Aucun mouvement de crédits ne peut etre effectue ni entre un budget annexe et le budget général, ni entre budgets annexes (Art. 58), ni entre un compte special et le budget général, ni entre comptes speciaux (Art. 59). Cette etancheite garantit l\'affectation stricte des ressources.</p>
+          <p className="text-xs text-amber-700">Aucun mouvement de crédits ne peut etre effectue ni entre un budget annexe et le budget général, ni entre budgets annexes (Art. 58), ni entre un compte special et le budget général, ni entre comptes speciaux (Art. 59). Cette etancheite garantit l'affectation stricte des ressources.</p>
         </div>
 
         <QCMBlock questions={[
@@ -328,7 +328,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Fondement legal : Art. 32 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 32 de la LOFIP dispose : <em>« Les ressources et les charges du pouvoir central comprennent les ressources et les charges budgétaires ainsi que les ressources et les charges de tresorerie. »</em>
+            L'Art. 32 de la LOFIP dispose : <em>« Les ressources et les charges du pouvoir central comprennent les ressources et les charges budgétaires ainsi que les ressources et les charges de tresorerie. »</em>
           </p>
         </div>
 
@@ -339,29 +339,29 @@ const LECONS: Lecon[] = [
 
           <div className="rounded-xl border border-border bg-card p-4">
             <p className="text-xs text-foreground leading-relaxed mb-3">
-              L\'Art. 17 precise que les lois de finances determinent, pour un exercice, <strong>la nature, le montant et l\'affectation des ressources et des charges de l\'Etat</strong> compte tenu d\'un équilibre economique et financier qu\'elles definissent. L\'Art. 21 precise que la loi de finances de l\'année comprend l\'evaluation de chaque nature de recettes budgétaires.
+              L'Art. 17 precise que les lois de finances determinent, pour un exercice, <strong>la nature, le montant et l'affectation des ressources et des charges de l'Etat</strong> compte tenu d'un équilibre economique et financier qu'elles definissent. L'Art. 21 precise que la loi de finances de l'année comprend l'evaluation de chaque nature de recettes budgétaires.
             </p>
 
             <div className="space-y-2">
               <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
                 <h4 className="text-xs font-bold text-emerald-800 mb-1 flex items-center gap-1">
                   Recettes fiscales{' '}
-                  <InfoTooltip texte="Les recettes fiscales comprennent les impots sur le revenu (IRPP, IS), les taxes sur les transactions (TVA, droits de douane, droits d\'accise) et toutes contributions obligatoires percues en vertu de la loi. Elles constituent la principale source de financement de l\'Etat." loi="Art. 33 LOFIP" />
+                  <InfoTooltip texte="Les recettes fiscales comprennent les impots sur le revenu (IRPP, IS), les taxes sur les transactions (TVA, droits de douane, droits d'accise) et toutes contributions obligatoires percues en vertu de la loi. Elles constituent la principale source de financement de l'Etat." loi="Art. 33 LOFIP" />
                 </h4>
-                <p className="text-xs text-foreground">Impots directs (IRPP, IS, IPR, IRL), taxes indirectes (TVA, accises), droits de douane a l\'importation et a l\'exportation, droits d\'enregistrement et de timbre. Ces recettes sont percues par la DGI (Direction Generale des Impots) et la DGDA (Direction Generale des Douanes et Accises).</p>
+                <p className="text-xs text-foreground">Impots directs (IRPP, IS, IPR, IRL), taxes indirectes (TVA, accises), droits de douane a l'importation et a l'exportation, droits d'enregistrement et de timbre. Ces recettes sont percues par la DGI (Direction Generale des Impots) et la DGDA (Direction Generale des Douanes et Accises).</p>
               </div>
 
               <div className="rounded-lg bg-blue-50 border border-blue-200 p-3">
                 <h4 className="text-xs font-bold text-blue-800 mb-1 flex items-center gap-1">
                   Recettes non fiscales{' '}
-                  <InfoTooltip texte="Les recettes non fiscales sont des ressources de l\'Etat qui ne proviennent pas de l\'obligation fiscale. Elles comprennent notamment les redevances minieres, les dividendes des entreprises publiques, les produits du domaine de l\'Etat et les amendes." loi="Art. 33 LOFIP" />
+                  <InfoTooltip texte="Les recettes non fiscales sont des ressources de l'Etat qui ne proviennent pas de l'obligation fiscale. Elles comprennent notamment les redevances minieres, les dividendes des entreprises publiques, les produits du domaine de l'Etat et les amendes." loi="Art. 33 LOFIP" />
                 </h4>
-                <p className="text-xs text-foreground">Redevances minieres et petrolieres, dividendes des entreprises du portefeuille de l\'Etat, produits du domaine public et prive, amendes et penalites, droits et redevances administratives. Percues par la DGRAD (Direction Generale des Recettes Administratives, Judiciaires, Domaniales et de Participations).</p>
+                <p className="text-xs text-foreground">Redevances minieres et petrolieres, dividendes des entreprises du portefeuille de l'Etat, produits du domaine public et prive, amendes et penalites, droits et redevances administratives. Percues par la DGRAD (Direction Generale des Recettes Administratives, Judiciaires, Domaniales et de Participations).</p>
               </div>
 
               <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
                 <h4 className="text-xs font-bold text-amber-800 mb-1">Ressources de financement (dons et emprunts)</h4>
-                <p className="text-xs text-foreground">Dons et legs de partenaires bi et multilateraux, emprunts interieurs (bons du Tresor, obligations) et exterieurs (prets FMI, Banque mondiale, partenaires bilateraux). L\'Art. 16 LOFIP interdit le recours aux avances de la Banque Centrale du Congo.</p>
+                <p className="text-xs text-foreground">Dons et legs de partenaires bi et multilateraux, emprunts interieurs (bons du Tresor, obligations) et exterieurs (prets FMI, Banque mondiale, partenaires bilateraux). L'Art. 16 LOFIP interdit le recours aux avances de la Banque Centrale du Congo.</p>
               </div>
             </div>
           </div>
@@ -369,10 +369,10 @@ const LECONS: Lecon[] = [
           <div className="rounded-xl border border-emerald-200 bg-card p-4">
             <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
               <PieChart className="h-4 w-4 text-emerald-600" /> Retrocession aux provinces : Art. 24 LOFIP
-              <InfoTooltip texte="L\'Art. 24 al. 3 LOFIP fixe globalement la dotation de 40% des recettes a caractere national allouees aux provinces conformement a la Constitution (Art. 175 al. 2). Cette retrocession est prelevee avant toute affectation et constitue une obligation constitutionnelle." loi="Art. 24 LOFIP, Art. 175 Constitution" />
+              <InfoTooltip texte="L'Art. 24 al. 3 LOFIP fixe globalement la dotation de 40% des recettes a caractere national allouees aux provinces conformement a la Constitution (Art. 175 al. 2). Cette retrocession est prelevee avant toute affectation et constitue une obligation constitutionnelle." loi="Art. 24 LOFIP, Art. 175 Constitution" />
             </h3>
             <p className="text-xs text-foreground leading-relaxed mb-3">
-              L\'Art. 24 al. 3 de la LOFIP dispose que la loi de finances <em>« fixe globalement la dotation de 40% des recettes a caractere national allouees aux provinces conformement a la Constitution. »</em> Cette disposition s\'articule avec l\'Art. 175 al. 2 de la Constitution qui prevoit que <strong>40% des recettes a caractere national sont allouees aux provinces</strong>.
+              L'Art. 24 al. 3 de la LOFIP dispose que la loi de finances <em>« fixe globalement la dotation de 40% des recettes a caractere national allouees aux provinces conformement a la Constitution. »</em> Cette disposition s'articule avec l'Art. 175 al. 2 de la Constitution qui prevoit que <strong>40% des recettes a caractere national sont allouees aux provinces</strong>.
             </p>
             <table className="w-full text-xs border-collapse">
               <thead>
@@ -401,7 +401,7 @@ const LECONS: Lecon[] = [
           <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1">
             <AlertTriangle className="h-3.5 w-3.5" /> Interdiction des avances BCC (Art. 16 LOFIP)
           </p>
-          <p className="text-xs text-amber-700">L\'Art. 16 de la LOFIP dispose expressement : <em>« Le recours aux avances de la Banque Centrale du Congo est prohibe tant pour le pouvoir central que pour la province et l\'entite territoriale decentralisee. »</em> Cette interdiction vise a preserver l\'independance de la politique monetaire et a eviter le financement monetaire des déficits budgétaires, source d\'inflation.</p>
+          <p className="text-xs text-amber-700">L'Art. 16 de la LOFIP dispose expressement : <em>« Le recours aux avances de la Banque Centrale du Congo est prohibe tant pour le pouvoir central que pour la province et l'entite territoriale decentralisee. »</em> Cette interdiction vise a preserver l'independance de la politique monetaire et a eviter le financement monetaire des déficits budgétaires, source d'inflation.</p>
         </div>
 
         <QCMBlock questions={[
@@ -447,17 +447,17 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 36 LOFIP : Principe de classification</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 36 de la LOFIP dispose : <em>« Les charges budgétaires sont classees par programme, administration, nature economique telles que definies par la nomenclature en vigueur ou suivant toute autre classification presentant un intérêt pour leur analyse, suivi et evaluation. Elles comprennent les dépenses courantes, les dépenses en capital ainsi que les prets et avances. »</em>
+            L'Art. 36 de la LOFIP dispose : <em>« Les charges budgétaires sont classees par programme, administration, nature economique telles que definies par la nomenclature en vigueur ou suivant toute autre classification presentant un intérêt pour leur analyse, suivi et evaluation. Elles comprennent les dépenses courantes, les dépenses en capital ainsi que les prets et avances. »</em>
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <FileText className="h-4 w-4 text-emerald-600" /> Nomenclature par titres (Art. 37 LOFIP){' '}
-            <InfoTooltip texte="L\'Art. 37 LOFIP établit la nomenclature officielle des dépenses budgétaires en 9 titres. Cette classification par nature economique est obligatoire pour toutes les administrations du Pouvoir central. Elle permet de suivre et d\'evaluer l\'exécution du budget par categorie de dépenses." loi="Art. 37 LOFIP" />
+            <InfoTooltip texte="L'Art. 37 LOFIP établit la nomenclature officielle des dépenses budgétaires en 9 titres. Cette classification par nature economique est obligatoire pour toutes les administrations du Pouvoir central. Elle permet de suivre et d'evaluer l'exécution du budget par categorie de dépenses." loi="Art. 37 LOFIP" />
           </h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
-            L\'Art. 37 de la LOFIP établit la nomenclature officielle : <em>« Les dépenses courantes sont groupees sous six titres ou grandes natures [...] Les dépenses en capital sont groupees sous deux titres [...] Les dépenses des prets et avances forment un titre. »</em>
+            L'Art. 37 de la LOFIP établit la nomenclature officielle : <em>« Les dépenses courantes sont groupees sous six titres ou grandes natures [...] Les dépenses en capital sont groupees sous deux titres [...] Les dépenses des prets et avances forment un titre. »</em>
           </p>
 
           <div className="space-y-2">
@@ -508,7 +508,7 @@ const LECONS: Lecon[] = [
                   </tr>
                   <tr className="bg-blue-50/50">
                     <td className="border border-blue-200 px-2 py-1.5 font-bold text-blue-700">Titre VIII</td>
-                    <td className="border border-blue-200 px-2 py-1.5 font-medium">Construction, refection, rehabilitation, addition d\'ouvrage et edifice, acquisition immobiliere</td>
+                    <td className="border border-blue-200 px-2 py-1.5 font-medium">Construction, refection, rehabilitation, addition d'ouvrage et edifice, acquisition immobiliere</td>
                     <td className="border border-blue-200 px-2 py-1.5 text-muted-foreground">Routes, batiments administratifs, hopitaux, ecoles, barrages</td>
                   </tr>
                 </tbody>
@@ -528,7 +528,7 @@ const LECONS: Lecon[] = [
                 <tbody>
                   <tr>
                     <td className="border border-violet-200 px-2 py-1.5 font-bold text-violet-700">Titre IX</td>
-                    <td className="border border-violet-200 px-2 py-1.5 font-medium">Prets et avances de l\'Etat</td>
+                    <td className="border border-violet-200 px-2 py-1.5 font-medium">Prets et avances de l'Etat</td>
                     <td className="border border-violet-200 px-2 py-1.5 text-muted-foreground">Retrace dans les comptes de concours financiers (Art. 66 LOFIP)</td>
                   </tr>
                 </tbody>
@@ -540,11 +540,11 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3">Execution budgétaire 2025 : donnees reelles</h3>
           <div className="rounded-lg bg-red-50 border border-red-200 p-3">
-            <p className="text-xs font-bold text-red-800 mb-1">Taux d\'exécution global T1 2025 : 17,1%</p>
-            <p className="text-xs text-red-700 mb-2">A fin mars 2025, le taux d\'exécution global du budget est de <strong>17,1%</strong> des crédits votes. Les dépenses d\'investissement (Titres VII et VIII) n\'ont exécuté que <strong>4%</strong> des crédits votes.</p>
-            <p className="text-xs text-muted-foreground italic">Source : Rapport d\'exécution budgétaire, Observatoire de la Depense Publique (ODEP), mars 2025</p>
+            <p className="text-xs font-bold text-red-800 mb-1">Taux d'exécution global T1 2025 : 17,1%</p>
+            <p className="text-xs text-red-700 mb-2">A fin mars 2025, le taux d'exécution global du budget est de <strong>17,1%</strong> des crédits votes. Les dépenses d'investissement (Titres VII et VIII) n'ont exécuté que <strong>4%</strong> des crédits votes.</p>
+            <p className="text-xs text-muted-foreground italic">Source : Rapport d'exécution budgétaire, Observatoire de la Depense Publique (ODEP), mars 2025</p>
           </div>
-          <p className="text-xs text-foreground leading-relaxed mt-3">Ce faible taux d\'exécution des dépenses en capital illustre le defi structurel de la RDC : les crédits d\'investissement sont votes mais rarement executes, ce qui freine le developpement des infrastructures et la mise en oeuvre des programmes publics.</p>
+          <p className="text-xs text-foreground leading-relaxed mt-3">Ce faible taux d'exécution des dépenses en capital illustre le defi structurel de la RDC : les crédits d'investissement sont votes mais rarement executes, ce qui freine le developpement des infrastructures et la mise en oeuvre des programmes publics.</p>
         </div>
 
         <QCMBlock questions={[
@@ -590,7 +590,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Principe général : Art. 38 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 38 de la LOFIP pose le principe général : <em>« Sous reserve des dispositions des articles 39 et 40 de la présenté loi, les crédits budgétaires sont limitatifs. Les dépenses sur crédits limitatifs ne peuvent etre engagees ni ordonnancees au-dela des dotations budgétaires. »</em>
+            L'Art. 38 de la LOFIP pose le principe général : <em>« Sous reserve des dispositions des articles 39 et 40 de la présenté loi, les crédits budgétaires sont limitatifs. Les dépenses sur crédits limitatifs ne peuvent etre engagees ni ordonnancees au-dela des dotations budgétaires. »</em>
           </p>
           <p className="text-xs text-foreground leading-relaxed mt-2">
             La règle est donc simple : <strong>tout crédit est limitatif par defaut</strong>, sauf exception expressement prevue par la LOFIP (Art. 39 pour les crédits evaluatifs, Art. 40 pour les crédits provisionnels).
@@ -603,14 +603,14 @@ const LECONS: Lecon[] = [
               <span className="text-xs font-bold text-white bg-emerald-600 rounded-full px-3 py-0.5">Art. 38</span>
               <h4 className="text-sm font-bold text-foreground">
                 Credits limitatifs{' '}
-                <InfoTooltip texte="Les crédits limitatifs constituent la règle générale en droit budgétaire congolais. Ils fixent un plafond absolu que les ministères ne peuvent pas depasser. Toute dépense au-dela de la dotation est irreguliere et engage la responsabilite de l\'ordonnateur." loi="Art. 38 LOFIP" />
+                <InfoTooltip texte="Les crédits limitatifs constituent la règle générale en droit budgétaire congolais. Ils fixent un plafond absolu que les ministères ne peuvent pas depasser. Toute dépense au-dela de la dotation est irreguliere et engage la responsabilite de l'ordonnateur." loi="Art. 38 LOFIP" />
               </h4>
             </div>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              <strong>Definition :</strong> Les crédits limitatifs constituent un plafond absolu que les ministères ne peuvent pas depasser. Les dépenses engagees ou ordonnancees ne peuvent exceder les dotations budgétaires. C\'est la règle générale.
+              <strong>Definition :</strong> Les crédits limitatifs constituent un plafond absolu que les ministères ne peuvent pas depasser. Les dépenses engagees ou ordonnancees ne peuvent exceder les dotations budgétaires. C'est la règle générale.
             </p>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              <strong>Consequence juridique :</strong> Tout engagement de dépense au-dela des crédits disponibles est irrégulier et engage la responsabilite personnelle et pecuniaire de l\'ordonnateur. Le comptable public est tenu de rejeter tout paiement excedant les crédits ouverts.
+              <strong>Consequence juridique :</strong> Tout engagement de dépense au-dela des crédits disponibles est irrégulier et engage la responsabilite personnelle et pecuniaire de l'ordonnateur. Le comptable public est tenu de rejeter tout paiement excedant les crédits ouverts.
             </p>
             <div className="rounded-lg bg-emerald-50 p-2 border border-emerald-200">
               <p className="text-xs font-medium text-emerald-800">Exemples : salaires (Titre III), biens et materiels (Titre IV), dépenses de prestations (Titre V), investissements (Titres VII et VIII)</p>
@@ -622,11 +622,11 @@ const LECONS: Lecon[] = [
               <span className="text-xs font-bold text-white bg-amber-600 rounded-full px-3 py-0.5">Art. 39</span>
               <h4 className="text-sm font-bold text-foreground">
                 Credits evaluatifs{' '}
-                <InfoTooltip texte="Les crédits evaluatifs ont un caractere de simple evaluation. Ils peuvent etre depasses si les besoins reels le justifient. En RDC, ils s\'appliquent exclusivement aux charges de la dette publique (remboursement du principal et frais financiers - Titres I et II)." loi="Art. 39 LOFIP" />
+                <InfoTooltip texte="Les crédits evaluatifs ont un caractere de simple evaluation. Ils peuvent etre depasses si les besoins reels le justifient. En RDC, ils s'appliquent exclusivement aux charges de la dette publique (remboursement du principal et frais financiers - Titres I et II)." loi="Art. 39 LOFIP" />
               </h4>
             </div>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              L\'Art. 39 LOFIP dispose : <em>« Les crédits relatifs aux charges de la dette du pouvoir central ont un caractere evaluatif. Les dépenses sur crédits evaluatifs s\'imputent, si necessaire, au-dela des crédits ouverts. Dans cette hypothese, le Gouvernement informe le Parlement des motifs du depassement. Les depassements des crédits evaluatifs font l\'objet des propositions d\'ouverture de crédits dans le projet de loi de finances rectificative. »</em>
+              L'Art. 39 LOFIP dispose : <em>« Les crédits relatifs aux charges de la dette du pouvoir central ont un caractere evaluatif. Les dépenses sur crédits evaluatifs s'imputent, si necessaire, au-dela des crédits ouverts. Dans cette hypothese, le Gouvernement informe le Parlement des motifs du depassement. Les depassements des crédits evaluatifs font l'objet des propositions d'ouverture de crédits dans le projet de loi de finances rectificative. »</em>
             </p>
             <div className="rounded-lg bg-amber-50 p-2 border border-amber-200">
               <p className="text-xs font-medium text-amber-800">Application exclusive : charges de la dette du Pouvoir central (Titres I et II - remboursement principal + frais financiers)</p>
@@ -642,10 +642,10 @@ const LECONS: Lecon[] = [
               </h4>
             </div>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              L\'Art. 40 LOFIP dispose : <em>« Les dépenses pour lesquelles les besoins ne peuvent etre exactement chiffres au moment du vote de la loi de finances de l\'année ont un caractere provisionnel. Ils correspondent a des dépenses accidentelles et imprévisibles concernant notamment, les faits de guerre et les catastrophes naturelles. »</em>
+              L'Art. 40 LOFIP dispose : <em>« Les dépenses pour lesquelles les besoins ne peuvent etre exactement chiffres au moment du vote de la loi de finances de l'année ont un caractere provisionnel. Ils correspondent a des dépenses accidentelles et imprévisibles concernant notamment, les faits de guerre et les catastrophes naturelles. »</em>
             </p>
             <p className="text-xs text-foreground leading-relaxed mb-2">
-              <em>« Les dépenses sur crédits provisionnels ne peuvent etre ordonnancees que dans les limites des allocations budgétaires correspondantes. Toutefois, en cas d\'insuffisance de ces crédits, des crédits supplementaires sont demandes au Parlement, conformement a l\'article 129 de la Constitution. »</em>
+              <em>« Les dépenses sur crédits provisionnels ne peuvent etre ordonnancees que dans les limites des allocations budgétaires correspondantes. Toutefois, en cas d'insuffisance de ces crédits, des crédits supplementaires sont demandes au Parlement, conformement a l'article 129 de la Constitution. »</em>
             </p>
             <div className="rounded-lg bg-red-50 p-2 border border-red-200">
               <p className="text-xs font-medium text-red-800">Exemples : epidemie de mpox, eruption volcanique du Nyiragongo, inondations, conflits armes</p>
@@ -685,7 +685,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-2">Art. 41 LOFIP : Ouverture de crédits supplementaires</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 41 LOFIP dispose : <em>« Toute ouverture de crédits supplementaires prevoit les voies et moyens necessaires a son exécution et s\'accompagne d\'un rapport adresse au Parlement par le Premier ministre. »</em> Cela signifie qu\'aucun crédit supplementaire ne peut etre ouvert sans identifier simultanement les ressources qui le financeront (principe d\'équilibre budgétaire).
+            L'Art. 41 LOFIP dispose : <em>« Toute ouverture de crédits supplementaires prevoit les voies et moyens necessaires a son exécution et s'accompagne d'un rapport adresse au Parlement par le Premier ministre. »</em> Cela signifie qu'aucun crédit supplementaire ne peut etre ouvert sans identifier simultanement les ressources qui le financeront (principe d'équilibre budgétaire).
           </p>
         </div>
 
@@ -730,9 +730,9 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-4">
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 mb-2">Vue d\'ensemble</h3>
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Vue d'ensemble</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            Les budgets annexes (Art. 55-58) et les comptes speciaux (Art. 59-73) constituent des mecanismes derogatoires au budget général. Ils permettent d\'individualiser certaines operations budgétaires tout en les maintenant sous le contrôle de la loi de finances. Leur creation, modification et suppression relèvent exclusivement de la loi de finances (Art. 55 et 60).
+            Les budgets annexes (Art. 55-58) et les comptes speciaux (Art. 59-73) constituent des mecanismes derogatoires au budget général. Ils permettent d'individualiser certaines operations budgétaires tout en les maintenant sous le contrôle de la loi de finances. Leur creation, modification et suppression relèvent exclusivement de la loi de finances (Art. 55 et 60).
           </p>
         </div>
 
@@ -740,17 +740,17 @@ const LECONS: Lecon[] = [
           <div className="rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
               Budgets annexes (Art. 55-58){' '}
-              <InfoTooltip texte="Les budgets annexes ne peuvent etre crees que par loi de finances (Art. 55). Ils concernent des services du Pouvoir central qui produisent des biens ou services remuneres par des redevances. Contrairement aux établissements publics, ces services n\'ont pas de personnalite juridique propre." loi="Art. 55-58 LOFIP" />
+              <InfoTooltip texte="Les budgets annexes ne peuvent etre crees que par loi de finances (Art. 55). Ils concernent des services du Pouvoir central qui produisent des biens ou services remuneres par des redevances. Contrairement aux établissements publics, ces services n'ont pas de personnalite juridique propre." loi="Art. 55-58 LOFIP" />
             </h3>
             <div className="space-y-2 text-xs text-foreground">
-              <p><strong>Art. 55 :</strong> Un budget annexe constitue un programme au sens de l\'Art. 44. Sa creation, suppression et l\'affectation d\'une recette s\'operent exclusivement par les lois de finances.</p>
-              <p><strong>Art. 56 :</strong> Condition d\'eligibilite : service du Pouvoir central, sans personnalite juridique, dont l\'activité principale est la production de biens ou prestations de services remuneres par des redevances. L\'équilibre est assure par versement au budget général (excedent) ou subvention (déficit justifie).</p>
+              <p><strong>Art. 55 :</strong> Un budget annexe constitue un programme au sens de l'Art. 44. Sa creation, suppression et l'affectation d'une recette s'operent exclusivement par les lois de finances.</p>
+              <p><strong>Art. 56 :</strong> Condition d'eligibilite : service du Pouvoir central, sans personnalite juridique, dont l'activité principale est la production de biens ou prestations de services remuneres par des redevances. L'équilibre est assure par versement au budget général (excedent) ou subvention (déficit justifie).</p>
               <p><strong>Art. 57 :</strong> Presentation en deux sections obligatoires :</p>
               <ul className="ml-4 space-y-1">
-                <li>Section des operations courantes : recettes et dépenses d\'exploitation</li>
+                <li>Section des operations courantes : recettes et dépenses d'exploitation</li>
                 <li>Section des operations en capital : investissements et ressources affectees</li>
               </ul>
-              <p><strong>Art. 58 :</strong> Interdiction absolue de mouvements de crédits entre un budget annexe et le budget général ou entre budgets annexes. L\'etancheite est totale.</p>
+              <p><strong>Art. 58 :</strong> Interdiction absolue de mouvements de crédits entre un budget annexe et le budget général ou entre budgets annexes. L'etancheite est totale.</p>
             </div>
           </div>
 
@@ -758,44 +758,44 @@ const LECONS: Lecon[] = [
             <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
               Comptes speciaux du Tresor (Art. 59-73)
             </h3>
-            <p className="text-xs text-foreground mb-3">L\'Art. 60 pose le cadre : <em>« Les comptes speciaux sont constitues des comptes d\'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances. »</em></p>
+            <p className="text-xs text-foreground mb-3">L'Art. 60 pose le cadre : <em>« Les comptes speciaux sont constitues des comptes d'affectation speciale et des comptes de concours financiers. Ils ne peuvent etre ouverts que par une loi de finances. »</em></p>
 
             <div className="space-y-3">
               <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
                 <h4 className="text-xs font-bold text-emerald-800 mb-1 flex items-center gap-1">
-                  Comptes d\'affectation speciale (Art. 62-65){' '}
-                  <InfoTooltip texte="Les comptes d\'affectation speciale retracent des operations financees par des recettes particulieres directement liees aux dépenses concernees. Ex : Fonds routier (financement des travaux routiers par les taxes sur les carburants), Fonds minier (royalties minieres affectees au developpement minier)." loi="Art. 62 LOFIP" />
+                  Comptes d'affectation speciale (Art. 62-65){' '}
+                  <InfoTooltip texte="Les comptes d'affectation speciale retracent des operations financees par des recettes particulieres directement liees aux dépenses concernees. Ex : Fonds routier (financement des travaux routiers par les taxes sur les carburants), Fonds minier (royalties minieres affectees au developpement minier)." loi="Art. 62 LOFIP" />
                 </h4>
                 <p className="text-xs text-foreground leading-relaxed mb-2">
-                  L\'Art. 62 dispose : <em>« Les comptes d\'affectation speciale retracent, dans les conditions prevues par la loi de finances, des operations budgétaires financees au moyen de recettes particulieres qui sont, par nature, en relation directe avec les dépenses concernees. »</em>
+                  L'Art. 62 dispose : <em>« Les comptes d'affectation speciale retracent, dans les conditions prevues par la loi de finances, des operations budgétaires financees au moyen de recettes particulieres qui sont, par nature, en relation directe avec les dépenses concernees. »</em>
                 </p>
                 <p className="text-xs text-foreground leading-relaxed mb-2">
-                  L\'Art. 65 fixe la limite : <em>« Le total des dépenses engagees ou ordonnancees au titre d\'un compte d\'affectation speciale ne peut exceder le total des recettes constatees, sauf pendant les trois mois suivant sa creation. »</em>
+                  L'Art. 65 fixe la limite : <em>« Le total des dépenses engagees ou ordonnancees au titre d'un compte d'affectation speciale ne peut exceder le total des recettes constatees, sauf pendant les trois mois suivant sa creation. »</em>
                 </p>
-                <p className="text-xs text-muted-foreground italic">Exemples RDC : Fonds routier, Fonds de promotion de l\'industrie, Caisse nationale de perequation</p>
+                <p className="text-xs text-muted-foreground italic">Exemples RDC : Fonds routier, Fonds de promotion de l'industrie, Caisse nationale de perequation</p>
               </div>
 
               <div className="rounded-lg bg-blue-50 border border-blue-200 p-3">
                 <h4 className="text-xs font-bold text-blue-800 mb-1 flex items-center gap-1">
                   Comptes de concours financiers (Art. 66-68){' '}
-                  <InfoTooltip texte="Les comptes de concours financiers retracent les prets et avances consentis par le Pouvoir central. Un compte distinct doit etre ouvert pour chaque debiteur ou categorie de debiteurs (Art. 66 al. 2). Ils sont dotes de crédits limitatifs et assortis d\'un taux d\'intérêt." loi="Art. 66-68 LOFIP" />
+                  <InfoTooltip texte="Les comptes de concours financiers retracent les prets et avances consentis par le Pouvoir central. Un compte distinct doit etre ouvert pour chaque debiteur ou categorie de debiteurs (Art. 66 al. 2). Ils sont dotes de crédits limitatifs et assortis d'un taux d'intérêt." loi="Art. 66-68 LOFIP" />
                 </h4>
                 <p className="text-xs text-foreground leading-relaxed mb-2">
-                  L\'Art. 66 dispose : <em>« Les comptes de concours financiers retracent les prets et avances consentis par le pouvoir central a une personne physique ou morale. Un compte distinct doit etre ouvert pour chaque debiteur ou categorie de debiteurs. Les comptes de concours financiers sont dotes de crédits limitatifs. »</em>
+                  L'Art. 66 dispose : <em>« Les comptes de concours financiers retracent les prets et avances consentis par le pouvoir central a une personne physique ou morale. Un compte distinct doit etre ouvert pour chaque debiteur ou categorie de debiteurs. Les comptes de concours financiers sont dotes de crédits limitatifs. »</em>
                 </p>
                 <p className="text-xs text-foreground leading-relaxed mb-2">
-                  L\'Art. 67 precise les conditions : <em>« Les prets et avances sont accordes pour une duree determinee. Excepte les avances sur dépenses de personnel, ils sont assortis d\'un taux d\'intérêt qui doit etre au plus egal au taux interbancaire de meme echeance. »</em>
+                  L'Art. 67 precise les conditions : <em>« Les prets et avances sont accordes pour une duree determinee. Excepte les avances sur dépenses de personnel, ils sont assortis d'un taux d'intérêt qui doit etre au plus egal au taux interbancaire de meme echeance. »</em>
                 </p>
                 <p className="text-xs text-foreground leading-relaxed">
-                  L\'Art. 68 reglemente les incidents de remboursement : en cas de non-paiement, il est prevu soit le recouvrement immediat (delai 6 mois), soit le reechelonnement, soit la constatation d\'une perte imputee au résultat de l\'exercice.
+                  L'Art. 68 reglemente les incidents de remboursement : en cas de non-paiement, il est prevu soit le recouvrement immediat (delai 6 mois), soit le reechelonnement, soit la constatation d'une perte imputee au résultat de l'exercice.
                 </p>
               </div>
 
               <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
                 <h4 className="text-xs font-bold text-amber-800 mb-2">Autres procédures speciales (Art. 69-73)</h4>
                 <div className="space-y-1 text-xs text-foreground">
-                  <p><strong>Fonds de concours (Art. 70) :</strong> Fonds non fiscaux verses par des tiers (personnes physiques ou morales) pour concourir a des dépenses d\'intérêt public, et produits de legs et donations. Portes directement en recettes et ouvrent des crédits supplementaires de meme montant.</p>
-                  <p><strong>Attributions de produits (Art. 72) :</strong> Recettes tirees de la remuneration des prestations d\'un service du Pouvoir central, affectees a ce meme service par arrete ministeriel.</p>
+                  <p><strong>Fonds de concours (Art. 70) :</strong> Fonds non fiscaux verses par des tiers (personnes physiques ou morales) pour concourir a des dépenses d'intérêt public, et produits de legs et donations. Portes directement en recettes et ouvrent des crédits supplementaires de meme montant.</p>
+                  <p><strong>Attributions de produits (Art. 72) :</strong> Recettes tirees de la remuneration des prestations d'un service du Pouvoir central, affectees a ce meme service par arrete ministeriel.</p>
                   <p><strong>Retablissement de crédits (Art. 73) :</strong> Recettes provenant de restitutions de sommes payees indument ou de cessions de biens, qui viennent retablir les crédits initialement utilises.</p>
                 </div>
               </div>
@@ -1267,7 +1267,7 @@ export default function UE5Chapitre3Page() {
           color="emerald"
         />
         <div className="flex items-center gap-2 flex-wrap">
-          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Structure et presentation du budget de l\'Etat</h1>
+          <h1 className="text-lg font-display font-bold text-foreground leading-tight">Structure et presentation du budget de l'Etat</h1>
           <InfoTooltip texte="Ce chapitre analyse la structure du budget du Pouvoir central : budget général, budgets annexes, comptes speciaux, nomenclature des charges par titres et regimes des crédits (Art. 20, 32, 36-41, 55-73 LOFIP)." loi="Art. 20, 36-41, 55-73 LOFIP" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 16-32, 36-41, 55-73 · Budget 2025 : 49 846 Mds FC · LFR n 25/044</p>
@@ -1296,7 +1296,7 @@ export default function UE5Chapitre3Page() {
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Decrire la structure tripartite du budget du Pouvoir central : budget général, budgets annexes, comptes speciaux (Art. 20 LOFIP)</span></li>
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Identifier les categories de ressources budgétaires et la retrocession de 40% aux provinces (Art. 24, 175 Constitution)</span></li>
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maitriser la nomenclature des charges par 9 titres (Art. 37 LOFIP) et les regimes des crédits (Art. 38-41)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Distinguer budgets annexes (Art. 55-58) et comptes speciaux : comptes d\'affectation speciale (Art. 62-65) et comptes de concours financiers (Art. 66-68)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Distinguer budgets annexes (Art. 55-58) et comptes speciaux : comptes d'affectation speciale (Art. 62-65) et comptes de concours financiers (Art. 66-68)</span></li>
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Lire et analyser les chiffres reels du budget 2025 : 49 846 Mds FC (LF initiale) et 50 691,8 Mds FC (LFR juin 2025)</span></li>
         </ul>
       </div>
@@ -1373,7 +1373,7 @@ export default function UE5Chapitre3Page() {
       {activeTab === 'devoir' && (
         <DevoirChapitreCreateur
           chapitreId="ue5-chapitre-3"
-          chapitreNom="Chapitre 3 - Structure et presentation du budget de l\'Etat"
+          chapitreNom="Chapitre 3 - Structure et presentation du budget de l'Etat"
           questions={QCM_GLOBAL as unknown as QCMChapitre[]}
           coursId="ue5-finances-publiques"
           casPratiquesExistants={ETUDES_DE_CAS.map(versCasPratiqueExistant)}

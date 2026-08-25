@@ -79,13 +79,13 @@ const LECONS: Lecon[] = [
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
           <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 90 LOFIP - Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
-            « En matière de dépenses, l\'engagement est l\'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge. La liquidation a pour objet de vérifier la réalité de la dette et d\'arrêter le montant exact de la dépense. L\'ordonnancement est l\'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l\'ordre est donné au caissier concerné de payer la dette du pouvoir central. Le paiement est l\'acte par lequel le pouvoir central se libère de sa dette. »
+            « En matière de dépenses, l'engagement est l'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge. La liquidation a pour objet de vérifier la réalité de la dette et d'arrêter le montant exact de la dépense. L'ordonnancement est l'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l'ordre est donné au caissier concerné de payer la dette du pouvoir central. Le paiement est l'acte par lequel le pouvoir central se libère de sa dette. »
           </p>
         </div>
 
         <p>
-          La chaîne de la dépense publique est la séquence obligatoire et immuable que doit suivre toute dépense du pouvoir central avant d\'être payée. Elle est posée à l\'Art. 90 de la LOFIP et comporte <strong>quatre phases successives</strong> que nulle autorité ne peut intervertir ou supprimer.
-          <InfoTooltip texte="La chaîne de la dépense est un mécanisme de protection des deniers publics. En imposant quatre phases distinctes exécutées par des acteurs différents, la LOFIP évite qu\'une seule personne puisse décider, calculer, ordonner et payer une dépense sans contrôle." loi="Art. 90 LOFIP" />
+          La chaîne de la dépense publique est la séquence obligatoire et immuable que doit suivre toute dépense du pouvoir central avant d'être payée. Elle est posée à l'Art. 90 de la LOFIP et comporte <strong>quatre phases successives</strong> que nulle autorité ne peut intervertir ou supprimer.
+          <InfoTooltip texte="La chaîne de la dépense est un mécanisme de protection des deniers publics. En imposant quatre phases distinctes exécutées par des acteurs différents, la LOFIP évite qu'une seule personne puisse décider, calculer, ordonner et payer une dépense sans contrôle." loi="Art. 90 LOFIP" />
         </p>
 
         {/* Schéma des 4 phases */}
@@ -105,13 +105,13 @@ const LECONS: Lecon[] = [
           ))}
         </div>
 
-        <h3 className="font-bold text-foreground mt-4">Phase 1 - L\'engagement (Art. 90 al. 1)</h3>
+        <h3 className="font-bold text-foreground mt-4">Phase 1 - L'engagement (Art. 90 al. 1)</h3>
         <p>
-          L\'<strong>engagement</strong> est « l\'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge » (Art. 90 al. 1 LOFIP). C\'est l\'acte juridique fondateur de la dépense. Il peut prendre la forme d\'un contrat, d\'un marché public, d\'une décision de recrutement ou de toute décision créant une obligation à la charge de l\'État.
-          <InfoTooltip texte="L\'engagement peut être un engagement juridique (contrat, marché) ou un engagement comptable (mise à disposition des crédits). La LOFIP exige que l\'engagement ne dépasse pas les crédits ouverts par la loi de finances (Art. 10 LOFIP). Tout engagement au-delà des crédits disponibles est irrégulier." loi="Art. 90 al. 1, Art. 10 LOFIP" />
+          L'<strong>engagement</strong> est « l'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge » (Art. 90 al. 1 LOFIP). C'est l'acte juridique fondateur de la dépense. Il peut prendre la forme d'un contrat, d'un marché public, d'une décision de recrutement ou de toute décision créant une obligation à la charge de l'État.
+          <InfoTooltip texte="L'engagement peut être un engagement juridique (contrat, marché) ou un engagement comptable (mise à disposition des crédits). La LOFIP exige que l'engagement ne dépasse pas les crédits ouverts par la loi de finances (Art. 10 LOFIP). Tout engagement au-delà des crédits disponibles est irrégulier." loi="Art. 90 al. 1, Art. 10 LOFIP" />
         </p>
         <div className="bg-muted/40 rounded p-3 text-xs">
-          <p className="font-semibold text-foreground mb-1">Conditions légales de l\'engagement (Art. 10 LOFIP) :</p>
+          <p className="font-semibold text-foreground mb-1">Conditions légales de l'engagement (Art. 10 LOFIP) :</p>
           <ul className="space-y-1 list-none">
             {[
               'Crédits disponibles et régulièrement ouverts par la loi de finances',
@@ -130,30 +130,30 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">Phase 2 - La liquidation (Art. 90 al. 2)</h3>
         <p>
-          La <strong>liquidation</strong> « a pour objet de vérifier la réalité de la dette et d\'arrêter le montant exact de la dépense » (Art. 90 al. 2 LOFIP). Elle intervient après que la prestation a été exécutée. L\'ordonnateur vérifie que le service a bien été fait (« service fait ») et calcule le montant exact dû par l\'État.
-          <InfoTooltip texte="La règle du « service fait » est fondamentale : une dépense ne peut être liquidée que si la prestation correspondante a été effectivement réalisée. Payer une facture sans service fait constitue une irrégularité grave susceptible d\'engager la responsabilité personnelle de l\'ordonnateur." loi="Art. 90 al. 2 LOFIP" />
+          La <strong>liquidation</strong> « a pour objet de vérifier la réalité de la dette et d'arrêter le montant exact de la dépense » (Art. 90 al. 2 LOFIP). Elle intervient après que la prestation a été exécutée. L'ordonnateur vérifie que le service a bien été fait (« service fait ») et calcule le montant exact dû par l'État.
+          <InfoTooltip texte="La règle du « service fait » est fondamentale : une dépense ne peut être liquidée que si la prestation correspondante a été effectivement réalisée. Payer une facture sans service fait constitue une irrégularité grave susceptible d'engager la responsabilité personnelle de l'ordonnateur." loi="Art. 90 al. 2 LOFIP" />
         </p>
 
-        <h3 className="font-bold text-foreground mt-4">Phase 3 - L\'ordonnancement (Art. 90 al. 3)</h3>
+        <h3 className="font-bold text-foreground mt-4">Phase 3 - L'ordonnancement (Art. 90 al. 3)</h3>
         <p>
-          L\'<strong>ordonnancement</strong> est « l\'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l\'ordre est donné au caissier concerné de payer la dette du pouvoir central » (Art. 90 al. 3 LOFIP). C\'est l\'acte de transmission entre l\'ordonnateur et le comptable public. Sans ordonnancement régulier, le comptable public ne peut pas effectuer le paiement (Art. 91 al. 3 LOFIP).
+          L'<strong>ordonnancement</strong> est « l'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l'ordre est donné au caissier concerné de payer la dette du pouvoir central » (Art. 90 al. 3 LOFIP). C'est l'acte de transmission entre l'ordonnateur et le comptable public. Sans ordonnancement régulier, le comptable public ne peut pas effectuer le paiement (Art. 91 al. 3 LOFIP).
         </p>
         <div className="bg-amber-50 border border-amber-200 rounded p-3 text-xs">
           <p className="font-semibold text-amber-800 mb-1">Art. 91 al. 3 LOFIP - Règle impérative</p>
-          <p className="text-amber-700">« Toute dépense, régulièrement engagée et liquidée par l\'ordonnateur fait l\'objet, préalablement à son paiement, d\'un ordonnancement. »</p>
+          <p className="text-amber-700">« Toute dépense, régulièrement engagée et liquidée par l'ordonnateur fait l'objet, préalablement à son paiement, d'un ordonnancement. »</p>
         </div>
 
         <h3 className="font-bold text-foreground mt-4">Phase 4 - Le paiement (Art. 90 al. 4)</h3>
         <p>
-          Le <strong>paiement</strong> est « l\'acte par lequel le pouvoir central se libère de sa dette » (Art. 90 al. 4 LOFIP). C\'est la seule phase exécutée par le <strong>comptable public</strong> et non par l\'ordonnateur. Cette règle est le corollaire du principe de séparation ordonnateur/comptable (Art. 102 LOFIP). Le comptable public ne peut payer que dans la limite des crédits ouverts et sur présentation d\'un ordonnancement régulier.
+          Le <strong>paiement</strong> est « l'acte par lequel le pouvoir central se libère de sa dette » (Art. 90 al. 4 LOFIP). C'est la seule phase exécutée par le <strong>comptable public</strong> et non par l'ordonnateur. Cette règle est le corollaire du principe de séparation ordonnateur/comptable (Art. 102 LOFIP). Le comptable public ne peut payer que dans la limite des crédits ouverts et sur présentation d'un ordonnancement régulier.
         </p>
         <div className="bg-violet-50 border border-violet-200 rounded p-3 text-xs mt-2">
           <p className="font-semibold text-violet-800 mb-1">Principe fondamental - Art. 92 LOFIP</p>
-          <p className="text-violet-700">« Les dépenses sont prises en compte au titre du budget de l\'année au cours de laquelle elles sont prises en charge par le comptable public. Elles sont imputées sur les crédits de cette même année. »</p>
+          <p className="text-violet-700">« Les dépenses sont prises en compte au titre du budget de l'année au cours de laquelle elles sont prises en charge par le comptable public. Elles sont imputées sur les crédits de cette même année. »</p>
         </div>
         <div className="bg-muted/40 rounded p-3 text-xs mt-2">
-          <p className="font-semibold text-foreground mb-1">Date limite d\'engagement (Art. 92 LOFIP)</p>
-          <p>Les engagements de dépenses <em>autres que celles de personnel</em> ne peuvent intervenir après le <strong>31 octobre</strong> de chaque année. Cette règle préserve la clôture budgétaire et la comptabilité de fin d\'exercice.</p>
+          <p className="font-semibold text-foreground mb-1">Date limite d'engagement (Art. 92 LOFIP)</p>
+          <p>Les engagements de dépenses <em>autres que celles de personnel</em> ne peuvent intervenir après le <strong>31 octobre</strong> de chaque année. Cette règle préserve la clôture budgétaire et la comptabilité de fin d'exercice.</p>
         </div>
       </div>
     ),
@@ -200,26 +200,26 @@ const LECONS: Lecon[] = [
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
           <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 103 LOFIP - Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
-            « Est ordonnateur, le responsable d\'institution, le ministre, le responsable de budget annexe ou la personne déléguée par lui au niveau central et au niveau déconcentré. L\'ordonnateur a le pouvoir, dans la limite des crédits budgétaires qui lui sont accordés par les lois de finances, d\'engager, de liquider et d\'ordonnancer les dépenses nécessaires au fonctionnement de son institution ou ministère, ou service déconcentré, ou budget annexe rattaché. Il le fait dans le respect des lois, règlements et instructions qui régissent la matière, et sous réserve du pouvoir de régulation des crédits budgétaires du ministre ayant le budget dans ses attributions et du pouvoir de gestion de la trésorerie du ministre ayant les finances dans ses attributions. »
+            « Est ordonnateur, le responsable d'institution, le ministre, le responsable de budget annexe ou la personne déléguée par lui au niveau central et au niveau déconcentré. L'ordonnateur a le pouvoir, dans la limite des crédits budgétaires qui lui sont accordés par les lois de finances, d'engager, de liquider et d'ordonnancer les dépenses nécessaires au fonctionnement de son institution ou ministère, ou service déconcentré, ou budget annexe rattaché. Il le fait dans le respect des lois, règlements et instructions qui régissent la matière, et sous réserve du pouvoir de régulation des crédits budgétaires du ministre ayant le budget dans ses attributions et du pouvoir de gestion de la trésorerie du ministre ayant les finances dans ses attributions. »
           </p>
         </div>
 
-        <h3 className="font-bold text-foreground">Définition et pouvoirs de l\'ordonnateur</h3>
+        <h3 className="font-bold text-foreground">Définition et pouvoirs de l'ordonnateur</h3>
         <p>
-          L\'<strong>ordonnateur</strong> est l\'autorité compétente pour exécuter les trois premières phases de la chaîne de la dépense : engagement, liquidation et ordonnancement. Il est toujours une <em>autorité administrative</em> - jamais un comptable public.
-          <InfoTooltip texte="L\'ordonnateur peut être principal (ministre, responsable d\'institution) ou secondaire (personne déléguée au niveau déconcentré). La délégation doit être formelle et ne peut pas transférer la responsabilité : l\'ordonnateur délégataire est responsable des actes accomplis dans les limites de la délégation reçue." loi="Art. 103 LOFIP" />
+          L'<strong>ordonnateur</strong> est l'autorité compétente pour exécuter les trois premières phases de la chaîne de la dépense : engagement, liquidation et ordonnancement. Il est toujours une <em>autorité administrative</em> - jamais un comptable public.
+          <InfoTooltip texte="L'ordonnateur peut être principal (ministre, responsable d'institution) ou secondaire (personne déléguée au niveau déconcentré). La délégation doit être formelle et ne peut pas transférer la responsabilité : l'ordonnateur délégataire est responsable des actes accomplis dans les limites de la délégation reçue." loi="Art. 103 LOFIP" />
         </p>
         <p>
-          Ses pouvoirs s\'exercent <strong>à trois conditions cumulatives</strong> posées par l\'Art. 103 LOFIP : (1) dans la <em>limite des crédits budgétaires</em> votés par la loi de finances ; (2) dans le <em>respect des lois, règlements et instructions</em> ; (3) sous réserve du pouvoir de régulation du Ministre du Budget et du pouvoir de trésorerie du Ministre des Finances.
+          Ses pouvoirs s'exercent <strong>à trois conditions cumulatives</strong> posées par l'Art. 103 LOFIP : (1) dans la <em>limite des crédits budgétaires</em> votés par la loi de finances ; (2) dans le <em>respect des lois, règlements et instructions</em> ; (3) sous réserve du pouvoir de régulation du Ministre du Budget et du pouvoir de trésorerie du Ministre des Finances.
         </p>
 
-        <h3 className="font-bold text-foreground mt-4">L\'avis préalable obligatoire (Art. 107 LOFIP)</h3>
+        <h3 className="font-bold text-foreground mt-4">L'avis préalable obligatoire (Art. 107 LOFIP)</h3>
         <div className="bg-amber-50 border border-amber-200 rounded p-3 text-xs">
           <p className="font-semibold text-amber-800 mb-1">Art. 107 LOFIP - Avis obligatoire du Ministre du Budget</p>
-          <p className="text-amber-700">« Tout projet de loi, toute décision ou convention quelconque pouvant avoir une répercussion immédiate ou future, tant sur les recettes que sur les dépenses ainsi que tout acte d\'administration portant création d\'emploi, extension des cadres organiques, ou modification du statut pécuniaire des agents de carrière des services publics du pouvoir central, doivent être soumis à l\'avis préalable du ministre ayant le budget dans ses attributions. »</p>
+          <p className="text-amber-700">« Tout projet de loi, toute décision ou convention quelconque pouvant avoir une répercussion immédiate ou future, tant sur les recettes que sur les dépenses ainsi que tout acte d'administration portant création d'emploi, extension des cadres organiques, ou modification du statut pécuniaire des agents de carrière des services publics du pouvoir central, doivent être soumis à l'avis préalable du ministre ayant le budget dans ses attributions. »</p>
         </div>
         <p className="text-sm">
-          Cette disposition étend l\'autorité budgétaire du Ministre du Budget au-delà de l\'exécution : toute décision ayant une incidence financière - y compris la création d\'emplois et la modification des statuts pécuniaires - ne peut être prise sans son avis préalable.
+          Cette disposition étend l'autorité budgétaire du Ministre du Budget au-delà de l'exécution : toute décision ayant une incidence financière - y compris la création d'emplois et la modification des statuts pécuniaires - ne peut être prise sans son avis préalable.
         </p>
 
         <h3 className="font-bold text-foreground mt-4">Les deux ordonnateurs spéciaux</h3>
@@ -263,7 +263,7 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">Opérations financières soumises à la loi (Art. 108 LOFIP)</h3>
         <p>
-          L\'Art. 108 LOFIP soumet les opérations financières du Pouvoir central (emprunts, prêts, garanties, subventions, prises de participations) à une double condition : elles sont conclues par le Ministre des Finances après avis du Ministre du Budget, et <strong>« ne peuvent entrer en vigueur que si une loi les autorise »</strong>. Exception : en cas de vacances parlementaires, une ordonnance-loi du Président peut approuver les prêts/emprunts, sous réserve de ratification immédiate par le Parlement.
+          L'Art. 108 LOFIP soumet les opérations financières du Pouvoir central (emprunts, prêts, garanties, subventions, prises de participations) à une double condition : elles sont conclues par le Ministre des Finances après avis du Ministre du Budget, et <strong>« ne peuvent entrer en vigueur que si une loi les autorise »</strong>. Exception : en cas de vacances parlementaires, une ordonnance-loi du Président peut approuver les prêts/emprunts, sous réserve de ratification immédiate par le Parlement.
         </p>
       </div>
     ),
@@ -310,14 +310,14 @@ const LECONS: Lecon[] = [
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
           <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 109 LOFIP - Définition légale</p>
           <p className="text-xs text-foreground italic leading-relaxed">
-            « Est comptable public, tout agent ayant qualité pour exécuter, au nom et pour compte du pouvoir central, des opérations de recettes et de dépenses, de maniement de fonds et de valeurs qu\'il détient ainsi que les opérations se rapportant aux biens publics. Le comptable public chargé de la tenue et de l\'établissement des comptes du pouvoir central veille au respect des principes et des règles de gestion des finances publiques. Il s\'assure notamment de la sincérité des enregistrements et du respect des procédures. Il relève de la responsabilité du ministre ayant les finances dans ses attributions. »
+            « Est comptable public, tout agent ayant qualité pour exécuter, au nom et pour compte du pouvoir central, des opérations de recettes et de dépenses, de maniement de fonds et de valeurs qu'il détient ainsi que les opérations se rapportant aux biens publics. Le comptable public chargé de la tenue et de l'établissement des comptes du pouvoir central veille au respect des principes et des règles de gestion des finances publiques. Il s'assure notamment de la sincérité des enregistrements et du respect des procédures. Il relève de la responsabilité du ministre ayant les finances dans ses attributions. »
           </p>
         </div>
 
         <h3 className="font-bold text-foreground">Rôle et attributions du comptable public</h3>
         <p>
-          Le comptable public est l\'<em>agent d\'État</em> habilité à exécuter les opérations de caisse : recouvrement des recettes et paiement des dépenses. Il intervient exclusivement à la <strong>quatrième phase</strong> de la chaîne de la dépense (le paiement) et à toutes les phases de la chaîne des recettes.
-          <InfoTooltip texte="Le comptable public est nommé par le Ministre des Finances (Art. 106 LOFIP). Sa responsabilité est personnelle et pécuniaire : il est personnellement responsable des fonds et valeurs qu\'il détient. En cas d\'irrégularité, la Cour des comptes peut le condamner à rembourser les sommes sur ses deniers propres." loi="Art. 109 LOFIP" />
+          Le comptable public est l'<em>agent d'État</em> habilité à exécuter les opérations de caisse : recouvrement des recettes et paiement des dépenses. Il intervient exclusivement à la <strong>quatrième phase</strong> de la chaîne de la dépense (le paiement) et à toutes les phases de la chaîne des recettes.
+          <InfoTooltip texte="Le comptable public est nommé par le Ministre des Finances (Art. 106 LOFIP). Sa responsabilité est personnelle et pécuniaire : il est personnellement responsable des fonds et valeurs qu'il détient. En cas d'irrégularité, la Cour des comptes peut le condamner à rembourser les sommes sur ses deniers propres." loi="Art. 109 LOFIP" />
         </p>
 
         <h3 className="font-bold text-foreground mt-4">Attributions comptables (Art. 101 LOFIP)</h3>
@@ -336,8 +336,8 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">La règle de séparation ordonnateur/comptable</h3>
         <p>
-          L\'Art. 102 LOFIP pose que seuls l\'ordonnateur et le comptable public sont compétents en matière d\'exécution du budget. Ces deux fonctions sont <strong>strictement incompatibles</strong> : un même agent ne peut pas cumuler les qualités d\'ordonnateur et de comptable public. Cette séparation est un principe cardinal du droit financier public, visant à instaurer un contrôle mutuel entre l\'autorité qui décide la dépense et l\'agent qui la paie.
-          <InfoTooltip texte="La séparation ordonnateur/comptable a été théorisée en France dès le XIXe siècle et reprise dans les finances publiques africaines, dont celles de la RDC via la LOFIP. Elle constitue le premier rempart contre les détournements de fonds publics : si un seul agent pouvait engager, ordonner et payer, il n\'y aurait aucun contre-pouvoir interne." loi="Art. 102 LOFIP" />
+          L'Art. 102 LOFIP pose que seuls l'ordonnateur et le comptable public sont compétents en matière d'exécution du budget. Ces deux fonctions sont <strong>strictement incompatibles</strong> : un même agent ne peut pas cumuler les qualités d'ordonnateur et de comptable public. Cette séparation est un principe cardinal du droit financier public, visant à instaurer un contrôle mutuel entre l'autorité qui décide la dépense et l'agent qui la paie.
+          <InfoTooltip texte="La séparation ordonnateur/comptable a été théorisée en France dès le XIXe siècle et reprise dans les finances publiques africaines, dont celles de la RDC via la LOFIP. Elle constitue le premier rempart contre les détournements de fonds publics : si un seul agent pouvait engager, ordonner et payer, il n'y aurait aucun contre-pouvoir interne." loi="Art. 102 LOFIP" />
         </p>
         <div className="border rounded-lg overflow-hidden mt-3">
           <table className="w-full text-xs">
@@ -368,7 +368,7 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">Comptabilité générale : comptabilité en droits constatés (Art. 99 LOFIP)</h3>
         <p>
-          L\'Art. 99 LOFIP précise que la comptabilité générale du Pouvoir central est « une comptabilité d\'exercice ou comptabilité en droits constatés dans laquelle les opérations sont prises en compte au titre de l\'exercice auquel elles se rattachent, indépendamment de leur date d\'encaissement ou de paiement ». Ce principe distingue la comptabilité générale (droits constatés) de la comptabilité budgétaire (caisse).
+          L'Art. 99 LOFIP précise que la comptabilité générale du Pouvoir central est « une comptabilité d'exercice ou comptabilité en droits constatés dans laquelle les opérations sont prises en compte au titre de l'exercice auquel elles se rattachent, indépendamment de leur date d'encaissement ou de paiement ». Ce principe distingue la comptabilité générale (droits constatés) de la comptabilité budgétaire (caisse).
         </p>
       </div>
     ),
@@ -415,19 +415,19 @@ const LECONS: Lecon[] = [
         <div className="bg-violet-50 border border-violet-200 rounded-lg p-4">
           <p className="text-xs font-semibold text-violet-700 uppercase tracking-wide mb-1">Art. 112 LOFIP - Contrôle a priori</p>
           <p className="text-xs text-foreground italic leading-relaxed">
-            « Le contrôle administratif a priori des opérations budgétaires de dépenses du pouvoir central est assuré par le contrôleur budgétaire. Tous les actes portant engagement, liquidation et ordonnancement sont soumis à son visa préalable notamment, les contrats, arrêtés, mesures ou décisions émanant d\'un responsable d\'institution, d\'un ministre, d\'un responsable de service déconcentré ou d\'un fonctionnaire habilité de l\'administration. »
+            « Le contrôle administratif a priori des opérations budgétaires de dépenses du pouvoir central est assuré par le contrôleur budgétaire. Tous les actes portant engagement, liquidation et ordonnancement sont soumis à son visa préalable notamment, les contrats, arrêtés, mesures ou décisions émanant d'un responsable d'institution, d'un ministre, d'un responsable de service déconcentré ou d'un fonctionnaire habilité de l'administration. »
           </p>
         </div>
 
         <h3 className="font-bold text-foreground">Statut et affectation du contrôleur budgétaire</h3>
         <p>
-          L\'Art. 104 LOFIP dispose qu\'« un contrôleur budgétaire est affecté auprès de chaque ordonnateur », dans des conditions fixées par arrêté du Ministre du Budget. L\'Art. 115 LOFIP précise que les contrôleurs budgétaires sont affectés auprès de chaque institution et ministère de dépenses et auprès des services déconcentrés de l\'État. Ils relèvent de l\'autorité du Ministre du Budget (Art. 105 LOFIP).
-          <InfoTooltip texte="Le contrôleur budgétaire est indépendant de l\'ordonnateur auprès duquel il est placé. Il ne reçoit pas d\'instructions de l\'ordonnateur mais du Ministre du Budget. Cette indépendance fonctionnelle est la condition de l\'efficacité du contrôle a priori." loi="Art. 104, 105, 115 LOFIP" />
+          L'Art. 104 LOFIP dispose qu'« un contrôleur budgétaire est affecté auprès de chaque ordonnateur », dans des conditions fixées par arrêté du Ministre du Budget. L'Art. 115 LOFIP précise que les contrôleurs budgétaires sont affectés auprès de chaque institution et ministère de dépenses et auprès des services déconcentrés de l'État. Ils relèvent de l'autorité du Ministre du Budget (Art. 105 LOFIP).
+          <InfoTooltip texte="Le contrôleur budgétaire est indépendant de l'ordonnateur auprès duquel il est placé. Il ne reçoit pas d'instructions de l'ordonnateur mais du Ministre du Budget. Cette indépendance fonctionnelle est la condition de l'efficacité du contrôle a priori." loi="Art. 104, 105, 115 LOFIP" />
         </p>
 
         <h3 className="font-bold text-foreground mt-4">Le visa préalable : nature et portée (Art. 112-113)</h3>
         <p>
-          Le visa du contrôleur budgétaire est <strong>préalable et obligatoire</strong> pour tout acte d\'engagement, de liquidation et d\'ordonnancement. L\'Art. 113 LOFIP précise que le contrôleur obtient communication de toutes les pièces justificatives pour éclairer sa décision. Si les actes lui paraissent « entachés d\'irrégularités », il refuse le visa. La loi protège expressément le contrôleur : « il ne peut en aucun cas être sanctionné » pour avoir refusé un visa irrégulier (Art. 113 al. 3 LOFIP).
+          Le visa du contrôleur budgétaire est <strong>préalable et obligatoire</strong> pour tout acte d'engagement, de liquidation et d'ordonnancement. L'Art. 113 LOFIP précise que le contrôleur obtient communication de toutes les pièces justificatives pour éclairer sa décision. Si les actes lui paraissent « entachés d'irrégularités », il refuse le visa. La loi protège expressément le contrôleur : « il ne peut en aucun cas être sanctionné » pour avoir refusé un visa irrégulier (Art. 113 al. 3 LOFIP).
         </p>
         <div className="grid grid-cols-1 gap-2 mt-3">
           {[
@@ -443,7 +443,7 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">La procédure de désaccord persistant (Art. 114 LOFIP)</h3>
         <p>
-          En cas de <strong>désaccord persistant</strong> entre le contrôleur et l\'ordonnateur, la LOFIP prévoit une procédure en deux temps :
+          En cas de <strong>désaccord persistant</strong> entre le contrôleur et l'ordonnateur, la LOFIP prévoit une procédure en deux temps :
         </p>
         <div className="space-y-2 mt-2">
           {[
@@ -461,7 +461,7 @@ const LECONS: Lecon[] = [
         </div>
         <div className="bg-red-50 border border-red-200 rounded p-3 text-xs mt-2">
           <p className="font-semibold text-red-800 mb-1">Règle impérative</p>
-          <p className="text-red-700">Sans autorisation motivée écrite du Ministre du Budget, aucun ordonnateur ne peut passer outre au refus de visa. Toute dépense engagée en violation de cette règle est irrégulière et engage la responsabilité personnelle de l\'ordonnateur.</p>
+          <p className="text-red-700">Sans autorisation motivée écrite du Ministre du Budget, aucun ordonnateur ne peut passer outre au refus de visa. Toute dépense engagée en violation de cette règle est irrégulière et engage la responsabilité personnelle de l'ordonnateur.</p>
         </div>
       </div>
     ),
@@ -553,8 +553,8 @@ const LECONS: Lecon[] = [
 
         <h3 className="font-bold text-foreground mt-4">Les reports de crédits (Art. 93-94 LOFIP)</h3>
         <p>
-          Le principe d\'annualité budgétaire (Art. 5 LOFIP) implique que les crédits non consommés à la clôture du 31 décembre sont en principe perdus. Cependant, l\'Art. 93 LOFIP prévoit une dérogation strictement encadrée : les crédits peuvent être reportés si et seulement si :
-          <InfoTooltip texte="Les reports de crédits constituent une dérogation au principe d\'annualité. Ils sont justifiés par des considérations pratiques : certaines opérations engagées avant le 31 octobre ne peuvent pas être payées avant le 31 décembre en raison de délais techniques ou administratifs." loi="Art. 93, 94 LOFIP" />
+          Le principe d'annualité budgétaire (Art. 5 LOFIP) implique que les crédits non consommés à la clôture du 31 décembre sont en principe perdus. Cependant, l'Art. 93 LOFIP prévoit une dérogation strictement encadrée : les crédits peuvent être reportés si et seulement si :
+          <InfoTooltip texte="Les reports de crédits constituent une dérogation au principe d'annualité. Ils sont justifiés par des considérations pratiques : certaines opérations engagées avant le 31 octobre ne peuvent pas être payées avant le 31 décembre en raison de délais techniques ou administratifs." loi="Art. 93, 94 LOFIP" />
         </p>
         <div className="space-y-2 mt-2">
           {[
@@ -569,7 +569,7 @@ const LECONS: Lecon[] = [
           ))}
         </div>
         <p className="text-xs mt-2">
-          L\'Art. 94 LOFIP précise la procédure : les articles et montants des dépenses courantes concernées sont énumérés dans un état approuvé par <strong>ordonnance-loi du Président de la République</strong>, prise sur proposition conjointe des Ministres des Finances et du Budget, dans les deux mois suivant la fin de l\'année budgétaire. Ils font l\'objet d\'un arrêté du Ministre du Budget et sont ratifiés dans la prochaine loi de finances.
+          L'Art. 94 LOFIP précise la procédure : les articles et montants des dépenses courantes concernées sont énumérés dans un état approuvé par <strong>ordonnance-loi du Président de la République</strong>, prise sur proposition conjointe des Ministres des Finances et du Budget, dans les deux mois suivant la fin de l'année budgétaire. Ils font l'objet d'un arrêté du Ministre du Budget et sont ratifiés dans la prochaine loi de finances.
         </p>
       </div>
     ),

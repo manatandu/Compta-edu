@@ -149,10 +149,10 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Fondement : Art. 13 et 76-77 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            L\'Art. 13 LOFIP dispose que le Ministre du Budget établit chaque année un <strong>Cadre Budgetaire a Moyen Terme (CBMT)</strong> sur 3 ans, adopté en Conseil des ministres au plus tard le 1er juin et transmis au Parlement. L\'Art. 76 precise que ce CBMT donne naissance au <strong>Cadre des Depenses a Moyen Terme (CDMT)</strong> détaillant les prévisions de dépenses des ministères pour 3 ans.
+            L'Art. 13 LOFIP dispose que le Ministre du Budget établit chaque année un <strong>Cadre Budgetaire a Moyen Terme (CBMT)</strong> sur 3 ans, adopté en Conseil des ministres au plus tard le 1er juin et transmis au Parlement. L'Art. 76 precise que ce CBMT donne naissance au <strong>Cadre des Depenses a Moyen Terme (CDMT)</strong> détaillant les prévisions de dépenses des ministères pour 3 ans.
           </p>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 77 confie sous l\'autorité du Premier ministre au Ministre du Budget la préparation du projet de loi de finances (PLF) et, en debut ou en cours d\'année, du projet de loi de finances rectificative (PLFR). A la clôture de l\'exercice, le Ministre des Finances élaboré et soumet en Conseil des ministres le projet de loi portant reddition des comptes.
+            L'Art. 77 confie sous l'autorité du Premier ministre au Ministre du Budget la préparation du projet de loi de finances (PLF) et, en debut ou en cours d'année, du projet de loi de finances rectificative (PLFR). A la clôture de l'exercice, le Ministre des Finances élaboré et soumet en Conseil des ministres le projet de loi portant reddition des comptes.
           </p>
         </div>
 
@@ -240,10 +240,10 @@ const LECONS: Lecon[] = [
             <AlertTriangle className="h-4 w-4" /> Actualite 2025-2026 : depots hors delai
           </h3>
           <p className="text-xs text-amber-700 leading-relaxed mb-2">
-            En pratique, la RDC connait régulièrement des depots tardifs du PLF. Pour le budget 2026, le PLF a ete depose a l\'Assemblee nationale le <strong>28 octobre 2025</strong>, soit au-dela du 15 septembre. Le discours d\'ouverture de la conference budgétaire 2026 du Ministere du Budget (juillet 2025) a formule la nouvelle priorite de <strong>mobilisation des recettes internes</strong> pour reduire la dependance aux financements exterieurs et atteindre un budget de 60 milliards USD a l\'horizon 2028.
+            En pratique, la RDC connait régulièrement des depots tardifs du PLF. Pour le budget 2026, le PLF a ete depose a l'Assemblee nationale le <strong>28 octobre 2025</strong>, soit au-dela du 15 septembre. Le discours d'ouverture de la conference budgétaire 2026 du Ministere du Budget (juillet 2025) a formule la nouvelle priorite de <strong>mobilisation des recettes internes</strong> pour reduire la dependance aux financements exterieurs et atteindre un budget de 60 milliards USD a l'horizon 2028.
           </p>
           <p className="text-xs text-amber-700 leading-relaxed">
-            Source : Discours d\'ouverture conference budgétaire 2026, Ministere du Budget RDC, 28 juillet 2025.
+            Source : Discours d'ouverture conference budgétaire 2026, Ministere du Budget RDC, 28 juillet 2025.
           </p>
         </div>
 
@@ -290,7 +290,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Principe constitutionnel : initiative budgétaire gouvernementale</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            En RDC, l\'initiative de la loi de finances appartient exclusivement au <strong>Gouvernement</strong>. Cette règle constitutionnelle (Art. 126 Constitution) signifie que le Parlement ne peut pas deposer un projet de loi de finances alternatif : il peut uniquement amender le PLF gouvernemental, dans les limites fixees par l\'Art. 86 LOFIP.
+            En RDC, l'initiative de la loi de finances appartient exclusivement au <strong>Gouvernement</strong>. Cette règle constitutionnelle (Art. 126 Constitution) signifie que le Parlement ne peut pas deposer un projet de loi de finances alternatif : il peut uniquement amender le PLF gouvernemental, dans les limites fixees par l'Art. 86 LOFIP.
           </p>
         </div>
 
@@ -401,7 +401,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 78 LOFIP : Documents integrants</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 78 LOFIP liste les documents qui <strong>font partie integrante</strong> du projet de loi de finances. Ils ont donc la meme force juridique que le corps de la loi. Leur absence rendrait le PLF incomplet et potentiellement irrecevable. Ces documents sont distincts des documents <em>accompagnant</em> le PLF (Art. 79) qui ont un caractere plus informatif.
+            L'Art. 78 LOFIP liste les documents qui <strong>font partie integrante</strong> du projet de loi de finances. Ils ont donc la meme force juridique que le corps de la loi. Leur absence rendrait le PLF incomplet et potentiellement irrecevable. Ces documents sont distincts des documents <em>accompagnant</em> le PLF (Art. 79) qui ont un caractere plus informatif.
           </p>
         </div>
 
@@ -476,7 +476,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 79 LOFIP (modifie en 2023) : Documents accompagnants</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            Contrairement aux documents de l\'Art. 78 qui <em>font partie integrante</em> du PLF, les documents de l\'Art. 79 <em>accompagnent</em> le PLF. Ils ont un caractere principalement informatif et analytique. Leur absence n\'invalide pas juridiquement la loi de finances, mais constitue une violation de la LOFIP.
+            Contrairement aux documents de l'Art. 78 qui <em>font partie integrante</em> du PLF, les documents de l'Art. 79 <em>accompagnent</em> le PLF. Ils ont un caractere principalement informatif et analytique. Leur absence n'invalide pas juridiquement la loi de finances, mais constitue une violation de la LOFIP.
           </p>
           <p className="text-xs text-foreground leading-relaxed">
             La LOFIP modificative de 2023 a enrichi considerablement cette liste en ajoutant 8 nouveaux documents, passant de 5 a 13 documents accompagnants, refletant les exigences croissantes de transparence et de gouvernance des finances publiques.
@@ -793,13 +793,13 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-4">
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
-          <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 86 LOFIP : La règle d\'or des amendements budgétaires</h3>
+          <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 86 LOFIP : La règle d'or des amendements budgétaires</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            L\'Art. 86 LOFIP traduit l\'Art. 127 de la Constitution. Il pose une règle d\'or : le Parlement peut amender le budget, mais ne peut pas le desequilibrer sans proposer de compensation.
+            L'Art. 86 LOFIP traduit l'Art. 127 de la Constitution. Il pose une règle d'or : le Parlement peut amender le budget, mais ne peut pas le desequilibrer sans proposer de compensation.
           </p>
           <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
             <p className="text-xs text-foreground italic leading-relaxed">
-              « Conformement a l\'article 127 de la Constitution, les amendements au projet de loi de finances ne sont pas recevables lorsque leur adoption a pour consequence, soit une diminution des recettes, soit un accroissement des dépenses, a moins qu\'ils ne soient assortis de propositions compensatoires. »
+              « Conformement a l'article 127 de la Constitution, les amendements au projet de loi de finances ne sont pas recevables lorsque leur adoption a pour consequence, soit une diminution des recettes, soit un accroissement des dépenses, a moins qu'ils ne soient assortis de propositions compensatoires. »
             </p>
             <p className="text-xs text-muted-foreground mt-1">Art. 86 al. 1 LOFIP</p>
           </div>
@@ -814,29 +814,29 @@ const LECONS: Lecon[] = [
               <p className="text-xs font-bold text-red-800 mb-2">AMENDEMENTS IRRECEVABLES (Art. 86)</p>
               <ul className="space-y-1 text-xs text-red-700">
                 <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Tout amendement qui diminue les recettes SANS proposition compensatoire (ex : supprimer une taxe sans creer une autre recette equivalente)</span></li>
-                <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Tout amendement qui accroit les dépenses SANS proposition compensatoire (ex : augmenter les crédits d\'un programme sans reduire un autre ou identifier une nouvelle recette)</span></li>
+                <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Tout amendement qui accroit les dépenses SANS proposition compensatoire (ex : augmenter les crédits d'un programme sans reduire un autre ou identifier une nouvelle recette)</span></li>
                 <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Toute proposition de loi ou amendement parlementaire (hors PLF) qui cree ou aggrave une charge publique sans degager recettes ou economies correspondantes (Art. 86 al. 2 / Art. 134 Constitution)</span></li>
               </ul>
             </div>
             <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
               <p className="text-xs font-bold text-emerald-800 mb-2">AMENDEMENTS RECEVABLES</p>
               <ul className="space-y-1 text-xs text-emerald-700">
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Amendement diminuant une recette ET augmentant une autre recette d\'un montant equivalent ou superieur</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Amendement accroissant les dépenses d\'un programme ET reduisant d\'autant les crédits d\'un autre programme</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Amendement purement redactionnel (correction orthographique, precision d\'un libelle) sans impact financier</span></li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Amendement diminuant une recette ET augmentant une autre recette d'un montant equivalent ou superieur</span></li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Amendement accroissant les dépenses d'un programme ET reduisant d'autant les crédits d'un autre programme</span></li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Amendement purement redactionnel (correction orthographique, precision d'un libelle) sans impact financier</span></li>
               </ul>
             </div>
           </div>
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Qui apprecie la recevabilité ?</p>
-            <p className="text-xs text-amber-700">C\'est le President de l\'Assemblee nationale (ou du Senat) qui prononce l\'irrecevabilite d\'un amendement avant son examen en séance. En France (systeme similaire), le Gouvernement peut aussi opposer l\'irrecevabilite directement.</p>
+            <p className="text-xs text-amber-700">C'est le President de l'Assemblee nationale (ou du Senat) qui prononce l'irrecevabilite d'un amendement avant son examen en séance. En France (systeme similaire), le Gouvernement peut aussi opposer l'irrecevabilite directement.</p>
           </div>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-emerald-600" /> La loi portant reddition des comptes (Art. 81-82, 84, 87)
-            <InfoTooltip texte="La loi portant reddition des comptes est l\'acte parlementaire par lequel le Parlement approuve ou desapprouve la maniere dont le Gouvernement a exécuté le budget de l\'exercice ecoule. Son approbation vaut 'quitus de la gestion' (Art. 87), soit un decharge formelle de responsabilite pour le Gouvernement." loi="Art. 87 LOFIP" />
+            <InfoTooltip texte="La loi portant reddition des comptes est l'acte parlementaire par lequel le Parlement approuve ou desapprouve la maniere dont le Gouvernement a exécuté le budget de l'exercice ecoule. Son approbation vaut 'quitus de la gestion' (Art. 87), soit un decharge formelle de responsabilite pour le Gouvernement." loi="Art. 87 LOFIP" />
           </h3>
 
           <div className="space-y-3">
@@ -874,10 +874,10 @@ const LECONS: Lecon[] = [
             <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
               <p className="text-xs font-bold text-emerald-800 mb-1">Art. 87 LOFIP : Le quitus parlementaire</p>
               <p className="text-xs text-emerald-700 italic mb-2">
-                « Le projet de loi portant reddition des comptes du dernier exercice clos doit etre examine par le Parlement prealablement au vote du projet de la loi de finances de l\'année. Au regard des observations formulees par la Cour des comptes [...], l\'approbation des comptes par cette loi vaut quitus de la gestion du Gouvernement pour l\'exercice concerne. »
+                « Le projet de loi portant reddition des comptes du dernier exercice clos doit etre examine par le Parlement prealablement au vote du projet de la loi de finances de l'année. Au regard des observations formulees par la Cour des comptes [...], l'approbation des comptes par cette loi vaut quitus de la gestion du Gouvernement pour l'exercice concerne. »
               </p>
               <p className="text-xs text-emerald-700">
-                Le <strong>quitus</strong> est une decharge formelle de responsabilite : en approuvant la loi de reddition, le Parlement atteste que le Gouvernement a gère les finances publiques conformement aux autorisations parlementaires. Ce mecanisme est une condition du cycle budgétaire : on ne peut voter le budget de l\'année N+1 sans avoir approuve la gestion de l\'année N.
+                Le <strong>quitus</strong> est une decharge formelle de responsabilite : en approuvant la loi de reddition, le Parlement atteste que le Gouvernement a gère les finances publiques conformement aux autorisations parlementaires. Ce mecanisme est une condition du cycle budgétaire : on ne peut voter le budget de l'année N+1 sans avoir approuve la gestion de l'année N.
               </p>
             </div>
           </div>
@@ -931,11 +931,11 @@ const LECONS: Lecon[] = [
             Trois instruments opérationnels structurent le budget-programme en RDC :
           </p>
           <ul className="space-y-1 text-xs text-foreground">
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-600" /><span><strong>PAP (Projet Annuel de Performance)</strong> : document annexé au PLF, fondé sur l\'Art. 79 pt. 6 LOFIP. Il traduit les programmes en objectifs mesurables et en crédits prévisionnels.</span></li>
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-600" /><span><strong>RAP (Rapport Annuel de Performance)</strong> : document annexé à la loi de reddition des comptes, fondé sur l\'Art. 82 pt. 4 LOFIP. Il rend compte des résultats réellement atteints par rapport aux prévisions du PAP.</span></li>
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-600" /><span><strong>PIP (Programme d\'Investissements Publics)</strong> : document triennal glissant annexé au PLF, fondé sur les Art. 52-53 LOFIP (AE/CP) et le Décret n° 23/18 du 31 mai 2023. Il programme les investissements de l\'État sur 3 ans.</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-600" /><span><strong>PAP (Projet Annuel de Performance)</strong> : document annexé au PLF, fondé sur l'Art. 79 pt. 6 LOFIP. Il traduit les programmes en objectifs mesurables et en crédits prévisionnels.</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-600" /><span><strong>RAP (Rapport Annuel de Performance)</strong> : document annexé à la loi de reddition des comptes, fondé sur l'Art. 82 pt. 4 LOFIP. Il rend compte des résultats réellement atteints par rapport aux prévisions du PAP.</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-600" /><span><strong>PIP (Programme d'Investissements Publics)</strong> : document triennal glissant annexé au PLF, fondé sur les Art. 52-53 LOFIP (AE/CP) et le Décret n° 23/18 du 31 mai 2023. Il programme les investissements de l'État sur 3 ans.</span></li>
           </ul>
-          <p className="text-xs text-muted-foreground mt-2 italic">Sources : Guide d\'élaboration des PAP et RAP (Ministère du Budget + Ministère des Finances, sous encadrement COREF, juillet 2021) ; PIP 2024-2026 (Ministère du Plan + Ministère du Budget, septembre 2023)</p>
+          <p className="text-xs text-muted-foreground mt-2 italic">Sources : Guide d'élaboration des PAP et RAP (Ministère du Budget + Ministère des Finances, sous encadrement COREF, juillet 2021) ; PIP 2024-2026 (Ministère du Plan + Ministère du Budget, septembre 2023)</p>
         </div>
 
         {/* PARTIE I : STRUCTURATION EN PROGRAMMES */}
@@ -974,7 +974,7 @@ const LECONS: Lecon[] = [
           </h3>
           <div className="rounded-lg border border-border bg-muted/30 p-3 mb-3">
             <p className="text-xs font-bold text-foreground mb-2">Qui est le RProg ?</p>
-            <p className="text-xs text-foreground leading-relaxed">Le RProg est le haut fonctionnaire désigné par le ministre pour piloter un programme budgétaire. Il est responsable, devant le ministre, de l\'atteinte des objectifs de performance, de la bonne utilisation des crédits et de la production des documents réglementaires (PAP et RAP). Le Guide PAP/RAP indique que la désignation doit être formalisée par une <strong>lettre de mission</strong> définissant ses attributions, ses objectifs et ses moyens.</p>
+            <p className="text-xs text-foreground leading-relaxed">Le RProg est le haut fonctionnaire désigné par le ministre pour piloter un programme budgétaire. Il est responsable, devant le ministre, de l'atteinte des objectifs de performance, de la bonne utilisation des crédits et de la production des documents réglementaires (PAP et RAP). Le Guide PAP/RAP indique que la désignation doit être formalisée par une <strong>lettre de mission</strong> définissant ses attributions, ses objectifs et ses moyens.</p>
           </div>
           <div className="grid grid-cols-1 gap-2">
             {[
@@ -994,10 +994,10 @@ const LECONS: Lecon[] = [
         {/* PARTIE III : LES 4 TYPES D'INDICATEURS */}
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-            <TrendingUp className="h-4 w-4 text-emerald-600" /> III. Les 4 types d\'indicateurs de performance
+            <TrendingUp className="h-4 w-4 text-emerald-600" /> III. Les 4 types d'indicateurs de performance
             <InfoTooltip texte="Le Guide PAP/RAP distingue 4 types d'indicateurs selon ce qu'ils mesurent. Cette classification n'est pas décorative : chaque type d'indicateur répond à une question différente posée au programme." loi="Guide PAP/RAP, Partie I" />
           </h3>
-          <p className="text-xs text-foreground leading-relaxed mb-3">Le Guide PAP/RAP distingue 4 catégories d\'indicateurs, chacune mesurant une dimension différente de la performance publique :</p>
+          <p className="text-xs text-foreground leading-relaxed mb-3">Le Guide PAP/RAP distingue 4 catégories d'indicateurs, chacune mesurant une dimension différente de la performance publique :</p>
           <div className="space-y-2">
             {[
               {
@@ -1034,7 +1034,7 @@ const LECONS: Lecon[] = [
           </div>
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Règles de construction des indicateurs (Annexe I du Guide PAP/RAP)</p>
-            <p className="text-xs text-amber-700">Pour chaque indicateur, une fiche doit être établie en interne, précisant : la définition de l\'indicateur, la méthode de calcul (numérateur et dénominateur si taux), l\'unité de mesure, la périodicité de collecte, le service responsable de la collecte des données, le mode de collecte (administrative ou enquête), le délai de disponibilité, l\'interprétation et les limites connues de l\'indicateur. Cette fiche est indispensable pour garantir la comparabilité des données dans le temps.</p>
+            <p className="text-xs text-amber-700">Pour chaque indicateur, une fiche doit être établie en interne, précisant : la définition de l'indicateur, la méthode de calcul (numérateur et dénominateur si taux), l'unité de mesure, la périodicité de collecte, le service responsable de la collecte des données, le mode de collecte (administrative ou enquête), le délai de disponibilité, l'interprétation et les limites connues de l'indicateur. Cette fiche est indispensable pour garantir la comparabilité des données dans le temps.</p>
           </div>
         </div>
 
@@ -1141,7 +1141,7 @@ const LECONS: Lecon[] = [
         {/* PARTIE VI : LE PIP */}
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-            <TrendingUp className="h-4 w-4 text-emerald-600" /> VI. Le Programme d\'Investissements Publics (PIP) : logique et élaboration
+            <TrendingUp className="h-4 w-4 text-emerald-600" /> VI. Le Programme d'Investissements Publics (PIP) : logique et élaboration
             <InfoTooltip texte="Le PIP est le troisième instrument opérationnel du budget-programme. Il programme les investissements de l'État sur 3 ans selon une logique de tranche annuelle (Budget d'Investissement) inscrite dans le PLF." loi="Art. 52-53 LOFIP ; Décret n° 23/18 du 31 mai 2023" />
           </h3>
 
@@ -1149,10 +1149,10 @@ const LECONS: Lecon[] = [
             <div className="rounded-lg border border-border bg-muted/30 p-3">
               <p className="text-xs font-bold text-foreground mb-2">Définition juridique et logique du PIP</p>
               <p className="text-xs text-foreground leading-relaxed mb-2">
-                Le PIP est un document de programmation triennale glissante des investissements publics. Il est régi par le Décret n° 23/18 du 31 mai 2023 et s\'appuie sur les Art. 52-53 LOFIP (régime des autorisations d\'engagement et crédits de paiement). Chaque année, une tranche annuelle du PIP constitue le <strong>Budget d\'Investissement (BI)</strong>, qui est intégré dans le PLF comme partie de la loi de finances.
+                Le PIP est un document de programmation triennale glissante des investissements publics. Il est régi par le Décret n° 23/18 du 31 mai 2023 et s'appuie sur les Art. 52-53 LOFIP (régime des autorisations d'engagement et crédits de paiement). Chaque année, une tranche annuelle du PIP constitue le <strong>Budget d'Investissement (BI)</strong>, qui est intégré dans le PLF comme partie de la loi de finances.
               </p>
               <p className="text-xs text-foreground leading-relaxed">
-                Le PIP s\'articule avec le <strong>PPBSE (Programme de Planification Budgétisation Suivi et Évaluation)</strong>, cadre national de programmation des dépenses publiques qui lie les investissements aux priorités du Plan National Stratégique de Développement (PNSD) à travers ses 5 piliers.
+                Le PIP s'articule avec le <strong>PPBSE (Programme de Planification Budgétisation Suivi et Évaluation)</strong>, cadre national de programmation des dépenses publiques qui lie les investissements aux priorités du Plan National Stratégique de Développement (PNSD) à travers ses 5 piliers.
               </p>
             </div>
 
@@ -1160,38 +1160,38 @@ const LECONS: Lecon[] = [
               <p className="text-xs font-bold text-foreground mb-2">AE et CP dans le PIP (Art. 52-53 LOFIP)</p>
               <div className="space-y-2">
                 <div className="rounded-lg bg-blue-50 border border-blue-200 p-2.5">
-                  <p className="text-xs font-bold text-blue-800 mb-1">Autorisation d\'Engagement (AE) - Art. 52 LOFIP</p>
-                  <p className="text-xs text-blue-700">L\'AE est la limite supérieure des dépenses pouvant être juridiquement engagées par l\'État pendant l\'année pour couvrir les obligations pluriannuelles résultant de marchés ou de conventions. Elle autorise la signature du marché ou du contrat mais ne couvre pas nécessairement le paiement de la totalité dans l\'année.</p>
+                  <p className="text-xs font-bold text-blue-800 mb-1">Autorisation d'Engagement (AE) - Art. 52 LOFIP</p>
+                  <p className="text-xs text-blue-700">L'AE est la limite supérieure des dépenses pouvant être juridiquement engagées par l'État pendant l'année pour couvrir les obligations pluriannuelles résultant de marchés ou de conventions. Elle autorise la signature du marché ou du contrat mais ne couvre pas nécessairement le paiement de la totalité dans l'année.</p>
                 </div>
                 <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-2.5">
                   <p className="text-xs font-bold text-emerald-800 mb-1">Crédit de Paiement (CP) - Art. 53 LOFIP</p>
-                  <p className="text-xs text-emerald-700">Le CP est la limite supérieure des dépenses pouvant être effectivement payées dans l\'année au titre des engagements contractés. Un projet peut être engagé (AE) en année n mais payé (CP) sur plusieurs années n, n+1, n+2.</p>
+                  <p className="text-xs text-emerald-700">Le CP est la limite supérieure des dépenses pouvant être effectivement payées dans l'année au titre des engagements contractés. Un projet peut être engagé (AE) en année n mais payé (CP) sur plusieurs années n, n+1, n+2.</p>
                 </div>
                 <div className="rounded-lg bg-amber-50 border border-amber-200 p-2.5">
                   <p className="text-xs font-bold text-amber-800 mb-1">Exemple de dissociation AE/CP dans le PIP</p>
-                  <p className="text-xs text-amber-700">Un projet routier d\'un coût total de 30 M USD signé en 2026 : AE 2026 = 30 M USD (autorisation totale d\'engager le marché) ; CP 2026 = 10 M USD, CP 2027 = 10 M USD, CP 2028 = 10 M USD (paiements échelonnés selon l\'avancement des travaux). Cette dissociation permet de planifier les besoins de trésorerie annuels.</p>
+                  <p className="text-xs text-amber-700">Un projet routier d'un coût total de 30 M USD signé en 2026 : AE 2026 = 30 M USD (autorisation totale d'engager le marché) ; CP 2026 = 10 M USD, CP 2027 = 10 M USD, CP 2028 = 10 M USD (paiements échelonnés selon l'avancement des travaux). Cette dissociation permet de planifier les besoins de trésorerie annuels.</p>
                 </div>
               </div>
             </div>
 
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-2">Nomenclature budgétaire des dépenses d\'investissement</p>
-              <p className="text-xs text-foreground leading-relaxed mb-2">Le PIP distingue deux catégories de dépenses d\'investissement selon la nomenclature budgétaire de 2015 :</p>
+              <p className="text-xs font-bold text-foreground mb-2">Nomenclature budgétaire des dépenses d'investissement</p>
+              <p className="text-xs text-foreground leading-relaxed mb-2">Le PIP distingue deux catégories de dépenses d'investissement selon la nomenclature budgétaire de 2015 :</p>
               <div className="grid grid-cols-1 gap-2">
                 <div className="rounded-lg border border-border p-2.5">
                   <p className="text-xs font-bold text-foreground">Titre VII : Equipements</p>
-                  <p className="text-xs text-muted-foreground">Acquisitions de biens meubles durables : véhicules, matériels informatiques, équipements médicaux, mobiliers, outillage... Ces biens ont une durée de vie supérieure à un an et sont inscrits à l\'actif de l\'État. Se financent sur financement intérieur (FININT) et financement extérieur (FINEXT).</p>
+                  <p className="text-xs text-muted-foreground">Acquisitions de biens meubles durables : véhicules, matériels informatiques, équipements médicaux, mobiliers, outillage... Ces biens ont une durée de vie supérieure à un an et sont inscrits à l'actif de l'État. Se financent sur financement intérieur (FININT) et financement extérieur (FINEXT).</p>
                 </div>
                 <div className="rounded-lg border border-border p-2.5">
-                  <p className="text-xs font-bold text-foreground">Titre VIII : Construction, réfection, réhabilitation, addition d\'ouvrages et acquisition immobilière</p>
-                  <p className="text-xs text-muted-foreground">Travaux sur le patrimoine immobilier de l\'État : construction de bâtiments, routes, ponts, barrages, réseaux d\'eau ; réhabilitation d\'infrastructures existantes ; acquisition de terrains et immeubles. Se financent aussi sur FININT et FINEXT.</p>
+                  <p className="text-xs font-bold text-foreground">Titre VIII : Construction, réfection, réhabilitation, addition d'ouvrages et acquisition immobilière</p>
+                  <p className="text-xs text-muted-foreground">Travaux sur le patrimoine immobilier de l'État : construction de bâtiments, routes, ponts, barrages, réseaux d'eau ; réhabilitation d'infrastructures existantes ; acquisition de terrains et immeubles. Se financent aussi sur FININT et FINEXT.</p>
                 </div>
               </div>
             </div>
 
             <div className="rounded-lg border border-border bg-muted/30 p-3">
               <p className="text-xs font-bold text-foreground mb-2">Le CISPIP et les instances de gouvernance du PIP</p>
-              <p className="text-xs text-foreground leading-relaxed">Le <strong>CISPIP (Comité Interministériel de Supervision et de Pilotage de l\'Investissement Public)</strong> est l\'instance supérieure de gouvernance du PIP. Il veille à la cohérence des investissements avec les priorités nationales (PNSD), arbitre les priorités interministérielles et valide les inscriptions au PIP. Le Ministère du Plan assure le secrétariat technique du CISPIP. Les projets doivent être codifiés de manière unique dans le système de gestion des investissements publics pour éviter les doubles inscriptions.</p>
+              <p className="text-xs text-foreground leading-relaxed">Le <strong>CISPIP (Comité Interministériel de Supervision et de Pilotage de l'Investissement Public)</strong> est l'instance supérieure de gouvernance du PIP. Il veille à la cohérence des investissements avec les priorités nationales (PNSD), arbitre les priorités interministérielles et valide les inscriptions au PIP. Le Ministère du Plan assure le secrétariat technique du CISPIP. Les projets doivent être codifiés de manière unique dans le système de gestion des investissements publics pour éviter les doubles inscriptions.</p>
             </div>
           </div>
         </div>
