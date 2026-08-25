@@ -166,7 +166,9 @@ export default function BalancePage({ embedded = false }: { embedded?: boolean }
       {lignes.length === 0 ? (
         <Card className="border-border">
           <CardContent className="pt-8 pb-8 text-center text-muted-foreground">
+            <Scale className="h-10 w-10 mx-auto mb-3 opacity-30" />
             <p>Aucune donnée à afficher.</p>
+            <p className="text-sm mt-1">Saisissez des écritures dans le Livre Journal pour les voir apparaître ici.</p>
           </CardContent>
         </Card>
       ) : (

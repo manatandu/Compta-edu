@@ -143,7 +143,7 @@ export default function GrandLivrePage({ embedded = false }: { embedded?: boolea
         <CardContent className="pt-4 pb-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1">
-              <Label className="text-xs mb-1 block">Session</Label>
+              <Label className="text-xs mb-1 block">Session :</Label>
               <Select value={selectedSessionId} onValueChange={setSelectedSessionId}>
                 <SelectTrigger className="sm:w-80">
                   <SelectValue placeholder="Sélectionner une session" />
@@ -177,7 +177,9 @@ export default function GrandLivrePage({ embedded = false }: { embedded?: boolea
       {filtered.length === 0 ? (
         <Card className="border-border">
           <CardContent className="pt-8 pb-8 text-center text-muted-foreground">
+            <BookMarked className="h-10 w-10 mx-auto mb-3 opacity-30" />
             <p>Aucune donnée à afficher.</p>
+            <p className="text-sm mt-1">Saisissez des écritures dans le Livre Journal pour les voir apparaître ici.</p>
           </CardContent>
         </Card>
       ) : (
