@@ -18,6 +18,23 @@ import SimulateurAutresImpots from '@/components/SimulateurAutresImpots'
 import SimulateurDouane from '@/components/SimulateurDouane'
 import SimulateurFiscaliteMiniere from '@/components/SimulateurFiscaliteMiniere'
 import ChapitreIntroductionFiscalite from '@/components/ChapitreIntroductionFiscalite'
+import NotesCoursIS from '@/components/NotesCoursIS'
+import NotesCoursTVA from '@/components/NotesCoursTVA'
+import NotesCoursAutresImpots from '@/components/NotesCoursAutresImpots'
+import NotesCoursProcedures from '@/components/NotesCoursProcedures'
+import NotesCoursDouane from '@/components/NotesCoursDouane'
+import NotesCoursMines from '@/components/NotesCoursMines'
+import { BandeauModeChapitre } from '@/components/coursHelpers'
+
+// Notes de cours associées à chaque chapitre 2 à 8 (hors IRPP, qui a sa propre navigation par catégorie)
+const NOTES_COURS: Partial<Record<string, React.ComponentType>> = {
+  is: NotesCoursIS,
+  tva: NotesCoursTVA,
+  irl: NotesCoursAutresImpots,
+  procedures: NotesCoursProcedures,
+  douane: NotesCoursDouane,
+  mines: NotesCoursMines,
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
@@ -5596,8 +5613,14 @@ function ProceduresFiscales() {
 export default function FiscalitePage() {
   const [impotActif, setImpotActif] = useState('intro')
   const [catIrpp, setCatIrpp]       = useState('irpp_cat1')
+  const [modeChapitre, setModeChapitre] = useState<'cours' | 'simulateur'>('cours')
   const [, navigate] = useHashLocation()
   const { setNav } = useNav()
+
+  function choisirChapitre(id: string) {
+    setImpotActif(id)
+    setModeChapitre('cours')
+  }
 
   // Pour la description : onglet courant (non pertinent pour le chapitre d'introduction)
   const ongletDesc = impotActif === 'intro'
@@ -5641,7 +5664,7 @@ export default function FiscalitePage() {
             return (
               <button
                 key={o.id}
-                onClick={() => setImpotActif(o.id)}
+                onClick={() => choisirChapitre(o.id)}
                 className={cn(
                   'relative rounded-xl border h-[68px] flex flex-col justify-center items-center px-2 py-2 text-center',
                   'transition-all duration-200 ease-out focus:outline-none',
@@ -5829,6 +5852,15 @@ export default function FiscalitePage() {
           </div>
         )}
 
+        {/* Bascule Notes de cours / Simulateur, pour les chapitres qui ont des notes de cours dédiées */}
+        {impotActif !== 'intro' && impotActif !== 'irpp' && NOTES_COURS[impotActif] && (
+          <BandeauModeChapitre
+            mode={modeChapitre}
+            onChangeMode={setModeChapitre}
+            colorActive={COLOR_MAP[ONGLETS_PRINCIPAUX.find(o => o.id === impotActif)!.color].split(' ').find(c => c.startsWith('bg-'))!}
+          />
+        )}
+
         {/* Description onglet actif (chapitres 2 à 8 uniquement — le chapitre 1 a son propre rendu ci-dessus) */}
         {ongletDesc && (
         <Card className="mb-4 overflow-hidden">
@@ -5862,12 +5894,12 @@ export default function FiscalitePage() {
             {impotActif === 'irpp' && catIrpp === 'irpp_cat4' && <Cat4Agricole />}
             {impotActif === 'irpp' && catIrpp === 'irpp_cat5' && <Cat5Mobiliers />}
             {impotActif === 'irpp' && catIrpp === 'irpp_cat6' && <Cat6PlusValues />}
-            {impotActif === 'is'         && <SimulateurIS />}
-            {impotActif === 'irl'        && <SimulateurAutresImpots />}
-            {impotActif === 'tva'        && <SimulateurTVA />}
-            {impotActif === 'procedures' && <ProceduresFiscales />}
-            {impotActif === 'douane'     && <SimulateurDouane />}
-            {impotActif === 'mines'      && <SimulateurFiscaliteMiniere />}
+            {impotActif === 'is'         && (modeChapitre === 'cours' ? <NotesCoursIS /> : <SimulateurIS />)}
+            {impotActif === 'irl'        && (modeChapitre === 'cours' ? <NotesCoursAutresImpots /> : <SimulateurAutresImpots />)}
+            {impotActif === 'tva'        && (modeChapitre === 'cours' ? <NotesCoursTVA /> : <SimulateurTVA />)}
+            {impotActif === 'procedures' && (modeChapitre === 'cours' ? <NotesCoursProcedures /> : <ProceduresFiscales />)}
+            {impotActif === 'douane'     && (modeChapitre === 'cours' ? <NotesCoursDouane /> : <SimulateurDouane />)}
+            {impotActif === 'mines'      && (modeChapitre === 'cours' ? <NotesCoursMines /> : <SimulateurFiscaliteMiniere />)}
           </CardContent>
         </Card>
         )}
