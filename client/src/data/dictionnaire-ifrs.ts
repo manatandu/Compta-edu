@@ -1,0 +1,160 @@
+// ═══════════════════════════════════════════════════════════════════
+//  DICTIONNAIRE ORBIT — Domaine « Normes IAS/IFRS »
+//
+//  Chaque définition est reprise du texte officiel encodé dans le skill
+//  `ifrs` (traduction française intégrale des normes IASB), avec le
+//  paragraphe exact cité en source. Sourcing distinct de l'AUDCIF : les
+//  IFRS sont le référentiel international, l'AUDCIF le référentiel
+//  OHADA — les deux peuvent diverger sur un même concept (ex. juste
+//  valeur, dépréciation), d'où des entrées séparées plutôt qu'un
+//  doublon fusionné.
+// ═══════════════════════════════════════════════════════════════════
+import type { TermeDict } from './dictionnaire'
+
+export const TERMES_IFRS: TermeDict[] = [
+  {
+    id: 'juste-valeur-ifrs',
+    terme: 'Juste valeur (IFRS 13)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Le prix qui serait reçu pour la vente d'un actif ou payé pour le transfert d'un passif lors d'une transaction normale entre des intervenants du marché à la date d'évaluation. C'est une évaluation fondée sur le marché (une sortie de prix), non une évaluation spécifique à l'entité qui détient l'actif ou doit le passif.",
+    source: 'IFRS 13, §9',
+    voirAussi: ['depreciation-ias36', 'immeuble-placement-ias40'],
+  },
+  {
+    id: 'provision-ias37',
+    terme: 'Provision (IAS 37)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Passif dont l'échéance ou le montant est incertain. Elle se distingue des dettes fournisseurs et des charges à payer précisément par cette incertitude. Un passif est l'obligation actuelle d'une entité résultant d'événements passés, dont l'extinction devrait se traduire pour l'entité par une sortie de ressources représentatives d'avantages économiques.",
+    source: 'IAS 37, §10',
+    exemple: "Une entreprise objet d'un litige dont l'issue et le montant de la condamnation éventuelle restent incertains provisionne le risque, alors qu'une facture fournisseur déjà reçue et non contestée reste une dette ordinaire.",
+    voirAussi: ['passif-eventuel-ias37', 'contrat-deficitaire-ias37'],
+  },
+  {
+    id: 'passif-eventuel-ias37',
+    terme: 'Passif éventuel (IAS 37)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "(a) Obligation potentielle résultant d'événements passés et dont l'existence ne sera confirmée que par la survenance, ou la non-survenance, d'un ou plusieurs événements futurs incertains, qui ne sont pas totalement sous le contrôle de l'entité ; ou (b) obligation actuelle résultant d'événements passés, mais qui n'est pas comptabilisée car il n'est pas probable qu'une sortie de ressources soit nécessaire pour éteindre l'obligation, ou le montant de l'obligation ne peut être évalué avec une fiabilité suffisante. Un passif éventuel n'est jamais comptabilisé au bilan, seulement mentionné en annexe.",
+    source: 'IAS 37, §10',
+    voirAussi: ['provision-ias37'],
+  },
+  {
+    id: 'contrat-deficitaire-ias37',
+    terme: 'Contrat déficitaire (IAS 37)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Contrat pour lequel les coûts inévitables pour honorer les obligations qu'il prévoit excèdent les avantages économiques que l'on s'attend à en retirer.",
+    source: 'IAS 37, §10',
+    voirAussi: ['provision-ias37'],
+  },
+  {
+    id: 'immobilisation-incorporelle-ias38',
+    terme: 'Immobilisation incorporelle (IAS 38)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Actif non monétaire identifiable sans substance physique. Un actif est une ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont attendus. L'amortissement en est la répartition systématique du montant amortissable sur la durée d'utilité.",
+    source: 'IAS 38, §8',
+    voirAussi: ['recherche-developpement-ias38', 'depreciation-ias36'],
+  },
+  {
+    id: 'recherche-developpement-ias38',
+    terme: 'Recherche et développement (IAS 38)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "La recherche est une investigation originale et programmée entreprise en vue d'acquérir une compréhension et des connaissances scientifiques ou techniques nouvelles. Le développement est l'application des résultats de la recherche ou d'autres connaissances à un plan ou à un modèle en vue de la production de matériaux, dispositifs, produits, procédés, systèmes ou services nouveaux ou substantiellement améliorés, avant le commencement de leur production commerciale ou de leur utilisation.",
+    source: 'IAS 38, §8',
+    voirAussi: ['immobilisation-incorporelle-ias38'],
+  },
+  {
+    id: 'droit-utilisation-ifrs16',
+    terme: "Actif au titre du droit d'utilisation (IFRS 16)",
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Actif représentant le droit du preneur d'utiliser un bien sous-jacent pour la durée du contrat de location. Le contrat de location lui-même est le contrat, ou la partie de contrat, qui confère le droit d'utiliser un bien pour un certain temps moyennant une contrepartie.",
+    source: 'IFRS 16, Annexe A',
+    voirAussi: ['duree-contrat-location-ifrs16'],
+  },
+  {
+    id: 'duree-contrat-location-ifrs16',
+    terme: 'Durée du contrat de location (IFRS 16)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Durée non résiliable du contrat de location, à laquelle s'ajoutent les périodes couvertes par une option de prolongation dont l'exercice est raisonnablement certain par le preneur, et les périodes couvertes par une option de résiliation anticipée dont le non-exercice est raisonnablement certain par le preneur.",
+    source: 'IFRS 16, Annexe A',
+    voirAussi: ['droit-utilisation-ifrs16'],
+  },
+  {
+    id: 'obligation-prestation-ifrs15',
+    terme: 'Obligation de prestation (IFRS 15)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Promesse faite dans un contrat conclu avec un client de lui fournir : (a) un bien ou un service (ou un groupe de biens ou de services) qui est distinct, ou (b) une série de biens ou de services distincts qui sont essentiellement les mêmes et dont le mode de transfert au client est le même. Le prix de transaction est le montant de contrepartie que l'entité s'attend à recevoir en échange du transfert des biens ou des services promis.",
+    source: 'IFRS 15, Annexe A',
+    voirAussi: [],
+  },
+  {
+    id: 'regroupement-entreprises-ifrs3',
+    terme: "Regroupement d'entreprises (IFRS 3)",
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias', 'ue8-consolidation'],
+    definition: "Transaction ou autre événement par lequel un acquéreur obtient le contrôle d'une ou plusieurs entreprises. La comptabilisation se fait selon la méthode de l'acquisition : identification de l'acquéreur, détermination de la date d'acquisition, comptabilisation et évaluation des actifs identifiables acquis et des passifs repris à la juste valeur, puis comptabilisation du goodwill ou, exceptionnellement, du profit résultant d'une acquisition à des conditions avantageuses.",
+    source: 'IFRS 3, §3 et suivants',
+    voirAussi: ['controle-ifrs10'],
+  },
+  {
+    id: 'controle-ifrs10',
+    terme: 'Contrôle (IFRS 10)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias', 'ue8-consolidation'],
+    definition: "Un investisseur contrôle une entité émettrice lorsqu'il est exposé, ou qu'il a droit, à des rendements variables en raison de ses liens avec celle-ci et qu'il a la capacité d'influer sur ces rendements du fait du pouvoir qu'il détient sur elle. Trois éléments cumulatifs : (a) le pouvoir sur l'entité émettrice ; (b) l'exposition ou les droits à des rendements variables ; (c) la capacité d'exercer le pouvoir pour influer sur le montant des rendements obtenus.",
+    source: 'IFRS 10, §5-7',
+    voirAussi: ['regroupement-entreprises-ifrs3'],
+  },
+  {
+    id: 'depreciation-ias36',
+    terme: "Valeur recouvrable et dépréciation (IAS 36)",
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "La valeur recouvrable d'un actif est la valeur la plus élevée entre sa juste valeur diminuée des coûts de sortie et sa valeur d'utilité (la valeur actualisée des flux de trésorerie futurs attendus de l'actif). Une perte de valeur est le montant de l'excédent de la valeur comptable d'un actif sur sa valeur recouvrable.",
+    source: 'IAS 36, §6',
+    voirAussi: ['juste-valeur-ifrs'],
+  },
+  {
+    id: 'impot-differe-ias12',
+    terme: 'Impôt différé (IAS 12)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Les passifs d'impôt différé sont les montants d'impôts sur le résultat payables au cours de périodes futures au titre de différences temporaires imposables. Les actifs d'impôt différé sont les montants d'impôts recouvrables au titre de différences temporaires déductibles, du report en avant de pertes fiscales non utilisées ou de crédits d'impôt non utilisés. Une différence temporaire est l'écart entre la valeur comptable d'un actif ou d'un passif et sa base fiscale.",
+    source: 'IAS 12, §5',
+    voirAussi: [],
+  },
+  {
+    id: 'evenements-posterieurs-ias10',
+    terme: 'Événements postérieurs à la date de clôture (IAS 10)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Événements, favorables ou défavorables, qui se produisent entre la date de clôture et la date de l'autorisation de publication des états financiers. Deux catégories : (a) ceux qui donnent lieu à des ajustements, car ils confirment des situations qui existaient déjà à la date de clôture ; et (b) ceux qui n'entraînent pas d'ajustement, car ils ne révèlent que des situations apparues après la date de clôture.",
+    source: 'IAS 10, §3',
+    voirAussi: [],
+  },
+  {
+    id: 'immeuble-placement-ias40',
+    terme: 'Immeuble de placement (IAS 40)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Bien immobilier (terrain, bâtiment, partie de bâtiment, ou les deux) détenu par le propriétaire, ou par le preneur en tant qu'actif au titre du droit d'utilisation, pour en retirer des loyers ou pour valoriser le capital, ou les deux, plutôt que pour l'utiliser dans la production ou la fourniture de biens ou de services, à des fins administratives, ou le vendre dans le cadre de l'activité ordinaire.",
+    source: 'IAS 40, §5',
+    voirAussi: ['juste-valeur-ifrs'],
+  },
+  {
+    id: 'stocks-ias2',
+    terme: 'Stocks (IAS 2)',
+    domaine: 'normes-ifrs',
+    ues: ['ue13-ifrs-ias'],
+    definition: "Actifs : (a) détenus en vue de la vente dans le cours normal de l'activité ; (b) en cours de production pour une telle vente ; ou (c) sous forme de matières premières ou de fournitures devant être consommées dans le processus de production ou de prestation de services. La valeur nette de réalisation est le prix de vente estimé dans le cours normal de l'activité, diminué des coûts estimés pour l'achèvement et des coûts estimés nécessaires pour réaliser la vente.",
+    source: 'IAS 2, §6',
+    voirAussi: [],
+  },
+]

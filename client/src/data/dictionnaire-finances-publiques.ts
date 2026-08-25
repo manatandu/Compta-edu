@@ -1,0 +1,120 @@
+// ═══════════════════════════════════════════════════════════════════
+//  DICTIONNAIRE ORBIT — Domaine « Finances publiques »
+//
+//  Sources : Loi n° 11/011 du 13 juillet 2011 relative aux finances
+//  publiques (LOFIP, définitions de l'Art. 3), et le Règlement Général
+//  sur la Comptabilité Publique (ordonnateurs et comptables publics),
+//  encodés dans le skill `rgcp-comptabilite-publique`.
+// ═══════════════════════════════════════════════════════════════════
+import type { TermeDict } from './dictionnaire'
+
+export const TERMES_FINANCES_PUBLIQUES: TermeDict[] = [
+  {
+    id: 'ordonnateur-rgcp',
+    terme: 'Ordonnateur',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Toute autorité ayant qualité de prescrire, au nom de l'État, l'exécution des recettes et/ou des dépenses inscrites au budget. L'ordonnateur de dépenses a qualité pour engager, liquider et ordonnancer, au nom de l'État, les dépenses inscrites au budget ; l'ordonnateur de recettes a qualité pour constater, liquider et ordonnancer les recettes. Les fonctions d'ordonnateur et de comptable public sont incompatibles.",
+    source: 'Art. 40, 41, 46 et 67, Règlement Général sur la Comptabilité Publique',
+    voirAussi: ['comptable-public-rgcp'],
+  },
+  {
+    id: 'comptable-public-rgcp',
+    terme: 'Comptable public',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Tout agent ayant qualité pour exécuter, au nom et pour le compte du pouvoir central, de la province ou de l'Entité Territoriale Décentralisée, les opérations de recettes et de dépenses, de maniement de fonds et de valeurs qu'il détient, ainsi que les opérations se rapportant aux biens publics. Il est personnellement et pécuniairement responsable des opérations dont il a la charge. Toute personne qui s'immisce sans qualité ni mandat dans la gestion des deniers publics peut être déclarée comptable de fait par la Cour des comptes.",
+    source: 'Règlement Général sur la Comptabilité Publique, Titre II ; Art. 131 et 216 de la Loi relative aux finances publiques',
+    voirAussi: ['ordonnateur-rgcp'],
+  },
+  {
+    id: 'budget-annexe-lofip',
+    terme: 'Budget annexe',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Document reprenant les prévisions des recettes et des dépenses d'un service auxiliaire de l'État dont l'activité tend essentiellement à produire des biens ou à rendre des services donnant lieu à un paiement sous forme de redevances.",
+    source: 'Art. 3, point 3, Loi n° 11/011 du 13 juillet 2011 relative aux finances publiques (LOFIP)',
+    voirAussi: ['comptes-speciaux-lofip'],
+  },
+  {
+    id: 'comptes-speciaux-lofip',
+    terme: 'Comptes spéciaux',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Comptes qui retracent les opérations budgétaires financées au moyen de recettes particulières en relation directe avec les dépenses concernées, ou des prêts et avances consentis par l'État à une personne physique ou morale, tels que les comptes de concours financiers.",
+    source: 'Art. 3, point 13, LOFIP',
+    voirAussi: ['budget-annexe-lofip', 'credits-evaluatifs-lofip'],
+  },
+  {
+    id: 'credits-evaluatifs-lofip',
+    terme: 'Crédits évaluatifs',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Sommes inscrites dans le programme des lois de finances n'ayant pas le caractère de plafond mais de simple évaluation, pouvant être dépassées sans autorisation préalable du législateur — par opposition aux crédits limitatifs, qui constituent un montant plafonné que les administrations ne peuvent dépasser durant la période d'exécution du budget.",
+    source: 'Art. 3, points 14 et 16, LOFIP',
+    voirAussi: ['comptes-speciaux-lofip'],
+  },
+  {
+    id: 'principe-annualite-budgetaire',
+    terme: 'Principe d\'annualité budgétaire',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Règle budgétaire qui impose le vote annuel du budget par le pouvoir législatif. C'est l'un des six principes sur lesquels repose le budget de l'État : annualité, unité, universalité, spécialité, légalité des recettes et des dépenses, sincérité.",
+    source: 'Art. 3, point 33, et Art. relatif aux principes du budget de l\'État, LOFIP',
+    voirAussi: ['principe-unite-budgetaire', 'principe-universalite-budgetaire', 'principe-specialite-budgetaire'],
+  },
+  {
+    id: 'principe-unite-budgetaire',
+    terme: 'Principe d\'unité budgétaire',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Règle budgétaire qui exige que les prévisions des recettes et des dépenses soient présentées dans un seul et même document.",
+    source: 'Art. 3, point 34, LOFIP',
+    voirAussi: ['principe-annualite-budgetaire'],
+  },
+  {
+    id: 'principe-universalite-budgetaire',
+    terme: 'Principe d\'universalité budgétaire',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Règle budgétaire du produit brut qui interdit aux services la compensation, en amont, entre les recettes et les dépenses. Elle exige de faire figurer au budget l'ensemble des recettes, et non uniquement le solde ou le produit net.",
+    source: 'Art. 3, point 35, LOFIP',
+    voirAussi: ['principe-annualite-budgetaire'],
+  },
+  {
+    id: 'principe-specialite-budgetaire',
+    terme: 'Principe de spécialité budgétaire',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Règle budgétaire qui prescrit de libeller, de façon détaillée, l'autorisation budgétaire des dépenses et des recettes ; elle précise les objets et les destinations à travers les crédits inscrits.",
+    source: 'Art. 3, point 36, LOFIP',
+    voirAussi: ['principe-annualite-budgetaire'],
+  },
+  {
+    id: 'principe-sincerite-budgetaire',
+    terme: 'Principe de sincérité budgétaire',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Règle budgétaire qui interdit à l'État de sous-estimer ou de surestimer les charges et les ressources qu'il présente dans la loi de finances, l'édit budgétaire ou la décision budgétaire.",
+    source: 'Art. 3, point 37, LOFIP',
+    voirAussi: ['principe-annualite-budgetaire'],
+  },
+  {
+    id: 'fongibilite-credits-lofip',
+    terme: 'Fongibilité des crédits',
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Faculté pour le gestionnaire de définir la destination et la nature des dépenses lors de l'exécution du programme, pour en optimiser la mise en œuvre. Elle est asymétrique s'agissant des crédits de personnel : ceux-ci peuvent être redéployés vers d'autres natures de dépenses (fonctionnement, intervention, investissement), mais l'inverse est interdit.",
+    source: 'Art. 3, point 28, LOFIP',
+    voirAussi: [],
+  },
+  {
+    id: 'autorisation-engagement-lofip',
+    terme: "Autorisation d'engagement",
+    domaine: 'finances-publiques',
+    ues: ['ue5-finances-publiques'],
+    definition: "Permission de signer, sur l'année considérée, un ou plusieurs marchés pour un montant total maximum, mais dont l'exécution peut se réaliser sur plusieurs exercices budgétaires selon un échéancier des paiements. Elle se distingue des crédits de paiement, qui constituent la limite supérieure des dépenses pouvant être ordonnancées ou payées pendant l'année pour la couverture des engagements contractés.",
+    source: 'Art. 3, points 2 et 17, LOFIP',
+    voirAussi: [],
+  },
+]
