@@ -3049,7 +3049,7 @@ export default function ProfesseurPage() {
                     total !== null ? String(total) : '',
                     mention || ''
                   ])
-                  exportToCSV([headers, ...rows], `campus-ohada-cotes-${date}.csv`)
+                  exportToCSV([headers, ...rows], `orbit-cotes-${date}.csv`)
                 }}
               >
                 <Download className="h-4 w-4" /> Exporter CSV
