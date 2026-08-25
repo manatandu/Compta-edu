@@ -149,11 +149,11 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Pourquoi une reforme budgétaire ?</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            Avant l\'adoption de la LOFIP en 2011, le budget de la RDC etait présenté par <strong>lignes de crédit</strong> - ce que l\'on appelle le budget de moyens. Chaque ministère recevait des dotations par nature de dépense (personnel, fonctionnement, investissement) sans avoir a justifier des résultats obtenus en contrepartie. Cette approche presentait deux defauts majeurs :
+            Avant l'adoption de la LOFIP en 2011, le budget de la RDC etait présenté par <strong>lignes de crédit</strong> - ce que l'on appelle le budget de moyens. Chaque ministère recevait des dotations par nature de dépense (personnel, fonctionnement, investissement) sans avoir a justifier des résultats obtenus en contrepartie. Cette approche presentait deux defauts majeurs :
           </p>
           <ul className="space-y-1 ml-3 text-xs text-foreground">
             <li className="flex items-start gap-2"><span className="text-red-500 font-bold mt-0.5">x</span><span><strong>Absence de lien entre crédits et résultats :</strong> les ministères recevaient des fonds sans obligation de rendre compte des politiques publiques financees.</span></li>
-            <li className="flex items-start gap-2"><span className="text-red-500 font-bold mt-0.5">x</span><span><strong>Pilotage impossible :</strong> le Parlement et le Gouvernement ne pouvaient pas evaluer l\'efficacite des dépenses, ni comparer le cout d\'une politique a ses effets concrets.</span></li>
+            <li className="flex items-start gap-2"><span className="text-red-500 font-bold mt-0.5">x</span><span><strong>Pilotage impossible :</strong> le Parlement et le Gouvernement ne pouvaient pas evaluer l'efficacite des dépenses, ni comparer le cout d'une politique a ses effets concrets.</span></li>
           </ul>
         </div>
 
@@ -197,17 +197,17 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <Target className="h-4 w-4 text-emerald-600" /> Definition legale du programme (Art. 43 LOFIP){' '}
-            <InfoTooltip texte="L\'Art. 43 LOFIP donne la definition officielle et obligatoire du programme budgétaire. C\'est la brique de base du budget-programme. Chaque ministère peut creer autant de programmes que necessaire, plus un programme 'administration générale' pour les crédits non affectes." loi="Art. 43 LOFIP" />
+            <InfoTooltip texte="L'Art. 43 LOFIP donne la definition officielle et obligatoire du programme budgétaire. C'est la brique de base du budget-programme. Chaque ministère peut creer autant de programmes que necessaire, plus un programme 'administration générale' pour les crédits non affectes." loi="Art. 43 LOFIP" />
           </h3>
           <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3 mb-3">
             <p className="text-xs text-foreground leading-relaxed italic">
-              « Un programme regroupe les crédits destines a mettre en oeuvre une action ou un ensemble coherent d\'actions relevant d\'un meme ministère ou institution et auquel sont associes des objectifs precis, definis en fonction des finalites d\'intérêt général, ainsi que des résultats attendus et faisant l\'objet d\'une evaluation au moyen d\'indicateurs de performance. »
+              « Un programme regroupe les crédits destines a mettre en oeuvre une action ou un ensemble coherent d'actions relevant d'un meme ministère ou institution et auquel sont associes des objectifs precis, definis en fonction des finalites d'intérêt général, ainsi que des résultats attendus et faisant l'objet d'une evaluation au moyen d'indicateurs de performance. »
             </p>
             <p className="text-xs text-muted-foreground mt-1">Art. 43 al. 1 LOFIP</p>
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-bold text-foreground">Trois elements constitutifs d\'un programme :</p>
+            <p className="text-xs font-bold text-foreground">Trois elements constitutifs d'un programme :</p>
             <div className="grid grid-cols-1 gap-2">
               {[
                 { num: '1', titre: 'Coherence des actions', desc: 'Les actions doivent relever d\'un meme ministère ou institution et former un ensemble coherent au service d\'une finalite d\'intérêt général.' },
@@ -227,12 +227,12 @@ const LECONS: Lecon[] = [
 
           <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs font-bold text-amber-800 mb-1">Programme "Administration générale" (Art. 43 al. 2)</p>
-            <p className="text-xs text-amber-700">L\'Art. 43 al. 2 prevoit que chaque ministère ou institution peut creer un programme intitule <em>« administration générale »</em> destine a recevoir les crédits non specifiquement affectes a un autre programme. Ce programme "chapeau" evite que des crédits restent sans rattachement programmatique.</p>
+            <p className="text-xs text-amber-700">L'Art. 43 al. 2 prevoit que chaque ministère ou institution peut creer un programme intitule <em>« administration générale »</em> destine a recevoir les crédits non specifiquement affectes a un autre programme. Ce programme "chapeau" evite que des crédits restent sans rattachement programmatique.</p>
           </div>
 
           <div className="mt-3 rounded-lg bg-red-50 border border-red-200 p-3">
             <p className="text-xs font-bold text-red-800 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Regle imperieuse (Art. 43 al. 3)</p>
-            <p className="text-xs text-red-700"><em>« Seule une disposition de loi de finances d\'initiative gouvernementale peut creer ou supprimer un programme. »</em> Un programme ne peut donc etre cree ni supprime par un simple arrete ministeriel ou une resolution parlementaire.</p>
+            <p className="text-xs text-red-700"><em>« Seule une disposition de loi de finances d'initiative gouvernementale peut creer ou supprimer un programme. »</em> Un programme ne peut donc etre cree ni supprime par un simple arrete ministeriel ou une resolution parlementaire.</p>
           </div>
         </div>
 
@@ -333,13 +333,13 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3">Les fonctions interministerielles (Art. 44 al. 2)</h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
-            L\'Art. 44 al. 2 dispose : <em>« La presentation des programmes sous forme d\'une fonction interministerielle entraine une coordination dans l\'exécution des programmes et une presentation conjointe de l\'exécution et des résultats dans la loi portant reddition des comptes du budget du pouvoir central. »</em>
+            L'Art. 44 al. 2 dispose : <em>« La presentation des programmes sous forme d'une fonction interministerielle entraine une coordination dans l'exécution des programmes et une presentation conjointe de l'exécution et des résultats dans la loi portant reddition des comptes du budget du pouvoir central. »</em>
           </p>
           <p className="text-xs text-foreground leading-relaxed mb-3">
-            Concretement, quand plusieurs ministères contribuent a une meme politique publique (ex : lutte contre la pauvrete impliquant les ministères des Affaires sociales, de la Sante, de l\'Agriculture), leurs programmes respectifs peuvent etre regroupes sous une fonction interministerielle commune. Cela impose :
+            Concretement, quand plusieurs ministères contribuent a une meme politique publique (ex : lutte contre la pauvrete impliquant les ministères des Affaires sociales, de la Sante, de l'Agriculture), leurs programmes respectifs peuvent etre regroupes sous une fonction interministerielle commune. Cela impose :
           </p>
           <ul className="space-y-1 ml-3 text-xs text-foreground">
-            <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500 mt-0.5" /><span>Une coordination dans l\'exécution des programmes entre ministères</span></li>
+            <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500 mt-0.5" /><span>Une coordination dans l'exécution des programmes entre ministères</span></li>
             <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500 mt-0.5" /><span>Une presentation conjointe des résultats dans la loi de reddition des comptes</span></li>
           </ul>
         </div>
@@ -401,34 +401,34 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Art. 45 LOFIP : La fongibilite</h3>
           <p className="text-xs text-foreground leading-relaxed italic mb-2">
-            « Les crédits ouverts au sein d\'un programme sont fongibles a l\'interieur du titre et de la source de financement. Toutefois, les mouvements y relatifs font l\'objet d\'un suivi conformement aux procédures fixees par le ministre ayant le budget dans ses attributions. »
+            « Les crédits ouverts au sein d'un programme sont fongibles a l'interieur du titre et de la source de financement. Toutefois, les mouvements y relatifs font l'objet d'un suivi conformement aux procédures fixees par le ministre ayant le budget dans ses attributions. »
           </p>
           <p className="text-xs text-foreground leading-relaxed">
-            La <strong>fongibilite</strong> signifie que le responsable d\'un programme peut, au sein d\'un meme titre et d\'une meme source de financement, reallouer librement les crédits entre les differentes actions du programme, sans avoir a obtenir d\'autorisation exterieure. C\'est un outil de flexibilite manageriale au service de la performance.
+            La <strong>fongibilite</strong> signifie que le responsable d'un programme peut, au sein d'un meme titre et d'une meme source de financement, reallouer librement les crédits entre les differentes actions du programme, sans avoir a obtenir d'autorisation exterieure. C'est un outil de flexibilite manageriale au service de la performance.
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <BarChart2 className="h-4 w-4 text-emerald-600" /> Fongibilite : ce qui est permis et ce qui est interdit
-            <InfoTooltip texte="La fongibilite (Art. 45) est limitee : elle s\'exerce a l\'interieur d\'un titre et d\'une source de financement. On ne peut pas transferer des crédits du Titre III (Personnel) vers d\'autres titres (Art. 51). La fongibilite asymetrique signifie qu\'on peut utiliser des crédits de personnel pour du fonctionnement, mais jamais l\'inverse." loi="Art. 45, 51 LOFIP" />
+            <InfoTooltip texte="La fongibilite (Art. 45) est limitee : elle s'exerce a l'interieur d'un titre et d'une source de financement. On ne peut pas transferer des crédits du Titre III (Personnel) vers d'autres titres (Art. 51). La fongibilite asymetrique signifie qu'on peut utiliser des crédits de personnel pour du fonctionnement, mais jamais l'inverse." loi="Art. 45, 51 LOFIP" />
           </h3>
 
           <div className="space-y-2">
             <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-3">
               <p className="text-xs font-bold text-emerald-800 mb-1">CE QUI EST PERMIS (Art. 45)</p>
               <ul className="space-y-1 text-xs text-emerald-700">
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Reallouer des crédits entre actions d\'un meme programme, a l\'interieur d\'un meme titre</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Ajuster les dotations des actions en cours d\'année selon les besoins reels</span></li>
-                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Faire des virements entre titres d\'un meme programme par arrete ministeriel (Art. 47)</span></li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Reallouer des crédits entre actions d'un meme programme, a l'interieur d'un meme titre</span></li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Ajuster les dotations des actions en cours d'année selon les besoins reels</span></li>
+                <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-emerald-500" /><span>Faire des virements entre titres d'un meme programme par arrete ministeriel (Art. 47)</span></li>
               </ul>
             </div>
             <div className="rounded-lg bg-red-50 border border-red-200 p-3">
               <p className="text-xs font-bold text-red-800 mb-1">CE QUI EST INTERDIT (Art. 51)</p>
               <ul className="space-y-1 text-xs text-red-700">
-                <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Tout virement ou transfert au profit du Titre III (Personnel) a partir d\'un autre titre</span></li>
+                <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Tout virement ou transfert au profit du Titre III (Personnel) a partir d'un autre titre</span></li>
                 <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Creer des emplois nouveaux sans autorisation par loi de finances</span></li>
-                <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Depasser le plafond d\'autorisation des emplois remuneres (Art. 51 al. 3)</span></li>
+                <li className="flex items-start gap-2"><XCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-red-500" /><span>Depasser le plafond d'autorisation des emplois remuneres (Art. 51 al. 3)</span></li>
               </ul>
             </div>
           </div>
@@ -438,21 +438,21 @@ const LECONS: Lecon[] = [
           <h3 className="text-sm font-bold text-foreground mb-3">Virements et transferts de crédits (Art. 46-50)</h3>
           <div className="space-y-2">
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-1">Virements (Art. 47) - entre titres d\'un meme programme</p>
-              <p className="text-xs text-foreground">Operes entre les titres des dépenses d\'un meme programme, par <strong>arrete du ministre ayant le budget dans ses attributions</strong>, sur proposition du ministre ou responsable d\'institution concerne. Ex : virer des crédits du Titre IV (Biens) vers le Titre V (Prestations) au sein du meme programme.</p>
+              <p className="text-xs font-bold text-foreground mb-1">Virements (Art. 47) - entre titres d'un meme programme</p>
+              <p className="text-xs text-foreground">Operes entre les titres des dépenses d'un meme programme, par <strong>arrete du ministre ayant le budget dans ses attributions</strong>, sur proposition du ministre ou responsable d'institution concerne. Ex : virer des crédits du Titre IV (Biens) vers le Titre V (Prestations) au sein du meme programme.</p>
             </div>
             <div className="rounded-lg border border-border bg-muted/30 p-3">
-              <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 48) - entre programmes d\'un meme ministère</p>
-              <p className="text-xs text-foreground">Operees entre programmes d\'un meme ministère, pour les titres de meme nature. Autorises par <strong>décret du Premier ministre</strong> delibere en Conseil des ministres. Font l\'objet de propositions d\'ouverture en LFR. Ex : transferer des crédits du programme Sante de base vers Hopitaux généraux.</p>
+              <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 48) - entre programmes d'un meme ministère</p>
+              <p className="text-xs text-foreground">Operees entre programmes d'un meme ministère, pour les titres de meme nature. Autorises par <strong>décret du Premier ministre</strong> delibere en Conseil des ministres. Font l'objet de propositions d'ouverture en LFR. Ex : transferer des crédits du programme Sante de base vers Hopitaux généraux.</p>
             </div>
             <div className="rounded-lg border border-border bg-muted/30 p-3">
               <p className="text-xs font-bold text-foreground mb-1">Transferts (Art. 49) - entre programmes de ministères differents</p>
-              <p className="text-xs text-foreground">Operees entre programmes de differents ministères. Interviennent par <strong>décret du Premier ministre apres avis prealable du Ministre du Budget</strong>, sur proposition des ministres concernes. Font l\'objet de propositions en LFR. Ex : transferer des crédits du Ministere de la Sante vers le Ministere de l\'Education pour un programme commun.</p>
+              <p className="text-xs text-foreground">Operees entre programmes de differents ministères. Interviennent par <strong>décret du Premier ministre apres avis prealable du Ministre du Budget</strong>, sur proposition des ministres concernes. Font l'objet de propositions en LFR. Ex : transferer des crédits du Ministere de la Sante vers le Ministere de l'Education pour un programme commun.</p>
             </div>
           </div>
           <div className="mt-2 rounded-lg bg-amber-50 border border-amber-200 p-3">
             <p className="text-xs font-bold text-amber-800 mb-1 flex items-center gap-1"><AlertTriangle className="h-3.5 w-3.5" /> Art. 50 LOFIP</p>
-            <p className="text-xs text-amber-700"><em>« Aucun virement ni transfert ne peut etre effectue au profit d\'un programme non prevu par une loi de finances. »</em> Il est impossible de creer un nouveau programme par voie de virement ou de transfert.</p>
+            <p className="text-xs text-amber-700"><em>« Aucun virement ni transfert ne peut etre effectue au profit d'un programme non prevu par une loi de finances. »</em> Il est impossible de creer un nouveau programme par voie de virement ou de transfert.</p>
           </div>
         </div>
 
@@ -497,7 +497,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4">
           <h3 className="text-sm font-bold text-emerald-800 mb-2">Fondement legal : Art. 79 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 79 LOFIP enumere les documents qui accompagnent le projet de loi de finances. Le PAP figure parmi ces documents obligatoires. L\'Art. 79 pt. 5 cite dans l\'annexe explicative : « le developpement par titre de l\'estimation des crédits » et « l\'état recapitulatif des crédits a reporter ». Le PAP est le document de mise en oeuvre de la gestion par la performance.
+            L'Art. 79 LOFIP enumere les documents qui accompagnent le projet de loi de finances. Le PAP figure parmi ces documents obligatoires. L'Art. 79 pt. 5 cite dans l'annexe explicative : « le developpement par titre de l'estimation des crédits » et « l'état recapitulatif des crédits a reporter ». Le PAP est le document de mise en oeuvre de la gestion par la performance.
           </p>
         </div>
 
@@ -532,10 +532,10 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <TrendingUp className="h-4 w-4 text-emerald-600" /> Le Rapport Annuel de Performance (RAP){' '}
-            <InfoTooltip texte="Le RAP est le pendant du PAP. Il est joint a la loi portant reddition des comptes. Il rend compte des résultats obtenus par chaque programme en comparant les realisations aux objectifs fixes dans le PAP. C\'est l\'outil de la reddition de comptes sur la performance." loi="Art. 79 LOFIP" />
+            <InfoTooltip texte="Le RAP est le pendant du PAP. Il est joint a la loi portant reddition des comptes. Il rend compte des résultats obtenus par chaque programme en comparant les realisations aux objectifs fixes dans le PAP. C'est l'outil de la reddition de comptes sur la performance." loi="Art. 79 LOFIP" />
           </h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
-            Le Rapport Annuel de Performance (RAP) est le document de bilan joint a la <strong>loi portant reddition des comptes</strong>. Il analyse programme par programme les résultats obtenus et les compare aux objectifs fixes dans le PAP de l\'année concernee.
+            Le Rapport Annuel de Performance (RAP) est le document de bilan joint a la <strong>loi portant reddition des comptes</strong>. Il analyse programme par programme les résultats obtenus et les compare aux objectifs fixes dans le PAP de l'année concernee.
           </p>
 
           <div className="rounded-lg border border-border bg-muted/30 p-3 mb-3">
@@ -568,7 +568,7 @@ const LECONS: Lecon[] = [
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3">Autres documents annexes (Art. 79 LOFIP)</h3>
-          <p className="text-xs text-foreground mb-3">L\'Art. 79 LOFIP liste l\'ensemble des documents obligatoirement joints au projet de loi de finances :</p>
+          <p className="text-xs text-foreground mb-3">L'Art. 79 LOFIP liste l'ensemble des documents obligatoirement joints au projet de loi de finances :</p>
           <div className="space-y-2">
             {[
               { num: '1', label: 'Expose général', desc: 'Synthese du budget, objectifs de politique economique, contexte international et national, perspectives CBMT, exécution du budget en cours.' },
@@ -678,13 +678,13 @@ const LECONS: Lecon[] = [
             <AlertTriangle className="h-4 w-4" /> Rapport UNIS - fevrier 2025 : les defis persistants
           </h3>
           <p className="text-xs text-amber-700 leading-relaxed mb-2">
-            Un rapport de l\'organisation UNIS (fevrier 2025) souligne que <strong>80% des ressources budgétaires devraient etre orientees vers des projets d\'intérêt public</strong>, mais l\'exécution reste faible. Les principaux defis identifies sont :
+            Un rapport de l'organisation UNIS (fevrier 2025) souligne que <strong>80% des ressources budgétaires devraient etre orientees vers des projets d'intérêt public</strong>, mais l'exécution reste faible. Les principaux defis identifies sont :
           </p>
           <ul className="space-y-1 text-xs text-amber-700">
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Faible taux d\'exécution global :</strong> 17,1% a fin mars 2025 pour le budget général</span></li>
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Sous-exécution de l\'investissement :</strong> 4% seulement des crédits d\'investissement (Titres VII et VIII)</span></li>
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Culture du résultat insuffisante :</strong> les gestionnaires publics ne sont pas encore formes a la logique de la performance et de l\'evaluation</span></li>
-            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Horizon 2028 pour le budget-programme :</strong> les conferences budgétaires de juillet 2025 (pour le budget 2026) ont confirme l\'objectif de finalisation de la transition</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Faible taux d'exécution global :</strong> 17,1% a fin mars 2025 pour le budget général</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Sous-exécution de l'investissement :</strong> 4% seulement des crédits d'investissement (Titres VII et VIII)</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Culture du résultat insuffisante :</strong> les gestionnaires publics ne sont pas encore formes a la logique de la performance et de l'evaluation</span></li>
+            <li className="flex items-start gap-2"><ChevronRight className="h-3.5 w-3.5 shrink-0 mt-0.5" /><span><strong>Horizon 2028 pour le budget-programme :</strong> les conferences budgétaires de juillet 2025 (pour le budget 2026) ont confirme l'objectif de finalisation de la transition</span></li>
           </ul>
         </div>
 
@@ -1186,7 +1186,7 @@ export default function UE5Chapitre4Page() {
         />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Budget-programme et gestion par la performance</h1>
-          <InfoTooltip texte="Ce chapitre analyse la reforme du budget-programme introduite par la LOFIP : definition du programme (Art. 43), fonctions (Art. 44), fongibilite des crédits (Art. 45), mouvements de crédits (Art. 46-53), PAP/RAP (Art. 79) et état d\'avancement de la reforme en RDC." loi="Art. 43-54, 79 LOFIP" />
+          <InfoTooltip texte="Ce chapitre analyse la reforme du budget-programme introduite par la LOFIP : definition du programme (Art. 43), fonctions (Art. 44), fongibilite des crédits (Art. 45), mouvements de crédits (Art. 46-53), PAP/RAP (Art. 79) et état d'avancement de la reforme en RDC." loi="Art. 43-54, 79 LOFIP" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 43-54, 79 · Programme, PAP, RAP · Reforme RDC 2011-2026</p>
       </div>
@@ -1215,7 +1215,7 @@ export default function UE5Chapitre4Page() {
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Definir et distinguer programme, action, fonction, objectif et indicateur de performance (Art. 43-44)</span></li>
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Maitriser la fongibilite des crédits et les règles de virements/transferts (Art. 45-51)</span></li>
           <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Connaitre les instruments de la performance : PAP (joint au PLF) et RAP (joint a la loi de reddition des comptes) (Art. 79)</span></li>
-          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Situer l\'état d\'avancement de la reforme en RDC : deux prorogations, realisations et defis persistants (actualite 2024-2026)</span></li>
+          <li className="flex items-start gap-2 text-xs text-emerald-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-emerald-500" /><span>Situer l'état d'avancement de la reforme en RDC : deux prorogations, realisations et defis persistants (actualite 2024-2026)</span></li>
         </ul>
       </div>
 

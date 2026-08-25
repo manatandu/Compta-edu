@@ -148,16 +148,16 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
           <h3 className="text-sm font-bold text-indigo-800 mb-2">Fondement : Art. 89-92 LOFIP</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            L\'Art. 89 LOFIP pose le principe fondamental : <strong>les recettes du Pouvoir central sont executees conformement aux lois et reglements en vigueur.</strong> Cette disposition signifie que l\'Etat ne peut percevoir une recette que si elle est fondee sur un texte legal (loi fiscale, reglementation douaniere, texte domanial...). Aucune recette ne peut etre percue sans base legale : c\'est le principe de legalite fiscale.
+            L'Art. 89 LOFIP pose le principe fondamental : <strong>les recettes du Pouvoir central sont executees conformement aux lois et reglements en vigueur.</strong> Cette disposition signifie que l'Etat ne peut percevoir une recette que si elle est fondee sur un texte legal (loi fiscale, reglementation douaniere, texte domanial...). Aucune recette ne peut etre percue sans base legale : c'est le principe de legalite fiscale.
           </p>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 90 organise la procedure d\'execution en trois phases successives et obligatoires : <strong>constatation, liquidation et ordonnancement</strong>. Ces trois phases forment la chaine de recouvrement des recettes publiques, par analogie avec la chaine de la depense (engagement, liquidation, ordonnancement, paiement).
+            L'Art. 90 organise la procedure d'execution en trois phases successives et obligatoires : <strong>constatation, liquidation et ordonnancement</strong>. Ces trois phases forment la chaine de recouvrement des recettes publiques, par analogie avec la chaine de la depense (engagement, liquidation, ordonnancement, paiement).
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-            <Scale className="h-4 w-4 text-indigo-600" /> Les trois phases de l\'execution des recettes (Art. 90 LOFIP)
+            <Scale className="h-4 w-4 text-indigo-600" /> Les trois phases de l'execution des recettes (Art. 90 LOFIP)
           </h3>
           <div className="space-y-3">
             {[
@@ -206,7 +206,7 @@ const LECONS: Lecon[] = [
             <AlertTriangle className="h-4 w-4" /> Regle speciale : recettes au comptant (Art. 91 al. 2 LOFIP)
           </h3>
           <p className="text-xs text-amber-700 leading-relaxed">
-            L\'Art. 91 al. 2 LOFIP prevoit une derogation pour les recettes percues au comptant (paiement immediat) : <strong>les documents justifiant le paiement tiennent lieu de titres de perception.</strong> L\'ordonnancement intervient apres l\'encaissement, pour regularisation comptable. C\'est notamment le cas pour les droits de timbre, les taxes perceptibles a la caisse du tresor et certaines recettes administratives (DGRAD). Cette inversion de la sequence normale est une exception qui confirme la regle generale des trois phases.
+            L'Art. 91 al. 2 LOFIP prevoit une derogation pour les recettes percues au comptant (paiement immediat) : <strong>les documents justifiant le paiement tiennent lieu de titres de perception.</strong> L'ordonnancement intervient apres l'encaissement, pour regularisation comptable. C'est notamment le cas pour les droits de timbre, les taxes perceptibles a la caisse du tresor et certaines recettes administratives (DGRAD). Cette inversion de la sequence normale est une exception qui confirme la regle generale des trois phases.
           </p>
         </div>
 
@@ -253,7 +253,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
           <h3 className="text-sm font-bold text-indigo-800 mb-2">Principe : specialisation des regies financieres</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            Conformement a l\'Art. 89 LOFIP, les recettes sont executees par des regies financieres specialisees, chacune competente pour un type de recette. Ce systeme de specialisation garantit une expertise technique dans chaque domaine fiscal et assure la traçabilite des recettes depuis leur constatation jusqu\'a leur versement au Compte general du Tresor (Art. 110 LOFIP). En 2026, les quatre grandes regies sont la DGI, la DGDA, la DGRAD et, pour certaines recettes specifiques, la Banque Centrale du Congo.
+            Conformement a l'Art. 89 LOFIP, les recettes sont executees par des regies financieres specialisees, chacune competente pour un type de recette. Ce systeme de specialisation garantit une expertise technique dans chaque domaine fiscal et assure la traçabilite des recettes depuis leur constatation jusqu'a leur versement au Compte general du Tresor (Art. 110 LOFIP). En 2026, les quatre grandes regies sont la DGI, la DGDA, la DGRAD et, pour certaines recettes specifiques, la Banque Centrale du Congo.
           </p>
         </div>
 
@@ -374,7 +374,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
           <h3 className="text-sm font-bold text-indigo-800 mb-2">LF n° 25/060 du 29 decembre 2025 : Budget 2026</h3>
           <p className="text-xs text-foreground leading-relaxed mb-2">
-            La Loi de Finances 2026 (LF n° 25/060 du 29 decembre 2025) fixe l\'equilibre du budget a <strong>54.335,8 milliards FC</strong> (Art. 6), dont <strong>48.969,3 milliards FC</strong> de recettes du Budget general (Art. 7). L\'Art. 3 LF 2026 rappelle le principe d\'universalite : toutes les recettes sont portees au budget sans affectation prealable (sauf exceptions prevues par la loi). L\'Art. 4 LF 2026 confirme qu\'aucune exemption fiscale n\'est admise sans disposition legale expresse.
+            La Loi de Finances 2026 (LF n° 25/060 du 29 decembre 2025) fixe l'equilibre du budget a <strong>54.335,8 milliards FC</strong> (Art. 6), dont <strong>48.969,3 milliards FC</strong> de recettes du Budget general (Art. 7). L'Art. 3 LF 2026 rappelle le principe d'universalite : toutes les recettes sont portees au budget sans affectation prealable (sauf exceptions prevues par la loi). L'Art. 4 LF 2026 confirme qu'aucune exemption fiscale n'est admise sans disposition legale expresse.
           </p>
           <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-2.5">
             <p className="text-xs font-bold text-indigo-800">Parametres macro-economiques 2026 (LF 2026)</p>
@@ -385,7 +385,7 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <Coins className="h-4 w-4 text-indigo-600" /> Droits de douane (DGDA)
-            <InfoTooltip texte="Les droits de douane sont des impositions sur les marchandises franchissant la frontiere douaniere. En RDC, ils sont ad valorem (% de la valeur CIF) et varies selon le type de produit. La DGDA applique le Tarif des droits et taxes a l\'entree et a la sortie des marchandises." loi="Tarif douanier RDC, LF 2026" />
+            <InfoTooltip texte="Les droits de douane sont des impositions sur les marchandises franchissant la frontiere douaniere. En RDC, ils sont ad valorem (% de la valeur CIF) et varies selon le type de produit. La DGDA applique le Tarif des droits et taxes a l'entree et a la sortie des marchandises." loi="Tarif douanier RDC, LF 2026" />
           </h3>
           <div className="space-y-2">
             {[
@@ -403,15 +403,15 @@ const LECONS: Lecon[] = [
             ))}
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-2.5">
               <p className="text-xs font-bold text-amber-800">Taxe exportations minieres (LF 2026)</p>
-              <p className="text-xs text-amber-700 mt-0.5">La LF 2026 a etendu la taxe de 2% a TOUTES les exportations de produits miniers marchands (Chapitre 26 du SH + Section XV : metaux de base). Cela inclut le cobalt, le cuivre, le coltan, le lithium, l\'or et les autres mineraux strategiques. La RDC etant le 1er producteur mondial de cobalt, cette mesure accroit substantiellement les recettes DGDA.</p>
+              <p className="text-xs text-amber-700 mt-0.5">La LF 2026 a etendu la taxe de 2% a TOUTES les exportations de produits miniers marchands (Chapitre 26 du SH + Section XV : metaux de base). Cela inclut le cobalt, le cuivre, le coltan, le lithium, l'or et les autres mineraux strategiques. La RDC etant le 1er producteur mondial de cobalt, cette mesure accroit substantiellement les recettes DGDA.</p>
             </div>
           </div>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-            <Coins className="h-4 w-4 text-indigo-600" /> Droits d\'accises (DGDA)
-            <InfoTooltip texte="Les droits d\'accises sont des taxes speciales de consommation frappant certains produits specifiques, generalement nocifs pour la sante (alcools, tabacs) ou presentant un caractere de luxe. Ils s\'ajoutent a la TVA et sont inclus dans le prix final au consommateur." loi="Loi portant fiscalite des accises, LF 2026" />
+            <Coins className="h-4 w-4 text-indigo-600" /> Droits d'accises (DGDA)
+            <InfoTooltip texte="Les droits d'accises sont des taxes speciales de consommation frappant certains produits specifiques, generalement nocifs pour la sante (alcools, tabacs) ou presentant un caractere de luxe. Ils s'ajoutent a la TVA et sont inclus dans le prix final au consommateur." loi="Loi portant fiscalite des accises, LF 2026" />
           </h3>
           <div className="space-y-1.5">
             {[
@@ -517,27 +517,27 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-4">
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 mb-2">Art. 110 LOFIP : le principe d\'unite de caisse</h3>
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">Art. 110 LOFIP : le principe d'unite de caisse</h3>
           <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 mb-3">
             <p className="text-xs text-foreground italic leading-relaxed">
-              « Tous les fonds publics appartenant au Pouvoir central doivent etre deposes dans le compte general du Tresor ouvert aupres du caissier de l\'Etat. »
+              « Tous les fonds publics appartenant au Pouvoir central doivent etre deposes dans le compte general du Tresor ouvert aupres du caissier de l'Etat. »
             </p>
             <p className="text-xs text-muted-foreground mt-1">Art. 110 LOFIP</p>
           </div>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'Art. 110 LOFIP pose le principe de l'<strong>unite de caisse</strong>, parfois appele principe de l'<strong>unite de tresorerie</strong>. Ce principe est l\'une des innovations majeures de la LOFIP de 2011 par rapport a l\'ancien regime budgetaire congolais. Il signifie que toutes les recettes de l\'Etat, quels que soient leur origine et leur nature, doivent obligatoirement transiter par un compte unique : le <strong>Compte general du Tresor</strong>.
+            L'Art. 110 LOFIP pose le principe de l'<strong>unite de caisse</strong>, parfois appele principe de l'<strong>unite de tresorerie</strong>. Ce principe est l'une des innovations majeures de la LOFIP de 2011 par rapport a l'ancien regime budgetaire congolais. Il signifie que toutes les recettes de l'Etat, quels que soient leur origine et leur nature, doivent obligatoirement transiter par un compte unique : le <strong>Compte general du Tresor</strong>.
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
             <Building2 className="h-4 w-4 text-indigo-600" /> Le Compte general du Tresor : architecture et acteurs
-            <InfoTooltip texte="Le Compte general du Tresor (CGT) est le compte pivot de toutes les operations financieres de l\'Etat. Il est tenu par la Banque Centrale du Congo, qui agit comme caissier de l\'Etat. Toutes les recettes y sont versees et toutes les depenses en sont debitees, assurant une vision consolidee de la tresorerie de l\'Etat." loi="Art. 110 LOFIP" />
+            <InfoTooltip texte="Le Compte general du Tresor (CGT) est le compte pivot de toutes les operations financieres de l'Etat. Il est tenu par la Banque Centrale du Congo, qui agit comme caissier de l'Etat. Toutes les recettes y sont versees et toutes les depenses en sont debitees, assurant une vision consolidee de la tresorerie de l'Etat." loi="Art. 110 LOFIP" />
           </h3>
           <div className="space-y-3">
             <div className="rounded-lg bg-muted/30 border border-border p-3">
               <p className="text-xs font-bold text-foreground mb-2">Qui tient le Compte general du Tresor ?</p>
-              <p className="text-xs text-foreground leading-relaxed">La <strong>Banque Centrale du Congo (BCC)</strong> est le caissier de l\'Etat. Elle tient le Compte general du Tresor, execute les ordres de paiement emis par les comptables publics et transfere les fonds entre les comptes du Tresor et les comptes des ministeres. L\'Art. 110 lui confie cette mission par la LOFIP, ce qui donne a la BCC un role operationnel crucial dans la gestion des finances publiques.</p>
+              <p className="text-xs text-foreground leading-relaxed">La <strong>Banque Centrale du Congo (BCC)</strong> est le caissier de l'Etat. Elle tient le Compte general du Tresor, execute les ordres de paiement emis par les comptables publics et transfere les fonds entre les comptes du Tresor et les comptes des ministeres. L'Art. 110 lui confie cette mission par la LOFIP, ce qui donne a la BCC un role operationnel crucial dans la gestion des finances publiques.</p>
             </div>
             <div className="rounded-lg bg-muted/30 border border-border p-3">
               <p className="text-xs font-bold text-foreground mb-2">Pourquoi ce principe est-il fondamental ?</p>
@@ -563,17 +563,17 @@ const LECONS: Lecon[] = [
 
         <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-4">
           <h3 className="text-sm font-bold text-amber-800 mb-2 flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4" /> Lien avec le principe d\'universalite (Art. 3 LF 2026)
+            <AlertTriangle className="h-4 w-4" /> Lien avec le principe d'universalite (Art. 3 LF 2026)
           </h3>
           <p className="text-xs text-amber-700 leading-relaxed">
-            L\'Art. 3 LF 2026 rappelle le principe d\'universalite budgetaire : <strong>les recettes et les depenses sont retracees dans le budget sans contraction entre elles.</strong> Toute compensation entre recettes et depenses est strictement prohibee. Ce principe est complementaire a l\'unite de caisse : non seulement toutes les recettes doivent passer par le Compte general du Tresor (unite de caisse), mais elles ne peuvent pas etre directement utilisees pour payer des depenses sans passer par la procedure budgetaire (universalite).
+            L'Art. 3 LF 2026 rappelle le principe d'universalite budgetaire : <strong>les recettes et les depenses sont retracees dans le budget sans contraction entre elles.</strong> Toute compensation entre recettes et depenses est strictement prohibee. Ce principe est complementaire a l'unite de caisse : non seulement toutes les recettes doivent passer par le Compte general du Tresor (unite de caisse), mais elles ne peuvent pas etre directement utilisees pour payer des depenses sans passer par la procedure budgetaire (universalite).
           </p>
         </div>
 
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-3">Derogations et comptes speciaux du Tresor</h3>
           <p className="text-xs text-foreground leading-relaxed mb-3">
-            Le principe de l\'unite de caisse connait des derogations legalement encadrees. L\'Art. 110 LOFIP lui-meme et les Articles 60-74 sur les comptes speciaux du Tresor permettent certains mecanismes derogatoires, toujours sous controle du Parlement :
+            Le principe de l'unite de caisse connait des derogations legalement encadrees. L'Art. 110 LOFIP lui-meme et les Articles 60-74 sur les comptes speciaux du Tresor permettent certains mecanismes derogatoires, toujours sous controle du Parlement :
           </p>
           <div className="space-y-1.5">
             {[
@@ -633,9 +633,9 @@ const LECONS: Lecon[] = [
     contenu: (
       <div className="space-y-4">
         <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
-          <h3 className="text-sm font-bold text-indigo-800 mb-2">Art. 92-94 LOFIP : roles des acteurs dans l\'execution des recettes</h3>
+          <h3 className="text-sm font-bold text-indigo-800 mb-2">Art. 92-94 LOFIP : roles des acteurs dans l'execution des recettes</h3>
           <p className="text-xs text-foreground leading-relaxed">
-            L\'execution des recettes implique deux categories d\'acteurs aux responsabilites distinctes et complementaires : les <strong>ordonnateurs</strong>, qui constatent, liquident et ordonnancent les recettes, et les <strong>comptables publics</strong>, qui procedent au recouvrement effectif. Cette separation est le principe de la <strong>dualite ordonnateur-comptable</strong>, garantie essentielle de contrôle des finances publiques.
+            L'execution des recettes implique deux categories d'acteurs aux responsabilites distinctes et complementaires : les <strong>ordonnateurs</strong>, qui constatent, liquident et ordonnancent les recettes, et les <strong>comptables publics</strong>, qui procedent au recouvrement effectif. Cette separation est le principe de la <strong>dualite ordonnateur-comptable</strong>, garantie essentielle de contrôle des finances publiques.
           </p>
         </div>
 
@@ -693,10 +693,10 @@ const LECONS: Lecon[] = [
         <div className="rounded-xl border border-border bg-card p-4">
           <h3 className="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
             <Scale className="h-4 w-4 text-indigo-600" /> Dualite ordonnateur-comptable : principe fondamental
-            <InfoTooltip texte="La separation des fonctions d\'ordonnateur et de comptable est un principe cardinal de la comptabilite publique. Elle garantit un double controle : l\'ordonnateur constate et liquide la recette (contrôle de fond), le comptable la recouvre (contrôle de forme). Chacun engage sa responsabilite independamment." loi="Art. 92-94 LOFIP" />
+            <InfoTooltip texte="La separation des fonctions d'ordonnateur et de comptable est un principe cardinal de la comptabilite publique. Elle garantit un double controle : l'ordonnateur constate et liquide la recette (contrôle de fond), le comptable la recouvre (contrôle de forme). Chacun engage sa responsabilite independamment." loi="Art. 92-94 LOFIP" />
           </h3>
           <p className="text-xs text-foreground leading-relaxed">
-            La dualite ordonnateur-comptable est une garantie contre les detournements et les irregularites : une meme personne ne peut pas a la fois decider de percevoir une recette (ordonnateur) et proceder a l\'encaissement (comptable). Ce principe s\'applique symetriquement aux recettes (phase execution des recettes) et aux depenses (chaine de la depense). La LOFIP l\'institutionnalise dans les Art. 92-94 pour les recettes et dans les Art. 95-109 pour les depenses.
+            La dualite ordonnateur-comptable est une garantie contre les detournements et les irregularites : une meme personne ne peut pas a la fois decider de percevoir une recette (ordonnateur) et proceder a l'encaissement (comptable). Ce principe s'applique symetriquement aux recettes (phase execution des recettes) et aux depenses (chaine de la depense). La LOFIP l'institutionnalise dans les Art. 92-94 pour les recettes et dans les Art. 95-109 pour les depenses.
           </p>
         </div>
 
@@ -1236,7 +1236,7 @@ export default function UE5Chapitre6Page() {
         />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Execution des recettes publiques</h1>
-          <InfoTooltip texte="Ce chapitre analyse l\'execution des recettes publiques en RDC : les trois phases (constatation, liquidation, ordonnancement) selon l\'Art. 90 LOFIP, les regies financieres (DGI, DGDA, DGRAD), les types de recettes du budget 2026 et le principe d\'unite de caisse (Art. 110 LOFIP)." loi="Art. 89-92, 110 LOFIP, LF n° 25/060" />
+          <InfoTooltip texte="Ce chapitre analyse l'execution des recettes publiques en RDC : les trois phases (constatation, liquidation, ordonnancement) selon l'Art. 90 LOFIP, les regies financieres (DGI, DGDA, DGRAD), les types de recettes du budget 2026 et le principe d'unite de caisse (Art. 110 LOFIP)." loi="Art. 89-92, 110 LOFIP, LF n° 25/060" />
         </div>
         <p className="text-xs text-muted-foreground">LOFIP Art. 89-92, 110 · DGI · DGDA · DGRAD · Unite de caisse · LF 2026</p>
       </div>
@@ -1261,11 +1261,11 @@ export default function UE5Chapitre6Page() {
           <span className="text-sm font-semibold text-indigo-800">Objectifs du chapitre</span>
         </div>
         <ul className="space-y-1">
-          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maitriser les trois phases d\'execution des recettes : constatation, liquidation et ordonnancement (Art. 90 LOFIP)</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Maitriser les trois phases d'execution des recettes : constatation, liquidation et ordonnancement (Art. 90 LOFIP)</span></li>
           <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Identifier les regies financieres (DGI, DGDA, DGRAD) et leurs competences respectives en matiere de recouvrement</span></li>
           <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Connaitre les types de recettes et taux applicables en 2026 : droits de douane (5/10/20%), TVA (16%), IS, IRPP, recettes minieres</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Comprendre le principe d\'unite de caisse (Art. 110 LOFIP) : Compte general du Tresor, BCC caissier de l\'Etat, derogations</span></li>
-          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Appliquer les principes d\'universalite (Art. 3 LF 2026) et de legalite fiscale (Art. 4 LF 2026, Art. 89 LOFIP) aux cas pratiques</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Comprendre le principe d'unite de caisse (Art. 110 LOFIP) : Compte general du Tresor, BCC caissier de l'Etat, derogations</span></li>
+          <li className="flex items-start gap-2 text-xs text-indigo-700"><CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" /><span>Appliquer les principes d'universalite (Art. 3 LF 2026) et de legalite fiscale (Art. 4 LF 2026, Art. 89 LOFIP) aux cas pratiques</span></li>
         </ul>
       </div>
 
