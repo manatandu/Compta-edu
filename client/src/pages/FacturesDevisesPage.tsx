@@ -2,53 +2,65 @@ import React, { useState, useMemo } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
   ArrowLeft, Receipt, Plus, Trash2, Info, AlertCircle,
-  BookOpen, ArrowLeftRight, Wallet, Upload, Check,
+  BookOpen, ArrowLeftRight, Wallet, Upload, Check, FileText,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { useSessions } from '@/lib/useFirestore'
 import { addEcritureAsync } from '@/lib/db-firebase'
 import { generateId } from '@/lib/utils'
+import { exportFacturePDF } from '@/lib/exportPDF'
 import {
-  useFacturesDevises, creerFacture, supprimerFacture, montantTTC,
-  genererEcritureEngagement, genererEcritureReglement,
+  useFacturesDevises, creerFacture, supprimerFacture, calculerDecompte, netAPayerDevise,
+  genererEcritureEngagementFournisseur, genererEcritureEngagementClient,
+  genererEcritureEscompteRealiseFournisseur, genererEcritureEscompteRealiseClient,
+  genererEcritureAvanceRecueFournisseur, genererEcritureAvanceVerseeClient,
+  genererEcritureRetourEmballageFournisseur, genererEcritureRetourEmballageClient,
+  genererEcritureNonRetourEmballageFournisseur, genererEcritureNonRetourEmballageClient,
+  genererEcritureLocationEmballageClient,
+  genererEcritureReglement,
   calculerEcartConversionCommercial, genererEcritureEcartConversion, genererEcritureProvisionCommercial,
   genererEcritureDisponibilites,
   type FactureDevise, type Devise, type TypeFacture, type EcritureFactureGeneree,
+  type LigneArticle, type ReductionCommerciale, type EmballageConsigne, type DecompteFacture,
 } from '@/lib/useFacturesDevises'
 
 // ─── Formatage ────────────────────────────────────────────────────────────────
 function formatFC(n: number): string { return `${Math.round(n).toLocaleString('fr-CD')} FC` }
 function formatDevise(n: number, devise: Devise): string { return `${n.toLocaleString('fr-CD', { maximumFractionDigits: 2 })} ${devise}` }
+const arrondi = (n: number) => Math.round(n * 100) / 100
 
 const ONGLETS = [
   { id: 'factures', label: 'Factures', icon: Receipt, color: 'text-module-rose', border: 'border-module-rose' },
+  { id: 'document', label: 'Document', icon: FileText, color: 'text-module-emerald', border: 'border-module-emerald' },
   { id: 'ecritures', label: 'Écritures', icon: BookOpen, color: 'text-module-teal', border: 'border-module-teal' },
   { id: 'ecarts', label: 'Écarts', icon: ArrowLeftRight, color: 'text-module-violet', border: 'border-module-violet' },
   { id: 'disponibilites', label: 'Disponibilités', icon: Wallet, color: 'text-module-blue', border: 'border-module-blue' },
 ] as const
 type OngletId = typeof ONGLETS[number]['id']
 
-// ─── Petits composants d'affichage (mêmes patterns que le module Emprunts) ───
-function Callout({ children, couleur = 'rose' }: { children: React.ReactNode; couleur?: 'rose' | 'amber' }) {
+// ─── Petits composants d'affichage ─────────────────────────────────────────
+function Callout({ children, couleur = 'rose' }: { children: React.ReactNode; couleur?: 'rose' | 'amber' | 'violet' }) {
+  const styles = {
+    rose: 'border-module-rose/30 bg-module-rose/10',
+    amber: 'border-amber-300 bg-amber-50 text-amber-800',
+    violet: 'border-module-violet/30 bg-module-violet/10',
+  }
   return (
-    <div className={cn(
-      'rounded-xl border p-3 flex items-start gap-2 text-xs leading-relaxed',
-      couleur === 'rose' ? 'border-module-rose/30 bg-module-rose/10 text-foreground' : 'border-amber-300 bg-amber-50 text-amber-800'
-    )}>
-      {couleur === 'rose'
-        ? <Info className="h-3.5 w-3.5 shrink-0 mt-0.5 text-module-rose" />
-        : <AlertCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-amber-600" />}
+    <div className={cn('rounded-xl border p-3 flex items-start gap-2 text-xs leading-relaxed text-foreground', styles[couleur])}>
+      {couleur === 'amber'
+        ? <AlertCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-amber-600" />
+        : <Info className={cn('h-3.5 w-3.5 shrink-0 mt-0.5', couleur === 'violet' ? 'text-module-violet' : 'text-module-rose')} />}
       <span>{children}</span>
     </div>
   )
 }
 
-function EcritureCard({ ec, numero }: { ec: EcritureFactureGeneree; numero: number }) {
+function EcritureCard({ ec, numero, accent = 'teal' }: { ec: EcritureFactureGeneree; numero: number | string; accent?: 'teal' | 'violet' }) {
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <div className="flex items-center gap-2.5 px-3.5 py-2.5 bg-muted/40 border-b border-border">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-module-teal text-white text-xs font-bold shrink-0">{numero}</span>
+        <span className={cn('flex h-5 w-5 items-center justify-center rounded-full text-white text-xs font-bold shrink-0', accent === 'teal' ? 'bg-module-teal' : 'bg-module-violet')}>{numero}</span>
         <p className="text-xs font-semibold text-foreground flex-1">{ec.libelle}</p>
         <span className="text-xs font-mono text-muted-foreground">{ec.date}</span>
       </div>
@@ -72,6 +84,89 @@ function EcritureCard({ ec, numero }: { ec: EcritureFactureGeneree; numero: numb
           ))}
         </tbody>
       </table>
+    </div>
+  )
+}
+
+function TwinEcritures({ titre, sousTitre, fournisseur, client }: {
+  titre: string; sousTitre?: string; fournisseur: EcritureFactureGeneree; client: EcritureFactureGeneree
+}) {
+  return (
+    <div>
+      {titre && (
+        <div className="mb-2.5">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{titre}</p>
+          {sousTitre && <p className="text-xs text-muted-foreground/80 mt-0.5">{sousTitre}</p>}
+        </div>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <p className="text-xs font-bold text-module-teal mb-1.5">Chez le fournisseur</p>
+          <EcritureCard ec={fournisseur} numero="F" accent="teal" />
+        </div>
+        <div>
+          <p className="text-xs font-bold text-module-violet mb-1.5">Chez le client</p>
+          <EcritureCard ec={client} numero="C" accent="violet" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DecompteCard({ d, devise }: { d: DecompteFacture; devise: Devise }) {
+  const fmt = (n: number) => formatDevise(n, devise)
+  return (
+    <div className="rounded-xl border border-border overflow-hidden text-xs">
+      <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60">
+        <span className="text-muted-foreground">Montant brut</span>
+        <span className="font-mono font-semibold">{fmt(d.brut)}</span>
+      </div>
+      {d.etapesReductions.map((e, i) => (
+        <React.Fragment key={i}>
+          <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60 text-module-rose">
+            <span>− {e.libelle} ({e.pct} %)</span>
+            <span className="font-mono">{fmt(e.montantReduit)}</span>
+          </div>
+          <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60 bg-muted/30 font-semibold">
+            <span>= Solde {i + 1}{i === d.etapesReductions.length - 1 ? ' = Net commercial' : ''}</span>
+            <span className="font-mono">{fmt(e.solde)}</span>
+          </div>
+        </React.Fragment>
+      ))}
+      {d.etapesReductions.length === 0 && (
+        <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60 bg-muted/30 font-semibold">
+          <span>Net commercial</span>
+          <span className="font-mono">{fmt(d.netCommercial)}</span>
+        </div>
+      )}
+      {d.escompte > 0 && (
+        <>
+          <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60 text-module-violet">
+            <span>− Escompte{d.baseTVA === d.netCommercial ? ' (indicatif, conditionnel)' : ''}</span>
+            <span className="font-mono">{fmt(d.escompte)}</span>
+          </div>
+          <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60 bg-muted/30 font-semibold">
+            <span>Net financier</span>
+            <span className="font-mono">{fmt(d.netFinancier)}</span>
+          </div>
+        </>
+      )}
+      <div className="flex items-center justify-between px-3.5 py-2 border-b border-border/60 text-module-teal">
+        <span>+ TVA</span>
+        <span className="font-mono">{fmt(d.tva)}</span>
+      </div>
+      <div className="flex items-center justify-between px-3.5 py-2.5 bg-module-rose/10 text-module-rose font-bold">
+        <span>Net à payer</span>
+        <span className="font-mono">{fmt(d.netAPayer)}</span>
+      </div>
+      {(d.totalEmballages > 0 || d.avanceRecue > 0) && (
+        <div className="px-3.5 py-2 text-muted-foreground/80 text-[11px] leading-relaxed border-t border-border/60">
+          Hors décompte, réglés séparément : {d.totalEmballages > 0 && <>emballages consignés {fmt(d.totalEmballages)}</>}
+          {d.totalEmballages > 0 && d.avanceRecue > 0 && ' · '}
+          {d.avanceRecue > 0 && <>avance déjà versée −{fmt(d.avanceRecue)}</>}
+          {' '}→ montant réellement mouvementé : <strong className="text-foreground">{fmt(d.netAEncaisser)}</strong>
+        </div>
+      )}
     </div>
   )
 }
@@ -153,6 +248,19 @@ function ModalExport({ ecriture, userId, onClose }: { ecriture: EcritureFactureG
   )
 }
 
+function ExportButton({ ecriture, userId, couleur = 'teal' }: { ecriture: EcritureFactureGeneree; userId: string; couleur?: 'teal' | 'violet' }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button onClick={() => setOpen(true)}
+        className={cn('mt-2 flex items-center gap-1.5 text-xs font-semibold hover:opacity-80', couleur === 'teal' ? 'text-module-teal' : 'text-module-violet')}>
+        <Upload className="h-3.5 w-3.5" /> Exporter vers le Journal
+      </button>
+      {open && <ModalExport ecriture={ecriture} userId={userId} onClose={() => setOpen(false)} />}
+    </>
+  )
+}
+
 function SansSelection({ onAllerFactures }: { onAllerFactures: () => void }) {
   return (
     <div className="rounded-xl border border-dashed border-border bg-muted/20 py-12 text-center space-y-3">
@@ -172,20 +280,37 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
   onSelect: (id: string) => void; userId: string
 }) {
   const [form, setForm] = useState({
-    type: 'achat' as TypeFacture, tiers: '', reference: '', devise: 'USD' as Devise,
-    coursEngagement: '2800', montantHT: '', tauxTVA: '16',
-    dateFacture: new Date().toISOString().split('T')[0],
+    type: 'vente' as TypeFacture, tiers: '', reference: '', devise: 'CDF' as Devise,
+    coursEngagement: '2800', tauxTVA: '16', escomptePct: '0', escompteConditionnel: true,
+    avanceRecue: '0', dateFacture: new Date().toISOString().split('T')[0],
   })
+  const [lignes, setLignes] = useState<LigneArticle[]>([{ designation: '', quantite: 1, prixUnitaire: 0 }])
+  const [reductions, setReductions] = useState<ReductionCommerciale[]>([])
+  const [emballages, setEmballages] = useState<EmballageConsigne[]>([])
   const [saving, setSaving] = useState(false)
   const [erreur, setErreur] = useState('')
   const [confirmSuppr, setConfirmSuppr] = useState<string | null>(null)
+
+  const decompte = useMemo(() => calculerDecompte({
+    lignes,
+    reductionsCommerciales: reductions,
+    escomptePct: Number(form.escomptePct) || 0,
+    escompteConditionnel: form.escompteConditionnel,
+    tauxTVA: (Number(form.tauxTVA) || 0) / 100,
+    emballages,
+    avanceRecue: Number(form.avanceRecue) || 0,
+  }), [lignes, reductions, emballages, form.escomptePct, form.escompteConditionnel, form.tauxTVA, form.avanceRecue])
+
+  const majLigne = (i: number, patch: Partial<LigneArticle>) => setLignes(ls => ls.map((l, idx) => idx === i ? { ...l, ...patch } : l))
+  const majReduction = (i: number, patch: Partial<ReductionCommerciale>) => setReductions(rs => rs.map((r, idx) => idx === i ? { ...r, ...patch } : r))
+  const majEmballage = (i: number, patch: Partial<EmballageConsigne>) => setEmballages(es => es.map((e, idx) => idx === i ? { ...e, ...patch } : e))
 
   const valider = async () => {
     setErreur('')
     if (!form.tiers.trim()) { setErreur(form.type === 'achat' ? 'Indiquez le fournisseur.' : 'Indiquez le client.'); return }
     if (!form.reference.trim()) { setErreur('Indiquez la référence de la facture.'); return }
-    const montantHT = Number(form.montantHT)
-    if (!montantHT || montantHT <= 0) { setErreur('Le montant HT doit être un nombre supérieur à 0.'); return }
+    const lignesValides = lignes.filter(l => l.designation.trim() && l.quantite > 0 && l.prixUnitaire > 0)
+    if (lignesValides.length === 0) { setErreur('Ajoutez au moins une ligne (désignation, quantité, prix unitaire).'); return }
     if (!userId) { setErreur('Session non chargée : rechargez la page et réessayez.'); return }
     setSaving(true)
     try {
@@ -196,12 +321,20 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
         reference: form.reference.trim(),
         devise: form.devise,
         coursEngagement: form.devise === 'CDF' ? 1 : Number(form.coursEngagement) || 1,
-        montantHT,
+        lignes: lignesValides,
+        reductionsCommerciales: reductions.filter(r => r.libelle.trim() && r.pct > 0),
+        escomptePct: Number(form.escomptePct) || 0,
+        escompteConditionnel: form.escompteConditionnel,
+        emballages: emballages.filter(e => e.designation.trim() && e.quantite > 0),
+        avanceRecue: Number(form.avanceRecue) || 0,
         tauxTVA: (Number(form.tauxTVA) || 0) / 100,
         dateFacture: form.dateFacture,
       })
       onSelect(id)
-      setForm(f => ({ ...f, tiers: '', reference: '', montantHT: '' }))
+      setForm(f => ({ ...f, tiers: '', reference: '' }))
+      setLignes([{ designation: '', quantite: 1, prixUnitaire: 0 }])
+      setReductions([])
+      setEmballages([])
     } catch {
       setErreur('Erreur lors de la création de la facture. Réessayez.')
     } finally {
@@ -212,7 +345,7 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
   return (
     <div className="space-y-5">
       <Callout>
-        <strong>Comptes 401/411 — Créances et dettes commerciales en devises.</strong> Achat (fournisseur, compte 401) ou vente (client, compte 411) libellé en monnaie étrangère. Chaque facture génère automatiquement ses écritures d'engagement, de règlement et d'écart de conversion à la clôture.
+        <strong>Comptes 401/411.</strong> Achat (fournisseur, compte 401) ou vente (client, compte 411). Chaque facture se construit ligne par ligne : réductions commerciales en cascade, réduction financière, TVA — et génère ses écritures chez le fournisseur ET chez le client.
       </Callout>
 
       <div>
@@ -241,12 +374,12 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
                     <span className={cn('font-mono font-semibold', f.type === 'achat' ? 'text-module-rose' : 'text-module-teal')}>
                       {f.type === 'achat' ? 'Achat (401)' : 'Vente (411)'}
                     </span>
-                    {' '}· {f.devise} · TVA {(f.tauxTVA * 100).toLocaleString('fr-CD')}%
+                    {' '}· {f.devise}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="font-mono font-bold text-sm">{montantTTC(f).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</p>
-                  <p className="text-xs text-muted-foreground">{f.devise} TTC</p>
+                  <p className="font-mono font-bold text-sm">{netAPayerDevise(f).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</p>
+                  <p className="text-xs text-muted-foreground">{f.devise}</p>
                 </div>
                 <button onClick={ev => { ev.stopPropagation(); setConfirmSuppr(f.id) }}
                   className="h-7 w-7 rounded-lg hover:bg-red-50 flex items-center justify-center transition-colors shrink-0">
@@ -260,7 +393,7 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
 
       <div>
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Nouvelle facture</p>
-        <div className="rounded-xl border border-border bg-card p-4 space-y-3.5">
+        <div className="rounded-xl border border-border bg-card p-4 space-y-4">
           <div className="grid grid-cols-2 gap-2">
             <button onClick={() => setForm(f => ({ ...f, type: 'achat' }))}
               className={cn('rounded-lg border-2 px-3 py-2 text-left transition-all',
@@ -291,15 +424,10 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">Devise</label>
               <select value={form.devise} onChange={e => setForm(f => ({ ...f, devise: e.target.value as Devise }))}
                 className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-rose/30">
+                <option value="CDF">CDF</option>
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
-                <option value="CDF">CDF</option>
               </select>
-            </div>
-            <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Montant HT ({form.devise})</label>
-              <input type="number" value={form.montantHT} onChange={e => setForm(f => ({ ...f, montantHT: e.target.value }))}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-rose/30" />
             </div>
             {form.devise !== 'CDF' && (
               <div>
@@ -309,15 +437,130 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
               </div>
             )}
             <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Taux de TVA (%)</label>
-              <input type="number" value={form.tauxTVA} onChange={e => setForm(f => ({ ...f, tauxTVA: e.target.value }))}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-rose/30" />
-            </div>
-            <div>
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">Date de la facture</label>
               <input type="date" value={form.dateFacture} onChange={e => setForm(f => ({ ...f, dateFacture: e.target.value }))}
                 className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-rose/30" />
             </div>
+          </div>
+
+          {/* Lignes d'articles */}
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Lignes de la facture</label>
+            <div className="rounded-xl border border-border overflow-hidden">
+              <div className="grid grid-cols-[1fr_50px_70px_70px_24px] gap-1.5 px-3 py-1.5 bg-muted/40 text-[10px] font-bold uppercase text-muted-foreground">
+                <span>Désignation</span><span>Qté</span><span>PU</span><span>Montant</span><span></span>
+              </div>
+              {lignes.map((l, i) => (
+                <div key={i} className="grid grid-cols-[1fr_50px_70px_70px_24px] gap-1.5 px-3 py-1.5 border-t border-border/60 items-center">
+                  <input value={l.designation} onChange={e => majLigne(i, { designation: e.target.value })} placeholder="Article"
+                    className="rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                  <input type="number" value={l.quantite || ''} onChange={e => majLigne(i, { quantite: Number(e.target.value) || 0 })}
+                    className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                  <input type="number" value={l.prixUnitaire || ''} onChange={e => majLigne(i, { prixUnitaire: Number(e.target.value) || 0 })}
+                    className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                  <span className="text-xs font-mono text-right text-muted-foreground">{(l.quantite * l.prixUnitaire).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</span>
+                  <button onClick={() => setLignes(ls => ls.filter((_, idx) => idx !== i))} className="text-red-400 text-xs">✕</button>
+                </div>
+              ))}
+              <button onClick={() => setLignes(ls => [...ls, { designation: '', quantite: 1, prixUnitaire: 0 }])}
+                className="w-full flex items-center gap-1.5 text-xs font-semibold text-module-rose px-3 py-2 border-t border-dashed border-border">
+                <Plus className="h-3 w-3" /> Ajouter une ligne
+              </button>
+            </div>
+          </div>
+
+          {/* Réductions commerciales en cascade */}
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Réductions commerciales (cascade, liste libre)</label>
+            {reductions.length > 0 && (
+              <div className="rounded-xl border border-border overflow-hidden mb-1.5">
+                <div className="grid grid-cols-[1fr_70px_24px] gap-1.5 px-3 py-1.5 bg-muted/40 text-[10px] font-bold uppercase text-muted-foreground">
+                  <span>Libellé</span><span>%</span><span></span>
+                </div>
+                {reductions.map((r, i) => (
+                  <div key={i} className="grid grid-cols-[1fr_70px_24px] gap-1.5 px-3 py-1.5 border-t border-border/60 items-center">
+                    <input value={r.libelle} onChange={e => majReduction(i, { libelle: e.target.value })} placeholder="Rabais, remise…"
+                      className="rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                    <input type="number" value={r.pct || ''} onChange={e => majReduction(i, { pct: Number(e.target.value) || 0 })}
+                      className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                    <button onClick={() => setReductions(rs => rs.filter((_, idx) => idx !== i))} className="text-red-400 text-xs">✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <button onClick={() => setReductions(rs => [...rs, { libelle: rs.length === 0 ? 'Rabais' : rs.length === 1 ? 'Remise' : 'Ristourne', pct: 0 }])}
+              className="flex items-center gap-1.5 text-xs font-semibold text-module-rose">
+              <Plus className="h-3 w-3" /> Ajouter une réduction
+            </button>
+          </div>
+
+          {/* Escompte */}
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Réduction financière (escompte)</label>
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <span className="text-[10px] text-muted-foreground">Taux %</span>
+                <input type="number" value={form.escomptePct} onChange={e => setForm(f => ({ ...f, escomptePct: e.target.value }))}
+                  className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-violet/30" />
+              </div>
+              <div>
+                <span className="text-[10px] text-muted-foreground">Régime</span>
+                <select value={form.escompteConditionnel ? 'cond' : 'inc'} onChange={e => setForm(f => ({ ...f, escompteConditionnel: e.target.value === 'cond' }))}
+                  className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30">
+                  <option value="inc">Inconditionnel (déduit d'office)</option>
+                  <option value="cond">Conditionnel (si paiement anticipé)</option>
+                </select>
+              </div>
+            </div>
+            <Callout couleur="violet">
+              <strong>Règle générale (sourcée) —</strong> l'escompte se déduit du net commercial pour donner le net financier, base de la TVA. 673/773 apparaît toujours dans l'écriture, jamais absorbé comme les RRR. En régime <em>conditionnel</em>, rien n'est déduit ici — tout se joue au règlement (onglet Écritures).
+            </Callout>
+          </div>
+
+          {/* TVA, emballages, avance */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Taux de TVA</label>
+              <input type="number" value={form.tauxTVA} onChange={e => setForm(f => ({ ...f, tauxTVA: e.target.value }))}
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-rose/30" />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Avance déjà reçue</label>
+              <input type="number" value={form.avanceRecue} onChange={e => setForm(f => ({ ...f, avanceRecue: e.target.value }))}
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-rose/30" />
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Emballages consignés</label>
+            {emballages.length > 0 && (
+              <div className="rounded-xl border border-border overflow-hidden mb-1.5">
+                <div className="grid grid-cols-[1fr_40px_70px_60px_24px] gap-1.5 px-3 py-1.5 bg-muted/40 text-[10px] font-bold uppercase text-muted-foreground">
+                  <span>Désignation</span><span>Qté</span><span>Consigne</span><span>Ident.</span><span></span>
+                </div>
+                {emballages.map((e, i) => (
+                  <div key={i} className="grid grid-cols-[1fr_40px_70px_60px_24px] gap-1.5 px-3 py-1.5 border-t border-border/60 items-center">
+                    <input value={e.designation} onChange={ev => majEmballage(i, { designation: ev.target.value })} placeholder="Palette, casier…"
+                      className="rounded border border-border bg-background px-1.5 py-1 text-xs" />
+                    <input type="number" value={e.quantite || ''} onChange={ev => majEmballage(i, { quantite: Number(ev.target.value) || 0 })}
+                      className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                    <input type="number" value={e.prixUnitaireConsigne || ''} onChange={ev => majEmballage(i, { prixUnitaireConsigne: Number(ev.target.value) || 0 })}
+                      className="rounded border border-border bg-background px-1.5 py-1 text-xs font-mono text-right" />
+                    <input type="checkbox" checked={e.identifiable} onChange={ev => majEmballage(i, { identifiable: ev.target.checked })} className="justify-self-center" />
+                    <button onClick={() => setEmballages(es => es.filter((_, idx) => idx !== i))} className="text-red-400 text-xs">✕</button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <button onClick={() => setEmballages(es => [...es, { designation: '', quantite: 1, prixUnitaireConsigne: 0, identifiable: false }])}
+              className="flex items-center gap-1.5 text-xs font-semibold text-module-rose">
+              <Plus className="h-3 w-3" /> Ajouter un emballage consigné
+            </button>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-muted-foreground mb-1.5 block">Décompte en direct</label>
+            <DecompteCard d={decompte} devise={form.devise} />
           </div>
 
           {erreur && (
@@ -352,76 +595,180 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
   )
 }
 
-// ─── Onglet 2 : Écritures ─────────────────────────────────────────────────────
-function OngletEcritures({ facture, userId }: { facture: FactureDevise; userId: string }) {
-  const [montantRegle, setMontantRegle] = useState(String(facture.montantHT * (1 + facture.tauxTVA)))
-  const [coursReglement, setCoursReglement] = useState(String(facture.coursEngagement))
-  const [modalEcriture, setModalEcriture] = useState<EcritureFactureGeneree | null>(null)
-
-  const ecritureEngagement = useMemo(() => genererEcritureEngagement(facture), [facture])
-  const montantRegleNum = Number(montantRegle) || 0
-  const ecritureReglement = montantRegleNum > 0
-    ? genererEcritureReglement(facture, montantRegleNum, Number(coursReglement) || facture.coursEngagement)
-    : null
+// ─── Onglet 2 : Document (aperçu + PDF) ───────────────────────────────────────
+function OngletDocument({ facture }: { facture: FactureDevise }) {
+  const decompte = useMemo(() => calculerDecompte(facture, 1), [facture])
 
   return (
-    <div className="space-y-5">
-      <Callout>
-        {facture.type === 'achat'
-          ? "Écritures côté acheteur : achat au débit (601), TVA récupérable (445), dette fournisseur au crédit (401)."
-          : "Écritures côté vendeur : créance client au débit (411), TVA facturée et vente au crédit (443/701)."}
-        {facture.devise !== 'CDF' && <> Cours d'engagement : <strong>1 {facture.devise} = {facture.coursEngagement.toLocaleString('fr-CD')} CDF</strong> (Art. 52 AUDCIF).</>}
-      </Callout>
-
-      <div>
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">1 — Engagement (facturation)</p>
-        <EcritureCard ec={ecritureEngagement} numero={1} />
-        <button onClick={() => setModalEcriture(ecritureEngagement)}
-          className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-module-teal hover:opacity-80">
-          <Upload className="h-3.5 w-3.5" /> Exporter vers le Journal
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <button
+          onClick={() => exportFacturePDF(facture, decompte)}
+          className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-module-emerald hover:opacity-90 py-2.5 text-sm font-semibold text-white transition-colors">
+          <FileText className="h-4 w-4" /> Télécharger le PDF
         </button>
       </div>
 
-      <div>
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">2 — {facture.type === 'achat' ? 'Règlement' : 'Encaissement'} (avant clôture)</p>
-        <div className="grid grid-cols-2 gap-2.5 mb-2.5">
+      <div className="rounded-sm border border-border bg-[#fdfbf6] p-5 shadow-sm text-[#211f1c]">
+        <div className="flex items-start justify-between mb-4 pb-3 border-b border-dashed border-border">
           <div>
-            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Montant {facture.type === 'achat' ? 'réglé' : 'encaissé'} TTC ({facture.devise})</label>
-            <input type="number" value={montantRegle} onChange={e => setMontantRegle(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-teal/30" />
+            <p className="font-display font-bold text-sm">Orbit — SYSCOHADA Révisé</p>
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">Document pédagogique</p>
           </div>
-          {facture.devise !== 'CDF' && (
-            <div>
-              <label className="text-xs font-semibold text-muted-foreground mb-1 block">Cours du jour</label>
-              <input type="number" value={coursReglement} onChange={e => setCoursReglement(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-module-teal/30" />
-            </div>
-          )}
+          <div className="text-right">
+            <p className="text-[10px] uppercase tracking-wide text-module-rose font-bold">Facture</p>
+            <p className="text-xs font-mono text-muted-foreground mt-0.5">{facture.reference}</p>
+          </div>
         </div>
-        {ecritureReglement && (
-          <>
-            <EcritureCard ec={ecritureReglement} numero={2} />
-            <button onClick={() => setModalEcriture(ecritureReglement)}
-              className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-module-teal hover:opacity-80">
-              <Upload className="h-3.5 w-3.5" /> Exporter vers le Journal
-            </button>
-          </>
-        )}
-        {Number(coursReglement) !== facture.coursEngagement && facture.devise !== 'CDF' && (
-          <p className="text-xs text-muted-foreground mt-1.5 italic">
-            Le cours du jour de règlement diffère du cours d'engagement : la différence est un gain ou une perte de change <strong>réalisé</strong> (656/756), à la date du règlement — distinct des écarts de conversion latents de l'onglet suivant, qui ne concernent que le solde encore ouvert à la clôture.
-          </p>
-        )}
+        <div className="flex justify-between gap-4 mb-4 pb-3 border-b border-dashed border-border text-xs">
+          <div>
+            <p className="text-[9px] uppercase text-muted-foreground">{facture.type === 'achat' ? 'Fournisseur' : 'Client'}</p>
+            <p className="font-bold">{facture.tiers}</p>
+          </div>
+          <div>
+            <p className="text-[9px] uppercase text-muted-foreground">Date</p>
+            <p className="font-bold">{facture.dateFacture}</p>
+          </div>
+          <div>
+            <p className="text-[9px] uppercase text-muted-foreground">Devise</p>
+            <p className="font-bold">{facture.devise}</p>
+          </div>
+        </div>
+        <table className="w-full text-xs mb-4">
+          <thead>
+            <tr className="border-b-2 border-foreground/80">
+              <th className="text-left pb-1.5 text-[9px] uppercase text-muted-foreground">Désignation</th>
+              <th className="text-right pb-1.5 text-[9px] uppercase text-muted-foreground">Qté</th>
+              <th className="text-right pb-1.5 text-[9px] uppercase text-muted-foreground">P.U.</th>
+              <th className="text-right pb-1.5 text-[9px] uppercase text-muted-foreground">Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            {facture.lignes.map((l, i) => (
+              <tr key={i} className="border-b border-dashed border-border/70">
+                <td className="py-1.5">{l.designation}</td>
+                <td className="py-1.5 text-right font-mono">{l.quantite}</td>
+                <td className="py-1.5 text-right font-mono">{l.prixUnitaire.toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</td>
+                <td className="py-1.5 text-right font-mono">{(l.quantite * l.prixUnitaire).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="ml-auto max-w-[260px]">
+          <DecompteCard d={decompte} devise={facture.devise} />
+        </div>
       </div>
-
-      {modalEcriture && <ModalExport ecriture={modalEcriture} userId={userId} onClose={() => setModalEcriture(null)} />}
     </div>
   )
 }
 
-// ─── Onglet 3 : Écarts de conversion ──────────────────────────────────────────
+// ─── Onglet 3 : Écritures ─────────────────────────────────────────────────────
+function OngletEcritures({ facture, userId }: { facture: FactureDevise; userId: string }) {
+  const [dateReglementEscompte, setDateReglementEscompte] = useState(facture.dateFacture)
+  const [reprisesEmballages, setReprisesEmballages] = useState<Record<number, { prix: string; date: string; nonRetour: boolean }>>({})
+
+  const ecrEngagementF = useMemo(() => genererEcritureEngagementFournisseur(facture), [facture])
+  const ecrEngagementC = useMemo(() => genererEcritureEngagementClient(facture), [facture])
+
+  const decompteCDF = useMemo(() => calculerDecompte(facture, facture.coursEngagement), [facture])
+
+  return (
+    <div className="space-y-6">
+      <Callout>
+        {facture.type === 'achat'
+          ? "Écritures côté acheteur : achat au débit (601), TVA récupérable (445), dette fournisseur au crédit (401)."
+          : "Écritures côté vendeur : créance client au débit (411), TVA facturée et vente au crédit (443/701)."}
+        {' '}Affichées dans les deux perspectives, fournisseur et client, pour la valeur pédagogique.
+      </Callout>
+
+      <TwinEcritures titre="1 — Engagement (facturation)" fournisseur={ecrEngagementF} client={ecrEngagementC} />
+      <div className="flex gap-4">
+        <ExportButton ecriture={ecrEngagementF} userId={userId} couleur="teal" />
+        <ExportButton ecriture={ecrEngagementC} userId={userId} couleur="violet" />
+      </div>
+
+      {facture.escompteConditionnel && facture.escomptePct > 0 && (
+        <div>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">2 — Escompte conditionnel réalisé au règlement</p>
+          <div className="mb-2.5">
+            <label className="text-xs font-semibold text-muted-foreground mb-1 block">Date du règlement anticipé</label>
+            <input type="date" value={dateReglementEscompte} onChange={e => setDateReglementEscompte(e.target.value)}
+              className="w-48 rounded-lg border border-border bg-background px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-module-teal/30" />
+          </div>
+          <TwinEcritures titre="" fournisseur={genererEcritureEscompteRealiseFournisseur(facture, dateReglementEscompte)} client={genererEcritureEscompteRealiseClient(facture, dateReglementEscompte)} />
+          <div className="flex gap-4">
+            <ExportButton ecriture={genererEcritureEscompteRealiseFournisseur(facture, dateReglementEscompte)} userId={userId} couleur="teal" />
+            <ExportButton ecriture={genererEcritureEscompteRealiseClient(facture, dateReglementEscompte)} userId={userId} couleur="violet" />
+          </div>
+        </div>
+      )}
+
+      {facture.avanceRecue > 0 && (
+        <div>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Avance et acompte — réception (4191/4091)</p>
+          <p className="text-xs text-muted-foreground mb-2.5">L'imputation de l'avance sur le solde dû figure déjà dans l'écriture d'engagement ci-dessus.</p>
+          <TwinEcritures titre=""
+            fournisseur={genererEcritureAvanceRecueFournisseur(facture.tiers, arrondi(facture.avanceRecue * facture.coursEngagement), facture.dateFacture)}
+            client={genererEcritureAvanceVerseeClient(facture.tiers, arrondi(facture.avanceRecue * facture.coursEngagement), facture.dateFacture)} />
+        </div>
+      )}
+
+      {facture.emballages.length > 0 && (
+        <div>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Emballages consignés — retour</p>
+          <div className="space-y-4">
+            {facture.emballages.map((emb, i) => {
+              const consigneCDF = arrondi(emb.quantite * emb.prixUnitaireConsigne * facture.coursEngagement)
+              const saisie = reprisesEmballages[i] ?? { prix: String(emb.prixUnitaireConsigne), date: facture.dateFacture, nonRetour: false }
+              const repriseCDF = arrondi(emb.quantite * (Number(saisie.prix) || 0) * facture.coursEngagement)
+              return (
+                <div key={i} className="rounded-xl border border-border p-3.5 space-y-2.5">
+                  <p className="text-xs font-bold">{emb.designation} · {emb.quantite} × {emb.prixUnitaireConsigne.toLocaleString('fr-CD')} {facture.devise}</p>
+                  <div className="grid grid-cols-3 gap-2 items-end">
+                    <div>
+                      <span className="text-[10px] text-muted-foreground">Prix de reprise (u.)</span>
+                      <input type="number" value={saisie.prix} onChange={e => setReprisesEmballages(r => ({ ...r, [i]: { ...saisie, prix: e.target.value } }))}
+                        className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs font-mono" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-muted-foreground">Date</span>
+                      <input type="date" value={saisie.date} onChange={e => setReprisesEmballages(r => ({ ...r, [i]: { ...saisie, date: e.target.value } }))}
+                        className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs" />
+                    </div>
+                    <label className="flex items-center gap-1.5 text-xs">
+                      <input type="checkbox" checked={saisie.nonRetour} onChange={e => setReprisesEmballages(r => ({ ...r, [i]: { ...saisie, nonRetour: e.target.checked } }))} />
+                      Non-retour
+                    </label>
+                  </div>
+                  {saisie.nonRetour ? (
+                    <TwinEcritures titre=""
+                      fournisseur={genererEcritureNonRetourEmballageFournisseur(emb.designation, consigneCDF, facture.tauxTVA, emb.identifiable, saisie.date)}
+                      client={genererEcritureNonRetourEmballageClient(emb.designation, consigneCDF, facture.tauxTVA, emb.identifiable, saisie.date)} />
+                  ) : (
+                    <TwinEcritures titre=""
+                      fournisseur={genererEcritureRetourEmballageFournisseur(emb.designation, consigneCDF, repriseCDF, facture.tauxTVA, saisie.date)}
+                      client={genererEcritureRetourEmballageClient(emb.designation, consigneCDF, repriseCDF, facture.tauxTVA, saisie.date)} />
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {facture.devise !== 'CDF' && (
+        <Callout couleur="amber">
+          Le règlement en devise (avant clôture, avec écart de change réalisé) reste géré séparément — voir l'onglet <strong>Écarts</strong> pour le solde restant à la clôture.
+        </Callout>
+      )}
+    </div>
+  )
+}
+
+// ─── Onglet 4 : Écarts de conversion ──────────────────────────────────────────
 function OngletEcarts({ facture, userId }: { facture: FactureDevise; userId: string }) {
-  const [soldeRestant, setSoldeRestant] = useState(String(facture.montantHT * (1 + facture.tauxTVA)))
+  const soldeInitial = useMemo(() => netAPayerDevise(facture), [facture])
+  const [soldeRestant, setSoldeRestant] = useState(String(soldeInitial))
   const [coursCloture, setCoursCloture] = useState(String(Math.round(facture.coursEngagement * 1.03)))
   const [dateCloture, setDateCloture] = useState(new Date().toISOString().split('T')[0])
   const [modalEcriture, setModalEcriture] = useState<EcritureFactureGeneree | null>(null)
@@ -483,18 +830,12 @@ function OngletEcarts({ facture, userId }: { facture: FactureDevise; userId: str
           <div className="space-y-2.5">
             <div>
               <EcritureCard ec={ecritureEcart} numero={3} />
-              <button onClick={() => setModalEcriture(ecritureEcart)}
-                className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-module-violet hover:opacity-80">
-                <Upload className="h-3.5 w-3.5" /> Exporter vers le Journal
-              </button>
+              <ExportButton ecriture={ecritureEcart} userId={userId} couleur="violet" />
             </div>
             {ecritureProvision && (
               <div>
                 <EcritureCard ec={ecritureProvision} numero={4} />
-                <button onClick={() => setModalEcriture(ecritureProvision)}
-                  className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-module-violet hover:opacity-80">
-                  <Upload className="h-3.5 w-3.5" /> Exporter vers le Journal
-                </button>
+                <ExportButton ecriture={ecritureProvision} userId={userId} couleur="violet" />
               </div>
             )}
           </div>
@@ -511,7 +852,7 @@ function OngletEcarts({ facture, userId }: { facture: FactureDevise; userId: str
           <span className="h-5 w-5 rounded-full bg-muted text-muted-foreground text-xs font-bold flex items-center justify-center shrink-0">↺</span>
           <div>
             <p className="font-semibold">Contrepassation intégrale</p>
-            <p className="text-muted-foreground mt-0.5">L'écart de conversion et la provision sont extournés en totalité. Au règlement effectif, la différence entre cours d'engagement et cours de règlement est constatée en 656/756 (voir onglet Écritures).</p>
+            <p className="text-muted-foreground mt-0.5">L'écart de conversion et la provision sont extournés en totalité. Au règlement effectif, la différence entre cours d'engagement et cours de règlement est constatée en 656/756.</p>
           </div>
         </div>
       </div>
@@ -519,7 +860,7 @@ function OngletEcarts({ facture, userId }: { facture: FactureDevise; userId: str
   )
 }
 
-// ─── Onglet 4 : Disponibilités en devises ────────────────────────────────────
+// ─── Onglet 5 : Disponibilités en devises ────────────────────────────────────
 function OngletDisponibilites() {
   const [designation, setDesignation] = useState('Caisse USD')
   const [montant, setMontant] = useState('')
@@ -536,7 +877,7 @@ function OngletDisponibilites() {
   return (
     <div className="space-y-5">
       <Callout>
-        <strong>Art. 58 AUDCIF — règle propre aux disponibilités.</strong> À la différence des créances et dettes commerciales, l'écart sur une caisse ou un compte bancaire en devise est constaté <strong>directement en résultat</strong> (676/776) — pas de compte 478/479, pas de provision : la disponibilité est immédiatement mobilisable au cours du jour, il n'y a pas d'attente de réalisation.
+        <strong>Art. 58 AUDCIF — règle propre aux disponibilités.</strong> À la différence des créances et dettes commerciales, l'écart sur une caisse ou un compte bancaire en devise est constaté <strong>directement en résultat</strong> (676/776) — pas de compte 478/479, pas de provision.
       </Callout>
 
       <div className="rounded-xl border border-border bg-card p-4 space-y-3.5">
@@ -603,19 +944,19 @@ export default function FacturesDevisesPage() {
             <Receipt className="h-4 w-4 text-module-rose" />
           </div>
           <div>
-            <h1 className="text-sm font-display font-bold text-foreground leading-tight">Enregistrement des Factures</h1>
-            <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Module 5 · Comptes 401/411 · 478-479 · 656/756</p>
+            <h1 className="text-sm font-display font-bold text-foreground leading-tight">Facturation</h1>
+            <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">Module 5 · 401/411 · 4194/4094 · 4191/4091 · 673/773</p>
           </div>
         </div>
       </div>
 
-      <div role="tablist" aria-label="Enregistrement des factures" className="flex border-b border-border bg-background sticky top-[57px] z-20">
+      <div role="tablist" aria-label="Facturation" className="flex border-b border-border bg-background sticky top-[57px] z-20 overflow-x-auto">
         {ONGLETS.map(o => {
           const Icon = o.icon
           const estActif = actif === o.id
           return (
             <button key={o.id} role="tab" aria-selected={estActif} onClick={() => setActif(o.id)}
-              className={cn('flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all',
+              className={cn('flex-1 min-w-[84px] flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all whitespace-nowrap',
                 estActif ? `${o.border} ${o.color}` : 'border-transparent text-muted-foreground hover:text-foreground')}>
               <Icon className="h-3.5 w-3.5" />
               {o.label}
@@ -627,7 +968,12 @@ export default function FacturesDevisesPage() {
       <div className="px-4 pt-4">
         {actif === 'factures' && (
           <OngletFactures factures={factures} loading={loading} selectionId={selectionId}
-            onSelect={id => { setSelectionId(id); setActif('ecritures') }} userId={user?.id ?? ''} />
+            onSelect={id => { setSelectionId(id); setActif('document') }} userId={user?.id ?? ''} />
+        )}
+        {actif === 'document' && (
+          factureSelectionnee
+            ? <OngletDocument facture={factureSelectionnee} />
+            : <SansSelection onAllerFactures={() => setActif('factures')} />
         )}
         {actif === 'ecritures' && (
           factureSelectionnee
