@@ -162,7 +162,7 @@ export default function InscriptionPlatformePage() {
 function FormIndividuel({ users, universites, getFacultes, getCours, currentUserId, toast }: any) {
   const [form, setForm] = useState({
     username: '', password: '', nom: '', prenom: '',
-    universiteId: '', faculteId: '', classe: '', telephone: '', actif: true, coursIds: [] as string[]
+    universiteId: '', faculteId: '', classe: '', actif: true, coursIds: [] as string[]
   })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
@@ -199,12 +199,11 @@ function FormIndividuel({ users, universites, getFacultes, getCours, currentUser
         actif: form.actif,
         universiteId: form.universiteId || undefined,
         classe: form.classe.trim() || undefined,
-        telephone: form.telephone.trim() || undefined,
         coursIds: form.coursIds.length > 0 ? form.coursIds : undefined,
         createdBy: currentUserId,
       } as any)
       setSuccess(true)
-      setForm(f => ({ ...f, username: '', password: '', nom: '', prenom: '', classe: '', telephone: '' }))
+      setForm(f => ({ ...f, username: '', password: '', nom: '', prenom: '', classe: '' }))
       toast({ title: 'Étudiant créé avec succès' })
     } catch (err: any) {
       const msg = err?.message || err?.code || ''
@@ -255,12 +254,7 @@ function FormIndividuel({ users, universites, getFacultes, getCours, currentUser
           <PasswordInput value={form.password} onChange={(e: any) => setForm(f => ({ ...f, password: e.target.value }))}
             className="w-full px-3 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
         </div>
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-muted-foreground">Téléphone</label>
-          <input type="tel" value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))}
-            placeholder="+243 899 000 000" className="w-full px-3 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
-        </div>
-        <div className="space-y-1">
+        <div className="space-y-1 sm:col-span-2">
           <label className="text-xs font-medium text-muted-foreground">Promotion</label>
           <div className="relative">
             <select value={form.classe} onChange={e => setForm(f => ({ ...f, classe: e.target.value }))}
@@ -558,6 +552,7 @@ function ImportCSV({ users, universites, getFacultes, getCours, currentUserId, t
 
 // ─── Sous-composant C : Code d'accès ─────────────────────────────────────────
 function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }: any) {
+  const [, navigate] = useLocation()
   const [form, setForm] = useState({ universiteId: '', faculteId: '', coursIds: [] as string[], classe: '' })
   const [generatedCode, setGeneratedCode] = useState('')
   const [error, setError] = useState('')
@@ -657,7 +652,7 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
       </div>
 
       {/* Cours */}
-      {cours.length > 0 && (
+      {cours.length > 0 ? (
         <div className="space-y-2">
           <label className="text-xs font-medium text-muted-foreground">Cours inclus dans ce code</label>
           <div className="flex flex-wrap gap-2">
@@ -671,6 +666,23 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
                 {c.nom || c.id}
               </button>
             ))}
+          </div>
+        </div>
+      ) : form.universiteId && (
+        // Aucune UE n'a encore été « provisionnée » pour cette université : les UE
+        // affectables ici sont les cours réels créés dans Espace pédagogique >
+        // Cours (clonés depuis le catalogue UE1-UE13), pas le catalogue lui-même -
+        // sans quoi le code ne pourrait pas isoler les inscrits par faculté. Tant
+        // qu'aucun cours n'existe pour cette université, il n'y a donc rien à
+        // cocher ici ; on le dit explicitement au lieu de laisser la section
+        // disparaître sans explication.
+        <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+          <div className="space-y-1.5">
+            <p>Aucun cours n'a encore été créé pour cette université - le code fonctionnera, mais sans UE pré-affectée (l'étudiant devra être ajouté aux cours manuellement après son inscription).</p>
+            <button onClick={() => navigate('/professeurs')} className="font-semibold underline hover:no-underline">
+              Créer des cours pour cette université →
+            </button>
           </div>
         </div>
       )}
