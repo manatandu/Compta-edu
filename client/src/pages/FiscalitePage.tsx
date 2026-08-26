@@ -5452,7 +5452,7 @@ export default function FiscalitePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-10 animate-fadeIn">
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 overflow-x-hidden">
+      <div className="px-3 sm:px-4 pt-4 overflow-x-hidden">
 
         {/* ── Bouton retour ── */}
         <BackButton />
