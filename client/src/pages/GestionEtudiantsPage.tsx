@@ -8,11 +8,13 @@ import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { EtudiantFiche, StatutEtudiant } from '@/lib/db'
+import { onAnneeAcademiqueSnapshot, avancerAnneeAcademiqueAsync } from '@/lib/db-firebase'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import {
   Users, Search, Filter, Eye, Trash2,
   GraduationCap, Building2, BookOpen, Calendar,
-  CheckCircle2, XCircle, Award, ChevronDown, UserPlus
+  CheckCircle2, XCircle, Award, ChevronDown, UserPlus,
+  ArrowRight, Archive, CalendarClock, AlertTriangle
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 
@@ -50,6 +52,12 @@ export default function GestionEtudiantsPage() {
   const [annees, setAnnees] = useState<string[]>([])
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
 
+  // ─── Année académique + archivage ─────────────────────────────────────────
+  const [vue, setVue] = useState<'actuels' | 'archives'>('actuels')
+  const [anneeActive, setAnneeActive] = useState('')
+  const [confirmAvancer, setConfirmAvancer] = useState(false)
+  const [avancement, setAvancement] = useState(false)
+
   const isAdmin = isAdminRole(user)
   const isStaff = isStaffRole(user)
 
@@ -57,7 +65,31 @@ export default function GestionEtudiantsPage() {
   useEffect(() => {
     if (!isStaff) return
     chargerEtudiants()
+    const unsub = onAnneeAcademiqueSnapshot(setAnneeActive)
+    return () => unsub()
   }, [])
+
+  // Bascule vers l'année académique suivante : archive toutes les fiches pas
+  // encore archivées + désactive les comptes de connexion liés. Action admin
+  // explicite et irréversible (rien n'est supprimé, mais la décision "l'année
+  // est terminée" ne se défait pas toute seule) - d'où la confirmation.
+  async function avancerAnnee() {
+    if (!user?.id) return
+    setAvancement(true)
+    try {
+      const res = await avancerAnneeAcademiqueAsync(user.id)
+      await chargerEtudiants()
+      setConfirmAvancer(false)
+      toast({
+        title: `Passage à ${res.nouvelleAnnee}`,
+        description: `${res.nbFichesArchivees} fiche${res.nbFichesArchivees > 1 ? 's' : ''} archivée${res.nbFichesArchivees > 1 ? 's' : ''} (${res.ancienneAnnee}), ${res.nbComptesDesactives} compte${res.nbComptesDesactives > 1 ? 's' : ''} désactivé${res.nbComptesDesactives > 1 ? 's' : ''}.`,
+      })
+    } catch (e) {
+      toast({ title: 'Erreur', description: "Impossible de passer à l'année suivante.", variant: 'destructive' })
+    } finally {
+      setAvancement(false)
+    }
+  }
 
   async function chargerEtudiants() {
     setLoading(true)
@@ -94,7 +126,13 @@ export default function GestionEtudiantsPage() {
   }
 
   // ─── Filtres ───────────────────────────────────────────────────────────────
-  const etudiantsFiltres = etudiants.filter(e => {
+  // "Actuels" = pas encore archivé (vue par défaut, comptée dans les stats et
+  // proposée à la création) ; "Archives" = tout ce qui a basculé lors d'un
+  // passage à l'année suivante, jamais supprimé (base des anciens étudiants -
+  // filtrable par année comme le reste, y compris au-delà de la dernière
+  // cohorte archivée).
+  const etudiantsVue = etudiants.filter(e => vue === 'archives' ? !!e.archive : !e.archive)
+  const etudiantsFiltres = etudiantsVue.filter(e => {
     const matchSearch = search === '' ||
       `${e.nom} ${e.prenom} ${e.matricule} ${e.universite} ${e.filiere}`
         .toLowerCase().includes(search.toLowerCase())
@@ -104,13 +142,14 @@ export default function GestionEtudiantsPage() {
     return matchSearch && matchStatut && matchType && matchAnnee
   })
 
-  // ─── Stats rapides ─────────────────────────────────────────────────────────
+  // ─── Stats rapides (sur la vue courante) ────────────────────────────────────
   const stats = {
-    total: etudiants.length,
-    actifs: etudiants.filter(e => e.statut === 'actif').length,
-    internes: etudiants.filter(e => e.type === 'interne').length,
-    externes: etudiants.filter(e => e.type === 'externe').length,
+    total: etudiantsVue.length,
+    actifs: etudiantsVue.filter(e => e.statut === 'actif').length,
+    internes: etudiantsVue.filter(e => e.type === 'interne').length,
+    externes: etudiantsVue.filter(e => e.type === 'externe').length,
   }
+  const nbArchives = etudiants.filter(e => e.archive).length
 
   if (!isStaff) {
     return (
@@ -153,6 +192,48 @@ export default function GestionEtudiantsPage() {
                 Inscrire sur la plateforme
               </button>
             </div>
+          )}
+        </div>
+      </div>
+
+      {/* ─── ANNÉE ACADÉMIQUE ─── */}
+      <div className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600">
+            <CalendarClock className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="text-xs text-muted-foreground">Année académique en cours</p>
+            <p className="font-bold text-foreground">{anneeActive || '...'}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Bascule Actuels / Archives */}
+          <div className="inline-flex rounded-xl border border-border overflow-hidden">
+            <button
+              onClick={() => setVue('actuels')}
+              className={`px-3 py-1.5 text-xs font-semibold transition-colors ${vue === 'actuels' ? 'bg-indigo-600 text-white' : 'bg-background text-muted-foreground hover:bg-muted'}`}
+            >
+              Actuels
+            </button>
+            <button
+              onClick={() => setVue('archives')}
+              className={`px-3 py-1.5 text-xs font-semibold transition-colors inline-flex items-center gap-1.5 ${vue === 'archives' ? 'bg-indigo-600 text-white' : 'bg-background text-muted-foreground hover:bg-muted'}`}
+            >
+              <Archive className="w-3 h-3" /> Archives
+              {nbArchives > 0 && (
+                <span className={`rounded-full px-1.5 text-[10px] ${vue === 'archives' ? 'bg-white/20' : 'bg-muted-foreground/10'}`}>{nbArchives}</span>
+              )}
+            </button>
+          </div>
+          {isAdmin && (
+            <button
+              onClick={() => setConfirmAvancer(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 hover:bg-indigo-50 text-indigo-700 text-xs font-semibold transition-colors"
+              title="Archive toutes les fiches non archivées et désactive leurs comptes"
+            >
+              Passer à l'année suivante <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           )}
         </div>
       </div>
@@ -257,13 +338,15 @@ export default function GestionEtudiantsPage() {
           </div>
         ) : etudiantsFiltres.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-40 gap-3 text-muted-foreground">
-            <Users className="w-10 h-10 opacity-30" />
+            {vue === 'archives' ? <Archive className="w-10 h-10 opacity-30" /> : <Users className="w-10 h-10 opacity-30" />}
             <p className="text-sm">
-              {etudiants.length === 0
-                ? 'Aucun étudiant enregistré. Commencez par en ajouter un.'
-                : 'Aucun résultat pour ces filtres.'}
+              {vue === 'archives'
+                ? (nbArchives === 0 ? 'Aucune fiche archivée pour le moment.' : 'Aucun résultat pour ces filtres.')
+                : etudiantsVue.length === 0
+                  ? 'Aucun étudiant enregistré. Commencez par en ajouter un.'
+                  : 'Aucun résultat pour ces filtres.'}
             </p>
-            {isAdmin && etudiants.length === 0 && (
+            {isAdmin && vue === 'actuels' && etudiantsVue.length === 0 && (
               <button
                 onClick={() => navigate('/inscription-plateforme')}
                 className="text-indigo-600 text-sm font-semibold hover:underline"
@@ -355,7 +438,9 @@ export default function GestionEtudiantsPage() {
                         >
                           <Eye className="w-4 h-4" />
                         </button>
-                        {isAdmin && (
+                        {/* Suppression désactivée sur les fiches archivées - c'est
+                            justement la base des anciens étudiants qu'on veut garder. */}
+                        {isAdmin && vue === 'actuels' && (
                           <button
                             onClick={() => setConfirmDelete(e.id)}
                             className="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors"
@@ -379,6 +464,39 @@ export default function GestionEtudiantsPage() {
           </div>
         )}
       </div>
+
+      {/* ─── MODAL CONFIRMATION PASSAGE À L'ANNÉE SUIVANTE ─── */}
+      {confirmAvancer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-card border border-border rounded-2xl p-6 max-w-md w-full mx-4 shadow-xl space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-amber-100 text-amber-600">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <h3 className="font-bold text-foreground">Passer à l'année académique suivante ?</h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Toutes les fiches actuellement actives ({etudiants.filter(e => !e.archive).length} étudiant{etudiants.filter(e => !e.archive).length > 1 ? 's' : ''}) basculeront dans les <strong>Archives</strong> et leur compte de connexion sera désactivé. Rien n'est supprimé - elles restent consultables pour toujours dans l'historique. Cette étape ne se défait pas automatiquement.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setConfirmAvancer(false)}
+                disabled={avancement}
+                className="flex-1 px-4 py-2 rounded-xl border border-border text-sm font-semibold hover:bg-muted transition-colors disabled:opacity-50"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={avancerAnnee}
+                disabled={avancement}
+                className="flex-1 px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold transition-colors disabled:opacity-50"
+              >
+                {avancement ? 'En cours...' : 'Confirmer'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ─── MODAL CONFIRMATION SUPPRESSION ─── */}
       {confirmDelete && (

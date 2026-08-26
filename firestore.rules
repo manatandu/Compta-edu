@@ -238,6 +238,16 @@ service cloud.firestore {
       allow write: if isProf();
     }
 
+    // ─── CONFIG (réglages globaux, ex. année académique en cours) ────────────
+    // Un seul document utilisé pour l'instant : config/anneeAcademique. Lecture
+    // ouverte à tout authentifié (affichage du bandeau année dans plusieurs
+    // écrans), écriture réservée aux admins (bascule d'année = archivage de
+    // toutes les promotions, action globale et sensible).
+    match /config/{docId} {
+      allow read: if isAuth();
+      allow write: if isAdmin();
+    }
+
     // ─── UNIVERSITÉS, FACULTÉS ───────────────────────────────────────────────
     match /universites/{uid} {
       allow read: if isAuth();

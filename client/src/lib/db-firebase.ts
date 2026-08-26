@@ -68,6 +68,7 @@ const C = {
   TENTATIVES_EL:      'tentatives_el',
   COURS_STATUTS:      'cours_statuts',
   ETUDIANTS:          'etudiants',
+  CONFIG:             'config',
 }
 
 // ─── Convertisseur Firestore → objet TS (dates, etc.) ────────────────────────
@@ -1266,4 +1267,96 @@ export async function setCoursStatutAsync(
 
 export async function deleteCoursStatutAsync(etudiantId: string, coursId: string): Promise<void> {
   await deleteDoc(doc(db, C.COURS_STATUTS, `${etudiantId}_${coursId}`))
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+//  ANNÉE ACADÉMIQUE - réglage global + archivage automatique des promotions
+// ──────────────────────────────────────────────────────────────────────────────
+
+const CONFIG_ANNEE_ID = 'anneeAcademique'
+
+// Lit l'année académique active. Tant qu'aucun admin n'a encore fait avancer
+// l'année (document config/anneeAcademique absent), on retombe sur le calcul
+// par date (anneeAcademiqueEnCours) déjà utilisé ailleurs dans l'app - bootstrap
+// sans configuration manuelle préalable.
+export async function getAnneeAcademiqueActiveAsync(): Promise<string> {
+  const snap = await getDoc(doc(db, C.CONFIG, CONFIG_ANNEE_ID))
+  return snap.exists() ? (snap.data() as any).valeur : anneeAcademiqueEnCours()
+}
+
+export function onAnneeAcademiqueSnapshot(callback: (annee: string) => void): Unsubscribe {
+  return onSnapshot(doc(db, C.CONFIG, CONFIG_ANNEE_ID), snap => {
+    callback(snap.exists() ? (snap.data() as any).valeur : anneeAcademiqueEnCours())
+  }, err => notifyFirestoreError('onAnneeAcademiqueSnapshot', err))
+}
+
+function anneeAcademiqueSuivante(annee: string): string {
+  const m = annee.match(/^(\d{4})-(\d{4})$/)
+  if (!m) return anneeAcademiqueEnCours()
+  const debut = parseInt(m[1], 10)
+  return `${debut + 1}-${debut + 2}`
+}
+
+/**
+ * Fait passer la plateforme à l'année académique suivante - action admin
+ * explicite (bouton "Passer à l'année suivante"), jamais automatique. Toutes
+ * les fiches étudiants (collection etudiants) pas encore archivées basculent
+ * archive:true avec anneeArchivage = l'année qui vient de se terminer, et le
+ * compte de connexion lié (users.actif) est désactivé le cas échéant.
+ *
+ * Rien n'est supprimé : une fiche archivée reste consultable pour toujours
+ * (base des anciens étudiants), filtrable par anneeAcademique. C'est
+ * uniquement l'onglet Archives (qui n'affiche que anneeArchivage ==
+ * l'année juste précédente) qui perd la cohorte au bascule suivant - elle
+ * reste accessible via le filtre par année dans l'historique complet.
+ */
+export async function avancerAnneeAcademiqueAsync(adminId: string): Promise<{
+  ancienneAnnee: string
+  nouvelleAnnee: string
+  nbFichesArchivees: number
+  nbComptesDesactives: number
+}> {
+  const ancienneAnnee = await getAnneeAcademiqueActiveAsync()
+  const nouvelleAnnee = anneeAcademiqueSuivante(ancienneAnnee)
+
+  const [fichesSnap, usersSnap] = await Promise.all([
+    getDocs(collection(db, C.ETUDIANTS)),
+    getDocs(collection(db, C.USERS)),
+  ])
+  const usersExistants = new Set(usersSnap.docs.map(d => d.id))
+  const fichesAArchiver = fichesSnap.docs.filter(d => !(d.data() as any).archive)
+
+  type Op = { ref: ReturnType<typeof doc>; data: Record<string, any> }
+  const ops: Op[] = []
+  let nbComptesDesactives = 0
+  for (const d of fichesAArchiver) {
+    ops.push({ ref: d.ref, data: { archive: true, anneeArchivage: ancienneAnnee } })
+    const userId = (d.data() as any).userId
+    // Vérifié contre usersExistants avant d'ajouter au lot : un batch Firestore
+    // échoue intégralement si une seule de ses opérations update() cible un
+    // document absent (userId orphelin - compte déjà supprimé), voir
+    // deleteUserAsync qui ne nettoie que la fiche portant CE userId, pas
+    // l'inverse s'il a été supprimé autrement.
+    if (userId && usersExistants.has(userId)) {
+      ops.push({ ref: doc(db, C.USERS, userId), data: { actif: false } })
+      nbComptesDesactives++
+    }
+  }
+
+  // writeBatch plafonné à 500 opérations côté Firestore - lots de 450 par sécurité.
+  const CHUNK = 450
+  for (let i = 0; i < ops.length; i += CHUNK) {
+    const batch = writeBatch(db)
+    for (const op of ops.slice(i, i + CHUNK)) batch.update(op.ref, cleanUndefined(op.data))
+    await batch.commit()
+  }
+
+  await setDoc(doc(db, C.CONFIG, CONFIG_ANNEE_ID), {
+    id: CONFIG_ANNEE_ID,
+    valeur: nouvelleAnnee,
+    updatedAt: new Date().toISOString(),
+    updatedBy: adminId,
+  })
+
+  return { ancienneAnnee, nouvelleAnnee, nbFichesArchivees: fichesAArchiver.length, nbComptesDesactives }
 }

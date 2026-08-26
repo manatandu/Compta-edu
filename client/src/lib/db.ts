@@ -382,6 +382,24 @@ export interface EtudiantFiche {
   dateInscription: string      // ISO
   createdBy: string            // userId admin
   universiteId?: string        // isolation faculté/université
+  // Archivage par année académique (voir avancerAnneeAcademiqueAsync) : à
+  // chaque passage à l'année suivante, toutes les fiches non déjà archivées
+  // basculent archive:true avec anneeArchivage = l'année qui vient de se
+  // terminer. Rien n'est jamais supprimé - anneeArchivage sert seulement à
+  // ne montrer, dans l'onglet Archives, que la dernière année archivée ;
+  // l'historique complet (toutes années) reste consultable en filtrant par
+  // anneeAcademique. Une fiche archivée peut aussi avoir son compte de
+  // connexion désactivé (users.actif = false), voir la même fonction.
+  archive?: boolean
+  anneeArchivage?: string       // année académique au moment de l'archivage
+}
+
+// Réglage global unique : année académique active (voir avancerAnneeAcademiqueAsync).
+export interface ConfigAnneeAcademique {
+  id: 'anneeAcademique'
+  valeur: string          // ex: "2025-2026"
+  updatedAt: string
+  updatedBy: string
 }
 
 export type ModeNote = 'plateforme' | 'manuel'
