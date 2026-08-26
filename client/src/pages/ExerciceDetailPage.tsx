@@ -1,4 +1,5 @@
 import { useUser } from '@/lib/userContext'
+import { isStaffRole } from '@/lib/permissions'
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useParams } from 'wouter'
@@ -289,6 +290,12 @@ export default function ExerciceDetailPage() {
   const exercice = exercices.find(e => e.id === exerciceId)
   const bestScore = tentatives.length > 0 ? Math.max(...tentatives.map(t => t.score)) : null
 
+  // Statistiques de classe (prof/admin) : toutes les tentatives de tous les
+  // étudiants sur cet exercice, `enabled` pour ne jamais tirer cette requête
+  // large côté étudiant (firestore.rules la refuserait de toute façon).
+  const isStaff = isStaffRole(user)
+  const { tentatives: tentativesClasse } = useTentatives(undefined, exerciceId, isStaff)
+
   // ── State de base ──
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [libelle, setLibelle] = useState('')
@@ -368,6 +375,26 @@ export default function ExerciceDetailPage() {
   const questions: string[] = (exercice as any).questions || []
   const explicationCorrige = (exercice as any).explicationCorrige || ''
   const bareme = exercice.bareme || BAREME_DEFAUT
+
+  // Statistiques de classe : sur quelles lignes de la solution la classe
+  // trébuche le plus, pour que l'enseignant sache quoi reprendre en cours -
+  // plutôt qu'une simple moyenne qui ne dit rien du "où".
+  const statsClasse = (() => {
+    if (!isStaff || tentativesClasse.length === 0) return null
+    const nbEtudiants = new Set(tentativesClasse.map(t => t.userId)).size
+    const moyenne = tentativesClasse.reduce((s, t) => s + t.score, 0) / tentativesClasse.length
+    const parLigne = solution.map((_, i) => {
+      let vues = 0, correctes = 0
+      for (const t of tentativesClasse) {
+        const r = (t.corrections || [])[i]
+        if (!r) continue
+        vues++
+        if (r.matchCompte === 'exact' && r.matchSens && r.matchMontant) correctes++
+      }
+      return { vues, correctes, taux: vues > 0 ? Math.round((correctes / vues) * 100) : null }
+    })
+    return { nbEtudiants, nbTentatives: tentativesClasse.length, moyenne: Math.round(moyenne), parLigne }
+  })()
 
   const updateLigne = (id: string, field: keyof LigneSaisie, value: string) => {
     setLignes(prev => prev.map(l => {
@@ -516,6 +543,39 @@ export default function ExerciceDetailPage() {
           {modeEntrainement ? 'Entraînement ON' : 'Entraînement'}
         </Button>
       </div>
+
+      {/* Statistiques de classe (prof/admin uniquement) */}
+      {isStaff && statsClasse && (
+        <Card className="border-border bg-muted/20">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm flex items-center gap-1.5">Statistiques de la classe</CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0 space-y-3">
+            <div className="flex items-center gap-4 text-sm">
+              <span>{statsClasse.nbEtudiants} étudiant{statsClasse.nbEtudiants > 1 ? 's' : ''}</span>
+              <span>{statsClasse.nbTentatives} tentative{statsClasse.nbTentatives > 1 ? 's' : ''}</span>
+              <span>Moyenne : <strong className="text-primary">{statsClasse.moyenne}/100</strong></span>
+            </div>
+            {statsClasse.parLigne.some(l => l.vues > 0) && (
+              <div className="space-y-1.5">
+                <p className="text-xs font-semibold text-muted-foreground uppercase">Taux de réussite par ligne attendue</p>
+                {statsClasse.parLigne.map((l, i) => l.vues === 0 ? null : (
+                  <div key={i} className="flex items-center gap-2 text-xs">
+                    <span className="w-20 shrink-0 text-muted-foreground">Ligne {i + 1}</span>
+                    <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className={cn('h-full rounded-full', (l.taux || 0) >= 70 ? 'bg-green-500' : (l.taux || 0) >= 40 ? 'bg-yellow-500' : 'bg-red-500')}
+                        style={{ width: `${l.taux}%` }}
+                      />
+                    </div>
+                    <span className="w-10 shrink-0 text-right font-medium">{l.taux}%</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Chrono (affiché seulement avant soumission) */}
       {!result && (

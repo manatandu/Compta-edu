@@ -382,16 +382,23 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
 
 // ─── Tentatives ───────────────────────────────────────────────────────────────
 
-export function useTentatives(etudiantId?: string, exerciceId?: string) {
+// `enabled` (défaut true) : permet d'appeler ce hook sans le déclencher - utile
+// quand un composant a besoin de la requête large "toutes les tentatives d'un
+// exercice, tous étudiants" (statistiques prof) mais est rendu pour tout rôle :
+// un étudiant qui déclencherait cette requête (sans etudiantId) se heurterait
+// à firestore.rules (lecture refusée hors ownsResource/isProf), d'où l'erreur
+// silencieuse sinon systématique côté élève.
+export function useTentatives(etudiantId?: string, exerciceId?: string, enabled: boolean = true) {
   const [tentatives, setTentatives] = useState<Tentative[]>([])
   useEffect(() => {
+    if (!enabled) { setTentatives([]); return }
     const conditions: any[] = []
     if (etudiantId) conditions.push(where('etudiantId', '==', etudiantId))
     if (exerciceId) conditions.push(where('exerciceId', '==', exerciceId))
     const q = conditions.length > 0 ? query(collection(db, 'tentatives'), ...conditions) : collection(db, 'tentatives')
     const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))), err => notifyFirestoreError('useTentatives', err))
     return () => unsub()
-  }, [etudiantId, exerciceId])
+  }, [etudiantId, exerciceId, enabled])
   return { tentatives }
 }
 
