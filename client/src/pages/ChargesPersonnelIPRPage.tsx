@@ -863,6 +863,7 @@ export default function ChargesPersonnelIPRPage() {
                   onRemove={i => setAdminLignes(p => p.filter((_, idx) => idx !== i))}
                   onUpdate={(i, f, v) => setAdminLignes(p => p.map((r, idx) => idx === i ? { ...r, [f]: v } : r))}
                   note=""
+                  catalogueOnly
                 />
               </div>
 
@@ -885,6 +886,7 @@ export default function ChargesPersonnelIPRPage() {
                   onRemove={i => setAdminLignesNI(p => p.filter((_, idx) => idx !== i))}
                   onUpdate={(i, f, v) => setAdminLignesNI(p => p.map((r, idx) => idx === i ? { ...r, [f]: v } : r))}
                   note=""
+                  catalogueOnly
                 />
               </div>
               <div>
