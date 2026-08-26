@@ -436,6 +436,18 @@ export async function updateUserAsync(id: string, data: Partial<User>): Promise<
   // - moins sujet aux restrictions Firestore sur updateDoc
   const ref = doc(db, C.USERS, id)
   await setDoc(ref, cleanUndefined(data) as any, { merge: true })
+
+  // Répercute actif sur le statut de la fiche 'etudiants' liée (voir
+  // creerFicheEtudiantLiee) - notamment Valider/Refuser une inscription
+  // (ProfesseurPage, onglet Inscriptions), qui change actif sans jamais
+  // toucher la fiche sinon. Best-effort : ne bloque jamais la mise à jour du
+  // compte si la fiche n'existe pas (staff/admin) ou si l'écriture échoue.
+  if (typeof data.actif === 'boolean') {
+    try {
+      const snap = await getDocs(query(collection(db, C.ETUDIANTS), where('userId', '==', id)))
+      await Promise.all(snap.docs.map(d => updateDoc(d.ref, { statut: data.actif ? 'actif' : 'suspendu' })))
+    } catch { /* best-effort */ }
+  }
 }
 
 export async function deleteUserAsync(id: string): Promise<void> {
