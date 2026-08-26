@@ -553,12 +553,23 @@ export function useAllNotesCours() {
 
 // ─── Toutes les soumissions (admin) ──────────────────────────────────────────
 
+// Scopée par rôle comme useAllDevoirs juste au-dessus : firestore.rules
+// (allow read: ownsResource('etudiantId') || isProf()) refuse la requête
+// globale et non filtrée en bloc dès qu'un seul étudiant, autre que
+// l'appelant, apparaît dans le résultat possible - un étudiant qui
+// déclenchait cette requête (via NotificationBell, rendue pour tous les
+// rôles) recevait donc systématiquement un permission-denied à la
+// connexion, avant même d'avoir consulté quoi que ce soit.
 export function useAllSoumissions() {
   const [soumissions, setSoumissions] = useState<any[]>([])
+  const currentUser = useUser()
+  const isStudent = currentUser?.role === 'etudiant'
   useEffect(() => {
-    const q = collection(db, 'soumissions')
+    const q = isStudent && currentUser?.id
+      ? query(collection(db, 'soumissions'), where('etudiantId', '==', currentUser.id))
+      : collection(db, 'soumissions')
     const unsub = onSnapshot(q, snap => setSoumissions(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllSoumissions', err))
     return () => unsub()
-  }, [])
+  }, [isStudent, currentUser?.id])
   return { soumissions }
 }
