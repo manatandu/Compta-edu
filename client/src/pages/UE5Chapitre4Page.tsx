@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Target, BarChart2, FileText, Layers, TrendingUp,
@@ -1184,6 +1185,7 @@ export default function UE5Chapitre4Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Budget-programme et gestion par la performance</h1>
           <InfoTooltip texte="Ce chapitre analyse la reforme du budget-programme introduite par la LOFIP : definition du programme (Art. 43), fonctions (Art. 44), fongibilite des crédits (Art. 45), mouvements de crédits (Art. 46-53), PAP/RAP (Art. 79) et état d'avancement de la reforme en RDC." loi="Art. 43-54, 79 LOFIP" />

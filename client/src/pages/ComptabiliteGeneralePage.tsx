@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
-import { useGoBack } from '@/lib/navContext'
+import BackButton from '@/components/BackButton'
 import {
-  ArrowLeft, ChevronRight, Sparkles, FolderOpen, Package, Receipt, Building2,
+  ChevronRight, Sparkles, FolderOpen, Package, Receipt, Building2,
   ScrollText, TrendingUp, Lock, Users, Landmark, Layers, PenLine, List, BookOpen
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -111,7 +111,6 @@ const MODULES: Module[] = [
 // ── Composant ────────────────────────────────────────────────────────────────
 export default function ComptabiliteGeneralePage() {
   const [, navigate] = useHashLocation()
-  const goBack = useGoBack('/mes-cours')
   const { setNav } = useNav()
   const [ouvert, setOuvert] = useState<string | null>(null)
   const user = useUser()
@@ -131,14 +130,9 @@ export default function ComptabiliteGeneralePage() {
 
   return (
     <div className="space-y-4 pb-8 animate-fadeIn">
+      <BackButton />
       {/* En-tête */}
       <div className="flex items-center gap-3">
-        <button
-          onClick={goBack}
-          className="h-9 w-9 rounded-xl border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors shrink-0"
-        >
-          <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-        </button>
         <div>
           <h1 className="font-display text-xl font-bold text-foreground leading-tight">Comptabilité Générale</h1>
           <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">SYSCOHADA Révisé · {nbActifs} modules disponibles</p>

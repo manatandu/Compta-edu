@@ -20,7 +20,7 @@ import {
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
-  setCoursStatutAsync, onCoursStatutsParCreateur, COURS_SYSTEME
+  setCoursStatutAsync, onCoursStatutsParCreateur, COURS_SYSTEME, getCoursUniquesTries
 } from '@/lib/db-firebase'
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
@@ -63,27 +63,12 @@ const resolveCoursIds = (user: any): string[] => {
   return []
 }
 
-/** IDs des cours système désactivés (à exclure des selects) */
-const COURS_SYSTEME_INACTIFS_IDS = new Set(COURS_SYSTEME.filter(c => !c.actif).map(c => c.id))
-
 /**
- * Retourne une liste dédupliquée de cours actifs, sans doublons de cours système.
- * - Exclut les cours non actifs
- * - Exclut les cours liés à un cours système inactif (Ratios, VAN/TIR, etc.)
- * - Déduplique : un seul cours par coursSystemeId (premier trouvé)
+ * Retourne une liste dédupliquée de cours actifs, triée par ordre croissant
+ * d'UE (UE1, UE2, UE3...). Alias local historique de getCoursUniquesTries
+ * (db-firebase.ts), conservé pour ne pas réécrire tous les appels ci-dessous.
  */
-const getCoursUniques = (liste: any[]): any[] => {
-  const seen = new Set<string>()
-  return liste.filter(c => {
-    if (!c.actif) return false
-    if (COURS_SYSTEME_INACTIFS_IDS.has(c.id)) return false
-    if (c.coursSystemeId && COURS_SYSTEME_INACTIFS_IDS.has(c.coursSystemeId)) return false
-    const key = c.coursSystemeId || c.id
-    if (seen.has(key)) return false
-    seen.add(key)
-    return true
-  })
-}
+const getCoursUniques = getCoursUniquesTries
 
 // ─── Types ───────────────────────────────────────────────
 const ROLE_LABELS: Record<UserRole, string> = {

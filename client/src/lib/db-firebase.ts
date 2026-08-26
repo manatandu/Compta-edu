@@ -1162,6 +1162,41 @@ export const COURS_SYSTEME = [
   },
 ]
 
+/** Rang de chaque UE système (0 = UE1, 1 = UE2, ...) pour trier par ordre croissant. */
+const RANG_COURS_SYSTEME = new Map(COURS_SYSTEME.map((c, i) => [c.id, i]))
+
+/** IDs des cours système désactivés (à exclure des listes affichées) */
+const COURS_SYSTEME_INACTIFS_IDS = new Set(COURS_SYSTEME.filter(c => !c.actif).map(c => c.id))
+
+/**
+ * Déduplique et trie par ordre croissant d'UE (UE1, UE2, UE3...) une liste de
+ * documents Cours issus de Firestore. Sans cet appel, l'ordre affiché est
+ * celui de la requête Firestore - imprévisible, car il dépend de l'ordre
+ * d'auto-provisionnement par faculté (provisionCoursManquantsAsync), pas du
+ * numéro d'UE.
+ * - Exclut les cours non actifs
+ * - Exclut les cours liés à un cours système désactivé
+ * - Déduplique : un seul cours par coursSystemeId (premier trouvé)
+ */
+export function getCoursUniquesTries(liste: any[]): any[] {
+  const seen = new Set<string>()
+  return liste
+    .filter(c => {
+      if (!c.actif) return false
+      if (COURS_SYSTEME_INACTIFS_IDS.has(c.id)) return false
+      if (c.coursSystemeId && COURS_SYSTEME_INACTIFS_IDS.has(c.coursSystemeId)) return false
+      const key = c.coursSystemeId || c.id
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+    .sort((a, b) => {
+      const ra = RANG_COURS_SYSTEME.get(a.coursSystemeId) ?? 999
+      const rb = RANG_COURS_SYSTEME.get(b.coursSystemeId) ?? 999
+      return ra - rb
+    })
+}
+
 // Initialise les cours système dans Firestore (crée ou met à jour)
 export async function initCoursSystemeAsync(): Promise<void> {
   for (const cours of COURS_SYSTEME) {

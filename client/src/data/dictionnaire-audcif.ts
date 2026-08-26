@@ -2649,14 +2649,6 @@ export const TERMES_AUDCIF: TermeDict[] = [
     source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
-    id: "juste-valeur",
-    terme: "JUSTE VALEUR",
-    domaine: "normes-ifrs",
-    ues: ["ue13-ifrs-ias"],
-    definition: "C'est le prix qui serait reçu pour la vente d'un actif ou payé lors du transfert d'un passif dans une transaction normale, réalisée entre intervenants de marché, à la date de l'évaluation.",
-    source: "AUDCIF, Titre VI - Définitions des termes",
-  },
-  {
     id: "justification-du-solde-d-un-compte",
     terme: "JUSTIFICATION DU SOLDE D'UN COMPTE",
     domaine: "comptabilite",
@@ -3350,14 +3342,6 @@ export const TERMES_AUDCIF: TermeDict[] = [
     source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {
-    id: "passif-eventuel",
-    terme: "PASSIF EVENTUEL",
-    domaine: "comptabilite",
-    ues: [],
-    definition: "Obligation potentielle résultant d'événements passés et dont l'existence ne sera confirmée que par la survenance ou la non-survenance d'un ou plusieurs événements futurs incertains qui ne sont pas totalement sous le contrôle de l'entité ; ou\n\nObligation actuelle résultant d'événements passés mais qui n'est pas comptabilisée :\n- soit parce qu'il n'est pas probable qu'une sortie de ressources représentatives d'avantages économiques est nécessaire pour éteindre l'obligation ;\n- soit parce que le montant de l'obligation ne peut être évalué avec une fiabilité suffisante.",
-    source: "AUDCIF, Titre VI - Définitions des termes",
-  },
-  {
     id: "patrimoine",
     terme: "PATRIMOINE",
     domaine: "comptabilite",
@@ -4005,14 +3989,6 @@ export const TERMES_AUDCIF: TermeDict[] = [
     domaine: "comptabilite",
     ues: [],
     definition: "C'est un mode de régulation comptable dans lequel intervient l'Etat ou de l'autorité publique.",
-    source: "AUDCIF, Titre VI - Définitions des termes",
-  },
-  {
-    id: "regroupement-d-entreprise",
-    terme: "REGROUPEMENT D'ENTREPRISE",
-    domaine: "comptabilite",
-    ues: [],
-    definition: "Une transaction ou un autre événement au cours duquel un acquéreur obtient le contrôle d'une ou plusieurs entreprises. Les transactions parfois désignées sous le vocable de « vraies fusions » ou de « fusions entre égaux » sont également des regroupements d'entreprises.",
     source: "AUDCIF, Titre VI - Définitions des termes",
   },
   {

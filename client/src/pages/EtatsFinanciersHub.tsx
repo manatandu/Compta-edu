@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
-import { ArrowLeft, FileText, BarChart2, TrendingUp } from 'lucide-react'
+import { FileText, BarChart2, TrendingUp } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { ModuleProvider } from '@/lib/moduleContext'
 import BilanPage from '@/pages/BilanPage'
@@ -34,12 +35,7 @@ export default function EtatsFinanciersHub() {
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
       <div className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b border-border px-4 py-3 flex items-center gap-3 animate-slideDown">
-        <button
-          onClick={() => navigate('/comptabilite-generale')}
-          className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted hover:scale-110 transition-all"
-        >
-          <ArrowLeft className="h-4 w-4 text-foreground" />
-        </button>
+        <BackButton />
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-xl bg-module-rose/10 flex items-center justify-center">
             <TrendingUp className="h-4 w-4 text-module-rose" />

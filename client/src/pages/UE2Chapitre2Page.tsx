@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Scale, Users, AlertTriangle,
@@ -1007,6 +1008,7 @@ export default function UE2Chapitre2Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Constitution des Sociétés</h1>
           <InfoTooltip texte="Constitution des sociétés commerciales en droit OHADA" loi="Art. 7 à 103 AUSCGIE" />

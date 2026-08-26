@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Users, Scale, AlertTriangle,
@@ -1054,6 +1055,7 @@ export default function UE5Chapitre7Page() {
               ]}
               color="emerald"
             />
+            <BackButton />
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-lg font-display font-bold text-foreground leading-tight">Exécution des dépenses - chaîne de la dépense</h1>
               <InfoTooltip texte="Ce chapitre analyse la chaîne de la dépense publique en RDC : les quatre phases obligatoires (Art. 90 LOFIP), les acteurs (ordonnateur, comptable public, contrôleur budgétaire) et les quatre comptabilités publiques (Art. 95-101 LOFIP). Contenu exclusivement juridique fondé sur la LOFIP et la Constitution." loi="Art. 88-115 LOFIP · RGCP" />

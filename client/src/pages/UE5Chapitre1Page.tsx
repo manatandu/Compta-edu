@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Scale, Flag, TrendingUp,
@@ -1058,6 +1059,7 @@ export default function UE5Chapitre1Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Introduction aux finances publiques</h1>
           <InfoTooltip texte="Introduction aux finances publiques : définition LOFIP, composantes, cadre constitutionnel et actualité 2025." loi="Art. 1-3 LOFIP · Art. 122, 174, 175 Constitution" />

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
   RefreshCw, Scale, Shield, Gavel, TrendingDown, LifeBuoy, Info,
@@ -511,6 +512,7 @@ export default function UE2Chapitre9Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <h1 className="text-xl font-display font-bold text-gray-900 leading-tight mt-0.5">Transformation des Sociétés et Difficultés d'Entreprise</h1>
         <p className="text-sm text-gray-500">AUSCGIE Art. 181-199 et AUPCAP révisé 2015 - OHADA</p>
       </div>

@@ -13,7 +13,7 @@ import {
   useUniversites, useFacultes, useExercices, usePresencesEtudiant,
   useCoursStatuts,
 } from '@/lib/useFirestore'
-import { createSoumissionAsync, createSessionAsync } from '@/lib/db-firebase'
+import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { useModule } from '@/lib/moduleContext'
 import { cn } from '@/lib/utils'
@@ -333,7 +333,8 @@ export default function DashboardEtudiant() {
 
   const allCours = allCoursRaw.filter(c => c.actif)
   const userCoursIds: string[] = (user as any)?.coursIds || []
-  const userCours = allCours.filter(c => userCoursIds.includes(c.id))
+  // Triés par ordre croissant d'UE (UE1, UE2...), pas par ordre d'arrivée Firestore.
+  const userCours = getCoursUniquesTries(allCours.filter(c => userCoursIds.includes(c.id)))
 
   // Devoirs qui concernent réellement cet étudiant : un de ses cours, actif,
   // sa faculté, sa promotion. Ce filtre était écrit deux fois à l'identique

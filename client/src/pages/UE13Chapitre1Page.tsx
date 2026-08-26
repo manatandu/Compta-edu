@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Globe, Building2, Scale, History, TrendingUp,
@@ -877,6 +878,7 @@ export default function UE13Chapitre1Page() {
           ]}
           color="sky"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Fondements conceptuels, normalisation et architecture IFRS</h1>
           <InfoTooltip texte="Introduction aux normes IFRS/IAS : fondements conceptuels, histoire de la normalisation internationale, architecture institutionnelle de l'IASB et cadre conceptuel." loi="Cadre conceptuel IASB · IFRS Foundation" />

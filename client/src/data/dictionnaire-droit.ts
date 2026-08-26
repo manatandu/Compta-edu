@@ -118,4 +118,22 @@ export const TERMES_DROIT: TermeDict[] = [
     source: 'Art. 7, 7°, Loi n° 015/2002',
     voirAussi: ['contrat-travail-ct'],
   },
+  {
+    id: 'conge-annuel-ct',
+    terme: 'Congé annuel (Code du travail RDC)',
+    domaine: 'droit',
+    ues: ['ue1-droit-travail'],
+    definition: "L'employeur est tenu d'accorder un congé annuel au travailleur, auquel celui-ci ne peut renoncer. Le droit au congé naît à l'expiration d'une année de services accomplie chez le même employeur. Sa durée est d'au moins un jour ouvrable par mois entier de service pour le travailleur âgé de plus de dix-huit ans (un jour et demi s'il a moins de dix-huit ans), augmentée d'un jour ouvrable par tranche de cinq années d'ancienneté. Pendant le congé, le travailleur a droit à une allocation égale à la rémunération dont il jouissait au moment du départ.",
+    source: 'Art. 140 à 142, Loi n° 015/2002',
+    voirAussi: ['contrat-travail-ct', 'remuneration-ct'],
+  },
+  {
+    id: 'decisions-collectives-auscgie',
+    terme: 'Décisions collectives (AUSCGIE)',
+    domaine: 'droit',
+    ues: ['ue2-droit-societes'],
+    definition: "Il y a deux sortes de décisions collectives : les décisions ordinaires et les décisions extraordinaires, prises selon les conditions de forme et de fond prévues pour chaque forme de société. Sous réserve des dispositions applicables à chaque forme de société, elles peuvent être prises en assemblée générale ou par consultation écrite des associés.",
+    source: 'Art. 132 et 133, AUSCGIE',
+    voirAussi: ['societe-commerciale-auscgie'],
+  },
 ]

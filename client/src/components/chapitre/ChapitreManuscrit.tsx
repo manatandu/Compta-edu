@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -284,6 +285,7 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
       )}
 
       <div className="space-y-1">
+        <BackButton />
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },

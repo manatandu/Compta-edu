@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Layers, TrendingUp, FileText, PieChart, Building2,
@@ -1266,6 +1267,7 @@ export default function UE5Chapitre3Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Structure et presentation du budget de l'Etat</h1>
           <InfoTooltip texte="Ce chapitre analyse la structure du budget du Pouvoir central : budget général, budgets annexes, comptes speciaux, nomenclature des charges par titres et regimes des crédits (Art. 20, 32, 36-41, 55-73 LOFIP)." loi="Art. 20, 36-41, 55-73 LOFIP" />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { BookOpen, ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -968,6 +969,7 @@ export default function UE5Chapitre8Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <h1 className="text-lg font-display font-bold text-foreground leading-tight">Décentralisation budgétaire</h1>
         <p className="text-xs text-muted-foreground">Constitution Art. 175, 181 · LOFIP Art. 3, 132-138, 217-224 · LF n° 25/060</p>
       </div>

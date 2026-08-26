@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
   Users, Scale, Shield, Briefcase, AlertTriangle, Info, CheckCircle,
@@ -502,6 +503,7 @@ export default function UE2Chapitre7Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <h1 className="text-xl font-display font-bold text-foreground mt-0.5">Les Dirigeants Sociaux</h1>
         <p className="text-sm text-muted-foreground">AUSCGIE - Articles 121 à 338 - Pouvoirs, Responsabilité et Révocation</p>
       </div>

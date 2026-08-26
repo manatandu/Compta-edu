@@ -65,4 +65,22 @@ export const TERMES_MANAGEMENT: TermeDict[] = [
     source: "A. Ragaigne et C. Tahar, Fiches de révision DSCG3 « Management et contrôle de gestion », Dunod, 2023",
     voirAussi: ['ethique-affaires-management'],
   },
+  {
+    id: 'chaine-valeur-porter',
+    terme: 'Chaîne de valeur (Porter)',
+    domaine: 'management',
+    ues: ['ue7-management'],
+    definition: "C'est à travers les activités qui composent une chaîne de valeur que l'entreprise crée de la valeur. Michael Porter, à l'origine du concept, en propose dans les années 1980 une représentation inspirée de l'industrie, qui distingue les activités principales - activités successives permettant de produire et transformer le produit - et les activités de support - activités et fonctions transversales (infrastructure, gestion des ressources humaines, recherche et développement, achats) qui permettent la réalisation des activités principales.",
+    source: "M. Porter, cité in Les Carrés DSCG3, Gualino, fiches de révision 31 (livre A) - partie « Analyse stratégique »",
+    voirAussi: ['matrice-swot-management'],
+  },
+  {
+    id: 'matrice-swot-management',
+    terme: 'Matrice SWOT',
+    domaine: 'management',
+    ues: ['ue7-management'],
+    definition: "Outil d'analyse qui confronte les forces (strengths) et faiblesses (weaknesses) de l'entreprise, issues d'une analyse interne, aux opportunités (opportunities) et menaces (threats) issues d'une analyse externe. Outil ancien qui demeure pertinent pour synthétiser un diagnostic stratégique avant la formulation d'options stratégiques.",
+    source: "Les Carrés DSCG3, Gualino, fiches de révision 31 (livre A) - partie « Analyse stratégique »",
+    voirAussi: ['chaine-valeur-porter'],
+  },
 ]

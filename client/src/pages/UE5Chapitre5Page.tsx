@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Calendar, FileText, Users, Clock,
@@ -2090,6 +2091,7 @@ export default function UE5Chapitre5Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Elaboration et adoption du budget</h1>
           <InfoTooltip texte="Ce chapitre analyse la procédure budgétaire en RDC : calendrier (Art. 13, 83-84), acteurs (Art. 77), documents integrants PLF (Art. 78), documents accompagnants (Art. 79 mod. 2023), recevabilité des amendements (Art. 86) et loi de reddition des comptes (Art. 81-82, 87)." loi="Art. 13, 77-87 LOFIP" />

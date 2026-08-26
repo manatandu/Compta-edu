@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
-import { ArrowLeft, BookOpen, Check, ChevronRight, AlertCircle } from 'lucide-react'
+import { BookOpen, Check, ChevronRight, AlertCircle } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import {
@@ -178,10 +179,7 @@ export default function StockFichePage() {
   if (!article) {
     return (
       <div className="space-y-4 pb-4">
-        <button onClick={() => navigate('/stock/articles')}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft className="h-4 w-4" /> Retour
-        </button>
+        <BackButton />
         <div className="text-center py-12 text-muted-foreground text-sm">Article introuvable…</div>
       </div>
     )
@@ -195,10 +193,7 @@ export default function StockFichePage() {
     <div className="space-y-5 pb-4 animate-fadeIn">
       {/* En-tête */}
       <div className="flex items-center gap-3 animate-slideDown" style={{ animationDelay: '0ms' }}>
-        <button onClick={() => navigate('/stock/articles')}
-          className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
-          <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-        </button>
+        <BackButton />
         <div className="flex-1 min-w-0">
           <h1 className="text-lg font-display font-bold text-foreground">Fiche de stock</h1>
           <p className="text-xs text-muted-foreground truncate">
