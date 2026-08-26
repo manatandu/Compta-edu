@@ -29,6 +29,16 @@ export default function MesCoursPage() {
   const userCoursIds: string[] = (user as any)?.coursIds || []
   const userCours = allCours.filter(c => userCoursIds.includes(c.id))
   const coursBloque = isStudent && allCours.length > 0 && userCours.length === 0
+  // userCoursIds contient les identifiants réels des documents Cours (une
+  // instance par faculté, créée par provisionCoursManquantsAsync), pas les
+  // identifiants du catalogue système COURS_SYSTEME ('sys_ue1_droit_travail'
+  // etc.) utilisés ci-dessous pour lister les UE. Comparer directement les
+  // deux espaces d'identifiants (comme le faisait estVerrouilleEtudiant)
+  // ne matche jamais : tout cours apparaissait verrouillé, même inscrit.
+  // On résout donc les coursSystemeId réellement suivis par l'étudiant.
+  const userCoursSystemeIds = new Set(
+    userCours.map(c => (c as any).coursSystemeId).filter(Boolean)
+  )
 
   const nbActifs = COURS_SYSTEME.filter(c => c.actif).length
 
@@ -61,7 +71,7 @@ export default function MesCoursPage() {
               const couleur = UE_COLORS[i % UE_COLORS.length]
               const path = `/${cours.moduleKey}`
               const estActif = !!cours.actif && ROUTES_CONNUES.includes(cours.moduleKey)
-              const estVerrouilleEtudiant = isStudent && estActif && !userCoursIds.includes(cours.id)
+              const estVerrouilleEtudiant = isStudent && estActif && !userCoursSystemeIds.has(cours.id)
               const estInactif = !cours.actif
               const bloque = estVerrouilleEtudiant || estInactif
 
