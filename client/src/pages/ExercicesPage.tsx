@@ -677,6 +677,202 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { 
   )
 }
 
+// ─── Import CSV d'un lot d'exercices guidés (prof/admin) ───────────────────────
+// Même convention qu'InscriptionPlatformePage > ImportCSV (étudiants) : parseur
+// maison sans librairie externe, aperçu des 5 premières lignes, import ligne
+// par ligne avec collecte des erreurs plutôt qu'un rejet global du fichier.
+interface RowImportExercice { _line: number; titre: string; description: string; instructions: string; difficulte: string; categorie: string }
+
+function ImportExercicesCSV({
+  open, onClose, coursList, sessions, userId, onImported,
+}: {
+  open: boolean
+  onClose: () => void
+  coursList: { id: string, nom: string, faculteId?: string, universiteId?: string }[]
+  sessions: { id: string, nom: string }[]
+  userId: string
+  onImported: (n: number) => void
+}) {
+  const { toast } = useToast()
+  const [coursId, setCoursId] = useState('')
+  const [sessionId, setSessionId] = useState('')
+  const [csvPreview, setCsvPreview] = useState<RowImportExercice[]>([])
+  const [csvError, setCsvError] = useState('')
+  const [importing, setImporting] = useState(false)
+  const [result, setResult] = useState<{ success: number; errors: string[] } | null>(null)
+
+  const DIFFICULTES_VALIDES = new Set(['Facile', 'Moyen', 'Difficile'])
+
+  const parseCsvFile = (file: File) => {
+    setCsvError(''); setResult(null)
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const text = e.target?.result as string
+      if (!text) { setCsvError('Fichier vide ou illisible.'); return }
+      const lines = text.split(/\r?\n/).filter(l => l.trim())
+      if (lines.length < 2) { setCsvError("Le fichier doit contenir au moins une ligne de données (en-tête + 1 exercice)."); return }
+      const sep = lines[0].includes(';') ? ';' : ','
+      const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/[^a-z]/g, ''))
+      const rows: RowImportExercice[] = lines.slice(1).map((line, idx) => {
+        const cols = line.split(sep).map(c => c.trim().replace(/^"|"$/g, ''))
+        const row: any = { _line: idx + 2 }
+        headers.forEach((h, i) => { row[h] = cols[i] || '' })
+        return {
+          _line: row._line,
+          titre: row.titre || '',
+          description: row.description || '',
+          instructions: row.instructions || '',
+          difficulte: row.difficulte || '',
+          categorie: row.categorie || '',
+        }
+      }).filter(r => r.titre)
+      if (rows.length === 0) { setCsvError('Aucune ligne valide trouvée (colonne "titre" obligatoire).'); return }
+      setCsvPreview(rows)
+    }
+    reader.readAsText(file, 'UTF-8')
+  }
+
+  const handleImport = async () => {
+    if (csvPreview.length === 0 || !coursId) return
+    const coursObj = coursList.find(c => c.id === coursId)
+    setImporting(true); setResult(null)
+    let success = 0
+    const errors: string[] = []
+    for (const row of csvPreview) {
+      const difficulteRow = DIFFICULTES_VALIDES.has(row.difficulte) ? row.difficulte : undefined
+      if (row.difficulte && !difficulteRow) {
+        errors.push(`Ligne ${row._line} : difficulté "${row.difficulte}" ignorée (attendu Facile/Moyen/Difficile).`)
+      }
+      try {
+        await createExerciceAsync({
+          titre: row.titre,
+          description: row.description,
+          instructions: row.instructions,
+          difficulte: difficulteRow as any,
+          categorie: row.categorie.trim() || undefined,
+          sessionId: sessionId || undefined,
+          actif: true,
+          coursId,
+          faculteId: coursObj?.faculteId || undefined,
+          universiteId: coursObj?.universiteId || undefined,
+          ecrituresAttendues: [],
+          bareme: BAREME_DEFAUT,
+          userId,
+          createdBy: userId,
+        } as any)
+        success++
+      } catch (err: any) {
+        errors.push(`Ligne ${row._line} (${row.titre}) : ${err?.message || 'Erreur inconnue'}`)
+      }
+    }
+    setImporting(false)
+    setResult({ success, errors })
+    if (success > 0) {
+      toast({ title: `${success} exercice${success > 1 ? 's' : ''} importé${success > 1 ? 's' : ''}` })
+      onImported(success)
+    }
+  }
+
+  const fermer = () => {
+    setCsvPreview([]); setCsvError(''); setResult(null); setCoursId(''); setSessionId('')
+    onClose()
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={v => !v && fermer()}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Importer des exercices depuis un fichier CSV</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <p className="text-xs text-muted-foreground">
+            Colonnes attendues : <code className="bg-muted px-1 rounded">titre, description, instructions, difficulte, categorie</code>
+            {' '}- seule <code className="bg-muted px-1 rounded">titre</code> est obligatoire. Tous les exercices importés sont
+            rattachés au même cours (et à la même session, si précisée) : réimportez le fichier pour un autre cours.
+          </p>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Cours *</Label>
+              <Select value={coursId} onValueChange={setCoursId}>
+                <SelectTrigger className="mt-1"><SelectValue placeholder="Choisir un cours" /></SelectTrigger>
+                <SelectContent>
+                  {coursList.map(c => <SelectItem key={c.id} value={c.id}>{c.nom}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Session (optionnel)</Label>
+              <Select value={sessionId || '__aucune__'} onValueChange={v => setSessionId(v === '__aucune__' ? '' : v)}>
+                <SelectTrigger className="mt-1"><SelectValue placeholder="Aucune" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="__aucune__">Aucune</SelectItem>
+                  {sessions.map(s => <SelectItem key={s.id} value={s.id}>{s.nom}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="exercices-csv-upload" className="cursor-pointer inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium">
+              <Upload className="h-4 w-4" /> Choisir un fichier CSV
+            </label>
+            <input id="exercices-csv-upload" type="file" accept=".csv,.txt" className="hidden"
+              onChange={e => { const f = e.target.files?.[0]; if (f) parseCsvFile(f) }} />
+          </div>
+
+          {csvError && (
+            <p className="flex items-center gap-1.5 text-xs text-destructive"><X className="h-3.5 w-3.5" />{csvError}</p>
+          )}
+
+          {csvPreview.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs font-semibold text-foreground">{csvPreview.length} ligne{csvPreview.length > 1 ? 's' : ''} détectée{csvPreview.length > 1 ? 's' : ''}</p>
+              <div className="border border-border rounded-lg overflow-x-auto max-h-48 overflow-y-auto">
+                <table className="w-full text-xs">
+                  <thead className="bg-muted/50">
+                    <tr>
+                      <th className="text-left px-2 py-1">Titre</th>
+                      <th className="text-left px-2 py-1">Difficulté</th>
+                      <th className="text-left px-2 py-1">Catégorie</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {csvPreview.slice(0, 5).map((r, i) => (
+                      <tr key={i} className="border-t border-border">
+                        <td className="px-2 py-1">{r.titre}</td>
+                        <td className="px-2 py-1">{r.difficulte || '-'}</td>
+                        <td className="px-2 py-1">{r.categorie || '-'}</td>
+                      </tr>
+                    ))}
+                    {csvPreview.length > 5 && (
+                      <tr><td colSpan={3} className="px-2 py-1 text-muted-foreground italic">...et {csvPreview.length - 5} autres</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {result && (
+            <div className="space-y-1 text-xs">
+              <p className="text-green-600 font-medium">{result.success} exercice{result.success > 1 ? 's' : ''} importé{result.success > 1 ? 's' : ''}.</p>
+              {result.errors.map((e, i) => <p key={i} className="text-destructive">{e}</p>)}
+            </div>
+          )}
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={fermer}>Fermer</Button>
+          <Button onClick={handleImport} disabled={csvPreview.length === 0 || !coursId || importing}>
+            {importing ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : null}
+            Importer {csvPreview.length > 0 ? csvPreview.length : ''} exercice{csvPreview.length > 1 ? 's' : ''}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
 // ─── Page principale ───────────────────────────────────────────────────────────
 export default function ExercicesPage() {
   const { toast } = useToast()
@@ -711,6 +907,7 @@ export default function ExercicesPage() {
   const [recherche, setRecherche] = useState('')
   const [filtreDifficulte, setFiltreDifficulte] = useState<'' | 'Facile' | 'Moyen' | 'Difficile'>('')
   const [showForm, setShowForm] = useState(false)
+  const [showImport, setShowImport] = useState(false)
   const [editId, setEditId] = useState<string | null>(null)
   const [deleteId, setDeleteId] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
@@ -868,9 +1065,14 @@ export default function ExercicesPage() {
               </Select>
             </div>
             {canManage && (
-              <Button size="sm" onClick={openCreate}>
-                <Plus className="h-4 w-4 mr-1" /> Créer un exercice
-              </Button>
+              <div className="flex gap-2">
+                <Button size="sm" variant="outline" onClick={() => setShowImport(true)}>
+                  <Upload className="h-4 w-4 mr-1" /> Importer CSV
+                </Button>
+                <Button size="sm" onClick={openCreate}>
+                  <Plus className="h-4 w-4 mr-1" /> Créer un exercice
+                </Button>
+              </div>
             )}
           </div>
 
@@ -1042,6 +1244,15 @@ export default function ExercicesPage() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+
+          <ImportExercicesCSV
+            open={showImport}
+            onClose={() => setShowImport(false)}
+            coursList={coursList}
+            sessions={sessions}
+            userId={user?.id || ''}
+            onImported={() => {}}
+          />
         </div>
       )}
 
