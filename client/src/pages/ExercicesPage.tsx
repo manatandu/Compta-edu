@@ -32,6 +32,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch'
 import { Plus, Pencil, Trash2, Play, GraduationCap, BookOpen, Trophy, Loader2, Dumbbell, FileText, CheckSquare, Layers, Eye, X, Check, Upload } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
+import { cn } from '@/lib/utils'
 
 // ─── Icône par type ────────────────────────────────────────────────────────────
 function TypeIcon({ type }: { type: ExerciceLibreType }) {
@@ -707,6 +708,8 @@ export default function ExercicesPage() {
     .map(c => ({ id: c.id, nom: c.nom, faculteId: (c as any).faculteId, universiteId: (c as any).universiteId, promotion: c.promotion }))
 
   const [onglet, setOnglet] = useState<'guides' | 'libres'>('guides')
+  const [recherche, setRecherche] = useState('')
+  const [filtreDifficulte, setFiltreDifficulte] = useState<'' | 'Facile' | 'Moyen' | 'Difficile'>('')
   const [showForm, setShowForm] = useState(false)
   const [editId, setEditId] = useState<string | null>(null)
   const [deleteId, setDeleteId] = useState<string | null>(null)
@@ -714,11 +717,12 @@ export default function ExercicesPage() {
 
   const [form, setForm] = useState({
     titre: '', description: '', instructions: '', sessionId: sessions[0]?.id || '', actif: true, coursId: '',
+    difficulte: '' as '' | 'Facile' | 'Moyen' | 'Difficile', categorie: '',
   })
 
   const openCreate = () => {
     setEditId(null)
-    setForm({ titre: '', description: '', instructions: '', sessionId: sessions[0]?.id || '', actif: true, coursId: allCours[0]?.id || '' })
+    setForm({ titre: '', description: '', instructions: '', sessionId: sessions[0]?.id || '', actif: true, coursId: allCours[0]?.id || '', difficulte: '', categorie: '' })
     setShowForm(true)
   }
 
@@ -726,7 +730,10 @@ export default function ExercicesPage() {
     const ex = exercices.find(e => e.id === id)
     if (!ex) return
     setEditId(id)
-    setForm({ titre: ex.titre, description: ex.description, instructions: ex.instructions, sessionId: ex.sessionId, actif: ex.actif, coursId: ex.coursId || '' })
+    setForm({
+      titre: ex.titre, description: ex.description, instructions: ex.instructions, sessionId: ex.sessionId, actif: ex.actif, coursId: ex.coursId || '',
+      difficulte: (ex as any).difficulte || '', categorie: (ex as any).categorie || '',
+    })
     setShowForm(true)
   }
 
@@ -737,15 +744,23 @@ export default function ExercicesPage() {
     try {
       // Résoudre faculteId/universiteId depuis le cours sélectionné
       const coursObj = coursList.find(c => c.id === form.coursId)
+      // '' n'est pas une difficulté/catégorie valide : on l'omet plutôt que
+      // d'écrire une chaîne vide en base.
+      const champsFacultatifs = {
+        difficulte: form.difficulte || undefined,
+        categorie: form.categorie.trim() || undefined,
+      }
       if (editId) {
         await updateExerciceAsync(editId, {
           ...form,
+          ...champsFacultatifs,
           faculteId: coursObj?.faculteId || undefined,
           universiteId: coursObj?.universiteId || undefined,
         })
       } else {
         await createExerciceAsync({
           ...form,
+          ...champsFacultatifs,
           ecrituresAttendues: [],
           bareme: BAREME_DEFAUT,
           userId: user?.id || '',
@@ -781,6 +796,15 @@ export default function ExercicesPage() {
     }
     setDeleteId(null)
   }
+
+  // Recherche (titre/description) + filtre par difficulté, sur les
+  // exercices guidés déjà scopés (cours de l'étudiant, ou tout pour le staff).
+  const rechercheNorm = recherche.trim().toLowerCase()
+  const exercicesFiltres = exercices.filter(ex => {
+    if (filtreDifficulte && (ex as any).difficulte !== filtreDifficulte) return false
+    if (!rechercheNorm) return true
+    return ex.titre.toLowerCase().includes(rechercheNorm) || (ex.description || '').toLowerCase().includes(rechercheNorm)
+  })
 
   return (
     <div className="space-y-5 animate-fadeIn">
@@ -825,13 +849,30 @@ export default function ExercicesPage() {
       {/* Contenu onglet Exercices guidés */}
       {onglet === 'guides' && (
         <div className="space-y-4">
-          {canManage && (
-            <div className="flex justify-end">
+          <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+            <div className="flex gap-2 flex-1">
+              <Input
+                value={recherche}
+                onChange={e => setRecherche(e.target.value)}
+                placeholder="Rechercher un exercice..."
+                className="max-w-xs"
+              />
+              <Select value={filtreDifficulte || '__toutes__'} onValueChange={v => setFiltreDifficulte(v === '__toutes__' ? '' : v as any)}>
+                <SelectTrigger className="w-40"><SelectValue placeholder="Difficulté" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="__toutes__">Toutes difficultés</SelectItem>
+                  <SelectItem value="Facile">Facile</SelectItem>
+                  <SelectItem value="Moyen">Moyen</SelectItem>
+                  <SelectItem value="Difficile">Difficile</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {canManage && (
               <Button size="sm" onClick={openCreate}>
                 <Plus className="h-4 w-4 mr-1" /> Créer un exercice
               </Button>
-            </div>
-          )}
+            )}
+          </div>
 
           {loadingEx ? (
             <div className="flex justify-center py-10">
@@ -845,9 +886,16 @@ export default function ExercicesPage() {
                 {canManage && <p className="text-sm mt-1">Créez un exercice pour commencer.</p>}
               </CardContent>
             </Card>
+          ) : exercicesFiltres.length === 0 ? (
+            <Card className="border-border">
+              <CardContent className="pt-8 pb-8 text-center text-muted-foreground">
+                <GraduationCap className="h-10 w-10 mx-auto mb-3 opacity-30" />
+                <p>Aucun exercice ne correspond à votre recherche.</p>
+              </CardContent>
+            </Card>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {exercices.map((ex, i) => {
+              {exercicesFiltres.map((ex, i) => {
                 const session = sessions.find(s => s.id === ex.sessionId)
                 const myTentatives = tentatives.filter(t => t.exerciceId === ex.id)
                 const bestScore = myTentatives.length > 0 ? Math.max(...myTentatives.map(t => t.score)) : null
@@ -879,6 +927,18 @@ export default function ExercicesPage() {
                         </div>
                       </CardHeader>
                       <CardContent className="pt-0">
+                        {(ex as any).difficulte || (ex as any).categorie ? (
+                          <div className="flex items-center gap-1.5 mb-2">
+                            {(ex as any).difficulte && (
+                              <Badge variant="outline" className={cn('text-xs',
+                                (ex as any).difficulte === 'Facile' ? 'border-green-400 text-green-600' :
+                                (ex as any).difficulte === 'Moyen' ? 'border-yellow-400 text-yellow-600' :
+                                'border-red-400 text-red-600'
+                              )}>{(ex as any).difficulte}</Badge>
+                            )}
+                            {(ex as any).categorie && <Badge variant="secondary" className="text-xs">{(ex as any).categorie}</Badge>}
+                          </div>
+                        ) : null}
                         {ex.description && <p className="text-sm text-muted-foreground mb-3">{ex.description}</p>}
                         <div className="flex items-center justify-between">
                           <div className="text-xs text-muted-foreground">
@@ -936,6 +996,24 @@ export default function ExercicesPage() {
                       {sessions.map(s => <SelectItem key={s.id} value={s.id}>{s.nom}</SelectItem>)}
                     </SelectContent>
                   </Select>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label>Difficulté</Label>
+                    <Select value={form.difficulte || '__aucune__'} onValueChange={v => setForm(f => ({ ...f, difficulte: v === '__aucune__' ? '' : v as any }))}>
+                      <SelectTrigger className="mt-1"><SelectValue placeholder="Non précisée" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__aucune__">Non précisée</SelectItem>
+                        <SelectItem value="Facile">Facile</SelectItem>
+                        <SelectItem value="Moyen">Moyen</SelectItem>
+                        <SelectItem value="Difficile">Difficile</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Catégorie</Label>
+                    <Input value={form.categorie} onChange={e => setForm(f => ({ ...f, categorie: e.target.value }))} className="mt-1" placeholder="ex : Achats, Amortissements..." />
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Switch checked={form.actif} onCheckedChange={v => setForm(f => ({ ...f, actif: v }))} />

@@ -459,6 +459,28 @@ export default function ExerciceDetailPage() {
     }, 1000)
   }
 
+  // Reprendre seulement les lignes fausses : les lignes déjà correctes
+  // (compte, sens et montant tous exacts) sont reconduites telles quelles,
+  // les autres reviennent vierges. L'étudiant n'a donc à corriger que ce
+  // qu'il a raté, au lieu de tout ressaisir depuis zéro.
+  const handleReessayerErreurs = () => {
+    if (!result) return
+    const nouvellesLignes = result.resultats.map(r =>
+      (r.matchCompte === 'exact' && r.matchSens && r.matchMontant) ? r.saisi : emptyLigne()
+    )
+    while (nouvellesLignes.length < 2) nouvellesLignes.push(emptyLigne())
+    setLignes(nouvellesLignes)
+    setResult(null)
+    setShowCorrige(false)
+    startTimeRef.current = Date.now()
+    setElapsed(0)
+    timerRef.current = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - startTimeRef.current) / 1000))
+    }, 1000)
+  }
+
+  const nbLignesIncorrectes = result?.resultats.filter(r => !(r.matchCompte === 'exact' && r.matchSens && r.matchMontant)).length || 0
+
   return (
     <div className="space-y-4 animate-fadeIn max-w-3xl">
 
@@ -729,6 +751,11 @@ export default function ExerciceDetailPage() {
 
           {/* Actions */}
           <div className="flex gap-3">
+            {nbLignesIncorrectes > 0 && nbLignesIncorrectes < result.resultats.length && (
+              <Button onClick={handleReessayerErreurs} className="flex-1">
+                Réessayer les {nbLignesIncorrectes} ligne{nbLignesIncorrectes > 1 ? 's' : ''} fausse{nbLignesIncorrectes > 1 ? 's' : ''}
+              </Button>
+            )}
             <Button variant="outline" onClick={handleRecommencer} className="flex-1">
               Recommencer
             </Button>
