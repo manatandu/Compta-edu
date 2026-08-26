@@ -47,7 +47,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 
 // ─── Helpers globaux ────────────────────────────────────
-const PAGE_SIZE_PROF = 20
 
 /** Normalise une chaîne pour la comparaison accent-insensitive */
 const normalizeStr = (s: string) =>
@@ -439,13 +438,10 @@ export default function ProfesseurPage() {
     const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n
   })
 
-  // Recherche accent-insensitive étudiants + pagination indépendants
-  const [searchEtu, setSearchEtu] = useState('')
-  const [pageIndep, setPageIndep] = useState(1)
-  // Recherche GLOBALE onglet Étudiants
-  const [searchGlobal, setSearchGlobal] = useState('')
-  const [pageGlobal, setPageGlobal] = useState(1)
+  // Recherche onglet Universités
+  const [searchUni, setSearchUni] = useState('')
   // Nettoyage doublons onglet Cours
+  const [showCoursVerrouilles, setShowCoursVerrouilles] = useState(false)
   const [confirmNettoyage, setConfirmNettoyage] = useState(false)
   const [nettoyageEnCours, setNettoyageEnCours] = useState(false)
   const [coursDoublonsIds, setCoursDoublonsIds] = useState<string[]>([])
@@ -1107,46 +1103,6 @@ export default function ProfesseurPage() {
   // ils restaient donc bloqués dehors indéfiniment.
   const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
 
-  const universiteIds = new Set(universites.map(u => u.id))
-  const etudiantsParUni = universites.map(uni => ({
-    uni,
-    etudiants: etudiants.filter(e => (e as any).universiteId === uni.id)
-      .sort((a, b) => normalizeStr(`${a.nom} ${a.prenom || ''}`.trim())
-        .localeCompare(normalizeStr(`${b.nom} ${b.prenom || ''}`.trim()), 'fr')),
-  }))
-  // Indépendants = pas d'universiteId OU universiteId qui ne correspond à aucune université connue
-  const etudiantsIndepAll = etudiants.filter(e => !(e as any).universiteId || !universiteIds.has((e as any).universiteId))
-  // Filtre recherche + pagination indépendants
-  const qEtu = normalizeStr(searchEtu.trim())
-  const etudiantsIndep = etudiantsIndepAll.filter(e =>
-    !qEtu ||
-    normalizeStr(e.nom).includes(qEtu) ||
-    normalizeStr(e.prenom || '').includes(qEtu) ||
-    normalizeStr(e.username || '').includes(qEtu)
-  )
-  const totalPagesIndep = Math.max(1, Math.ceil(etudiantsIndep.length / PAGE_SIZE_PROF))
-  const etudiantsIndepPage = etudiantsIndep.slice((pageIndep - 1) * PAGE_SIZE_PROF, pageIndep * PAGE_SIZE_PROF)
-
-  // ── Recherche globale étudiants ──
-  const qGlobal = normalizeStr(searchGlobal.trim())
-  const etudiantsFiltresGlobal = React.useMemo(() => {
-    if (!qGlobal) return []
-    return etudiants.filter(e => {
-      const uni = universites.find(u => u.id === (e as any).universiteId)
-      const fac = facultesList.find(f => f.id === (e as any).faculteId)
-      return (
-        normalizeStr(e.nom || '').includes(qGlobal) ||
-        normalizeStr(e.prenom || '').includes(qGlobal) ||
-        normalizeStr(e.username || '').includes(qGlobal) ||
-        normalizeStr((e as any).classe || '').includes(qGlobal) ||
-        normalizeStr(uni?.nom || '').includes(qGlobal) ||
-        normalizeStr(fac?.nom || '').includes(qGlobal)
-      )
-    }).sort((a, b) => normalizeStr(`${a.nom} ${a.prenom || ''}`).localeCompare(normalizeStr(`${b.nom} ${b.prenom || ''}`), 'fr'))
-  }, [qGlobal, etudiants, universites, facultesList])
-  const totalPagesGlobal = Math.max(1, Math.ceil(etudiantsFiltresGlobal.length / PAGE_SIZE_PROF))
-  const etudiantsGlobalPage = etudiantsFiltresGlobal.slice((pageGlobal - 1) * PAGE_SIZE_PROF, pageGlobal * PAGE_SIZE_PROF)
-
   // ── Progression ──
   const { exercices } = useExercices()
   const { tentatives } = useTentatives(undefined)
@@ -1645,14 +1601,22 @@ export default function ProfesseurPage() {
           )
           })()}
 
-          {/* Séparateur : Cours en préparation (verrouillés) */}
+          {/* Séparateur : Cours en préparation (verrouillés) - replié par défaut,
+              rien à y faire (verrouillé) donc pas de raison de l'imposer en
+              permanence en bas de l'onglet. */}
           {COURS_SYSTEME.filter(c => !c.actif).length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 pt-1">
+              <button
+                onClick={() => setShowCoursVerrouilles(v => !v)}
+                className="flex items-center gap-2 pt-1 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showCoursVerrouilles ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
                 <Lock className="h-3.5 w-3.5 text-muted-foreground/60" />
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Cours en préparation : verrouillés</p>
-              </div>
-              {COURS_SYSTEME.filter(c => !c.actif).map(c => (
+                <p className="text-xs font-semibold uppercase tracking-wide">
+                  Cours en préparation : verrouillés ({COURS_SYSTEME.filter(c => !c.actif).length})
+                </p>
+              </button>
+              {showCoursVerrouilles && COURS_SYSTEME.filter(c => !c.actif).map(c => (
                 <Card key={c.id} className="border-dashed border-border bg-muted/20">
                   <CardContent className="px-4 py-3">
                     <div className="flex items-center gap-3 opacity-60">
@@ -1678,14 +1642,31 @@ export default function ProfesseurPage() {
       )}
 
       {/* ═══════════════════ ONGLET UNIVERSITÉS ═══════════════════ */}
-      {tab === 'universites' && isAdmin && (
+      {tab === 'universites' && isAdmin && (() => {
+        const qUni = normalizeStr(searchUni.trim())
+        const universitesFiltrees = qUni
+          ? universites.filter(u => normalizeStr(u.nom).includes(qUni) || normalizeStr(u.ville || '').includes(qUni))
+          : universites
+        return (
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <p className="text-sm text-muted-foreground">{universites.length} université{universites.length > 1 ? 's' : ''}</p>
             <Button size="sm" onClick={openCreateUni}>
               <Plus className="h-4 w-4 mr-1.5" /> Nouvelle université
             </Button>
           </div>
+
+          {universites.length > 5 && (
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <Input
+                value={searchUni}
+                onChange={e => setSearchUni(e.target.value)}
+                placeholder="Rechercher une université par nom ou ville..."
+                className="pl-9 h-9 text-sm"
+              />
+            </div>
+          )}
 
           {universites.length === 0 ? (
             <Card className="border-border">
@@ -1695,9 +1676,16 @@ export default function ProfesseurPage() {
                 <p className="text-xs mt-1">Créez une université pour y associer des étudiants.</p>
               </CardContent>
             </Card>
+          ) : universitesFiltrees.length === 0 ? (
+            <Card className="border-border">
+              <CardContent className="pt-8 pb-8 text-center text-muted-foreground">
+                <Search className="h-8 w-8 mx-auto mb-2 opacity-30" />
+                <p className="text-sm">Aucune université ne correspond à « {searchUni} ».</p>
+              </CardContent>
+            </Card>
           ) : (
             <div className="space-y-3">
-              {universites.map(u => {
+              {universitesFiltrees.map(u => {
                 const uniFacultes = facultesList.filter(f => f.universiteId === u.id)
                 const uniEtudiants = etudiants.filter(e => (e as any).universiteId === u.id).length
                 // ouvert si pas dans le Set des fermés (ouvert par défaut)
@@ -1780,7 +1768,8 @@ export default function ProfesseurPage() {
             </div>
           )}
         </div>
-      )}
+        )
+      })()}
 
       {/* ═══════════════════ ONGLET PROF / ASSISTANTS ═══════════════════ */}
       {tab === 'staff' && isAdmin && (
@@ -3951,11 +3940,21 @@ export default function ProfesseurPage() {
                   <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner un cours" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="__none__">- Choisir -</SelectItem>
-                    {COURS_SYSTEME.map(c => (
-                      <SelectItem key={c.id} value={c.id}>
-                        {c.nom}{!c.actif ? ' (bientôt)' : ''}
-                      </SelectItem>
-                    ))}
+                    {COURS_SYSTEME.map(c => {
+                      // Déjà assigné à la faculté choisie, ou pas encore actif : on le
+                      // montre quand même (pour que la liste reste complète) mais
+                      // désactivé, avec le motif - plutôt que de laisser l'utilisateur
+                      // remplir tout le formulaire pour découvrir l'erreur seulement
+                      // au clic sur Enregistrer (cf. anti-doublon dans handleSaveCours).
+                      const dejaAssigne = coursForm.faculteId && coursList.some(
+                        cl => (cl as any).coursSystemeId === c.id && cl.faculteId === coursForm.faculteId
+                      )
+                      return (
+                        <SelectItem key={c.id} value={c.id} disabled={dejaAssigne || !c.actif}>
+                          {c.nom}{!c.actif ? ' (bientôt disponible)' : dejaAssigne ? ' (déjà dans cette faculté)' : ''}
+                        </SelectItem>
+                      )
+                    })}
                   </SelectContent>
                 </Select>
               )}
