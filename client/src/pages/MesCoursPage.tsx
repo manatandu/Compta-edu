@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
-import { useGoBack } from '@/lib/navContext'
-import { ChevronRight, Lock, BookOpen, ArrowLeft } from 'lucide-react'
+import BackButton from '@/components/BackButton'
+import { ChevronRight, Lock, BookOpen } from 'lucide-react'
 import { useAllCours } from '@/lib/useFirestore'
 import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
@@ -22,7 +22,6 @@ const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'analyse-financier
 
 export default function MesCoursPage() {
   const [, navigate] = useHashLocation()
-  const goBack = useGoBack('/')
   const user = useUser()
   const isStudent = isStudentRole(user)
   const { cours: allCoursRaw } = useAllCours()
@@ -35,14 +34,9 @@ export default function MesCoursPage() {
 
   return (
     <div className="space-y-4 pb-8 animate-fadeIn">
+      <BackButton />
       {/* En-tête */}
       <div className="flex items-center gap-3">
-        <button
-          onClick={goBack}
-          className="h-9 w-9 rounded-xl border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors shrink-0"
-        >
-          <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-        </button>
         <div>
           <h1 className="font-display text-xl font-bold text-foreground leading-tight">Mes cours</h1>
           <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">{nbActifs} cours actifs · {COURS_SYSTEME.length} UE au total</p>

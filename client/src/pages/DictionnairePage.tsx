@@ -89,9 +89,15 @@ export default function DictionnairePage() {
 
       {/* Boutons flottants : retour page + scroll top */}
       <div className="fixed bottom-6 right-4 z-50 flex flex-col gap-2">
+        {/* Bouton rond plutôt que le lien texte standard : il forme une paire
+            visuelle avec le bouton "retour en haut" juste en dessous, de
+            même forme et même position flottante. La destination reste
+            toutefois alignée sur le reste de l'application (tableau de
+            bord) plutôt que sur l'historique du navigateur, imprévisible
+            en SPA (voir navContext.tsx). */}
         <button
-          onClick={() => window.history.back()}
-          title="Retour"
+          onClick={() => navigate('/')}
+          title="Retour au tableau de bord"
           className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border shadow-md hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105 transition-all"
         >
           <ArrowLeft className="h-4 w-4" />

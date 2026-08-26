@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Plus, Package, ChevronRight, Trash2, X, Check,
-  ArrowLeft, BookOpen, BarChart2
+  BookOpen, BarChart2
 } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import {
@@ -291,12 +292,7 @@ export default function StockArticlesPage({ embedded = false }: { embedded?: boo
     <div className="space-y-5 pb-4">
       {/* En-tête */}
       <div className="flex items-center gap-3">
-        {!embedded && (
-          <button onClick={() => navigate('/stock')}
-            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
-            <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-          </button>
-        )}
+        {!embedded && <BackButton />}
         <div className="flex-1">
           <h1 className="text-lg font-display font-bold text-foreground">Fiches de stock</h1>
           <p className="text-xs text-muted-foreground">Articles enregistrés : Comptes 31, 32, 36</p>

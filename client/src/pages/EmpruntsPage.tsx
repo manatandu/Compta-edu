@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
-  ArrowLeft, Landmark, Plus, Trash2, Info, AlertCircle,
+  Landmark, Plus, Trash2, Info, AlertCircle,
   BarChart2, BookOpen, ArrowLeftRight, Upload, Check, ChevronRight
 } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { useSessions } from '@/lib/useFirestore'
@@ -794,10 +795,7 @@ export default function EmpruntsPage() {
     <div className="min-h-screen bg-background pb-24 animate-fadeIn">
       {/* Header */}
       <div className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b border-border px-4 py-3 flex items-center gap-3 animate-slideDown">
-        <button onClick={() => navigate('/comptabilite-generale')}
-          className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted hover:scale-110 transition-all">
-          <ArrowLeft className="h-4 w-4 text-foreground" />
-        </button>
+        <BackButton />
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-xl bg-module-violet/10 flex items-center justify-center">
             <Landmark className="h-4 w-4 text-module-violet" />

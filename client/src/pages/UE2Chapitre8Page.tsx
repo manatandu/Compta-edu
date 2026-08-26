@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, ChevronRight, CheckCircle2, XCircle,
   BookOpen, Users, Vote, Gavel, Scale, RotateCcw, PlusCircle, ShieldAlert
@@ -1055,6 +1056,7 @@ export default function UE2Chapitre8Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Les associés et les assemblées</h1>
           <InfoTooltip texte="Les associés et les assemblées : titres sociaux, droits de vote, assemblées de SA, augmentation de capital" loi="Art. 51–600 AUSCGIE" />

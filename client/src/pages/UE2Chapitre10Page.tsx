@@ -14,6 +14,7 @@ import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
 import { InfoTooltip } from '@/components/InfoTooltip'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 
 // ─── Types QCM (identiques Ch1) ──────────────────────────────────────────────
 type QCMOption = { id: string; texte: string }
@@ -448,6 +449,7 @@ export default function UE2Chapitre10Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <h1 className="text-xl font-display font-bold text-gray-900 leading-tight mt-0.5">Dissolution et Liquidation des Sociétés</h1>
         <p className="text-sm text-gray-500">AUSCGIE - Articles 200 à 256 - OHADA</p>
       </div>

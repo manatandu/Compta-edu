@@ -16,13 +16,21 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/charges-personnel/ipr':      { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
   '/docs-comptables-hub':        { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
   '/etats-financiers-hub':       { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
-  // Stock
-  '/stock':                      { path: '/mes-cours',             label: 'Mes cours' },
+  '/emprunts':                   { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
+  '/factures':                   { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
+  // Stock - sous-module de Comptabilite Generale (module 4), pas de Mes cours
+  '/stock':                      { path: '/comptabilite-generale', label: 'Comptabilite Generale' },
   '/stock/articles':             { path: '/stock',                 label: 'Gestion de Stock' },
   '/stock/journal':              { path: '/stock',                 label: 'Gestion de Stock' },
   '/stock/exercice':             { path: '/stock',                 label: 'Gestion de Stock' },
   '/stock/mouvement':            { path: '/stock',                 label: 'Gestion de Stock' },
   '/stock/fiche':                { path: '/stock',                 label: 'Gestion de Stock' },
+  // Mes cours et Dictionnaire : accessibles depuis le tableau de bord
+  '/mes-cours':                  { path: '/',                      label: 'Tableau de bord' },
+  '/dictionnaire':               { path: '/',                      label: 'Tableau de bord' },
+  // UE1
+  '/ue1-droit-travail':          { path: '/mes-cours',             label: 'Mes cours' },
+  '/ue1/chapitre-x':             { path: '/ue1-droit-travail',     label: 'UE1 Droit du travail' },
   // UE2
   '/ue2-droit-societes':         { path: '/mes-cours',             label: 'Mes cours' },
   '/ue2/chapitre-1':             { path: '/ue2-droit-societes',    label: 'Droit des societes OHADA' },
@@ -38,6 +46,16 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/ue2/chapitre-11':            { path: '/ue2-droit-societes',    label: 'Droit des societes OHADA' },
   // UE5
   '/ue5-finances-publiques':     { path: '/mes-cours',             label: 'Mes cours' },
+  '/ue5/chapitre-1':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-2':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-3':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-4':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-5':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-6':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-7':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-8':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-9':             { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  '/ue5/chapitre-10':            { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
   '/ue13-ifrs-ias':              { path: '/mes-cours',             label: 'Mes cours' },
   '/ue13/chapitre-1':            { path: '/ue13-ifrs-ias',         label: 'UE13 IAS/IFRS' },
   '/ue13/chapitre-2':            { path: '/ue13-ifrs-ias',         label: 'UE13 IAS/IFRS' },
@@ -71,7 +89,7 @@ export default function BackButton({ label, to }: BackButtonProps) {
   else if (location.startsWith('/stock/mouvement/')) baseRoute = '/stock/mouvement'
   else if (location.startsWith('/stock/fiche/'))     baseRoute = '/stock/fiche'
   else if (location.startsWith('/stock/journal/'))   baseRoute = '/stock/journal'
-  else if (location.startsWith('/ue2/chapitre-'))    baseRoute = location
+  else if (location.startsWith('/ue1/chapitre-'))    baseRoute = '/ue1/chapitre-x'
 
   const parent = PARENT_MAP[baseRoute]
 

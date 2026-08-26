@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Users, AlertTriangle, Scale,
@@ -798,6 +799,7 @@ export default function UE2Chapitre3Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">SNC et SCS : Sociétés de Personnes</h1>
           <InfoTooltip texte="SNC et SCS : sociétés de personnes à responsabilité illimitée" loi="Art. 270-308 AUSCGIE" />

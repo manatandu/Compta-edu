@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Scale, Calendar, FileText, Shield, Eye,
@@ -1104,6 +1105,7 @@ export default function UE5Chapitre2Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Les principes budgétaires</h1>
           <InfoTooltip texte="Les 6 principes budgétaires de la LOFIP : annualité, unité, universalité, spécialité, légalité et sincérité (Art. 4 à 11)." loi="Art. 4-11 LOFIP" />

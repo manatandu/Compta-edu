@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
   Users, Building, FileText, Scale, Shield, Star, Briefcase,
@@ -485,6 +486,7 @@ export default function UE2Chapitre5Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <h1 className="text-xl font-display font-bold mt-0.5">Société à Responsabilité Limitée (SARL)</h1>
         <p className="text-sm text-muted-foreground">
           La forme hybride par excellence : responsabilité limitée et intuitu personae modéré

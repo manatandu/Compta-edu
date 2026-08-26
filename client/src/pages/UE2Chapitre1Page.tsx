@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Scale, Flag, MapPin, Users, AlertTriangle,
@@ -1419,6 +1420,7 @@ export default function UE2Chapitre1Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="font-display text-lg font-bold text-foreground leading-tight">La société commerciale</h1>
           <InfoTooltip texte="La société commerciale en droit OHADA" loi="Art. 1 à 6 AUSCGIE" />

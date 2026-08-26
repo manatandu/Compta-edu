@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -1308,6 +1309,7 @@ export default function UE5Chapitre10Page() {
               ]}
               color="emerald"
             />
+            <BackButton />
             <h1 className="text-xl font-display font-bold text-gray-900 mt-1">
               Réformes et actualité des finances publiques en RDC
             </h1>

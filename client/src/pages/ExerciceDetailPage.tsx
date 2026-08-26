@@ -13,7 +13,8 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
-import { ArrowLeft, Plus, Trash2, CheckCircle, XCircle, AlertCircle, BookOpen, Lock, Timer, Save, Dumbbell } from 'lucide-react'
+import { Plus, Trash2, CheckCircle, XCircle, AlertCircle, BookOpen, Lock, Timer, Save, Dumbbell } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 
@@ -462,10 +463,8 @@ export default function ExerciceDetailPage() {
     <div className="space-y-4 animate-fadeIn max-w-3xl">
 
       {/* En-tête */}
+      <BackButton />
       <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => navigate('/exercices')} aria-label="Retour aux exercices">
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
         <div className="flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-xl font-display font-bold text-foreground">{exercice.titre}</h1>

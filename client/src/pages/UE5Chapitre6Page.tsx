@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Users, Clock,
@@ -1234,6 +1235,7 @@ export default function UE5Chapitre6Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">Execution des recettes publiques</h1>
           <InfoTooltip texte="Ce chapitre analyse l'execution des recettes publiques en RDC : les trois phases (constatation, liquidation, ordonnancement) selon l'Art. 90 LOFIP, les regies financieres (DGI, DGDA, DGRAD), les types de recettes du budget 2026 et le principe d'unite de caisse (Art. 110 LOFIP)." loi="Art. 89-92, 110 LOFIP, LF n° 25/060" />

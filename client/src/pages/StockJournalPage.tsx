@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
-  ArrowLeft, BookOpen, Upload, Check, AlertCircle, Filter, ChevronRight
+  BookOpen, Upload, Check, AlertCircle, Filter, ChevronRight
 } from 'lucide-react'
+import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import {
@@ -216,10 +217,10 @@ export default function StockJournalPage({ embedded = false }: { embedded?: bool
       {/* En-tête */}
       <div className="flex items-center gap-3 animate-slideDown">
         {!embedded && (
-          <button onClick={() => navigate(articleId ? `/stock/fiche/${articleId}` : '/stock')}
-            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 hover:scale-110 transition-all">
-            <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-          </button>
+          <BackButton
+            to={articleId ? `/stock/fiche/${articleId}` : '/stock'}
+            label={articleId ? 'Fiche de stock' : 'Gestion de Stock'}
+          />
         )}
         <div className="flex-1 min-w-0">
           <h1 className="text-lg font-display font-bold text-foreground">Journal interne : Stock</h1>

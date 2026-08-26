@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
   Building2, FileText, Scale, Shield, Star, Award, Briefcase,
@@ -524,6 +525,7 @@ export default function UE2Chapitre4Page() {
           ]}
           color="indigo"
         />
+        <BackButton />
         <h1 className="text-xl font-display font-bold mt-0.5">Société Anonyme (SA) et SAS</h1>
         <p className="text-sm text-muted-foreground">
           La grande société de capitaux OHADA : gouvernance, actions, assemblées et société par actions simplifiée

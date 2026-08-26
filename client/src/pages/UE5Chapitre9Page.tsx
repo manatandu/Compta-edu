@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
@@ -840,6 +841,7 @@ export default function UE5Chapitre9Page() {
           ]}
           color="emerald"
         />
+        <BackButton />
         <h1 className="text-lg font-display font-bold text-foreground leading-tight">Contrôle des finances publiques</h1>
         <p className="text-xs text-muted-foreground">Constitution Art. 178-180 · LOFIP Art. 28-31, 111-132 · LF n° 25/060</p>
       </div>

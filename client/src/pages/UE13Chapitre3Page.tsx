@@ -3,6 +3,7 @@ import { InlineMath, BlockMath } from 'react-katex'
 import 'katex/dist/katex.min.css'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Layers, Scale, TrendingDown, ChevronRight,
@@ -1091,6 +1092,7 @@ export default function UE13Chapitre3Page() {
           ]}
           color="sky"
         />
+        <BackButton />
         <div className="flex items-center gap-2 flex-wrap">
           <h1 className="text-lg font-display font-bold text-foreground leading-tight">IAS 36 Dépréciation d'actifs et IAS 40 Immeubles de placement</h1>
           <InfoTooltip texte="IAS 36 : dépréciation d'actifs - test de valeur recouvrable, UGT, goodwill. IAS 40 : immeubles de placement - modèle juste valeur vs modèle du coût. Normes IFRS Foundation." loi="IAS 36 §1 · IAS 40 §1 - IFRS Foundation" />
