@@ -5,15 +5,27 @@
 // ═══════════════════════════════════════════════════════════════════════
 import React, { useEffect, useState } from 'react'
 import { useUser } from '@/lib/userContext'
-import { onUsersSnapshot } from '@/lib/db-firebase'
+import { onUsersSnapshot, deleteUserAsync } from '@/lib/db-firebase'
 import type { User } from '@/lib/db'
-import { ShieldCheck, ShieldAlert, Users, Bug, CheckCircle, XCircle, Info } from 'lucide-react'
+import { ShieldCheck, ShieldAlert, Users, Bug, CheckCircle, XCircle, Info, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 export default function DebuggingAdminPage() {
   const currentUser = useUser()
   const [allUsers, setAllUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
+  const [suppression, setSuppression] = useState<string | null>(null)
+  const [confirmId, setConfirmId] = useState<string | null>(null)
+
+  async function supprimerCompte(id: string) {
+    setSuppression(id)
+    try {
+      await deleteUserAsync(id)
+    } finally {
+      setSuppression(null)
+      setConfirmId(null)
+    }
+  }
 
   useEffect(() => {
     const unsub = onUsersSnapshot((users) => {
@@ -184,7 +196,7 @@ export default function DebuggingAdminPage() {
                     {(e as any).classe && <span>Promo : {(e as any).classe}</span>}
                   </div>
                 </div>
-                <div className="flex gap-1.5 flex-wrap shrink-0">
+                <div className="flex gap-1.5 flex-wrap shrink-0 items-center">
                   <Badge variant={statut === 'valide' ? 'default' : statut === 'en_attente' ? 'secondary' : 'destructive'} className="text-xs">
                     {statut === 'valide' ? '✓ Validé' : statut === 'en_attente' ? '⏳ En attente' : '✗ Refusé'}
                   </Badge>
@@ -196,6 +208,24 @@ export default function DebuggingAdminPage() {
                     ? <Badge variant="outline" className="text-xs text-green-600 border-green-300"><CheckCircle className="h-3 w-3 mr-1" />Université</Badge>
                     : <Badge variant="outline" className="text-xs text-red-500 border-red-300"><XCircle className="h-3 w-3 mr-1" />Pas d'université</Badge>
                   }
+                  {confirmId === e.id ? (
+                    <div className="flex items-center gap-1">
+                      <button onClick={() => supprimerCompte(e.id)} disabled={suppression === e.id}
+                        className="text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 disabled:opacity-50 transition-colors">
+                        {suppression === e.id ? 'Suppression…' : 'Confirmer'}
+                      </button>
+                      <button onClick={() => setConfirmId(null)}
+                        className="text-xs text-muted-foreground hover:text-foreground rounded-md px-2 py-1">
+                        Annuler
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setConfirmId(e.id)}
+                      title="Supprimer ce compte étudiant"
+                      className="h-7 w-7 rounded-md hover:bg-red-50 flex items-center justify-center transition-colors">
+                      <Trash2 className="h-3.5 w-3.5 text-red-400" />
+                    </button>
+                  )}
                 </div>
               </div>
             )
@@ -213,9 +243,29 @@ export default function DebuggingAdminPage() {
           <p className="text-xs text-muted-foreground">Ces étudiants n'ont pas de champ <code>createdBy</code>. Ils ne sont visibles que par l'admin principal (manasse.tandu).</p>
           <div className="space-y-2">
             {etudiantsSansCreatedBy.map(e => (
-              <div key={e.id} className="rounded-lg border border-amber-200 bg-amber-50 p-3">
-                <p className="font-semibold text-sm">{e.prenom} {e.nom} <span className="font-mono text-xs text-muted-foreground">@{e.username}</span></p>
-                <p className="text-xs text-muted-foreground">ID : {e.id}</p>
+              <div key={e.id} className="rounded-lg border border-amber-200 bg-amber-50 p-3 flex items-center justify-between gap-2">
+                <div>
+                  <p className="font-semibold text-sm">{e.prenom} {e.nom} <span className="font-mono text-xs text-muted-foreground">@{e.username}</span></p>
+                  <p className="text-xs text-muted-foreground">ID : {e.id}</p>
+                </div>
+                {confirmId === e.id ? (
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button onClick={() => supprimerCompte(e.id)} disabled={suppression === e.id}
+                      className="text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-md px-2 py-1 disabled:opacity-50 transition-colors">
+                      {suppression === e.id ? 'Suppression…' : 'Confirmer'}
+                    </button>
+                    <button onClick={() => setConfirmId(null)}
+                      className="text-xs text-muted-foreground hover:text-foreground rounded-md px-2 py-1">
+                      Annuler
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => setConfirmId(e.id)}
+                    title="Supprimer ce compte étudiant"
+                    className="h-7 w-7 shrink-0 rounded-md hover:bg-red-100 flex items-center justify-center transition-colors">
+                    <Trash2 className="h-3.5 w-3.5 text-red-500" />
+                  </button>
+                )}
               </div>
             ))}
           </div>
