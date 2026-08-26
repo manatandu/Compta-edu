@@ -10,6 +10,7 @@ import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { EtudiantFiche, NoteManuelle, StatutEtudiant } from '@/lib/db'
 import { anneeAcademiqueEnCours } from '@/lib/utils'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   User, BookOpen, Edit3, Save, X, Plus, Trash2,
   GraduationCap, Building2, Phone, Mail, Hash,
@@ -232,6 +233,7 @@ export default function FicheEtudiantPage() {
 
       {/* ─── HEADER ─── */}
       <div className="space-y-1">
+        <BackButton to="/gestion-etudiants" label="Gestion des étudiants" />
         <Breadcrumb
           items={[
             { label: 'Tableau de bord', route: '/' },

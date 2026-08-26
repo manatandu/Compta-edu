@@ -20,6 +20,7 @@ import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
 import { useToast } from '@/components/ui/use-toast'
 import { Switch } from '@/components/ui/switch'
@@ -81,6 +82,7 @@ export default function InscriptionPlatformePage() {
 
       {/* ─── HEADER ─── */}
       <div className="space-y-1">
+        <BackButton />
         <Breadcrumb
           items={[
             { label: 'Tableau de bord', route: '/' },

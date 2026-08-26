@@ -74,6 +74,11 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/fiscalite':                  { path: '/mes-cours',             label: 'Mes cours' },
   '/coming-soon':                { path: '/',                      label: 'Tableau de bord' },
   '/apercu-devoir':              { path: '/exercices',             label: 'Exercices' },
+  '/debug-isolation':            { path: '/',                      label: 'Tableau de bord' },
+  // Gestion des étudiants
+  '/gestion-etudiants':          { path: '/',                      label: 'Tableau de bord' },
+  '/etudiant':                   { path: '/gestion-etudiants',     label: 'Gestion des étudiants' },
+  '/inscription-plateforme':     { path: '/gestion-etudiants',     label: 'Gestion des étudiants' },
 }
 
 interface BackButtonProps {
@@ -90,6 +95,7 @@ export default function BackButton({ label, to }: BackButtonProps) {
   else if (location.startsWith('/stock/fiche/'))     baseRoute = '/stock/fiche'
   else if (location.startsWith('/stock/journal/'))   baseRoute = '/stock/journal'
   else if (location.startsWith('/ue1/chapitre-'))    baseRoute = '/ue1/chapitre-x'
+  else if (location.startsWith('/etudiant/'))        baseRoute = '/etudiant'
 
   const parent = PARENT_MAP[baseRoute]
 
