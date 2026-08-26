@@ -390,7 +390,17 @@ service cloud.firestore {
     // production (toast "Impossible de charger les étudiants").
     match /etudiants/{etudiantId} {
       allow read: if isProf();
-      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid;
+      // 1) Formulaire "Nouvel étudiant" : le prof/admin est authentifié sur sa
+      //    propre session et écrit directement.
+      // 2) Fiche auto-créée par createUserAsync en même temps que le compte
+      //    utilisateur (inscription via code d'accès, ou création directe par
+      //    un admin) : cette écriture se fait "en tant que" le compte étudiant
+      //    tout juste créé (secondaryAuth, voir createUserAsync côté client),
+      //    jamais en tant qu'admin. On l'autorise donc uniquement à créer une
+      //    fiche qui se désigne elle-même (userId == son propre uid), de type
+      //    'interne' — jamais au nom d'un tiers ni de type 'externe'.
+      allow create: if (isProf() && request.resource.data.createdBy == request.auth.uid) ||
+        (isAuth() && request.resource.data.userId == request.auth.uid && request.resource.data.type == 'interne');
       allow update, delete: if isProf() && (createdBy() || isAdmin());
     }
   }

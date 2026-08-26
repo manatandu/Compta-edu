@@ -20,6 +20,7 @@ import { initializeApp, getApps } from 'firebase/app'
 import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 import { db, auth, storage } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
+import { anneeAcademiqueEnCours } from './utils'
 import type {
   User, UserRole, Session, Ecriture, Exercice, Tentative,
   Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours
@@ -66,6 +67,7 @@ const C = {
   EXERCICES_LIBRES:   'exercices_libres',
   TENTATIVES_EL:      'tentatives_el',
   COURS_STATUTS:      'cours_statuts',
+  ETUDIANTS:          'etudiants',
 }
 
 // ─── Convertisseur Firestore → objet TS (dates, etc.) ────────────────────────
@@ -364,6 +366,16 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   // Écriture Firestore avec l'instance authentifiée AVANT déconnexion
   if (useSecondaryDb) {
     await setDoc(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+    // Fiche 'etudiants' liée, créée pendant que secondaryAuth est encore
+    // authentifié comme le compte tout juste créé (voir firestore.rules,
+    // bloc etudiants : cette écriture ne peut se désigner elle-même que
+    // comme userId == son propre uid). Sans ça, "Gestion des étudiants"
+    // (qui lit la collection etudiants) reste vide alors que le compte
+    // existe bien dans users - c'est exactement l'écart signalé en
+    // production entre le compteur du tableau de bord et cette page.
+    if (data.role === 'etudiant') {
+      await creerFicheEtudiantLiee(secondaryDb, user).catch(() => {})
+    }
     await signOut(secondaryAuth)
     if (rolePrivilegie) {
       await deleteDoc(doc(db, 'accountInvites', uid)).catch(() => {})
@@ -371,8 +383,51 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   } else {
     // Cas fallback (uid généré) : l'admin est connecté sur db principal
     await setDoc(doc(db, C.USERS, uid), cleanUndefined(user) as any)
+    if (data.role === 'etudiant') {
+      await creerFicheEtudiantLiee(db, user).catch(() => {})
+    }
   }
   return user
+}
+
+// ─── Fiche 'etudiants' auto-créée et liée à un compte de connexion ────────────
+// Résout les noms lisibles d'université/faculté (lecture ouverte à tout
+// utilisateur authentifié, cf. firestore.rules) ; la filière/matricule restent
+// à compléter manuellement depuis la fiche, non collectés à l'inscription.
+async function creerFicheEtudiantLiee(dbInstance: typeof db, user: User): Promise<void> {
+  let universite = ''
+  let faculte = ''
+  try {
+    if (user.universiteId) {
+      const uSnap = await getDoc(doc(dbInstance, C.UNIVERSITES, user.universiteId))
+      universite = (uSnap.data() as any)?.nom || ''
+    }
+    if (user.faculteId) {
+      const fSnap = await getDoc(doc(dbInstance, C.FACULTES, user.faculteId))
+      faculte = (fSnap.data() as any)?.nom || ''
+    }
+  } catch { /* lecture best-effort - la fiche se crée même sans ces noms */ }
+
+  const ficheId = generateId()
+  await setDoc(doc(dbInstance, C.ETUDIANTS, ficheId), cleanUndefined({
+    type: 'interne',
+    userId: user.id,
+    nom: user.nom,
+    prenom: user.prenom || '',
+    matricule: '',
+    universite,
+    faculte,
+    filiere: '',
+    promotion: user.classe || '',
+    universiteId: user.universiteId,
+    anneeAcademique: anneeAcademiqueEnCours(),
+    statut: user.actif ? 'actif' : 'suspendu',
+    photo: null,
+    telephone: user.telephone || '',
+    email: '',
+    dateInscription: new Date().toISOString().split('T')[0],
+    createdBy: user.createdBy || user.id,
+  }) as any)
 }
 
 export async function updateUserAsync(id: string, data: Partial<User>): Promise<void> {
@@ -387,6 +442,13 @@ export async function deleteUserAsync(id: string): Promise<void> {
   await deleteDoc(doc(db, C.USERS, id))
   // Note: suppression du compte Firebase Auth nécessite Admin SDK (backend)
   // Pour l'instant on désactive l'utilisateur dans Firestore
+
+  // Supprime la fiche 'etudiants' liée (voir creerFicheEtudiantLiee), pour ne
+  // pas laisser une fiche orpheline pointant vers un compte disparu.
+  try {
+    const snap = await getDocs(query(collection(db, C.ETUDIANTS), where('userId', '==', id)))
+    await Promise.all(snap.docs.map(d => deleteDoc(d.ref)))
+  } catch { /* best-effort */ }
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
