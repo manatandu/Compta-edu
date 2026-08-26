@@ -1356,10 +1356,10 @@ export default function ImmobilisationsPage() {
   const immoExceptionnelOk = immoPrechoisie?.eligibleExceptionnel ?? true
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pb-24 animate-fadeIn">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-background border-b border-border px-4 py-3 flex items-center gap-3">
-        <button onClick={() => navigate('/comptabilite-generale')} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors">
+      <div className="sticky top-0 z-30 bg-background border-b border-border px-4 py-3 flex items-center gap-3 animate-slideDown">
+        <button onClick={() => navigate('/comptabilite-generale')} className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted hover:scale-110 transition-all">
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
@@ -1389,8 +1389,8 @@ export default function ImmobilisationsPage() {
             className={cn(
               'flex-1 min-w-[84px] flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all whitespace-nowrap',
               onglet === id
-                ? 'border-module-emerald text-module-emerald'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+                ? 'border-module-emerald text-module-emerald scale-105'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:scale-105'
             )}
           >
             <Icon className="h-3.5 w-3.5" />
@@ -1399,7 +1399,7 @@ export default function ImmobilisationsPage() {
         ))}
       </div>
 
-      <div className="px-4 pt-4 space-y-4">
+      <div className="px-4 pt-4 space-y-4 animate-fadeIn" key={onglet}>
 
         {/* ─── CATALOGUE ─────────────────────────────────────────────────────────── */}
         {onglet === 'catalogue' && (

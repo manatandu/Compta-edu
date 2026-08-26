@@ -1041,9 +1041,9 @@ export default function UE5Chapitre7Page() {
       ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background animate-fadeIn">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border">
+      <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border animate-slideDown">
         <div className="max-w-3xl mx-auto px-4 py-3">
           <div className="space-y-1">
             <Breadcrumb
@@ -1066,10 +1066,10 @@ export default function UE5Chapitre7Page() {
                 key={t.id}
                 onClick={() => setActiveTab(t.id as typeof activeTab)}
                 className={cn(
-                  'px-3 py-1.5 text-xs font-medium rounded-lg transition-colors',
+                  'px-3 py-1.5 text-xs font-medium rounded-lg transition-all',
                   activeTab === t.id
-                    ? 'bg-violet-600 text-white'
-                    : 'text-muted-foreground hover:bg-muted'
+                    ? 'bg-violet-600 text-white scale-105'
+                    : 'text-muted-foreground hover:bg-muted hover:scale-105'
                 )}
               >
                 {t.label}
@@ -1079,7 +1079,7 @@ export default function UE5Chapitre7Page() {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
+      <div className="max-w-3xl mx-auto px-4 py-6 space-y-6 animate-fadeIn" key={activeTab}>
 
         {/* ── LECONS ── */}
         {activeTab === 'lecons' && (
@@ -1091,7 +1091,7 @@ export default function UE5Chapitre7Page() {
                   key={l.id}
                   onClick={() => setLeconIdx(i)}
                   className={cn(
-                    'text-xs px-3 py-1.5 rounded-full border transition-colors',
+                    'text-xs px-3 py-1.5 rounded-full border transition-all hover:scale-105',
                     leconIdx === i
                       ? 'bg-violet-600 text-white border-violet-600'
                       : 'border-border hover:bg-muted text-muted-foreground'

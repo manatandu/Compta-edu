@@ -266,13 +266,13 @@ export default function DevoirChapitreCreateur({
           </span>
         </div>
         {ouvert
-          ? <ChevronUp className="h-4 w-4 text-indigo-500 shrink-0" />
-          : <ChevronDown className="h-4 w-4 text-indigo-500 shrink-0" />
+          ? <ChevronUp className="h-4 w-4 text-indigo-500 shrink-0 transition-transform duration-200" />
+          : <ChevronDown className="h-4 w-4 text-indigo-500 shrink-0 transition-transform duration-200" />
         }
       </button>
 
       {ouvert && (
-        <div className="px-4 pb-5 space-y-4 border-t border-indigo-200 pt-4">
+        <div className="px-4 pb-5 space-y-4 border-t border-indigo-200 pt-4 animate-slideDown">
 
           {/* Type de devoir */}
           <div>

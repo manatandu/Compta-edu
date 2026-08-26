@@ -39,7 +39,7 @@ export function CatalogueGroupe({ sections, onSelect, selected = [] }: {
         <span className="group-open:rotate-90 transition-transform inline-block text-xs">▶</span>
         Catalogue : cliquer pour ajouter
       </summary>
-      <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2">
+      <div className="mt-2 rounded-lg border border-border bg-muted/20 p-2.5 space-y-2 animate-slideUp">
         <p className="text-xs text-muted-foreground italic">Cliquez sur un élément pour l'ajouter à la liste ci-dessus, puis saisissez le montant.</p>
         {sections.map((section, si) => (
           <div key={si}>
@@ -60,8 +60,8 @@ export function CatalogueGroupe({ sections, onSelect, selected = [] }: {
                         : dejaAjoute
                           ? 'border-border text-muted-foreground bg-muted/50 cursor-not-allowed opacity-60'
                           : section.color.includes('amber')
-                            ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 cursor-pointer'
-                            : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 cursor-pointer'
+                            ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100 hover:scale-105 cursor-pointer'
+                            : 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 hover:scale-105 cursor-pointer'
                     )}>
                     {section.excluded ? '✕ ' : dejaAjoute ? '✓ ' : '+ '}
                     {typeof item === 'object' && <span className="font-mono opacity-70">{item.code} </span>}

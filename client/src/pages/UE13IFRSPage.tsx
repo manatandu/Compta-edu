@@ -109,9 +109,9 @@ export default function UE13IFRSPage() {
   const user = useUser()
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background animate-fadeIn">
       {/* Header */}
-      <div className="bg-sky-600 text-white px-4 py-6">
+      <div className="bg-sky-600 text-white px-4 py-6 animate-slideDown">
         <div className="mb-4">
           <nav aria-label="Fil d'ariane" className="flex items-center flex-wrap gap-0.5 text-xs text-sky-200">
             <button onClick={() => navigate('/mes-cours')} className="hover:text-white font-medium transition-colors">Mes cours</button>
@@ -138,18 +138,19 @@ export default function UE13IFRSPage() {
 
       {/* Liste des chapitres */}
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-3">
-        {CHAPITRES.map((ch) => (
+        {CHAPITRES.map((ch, i) => (
           <button
             key={ch.num}
             onClick={() => ch.actif && navigate(ch.route)}
             disabled={!ch.actif}
             className={cn(
-              "w-full text-left rounded-2xl border bg-card transition-all p-4 flex items-start gap-4 border-l-4",
+              "w-full text-left rounded-2xl border bg-card transition-all p-4 flex items-start gap-4 border-l-4 animate-slideUp",
               ch.accent,
               ch.actif
-                ? "hover:shadow-sm hover:border-sky-300 cursor-pointer"
+                ? "hover:shadow-sm hover:border-sky-300 hover:scale-[1.01] cursor-pointer"
                 : "opacity-50 cursor-not-allowed"
             )}
+            style={{ animationDelay: `${i * 40}ms` }}
           >
             <div className={cn("flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold", ch.couleur)}>
               {ch.num}

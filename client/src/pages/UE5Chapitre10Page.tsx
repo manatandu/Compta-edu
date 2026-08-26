@@ -1295,9 +1295,9 @@ export default function UE5Chapitre10Page() {
   const [devOpen, setDevOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gray-50 pb-20 animate-fadeIn">
       {/* HEADER */}
-      <div className={cn('border-b', C.bg, C.border)}>
+      <div className={cn('border-b animate-slideDown', C.bg, C.border)}>
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="space-y-1 mb-3">
             <Breadcrumb
@@ -1331,14 +1331,14 @@ export default function UE5Chapitre10Page() {
         <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
           {([['lecons','Lecons'],['qcm','QCM'],['cas','Cas pratiques'],['devoir','Devoir']] as const).map(([k,l]) => (
             <button key={k} onClick={() => setOnglet(k)}
-              className={cn('flex-1 text-xs font-medium py-1.5 rounded-md transition-all', onglet === k ? C.active : 'text-gray-500 hover:text-gray-700')}>
+              className={cn('flex-1 text-xs font-medium py-1.5 rounded-md transition-all', onglet === k ? `${C.active} scale-105` : 'text-gray-500 hover:text-gray-700 hover:scale-105')}>
               {l}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 mt-4 space-y-4">
+      <div className="max-w-4xl mx-auto px-4 mt-4 space-y-4 animate-fadeIn" key={onglet}>
 
         {/* ── LECONS ── */}
         {onglet === 'lecons' && (
@@ -1347,7 +1347,7 @@ export default function UE5Chapitre10Page() {
             <div className="flex gap-2 flex-wrap">
               {LECONS.map(l => (
                 <button key={l.id} onClick={() => setLeconActive(l.id as any)}
-                  className={cn('px-3 py-1.5 rounded-lg text-sm font-medium transition-all', leconActive === l.id ? C.active : C.inactive)}>
+                  className={cn('px-3 py-1.5 rounded-lg text-sm font-medium transition-all hover:scale-105', leconActive === l.id ? C.active : C.inactive)}>
                   {l.id}
                 </button>
               ))}

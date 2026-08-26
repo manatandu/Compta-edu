@@ -116,7 +116,7 @@ export default function DashboardStaff() {
   )
 
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-6 pb-8 animate-fadeIn">
       <DashboardHero
         greeting={`${greeting()}${user?.prenom ? ` ${user.prenom.toUpperCase()}` : ''} !`}
         identity={identity}

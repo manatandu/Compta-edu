@@ -971,13 +971,13 @@ export default function SimulateurConstitution() {
   ]
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fadeIn">
 
       {/* Bandeau taux de change */}
       {renderTauxBandeau()}
 
       {/* Stepper */}
-      <div className="flex items-center gap-0">
+      <div className="flex items-center gap-0 animate-slideDown">
         {ETAPES.map((e, i) => (
           <React.Fragment key={e.n}>
             <div className="flex flex-col items-center">
@@ -1007,7 +1007,7 @@ export default function SimulateurConstitution() {
       </div>
 
       {/* Contenu */}
-      <div className="rounded-xl border border-border bg-card p-4">
+      <div className="rounded-xl border border-border bg-card p-4 animate-fadeIn" key={etapeActive}>
         {etapeActive === 1 && renderEtape1()}
         {etapeActive === 2 && renderEtape2()}
         {etapeActive === 3 && renderEtape3()}
@@ -1020,7 +1020,7 @@ export default function SimulateurConstitution() {
           {etapeActive > 1 && (
             <button
               onClick={() => setEtapeActive(e => e - 1)}
-              className="flex items-center gap-2 text-xs px-4 py-2.5 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors font-medium"
+              className="flex items-center gap-2 text-xs px-4 py-2.5 rounded-xl border border-border bg-card hover:bg-muted/50 hover:scale-105 transition-all font-medium"
             >
               <ChevronLeft className="h-3.5 w-3.5" />
               Retour
@@ -1030,7 +1030,7 @@ export default function SimulateurConstitution() {
           <button
             onClick={() => setEtapeActive(e => e + 1)}
             disabled={!peutAvancer()}
-            className="flex items-center gap-2 text-xs px-5 py-2.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-semibold"
+            className="flex items-center gap-2 text-xs px-5 py-2.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all font-semibold"
           >
             {etapeActive === 3 ? 'Voir le résultat' : 'Suivant'}
             <ChevronRight className="h-3.5 w-3.5" />

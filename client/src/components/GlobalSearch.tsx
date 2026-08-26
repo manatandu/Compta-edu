@@ -218,7 +218,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
         />
         {query && (
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-faint hover:text-white"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-faint hover:text-white transition-all hover:scale-110"
             onClick={() => { setQuery(''); setResults([]); inputRef.current?.focus() }}
           >
             <X className="h-3.5 w-3.5" />
@@ -227,7 +227,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
       </div>
 
       {open && query && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto animate-slideDown">
           {results.length === 0 ? (
             <div className="px-3 py-4 text-center text-sm text-muted-foreground">
               Aucun résultat pour « {query} »
