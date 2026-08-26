@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { ChevronRight, BookOpen } from 'lucide-react'
-import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { useUser } from '@/lib/userContext'
 import { cn } from '@/lib/utils'
 
@@ -110,6 +110,9 @@ export default function UE13IFRSPage() {
 
   return (
     <div className="min-h-screen bg-background animate-fadeIn">
+      <div className="px-4 pt-3">
+        <BackButton />
+      </div>
       {/* Header */}
       <div className="bg-sky-600 text-white px-4 py-6 animate-slideDown">
         <div className="mb-4">

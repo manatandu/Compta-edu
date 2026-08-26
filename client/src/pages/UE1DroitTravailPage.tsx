@@ -2,6 +2,7 @@ import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { Lock } from 'lucide-react'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -37,6 +38,7 @@ export default function UE1DroitTravailPage() {
   return (
     <div className="space-y-8 pb-10 animate-fadeIn">
       <div className="space-y-1">
+        <BackButton />
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },

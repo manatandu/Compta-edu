@@ -2,6 +2,7 @@ import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { ChevronRight, Lock, BookOpen, CheckCircle2 } from 'lucide-react'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import { useUser } from '@/lib/userContext'
 import { cn } from '@/lib/utils'
 
@@ -163,6 +164,7 @@ export default function UE2DroitSocietesPage() {
       {/* En-tête */}
       <div className="flex items-center gap-3">
         <div className="flex-1 min-w-0">
+          <BackButton />
           <Breadcrumb
             items={[
               { label: 'Mes cours', route: '/mes-cours' },

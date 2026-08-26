@@ -10,6 +10,7 @@ import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { EtudiantFiche, StatutEtudiant } from '@/lib/db'
 import { onAnneeAcademiqueSnapshot, avancerAnneeAcademiqueAsync } from '@/lib/db-firebase'
 import { Breadcrumb } from '@/components/Breadcrumb'
+import BackButton from '@/components/BackButton'
 import {
   Users, Search, Filter, Eye, Trash2,
   GraduationCap, Building2, BookOpen, Calendar,
@@ -164,6 +165,7 @@ export default function GestionEtudiantsPage() {
 
       {/* ─── HEADER ─── */}
       <div className="space-y-1">
+        <BackButton />
         <Breadcrumb
           items={[
             { label: 'Tableau de bord', route: '/' },

@@ -9,6 +9,7 @@ import { onUsersSnapshot, deleteUserAsync } from '@/lib/db-firebase'
 import type { User } from '@/lib/db'
 import { ShieldCheck, ShieldAlert, Users, Bug, CheckCircle, XCircle, Info, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import BackButton from '@/components/BackButton'
 
 export default function DebuggingAdminPage() {
   const currentUser = useUser()
@@ -74,6 +75,7 @@ export default function DebuggingAdminPage() {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 space-y-6 animate-fadeIn">
+      <BackButton />
       {/* En-tête */}
       <div className="flex items-center gap-3 border-b pb-4 animate-slideDown">
         <Bug className="h-7 w-7 text-amber-500" />
