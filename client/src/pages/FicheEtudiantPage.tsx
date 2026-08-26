@@ -14,7 +14,7 @@ import {
   User, BookOpen, Edit3, Save, X, Plus, Trash2,
   GraduationCap, Building2, Phone, Mail, Hash,
   Calendar, CheckCircle2, XCircle, Award,
-  FileText, ChevronDown, AlertCircle
+  FileText, ChevronDown, AlertCircle, Archive, RotateCcw
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 
@@ -67,6 +67,7 @@ export default function FicheEtudiantPage() {
   const [editStatut, setEditStatut] = useState(false)
   const [nouveauStatut, setNouveauStatut] = useState<StatutEtudiant>('actif')
   const [savingStatut, setSavingStatut] = useState(false)
+  const [reactivating, setReactivating] = useState(false)
 
   // Formulaire saisie note manuelle
   const [showFormNote, setShowFormNote] = useState(false)
@@ -132,6 +133,27 @@ export default function FicheEtudiantPage() {
       toast({ title: 'Erreur', description: 'Impossible de mettre à jour le statut.', variant: 'destructive' })
     } finally {
       setSavingStatut(false)
+    }
+  }
+
+  // ─── Sortie des archives (au cas où "Passer à l'année suivante" a été
+  // cliqué par erreur, ou qu'un étudiant précis doit reprendre) ─────────────
+  async function reactiverEtudiant() {
+    if (!etudiant) return
+    setReactivating(true)
+    try {
+      await updateDoc(doc(db, 'etudiants', etudiant.id), { archive: false })
+      if (etudiant.userId) {
+        // Best-effort : le compte lié peut avoir été supprimé entre-temps
+        // (voir /debug-isolation) - la fiche redevient active dans tous les cas.
+        await updateDoc(doc(db, 'users', etudiant.userId), { actif: true }).catch(() => {})
+      }
+      setEtudiant(prev => prev ? { ...prev, archive: false } : prev)
+      toast({ title: 'Étudiant réactivé', description: 'Sorti des archives ; son compte de connexion a été réactivé si présent.' })
+    } catch (e) {
+      toast({ title: 'Erreur', description: 'Impossible de réactiver cet étudiant.', variant: 'destructive' })
+    } finally {
+      setReactivating(false)
     }
   }
 
@@ -244,6 +266,11 @@ export default function FicheEtudiantPage() {
                 {etudiant.type === 'interne' ? <GraduationCap className="w-3 h-3" /> : <Building2 className="w-3 h-3" />}
                 {etudiant.type === 'interne' ? 'Interne' : 'Externe'}
               </span>
+              {etudiant.archive && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                  <Archive className="w-3 h-3" /> Archivé{etudiant.anneeArchivage ? ` (${etudiant.anneeArchivage})` : ''}
+                </span>
+              )}
             </div>
 
             <div className="flex items-center gap-4 flex-wrap mt-2 text-sm text-muted-foreground">
@@ -277,9 +304,19 @@ export default function FicheEtudiantPage() {
             </div>
           </div>
 
-          {/* Modifier statut */}
+          {/* Modifier statut / réactiver */}
           {isAdmin && (
-            <div className="shrink-0">
+            <div className="shrink-0 flex items-center gap-2">
+              {etudiant.archive && (
+                <button
+                  onClick={reactiverEtudiant}
+                  disabled={reactivating}
+                  title="Retire cet étudiant des Archives et réactive son compte de connexion"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 text-sm font-semibold hover:bg-emerald-100 transition-colors disabled:opacity-50"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" /> {reactivating ? 'Réactivation...' : 'Réactiver'}
+                </button>
+              )}
               {editStatut ? (
                 <div className="flex items-center gap-2">
                   <div className="relative">
@@ -364,6 +401,7 @@ export default function FicheEtudiantPage() {
               ['Promotion', etudiant.promotion],
               ['Année académique', etudiant.anneeAcademique],
               ['Statut', etudiant.statut === 'actif' ? 'Actif' : etudiant.statut === 'suspendu' ? 'Suspendu' : 'Diplômé'],
+              ['Archives', etudiant.archive ? `Oui - depuis ${etudiant.anneeArchivage || '?'}` : 'Non'],
               ['Téléphone', etudiant.telephone || '--'],
               ['Email', etudiant.email || '--'],
               ['Date d\'inscription', etudiant.dateInscription || '--'],
