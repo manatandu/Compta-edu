@@ -684,6 +684,25 @@ export function onMessagesSnapshot(userId: string, callback: (messages: Message[
   return () => { unsubSent(); unsubReceived() }
 }
 
+// Marque comme lus les messages reçus d'un expéditeur donné. Sans cet appel,
+// le champ `lu` d'un Message restait figé à `false` depuis sa création
+// (saveMessageAsync) : la messagerie n'écrivait jamais l'inverse, donc rien
+// ne repassait jamais à `true`, même après ouverture de la conversation -
+// la cloche de notification (NotificationBell) comptait alors des messages
+// lus depuis longtemps comme éternellement « non lus ».
+export async function marquerMessagesLusAsync(destinataireId: string, expediteurId: string): Promise<void> {
+  const snap = await getDocs(query(
+    collection(db, C.MESSAGES),
+    where('destinataireId', '==', destinataireId),
+    where('expediteurId', '==', expediteurId),
+    where('lu', '==', false)
+  ))
+  if (snap.empty) return
+  const batch = writeBatch(db)
+  snap.docs.forEach(d => batch.update(d.ref, { lu: true }))
+  await batch.commit()
+}
+
 // ──────────────────────────────────────────────────────────────────────────────
 //  UNIVERSITES
 // ──────────────────────────────────────────────────────────────────────────────

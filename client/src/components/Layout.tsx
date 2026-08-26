@@ -330,7 +330,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          {isAdmin && <NotificationBell user={user} />}
+          <NotificationBell user={user} />
           <Button variant="ghost" size="icon" className="h-8 w-8 text-ink-soft hover:text-destructive hover:bg-white/5" onClick={handleLogout} title="Déconnexion" aria-label="Déconnexion">
             <LogOut className="h-4 w-4" />
           </Button>
@@ -384,7 +384,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
             <span className="font-display font-bold text-primary text-sm truncate">Orbit</span>
           </div>
           <div className="flex gap-1 shrink-0 items-center">
-            {isAdmin && <NotificationBell user={user} />}
+            <NotificationBell user={user} />
             <Button variant="ghost" size="icon" className="h-9 w-9 text-destructive" onClick={handleLogout} aria-label="Déconnexion">
               <LogOut className="h-4 w-4" />
             </Button>

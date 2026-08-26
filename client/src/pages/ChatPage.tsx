@@ -2,7 +2,7 @@ import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
 import React, { useState, useRef, useEffect } from 'react'
 import BackButton from '@/components/BackButton'
-import { onMessagesSnapshot, saveMessageAsync, getUsersAsync } from '@/lib/db-firebase'
+import { onMessagesSnapshot, saveMessageAsync, getUsersAsync, marquerMessagesLusAsync } from '@/lib/db-firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -43,6 +43,16 @@ export default function ChatPage() {
 
   const [selectedUserId, setSelectedUserId] = useState<string>('')
 
+  // Pré-sélectionner un contact passé en paramètre d'URL (?with=<userId>),
+  // par exemple depuis un lien "Voir le message" de la cloche de
+  // notification. Prioritaire sur la pré-sélection automatique ci-dessous.
+  React.useEffect(() => {
+    if (selectedUserId) return
+    const hash = window.location.hash
+    const match = hash.match(/[?&]with=([^&]+)/)
+    if (match) setSelectedUserId(decodeURIComponent(match[1]))
+  }, [])
+
   // Pré-sélectionner l'admin créateur du code d'accès dès que les users sont chargés
   React.useEffect(() => {
     if (!currentUser || isStaff || users.length === 0 || selectedUserId) return
@@ -72,6 +82,16 @@ export default function ChatPage() {
         (m.expediteurId === selectedUserId && m.destinataireId === currentUser?.id)
       )
     : []
+
+  // Marquer comme lus les messages de la conversation ouverte : sans ce
+  // useEffect, le champ `lu` d'un Message restait figé à `false` depuis sa
+  // création (voir marquerMessagesLusAsync) et la cloche de notification
+  // comptait indéfiniment ces messages comme non lus, même après lecture.
+  useEffect(() => {
+    if (!currentUser?.id || !selectedUserId) return
+    const aDesLire = messages.some(m => m.expediteurId === selectedUserId && m.destinataireId === currentUser.id && !m.lu)
+    if (aDesLire) marquerMessagesLusAsync(currentUser.id, selectedUserId).catch(console.error)
+  }, [currentUser?.id, selectedUserId, messages])
 
   const sendMessage = () => {
     if (!newMessage.trim() || !currentUser || !selectedUserId) return

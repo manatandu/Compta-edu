@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
-import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight } from 'lucide-react'
+import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
-import { getUsersAsync } from '@/lib/db-firebase'
+import { getUsersAsync, onMessagesSnapshot } from '@/lib/db-firebase'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Notif {
   id: string
-  type: 'inscription' | 'correction' | 'qcm_soumis'
+  type: 'inscription' | 'correction' | 'qcm_soumis' | 'message'
   titre: string
   desc: string
   date: string        // ISO
@@ -62,6 +62,29 @@ export function NotificationBell({ user }: NotificationBellProps) {
   const { soumissions: toutesLesSoumissions } = useAllSoumissions()
   const { devoirs: tousLesDevoirs } = useAllDevoirs()
   const [usersEnAttente, setUsersEnAttente] = useState<any[]>([])
+  const [messagesRecus, setMessagesRecus] = useState<any[]>([])
+  const [expediteurs, setExpediteurs] = useState<Record<string, string>>({})
+
+  // Messages reçus, tous rôles : la messagerie fonctionne dans les deux sens
+  // (étudiant <-> staff), donc cette notification n'a pas de raison d'être
+  // réservée à l'admin comme les deux autres types ci-dessous.
+  useEffect(() => {
+    if (!user?.id) return
+    const unsub = onMessagesSnapshot(user.id, (msgs) => {
+      setMessagesRecus(msgs.filter(m => m.destinataireId === user.id && !m.lu))
+    })
+    return () => unsub()
+  }, [user?.id])
+
+  // Noms des expéditeurs, pour le titre de la notification
+  useEffect(() => {
+    if (messagesRecus.length === 0) return
+    getUsersAsync().then(users => {
+      const map: Record<string, string> = {}
+      users.forEach(u => { map[u.id] = `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Utilisateur' })
+      setExpediteurs(map)
+    }).catch(() => {})
+  }, [messagesRecus.length])
 
   // Charger les notifications vues au montage
   useEffect(() => {
@@ -93,33 +116,45 @@ export function NotificationBell({ user }: NotificationBellProps) {
   }, [open])
 
   // Construire les notifications
-  const notifications: Notif[] = isAdmin ? [
-    // 1. Inscriptions en attente
-    ...usersEnAttente.map(u => ({
-      id: `inscription-${u.id}`,
-      type: 'inscription' as const,
-      titre: `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Étudiant',
-      desc: 'Demande d\'inscription en attente de validation',
-      date: (u as any).dateCreation || new Date().toISOString(),
-      action: () => { navigate('/professeurs'); setOpen(false) },
+  const notifications: Notif[] = [
+    // Messages reçus non lus : tous rôles.
+    ...messagesRecus.map(m => ({
+      id: `message-${m.id}`,
+      type: 'message' as const,
+      titre: expediteurs[m.expediteurId] || 'Nouveau message',
+      desc: m.contenu?.length > 60 ? `${m.contenu.slice(0, 60)}…` : (m.contenu || ''),
+      date: m.date || new Date().toISOString(),
+      action: () => { navigate(`/chat?with=${m.expediteurId}`); setOpen(false) },
     })),
 
-    // 2. Soumissions pratiques/théoriques à corriger manuellement
-    ...toutesLesSoumissions
-      .filter(s => s.statut === 'soumis')
-      .slice(0, 15)
-      .map(s => {
-        const devoir = tousLesDevoirs.find(d => d.id === s.devoirId)
-        return {
-          id: `correction-${s.id}`,
-          type: 'correction' as const,
-          titre: devoir?.titre || 'Devoir à corriger',
-          desc: `Soumis le ${s.dateSoumission ? new Date(s.dateSoumission).toLocaleDateString('fr-FR') : 'Date inconnue'}`,
-          date: s.dateSoumission || new Date().toISOString(),
-          action: () => { navigate('/professeurs'); setOpen(false) },
-        }
-      }),
-  ] : []
+    ...(isAdmin ? [
+      // Inscriptions en attente
+      ...usersEnAttente.map(u => ({
+        id: `inscription-${u.id}`,
+        type: 'inscription' as const,
+        titre: `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Étudiant',
+        desc: 'Demande d\'inscription en attente de validation',
+        date: (u as any).dateCreation || new Date().toISOString(),
+        action: () => { navigate('/professeurs'); setOpen(false) },
+      })),
+
+      // Soumissions pratiques/théoriques à corriger manuellement
+      ...toutesLesSoumissions
+        .filter(s => s.statut === 'soumis')
+        .slice(0, 15)
+        .map(s => {
+          const devoir = tousLesDevoirs.find(d => d.id === s.devoirId)
+          return {
+            id: `correction-${s.id}`,
+            type: 'correction' as const,
+            titre: devoir?.titre || 'Devoir à corriger',
+            desc: `Soumis le ${s.dateSoumission ? new Date(s.dateSoumission).toLocaleDateString('fr-FR') : 'Date inconnue'}`,
+            date: s.dateSoumission || new Date().toISOString(),
+            action: () => { navigate('/professeurs'); setOpen(false) },
+          }
+        }),
+    ] : []),
+  ]
 
   // Trier par date décroissante
   notifications.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -160,14 +195,17 @@ export function NotificationBell({ user }: NotificationBellProps) {
         <Clock className="h-4 w-4 text-blue-600" />
       </div>
     )
+    if (type === 'message') return (
+      <div className="h-8 w-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+        <MessageSquare className="h-4 w-4 text-emerald-600" />
+      </div>
+    )
     return (
       <div className="h-8 w-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
         <BookOpen className="h-4 w-4 text-violet-600" />
       </div>
     )
   }
-
-  if (!isAdmin) return null
 
   return (
     <div ref={ref} className="relative">
@@ -267,10 +305,10 @@ export function NotificationBell({ user }: NotificationBellProps) {
                 {notifications.length} notification{notifications.length > 1 ? 's' : ''} au total
               </span>
               <button
-                onClick={() => { navigate('/professeurs'); setOpen(false) }}
+                onClick={() => { navigate(isAdmin ? '/professeurs' : '/chat'); setOpen(false) }}
                 className="text-xs text-primary hover:underline font-medium"
               >
-                Espace admin →
+                {isAdmin ? 'Espace admin →' : 'Messagerie →'}
               </button>
             </div>
           )}
