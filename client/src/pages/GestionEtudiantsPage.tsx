@@ -181,8 +181,9 @@ export default function GestionEtudiantsPage() {
               {/* Seul point d'entrée pour créer un étudiant : ça crée le compte
                   de connexion ET sa fiche liée automatiquement (voir
                   createUserAsync). L'ancien bouton "Enregistrer un étudiant"
-                  (fiche seule, /nouvel-etudiant, sans compte) faisait double
-                  emploi et compliquait le choix - retiré. */}
+                  (fiche seule sans compte, ex-page /nouvel-etudiant) faisait
+                  double emploi et compliquait le choix - retiré, page et
+                  route supprimées. */}
               <button
                 onClick={() => navigate('/inscription-plateforme')}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition-colors"
