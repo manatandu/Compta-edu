@@ -4,7 +4,7 @@ import {
   BookOpen, BookMarked, ClipboardList, Clock, Users, GraduationCap,
 } from 'lucide-react'
 import { useAllCours, useFacultes, useUniversites, useAllSoumissions, useDevoirs } from '@/lib/useFirestore'
-import { getUsersAsync } from '@/lib/db-firebase'
+import { getUsersAsync, COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
 import { DashboardHero, greeting, type DashboardStat } from '@/components/DashboardHero'
@@ -48,7 +48,23 @@ export default function DashboardStaff() {
     getUsersAsync().then(setUsers).catch(() => {})
   }, [])
 
-  const allCours = allCoursRaw.filter(c => c.actif)
+  // Compte les UE distinctes, pas les instances par faculté : depuis que
+  // chaque UE active est auto-provisionnée dans toutes les facultés
+  // (provisionCoursManquantsAsync), un cours système actif donne autant de
+  // documents Cours que de facultés - le compter tel quel gonflait le
+  // chiffre affiché ici (ex. 6 UE actives × 7 facultés = 42 « cours »).
+  // On déduplique par coursSystemeId pour retomber sur le nombre d'UE.
+  const coursSystemeInactifsIds = new Set(COURS_SYSTEME.filter(c => !c.actif).map(c => c.id))
+  const vusCoursSysteme = new Set<string>()
+  const allCours = allCoursRaw.filter(c => {
+    if (!c.actif) return false
+    const csId = (c as any).coursSystemeId as string | undefined
+    if (csId && coursSystemeInactifsIds.has(csId)) return false
+    const key = csId || c.id
+    if (vusCoursSysteme.has(key)) return false
+    vusCoursSysteme.add(key)
+    return true
+  })
 
   // Étudiants inscrits par ce professeur/admin (createdBy)
   const mesEtudiants = users.filter(u => {
