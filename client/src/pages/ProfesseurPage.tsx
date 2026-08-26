@@ -41,7 +41,7 @@ import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
   ChevronDown, ChevronRight, UserPlus, MapPin, Phone, BookOpen, X, ShieldCheck, LibraryBig,
   Paperclip, FileDown, FileText, CalendarCheck, Award, Check, CheckCircle2, ClipboardList, Minus, TrendingDown, Clock, Download,
-  Lock, CheckCheck, Unlock, KeyRound, Eye, EyeOff, RefreshCw, Search
+  Lock, CheckCheck, Unlock, KeyRound, Eye, EyeOff, RefreshCw, Search, ExternalLink
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
@@ -1404,18 +1404,24 @@ export default function ProfesseurPage() {
       </div>
 
       {/* Tabs groupés en 3 sections */}
-      <div className="animate-slideDown space-y-2" style={{ animationDelay: '80ms' }}>
+      <div className="animate-slideDown space-y-3" style={{ animationDelay: '80ms' }}>
 
         {/* Groupe 1 : Gestion */}
         <div className="space-y-1">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest px-1">Gestion</p>
+          <div className="px-1">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Gestion</p>
+            <p className="text-[11px] text-muted-foreground/70">Comptes étudiants, inscriptions à valider, structure académique</p>
+          </div>
           <div className="flex flex-wrap gap-1.5">
-            {/* Bouton redirection étudiants */}
+            {/* Bouton redirection étudiants - seul bouton du groupe à changer de
+                page (Gestion des étudiants a son propre header/filtres/stats,
+                ça ne peut pas tenir dans un onglet) : la flèche ↗ le signale. */}
             <button
               onClick={() => navigate('/gestion-etudiants')}
+              title="Ouvre la page Gestion des étudiants"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
             >
-              <Users className="h-3.5 w-3.5" /> Étudiants
+              <Users className="h-3.5 w-3.5" /> Étudiants <ExternalLink className="h-3 w-3 opacity-60" />
             </button>
             <button
               onClick={() => setTab('inscriptions')}
@@ -1448,7 +1454,10 @@ export default function ProfesseurPage() {
 
         {/* Groupe 2 : Pédagogie */}
         <div className="space-y-1">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest px-1">Pédagogie</p>
+          <div className="px-1">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Pédagogie</p>
+            <p className="text-[11px] text-muted-foreground/70">Devoirs soumis à corriger, supports de cours partagés</p>
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {([
               { id: 'copies',    label: 'Copies à corriger', icon: <ClipboardList className="h-3.5 w-3.5" /> },
@@ -1456,8 +1465,8 @@ export default function ProfesseurPage() {
             ] as {id: Tab, label: string, icon: React.ReactNode}[]).map(t => (
               <button key={t.id} onClick={() => setTab(t.id as Tab)}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all=",
-                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm=" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted="
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
+                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}>
                 {t.icon}{t.label}
               </button>
@@ -1467,7 +1476,10 @@ export default function ProfesseurPage() {
 
         {/* Groupe 3 : Suivi */}
         <div className="space-y-1">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest px-1">Suivi</p>
+          <div className="px-1">
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Suivi</p>
+            <p className="text-[11px] text-muted-foreground/70">Avancement dans les modules, présence en classe, relevé de notes</p>
+          </div>
           <div className="flex flex-wrap gap-1.5">
             {([
               { id: 'progression', label: 'Progression', icon: <BarChart2 className="h-3.5 w-3.5" /> },
@@ -1476,8 +1488,8 @@ export default function ProfesseurPage() {
             ] as {id: Tab, label: string, icon: React.ReactNode}[]).map(t => (
               <button key={t.id} onClick={() => setTab(t.id as Tab)}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all=",
-                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm=" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted="
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
+                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}>
                 {t.icon}{t.label}
               </button>
