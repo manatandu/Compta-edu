@@ -139,18 +139,15 @@ export default function GestionEtudiantsPage() {
           </div>
           {isAdmin && (
             <div className="flex items-center gap-2 flex-wrap">
-              <button
-                onClick={() => navigate('/nouvel-etudiant')}
-                className="inline-flex items-center gap-2 px-4 py-2 border border-indigo-200 hover:bg-indigo-50 text-indigo-700 text-sm font-semibold rounded-xl transition-colors"
-                title="Enregistrer un étudiant interne ou externe, sans compte de connexion"
-              >
-                <UserPlus className="w-4 h-4" />
-                Enregistrer un étudiant
-              </button>
+              {/* Seul point d'entrée pour créer un étudiant : ça crée le compte
+                  de connexion ET sa fiche liée automatiquement (voir
+                  createUserAsync). L'ancien bouton "Enregistrer un étudiant"
+                  (fiche seule, /nouvel-etudiant, sans compte) faisait double
+                  emploi et compliquait le choix - retiré. */}
               <button
                 onClick={() => navigate('/inscription-plateforme')}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition-colors"
-                title="Créer un compte de connexion pour un étudiant interne"
+                title="Créer un compte de connexion pour un étudiant"
               >
                 <UserPlus className="w-4 h-4" />
                 Inscrire sur la plateforme
@@ -268,7 +265,7 @@ export default function GestionEtudiantsPage() {
             </p>
             {isAdmin && etudiants.length === 0 && (
               <button
-                onClick={() => navigate('/nouvel-etudiant')}
+                onClick={() => navigate('/inscription-plateforme')}
                 className="text-indigo-600 text-sm font-semibold hover:underline"
               >
                 + Ajouter le premier étudiant
