@@ -212,12 +212,12 @@ export default function StockJournalPage({ embedded = false }: { embedded?: bool
   const nonExportesCount = ecritures.filter(e => !e.exporte).length
 
   return (
-    <div className="space-y-5 pb-4">
+    <div className="space-y-5 pb-4 animate-fadeIn">
       {/* En-tête */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 animate-slideDown">
         {!embedded && (
           <button onClick={() => navigate(articleId ? `/stock/fiche/${articleId}` : '/stock')}
-            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
+            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 hover:scale-110 transition-all">
             <ArrowLeft className="h-4 w-4 text-muted-foreground" />
           </button>
         )}
@@ -237,7 +237,7 @@ export default function StockJournalPage({ embedded = false }: { embedded?: bool
       </div>
 
       {/* Compteurs */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3 animate-slideUp" style={{ animationDelay: '60ms' }}>
         <div className="rounded-xl border border-border bg-card px-3 py-2 text-center">
           <p className="text-xs text-muted-foreground">Total</p>
           <p className="text-lg font-bold text-foreground">{ecritures.length}</p>
@@ -256,7 +256,7 @@ export default function StockJournalPage({ embedded = false }: { embedded?: bool
 
       {/* Filtre */}
       {ecritures.length > 0 && (
-        <div className="rounded-xl border border-border bg-card p-1 flex gap-1">
+        <div className="rounded-xl border border-border bg-card p-1 flex gap-1 animate-slideUp" style={{ animationDelay: '100ms' }}>
           {([
             { val: 'tous', label: 'Toutes' },
             { val: 'non-exportes', label: 'A exporter' },
@@ -289,7 +289,7 @@ export default function StockJournalPage({ embedded = false }: { embedded?: bool
           </p>
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2 animate-slideUp" style={{ animationDelay: '140ms' }}>
           {ecrituresFiltrees.map(ec => (
             <LigneEcriture key={ec.id} ec={ec} />
           ))}
@@ -298,7 +298,7 @@ export default function StockJournalPage({ embedded = false }: { embedded?: bool
 
       {/* Lien vers le journal général */}
       <button onClick={() => navigate('/journal')}
-        className="w-full flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-primary/20 hover:bg-primary/5 transition-all group">
+        className="w-full flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 hover:border-primary/20 hover:bg-primary/5 hover:scale-[1.01] transition-all group">
         <div className="flex items-center gap-2">
           <BookOpen className="h-4 w-4 text-primary" />
           <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">

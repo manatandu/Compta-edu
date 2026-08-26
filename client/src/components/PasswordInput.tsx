@@ -29,7 +29,7 @@ export default function PasswordInput({ value, onChange, placeholder, className,
         type="button"
         variant="ghost"
         size="icon"
-        className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground"
+        className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-foreground transition-all hover:scale-110"
         onClick={() => setShow(v => !v)}
         tabIndex={-1}
         aria-label={show ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}

@@ -223,12 +223,12 @@ export default function StockExercicePage({ embedded = false }: { embedded?: boo
   }
 
   return (
-    <div className="space-y-5 pb-4">
+    <div className="space-y-5 pb-4 animate-fadeIn">
       {/* En-tête */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 animate-slideDown">
         {!embedded && (
           <button onClick={() => navigate('/stock')}
-            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 transition-colors">
+            className="h-8 w-8 rounded-lg border border-border bg-card flex items-center justify-center hover:bg-muted/50 hover:scale-110 transition-all">
             <ArrowLeft className="h-4 w-4 text-muted-foreground" />
           </button>
         )}
@@ -242,7 +242,7 @@ export default function StockExercicePage({ embedded = false }: { embedded?: boo
       </div>
 
       {/* Titre exercice */}
-      <div className="rounded-xl bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-200/30 px-5 py-4">
+      <div className="rounded-xl bg-gradient-to-r from-purple-500/10 via-purple-500/5 to-transparent border border-purple-200/30 px-5 py-4 animate-slideUp" style={{ animationDelay: '60ms' }}>
         <div className="flex items-center gap-2 mb-1">
           <BookOpen className="h-4 w-4 text-purple-600" />
           <span className="text-xs font-bold text-purple-600 uppercase tracking-wide">Application</span>
@@ -254,7 +254,7 @@ export default function StockExercicePage({ embedded = false }: { embedded?: boo
       </div>
 
       {/* Onglets Énoncé / Correction */}
-      <div className="rounded-xl border border-border bg-card p-1 flex gap-1">
+      <div className="rounded-xl border border-border bg-card p-1 flex gap-1 animate-slideUp" style={{ animationDelay: '100ms' }}>
         {([
           { val: 'enonce', label: 'Énoncé' },
           { val: 'correction', label: 'Correction' },
@@ -263,7 +263,7 @@ export default function StockExercicePage({ embedded = false }: { embedded?: boo
             className={cn(
               'flex-1 rounded-lg py-2 text-xs font-semibold transition-all',
               etape === o.val
-                ? 'bg-purple-600 text-white shadow-sm'
+                ? 'bg-purple-600 text-white shadow-sm scale-[1.02]'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
             )}>
             {o.val === 'correction' && <Trophy className="h-3 w-3 inline mr-1" />}
@@ -273,7 +273,7 @@ export default function StockExercicePage({ embedded = false }: { embedded?: boo
       </div>
 
       {etape === 'enonce' ? (
-        <div className="space-y-4">
+        <div className="space-y-4 animate-fadeIn" key="enonce">
           {/* Consigne */}
           <div className="rounded-xl border border-border bg-card p-4 space-y-2">
             <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Travail à faire</p>
@@ -368,7 +368,7 @@ export default function StockExercicePage({ embedded = false }: { embedded?: boo
 
       ) : (
         /* CORRECTION */
-        <div className="space-y-6">
+        <div className="space-y-6 animate-fadeIn" key="correction">
           <div className="rounded-lg bg-amber-50 border border-amber-200/50 px-3 py-2">
             <p className="text-xs text-amber-700 font-semibold">
               Essaie d'abord de résoudre l'exercice avant de consulter la correction.

@@ -49,10 +49,10 @@ export default function GestionStockPage() {
   return (
     <div className="min-h-screen bg-background pb-24">
       {/* Header */}
-      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b border-border px-4 py-3 flex items-center gap-3">
+      <div className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b border-border px-4 py-3 flex items-center gap-3 animate-slideDown">
         <button
           onClick={() => navigate('/comptabilite-generale')}
-          className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted transition-colors"
+          className="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-muted hover:scale-110 transition-all"
         >
           <ArrowLeft className="h-4 w-4 text-foreground" />
         </button>
@@ -81,8 +81,8 @@ export default function GestionStockPage() {
               className={cn(
                 'flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-semibold border-b-2 transition-all',
                 estActif
-                  ? `${o.activeBorder} ${o.color}`
-                  : 'border-transparent text-muted-foreground hover:text-foreground'
+                  ? `${o.activeBorder} ${o.color} scale-105`
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:scale-105'
               )}
             >
               <Icon className="h-3.5 w-3.5" />

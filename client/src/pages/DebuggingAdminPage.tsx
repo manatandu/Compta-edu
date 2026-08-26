@@ -73,9 +73,9 @@ export default function DebuggingAdminPage() {
   const isolationOK = etudiantsAutresAdmins.length === 0 || true // Le filtre JS est appliqué
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 space-y-6">
+    <div className="max-w-4xl mx-auto py-8 px-4 space-y-6 animate-fadeIn">
       {/* En-tête */}
-      <div className="flex items-center gap-3 border-b pb-4">
+      <div className="flex items-center gap-3 border-b pb-4 animate-slideDown">
         <Bug className="h-7 w-7 text-amber-500" />
         <div>
           <h1 className="text-xl font-display font-bold text-foreground">Page de débogage - Isolation admin</h1>
@@ -84,7 +84,7 @@ export default function DebuggingAdminPage() {
       </div>
 
       {/* Identité de l'admin connecté */}
-      <div className="rounded-xl border bg-card p-4 space-y-1">
+      <div className="rounded-xl border bg-card p-4 space-y-1 animate-slideUp" style={{ animationDelay: '60ms' }}>
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Admin connecté</p>
         <p className="font-bold text-foreground text-lg">{currentUser.prenom} {currentUser.nom}</p>
         <p className="text-xs text-muted-foreground font-mono">
@@ -99,7 +99,7 @@ export default function DebuggingAdminPage() {
       </div>
 
       {/* Résumé chiffré */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 animate-slideUp" style={{ animationDelay: '100ms' }}>
         <div className="rounded-xl border bg-card p-4 text-center">
           <p className="text-2xl font-bold text-primary">{loading ? '…' : tousEtudiants.length}</p>
           <p className="text-xs text-muted-foreground mt-1">Total Firestore</p>

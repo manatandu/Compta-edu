@@ -1402,9 +1402,9 @@ export default function ProceduresFiscales() {
   const Composant = TITRES.find(t => t.id === actif)!.component
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fadeIn">
       {/* En-tête */}
-      <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+      <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg animate-slideDown">
         <div className="flex items-start gap-2">
           <BookOpen className="h-4 w-4 mt-0.5 text-slate-600 shrink-0" />
           <div>
@@ -1433,8 +1433,8 @@ export default function ProceduresFiscales() {
               className={cn(
                 'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all border',
                 isActif
-                  ? 'bg-slate-800 text-white border-slate-800'
-                  : 'bg-background text-muted-foreground border-border/60 hover:border-slate-400 hover:text-foreground'
+                  ? 'bg-slate-800 text-white border-slate-800 scale-105'
+                  : 'bg-background text-muted-foreground border-border/60 hover:border-slate-400 hover:text-foreground hover:scale-105'
               )}
             >
               <Icon className="h-3 w-3" />
@@ -1446,7 +1446,7 @@ export default function ProceduresFiscales() {
       </div>
 
       {/* Contenu */}
-      <div>
+      <div className="animate-fadeIn" key={actif}>
         <Composant />
       </div>
 

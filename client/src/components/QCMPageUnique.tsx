@@ -56,10 +56,10 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fadeIn">
       {/* Bandeau score global */}
       <div className={cn(
-        'rounded-xl border p-3 flex items-center justify-between',
+        'rounded-xl border p-3 flex items-center justify-between transition-all',
         `border-${couleurAccent}-200 bg-${couleurAccent}-50/50`
       )}>
         <div className="flex items-center gap-3">
@@ -93,13 +93,14 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
             <div
               key={q.id}
               className={cn(
-                'rounded-xl border bg-card p-4 space-y-3 transition-colors',
+                'rounded-xl border bg-card p-4 space-y-3 transition-colors animate-slideUp',
                 repondu
                   ? estCorrecte
                     ? 'border-green-300'
                     : 'border-red-300'
                   : 'border-border'
               )}
+              style={{ animationDelay: `${Math.min(idx, 12) * 40}ms` }}
             >
               {/* Enoncé */}
               <div className="flex items-start gap-2">
@@ -134,9 +135,9 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
               {/* Options */}
               <div className="space-y-1.5">
                 {q.options.map(opt => {
-                  let cls = 'w-full text-left rounded-lg border px-3 py-2 text-sm transition-colors '
+                  let cls = 'w-full text-left rounded-lg border px-3 py-2 text-sm transition-all '
                   if (!repondu) {
-                    cls += `border-border hover:border-${couleurAccent}-400 hover:bg-${couleurAccent}-50/50`
+                    cls += `border-border hover:border-${couleurAccent}-400 hover:bg-${couleurAccent}-50/50 hover:scale-[1.01]`
                   } else {
                     if (opt.id === q.reponseCorrecte) {
                       cls += 'border-green-500 bg-green-50 text-green-800'
@@ -164,7 +165,7 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
 
               {/* Résultat immédiat après réponse */}
               {repondu && (
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 animate-fadeIn">
                   <div className={cn('flex items-center gap-1.5 text-xs font-semibold',
                     estCorrecte ? 'text-green-600' : 'text-red-600'
                   )}>
@@ -183,7 +184,7 @@ export default function QCMPageUnique({ questions, couleurAccent = 'indigo' }: Q
                     }
                   </button>
                   {voirExpl && (
-                    <div className="rounded-lg bg-muted/50 p-3 text-xs space-y-1">
+                    <div className="rounded-lg bg-muted/50 p-3 text-xs space-y-1 animate-slideDown">
                       <p className="leading-relaxed">{q.explication}</p>
                       {q.articleRef && (
                         <p className="font-semibold text-primary">{q.articleRef}</p>

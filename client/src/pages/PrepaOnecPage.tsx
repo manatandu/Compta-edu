@@ -80,13 +80,13 @@ export default function PrepaOnecPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fadeIn">
       <BackButton />
 
       {/* En-tête */}
-      <div className="space-y-2">
+      <div className="space-y-2 animate-slideDown">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-primary/10">
+          <div className="p-2.5 rounded-xl bg-primary/10 transition-transform duration-300 hover:scale-110 hover:rotate-6">
             <BookOpen className="h-6 w-6 text-primary" />
           </div>
           <div>
@@ -107,7 +107,7 @@ export default function PrepaOnecPage() {
 
       {/* Grille des 6 UE */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {UE_DSCG.map((ue) => {
+        {UE_DSCG.map((ue, i) => {
           const Icon = ue.icon
           return (
             <div
@@ -116,7 +116,9 @@ export default function PrepaOnecPage() {
                 relative rounded-2xl border bg-gradient-to-br ${ue.color} ${ue.border}
                 p-5 space-y-3 opacity-80
                 cursor-not-allowed select-none
+                animate-slideUp transition-transform duration-300 hover:scale-[1.02]
               `}
+              style={{ animationDelay: `${60 + i * 40}ms` }}
             >
               {/* Cadenas en haut à droite */}
               <div className="absolute top-4 right-4">
