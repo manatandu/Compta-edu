@@ -39,7 +39,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch'
 import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
-  ChevronDown, ChevronRight, UserPlus, MapPin, Phone, BookOpen, X, ShieldCheck, LibraryBig,
+  ChevronDown, ChevronRight, UserPlus, MapPin, Phone, X, ShieldCheck, LibraryBig,
   Paperclip, FileDown, FileText, CalendarCheck, Award, Check, CheckCircle2, ClipboardList, Minus, TrendingDown, Clock, Download,
   Lock, CheckCheck, Unlock, KeyRound, Eye, EyeOff, RefreshCw, Search, ExternalLink
 } from 'lucide-react'
@@ -355,6 +355,10 @@ export default function ProfesseurPage() {
 
   const [, navigate] = useLocation()
   const [tab, setTab] = useState<Tab>('cours')
+  // Filtre par faculté de l'onglet Cours - alimenté par le lien "Gérer →"
+  // depuis l'accordéon Universités (voir onglet 'universites'), pour éviter
+  // de dupliquer la gestion des cours à deux endroits (accordéon + onglet).
+  const [coursFiltreFaculteId, setCoursFiltreFaculteId] = useState<string>('')
   const [users, setUsers] = useState<User[]>([])
   const { universites } = useUniversites()
   const { facultes: facultesList } = useAllFacultes()
@@ -446,13 +450,12 @@ export default function ProfesseurPage() {
   const [nettoyageEnCours, setNettoyageEnCours] = useState(false)
   const [coursDoublonsIds, setCoursDoublonsIds] = useState<string[]>([])
 
-  // Accordéons onglet Gestion Universités (tout ouvert par défaut)
+  // Accordéon onglet Gestion Universités (tout ouvert par défaut). Les
+  // facultés n'ont plus leur propre accordéon de cours imbriqué - la gestion
+  // des cours (créer/modifier/supprimer) vit uniquement dans l'onglet Cours,
+  // vers lequel un lien "Gérer →" renvoie déjà filtré sur la faculté.
   const [openUnisMgmt, setOpenUnisMgmt] = useState<Set<string>>(new Set(['__all__']))
-  const [openFacsMgmt, setOpenFacsMgmt] = useState<Set<string>>(new Set(['__all__']))
   const toggleUniMgmt = (id: string) => setOpenUnisMgmt(prev => {
-    const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n
-  })
-  const toggleFacMgmt = (id: string) => setOpenFacsMgmt(prev => {
     const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n
   })
 
@@ -1510,9 +1513,10 @@ export default function ProfesseurPage() {
               const k = (c.nom || '').trim().toLowerCase()
               if (nomsVus.has(k)) { doublons.push(c.id) } else { nomsVus.add(k) }
             }
+            const faculteFiltree = facultesList.find(f => f.id === coursFiltreFaculteId)
             return (
               <>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-2">
                   <div>
                     <h2 className="text-base font-display font-semibold text-foreground">Gestion des cours</h2>
                     <p className="text-sm text-muted-foreground mt-0.5">{coursList.filter(c => c.actif).length} cours actif{coursList.filter(c => c.actif).length > 1 ? 's' : ''} : {COURS_SYSTEME.filter(c => !c.actif).length} en préparation</p>
@@ -1527,11 +1531,36 @@ export default function ProfesseurPage() {
                         Nettoyer {doublons.length} doublon{doublons.length > 1 ? 's' : ''}
                       </Button>
                     )}
-                    <Button size="sm" onClick={() => openCreateCours('', '')}>
+                    <Button size="sm" onClick={() => openCreateCours(coursFiltreFaculteId, faculteFiltree?.universiteId || '')}>
                       <Plus className="h-4 w-4 mr-1.5" /> Nouveau cours
                     </Button>
                   </div>
                 </div>
+
+                {/* Filtre par faculté - seul endroit de l'app où on crée/modifie/
+                    supprime un cours ; l'accordéon Universités y renvoie au lieu
+                    de dupliquer cette liste. */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs text-muted-foreground shrink-0">Filtrer par faculté :</span>
+                  <Select value={coursFiltreFaculteId || 'toutes'} onValueChange={v => setCoursFiltreFaculteId(v === 'toutes' ? '' : v)}>
+                    <SelectTrigger className="h-8 w-auto min-w-[180px] text-xs">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="toutes">Toutes les facultés</SelectItem>
+                      {facultesList.map(f => {
+                        const uni = universites.find(u => u.id === f.universiteId)
+                        return <SelectItem key={f.id} value={f.id}>{f.nom}{uni ? ` (${uni.nom})` : ''}</SelectItem>
+                      })}
+                    </SelectContent>
+                  </Select>
+                  {coursFiltreFaculteId && (
+                    <Button size="sm" variant="ghost" className="h-7 text-xs px-2" onClick={() => setCoursFiltreFaculteId('')}>
+                      <X className="h-3 w-3 mr-1" /> Effacer
+                    </Button>
+                  )}
+                </div>
+
                 {confirmNettoyage && (
                   <div className="rounded-xl border border-orange-300 bg-orange-50 px-4 py-3 flex items-center justify-between gap-4">
                     <p className="text-sm text-orange-800">
@@ -1562,16 +1591,18 @@ export default function ProfesseurPage() {
             )
           })()}
 
-          {/* Cours actifs */}
-          {coursList.filter(c => c.actif).length === 0 ? (
+          {/* Cours actifs (filtrés par faculté si un filtre est actif) */}
+          {(() => {
+            const coursFiltres = coursFiltreFaculteId ? coursList.filter(c => c.faculteId === coursFiltreFaculteId) : coursList
+            return coursFiltres.filter(c => c.actif).length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <LibraryBig className="h-10 w-10 mx-auto mb-3 opacity-30" />
-              <p className="text-sm">Aucun cours actif pour l'instant.</p>
+              <p className="text-sm">{coursFiltreFaculteId ? 'Aucun cours actif pour cette faculté.' : 'Aucun cours actif pour l\'instant.'}</p>
               <p className="text-xs mt-1">Créez des cours pour les assigner aux étudiants.</p>
             </div>
           ) : (
             <div className="space-y-2">
-              {getCoursUniques(coursList).map(c => {
+              {getCoursUniques(coursFiltres).map(c => {
                 const inscrits = etudiants.filter(e => resolveCoursIds(e).includes(c.id))
                 return (
                   <Card key={c.id} className="border-border">
@@ -1611,7 +1642,8 @@ export default function ProfesseurPage() {
                 )
               })}
             </div>
-          )}
+          )
+          })()}
 
           {/* Séparateur : Cours en préparation (verrouillés) */}
           {COURS_SYSTEME.filter(c => !c.actif).length > 0 && (
@@ -1714,69 +1746,28 @@ export default function ProfesseurPage() {
                           </div>
                         ) : (
                           uniFacultes.map(fac => {
-                            const facCours = coursList.filter(c => c.faculteId === fac.id)
-                            // ouvert si pas dans le Set des fermés (ouvert par défaut)
-                            const facOpen = !openFacsMgmt.has(fac.id)
+                            const nbCoursFac = coursList.filter(c => c.faculteId === fac.id).length
                             return (
-                              <div key={fac.id} className="border-b border-border/50 last:border-0">
-                                {/* Ligne Faculté */}
-                                <div
-                                  className="flex items-center justify-between px-8 py-2.5 cursor-pointer hover:bg-muted/20 transition-colors"
-                                  onClick={() => toggleFacMgmt(fac.id)}
-                                >
-                                  <div className="flex items-center gap-2">
-                                    {facOpen ? <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" /> : <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />}
-                                    <GraduationCap className="h-3.5 w-3.5 text-primary/70" />
-                                    <span className="text-sm font-medium text-foreground">{fac.nom}</span>
-                                    <Badge variant="secondary" className="text-xs ml-1">{facCours.length} cours</Badge>
-                                  </div>
-                                  <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
-                                    <Button variant="outline" size="sm" className="h-6 text-xs" onClick={() => openCreateCours(fac.id, u.id)}>
-                                      <Plus className="h-3 w-3 mr-1" /> Cours
-                                    </Button>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditFaculte(fac)} aria-label={`Modifier la faculté ${fac.nom}`}>
-                                      <Pencil className="h-3 w-3" />
-                                    </Button>
-                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteFaculteId(fac.id)} aria-label={`Supprimer la faculté ${fac.nom}`}>
-                                      <Trash2 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
+                              <div key={fac.id} className="flex items-center justify-between px-8 py-2.5 border-b border-border/50 last:border-0 hover:bg-muted/20 transition-colors">
+                                <div className="flex items-center gap-2">
+                                  <GraduationCap className="h-3.5 w-3.5 text-primary/70" />
+                                  <span className="text-sm font-medium text-foreground">{fac.nom}</span>
+                                  <Badge variant="secondary" className="text-xs ml-1">{nbCoursFac} cours</Badge>
                                 </div>
-
-                                {/* Cours de la faculté */}
-                                {facOpen && (
-                                  <div className="px-12 pb-2">
-                                    {facCours.length === 0 ? (
-                                      <p className="text-xs text-muted-foreground italic py-1">Aucun cours : cliquez sur "+ Cours".</p>
-                                    ) : (
-                                      <div className="space-y-1">
-                                        {facCours.map(c => {
-                                          const nbEtu = etudiants.filter(e => resolveCoursIds(e).includes(c.id)).length
-                                          return (
-                                            <div key={c.id} className="flex items-center justify-between py-1.5 px-3 rounded-md hover:bg-muted/30">
-                                              <div className="flex items-center gap-2">
-                                                <BookOpen className="h-3.5 w-3.5 text-primary/60" />
-                                                <span className="text-sm text-foreground">{c.nom}</span>
-                                                <Badge variant="outline" className="text-xs">{nbEtu} étudiant{nbEtu > 1 ? 's' : ''}</Badge>
-                                                {!c.actif && <Badge variant="secondary" className="text-xs">Inactif</Badge>}
-                                              </div>
-                                              <div className="flex items-center gap-1">
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditCours(c)} aria-label={`Modifier le cours ${c.nom}`}>
-                                                  <Pencil className="h-3 w-3" />
-                                                </Button>
-                                                {!(c as any).systeme && (
-                                                  <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteCoursId(c.id)} aria-label={`Supprimer le cours ${c.nom}`}>
-                                                    <Trash2 className="h-3 w-3" />
-                                                  </Button>
-                                                )}
-                                              </div>
-                                            </div>
-                                          )
-                                        })}
-                                      </div>
-                                    )}
-                                  </div>
-                                )}
+                                <div className="flex items-center gap-1">
+                                  {/* Gestion des cours (créer/modifier/supprimer) centralisée
+                                      dans l'onglet Cours - ce lien y renvoie déjà filtré sur
+                                      cette faculté au lieu de dupliquer la liste ici. */}
+                                  <Button variant="outline" size="sm" className="h-6 text-xs gap-1" onClick={() => { setCoursFiltreFaculteId(fac.id); setTab('cours') }}>
+                                    Gérer les cours <ChevronRight className="h-3 w-3" />
+                                  </Button>
+                                  <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditFaculte(fac)} aria-label={`Modifier la faculté ${fac.nom}`}>
+                                    <Pencil className="h-3 w-3" />
+                                  </Button>
+                                  <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => setDeleteFaculteId(fac.id)} aria-label={`Supprimer la faculté ${fac.nom}`}>
+                                    <Trash2 className="h-3 w-3" />
+                                  </Button>
+                                </div>
                               </div>
                             )
                           })
