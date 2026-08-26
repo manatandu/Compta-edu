@@ -1,6 +1,6 @@
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useLocation } from 'wouter'
 import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
@@ -14,7 +14,7 @@ import {
   uploadDevoirPDF, deleteDevoirPDF, uploadExercicePDF, uploadNoteCoursFile,
   getUniversitesAsync, saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   getFacultesAsync, createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
-  getCoursAsync, createCoursAsync, updateCoursAsync, deleteCoursAsync,
+  getCoursAsync, updateCoursAsync, deleteCoursAsync, provisionCoursManquantsAsync,
   getDevoirsAsync, createDevoirAsync, updateDevoirAsync, deleteDevoirAsync,
   getSoumissionsAsync, corrigerSoumissionAsync, getEcrituresAsync,
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
@@ -362,6 +362,37 @@ export default function ProfesseurPage() {
   const { universites } = useUniversites()
   const { facultes: facultesList } = useAllFacultes()
   const { cours: coursList } = useAllCours()
+
+  // Affectation automatique des UE : chaque faculté doit avoir un cours pour
+  // chaque UE active du catalogue, sans passer par "Nouveau cours" - couvre
+  // aussi bien les facultés déjà existantes (rattrapage) qu'une UE activée
+  // après coup dans le code. provisionCoursManquantsAsync est idempotent
+  // (elle revérifie coursList avant de créer), donc rappelable à chaque
+  // chargement ; le ref évite juste de relancer le lot pendant qu'il tourne
+  // encore (le temps que les créations remontent via onSnapshot).
+  const provisionEnCours = useRef(false)
+  useEffect(() => {
+    if (!isAdmin || !currentUser?.id) return
+    if (facultesList.length === 0) return
+    if (provisionEnCours.current) return
+    const manque = facultesList.some(fac => {
+      const assignes = new Set(
+        coursList.filter(c => c.faculteId === fac.id && (c as any).coursSystemeId).map(c => (c as any).coursSystemeId)
+      )
+      return COURS_SYSTEME.some(cs => cs.actif && !assignes.has(cs.id))
+    })
+    if (!manque) return
+    provisionEnCours.current = true
+    ;(async () => {
+      for (const fac of facultesList) {
+        // adminId repris de l'université (même convention que la création
+        // manuelle dans handleSaveCours) - pas l'auteur de l'action, qui
+        // peut être n'importe quel admin/professeur ouvrant la page.
+        const uniAdminId = universites.find(u => u.id === fac.universiteId)?.adminId || currentUser.id
+        await provisionCoursManquantsAsync(fac.id, fac.universiteId, uniAdminId, currentUser.id, coursList)
+      }
+    })().finally(() => { provisionEnCours.current = false })
+  }, [isAdmin, currentUser?.id, facultesList, coursList])
 
   // ── Formulaire Faculté ──
   const [showFaculteForm, setShowFaculteForm] = useState(false)
@@ -885,51 +916,19 @@ export default function ProfesseurPage() {
   }
 
   // ── Cours ──
-  const openCreateCours = (faculteId: string, universiteId: string) => {
-    setEditCoursId(null)
-    setCoursForm({ nom: '', description: '', faculteId, universiteId, promotion: '', actif: true, coursSystemeId: '' })
-    setShowCoursForm(true)
-  }
+  // Plus de création manuelle : chaque UE active est affectée automatiquement
+  // à toute faculté (voir l'effet de provisionnement plus haut). Il ne reste
+  // que l'édition (nom/description/actif/promotion) et la suppression.
   const openEditCours = (c: Cours) => {
     setEditCoursId(c.id)
     setCoursForm({ nom: c.nom, description: c.description || '', faculteId: c.faculteId, universiteId: c.universiteId, promotion: c.promotion || '', actif: c.actif, coursSystemeId: (c as any).coursSystemeId || '' })
     setShowCoursForm(true)
   }
   const handleSaveCours = async () => {
-    if (!coursForm.nom.trim()) return
-    if (editCoursId) {
-      await updateCoursAsync(editCoursId, { nom: coursForm.nom.trim(), description: coursForm.description.trim(), actif: coursForm.actif, promotion: coursForm.promotion || undefined })
-    } else {
-      // C7 : anti-doublon - vérifier si ce cours système est déjà assigné à cette faculté
-      if (coursForm.coursSystemeId) {
-        const doublon = coursList.some(
-          c => (c as any).coursSystemeId === coursForm.coursSystemeId && c.faculteId === coursForm.faculteId
-        )
-        if (doublon) {
-          toast({ title: 'Cours déjà assigné', description: 'Ce cours est déjà présent dans cette faculté.', variant: 'destructive' })
-          return
-        }
-      }
-      // adminId : la règle firestore.rules exige ce champ à la création
-      // (hasAll(['adminId','createdBy'])) - repris de l'université choisie
-      // (source de vérité de "qui possède ce cours") plutôt que de l'auteur
-      // de l'action, car un professeur (pas seulement un admin) peut créer
-      // un cours : son propre id ne serait pas un adminId valide.
-      const uniAdminId = universites.find(u => u.id === coursForm.universiteId)?.adminId || currentUser?.id || ''
-      await createCoursAsync({
-        nom: coursForm.nom.trim(),
-        description: coursForm.description.trim(),
-        faculteId: coursForm.faculteId,
-        universiteId: coursForm.universiteId,
-        promotion: coursForm.promotion || undefined,
-        actif: coursForm.actif,
-        createdBy: currentUser?.id || '',
-        adminId: uniAdminId,
-        ...(coursForm.coursSystemeId ? { coursSystemeId: coursForm.coursSystemeId } : {})
-      })
-    }
+    if (!coursForm.nom.trim() || !editCoursId) return
+    await updateCoursAsync(editCoursId, { nom: coursForm.nom.trim(), description: coursForm.description.trim(), actif: coursForm.actif, promotion: coursForm.promotion || undefined })
     setShowCoursForm(false)
-    toast({ title: editCoursId ? 'Cours modifié' : 'Cours créé' })
+    toast({ title: 'Cours modifié' })
   }
   const handleDeleteCours = () => {
     if (!deleteCoursId) return
@@ -1469,33 +1468,29 @@ export default function ProfesseurPage() {
               const k = (c.nom || '').trim().toLowerCase()
               if (nomsVus.has(k)) { doublons.push(c.id) } else { nomsVus.add(k) }
             }
-            const faculteFiltree = facultesList.find(f => f.id === coursFiltreFaculteId)
             return (
               <>
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <div>
                     <h2 className="text-base font-display font-semibold text-foreground">Gestion des cours</h2>
                     <p className="text-sm text-muted-foreground mt-0.5">{coursList.filter(c => c.actif).length} cours actif{coursList.filter(c => c.actif).length > 1 ? 's' : ''} : {COURS_SYSTEME.filter(c => !c.actif).length} en préparation</p>
+                    <p className="text-xs text-muted-foreground/70 mt-0.5">Chaque UE active est affectée automatiquement à toute faculté - rien à créer manuellement.</p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {doublons.length > 0 && (
-                      <Button
-                        size="sm"
-                        className="bg-orange-500 hover:bg-orange-600 text-white gap-1.5"
-                        onClick={() => { setCoursDoublonsIds(doublons); setConfirmNettoyage(true) }}
-                      >
-                        Nettoyer {doublons.length} doublon{doublons.length > 1 ? 's' : ''}
-                      </Button>
-                    )}
-                    <Button size="sm" onClick={() => openCreateCours(coursFiltreFaculteId, faculteFiltree?.universiteId || '')}>
-                      <Plus className="h-4 w-4 mr-1.5" /> Nouveau cours
+                  {doublons.length > 0 && (
+                    <Button
+                      size="sm"
+                      className="bg-orange-500 hover:bg-orange-600 text-white gap-1.5"
+                      onClick={() => { setCoursDoublonsIds(doublons); setConfirmNettoyage(true) }}
+                    >
+                      Nettoyer {doublons.length} doublon{doublons.length > 1 ? 's' : ''}
                     </Button>
-                  </div>
+                  )}
                 </div>
 
-                {/* Filtre par faculté - seul endroit de l'app où on crée/modifie/
-                    supprime un cours ; l'accordéon Universités y renvoie au lieu
-                    de dupliquer cette liste. */}
+                {/* Filtre par faculté - seul endroit de l'app où on modifie/
+                    supprime un cours (l'affectation elle-même est automatique,
+                    voir provisionCoursManquantsAsync) ; l'accordéon Universités
+                    y renvoie au lieu de dupliquer cette liste. */}
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs text-muted-foreground shrink-0">Filtrer par faculté :</span>
                   <Select value={coursFiltreFaculteId || 'toutes'} onValueChange={v => setCoursFiltreFaculteId(v === 'toutes' ? '' : v)}>
@@ -3872,44 +3867,16 @@ export default function ProfesseurPage() {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* ═══════════════════ MODALE COURS ═══════════════════ */}
+      {/* ═══════════════════ MODALE COURS (édition uniquement - l'affectation
+          des UE aux facultés est automatique, voir provisionCoursManquantsAsync) ═══ */}
       <Dialog open={showCoursForm} onOpenChange={setShowCoursForm}>
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <DialogTitle>{editCoursId ? 'Modifier le cours' : 'Nouveau cours'}</DialogTitle>
+            <DialogTitle>Modifier le cours</DialogTitle>
           </DialogHeader>
           <div className="space-y-3">
-            {/* Université : obligatoire si pas encore défini */}
-            {!editCoursId && (
-              <div>
-                <Label>Université *</Label>
-                <Select value={coursForm.universiteId || '__none__'} onValueChange={v => setCoursForm(f => ({ ...f, universiteId: v === '__none__' ? '' : v, faculteId: '' }))}>
-                  <SelectTrigger className="mt-1"><SelectValue placeholder="Choisir une université" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="__none__">- Choisir -</SelectItem>
-                    {universites.map(u => <SelectItem key={u.id} value={u.id}>{u.nom}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-            {/* Faculté : filtrée par université */}
-            {!editCoursId && coursForm.universiteId && (
-              <div>
-                <Label>Faculté *</Label>
-                <Select value={coursForm.faculteId || '__none__'} onValueChange={v => setCoursForm(f => ({ ...f, faculteId: v === '__none__' ? '' : v }))}>
-                  <SelectTrigger className="mt-1"><SelectValue placeholder="Choisir une faculté" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="__none__">- Choisir -</SelectItem>
-                    {facultesList.filter(f => f.universiteId === coursForm.universiteId && f.actif).map(f => (
-                      <SelectItem key={f.id} value={f.id}>{f.nom}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-            {/* Promotion */}
             <div>
-              <Label>Promotion *</Label>
+              <Label>Promotion</Label>
               <Select value={coursForm.promotion || '__none__'} onValueChange={v => setCoursForm(f => ({ ...f, promotion: v === '__none__' ? '' : v }))}>
                 <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner une promotion" /></SelectTrigger>
                 <SelectContent>
@@ -3920,44 +3887,9 @@ export default function ProfesseurPage() {
                 </SelectContent>
               </Select>
             </div>
-
             <div>
-              <Label>Cours *</Label>
-              {editCoursId ? (
-                <Input value={coursForm.nom} onChange={e => setCoursForm(f => ({ ...f, nom: e.target.value }))} className="mt-1" />
-              ) : (
-                <Select
-                  value={coursForm.coursSystemeId || '__none__'}
-                  onValueChange={v => {
-                    if (v === '__none__') {
-                      setCoursForm(f => ({ ...f, coursSystemeId: '', nom: '', description: '' }))
-                      return
-                    }
-                    const cs = COURS_SYSTEME.find(c => c.id === v)
-                    setCoursForm(f => ({ ...f, coursSystemeId: v, nom: cs?.nom || '', description: cs?.description || '' }))
-                  }}
-                >
-                  <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner un cours" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="__none__">- Choisir -</SelectItem>
-                    {COURS_SYSTEME.map(c => {
-                      // Déjà assigné à la faculté choisie, ou pas encore actif : on le
-                      // montre quand même (pour que la liste reste complète) mais
-                      // désactivé, avec le motif - plutôt que de laisser l'utilisateur
-                      // remplir tout le formulaire pour découvrir l'erreur seulement
-                      // au clic sur Enregistrer (cf. anti-doublon dans handleSaveCours).
-                      const dejaAssigne = coursForm.faculteId && coursList.some(
-                        cl => (cl as any).coursSystemeId === c.id && cl.faculteId === coursForm.faculteId
-                      )
-                      return (
-                        <SelectItem key={c.id} value={c.id} disabled={dejaAssigne || !c.actif}>
-                          {c.nom}{!c.actif ? ' (bientôt disponible)' : dejaAssigne ? ' (déjà dans cette faculté)' : ''}
-                        </SelectItem>
-                      )
-                    })}
-                  </SelectContent>
-                </Select>
-              )}
+              <Label>Cours</Label>
+              <Input value={coursForm.nom} onChange={e => setCoursForm(f => ({ ...f, nom: e.target.value }))} className="mt-1" />
             </div>
             {coursForm.description && (
               <p className="text-xs text-muted-foreground -mt-1">{coursForm.description}</p>
@@ -3969,10 +3901,7 @@ export default function ProfesseurPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowCoursForm(false)}>Annuler</Button>
-            <Button
-              onClick={handleSaveCours}
-              disabled={!coursForm.nom.trim() || (!editCoursId && (!coursForm.universiteId || !coursForm.faculteId || !coursForm.coursSystemeId))}
-            >
+            <Button onClick={handleSaveCours} disabled={!coursForm.nom.trim()}>
               Enregistrer
             </Button>
           </DialogFooter>

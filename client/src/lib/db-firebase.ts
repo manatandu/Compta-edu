@@ -1187,6 +1187,45 @@ export async function initCoursSystemeAsync(): Promise<void> {
   }
 }
 
+// Provisionne, pour UNE faculté donnée, un cours réel (document propre à
+// cette faculté, cf. Cours.faculteId/universiteId - c'est ce qui isole ses
+// inscrits/côtes/présences de ceux d'une autre faculté) pour chaque UE
+// active du catalogue COURS_SYSTEME qui n'en a pas encore. Idempotent :
+// s'appuie sur la liste déjà chargée (coursExistants) pour ne rien recréer,
+// donc rappelable sans risque à chaque chargement de l'écran admin - c'est
+// ce qui rend l'affectation des UE automatique (plus besoin du bouton
+// "Nouveau cours" pour le cas courant : une UE active doit exister pour
+// toute faculté). Une UE nouvellement activée dans COURS_SYSTEME (mise à
+// jour de code) se retrouve provisionnée dès la prochaine ouverture de la
+// page, pour toutes les facultés déjà existantes - pas seulement les
+// nouvelles.
+export async function provisionCoursManquantsAsync(
+  faculteId: string,
+  universiteId: string,
+  adminId: string,
+  createdBy: string,
+  coursExistants: Cours[]
+): Promise<void> {
+  const dejaAssignes = new Set(
+    coursExistants
+      .filter(c => c.faculteId === faculteId && (c as any).coursSystemeId)
+      .map(c => (c as any).coursSystemeId as string)
+  )
+  const manquants = COURS_SYSTEME.filter(cs => cs.actif && !dejaAssignes.has(cs.id))
+  for (const cs of manquants) {
+    await createCoursAsync({
+      nom: cs.nom,
+      description: cs.description,
+      faculteId,
+      universiteId,
+      actif: true,
+      createdBy,
+      adminId,
+      coursSystemeId: cs.id,
+    } as any)
+  }
+}
+
 // ── Cours Statuts ─────────────────────────────────────────────────────────────
 
 export function onCoursStatutsEtudiant(
