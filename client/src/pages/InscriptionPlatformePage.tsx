@@ -14,7 +14,7 @@ import { useLocation } from 'wouter'
 import { collection, setDoc, doc, getFirestore } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 import {
-  createUserAsync, onUsersSnapshot,
+  createUserAsync, onUsersSnapshot, getCoursUniquesTries,
 } from '@/lib/db-firebase'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
@@ -74,7 +74,7 @@ export default function InscriptionPlatformePage() {
   const getFacultes = (uniId: string) =>
     facultesList.filter(f => f.actif && (!uniId || f.universiteId === uniId))
   const getCours = (uniId: string) =>
-    coursList.filter(c => c.actif && (!uniId || c.universiteId === uniId))
+    getCoursUniquesTries(coursList.filter(c => !uniId || c.universiteId === uniId))
 
   return (
     <div className="space-y-6 pb-10 animate-fadeIn max-w-3xl mx-auto px-4">
