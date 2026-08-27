@@ -215,7 +215,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
   return (
     <div ref={containerRef} className="relative w-full">
       <div className="relative">
-        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink-faint pointer-events-none" />
+        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
         <input
           ref={inputRef}
           type="text"
@@ -224,14 +224,14 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           onFocus={() => setOpen(true)}
           placeholder="Rechercher..."
           className={cn(
-            'w-full pl-8 pr-7 py-1.5 text-sm rounded-md border border-white/15 bg-white/5 text-white',
+            'w-full pl-8 pr-7 py-1.5 text-sm rounded-sm border border-input bg-card text-foreground',
             'focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/50',
-            'placeholder:text-ink-faint transition-colors'
+            'placeholder:text-muted-foreground transition-colors'
           )}
         />
         {query && (
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-faint hover:text-white transition-all hover:scale-110"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             onClick={() => { setQuery(''); setResults([]); inputRef.current?.focus() }}
           >
             <X className="h-3.5 w-3.5" />
@@ -240,7 +240,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
       </div>
 
       {open && query && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto animate-slideDown">
+        <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-sm shadow-md z-50 max-h-72 overflow-y-auto animate-slideDown">
           {results.length === 0 ? (
             <div className="px-3 py-4 text-center text-sm text-muted-foreground">
               Aucun résultat pour « {query} »

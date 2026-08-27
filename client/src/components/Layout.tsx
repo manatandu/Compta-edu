@@ -146,8 +146,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         className={cn(
           "w-full flex items-center gap-3 pl-3 pr-3 py-2 text-sm rounded-sm transition-colors text-left border-l-2",
           isActive
-            ? "bg-white/[0.06] border-primary text-white font-medium"
-            : "border-transparent text-ink-soft hover:bg-white/[0.04] hover:text-white"
+            ? "bg-accent border-primary text-foreground font-medium"
+            : "border-transparent text-muted-foreground hover:bg-accent/60 hover:text-foreground"
         )}
       >
         {item.icon}
@@ -159,10 +159,10 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
 
   const SidebarContent = ({ searchBar }: { searchBar?: React.ReactNode }) => (
     <div className="flex flex-col h-full">
-      {/* En-tête - bloc identité façon registre académique */}
-      <div className="px-4 pt-5 pb-4 border-b border-white/10">
+      {/* En-tête - bloc identité façon en-tête d'arborescence de navigation */}
+      <div className="px-4 pt-4 pb-3 border-b border-border bg-card">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+          <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
             <img
               src="./assets/orbit-mark.svg"
               alt="Orbit"
@@ -173,21 +173,21 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
             />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="font-display font-semibold text-white text-[15px] leading-tight tracking-tight">Orbit</p>
-            <p className="text-[10px] text-ink-faint uppercase tracking-widest">Système académique</p>
+            <p className="font-display font-semibold text-foreground text-[13px] leading-tight tracking-tight">ORBIT</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Système académique</p>
           </div>
           {/* Bouton fermer sidebar sur mobile */}
           <button
-            className="md:hidden p-1 rounded hover:bg-white/10 transition-colors"
+            className="md:hidden p-1 rounded-sm hover:bg-accent transition-colors"
             onClick={() => setSidebarOpen(false)}
             aria-label="Fermer le menu"
           >
-            <X className="h-4 w-4 text-ink-soft" />
+            <X className="h-4 w-4 text-muted-foreground" />
           </button>
         </div>
         {isStudent && (
-          <div className="mt-3.5 pt-3.5 border-t border-white/10 space-y-1 text-[11px]">
-            <div className="flex justify-between"><span className="text-ink-faint">Étudiant</span><span className="text-ink-soft font-medium truncate ml-2">{user.prenom} {user.nom}</span></div>
+          <div className="mt-3 pt-3 border-t border-border space-y-1 text-[11px]">
+            <div className="flex justify-between"><span className="text-muted-foreground">Étudiant</span><span className="text-foreground font-medium truncate ml-2">{user.prenom} {user.nom}</span></div>
           </div>
         )}
       </div>
@@ -243,7 +243,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
 
           return <>
           <div className="mx-2.5 mt-4 mb-1.5">
-            <p className="text-[10.5px] font-semibold text-ink-faint uppercase tracking-widest px-0.5">Cours additionnels</p>
+            <p className="text-[10.5px] font-semibold text-muted-foreground uppercase tracking-widest px-0.5">Cours additionnels</p>
           </div>
           {coursVisiblesSidebar.map(cours => {
             const moduleKey = (cours as any).moduleKey || cours.id
@@ -279,20 +279,20 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                   className={cn(
                     "w-full flex items-center gap-3 pl-3 pr-3 py-2 text-sm rounded-sm transition-colors text-left border-l-2",
                     isDirectActive && !verrouille
-                      ? "bg-white/[0.06] border-primary text-white font-medium"
-                      : "border-transparent text-ink-soft hover:bg-white/[0.04] hover:text-white",
+                      ? "bg-accent border-primary text-foreground font-medium"
+                      : "border-transparent text-muted-foreground hover:bg-accent/60 hover:text-foreground",
                     (verrouille || bientot) && "opacity-60 cursor-default"
                   )}
                 >
                   <span className="flex items-center justify-center w-5 h-5">
                     {verrouille
-                      ? <Lock className="h-4 w-4 text-ink-faint" />
+                      ? <Lock className="h-4 w-4 text-muted-foreground" />
                       : getModuleIcon((cours as any).moduleKey, (cours as any).icon)
                     }
                   </span>
                   <span className="flex-1 truncate">{cours.nom}</span>
-                  {verrouille && <Lock className="ml-auto h-3 w-3 text-ink-faint shrink-0" />}
-                  {bientot && !verrouille && <Badge variant="outline" className="text-xs px-1 py-0 ml-auto shrink-0 border-white/20 text-ink-faint">Bientôt</Badge>}
+                  {verrouille && <Lock className="ml-auto h-3 w-3 text-muted-foreground shrink-0" />}
+                  {bientot && !verrouille && <Badge variant="outline" className="text-xs px-1 py-0 ml-auto shrink-0 border-border text-muted-foreground">Bientôt</Badge>}
                   {isDirectActive && !verrouille && !bientot && <ChevronRight className="ml-auto h-3 w-3 shrink-0 text-primary" />}
                 </button>
               </div>
@@ -304,7 +304,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
       </nav>
 
       {/* User info */}
-      <div className="border-t border-white/10 p-3 pb-20 md:pb-3">
+      <div className="border-t border-border bg-card p-3 pb-20 md:pb-3">
         <div className="flex items-center gap-2 mb-2">
           <Avatar className="h-8 w-8 rounded-sm">
             <AvatarFallback className="bg-primary text-primary-foreground text-xs rounded-sm font-display">
@@ -312,7 +312,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate text-white">
+            <p className="text-sm font-medium truncate text-foreground">
               {isStudent
                 ? `Bonjour ${user.nom}`
                 : `Bonjour ${user.prenom}`
@@ -322,7 +322,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
               variant={roleBadge.variant}
               className={cn(
                 "text-xs py-0 px-1.5",
-                roleBadge.variant === 'outline' && "text-ink-soft border-white/25"
+                roleBadge.variant === 'outline' && "text-muted-foreground border-border"
               )}
             >
               {roleBadge.label}
@@ -331,7 +331,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         </div>
         <div className="flex gap-2 items-center">
           <NotificationBell user={user} />
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-ink-soft hover:text-destructive hover:bg-white/5" onClick={handleLogout} title="Déconnexion" aria-label="Déconnexion">
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-accent" onClick={handleLogout} title="Déconnexion" aria-label="Déconnexion">
             <LogOut className="h-4 w-4" />
           </Button>
         </div>
@@ -341,8 +341,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
 
   return (
     <div className="flex h-dvh overflow-hidden bg-background" style={{ height: '100dvh' }}>
-      {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 border-r border-black/40 bg-ink flex-shrink-0 animate-slideRight" style={{ animationDuration: '0.4s' }}>
+      {/* Desktop Sidebar — arborescence de navigation, chrome clair et dense */}
+      <aside className="hidden md:flex flex-col w-64 border-r border-border bg-muted/40 flex-shrink-0">
         <SidebarContent searchBar={<GlobalSearch user={user} />} />
       </aside>
 
@@ -355,7 +355,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
             onClick={() => setSidebarOpen(false)}
           />
           <aside
-            className="absolute left-0 top-0 h-full w-72 bg-ink border-r border-black/40 animate-slideRight shadow-2xl overflow-hidden"
+            className="absolute left-0 top-0 h-full w-72 bg-background border-r border-border animate-slideRight shadow-lg overflow-hidden"
             style={{ animationDuration: '0.25s' }}
           >
             <SidebarContent searchBar={<GlobalSearch user={user} />} />
@@ -413,7 +413,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
                   )}
                 >
                   <span className={cn(
-                    "p-1 rounded-lg transition-colors",
+                    "p-1 rounded-sm transition-colors",
                     isActive && "bg-primary/10"
                   )}>
                     {item.icon}

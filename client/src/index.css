@@ -215,42 +215,47 @@ html {
 
 @layer base {
   :root {
-    /* Neutres « papier » — fond chaud légèrement crème plutôt que gris/indigo froid */
-    --background: 42 24% 98%;
-    --foreground: 30 12% 13%;
-    --card: 40 30% 99%;
-    --card-foreground: 30 12% 13%;
-    --popover: 40 30% 99%;
-    --popover-foreground: 30 12% 13%;
+    /* ── Palette "logiciel professionnel dense" (façon Sage Compta i7) ──
+       Gris chrome froid, texte quasi noir, bleu de sélection net, coins
+       carrés (--radius quasi nul). Remplace l'ancienne palette "papier
+       crème" — voir le canevas Compta Flow pour la référence visuelle. */
+    --background: 220 9% 91%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
 
-    /* Marque — bleu clair et net (registre académique), ambre en accent secondaire */
-    --primary: 213 82% 47%;
+    /* Marque — bleu acier "sélection Windows", pas d'ambre chaleureux */
+    --primary: 221 55% 36%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 38 88% 50%;
-    --secondary-foreground: 30 12% 13%;
+    --secondary: 220 9% 87%;
+    --secondary-foreground: 220 20% 10%;
 
-    --muted: 40 22% 94%;
-    --muted-foreground: 33 10% 42%;
-    --accent: 213 70% 95%;
-    --accent-foreground: 213 75% 32%;
-    --destructive: 355 74% 42%;
-    --destructive-foreground: 355 90% 97%;
-    --border: 40 18% 86%;
-    --input: 40 18% 86%;
-    --ring: 213 82% 47%;
-    --radius: 0.5rem;
+    --muted: 220 9% 89%;
+    --muted-foreground: 220 10% 40%;
+    --accent: 220 9% 87%;
+    --accent-foreground: 220 20% 10%;
+    --destructive: 5 55% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 10% 65%;
+    --input: 220 10% 65%;
+    --ring: 221 55% 36%;
+    --radius: 2px;
 
-    /* Encre — fond sombre de la barre latérale (registre/document) */
-    --ink: 30 14% 12%;
-    --ink-soft: 33 9% 68%;
-    --ink-faint: 33 8% 47%;
+    /* Chrome sombre — barre de titre / bandeaux d'assistant (plus utilisé
+       comme fond de sidebar : la nav desktop est désormais claire) */
+    --ink: 222 35% 14%;
+    --ink-soft: 220 12% 80%;
+    --ink-faint: 220 8% 55%;
 
-    /* Couleurs de module (badges/accents par UE — famille cohérente avec la marque) */
-    --module-teal: 175 84% 32%;
-    --module-violet: 262 83% 58%;
-    --module-blue: 221 83% 53%;
-    --module-rose: 347 77% 50%;
-    --module-emerald: 161 94% 30%;
+    /* Couleurs de module (badges/accents par UE) — mêmes teintes, légèrement
+       désaturées pour rester dans le registre sobre */
+    --module-teal: 175 55% 28%;
+    --module-violet: 262 45% 48%;
+    --module-blue: 221 55% 42%;
+    --module-rose: 347 50% 42%;
+    --module-emerald: 161 55% 27%;
   }
 }
 
@@ -328,10 +333,9 @@ html {
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
   }
 
-  /* Boutons : feedback plus riche */
+  /* Boutons : feedback discret — pas de "rebond", registre sobre */
   button:not(:disabled):active {
-    transform: scale(0.97);
-    transition: transform 0.1s ease;
+    filter: brightness(0.96);
   }
 
   /* Focus ring plus visible et animé */
@@ -366,12 +370,9 @@ html {
     transition: background-color 0.25s ease;
   }
 
-  /* Icônes dans les boutons */
+  /* Icônes dans les boutons — pas de zoom au survol, registre sobre */
   button svg, a svg {
-    transition: transform 0.2s ease, color 0.15s ease;
-  }
-  button:hover svg {
-    transform: scale(1.08);
+    transition: color 0.15s ease;
   }
 }
 

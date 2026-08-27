@@ -8,9 +8,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["\"Source Serif 4\"", "Georgia", "serif"],
-        mono: ["\"IBM Plex Mono\"", "ui-monospace", "SFMono-Regular", "monospace"],
+        // Langage visuel "logiciel professionnel dense" (façon Sage Compta i7) :
+        // police système Windows plutôt qu'une police web moderne — voir
+        // client/src/index.css pour le détail de la palette/tokens associés.
+        sans: ["\"Segoe UI\"", "Tahoma", "Geneva", "Verdana", "system-ui", "sans-serif"],
+        display: ["\"Segoe UI\"", "Tahoma", "Geneva", "Verdana", "system-ui", "sans-serif"],
+        mono: ["\"IBM Plex Mono\"", "\"Courier New\"", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
