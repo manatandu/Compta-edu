@@ -26,7 +26,7 @@ const CHAPITRES = [
   { num: 5, titre: 'La rémunération : salaire, SMIG et sa protection', sousTitre: 'Titre V, art. 86–118', duree: '4h', actif: true, route: '/ue1/chapitre-5' },
   { num: 6, titre: 'Durée du travail, repos et congés', sousTitre: 'Titre VI, art. 119–158', duree: '4h', actif: true, route: '/ue1/chapitre-6' },
   { num: 7, titre: 'Santé, sécurité et protection sociale', sousTitre: 'Titres VII–VIII, Décret n°18/041', duree: '5h', actif: true, route: '/ue1/chapitre-7' },
-  { num: 8, titre: 'Administration du travail et relations collectives', sousTitre: 'Titres IX–XII, art. 185–296', duree: '6h', actif: false, route: '/ue1/chapitre-8' },
+  { num: 8, titre: 'Administration du travail et relations collectives', sousTitre: 'Titres IX–XII, art. 185–296', duree: '6h', actif: true, route: '/ue1/chapitre-8' },
   { num: 9, titre: 'Contentieux du travail, sanctions et actualités', sousTitre: 'Titres XIII–XVI', duree: '4h', actif: false, route: '/ue1/chapitre-9' },
   { num: 10, titre: 'Pratique professionnelle : le décompte final', sousTitre: 'Préavis, congé, gratification, retenues', duree: '4h', actif: false, route: '/ue1/chapitre-10' },
 ]
