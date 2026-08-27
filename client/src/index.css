@@ -449,3 +449,18 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary) / 0.5);
 }
+
+/* ── Respect de prefers-reduced-motion ──
+   Toutes les animations/transitions globales ci-dessus (fadeIn, slideUp,
+   float, pulseGlow, card-lift, icon-hover, etc.) sont désactivées pour les
+   utilisateurs ayant demandé moins de mouvement au niveau système — on
+   garde le changement d'état final (opacité 1, position finale) mais sans
+   le mouvement lui-même. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
