@@ -1,6 +1,7 @@
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
 import React, { useState, useRef, useEffect } from 'react'
+import { useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
 import { onMessagesSnapshot, saveMessageAsync, getUsersAsync, marquerMessagesLusAsync } from '@/lib/db-firebase'
 import { Button } from '@/components/ui/button'
@@ -46,12 +47,17 @@ export default function ChatPage() {
   // Pré-sélectionner un contact passé en paramètre d'URL (?with=<userId>),
   // par exemple depuis un lien "Voir le message" de la cloche de
   // notification. Prioritaire sur la pré-sélection automatique ci-dessous.
+  // useSearch() (wouter), pas window.location.hash : en routage hash, le
+  // navigate('/chat?with=xxx') de useHashLocation pose la query dans la vraie
+  // search de l'URL (avant le #), jamais dans le hash lui-même - une lecture
+  // regex sur window.location.hash ne trouve donc jamais rien.
+  const search = useSearch()
   React.useEffect(() => {
     if (selectedUserId) return
-    const hash = window.location.hash
-    const match = hash.match(/[?&]with=([^&]+)/)
-    if (match) setSelectedUserId(decodeURIComponent(match[1]))
-  }, [])
+    const params = new URLSearchParams(search)
+    const with_ = params.get('with')
+    if (with_) setSelectedUserId(with_)
+  }, [search])
 
   // Pré-sélectionner l'admin créateur du code d'accès dès que les users sont chargés
   React.useEffect(() => {

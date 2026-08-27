@@ -1,5 +1,6 @@
 import { useUser } from '@/lib/userContext'
-import React, { useState, useMemo, useEffect as useEffHash } from 'react'
+import React, { useState, useMemo } from 'react'
+import { useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import {
@@ -48,20 +49,17 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
   const allComptes = getComptes()
   const { sessions, loading: loadingSessions } = useSessions(user?.id, module)
   const { ecritures, loading: loadingEcritures } = useEcritures(user?.id, module)
-  // Lire l'ID de session demandée depuis l'URL (ex: #/journal?session=xxx)
-  // On écoute hashchange pour capturer les navigations post-montage
-  const [currentHash, setCurrentHash] = React.useState(window.location.hash)
-  useEffHash(() => {
-    const handler = () => setCurrentHash(window.location.hash)
-    window.addEventListener('hashchange', handler)
-    // Màj immédiate au montage
-    setCurrentHash(window.location.hash)
-    return () => window.removeEventListener('hashchange', handler)
-  }, [])
+  // Lire l'ID de session demandée depuis l'URL (ex: /journal?session=xxx).
+  // useSearch() (wouter), pas window.location.hash : en routage hash, le
+  // navigate(...) de useHashLocation pose la query dans la vraie search de
+  // l'URL (avant le #), jamais dans le hash - une lecture regex sur
+  // window.location.hash ne trouve donc jamais rien. useSearch() est en
+  // outre déjà réactif aux navigations post-montage (pushState/popstate),
+  // sans qu'un listener hashchange manuel soit nécessaire.
+  const search = useSearch()
   const urlSessionId = React.useMemo(() => {
-    const match = currentHash.match(/[?&]session=([^&]+)/)
-    return match ? match[1] : null
-  }, [currentHash])
+    return new URLSearchParams(search).get('session')
+  }, [search])
 
   const [selectedSessionId, setSelectedSessionId] = useState('')
 
