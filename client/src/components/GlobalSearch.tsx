@@ -4,7 +4,7 @@ import { Search, X, BookOpen, Building2, ClipboardList, GraduationCap, BookMarke
 import { cn } from '@/lib/utils'
 import { User } from '@/lib/db'
 import { isStaffRole, isStudentRole } from '@/lib/permissions'
-import { useUniversites, useAllCours, useDevoirs } from '@/lib/useFirestore'
+import { useUniversites, useAllCours, useAllDevoirs } from '@/lib/useFirestore'
 import { onUsersSnapshot } from '@/lib/db-firebase'
 import { DICTIONNAIRE, DOMAINES_DICT } from '@/data/dictionnaire'
 
@@ -35,7 +35,13 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
 
   const { universites } = useUniversites()
   const { cours } = useAllCours()
-  const { devoirs } = useDevoirs(user?.id || '')
+  // useAllDevoirs() (et non useDevoirs(user.id)) : la règle Firestore sur
+  // `devoirs` exige resource.data.coursId in studentCoursIds() pour un
+  // étudiant, pas un filtre sur createdBy - une requête filtrée sur un autre
+  // champ que celui vérifié par la règle est rejetée en bloc
+  // (permission-denied), même vide en pratique côté étudiant.
+  // useAllDevoirs() applique déjà la bonne contrainte selon le rôle connecté.
+  const { devoirs } = useAllDevoirs()
   const [allUsers, setAllUsers] = useState<any[]>([])
 
   const canAdmin = isStaffRole(user)
