@@ -30,7 +30,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
-import { Plus, Pencil, Trash2, Play, GraduationCap, BookOpen, Trophy, Loader2, Dumbbell, FileText, CheckSquare, Layers, Eye, X, Check, Upload } from 'lucide-react'
+import { Plus, Pencil, Trash2, Play, GraduationCap, BookOpen, Trophy, Loader2, Dumbbell, FileText, CheckSquare, Layers, Eye, X, Check, Upload, MoreVertical } from 'lucide-react'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 
@@ -406,13 +407,15 @@ function FormExerciceLibre({ onClose, editData, coursList }: { onClose: () => vo
 }
 
 // ─── Onglet Exercices Libres ───────────────────────────────────────────────────
-function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { coursIds?: string[], coursList: { id: string, nom: string, faculteId?: string, universiteId?: string, promotion?: string }[], faculteId?: string, promotion?: string }) {
+function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion, onCount }: { coursIds?: string[], coursList: { id: string, nom: string, faculteId?: string, universiteId?: string, promotion?: string }[], faculteId?: string, promotion?: string, onCount?: (n: number) => void }) {
   const { toast } = useToast()
   const user = useUser()
   const canManage = isStaffRole(user)
   // Étudiants : filtré par leurs cours + faculteId + promotion via cours ; prof/admin : tous
   const { exercices, loading } = useExercicesLibres(undefined, !canManage ? coursIds : undefined, !canManage ? faculteId : undefined, !canManage ? promotion : undefined, !canManage ? coursList : undefined)
   const { tentatives } = useTentativesEL(isStudentRole(user) ? user?.id : undefined)
+
+  React.useEffect(() => { onCount?.(exercices.length) }, [exercices.length, onCount])
 
   const [showForm, setShowForm] = useState(false)
   const [editData, setEditData] = useState<any>(null)
@@ -600,28 +603,34 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { 
                         <CardTitle className="text-base truncate">{ex.titre}</CardTitle>
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
-                        <TypeLabel type={ex.type} />
                         {canManage && (
-                          <>
-                            <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(ex)} aria-label={`Modifier l'exercice ${ex.titre}`}>
-                              <Pencil className="h-3.5 w-3.5" />
-                            </Button>
-                            <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => setDeleteId(ex.id)} aria-label={`Supprimer l'exercice ${ex.titre}`}>
-                              <Trash2 className="h-3.5 w-3.5" />
-                            </Button>
-                          </>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Actions sur l'exercice ${ex.titre}`}>
+                                <MoreVertical className="h-3.5 w-3.5" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem onClick={() => openEdit(ex)}>
+                                <Pencil className="h-3.5 w-3.5 mr-2" /> Modifier
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => setDeleteId(ex.id)} className="text-destructive focus:text-destructive">
+                                <Trash2 className="h-3.5 w-3.5 mr-2" /> Supprimer
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         )}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-0">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <TypeLabel type={ex.type} />
+                      {dejaFait && <Badge variant="outline" className="text-xs text-green-600 border-green-300">Fait</Badge>}
+                      {!ex.actif && <Badge variant="outline" className="text-xs">Inactif</Badge>}
+                    </div>
                     {ex.consignes && <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{ex.consignes}</p>}
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        {dejaFait && <Badge variant="outline" className="text-xs text-green-600 border-green-300">Fait</Badge>}
-                        {!ex.actif && <Badge variant="outline" className="text-xs">Inactif</Badge>}
-                      </div>
-                      <div className="flex gap-2">
+                    <div className="flex items-center justify-end gap-2">
                         {dejaFait && (
                           <Button size="sm" variant="outline" onClick={() => voirCorrige(ex)} className="text-xs">
                             <Eye className="h-3.5 w-3.5 mr-1" /> Corrigé
@@ -638,7 +647,6 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion }: { 
                             {dejaFait ? 'Refaire' : 'Commencer'}
                           </Button>
                         )}
-                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -904,6 +912,7 @@ export default function ExercicesPage() {
     .map(c => ({ id: c.id, nom: c.nom, faculteId: (c as any).faculteId, universiteId: (c as any).universiteId, promotion: c.promotion }))
 
   const [onglet, setOnglet] = useState<'guides' | 'libres'>('guides')
+  const [nbExercicesLibres, setNbExercicesLibres] = useState(0)
   const [recherche, setRecherche] = useState('')
   const [filtreDifficulte, setFiltreDifficulte] = useState<'' | 'Facile' | 'Moyen' | 'Difficile'>('')
   const [showForm, setShowForm] = useState(false)
@@ -1030,7 +1039,7 @@ export default function ExercicesPage() {
           className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${onglet === 'guides' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           <span className="flex items-center gap-1.5">
-            <GraduationCap className="h-4 w-4" /> Exercices guidés
+            <GraduationCap className="h-4 w-4" /> Exercices guidés ({exercices.length})
           </span>
         </button>
         <button
@@ -1038,7 +1047,7 @@ export default function ExercicesPage() {
           className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${onglet === 'libres' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           <span className="flex items-center gap-1.5">
-            <Dumbbell className="h-4 w-4" /> Exercices libres
+            <Dumbbell className="h-4 w-4" /> Exercices libres ({nbExercicesLibres})
           </span>
         </button>
       </div>
@@ -1065,14 +1074,21 @@ export default function ExercicesPage() {
               </Select>
             </div>
             {canManage && (
-              <div className="flex gap-2">
-                <Button size="sm" variant="outline" onClick={() => setShowImport(true)}>
-                  <Upload className="h-4 w-4 mr-1" /> Importer CSV
-                </Button>
-                <Button size="sm" onClick={openCreate}>
-                  <Plus className="h-4 w-4 mr-1" /> Créer un exercice
-                </Button>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="sm">
+                    <Plus className="h-4 w-4 mr-1" /> Ajouter
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={openCreate}>
+                    <Plus className="h-3.5 w-3.5 mr-2" /> Créer un exercice
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setShowImport(true)}>
+                    <Upload className="h-3.5 w-3.5 mr-2" /> Importer un CSV
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
 
@@ -1114,23 +1130,30 @@ export default function ExercicesPage() {
                             <CardTitle className="text-base">{ex.titre}</CardTitle>
                           </div>
                           <div className="flex gap-1 shrink-0">
-                            {!ex.actif && <Badge variant="outline" className="text-xs">Inactif</Badge>}
                             {canManage && (
-                              <>
-                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(ex.id)} aria-label={`Modifier l'exercice ${ex.titre}`}>
-                                  <Pencil className="h-3.5 w-3.5" />
-                                </Button>
-                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteId(ex.id)} aria-label={`Supprimer l'exercice ${ex.titre}`}>
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </Button>
-                              </>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Actions sur l'exercice ${ex.titre}`}>
+                                    <MoreVertical className="h-3.5 w-3.5" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem onClick={() => openEdit(ex.id)}>
+                                    <Pencil className="h-3.5 w-3.5 mr-2" /> Modifier
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => setDeleteId(ex.id)} className="text-destructive focus:text-destructive">
+                                    <Trash2 className="h-3.5 w-3.5 mr-2" /> Supprimer
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
                             )}
                           </div>
                         </div>
                       </CardHeader>
                       <CardContent className="pt-0">
-                        {(ex as any).difficulte || (ex as any).categorie ? (
+                        {(ex as any).difficulte || (ex as any).categorie || !ex.actif ? (
                           <div className="flex items-center gap-1.5 mb-2">
+                            {!ex.actif && <Badge variant="outline" className="text-xs">Inactif</Badge>}
                             {(ex as any).difficulte && (
                               <Badge variant="outline" className={cn('text-xs',
                                 (ex as any).difficulte === 'Facile' ? 'border-green-400 text-green-600' :
@@ -1257,7 +1280,7 @@ export default function ExercicesPage() {
       )}
 
       {/* Contenu onglet Exercices libres */}
-      {onglet === 'libres' && <OngletExercicesLibres coursIds={studentCoursIds} coursList={coursList} faculteId={studentFaculteId} promotion={studentPromotion} />}
+      {onglet === 'libres' && <OngletExercicesLibres coursIds={studentCoursIds} coursList={coursList} faculteId={studentFaculteId} promotion={studentPromotion} onCount={setNbExercicesLibres} />}
     </div>
   )
 }
