@@ -6,6 +6,7 @@
 import BackButton from '@/components/BackButton'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
+import { useSearch } from 'wouter'
 import { useUser } from '@/lib/userContext'
 import { getEcrituresAsync, createSoumissionAsync } from '@/lib/db-firebase'
 import { formatMontant } from '@/lib/utils'
@@ -149,16 +150,19 @@ export default function ApercuDevoirPage() {
   const [, navigate] = useHashLocation()
   const user = useUser()
 
-  // Lire les paramètres depuis le hash
+  // Lire les paramètres depuis l'URL. useSearch() (wouter), pas
+  // window.location.hash : en routage hash, le navigate(...) de
+  // useHashLocation pose la query dans la vraie search de l'URL (avant le
+  // #), jamais dans le hash - une lecture regex sur window.location.hash ne
+  // trouve donc jamais rien (devoirId/sessionId toujours vides).
+  const search = useSearch()
   const { devoirId, sessionId } = useMemo(() => {
-    const hash = window.location.hash
-    const devoirMatch = hash.match(/[?&]devoir=([^&]+)/)
-    const sessionMatch = hash.match(/[?&]session=([^&]+)/)
+    const params = new URLSearchParams(search)
     return {
-      devoirId: devoirMatch ? devoirMatch[1] : '',
-      sessionId: sessionMatch ? sessionMatch[1] : '',
+      devoirId: params.get('devoir') || '',
+      sessionId: params.get('session') || '',
     }
-  }, [])
+  }, [search])
 
   const [ecritures, setEcritures] = useState<Ecriture[]>([])
   const [loading, setLoading] = useState(true)

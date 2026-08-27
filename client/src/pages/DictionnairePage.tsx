@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
+import { useSearch } from 'wouter'
 import { BookMarked, Search, X, ChevronRight, ArrowUp, ArrowLeft } from 'lucide-react'
 import { DICTIONNAIRE, DOMAINES_DICT, UES_DICT, TermeDict, DomaineDict } from '@/data/dictionnaire'
 import { cn } from '@/lib/utils'
@@ -21,7 +22,7 @@ const normalize = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
 export default function DictionnairePage() {
-  const [location, navigate] = useHashLocation()
+  const [, navigate] = useHashLocation()
   const [search, setSearch] = useState('')
   const [domaineFiltre, setDomaineFiltre] = useState<DomaineDict | 'tous'>('tous')
   const [termeActif, setTermeActif] = useState<string | null>(null)
@@ -36,12 +37,17 @@ export default function DictionnairePage() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Lire le terme dans l'URL (ex: /dictionnaire?terme=actif)
+  // Lire le terme dans l'URL (ex: /dictionnaire?terme=actif).
+  // useSearch() (wouter), pas window.location.hash : en routage hash, le
+  // navigate('/dictionnaire?terme=xxx') de useHashLocation pose la query
+  // dans la vraie search de l'URL (avant le #), jamais dans le hash - une
+  // lecture regex sur window.location.hash ne trouve donc jamais rien, et le
+  // lien profond retombe systématiquement sur l'accueil du dictionnaire.
+  const urlSearch = useSearch()
   useEffect(() => {
-    const hash = window.location.hash // ex: #/dictionnaire?terme=actif
-    const match = hash.match(/[?&]terme=([^&]+)/)
-    if (match) {
-      const id = decodeURIComponent(match[1])
+    const params = new URLSearchParams(urlSearch)
+    const id = params.get('terme')
+    if (id) {
       setTermeActif(id)
       // Scroll vers ce terme après le rendu
       setTimeout(() => {
@@ -49,7 +55,7 @@ export default function DictionnairePage() {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
       }, 150)
     }
-  }, [location])
+  }, [urlSearch])
 
   // Filtrer et trier les termes : priorité aux mots qui commencent par la saisie
   const termesFiltres = (() => {

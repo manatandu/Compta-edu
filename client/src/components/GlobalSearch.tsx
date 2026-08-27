@@ -88,7 +88,8 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
             label: `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username,
             sublabel: `@${u.username}`,
             type: 'etudiant',
-            path: '/professeurs',
+            // Fiche individuelle de l'étudiant, pas la gestion générale
+            path: `/etudiant/${u.id}`,
             adminOnly: true,
           })
         })
@@ -110,8 +111,10 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           label: c.nom,
           sublabel: c.moduleKey || undefined,
           type: 'cours',
-          // Étudiant va vers son dashboard, admin vers gestion
-          path: isStudent ? '/' : '/professeurs',
+          // Étudiant : sa liste de cours (pas juste le dashboard générique).
+          // Admin : onglet Cours de la gestion, explicite pour rester valide
+          // même si l'onglet par défaut de ProfesseurPage change un jour.
+          path: isStudent ? '/mes-cours' : '/professeurs?tab=cours',
         })
       })
 
@@ -126,7 +129,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
             label: u.nom,
             sublabel: u.ville || undefined,
             type: 'universite',
-            path: '/professeurs',
+            path: '/professeurs?tab=universites',
             adminOnly: true,
           })
         })
@@ -142,7 +145,11 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           label: d.titre,
           sublabel: d.dateLimit ? `Limite : ${new Date(d.dateLimit).toLocaleDateString('fr-FR')}` : undefined,
           type: 'devoir',
-          path: isStudent ? '/' : '/professeurs',
+          // Étudiant : aperçu direct du devoir (lien profond ?devoir=<id>,
+          // maintenant fonctionnel - voir ApercuDevoirPage). Admin/prof :
+          // onglet "Copies à corriger", le plus proche d'une fiche devoir
+          // dans ProfesseurPage (pas d'onglet dédié "devoirs" à ce jour).
+          path: isStudent ? `/apercu-devoir?devoir=${encodeURIComponent(d.id)}` : '/professeurs?tab=copies',
         })
       })
 

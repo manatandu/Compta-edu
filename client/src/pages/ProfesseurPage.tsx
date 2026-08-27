@@ -1,7 +1,7 @@
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import React, { useState, useEffect, useRef } from 'react'
-import { useLocation } from 'wouter'
+import { useLocation, useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
 import {
@@ -338,7 +338,17 @@ export default function ProfesseurPage() {
   const isStaff = isStaffRole(currentUser)
 
   const [, navigate] = useLocation()
-  const [tab, setTab] = useState<Tab>('cours')
+  // Onglet initial pilotable par l'URL (ex: /professeurs?tab=universites),
+  // notamment depuis la recherche globale (GlobalSearch) : sans ça, un
+  // résultat "université" ou "devoir" renvoyait toujours sur l'onglet Cours
+  // par défaut plutôt que sur l'onglet réellement recherché.
+  const TABS_VALIDES: Tab[] = ['cours', 'universites', 'staff', 'inscriptions', 'copies', 'progression', 'presences', 'cotes', 'notes']
+  const urlSearchInit = useSearch()
+  const tabInitiale = (() => {
+    const t = new URLSearchParams(urlSearchInit).get('tab') as Tab | null
+    return t && TABS_VALIDES.includes(t) ? t : 'cours'
+  })()
+  const [tab, setTab] = useState<Tab>(tabInitiale)
   // Filtre par faculté de l'onglet Cours - alimenté par le lien "Gérer →"
   // depuis l'accordéon Universités (voir onglet 'universites'), pour éviter
   // de dupliquer la gestion des cours à deux endroits (accordéon + onglet).
