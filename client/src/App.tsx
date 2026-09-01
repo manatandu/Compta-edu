@@ -65,7 +65,6 @@ const UE2Chapitre7Page = React.lazy(() => import('@/pages/UE2Chapitre7Page'))
 const UE2Chapitre8Page = React.lazy(() => import('@/pages/UE2Chapitre8Page'))
 const UE2Chapitre9Page = React.lazy(() => import('@/pages/UE2Chapitre9Page'))
 const UE2Chapitre10Page = React.lazy(() => import('@/pages/UE2Chapitre10Page'))
-const UE2Chapitre11Page = React.lazy(() => import('@/pages/UE2Chapitre11Page'))
 const UE5FinancesPubliquesPage = React.lazy(() => import('@/pages/UE5FinancesPubliquesPage'))
 const UE5Chapitre1Page = React.lazy(() => import('@/pages/UE5Chapitre1Page'))
 const UE5Chapitre2Page = React.lazy(() => import('@/pages/UE5Chapitre2Page'))
@@ -368,7 +367,7 @@ export default function App() {
           <W user={user} onLogout={handleLogout}><UE2Chapitre10Page /></W>
         </Route>
         <Route path="/ue2/chapitre-11">
-          <W user={user} onLogout={handleLogout}><UE2Chapitre11Page /></W>
+          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="11" /></W>
         </Route>
 
         {/* ── UE 5 - Finances publiques ── */}
