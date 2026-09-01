@@ -3,6 +3,7 @@ import { Lock } from 'lucide-react'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
+import { prefetchRoute } from '@/lib/prefetch'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // IDENTITÉ VISUELLE - « manuscrit de cours » : encre, papier, filet, vert
@@ -86,6 +87,8 @@ export default function UE1DroitTravailPage() {
                 tabIndex={bloque ? undefined : 0}
                 onClick={() => { if (!bloque) navigate(ch.route) }}
                 onKeyDown={(e) => { if (!bloque && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); navigate(ch.route) } }}
+                onMouseEnter={() => { if (!bloque) prefetchRoute(ch.route) }}
+                onTouchStart={() => { if (!bloque) prefetchRoute(ch.route) }}
                 className={cn(
                   'relative grid grid-cols-[36px_1fr_auto] items-baseline gap-3 py-4 border-b',
                   LIGNE,
