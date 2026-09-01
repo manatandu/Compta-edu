@@ -22,7 +22,7 @@ const CHAPITRES = [
   { num: 1, titre: 'La constitution des sociétés : apports et comptabilisation', sousTitre: 'AUSCGIE art. 37–70 · App. 58–59', duree: '6h', actif: true, route: '/ue3/chapitre-1' },
   { num: 2, titre: 'Constitution selon la forme sociale : SARL, SA, incidents de libération', sousTitre: 'AUSCGIE art. 309–316, 385–410, 774–777', duree: '5h', actif: true, route: '/ue3/chapitre-2' },
   { num: 3, titre: "L'affectation du résultat et la distribution des dividendes", sousTitre: 'AUSCGIE art. 137–146, 346, 546 · App. 65', duree: '4h', actif: true, route: '/ue3/chapitre-3' },
-  { num: 4, titre: "L'augmentation de capital", sousTitre: 'AUSCGIE art. 562 s. · App. 60–61', duree: '5h', actif: false, route: '/ue3/chapitre-4' },
+  { num: 4, titre: "L'augmentation de capital", sousTitre: 'AUSCGIE art. 562–615, 360–363 · App. 60–61', duree: '5h', actif: true, route: '/ue3/chapitre-4' },
   { num: 5, titre: "La réduction et l'amortissement du capital", sousTitre: 'AUSCGIE art. 627 s. · App. 62–64', duree: '4h', actif: false, route: '/ue3/chapitre-5' },
   { num: 6, titre: "L'emprunt obligataire", sousTitre: 'AUSCGIE art. 779 s. · App. 78–80', duree: '5h', actif: false, route: '/ue3/chapitre-6' },
   { num: 7, titre: "L'évaluation des titres sociaux et le portefeuille-titres", sousTitre: 'App. 48–51 · valeurs et droits', duree: '4h', actif: false, route: '/ue3/chapitre-7' },
