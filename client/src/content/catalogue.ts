@@ -35,6 +35,7 @@ export const CATALOGUE: Record<string, Record<number, ChargeurChapitre>> = {
     6: () => import('./ue2/chapitre-6'),
     7: () => import('./ue2/chapitre-7'),
     8: () => import('./ue2/chapitre-8'),
+    9: () => import('./ue2/chapitre-9'),
     11: () => import('./ue2/chapitre-11'),
   },
 }
