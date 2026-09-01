@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
+import { prefetchRoute } from '@/lib/prefetch'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
@@ -227,6 +229,7 @@ type Vue = 'lecture' | 'qcm' | 'cas' | 'devoir'
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) {
   const goBack = useGoBack(chapitre.retourRoute)
+  const [, naviguer] = useHashLocation()
   const utilisateur = useUser()
   const estEtudiant = isStudentRole(utilisateur)
   const [vue, setVue] = useState<Vue>('lecture')
@@ -348,6 +351,22 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
                   </section>
                 )
               })}
+
+              {chapitre.outil && (
+                <div className={cn('rounded-sm border p-5', LIGNE_FORTE, PAPIER_CARD)}>
+                  <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-1', AMBRE)}>Outil pratique</p>
+                  <p className={cn('font-serif font-bold text-base mb-2', ENCRE)}>{chapitre.outil.label}</p>
+                  <p className={cn('text-xs leading-relaxed mb-4 max-w-xl', ENCRE_DOUX)}>{chapitre.outil.description}</p>
+                  <button
+                    onClick={() => naviguer(chapitre.outil!.route)}
+                    onMouseEnter={() => prefetchRoute(chapitre.outil!.route)}
+                    onTouchStart={() => prefetchRoute(chapitre.outil!.route)}
+                    className={cn('text-xs font-mono px-4 py-2.5 rounded-sm text-white', VERT_BG)}
+                  >
+                    Ouvrir l'outil →
+                  </button>
+                </div>
+              )}
 
               <div className={cn('pt-8 border-t-2', 'border-[#262019]')}>
                 <p className={cn('font-serif font-bold text-base mb-4', ENCRE)}>À retenir</p>
