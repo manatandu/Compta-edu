@@ -56,6 +56,7 @@ const UE1DroitTravailPage = React.lazy(() => import('@/pages/UE1DroitTravailPage
 const ChapitrePage = React.lazy(() => import('@/pages/ChapitrePage'))
 const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPage'))
 const UE2SimulateurConstitutionPage = React.lazy(() => import('@/pages/UE2SimulateurConstitutionPage'))
+const UE3ComptaSocietesPage = React.lazy(() => import('@/pages/UE3ComptaSocietesPage'))
 const UE5FinancesPubliquesPage = React.lazy(() => import('@/pages/UE5FinancesPubliquesPage'))
 const UE13IFRSPage = React.lazy(() => import('@/pages/UE13IFRSPage'))
 const GestionEtudiantsPage = React.lazy(() => import('@/pages/GestionEtudiantsPage'))
@@ -349,6 +350,20 @@ export default function App() {
         </Route>
         <Route path="/ue2/chapitre-11">
           <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="11" /></W>
+        </Route>
+
+        {/* ── UE 3 - Comptabilité des sociétés ── */}
+        <Route path="/ue3-compta-societes">
+          <W user={user} onLogout={handleLogout}><UE3ComptaSocietesPage /></W>
+        </Route>
+        {/* Une seule route dessert tous les chapitres du module : le contenu
+            vit dans client/src/content, pas dans un fichier de page par chapitre. */}
+        <Route path="/ue3/chapitre-:numero">
+          {(params) => (
+            <W user={user} onLogout={handleLogout}>
+              <ChapitrePage ue="ue3" numero={params.numero} />
+            </W>
+          )}
         </Route>
 
         {/* ── UE 5 - Finances publiques ── */}

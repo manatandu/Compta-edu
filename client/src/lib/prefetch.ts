@@ -38,6 +38,7 @@ const registry: Record<string, Loader> = {
   '/prepa-onec': () => import('@/pages/PrepaOnecPage'),
   '/mes-cours': () => import('@/pages/MesCoursPage'),
   '/ue2/simulateur-constitution': () => import('@/pages/UE2SimulateurConstitutionPage'),
+  '/ue3-compta-societes': () => import('@/pages/UE3ComptaSocietesPage'),
 }
 
 // Chapitres d'UE : préchargés uniquement au survol de leur ligne dans le

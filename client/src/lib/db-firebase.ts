@@ -1073,7 +1073,7 @@ export const COURS_SYSTEME = [
     moduleKey: 'ue3-compta-societes',
     icon: 'BookOpen',
     systeme: true,
-    actif: false,
+    actif: true,
   },
   {
     id: 'sys_fiscalite',
