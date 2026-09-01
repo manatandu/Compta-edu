@@ -1,289 +1,123 @@
 import { useHashLocation } from 'wouter/use-hash-location'
-import { ChevronRight, Lock, BookOpen, CheckCircle2 } from 'lucide-react'
+import { Lock } from 'lucide-react'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
+import { prefetchRoute } from '@/lib/prefetch'
+
+// ─────────────────────────────────────────────────────────────────────────────
+// IDENTITÉ VISUELLE - « manuscrit de cours », même gabarit que UE1
+// (UE1DroitTravailPage) : encre, papier, filet, accent indigo propre à
+// l'UE2, ambre pour la marginalia. Aucune classe Tailwind dynamique.
+// ─────────────────────────────────────────────────────────────────────────────
+const ENCRE = 'text-[#262019]'
+const ENCRE_DOUX = 'text-[#6B6047]'
+const ENCRE_FAIBLE = 'text-[#948868]'
+const LIGNE = 'border-[#D9CFA9]'
+const LIGNE_FORTE = 'border-[#C6B788]'
+const INDIGO = 'text-[#3B3A82]'
+const AMBRE = 'text-[#8A6416]'
 
 const CHAPITRES = [
-  {
-    num: 1,
-    titre: 'Notions g\u00e9n\u00e9rales \u2014 La soci\u00e9t\u00e9 commerciale',
-    sousTitre: 'D\u00e9finition, classification, r\u00e9formes RDC, GUCE',
-    duree: '3h',
-    actif: true,
-    route: '/ue2/chapitre-1',
-    lecons: 8,
-    exercices: 3,
-    couleur: 'bg-indigo-50 text-indigo-700',
-    accent: 'border-l-indigo-500',
-    categorie: '',
-  },
-  {
-    num: 2,
-    titre: 'Constitution & formalit\u00e9s',
-    sousTitre: 'Art. 7\u201314, 19\u2013103, 256-1\u2013263 AUSCGIE',
-    duree: '4h',
-    actif: true,
-    route: '/ue2/chapitre-2',
-    lecons: 7,
-    exercices: 4,
-    couleur: 'bg-violet-50 text-violet-700',
-    accent: 'border-l-violet-500',
-    categorie: '',
-  },
-  {
-    num: 3,
-    titre: 'Soci\u00e9t\u00e9s de personnes : SNC & SCS',
-    sousTitre: 'Art. 270\u2013308 AUSCGIE \u2014 intuitu personae',
-    duree: '3h',
-    actif: true,
-    route: '/ue2/chapitre-3',
-    lecons: 5,
-    exercices: 3,
-    couleur: 'bg-blue-50 text-blue-700',
-    accent: 'border-l-blue-500',
-    categorie: 'Soci\u00e9t\u00e9s de personnes',
-  },
-  {
-    num: 4,
-    titre: 'Soci\u00e9t\u00e9s de capitaux : SA & SAS',
-    sousTitre: 'Art. 385\u2013561, 853-1\u2013853-26 AUSCGIE',
-    duree: '4h',
-    actif: true,
-    route: '/ue2/chapitre-4',
-    lecons: 6,
-    exercices: 3,
-    couleur: 'bg-cyan-50 text-cyan-700',
-    accent: 'border-l-cyan-500',
-    categorie: 'Soci\u00e9t\u00e9s de capitaux',
-  },
-  {
-    num: 5,
-    titre: 'Soci\u00e9t\u00e9 mixte : SARL',
-    sousTitre: 'Art. 309\u2013384 AUSCGIE \u2014 capital libre RDC',
-    duree: '3h',
-    actif: true,
-    route: '/ue2/chapitre-5',
-    lecons: 5,
-    exercices: 3,
-    couleur: 'bg-teal-50 text-teal-700',
-    accent: 'border-l-teal-500',
-    categorie: 'Soci\u00e9t\u00e9 mixte',
-  },
-  {
-    num: 6,
-    titre: 'Le GIE',
-    sousTitre: 'Art. 869\u2013919 AUSCGIE \u2014 cat\u00e9gorie distincte',
-    duree: '2h',
-    actif: true,
-    route: '/ue2/chapitre-6',
-    lecons: 5,
-    exercices: 3,
-    couleur: 'bg-emerald-50 text-emerald-700',
-    accent: 'border-l-emerald-500',
-    categorie: 'Cat\u00e9gorie distincte',
-  },
-  {
-    num: 7,
-    titre: 'Les dirigeants sociaux',
-    sousTitre: 'Art. 101\u2013135, 330\u2013445 AUSCGIE',
-    duree: '3h',
-    actif: true,
-    route: '/ue2/chapitre-7',
-    lecons: 5,
-    exercices: 20,
-    couleur: 'bg-amber-50 text-amber-700',
-    accent: 'border-l-amber-500',
-    categorie: '',
-  },
-  {
-    num: 8,
-    titre: 'Les associ\u00e9s & les assembl\u00e9es',
-    sousTitre: 'Art. 51\u201360, 133\u2013163, 519\u2013695 AUSCGIE',
-    duree: '3h',
-    actif: true,
-    route: '/ue2/chapitre-8',
-    lecons: 5,
-    exercices: 2,
-    couleur: 'bg-sky-50 text-sky-700',
-    accent: 'border-l-sky-500',
-    categorie: '',
-  },
-  {
-    num: 9,
-    titre: 'Difficult\u00e9s & transformation',
-    sousTitre: 'Art. 150\u2013164, 180\u2013200 AUSCGIE',
-    duree: '2h',
-    actif: true,
-    route: '/ue2/chapitre-9',
-    lecons: 4,
-    exercices: 2,
-    couleur: 'bg-orange-50 text-orange-700',
-    accent: 'border-l-orange-500',
-    categorie: '',
-  },
-  {
-    num: 10,
-    titre: 'Dissolution, liquidation & infractions',
-    sousTitre: 'Art. 200–256, 886–920 AUSCGIE',
-    duree: '3h',
-    actif: true,
-    route: '/ue2/chapitre-10',
-    lecons: 4,
-    exercices: 2,
-    couleur: 'bg-rose-50 text-rose-700',
-    accent: 'border-l-rose-500',
-    categorie: '',
-  },
-  {
-    num: 11,
-    titre: 'Société en participation & Société de fait',
-    sousTitre: 'Art. 854–868 AUSCGIE',
-    duree: '2h',
-    actif: true,
-    route: '/ue2/chapitre-11',
-    lecons: 5,
-    exercices: 10,
-    couleur: 'bg-emerald-50 text-emerald-700',
-    accent: 'border-l-emerald-500',
-    categorie: '',
-  },
+  { num: 1,  titre: 'Notions générales : la société commerciale', sousTitre: 'Définition, classification, réformes RDC, GUCE', duree: '3h', actif: true, route: '/ue2/chapitre-1' },
+  { num: 2,  titre: 'Constitution et formalités', sousTitre: 'Art. 7–14, 19–103, 256-1–263 AUSCGIE', duree: '4h', actif: true, route: '/ue2/chapitre-2' },
+  { num: 3,  titre: 'Sociétés de personnes : SNC et SCS', sousTitre: 'Art. 270–308 AUSCGIE — intuitu personae', duree: '3h', actif: true, route: '/ue2/chapitre-3' },
+  { num: 4,  titre: 'Sociétés de capitaux : SA et SAS', sousTitre: 'Art. 385–561, 853-1–853-26 AUSCGIE', duree: '4h', actif: true, route: '/ue2/chapitre-4' },
+  { num: 5,  titre: 'Société mixte : la SARL', sousTitre: 'Art. 309–384 AUSCGIE — capital libre RDC', duree: '3h', actif: true, route: '/ue2/chapitre-5' },
+  { num: 6,  titre: 'Le groupement d’intérêt économique', sousTitre: 'Art. 869–919 AUSCGIE — catégorie distincte', duree: '2h', actif: true, route: '/ue2/chapitre-6' },
+  { num: 7,  titre: 'Les dirigeants sociaux', sousTitre: 'Art. 101–135, 330–445 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-7' },
+  { num: 8,  titre: 'Les associés et les assemblées', sousTitre: 'Art. 51–60, 133–163, 519–695 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-8' },
+  { num: 9,  titre: 'Difficultés et transformation', sousTitre: 'Art. 150–164, 180–200 AUSCGIE', duree: '2h', actif: true, route: '/ue2/chapitre-9' },
+  { num: 10, titre: 'Dissolution, liquidation et infractions', sousTitre: 'Art. 200–256, 886–920 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-10' },
+  { num: 11, titre: 'Société en participation et société de fait', sousTitre: 'Art. 854–868 AUSCGIE', duree: '2h', actif: true, route: '/ue2/chapitre-11' },
 ]
 
 export default function UE2DroitSocietesPage() {
   const [, navigate] = useHashLocation()
-
-  const totalLecons = CHAPITRES.reduce((s, c) => s + c.lecons, 0)
-  const totalHeures = '30h'
+  const totalHeures = CHAPITRES.reduce((s, c) => s + parseInt(c.duree), 0)
 
   return (
-    <div className="space-y-4 pb-10 animate-fadeIn">
-      {/* En-tête */}
-      <div className="flex items-center gap-3">
-        <div className="flex-1 min-w-0">
-          <BackButton />
-          <Breadcrumb
-            items={[
-              { label: 'Mes cours', route: '/mes-cours' },
-              { label: 'UE 2 - Droit des sociétés' },
-            ]}
-            color="indigo"
-          />
-          <h1 className="text-lg font-display font-bold text-foreground leading-tight truncate mt-1">Droit des sociétés OHADA</h1>
-          <p className="text-xs text-muted-foreground">Source : AUSCGIE révisé 2014 · Droit RDC</p>
-        </div>
+    <div className="space-y-8 pb-10 animate-fadeIn">
+      <div className="space-y-1">
+        <BackButton />
+        <Breadcrumb
+          items={[
+            { label: 'Mes cours', route: '/mes-cours' },
+            { label: 'UE 2 · Droit des sociétés' },
+          ]}
+          color="indigo"
+        />
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-2">
-        {[
-          { label: 'Chapitres', value: '10' },
-          { label: 'Leçons', value: String(totalLecons) },
-          { label: 'Durée totale', value: totalHeures },
-        ].map(s => (
-          <div key={s.label} className="rounded-xl border border-border bg-card p-3 text-center">
-            <p className="text-xl font-bold text-foreground">{s.value}</p>
-            <p className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Objectifs du cours */}
-      <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <BookOpen className="h-4 w-4 text-indigo-600" />
-          <span className="text-sm font-semibold text-indigo-800">Objectifs du cours</span>
+      <div className="max-w-2xl">
+        <div className={cn('flex items-center gap-2.5 text-[11px] font-mono uppercase tracking-widest mb-4', AMBRE)}>
+          <span className="w-5 h-px bg-current" />
+          Unité d'enseignement 2
         </div>
-        <ul className="space-y-1.5">
+
+        <h1 className={cn('font-serif font-bold text-3xl sm:text-4xl leading-tight mb-1.5', ENCRE)}>Droit des sociétés</h1>
+        <p className="text-xs font-mono text-muted-foreground mb-5">Acte uniforme OHADA révisé relatif au droit des sociétés commerciales et du GIE (30 janvier 2014)</p>
+
+        <p className={cn('text-[17px] leading-relaxed max-w-md mb-6', ENCRE_DOUX)}>
+          Manuel de cours : le droit OHADA des sociétés commerciales, de la constitution à la dissolution, forme par forme.
+        </p>
+
+        <div className={cn('flex gap-7 py-5 border-t border-b', LIGNE)}>
           {[
-            'Maîtriser le droit des sociétés dans l\'espace OHADA (AUSCGIE révisé 2014)',
-            'Comprendre les spécificités du droit congolais (RDC) et ses réformes',
-            'Appliquer les règles aux situations pratiques de création et gestion de sociétés',
-            'Préparer aux examens DCG adapté OHADA',
-          ].map((obj, i) => (
-            <li key={i} className="flex items-start gap-2 text-xs text-indigo-700">
-              <CheckCircle2 className="h-3.5 w-3.5 mt-0.5 shrink-0 text-indigo-500" />
-              <span>{obj}</span>
-            </li>
+            { label: 'Volume horaire', value: `${totalHeures}h` },
+            { label: 'Chapitres', value: String(CHAPITRES.length) },
+            { label: 'Édition', value: '2026' },
+          ].map(s => (
+            <div key={s.label} className="flex flex-col gap-0.5">
+              <b className={cn('font-serif text-xl', ENCRE)}>{s.value}</b>
+              <span className={cn('text-[10px] font-mono uppercase tracking-wider', ENCRE_FAIBLE)}>{s.label}</span>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
 
-      {/* Liste des chapitres */}
-      <div>
-        <h2 className="text-sm font-display font-semibold text-foreground mb-2 px-1">Programme : 10 chapitres</h2>
-        <div className="rounded-2xl border border-border bg-card overflow-hidden divide-y divide-border">
+      <div className="max-w-2xl">
+        <p className={cn('text-[11px] font-mono uppercase tracking-wider mb-1', ENCRE_FAIBLE)}>Sommaire</p>
+        <div>
           {CHAPITRES.map((ch) => {
             const bloque = !ch.actif
-            return bloque ? (
+            return (
               <div
                 key={ch.num}
-                className="flex items-center gap-3 px-4 py-4 opacity-45 cursor-not-allowed"
-              >
-                <div className={cn(
-                  'h-9 w-9 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold',
-                  ch.couleur
-                )}>
-                  {ch.num}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-semibold text-foreground text-sm leading-tight">{ch.titre}</p>
-                    {ch.categorie ? (
-                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground shrink-0">{ch.categorie}</span>
-                    ) : null}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{ch.sousTitre}</p>
-                  <div className="flex items-center gap-3 mt-1">
-                    <span className="text-xs text-muted-foreground/70">{ch.lecons} leçons</span>
-                    <span className="text-xs text-muted-foreground/70">{ch.exercices} exercices</span>
-                    <span className="text-xs text-muted-foreground/70">{ch.duree}</span>
-                  </div>
-                </div>
-                <Lock className="h-3.5 w-3.5 text-muted-foreground/40 shrink-0" />
-              </div>
-            ) : (
-              <button
-                key={ch.num}
-                onClick={() => navigate(ch.route)}
+                role={bloque ? undefined : 'button'}
+                tabIndex={bloque ? undefined : 0}
+                onClick={() => { if (!bloque) navigate(ch.route) }}
+                onKeyDown={(e) => { if (!bloque && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); navigate(ch.route) } }}
+                onMouseEnter={() => { if (!bloque) prefetchRoute(ch.route) }}
+                onTouchStart={() => { if (!bloque) prefetchRoute(ch.route) }}
                 className={cn(
-                  'group w-full flex items-center gap-3 px-4 py-4 text-left',
-                  'hover:bg-muted/40 transition-colors duration-150',
-                  'border-l-4',
-                  ch.accent
+                  'relative grid grid-cols-[36px_1fr_auto] items-baseline gap-3 py-4 border-b',
+                  LIGNE,
+                  bloque ? 'cursor-not-allowed' : 'cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B3A82] rounded-sm'
                 )}
               >
-                <div className={cn(
-                  'h-9 w-9 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold',
-                  'transition-transform duration-200 group-hover:scale-110',
-                  ch.couleur
-                )}>
-                  {ch.num}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-semibold text-foreground text-sm leading-tight group-hover:text-primary transition-colors">{ch.titre}</p>
-                    {ch.categorie ? (
-                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-primary/10 text-primary shrink-0">{ch.categorie}</span>
-                    ) : null}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{ch.sousTitre}</p>
-                  <div className="flex items-center gap-3 mt-1">
-                    <span className="text-xs text-muted-foreground">{ch.lecons} leçons</span>
-                    <span className="text-xs text-muted-foreground">{ch.exercices} exercices</span>
-                    <span className="text-xs text-muted-foreground">{ch.duree}</span>
-                  </div>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-200 shrink-0" />
-              </button>
+                <span className={cn('font-serif font-bold text-xl tabular-nums', bloque ? ENCRE_FAIBLE : INDIGO)}>
+                  {String(ch.num).padStart(2, '0')}
+                </span>
+                <span className="min-w-0 relative z-10">
+                  <span className={cn('block text-[15px] leading-snug pr-1 bg-background', bloque ? ENCRE_DOUX : ENCRE, !bloque && 'group-hover:underline')}>
+                    {ch.titre}
+                  </span>
+                  <span className={cn('block text-[11px] font-mono pr-1 bg-background', ENCRE_FAIBLE)}>{ch.sousTitre}</span>
+                </span>
+                <span className={cn('text-xs font-mono whitespace-nowrap pl-1 bg-background flex items-center gap-1.5', bloque ? ENCRE_FAIBLE : INDIGO)}>
+                  {ch.duree}
+                  {bloque && <Lock className="h-3 w-3 opacity-60" />}
+                </span>
+                <span className={cn('absolute left-[54px] right-[70px] bottom-4 border-b border-dotted', LIGNE_FORTE)} />
+              </div>
             )
           })}
         </div>
       </div>
 
-      {/* Source légale */}
       <p className="text-xs text-center text-muted-foreground/60 pb-2">
-        Sources : AUSCGIE révisé 30/01/2014 · Arrêté intermin. RDC 30/12/2014 · Ordonnance-loi RDC n° 22/030 du 08/09/2022
+        Sources : Acte uniforme OHADA révisé du 30 janvier 2014 relatif au droit des sociétés commerciales et du GIE · Textes d'application RDC (GUCE)
       </p>
     </div>
   )

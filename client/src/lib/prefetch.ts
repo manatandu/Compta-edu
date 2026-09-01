@@ -14,8 +14,6 @@ type Loader = () => Promise<unknown>
 const already = new Set<string>()
 
 // Table des routes les plus fréquentées (nav principale + modules).
-// Les chapitres UE ne sont pas préchargés au survol (trop nombreux,
-// impact réseau non justifié pour des pages visitées une seule fois).
 const registry: Record<string, Loader> = {
   '/': () => import('@/pages/DashboardPage'),
   '/comptabilite-generale': () => import('@/pages/ComptabiliteGeneralePage'),
@@ -40,6 +38,50 @@ const registry: Record<string, Loader> = {
   '/prepa-onec': () => import('@/pages/PrepaOnecPage'),
   '/mes-cours': () => import('@/pages/MesCoursPage'),
 }
+
+// Chapitres d'UE : préchargés uniquement au survol de leur ligne dans le
+// sommaire du module (pas depuis la nav générale) - ce sont les chunks les
+// plus lourds du site (60 à 180 KB), et le survol d'une ligne de sommaire
+// est le signal d'intention le plus fiable qui soit.
+// UE1 passe par le moteur commun : précharger le moteur + le contenu du
+// chapitre (deux chunks distincts). Le chargeur de contenu vient du
+// catalogue (imports statiques analysables par Vite, pas de template
+// literal dans import()).
+import('@/content/catalogue').then(({ CATALOGUE }) => {
+  for (const [numero, chargeur] of Object.entries(CATALOGUE.ue1 ?? {})) {
+    registry[`/ue1/chapitre-${numero}`] = () => Promise.all([
+      import('@/components/chapitre/ChapitreManuscrit'),
+      chargeur(),
+    ])
+  }
+})
+const PAGES_CHAPITRES: Record<string, Loader> = {
+  '/ue2/chapitre-1': () => import('@/pages/UE2Chapitre1Page'),
+  '/ue2/chapitre-2': () => import('@/pages/UE2Chapitre2Page'),
+  '/ue2/chapitre-3': () => import('@/pages/UE2Chapitre3Page'),
+  '/ue2/chapitre-4': () => import('@/pages/UE2Chapitre4Page'),
+  '/ue2/chapitre-5': () => import('@/pages/UE2Chapitre5Page'),
+  '/ue2/chapitre-6': () => import('@/pages/UE2Chapitre6Page'),
+  '/ue2/chapitre-7': () => import('@/pages/UE2Chapitre7Page'),
+  '/ue2/chapitre-8': () => import('@/pages/UE2Chapitre8Page'),
+  '/ue2/chapitre-9': () => import('@/pages/UE2Chapitre9Page'),
+  '/ue2/chapitre-10': () => import('@/pages/UE2Chapitre10Page'),
+  '/ue2/chapitre-11': () => import('@/pages/UE2Chapitre11Page'),
+  '/ue5/chapitre-1': () => import('@/pages/UE5Chapitre1Page'),
+  '/ue5/chapitre-2': () => import('@/pages/UE5Chapitre2Page'),
+  '/ue5/chapitre-3': () => import('@/pages/UE5Chapitre3Page'),
+  '/ue5/chapitre-4': () => import('@/pages/UE5Chapitre4Page'),
+  '/ue5/chapitre-5': () => import('@/pages/UE5Chapitre5Page'),
+  '/ue5/chapitre-6': () => import('@/pages/UE5Chapitre6Page'),
+  '/ue5/chapitre-7': () => import('@/pages/UE5Chapitre7Page'),
+  '/ue5/chapitre-8': () => import('@/pages/UE5Chapitre8Page'),
+  '/ue5/chapitre-9': () => import('@/pages/UE5Chapitre9Page'),
+  '/ue5/chapitre-10': () => import('@/pages/UE5Chapitre10Page'),
+  '/ue13/chapitre-1': () => import('@/pages/UE13Chapitre1Page'),
+  '/ue13/chapitre-2': () => import('@/pages/UE13Chapitre2Page'),
+  '/ue13/chapitre-3': () => import('@/pages/UE13Chapitre3Page'),
+}
+Object.assign(registry, PAGES_CHAPITRES)
 
 export function prefetchRoute(path: string) {
   const loader = registry[path]

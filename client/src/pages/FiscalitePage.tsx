@@ -1258,9 +1258,7 @@ function Cat2BIC() {
   const [cotisationsSociales, setCotisationsSociales] = useState('')
   const [fraisMedicaux, setFraisMedicaux] = useState('')
   const [nbPersonnesCharge, setNbPersonnesCharge] = useState('0')
-  // NOTE : aucun champ de saisie n'alimente plus beneficeN1 dans ce
-  // simulateur (toujours '', donc 0 dans le calcul) - setter retiré.
-  const [beneficeN1] = useState('')
+  const [beneficeN1, setBeneficeN1] = useState('')
   const [impotNmoins1, setImpotNmoins1] = useState('')
   const [showDeductions, setShowDeductions] = useState(false)
   const [tauxUsd, setTauxUsd] = useState('2800')
@@ -1637,6 +1635,18 @@ function Cat2BIC() {
             </button>
             {showDeductions && (
               <div className="mt-3 space-y-3 pl-3 border-l-2 border-primary/20">
+                <div>
+                  <div className="flex items-center gap-1 mb-1.5">
+                    <label className="text-xs font-medium text-muted-foreground">Bénéfice net N−1 (FC) : base du plafond</label>
+                    <InfoTooltip
+                      texte="Le plafond de déduction des cotisations sociales volontaires est calculé sur le bénéfice net de l'année précédente (N−1), conformément à l'Art. 90. Indiquez ici le bénéfice net de l'année dernière."
+                      loi="Art. 90, Loi 23/053"
+                    />
+                  </div>
+                  <input type="number" min={0} placeholder="Bénéfice net année précédente" value={beneficeN1}
+                    onChange={e => { setBeneficeN1(e.target.value); setRes(null) }}
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                </div>
                 <div>
                   <div className="flex items-center gap-1 mb-1.5">
                     <label className="text-xs font-medium text-muted-foreground">Cotisations sociales / assurance (FC)</label>
