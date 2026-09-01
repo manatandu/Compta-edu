@@ -148,6 +148,9 @@ export interface Message {
   contenu: string
   date: string
   lu: boolean
+  // [expediteurId, destinataireId] — posé par saveMessageAsync ; c'est le seul
+  // champ sur lequel firestore.rules autorise la lecture (array-contains).
+  participants?: string[]
 }
 
 export interface Universite {
