@@ -24,7 +24,7 @@ const CHAPITRES = [
   { num: 3, titre: "L'affectation du résultat et la distribution des dividendes", sousTitre: 'AUSCGIE art. 137–146, 346, 546 · App. 65', duree: '4h', actif: true, route: '/ue3/chapitre-3' },
   { num: 4, titre: "L'augmentation de capital", sousTitre: 'AUSCGIE art. 562–615, 360–363 · App. 60–61', duree: '5h', actif: true, route: '/ue3/chapitre-4' },
   { num: 5, titre: "La réduction et l'amortissement du capital", sousTitre: 'AUSCGIE art. 627–669, 371–373 · App. 62–64', duree: '4h', actif: true, route: '/ue3/chapitre-5' },
-  { num: 6, titre: "L'emprunt obligataire", sousTitre: 'AUSCGIE art. 779 s. · App. 78–80', duree: '5h', actif: false, route: '/ue3/chapitre-6' },
+  { num: 6, titre: "L'emprunt obligataire", sousTitre: 'AUSCGIE art. 779–794 · App. 78–80', duree: '5h', actif: true, route: '/ue3/chapitre-6' },
   { num: 7, titre: "L'évaluation des titres sociaux et le portefeuille-titres", sousTitre: 'App. 48–51 · valeurs et droits', duree: '4h', actif: false, route: '/ue3/chapitre-7' },
   { num: 8, titre: 'Les fusions et opérations assimilées', sousTitre: 'AUSCGIE art. 189–199 · App. 116–120', duree: '6h', actif: false, route: '/ue3/chapitre-8' },
   { num: 9, titre: 'La dissolution et la liquidation', sousTitre: 'AUSCGIE art. 200–241 · App. 121–122', duree: '4h', actif: false, route: '/ue3/chapitre-9' },
