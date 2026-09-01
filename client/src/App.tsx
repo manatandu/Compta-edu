@@ -57,7 +57,6 @@ const ChapitrePage = React.lazy(() => import('@/pages/ChapitrePage'))
 const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPage'))
 const UE2SimulateurConstitutionPage = React.lazy(() => import('@/pages/UE2SimulateurConstitutionPage'))
 const UE5FinancesPubliquesPage = React.lazy(() => import('@/pages/UE5FinancesPubliquesPage'))
-const UE5Chapitre10Page = React.lazy(() => import('@/pages/UE5Chapitre10Page'))
 const UE13IFRSPage = React.lazy(() => import('@/pages/UE13IFRSPage'))
 const UE13Chapitre1Page = React.lazy(() => import('@/pages/UE13Chapitre1Page'))
 const UE13Chapitre2Page = React.lazy(() => import('@/pages/UE13Chapitre2Page'))
@@ -387,7 +386,7 @@ export default function App() {
           <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="9" /></W>
         </Route>
         <Route path="/ue5/chapitre-10">
-          <W user={user} onLogout={handleLogout}><UE5Chapitre10Page /></W>
+          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="10" /></W>
         </Route>
         <Route path="/ue13-ifrs-ias">
           <W user={user} onLogout={handleLogout}><UE13IFRSPage /></W>
