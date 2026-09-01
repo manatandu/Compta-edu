@@ -20,7 +20,7 @@ const AMBRE = 'text-[#8A6416]'
 
 const CHAPITRES = [
   { num: 1, titre: 'La constitution des sociétés : apports et comptabilisation', sousTitre: 'AUSCGIE art. 37–70 · App. 58–59', duree: '6h', actif: true, route: '/ue3/chapitre-1' },
-  { num: 2, titre: 'Constitution selon la forme sociale : SARL, SA, incidents de libération', sousTitre: 'AUSCGIE art. 311 s., 387 s.', duree: '5h', actif: false, route: '/ue3/chapitre-2' },
+  { num: 2, titre: 'Constitution selon la forme sociale : SARL, SA, incidents de libération', sousTitre: 'AUSCGIE art. 309–316, 385–410, 774–777', duree: '5h', actif: true, route: '/ue3/chapitre-2' },
   { num: 3, titre: "L'affectation du résultat et la distribution des dividendes", sousTitre: 'AUSCGIE art. 142–146 · App. 65', duree: '4h', actif: false, route: '/ue3/chapitre-3' },
   { num: 4, titre: "L'augmentation de capital", sousTitre: 'AUSCGIE art. 562 s. · App. 60–61', duree: '5h', actif: false, route: '/ue3/chapitre-4' },
   { num: 5, titre: "La réduction et l'amortissement du capital", sousTitre: 'AUSCGIE art. 627 s. · App. 62–64', duree: '4h', actif: false, route: '/ue3/chapitre-5' },
