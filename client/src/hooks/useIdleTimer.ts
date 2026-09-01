@@ -47,9 +47,19 @@ export function useIdleTimer() {
   useEffect(() => {
     const events = ['mousedown', 'mousemove', 'keydown', 'touchstart', 'scroll', 'click']
     const handler = () => { if (!showWarning) reset() }
-    events.forEach(e => window.addEventListener(e, handler, { passive: true }))
+    // Écoute en phase de CAPTURE : l'événement `scroll` ne remonte pas d'un
+    // conteneur imbriqué jusqu'à window, or le conteneur défilant réel de
+    // l'application est le <main> du Layout (overflow-auto), pas la fenêtre.
+    // Sans le drapeau de capture, lire un long chapitre à la molette ou au
+    // pavé tactile - sans bouger la souris ni toucher au clavier - ne réarmait
+    // jamais le minuteur : au bout de trente minutes la session était fermée
+    // et l'utilisateur renvoyé à l'écran de connexion en pleine lecture.
+    // Même correctif que celui déjà appliqué au bouton « remonter » de
+    // ChapitreManuscrit, qui écoute lui aussi le défilement en capture.
+    const options = { passive: true, capture: true } as const
+    events.forEach(e => window.addEventListener(e, handler, options))
     reset()
-    return () => { clearAll(); events.forEach(e => window.removeEventListener(e, handler)) }
+    return () => { clearAll(); events.forEach(e => window.removeEventListener(e, handler, options)) }
   }, [reset, clearAll, showWarning])
 
   return { showWarning, secondsLeft, stayConnected }
