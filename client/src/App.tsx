@@ -22,6 +22,7 @@ import PageLoader from '@/components/PageLoader'
 // ─── Pages chargées à la demande (code-splitting) ──────────────────────────
 const LoginPage = React.lazy(() => import('@/pages/LoginPage'))
 const DashboardPage = React.lazy(() => import('@/pages/DashboardPage'))
+const PageIntrouvable = React.lazy(() => import('@/pages/PageIntrouvable'))
 const JournalPage = React.lazy(() => import('@/pages/JournalPage'))
 const GrandLivrePage = React.lazy(() => import('@/pages/GrandLivrePage'))
 const BalancePage = React.lazy(() => import('@/pages/BalancePage'))
@@ -426,7 +427,11 @@ export default function App() {
           <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="3" /></W>
         </Route>
 
-        <Route><Redirect to="/" /></Route>
+        {/* Adresse inconnue : page explicite plutôt qu'un renvoi muet vers
+            l'accueil, qui masquait les liens cassés (voir PageIntrouvable). */}
+        <Route>
+          <W user={user} onLogout={handleLogout}><PageIntrouvable /></W>
+        </Route>
       </Switch>
       </React.Suspense>
       <Toaster />

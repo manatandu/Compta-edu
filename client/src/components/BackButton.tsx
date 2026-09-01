@@ -80,6 +80,21 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/inscription-plateforme':     { path: '/gestion-etudiants',     label: 'Gestion des étudiants' },
 }
 
+const SOMMAIRES_MODULES: Record<string, { path: string; label: string }> = {
+  ue1:  { path: '/ue1-droit-travail',      label: 'UE1 Droit du travail' },
+  ue2:  { path: '/ue2-droit-societes',     label: 'Droit des societes OHADA' },
+  ue3:  { path: '/ue3-compta-societes',    label: 'UE3 Comptabilite des societes' },
+  ue5:  { path: '/ue5-finances-publiques', label: 'UE5 Finances publiques' },
+  ue13: { path: '/ue13-ifrs-ias',          label: 'UE13 IAS/IFRS' },
+}
+
+function parentDeModule(location: string): { path: string; label: string } | undefined {
+  const chapitre = location.match(/^\/(ue\d+)\/chapitre-\d+/)
+  if (chapitre) return SOMMAIRES_MODULES[chapitre[1]]
+  if (/^\/ue\d+-[a-z-]+$/.test(location)) return { path: '/mes-cours', label: 'Mes cours' }
+  return undefined
+}
+
 interface BackButtonProps {
   label?: string
   to?: string
@@ -96,7 +111,13 @@ export default function BackButton({ label, to }: BackButtonProps) {
   else if (location.startsWith('/ue1/chapitre-'))    baseRoute = '/ue1/chapitre-x'
   else if (location.startsWith('/etudiant/'))        baseRoute = '/etudiant'
 
-  const parent = PARENT_MAP[baseRoute]
+  // Modules de cours : la parenté se déduit de l'adresse elle-même, sans
+  // dépendre d'une entrée ajoutée à la main pour chaque nouveau chapitre.
+  //   /ue3/chapitre-7        -> sommaire du module (/ue3-...)
+  //   /ue3-compta-societes   -> /mes-cours
+  // Sans cette règle, un module absent de PARENT_MAP (UE3 lors de sa
+  // création) n'avait tout simplement pas de bouton de retour.
+  const parent = PARENT_MAP[baseRoute] ?? parentDeModule(location)
 
   if (!parent && !to) return null
 
