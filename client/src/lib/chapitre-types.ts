@@ -95,6 +95,10 @@ export interface Chapitre {
   casPratiques: CasPratique[]
   /** Ligne de sources en pied de page. */
   sources: string
+  /** Outil interactif rattaché au chapitre (simulateur, générateur...),
+   *  hébergé sur sa propre page. Rendu en carte d'appel à la fin de la
+   *  lecture, avant les parcours d'exercice. */
+  outil?: { label: string; description: string; route: string }
   /** Cours de rattachement, pour la création de devoirs. */
   coursId: string
   /** Route du sommaire du module, pour le bouton de retour. */

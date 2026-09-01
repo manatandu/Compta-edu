@@ -37,6 +37,7 @@ const registry: Record<string, Loader> = {
   '/gestion-etudiants': () => import('@/pages/GestionEtudiantsPage'),
   '/prepa-onec': () => import('@/pages/PrepaOnecPage'),
   '/mes-cours': () => import('@/pages/MesCoursPage'),
+  '/ue2/simulateur-constitution': () => import('@/pages/UE2SimulateurConstitutionPage'),
 }
 
 // Chapitres d'UE : préchargés uniquement au survol de leur ligne dans le
@@ -58,7 +59,6 @@ import('@/content/catalogue').then(({ CATALOGUE }) => {
   }
 })
 const PAGES_CHAPITRES: Record<string, Loader> = {
-  '/ue2/chapitre-1': () => import('@/pages/UE2Chapitre1Page'),
   '/ue5/chapitre-1': () => import('@/pages/UE5Chapitre1Page'),
   '/ue5/chapitre-2': () => import('@/pages/UE5Chapitre2Page'),
   '/ue5/chapitre-3': () => import('@/pages/UE5Chapitre3Page'),
