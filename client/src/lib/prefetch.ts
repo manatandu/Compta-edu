@@ -58,11 +58,6 @@ import('@/content/catalogue').then(({ CATALOGUE }) => {
     }
   }
 })
-const PAGES_CHAPITRES: Record<string, Loader> = {
-  '/ue13/chapitre-3': () => import('@/pages/UE13Chapitre3Page'),
-}
-Object.assign(registry, PAGES_CHAPITRES)
-
 export function prefetchRoute(path: string) {
   const loader = registry[path]
   if (!loader || already.has(path)) return
