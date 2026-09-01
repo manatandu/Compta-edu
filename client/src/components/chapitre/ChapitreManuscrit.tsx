@@ -298,7 +298,9 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
       )}
 
       <div className="space-y-1">
-        <BackButton />
+        {/* Destination explicite : le chapitre connaît son sommaire, inutile
+            de la deviner depuis l'adresse. */}
+        <BackButton to={chapitre.retourRoute} label={chapitre.moduleLabel} />
         <Breadcrumb
           items={[
             { label: 'Mes cours', route: '/mes-cours' },
