@@ -58,7 +58,6 @@ const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPa
 const UE2SimulateurConstitutionPage = React.lazy(() => import('@/pages/UE2SimulateurConstitutionPage'))
 const UE5FinancesPubliquesPage = React.lazy(() => import('@/pages/UE5FinancesPubliquesPage'))
 const UE13IFRSPage = React.lazy(() => import('@/pages/UE13IFRSPage'))
-const UE13Chapitre3Page = React.lazy(() => import('@/pages/UE13Chapitre3Page'))
 const GestionEtudiantsPage = React.lazy(() => import('@/pages/GestionEtudiantsPage'))
 const FicheEtudiantPage = React.lazy(() => import('@/pages/FicheEtudiantPage'))
 const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPlatformePage'))
@@ -405,7 +404,7 @@ export default function App() {
           {() => <ProtectedRoute component={InscriptionPlatformePage} user={user} onLogout={handleLogout} />}
         </Route>
         <Route path="/ue13/chapitre-3">
-          <W user={user} onLogout={handleLogout}><UE13Chapitre3Page /></W>
+          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="3" /></W>
         </Route>
 
         <Route><Redirect to="/" /></Route>
