@@ -263,6 +263,16 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
     return () => window.removeEventListener('scroll', verifier, true)
   }, [])
 
+  // Le rail de navigation ne peut pas utiliser d'ancres `href="#sN"` : le
+  // routeur de l'application lit le hash de l'adresse (Router hook={useHashLocation}),
+  // si bien qu'une ancre remplace la route courante par une route inexistante
+  // et déclenche la redirection de repli vers l'accueil. On défile donc par
+  // programme, sans jamais toucher au hash. La marge est portée par la classe
+  // `scroll-mt-16` de chaque section, respectée par scrollIntoView.
+  const allerALaSection = (numero: number) => {
+    document.getElementById(`s${numero}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   const remonterEnHaut = () => {
     document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' })
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -320,13 +330,14 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
               <div className="sticky top-4 space-y-1 pt-2">
                 <p className={cn('text-[10px] font-mono uppercase tracking-wider mb-3', ENCRE_FAIBLE)}>Dans ce chapitre</p>
                 {chapitre.sections.map((s, i) => (
-                  <a
+                  <button
                     key={i}
-                    href={`#s${i + 1}`}
-                    className={cn('block text-xs leading-snug py-1.5 pl-3 border-l-2', LIGNE, ENCRE_FAIBLE, 'hover:text-[#1E4A3D] hover:border-[#1E4A3D] transition-colors')}
+                    type="button"
+                    onClick={() => allerALaSection(i + 1)}
+                    className={cn('block w-full text-left text-xs leading-snug py-1.5 pl-3 border-l-2', LIGNE, ENCRE_FAIBLE, 'hover:text-[#1E4A3D] hover:border-[#1E4A3D] transition-colors')}
                   >
                     {s.navLabel}
-                  </a>
+                  </button>
                 ))}
               </div>
             </nav>
