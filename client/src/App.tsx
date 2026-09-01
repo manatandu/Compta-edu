@@ -4,7 +4,7 @@ import IdleWarningModal from '@/components/IdleWarningModal'
 import { Router, Route, Switch, Redirect } from 'wouter'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { initDefaultData, User } from '@/lib/db'
-import { logoutAsync, getCurrentUserAsync, initAdminIfNeeded, initCoursSystemeAsync } from '@/lib/db-firebase'
+import { logoutAsync, getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { onAuthStateChanged } from 'firebase/auth'
 import { terminate, clearIndexedDbPersistence } from 'firebase/firestore'
@@ -118,6 +118,15 @@ export default function App() {
         try {
           const appUser = await getCurrentUserAsync(firebaseUser)
           setUser(appUser)
+          // Synchronisation du catalogue des cours système : elle écrit dans
+          // /cours, ce que firestore.rules ne permet qu'à un professeur ou un
+          // administrateur (isProf()). Lancée pour tout visiteur - anonyme ou
+          // étudiant - elle échouait en permission-denied à chaque chargement,
+          // d'où des erreurs rouges en console dès l'écran de connexion. Elle
+          // ne part donc qu'une fois une session à privilèges établie.
+          if (appUser && (appUser.role === 'admin' || appUser.role === 'professeur')) {
+            initCoursSystemeAsync().catch(console.error)
+          }
         } catch (e) {
           console.error('Erreur chargement profil:', e)
           setUser(null)
@@ -127,11 +136,6 @@ export default function App() {
       }
       setLoading(false)
     })
-
-    // Créer l'admin principal si pas encore fait (en arrière-plan)
-    initAdminIfNeeded().catch(console.error)
-    // Initialiser les cours système par défaut
-    initCoursSystemeAsync().catch(console.error)
 
     return () => unsub()
   }, [])
