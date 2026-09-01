@@ -40,6 +40,9 @@ export const CATALOGUE: Record<string, Record<number, ChargeurChapitre>> = {
     10: () => import('./ue2/chapitre-10'),
     11: () => import('./ue2/chapitre-11'),
   },
+  ue5: {
+    1: () => import('./ue5/chapitre-1'),
+  },
 }
 
 /** Les modules dont les chapitres passent par le moteur de rendu commun. */
