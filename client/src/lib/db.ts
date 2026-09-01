@@ -1465,58 +1465,12 @@ export function deleteCours(id: string): void {
 // ===================== INIT =====================
 
 export function initDefaultData(): void {
-  // Force admin update every time
-  const users = getUsers()
-  const adminIdx = users.findIndex(u => u.username === 'manasse.tandu')
-  const adminData: User = {
-    id: 'admin-manasse-001',
-    username: 'manasse.tandu',
-    password: 'tandu2026',
-    nom: 'TANDU SAVA',
-    prenom: 'Manasse',
-    role: 'admin',
-    dateCreation: new Date().toISOString(),
-    actif: true
-  }
-  if (adminIdx === -1) {
-    users.push(adminData)
-  } else {
-    users[adminIdx] = adminData
-  }
-  localStorage.setItem(KEY_USERS, JSON.stringify(users))
-
-  // Compte démo professeur
-  const profIdx = users.findIndex(u => u.username === 'prof.demo')
-  const profData: User = {
-    id: 'prof-demo-001',
-    username: 'prof.demo',
-    password: 'prof2026',
-    nom: 'DEMO',
-    prenom: 'Professeur',
-    role: 'professeur',
-    dateCreation: new Date().toISOString(),
-    actif: true,
-  }
-  if (profIdx === -1) users.push(profData)
-  else users[profIdx] = profData
-
-  // Compte démo étudiant
-  const etudIdx = users.findIndex(u => u.username === 'etudiant.demo')
-  const etudData: User = {
-    id: 'etudiant-demo-001',
-    username: 'etudiant.demo',
-    password: 'etud2026',
-    nom: 'DEMO',
-    prenom: 'Étudiant',
-    role: 'etudiant',
-    classe: 'L1 Comptabilité',
-    dateCreation: new Date().toISOString(),
-    actif: true,
-  }
-  if (etudIdx === -1) users.push(etudData)
-  else users[etudIdx] = etudData
-
-  localStorage.setItem(KEY_USERS, JSON.stringify(users))
+  // Plus aucun compte n'est ensemencé ici. L'ancien code écrivait à chaque
+  // lancement trois comptes avec leur mot de passe en clair dans le
+  // localStorage (admin réel, professeur et étudiant de démonstration) : ces
+  // secrets figuraient de ce fait dans le bundle public. L'authentification
+  // passe par Firebase Auth (loginAsync) ; cette liste locale n'était plus
+  // lue par aucun chemin de connexion (setCurrentUser n'a plus d'appelant).
 
   // Créer une session démo SYSCOHADA si aucune n'existe
   const sessions = getSessions('syscohada')

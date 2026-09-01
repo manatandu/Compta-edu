@@ -833,64 +833,18 @@ export async function corrigerSoumissionAsync(id: string, note: number, commenta
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-//  INITIALISATION - Créer l'admin principal au premier lancement
+//  AMORÇAGE DU COMPTE ADMINISTRATEUR
+//
+//  Il n'y a plus d'amorçage automatique de l'administrateur depuis le client.
+//  L'ancienne fonction initAdminIfNeeded() embarquait l'identifiant et le mot
+//  de passe du compte admin en clair dans le bundle JavaScript servi à tout
+//  visiteur, et tentait à chaque chargement une connexion puis une lecture
+//  Firestore non authentifiée - refusée par les règles, d'où des erreurs
+//  permission-denied dès l'écran de connexion. Le compte existe ; s'il fallait
+//  le recréer, cela se fait dans la console Firebase, jamais depuis le client.
+//  Un profil Firestore manquant reste reconstruit à la connexion par
+//  loginAsync()/getCurrentUserAsync(), à partir du mot de passe saisi.
 // ──────────────────────────────────────────────────────────────────────────────
-
-export async function initAdminIfNeeded(): Promise<void> {
-  const email = toEmail('manasse.tandu')
-  let uid: string | null = null
-
-  // Étape 1 : obtenir l'UID Firebase Auth (créer ou récupérer)
-  try {
-    const cred = await createUserWithEmailAndPassword(secondaryAuth, email, 'tandu2026')
-    uid = cred.user.uid
-    await signOut(secondaryAuth)
-    console.log('✅ Compte Auth admin créé, UID:', uid)
-  } catch (e: any) {
-    if (e.code === 'auth/email-already-in-use') {
-      try {
-        const cred2 = await signInWithEmailAndPassword(secondaryAuth, email, 'tandu2026')
-        uid = cred2.user.uid
-        await signOut(secondaryAuth)
-        console.log('ℹ️ Compte Auth admin existant, UID:', uid)
-      } catch (e2: any) {
-        console.error('Impossible de récupérer UID admin:', e2)
-        return
-      }
-    } else {
-      console.error('Erreur init admin Auth:', e)
-      return
-    }
-  }
-
-  if (!uid) return
-
-  // Étape 2 : vérifier si le profil Firestore existe avec le BON UID
-  try {
-    const snap = await getDoc(doc(db, C.USERS, uid))
-    if (snap.exists()) {
-      console.log('✅ Profil Firestore admin OK')
-      return // Tout est en ordre
-    }
-
-    // Le profil n'existe pas (ou est sous un autre UID) - forcer la création
-    console.warn('⚠️ Profil Firestore admin absent - création forcée')
-    const adminUser: User = {
-      id: uid,
-      username: 'manasse.tandu',
-      password: 'tandu2026',
-      nom: 'TANDU SAVA',
-      prenom: 'Manasse',
-      role: 'admin',
-      dateCreation: new Date().toISOString(),
-      actif: true,
-    }
-    await setDoc(doc(db, C.USERS, uid), cleanUndefined(adminUser) as any)
-    console.log('✅ Profil Firestore admin créé avec UID:', uid)
-  } catch (e) {
-    console.error('Erreur Firestore initAdmin:', e)
-  }
-}
 
 // ──────────────────────────────────────────────────────────────────────────────
 //  LISTENERS TEMPS RÉEL (pour les hooks React)
