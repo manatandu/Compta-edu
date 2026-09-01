@@ -1333,6 +1333,37 @@ describe('💬 Messages — Isolation par participant', () => {
     const ref = doc(db(USERS.etud3), 'messages', 'msg1')
     await assertFails(getDoc(ref))
   })
+
+  // Régression : le bandeau « Connexion interrompue (code : permission-denied) »
+  // affiché sur toutes les pages venait de l'écouteur onMessagesSnapshot, qui
+  // filtrait sur expediteurId / destinataireId. Le moteur de règles ne peut pas
+  // déduire de ces filtres que request.auth.uid ∈ resource.data.participants :
+  // la requête entière est refusée, même pour le vrai destinataire et même si
+  // la collection est vide. Seule une requête array-contains sur participants
+  // est acceptée — c'est la forme que le client doit utiliser.
+  it('Le destinataire peut LISTER ses messages via participants array-contains (forme de onMessagesSnapshot)', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('messages', 'msg1', {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid],
+      texte: 'Bonjour',
+    })
+    const q = query(collection(db(USERS.etud2), 'messages'), where('participants', 'array-contains', USERS.etud2.uid))
+    await assertSucceeds(getDocs(q))
+  })
+
+  it('Une requête filtrée sur destinataireId (ancienne forme du client) est REFUSÉE, même pour le destinataire', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('messages', 'msg1', {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid],
+      texte: 'Bonjour',
+    })
+    const q = query(collection(db(USERS.etud2), 'messages'), where('destinataireId', '==', USERS.etud2.uid))
+    await assertFails(getDocs(q))
+  })
 })
 
 // ══════════════════════════════════════════════════════════════════════════════

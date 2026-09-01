@@ -651,33 +651,25 @@ export async function saveMessageAsync(data: Omit<Message, 'id'>): Promise<Messa
   return message
 }
 
-// Listener temps réel pour les messages
-// Deux écouteurs séparés (envoyés + reçus) pour éviter l'index composite
+// Écoute temps réel des messages d'un utilisateur (envoyés + reçus).
+//
+// Une seule requête, filtrée sur `participants` (array-contains) : c'est la
+// seule forme que firestore.rules accepte pour la collection messages
+// (allow read: request.auth.uid in resource.data.participants). Les deux
+// anciens écouteurs filtrés sur expediteurId / destinataireId ne permettaient
+// pas au moteur de règles de prouver cette appartenance : Firestore les
+// refusait en bloc (permission-denied) — y compris pour le vrai destinataire,
+// et même sur une collection vide. Comme NotificationBell (Layout) monte cet
+// écouteur en permanence, le bandeau « Connexion interrompue » apparaissait
+// sur toutes les pages, pour tous les rôles. Pas d'index composite requis :
+// un array-contains seul est servi par l'index mono-champ automatique.
 export function onMessagesSnapshot(userId: string, callback: (messages: Message[]) => void): Unsubscribe {
-  let sent: Message[] = []
-  let received: Message[] = []
-
-  const merge = () => {
-    const all = [...sent, ...received]
-    const seen = new Set<string>()
-    const unique = all.filter(m => { if (seen.has(m.id)) return false; seen.add(m.id); return true })
-    unique.sort((a, b) => (a.date || '').localeCompare(b.date || ''))
-    callback(unique)
-  }
-
-  const qSent = query(collection(db, C.MESSAGES), where('expediteurId', '==', userId))
-  const qReceived = query(collection(db, C.MESSAGES), where('destinataireId', '==', userId))
-
-  const unsubSent = onSnapshot(qSent, (snap) => {
-    sent = snap.docs.map(d => fromDoc<Message>(d))
-    merge()
-  }, err => notifyFirestoreError('onMessagesSnapshot(sent)', err))
-  const unsubReceived = onSnapshot(qReceived, (snap) => {
-    received = snap.docs.map(d => fromDoc<Message>(d))
-    merge()
-  }, err => notifyFirestoreError('onMessagesSnapshot(received)', err))
-
-  return () => { unsubSent(); unsubReceived() }
+  const q = query(collection(db, C.MESSAGES), where('participants', 'array-contains', userId))
+  return onSnapshot(q, (snap) => {
+    const messages = snap.docs.map(d => fromDoc<Message>(d))
+    messages.sort((a, b) => (a.date || '').localeCompare(b.date || ''))
+    callback(messages)
+  }, err => notifyFirestoreError('onMessagesSnapshot', err))
 }
 
 // Marque comme lus les messages reçus d'un expéditeur donné. Sans cet appel,
@@ -686,16 +678,24 @@ export function onMessagesSnapshot(userId: string, callback: (messages: Message[
 // ne repassait jamais à `true`, même après ouverture de la conversation -
 // la cloche de notification (NotificationBell) comptait alors des messages
 // lus depuis longtemps comme éternellement « non lus ».
+// Même contrainte que onMessagesSnapshot : la requête doit passer par
+// `participants` (array-contains) pour être acceptée par firestore.rules ;
+// l'ancienne forme (destinataireId == / expediteurId == / lu == false) était
+// refusée silencieusement (getDocs, donc sans bandeau) et les messages ne
+// passaient jamais à `lu: true`. Le tri par expéditeur et par état de lecture
+// se fait ensuite côté client, sur le petit volume de messages de l'appelant.
 export async function marquerMessagesLusAsync(destinataireId: string, expediteurId: string): Promise<void> {
   const snap = await getDocs(query(
     collection(db, C.MESSAGES),
-    where('destinataireId', '==', destinataireId),
-    where('expediteurId', '==', expediteurId),
-    where('lu', '==', false)
+    where('participants', 'array-contains', destinataireId)
   ))
-  if (snap.empty) return
+  const nonLus = snap.docs.filter(d => {
+    const m = d.data() as Message
+    return m.destinataireId === destinataireId && m.expediteurId === expediteurId && !m.lu
+  })
+  if (nonLus.length === 0) return
   const batch = writeBatch(db)
-  snap.docs.forEach(d => batch.update(d.ref, { lu: true }))
+  nonLus.forEach(d => batch.update(d.ref, { lu: true }))
   await batch.commit()
 }
 
