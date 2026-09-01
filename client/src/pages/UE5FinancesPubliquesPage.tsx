@@ -157,7 +157,7 @@ export default function UE5FinancesPubliquesPage() {
             color="emerald"
           />
           <h1 className="text-lg font-display font-bold text-foreground leading-tight truncate mt-1">Finances publiques</h1>
-          <p className="text-xs text-muted-foreground">Source : LOFIP n° 11/011 du 13 juillet 2011 · Constitution RDC 2006 · RGCP n° 13/050</p>
+          <p className="text-xs text-muted-foreground">Source : LOFIP n° 11/011 du 13 juillet 2011 (mod. 2018 et 2023) · Constitution RDC 2006 · RGCP, décret n° 24/10 du 14 octobre 2024</p>
         </div>
       </div>
 
@@ -272,7 +272,7 @@ export default function UE5FinancesPubliquesPage() {
 
       {/* Source légale */}
       <p className="text-xs text-center text-muted-foreground/60 pb-2">
-        Sources : LOFIP n° 11/011 du 13 juillet 2011 · Constitution RDC du 18 février 2006 · RGCP n° 13/050 du 06 novembre 2013 · LFR n° 25/044 du 28 juin 2025
+        Sources : LOFIP n° 11/011 du 13 juillet 2011 (mod. lois n° 18/010 et n° 23/030) · Constitution RDC du 18 février 2006 · RGCP, décret n° 24/10 du 14 octobre 2024 · LFR n° 25/044 du 28 juin 2025 · LF n° 25/060 du 29 décembre 2025
       </p>
     </div>
   )
