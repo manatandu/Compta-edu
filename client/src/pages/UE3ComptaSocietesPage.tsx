@@ -28,7 +28,7 @@ const CHAPITRES = [
   { num: 7, titre: "L'évaluation des titres sociaux et le portefeuille-titres", sousTitre: 'App. 48–51 · AUSCGIE art. 59', duree: '4h', actif: true, route: '/ue3/chapitre-7' },
   { num: 8, titre: 'Les fusions et opérations assimilées', sousTitre: 'AUSCGIE art. 189–199 · App. 116–120', duree: '6h', actif: true, route: '/ue3/chapitre-8' },
   { num: 9, titre: 'La dissolution et la liquidation', sousTitre: 'AUSCGIE art. 200–222 · App. 122', duree: '4h', actif: true, route: '/ue3/chapitre-9' },
-  { num: 10, titre: 'Sociétés particulières : participation, GIE, transformation', sousTitre: 'AUSCGIE art. 181 s., 854 s. · App. 96–98, 106–107', duree: '4h', actif: false, route: '/ue3/chapitre-10' },
+  { num: 10, titre: 'Sociétés particulières : participation, GIE, transformation', sousTitre: 'AUSCGIE art. 181–188, 854–876 · App. 106–107', duree: '4h', actif: true, route: '/ue3/chapitre-10' },
 ]
 
 export default function UE3ComptaSocietesPage() {
