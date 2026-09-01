@@ -17,7 +17,7 @@ import { exportJournalPDF } from '@/lib/exportPDF'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
@@ -101,7 +101,6 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
   const [editGroupe, setEditGroupe] = useState<string | null>(null) // groupe en cours d'édition
   const [lignes, setLignes] = useState<LigneSaisie[]>([emptyLigne(), emptyLigne()])
   const [formError, setFormError] = useState('')
-  const [compteSearch, setCompteSearch] = useState<Record<string, string>>({})
 
   const selectedSession = sessions.find(s => s.id === selectedSessionId)
   const sessionVerrouillee = !!(selectedSession?.verrouille)

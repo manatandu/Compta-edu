@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
@@ -2069,7 +2068,6 @@ FONDEMENT : Art. 82 pt. 4, Art. 43, Art. 9 LOFIP ; Guide PAP/RAP Partie III, pp.
 
 // ─── PAGE PRINCIPALE ─────────────────────────────────────────────────────────
 export default function UE5Chapitre5Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue5-finances-publiques')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)

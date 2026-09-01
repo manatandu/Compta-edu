@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
-  BookOpen, FileText, Users, AlertTriangle, Scale,
-  ChevronRight, Briefcase, Gavel
+  BookOpen, Users, AlertTriangle, Scale,
+  ChevronRight, Gavel
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -752,7 +751,6 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
 }
 
 export default function UE2Chapitre3Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)
@@ -763,30 +761,8 @@ export default function UE2Chapitre3Page() {
   const isFirst = leconIdx === 0
   const isLast = leconIdx === LECONS.length - 1
 
-  const [qcmIdx, setQcmIdx] = useState(0)
-  const [qcmSelected, setQcmSelected] = useState<string | null>(null)
-  const [qcmShowResult, setQcmShowResult] = useState(false)
-  const [qcmScore, setQcmScore] = useState(0)
-  const [qcmDone, setQcmDone] = useState(false)
-  const currentQ = QCM_GLOBAL[qcmIdx]
 
-  function nextQcm() {
-    if (!qcmSelected) return
-    const correct = qcmSelected === currentQ.reponseCorrecte
-    const newScore = qcmScore + (correct ? 1 : 0)
-    setQcmScore(newScore)
-    if (qcmIdx + 1 >= QCM_GLOBAL.length) {
-      setQcmDone(true)
-    } else {
-      setQcmIdx(qcmIdx + 1)
-      setQcmSelected(null)
-      setQcmShowResult(false)
-    }
-  }
 
-  function resetQcm() {
-    setQcmIdx(0); setQcmSelected(null); setQcmShowResult(false); setQcmScore(0); setQcmDone(false)
-  }
 
   return (
     <div className="space-y-4 pb-10 animate-fadeIn">

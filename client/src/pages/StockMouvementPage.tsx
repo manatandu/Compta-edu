@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { ArrowDownCircle, ArrowUpCircle, Check, AlertCircle } from 'lucide-react'
 import BackButton from '@/components/BackButton'
@@ -8,7 +8,7 @@ import {
   useArticlesStock, useMouvementsStock,
   calculerFicheCUMP, calculerFichePEPS,
   ajouterMouvement, genererEcritures,
-  TypeMouvement, MouvementStock
+  MouvementStock
 } from '@/lib/useStock'
 
 export default function StockMouvementPage() {

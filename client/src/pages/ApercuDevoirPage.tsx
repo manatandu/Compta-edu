@@ -4,7 +4,7 @@
  * Paramètres URL hash : ?devoir=DEVOIR_ID&session=SESSION_ID
  */
 import BackButton from '@/components/BackButton'
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useSearch } from 'wouter'
 import { useUser } from '@/lib/userContext'
@@ -13,7 +13,7 @@ import { formatMontant } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ChevronLeft, BookOpen, BookMarked, Scale, BarChart2, FileText, AlertTriangle } from 'lucide-react'
+import { BookOpen, BookMarked, Scale, BarChart2, FileText, AlertTriangle } from 'lucide-react'
 import type { Ecriture } from '@/lib/db'
 
 // ─── Helpers bilan (copiés depuis BilanPage) ─────────────────────────────────

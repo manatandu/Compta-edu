@@ -1,4 +1,3 @@
-import React from 'react'
 import { Lock, BookOpen, TrendingUp, Scale, BarChart2, Cpu, Globe } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { useUser } from '@/lib/userContext'

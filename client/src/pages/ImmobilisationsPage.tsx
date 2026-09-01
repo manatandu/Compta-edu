@@ -1,10 +1,9 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Building2, Search, Calculator,
-  BookOpen, AlertCircle, CheckCircle2, HelpCircle, FileText,
-  ChevronDown, Lock, Plus, Trash2, TrendingUp
+  BookOpen, AlertCircle, CheckCircle2, FileText,
+  ChevronDown, Lock, TrendingUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -1280,7 +1279,6 @@ const COMPTES_OHADA_SIMULATEUR: { code: string; intitule: string }[] = [
 ]
 
 export default function ImmobilisationsPage() {
-  const [, navigate] = useHashLocation()
   const [onglet, setOnglet] = useState<'catalogue' | 'simulateur' | 'reevaluation' | 'fiches'>('catalogue')
 
   // Catalogue

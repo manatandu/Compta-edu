@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
@@ -26,7 +25,6 @@ type QCMQuestion = {
   explication: string
   articleRef: string
 }
-type Question = QCMQuestion
 
 type Lecon = {
   id: string
@@ -1245,7 +1243,6 @@ Base de calcul : recettes a caractere national = recettes totales du budget gene
 
 // ─── PAGE PRINCIPALE ─────────────────────────────────────────────────────────
 export default function UE5Chapitre3Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue5-finances-publiques')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)

@@ -7,7 +7,6 @@ import { onMessagesSnapshot, saveMessageAsync, getUsersAsync, marquerMessagesLus
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Send, MessageSquare, MessagesSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'

@@ -7,7 +7,7 @@
  *
  * Barème : toujours /20. Note stockée = note finale sur 20.
  */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   CheckCircle2, XCircle, Clock, BookOpen,
   ChevronDown, ChevronUp, Award, FileText, Loader2
@@ -35,7 +35,6 @@ export function scoreEnNoteSur20(score: number, total: number = 10): number {
  */
 export function calcCoteDevoirs(
   soumissions: Soumission[],
-  devoirs: Devoir[]
 ): number | null {
   const notees = soumissions.filter(
     s => s.statut === 'note' && typeof s.note === 'number'
@@ -327,7 +326,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
     }
   }
 
-  const [soumisEchoue, setSoumisEchoue] = useState(false)
+  const [, setSoumisEchoue] = useState(false)
 
   // ── Étape QCM ──
   if (etape === 'qcm') {
@@ -1029,7 +1028,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
     typeof s.note === 'number' &&
     s.statut === 'note'
   )
-  const cote = calcCoteDevoirs(soumNotees, devoirsFiltres)
+  const cote = calcCoteDevoirs(soumNotees)
 
   const handleSoumis = (s: Soumission) => {
     setSoumissionsLocales(prev => [...prev, s])

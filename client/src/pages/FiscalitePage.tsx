@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import {
   Calculator, Info, RotateCcw, FileText, Receipt,
   Building2, Users, AlertCircle, CheckCircle2, Percent,
-  Briefcase, Wheat, TrendingUp, Coins, BarChart2, X, Plus,
-  ChevronRight, FolderOpen, Scale, Ship, Pickaxe
+  Briefcase, Wheat, TrendingUp, Coins, BarChart2, Plus,
+  FolderOpen, Scale, Ship, Pickaxe
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -27,7 +27,6 @@ import {
 import {
   CatalogueGroupe,
   libelleItem,
-  type ItemCatalogue,
   type SectionCatalogue,
 } from '@/components/CatalogueGroupe'
 
@@ -1259,7 +1258,9 @@ function Cat2BIC() {
   const [cotisationsSociales, setCotisationsSociales] = useState('')
   const [fraisMedicaux, setFraisMedicaux] = useState('')
   const [nbPersonnesCharge, setNbPersonnesCharge] = useState('0')
-  const [beneficeN1, setBeneficeN1] = useState('')
+  // NOTE : aucun champ de saisie n'alimente plus beneficeN1 dans ce
+  // simulateur (toujours '', donc 0 dans le calcul) - setter retiré.
+  const [beneficeN1] = useState('')
   const [impotNmoins1, setImpotNmoins1] = useState('')
   const [showDeductions, setShowDeductions] = useState(false)
   const [tauxUsd, setTauxUsd] = useState('2800')
@@ -2705,66 +2706,6 @@ function SimulateurIS() {
         )}
       </div>
 
-    </div>
-  )
-}
-
-function SimulateurIRL() {
-  const [loyerMensuel, setLoyerMensuel] = useState('')
-  const [nbMois, setNbMois] = useState('12')
-  const [res, setRes] = useState<any>(null)
-
-  function calculer() {
-    const loyer = parseFloat(loyerMensuel) || 0
-    const mois = parseInt(nbMois) || 12
-    const totalBrut = loyer * mois
-    const irlTotal = totalBrut * 0.22
-    const retenuLocataire = totalBrut * 0.20
-    const soldeProprietaire = totalBrut * 0.02
-    setRes({ loyer, mois, totalBrut, irlTotal, retenuLocataire, soldeProprietaire })
-  }
-
-  function reset() { setLoyerMensuel(''); setNbMois('12'); setRes(null) }
-
-  return (
-    <div className="space-y-4">
-      <div className="rounded-xl border border-blue-200 bg-blue-50 p-3">
-        <p className="text-xs text-blue-700">
-          Taux global 22% (province de Kinshasa) : 20% retenu par le locataire + 2% payé par le propriétaire au 1er février de l'année suivante.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Loyer mensuel (FC)</label>
-          <input type="number" placeholder="Ex : 1 500 000" value={loyerMensuel}
-            onChange={e => setLoyerMensuel(e.target.value)}
-            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-        </div>
-        <div>
-          <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Nombre de mois</label>
-          <input type="number" min={1} max={12} value={nbMois}
-            onChange={e => setNbMois(e.target.value)}
-            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-        </div>
-      </div>
-      <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={reset} /></div>
-      {res && (
-        <ResultatWrap titre="IRL : Revenus Locatifs (22%)">
-          <EtapeResultat numero={1} titre="Base de calcul=">
-            <LigneR label={`Loyer mensuel × ${res.mois} mois`} val={formatFC(res.totalBrut)} />
-          </EtapeResultat>
-          <EtapeResultat numero={2} titre="Répartition de l'IRL">
-            <LigneR label="IRL total (22%)" val={formatFC(res.irlTotal)} bold />
-            <LigneR label="Retenu par le locataire (20%) : dans les 10 jours=" val={formatFC(res.retenuLocataire)} />
-            <LigneR label="Solde propriétaire (2%) : au 1er février" val={formatFC(res.soldeProprietaire)} />
-          </EtapeResultat>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <BoxFinal label="Retenu locataire (20%)" val={formatFC(res.retenuLocataire)} />
-            <BoxFinal label="Dû propriétaire (2%)" val={formatFC(res.soldeProprietaire)} credit />
-          </div>
-          <BoxFinal label="IRL total (22%)" val={formatFC(res.irlTotal)} />
-        </ResultatWrap>
-      )}
     </div>
   )
 }
@@ -4394,28 +4335,6 @@ function Cat6PlusValues() {
 
         </ResultatWrap>
       )}
-    </div>
-  )
-}
-
-function CatEnConstruction({ num, titre, definition }: { num: number; titre: string; definition?: string }) {
-  return (
-    <div className="space-y-4">
-      {definition && (
-        <div className="rounded-xl border border-border bg-muted/30 p-4">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-            Définition : Cat. {num} : {titre}
-          </p>
-          <p className="text-sm text-foreground leading-relaxed">{definition}</p>
-        </div>
-      )}
-      <div className="flex flex-col items-center justify-center py-8 text-center gap-3 rounded-xl border border-dashed border-border">
-        <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
-          <Info className="h-4 w-4 text-muted-foreground" />
-        </div>
-        <p className="text-xs font-semibold text-foreground">Simulateur Cat. {num} : disponible prochainement</p>
-        <p className="text-xs text-muted-foreground max-w-xs">Le calcul de l'IRPP pour cette catégorie sera ajouté dans une prochaine mise à jour.</p>
-      </div>
     </div>
   )
 }

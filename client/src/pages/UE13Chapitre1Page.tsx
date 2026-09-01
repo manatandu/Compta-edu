@@ -5,7 +5,7 @@ import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Globe, Building2, Scale, History, TrendingUp,
-  ChevronDown, ChevronUp, ChevronRight, RotateCcw, Landmark
+  ChevronRight, Landmark
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'

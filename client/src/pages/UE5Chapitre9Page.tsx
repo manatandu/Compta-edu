@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { useGoBack } from '@/lib/navContext'
+import { useState } from 'react'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
-import { ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft } from 'lucide-react'
+import { ChevronDown, ChevronUp, CheckCircle2, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
 import DevoirChapitreCreateur, { CasPratiqueExistant, versCasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
@@ -573,7 +572,6 @@ function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
 // PAGE PRINCIPALE
 // ============================================================
 export default function UE5Chapitre9Page() {
-  const goBack = useGoBack('/ue5-finances-publiques')
   const user = useUser()
   const isAdmin = isStaffRole(user as any)
 
@@ -872,7 +870,7 @@ export default function UE5Chapitre9Page() {
       {activeTab === 'lecons' && (
         <div className="space-y-3">
           <div className="flex gap-2 overflow-x-auto pb-1">
-            {lecons.map((l, i) => (
+            {lecons.map((_l, i) => (
               <button key={i} onClick={() => setActiveLecon(i)}
                 className={cn('shrink-0 rounded-lg px-3 py-1.5 text-xs font-semibold border transition-colors',
                   activeLecon === i ? 'bg-orange-600 text-white border-orange-600' : 'border-border bg-card text-muted-foreground hover:text-foreground'

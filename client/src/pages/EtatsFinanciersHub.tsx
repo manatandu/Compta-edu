@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { FileText, BarChart2, TrendingUp } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
@@ -28,7 +27,6 @@ const ONGLETS = [
 ]
 
 export default function EtatsFinanciersHub() {
-  const [, navigate] = useHashLocation()
   const [actif, setActif] = useState('bilan')
 
   return (

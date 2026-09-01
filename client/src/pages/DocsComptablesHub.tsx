@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { BookOpen, BookMarked, Scale } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
@@ -35,7 +34,6 @@ const ONGLETS = [
 ]
 
 export default function DocsComptablesHub() {
-  const [, navigate] = useHashLocation()
   const [actif, setActif] = useState('journal')
 
   return (

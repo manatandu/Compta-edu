@@ -1,7 +1,6 @@
-import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import BackButton from '@/components/BackButton'
-import { ChevronRight, Lock, BookOpen } from 'lucide-react'
+import { ChevronRight, Lock } from 'lucide-react'
 import { useAllCours } from '@/lib/useFirestore'
 import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Calculator, RotateCcw, Info, Home, Car, TrendingUp, Pickaxe, Signpost } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { InfoTooltip } from '@/components/InfoTooltip'
-
 // ─────────────────────────────────────────────────────────────────────────────
 // HELPERS
 // ─────────────────────────────────────────────────────────────────────────────
@@ -46,17 +44,6 @@ function BoxFinal({ label, val, credit }: { label: string; val: string; credit?:
     <div className={cn('rounded-xl p-3 text-center', credit ? 'bg-green-50 border border-green-200' : 'bg-primary/5 border border-primary/20')}>
       <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
       <p className={cn('text-base font-bold font-mono tabular-nums', credit ? 'text-green-700' : 'text-primary')}>{val}</p>
-    </div>
-  )
-}
-function EtapeResultat({ numero, titre, children }: { numero: number; titre: string; children: React.ReactNode }) {
-  return (
-    <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
-      <div className="flex items-center gap-2.5 px-3 py-3 bg-muted/40 border-b border-border/40">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shrink-0">{numero}</span>
-        <p className="text-xs font-semibold text-foreground">{titre}</p>
-      </div>
-      <div className="px-3 py-2.5 space-y-1.5">{children}</div>
     </div>
   )
 }
@@ -270,28 +257,6 @@ const BAREMES_IF: Record<string, { label: string; type: 'batie' | 'terrain'; lig
 type TypeProprietaire = 'pm' | 'societeImmo' | 'pp'
 
 
-const RANGS_LOCALITES: Record<string, { titre: string; kinshasa: string; autres: string }> = {
-  '0': {
-    titre: 'Rang 1 : Zones très urbanisées / prestige',
-    kinshasa: 'Gombe (tous quartiers) · Limete (sauf Mombele, Musoso, Salongo, Kingabwa) · Ngaliema (Ma-campagne, IPN, Binza Pigeon, Monts Fleuris, Golf, Mimoza, Utexafrica, Chanic…) · Barumbu (quartier Bon-Marché) · Lemba (quartier Gombele)',
-    autres: "Matadi (centre commercial, Soyo ville haute) · Lubumbashi (commune de Lubumbashi) · Bukavu (commune d'Ibanda) · Goma (centre commercial, quartier Himbi) · Mbuji-Mayi (quartier MIBA) · Kisangani (commune Makiso) · Aéroports internationaux et ports maritimes",
-  },
-  '1': {
-    titre: 'Rang 2 : Zones résidentielles intermédiaires',
-    kinshasa: 'Matete (quartier Marais) · Lingwala (Boyata, Golf) · Lemba (camp Riche, cité Salongo) · Limete (quartier Salongo) · Selembao (Cité Verte, Ngafani I/II/III) · Mont-Ngafula (cité Maman Mobutu, Mama Yemo, Munongo, Masanga Mbila) · Kintambo (quartier Jamaïque, centre commercial)',
-    autres: 'Matadi (commune de Matadi) · Bunia (centre commercial) · Goma (Butembo, Beni) · Gbadolite (centre) · Mbandaka (centre) · Lubumbashi (commune de Kapemba) · Likasi, Kolwezi, Kikwit (plateau et ville basse) · Kananga (centre) · Ports fluviaux KIN/Kisangani',
-  },
-  '2': {
-    titre: 'Rang 3 : Communes urbaines ordinaires',
-    kinshasa: 'Kalamu · Kasa-Vubu · Kintambo (sauf Rang 1/2) · Bandalungwa · Kinshasa · Barumbu (sauf Bon-Marché) · Lingwala (sauf Boyata/Golf) · Matete (sauf Marais) · Ngiri-Ngiri · Masina (quartier Sans-Fil) · Ndjili (quartiers 1,2,3,4,7,12) · Mont-Ngafula (sauf Maman Mobutu/Mama Yemo) · Lemba (sauf Gombele/camp Riche) · Limete (quartier Musoso)',
-    autres: 'Mbanza-Ngungu · Inkisi · Boma (Nzadi) · Bukavu (Bagira, Kadutu) · Uvira (Mulongwe) · Kindu · Kamina · Kalemie · Lubumbashi (Rwashi) · Bandundu · Mwene-Ditu · Mbandaka (sauf centre) · Bunia (Nyakasanza) · Kikwit (sauf plateau/ville basse) · Ilebo · Tshikapa',
-  },
-  '3': {
-    titre: 'Rang 4 : Localités semi-urbaines et rurales',
-    kinshasa: "Toutes les communes et quartiers de Kinshasa non repris aux rangs 1, 2 et 3 (Kimbanseke, Kisenso, Makala, Ngaba, Bumbu, Selembao hors Cité Verte, Masina hors Sans-Fil, Ndjili hors q.1-4/7/12, Maluku…)",
-    autres: "Toutes les localités de l'intérieur du pays non classées en rangs 1, 2 ou 3 (chefs-lieux de territoire, cités rurales, agglomérations non urbanisées)",
-  },
-}
 
 function OngletIF() {
   const [categorie, setCategorie] = useState('villa')
@@ -494,8 +459,8 @@ const CARBURANTS_BATEAU: Record<string, { label: string; k: number; nDefaut: num
 
 function OngletIV() {
   const [catId, setCatId] = useState('tour_pp_s')
-  const [cylindree, setCylindree] = useState('')
-  const [poids, setPoids] = useState('')
+  const [, setCylindree] = useState('')
+  const [, setPoids] = useState('')
   const [moisDebut, setMoisDebut] = useState('1')
   const [nbVehicules, setNbVehicules] = useState('1')
   const [alesage, setAlesage] = useState('')
@@ -515,11 +480,6 @@ function OngletIV() {
   // toutes taxées par tranche forfaitaire de puissance, Art. 41.C) - conservée pour
   // exactitude si une catégorie par formule est ajoutée un jour. Le terme 4·CY n'est
   // PAS divisé par 400 : seul le terme Poids l'est.
-  function calculPuissanceVehicule(): number {
-    const cy = parseFloat(cylindree) || 0
-    const p = parseFloat(poids) || 0
-    return 4 * cy + p / 400
-  }
 
   function calculPuissanceBateau(): number {
     const d = parseFloat(alesage) || 0
@@ -907,7 +867,6 @@ const COLOR_ACTIVE: Record<string, string> = {
 export default function SimulateurAutresImpots() {
   const [ongletActif, setOngletActif] = useState('irl')
 
-  const onglet = ONGLETS.find(o => o.id === ongletActif)!
 
   return (
     <div className="space-y-4 animate-fadeIn">

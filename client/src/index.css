@@ -334,6 +334,16 @@ html {
     transition: transform 0.1s ease;
   }
 
+  /* Curseur pointeur sur tout élément cliquable (checklist ui-ux-pro-max) :
+     les navigateurs laissent les <button> en curseur flèche par défaut. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  select,
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+
   /* Focus ring plus visible et animé */
   :focus-visible {
     outline: 2px solid hsl(var(--ring));

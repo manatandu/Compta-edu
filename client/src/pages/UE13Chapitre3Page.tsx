@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { InlineMath, BlockMath } from 'react-katex'
+import { BlockMath } from 'react-katex'
 import 'katex/dist/katex.min.css'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
@@ -7,7 +7,7 @@ import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Layers, Scale, TrendingDown, ChevronRight,
-  AlertTriangle, BarChart2, Building2, PenLine
+  AlertTriangle, Building2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'

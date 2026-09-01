@@ -1,5 +1,5 @@
 import { useUser } from '@/lib/userContext'
-import React, { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -672,7 +672,6 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
   if (loadingSessions || loadingEcritures) return <PageLoader message="Chargement du bilan..." />
 
   const isBilan = mode === "bilan"
-  const isCR    = mode === "cr"
 
   const boutonExport = isBilan ? (
     <Button variant="outline" size="sm" className="animate-slideDown" style={{ animationDelay: '100ms' }} onClick={() => {

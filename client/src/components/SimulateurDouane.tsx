@@ -8,8 +8,7 @@
  */
 import React, { useState } from 'react'
 import {
-  Ship, Container, FileText, Banknote, AlertTriangle, Scale,
-  ChevronRight, ChevronDown, BookOpen, Calculator, Info
+  Ship, Container, FileText, Banknote, AlertTriangle, ChevronRight, ChevronDown, BookOpen, Calculator
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 

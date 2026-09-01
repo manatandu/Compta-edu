@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
 import {
-  collection, getDocs, query, where, orderBy,
+  collection, getDocs, query, orderBy,
   doc, deleteDoc
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
@@ -13,7 +13,7 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   Users, Search, Filter, Eye, Trash2,
-  GraduationCap, Building2, BookOpen, Calendar,
+  GraduationCap, Building2, Calendar,
   CheckCircle2, XCircle, Award, ChevronDown, UserPlus,
   ArrowRight, Archive, CalendarClock, AlertTriangle
 } from 'lucide-react'

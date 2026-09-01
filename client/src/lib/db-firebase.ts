@@ -6,9 +6,8 @@
 
 import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc,
-  deleteDoc, query, where, orderBy, onSnapshot,
-  serverTimestamp, Timestamp, writeBatch, addDoc,
-  getFirestore,
+  deleteDoc, query, where, onSnapshot,
+  writeBatch, getFirestore,
   type Unsubscribe
 } from 'firebase/firestore'
 import {
@@ -22,7 +21,7 @@ import { db, auth, storage } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import { anneeAcademiqueEnCours } from './utils'
 import type {
-  User, UserRole, Session, Ecriture, Exercice, Tentative,
+  User, Session, Ecriture, Exercice, Tentative,
   Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours
 } from './db'
 
@@ -181,7 +180,6 @@ export async function deleteStorageFile(fileUrl: string): Promise<void> {
 
 // Utilisateur Firebase courant en mémoire
 let _currentFirebaseUser: FirebaseUser | null = null
-let _currentAppUser: User | null = null
 
 onAuthStateChanged(auth, (u) => { _currentFirebaseUser = u })
 
@@ -231,7 +229,6 @@ export async function loginAsync(username: string, password: string): Promise<Us
       if (statut === 'refuse') throw new Error('COMPTE_REFUSE')
       throw new Error('COMPTE_INACTIF')
     }
-    _currentAppUser = user
     localStorage.setItem('compta_current_user', uid)
     return user
   } catch (e: any) {
@@ -246,7 +243,6 @@ export async function loginAsync(username: string, password: string): Promise<Us
 
 export async function logoutAsync(): Promise<void> {
   await signOut(auth)
-  _currentAppUser = null
   localStorage.removeItem('compta_current_user')
 }
 
@@ -592,7 +588,7 @@ export async function saveTentativeAsync(data: Omit<Tentative, 'id' | 'dateCreat
 //  DOCUMENTS
 // ──────────────────────────────────────────────────────────────────────────────
 
-export async function getDocumentsAsync(userId?: string, promotionId?: string, coursId?: string): Promise<Document[]> {
+export async function getDocumentsAsync(_userId?: string, promotionId?: string, coursId?: string): Promise<Document[]> {
   // Isolation : quand un coursId précis est fourni (appel étudiant, un par cours
   // inscrit - voir DocumentsPage), la requête Firestore elle-même doit être
   // contrainte par ce coursId. firestore.rules refuse désormais une lecture non

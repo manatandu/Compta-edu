@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, FileText,
-  ChevronRight, Briefcase, AlertTriangle, Info, Scale, Users
+  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight, Briefcase, AlertTriangle, Info
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -296,7 +294,6 @@ const lecons = [
    PAGE PRINCIPALE
 ───────────────────────────────────────────────────────────── */
 export default function UE2Chapitre11Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
   const user = useUser()
   const isEtudiant = isStudentRole(user)

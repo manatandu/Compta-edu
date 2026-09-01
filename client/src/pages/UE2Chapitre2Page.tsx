@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Scale, Users, AlertTriangle,
-  ChevronRight, RotateCcw, Briefcase, Building2
+  ChevronRight, Building2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -88,7 +87,7 @@ const LECONS: Lecon[] = [
                 ['Mineur non émancipé', '✘', '✘', '✔*', '✔*', '✔*', ''],
                 ['Époux ensemble', '✘', '✘', '✔', '✔', '✔', ''],
                 ['Personne morale', '✔', '✔', '✔', '✔', '✔', 'text-emerald-600'],
-              ].map(([cat, snc, scs, sarl, sa, sas, cls], i) => (
+              ].map(([cat, snc, scs, sarl, sa, sas], i) => (
                 <tr key={i} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-medium">{cat}</td>
                   {[snc, scs, sarl, sa, sas].map((v, j) => (
@@ -196,7 +195,7 @@ const LECONS: Lecon[] = [
                 ["11", "Nombre et valeur nominale des titres", "1 000 parts de 10 000 FCFA chacune"],
                 ["12", "Répartition des titres entre associés", "A: 600 parts (60%), B: 400 parts (40%)"],
                 ["13", "Dispositions sur les organes de gestion", "Gérant désigné pour 3 ans, révocable à la majorité 3/4"],
-              ].map(([num, mention, ex], i) => (
+              ].map(([num, mention, ex]) => (
                 <tr key={num} className="even:bg-muted/20">
                   <td className="p-2 border border-border font-bold text-violet-600 text-center">{num}</td>
                   <td className="p-2 border border-border font-medium">{mention}</td>
@@ -961,7 +960,6 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
 }
 
 export default function UE2Chapitre2Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)
@@ -972,30 +970,8 @@ export default function UE2Chapitre2Page() {
   const isFirst = leconIdx === 0
   const isLast = leconIdx === LECONS.length - 1
 
-  const [qcmIdx, setQcmIdx] = useState(0)
-  const [qcmSelected, setQcmSelected] = useState<string | null>(null)
-  const [qcmShowResult, setQcmShowResult] = useState(false)
-  const [qcmScore, setQcmScore] = useState(0)
-  const [qcmDone, setQcmDone] = useState(false)
-  const currentQ = QCM_GLOBAL[qcmIdx]
 
-  function nextQcm() {
-    if (!qcmSelected) return
-    const correct = qcmSelected === currentQ.reponseCorrecte
-    const newScore = qcmScore + (correct ? 1 : 0)
-    setQcmScore(newScore)
-    if (qcmIdx + 1 >= QCM_GLOBAL.length) {
-      setQcmDone(true)
-    } else {
-      setQcmIdx(qcmIdx + 1)
-      setQcmSelected(null)
-      setQcmShowResult(false)
-    }
-  }
 
-  function resetQcm() {
-    setQcmIdx(0); setQcmSelected(null); setQcmShowResult(false); setQcmScore(0); setQcmDone(false)
-  }
 
   return (
     <div className="space-y-4 pb-10 animate-fadeIn">

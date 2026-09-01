@@ -158,7 +158,6 @@ const COMPTE_ECART_ACTIF = { num: '4784', lib: 'Écarts de conversion – Actif 
 const COMPTE_ECART_PASSIF = { num: '4794', lib: 'Écarts de conversion – Passif (diminution dettes financières)' }
 const COMPTE_DOTATION_PROV_FIN = { num: '6971', lib: 'Dotations provisions pour risques et charges financières' }
 const COMPTE_PROV_PERTE_CHANGE = { num: '194', lib: 'Provisions pour pertes de change' }
-const COMPTE_REPRISE_PROV_FIN = { num: '7971', lib: 'Reprises de provisions pour risques et charges financières' }
 const COMPTE_PERTE_CHANGE = { num: '676', lib: 'Pertes de change financières' }
 const COMPTE_GAIN_CHANGE = { num: '776', lib: 'Gains de change financiers' }
 

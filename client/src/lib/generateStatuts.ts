@@ -70,7 +70,6 @@ export function buildStatutsText(d: StatutsData): { titre: string; articles: { n
   const objetSocial = d.objet || placeholder('INDIQUER L\'OBJET SOCIAL')
   const siege = d.siege || placeholder('INDIQUER L\'ADRESSE PHYSIQUE DU SIÈGE : PAS DE BOÎTE POSTALE')
   const duree = d.duree || placeholder('DURÉE EN ANNÉES')
-  const forme = d.forme || 'SARL'
 
   // Table des apports
   const lignesApports = d.associes.map(a => {
@@ -427,18 +426,12 @@ export async function exportStatutsPDF(d: StatutsData): Promise<void> {
 
 export async function exportStatutsDOCX(d: StatutsData): Promise<void> {
   const {
-    Document, Packer, Paragraph, TextRun, HeadingLevel,
-    AlignmentType, BorderStyle, Table, TableRow, TableCell,
-    WidthType, PageBreak, ShadingType
+    Document, Packer, Paragraph, TextRun,
+    AlignmentType, BorderStyle,
   } = await import('docx')
 
   const nomSociete = d.denomination || '[DÉNOMINATION SOCIALE]'
 
-  const titreStyle = (text: string) => new Paragraph({
-    children: [new TextRun({ text, bold: true, size: 24, font: 'Times New Roman' })],
-    alignment: AlignmentType.CENTER,
-    spacing: { after: 120 },
-  })
 
   const sousTitreStyle = (text: string) => new Paragraph({
     children: [new TextRun({ text, bold: true, size: 24, font: 'Times New Roman' })],

@@ -1,4 +1,3 @@
-import React from 'react'
 import { LibraryBig, BookMarked, GraduationCap, FolderOpen, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { COURS_SYSTEME } from '@/lib/db-firebase'

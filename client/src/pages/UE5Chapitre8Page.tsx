@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { useGoBack } from '@/lib/navContext'
+import { useState } from 'react'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
-import { BookOpen, ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft, Info } from 'lucide-react'
+import { ChevronDown, ChevronUp, CheckCircle2, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
 import DevoirChapitreCreateur, { CasPratiqueExistant, versCasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
@@ -582,7 +581,6 @@ function CasPratiqueBlock({ ec, index }: { ec: EtudeCas; index: number }) {
 // PAGE PRINCIPALE
 // ============================================================
 export default function UE5Chapitre8Page() {
-  const goBack = useGoBack('/ue5-finances-publiques')
   const user = useUser()
   const isAdmin = isStaffRole(user as any)
 
@@ -590,11 +588,6 @@ export default function UE5Chapitre8Page() {
     isAdmin ? 'lecons' : 'lecons'
   )
   const [activeLecon, setActiveLecon] = useState(0)
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
-
-  const toggle = (key: string) =>
-    setOpenSections(prev => ({ ...prev, [key]: !prev[key] }))
-
   const lecons = [
     {
       titre: 'Leçon 1 - Architecture de la décentralisation financière',
@@ -1011,7 +1004,7 @@ export default function UE5Chapitre8Page() {
         <div className="space-y-3">
           {/* Nav leçons */}
           <div className="flex gap-2 overflow-x-auto pb-1">
-            {lecons.map((l, i) => (
+            {lecons.map((_l, i) => (
               <button
                 key={i}
                 onClick={() => setActiveLecon(i)}

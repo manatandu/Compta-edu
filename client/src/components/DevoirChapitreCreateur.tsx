@@ -14,10 +14,10 @@
  *    (qcm / theorique / mixte) est dérivé de ce qui est sélectionné : QCM
  *    seul, cas pratique(s) seul(s), ou les deux.
  */
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {
   CheckCircle2, XCircle, Send, ChevronDown, ChevronUp,
-  BookOpen, FileText, CheckSquare, Square,
+  BookOpen, FileText, CheckSquare, Square, CalendarClock, Dumbbell,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { QCMChapitre, CasPratique, PROMOTIONS } from '@/lib/db'
@@ -345,8 +345,8 @@ export default function DevoirChapitreCreateur({
             <label className="text-xs font-semibold text-foreground block mb-2">Destination</label>
             <div className="grid grid-cols-2 gap-2">
               {([
-                { val: 'devoir',   label: 'Devoir noté', sub: 'Date limite, ciblé par promotion, corrigé', icon: '📅' },
-                { val: 'exercice', label: 'Exercice libre', sub: 'Entraînement sans note, dispo dans "Exercices"', icon: '🏋️' },
+                { val: 'devoir',   label: 'Devoir noté', sub: 'Date limite, ciblé par promotion, corrigé', Icon: CalendarClock },
+                { val: 'exercice', label: 'Exercice libre', sub: 'Entraînement sans note, dispo dans "Exercices"', Icon: Dumbbell },
               ] as const).map(opt => (
                 <button
                   key={opt.val}
@@ -358,7 +358,7 @@ export default function DevoirChapitreCreateur({
                       : 'border-border bg-card hover:bg-muted/40'
                   )}
                 >
-                  <p className="text-xs font-semibold text-foreground">{opt.icon} {opt.label}</p>
+                  <p className="text-xs font-semibold text-foreground flex items-center gap-1.5"><opt.Icon className="h-3.5 w-3.5 text-indigo-600" /> {opt.label}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{opt.sub}</p>
                 </button>
               ))}
@@ -372,8 +372,8 @@ export default function DevoirChapitreCreateur({
               <label className="text-xs font-semibold text-foreground block mb-2">Type de devoir</label>
               <div className="grid grid-cols-2 gap-2">
                 {([
-                  { val: 'qcm_chapitre', label: 'QCM seul', sub: '1 pt/question → /20', icon: '✅' },
-                  { val: 'qcm_cas',      label: 'QCM + Cas pratique', sub: 'QCM (10 pts) + cas (10 pts) = /20', icon: '📝' },
+                  { val: 'qcm_chapitre', label: 'QCM seul', sub: '1 pt/question → /20', Icon: CheckSquare },
+                  { val: 'qcm_cas',      label: 'QCM + Cas pratique', sub: 'QCM (10 pts) + cas (10 pts) = /20', Icon: FileText },
                 ] as const).map(opt => (
                   <button
                     key={opt.val}
@@ -385,7 +385,7 @@ export default function DevoirChapitreCreateur({
                         : 'border-border bg-card hover:bg-muted/40'
                     )}
                   >
-                    <p className="text-xs font-semibold text-foreground">{opt.icon} {opt.label}</p>
+                    <p className="text-xs font-semibold text-foreground flex items-center gap-1.5"><opt.Icon className="h-3.5 w-3.5 text-indigo-600" /> {opt.label}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{opt.sub}</p>
                   </button>
                 ))}
