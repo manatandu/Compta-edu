@@ -16,8 +16,7 @@ import {
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createExerciceLibreAsync, updateExerciceLibreAsync, deleteExerciceLibreAsync,
   uploadExercicePDF, uploadExerciceCorrigePDF,
-  createTentativeELAsync, updateTentativeELAsync,
-  COURS_SYSTEME,
+  createTentativeELAsync, COURS_SYSTEME,
 } from '@/lib/db-firebase'
 import { useSessions, useExercices, useTentatives, useExercicesLibres, useTentativesEL, useCours } from '@/lib/useFirestore'
 import { Button } from '@/components/ui/button'

@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
-  Scale, Shield, Briefcase, Globe, AlertTriangle, Info, CheckCircle,
-  Building2, Star, FileText, Users, ChevronDown, ChevronUp
+  ArrowLeft, ArrowRight, CheckCircle2, BookOpen, ChevronRight,
+  Scale, AlertTriangle, Info, CheckCircle,
+  Star, FileText, ChevronDown, ChevronUp
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -14,8 +13,6 @@ import { isStaffRole } from '@/lib/permissions'
 import DevoirChapitreCreateur, { CasPratiqueExistant } from '@/components/DevoirChapitreCreateur'
 import QCMPageUnique from '@/components/QCMPageUnique'
 import { QCMChapitre } from '@/lib/db'
-import { InfoTooltip } from '@/components/InfoTooltip'
-
 // ─── Types QCM ────────────────────────────────────────────────────────────────
 type QCMOption = { id: string; texte: string }
 type QCMQuestion = {
@@ -440,7 +437,6 @@ function CasPratiqueBlock({ cp, isProf }: { cp: typeof casPratiques[0]; isProf: 
 
 // ─── Page principale ──────────────────────────────────────────────────────────
 export default function UE2Chapitre6Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
   const user = useUser()
   const isProf = isStaffRole(user)
@@ -449,29 +445,8 @@ export default function UE2Chapitre6Page() {
   const [activeLecon, setActiveLecon] = useState(0)
 
   // États QCM
-  const [qcmIdx, setQcmIdx] = useState(0)
-  const [qcmSelected, setQcmSelected] = useState<string | null>(null)
-  const [qcmShowResult, setQcmShowResult] = useState(false)
-  const [qcmScore, setQcmScore] = useState(0)
-  const [qcmDone, setQcmDone] = useState(false)
 
-  const currentQ = qcmQuestions[qcmIdx]
-  const isCorrect = qcmSelected === currentQ?.reponseCorrecte
 
-  function handleVerifier() {
-    if (!qcmSelected) return
-    setQcmShowResult(true)
-    if (qcmSelected === currentQ.reponseCorrecte) setQcmScore(s => s + 1)
-  }
-  function handleSuivant() {
-    if (qcmIdx + 1 >= qcmQuestions.length) { setQcmDone(true); return }
-    setQcmIdx(i => i + 1)
-    setQcmSelected(null)
-    setQcmShowResult(false)
-  }
-  function resetQcm() {
-    setQcmIdx(0); setQcmSelected(null); setQcmShowResult(false); setQcmScore(0); setQcmDone(false)
-  }
 
   return (
     <div className="space-y-4 pb-10 animate-fadeIn">

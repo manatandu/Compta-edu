@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
-  BookOpen, FileText, Scale, Flag, TrendingUp,
-  ChevronDown, ChevronUp, ChevronRight, RotateCcw, Briefcase, Building2
+  BookOpen, Scale, TrendingUp,
+  ChevronRight, Briefcase, Building2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -1037,7 +1036,6 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
 // PAGE PRINCIPALE
 // ============================================================
 export default function UE5Chapitre1Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue5-finances-publiques')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import {
   Calculator, Info, RotateCcw, CheckCircle2, X, Search,
-  AlertCircle, ChevronDown, ChevronUp, ChevronRight, BookOpen, Percent,
-  FileText, AlertTriangle, ArrowRight, HelpCircle, Plus,
+  AlertCircle, ChevronDown, ChevronUp, BookOpen, Percent,
+  FileText, AlertTriangle, ArrowRight, Plus,
   Clock, ShieldAlert, QrCode, BookMarked
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -15,7 +15,6 @@ function formatFC(n: number): string {
   if (n < 0) return `(${Math.abs(Math.round(n)).toLocaleString('fr-FR')} FC)`
   return `${Math.round(n).toLocaleString('fr-FR')} FC`
 }
-function formatPct(n: number): string { return `${n.toFixed(2)}%` }
 
 // Arrondi de liquidation TVA (Décret n° 011/42, Art. 137) : la décimale est arrondie
 // à l'unité (≥ 0,5 → unité sup., sinon unité inf.), puis la tranche de FC est ramenée
@@ -177,52 +176,6 @@ function AlertInfo({ texte, type = 'info' }: { texte: string; type?: 'info' | 'w
 }
 
 // Modal catalogue générique
-function ModalCatalogue({
-  titre, items, onSelect, onClose, searchKey = 'label'
-}: {
-  titre: string
-  items: any[]
-  onSelect: (item: any) => void
-  onClose: () => void
-  searchKey?: string
-}) {
-  const [q, setQ] = useState('')
-  const filtres = items.filter(it =>
-    Object.values(it).some(v => String(v).toLowerCase().includes(q.toLowerCase()))
-  )
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" onClick={onClose}>
-      <div className="w-full max-w-lg bg-card rounded-2xl shadow-2xl border border-border overflow-hidden" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
-          <p className="font-semibold text-sm">{titre}</p>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground"><X className="h-4 w-4" /></button>
-        </div>
-        <div className="p-3 border-b border-border">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-            <input autoFocus placeholder="Rechercher..." value={q} onChange={e => setQ(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background pl-8 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-          </div>
-        </div>
-        <div className="max-h-80 overflow-y-auto divide-y divide-border/40">
-          {filtres.map((it, i) => (
-            <button key={i} onClick={() => { onSelect(it); onClose() }}
-              className="w-full flex items-start gap-3 px-4 py-2.5 hover:bg-primary/5 text-left transition-colors">
-              {it.code && <span className="text-xs font-mono text-primary/70 shrink-0 pt-0.5 min-w-[70px]">{it.code}</span>}
-              <div className="flex-1 min-w-0">
-                <p className="text-xs text-foreground">{it.label || it.designation}</p>
-                {it.position && <p className="text-xs text-muted-foreground">{it.position}</p>}
-                {it.taux && <span className="inline-flex items-center rounded-full bg-rose-100 px-1.5 py-0.5 text-xs font-medium text-rose-700 mt-0.5">{it.taux}</span>}
-                {it.article && <span className="ml-1 text-xs text-muted-foreground">{it.article}</span>}
-              </div>
-            </button>
-          ))}
-          {filtres.length === 0 && <p className="text-center text-sm text-muted-foreground py-6">Aucun résultat</p>}
-        </div>
-      </div>
-    </div>
-  )
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CATALOGUES TVA
@@ -780,7 +733,7 @@ function OngletTauxBase() {
   type Taux = '16' | '1' | '5' | '0'
   const [vue, setVue] = useState<'consultation' | 'calculateur'>('consultation')
   const [taux, setTaux] = useState<Taux>('16')
-  const [showCatalogue, setShowCatalogue] = useState(false)
+  const [, setShowCatalogue] = useState(false)
   const [typeOp, setTypeOp] = useState<TypeOpTVA>('standard')
   const [baseHT, setBaseHT] = useState('')
   const [cifVal, setCifVal] = useState('')
@@ -1321,9 +1274,6 @@ function OngletTVANette() {
   const [mois, setMois] = useState('')
   const [annee, setAnnee] = useState(new Date().getFullYear().toString())
   const [res, setRes] = useState<null | any>(null)
-  const [modalCol, setModalCol] = useState(false)
-  const [modal8, setModal8] = useState(false)
-  const [modalColIdx, setModalColIdx] = useState(-1)
 
   function addLigneCol() { setLignesCol(p => [...p, { label: '', baseHT: '', taux: '16' }]); setRes(null) }
   function addLigneDed() { setLignesDed(p => [...p, { label: '', baseHT: '', taux: '16' }]); setRes(null) }

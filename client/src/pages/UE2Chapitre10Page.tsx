@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
-  Trash2, Scale, Shield, Gavel, Ban, UserCheck, Building2, Info,
-  AlertTriangle, CheckCircle, ChevronDown, ChevronUp, FileText, Star
+  ArrowLeft, ArrowRight, CheckCircle2, BookOpen, Scale, Shield, Info,
+  AlertTriangle, ChevronDown, ChevronUp, FileText, Star
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -400,41 +398,11 @@ export default function UE2Chapitre10Page() {
   // Leçon active
   const [activeLecon, setActiveLecon] = useState(0)
   // QCM états
-  const [qcmIdx, setQcmIdx] = useState(0)
-  const [qcmSelected, setQcmSelected] = useState<string | null>(null)
-  const [qcmShowResult, setQcmShowResult] = useState(false)
-  const [qcmScore, setQcmScore] = useState(0)
-  const [qcmDone, setQcmDone] = useState(false)
 
   const lecon = lecons[activeLecon]
-  const currentQ = qcmQuestions[qcmIdx]
-  const totalQ = qcmQuestions.length
 
-  function handleQcmVerifier() {
-    if (!qcmSelected) return
-    setQcmShowResult(true)
-    if (qcmSelected === currentQ.reponseCorrecte) {
-      setQcmScore(s => s + 1)
-    }
-  }
 
-  function handleQcmSuivant() {
-    if (qcmIdx + 1 >= totalQ) {
-      setQcmDone(true)
-    } else {
-      setQcmIdx(i => i + 1)
-      setQcmSelected(null)
-      setQcmShowResult(false)
-    }
-  }
 
-  function handleQcmRestart() {
-    setQcmIdx(0)
-    setQcmSelected(null)
-    setQcmShowResult(false)
-    setQcmScore(0)
-    setQcmDone(false)
-  }
 
   return (
     <div className="space-y-4 pb-10 animate-fadeIn">

@@ -3,7 +3,7 @@
 //  Accessible uniquement aux admins - route /debug-isolation
 //  Permet de vérifier que chaque admin ne voit que ses propres étudiants
 // ═══════════════════════════════════════════════════════════════════════
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useUser } from '@/lib/userContext'
 import { onUsersSnapshot, deleteUserAsync } from '@/lib/db-firebase'
 import type { User } from '@/lib/db'
@@ -71,7 +71,6 @@ export default function DebuggingAdminPage() {
     return !(u as any).faculteId || !(u as any).universiteId
   })
 
-  const isolationOK = etudiantsAutresAdmins.length === 0 || true // Le filtre JS est appliqué
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 space-y-6 animate-fadeIn">

@@ -5,26 +5,25 @@ import { useLocation, useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
 import {
-  getCurrentUser, isDevoirExpire,
-  BAREME_DEFAUT,
+  isDevoirExpire,
   User, UserRole, Universite, Faculte, LigneSolution, Cours, Devoir, Soumission, QCMQuestion, QCMOption, NoteCours
 } from '@/lib/db'
 import {
   createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot,
-  uploadDevoirPDF, deleteDevoirPDF, uploadExercicePDF, uploadNoteCoursFile,
-  getUniversitesAsync, saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
-  getFacultesAsync, createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
-  getCoursAsync, updateCoursAsync, deleteCoursAsync, provisionCoursManquantsAsync,
-  getDevoirsAsync, createDevoirAsync, updateDevoirAsync, deleteDevoirAsync,
-  getSoumissionsAsync, corrigerSoumissionAsync, getEcrituresAsync,
+  uploadDevoirPDF, uploadExercicePDF, uploadNoteCoursFile,
+  saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
+  createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
+  updateCoursAsync, deleteCoursAsync, provisionCoursManquantsAsync,
+  createDevoirAsync, updateDevoirAsync, deleteDevoirAsync,
+  corrigerSoumissionAsync, getEcrituresAsync,
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
-  setCoursStatutAsync, onCoursStatutsParCreateur, COURS_SYSTEME, getCoursUniquesTries
+  onCoursStatutsParCreateur, COURS_SYSTEME, getCoursUniquesTries
 } from '@/lib/db-firebase'
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
-  useUniversites, useFacultes, useAllFacultes, useAllCours, useDevoirs, useSoumissions, useAllSoumissions,
+  useUniversites, useAllFacultes, useAllCours, useDevoirs, useSoumissions, useAllSoumissions,
   useExercices, useTentatives, usePresences, useAllNotesCours
 } from '@/lib/useFirestore'
 import { generateId } from '@/lib/utils'
@@ -39,9 +38,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch'
 import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
-  ChevronDown, ChevronRight, UserPlus, MapPin, Phone, X, ShieldCheck, LibraryBig,
-  Paperclip, FileDown, FileText, CalendarCheck, Award, Check, CheckCircle2, ClipboardList, Minus, TrendingDown, Clock, Download,
-  Lock, CheckCheck, Unlock, KeyRound, Eye, EyeOff, RefreshCw, Search, ExternalLink
+  ChevronDown, ChevronRight, X, ShieldCheck, LibraryBig,
+  Paperclip, FileDown, FileText, CalendarCheck, Award, CheckCircle2, ClipboardList, TrendingDown, Clock, Download,
+  Lock, Search, ExternalLink
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
@@ -402,28 +401,10 @@ export default function ProfesseurPage() {
   const [coursForm, setCoursForm] = useState({ nom: '', description: '', faculteId: '', universiteId: '', promotion: '', actif: true, coursSystemeId: '' })
 
   // ── Formulaire Créer Étudiant (onglet dédié) ──
-  const [creerForm, setCreerForm] = useState({
-    username: '', password: '', nom: '', prenom: '',
-    universiteId: '', faculteId: '', classe: '', telephone: '', actif: true, coursIds: [] as string[]
-  })
-  const [creerError, setCreerError] = useState('')
-  const [creerSuccess, setCreerSuccess] = useState(false)
 
   // ── Import CSV ──
-  const [csvMode, setCsvMode] = useState<'form' | 'csv' | 'code'>('form')
-  const [csvFile, setCsvFile] = useState<File | null>(null)
-  const [csvPreview, setCsvPreview] = useState<any[]>([])
-  const [csvError, setCsvError] = useState('')
-  const [csvImporting, setCsvImporting] = useState(false)
-  const [csvResult, setCsvResult] = useState<{ success: number; errors: string[] } | null>(null)
 
   // ── Code d'accès (Option B) ──
-  const [codeAccesForm, setCodeAccesForm] = useState({ universiteId: '', faculteId: '', coursIds: [] as string[], classe: '' })
-  const [showMdpId, setShowMdpId] = useState<string | null>(null)
-  const [resetMdpVal, setResetMdpVal] = useState('')
-  const [generatedCode, setGeneratedCode] = useState('')
-  const [codeAccesError, setCodeAccesError] = useState('')
-  const [codeCopied, setCodeCopied] = useState(false)
 
   // Modales utilisateurs
   const [showUserForm, setShowUserForm] = useState(false)
@@ -459,10 +440,6 @@ export default function ProfesseurPage() {
   const [uniForm, setUniForm] = useState(emptyUniForm)
 
   // Accordéons universités (onglet Étudiants) : ouverts par défaut
-  const [openUnis, setOpenUnis] = useState<Set<string>>(new Set(['__indep__', '__all__']))
-  const toggleUni = (id: string) => setOpenUnis(prev => {
-    const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n
-  })
 
   // Recherche onglet Universités
   const [searchUni, setSearchUni] = useState('')
@@ -568,24 +545,12 @@ export default function ProfesseurPage() {
     }
   }
   // ── Cours Statuts ──
-  const [coursStatuts, setCoursStatuts] = useState<CoursEtudiantStatut[]>([])
+  const [, setCoursStatuts] = useState<CoursEtudiantStatut[]>([])
   useEffect(() => {
     if (!currentUser?.id) return
     const unsub = onCoursStatutsParCreateur(currentUser.id, setCoursStatuts)
     return () => unsub()
   }, [currentUser?.id])
-
-  const getStatutEtudiantCours = (etudiantId: string, coursId: string) =>
-    coursStatuts.find(s => s.etudiantId === etudiantId && s.coursId === coursId)?.statut || null
-
-  const handleSetCoursStatut = async (etudiantId: string, coursId: string, moduleKey: string, statut: 'actif' | 'termine' | 'verrouille') => {
-    try {
-      await setCoursStatutAsync(etudiantId, coursId, moduleKey, statut, currentUser?.id || '')
-      toast({ title: statut === 'termine' ? 'Cours marqué comme terminé' : statut === 'actif' ? 'Cours activé' : 'Cours verrouillé' })
-    } catch (e) {
-      toast({ title: 'Erreur', description: String(e), variant: 'destructive' })
-    }
-  }
 
   // ── Toggle actif/suspendu ──
   const toggleActifUser = (userId: string, currentActif: boolean) => {
@@ -632,145 +597,11 @@ export default function ProfesseurPage() {
   }
 
   // ── Créer Étudiant (onglet dédié) ──
-  const handleCreerEtudiant = () => {
-    setCreerError('')
-    setCreerSuccess(false)
-    if (!creerForm.username.trim() || !creerForm.nom.trim() || !creerForm.password.trim()) {
-      setCreerError('Nom, identifiant et mot de passe sont obligatoires.')
-      return
-    }
-    // Vérification dans la liste Firestore (temps réel)
-    const existing = users.find(u => u.username === creerForm.username.trim().toLowerCase())
-    if (existing) { setCreerError("Ce nom d'utilisateur est déjà pris.="); return }
-    // Création via Firebase (async)
-    createUserAsync({
-      username: creerForm.username.trim(),
-      password: creerForm.password.trim(),
-      nom: creerForm.nom.trim(),
-      prenom: creerForm.prenom.trim(),
-      faculteId: creerForm.faculteId || undefined,
-      role: 'etudiant',
-      actif: creerForm.actif,
-      universiteId: creerForm.universiteId || undefined,
-      classe: creerForm.classe.trim() || undefined,
-      telephone: creerForm.telephone.trim() || undefined,
-      coursIds: creerForm.coursIds.length > 0 ? creerForm.coursIds : undefined,
-      createdBy: currentUser?.id || '',
-    } as any).then(() => {
-      setCreerSuccess(true)
-      setCreerForm(f => ({ ...f, username: '', password: '', nom: '', prenom: '', classe: '', telephone: '' }))
-      toast({ title: 'Étudiant créé avec succès' })
-    }).catch((err: any) => {
-      const msg = err?.message || err?.code || ''
-      if (msg.includes('déjà utilisé') || msg.includes('already-in-use')) {
-        setCreerError("Cet identifiant est déjà utilisé. Choisissez un autre.=")
-      } else {
-        setCreerError("Erreur lors de la création : " + (msg || 'inconnue'))
-      }
-    })
-  }
 
   // ── Import CSV ──
-  const parseCsvFile = (file: File) => {
-    setCsvError('')
-    setCsvResult(null)
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      const text = e.target?.result as string
-      if (!text) { setCsvError('Fichier vide ou illisible.'); return }
-      const lines = text.split(/\r?\n/).filter(l => l.trim())
-      if (lines.length < 2) { setCsvError('Le fichier doit contenir au moins une ligne de données (en-tête + 1 étudiant).'); return }
-      // Détecter séparateur (virgule ou point-virgule)
-      const sep = lines[0].includes(';') ? ';' : ','
-      const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/[^a-z]/g, ''))
-      const rows = lines.slice(1).map((line, idx) => {
-        const cols = line.split(sep).map(c => c.trim().replace(/^"|"$/g, ''))
-        const row: any = { _line: idx + 2 }
-        headers.forEach((h, i) => { row[h] = cols[i] || '' })
-        return row
-      }).filter(r => r.nom || r.prenom || r.username)
-      if (rows.length === 0) { setCsvError('Aucune ligne valide trouvée.'); return }
-      setCsvPreview(rows)
-    }
-    reader.readAsText(file, 'UTF-8')
-  }
 
-  const handleCsvImport = async () => {
-    if (csvPreview.length === 0) return
-    setCsvImporting(true)
-    setCsvResult(null)
-    let success = 0
-    const errors: string[] = []
-    for (const row of csvPreview) {
-      const nom = (row.nom || '').trim()
-      const prenom = (row.prenom || '').trim()
-      const username = (row.username || row.id || row.identifiant || '').trim().toLowerCase()
-      const password = (row.motdepasse || row.password || row.mdp || 'campus2026').trim()
-      const classe = (row.classe || '').trim()
-      const telephone = (row.telephone || row.tel || '').trim()
-      if (!nom || !username) {
-        errors.push(`Ligne ${row._line} : Nom et Identifiant obligatoires.`)
-        continue
-      }
-      const exists = users.find(u => u.username === username)
-      if (exists) {
-        errors.push(`Ligne ${row._line} : Identifiant "${username}" déjà utilisé.`)
-        continue
-      }
-      try {
-        await createUserAsync({
-          username,
-          password,
-          nom,
-          prenom,
-          role: 'etudiant',
-          actif: true,
-          universiteId: creerForm.universiteId || undefined,
-          faculteId: creerForm.faculteId || undefined,
-          classe: classe || creerForm.classe || undefined,
-          telephone: telephone || undefined,
-          coursIds: creerForm.coursIds.length > 0 ? creerForm.coursIds : undefined,
-          createdBy: currentUser?.id || '',
-        } as any)
-        success++
-      } catch (err: any) {
-        errors.push(`Ligne ${row._line} (${username}) : ${err?.message || 'Erreur inconnue'}`)
-      }
-    }
-    setCsvImporting(false)
-    setCsvResult({ success, errors })
-    if (success > 0) toast({ title: `${success} étudiant${success > 1 ? 's' : ''} importé${success > 1 ? 's' : ''} avec succès` })
-  }
 
   // ── Générer code d'accès ──
-  const handleGenerateCode = async () => {
-    setCodeAccesError('')
-    setGeneratedCode('')
-    // Université optionnelle : au moins un critère suffit
-    // Générer un code lisible de 8 caractères
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-    const code = Array.from({ length: 8 }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
-    const codeData = {
-      code,
-      universiteId: codeAccesForm.universiteId,
-      faculteId: codeAccesForm.faculteId || null,
-      coursIds: codeAccesForm.coursIds.length > 0 ? codeAccesForm.coursIds : [],
-      classe: codeAccesForm.classe || null,
-      createdBy: currentUser?.id || '',
-      createdAt: new Date().toISOString(),
-      actif: true,
-    }
-    try {
-      const { setDoc, doc, collection, getFirestore } = await import('firebase/firestore')
-      const { getApp } = await import('firebase/app')
-      const db2 = getFirestore(getApp())
-      await setDoc(doc(collection(db2, 'codesAcces'), code), codeData)
-      setGeneratedCode(code)
-      toast({ title: 'Code généré avec succès' })
-    } catch (err: any) {
-      setCodeAccesError('Erreur lors de la sauvegarde : ' + (err?.message || 'inconnue'))
-    }
-  }
 
   // ── Utilisateurs ──
   const openCreateUser = (defaultRole: UserRole = 'etudiant') => {
@@ -840,11 +671,6 @@ export default function ProfesseurPage() {
     }).catch(() => toast({ title: 'Erreur lors de la suppression', variant: 'destructive' }))
   }
 
-  const canEditUser = (u: User) => {
-    if (!isStaff) return false
-    if (isAdmin) return true
-    return u.role === 'etudiant'
-  }
 
   // ── Universités ──
   const openCreateUni = () => {
@@ -1178,7 +1004,7 @@ export default function ProfesseurPage() {
   })
 
   // ── Présences ──
-  const { presences, loading: loadingPresences } = usePresences(currentUser?.id, (currentUser as any)?.faculteId)
+  const { presences } = usePresences(currentUser?.id, (currentUser as any)?.faculteId)
   const [showPresenceForm, setShowPresenceForm] = useState(false)
   const [presenceTitre, setPresenceTitre] = useState('')
   const [presenceDate, setPresenceDate] = useState(() => new Date().toISOString().slice(0, 10))
@@ -3061,7 +2887,7 @@ export default function ProfesseurPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cotesDataFiltres.map(({ etudiant: e, totalSeances, nbPresent, cotePresence, coteDevoirs, totalDevoirsNotes, cumulNotes, total, mention }) => (
+                    {cotesDataFiltres.map(({ etudiant: e, totalSeances, nbPresent, cotePresence, coteDevoirs, total, mention }) => (
                       <tr key={e.id} className="border-t border-border/50 hover:bg-muted/20">
                         <td className="px-4 py-2.5">
                           <p className="font-medium">{e.prenom} {e.nom}</p>
@@ -3306,7 +3132,7 @@ export default function ProfesseurPage() {
               <Label>Type de devoir *</Label>
               <div className="mt-1.5 grid grid-cols-4 gap-2">
                 {(['pratique', 'theorique', 'mixte', 'qcm'] as const).map(t => {
-                  const labels = { pratique: '📊 Pratique', theorique: '📝 Théorique', mixte: '🔀 Mixte', qcm: '🎯 QCM' }
+                  const labels = { pratique: 'Pratique', theorique: 'Théorique', mixte: 'Mixte', qcm: 'QCM' }
                   const descs = { pratique: 'Journal + états', theorique: 'Réponses texte', mixte: 'Les deux', qcm: 'Choix multiples' }
                   const selected = devoirForm.type === t
                   return (

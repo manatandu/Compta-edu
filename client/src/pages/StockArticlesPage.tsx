@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Plus, Package, ChevronRight, Trash2, X, Check,
-  BookOpen, BarChart2
+  BarChart2
 } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'

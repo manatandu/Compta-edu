@@ -1,4 +1,3 @@
-import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { Lock } from 'lucide-react'
 import { Breadcrumb } from '@/components/Breadcrumb'

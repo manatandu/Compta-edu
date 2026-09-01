@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, XCircle,
-  BookOpen, FileText, Users, Scale, AlertTriangle,
-  ChevronRight, RotateCcw, Gavel, Shield, Banknote, ClipboardCheck
+  ArrowLeft, ArrowRight, CheckCircle2, BookOpen, Users, Scale, ChevronRight, RotateCcw, Banknote, ClipboardCheck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -1014,7 +1011,6 @@ function CasPratiqueBlock({ cas }: { cas: typeof ETUDES_DE_CAS[0] }) {
 // PAGE PRINCIPALE
 // ============================================================
 export default function UE5Chapitre7Page() {
-  const goBack = useGoBack('/ue5-finances-publiques')
   const user = useUser()
   const isAdmin = isStaffRole(user)
 

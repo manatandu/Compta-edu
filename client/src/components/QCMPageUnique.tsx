@@ -5,7 +5,7 @@
  * Bouton réinitialiser par question.
  * Compatible avec le type QCMChapitre de db.ts
  */
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { CheckCircle2, XCircle, RotateCcw, ChevronDown, ChevronUp, Award } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { QCMChapitre } from '@/lib/db'

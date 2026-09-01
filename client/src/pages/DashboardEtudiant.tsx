@@ -24,7 +24,7 @@ import { DashboardFooter } from '@/components/DashboardFooter'
 
 // ─── Composants devoir (usage étudiant uniquement) ─────────────────────────────
 
-function SoumettreButton({ devoirId, etudiantId, sessionId, navigate }: { devoirId: string; etudiantId: string; sessionId: string; navigate: (p: string) => void }) {
+function SoumettreButton({ devoirId, sessionId, navigate }: { devoirId: string; sessionId: string; navigate: (p: string) => void }) {
   return (
     <Button
       size="sm"
@@ -673,7 +673,6 @@ export default function DashboardEtudiant() {
                                   />
                                   <SoumettreButton
                                     devoirId={dev.id}
-                                    etudiantId={user!.id}
                                     sessionId={sessionDevoir.id}
                                     navigate={navigate}
                                   />

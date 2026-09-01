@@ -4,10 +4,9 @@
 //  Chaque hook s'abonne aux changements Firestore en temps réel via onSnapshot.
 // ═══════════════════════════════════════════════════════════════════════
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  collection, query, where, onSnapshot, orderBy,
-  type Unsubscribe
+  collection, query, where, onSnapshot, type Unsubscribe
 } from 'firebase/firestore'
 import { db } from './firebase'
 import { useUser } from './userContext'

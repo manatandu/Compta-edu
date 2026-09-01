@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Landmark, Plus, Trash2, Info, AlertCircle,
   BarChart2, BookOpen, ArrowLeftRight, Upload, Check, ChevronRight
@@ -51,7 +50,6 @@ function Callout({ children, couleur = 'violet' }: { children: React.ReactNode; 
 }
 
 function EcritureCard({ ec, numero, couleur = 'teal' }: { ec: EcritureEmpruntGeneree; numero: number; couleur?: 'teal' | 'rose' }) {
-  const totalDebit = ec.lignes.reduce((s, l) => s + l.debit, 0)
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <div className="flex items-center gap-2.5 px-3.5 py-2.5 bg-muted/40 border-b border-border">
@@ -779,7 +777,6 @@ function OngletEcarts({ emprunt, userId }: { emprunt: Emprunt; userId: string })
 
 // ─── Page principale ──────────────────────────────────────────────────────────
 export default function EmpruntsPage() {
-  const [, navigate] = useHashLocation()
   const user = useUser()
   const { emprunts, loading } = useEmprunts(user?.id)
   const [actif, setActif] = useState<OngletId>('emprunts')

@@ -33,7 +33,7 @@ function Th({ children, className, colSpan }: { children?: React.ReactNode; clas
 }
 
 // ─── Tableau fiche ────────────────────────────────────────────────────────────
-function TableauFiche({ lignes, methode }: { lignes: LigneFiche[]; methode: 'CUMP' | 'PEPS' }) {
+function TableauFiche({ lignes }: { lignes: LigneFiche[] }) {
   // Calcul totaux
   const totalEntreeQ = lignes.slice(1).reduce((s, l) => s + (l.entreeQ ?? 0), 0)
   const totalEntreeMontant = lignes.slice(1).reduce((s, l) => s + (l.entreeMontant ?? 0), 0)
@@ -244,7 +244,7 @@ export default function StockFichePage() {
         </div>
       ) : (
         <div className="animate-slideUp" style={{ animationDelay: '140ms' }}>
-          <TableauFiche lignes={lignesAffichees} methode={methodeAffichee} />
+          <TableauFiche lignes={lignesAffichees} />
         </div>
       )}
 

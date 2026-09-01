@@ -1,8 +1,6 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { Ecriture } from './db'
-import { formatMontant } from './utils'
-
 /**
  * Téléchargement PDF compatible mobile (iOS Safari)
  * Sur iOS, a.click() ne fonctionne pas : on ouvre le blob dans un nouvel onglet
@@ -20,7 +18,6 @@ function savePDF(doc: jsPDF, filename: string) {
 }
 
 const BLUE_OHADA: [number, number, number] = [31, 52, 107]  // --primary: 222 72% 28%
-const GOLD_OHADA: [number, number, number] = [204, 139, 10]  // --secondary: 43 90% 45%
 
 // Formatage des montants pour PDF : espace normal (pas insécable) pour éviter les glyphes corrompus
 function fmtPDF(n: number): string {

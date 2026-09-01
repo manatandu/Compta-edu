@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useHashLocation } from 'wouter/use-hash-location'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { ChevronLeft } from 'lucide-react'
 

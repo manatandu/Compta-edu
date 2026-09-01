@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import GlobalSearch from '@/components/GlobalSearch'
 import { NotificationBell } from '@/components/NotificationBell'
-import { getCurrentUser, logout, User } from '@/lib/db'
+import { logout, User } from '@/lib/db'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -53,7 +53,6 @@ const staffItems: NavItem[] = [
 // Plus utilisé mais conservé pour compatibilité
 const middleItems: NavItem[] = []
 
-const bottomItems: NavItem[] = []
 
 // Anciens dossiers accordéon (Comptabilité Générale / Fiscalité / Analyse
 // Financière) : supprimés. Les trois n'avaient plus aucun sous-item
@@ -130,7 +129,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
     }
   }
 
-  const visibleBottomItems = bottomItems.filter(item => !item.roles || item.roles.includes(user.role))
   const roleBadge = getRoleBadge(user.role)
   const isAdmin = ['admin', 'professeur', 'assistant'].includes(user.role)
   const bottomNavItems = isAdmin ? mobileBottomNavAdmin : mobileBottomNav
@@ -255,7 +253,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
             const isDirectActive = location === path || location.startsWith(path + '/')
 
             // Statut pour l'étudiant
-            const statut = isStudent
               ? (coursStatuts.find(s => s.coursId === cours.id)?.statut || null)
               : null
             // Inscrit au cours ?

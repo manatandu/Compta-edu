@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useSearch } from 'wouter'
 import { BookMarked, Search, X, ChevronRight, ArrowUp, ArrowLeft } from 'lucide-react'
-import { DICTIONNAIRE, DOMAINES_DICT, UES_DICT, TermeDict, DomaineDict } from '@/data/dictionnaire'
+import { DICTIONNAIRE, DOMAINES_DICT, UES_DICT, DomaineDict } from '@/data/dictionnaire'
 import { cn } from '@/lib/utils'
 
 const DOMAINE_COLORS: Record<DomaineDict, string> = {

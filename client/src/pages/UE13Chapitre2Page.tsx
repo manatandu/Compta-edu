@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { InlineMath, BlockMath } from 'react-katex'
+import { BlockMath } from 'react-katex'
 import 'katex/dist/katex.min.css'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
@@ -7,7 +7,7 @@ import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, Layers, Scale, RefreshCw, TrendingDown, PenLine,
-  ChevronDown, ChevronUp, ChevronRight, RotateCcw, Wrench
+  ChevronRight, RotateCcw, Wrench
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -2146,54 +2146,6 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
 // ─────────────────────────────────────────────────────────────────
 // COMPOSANT CasPratiqueBlock
 // ─────────────────────────────────────────────────────────────────
-function CasPratiqueBlock({ cp }: { cp: EtudeDeCasIAS }) {
-  const [open, setOpen] = useState(false)
-  const [corrVisible, setCorrVisible] = useState<Set<number>>(new Set())
-  return (
-    <div className="rounded-xl border border-border bg-card overflow-hidden">
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors">
-        <div className="flex items-center gap-3 text-left">
-          <span className="h-7 w-7 rounded-full bg-sky-100 text-sky-700 text-xs font-bold flex items-center justify-center shrink-0">C</span>
-          <div>
-            <p className="text-sm font-semibold text-foreground">{cp.titre}</p>
-          </div>
-        </div>
-        <ChevronRight className={cn('h-4 w-4 text-muted-foreground shrink-0 transition-transform', open && 'rotate-90')} />
-      </button>
-      {open && (
-        <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-          <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
-            <p className="text-xs font-semibold text-amber-800 mb-1">Contexte</p>
-            <p className="text-xs text-amber-900 leading-relaxed">{cp.contexte}</p>
-          </div>
-          <div className="space-y-3">
-            {cp.questions.map(q => (
-              <div key={q.num} className="space-y-2">
-                <p className="text-xs font-semibold text-foreground">Question {q.num} : {q.énoncé}</p>
-                <button
-                  onClick={() => setCorrVisible(s => {
-                    const n = new Set(s)
-                    if (n.has(q.num)) { n.delete(q.num) } else { n.add(q.num) }
-                    return n
-                  })}
-                  className="text-xs text-sky-600 hover:underline font-medium"
-                >
-                  {corrVisible.has(q.num) ? 'Masquer la correction' : 'Voir la correction'}
-                </button>
-                {corrVisible.has(q.num) && (
-                  <div className="rounded-lg bg-sky-50 border border-sky-200 p-3">
-                    <p className="text-xs font-semibold text-sky-700 mb-1">Correction</p>
-                    <p className="text-xs text-sky-900 leading-relaxed">{q.correction}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
 
 // ─────────────────────────────────────────────────────────────────
 // COMPOSANT CasRicheBlock

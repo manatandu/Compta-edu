@@ -1,12 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import React, { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
   BookOpen, FileText, Scale, Flag, MapPin, Users, AlertTriangle,
-  ChevronDown, ChevronUp, ChevronRight, RotateCcw, Briefcase, PlusCircle
+  ChevronRight, Briefcase
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import SimulateurConstitution from '@/components/SimulateurConstitution'
@@ -1396,7 +1395,6 @@ function CasPratiqueBlock({ cp }: { cp: CasPratiqueEtude }) {
 }
 
 export default function UE2Chapitre1Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue2-droit-societes')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)

@@ -1,6 +1,6 @@
 import { useUser } from '@/lib/userContext'
 import { isStaffRole } from '@/lib/permissions'
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useParams } from 'wouter'
 import {
@@ -32,14 +32,6 @@ const emptyLigne = (): LigneSaisie => ({
 })
 
 // ─── Logique famille comptable ────────────────────────────────────────────────
-function memeFamille(attendu: string, saisi: string): boolean {
-  const a = attendu.trim()
-  const s = saisi.trim()
-  if (!a || !s) return false
-  if (s.length <= 2) return false
-  if (a === s) return true
-  return a.startsWith(s) || s.startsWith(a)
-}
 
 type MatchType = 'exact' | 'sous-compte' | 'compte-parent' | 'incorrect'
 function typeCorrespondance(attendu: string, saisi: string): MatchType {

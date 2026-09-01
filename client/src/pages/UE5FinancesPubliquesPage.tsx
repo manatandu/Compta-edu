@@ -1,9 +1,7 @@
-import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { ChevronRight, Lock, BookOpen, CheckCircle2 } from 'lucide-react'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
-import { useUser } from '@/lib/userContext'
 import { cn } from '@/lib/utils'
 
 const CHAPITRES = [
@@ -143,7 +141,6 @@ export default function UE5FinancesPubliquesPage() {
   const [, navigate] = useHashLocation()
 
   const totalLecons = CHAPITRES.reduce((s, c) => s + c.lecons, 0)
-  const totalExercices = CHAPITRES.reduce((s, c) => s + c.exercices, 0)
   const totalHeures = '45h'
 
   return (

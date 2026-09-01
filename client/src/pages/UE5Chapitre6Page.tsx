@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, CheckCircle2, XCircle,
-  BookOpen, FileText, Users, Clock,
-  ChevronRight, RotateCcw, AlertTriangle, Scale, Building2, Coins
+  BookOpen, FileText, Users, ChevronRight, RotateCcw, AlertTriangle, Scale, Building2, Coins
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
@@ -1213,7 +1211,6 @@ L\'unite de caisse est pleinement respectee : les fonds transitent par le Compte
 
 // ─── PAGE PRINCIPALE ─────────────────────────────────────────────────────────
 export default function UE5Chapitre6Page() {
-  const [, navigate] = useHashLocation()
   const goBack = useGoBack('/ue5-finances-publiques')
   const currentUser = useUser()
   const isStudent = isStudentRole(currentUser)

@@ -18,7 +18,7 @@ import {
 } from '@/lib/db-firebase'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
-import { isAdminRole, isStaffRole } from '@/lib/permissions'
+import { isStaffRole } from '@/lib/permissions'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
@@ -29,7 +29,7 @@ import { User } from '@/lib/db'
 import { useEffect } from 'react'
 import {
   UserPlus, Upload, Key, ChevronDown, Check,
-  Copy, AlertCircle, FileText, X, ArrowLeft
+  Copy, AlertCircle, FileText
 } from 'lucide-react'
 
 // ─── Catalogues fixes ───────────────────────────────────────────────────────
@@ -47,7 +47,6 @@ type Methode = 'form' | 'csv' | 'code'
 // ─── Composant principal ──────────────────────────────────────────────────────
 export default function InscriptionPlatformePage() {
   const user = useUser()
-  const [, navigate] = useLocation()
   const { toast } = useToast()
   const { universites } = useUniversites()
   const { facultes: facultesList } = useAllFacultes()
@@ -56,7 +55,6 @@ export default function InscriptionPlatformePage() {
   const [methode, setMethode] = useState<Methode>('form')
   const [users, setUsers] = useState<User[]>([])
 
-  const isAdmin = isAdminRole(user)
   const isStaff = isStaffRole(user)
 
   // Listener temps réel pour détecter les doublons username

@@ -6,7 +6,6 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import BackButton from '@/components/BackButton'
-import { useHashLocation } from 'wouter/use-hash-location'
 import { InfoTooltip } from '@/components/InfoTooltip'
 import {
   calculerBaremeIRPP as calculerBareme,
@@ -235,7 +234,6 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 // PAGE PRINCIPALE
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ChargesPersonnelIPRPage() {
-  const [, navigate] = useHashLocation()
   type Mode = 'national' | 'expatrie' | 'admin'
   const [mode, setMode] = useState<Mode>('national')
 
@@ -1480,7 +1478,6 @@ export default function ChargesPersonnelIPRPage() {
 
                 {/* ÉCRITURE 7 : PAIEMENT */}
                 {(() => {
-                  const totalDettes = res.qpo + res.cnssPatron + res.inpp + res.onem + res.iprNet
                   const netBanque2 = res.brutTotal - res.qpo - (res.syndicatVal || 0) - (res.avancesVal || 0) - res.iprNet
                   const lignes7: { sens: 'D' | 'C'; compte: string; intitule: string; montant: number }[] = []
                   if (netBanque2 > 0) lignes7.push({ sens: 'D', compte: '422', intitule: 'Personnel, rémunérations dues (net)', montant: netBanque2 })

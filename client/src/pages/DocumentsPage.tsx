@@ -60,17 +60,6 @@ const SYSTEM_DOC = {
 }
 
 // Documents système Comptabilité : non supprimables
-const SYSTEM_DOCS_COMPTA = [
-  {
-    id: '__system_ohada_plan_comptable__',
-    titre: 'Plan Comptable OHADA 2017',
-    type: 'référence',
-    description: "Acte Uniforme OHADA relatif au droit comptable et à l'information financière : SYSCOHADA Révisé 2017.",
-    filename: 'OHADA-Plan-comptable-2017.pdf',
-    folderId: 'notes-cours',
-    system: true,
-  },
-]
 
 // Documents système Fiscalité : non supprimables
 const SYSTEM_DOCS_FISCALITE = [

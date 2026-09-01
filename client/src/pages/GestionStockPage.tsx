@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { Package, ClipboardList, BookOpen, Sparkles } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
@@ -44,7 +43,6 @@ const ONGLETS = [
 ] as const
 
 export default function GestionStockPage() {
-  const [, navigate] = useHashLocation()
   const [actif, setActif] = useState<typeof ONGLETS[number]['id']>('articles')
 
   return (

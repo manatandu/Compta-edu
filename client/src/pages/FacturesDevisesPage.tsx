@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
 import {
   Receipt, Plus, Trash2, Info, AlertCircle,
   BookOpen, ArrowLeftRight, Wallet, Upload, Check, FileText, Lock,
@@ -18,8 +17,6 @@ import {
   genererEcritureAvanceRecueFournisseur, genererEcritureAvanceVerseeClient,
   genererEcritureRetourEmballageFournisseur, genererEcritureRetourEmballageClient,
   genererEcritureNonRetourEmballageFournisseur, genererEcritureNonRetourEmballageClient,
-  genererEcritureLocationEmballageClient,
-  genererEcritureReglement,
   calculerEcartConversionCommercial, genererEcritureEcartConversion, genererEcritureProvisionCommercial,
   genererEcritureDisponibilites,
   type FactureDevise, type Devise, type TypeFacture, type EcritureFactureGeneree,
@@ -682,7 +679,6 @@ function OngletEcritures({ facture, userId }: { facture: FactureDevise; userId: 
   const ecrEngagementF = useMemo(() => genererEcritureEngagementFournisseur(facture), [facture])
   const ecrEngagementC = useMemo(() => genererEcritureEngagementClient(facture), [facture])
 
-  const decompteCDF = useMemo(() => calculerDecompte(facture, facture.coursEngagement), [facture])
 
   return (
     <div className="space-y-6">
@@ -783,7 +779,6 @@ function OngletEcarts({ facture, userId }: { facture: FactureDevise; userId: str
   const [soldeRestant, setSoldeRestant] = useState(String(soldeInitial))
   const [coursCloture, setCoursCloture] = useState(String(Math.round(facture.coursEngagement * 1.03)))
   const [dateCloture, setDateCloture] = useState(new Date().toISOString().split('T')[0])
-  const [modalEcriture, setModalEcriture] = useState<EcritureFactureGeneree | null>(null)
 
   const solde = Number(soldeRestant) || 0
   const ecart = useMemo(
@@ -936,7 +931,6 @@ function OngletDisponibilites() {
 
 // ─── Page principale ──────────────────────────────────────────────────────────
 export default function FacturesDevisesPage() {
-  const [, navigate] = useHashLocation()
   const user = useUser()
   const { factures, loading } = useFacturesDevises(user?.id)
   const [actif, setActif] = useState<OngletId>('factures')

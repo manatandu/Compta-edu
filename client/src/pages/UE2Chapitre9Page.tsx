@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useState } from 'react'
 import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
-  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, ChevronRight,
-  RefreshCw, Scale, Shield, Gavel, TrendingDown, LifeBuoy, Info,
+  ArrowLeft, ArrowRight, CheckCircle2, XCircle, BookOpen, Scale, Shield, Gavel, Info,
   AlertTriangle, CheckCircle, ChevronDown, ChevronUp, FileText, Star
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -406,10 +404,9 @@ function QCMBlock({ q }: { q: QCMQuestion }) {
 }
 
 function CasPratiqueBlock({
-  cp, isEtudiant,
+  cp,
 }: {
   cp: typeof casPratiques[0]
-  isEtudiant: boolean
 }) {
   const [open, setOpen] = useState(false)
   return (
@@ -463,41 +460,11 @@ export default function UE2Chapitre9Page() {
   // Leçon active
   const [activeLecon, setActiveLecon] = useState(0)
   // QCM états
-  const [qcmIdx, setQcmIdx] = useState(0)
-  const [qcmSelected, setQcmSelected] = useState<string | null>(null)
-  const [qcmShowResult, setQcmShowResult] = useState(false)
-  const [qcmScore, setQcmScore] = useState(0)
-  const [qcmDone, setQcmDone] = useState(false)
 
   const lecon = lecons[activeLecon]
-  const currentQ = qcmQuestions[qcmIdx]
-  const totalQ = qcmQuestions.length
 
-  function handleQcmVerifier() {
-    if (!qcmSelected) return
-    setQcmShowResult(true)
-    if (qcmSelected === currentQ.reponseCorrecte) {
-      setQcmScore(s => s + 1)
-    }
-  }
 
-  function handleQcmSuivant() {
-    if (qcmIdx + 1 >= totalQ) {
-      setQcmDone(true)
-    } else {
-      setQcmIdx(i => i + 1)
-      setQcmSelected(null)
-      setQcmShowResult(false)
-    }
-  }
 
-  function handleQcmRestart() {
-    setQcmIdx(0)
-    setQcmSelected(null)
-    setQcmShowResult(false)
-    setQcmScore(0)
-    setQcmDone(false)
-  }
 
   return (
     <div className="space-y-4 pb-10 animate-fadeIn">
@@ -1286,7 +1253,7 @@ export default function UE2Chapitre9Page() {
             <p className="text-sm text-gray-500 mt-1">4 cas pratiques basés sur les Art. 181-199 AUSCGIE et l'AUPCAP révisé 2015.</p>
           </div>
           {casPratiques.map((cp) => (
-            <CasPratiqueBlock key={cp.id} cp={cp} isEtudiant={isStudentRole(user)} />
+            <CasPratiqueBlock key={cp.id} cp={cp} />
           ))}
         </div>
       )}

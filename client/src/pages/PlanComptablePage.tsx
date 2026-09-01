@@ -1,9 +1,8 @@
-import React, { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import BackButton from '@/components/BackButton'
 import { getComptes, CompteOHADA } from '@/lib/db'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Search, ChevronRight, ChevronDown, ListTree } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -133,7 +132,6 @@ export default function PlanComptablePage() {
             const classData = grouped.get(classe)
             if (!classData) return null
             const classOpen = openClasses.has(String(classe))
-            const totalInClass = Array.from(classData.values()).reduce((s, m) => s + Array.from(m.values()).reduce((ss, arr) => ss + arr.length, 0), 0)
 
             return (
               <Card key={classe} className="border-border overflow-hidden hover:border-primary/30 transition-colors">
@@ -157,7 +155,6 @@ export default function PlanComptablePage() {
                   <CardContent className="pt-0 pb-2 px-0">
                     {Array.from(classData.entries()).sort(([a], [b]) => a.localeCompare(b)).map(([twoDigit, threeMap]) => {
                       const sectionOpen = openSections.has(twoDigit)
-                      const sectionCount = Array.from(threeMap.values()).reduce((s, arr) => s + arr.length, 0)
                       // Get label from first account
                       const firstCompte = Array.from(threeMap.values())[0]?.[0]
 
@@ -184,7 +181,6 @@ export default function PlanComptablePage() {
                                 const subOpen = openSubSections.has(threeDigit)
                                 const firstAcc = accounts[0]
                                 const subAccounts = accounts.filter(a => a.numero.length > 3)
-                                const mainAccount = accounts.find(a => a.numero === threeDigit)
 
                                 return (
                                   <div key={threeDigit} className="border-t border-border/30">

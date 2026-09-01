@@ -1,5 +1,5 @@
 import { useUser } from '@/lib/userContext'
-import React, { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import type { Ecriture } from '@/lib/db'

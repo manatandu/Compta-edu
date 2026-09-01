@@ -13,7 +13,7 @@
 import React, { useState } from 'react'
 import {
   Pickaxe, Landmark, Receipt, TrendingUp, Users, AlertTriangle,
-  ChevronRight, ChevronDown, BookOpen, Calculator, Gem
+  ChevronRight, ChevronDown, Gem
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 

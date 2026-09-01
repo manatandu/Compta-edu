@@ -4,7 +4,7 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
 import {
   ArrowLeft, ArrowRight, ChevronRight, CheckCircle2, XCircle,
-  BookOpen, Users, Vote, Gavel, Scale, RotateCcw, PlusCircle, ShieldAlert
+  BookOpen, Users, Vote, Gavel, Scale, PlusCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'

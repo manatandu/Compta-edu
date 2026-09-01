@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { Search, X, BookOpen, Building2, ClipboardList, GraduationCap, BookMarked } from 'lucide-react'
 import { cn } from '@/lib/utils'

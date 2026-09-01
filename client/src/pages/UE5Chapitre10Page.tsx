@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { useGoBack } from '@/lib/navContext'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
-import { ChevronDown, ChevronUp, CheckCircle2, XCircle, ArrowLeft } from 'lucide-react'
+import { ChevronDown, ChevronUp, CheckCircle2, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { InfoTooltip } from '@/components/InfoTooltip'
 
@@ -1289,7 +1288,6 @@ function CasPratiqueCard({ cp }: { cp: CasPratique }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function UE5Chapitre10Page() {
-  const goBack = useGoBack('/ue5-finances-publiques')
   const [leconActive, setLeconActive] = useState<'L1'|'L2'|'L3'|'L4'|'L5'|'L6'>('L1')
   const [onglet, setOnglet] = useState<'lecons'|'qcm'|'cas'|'devoir'>('lecons')
   const lecon = LECONS.find(l => l.id === leconActive)!

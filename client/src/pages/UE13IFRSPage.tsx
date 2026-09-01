@@ -1,8 +1,6 @@
-import React from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { ChevronRight, BookOpen } from 'lucide-react'
 import BackButton from '@/components/BackButton'
-import { useUser } from '@/lib/userContext'
 import { cn } from '@/lib/utils'
 
 const CHAPITRES = [
@@ -106,7 +104,6 @@ const CHAPITRES = [
 
 export default function UE13IFRSPage() {
   const [, navigate] = useHashLocation()
-  const user = useUser()
 
   return (
     <div className="min-h-screen bg-background animate-fadeIn">
