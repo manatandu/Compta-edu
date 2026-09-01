@@ -59,7 +59,6 @@ import('@/content/catalogue').then(({ CATALOGUE }) => {
 })
 const PAGES_CHAPITRES: Record<string, Loader> = {
   '/ue2/chapitre-1': () => import('@/pages/UE2Chapitre1Page'),
-  '/ue2/chapitre-10': () => import('@/pages/UE2Chapitre10Page'),
   '/ue5/chapitre-1': () => import('@/pages/UE5Chapitre1Page'),
   '/ue5/chapitre-2': () => import('@/pages/UE5Chapitre2Page'),
   '/ue5/chapitre-3': () => import('@/pages/UE5Chapitre3Page'),
