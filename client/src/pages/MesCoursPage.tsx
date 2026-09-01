@@ -17,7 +17,7 @@ const UE_COLORS = [
   'bg-module-emerald/10 text-module-emerald',
 ]
 
-const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'analyse-financiere', 'ue1-droit-travail', 'ue2-droit-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
+const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'analyse-financiere', 'ue1-droit-travail', 'ue2-droit-societes', 'ue3-compta-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
 
 export default function MesCoursPage() {
   const [, navigate] = useHashLocation()
