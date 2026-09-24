@@ -19,7 +19,13 @@ import type { Chapitre } from '@/lib/chapitre-types'
 //   2023) ; arrêtés n° 013 et 014/CAB/MIN/FINANCES/2025 (taux
 //   d'amortissement ; seuil du petit matériel).
 // - Code minier (loi 007/2002 modifiée) : art. 204 et 258.
-// - BOA RDC, états IFRS 2018, note 3.12 (immobilisations corporelles).
+// - Support de cours d'origine : J.-B. Tshimanga Mulumba (CPCC), « Traitement
+//   des immobilisations », modules IAS 16 et IAS 38 ; illustrations reprises
+//   et approfondies (avion ALPHA, composant réévalué, laboratoire MI,
+//   exercice des trois machines, réévaluation d'une machine et d'un terrain).
+//   Le total de l'exercice des trois machines est recalculé sur texte (255,
+//   les coûts annexes immobilisables étant de 2 + 3). Public visé :
+//   entreprises commerciales et industrielles.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const QCM: Chapitre['qcm'] = [
@@ -337,7 +343,7 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c2-q25',
-    question: "Des frais de développement de 180 000 ont été passés en charges au premier semestre, avant que les critères du § 57 soient remplis le 1er juillet. Peut-on les activer au second semestre ?",
+    question: "Le laboratoire MI a passé en charges 35 000 de frais de développement engagés avant le 15 septembre, date à laquelle les critères du § 57 ont été remplis. Peut-on les activer en fin d'exercice ?",
     options: [
       { id: 'a', texte: "Oui, rétroactivement, puisque le projet est désormais viable" },
       { id: 'b', texte: "Non : les dépenses initialement comptabilisées en charges ne peuvent pas être incorporées ultérieurement dans le coût d'une incorporelle" },
@@ -376,16 +382,16 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c2-q28',
-    question: "La note 3.12 des états IFRS 2018 de BOA RDC indique avoir décomposé ses ensembles immobiliers en « trois composants majeurs » : bâtiments, terrains et agencements. Que relevez-vous ?",
+    question: "Une société pratique pour la première fois le modèle de la réévaluation. Machine industrielle : valeur comptable 30, juste valeur 10. Terrain : coût 100, juste valeur 150. Quel montant passe en charges ?",
     options: [
-      { id: 'a', texte: "Rien : c'est exactement ce que prévoit IAS 16" },
-      { id: 'b', texte: "Le terrain n'est pas un composant du bâtiment, mais un actif distinct (IAS 16.58) ; la séparation est juste dans son effet, imprécise dans son vocabulaire" },
-      { id: 'c', texte: "Les agencements ne peuvent jamais être séparés" },
-      { id: 'd', texte: "La décomposition est interdite pour les banques" },
+      { id: 'a', texte: "0 : la plus-value du terrain compense la moins-value de la machine" },
+      { id: 'b', texte: "20" },
+      { id: 'c', texte: "30" },
+      { id: 'd', texte: "50" },
     ],
     reponseCorrecte: 'b',
-    explication: "Séparer le terrain du bâtiment est indispensable, puisque le terrain n'est en principe pas amorti. Mais IAS 16.58 en fait deux actifs distincts, et non deux composants d'un même actif ; le SYSCOHADA révisé le dit expressément. Les agencements, eux, peuvent constituer un composant du bâtiment s'ils ont une durée d'utilité différente (IAS 16.43-45) : la note leur attribue 10 ans, contre 25 à 40 ans pour les immeubles.",
-    articleRef: "IAS 16.43-45 et 16.58 ; BOA RDC, note 3.12",
+    explication: "Machines et terrains sont des catégories distinctes (IAS 16.37), et la réévaluation s'apprécie actif par actif. La diminution de la machine (30 − 10 = 20) va en résultat net, faute d'écart de réévaluation antérieur sur ce même actif (§ 40). La hausse du terrain (150 − 100 = 50) va en autres éléments du résultat global, dans l'écart de réévaluation (§ 39). On ne compense pas la moins-value d'un actif avec la plus-value d'un autre : 20 en charges, 50 en capitaux propres.",
+    articleRef: "IAS 16.36-37 et 16.39-40",
   },
 ]
 
@@ -629,9 +635,17 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[21] },
       { type: 'controle', question: QCM[22] },
       {
-        type: 'filet',
-        titre: "Dans les comptes publiés : la note 3.12 de BOA RDC (2018)",
-        texte: "La banque indique avoir décomposé « tous les ensembles immobiliers en Bâtiments, Terrains et Agencements », présentés comme « les trois composants majeurs », et publie ses durées : aménagements et installations 10 ans, matériel informatique 3 ans, immeubles 25/40 ans, matériel roulant 5 ans, matériel et mobilier 10 ans, terrains non amortis. Les amortissements sont linéaires, « après détermination de la valeur résiduelle ». Le fond est conforme à IAS 16 ; le vocabulaire ne l'est pas tout à fait, puisque le terrain est un actif distinct et non un composant (§ 58). Lire une note, c'est aussi repérer ces glissements.",
+        type: 'carte',
+        titre: "Pas à pas : l'avion ALPHA, amortissement au kilomètre et révision des estimations",
+        liste: [
+          "**Donnée.** Le 1er janvier N, une compagnie aérienne privée acquiert l'avion ALPHA pour 10 000 000 USD. Sa durée de vie physique est d'environ 20 ans, mais la compagnie revend ses avions après 5 à 10 ans : elle prévoit de le garder 5 ans et de le revendre 8 000 000. La consommation des avantages suit le kilométrage : 3 000 000 km prévus sur 5 ans. Hypothèse simplificatrice : pas de composants.",
+          "**Durée d'utilité et valeur résiduelle.** La durée d'utilité est celle pendant laquelle l'entité s'attend à utiliser l'actif, 5 ans, et non sa durée de vie physique ; la valeur résiduelle est le montant qu'elle obtiendrait actuellement de sa sortie, coûts de sortie déduits, si l'avion avait déjà l'âge et l'état prévus à la fin de cette durée, soit 8 000 000 (IAS 16.6). Montant amortissable : 2 000 000.",
+          "**Mode** : unités d'œuvre, la charge étant « basée sur l'utilisation ou la production prévue de l'actif » (§ 62).",
+          "**N** : 450 000 km parcourus. Amortissement : 2 000 000 × 450 000 / 3 000 000 = **300 000**.",
+          "**N+1** : la compagnie révise ses hypothèses : conservation 7 ans, valeur résiduelle 6 500 000, kilométrage total 4 000 000 km ; 550 000 km parcourus. Changement d'estimation, traité prospectivement (§ 51 ; IAS 8) : montant amortissable restant 10 000 000 − 6 500 000 − 300 000 = 3 200 000, réparti sur les kilomètres restants (4 000 000 − 450 000 = 3 550 000). Amortissement : 3 200 000 × 550 000 / 3 550 000 ≈ **495 775**.",
+          "**À ne pas faire** : recalculer N avec les nouvelles hypothèses. L'amortissement de N reste de 300 000 : on ne corrige pas une estimation raisonnable du passé.",
+        ],
+        note: "L'exemple montre pourquoi une compagnie qui revend ses avions tôt n'amortit pas sur 20 ans : l'essentiel de la valeur est récupéré à la revente. Il montre aussi que « la valeur résiduelle et la durée d'utilité d'un actif doivent être révisées au moins à chaque fin d'exercice » (§ 51), et que l'amortissement continue même si la juste valeur dépasse la valeur comptable, tant que la valeur résiduelle ne l'excède pas (§ 52-54).",
       },
       { type: 'controle', question: QCM[27] },
     ],
@@ -696,9 +710,19 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[19] },
       { type: 'controle', question: QCM[20] },
       {
-        type: 'filet',
-        titre: "Dans les comptes publiés : le choix de BOA RDC au passage aux IFRS",
-        texte: "La note 3.12 rappelle que les comptes statutaires de la banque « avaient été impactés par la réévaluation légale conformément aux dispositions de l'ordonnance-loi n°89/017 ». Au passage aux IFRS, la direction n'a pas retenu la valeur réévaluée comme coût présumé, faculté qu'offre IFRS 1 (chapitre 7) : ces valeurs « ont été décomptabilisées », au profit du modèle du coût, établi à partir de rapports d'expertise. La même note évoque ensuite une « réévaluation libre à la juste valeur » à la clôture 2018 suivie d'un test de dépréciation. Un lecteur attentif demandera donc quel modèle, du coût ou de la réévaluation, s'applique réellement à chaque catégorie. C'est la question que le § 73(a) impose de trancher dans les notes.",
+        type: 'carte',
+        titre: "Pas à pas : un composant réévalué sur quatre exercices",
+        texte: "Un composant acquis le 2 janvier N pour 100 000 USD HT, amorti linéairement sur 20 ans, appartient à une catégorie évaluée selon le modèle de la réévaluation. Justes valeurs : 95 500 fin N ; 108 000 fin N+1 ; 93 500 fin N+2 ; 72 000 fin N+3.",
+        tableau: {
+          entetes: ['Clôture', 'Amortissement', 'Valeur comptable avant réévaluation', 'Juste valeur', 'Traitement'],
+          lignes: [
+            ['N', '100 000 / 20 = 5 000', '95 000', '95 500', "Écart non significatif : pas de réévaluation (§ 34)"],
+            ['N+1', '5 000', '90 000', '108 000', "Réévaluation de **+18 000** en autres éléments du résultat global (§ 39)"],
+            ['N+2', '108 000 / 18 = 6 000', '102 000', '93 500', "**−8 500**, imputés sur l'écart de réévaluation, qui passe à 9 500 (§ 40)"],
+            ['N+3', '93 500 / 17 = 5 500', '88 000', '72 000', "**−16 000** : 9 500 sur l'écart, qui est soldé, et **6 500 en charges** (§ 40)"],
+          ],
+        },
+        note: "Deux présentations de la réévaluation de N+1 (§ 35) : (a) retraiter la valeur brute et les amortissements au prorata, ici de 20 % (108 000 / 90 000) : valeur brute 120 000, amortissements 12 000 ; ou (b) éliminer les amortissements cumulés (10 000) contre la valeur brute, puis porter la valeur nette à 108 000. Dans les deux cas, l'écart de réévaluation est de 18 000. L'entité peut aussi transférer chaque année une partie de l'écart en résultats non distribués, égale au supplément d'amortissement dû à la réévaluation, sans passer par le résultat (§ 41).",
       },
     ],
   },
@@ -765,20 +789,21 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : l'application de paiement mobile de KASAI BANQUE (société fictive)",
-        texte: "Dépenses de l'exercice N : études exploratoires de janvier à mars, 120 000 USD ; développement, 480 000 USD, dont 180 000 avant le 1er juillet, date à laquelle les six critères sont démontrés, et 300 000 ensuite ; formation des agents, 40 000 ; campagne publicitaire de lancement, 60 000. Mise en service le 1er janvier N+1, durée d'utilité estimée à 4 ans.",
+        titre: "Pas à pas : le brevet du projet A du laboratoire MI SA",
+        texte: "Le laboratoire pharmaceutique MI démarre le 1er janvier N le projet A : produire en interne le brevet d'un médicament contre le rhume, prêt fin N. Entre le 1er janvier et le 1er avril N−1, 30 000 USD de frais de recherche non affectés à un projet ont permis de découvrir une molécule utilisée dans le projet A. Dépenses de N : recherche 50 000 ; développement 192 000, dont 157 000 engagés à compter du 15 septembre, date où les six critères du § 57 sont démontrés ; obtention de l'agrément de commercialisation 16 000. Utilisation du brevet à partir du 1er janvier N+1, pendant 3 ans, amortissement linéaire.",
         tableau: {
           entetes: ['Dépense', 'Traitement', 'Fondement'],
           lignes: [
-            ['Études exploratoires 120 000', 'Charge', 'IAS 38.54-56 (recherche)'],
-            ['Développement avant le 1er juillet 180 000', 'Charge, définitivement', 'IAS 38.65 et 38.71'],
-            ['Développement après le 1er juillet 300 000', '**Immobilisation**', 'IAS 38.57 et 38.66'],
-            ['Formation 40 000', 'Charge', 'IAS 38.67(c) et 38.69(b)'],
-            ['Publicité de lancement 60 000', 'Charge', 'IAS 38.69(c)'],
-            ['Amortissement à partir de N+1', '300 000 / 4 = **75 000 par an**', 'IAS 38.97'],
+            ['Recherche de N−1, 30 000', 'Charge de N−1, définitivement, même si la molécule sert au projet A', 'IAS 38.54 et 38.71'],
+            ['Recherche de N, 50 000', 'Charge', 'IAS 38.54'],
+            ['Développement avant le 15 septembre, 35 000', 'Charge', 'IAS 38.65'],
+            ['Développement à partir du 15 septembre, 157 000', '**Immobilisation**', 'IAS 38.57 et 38.65'],
+            ["Agrément de commercialisation, 16 000", '**Immobilisation** : coût directement attribuable', 'IAS 38.66'],
+            ['Coût du brevet', '157 000 + 16 000 = **173 000**', ''],
+            ['Amortissement à partir de N+1', '173 000 / 3 ≈ **57 667 par an**', 'IAS 38.97'],
           ],
         },
-        note: "Côté fiscal, l'arrêté n° 013/2025 amortit « brevets, licences et logiciels » sur 5 ans (20 %) : 60 000 par an, contre 75 000 en comptabilité. La différence de 15 000 par an est une différence temporelle (chapitre 6).",
+        note: "Côté fiscal, l'arrêté n° 013/2025 amortit « brevets, licences et logiciels » sur 5 ans (20 %) : 34 600 par an, contre 57 667 en comptabilité. La différence, d'environ 23 067 par an, est une différence temporelle (chapitre 6).",
       },
       { type: 'controle', question: QCM[23] },
       { type: 'controle', question: QCM[24] },
@@ -867,28 +892,28 @@ const SECTIONS: Chapitre['sections'] = [
 const CAS: Chapitre['casPratiques'] = [
   {
     id: 'ue13c2-cp1',
-    titre: "Dossier réel : lire la note « Immobilisations corporelles » de BOA RDC (2018)",
-    contexte: "Extraits de la note 3.12 des états IFRS 2018 de BOA RDC SA. « Selon la norme IAS 16 [...], les immobilisations sont comptabilisées, à l'entrée, au coût complet et elles sont évaluées postérieurement selon le modèle du coût, de la juste valeur ou du coût présumé. » « Les comptes statutaires de la Banque avaient été impactés par la réévaluation légale conformément aux dispositions de l'ordonnance-loi n°89/017 [...]. La Direction de la Banque, n'ayant pas opté pour la méthode de coûts présumés, ces valeurs réévaluées ont été décomptabilisées. La Banque a plutôt opté pour la méthode du coût en utilisant les valeurs réévaluées des immobilisations, conformément aux rapports d'expertise. » « La Banque a effectué un travail visant à décomposer tous les ensembles immobiliers en Bâtiments, Terrains et Agencements. [...] Les valeurs obtenues après décompositions ont été ensuite corrigées par un test de dépréciation effectué consécutivement à la réévaluation libre à la juste valeur effectuée à la clôture de l'exercice 2018. » Durées publiées : aménagements et installations 10 ans ; terrains non amortis ; matériel informatique 3 ans ; immeubles 25/40 ans ; matériel roulant 5 ans ; matériel et mobilier 10 ans.",
+    titre: "Calcul : les trois machines d'une société industrielle",
+    contexte: "Le 1er janvier N, une société industrielle de Lubumbashi met en service trois machines de production (montants en milliers de USD) : la machine A, payée comptant 100 ; la machine B, facturée 121 et payable dans deux ans, fin N+1, au-delà des conditions habituelles de crédit ; la machine C, prise en location pour quatre ans, la valeur actualisée des loyers étant de 50. S'y ajoutent : l'aménagement du site de réception des machines (dalle de béton, lignes électriques), 2 ; les honoraires du service des mines pour l'homologation de la machine A, 3 ; la livraison de consommables pour les machines, 12. Durée d'utilisation : 4 ans, sans valeur résiduelle. Taux d'actualisation : 10 %.",
     questions: [
       {
         num: 1,
-        enonce: "La première phrase annonce trois modèles d'évaluation postérieure. Qu'en dit IAS 16 ?",
-        correction: "IAS 16.29 ne connaît que deux modèles, le coût (§ 30) et la réévaluation (§ 31), à choisir comme méthode comptable et à appliquer à l'ensemble d'une catégorie. La « juste valeur » n'est pas un troisième modèle : c'est la base du modèle de la réévaluation. Le « coût présumé » n'est pas un modèle d'évaluation postérieure, mais une facilité de première adoption offerte par IFRS 1 : une valeur substituée au coût à la date de transition, après quoi l'entité applique le modèle du coût. Une note conforme indiquerait, catégorie par catégorie, le modèle retenu (§ 73(a)).",
+        enonce: "Quel montant total immobiliser au 1er janvier N en IFRS ?",
+        correction: "Machine A : 100. Machine B : le paiement différé au-delà des conditions habituelles de crédit est actualisé (IAS 16.23) : 121 / 1,10² = **100**. Machine C : droit d'utilisation, IFRS 16 imposant au preneur de comptabiliser « un actif au titre du droit d'utilisation et une obligation locative » (IFRS 16.22) : 50. Coûts annexes : les frais de préparation du site (2) et les honoraires de professionnels (3) sont des coûts directement attribuables (IAS 16.17(b) et (f)) ; les consommables (12) ne le sont pas : ils sont des charges, ou des stocks s'ils ne sont pas encore consommés. Total : 100 + 100 + 50 + 2 + 3 = **255**.",
       },
       {
         num: 2,
-        enonce: "La banque dit ne pas retenir la réévaluation légale comme coût présumé, mais appliquer « la méthode du coût en utilisant les valeurs réévaluées [...] conformément aux rapports d'expertise ». Quelle tension relevez-vous, et quelles informations demanderiez-vous ?",
-        correction: "Il y a une tension apparente. Si les valeurs issues d'expertises servent de base à un modèle « du coût », c'est en substance soit un coût présumé à la juste valeur (IFRS 1), soit une réévaluation au sens d'IAS 16.31. Le lecteur ne peut pas savoir lequel. Et la mention d'une « réévaluation libre à la juste valeur » à la clôture 2018 suggère le modèle de la réévaluation, au moins pour les terrains et bâtiments. Il faudrait donc demander : le modèle retenu par catégorie (§ 73(a)) ; si c'est la réévaluation, la date, le recours à un évaluateur indépendant, la valeur au modèle du coût et l'écart de réévaluation avec ses restrictions (§ 77) ; le niveau de la hiérarchie de juste valeur et les données utilisées (IFRS 13.93) ; enfin le traitement des plus et moins-values constatées, en autres éléments du résultat global ou en résultat (§ 39-40).",
+        enonce: "Comment traiter la différence entre les 121 facturés et les 100 immobilisés pour la machine B ?",
+        correction: "C'est un coût de financement : si le règlement est différé au-delà des conditions habituelles de crédit, « la différence entre le prix comptant équivalent et le total des paiements est comptabilisée en charges financières sur la période de crédit, à moins que ces charges ne soient incorporées dans le coût de l'actif selon IAS 23 » (IAS 16.23). La dette fournisseur d'immobilisation s'accroît de 100 × 10 % = 10 en N, puis de 110 × 10 % = 11 en N+1, soit 121 au paiement. Écritures de N : débit Charges financières 10 par le crédit du Fournisseur d'immobilisation.",
       },
       {
         num: 3,
-        enonce: "Commentez la décomposition en « Bâtiments, Terrains et Agencements » et les durées publiées.",
-        correction: "Sur le fond, la séparation est nécessaire : le terrain n'est pas amorti, le bâtiment l'est (§ 58), et les agencements, avec une durée de 10 ans contre 25 à 40 ans pour les immeubles, sont bien des parties significatives à amortir séparément (§ 43-44). Sur la forme, le terrain n'est pas un « composant » du bâtiment, mais un actif distinct (§ 58 ; le SYSCOHADA révisé le dit aussi). La fourchette de 25 à 40 ans pour les immeubles doit correspondre à des catégories identifiables, faute de quoi elle ne renseigne pas le lecteur. Ces durées doivent être revues au moins à chaque clôture (§ 51), et tout changement indiqué avec son effet (§ 76).",
+        enonce: "Quel amortissement annuel ?",
+        correction: "Base amortissable : 255, sur 4 ans en linéaire, soit **63,75** par an, dont 12,5 pour le droit d'utilisation de la machine C (50 / 4, la durée du contrat coïncidant ici avec la durée d'utilisation). Si les 2 de préparation du site servent aux trois machines, ils se répartissent entre elles ; la charge totale ne change pas, puisque les trois ont la même durée.",
       },
       {
         num: 4,
-        enonce: "Pourquoi IAS 16 interdit-elle de laisser en IFRS les valeurs de la réévaluation légale de 1989 sans autre justification ?",
-        correction: "La réévaluation de l'ordonnance-loi 89-017 est indiciaire : elle applique des coefficients officiels d'érosion monétaire, sous plafond de valeur actuelle. IAS 16 ne connaît pas de réévaluation indiciaire : le modèle de la réévaluation exige une juste valeur au sens d'IFRS 13, régulièrement mise à jour (§ 31, § 34), sur une catégorie entière (§ 36). Une valeur légale ancienne ne répond à aucune de ces exigences. À la transition, seule IFRS 1 permet de l'utiliser comme coût présumé, et sous conditions ; c'est justement l'option que la banque dit avoir écartée.",
+        enonce: "La machine C serait-elle aussi inscrite à l'actif dans les comptes SYSCOHADA de la société ?",
+        correction: "Cela dépend du contrat. Le SYSCOHADA révisé comptabilise chez le preneur le contrat de location acquisition, c'est-à-dire le crédit-bail, la location-vente ou la location assortie d'une option d'achat que le preneur est raisonnablement certain de lever, « comme une acquisition d'immobilisation financée par un emprunt » (Titre VIII, ch. 8, § 1.5.1 et 2.1.1). Une location sans option d'achat est une location simple, dont les loyers restent des charges (§ 1.5.2). IFRS 16 va plus loin : le preneur inscrit un droit d'utilisation pour tous ses contrats de location, sauf s'il choisit d'exempter ceux de courte durée ou portant sur des biens de faible valeur (IFRS 16.5 et 22).",
       },
     ],
   },
@@ -1043,7 +1068,7 @@ const chapitre: Chapitre = {
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 16, IAS 23 (texte français intégral) ; IAS 38, IFRS 6 (texte français intégral) ; IFRIC 1, IFRIC 20 et Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; O.-L. 89-017 ; arrêtés 013 et 014/2025 ; Code minier ; BOA RDC, états IFRS 2018.",
+  sources: "IAS 16, IAS 23 (texte français intégral) ; IAS 38, IFRS 6 (texte français intégral) ; IFRIC 1, IFRIC 20 et Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; O.-L. 89-017 ; arrêtés 013 et 014/2025 ; Code minier ; support de cours d'origine, modules IAS 16 et IAS 38 (J.-B. Tshimanga Mulumba, CPCC).",
 }
 
 export default chapitre
