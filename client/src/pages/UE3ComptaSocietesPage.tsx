@@ -28,7 +28,7 @@ const CHAPITRES = [
   { num: 7, titre: "L'évaluation des titres sociaux et le portefeuille-titres", sousTitre: 'AUSCGIE art. 59, 173–180 · AUDCIF ch. 13 · App. 48–51 · loi 23/053 (mère-fille)', duree: '4h', actif: true, route: '/ue3/chapitre-7' },
   { num: 8, titre: 'Les fusions et opérations assimilées', sousTitre: 'AUSCGIE art. 189–199, 670–689 · AUDCIF ch. 38 · App. 116–120 · loi 23/053 art. 54', duree: '6h', actif: true, route: '/ue3/chapitre-8' },
   { num: 9, titre: 'La dissolution et la liquidation', sousTitre: 'AUSCGIE art. 200–241, 902–904 · AUDCIF ch. 40 · App. 122 · loi 23/053 art. 11, 13', duree: '4h', actif: true, route: '/ue3/chapitre-9' },
-  { num: 10, titre: 'Sociétés particulières : participation, GIE, transformation', sousTitre: 'AUSCGIE art. 181–188, 854–876 · App. 106–107', duree: '4h', actif: true, route: '/ue3/chapitre-10' },
+  { num: 10, titre: 'Sociétés particulières : participation, sociétés de fait, GIE, transformation', sousTitre: 'AUSCGIE art. 181–188, 854–885 · AUDCIF ch. 26 et 33 · App. 96–97, 106–107 · loi 23/053', duree: '4h', actif: true, route: '/ue3/chapitre-10' },
 ]
 
 export default function UE3ComptaSocietesPage() {
