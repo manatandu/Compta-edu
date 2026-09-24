@@ -14,7 +14,7 @@ import { useLocation } from 'wouter'
 import { collection, setDoc, doc, getFirestore } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 import {
-  createUserAsync, onUsersSnapshot, getCoursUniquesTries,
+  createUserAsync, getUsernamesExistantsAsync, getCoursUniquesTries,
 } from '@/lib/db-firebase'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
@@ -25,8 +25,6 @@ import PasswordInput from '@/components/PasswordInput'
 import { useToast } from '@/components/ui/use-toast'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
-import { User } from '@/lib/db'
-import { useEffect } from 'react'
 import {
   UserPlus, Upload, Key, ChevronDown, Check,
   Copy, AlertCircle, FileText
@@ -53,15 +51,11 @@ export default function InscriptionPlatformePage() {
   const { cours: coursList } = useAllCours()
 
   const [methode, setMethode] = useState<Methode>('form')
-  const [users, setUsers] = useState<User[]>([])
-
   const isStaff = isStaffRole(user)
 
-  // Listener temps réel pour détecter les doublons username
-  useEffect(() => {
-    const unsub = onUsersSnapshot(setUsers)
-    return () => unsub()
-  }, [])
+  // Les doublons d'identifiant sont vérifiés au moment de l'enregistrement par
+  // une requête ciblée (getUsernamesExistantsAsync), et non plus en écoutant
+  // toute la collection users pendant que la page est ouverte.
 
   if (!isStaff) return (
     <div className="flex items-center justify-center h-64">
@@ -123,7 +117,6 @@ export default function InscriptionPlatformePage() {
       {/* ═══ MÉTHODE A : Formulaire individuel ═══════════════════════════════ */}
       {methode === 'form' && (
         <FormIndividuel
-          users={users}
           universites={universites}
           getFacultes={getFacultes}
           getCours={getCours}
@@ -135,7 +128,6 @@ export default function InscriptionPlatformePage() {
       {/* ═══ MÉTHODE B : Import CSV ══════════════════════════════════════════ */}
       {methode === 'csv' && (
         <ImportCSV
-          users={users}
           universites={universites}
           getFacultes={getFacultes}
           getCours={getCours}
@@ -159,7 +151,7 @@ export default function InscriptionPlatformePage() {
 }
 
 // ─── Sous-composant A : Formulaire individuel ─────────────────────────────────
-function FormIndividuel({ users, universites, getFacultes, getCours, currentUserId, toast }: any) {
+function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toast }: any) {
   const [form, setForm] = useState({
     username: '', password: '', nom: '', prenom: '',
     universiteId: '', faculteId: '', classe: '', actif: true, coursIds: [] as string[]
@@ -184,11 +176,13 @@ function FormIndividuel({ users, universites, getFacultes, getCours, currentUser
       setError('Nom, identifiant et mot de passe sont obligatoires.')
       return
     }
-    const existing = users.find((u: User) => u.username === form.username.trim().toLowerCase())
-    if (existing) { setError("Ce nom d'utilisateur est déjà pris."); return }
-
     setLoading(true)
     try {
+      const pris = await getUsernamesExistantsAsync([form.username])
+      if (pris.has(form.username.trim().toLowerCase())) {
+        setError("Ce nom d'utilisateur est déjà pris.")
+        return
+      }
       await createUserAsync({
         username: form.username.trim(),
         password: form.password.trim(),
@@ -327,7 +321,7 @@ function FormIndividuel({ users, universites, getFacultes, getCours, currentUser
 }
 
 // ─── Sous-composant B : Import CSV ────────────────────────────────────────────
-function ImportCSV({ users, universites, getFacultes, getCours, currentUserId, toast }: any) {
+function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }: any) {
   const [csvFile, setCsvFile] = useState<File | null>(null)
   const [csvPreview, setCsvPreview] = useState<any[]>([])
   const [csvError, setCsvError] = useState('')
@@ -371,6 +365,16 @@ function ImportCSV({ users, universites, getFacultes, getCours, currentUserId, t
     setCsvImporting(true); setCsvResult(null)
     let success = 0
     const errors: string[] = []
+    // Identifiants déjà pris, lus en une série de requêtes ciblées (30 par
+    // requête) ; complété au fil de l'import pour les doublons internes au fichier.
+    let pris = new Set<string>()
+    try {
+      pris = await getUsernamesExistantsAsync(csvPreview.map(r => (r.username || r.id || r.identifiant || '').trim().toLowerCase()))
+    } catch {
+      setCsvImporting(false)
+      setCsvError("Impossible de vérifier les identifiants existants. Réessayez.")
+      return
+    }
     for (const row of csvPreview) {
       const nom = (row.nom || '').trim()
       const prenom = (row.prenom || '').trim()
@@ -382,8 +386,7 @@ function ImportCSV({ users, universites, getFacultes, getCours, currentUserId, t
         errors.push(`Ligne ${row._line} : Nom et Identifiant obligatoires.`)
         continue
       }
-      const exists = users.find((u: User) => u.username === username)
-      if (exists) {
+      if (pris.has(username)) {
         errors.push(`Ligne ${row._line} : Identifiant "${username}" déjà utilisé.`)
         continue
       }
@@ -397,6 +400,7 @@ function ImportCSV({ users, universites, getFacultes, getCours, currentUserId, t
           coursIds: coursIds.length > 0 ? coursIds : undefined,
           createdBy: currentUserId,
         } as any)
+        pris.add(username)
         success++
       } catch (err: any) {
         errors.push(`Ligne ${row._line} (${username}) : ${err?.message || 'Erreur inconnue'}`)

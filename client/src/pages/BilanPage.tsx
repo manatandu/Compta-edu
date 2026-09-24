@@ -193,7 +193,7 @@ export default function BilanPage({ mode = "bilan", embedded = false }: { mode?:
   // mode provient des props : pas de useState tab
 
   // Réactif : se re-calcule quand une écriture est ajoutée/supprimée/réinitialisée
-  const { ecritures: allEcritures, loading: loadingEcritures } = useEcritures(user?.id, module)
+  const { ecritures: allEcritures, loading: loadingEcritures } = useEcritures(user?.id, module, selectedSession || null)
   const ecritures = useMemo(() =>
     allEcritures.filter(e => e.sessionId === selectedSession),
     [allEcritures, selectedSession]

@@ -49,7 +49,7 @@ export default function GrandLivrePage({ embedded = false }: { embedded?: boolea
   const [search, setSearch] = useState('')
   const [openComptes, setOpenComptes] = useState<Set<string>>(new Set())
 
-  const { ecritures: allEcritures, loading: loadingEcritures } = useEcritures(user?.id, module)
+  const { ecritures: allEcritures, loading: loadingEcritures } = useEcritures(user?.id, module, selectedSessionId || null)
   const ecritures = allEcritures.filter(e => e.sessionId === selectedSessionId)
 
   const comptesData = useMemo((): CompteData[] => {

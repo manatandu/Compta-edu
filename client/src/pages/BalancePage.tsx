@@ -45,7 +45,7 @@ export default function BalancePage({ embedded = false }: { embedded?: boolean }
     }
   }, [sessions])
 
-  const { ecritures: allEcritures, loading: loadingEcritures } = useEcritures(user?.id, module)
+  const { ecritures: allEcritures, loading: loadingEcritures } = useEcritures(user?.id, module, selectedSessionId || null)
   const ecritures = allEcritures.filter(e => e.sessionId === selectedSessionId)
   const selectedSession = sessions.find(s => s.id === selectedSessionId)
 

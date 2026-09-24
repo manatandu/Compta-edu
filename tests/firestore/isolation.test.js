@@ -23,7 +23,7 @@ import {
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer } from 'firebase/firestore'
 import { describe, it, beforeAll, afterAll, afterEach } from 'vitest'
 
 import { USERS, IDS, DOCS, token } from './helpers.js'
@@ -1096,6 +1096,81 @@ describe('📒 Écritures comptables — Isolation par utilisateur', () => {
     })
     const ref = doc(db(null), 'ecritures', 'ecriture-001')
     await assertFails(getDoc(ref))
+  })
+
+  // Requêtes par session (Journal, Balance, Grand livre, Bilan) et comptage
+  // côté serveur (tableau de bord Comptabilité générale).
+  it('Etud1 peut lister les lignes d\'UNE de ses sessions (userId + sessionId)', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('ecritures', 'e-s1', { userId: USERS.etud1.uid, sessionId: 'session-001', module: 'syscohada' })
+    await seedDoc('ecritures', 'e-s2', { userId: USERS.etud1.uid, sessionId: 'session-002', module: 'syscohada' })
+    const q = query(collection(db(USERS.etud1), 'ecritures'),
+      where('userId', '==', USERS.etud1.uid), where('sessionId', '==', 'session-001'))
+    const snap = await assertSucceeds(getDocs(q))
+    if (snap.size !== 1) throw new Error(`1 ligne attendue, ${snap.size} reçue(s)`)
+  })
+
+  it('Etud1 NE PEUT PAS lister une session d\'Etud2 en visant son userId', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('ecritures', 'e-etud2', { userId: USERS.etud2.uid, sessionId: 'session-002', module: 'syscohada' })
+    const q = query(collection(db(USERS.etud1), 'ecritures'),
+      where('userId', '==', USERS.etud2.uid), where('sessionId', '==', 'session-002'))
+    await assertFails(getDocs(q))
+  })
+
+  it('Etud1 peut compter côté serveur les lignes de sa session, pas celles d\'Etud2', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('ecritures', 'e-a', { userId: USERS.etud1.uid, sessionId: 'session-001' })
+    await seedDoc('ecritures', 'e-b', { userId: USERS.etud1.uid, sessionId: 'session-001' })
+    const fs = db(USERS.etud1)
+    const mien = await assertSucceeds(getCountFromServer(query(collection(fs, 'ecritures'),
+      where('userId', '==', USERS.etud1.uid), where('sessionId', '==', 'session-001'))))
+    if (mien.data().count !== 2) throw new Error(`2 lignes attendues, ${mien.data().count} comptée(s)`)
+    await assertFails(getCountFromServer(query(collection(fs, 'ecritures'),
+      where('userId', '==', USERS.etud2.uid), where('sessionId', '==', 'session-002'))))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  Users — requêtes ciblées qui remplacent la lecture de toute la collection
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🔎 Users — Requêtes ciblées (createdBy, rôle, identifiant, id)', () => {
+
+  it('Un professeur peut lister SES étudiants (createdBy in [uid, username] + role)', async () => {
+    await seedUsers(USERS.prof1,
+      { ...USERS.etud1, createdBy: USERS.prof1.uid },
+      { ...USERS.etud2, createdBy: USERS.prof1.username, statutInscription: 'en_attente' })
+    const fs = db(USERS.prof1)
+    const tous = await assertSucceeds(getDocs(query(collection(fs, 'users'),
+      where('createdBy', 'in', [USERS.prof1.uid, USERS.prof1.username]), where('role', '==', 'etudiant'))))
+    if (tous.size !== 2) throw new Error(`2 étudiants attendus, ${tous.size} reçu(s)`)
+    const attente = await assertSucceeds(getDocs(query(collection(fs, 'users'),
+      where('createdBy', 'in', [USERS.prof1.uid, USERS.prof1.username]), where('role', '==', 'etudiant'),
+      where('statutInscription', '==', 'en_attente'))))
+    if (attente.size !== 1) throw new Error(`1 inscription en attente attendue, ${attente.size} reçue(s)`)
+  })
+
+  it('Un admin peut lister les étudiants (role == etudiant) et vérifier des identifiants', async () => {
+    await seedUsers(USERS.admin1, USERS.etud1, USERS.etud2)
+    const fs = db(USERS.admin1)
+    await assertSucceeds(getDocs(query(collection(fs, 'users'), where('role', '==', 'etudiant'))))
+    const pris = await assertSucceeds(getDocs(query(collection(fs, 'users'), where('username', 'in', ['etud1', 'inconnu']))))
+    if (pris.size !== 1) throw new Error(`1 identifiant pris attendu, ${pris.size} reçu(s)`)
+  })
+
+  it('Un professeur peut lire des profils précis par identifiant de document', async () => {
+    await seedUsers(USERS.prof1, USERS.etud1, USERS.etud2)
+    const snap = await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'users'),
+      where(documentId(), 'in', [USERS.etud1.uid, USERS.etud2.uid]))))
+    if (snap.size !== 2) throw new Error(`2 profils attendus, ${snap.size} reçu(s)`)
+  })
+
+  it('Un étudiant NE PEUT PAS lister les étudiants par rôle ni par créateur', async () => {
+    await seedUsers(USERS.prof1, USERS.etud1, { ...USERS.etud2, createdBy: USERS.prof1.uid })
+    const fs = db(USERS.etud1)
+    await assertFails(getDocs(query(collection(fs, 'users'), where('role', '==', 'etudiant'))))
+    await assertFails(getDocs(query(collection(fs, 'users'),
+      where('createdBy', 'in', [USERS.prof1.uid]), where('role', '==', 'etudiant'))))
   })
 })
 

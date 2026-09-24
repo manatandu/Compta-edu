@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { User } from '@/lib/db'
 import { isStaffRole, isStudentRole } from '@/lib/permissions'
 import { useUniversites, useAllCours, useAllDevoirs } from '@/lib/useFirestore'
-import { onUsersSnapshot } from '@/lib/db-firebase'
+import { getUsersCacheAsync } from '@/lib/db-firebase'
 // Le dictionnaire (plus de 600 termes, environ 400 Ko) n'est pas importé
 // statiquement : il serait téléchargé à chaque ouverture de l'application,
 // sur tous les écrans, alors qu'il ne sert qu'une fois une recherche saisie.
@@ -65,9 +65,14 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
       setAllUsers([]) // Vider les données si le rôle change
       return
     }
-    const unsub = onUsersSnapshot((users: any[]) => setAllUsers(users))
-    return () => unsub()
-  }, [role, canAdmin])
+    // Chargement à la première frappe seulement (lecture unique mise en cache),
+    // et non plus une écoute permanente de toute la collection users ouverte
+    // sur chaque page tant que la barre de recherche est affichée.
+    if (!query.trim()) return
+    let actif = true
+    getUsersCacheAsync().then(users => { if (actif) setAllUsers(users) }).catch(() => {})
+    return () => { actif = false }
+  }, [role, canAdmin, query.trim() !== ''])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

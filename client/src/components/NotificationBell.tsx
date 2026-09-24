@@ -3,7 +3,7 @@ import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, Message
 import { cn } from '@/lib/utils'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
-import { getUsersAsync, onMessagesSnapshot } from '@/lib/db-firebase'
+import { getUsersByIdsAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Notif {
@@ -79,7 +79,8 @@ export function NotificationBell({ user }: NotificationBellProps) {
   // Noms des expéditeurs, pour le titre de la notification
   useEffect(() => {
     if (messagesRecus.length === 0) return
-    getUsersAsync().then(users => {
+    // Seuls les profils des expéditeurs sont lus, pas toute la collection users.
+    getUsersByIdsAsync(messagesRecus.map(m => m.expediteurId)).then(users => {
       const map: Record<string, string> = {}
       users.forEach(u => { map[u.id] = `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Utilisateur' })
       setExpediteurs(map)
@@ -94,16 +95,10 @@ export function NotificationBell({ user }: NotificationBellProps) {
   // Charger les inscriptions en attente
   useEffect(() => {
     if (!isAdmin || !user?.id) return
-    getUsersAsync().then(users => {
-      const enAttente = users.filter(u => {
-        if (u.role !== 'etudiant') return false
-        const cb = (u as any).createdBy
-        if (!cb) return false
-        if (cb !== user?.id && cb !== user?.username) return false
-        return (u as any).statutInscription === 'en_attente'
-      })
-      setUsersEnAttente(enAttente)
-    }).catch(() => {})
+    // Requête ciblée (créateur + statut) au lieu de toute la collection users.
+    getEtudiantsCreesParAsync({ id: user.id, username: user.username }, 'en_attente')
+      .then(setUsersEnAttente)
+      .catch(() => {})
   }, [user?.id, user?.username, isAdmin])
 
   // Fermer au clic extérieur
