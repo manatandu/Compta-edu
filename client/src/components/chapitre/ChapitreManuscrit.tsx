@@ -129,8 +129,12 @@ function BlocCasPratique({ cp, index }: { cp: CasPratique; index: number }) {
 }
 
 // ─── Tableau ─────────────────────────────────────────────────────────────────
+// L'enveloppe à défilement horizontal vaut pour tous les tableaux, y compris
+// ceux posés dans une carte : sur un écran étroit, un tableau de quatre ou
+// cinq colonnes défile dans son cadre au lieu d'élargir la page.
 function BlocTableau({ t }: { t: Tableau }) {
   return (
+    <div className="overflow-x-auto">
     <table className="w-full text-xs border-collapse mt-2">
       <thead>
         <tr className={VERT_SOFT}>
@@ -151,6 +155,7 @@ function BlocTableau({ t }: { t: Tableau }) {
         ))}
       </tbody>
     </table>
+    </div>
   )
 }
 
@@ -205,7 +210,7 @@ function BlocSection({ bloc, lettrine }: { bloc: Bloc; lettrine: boolean }) {
       )
 
     case 'tableau':
-      return <div className="overflow-x-auto"><BlocTableau t={bloc.tableau} /></div>
+      return <BlocTableau t={bloc.tableau} />
 
     case 'controle':
       return (

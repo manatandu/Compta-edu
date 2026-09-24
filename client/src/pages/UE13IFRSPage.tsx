@@ -79,12 +79,12 @@ const CHAPITRES = [
   {
     num: 7,
     titre: "Première adoption des IFRS et IFRS pour les PME",
-    sousTitre: "IFRS 1 · IFRS pour les PME (3e éd.) · AUDCIF art. 8, 75 et 113",
-    duree: "7h",
+    sousTitre: "IFRS 1 · IFRS pour les PME (3e éd.) · AUDCIF art. 8, 75 et 113 · SYSCOHADA ch. 41",
+    duree: "9h",
     actif: true,
     route: '/ue13/chapitre-7',
-    lecons: 8,
-    exercices: 32,
+    lecons: 9,
+    exercices: 41,
     couleur: 'bg-fuchsia-50 text-fuchsia-700',
     accent: 'border-l-fuchsia-500',
   },
@@ -126,12 +126,12 @@ export default function UE13IFRSPage() {
           </div>
           <h1 className="text-2xl font-display font-bold mt-2">Normes Comptables Internationales IAS/IFRS</h1>
           <p className="text-sky-100 text-sm mt-1">
-            8 chapitres · 27 normes et interprétations · 71 leçons · Source : IFRS Foundation 
+            8 chapitres · 27 normes et interprétations · 72 leçons · Source : IFRS Foundation 
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
-            <span>71 leçons</span>
-            <span>238 QCM</span>
-            <span>32 cas pratiques</span>
+            <span>72 leçons</span>
+            <span>246 QCM</span>
+            <span>33 cas pratiques</span>
           </div>
         </div>
       </div>

@@ -14,9 +14,9 @@ import type { Chapitre } from '@/lib/chapitre-types'
 // - Cadre conceptuel 2018 (texte anglais) : SP1.2, 4.3-4.4, 5.6-5.17.
 // - AUDCIF : art. 62 à 65 ; Titre VIII, ch. 1, 4, 6 et 7 (R&D, composants,
 //   démantèlement, coûts d'emprunt) ; ch. 28 (réévaluation des bilans).
-// - Ordonnance-loi n° 89-017 du 18 février 1989 (réévaluation de l'actif
-//   immobilisé), telle qu'encodée au skill fiscalité RDC (état au 10 juillet
-//   2023) ; arrêtés n° 013 et 014/CAB/MIN/FINANCES/2025 (taux
+// - Loi n° 23/053 du 30 novembre 2023, art. 129 à 133 et 152 (réévaluation ;
+//   abrogation, au 1er janvier 2026, de l'Ordonnance-loi n° 89-017 du
+//   18 février 1989, citée pour mémoire) ; arrêtés n° 013 et 014/CAB/MIN/FINANCES/2025 (taux
 //   d'amortissement ; seuil du petit matériel).
 // - Code minier (loi 007/2002 modifiée) : art. 204 et 258.
 // - Support de cours d'origine : J.-B. Tshimanga Mulumba (CPCC), « Traitement
@@ -286,8 +286,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "IAS 16 : l'ensemble du bilan ; AUDCIF : l'actif choisi" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 16.36 : lorsqu'une immobilisation est réévaluée, « toute la catégorie d'immobilisations corporelles dont fait partie cet actif doit être réévaluée » ; le § 37 donne des exemples de catégories (terrains, machines, véhicules…). L'article 62 de l'AUDCIF vise les immobilisations corporelles et financières et dispose que « toute réévaluation partielle est interdite ». L'ordonnance-loi 89-017 exige elle aussi une réévaluation globale.",
-    articleRef: "IAS 16.36-37 ; AUDCIF art. 62 ; O.-L. 89-017, art. 2",
+    explication: "IAS 16.36 : lorsqu'une immobilisation est réévaluée, « toute la catégorie d'immobilisations corporelles dont fait partie cet actif doit être réévaluée » ; le § 37 donne des exemples de catégories (terrains, machines, véhicules…). L'article 62 de l'AUDCIF vise les immobilisations corporelles et financières et dispose que « toute réévaluation partielle est interdite ». En droit fiscal congolais, la loi n° 23/053, qui a abrogé l'ordonnance-loi 89-017 au 1er janvier 2026, exige elle aussi une réévaluation globale (art. 130).",
+    articleRef: "IAS 16.36-37 ; AUDCIF art. 62 ; loi n° 23/053, art. 130",
   },
   {
     id: 'ue13c2-q21',
@@ -711,7 +711,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Rapprochement avec le SYSCOHADA révisé et le droit congolais",
-        texte: "IAS 16 réévalue par catégorie, à la juste valeur et de manière périodique, et l'écart peut être transféré aux résultats non distribués. L'AUDCIF (art. 62 à 65) exige que la réévaluation porte sur l'ensemble des immobilisations corporelles et financières, interdit toute réévaluation partielle, plafonne la valeur réévaluée à la valeur actuelle, calcule les amortissements ultérieurs sur la valeur réévaluée et déclare l'écart non distribuable, seulement incorporable au capital. L'ordonnance-loi n° 89-017 du 18 février 1989 organise une réévaluation légale par coefficients, obligatoire hors régime forfaitaire (art. 2), dont l'écart est fiscalement neutre (art. 6) et dont l'article 9 neutralise le supplément d'amortissement par une réintégration annuelle dans les bénéfices comptable et fiscal. Selon IAS 16, ce supplément constitue une charge du résultat, et seul le transfert prévu au § 41 intervient, directement en capitaux propres.",
+        texte: "IAS 16 réévalue par catégorie, à la juste valeur et de manière périodique, et l'écart peut être transféré aux résultats non distribués. L'AUDCIF (art. 62 à 65) exige que la réévaluation porte sur l'ensemble des immobilisations corporelles et financières, interdit toute réévaluation partielle, plafonne la valeur réévaluée à la valeur actuelle, calcule les amortissements ultérieurs sur la valeur réévaluée et déclare l'écart non distribuable, seulement incorporable au capital. En RDC, l'ordonnance-loi n° 89-017 du 18 février 1989 organisait une réévaluation légale par coefficients, obligatoire hors régime forfaitaire (art. 2). Elle a été abrogée par la loi n° 23/053 du 30 novembre 2023 (art. 152), entrée en vigueur au 1er janvier 2026. Désormais, la réévaluation « est libre » et s'effectue conformément aux articles 62 à 65 de l'AUDCIF ; elle peut être légale lorsque la situation économique le justifie, un arrêté fixant alors les coefficients (art. 129). Elle reste globale (art. 130), l'écart est sans influence sur le résultat comptable et fiscal (art. 132), et l'article 133 neutralise le supplément d'amortissement par une réintégration annuelle dans les bénéfices comptable et fiscal. Selon IAS 16, ce supplément constitue une charge du résultat, et seul le transfert prévu au § 41 intervient, directement en capitaux propres.",
       },
     ],
   },
@@ -1015,7 +1015,7 @@ const chapitre: Chapitre = {
   titre: 'Immobilisations corporelles et incorporelles',
   sousTitre: "IAS 16, IAS 38, IAS 23, IFRS 6, IFRIC 1 et IFRIC 20",
   infoBulle: "Chapitre 2 du module IFRS/IAS : reconnaissance et coût d'entrée des immobilisations corporelles, coûts d'emprunt, démantèlement, approche par composants, amortissement, réévaluation, sorties ; immobilisations incorporelles (définition, R&D, durée d'utilité, amortissement) ; découverture minière ; passerelles avec le SYSCOHADA révisé, la fiscalité et le droit minier congolais.",
-  loiRef: "IAS 16 · IAS 38 · IAS 23 · IFRIC 1 · IFRIC 20 · IFRS 6 · AUDCIF art. 62-65 · O.-L. 89-017 · Code minier art. 204 et 258",
+  loiRef: "IAS 16 · IAS 38 · IAS 23 · IFRIC 1 · IFRIC 20 · IFRS 6 · AUDCIF art. 62-65 · loi n° 23/053, art. 129-133 · Code minier art. 204 et 258",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
@@ -1037,7 +1037,7 @@ const chapitre: Chapitre = {
     "IAS 23 : incorporation obligatoire des coûts d'emprunt d'un actif qualifié, coûts réels nets de placement pour un emprunt spécifique, taux moyen pondéré pour les emprunts généraux, sous plafond ; début, suspension et arrêt encadrés (§ 17-25).",
     "Démantèlement : actif et provision actualisée à l'origine ; désactualisation en charges financières ; révisions portées sur le coût de l'actif, dans la limite de sa valeur comptable (IFRIC 1). Ce passif se distingue de la provision fiscale de l'article 258 du Code minier et de la sûreté exigée par son article 204.",
     "Amortissement : composants significatifs amortis séparément (§ 43), révision annuelle de la durée, de la valeur résiduelle et du mode (§ 51, 61), mode fondé sur les produits interdit (§ 62A), pas d'arrêt pour inutilisation (§ 55), terrains non amortis (§ 58).",
-    "Réévaluation : par catégorie entière, à la juste valeur, régulièrement ; hausse en autres éléments du résultat global, baisse en résultat au-delà de l'écart du même actif ; transfert possible de l'écart en résultats non distribués, hors résultat (§ 29-42). L'AUDCIF et l'O.-L. 89-017 suivent d'autres logiques : réévaluation globale, écart non distribuable, neutralité fiscale.",
+    "Réévaluation : par catégorie entière, à la juste valeur, régulièrement ; hausse en autres éléments du résultat global, baisse en résultat au-delà de l'écart du même actif ; transfert possible de l'écart en résultats non distribués, hors résultat (§ 29-42). L'AUDCIF et le droit fiscal congolais (loi n° 23/053, art. 129 à 133, qui a remplacé l'O.-L. 89-017 au 1er janvier 2026) suivent d'autres logiques : réévaluation globale, écart non distribuable, neutralité fiscale.",
     "IAS 38 : identifiabilité, contrôle, avantages. La recherche est toujours une charge ; le développement est activé si les six critères du § 57 sont démontrés, sans réincorporation des charges antérieures (§ 71). Marques et listes clients générées en interne, goodwill interne, formation et publicité ne sont jamais activés.",
     "Durée d'une incorporelle déterminée (amortie) ou indéterminée (non amortie, testée chaque année) ; renouvellements pris en compte s'ils se font sans coût important (§ 94-96) ; mode fondé sur les produits présumé inapproprié, sauf les exceptions des § 98A-98C.",
     "Mines : IFRS 6 en prospection, IAS 16 ou IAS 38 ensuite ; IFRIC 20 sépare, dans la découverture, la part qui produit des stocks et la part qui améliore l'accès à une composante identifiée, amortie par unités de production.",
@@ -1050,13 +1050,14 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "IFRIC 20 — Stripping Costs in the Production Phase of a Surface Mine", precision: "§§ 1 à 16" },
     { genre: 'texte', intitule: "IFRS 6 — Prospection et évaluation de ressources minérales", precision: "§§ 1 à 25" },
     { genre: 'texte', intitule: "AUDCIF et SYSCOHADA révisé", precision: "art. 62 à 65 ; Titre VIII, ch. 1, 3, 4, 6, 7 et 28" },
-    { genre: 'texte', intitule: "Ordonnance-loi n° 89-017 du 18 février 1989 portant réévaluation de l'actif immobilisé des entreprises", precision: "art. 2, 6 et 9 (état au 10 juillet 2023)" },
+    { genre: 'texte', intitule: "Loi n° 23/053 du 30 novembre 2023 (RDC)", precision: "art. 129 à 133 (réévaluation de l'actif immobilisé) et 152 (abrogation de l'O.-L. 89-017)" },
+    { genre: 'texte', intitule: "Ordonnance-loi n° 89-017 du 18 février 1989 portant réévaluation de l'actif immobilisé des entreprises", precision: "art. 2, 6 et 9 ; abrogée au 1er janvier 2026" },
     { genre: 'texte', intitule: "Arrêtés n° 013 et 014/CAB/MIN/FINANCES/2025 du 19 février 2025", precision: "taux d'amortissement linéaire ; seuil du petit matériel (500 USD)" },
     { genre: 'texte', intitule: "Loi n° 007/2002 portant Code minier, modifiée par la loi n° 18/001", precision: "art. 204 et 258" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 16, IAS 23 (texte français intégral) ; IAS 38, IFRS 6 (texte français intégral) ; IFRIC 1, IFRIC 20 et Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; O.-L. 89-017 ; arrêtés 013 et 014/2025 ; Code minier ; support de cours d'origine, modules IAS 16 et IAS 38 (J.-B. Tshimanga Mulumba, CPCC).",
+  sources: "IAS 16, IAS 23 (texte français intégral) ; IAS 38, IFRS 6 (texte français intégral) ; IFRIC 1, IFRIC 20 et Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; loi n° 23/053 et O.-L. 89-017 (abrogée) ; arrêtés 013 et 014/2025 ; Code minier ; support de cours d'origine, modules IAS 16 et IAS 38 (J.-B. Tshimanga Mulumba, CPCC).",
 }
 
 export default chapitre
