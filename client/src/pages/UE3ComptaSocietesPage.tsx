@@ -19,7 +19,7 @@ const VERT = 'text-[#1E4A3D]'
 const AMBRE = 'text-[#8A6416]'
 
 const CHAPITRES = [
-  { num: 1, titre: 'La constitution des sociétés : apports et comptabilisation', sousTitre: 'AUSCGIE art. 37–70 · App. 58–59', duree: '6h', actif: true, route: '/ue3/chapitre-1' },
+  { num: 1, titre: 'La constitution des sociétés : apports et comptabilisation', sousTitre: 'AUSCGIE art. 37–70, 97–113, 269-1 s. · AUDCIF art. 36 · App. 58–59', duree: '6h', actif: true, route: '/ue3/chapitre-1' },
   { num: 2, titre: 'Constitution selon la forme sociale : SARL, SA, incidents de libération', sousTitre: 'AUSCGIE art. 309–316, 385–410, 774–777', duree: '5h', actif: true, route: '/ue3/chapitre-2' },
   { num: 3, titre: "L'affectation du résultat et la distribution des dividendes", sousTitre: 'AUSCGIE art. 137–146, 346, 546 · App. 65', duree: '4h', actif: true, route: '/ue3/chapitre-3' },
   { num: 4, titre: "L'augmentation de capital", sousTitre: 'AUSCGIE art. 562–615, 360–363 · App. 60–61', duree: '5h', actif: true, route: '/ue3/chapitre-4' },
