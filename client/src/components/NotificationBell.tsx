@@ -3,6 +3,7 @@ import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, Message
 import { cn } from '@/lib/utils'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
+import { useEquipe } from '@/lib/equipe'
 import { getUsersByIdsAsync, getFichesAnnuaireAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -96,14 +97,16 @@ export function NotificationBell({ user }: NotificationBellProps) {
     if (user?.id) setVues(getVues(user.id))
   }, [user?.id])
 
-  // Charger les inscriptions en attente
+  // Charger les inscriptions en attente (y compris celles de l'équipe pédagogique)
+  const equipe = useEquipe()
+  const refsEquipe = equipe?.refs.join(',') || ''
   useEffect(() => {
     if (!isAdmin || !user?.id) return
     // Requête ciblée (créateur + statut) au lieu de toute la collection users.
-    getEtudiantsCreesParAsync({ id: user.id, username: user.username }, 'en_attente')
+    getEtudiantsCreesParAsync({ id: user.id, username: user.username }, 'en_attente', equipe?.refs || [])
       .then(setUsersEnAttente)
       .catch(() => {})
-  }, [user?.id, user?.username, isAdmin])
+  }, [user?.id, user?.username, isAdmin, refsEquipe])
 
   // Fermer au clic extérieur
   useEffect(() => {

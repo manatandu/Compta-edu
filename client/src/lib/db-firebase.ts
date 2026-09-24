@@ -286,11 +286,14 @@ export async function getUsersByIdsAsync(ids: string[]): Promise<User[]> {
 // Étudiants rattachés à un membre du personnel. Le champ createdBy contient
 // l'uid du créateur, ou son identifiant pour les comptes les plus anciens :
 // on interroge donc les deux valeurs.
+// refsSupplementaires : uids/identifiants des autres membres de l'équipe
+// pédagogique (lib/equipe.ts), dont les étudiants sont aussi ceux du créateur.
 export async function getEtudiantsCreesParAsync(
   createur: { id: string; username?: string },
   statutInscription?: string,
+  refsSupplementaires: string[] = [],
 ): Promise<User[]> {
-  const refs = Array.from(new Set([createur.id, createur.username].filter(Boolean))) as string[]
+  const refs = Array.from(new Set([createur.id, createur.username, ...refsSupplementaires].filter(Boolean))).slice(0, 30) as string[]
   if (refs.length === 0) return []
   const conditions: any[] = [where('createdBy', 'in', refs), where('role', '==', 'etudiant')]
   if (statutInscription) conditions.push(where('statutInscription', '==', statutInscription))
@@ -357,6 +360,14 @@ export async function getUsernamesExistantsAsync(usernames: string[]): Promise<S
     getDocs(query(collection(db, C.USERS), where('username', 'in', paquet)))))
   snaps.forEach(s => s.docs.forEach(d => { const u = (d.data() as any).username; if (u) pris.add(u) }))
   return pris
+}
+
+// Rattache un assistant à son professeur titulaire (équipe pédagogique), ou
+// l'en détache (null : champ supprimé, jamais une chaîne vide, qui ferait de
+// tous les assistants détachés une même équipe). Réservé à l'admin.
+export async function definirTitulaireAsync(userId: string, titulaireId: string | null): Promise<void> {
+  invaliderCacheUsers()
+  await updateDoc(doc(db, C.USERS, userId), { titulaireId: titulaireId || deleteField() })
 }
 
 // Retire le champ password des profils qui le contiennent encore (comptes
@@ -489,7 +500,7 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   // règle Firestore de création vérifie pour autoriser un rôle autre qu'étudiant.
   const rolePrivilegie = useSecondaryDb && data.role !== 'etudiant'
   if (rolePrivilegie) {
-    await setDoc(doc(db, 'accountInvites', uid), { role: data.role, dateCreation: new Date().toISOString() })
+    await setDoc(doc(db, 'accountInvites', uid), { role: data.role, ...((data as any).titulaireId ? { titulaireId: (data as any).titulaireId } : {}), dateCreation: new Date().toISOString() })
   }
 
   // Le mot de passe ne sert qu'à créer le compte Firebase Authentication
@@ -1407,11 +1418,13 @@ export function onCoursStatutsEtudiant(
 }
 
 export function onCoursStatutsParCreateur(
-  createdBy: string | undefined,
+  createdBy: string | string[] | undefined,
   callback: (s: CoursEtudiantStatut[]) => void
 ): Unsubscribe {
-  if (!createdBy) { callback([]); return () => {} }
-  const q = query(collection(db, C.COURS_STATUTS), where('createdBy', '==', createdBy))
+  const ids = (Array.isArray(createdBy) ? createdBy : [createdBy]).filter(Boolean) as string[]
+  if (ids.length === 0) { callback([]); return () => {} }
+  // Plusieurs créateurs : membres d'une équipe pédagogique (lib/equipe.ts).
+  const q = query(collection(db, C.COURS_STATUTS), where('createdBy', 'in', ids.slice(0, 30)))
   return onSnapshot(q, snap => callback(snap.docs.map(d => fromDoc<CoursEtudiantStatut>(d))), err => notifyFirestoreError('onCoursStatutsParCreateur', err))
 }
 

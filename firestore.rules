@@ -30,8 +30,26 @@ service cloud.firestore {
       return isAuth() && request.auth.uid == resource.data[field];
     }
 
+    // ─── ÉQUIPE PÉDAGOGIQUE ─────────────────────────────────────────────────
+    // Un assistant est rattaché à un professeur titulaire (champ titulaireId de
+    // son profil, posé par l'admin). Le titulaire et ses assistants forment une
+    // équipe : chacun peut modifier ou supprimer ce qu'un autre membre a créé.
+    // titulaire(uid) = titulaireId du compte, ou le compte lui-même s'il n'en a
+    // pas (un professeur est son propre titulaire).
+    function titulaire(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data.get('titulaireId', uid);
+    }
+
+    // createurId appartient-il à l'équipe de l'appelant ? (lui-même inclus)
+    function memeEquipe(createurId) {
+      return isAuth() && createurId is string && (
+        createurId == request.auth.uid ||
+        (createurId.size() > 0 && titulaire(request.auth.uid) == titulaire(createurId))
+      );
+    }
+
     function createdBy() {
-      return isAuth() && request.auth.uid == resource.data.createdBy;
+      return memeEquipe(resource.data.get('createdBy', ''));
     }
 
     // Vérifie que le document appartient au même admin (isolation admin→enfants)
@@ -53,7 +71,7 @@ service cloud.firestore {
     // à l'étudiant), donc l'isolation prof passe par le cours auquel ils sont rattachés.
     function ownsCours(coursId) {
       return isAuth() && (
-        get(/databases/$(database)/documents/cours/$(coursId)).data.createdBy == request.auth.uid ||
+        memeEquipe(get(/databases/$(database)/documents/cours/$(coursId)).data.get('createdBy', '')) ||
         get(/databases/$(database)/documents/cours/$(coursId)).data.adminId == request.auth.uid
       );
     }
@@ -62,7 +80,7 @@ service cloud.firestore {
     // (devoir, exercice libre...) d'une collection tierce, pour les documents
     // étudiant qui n'ont ni coursId ni createdBy propre (soumissions, tentatives_el).
     function ownsVia(coll, id) {
-      return isAuth() && get(/databases/$(database)/documents/$(coll)/$(id)).data.createdBy == request.auth.uid;
+      return memeEquipe(get(/databases/$(database)/documents/$(coll)/$(id)).data.get('createdBy', ''));
     }
 
     // ─── USERS ───────────────────────────────────────────────────────────────
@@ -77,11 +95,14 @@ service cloud.firestore {
       // 3) Admin déjà authentifié écrivant directement (cas de repli import CSV / collision
       //    d'e-mail où l'uid généré ne correspond à aucun compte Auth).
       allow create: if !request.resource.data.keys().hasAny(['password']) && ((request.auth.uid == userId && (
-        request.resource.data.role == 'etudiant' ||
+        (request.resource.data.role == 'etudiant' && !request.resource.data.keys().hasAny(['titulaireId'])) ||
         (
           request.resource.data.role in ['professeur', 'assistant', 'admin'] &&
           exists(/databases/$(database)/documents/accountInvites/$(userId)) &&
-          get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role
+          get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role &&
+          // Rattachement à un titulaire : uniquement celui fixé par l'admin dans l'invitation.
+          request.resource.data.get('titulaireId', null) ==
+            get(/databases/$(database)/documents/accountInvites/$(userId)).data.get('titulaireId', null)
         )
       )) || isAdmin());
       // Lecture : utilisateur lui-même OU prof/admin (isProf()). Les écrans de gestion
@@ -105,7 +126,9 @@ service cloud.firestore {
         isAuth() && request.auth.uid == userId &&
         request.resource.data.role == resource.data.role &&
         request.resource.data.get('actif', null) == resource.data.get('actif', null) &&
-        request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null)
+        request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null) &&
+        // Le rattachement à un titulaire (équipe pédagogique) n'est modifiable que par l'admin.
+        request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null)
       ));
       allow delete: if isAdmin();
     }
@@ -324,7 +347,20 @@ service cloud.firestore {
     match /soumissions/{soumissionId} {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
       allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
-      allow update: if isAuth() && ownsResource('etudiantId');
+      // Modification :
+      // - l'étudiant : jamais les champs de correction (sinon il pouvait
+      //   s'attribuer sa propre note) ;
+      // - la correction (note, commentaire, statut, date) : l'équipe
+      //   pédagogique du créateur du devoir, ou l'admin. Auparavant seul
+      //   l'étudiant pouvait modifier sa soumission : la correction par le
+      //   professeur était refusée par Firestore.
+      allow update: if (
+          ownsResource('etudiantId') &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['note', 'commentaire', 'statut', 'dateCorrection'])
+        ) || (
+          isProf() && (ownsVia('devoirs', resource.data.devoirId) || isAdmin()) &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['note', 'commentaire', 'statut', 'dateCorrection'])
+        );
       // Suppression isolée par créateur du devoir rattaché (et non isProf()
       // global) : un prof ne peut supprimer que les soumissions d'un devoir
       // qu'il a lui-même créé.

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import { useAllCours, useFacultes, useUniversites, useAllSoumissions, useDevoirs } from '@/lib/useFirestore'
 import { getEtudiantsCreesParAsync, COURS_SYSTEME } from '@/lib/db-firebase'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
 import { DashboardHero, greeting, type DashboardStat } from '@/components/DashboardHero'
@@ -41,15 +42,19 @@ export default function DashboardStaff() {
   const { facultes: allFacultes } = useFacultes()
   const { universites: allUniversites } = useUniversites()
   const { soumissions: toutesLesSoumissions } = useAllSoumissions()
-  const { devoirs: mesDevoirs } = useDevoirs(user?.id)
+  // Équipe pédagogique (titulaire + assistants) : devoirs et étudiants partagés.
+  const equipe = useEquipe()
+  const { devoirs: mesDevoirs } = useDevoirs(equipe?.ids)
   const [users, setUsers] = React.useState<any[]>([])
 
   // Seuls les étudiants rattachés à ce compte sont lus (requête sur createdBy),
   // pas toute la collection users : le tableau de bord n'affiche qu'eux.
+  const refsEquipe = equipe?.refs.join(',') || ''
   React.useEffect(() => {
     if (!user?.id) return
-    getEtudiantsCreesParAsync({ id: user.id, username: (user as any).username }).then(setUsers).catch(() => {})
-  }, [user?.id])
+    getEtudiantsCreesParAsync({ id: user.id, username: (user as any).username }, undefined, equipe?.refs || [])
+      .then(setUsers).catch(() => {})
+  }, [user?.id, refsEquipe])
 
   // Compte les UE distinctes, pas les instances par faculté : depuis que
   // chaque UE active est auto-provisionnée dans toutes les facultés
@@ -74,7 +79,7 @@ export default function DashboardStaff() {
     if (u.role !== 'etudiant') return false
     const cb = (u as any).createdBy
     if (!cb) return false
-    return cb === user?.id || cb === (user as any)?.username
+    return cb === user?.id || cb === (user as any)?.username || creeParEquipe(cb, equipe)
   })
   const nbEtudiants   = mesEtudiants.filter(u => u.actif && (u as any).statutInscription !== 'en_attente').length
   const nbEnAttente   = mesEtudiants.filter(u => (u as any).statutInscription === 'en_attente').length

@@ -1,5 +1,6 @@
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
+import { useEquipe, creeParEquipe, invaliderCacheEquipe } from '@/lib/equipe'
 import React, { useState, useEffect, useRef } from 'react'
 import { useLocation, useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
@@ -9,7 +10,7 @@ import {
   User, UserRole, Universite, Faculte, LigneSolution, Cours, Devoir, Soumission, QCMQuestion, QCMOption, NoteCours
 } from '@/lib/db'
 import {
-  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync,
+  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
   uploadDevoirPDF, uploadExercicePDF, uploadNoteCoursFile,
   saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
@@ -88,6 +89,7 @@ const emptyUserForm = {
   username: '', password: '', nom: '', prenom: '',
   role: 'etudiant' as UserRole,
   actif: true, universiteId: '', faculteId: '', classe: '', telephone: '', coursIds: [] as string[],
+  titulaireId: '',  // assistant : professeur titulaire de son équipe pédagogique
 }
 
 const emptyUniForm = { nom: '', ville: '', adresse: '', facultes: [] as string[] }
@@ -334,6 +336,10 @@ export default function ProfesseurPage() {
   const { toast } = useToast()
   const currentUser = useUser()
   const isAdmin = isAdminRole(currentUser)
+  // Équipe pédagogique (titulaire + assistants) : devoirs, présences, statuts et
+  // étudiants partagés entre ses membres (voir lib/equipe.ts).
+  const equipe = useEquipe()
+  const cleEquipe = equipe?.ids.join(',') || ''
   const purgeFaite = React.useRef(false)
   const annuaireSynchronise = React.useRef(false)
   const isStaff = isStaffRole(currentUser)
@@ -417,7 +423,7 @@ export default function ProfesseurPage() {
   // Modales universités
   const [showUniForm, setShowUniForm] = useState(false)
   // ── Devoirs ──
-  const { devoirs: devoirsList } = useDevoirs(currentUser?.id)
+  const { devoirs: devoirsList } = useDevoirs(equipe?.ids)
   const [showDevoirForm, setShowDevoirForm] = useState(false)
   const [editDevoirId, setEditDevoirId] = useState<string | null>(null)
   const [deleteDevoirId, setDeleteDevoirId] = useState<string | null>(null)
@@ -562,9 +568,9 @@ export default function ProfesseurPage() {
   const [, setCoursStatuts] = useState<CoursEtudiantStatut[]>([])
   useEffect(() => {
     if (!currentUser?.id) return
-    const unsub = onCoursStatutsParCreateur(currentUser.id, setCoursStatuts)
+    const unsub = onCoursStatutsParCreateur(equipe?.ids || currentUser.id, setCoursStatuts)
     return () => unsub()
-  }, [currentUser?.id])
+  }, [currentUser?.id, cleEquipe])
 
   // ── Toggle actif/suspendu ──
   const toggleActifUser = (userId: string, currentActif: boolean) => {
@@ -634,6 +640,7 @@ export default function ProfesseurPage() {
       classe: (u as any).classe || '',
       telephone: (u as any).telephone || '',
       coursIds: (u as any).coursIds || [],
+      titulaireId: (u as any).titulaireId || '',
     })
     setShowUserForm(true)
   }
@@ -654,14 +661,25 @@ export default function ProfesseurPage() {
       classe: userForm.classe.trim() || undefined,
       telephone: userForm.telephone.trim() || undefined,
       coursIds: (userForm as any).coursIds?.length > 0 ? (userForm as any).coursIds : undefined,
+      // Rattachement à un titulaire : seulement pour un assistant. En
+      // modification, il est posé à part (definirTitulaireAsync), pour pouvoir
+      // aussi le retirer.
+      titulaireId: !editUserId && userForm.role === 'assistant' && userForm.titulaireId ? userForm.titulaireId : undefined,
     }
+    const titulaireVoulu = userForm.role === 'assistant' && userForm.titulaireId ? userForm.titulaireId : null
     if (editUserId) {
-      updateUserAsync(editUserId, data).then(() => {
+      const ancienTitulaire = (users.find(u => u.id === editUserId) as any)?.titulaireId || null
+      const { titulaireId: _t, ...sansTitulaire } = data
+      updateUserAsync(editUserId, sansTitulaire)
+        .then(() => ancienTitulaire !== titulaireVoulu ? definirTitulaireAsync(editUserId, titulaireVoulu) : undefined)
+        .then(() => {
+        invaliderCacheEquipe()
         refresh(); setShowUserForm(false)
         toast({ title: 'Utilisateur modifié' })
       }).catch(() => toast({ title: 'Erreur lors de la modification', variant: 'destructive' }))
     } else {
       createUserAsync({ ...data, createdBy: currentUser?.id || '' } as any).then(() => {
+        invaliderCacheEquipe()
         refresh(); setShowUserForm(false)
         toast({ title: 'Utilisateur créé' })
       }).catch((err: any) => {
@@ -920,7 +938,7 @@ export default function ProfesseurPage() {
     const cb = (u as any).createdBy
     // Étudiant sans createdBy : visible uniquement pour l'admin principal
     if (!cb) return isMainAdmin
-    return cb === currentUser?.id || cb === currentUser?.username
+    return cb === currentUser?.id || cb === currentUser?.username || creeParEquipe(cb, equipe)
   }).sort((a, b) => {
     const nomA = normalizeStr(`${a.nom} ${a.prenom || ''}`.trim())
     const nomB = normalizeStr(`${b.nom} ${b.prenom || ''}`.trim())
@@ -1019,7 +1037,7 @@ export default function ProfesseurPage() {
   })
 
   // ── Présences ──
-  const { presences } = usePresences(currentUser?.id, (currentUser as any)?.faculteId)
+  const { presences } = usePresences(equipe?.ids, (currentUser as any)?.faculteId)
   const [showPresenceForm, setShowPresenceForm] = useState(false)
   const [presenceTitre, setPresenceTitre] = useState('')
   const [presenceDate, setPresenceDate] = useState(() => new Date().toISOString().slice(0, 10))
@@ -1668,6 +1686,17 @@ export default function ProfesseurPage() {
                             <td className="px-4 py-2.5">
                               <p className="font-medium text-foreground">{u.prenom} {u.nom}</p>
                               <p className="text-xs text-muted-foreground font-mono">@{u.username}</p>
+                              {(() => {
+                                // Équipe pédagogique : titulaire d'un assistant, assistants d'un professeur
+                                if (u.role === 'assistant') {
+                                  const tit = users.find(x => x.id === (u as any).titulaireId)
+                                  return tit ? <p className="text-xs text-primary mt-0.5">Équipe de {tit.prenom} {tit.nom}</p> : null
+                                }
+                                const assistants = users.filter(x => (x as any).titulaireId === u.id)
+                                return assistants.length > 0
+                                  ? <p className="text-xs text-primary mt-0.5">Assisté par {assistants.map(x => `${x.prenom} ${x.nom}`).join(', ')}</p>
+                                  : null
+                              })()}
                             </td>
                             <td className="px-4 py-2.5">
                               <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ROLE_COLORS[u.role]}`}>
@@ -3498,6 +3527,25 @@ export default function ProfesseurPage() {
                     <SelectItem value="assistant">Assistant</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+            )}
+
+            {/* Équipe pédagogique : l'assistant partage la classe de son titulaire */}
+            {userForm.role === 'assistant' && isAdmin && (
+              <div>
+                <Label>Professeur titulaire</Label>
+                <Select value={userForm.titulaireId || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, titulaireId: v === '__none__' ? '' : v }))}>
+                  <SelectTrigger className="mt-1"><SelectValue placeholder="Aucun" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__none__">- Aucun (assistant indépendant) -</SelectItem>
+                    {users.filter(u => u.role === 'professeur' && u.id !== editUserId).map(u => (
+                      <SelectItem key={u.id} value={u.id}>{u.prenom} {u.nom}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Le titulaire et ses assistants gèrent ensemble la même classe : étudiants, devoirs, présences et corrections.
+                </p>
               </div>
             )}
 

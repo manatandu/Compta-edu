@@ -208,19 +208,32 @@ export function useAllFacultes() {
 
 // ─── Devoirs temps réel ───────────────────────────────────────────────────────
 
-export function useDevoirs(createdBy?: string) {
+// createdBy : un uid, ou la liste des uids d'une équipe pédagogique (lib/equipe.ts).
+function filtreCreateur(createdBy: string | string[] | undefined) {
+  if (!createdBy || (Array.isArray(createdBy) && createdBy.length === 0)) return null
+  return Array.isArray(createdBy)
+    ? where('createdBy', 'in', createdBy.slice(0, 30))
+    : where('createdBy', '==', createdBy)
+}
+function cleCreateur(createdBy: string | string[] | undefined) {
+  return Array.isArray(createdBy) ? createdBy.join(',') : (createdBy || '')
+}
+
+export function useDevoirs(createdBy?: string | string[]) {
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
+  const cle = cleCreateur(createdBy)
 
   useEffect(() => {
-    const q = createdBy
-      ? query(collection(db, 'devoirs'), where('createdBy', '==', createdBy))
+    const filtre = filtreCreateur(createdBy)
+    const q = filtre
+      ? query(collection(db, 'devoirs'), filtre)
       : query(collection(db, 'devoirs'))
 
     const unsub = onSnapshot(q, (snap) => {
       setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
     }, err => notifyFirestoreError('useDevoirs', err))
     return () => unsub()
-  }, [createdBy])
+  }, [cle])
 
   return { devoirs }
 }
@@ -479,12 +492,14 @@ export function useTentativesEL(etudiantId?: string) {
 // ─── Présences ────────────────────────────────────────────────────────────────
 
 // usePresences : prof voit ses séances (par createdBy) filtrées par faculteId
-export function usePresences(createdBy?: string, faculteId?: string) {
+export function usePresences(createdBy?: string | string[], faculteId?: string) {
   const [presences, setPresences] = useState<Presence[]>([])
   const [loading, setLoading] = useState(true)
+  const cle = cleCreateur(createdBy)
   useEffect(() => {
     const conditions: any[] = []
-    if (createdBy) conditions.push(where('createdBy', '==', createdBy))
+    const filtre = filtreCreateur(createdBy)
+    if (filtre) conditions.push(filtre)
     if (faculteId) conditions.push(where('faculteId', '==', faculteId))
     const q = conditions.length > 0
       ? query(collection(db, 'presences'), ...conditions)
@@ -494,7 +509,7 @@ export function usePresences(createdBy?: string, faculteId?: string) {
       setLoading(false)
     }, err => { notifyFirestoreError('usePresences', err); setLoading(false) })
     return () => unsub()
-  }, [createdBy, faculteId])
+  }, [cle, faculteId])
   return { presences, loading }
 }
 
