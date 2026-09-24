@@ -207,7 +207,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "C'est une erreur qui impose un retraitement rétrospectif" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 8.8 dispense d'appliquer une méthode dont l'effet n'est pas significatif. Mais la même phrase ferme la porte à l'abus : « il est inapproprié de faire, ou de ne pas corriger, des écarts non significatifs par rapport aux IFRS en vue de parvenir à une présentation particulière ». C'est l'intention qui disqualifie l'écart, même minime.",
+    explication: "IAS 8.8 dispense d'appliquer une méthode dont l'effet n'est pas significatif. Mais la même phrase ferme la porte à l'abus : « il est inapproprié de faire, ou de ne pas corriger, des écarts non significatifs par rapport aux IFRS en vue de parvenir à une présentation particulière ». L'intention suffit à disqualifier l'écart, si minime soit-il.",
     articleRef: "IAS 8.8",
   },
   {
@@ -337,7 +337,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Encadrer la consolidation des groupes" },
     ],
     reponseCorrecte: 'b',
-    explication: "Le ROSC relève que le PCGC « avait d'abord pour objectif premier de répondre aux besoins de l'État en matière de statistiques nationales » : les besoins des investisseurs n'y étaient pas une priorité. Il notait aussi l'absence de cadre conceptuel, l'absence de toute règle de consolidation et la seule présentation des charges par nature. C'est l'exact opposé de la logique du Cadre de l'IASB.",
+    explication: "Le ROSC relève que le PCGC « avait d'abord pour objectif premier de répondre aux besoins de l'État en matière de statistiques nationales » : les besoins des investisseurs n'y étaient pas une priorité. Il notait aussi l'absence de cadre conceptuel, l'absence de toute règle de consolidation et la seule présentation des charges par nature. Le Cadre de l'IASB en prend exactement le contre-pied.",
     articleRef: "ROSC RDC 2010, ch. 3, § 42",
   },
   {
@@ -402,7 +402,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[23] },
       {
         type: 'filet',
-        titre: "Passerelle : ce que le ROSC reprochait au PCGC",
+        titre: "Le réquisitoire du ROSC contre le PCGC",
         texte: "Le ROSC de 2010 (chapitre 3) dresse l'inventaire des écarts : pas de cadre conceptuel ; quatre tableaux de synthèse (bilan, tableau de formation du résultat, tableau de financement, TEFF) conçus pour la comptabilité nationale ; présentation des charges par nature seulement ; aucune règle de consolidation ; date de clôture imposée au 31 décembre ; coût historique sans actualisation des créances et dettes ; provisions admises sans obligation juridique ou implicite, là où IAS 37 l'exige. Chaque écart est une leçon sur la logique IFRS, et vous les retrouverez au fil des chapitres.",
       },
     ],
@@ -429,7 +429,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : IAS 1.7 et IAS 8.5",
+        titre: "Ce que recouvre exactement le mot « IFRS » (IAS 1.7 ; IAS 8.5)",
         texte: "Les IFRS « sont les normes et interprétations publiées par l'International Accounting Standards Board (IASB). Elles comprennent : (a) les Normes internationales d'information financière ; (b) les Normes comptables internationales ; (c) les interprétations IFRIC ; et (d) les interprétations SIC. » Le Cadre conceptuel n'est pas dans la liste.",
       },
       { type: 'controle', question: QCM[1] },
@@ -466,7 +466,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit l'AUDCIF : un double jeu d'états, pas une substitution",
+        titre: "L'article 8 de l'AUDCIF : deux jeux d'états, jamais un seul",
         texte: "Article 8, alinéa 4 : les entités dont les titres sont inscrits à une bourse de valeurs et celles qui sollicitent un financement par appel public à l'épargne « doivent établir et présenter les états financiers annuels selon les normes internationales d'informations financières, appelées normes IFRS, **en sus** des états financiers » SYSCOHADA. Alinéa 5 : ces états IFRS « sont destinés exclusivement aux marchés financiers. Ils ne peuvent servir de support de base pour la détermination du bénéfice distribuable ». Article 75 : les états consolidés de ces mêmes entités sont établis selon les normes IFRS. Article 73-1 : les états IFRS approuvés par l'assemblée sont déposés au RCCM et auprès des organes des marchés financiers, et le commissaire aux comptes émet sur eux une opinion. Article 113 : ces dispositions s'appliquent depuis le **1er janvier 2019**.",
       },
       { type: 'controle', question: QCM[2] },
@@ -481,7 +481,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : ce que certifie réellement l'auditeur",
+        titre: "Lire la phrase d'opinion jusqu'au dernier mot",
         texte: "Lisez toujours la phrase d'opinion jusqu'au bout. Une opinion rendue sur des états établis « conformément au SYSCOHADA révisé » ne dit rien de leur conformité aux IFRS, et inversement : une entreprise qui tient deux jeux d'états peut obtenir deux opinions, sur deux référentiels. Et une déclaration de conformité aux IFRS ne vaut que si elle est « explicite et sans réserve » (IAS 1.16) : la formule « conformes aux IFRS, à l'exception de... » n'en est pas une.",
       },
       { type: 'controle', question: QCM[22] },
@@ -498,7 +498,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit le Cadre : l'objectif (§ 1.2 à 1.5)",
+        titre: "À qui parle l'information financière (Cadre, § 1.2-1.5)",
         texte: "« The objective of general purpose financial reporting is to provide financial information about the reporting entity that is useful to existing and potential investors, lenders and other creditors in making decisions relating to providing resources to the entity » (§ 1.2). Ces décisions portent sur l'achat, la vente ou la conservation de titres, l'octroi ou le règlement de prêts, et l'exercice des droits de vote ou d'influence sur la direction. Elles dépendent des rendements attendus, donc de l'appréciation des flux de trésorerie futurs **et** de la manière dont la direction gère les ressources de l'entité, la *stewardship* (§ 1.3-1.4). Ces utilisateurs sont dits principaux parce qu'ils ne peuvent pas exiger de rapports sur mesure et doivent se fier aux rapports à usage général (§ 1.5). Le texte officiel encodé est en anglais : les passages en français de ce chapitre en sont des traductions de travail.",
       },
       { type: 'controle', question: QCM[0] },
@@ -518,7 +518,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : appliquer les caractéristiques essentielles (§ 2.21)",
+        titre: "Trois questions à poser, dans cet ordre (§ 2.21)",
         liste: [
           "**1.** Identifier un phénomène économique susceptible d'être utile aux utilisateurs.",
           "**2.** Déterminer quel type d'information serait le plus pertinent pour ce phénomène, s'il était disponible et pouvait être représenté fidèlement.",
@@ -544,7 +544,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : pourquoi le passage du « probable » au « potentiel » compte",
+        titre: "Du « probable » au « potentiel » : un mot qui change le bilan",
         texte: "Sous le Cadre de 2010, un droit dont les avantages sont peu probables pouvait échouer à la définition même de l'actif. Sous celui de 2018, il suffit que le droit existe et que, « in at least one circumstance », il produise pour l'entité des avantages supérieurs à ceux dont disposent les autres parties : il n'est pas nécessaire que ce soit certain, « or even likely » (§ 4.14). Un droit peut donc être un actif même si la probabilité d'avantages est faible ; cette faible probabilité pèse ensuite sur la comptabilisation et l'évaluation (§ 4.15, 5.15-5.17). Le Cadre prend lui-même l'exemple de l'option achetée : la ressource économique est le droit présent d'exercer l'option, non les avantages futurs que son exercice procurera (§ 4.17). Le raisonnement se fait en deux temps, d'abord « est-ce un actif ? », ensuite « faut-il le comptabiliser, et pour combien ? ».",
       },
       { type: 'controle', question: QCM[14] },
@@ -578,7 +578,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : un même exercice, trois résultats",
+        titre: "Un même exercice, trois résultats",
         texte: "Capitaux propres d'ouverture : 1 000, placés en 100 unités de marchandises à 10. Les 100 unités sont revendues 1 500 en fin d'exercice. Inflation de l'exercice : 20 %. Coût de remplacement d'une unité à la clôture : 13.",
         tableau: {
           entetes: ['Concept', 'Capital à maintenir', 'Résultat', 'Ajustement de maintien du capital'],
@@ -593,7 +593,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[19] },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA : la plus faible des deux valeurs",
+        titre: "Le SYSCOHADA retient la plus faible des deux valeurs",
         texte: "Le cadre conceptuel du SYSCOHADA révisé définit la valeur actuelle comme « une valeur d'estimation du moment qui s'apprécie en fonction du marché et de l'utilité du bien pour l'entité », une notion qui mêle les deux points de vue que le Cadre de l'IASB sépare. Et il en fait un usage essentiellement prudentiel : la valeur nette au bilan est la plus faible de la valeur d'entrée et de la valeur actuelle. Les plus-values latentes restent donc hors bilan, les moins-values y entrent. Côté capital, le SYSCOHADA retient le maintien du capital financier en francs courants, avec exclusion des gains de détention, sauf pour les devises détenues et les instruments financiers.",
       },
       { type: 'controle', question: QCM[20] },
@@ -610,7 +610,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : IFRS 13.9",
+        titre: "Un prix de sortie, entre intervenants du marché (IFRS 13.9)",
         texte: "La juste valeur est « le prix qui serait reçu pour la vente d'un actif ou payé pour le transfert d'un passif lors d'une transaction normale entre des intervenants du marché à la date d'évaluation ». Chaque mot compte. *Reçu pour la vente* : c'est une valeur de sortie, pas un coût d'acquisition. *Transaction normale* : ni liquidation forcée ni vente en catastrophe. *Intervenants du marché* : des acheteurs et vendeurs indépendants, informés, capables et disposés à traiter, et non l'entité elle-même. L'intention de l'entité de conserver l'actif n'entre pas en ligne de compte (§ 1-4).",
       },
       {
@@ -649,9 +649,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : l'espérance de la valeur actualisée (§ B27-B30)",
+        titre: "Deux chemins vers 722 : l'espérance de la valeur actualisée",
         liste: [
-          "**Donnée** : flux de trésorerie attendu dans un an, pondéré par les probabilités, 780. Taux sans risque 5 %. Prime de risque exigée par le marché 3 %.",
+          "Un flux de trésorerie attendu dans un an, pondéré par les probabilités, 780. Taux sans risque 5 %. Prime de risque exigée par le marché 3 %.",
           "**Méthode 2** (taux ajusté du risque systématique) : 780 / 1,08 = **722**.",
           "**Méthode 1** (flux ajustés du risque) : l'équivalent certain du flux est 722 × 1,05 ≈ 758, soit une déduction d'environ 22 pour le risque ; actualisé au taux sans risque, 758 / 1,05 ≈ **722**.",
           "**Leçon** : le risque se loge soit dans les flux, soit dans le taux, jamais dans les deux (§ B14, B33). L'oublier, c'est le compter deux fois.",
@@ -660,12 +660,12 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[10] },
       {
         type: 'filet',
-        titre: "Dans l'entreprise : les prêts au personnel à taux réduit",
+        titre: "Le prêt à 2 % qui ne vaut pas son nominal",
         texte: "Le prix de transaction n'égale pas toujours la juste valeur (§ 57-60), notamment entre parties liées ou lorsque les conditions ne sont pas celles du marché. Beaucoup d'entreprises congolaises consentent à leurs salariés des prêts à taux réduit. Le mécanisme : un prêt de 10 000 sur deux ans à 2 %, quand le marché prête à 12 %, vaut 200 / 1,12 + 10 200 / 1,12² ≈ **8 310**. Les 1 690 d'écart ne sont pas un « prêt » : ils traduisent un avantage consenti au salarié, que d'autres normes viennent qualifier (§ 60 : « sauf disposition contraire »). Lorsque ces prêts sont significatifs, les laisser à leur valeur nominale expose l'entreprise à une réserve de son auditeur.",
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : la juste valeur dans une économie sans bourse",
+        titre: "Une juste valeur sans bourse de valeurs",
         texte: "Le ROSC relevait en 2010 que la RDC « n'a pas de bourse de valeurs ». Conséquence pratique : les évaluations de niveau 1 y sont rares et la plupart des justes valeurs relèvent des niveaux 2 et 3. Or c'est au niveau 3 que la norme est la plus exigeante en informations (§ 93) : description des processus d'évaluation, données non observables chiffrées, rapprochement des soldes d'ouverture et de clôture, sensibilité aux hypothèses. Un marché peu actif n'autorise pas pour autant à retenir un prix de liquidation : l'objectif reste le prix d'une transaction normale (§ B37-B47).",
       },
     ],
@@ -681,7 +681,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : IAS 1.16 et 1.18",
+        titre: "Conforme, ou non : IAS 1.16 ne connaît pas de milieu",
         texte: "« L'entité dont les états financiers sont conformes aux IFRS doit procéder à une déclaration explicite et sans réserve de cette conformité dans les notes. L'entité ne doit décrire des états financiers comme étant conformes aux IFRS que s'ils sont conformes à toutes les dispositions des IFRS. » Et au § 18 : « L'entité ne peut pas corriger des méthodes comptables inappropriées, ni par l'indication des méthodes comptables utilisées, ni par des notes ou d'autres textes explicatifs. »",
       },
       { type: 'controle', question: QCM[5] },
@@ -703,7 +703,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : la continuité d'exploitation à l'épreuve de la crise dans l'Est",
+        titre: "Goma, Bukavu et l'hypothèse de continuité",
         texte: "Un distributeur dont les dépôts de Goma et de Bukavu sont devenus inaccessibles doit se poser la question d'IAS 1.25 : existe-t-il des « incertitudes significatives liées à des événements ou à des conditions susceptibles de jeter un doute important sur la capacité de l'entité à poursuivre son activité » ? La direction prend en compte toutes les informations disponibles sur l'avenir, au minimum sur douze mois à compter de la clôture (§ 26), documente son analyse et, si l'incertitude est significative, l'indique dans les notes. L'auditeur peut alors attirer l'attention du lecteur sur cette information, sans pour autant modifier son opinion.",
       },
       { type: 'controle', question: QCM[17] },
@@ -727,7 +727,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[13] },
       {
         type: 'carte',
-        titre: "Arbre de décision : la hiérarchie d'IAS 8",
+        titre: "Quand aucune norme ne répond : la hiérarchie d'IAS 8",
         liste: [
           "**Étape 1.** Une IFRS ou une interprétation s'applique-t-elle spécifiquement ? Oui : l'appliquer (§ 7), guides d'application obligatoires compris (§ 9). Non : étape 2.",
           "**Étape 2.** Développer une méthode par jugement, qui produise une information **pertinente** et **fiable** : image fidèle, réalité économique plutôt que forme juridique, neutralité, prudence, exhaustivité (§ 10).",
@@ -739,7 +739,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[11] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : des droits d'émission reçus gratuitement",
+        titre: "Des droits d'émission reçus gratuitement : que faire ?",
         texte: "Une coopérative agricole du Kwilu reçoit gratuitement des unités de réduction d'émissions qu'elle peut revendre. Le référentiel IFRS ne comporte pas de norme spécifique pour ces droits : IAS 8.10-11 s'impose. Premier réflexe, chercher les normes traitant de questions similaires : un droit négociable, sans substance physique, évoque IAS 38 ; son attribution gratuite par une autorité publique évoque IAS 20. Second réflexe, revenir aux définitions du Cadre : le droit est-il une ressource économique contrôlée ? Oui, s'il est négociable et que l'entité peut en disposer. Plusieurs méthodes peuvent être défendables. L'exigence n'est pas de trouver la seule bonne réponse, mais de retenir une méthode justifiée par la hiérarchie, de l'appliquer avec cohérence (§ 13) et de la décrire en notes.",
       },
       { type: 'controle', question: QCM[12] },
@@ -794,7 +794,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 2,
         enonce: "Expliquez l'écart de 450 000 entre les deux résultats par les philosophies des deux référentiels.",
-        correction: "L'immeuble : IAS 40 permet le modèle de la juste valeur, dont les variations passent en résultat net (IAS 40.35) ; le SYSCOHADA révisé ne connaît que le coût, avec amortissement (Titre VIII, ch. 10). C'est l'opposition entre coût historique et juste valeur. Les créances : IFRS 9 constate des pertes attendues dès l'origine (§ 5.5.15), le SYSCOHADA ne déprécie que des créances individualisées dont la perte est certaine dans son principe (commentaire du compte 49). C'est l'opposition entre neutralité et prudence : le cadre IFRS vise une image sans biais, orientée vers l'investisseur ; le SYSCOHADA protège d'abord les créanciers et l'État.",
+        correction: "L'immeuble : IAS 40 permet le modèle de la juste valeur, dont les variations passent en résultat net (IAS 40.35) ; le SYSCOHADA révisé ne connaît que le coût, avec amortissement (Titre VIII, ch. 10). Le coût historique affronte ici la juste valeur. Les créances : IFRS 9 constate des pertes attendues dès l'origine (§ 5.5.15), le SYSCOHADA ne déprécie que des créances individualisées dont la perte est certaine dans son principe (commentaire du compte 49). Deuxième ligne de fracture, la neutralité face à la prudence : le cadre IFRS vise une image sans biais, orientée vers l'investisseur ; le SYSCOHADA protège d'abord les créanciers et l'État.",
       },
       {
         num: 3,
@@ -853,7 +853,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 3,
         enonce: "« La juste valeur d'un immeuble, c'est ce qu'il vaut pour nous, compte tenu de l'usage que nous en faisons. »",
-        correction: "Faux. C'est la définition de la valeur d'utilité, spécifique à l'entité. La juste valeur est une mesure fondée sur le marché, non spécifique à l'entité (IFRS 13.1-4 et § 9) : elle retient l'utilisation optimale du point de vue des intervenants du marché, l'usage actuel n'étant présumé optimal qu'en l'absence d'indication contraire (§ 27-30).",
+        correction: "Faux. On reconnaît la valeur d'utilité, propre à l'entité. La juste valeur est une mesure fondée sur le marché, non spécifique à l'entité (IFRS 13.1-4 et § 9) : elle retient l'utilisation optimale du point de vue des intervenants du marché, l'usage actuel n'étant présumé optimal qu'en l'absence d'indication contraire (§ 27-30).",
       },
       {
         num: 4,
@@ -878,7 +878,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 8,
         enonce: "« La prudence a disparu des IFRS. »",
-        correction: "Faux, mais la nuance est essentielle. IAS 8.10(b)(iv) exige d'une méthode développée par jugement qu'elle soit « prudente ». Le Cadre de 2018 a réintroduit la prudence comme circonspection au service de la neutralité (§ 2.16), sans asymétrie systématique en faveur de la sous-évaluation (§ 2.17). C'est le SYSCOHADA révisé qui fait primer la prudence au point d'écarter la neutralité.",
+        correction: "Faux, mais la nuance est essentielle. IAS 8.10(b)(iv) exige d'une méthode développée par jugement qu'elle soit « prudente ». Le Cadre de 2018 a réintroduit la prudence comme circonspection au service de la neutralité (§ 2.16), sans asymétrie systématique en faveur de la sous-évaluation (§ 2.17). Le SYSCOHADA révisé, lui, fait primer la prudence au point d'écarter la neutralité.",
       },
     ],
   },

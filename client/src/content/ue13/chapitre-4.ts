@@ -385,7 +385,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Aucune différence de fond" },
     ],
     reponseCorrecte: 'b',
-    explication: "Le commentaire du compte 49 du SYSCOHADA révisé exige que la dépréciation soit « certaine quant à sa nature », que la créance soit individualisée, et que l'entité puisse justifier les motifs qui la rendent douteuse ou litigieuse ; les événements survenus après la clôture ne sont pas pris en compte. C'est une logique de perte subie. IFRS 9 constate une perte attendue sur toutes les créances, pondérée par les probabilités et nourrie d'informations prospectives (§ 5.5.17).",
+    explication: "Le commentaire du compte 49 du SYSCOHADA révisé exige que la dépréciation soit « certaine quant à sa nature », que la créance soit individualisée, et que l'entité puisse justifier les motifs qui la rendent douteuse ou litigieuse ; les événements survenus après la clôture ne sont pas pris en compte. La logique est celle de la perte subie. IFRS 9 constate une perte attendue sur toutes les créances, pondérée par les probabilités et nourrie d'informations prospectives (§ 5.5.17).",
     articleRef: "SYSCOHADA, Titre VII, compte 49 ; IFRS 9.5.5.17",
   },
   {
@@ -469,13 +469,13 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[0] },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : la règle d'évaluation tient en une ligne (§ 9)",
+        titre: "Une règle d'évaluation en une ligne (§ 9)",
         texte: "« Les stocks doivent être évalués au plus faible du coût et de la valeur nette de réalisation. » La valeur nette de réalisation est « le prix de vente estimé dans le cours normal de l'activité, diminué des coûts estimés pour l'achèvement et des coûts estimés nécessaires pour réaliser la vente » (§ 6). Elle n'est pas la juste valeur : « La première est une valeur spécifique à l'entité, contrairement à la seconde. » (§ 7).",
       },
       { type: 'controle', question: QCM[1] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : le concentré de cuivre et l'exception minière du § 3(a)",
+        titre: "Le concentré de cuivre peut-il échapper au coût ?",
         texte: "Un producteur de cuivre du Katanga peut-il évaluer son concentré à la valeur nette de réalisation, variations en résultat, plutôt qu'au plus faible du coût et de cette valeur ? IAS 2.3(a) et 2.4 ne le permettent que si la pratique est « bien établie » dans le secteur, et donnent des exemples de conditions : vente assurée par un contrat à terme ou une garantie de l'État, ou marché actif avec un risque de mévente négligeable. Le cuivre coté remplit en principe la seconde condition ; un produit intermédiaire sans débouché liquide, beaucoup moins. L'entité doit documenter la pratique invoquée, et le choix engage la volatilité de son résultat. Par défaut, c'est la règle générale du § 9 qui s'applique.",
       },
     ],
@@ -492,11 +492,11 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[2] },
       {
         type: 'paragraphe',
-        texte: "Le coût de transformation comprend les coûts directs, comme la main-d'œuvre directe, et une affectation systématique des frais généraux de production, variables et fixes (§ 12). C'est là que se loge la principale difficulté technique de la norme : les frais fixes sont imputés sur la base de la **capacité normale**, c'est-à-dire la production moyenne attendue sur plusieurs périodes dans des circonstances normales, entretien planifié compris (§ 13). Les frais non imputés du fait d'une sous-activité sont une charge de la période. À l'inverse, en période de production anormalement élevée, la part de frais fixes par unité est diminuée « de telle sorte que les stocks ne soient pas évalués au-dessus du coût ».",
+        texte: "Le coût de transformation comprend les coûts directs, comme la main-d'œuvre directe, et une affectation systématique des frais généraux de production, variables et fixes (§ 12). Là se loge la principale difficulté technique de la norme : les frais fixes sont imputés sur la base de la **capacité normale**, c'est-à-dire la production moyenne attendue sur plusieurs périodes dans des circonstances normales, entretien planifié compris (§ 13). Les frais non imputés du fait d'une sous-activité sont une charge de la période. À l'inverse, en période de production anormalement élevée, la part de frais fixes par unité est diminuée « de telle sorte que les stocks ne soient pas évalués au-dessus du coût ».",
       },
       {
         type: 'carte',
-        titre: "Pas à pas : la sous-activité d'une brasserie du Kasaï soumise aux délestages (société fictive)",
+        titre: "Les délestages coûtent, mais pas au stock (brasserie du Kasaï, société fictive)",
         texte: "Frais généraux fixes de production de l'exercice : 1 200 000 USD. Capacité normale : 600 000 casiers. Production réelle, réduite par les coupures d'électricité : 450 000 casiers. Coûts variables (matières, main-d'œuvre directe, frais variables) : 3 USD par casier. 50 000 casiers restent en stock à la clôture.",
         tableau: {
           entetes: ['', 'Imputation rationnelle (IAS 2.13)', 'Imputation de tous les frais fixes (erronée)'],
@@ -528,7 +528,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : ciment en sacs, PEPS contre coût moyen pondéré",
+        titre: "Mêmes sacs de ciment, deux résultats : PEPS ou coût moyen",
         texte: "Stock initial 1 000 sacs à 20 ; achat de 3 000 sacs à 22 ; sortie de 2 500 ; achat de 2 000 à 25 ; sortie de 2 000. Coût total disponible : 20 000 + 66 000 + 50 000 = 136 000. Stock final : 1 500 sacs.",
         tableau: {
           entetes: ['', 'PEPS', 'Coût moyen pondéré (à chaque entrée)'],
@@ -545,7 +545,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[6] },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA : une convergence presque complète",
+        titre: "Sur le coût des stocks, SYSCOHADA et IFRS parlent d'une seule voix",
         texte: "L'article 44 de l'AUDCIF et le chapitre 14 du Titre VIII reprennent les mêmes briques : coût d'acquisition et de production, exclusions identiques, imputation rationnelle, identification spécifique pour les biens individualisables, PEPS ou coût moyen pondéré pour les biens fongibles, coût standard et prix de détail tolérés s'ils donnent un résultat proche du coût. Une particularité : en inventaire intermittent, le SYSCOHADA admet un coût moyen pondéré calculé sur la durée moyenne de stockage, illustré par un exemple officiel (rotation de 5, soit 2,4 mois d'écoulement, coût d'entrée d'octobre appliqué au stock final). Une entité qui établit ses deux jeux d'états peut donc, sur ce point, garder un seul calcul de coût.",
       },
     ],
@@ -573,9 +573,9 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[8] },
       {
         type: 'carte',
-        titre: "Pas à pas : le stock de produits finis d'AGROFOOD SA",
+        titre: "AGROFOOD SA : 20 000 de dépréciation, puis 6 000 de reprise",
         liste: [
-          "**Donnée (31 décembre N).** 1 000 unités de produits finis au coût unitaire de 120 USD, soit 120 000. À la suite d'une baisse des prix du marché, le prix de vente estimé tombe à 110 et les coûts nécessaires à la vente sont de 10 par unité.",
+          "Au 31 décembre N, AGROFOOD détient 1 000 unités de produits finis au coût unitaire de 120 USD, soit 120 000. À la suite d'une baisse des prix du marché, le prix de vente estimé tombe à 110 et les coûts nécessaires à la vente sont de 10 par unité.",
           "**Valeur nette de réalisation** : 110 − 10 = **100** par unité, inférieure au coût de 120 : la dépréciation est obligatoire (§ 9 et 28).",
           "**Dépréciation** : (120 − 100) × 1 000 = **20 000**, en charges de N (§ 34). Stock au bilan : 100 000.",
           "**En N+1**, 600 unités sont vendues : leur coût et la dépréciation qui s'y rattache (12 000) sortent ensemble, dans le coût des ventes.",
@@ -598,7 +598,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA : même règle, deux nuances",
+        titre: "Valeur liquidative et sinistre HAO : les deux nuances du SYSCOHADA",
         texte: "Le SYSCOHADA révisé évalue lui aussi les stocks « au plus faible du coût d'entrée et de la valeur actuelle », la valeur actuelle des stocks représentant la valeur nette de réalisation (Titre VIII, ch. 14, § 3.2.1). Il décline la règle par nature (matières, en-cours, produits intermédiaires, produits finis) avec la même logique que le § 32 d'IAS 2, refuse lui aussi toute dépréciation forfaitaire fondée sur la seule rotation, et comptabilise dépréciation et reprise par les comptes 6593, 39 et 7593, la dépréciation étant obligatoire même en l'absence de bénéfice. Deux nuances : en cas de non-continuité d'exploitation, il retient explicitement une valeur liquidative ; et la perte d'un stock par sinistre passe en charges HAO (compte 831), l'indemnité en produits HAO (compte 841), là où IAS 2 et IAS 1 ne connaissent pas de rubrique hors activités ordinaires.",
       },
     ],
@@ -614,7 +614,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : trois définitions d'IAS 32 (§ 11)",
+        titre: "Un contrat, deux entités, trois définitions (IAS 32.11)",
         texte: "« Un **instrument financier** est tout contrat qui donne lieu à un actif financier pour une entité et à un passif financier ou à un instrument de capitaux propres pour une autre entité. » Un actif financier est notamment de la trésorerie, un instrument de capitaux propres d'une autre entité, ou un droit contractuel de recevoir de la trésorerie ou un autre actif financier. « Un **instrument de capitaux propres** est tout contrat mettant en évidence un intérêt résiduel dans les actifs d'une entité après déduction de tous ses passifs. » Deux conséquences pratiques : un droit à recevoir des biens ou des services (avance à un fournisseur, charge payée d'avance) n'est pas un actif financier ; une obligation fiscale, qui ne naît pas d'un contrat, n'est pas un passif financier (IAS 32.AG11-AG12).",
       },
       { type: 'controle', question: QCM[11] },
@@ -675,7 +675,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[16] },
       {
         type: 'carte',
-        titre: "Arbre de décision : classer un actif financier",
+        titre: "Quatre questions pour classer un actif financier",
         liste: [
           "**1.** Est-ce un instrument de capitaux propres ? Juste valeur par le biais du résultat net, sauf choix irrévocable, titre par titre, pour les autres éléments du résultat global s'il n'est pas détenu à des fins de transaction (§ 4.1.4, 5.7.5). Dans ce cas, pas de recyclage et dividendes en résultat (§ 5.7.6 ; B5.7.1).",
           "**2.** Pour un instrument de dette : les flux sont-ils uniquement du principal et des intérêts ? Non : juste valeur par le biais du résultat net.",
@@ -689,8 +689,8 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[19] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : des actions non cotées au coût ?",
-        texte: "Beaucoup d'entités congolaises détiennent des participations minoritaires non cotées : parts dans une société de transport fluvial qui dessert l'entreprise, actions d'un fournisseur, titres reçus lors d'une restructuration. IFRS 9 impose de les évaluer à la juste valeur (B5.2.3). Le même paragraphe admet toutefois que, « dans des circonstances limitées », le coût puisse constituer une estimation appropriée de la juste valeur : faute d'informations récentes suffisantes, ou lorsque le coût est la meilleure estimation dans une large fourchette. C'est une tolérance d'estimation, non une catégorie comptable : l'entité doit justifier chaque année que ces circonstances persistent. Le choix des autres éléments du résultat global évite en outre que la volatilité de ces titres ne se lise dans le résultat.",
+        titre: "Des actions non cotées au coût ?",
+        texte: "Beaucoup d'entités congolaises détiennent des participations minoritaires non cotées : parts dans une société de transport fluvial qui dessert l'entreprise, actions d'un fournisseur, titres reçus lors d'une restructuration. IFRS 9 impose de les évaluer à la juste valeur (B5.2.3). Le même paragraphe admet toutefois que, « dans des circonstances limitées », le coût puisse constituer une estimation appropriée de la juste valeur : faute d'informations récentes suffisantes, ou lorsque le coût est la meilleure estimation dans une large fourchette. Il s'agit d'une tolérance d'estimation, non d'une catégorie comptable : l'entité doit justifier chaque année que ces circonstances persistent. Le choix des autres éléments du résultat global évite en outre que la volatilité de ces titres ne se lise dans le résultat.",
       },
     ],
   },
@@ -705,13 +705,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : le taux d'intérêt effectif (annexe A et § 5.4.1)",
+        titre: "Le taux qui fait tomber juste (annexe A ; § 5.4.1)",
         texte: "Le taux d'intérêt effectif est le « Taux qui actualise les sorties ou entrées de trésorerie futures estimées sur la durée de vie attendue d'un actif financier ou d'un passif financier de manière à obtenir exactement la valeur comptable brute de l'actif financier ou le coût amorti du passif financier. » L'entité prend en compte toutes les modalités contractuelles, « mais elle ne doit pas tenir compte des pertes de crédit attendues ». Et les produits d'intérêts « doivent être calculés selon la méthode du taux d'intérêt effectif » (§ 5.4.1), par application de ce taux à la valeur comptable brute, sauf pour les actifs dépréciés.",
       },
       { type: 'controle', question: QCM[20] },
       {
         type: 'carte',
-        titre: "Pas à pas : l'emprunt d'équipement de MBANZA CIMENT SA (société fictive)",
+        titre: "MBANZA CIMENT emprunte 100 000 et encaisse 97 000",
         texte: "Le 1er janvier N, la société emprunte 100 000 USD sur trois ans pour financer un broyeur : intérêt de 10 % payé en fin d'année, remboursement in fine. La banque retient 3 000 USD de frais de dossier : la société encaisse 97 000. Le taux qui égalise 97 000 et les flux futurs (10 000, 10 000 et 110 000) est d'environ **11,23 %**.",
         tableau: {
           entetes: ['Année', "Coût amorti de la dette à l'ouverture", 'Charge d\'intérêts au taux effectif', 'Intérêts payés', 'Part des frais étalée', 'Coût amorti à la clôture'],
@@ -727,7 +727,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[21] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : frais d'emprunt en charges, étalement linéaire ou taux effectif ?",
+        titre: "Frais d'emprunt : en charges, étalés, ou au taux effectif ?",
         texte: "Dans la pratique, beaucoup d'entreprises passent les frais de dossier d'un emprunt en charges dès l'octroi, ou les étalent linéairement. IFRS 9 exige la méthode du taux effectif. IAS 8.8 admet qu'« Il convient de ne pas appliquer ces méthodes lorsque l'effet de leur application n'est pas significatif », mais ajoute aussitôt qu'« il est inapproprié de faire, ou de ne pas corriger, des écarts non significatifs par rapport aux IFRS en vue de parvenir à une présentation particulière ». Une méthode simplifiée se défend donc par un calcul qui démontre que l'écart reste non significatif, pas par une affirmation. Le même raisonnement vaut pour les prêts au personnel sans intérêt : leur actualisation n'est pas un raffinement, dès lors que les montants sont significatifs.",
       },
       { type: 'controle', question: QCM[22] },
@@ -749,7 +749,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : trois exigences de mesure (§ 5.5.17)",
+        titre: "Probabilités, temps, conjoncture : les trois exigences du § 5.5.17",
         texte: "Les pertes de crédit attendues doivent refléter « (a) un montant objectif et fondé sur des pondérations probabilistes, qui est déterminé par l'évaluation d'un intervalle de résultats possibles ; (b) la valeur temps de l'argent ; (c) les informations raisonnables et justifiables sur des événements passés, des circonstances actuelles et des prévisions de la conjoncture économique encore à venir, qu'il est possible, à la date de clôture, d'obtenir sans devoir engager des coûts ou des efforts déraisonnables ». Le point (c) est la vraie rupture : l'historique ne suffit plus, il faut y intégrer la conjoncture attendue.",
       },
       {
@@ -771,10 +771,10 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[24] },
       {
         type: 'carte',
-        titre: "Pas à pas : le prêt de MBANZA CIMENT à son distributeur traverse les étapes (simplification pédagogique)",
+        titre: "Le distributeur du Kwilu paie en retard : de 900 à 6 750 de pertes attendues",
         liste: [
           "**Convention de calcul.** Pertes attendues = probabilité de défaillance × taux de perte en cas de défaillance × valeur brute. Ce produit simplifié ignore l'actualisation et les scénarios multiples ; la norme exige les deux (§ 5.5.17). Il suffit ici à montrer la mécanique.",
-          "**Donnée.** Le 1er janvier N, MBANZA CIMENT prête 100 000 USD à son distributeur exclusif du Kwilu, pour trois ans, intérêt de 10 % payé en fin d'année, remboursement in fine, sans frais : le taux effectif est de 10 % et la valeur brute reste de 100 000.",
+          "Le 1er janvier N, MBANZA CIMENT prête 100 000 USD à son distributeur exclusif du Kwilu, pour trois ans, intérêt de 10 % payé en fin d'année, remboursement in fine, sans frais : le taux effectif est de 10 % et la valeur brute reste de 100 000.",
           "**Fin N, étape 1.** Probabilité de défaillance à 12 mois 2 %, taux de perte 45 % : 100 000 × 2 % × 45 % = **900**. Dotation de 900 en résultat (§ 5.5.8). Coût amorti : 99 100. Produits d'intérêts de N+1 calculés sur la valeur brute : 10 000.",
           "**Fin N+1, étape 2.** Un intérêt est impayé depuis 45 jours : la présomption du § 5.5.11 joue. Probabilité de défaillance sur la durée de vie restante 15 % : 100 000 × 15 % × 45 % = **6 750**. Dotation complémentaire : 6 750 − 900 = **5 850**.",
           "**Si l'emprunteur entre en difficultés financières importantes (étape 3)**, l'actif devient un actif financier déprécié : les intérêts des périodes suivantes se calculent sur le coût amorti net de la correction (§ 5.4.1(b)). Et lorsque plus aucun recouvrement n'est raisonnablement attendu, la valeur brute est réduite directement : c'est une décomptabilisation (§ 5.4.4).",
@@ -783,7 +783,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[31] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : l'information prospective en économie congolaise",
+        titre: "Le cuivre, le franc et la sécurité dans la matrice",
         texte: "Que signifie une « prévision de la conjoncture économique » pour un distributeur de Lubumbashi qui vend à crédit à des sous-traitants miniers ? Le cours du cuivre et du cobalt, dont dépend la solvabilité de ses clients ; la trajectoire du franc congolais, qui fragilise les clients endettés en dollars mais payés en francs ; la situation sécuritaire, qui peut couper l'accès à une province ; la hausse des taux d'intérêt, qui renchérit le crédit de ses clients. La norme ne demande pas une prévision exacte, mais une pondération honnête de scénarios plausibles, justifiée et documentée. Deux dérives sont à éviter : ignorer la conjoncture, ce qui revient à revenir aux pertes subies ; ou l'invoquer pour lisser le résultat d'une année sur l'autre.",
       },
     ],
@@ -795,12 +795,12 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Pour une entreprise commerciale, le modèle des étapes serait disproportionné. IFRS 9 l'en dispense : pour les créances clients et actifs sur contrat relevant d'IFRS 15 sans composante financement importante, l'entité « doit toujours évaluer la correction de valeur pour pertes au montant des pertes de crédit attendues pour la durée de vie » (§ 5.5.15(a)). C'est l'**approche simplifiée** : plus de suivi de la dégradation depuis l'origine. Pour les créances avec composante financement et les créances locatives, elle est optionnelle, sur choix de méthode comptable (§ 5.5.15(a)(ii) et (b)).",
+        texte: "Pour une entreprise commerciale, le modèle des étapes serait disproportionné. IFRS 9 l'en dispense : pour les créances clients et actifs sur contrat relevant d'IFRS 15 sans composante financement importante, l'entité « doit toujours évaluer la correction de valeur pour pertes au montant des pertes de crédit attendues pour la durée de vie » (§ 5.5.15(a)). Voilà l'**approche simplifiée** : plus de suivi de la dégradation depuis l'origine. Pour les créances avec composante financement et les créances locatives, elle est optionnelle, sur choix de méthode comptable (§ 5.5.15(a)(ii) et (b)).",
       },
       { type: 'controle', question: QCM[25] },
       {
         type: 'carte',
-        titre: "Pas à pas : la matrice de dépréciation de DISTRICOM SA",
+        titre: "DISTRICOM SA : 400 000 de créances, 32 000 de pertes attendues",
         texte: "La méthode pratique tient en quatre temps : classer les créances par ancienneté ; appliquer à chaque tranche un taux de perte estimé ; calculer la perte attendue ; la comptabiliser immédiatement. B5.5.35 cite cette matrice comme exemple de simplification, avec des taux tirés de l'historique des pertes, ajustés des informations actuelles et prospectives.",
         tableau: {
           entetes: ['Ancienneté', 'Montant (USD)', 'Taux de perte attendu', 'Perte attendue'],
@@ -817,7 +817,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[26] },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA : la perte subie contre la perte attendue",
+        titre: "15 000 ou 32 000 : perte subie contre perte attendue",
         texte: "Le SYSCOHADA révisé déprécie les créances par le compte 491, avec une logique opposée. La dépréciation doit être « certaine quant à sa nature » et l'élément d'actif « individualisé » ; l'entité doit pouvoir justifier les motifs qui rendent la créance douteuse ou litigieuse, et les événements survenus après la clôture ne sont pas pris en compte (Titre VII, commentaire du compte 49). Sur l'exemple de DISTRICOM, supposons que 25 000 des 40 000 de la tranche de plus de 60 jours correspondent à des clients identifiés comme douteux, recouvrables à 40 % : la dépréciation SYSCOHADA serait de 15 000, contre 32 000 en IFRS 9. L'écart n'est pas une erreur de l'un ou de l'autre : il mesure la différence entre un modèle qui constate une perte et un modèle qui l'anticipe. Il se retrouve dans les impôts différés des groupes qui établissent les deux jeux d'états (chapitre 6).",
       },
       { type: 'controle', question: QCM[27] },
@@ -853,7 +853,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[29] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : ce que ce chapitre relie",
+        titre: "Le stock et la créance, une même idée",
         texte: "Stocks et instruments financiers semblent appartenir à deux mondes. Ils obéissent pourtant à une même idée : un actif ne vaut au bilan que ce qu'il rapportera. IAS 2 plafonne le stock à sa valeur nette de réalisation ; IFRS 9 réduit la créance des pertes de crédit qu'on en attend. La différence tient au moment : IAS 2 attend un indice de perte (prix en baisse, obsolescence), IFRS 9 anticipe la perte dès le premier jour. Le passage de la perte subie à la perte attendue est l'une des transformations les plus profondes de la comptabilité financière récente ; il oblige toute entreprise qui applique les IFRS à organiser le suivi de ses créances (balance âgée, historique des pertes, informations sur ses clients) bien au-delà de ce qu'exige la tenue des comptes en SYSCOHADA.",
       },
     ],

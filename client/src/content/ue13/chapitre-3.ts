@@ -136,7 +136,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "9 000 000 en OCI et 6 000 000 en résultat" },
     ],
     reponseCorrecte: 'b',
-    explication: "Pour un actif réévalué, la perte est traitée comme une réévaluation négative : en autres éléments du résultat global à hauteur de l'écart de réévaluation de cet actif, le solde en résultat net (IAS 36.60-61 ; IAS 16.40). C'est l'exemple officiel du SYSCOHADA révisé (Titre VIII, ch. 12, § 2.5) : débit de l'écart de réévaluation pour 6 000 000 et d'une dotation pour 9 000 000. Sur ce point précis, les deux référentiels convergent.",
+    explication: "Pour un actif réévalué, la perte est traitée comme une réévaluation négative : en autres éléments du résultat global à hauteur de l'écart de réévaluation de cet actif, le solde en résultat net (IAS 36.60-61 ; IAS 16.40). Le SYSCOHADA révisé traite le même cas dans son exemple officiel (Titre VIII, ch. 12, § 2.5) : débit de l'écart de réévaluation pour 6 000 000 et d'une dotation pour 9 000 000. Sur ce point précis, les deux référentiels convergent.",
     articleRef: "IAS 36.60-61 ; SYSCOHADA, Titre VIII, ch. 12",
   },
   {
@@ -162,7 +162,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "0" },
     ],
     reponseCorrecte: 'b',
-    explication: "Fin N+2, la valeur comptable est de 20 000 000 − 2 × 2 500 000 = 15 000 000. Sans perte, elle aurait été de 30 000 000 − 4 × 3 000 000 = 18 000 000. La reprise est plafonnée à ce montant (IAS 36.117) : 18 000 000 − 15 000 000 = 3 000 000, même si la valeur recouvrable atteint 19 000 000. C'est l'exemple officiel du SYSCOHADA révisé, qui retient le même plafond.",
+    explication: "Fin N+2, la valeur comptable est de 20 000 000 − 2 × 2 500 000 = 15 000 000. Sans perte, elle aurait été de 30 000 000 − 4 × 3 000 000 = 18 000 000. La reprise est plafonnée à ce montant (IAS 36.117) : 18 000 000 − 15 000 000 = 3 000 000, même si la valeur recouvrable atteint 19 000 000. Le SYSCOHADA révisé retient ce même exemple, et le même plafond.",
     articleRef: "IAS 36.117 ; SYSCOHADA, Titre VIII, ch. 12, § 2.4.2",
   },
   {
@@ -318,7 +318,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Au choix de la direction" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 40.10 : si les parties peuvent être vendues (ou louées en location-financement) séparément, l'entité les comptabilise séparément. Sinon, le bien n'est un immeuble de placement que si la partie occupée est non significative. C'est l'exemple officiel du SYSCOHADA révisé (Titre VIII, ch. 10) : un quart, soit 50 000 000 F, en immobilisations corporelles, trois quarts, soit 150 000 000 F, en immeubles de placement.",
+    explication: "IAS 40.10 : si les parties peuvent être vendues (ou louées en location-financement) séparément, l'entité les comptabilise séparément. Sinon, le bien n'est un immeuble de placement que si la partie occupée est non significative. Exemple officiel du SYSCOHADA révisé (Titre VIII, ch. 10) : un quart, soit 50 000 000 F, en immobilisations corporelles, trois quarts, soit 150 000 000 F, en immeubles de placement.",
     articleRef: "IAS 40.10 ; SYSCOHADA, Titre VIII, ch. 10",
   },
   {
@@ -331,7 +331,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Nulle part : elle est seulement indiquée en notes" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 40.35 : le profit ou la perte résultant d'une variation de juste valeur est comptabilisé en résultat net de la période où il se produit. C'est la grande différence avec le modèle de la réévaluation d'IAS 16, où la hausse passe en autres éléments du résultat global (IAS 16.39). Au modèle de la juste valeur, l'immeuble n'est d'ailleurs pas amorti ni soumis à IAS 36.",
+    explication: "IAS 40.35 : le profit ou la perte résultant d'une variation de juste valeur est comptabilisé en résultat net de la période où il se produit. Tout l'écart avec le modèle de la réévaluation d'IAS 16 est là, où la hausse passe en autres éléments du résultat global (IAS 16.39). Au modèle de la juste valeur, l'immeuble n'est d'ailleurs pas amorti ni soumis à IAS 36.",
     articleRef: "IAS 40.33-35 ; IAS 16.39",
   },
   {
@@ -414,7 +414,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : une obligation de recherche, pas de calcul (§ 9)",
+        titre: "Chercher un indice n'oblige pas à calculer (§ 9)",
         texte: "« Une entité doit déterminer à la fin de chaque période de présentation de l'information financière s'il existe un quelconque indice qu'un actif a pu se déprécier. S'il existe un tel indice, l'entité doit estimer la valeur recouvrable de l'actif. » Le § 10 ouvre par la formule inverse : « Qu'il y ait un indice de dépréciation ou non, une entité doit aussi » tester chaque année les incorporelles à durée d'utilité indéterminée ou pas encore prêtes à être utilisées, ainsi que le goodwill. La première phrase du § 9 impose une diligence ; seule la seconde impose un calcul.",
       },
       { type: 'controle', question: QCM[1] },
@@ -432,7 +432,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : les indices dans le contexte congolais",
+        titre: "Insécurité, fiscalité, franc : des indices à la congolaise",
         texte: "La liste du § 12 est un minimum (§ 13). Dans la pratique congolaise, plusieurs faits méritent d'être examinés comme des indices possibles : une crise sécuritaire qui interrompt l'accès à un site, comme dans l'est du pays ; un changement du régime fiscal ou minier qui réduit la rentabilité d'un projet ; une hausse forte des taux directeurs ; une dépréciation rapide du franc congolais qui renchérit des intrants importés. Aucun de ces faits n'impose automatiquement une perte. Chacun impose de se poser la question, et de documenter la réponse. Le principe d'importance relative s'applique (§ 15), et un indice peut aussi conduire à revoir la durée d'utilité, le mode ou la valeur résiduelle de l'actif (§ 17).",
       },
       { type: 'controle', question: QCM[2] },
@@ -450,9 +450,9 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[3] },
       {
         type: 'carte',
-        titre: "Pas à pas : la ligne de production d'INDUSTRIA SA",
+        titre: "INDUSTRIA SA : le marché baisse, la ligne ne se déprécie pas",
         liste: [
-          "**Donnée (31 décembre N).** Ligne de production spécialisée : valeur brute 1 200 000 USD, amortissements cumulés 500 000, valeur nette comptable **700 000**.",
+          "Au 31 décembre N, la ligne de production spécialisée affiche : valeur brute 1 200 000 USD, amortissements cumulés 500 000, valeur nette comptable **700 000**.",
           "**Indices.** Le prix de marché des équipements similaires baisse et une technologie concurrente arrive : deux indices du § 12, l'un externe (a), l'autre lié à l'environnement technologique (b). Le test est donc obligatoire (§ 9).",
           "**Estimations.** Juste valeur diminuée des coûts de sortie : 690 000. Valeur d'utilité, fondée sur des flux validés : 760 000.",
           "**Valeur recouvrable** : max (690 000 ; 760 000) = **760 000**, supérieure à 700 000. **Aucune dépréciation**.",
@@ -462,7 +462,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : juste valeur et valeur d'utilité ne sont pas la même chose (§ 53A)",
+        titre: "Le regard du marché, le regard de l'entité (§ 53A)",
         texte: "« La juste valeur diffère de la valeur d'utilité. La juste valeur reflète les hypothèses que les intervenants du marché utiliseraient pour fixer le prix de l'actif. Par contre, la valeur d'utilité reflète les effets des facteurs qui peuvent être spécifiques à l'entité et ne pas s'appliquer aux entités en général. » La norme énumère ensuite ce que la juste valeur ne reflète pas : la valeur supplémentaire tirée d'un regroupement d'actifs, les synergies avec d'autres actifs, les droits ou restrictions juridiques propres au propriétaire actuel, ses avantages ou charges fiscaux spécifiques. Le Cadre de 2018 fait la même distinction entre valeurs de marché et valeurs spécifiques à l'entité (§ 6.12, 6.17-6.19). Si la juste valeur ne peut pas être évaluée faute de base fiable, l'entité peut retenir la valeur d'utilité ; s'il n'existe aucune raison de penser que la valeur d'utilité excède de façon significative la juste valeur diminuée des coûts de sortie, ce qui sera souvent le cas d'un actif détenu en vue d'être sorti, on peut retenir cette dernière (§ 20-21).",
       },
       {
@@ -481,7 +481,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[5] },
       {
         type: 'carte',
-        titre: "Pas à pas : la valeur d'utilité d'une ligne d'embouteillage (en milliers de USD)",
+        titre: "Cinq années de flux pour une ligne d'embouteillage (en milliers de USD)",
         texte: "Flux nets de trésorerie avant impôt et hors financement, tirés du budget approuvé : année 1, 120 ; année 2, 130 ; année 3, 125 ; année 4, 110 ; année 5, 100, plus 40 de produit net de sortie en fin de vie. Taux d'actualisation avant impôt : 14 %. Valeur comptable : 480. Juste valeur diminuée des coûts de sortie : 380.",
         tableau: {
           entetes: ['Année', 'Flux', "Facteur d'actualisation (14 %)", 'Valeur actualisée'],
@@ -499,7 +499,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[7] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : dollars, francs congolais et cohérence flux-taux",
+        titre: "Des flux en dollars, un taux en francs : l'erreur à ne pas commettre",
         texte: "Beaucoup d'actifs congolais génèrent des flux en dollars alors que la comptabilité est tenue en francs congolais. IAS 36.54 tranche : on estime les flux dans leur monnaie d'origine, on les actualise à un taux approprié à cette monnaie, puis on convertit la valeur actualisée au cours au comptant de la date du calcul. Le § 40 ajoute une règle de cohérence : un taux nominal s'applique à des flux nominaux, un taux réel à des flux réels. Actualiser des flux en dollars au taux d'un emprunt en francs, qui intègre l'inflation locale, compterait deux fois un risque monétaire que les flux ne portent pas.",
       },
       { type: 'controle', question: QCM[6] },
@@ -516,7 +516,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : l'immeuble réévalué de TRANSLOG SA",
+        titre: "TRANSLOG SA : l'écart de réévaluation absorbe d'abord le choc",
         texte: "TRANSLOG SA utilise pour son exploitation un immeuble industriel, évalué selon le modèle de la réévaluation d'IAS 16. Écart de réévaluation au 1er janvier N : 12 000 USD, créditeur. Au 31 décembre N : valeur nette comptable 180 000, valeur recouvrable 160 000.",
         tableau: {
           entetes: ['Étape', 'Fondement', 'Montant', 'Écriture'],
@@ -536,20 +536,20 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : « si, et seulement si » (§ 59, § 114, § 116)",
+        titre: "« Si, et seulement si » : la norme ne laisse pas le choix",
         texte: "La perte : « Si, et seulement si, la valeur recouvrable d'un actif est inférieure à sa valeur comptable, la valeur comptable de l'actif doit être ramenée à sa valeur recouvrable. Cette réduction est une perte de valeur. » (§ 59). La reprise : la perte d'un actif autre qu'un goodwill « doit être reprise si, et seulement si, il y a eu un changement dans les estimations utilisées pour déterminer la valeur recouvrable de l'actif depuis la dernière comptabilisation d'une perte de valeur » (§ 114). Et la limite : « une perte de valeur n'est pas reprise du simple fait du passage du temps (parfois nommé « désactualisation ») même si la valeur recouvrable de l'actif devient supérieure à sa valeur comptable » (§ 116). La même tournure encadre les deux mouvements : la norme ne laisse pas de choix, ni pour constater la perte, ni pour la reprendre.",
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : ce qui justifie une reprise, et ce qui ne la justifie pas (§ 115-116)",
+        titre: "Un taux qui baisse, oui ; le temps qui passe, non (§ 115-116)",
         texte: "Une reprise « reflète une augmentation du potentiel de service estimé d'un actif » (§ 115). La norme donne des exemples de changements d'estimation qui la justifient, dont, pour une valeur recouvrable fondée sur la valeur d'utilité, « un changement du montant ou de l'échéancier des flux de trésorerie futurs estimés ou du taux d'actualisation » (§ 115(b)). Une baisse durable des taux d'actualisation peut donc fonder une reprise. Ce qui est exclu, c'est le seul effet mécanique du temps : la perte n'est pas reprise « du simple fait du passage du temps (parfois nommé « désactualisation ») » (§ 116). La norme n'exige pas non plus que la hausse soit « durable » : elle exige un changement dans les estimations, qu'il faut identifier et indiquer dans les notes (§ 130).",
       },
       { type: 'controle', question: QCM[9] },
       {
         type: 'carte',
-        titre: "Pas à pas : perte puis reprise plafonnée (exemple officiel du SYSCOHADA, lu en IFRS)",
+        titre: "Le matériel de 30 millions : perte, puis reprise plafonnée",
         liste: [
-          "**Donnée.** Matériel de 30 000 000 F acquis début N-1, amorti sur 10 ans, soit 3 000 000 F par an ; valeur nette fin N : 24 000 000 F.",
+          "Matériel de 30 000 000 F acquis début N-1, amorti sur 10 ans, soit 3 000 000 F par an ; valeur nette fin N : 24 000 000 F.",
           "**Fin N.** Valeur recouvrable 20 000 000 F : perte de **4 000 000 F**. Nouvel amortissement : 20 000 000 / 8 = 2 500 000 F par an.",
           "**Fin N+2.** Valeur comptable : 20 000 000 − 2 × 2 500 000 = 15 000 000 F. Valeur qu'elle aurait eue sans perte : 30 000 000 − 4 × 3 000 000 = **18 000 000 F**, qui constitue le plafond (§ 117).",
           "**Si la valeur recouvrable remonte à 17 000 000 F** : reprise de 2 000 000 F, en résultat net (§ 119).",
@@ -587,9 +587,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : une mine avec provision de remise en état (en millions de USD)",
+        titre: "Une mine et sa remise en état : comparer des grandeurs comparables (en millions de USD)",
         liste: [
-          "**Donnée.** Actifs de l'UGT : 900. Provision de remise en état comptabilisée : 300, que tout acquéreur reprendrait. Juste valeur de la mine, obligation de remise en état comprise, diminuée des coûts de sortie : 550. Valeur d'utilité des flux d'exploitation, hors décaissements de remise en état : 800.",
+          "L'UGT regroupe 900 d'actifs. Provision de remise en état comptabilisée : 300, que tout acquéreur reprendrait. Juste valeur de la mine, obligation de remise en état comprise, diminuée des coûts de sortie : 550. Valeur d'utilité des flux d'exploitation, hors décaissements de remise en état : 800.",
           "**Valeur comptable comparable** : 900 − 300 = 600.",
           "**Valeur d'utilité comparable** : 800 − 300 = 500.",
           "**Valeur recouvrable** : max (550 ; 500) = **550**.",
@@ -626,12 +626,12 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : l'ordre et le plancher (§ 104-105, § 124)",
+        titre: "D'abord le goodwill, jamais sous le plancher (§ 104-105, § 124)",
         texte: "La perte d'une UGT « doit être répartie, en réduction de la valeur comptable des actifs de l'unité (du groupe d'unités) dans l'ordre suivant : (a) tout d'abord, réduction de la valeur comptable de tout goodwill affecté à l'unité génératrice de trésorerie (au groupe d'unités) ; et (b) ensuite, réduction des autres actifs de l'unité (du groupe d'unités) au prorata de la valeur comptable de chaque actif dans l'unité (le groupe d'unités). » (§ 104). Le plancher : l'entité « ne doit pas réduire la valeur comptable d'un actif en dessous du plus élevé de : (a) sa juste valeur diminuée des coûts de sortie (si on peut l'évaluer) ; (b) sa valeur d'utilité (si on peut la déterminer) ; et (c) zéro. » (§ 105). Et le sens unique : « Une perte de valeur comptabilisée pour un goodwill ne doit pas être reprise lors d'une période ultérieure. » (§ 124).",
       },
       {
         type: 'carte',
-        titre: "Pas à pas : la cascade de BRASSERIE DU FLEUVE (société fictive)",
+        titre: "900 de perte à répartir chez BRASSERIE DU FLEUVE (société fictive)",
         texte: "UGT : goodwill 300 ; usine 1 200 ; matériel 600 ; marque acquise 300 ; valeur comptable totale 2 400. Valeur recouvrable de l'UGT : 1 500. Juste valeur diminuée des coûts de sortie de l'usine : 1 000.",
         tableau: {
           entetes: ['Actif', 'Valeur comptable', 'Imputation sans plancher', 'Imputation avec plancher (§ 105)', 'Valeur après test'],
@@ -666,8 +666,8 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : la sensibilité (§ 134(f))",
-        texte: "Pour chaque UGT portant un goodwill ou une incorporelle à durée d'utilité indéterminée importants, l'entité indique les hypothèses clés, la période de projection, le taux de croissance d'extrapolation et le taux d'actualisation (§ 134(a)-(e)). Le point (f) vise le cas où, « lorsqu'un changement raisonnablement possible d'une hypothèse clé sur laquelle la direction a fondé sa détermination de la valeur recouvrable de l'unité (du groupe d'unités) ferait en sorte que la valeur comptable de l'unité (du groupe d'unités) excède sa valeur recouvrable ». L'entité fournit alors « le montant de l'excédent de la valeur recouvrable de l'unité (du groupe d'unités) sur sa valeur comptable », « la valeur attribuée à l'hypothèse clé », et le montant du changement qui ramènerait la valeur recouvrable au niveau de la valeur comptable. C'est l'information la plus utile au lecteur : elle dit à quelle distance se trouve la prochaine dépréciation.",
+        titre: "À quelle distance est la prochaine dépréciation ? (§ 134(f))",
+        texte: "Pour chaque UGT portant un goodwill ou une incorporelle à durée d'utilité indéterminée importants, l'entité indique les hypothèses clés, la période de projection, le taux de croissance d'extrapolation et le taux d'actualisation (§ 134(a)-(e)). Le point (f) vise le cas où, « lorsqu'un changement raisonnablement possible d'une hypothèse clé sur laquelle la direction a fondé sa détermination de la valeur recouvrable de l'unité (du groupe d'unités) ferait en sorte que la valeur comptable de l'unité (du groupe d'unités) excède sa valeur recouvrable ». L'entité fournit alors « le montant de l'excédent de la valeur recouvrable de l'unité (du groupe d'unités) sur sa valeur comptable », « la valeur attribuée à l'hypothèse clé », et le montant du changement qui ramènerait la valeur recouvrable au niveau de la valeur comptable. Aucune information n'est plus utile au lecteur : elle dit à quelle distance se trouve la prochaine dépréciation.",
       },
       { type: 'controle', question: QCM[18] },
       {
@@ -709,7 +709,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : le pont roulant du SYSCOHADA",
+        titre: "Le pont roulant de 30 tonnes vaut-il encore 300 millions ?",
         texte: "Le SYSCOHADA illustre sa logique par un pont roulant de 30 tonnes acquis 300 000 000 F et mis en service le 31 décembre : un acquéreur de l'entité ne l'estimerait pas moins de 300 000 000 F, puisque c'est ce qu'il faudrait payer pour disposer du même matériel neuf, alors qu'à la revente on en tirerait « peut-être à peine la moitié ». Pas de dépréciation, donc. IAS 36 aboutirait au même résultat, mais par un autre chemin : si l'usine est rentable, la valeur d'utilité de l'UGT à laquelle appartient le pont couvre sa valeur comptable. Les deux référentiels divergent en revanche lorsque le prix du neuf baisse sans que les flux baissent (le SYSCOHADA déprécie, IAS 36 non), ou lorsque les flux s'effondrent alors que le prix du neuf tient (IAS 36 déprécie, le SYSCOHADA peut ne rien voir).",
       },
       { type: 'controle', question: QCM[19] },
@@ -740,7 +740,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[20] },
       {
         type: 'carte',
-        titre: "Arbre de décision : classer un bien immobilier",
+        titre: "Stock, bien occupé ou placement : six questions pour classer un immeuble",
         liste: [
           "**1.** Est-il détenu pour être vendu dans le cours normal de l'activité, ou aménagé en vue de cette vente ? Oui : **stocks** (IAS 2).",
           "**2.** Sa vente est-elle hautement probable dans les douze mois, dans son état actuel ? Oui : examiner **IFRS 5**.",
@@ -755,7 +755,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[22] },
       {
         type: 'filet',
-        titre: "Dans l'entreprise : cités de travailleurs, terrains de réserve et biens loués au groupe",
+        titre: "Cités de travailleurs, terrains de réserve, entrepôt loué à une filiale",
         texte: "Trois situations fréquentes dans les entreprises congolaises. Les **cités de travailleurs** d'une société minière ou sucrière ne sont pas des immeubles de placement, même si les salariés paient un loyer : IAS 40.9(c) exclut « un bien immobilier occupé par des membres du personnel (que ceux-ci paient ou non un loyer aux conditions du marché) » ; elles relèvent d'IAS 16. Un **terrain de réserve** acquis sans décision sur son usage est, en revanche, un immeuble de placement : si l'entité n'a pas déterminé qu'elle l'occupera ou le vendra à court terme, « le terrain est considéré comme étant détenu pour réaliser une plus-value en capital » (§ 8(b)). Enfin, un **entrepôt loué à une filiale** est un immeuble de placement dans les comptes individuels du bailleur, mais un bien occupé par son propriétaire dans les comptes consolidés du groupe (§ 15).",
       },
     ],
@@ -785,7 +785,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[23] },
       {
         type: 'carte',
-        titre: "Pas à pas : un immeuble de bureaux à Lubumbashi, sous les deux modèles (en milliers de USD)",
+        titre: "Un immeuble de Lubumbashi, deux résultats selon le modèle (en milliers de USD)",
         texte: "Acquis début N pour 2 000, frais d'acquisition compris : terrain 500, bâtiment 1 500 amorti sur 30 ans. Juste valeur fin N : 2 300. Loyers de N : 180.",
         tableau: {
           entetes: ['', 'Modèle de la juste valeur', 'Modèle du coût'],
@@ -811,9 +811,9 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[24] },
       {
         type: 'carte',
-        titre: "Pas à pas : l'immeuble loué d'IMMO PLUS SA, et le piège du mélange des modèles",
+        titre: "IMMO PLUS SA : ne jamais mélanger les deux modèles",
         liste: [
-          "**Donnée.** Immeuble loué à des tiers, acquis début N−5 pour 5 000 000 USD ; durée d'amortissement au modèle du coût : 25 ans. Au 31 décembre N, un expert indépendant l'estime à 4 300 000.",
+          "L'immeuble, loué à des tiers, a été acquis début N−5 pour 5 000 000 USD ; durée d'amortissement au modèle du coût : 25 ans. Au 31 décembre N, un expert indépendant l'estime à 4 300 000.",
           "**Modèle du coût.** Valeur nette : 5 000 000 − 6 × 200 000 = **3 800 000** (six exercices, de N−5 à N). La valeur recouvrable, voisine de la valeur de marché, dépasse la valeur nette : aucune dépréciation (IAS 36 ; IAS 40.56). L'amortissement se poursuit et la juste valeur de 4 300 000 est indiquée dans les notes (§ 79(e)).",
           "**Modèle de la juste valeur**, appliqué depuis l'acquisition. L'immeuble n'est pas amorti ; il figurait fin N−1 à sa juste valeur de cette date, par exemple 4 150 000. Variation de N : 4 300 000 − 4 150 000 = **+150 000**, en résultat net (§ 35), par le débit du compte d'immeuble de placement et le crédit d'un compte de produit (variation de juste valeur). Aucun écart de réévaluation n'intervient, et aucun test IAS 36 n'est requis (IAS 36.2(f)).",
           "**Le piège.** Calculer la variation de juste valeur par rapport à la valeur nette du modèle du coût revient à mélanger les deux modèles. Au modèle de la juste valeur, on compare toujours à la juste valeur précédente. Et la variation ne transite jamais par un écart de réévaluation : c'est ce qui distingue IAS 40 du modèle de la réévaluation d'IAS 16.",
@@ -822,7 +822,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA : la définition sans la juste valeur",
+        titre: "Le SYSCOHADA prend la définition, pas la juste valeur",
         texte: "Le SYSCOHADA révisé reprend la définition, les exemples et les cas particuliers d'IAS 40, avec des comptes dédiés (2281 Terrains immeubles de placement, 2315 et 2325 Bâtiments immeubles de placement). Mais il n'en reprend pas le modèle de la juste valeur : à la clôture, les immeubles de placement sont amortis sur leur durée d'utilité, et les transferts entre catégories n'ont pas d'incidence sur leur valeur comptable. Il évalue aussi l'immeuble acquis par échange à la valeur comptable de l'actif remis, là où IAS 40.27 retient la juste valeur si l'échange a une substance commerciale. Il signale enfin, dans son propre texte, un cas annoncé mais non développé, le « droit sur un bien immobilier » [texte officiel].",
       },
       { type: 'controle', question: QCM[27] },
@@ -853,9 +853,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : le siège devenu immeuble locatif",
+        titre: "Le siège libéré, puis loué",
         liste: [
-          "**Donnée.** Un bâtiment administratif (coût 1 000, amortissements cumulés 200, valeur nette 800) est libéré le 30 juin N et loué à des tiers ; l'entité applique le modèle de la juste valeur à ses immeubles de placement. Juste valeur au 30 juin : 1 100 ; au 31 décembre : 1 050.",
+          "Un bâtiment administratif (coût 1 000, amortissements cumulés 200, valeur nette 800) est libéré le 30 juin N et loué à des tiers ; l'entité applique le modèle de la juste valeur à ses immeubles de placement. Juste valeur au 30 juin : 1 100 ; au 31 décembre : 1 050.",
           "**Jusqu'au 30 juin** : amortissement et test IAS 36 selon IAS 16 (§ 62).",
           "**Au 30 juin** : écart de 1 100 − 800 = 300, traité comme une réévaluation IAS 16, donc en autres éléments du résultat global (écart de réévaluation), puisqu'aucune perte antérieure n'est à reprendre (§ 62(b)).",
           "**Au 31 décembre** : baisse de 50, en résultat net, selon IAS 40.35 : l'immeuble est désormais au modèle de la juste valeur.",
@@ -869,8 +869,8 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : ce que révèlent deux normes lues ensemble",
-        texte: "IAS 36 et IAS 40 répondent à la même question, celle de la valeur économique d'un actif, par deux méthodes opposées. IAS 36 part du coût et ne corrige qu'à la baisse, sous condition d'indice et avec reprise plafonnée. IAS 40, au modèle de la juste valeur, suit le marché dans les deux sens, en résultat. Entre les deux, IAS 16 ouvre une troisième voie : la réévaluation en capitaux propres. Un même immeuble peut donc produire trois résultats différents selon qu'il est occupé, loué ou réévalué. C'est la raison pour laquelle les critères de classement, qui paraissent techniques, sont en réalité décisifs.",
+        titre: "Un immeuble, trois résultats possibles",
+        texte: "IAS 36 et IAS 40 répondent à la même question, celle de la valeur économique d'un actif, par deux méthodes opposées. IAS 36 part du coût et ne corrige qu'à la baisse, sous condition d'indice et avec reprise plafonnée. IAS 40, au modèle de la juste valeur, suit le marché dans les deux sens, en résultat. Entre les deux, IAS 16 ouvre une troisième voie : la réévaluation en capitaux propres. Un même immeuble peut donc produire trois résultats différents selon qu'il est occupé, loué ou réévalué. Voilà pourquoi les critères de classement, qui paraissent techniques, sont en réalité décisifs.",
       },
     ],
   },
@@ -954,7 +954,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 4,
         enonce: "Pourquoi le goodwill reste-t-il à zéro alors que l'UGT a retrouvé une bonne partie de sa valeur ?",
-        correction: "Parce qu'IAS 36.125 considère que toute hausse ultérieure de la valeur recouvrable attribuable au goodwill serait, en substance, un goodwill généré en interne, que IAS 38.48 interdit de comptabiliser. La perte sur goodwill est donc irréversible, en IFRS comme en SYSCOHADA révisé. C'est une asymétrie assumée, qui incite à ne pas surévaluer le goodwill lors du regroupement initial.",
+        correction: "Parce qu'IAS 36.125 considère que toute hausse ultérieure de la valeur recouvrable attribuable au goodwill serait, en substance, un goodwill généré en interne, que IAS 38.48 interdit de comptabiliser. La perte sur goodwill est donc irréversible, en IFRS comme en SYSCOHADA révisé. L'asymétrie est assumée : qui incite à ne pas surévaluer le goodwill lors du regroupement initial.",
       },
     ],
   },
