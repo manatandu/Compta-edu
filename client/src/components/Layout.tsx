@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import GlobalSearch from '@/components/GlobalSearch'
 import { NotificationBell } from '@/components/NotificationBell'
+import { ChangerMotDePasse } from '@/components/ChangerMotDePasse'
 import { logout, User } from '@/lib/db'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
@@ -328,6 +329,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
         </div>
         <div className="flex gap-2 items-center">
           <NotificationBell user={user} />
+          <ChangerMotDePasse className="text-ink-soft hover:text-white hover:bg-white/5" />
           <Button variant="ghost" size="icon" className="h-8 w-8 text-ink-soft hover:text-destructive hover:bg-white/5" onClick={handleLogout} title="Déconnexion" aria-label="Déconnexion">
             <LogOut className="h-4 w-4" />
           </Button>
@@ -382,6 +384,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           </div>
           <div className="flex gap-1 shrink-0 items-center">
             <NotificationBell user={user} />
+            <ChangerMotDePasse className="h-9 w-9" />
             <Button variant="ghost" size="icon" className="h-9 w-9 text-destructive" onClick={handleLogout} aria-label="Déconnexion">
               <LogOut className="h-4 w-4" />
             </Button>

@@ -9,7 +9,7 @@ import {
   User, UserRole, Universite, Faculte, LigneSolution, Cours, Devoir, Soumission, QCMQuestion, QCMOption, NoteCours
 } from '@/lib/db'
 import {
-  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot,
+  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync,
   uploadDevoirPDF, uploadExercicePDF, uploadNoteCoursFile,
   saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
@@ -334,6 +334,8 @@ export default function ProfesseurPage() {
   const { toast } = useToast()
   const currentUser = useUser()
   const isAdmin = isAdminRole(currentUser)
+  const purgeFaite = React.useRef(false)
+  const annuaireSynchronise = React.useRef(false)
   const isStaff = isStaffRole(currentUser)
 
   const [, navigate] = useLocation()
@@ -462,9 +464,21 @@ export default function ProfesseurPage() {
   useEffect(() => {
     const unsub = onUsersSnapshot((firebaseUsers) => {
       setUsers(firebaseUsers)
+      // Nettoyage des anciens profils qui contiennent encore un mot de passe en
+      // clair : fait une fois par l'admin, seul autorisé à modifier les autres profils.
+      if (isAdmin && !purgeFaite.current && firebaseUsers.some(u => (u as any).password !== undefined)) {
+        purgeFaite.current = true
+        purgerMotsDePasseStockesAsync(firebaseUsers).catch(() => { purgeFaite.current = false })
+      }
+      // Annuaire du personnel (contacts de la messagerie étudiante) : réaligné
+      // une fois par visite de l'admin sur cette page.
+      if (isAdmin && !annuaireSynchronise.current) {
+        annuaireSynchronise.current = true
+        synchroniserAnnuaireAsync(firebaseUsers).catch(() => { annuaireSynchronise.current = false })
+      }
     })
     return () => unsub()
-  }, [])
+  }, [isAdmin])
 
   const refresh = () => {
     // Tout se met à jour via les hooks Firestore temps réel - pas besoin de refresh manuel
@@ -613,7 +627,7 @@ export default function ProfesseurPage() {
   const openEditUser = (u: User) => {
     setEditUserId(u.id)
     setUserForm({
-      username: u.username, password: u.password, nom: u.nom, prenom: u.prenom || '',
+      username: u.username, password: '', nom: u.nom, prenom: u.prenom || '',
       role: u.role, actif: u.actif,
       universiteId: (u as any).universiteId || '',
       faculteId: (u as any).faculteId || '',
@@ -625,7 +639,8 @@ export default function ProfesseurPage() {
   }
 
   const handleSaveUser = () => {
-    if (!userForm.username.trim() || !userForm.nom.trim() || !userForm.password.trim()) return
+    // Mot de passe exigé seulement à la création (voir le formulaire).
+    if (!userForm.username.trim() || !userForm.nom.trim() || (!editUserId && !userForm.password.trim())) return
     const existing = users.find(u => u.username === userForm.username.trim().toLowerCase() && u.id !== editUserId)
     if (existing) { toast({ title: "Ce nom d'utilisateur est déjà pris.=", variant: 'destructive' }); return }
 
@@ -3453,10 +3468,19 @@ export default function ProfesseurPage() {
               <Label>Nom d'utilisateur *</Label>
               <Input value={userForm.username} onChange={e => setUserForm(f => ({ ...f, username: e.target.value }))} placeholder="" className="mt-1" />
             </div>
-            <div>
-              <Label>Mot de passe *</Label>
-              <PasswordInput value={userForm.password} onChange={e => setUserForm(f => ({ ...f, password: e.target.value }))} className="mt-1" />
-            </div>
+            {editUserId ? (
+              // Le mot de passe d'un compte existant est géré par Firebase
+              // Authentication : il n'est ni stocké ni modifiable ici. Chacun le
+              // change lui-même (bouton clé, à côté de la déconnexion).
+              <p className="text-xs text-muted-foreground rounded-md bg-muted/40 p-2">
+                Mot de passe : l'utilisateur le change lui-même avec le bouton « Changer mon mot de passe », à côté de la déconnexion. En cas d'oubli, réinitialisez-le depuis la console Firebase (Authentication).
+              </p>
+            ) : (
+              <div>
+                <Label>Mot de passe *</Label>
+                <PasswordInput value={userForm.password} onChange={e => setUserForm(f => ({ ...f, password: e.target.value }))} className="mt-1" />
+              </div>
+            )}
 
             {/* Rôle : visible uniquement pour les membres du staff (pas étudiant) */}
             {(userForm.role === 'professeur' || userForm.role === 'assistant') && (
@@ -3582,7 +3606,7 @@ export default function ProfesseurPage() {
           </div>
           <DialogFooter className="flex-shrink-0 pt-2 border-t border-border">
             <Button variant="outline" onClick={() => setShowUserForm(false)}>Annuler</Button>
-            <Button onClick={handleSaveUser} disabled={!userForm.username.trim() || !userForm.nom.trim() || !userForm.password.trim()}>
+            <Button onClick={handleSaveUser} disabled={!userForm.username.trim() || !userForm.nom.trim() || (!editUserId && !userForm.password.trim())}>
               Enregistrer
             </Button>
           </DialogFooter>

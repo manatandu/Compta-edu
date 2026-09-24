@@ -5,6 +5,7 @@ import { Router, Route, Switch, Redirect } from 'wouter'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { initDefaultData, User } from '@/lib/db'
 import { logoutAsync, getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
+import { isProfRole } from '@/lib/permissions'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { onAuthStateChanged } from 'firebase/auth'
 import { terminate, clearIndexedDbPersistence } from 'firebase/firestore'
@@ -125,7 +126,7 @@ export default function App() {
           // étudiant - elle échouait en permission-denied à chaque chargement,
           // d'où des erreurs rouges en console dès l'écran de connexion. Elle
           // ne part donc qu'une fois une session à privilèges établie.
-          if (appUser && (appUser.role === 'admin' || appUser.role === 'professeur')) {
+          if (appUser && isProfRole(appUser)) {
             initCoursSystemeAsync().catch(console.error)
           }
         } catch (e) {

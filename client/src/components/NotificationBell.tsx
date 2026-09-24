@@ -3,7 +3,7 @@ import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, Message
 import { cn } from '@/lib/utils'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
-import { getUsersByIdsAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
+import { getUsersByIdsAsync, getFichesAnnuaireAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Notif {
@@ -80,7 +80,11 @@ export function NotificationBell({ user }: NotificationBellProps) {
   useEffect(() => {
     if (messagesRecus.length === 0) return
     // Seuls les profils des expéditeurs sont lus, pas toute la collection users.
-    getUsersByIdsAsync(messagesRecus.map(m => m.expediteurId)).then(users => {
+    // Un étudiant ne reçoit de messages que du personnel, dont les noms sont
+    // dans l'annuaire (il n'a pas accès aux profils complets).
+    const ids = messagesRecus.map(m => m.expediteurId)
+    const lecture = user?.role === 'etudiant' ? getFichesAnnuaireAsync(ids) : getUsersByIdsAsync(ids)
+    lecture.then(users => {
       const map: Record<string, string> = {}
       users.forEach(u => { map[u.id] = `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Utilisateur' })
       setExpediteurs(map)
