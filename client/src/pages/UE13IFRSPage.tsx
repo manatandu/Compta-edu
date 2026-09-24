@@ -90,13 +90,13 @@ const CHAPITRES = [
   },
   {
     num: 8,
-    titre: "Presentation des etats financiers et methodes comptables",
-    sousTitre: "IAS 1 · IAS 8",
-    duree: "4h",
-    actif: false,
+    titre: "Présentation des états financiers et méthodes comptables",
+    sousTitre: "IAS 1 · IFRS 18 · IAS 7 · IAS 8 · IAS 10 · SYSCOHADA Titre V",
+    duree: "8h",
+    actif: true,
     route: '/ue13/chapitre-8',
-    lecons: 6,
-    exercices: 12,
+    lecons: 8,
+    exercices: 36,
     couleur: 'bg-rose-50 text-rose-700',
     accent: 'border-l-rose-500',
   },
@@ -126,12 +126,12 @@ export default function UE13IFRSPage() {
           </div>
           <h1 className="text-2xl font-display font-bold mt-2">Normes Comptables Internationales IAS/IFRS</h1>
           <p className="text-sky-100 text-sm mt-1">
-            8 chapitres · 12 normes · 48 leçons · Source : IFRS Foundation 
+            8 chapitres · 27 normes et interprétations · 71 leçons · Source : IFRS Foundation 
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
-            <span>48 leçons</span>
-            <span>96 QCMs</span>
-            <span>40 cas pratiques</span>
+            <span>71 leçons</span>
+            <span>238 QCM</span>
+            <span>32 cas pratiques</span>
           </div>
         </div>
       </div>
