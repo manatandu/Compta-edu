@@ -1031,7 +1031,7 @@ const chapitre: Chapitre = {
   ],
   references: [
     { genre: 'texte', intitule: "IAS 16 — Immobilisations corporelles", precision: "§§ 1 à 79" },
-    { genre: 'texte', intitule: "IAS 38 — Immobilisations incorporelles", precision: "§§ 1 à 128 (transcription condensée du corpus)" },
+    { genre: 'texte', intitule: "IAS 38 — Immobilisations incorporelles", precision: "§§ 1 à 128 (texte français intégral)" },
     { genre: 'texte', intitule: "IAS 23 — Coûts d'emprunt", precision: "§§ 1 à 26" },
     { genre: 'texte', intitule: "IFRIC 1 — Changes in Existing Decommissioning, Restoration and Similar Liabilities", precision: "§§ 1 à 8" },
     { genre: 'texte', intitule: "IFRIC 20 — Stripping Costs in the Production Phase of a Surface Mine", precision: "§§ 1 à 16" },
@@ -1043,7 +1043,7 @@ const chapitre: Chapitre = {
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 16, IAS 23 (texte français intégral) ; IAS 38, IFRS 6 (transcriptions françaises condensées) ; IFRIC 1, IFRIC 20 et Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; O.-L. 89-017 ; arrêtés 013 et 014/2025 ; Code minier ; BOA RDC, états IFRS 2018.",
+  sources: "IAS 16, IAS 23 (texte français intégral) ; IAS 38, IFRS 6 (texte français intégral) ; IFRIC 1, IFRIC 20 et Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; O.-L. 89-017 ; arrêtés 013 et 014/2025 ; Code minier ; BOA RDC, états IFRS 2018.",
 }
 
 export default chapitre
