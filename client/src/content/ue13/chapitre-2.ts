@@ -169,7 +169,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "196 780 268 F" },
     ],
     reponseCorrecte: 'c',
-    explication: "IAS 16.16(c) inclut dans le coût l'estimation initiale des coûts de démantèlement, évaluée selon IAS 37, c'est-à-dire actualisée : 10 000 000 × 1,12⁻¹⁰ = 3 219 732 F. Coût d'entrée : 203 219 732 F, avec une provision de même montant. C'est l'exemple officiel du SYSCOHADA révisé (Titre VIII, ch. 6), qui retient ici la même solution qu'IAS 16.",
+    explication: "IAS 16.16(c) inclut dans le coût l'estimation initiale des coûts de démantèlement, évaluée selon IAS 37, c'est-à-dire actualisée : 10 000 000 × 1,12⁻¹⁰ = 3 219 732 F. Coût d'entrée : 203 219 732 F, avec une provision de même montant. L'exemple vient du SYSCOHADA révisé (Titre VIII, ch. 6), dont la solution rejoint ici celle d'IAS 16.",
     articleRef: "IAS 16.16(c) et 16.18 ; SYSCOHADA, Titre VIII, ch. 6",
   },
   {
@@ -407,13 +407,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : le champ d'IAS 16 (§ 3)",
+        titre: "Les droits miniers hors champ, les camions dedans (IAS 16.3)",
         texte: "La norme ne s'applique pas aux immobilisations détenues en vue de la vente (IFRS 5), aux actifs biologiques autres que les plantes productrices (IAS 41), aux actifs de prospection et d'évaluation (IFRS 6), ni « aux droits miniers et aux réserves minérales telles que le pétrole, le gaz naturel et autres ressources similaires non renouvelables ». Mais elle s'applique « aux immobilisations corporelles utilisées pour développer ou maintenir » ces actifs. Pour une économie minière comme celle de la RDC, cette frontière est décisive : le gisement de Kolwezi échappe à IAS 16, les pelles, les camions et l'usine de traitement y sont soumis.",
       },
       { type: 'controle', question: QCM[0] },
       {
         type: 'paragraphe',
-        texte: "Le coût d'une immobilisation est comptabilisé en tant qu'actif « si, et seulement si : (a) il est probable que les avantages économiques futurs associés à cet élément iront à l'entité ; et (b) le coût de cet élément peut être évalué de façon fiable » (§ 7). Ce critère de probabilité date de l'époque où le Cadre conceptuel le posait lui-même. Le Cadre de 2018 l'a abandonné au profit d'un jugement sur la pertinence et la fidélité de l'information (§ 5.6-5.17), mais la norme n'a pas été modifiée. C'est donc elle qui s'applique.",
+        texte: "Le coût d'une immobilisation est comptabilisé en tant qu'actif « si, et seulement si : (a) il est probable que les avantages économiques futurs associés à cet élément iront à l'entité ; et (b) le coût de cet élément peut être évalué de façon fiable » (§ 7). Ce critère de probabilité date de l'époque où le Cadre conceptuel le posait lui-même. Le Cadre de 2018 l'a abandonné au profit d'un jugement sur la pertinence et la fidélité de l'information (§ 5.6-5.17), mais la norme n'a pas été modifiée. Elle s'applique donc.",
       },
       { type: 'controle', question: QCM[1] },
       {
@@ -432,8 +432,8 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA : le seuil du petit matériel",
-        texte: "La norme ne fixe aucun seuil, mais la pratique en adopte un au nom de l'importance relative. En RDC, l'arrêté n° 014/CAB/MIN/FINANCES/2025, applicable depuis le 1er janvier 2026, admet en déduction dès leur acquisition le petit matériel, l'outillage et le matériel de bureau de valeur unitaire inférieure à l'équivalent de **500 USD**. C'est une règle fiscale, pas une règle IFRS. Une entité peut s'en inspirer comme seuil de significativité comptable, à condition de le justifier au regard d'IAS 8.8 : un écart non significatif est admis, un écart destiné à produire une présentation particulière ne l'est pas.",
+        titre: "500 USD : le seuil fiscal du petit matériel",
+        texte: "La norme ne fixe aucun seuil, mais la pratique en adopte un au nom de l'importance relative. En RDC, l'arrêté n° 014/CAB/MIN/FINANCES/2025, applicable depuis le 1er janvier 2026, admet en déduction dès leur acquisition le petit matériel, l'outillage et le matériel de bureau de valeur unitaire inférieure à l'équivalent de **500 USD**. La règle est fiscale ; les IFRS n'en connaissent pas. Une entité peut s'en inspirer comme seuil de significativité comptable, à condition de le justifier au regard d'IAS 8.8 : un écart non significatif est admis, un écart destiné à produire une présentation particulière ne l'est pas.",
       },
     ],
   },
@@ -467,9 +467,9 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[3] },
       {
         type: 'carte',
-        titre: "Pas à pas : le paiement différé (§ 23)",
+        titre: "Acheter à crédit, c'est aussi emprunter (§ 23)",
         liste: [
-          "**Donnée.** Machine payable 560 000 USD dans deux ans ; prix comptant 500 000 USD. Le délai excède les conditions habituelles de crédit.",
+          "Machine payable 560 000 USD dans deux ans ; prix comptant 500 000 USD. Le délai excède les conditions habituelles de crédit.",
           "**Coût d'entrée** : le prix comptant équivalent, **500 000 USD**.",
           "**Taux implicite** : 500 000 × (1 + r)² = 560 000, d'où r = √1,12 − 1 ≈ **5,83 %**.",
           "**Charges financières** : année 1, 500 000 × 5,83 % ≈ 29 150 ; année 2, 60 000 − 29 150 ≈ 30 850. Elles vont en résultat, sauf incorporation selon IAS 23 si la machine est un actif qualifié.",
@@ -478,7 +478,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[4] },
       {
         type: 'paragraphe',
-        texte: "Lorsqu'une immobilisation est acquise par **échange**, son coût est évalué à la juste valeur, sauf si l'échange n'a pas de substance commerciale ou si aucune des deux justes valeurs n'est évaluable de façon fiable (§ 24). L'échange a une substance commerciale si la configuration des flux de trésorerie (risque, calendrier, montant) de l'actif reçu diffère de celle de l'actif cédé, ou si la valeur spécifique à l'entité de la partie concernée de ses activités varie, et si cette différence est significative (§ 25). C'est une règle anti-abus : deux entités qui s'échangeraient des actifs identiques pour faire apparaître des plus-values en seraient pour leurs frais.",
+        texte: "Lorsqu'une immobilisation est acquise par **échange**, son coût est évalué à la juste valeur, sauf si l'échange n'a pas de substance commerciale ou si aucune des deux justes valeurs n'est évaluable de façon fiable (§ 24). L'échange a une substance commerciale si la configuration des flux de trésorerie (risque, calendrier, montant) de l'actif reçu diffère de celle de l'actif cédé, ou si la valeur spécifique à l'entité de la partie concernée de ses activités varie, et si cette différence est significative (§ 25). La règle vise l'abus : deux entités qui s'échangeraient des actifs identiques pour faire apparaître des plus-values en seraient pour leurs frais.",
       },
       { type: 'controle', question: QCM[5] },
     ],
@@ -490,7 +490,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'filet',
-        titre: "Ce que dit la norme : IAS 23.1 et 23.8",
+        titre: "Quand l'intérêt devient un coût d'actif (IAS 23.1 et 23.8)",
         texte: "« Les coûts d'emprunt qui sont directement attribuables à l'acquisition, la construction ou la production d'un actif qualifié font partie du coût de cet actif. Les autres coûts d'emprunt sont comptabilisés en charges. » Le § 8 en fait une obligation : les entités « doivent inscrire à l'actif » ces coûts. Il n'y a pas d'option. Un **actif qualifié** est « un actif qui exige une longue période de préparation avant de pouvoir être utilisé ou vendu » (§ 5) : usine, centrale électrique, immeuble de placement, immobilisation incorporelle, voire stocks selon les circonstances (§ 7).",
       },
       { type: 'controle', question: QCM[6] },
@@ -500,7 +500,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : la cimenterie de MBANZA CIMENT SA (société fictive)",
+        titre: "La cimenterie de MBANZA CIMENT SA (société fictive)",
         texte: "Construction d'une ligne de cuisson pendant tout l'exercice N. Emprunt spécifique : 4 000 000 USD à 9 %, tiré le 1er janvier ; placement temporaire des fonds non encore dépensés : 150 000 USD de produits. Emprunts généraux : 10 000 000 USD à 8 % et 5 000 000 USD à 11 %. Dépenses financées par les fonds généraux : 2 000 000 USD le 1er avril, 3 000 000 USD le 1er octobre.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant (USD)'],
@@ -529,7 +529,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[9] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : les coûts d'emprunt en économie inflationniste",
+        titre: "Emprunt en dollars, perte de change : quelle part est un coût d'emprunt ?",
         texte: "IAS 23.6(e) inclut dans les coûts d'emprunt les différences de change sur emprunts en devises « dans la mesure où elles sont assimilées à un ajustement des coûts d'intérêt ». Pour une entité congolaise empruntant en dollars, il faut donc démêler, dans la perte de change, la part qui compense un taux d'intérêt en dollars plus bas que le taux en francs congolais. Et si l'économie devait être qualifiée d'hyperinflationniste, IAS 23.9 impose de passer en charges la partie des coûts d'emprunt qui compense l'inflation (renvoi à IAS 29.21). Ces deux dispositions montrent bien qu'on ne peut pas appliquer une norme sans tenir compte de son environnement macroéconomique.",
       },
     ],
@@ -545,7 +545,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : l'exemple officiel du SYSCOHADA, lu en IFRS",
+        titre: "L'exemple officiel du SYSCOHADA, relu en IFRS",
         texte: "Matériel industriel lourd acquis le 2 janvier N pour 200 000 000 F, durée d'utilité 10 ans ; démantèlement estimé à 10 000 000 F au terme ; taux d'actualisation 12 %.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant (F)'],
@@ -566,7 +566,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : révision de l'estimation au 1er janvier N+2",
+        titre: "Le devis de remise en état passe de 10 à 14 millions : que devient l'actif ?",
         liste: [
           "**Situation au 31/12/N+1** : provision 10 000 000 × 1,12⁻⁸ ≈ 4 038 832 ; valeur nette de l'actif de démantèlement 3 219 732 × 8/10 ≈ 2 575 786.",
           "**Nouvelle estimation** : 14 000 000 F au terme, à 12 %. Nouvelle provision : 14 000 000 × 1,12⁻⁸ ≈ 5 654 365, soit une hausse de **1 615 533**.",
@@ -579,7 +579,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[12] },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA et droit minier : trois « provisions » qui ne se confondent pas",
+        titre: "Trois « provisions » minières qui ne se confondent pas",
         texte: "Le SYSCOHADA révisé distingue la **dégradation immédiate** (provision actualisée, avec un actif en contrepartie) et la **dégradation progressive**, propre aux mines et carrières, provisionnée au fur et à mesure « sans actif en contrepartie ». Il traite aussi une baisse de provision par voie de dépréciation, alors qu'IFRIC 1 la déduit du coût. Le Code minier ajoute deux mécanismes d'une autre nature. L'article 204 exige une **sûreté** garantissant les obligations environnementales, qui est une garantie et non une provision. L'article 258 permet une **provision pour réhabilitation** en franchise d'impôt, plafonnée à 0,5 % du chiffre d'affaires et à réintégrer si elle n'est pas utilisée en dix ans : c'est un avantage fiscal. Seule l'obligation actualisée d'IAS 37 mesure le passif au sens des IFRS.",
       },
       { type: 'controle', question: QCM[13] },
@@ -596,12 +596,12 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : l'approche par composants (§ 43-47)",
+        titre: "Amortir séparément ce qui s'use différemment (§ 43-47)",
         texte: "« Chaque partie d'une immobilisation corporelle ayant un coût significatif par rapport au coût total de l'élément doit être amortie séparément » (§ 43), par exemple la cellule et les réacteurs d'un avion (§ 44). Des parties de même durée et de même mode peuvent être regroupées (§ 45). Si l'on amortit certaines parties séparément, le **reliquat**, fait des parties non significatives, est lui aussi amorti séparément, au besoin par approximation (§ 46). Et l'entité peut séparer des parties non significatives si elle le souhaite (§ 47).",
       },
       {
         type: 'carte',
-        titre: "Pas à pas : un camion de roulage minier à Kolwezi",
+        titre: "Le camion de roulage de Kolwezi, composant par composant",
         texte: "Coût 1 200 000 USD : moteur 300 000 (remplacé tous les 4 ans), jeu de pneus 120 000 (remplacé tous les 18 mois), structure 780 000 (12 ans, valeur résiduelle 60 000). Mode linéaire.",
         tableau: {
           entetes: ['Partie', 'Base amortissable', 'Durée', 'Dotation annuelle'],
@@ -622,9 +622,9 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'carte',
         titre: "Choisir le mode d'amortissement",
         liste: [
-          "**Linéaire** : charge constante, si la valeur résiduelle ne change pas. C'est le mode par défaut pour une consommation régulière.",
+          "**Linéaire** : charge constante, si la valeur résiduelle ne change pas. Il convient à une consommation régulière.",
           "**Dégressif** : charge décroissante, pour les actifs dont l'essentiel des avantages est consommé tôt.",
-          "**Unités d'œuvre** : charge fonction de l'utilisation ou de la production prévue. C'est souvent le mode le plus fidèle pour une usine de concentration ou un matériel de mine lié au rythme d'extraction ; il peut donner une dotation nulle en l'absence de production (§ 55).",
+          "**Unités d'œuvre** : charge fonction de l'utilisation ou de la production prévue. Il traduit souvent le mieux l'usure d'une usine de concentration ou d'un matériel de mine lié au rythme d'extraction, et peut donner une dotation nulle en l'absence de production (§ 55).",
           "**Interdit** : un mode fonction des produits tirés de l'activité (§ 62A). Les produits reflètent les prix, les volumes vendus et l'inflation, qui ne mesurent pas la consommation de l'actif. Dans une économie où les prix en francs congolais varient fortement, l'argument est particulièrement fort.",
         ],
       },
@@ -636,9 +636,9 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[22] },
       {
         type: 'carte',
-        titre: "Pas à pas : l'avion ALPHA, amortissement au kilomètre et révision des estimations",
+        titre: "L'avion ALPHA : amortir au kilomètre, puis réviser",
         liste: [
-          "**Donnée.** Le 1er janvier N, une compagnie aérienne privée acquiert l'avion ALPHA pour 10 000 000 USD. Sa durée de vie physique est d'environ 20 ans, mais la compagnie revend ses avions après 5 à 10 ans : elle prévoit de le garder 5 ans et de le revendre 8 000 000. La consommation des avantages suit le kilométrage : 3 000 000 km prévus sur 5 ans. Hypothèse simplificatrice : pas de composants.",
+          "Le 1er janvier N, une compagnie aérienne privée acquiert l'avion ALPHA pour 10 000 000 USD. Sa durée de vie physique est d'environ 20 ans, mais la compagnie revend ses avions après 5 à 10 ans : elle prévoit de le garder 5 ans et de le revendre 8 000 000. La consommation des avantages suit le kilométrage : 3 000 000 km prévus sur 5 ans. Hypothèse simplificatrice : pas de composants.",
           "**Durée d'utilité et valeur résiduelle.** La durée d'utilité est celle pendant laquelle l'entité s'attend à utiliser l'actif, 5 ans, et non sa durée de vie physique ; la valeur résiduelle est le montant qu'elle obtiendrait actuellement de sa sortie, coûts de sortie déduits, si l'avion avait déjà l'âge et l'état prévus à la fin de cette durée, soit 8 000 000 (IAS 16.6). Montant amortissable : 2 000 000.",
           "**Mode** : unités d'œuvre, la charge étant « basée sur l'utilisation ou la production prévue de l'actif » (§ 62).",
           "**N** : 450 000 km parcourus. Amortissement : 2 000 000 × 450 000 / 3 000 000 = **300 000**.",
@@ -671,7 +671,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : un immeuble de bureaux à la Gombe (en milliers de USD)",
+        titre: "Un immeuble de bureaux à la Gombe, réévalué (en milliers de USD)",
         texte: "Coût 2 000, amorti sur 25 ans ; au bout de 5 ans, amortissements cumulés 400, valeur nette 1 600. Juste valeur établie par un expert : 2 400.",
         tableau: {
           entetes: ['', 'Méthode (a) : retraitement proportionnel', 'Méthode (b) : élimination'],
@@ -704,14 +704,14 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[18] },
       {
         type: 'filet',
-        titre: "Passerelle SYSCOHADA et droit congolais : trois réévaluations, trois logiques",
+        titre: "Trois réévaluations, trois logiques : IAS 16, SYSCOHADA, O.-L. 89-017",
         texte: "**IAS 16** réévalue par catégorie, à la juste valeur, périodiquement, et l'écart peut rejoindre les résultats non distribués. **L'AUDCIF** (art. 62 à 65) exige une réévaluation de l'ensemble des immobilisations corporelles et financières, interdit toute réévaluation partielle, plafonne la valeur réévaluée à la valeur actuelle, calcule les amortissements suivants sur la valeur réévaluée et déclare l'écart « non distribuable », seulement incorporable au capital. L'ordonnance-loi congolaise n° 89-017 du 18 février 1989, enfin, organise une **réévaluation légale** par coefficients, obligatoire hors régime forfaitaire (art. 2), dont l'écart est fiscalement neutre (art. 6), et dont l'article 9 neutralise le supplément d'amortissement par une réintégration annuelle dans les bénéfices comptable et fiscal. Sous IAS 16, ce même supplément est une charge du résultat, et seul le virement du § 41 intervient, directement en capitaux propres.",
       },
       { type: 'controle', question: QCM[19] },
       { type: 'controle', question: QCM[20] },
       {
         type: 'carte',
-        titre: "Pas à pas : un composant réévalué sur quatre exercices",
+        titre: "Quatre clôtures, quatre traitements : un composant réévalué",
         texte: "Un composant acquis le 2 janvier N pour 100 000 USD HT, amorti linéairement sur 20 ans, appartient à une catégorie évaluée selon le modèle de la réévaluation. Justes valeurs : 95 500 fin N ; 108 000 fin N+1 ; 93 500 fin N+2 ; 72 000 fin N+3.",
         tableau: {
           entetes: ['Clôture', 'Amortissement', 'Valeur comptable avant réévaluation', 'Juste valeur', 'Traitement'],
@@ -737,7 +737,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Jugement professionnel : sinistre, indemnité et reconstruction sont trois événements",
+        titre: "L'incendie, l'assurance, la reconstruction : trois écritures, pas une",
         texte: "Un entrepôt de Goma est détruit par un incendie ; l'assureur accepte d'indemniser ; l'entreprise reconstruit. IAS 16.66 impose de traiter ces événements séparément : la perte de l'actif (dépréciation selon IAS 36 ou décomptabilisation selon IAS 16), l'indemnité, portée en résultat net « lorsqu'elle devient exigible » (§ 65), et le coût du nouvel entrepôt, déterminé selon IAS 16. On ne compense pas la perte par l'indemnité attendue, et on ne constate pas l'indemnité tant qu'elle n'est pas exigible, même si la perte est déjà comptabilisée.",
       },
       {
@@ -765,7 +765,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'carte',
         titre: "Les trois conditions de la définition",
         liste: [
-          "**Identifiable** (§ 11-12) : l'actif est *séparable*, c'est-à-dire qu'il peut être vendu, cédé, concédé, loué ou échangé, seul ou avec un élément lié, ou bien il résulte de *droits contractuels ou légaux*, cessibles ou non. C'est ce qui le distingue du goodwill.",
+          "**Identifiable** (§ 11-12) : l'actif est *séparable*, c'est-à-dire qu'il peut être vendu, cédé, concédé, loué ou échangé, seul ou avec un élément lié, ou bien il résulte de *droits contractuels ou légaux*, cessibles ou non. Le goodwill, lui, n'est jamais identifiable.",
           "**Contrôlé** (§ 13-16) : l'entité a le pouvoir d'obtenir les avantages et d'en restreindre l'accès aux tiers, ce qui passe normalement par des droits juridiquement protégés. Une équipe bien formée ou une clientèle fidèle ne sont en général pas contrôlées, faute de droits établis ; des échanges de relations clients hors regroupement prouvent toutefois le contrôle (§ 16).",
           "**Porteur d'avantages** (§ 17) : produits de ventes, mais aussi économies de coûts.",
         ],
@@ -789,7 +789,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Pas à pas : le brevet du projet A du laboratoire MI SA",
+        titre: "Combien vaut le brevet du laboratoire MI ?",
         texte: "Le laboratoire pharmaceutique MI démarre le 1er janvier N le projet A : produire en interne le brevet d'un médicament contre le rhume, prêt fin N. Entre le 1er janvier et le 1er avril N−1, 30 000 USD de frais de recherche non affectés à un projet ont permis de découvrir une molécule utilisée dans le projet A. Dépenses de N : recherche 50 000 ; développement 192 000, dont 157 000 engagés à compter du 15 septembre, date où les six critères du § 57 sont démontrés ; obtention de l'agrément de commercialisation 16 000. Utilisation du brevet à partir du 1er janvier N+1, pendant 3 ans, amortissement linéaire.",
         tableau: {
           entetes: ['Dépense', 'Traitement', 'Fondement'],
@@ -809,7 +809,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[24] },
       {
         type: 'filet',
-        titre: "Ce que dit la norme : ce qui n'entre jamais au bilan",
+        titre: "Ce qui n'entrera jamais au bilan, quel qu'en soit le coût",
         texte: "« Le goodwill généré en interne ne doit pas être comptabilisé en tant qu'actif. » (§ 48). « Lorsqu'ils sont générés en interne, les marques, cartouches de titre, titres de publication, listes de clients et autres éléments similaires en substance ne doivent pas être comptabilisés en tant qu'immobilisations incorporelles. » (§ 63), parce que leurs dépenses « ne peuvent pas être distinguées du coût de développement de l'entreprise dans son ensemble » (§ 64). Les coûts de démarrage, de formation, de publicité et de promotion, de relocalisation ou de réorganisation sont des charges (§ 69). Et le verrou final : « Les dépenses relatives à un élément incorporel qui ont été initialement comptabilisées en charges ne doivent pas être incorporées dans le coût d'une immobilisation incorporelle à une date ultérieure. » (§ 71). Le SYSCOHADA révisé reprend les six critères et la même interdiction de réincorporation (Titre VIII, ch. 1), avec un compte 211 dédié aux frais de développement.",
       },
     ],
@@ -845,7 +845,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[16] },
       {
         type: 'filet',
-        titre: "Jugement professionnel : l'exemple officiel du § 65, ou le coût qui dépasse la valeur",
+        titre: "Quand le coût activé dépasse la valeur : l'exemple du § 65",
         texte: "En 20X5, une entité développe un procédé pour 1 000 : 900 avant le 1er décembre, date où les critères sont remplis, et 100 ensuite. Fin 20X5, l'immobilisation vaut 100 ; les 900 restent en charges, pour toujours. En 20X6, elle dépense 2 000 de plus : le coût atteint 2 100, mais la valeur recouvrable n'est que de 1 900. Il faut donc comptabiliser une perte de valeur de 200 selon IAS 36. Activer un coût ne garantit pas qu'il sera recouvré : le test de dépréciation surveille en permanence ce qui a été activé.",
       },
     ],
@@ -861,12 +861,12 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Ce que dit l'interprétation : IFRIC 20 et la découverture",
+        titre: "IFRIC 20 : enlever les stériles, créer un actif",
         texte: "Pour accéder au minerai, une mine à ciel ouvert enlève des stériles : c'est la **découverture** (*stripping*). En phase de production, cette activité peut procurer deux avantages : du minerai utilisable pour produire des stocks de la période, et un meilleur accès à des quantités qui seront extraites plus tard (§ 4). IFRIC 20 impose de les séparer (§ 8). La part qui produit des stocks relève d'IAS 2. La part qui améliore l'accès devient un « stripping activity asset » si trois conditions sont réunies (§ 9) : avantage probable, **composante identifiée** du gisement, coûts évaluables de façon fiable. Cet actif est une partie d'un actif existant, dont il prend la nature (§ 10-11), et il est amorti sur la durée d'utilité de la composante qu'il rend accessible, par unités de production sauf méthode plus appropriée (§ 15).",
       },
       {
         type: 'carte',
-        titre: "Pas à pas : la répartition du coût de découverture (§ 13)",
+        titre: "Dix millions de dollars de stériles à répartir (§ 13)",
         texte: "Mine de cuivre à ciel ouvert, composante A du gisement. Ratio stériles/minerai attendu pour la composante : 3 pour 1. Exercice N : 400 000 t de minerai extraites, 2 000 000 t de stériles enlevées (ratio réel 5 pour 1). Coût total de découverture : 10 000 000 USD, soit 5 USD par tonne de stériles.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant'],
@@ -883,7 +883,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[26] },
       {
         type: 'paragraphe',
-        texte: "Sans IFRIC 20, deux dérives étaient possibles : tout passer en charges, ce qui pénalise la période où l'on ouvre l'accès à de futurs volumes, ou tout activer, ce qui gonfle le bilan de coûts qui ont déjà produit du minerai vendu. L'interprétation tranche par une clé physique, vérifiable par un géologue autant que par un auditeur. C'est une leçon qui dépasse la mine : une bonne règle comptable s'appuie sur une grandeur que l'on peut observer. Le SYSCOHADA révisé consacre de son côté un chapitre aux frais de prospection et d'exploitation des ressources minérales (Titre VIII, ch. 3), qu'il faut lire en parallèle pour les entités qui établissent les deux jeux d'états.",
+        texte: "Sans IFRIC 20, deux dérives étaient possibles : tout passer en charges, ce qui pénalise la période où l'on ouvre l'accès à de futurs volumes, ou tout activer, ce qui gonfle le bilan de coûts qui ont déjà produit du minerai vendu. L'interprétation tranche par une clé physique, vérifiable par un géologue autant que par un auditeur. La leçon dépasse la mine : une bonne règle comptable s'appuie sur une grandeur que l'on peut observer. Le SYSCOHADA révisé consacre de son côté un chapitre aux frais de prospection et d'exploitation des ressources minérales (Titre VIII, ch. 3), qu'il faut lire en parallèle pour les entités qui établissent les deux jeux d'états.",
       },
     ],
   },
@@ -903,7 +903,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 2,
         enonce: "Comment traiter la différence entre les 121 facturés et les 100 immobilisés pour la machine B ?",
-        correction: "C'est un coût de financement : si le règlement est différé au-delà des conditions habituelles de crédit, « la différence entre le prix comptant équivalent et le total des paiements est comptabilisée en charges financières sur la période de crédit, à moins que ces charges ne soient incorporées dans le coût de l'actif selon IAS 23 » (IAS 16.23). La dette fournisseur d'immobilisation s'accroît de 100 × 10 % = 10 en N, puis de 110 × 10 % = 11 en N+1, soit 121 au paiement. Écritures de N : débit Charges financières 10 par le crédit du Fournisseur d'immobilisation.",
+        correction: "La différence relève du financement : si le règlement est différé au-delà des conditions habituelles de crédit, « la différence entre le prix comptant équivalent et le total des paiements est comptabilisée en charges financières sur la période de crédit, à moins que ces charges ne soient incorporées dans le coût de l'actif selon IAS 23 » (IAS 16.23). La dette fournisseur d'immobilisation s'accroît de 100 × 10 % = 10 en N, puis de 110 × 10 % = 11 en N+1, soit 121 au paiement. Écritures de N : débit Charges financières 10 par le crédit du Fournisseur d'immobilisation.",
       },
       {
         num: 3,
@@ -979,7 +979,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 1,
         enonce: "« Nous avons réévalué l'immeuble du siège, dont la valeur a doublé, mais gardé au coût les entrepôts de province, qui ont perdu de la valeur. »",
-        correction: "Faux. Si un actif est réévalué, toute la catégorie à laquelle il appartient doit l'être (IAS 16.36), et simultanément (§ 38). C'est précisément la réévaluation sélective que la norme veut empêcher.",
+        correction: "Faux. Si un actif est réévalué, toute la catégorie à laquelle il appartient doit l'être (IAS 16.36), et simultanément (§ 38). La norme veut justement empêcher cette réévaluation sélective.",
       },
       {
         num: 2,
