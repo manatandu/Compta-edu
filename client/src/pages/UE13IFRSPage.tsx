@@ -6,13 +6,13 @@ import { cn } from '@/lib/utils'
 const CHAPITRES = [
   {
     num: 1,
-    titre: "Fondements conceptuels, normalisation internationale et architecture IFRS",
-    sousTitre: "Cadre conceptuel IASB · Due Process · IFRS Foundation · ISSB",
-    duree: "4h",
+    titre: "Fondements, cadre conceptuel et architecture des IFRS",
+    sousTitre: "Cadre conceptuel · IAS 1 · IAS 8 · IFRS 13 · AUDCIF art. 8 · GCEC-IFRS",
+    duree: "7h",
     actif: true,
     route: '/ue13/chapitre-1',
-    lecons: 6,
-    exercices: 12,
+    lecons: 9,
+    exercices: 30,
     couleur: 'bg-sky-50 text-sky-700',
     accent: 'border-l-sky-500',
   },
