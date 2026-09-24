@@ -357,6 +357,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Boma, à l'embouchure du fleuve Congo. **BOMA ÉNERGIE SA**, au capital de 60 000 000 FC, a accumulé des pertes : son report à nouveau débiteur atteint 64 000 000 FC, et ses capitaux propres sont devenus négatifs. Un investisseur, SOLAR INVEST, est prêt à apporter 40 000 000 FC, à condition que le passé soit d'abord apuré. Faut-il dissoudre, réduire le capital, recapitaliser ? À quelles conditions les créanciers peuvent-ils s'y opposer ? Ce chapitre étudie les opérations qui font baisser le capital ou le rendent aux associés : réduction, rachat d'actions propres, amortissement. Il suit BOMA ÉNERGIE jusqu'à son coup d'accordéon.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Le capital est fixe, mais il n'est pas immuable. L'article 69 annonçait qu'il peut être réduit « par remboursement aux associés d'une partie de leurs apports » ou par imputation des pertes, et l'article 70 précise que le remboursement peut se faire en numéraire ou par attribution d'actifs. Réduire le capital, c'est donc soit **constater** une perte de substance déjà subie, soit **restituer** aux associés une partie de ce qu'ils ont apporté. Ces deux situations n'ont ni la même cause ni les mêmes risques, et l'Acte uniforme les traite différemment, notamment à l'égard des créanciers. La comptabilité suit : une réduction pour pertes est un simple reclassement interne aux capitaux propres, une réduction par remboursement fait sortir de la trésorerie.",
       },
       {
@@ -429,6 +433,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Du point de vue du créancier, l'enjeu se chiffre facilement. Une société au capital de 300 000 000 FC, avec 50 000 000 de réserves et 400 000 000 de dettes, dispose de 350 000 000 de capitaux propres pour absorber d'éventuelles pertes avant que les créanciers ne soient touchés. Si elle rembourse 150 000 000 de capital à ses associés, ce coussin tombe à 200 000 000, alors même que les dettes n'ont pas changé. Le créancier qui a prêté en considération du premier chiffre voit sa sécurité réduite de plus de 40 %. Le droit d'opposition lui permet d'exiger d'être payé, ou garanti, avant que la société ne se dessaisisse. À l'inverse, une réduction pour pertes ne change rien à sa situation : les pertes ont déjà consommé le coussin, la réduction ne fait que le reconnaître.",
       },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : pourquoi les créanciers de BOMA ÉNERGIE ne peuvent-ils pas s'opposer ?",
+        texte: "Parce que la réduction qu'envisage BOMA ÉNERGIE est motivée par des pertes. Elle ne fait sortir aucun franc de la société : elle aligne simplement le chiffre du capital sur un actif net déjà entamé. Le gage des créanciers n'est pas diminué par l'écriture, il l'avait déjà été par les pertes. Il en irait autrement d'une réduction par remboursement, qui fait sortir de la trésorerie au profit des associés : les créanciers antérieurs peuvent alors former opposition dans les trente jours de la publication, et les opérations sont suspendues jusqu'au règlement de l'opposition (art. 633-637).",
+      },
       { type: 'controle', question: QCM[4] },
       {
         type: 'paragraphe',
@@ -484,6 +493,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Illustrons l'attribution d'actifs. Une SA décide une réduction de capital de 30 000 000 par remboursement à un associé qui se retire, sous forme d'un terrain d'une valeur de 30 000 000 et d'une valeur nette comptable de 18 000 000. Après expiration du délai d'opposition, la société constate sa dette (débit 1013, crédit 4619 pour 30 000 000), puis la sortie du terrain : la valeur comptable sort de l'actif (débit du compte de charges hors activités ordinaires correspondant, crédit 22 pour 18 000 000), et la valeur de remboursement éteint la dette (débit 4619, crédit du compte de produits de cession pour 30 000 000). Le résultat hors activités ordinaires enregistre une plus-value de 12 000 000, qui entre dans le résultat imposable. L'associé reçoit un bien au lieu d'argent, mais la société réalise fiscalement la plus-value latente.",
+      },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Imputer les pertes sur le capital sans passer par le report à nouveau, ou l'inverse : laisser les pertes au report à nouveau alors que l'assemblée a voté la réduction. Dans une réduction pour pertes, le compte 101 (1013) est débité par le crédit du compte 129 Report à nouveau débiteur (1291) : l'écriture ne touche ni la trésorerie ni le résultat. Chez BOMA ÉNERGIE, la réduction de 60 000 000 FC solde le capital ancien, et il subsiste un report à nouveau débiteur de 4 000 000 FC, que les premiers bénéfices devront apurer.",
       },
       { type: 'controle', question: QCM[7] },
       { type: 'controle', question: QCM[8] },
@@ -719,6 +733,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les délais doivent être calculés avec précision. Pour une SA qui approuve le 15 mai N+1 des comptes N révélant des capitaux propres inférieurs à la moitié du capital, l'AGE doit être convoquée au plus tard le 15 septembre N+1 (art. 664). Si elle écarte la dissolution, la société dispose jusqu'à la clôture du deuxième exercice suivant celui au cours duquel la constatation est intervenue, soit, pour une constatation en N+1, jusqu'au 31 décembre N+3, pour reconstituer ses capitaux propres ou réduire son capital (art. 665). En SARL, le délai est de deux ans à compter de la clôture de l'exercice déficitaire, soit jusqu'au 31 décembre N+2 pour l'exercice N (art. 372). La décision de l'AGE de SA est déposée au RCCM et publiée (art. 666), ce qui informe les tiers de la situation.",
       },
+      {
+        type: 'filet',
+        titre: "Et si BOMA ÉNERGIE avait laissé passer le délai ?",
+        texte: "Les comptes de BOMA ÉNERGIE, approuvés le 20/05/N+1, font apparaître des capitaux propres de − 4 000 000 FC, inférieurs à la moitié du capital. Le conseil doit convoquer l'AGE dans les quatre mois, soit avant le 20/09/N+1, pour décider s'il y a lieu à dissolution anticipée (art. 664). S'il ne le fait pas, ou si la société ne régularise pas sa situation dans le délai légal, tout intéressé peut demander au juge la dissolution de la société (chapitre 9). Le juge ne peut toutefois la prononcer si la régularisation est intervenue au jour où il statue sur le fond.",
+      },
       { type: 'controle', question: QCM[23] },
       {
         type: 'paragraphe',
@@ -764,6 +783,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Toutes les opérations d'assainissement ne vont pas jusqu'à zéro. Lorsque les pertes sont inférieures au capital, l'assemblée peut ne réduire le capital que du montant des pertes, puis l'augmenter par des apports nouveaux auxquels les anciens actionnaires peuvent participer grâce à leur DPS. Si l'augmentation se fait à un prix supérieur au nominal, une prime d'émission apparaît, qui reflète la valeur que le marché ou l'investisseur accorde à la société assainie. L'ordre des opérations est toujours le même : constater les pertes, les imputer sur les réserves disponibles, réduire le capital du solde, puis recapitaliser. Le rapport du commissaire aux comptes sur la réduction (art. 630) et ceux exigés pour l'augmentation (art. 588-591) éclairent chaque étape.",
       },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Dans un coup d'accordéon comme celui de BOMA ÉNERGIE, l'auditeur vérifie que la réduction et l'augmentation sont votées par la même assemblée, pour que le capital ne reste pas sous le minimum légal, et que les rapports du commissaire aux comptes existent pour chacune des deux opérations. Il contrôle aussi la suppression du DPS au profit de SOLAR INVEST : motifs, nom du bénéficiaire, justification du prix et incidence sur la situation des actionnaires doivent figurer dans les rapports (art. 588-591), à peine de nullité. Enfin, il rapproche le versement de 40 000 000 FC de la déclaration notariée avant de valider la réalisation.",
+      },
       { type: 'controle', question: QCM[27] },
     ],
   },
@@ -806,6 +830,10 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "En synthèse, les trois grandes opérations de ce chapitre se distinguent par leur effet sur le capital, sur les capitaux propres et sur la trésorerie. La réduction pour pertes diminue le capital sans toucher aux capitaux propres ni à la trésorerie ; elle ne lèse personne, puisque la perte est déjà là, d'où l'absence d'opposition. La réduction par remboursement, y compris par rachat pour annulation, diminue à la fois le capital, les capitaux propres et la trésorerie ; elle lèse potentiellement les créanciers, d'où leur droit d'opposition, et fiscalement elle peut être requalifiée en distribution tant que des réserves existent. L'amortissement du capital laisse le capital intact mais diminue les capitaux propres et la trésorerie ; il se finance comme un dividende, sur des sommes distribuables, et reste soumis au même butoir. Retenir ce tableau à trois colonnes permet de ne jamais se tromper d'écriture.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Retour à BOMA ÉNERGIE, dont le cas 6 détaille les écritures. Ses pertes cumulées avaient fait fondre ses capitaux propres sous zéro. L'assemblée a écarté la dissolution et voté, dans la même séance, une réduction du capital à zéro par imputation des pertes, sans opposition possible des créanciers, puis une augmentation de 40 000 000 FC réservée à SOLAR INVEST. Après l'opération, les capitaux propres s'élèvent à 36 000 000 FC pour un capital de 40 000 000 FC, au-dessus de la moitié : la situation est régularisée. Le prix de ce redressement est payé par les anciens actionnaires, qui n'ont pas souscrit et perdent leur qualité d'associé. Réduction, rachat, amortissement : chaque opération de ce chapitre se lit ainsi par son effet sur le capital, sur les capitaux propres et sur la trésorerie.",
       },
       { type: 'controle', question: QCM[29] },
     ],

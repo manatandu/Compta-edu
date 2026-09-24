@@ -362,6 +362,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Kinshasa, quartier de la Gombe. **KINSHASA AGRO HOLDING SA** (KAH) gère les participations d'un groupe agro-industriel. Cette année, elle souscrit 45 % du capital d'une huilerie de la Tshopo, acquiert 12 % d'une cimenterie de Matadi et encaisse le dividende d'une société de transport de Kolwezi dont elle détient 25 %. Sa trésorerie excédentaire est placée en actions cotées et en bons du Trésor. Chaque titre pose les mêmes questions : où l'inscrire, pour quelle valeur, comment en constater les revenus, et comment l'évaluer à la clôture ? Ce chapitre répond à ces questions à partir du portefeuille de KAH.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Les chapitres précédents regardaient les titres du côté de la société qui les **émet** : capital, primes, emprunt obligataire. Ce chapitre se place du côté de celui qui les **détient**. Une société commerciale achète des actions ou des obligations pour des raisons très différentes : prendre le contrôle d'un fournisseur, s'associer durablement à un partenaire, placer une trésorerie disponible, ou simplement faire fructifier un excédent de fonds en attendant un investissement. La comptabilité doit rendre ces intentions visibles, car elles n'ont pas la même signification pour le lecteur des états financiers. Une participation dans une filiale est un outil de l'activité ; un placement est une réserve de liquidité.",
       },
       {
@@ -448,6 +452,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Ces règles ont une raison d'être financière. Lorsque deux sociétés se détiennent mutuellement, une partie du capital de chacune n'est qu'un reflet du capital de l'autre : l'argent circule en rond sans qu'aucun apport réel ne vienne des tiers. Une augmentation de capital souscrite par une société détenue par l'émettrice revient en partie à s'autofinancer. Les dirigeants peuvent aussi s'assurer le contrôle des assemblées grâce à des voix qui, au fond, appartiennent à la société elle-même. En plafonnant les participations croisées à 10 % et en privant de vote et de dividende les titres à céder, l'Acte uniforme protège les créanciers, qui comptent sur un capital réel, et les minoritaires, qui ne doivent pas être neutralisés par des votes circulaires. L'auditeur qui découvre une participation croisée au-delà du seuil doit donc la signaler, en plus d'en tirer les conséquences comptables.",
+      },
+      {
+        type: 'filet',
+        titre: "Et si KAH gardait ses parts de MATADI CIMENT ?",
+        texte: "KINSHASA AGRO HOLDING (KAH) a acquis 12 % de MATADI CIMENT, qui détient elle-même 18 % de KAH. L'article 177 l'interdit : une société par actions ne peut posséder de titres d'une société qui détient plus de 10 % de son propre capital. À défaut d'accord, c'est KAH, qui détient la fraction la plus faible, qui doit céder. Si elle tarde, ses parts restent privées de vote et de dividende jusqu'à leur cession. Comptablement, KAH ne constate aucun revenu sur ces parts et doit apprécier, à la clôture, si le prix de cession attendu impose une dépréciation.",
       },
       { type: 'controle', question: QCM[5] },
     ],
@@ -594,6 +603,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Que se passe-t-il si le souscripteur ne verse pas le solde appelé ? Du côté de l'émetteur, le chapitre 2 a montré la procédure contre l'actionnaire défaillant : mise en demeure, vente des actions, et poursuites pour la différence. Du côté du souscripteur, le risque est double. Il peut perdre des titres qu'il a déjà en partie payés, pour un prix de vente peut-être inférieur à ce qu'il a versé, et rester débiteur de la différence. Tant que la situation n'est pas réglée, il doit aussi apprécier la valeur actuelle de ses titres en tenant compte de ce risque, et constater une dépréciation si nécessaire. Dans les Notes annexes, la dette de libération est présentée distinctement, avec l'échéance probable de l'appel quand elle est connue, pour que le lecteur mesure l'engagement de trésorerie qui reste à honorer.",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "N'inscrire à l'actif que la partie versée des titres souscrits. KAH a souscrit 4 500 actions de TSHOPO HUILERIE pour un coût total de 113 625 000 FC, frais compris, mais n'en a versé que 46 125 000 FC à la souscription. Le compte 261 doit recevoir le coût total, et la partie non versée (67 500 000 FC) devient une dette au 4813. Réduire l'actif à la partie payée masquerait à la fois la participation réelle de KAH et son engagement de verser le solde à la première demande de TSHOPO.",
+      },
       { type: 'controle', question: QCM[13] },
     ],
   },
@@ -642,6 +656,11 @@ const SECTIONS: Chapitre['sections'] = [
         texte: "Pour les obligations immobilisées, le rattachement des intérêts à la clôture se fait comme pour l'émetteur au chapitre 6, mais en sens inverse. Une société détient 2 000 obligations de 10 000 au taux de 9 %, coupon annuel payable le 30 juin. Au 31 décembre, six mois ont couru : 2 000 × 10 000 × 9 % × 6/12 = 900 000. Écriture : débit 2764 Intérêts courus sur titres immobilisés / crédit 7745 Revenus des obligations, 900 000. L'écriture est contrepassée à l'ouverture, et le coupon entier est comptabilisé en produit à son encaissement du 30 juin. Si les obligations sont des placements, le compte d'intérêts courus est le 5063. Si la retenue à la source s'applique à ces intérêts, le produit reste le montant brut ; les obligations de l'État, des Provinces et des ETD en sont exonérées (loi n° 23/053, art. 80).",
       },
       { type: 'controle', question: QCM[15] },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : produit de 6 000 000 ou de 4 800 000 ?",
+        texte: "LUALABA TRANSPORT a décidé un dividende de 6 000 000 FC revenant à KAH. La société distributrice retient 20 % à la source, si bien que KAH n'encaisse que 4 800 000 FC. Le produit inscrit au 7721, lui, reste le montant brut de 6 000 000 FC : la retenue est un impôt prélevé sur ce revenu, et non une réduction du revenu. Comme KAH détient 25 % de LUALABA TRANSPORT sous forme nominative depuis plus de deux ans, avec deux sièges en RDC, le régime mère-fille de l'article 76 peut lui permettre d'imputer cet impôt sur le sien.",
+      },
       { type: 'controle', question: QCM[16] },
       {
         type: 'paragraphe',
@@ -748,6 +767,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Pourquoi ne pas simplement créditer le compte de titres et constater la différence ? Parce que la présentation brute (valeur sortie en 81, prix en 82) alimente les rubriques RO et TN du compte de résultat, et que le lecteur doit voir le volume des cessions et non seulement leur solde. La reprise de la dépréciation, elle, passe par le résultat financier (TL). Une même cession produit donc deux effets dans deux soldes différents : une moins-value HAO et une reprise financière, qui se compensent en partie. L'analyste qui ne lit que le résultat HAO croit à une perte, alors que l'essentiel de celle-ci avait été constaté les années précédentes par les dotations.",
       },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Si KAH cède un jour sa participation dans TSHOPO HUILERIE, l'auditeur vérifiera que la cession a été traitée comme une opération hors activités ordinaires : valeur d'entrée au débit du 816, prix au crédit du 826, et reprise séparée de la dépréciation éventuelle au 7972. Une écriture nette, qui ne ferait apparaître que la plus-value ou la moins-value, fausserait les rubriques RO et TN du compte de résultat. Il vérifiera aussi que le prix de cession est bien diminué des frais strictement nécessaires.",
+      },
       { type: 'controle', question: QCM[24] },
       {
         type: 'paragraphe',
@@ -845,6 +869,10 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Au tableau des flux, une acquisition de titres non entièrement libérés illustre la logique des flux réels. Reprenons le cas de TSHOPO HUILERIE : titres inscrits au 261 pour 113 625 000, dont 46 125 000 payés à la souscription et 22 500 000 au second quart. Le décaissement lié à l'investissement de l'exercice est de 68 625 000, et non de 113 625 000 : la dette de libération qui reste au 4813 (45 000 000) n'a encore donné lieu à aucun flux. Les versements des quarts suivants seront des décaissements d'investissement des exercices où ils interviendront. De la même manière, une cession à crédit (485) ne produit un encaissement que lors du règlement. Et la reprise d'une dépréciation, écriture purement comptable, n'apparaît jamais dans les flux.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Retour à KINSHASA AGRO HOLDING, dont le cas 5 détaille les écritures. En une seule année, KAH a mobilisé presque tout ce chapitre. La participation dans TSHOPO HUILERIE va au 261, avec une dette de libération au 4813 : KAH en détient 45 % et aucun autre associé ne la dépasse. La participation croisée dans MATADI CIMENT tombe sous le coup de l'article 177. Enfin, le dividende de LUALABA TRANSPORT est constaté au brut, dans le cadre du régime mère-fille. À la clôture, KAH évaluera chaque participation à sa valeur d'utilité, ligne par ligne, et dépréciera sans compenser les plus-values des unes avec les moins-values des autres.",
       },
       { type: 'controle', question: QCM[29] },
       {

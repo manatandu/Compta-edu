@@ -358,6 +358,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Août N, Kalemie, au bord du lac Tanganyika. Mme A. et M. N. veulent créer **KALEMIE LOGISTIQUE SARL** pour stocker et acheminer les marchandises débarquées au port. Avant même la signature des statuts, Mme A. loue un entrepôt, achète deux ordinateurs et règle les frais du Guichet unique de création d'entreprise. De son côté, M. N. commande un véhicule d'occasion. Le capital est fixé à 20 000 000 FC, entièrement libéré et déposé en banque. Ce chapitre suit leur projet pas à pas, de l'obligation d'apport à la clôture du premier exercice, et montre à chaque étape ce que le droit exige et ce que le comptable enregistre.",
+      },
+      {
+        type: 'paragraphe',
         texte: "La comptabilité des sociétés commence avec la société elle-même, c'est-à-dire avec le contrat. L'article 4 de l'AUSCGIE définit la société commerciale comme celle que créent deux ou plusieurs personnes « qui conviennent, par un contrat, d'affecter à une activité des biens en numéraire ou en nature, ou de l'industrie, dans le but de partager le bénéfice ou de profiter de l'économie qui peut en résulter ». Les associés s'engagent à contribuer aux pertes dans les conditions prévues par l'Acte uniforme, et la société est créée « dans l'intérêt commun des associés ». L'article 5 admet la société unipersonnelle : dans les cas prévus par l'Acte uniforme, une seule personne, l'**associé unique**, peut créer une société par un acte écrit.",
       },
       {
@@ -434,6 +438,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Pour l'apport en jouissance d'un bien durable, la société ne comptabilise donc aucune immobilisation. Elle supporte les charges d'entretien que les statuts mettent à sa charge, et il est prudent de décrire l'usage de ce bien dans les Notes annexes, puisque le lecteur du bilan ne le verra nulle part ailleurs. Pour l'apport de choses de genre, au contraire, l'article 47 opère un transfert de propriété : un stock de ciment apporté « en jouissance » devient la propriété de la société, qui l'inscrit en stock et le consomme, à charge d'en restituer une pareille quantité, qualité et valeur à la fin de la société. Dans les deux cas, le premier travail du comptable est juridique : lire la clause d'apport et qualifier ce que la société a réellement reçu.",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Inscrire en immobilisation le bien qu'un associé apporte en jouissance. L'apporteur en reste propriétaire : la société n'a qu'un droit d'usage, et elle ne comptabilise aucune immobilisation. Elle supporte seulement les charges d'entretien que les statuts mettent à sa charge. Le bien apporté en propriété, lui, entre dans son patrimoine, à l'actif, et il est amorti. La même question se pose chez KALEMIE LOGISTIQUE : si M. N. avait mis son propre camion à disposition au lieu d'en commander un, la société ne l'aurait pas inscrit à son bilan.",
+      },
       { type: 'controle', question: QCM[5] },
       {
         type: 'carte',
@@ -505,6 +514,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Pour le comptable, actions et parts sociales se traitent exactement de la même manière à la constitution : mêmes comptes 101, 109 et 461, mêmes écritures. Les différences tiennent à la circulation des titres et à l'organisation de la société, qui relèvent du droit des sociétés (UE2). La **valeur nominale**, en revanche, mérite l'attention. Elle est la fraction du capital que représente chaque titre : 4 000 actions pour un capital de 40 000 000 FC donnent un nominal de 10 000 FC. Elle ne dit rien de la valeur réelle du titre, qui dépendra ensuite des résultats et des perspectives de la société. Dès la première augmentation de capital, un titre de nominal 10 000 FC pourra valoir 15 000 FC, et le nouvel associé paiera la différence sous forme de prime (chapitre 4). Dans la SA, le nominal est « librement fixé par les statuts » et « exprimé en nombre entier » (art. 387).",
+      },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : le capital, c'est l'argent en banque ?",
+        texte: "Non. Le capital de KALEMIE LOGISTIQUE est de 20 000 000 FC, et ce chiffre restera inscrit dans les statuts et au passif du bilan tant qu'il ne sera pas modifié. L'argent déposé en banque le jour de la constitution sera dépensé dès les premières semaines : loyer, ordinateurs, carburant. Le capital n'est pas une somme d'argent : c'est un chiffre de référence, qui mesure l'engagement des associés et sert de gage aux créanciers. Au jour de la constitution, il correspond à la valeur des apports ; ensuite, il vit sa propre vie, indépendamment de la trésorerie.",
       },
       { type: 'controle', question: QCM[7] },
       { type: 'controle', question: QCM[8] },
@@ -668,6 +682,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "En pratique, les logiciels comptables ouvrent des sous-comptes par apporteur : 46131 pour le premier associé, 46132 pour le deuxième, et ainsi de suite. Ce découpage n'est pas une coquetterie. Il permet de savoir à tout moment qui a libéré quoi, de calculer les intérêts de retard de l'article 43 pour le seul associé défaillant, de justifier la Note 13 des Notes annexes, qui présente le capital associé par associé, et de préparer le calcul du premier dividende, qui dépend du montant libéré de chaque titre (art. 145). La balance des comptes 4613 doit à tout moment correspondre à l'état des versements tenu par la société ou par le notaire.",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Créditer le compte 101 des sommes qu'un associé prête à la société ou lui laisse temporairement. Ces fonds ne sont pas des apports : ils ne donnent aucun titre, restent remboursables et s'inscrivent au compte 462 Associés, comptes courants. L'AUDCIF exclut expressément du compte 101 « les versements et/ou retraits temporaires de fonds des associés ». Les dépenses que Mme A. a réglées de ses deniers pour KALEMIE LOGISTIQUE suivent la même logique : la société lui doit ces sommes, au 4621, et non un supplément de capital.",
+      },
       { type: 'controle', question: QCM[9] },
       { type: 'controle', question: QCM[10] },
       { type: 'controle', question: QCM[11] },
@@ -750,6 +769,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Chaque écriture de constitution s'appuie sur une pièce justificative, comme l'exige l'article 17 de l'AUDCIF. L'AUDCIF énumère, pour le compte 101, les « éléments de contrôle » : statuts de la société, déclaration notariée de souscription et de versement, virements bancaires et relevés de banque, procès-verbal de l'assemblée des associés. Pour les apports en nature, s'ajoutent le rapport du commissaire aux apports et les actes de transfert : titre foncier pour un terrain, carte grise pour un véhicule, acte de cession de créances. Un dossier de constitution complet, classé et référencé, est le premier dossier permanent que l'auditeur ouvrira, et il servira pendant toute la vie de la société.",
+      },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Chaque écriture de constitution doit reposer sur une pièce justificative, comme l'exige l'article 17 de l'AUDCIF. Face au dossier de KALEMIE LOGISTIQUE, l'auditeur demande les statuts signés, l'état des actes et engagements annexé, le récépissé de dépôt des fonds, l'extrait d'immatriculation et, pour chaque dépense reprise, la facture ou le reçu. Il rapproche le montant du capital inscrit au 101 de celui des statuts, et le solde de la banque du récépissé de dépôt. Une écriture sans pièce, dans une constitution, est le premier signal d'alerte.",
       },
       { type: 'controle', question: QCM[12] },
       { type: 'controle', question: QCM[13] },
@@ -872,6 +896,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les fonds libérés pendant la formation suivent un chemin particulier. Dans la SARL, ils sont déposés, dès leur libération, sur un compte ouvert au nom de la société en formation, ou chez un notaire (art. 313) ; dans la SA, le chapitre 2 montrera que leur retrait n'est possible qu'après l'immatriculation. La société n'en a donc la libre disposition qu'une fois née. En comptabilité, on enregistre toutefois la constitution à la date où les statuts sont signés, puisque c'est à cette date que naissent les créances sur les apporteurs, et l'on constate ensuite les versements au fur et à mesure.",
       },
+      {
+        type: 'filet',
+        titre: "Et si M. N. avait signé seul ?",
+        texte: "La commande du véhicule par M. N., non mentionnée dans l'état des actes annexé aux statuts, n'est pas reprise à l'immatriculation. Elle reste son affaire personnelle : faute de reprise, l'engagement est inopposable à la société, et M. N. en répond personnellement (art. 110). La société peut encore le reprendre après sa constitution, si l'assemblée ordinaire l'approuve en connaissance de cause, M. N. ne prenant pas part au vote (art. 108). Tant que cette approbation n'existe pas, le comptable n'enregistre rien. Le jour où elle intervient, l'engagement est réputé contracté par la société dès l'origine.",
+      },
       { type: 'controle', question: QCM[26] },
       { type: 'controle', question: QCM[27] },
       { type: 'controle', question: QCM[28] },
@@ -904,6 +933,10 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Le capital variable répond à des besoins concrets : sociétés dont les associés entrent et sortent souvent, groupements de producteurs organisés en SAS, jeunes entreprises qui accueillent des investisseurs par tranches successives. Il évite de réunir une assemblée extraordinaire et d'accomplir des formalités de publicité à chaque mouvement. Mais la souplesse a un prix pour les tiers : le capital qu'ils lisent dans les statuts n'est plus une garantie figée. C'est pourquoi l'Acte uniforme compense l'absence d'opposition par deux protections, le plancher statutaire et la responsabilité quinquennale de l'associé sortant dans la limite de ce qui lui a été restitué. Pour le comptable, le capital du bilan est alors celui qui résulte des mouvements réellement enregistrés, et il peut différer du chiffre inscrit dans les statuts.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Retour à KALEMIE LOGISTIQUE, dont le cas 5 détaille les écritures. Le 25 août N, la société est immatriculée : le capital de 20 000 000 FC est entièrement libéré et déposé en banque, les dépenses de formation avancées par Mme A. sont reprises dans ses comptes avec une dette de 6 199 500 FC au 4621, et la commande du véhicule attend l'approbation de l'assemblée. Immatriculée au second semestre, la société peut prolonger son premier exercice jusqu'au 31 décembre N+1 (art. 7 AUDCIF). En quelques écritures, elle a parcouru tout ce chapitre : l'obligation d'apport, la libération, le dépôt des fonds, la reprise des engagements de la période de formation et le premier exercice. Les chapitres suivants la verront grandir, emprunter, distribuer ses premiers dividendes, et peut-être un jour fusionner ou se dissoudre.",
       },
       { type: 'controle', question: QCM[29] },
       {
