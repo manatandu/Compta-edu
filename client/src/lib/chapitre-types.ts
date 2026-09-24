@@ -40,6 +40,10 @@ export interface Tableau {
  * il les couvre intégralement, sans recours à du JSX libre.
  */
 export type Bloc =
+  /** Intertitre de sous-section (par exemple « 3.2.1 Définition »). Il
+   *  structure l'exposé à l'intérieur d'une section, sans créer d'entrée
+   *  dans le rail de navigation. */
+  | { type: 'intertitre'; texte: string }
   /** Paragraphe de corps de texte. Le premier de chaque section reçoit
    *  automatiquement la lettrine : ce n'est pas au rédacteur de le demander. */
   | { type: 'paragraphe'; texte: string }
