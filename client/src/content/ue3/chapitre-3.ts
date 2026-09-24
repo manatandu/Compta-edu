@@ -360,6 +360,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Kinshasa, 31 décembre N. Au siège de **BANDAL MOTORS SA**, concessionnaire automobile au capital de 200 000 000 FC, l'exercice se clôt sur un résultat comptable avant impôt de 150 000 000 FC. Dans les semaines qui suivent, le conseil d'administration arrêtera les comptes, calculera l'impôt, proposera une affectation du résultat, puis l'assemblée votera les dividendes. Les actionnaires attendent leur part, l'administration fiscale la sienne, et les créanciers comptent sur les réserves. Ce chapitre suit BANDAL MOTORS de la clôture au paiement du dividende, et montre comment le droit des sociétés, la fiscalité congolaise et la comptabilité s'articulent à chaque étape.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Chaque année, la société rend compte à ses associés. Le cycle commence à la clôture : « le gérant ou le conseil d'administration ou l'administrateur général, selon le cas, établit et arrête les états financiers de synthèse » conformément au droit comptable (art. 137). *Arrêter* les comptes, c'est les fixer sous la responsabilité des organes de gestion, avant tout contrôle ou vote. Les mêmes organes établissent un **rapport de gestion** exposant la situation de la société durant l'exercice écoulé, son évolution prévisible, les événements importants survenus entre la clôture et la date du rapport, et en particulier les perspectives de continuation de l'activité, l'évolution de la trésorerie et le plan de financement (art. 138).",
       },
       {
@@ -433,6 +437,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Deux situations particulières méritent l'attention. Une société **déficitaire** ne paie pas d'IS au taux de 30 %, mais elle reste redevable de l'impôt minimum de 1 % de son chiffre d'affaires (art. 57) : ce montant est une charge de l'exercice au compte 895, qui aggrave la perte comptable. Une société **bénéficiaire** qui a versé des acomptes supérieurs à l'impôt finalement dû dispose d'une créance sur l'État : le solde débiteur du 441 figure alors à l'actif. En cours d'exercice, chaque acompte se comptabilise au débit du 441 par le crédit de la banque ; à la clôture, l'impôt de l'exercice est porté au crédit du 441 par le débit du 891, et le solde du compte donne le reliquat à payer ou à récupérer. Comme les acomptes de l'exercice N+1 sont calculés sur l'impôt de N, une forte hausse du bénéfice pèse aussi sur la trésorerie de l'année suivante.",
+      },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : 102 millions de bénéfice, donc 102 millions en caisse ?",
+        texte: "Non. Le résultat net de BANDAL MOTORS, 102 000 000 FC, mesure un enrichissement, pas une trésorerie. Une partie des ventes n'est peut-être pas encore encaissée, des stocks ont peut-être été reconstitués, un emprunt a pu être remboursé. Le conseil doit donc vérifier deux choses avant de proposer un dividende : que la distribution est juridiquement possible (bénéfice distribuable et butoir de l'article 143) et qu'elle est financièrement supportable (trésorerie disponible à la date de mise en paiement). Un dividende régulier que la société doit emprunter pour payer est un mauvais signal.",
       },
       { type: 'controle', question: QCM[3] },
       {
@@ -570,6 +579,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Trois erreurs reviennent sans cesse dans les copies et dans la pratique. La première consiste à calculer la dotation sur le bénéfice brut sans retrancher les pertes antérieures : c'est l'assiette nette qui compte. La deuxième consiste à oublier le plafond et à doter le dixième alors que la réserve a presque atteint le cinquième du capital : l'excédent n'est pas interdit, mais il n'est plus obligatoire, et l'assemblée doit le décider comme une réserve facultative. La troisième consiste à calculer le plafond sur les capitaux propres ou sur le capital libéré : l'Acte uniforme vise « le cinquième du montant du capital social », c'est-à-dire le capital souscrit inscrit dans les statuts, qu'il soit ou non entièrement libéré.",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Doter mécaniquement la réserve légale du dixième du bénéfice, sans regarder le plafond. Chez BANDAL MOTORS, le dixième du résultat net donnerait 10 200 000 FC. Mais la dotation cesse d'être obligatoire lorsque la réserve atteint le cinquième du capital : avec un capital de 200 000 000 FC et une réserve déjà portée à 36 000 000 FC, il ne manque que 4 000 000 FC pour atteindre 40 000 000 FC. La dotation obligatoire est donc de 4 000 000 FC. Doter davantage n'est pas interdit, mais c'est alors une réserve facultative, que l'assemblée doit voter comme telle.",
+      },
       { type: 'controle', question: QCM[12] },
       { type: 'controle', question: QCM[13] },
       { type: 'controle', question: QCM[14] },
@@ -614,6 +628,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Un exemple montre l'effet du premier dividende sur des actions inégalement libérées. Une SA de 10 000 actions de 10 000 compte 6 000 actions entièrement libérées et 4 000 libérées du quart ; ses statuts prévoient un premier dividende de 6 %. Les actions libérées reçoivent 6 % × 10 000 = 600 ; les actions libérées du quart, 6 % × 2 500 = 150. Premier dividende total : 6 000 × 600 + 4 000 × 150 = 3 600 000 + 600 000 = 4 200 000. Si l'assemblée ajoute un superdividende de 1 000 par action, uniforme, il coûte 10 000 000. Le dividende total par action est donc de 1 600 pour une action libérée et de 1 150 pour une action libérée du quart. L'écart rémunère exactement l'argent que les premiers actionnaires ont déjà mis à la disposition de la société.",
+      },
+      {
+        type: 'filet',
+        titre: "Et si toutes les actions étaient libérées ?",
+        texte: "BANDAL MOTORS compte 15 000 actions entièrement libérées et 5 000 libérées de moitié. Le premier dividende, calculé comme un intérêt sur le montant libéré (art. 145), donne 500 FC aux premières et 250 FC aux secondes, soit 8 750 000 FC au total. Si les 20 000 actions avaient été entièrement libérées, le premier dividende aurait été de 500 FC pour chacune, soit 10 000 000 FC, et le superdividende aurait été réduit d'autant. La libération fractionnée étudiée aux chapitres 1 et 2 a donc un prix pour l'actionnaire : tant que ses actions ne sont pas libérées, il perçoit un premier dividende réduit.",
       },
       { type: 'controle', question: QCM[17] },
       { type: 'controle', question: QCM[18] },
@@ -765,6 +784,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La retenue s'inscrit dans un calendrier précis. Pour un dividende voté le 20 mai et payé le 28 juin, la société doit reverser la retenue au plus tard le 15 juillet, au moyen du formulaire de déclaration fourni par l'Administration des impôts (AM n° 008/2025, art. 2). Si le dividende voté n'est payé qu'en partie, la retenue suit chaque versement ou chaque mise à disposition, et non le vote lui-même. Le compte 447 doit être soldé à chaque échéance ; un solde ancien au crédit de ce compte à la clôture révèle une retenue collectée mais non reversée, ce qui expose la société aux pénalités de la loi relative aux procédures fiscales. Le comptable rapproche donc, mois par mois, les paiements portés au débit du 465 et les reversements portés au débit du 447.",
       },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Pour chaque dividende versé, l'auditeur rapproche trois documents : le procès-verbal de l'assemblée (montant voté), l'état de paiement (montant brut, retenue de 20 %, net versé à chaque associé) et la preuve du reversement de la retenue au plus tard le 15 du mois suivant le paiement. Il vérifie que la retenue a été comptabilisée au crédit du 447 et reversée, et que les dividendes non réclamés restent au 465. Chez BANDAL MOTORS, un dividende de 74 750 000 FC appelle une retenue de 14 950 000 FC : un oubli de reversement exposerait la société à des pénalités.",
+      },
       { type: 'controle', question: QCM[25] },
       { type: 'controle', question: QCM[26] },
       { type: 'controle', question: QCM[27] },
@@ -805,6 +829,10 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Enfin, la distribution doit rester cohérente avec la politique financière de la société. Une entreprise qui distribue chaque année l'intégralité de son bénéfice distribuable ne constitue aucune réserve facultative : elle finance sa croissance par l'endettement, et ses capitaux propres stagnent. À l'inverse, une société qui ne distribue jamais rien peut décevoir ses associés et, fiscalement, la loi congolaise veille aux bénéfices qui sortent de l'entreprise sous d'autres formes que le dividende (art. 73). Les banques congolaises examinent la politique de distribution avant d'accorder un crédit, et les contrats de prêt comportent parfois des clauses qui limitent les dividendes tant que l'emprunt n'est pas remboursé. Le comptable, en présentant le tableau de répartition, éclaire ce choix qui appartient aux associés.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Retour à BANDAL MOTORS, dont le cas 5 détaille les calculs. De son résultat comptable de 150 000 000 FC, la société a déduit un IS de 48 000 000 FC, plus élevé que l'impôt minimum. Sur le résultat net de 102 000 000 FC, elle a doté la réserve légale de 4 000 000 FC seulement, jusqu'à son plafond, puis la réserve statutaire. Elle a ensuite calculé un premier dividende proportionnel au montant libéré, voté des réserves facultatives et arrondi le superdividende. Elle a vérifié le butoir des capitaux propres, retenu 20 % à la source et reversé cette retenue dans les délais. Chaque décision de l'assemblée est devenue une écriture, et chaque écriture laisse une trace dans les états financiers de l'exercice suivant.",
       },
       { type: 'controle', question: QCM[29] },
     ],

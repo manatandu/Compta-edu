@@ -356,6 +356,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Goma, au bord du lac Kivu. Un groupe d'investisseurs veut construire **GOMA LACS HÔTELS**. M. R. apportera un terrain bâti au bord du lac ; d'autres souscripteurs apporteront des fonds ; Mme V., qui a conçu le projet, demande une reconnaissance particulière. Faut-il créer une SARL, une SA ou une SAS ? Le choix n'est pas qu'une affaire de statuts. Il fixe le capital minimum, la part à libérer dès la souscription, le contrôle des apports, la forme des actes et, pour le comptable, le rythme des écritures. Ce chapitre compare les formes, puis suit GOMA LACS HÔTELS, qui retiendra la SA.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Le chapitre 1 a posé les règles communes à toutes les sociétés. Celui-ci montre comment elles se déclinent selon la forme choisie, car c'est la forme qui fixe le capital minimum, la fraction à libérer, le contrôle des apports et le circuit des fonds, donc les écritures. La société à responsabilité limitée est une société « dans laquelle les associés ne sont responsables des dettes sociales qu'à concurrence de leurs apports et dont les droits sont représentés par des parts sociales » ; elle peut être instituée par une personne physique ou morale, la SARL unipersonnelle, ou entre plusieurs personnes (art. 309). Sa dénomination est immédiatement précédée ou suivie des mots « société à responsabilité limitée » ou du sigle « S.A.R.L. » (art. 310). C'est, en RDC comme ailleurs dans l'espace OHADA, la forme la plus répandue chez les petites et moyennes entreprises.",
       },
       {
@@ -415,6 +419,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Le commissaire aux apports n'est pas le commissaire aux comptes, même s'il est choisi sur la même liste. Sa mission est ponctuelle : apprécier la valeur des apports en nature et des avantages particuliers au jour de la constitution ou de l'augmentation de capital. Le commissaire aux comptes, lui, certifie les états financiers annuels ; dans la SARL, il n'est obligatoire qu'au-delà des seuils étudiés en UE2. Les honoraires du commissaire aux apports sont une charge de la société (6324 Honoraires des professions réglementées), comme ceux du notaire. Dans la SA, l'article 402 ajoute que les honoraires des experts qu'il se fait assister sont à la charge de la société, sauf clause contraire des statuts.",
+      },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : commissaire aux apports ou commissaire aux comptes ?",
+        texte: "Ce ne sont pas les mêmes, même si le commissaire aux apports est choisi sur la même liste. Le commissaire aux comptes contrôle les comptes de la société pendant toute sa vie. Le commissaire aux apports intervient une seule fois, à la constitution ou lors d'une augmentation de capital, pour apprécier la valeur des apports en nature et des avantages particuliers. Chez GOMA LACS HÔTELS, c'est lui qui a évalué le terrain de M. R. à 45 000 000 FC et apprécié l'avantage accordé à Mme V. ; le commissaire aux comptes n'interviendra qu'ensuite, sur les comptes annuels.",
       },
       { type: 'controle', question: QCM[3] },
       {
@@ -558,6 +567,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Suivons sur la durée une SA dont le capital de 100 000 000 FC est libéré du quart à la souscription, puis appelé en trois fractions égales au cours des trois années suivantes. À la constitution, le compte 1013 porte 25 000 000 et le compte 1011 porte 75 000 000, avec en contrepartie un 109 débiteur de 75 000 000. À chaque appel, 25 000 000 passent du 109 au 4613 et du 1011 au 1012 ; à chaque versement, du 4613 à la banque et du 1012 au 1013. Au bilan, la rubrique CA reste constante à 100 000 000, tandis que la rubrique CB, négative, passe de − 75 000 000 à − 50 000 000, puis − 25 000 000, puis zéro. Les capitaux propres augmentent ainsi à mesure des appels, sans qu'aucune décision d'augmentation de capital n'intervienne : c'est l'exécution progressive d'un engagement déjà pris.",
       },
+      {
+        type: 'filet',
+        titre: "Et si GOMA LACS HÔTELS avait choisi la SARL ?",
+        texte: "Les actions de numéraire de GOMA LACS HÔTELS sont libérées du quart à la souscription, comme le permet la SA. Dans une SARL, les parts de numéraire auraient dû être libérées de la moitié au moins de leur valeur nominale lors de la souscription. Pour les 10 500 titres de numéraire de 10 000 FC, cela aurait représenté au moins 52 500 000 FC à verser dès l'origine, au lieu de 26 250 000 FC. La SA ménage donc davantage la trésorerie des fondateurs au départ, au prix d'une organisation plus lourde : commissaire aux comptes dès l'origine, assemblée constitutive en cas d'apports en nature.",
+      },
       { type: 'controle', question: QCM[9] },
       { type: 'controle', question: QCM[10] },
       { type: 'controle', question: QCM[11] },
@@ -642,6 +656,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "L'assemblée constitutive adopte les statuts, qu'elle ne peut modifier qu'à l'unanimité de tous les souscripteurs (art. 410, 2°). Cette règle protège les souscripteurs qui se sont engagés au vu d'un projet de statuts : une majorité ne peut, au dernier moment, changer les règles du jeu. Elle nomme aussi le premier commissaire aux comptes, dont la mission commencera avec le premier exercice. Pour le comptable, la date de l'assemblée est souvent celle des premières écritures de la SA : souscription, appel, entrée des apports en nature, et reprise des actes de la période de formation. Toutes ces écritures sont datées et justifiées par le procès-verbal, qui devient la pièce maîtresse du dossier permanent.",
+      },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Dans le procès-verbal de l'assemblée constitutive de GOMA LACS HÔTELS, l'auditeur vérifie d'abord le quorum. Pour le vote sur l'apport de M. R., ses 5 000 actions, y compris ses 500 actions de numéraire, ne comptent ni dans le quorum ni dans la majorité (art. 408). Sur 9 500 actions présentes, il n'en reste que 4 500 à prendre en compte, face à une base de 10 000 : le quorum de la moitié n'est pas atteint sur première convocation. Une approbation votée en ignorant cette règle fragiliserait toute la constitution, et avec elle les écritures du comptable.",
       },
       { type: 'controle', question: QCM[16] },
       {
@@ -796,6 +815,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le calendrier de la défaillance se calcule à partir de la mise en demeure. Si elle est reçue le 05/04/N, la suspension du vote, du dividende et du droit préférentiel intervient un mois plus tard, le 05/05/N ; la publication des numéros des actions a lieu trente jours après la mise en demeure ; la vente ne peut intervenir moins de quinze jours après l'envoi de l'avis au débiteur. Si la créance sur le défaillant devient douteuse, la société peut la déprécier : le plan de comptes prévoit le compte 496 Dépréciations des comptes apporteurs, associés et groupe. La dépréciation ne touche pas le capital ; elle constate seulement que la créance ne sera peut-être pas recouvrée en totalité.",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Réduire le capital appelé (1012) quand un actionnaire ne paie pas son appel. Le capital ne change pas : c'est la créance qui change de compte. La créance d'appel non payée peut être isolée au 4617, puis dépréciée au besoin par le 496 si son recouvrement devient douteux. Le 1012 n'est viré au 1013 que lorsque la fraction appelée est effectivement versée, par le défaillant, par un coobligé ou grâce au produit de la vente de ses actions. Le comptable suit donc deux questions en parallèle : le recouvrement de la créance et l'état de libération du capital.",
+      },
       { type: 'controle', question: QCM[26] },
       {
         type: 'paragraphe',
@@ -844,6 +868,10 @@ const SECTIONS: Chapitre['sections'] = [
       },
       { type: 'controle', question: QCM[22] },
       { type: 'controle', question: QCM[23] },
+      {
+        type: 'paragraphe',
+        texte: "Retour à GOMA LACS HÔTELS, dont le cas 5 détaille les chiffres. La société a choisi la SA pour accueillir plusieurs investisseurs et un apport en nature important. Ce choix a imposé un commissaire aux apports pour le terrain de M. R. et l'avantage de Mme V., un dépôt des fonds de numéraire sur un compte spécial, et une assemblée constitutive dont le quorum se calcule sans les actions de l'apporteur. Sur deuxième convocation, le quart suffit, et la valeur de 45 000 000 FC ne peut être réduite qu'avec l'unanimité des souscripteurs et l'accord exprès de M. R. Chacune de ces règles se traduit dans les comptes : 4612 pour l'apport en nature, 4613 et 1012 pour l'appel du quart, 1013 pour la fraction versée, et 109 pour les trois quarts qui restent à appeler.",
+      },
       { type: 'controle', question: QCM[24] },
     ],
   },

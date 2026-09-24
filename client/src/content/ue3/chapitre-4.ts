@@ -359,6 +359,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Kinshasa. **MONGALA ENERGIE SA**, producteur d'électricité au capital de 120 000 000 FC divisé en 12 000 actions de 10 000 FC, veut financer une nouvelle centrale. La banque accepte de prêter, à condition que les actionnaires renforcent d'abord les fonds propres. Le conseil d'administration étudie les options : émettre des actions nouvelles contre de l'argent frais, faire entrer un partenaire par un apport, incorporer des réserves, ou transformer des dettes en capital. Ce chapitre examine chacune de ces voies. Il suit MONGALA ENERGIE, qui choisira d'émettre 3 000 actions nouvelles à 14 000 FC, alors que l'action est estimée à 18 000 FC.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Une société augmente son capital pour trois raisons principales : lever des fonds propres nouveaux pour financer sa croissance, consolider des réserves accumulées afin de rendre le capital plus représentatif, ou faire entrer un partenaire qui apporte un actif, une créance ou un savoir-faire. L'article 68 l'annonçait : le capital peut être augmenté par de **nouveaux apports** ou par l'**incorporation** de réserves, de bénéfices ou de primes. Pour la SA, l'article 562 précise les deux procédés : émission d'actions ordinaires ou de préférence, ou **majoration du montant nominal** des actions existantes, cette dernière exigeant le consentement unanime des actionnaires sauf incorporation. Il énumère aussi les modes de libération des actions nouvelles : espèces, **compensation** avec des créances certaines, liquides et exigibles, incorporation de réserves, bénéfices ou primes, ou apport en nature. Le capital peut encore être augmenté par l'exercice de droits attachés à des valeurs mobilières donnant accès au capital (art. 562, al. 4). Les actions nouvelles sont émises à leur nominal, ou à ce nominal majoré d'une **prime d'émission** (art. 563).",
       },
       {
@@ -433,6 +437,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Reprenons l'exemple de la carte ci-dessus du point de vue d'un actionnaire qui détient 400 actions anciennes valant 16 000 chacune, soit 6 400 000. S'il souscrit, il exerce ses 400 droits pour obtenir 100 actions nouvelles à 12 000, soit 1 200 000 à verser ; il détient alors 500 actions valant 15 200, soit 7 600 000, pour une mise totale de 6 400 000 + 1 200 000 = 7 600 000 : il ne perd rien, et sa part dans le capital est maintenue. S'il ne souscrit pas mais vend ses droits à 800, il encaisse 320 000 et conserve 400 actions valant 15 200, soit 6 080 000 : au total 6 400 000, sa richesse est intacte, mais sa part dans le capital diminue. S'il ne fait rien, il perd 320 000 : c'est pourquoi le droit doit être négociable ou cessible pendant la souscription (art. 574).",
       },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : pourquoi vendre moins cher que la valeur ?",
+        texte: "MONGALA ENERGIE émet ses actions nouvelles à 14 000 FC alors que l'action vaut 18 000 FC. Ce prix attractif facilite le placement, mais il appauvrit les anciens actionnaires : après l'opération, l'action ne vaut plus que 17 200 FC en théorie. Le droit préférentiel de souscription corrige cette dilution. Chaque action ancienne porte un droit, qui vaut théoriquement 800 FC (18 000 − 17 200), et il faut quatre droits pour souscrire une action nouvelle. L'actionnaire qui souscrit garde sa part ; celui qui ne souscrit pas vend ses droits et récupère la valeur perdue. Un nouveau venu, lui, paie 14 000 FC plus quatre droits, soit exactement 17 200 FC.",
+      },
       { type: 'controle', question: QCM[6] },
       {
         type: 'paragraphe',
@@ -502,6 +511,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "La **déclaration notariée de souscription et de versement** joue dans l'augmentation le même rôle qu'à la constitution. Le notaire y affirme, au vu des bulletins et du certificat du dépositaire, que le montant des souscriptions est conforme aux bulletins et que celui des versements est conforme aux sommes déposées. C'est à sa date que l'augmentation est réputée réalisée (art. 571) : c'est donc aussi la date de l'écriture qui solde le 4615 par le crédit du capital et de la prime. Si une clôture d'exercice intervient entre le versement des fonds et la déclaration, les fonds figurent au bilan de clôture comme une dette envers les souscripteurs (4615), et non comme du capital ; ils ne deviendront capital qu'à l'exercice suivant.",
+      },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Créditer le capital dès la réception des fonds. Tant que l'augmentation n'est pas réalisée, rien n'est acquis : si elle échoue, les fonds doivent être restitués aux souscripteurs. Les versements transitent donc par le compte 4615 Apporteurs, versements reçus sur augmentation de capital, et ce n'est qu'au jour de la réalisation, constatée par la déclaration notariée de souscription et de versement, que le 4615 est soldé au crédit du capital (1013) et de la prime (1051). Chez MONGALA ENERGIE, les 42 000 000 FC reçus par le notaire restent au 4615 jusqu'à cette date.",
       },
       { type: 'controle', question: QCM[11] },
       { type: 'controle', question: QCM[12] },
@@ -607,6 +621,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Dans le **tableau des flux de trésorerie**, l'augmentation de capital en numéraire est un flux de financement. Le Guide d'application la mesure, sur la ligne « Augmentation de capital par apport nouveau », par la variation des comptes de la classe 10 hors écarts de réévaluation (106) et capital non appelé (109), du compte 467 et du compte 4581. Une augmentation par incorporation de réserves ne modifie pas la trésorerie ; une augmentation par compensation de créances ou par conversion d'obligations n'en modifie pas davantage, puisque la société ne reçoit aucun fonds : ces opérations doivent être identifiées et neutralisées lors de l'établissement du TFT, qui ne retrace que les flux réels.",
       },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Dans le dossier d'augmentation de MONGALA ENERGIE, l'auditeur vérifie la chaîne des pièces : procès-verbal de l'AGE et rapports du conseil et du commissaire aux comptes, bulletins de souscription, certificat du dépositaire, déclaration notariée, et publicité. Il contrôle que les fonds ont été déposés dans les huit jours de leur réception, que la prime a été intégralement versée, et que les fonds n'ont été utilisés qu'après la réalisation de l'augmentation (art. 615). Une écriture de réalisation datée d'avant la déclaration notariée est une anomalie à corriger.",
+      },
       { type: 'controle', question: QCM[18] },
       {
         type: 'paragraphe',
@@ -651,6 +670,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "L'incorporation peut porter sur tout poste de capitaux propres disponible à cet effet : réserves facultatives, réserve légale, réserves statutaires si les statuts le permettent, report à nouveau créditeur, bénéfice de l'exercice, primes d'émission, d'apport ou de fusion (art. 62 et 562). L'incorporation d'une prime est fréquente après une augmentation en numéraire à prix élevé : la prime rejoint ainsi le capital et devient définitivement indisponible. En revanche, un poste débiteur, comme un report à nouveau débiteur, ne s'incorpore pas : il faudrait d'abord l'apurer. Et l'incorporation n'est possible que si la réserve existe réellement dans les comptes approuvés : on n'incorpore pas un bénéfice d'exercice non encore approuvé par l'assemblée.",
+      },
+      {
+        type: 'filet',
+        titre: "Et si MONGALA ENERGIE avait incorporé ses réserves ?",
+        texte: "Une augmentation par incorporation de réserves n'apporte aucun franc à la société : elle déplace des sommes d'un poste des capitaux propres à un autre (réserves vers capital). Les actionnaires reçoivent des actions gratuites ou voient le nominal de leurs actions relevé, mais les capitaux propres et la trésorerie ne changent pas. Pour financer un nouveau barrage ou une ligne électrique, MONGALA ENERGIE a besoin d'argent frais : seule une augmentation en numéraire, ou l'entrée d'un investisseur par apport, peut le lui apporter.",
       },
       { type: 'controle', question: QCM[20] },
     ],
@@ -794,6 +818,10 @@ const SECTIONS: Chapitre['sections'] = [
         texte: "Au-delà du secteur bancaire, d'autres activités réglementées imposent en RDC des exigences de capital ou de fonds propres, que le comptable doit connaître lorsqu'il accompagne une augmentation : assurances, microfinance, monnaie électronique, par exemple. La méthode est la même. On identifie le texte sectoriel et le seuil, on vérifie s'il vise le capital souscrit, le capital libéré ou les fonds propres, on convertit les seuils exprimés en devises au cours pertinent, et l'on choisit la technique d'augmentation la mieux adaptée : incorporation si les réserves suffisent, apports nouveaux sinon, conversion de dettes lorsque les actionnaires ont déjà financé la société en compte courant ou par obligations.",
       },
       { type: 'controle', question: QCM[28] },
+      {
+        type: 'paragraphe',
+        texte: "Retour à MONGALA ENERGIE, dont le cas 1 détaille les écritures. L'assemblée extraordinaire a décidé l'émission de 3 000 actions à 14 000 FC, sur les rapports du conseil et du commissaire aux comptes, après avoir vérifié que l'ancien capital était entièrement libéré. Le droit préférentiel de souscription, d'une valeur théorique de 800 FC, a protégé les anciens actionnaires contre la dilution. Les 42 000 000 FC versés chez le notaire ont transité par le 4615, puis la réalisation a porté 30 000 000 FC au capital et 12 000 000 FC à la prime d'émission. Le capital passe de 120 000 000 à 150 000 000 FC. KIVU CRÉDIT (cas 5) montre la même mécanique à l'échelle d'une banque, avec une suppression du DPS au profit d'investisseurs désignés.",
+      },
       { type: 'controle', question: QCM[29] },
     ],
   },

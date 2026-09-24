@@ -363,6 +363,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Lubumbashi. **MOERO BOISSONS SA**, qui embouteille des boissons gazeuses, veut absorber **LUAPULA EAUX SA**, qui produit de l'eau minérale sur la même zone. Les deux conseils se sont rapprochés : les actionnaires de LUAPULA recevront des actions MOERO, LUAPULA disparaîtra, et ses usines, ses clients et ses dettes passeront à MOERO. Il faut évaluer les deux sociétés, fixer un rapport d'échange, respecter une procédure exigeante et passer les écritures dans les deux comptabilités. Ce chapitre suit cette fusion, puis examine les cas plus complexes où les sociétés se détiennent déjà l'une l'autre, ainsi que la scission et l'apport partiel d'actif.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Une société qui veut grandir peut acheter des actifs un par un, racheter les actions d'une autre société, ou **fusionner** avec elle. La fusion est la voie la plus radicale : deux entreprises n'en forment plus qu'une, avec un seul patrimoine, un seul bilan et un seul groupe d'associés. L'Acte uniforme la définit comme l'opération par laquelle deux ou plusieurs sociétés se réunissent pour n'en former qu'une seule, **soit par création d'une société nouvelle** (fusion-réunion), **soit par absorption** par l'une d'entre elles (fusion-absorption) (art. 189). Une société même **en liquidation** peut être absorbée ou participer à la constitution d'une société nouvelle : la fusion peut ainsi servir de sortie à une société qui ne veut pas vendre ses actifs un à un.",
       },
       {
@@ -430,6 +434,11 @@ const SECTIONS: Chapitre['sections'] = [
         texte: "Pourquoi un délai d'un mois entre la publicité et l'assemblée ? Parce que plusieurs catégories de personnes doivent pouvoir réagir avant que la décision ne soit prise. Les associés doivent avoir le temps d'étudier la parité et, dans les SA, les rapports. Les créanciers doivent pouvoir préparer une éventuelle opposition, dont le délai de trente jours court à compter de la publicité (art. 679). Les obligataires doivent pouvoir être convoqués en assemblée. Le comptable doit construire un calendrier à rebours : date de l'assemblée, date limite de publicité un mois plus tôt, date d'arrêté des comptes de référence (mention 5° du projet), et date de l'état comptable intermédiaire si les derniers comptes ont plus de six mois (art. 674). Un calendrier mal construit peut obliger à reporter l'assemblée, voire exposer l'opération à la nullité.",
       },
       { type: 'controle', question: QCM[5] },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Pour la fusion de MOERO BOISSONS et de LUAPULA EAUX, l'auditeur commence par le calendrier. Le projet a-t-il été arrêté par les deux conseils, avec ses huit mentions ? A-t-il été déposé au RCCM et publié par chacune des deux sociétés un mois au moins avant la première assemblée ? Les documents étaient-ils à la disposition des actionnaires quinze jours avant ? Il vérifie ensuite les rapports du conseil et du commissaire à la fusion, les majorités de chaque AGE et la déclaration de conformité. Un seul maillon manquant peut entraîner la nullité, et avec elle toutes les écritures de la fusion.",
+      },
       { type: 'controle', question: QCM[6] },
       {
         type: 'filet',
@@ -567,6 +576,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les méthodes d'évaluation doivent être appliquées de la même manière aux deux sociétés. Supposons que l'on évalue l'absorbée par son actif net réévalué (15 000 par titre) et l'absorbante par sa valeur de rendement (9 000 par titre). Si la valeur de rendement de l'absorbée n'est en réalité que de 11 000, la parité de 5 pour 3 favorise ses actionnaires. Avec des méthodes concordantes, elle aurait plutôt été proche de 11 000 / 9 000. En pratique, l'évaluateur combine plusieurs méthodes pour chaque société, avec les mêmes pondérations, et il arrête les deux évaluations à la même date. Le commissaire à la fusion, dans les SA, rend compte de ces choix (art. 672).",
       },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : que faire d'une parité de 35 pour 24 ?",
+        texte: "L'action LUAPULA vaut 17 500 FC et l'action MOERO 12 000 FC : le rapport exact est de 35/24, soit 11 666,67 actions MOERO pour les 8 000 actions LUAPULA. Aucun actionnaire ne veut recevoir des fractions d'action. Les parties peuvent arrondir et compenser les rompus par une soulte, plafonnée à 10 % de la valeur d'échange des titres attribués (art. 191), ou ajuster légèrement les valeurs pour obtenir une parité simple. C'est ce que fait le cas 1 en retenant 3 actions MOERO pour 2 actions LUAPULA, soit 12 000 titres émis. Toute parité négociée doit rester défendable devant le commissaire à la fusion.",
+      },
       { type: 'controle', question: QCM[14] },
     ],
   },
@@ -641,6 +655,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Pourquoi l'absorbée enregistre-t-elle une plus-value alors qu'elle disparaît ? Parce que ses associés ne reçoivent pas la valeur comptable de leur société, mais sa valeur réelle, sous forme d'actions de l'absorbante. Le 1381 fait apparaître cet enrichissement, puis il est viré avec le capital et les réserves au 4618 : il fait partie des droits des associés. Le résultat de fusion ne transite pas par le compte de résultat, puisque l'absorbée ne publie plus de comptes après sa dissolution. Pour l'absorbante, les actifs repris à la valeur réelle serviront de nouvelle base d'amortissement comptable. Fiscalement, l'article 54 de la loi n° 23/053 impose de conserver la base de l'apporteuse (section 8.10).",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Créditer le capital de la valeur totale des apports. MOERO BOISSONS reçoit un actif net de 140 000 000 FC, mais son capital n'augmente que du nominal des titres créés : 12 000 × 5 000 = 60 000 000 FC. Les 80 000 000 FC restants sont une prime de fusion (1053), qui représente le droit d'entrée des actionnaires de LUAPULA dans une société dont les réserves et les plus-values appartenaient jusque-là aux actionnaires de MOERO. Chez LUAPULA, symétriquement, l'écart entre la valeur d'apport et la valeur comptable des actifs n'est pas un bénéfice d'exploitation : c'est un résultat de fusion (1381), viré aux droits des associés.",
+      },
       { type: 'controle', question: QCM[18] },
     ],
   },
@@ -699,6 +718,11 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
         note: "Prime finale : 15 000 000 − 4 000 000 = 11 000 000. [texte officiel] Chez B, l'étape 1 du Guide crédite le 2411 pour 30 000 000 et le 263 pour 15 000 000, alors que le bilan de B porte les matériels à 40 000 000 et les titres A à 5 000 000 ; les totaux (66 000 000) et le résultat de fusion (39 000 000) coïncident, mais la ventilation ne correspond pas au bilan.",
+      },
+      {
+        type: 'filet',
+        titre: "Et si MOERO détenait déjà 25 % de LUAPULA ?",
+        texte: "MOERO ne pourrait pas échanger les 2 000 actions LUAPULA qu'elle possède contre ses propres actions (art. 191). Seules les 6 000 actions des autres actionnaires seraient échangées, contre 9 000 actions MOERO, soit une augmentation de capital de 45 000 000 FC. Sur l'apport de 140 000 000 FC, la part échangée (105 000 000 FC) donnerait une prime de fusion de 60 000 000 FC. La part revenant à MOERO (35 000 000 FC) servirait à annuler ses titres LUAPULA : l'écart avec leur valeur comptable serait un boni de fusion, logé au 1053, ou un mali s'il était négatif.",
       },
       { type: 'controle', question: QCM[21] },
       {
@@ -823,6 +847,10 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "En RDC, les fusions servent aussi à répondre aux exigences réglementaires de certains secteurs. Au chapitre 4, on a vu que les banques doivent détenir un capital minimum élevé. Un rapprochement entre deux établissements peut être une voie pour l'atteindre, sous réserve des autorisations de l'autorité de supervision bancaire, qui s'ajoutent alors aux règles de l'AUSCGIE. Plus largement, toute fusion dans un secteur réglementé (banque, assurance, mines, télécommunications) suppose de vérifier le cadre sectoriel avant de fixer le calendrier. La loi relative aux marchés boursiers de 2026 (chapitre 6) pourrait enfin rendre plus fréquentes les opérations sur sociétés cotées, pour lesquelles l'information du marché s'ajoutera à celle des actionnaires.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Retour à MOERO BOISSONS et LUAPULA EAUX, dont le cas 1 détaille les écritures. L'actif net de LUAPULA, réévalué à 140 000 000 FC, a été apporté à MOERO en échange de 12 000 actions nouvelles, selon une parité négociée de 3 pour 2. Chez MOERO, l'augmentation de capital s'élève à 60 000 000 FC, la prime de fusion à 80 000 000 FC, puis à 71 000 000 FC après imputation des frais. Chez LUAPULA, les actifs ont été sortis à leur valeur comptable, la plus-value d'apport a été portée au résultat de fusion, et les actions MOERO reçues ont été remises aux associés : la société a disparu sans liquidation. En RDC, la plus-value d'apport peut échapper à l'impôt grâce au régime de faveur de l'article 54, à condition de respecter la continuité des valeurs fiscales.",
       },
       { type: 'controle', question: QCM[29] },
       {

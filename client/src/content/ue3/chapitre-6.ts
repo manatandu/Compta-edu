@@ -369,6 +369,10 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
+        texte: "Kolwezi, capitale du cuivre et du cobalt. **KOLWEZI INFRA SA**, constituée en 2019, veut construire un dépôt logistique pour les exploitations minières voisines. Plutôt que d'emprunter auprès d'une seule banque, son conseil propose d'émettre un emprunt obligataire : 20 000 obligations de 10 000 FC, au taux de 8 %, remboursables en une fois au bout de cinq ans, et garanties par une hypothèque sur le futur dépôt. Qui peut émettre des obligations ? Comment les porteurs sont-ils protégés ? Comment comptabiliser la dette, les coupons et la prime de remboursement ? Ce chapitre répond à ces questions et suit KOLWEZI INFRA de l'émission au paiement de ses premiers coupons.",
+      },
+      {
+        type: 'paragraphe',
         texte: "Une société qui a besoin de ressources longues a deux voies. Elle peut demander des **capitaux propres** à ses associés (augmentation de capital, chapitre 4) ou s'endetter. L'endettement peut venir d'une banque ou, pour les plus grandes sociétés, directement de l'épargne, par l'**emprunt obligataire**. L'emprunt est alors fractionné en titres de même valeur, les **obligations**, que des investisseurs souscrivent et peuvent revendre. L'article 779 de l'AUSCGIE les définit comme « des titres négociables qui dans une même émission, confèrent les mêmes droits de créance pour une même valeur nominale ». Trois idées tiennent dans cette phrase. L'obligation est un titre **négociable** : elle circule sans les formalités d'une cession de créance. Elle confère un **droit de créance** : son porteur est un prêteur, pas un associé. Et ce droit est **identique** pour tous les titres d'une même émission, ce qui justifie leur organisation collective en masse.",
       },
       {
@@ -440,6 +444,11 @@ const SECTIONS: Chapitre['sections'] = [
         note: "Ces exclusions visent un seul risque : que le défenseur des prêteurs dépende de l'emprunteur. Les mêmes personnes ne peuvent pas non plus représenter des obligataires à l'assemblée (art. 801).",
       },
       { type: 'controle', question: QCM[7] },
+      {
+        type: 'filet',
+        titre: "Question d'étudiant : qui défendra les porteurs de KOLWEZI INFRA ?",
+        texte: "Les porteurs des 20 000 obligations de KOLWEZI INFRA forment de plein droit une masse dotée de la personnalité juridique (art. 785). Ils élisent un à trois représentants, résidents en RDC et indépendants de la société : ni la société débitrice, ni les sociétés qui détiennent une participation dans son capital, ni ses dirigeants, ni ses employés, ni son commissaire aux comptes (art. 787). Le directeur financier de KOLWEZI INFRA, qui connaît le mieux l'emprunt, est précisément celui qui ne peut pas défendre les prêteurs : il est l'employé de l'emprunteur.",
+      },
       { type: 'controle', question: QCM[8] },
       {
         type: 'paragraphe',
@@ -499,6 +508,11 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
         note: "Le quorum de l'article 553 s'apprécie sur première convocation (la moitié) puis sur deuxième (le quart). Ici, 6 000 titres présents sur 10 000 dépassent la moitié. La neutralisation des titres de l'actionnaire à 15 % dans le calcul du quorum n'est pas réglée expressément par l'article 806, qui ne vise que le vote : dans le doute, mieux vaut s'assurer que le quorum est atteint même sans eux.",
+      },
+      {
+        type: 'filet',
+        titre: "Le regard de l'auditeur",
+        texte: "Lorsque KOLWEZI INFRA proposera un report d'échéance, l'auditeur vérifiera le procès-verbal de l'assemblée extraordinaire des obligataires : quorum de l'article 553, majorité des deux tiers, et surtout exclusion des voix de la société qui détient 12 % du capital de KOLWEZI INFRA et possède 2 000 obligations (art. 806). Ses titres ne votent pas, même s'ils représentent un dixième de l'emprunt. Une délibération qui les aurait comptés serait fragile, et le nouvel échéancier inscrit dans les comptes le serait avec elle.",
       },
       { type: 'controle', question: QCM[13] },
       { type: 'controle', question: QCM[14] },
@@ -677,6 +691,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La **prise ferme** transfère le risque de placement à la banque. Elle s'engage à acheter l'ensemble des titres au prix convenu, puis les revend à ses clients. Si le placement se passe mal, c'est elle qui garde les obligations. Pour la société émettrice, l'opération est sûre : elle connaît dès le premier jour le montant exact qu'elle recevra. Ce service a un prix : la commission de prise ferme, qui s'ajoute aux frais d'émission du compte 6316. Dans l'écriture, les comptes d'attente 47131 et 47132 deviennent inutiles, puisqu'il n'y a qu'un souscripteur et un versement unique : débit 521, crédit 1611. Pour un emprunt placé par la société elle-même, au contraire, le suivi des souscriptions et des versements justifie les trois phases de l'AUDCIF, et le contrôle de la concordance entre bulletins, fonds reçus et dette inscrite.",
       },
+      {
+        type: 'filet',
+        titre: "Erreur fréquente",
+        texte: "Inscrire la prime de remboursement à l'actif, comme le faisait l'ancien SYSCOHADA avec le compte 206. Dans le référentiel révisé, la dette est constatée au prix d'émission, et la prime est prise en charge au fil de l'emprunt par le compte 6714, par le crédit du 1661 pour un emprunt in fine. Chez KOLWEZI INFRA, les obligations sont émises au pair à 10 000 FC et remboursables à 10 400 FC : la prime de 8 000 000 FC n'apparaît pas à l'émission, et elle est rattachée aux exercices au prorata des intérêts courus.",
+      },
       { type: 'controle', question: QCM[20] },
       {
         type: 'paragraphe',
@@ -746,6 +765,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Pourquoi le Guide porte-t-il la prime de l'emprunt in fine au crédit du **1661 Intérêts courus** plutôt qu'au 1611 ? Parce que la prime est économiquement un **supplément d'intérêt** : le prêteur est rémunéré à la fois par le coupon annuel et par l'écart entre ce qu'il a versé et ce qu'il recevra. Le 1661 regroupe donc, à la clôture, les intérêts courus non échus et la prime acquise jusqu'à cette date. Dans l'annexe, il est utile d'en distinguer les deux composantes, car les intérêts courus sont contrepassés à l'ouverture alors que la prime cumulée ne l'est pas. Elle reste au 1661 jusqu'au remboursement. L'obligation à coupon zéro pousse la logique à son terme. Tout le rendement prend la forme de la prime, et celle-ci est rattachée chaque année au taux actuariel, exactement comme des intérêts capitalisés (AUDCIF, ch. 20, § 3.1).",
+      },
+      {
+        type: 'filet',
+        titre: "Et si le coupon tombait le 31 décembre ?",
+        texte: "Le coupon de KOLWEZI INFRA est payable le 30 juin. À chaque clôture, six mois d'intérêts ont donc couru sans être payés : 200 000 000 × 8 % × 6/12 = 8 000 000 FC, constatés par débit 6711 et crédit 1661, puis contrepassés à l'ouverture. Si le coupon tombait le 31 décembre, il n'y aurait aucun intérêt couru à la clôture : le coupon entier serait comptabilisé à son paiement, dans l'exercice qu'il rémunère. Le décalage entre la date du coupon et la date de clôture est ce qui crée le travail d'inventaire.",
       },
       { type: 'controle', question: QCM[24] },
       {
@@ -900,6 +924,10 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Pour une SA congolaise qui envisage un jour d'émettre des obligations sur la future bourse, le travail commence bien avant l'ouverture du marché. Il faut vérifier les conditions de l'AUSCGIE : forme de SA, deux ans d'existence, deux bilans approuvés, capital entièrement libéré. Il faut disposer de comptes certifiés, établis selon le SYSCOHADA révisé, que des investisseurs pourront analyser. Il faut enfin apprécier sa capacité à servir l'emprunt : un tableau d'amortissement prévisionnel confronté aux flux de trésorerie attendus. Le taux obtenu par l'État lors de son eurobond donne un ordre de grandeur. Une société privée, plus risquée que l'État, devra en principe offrir davantage, sauf garanties solides. Ces chiffres rappellent que l'obligation n'est pas une ressource bon marché : c'est une ressource longue et stable, dont le coût doit être comparé à celui du crédit bancaire et des capitaux propres.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Retour à KOLWEZI INFRA, dont le cas 5 détaille les écritures. La société réunissait les conditions de l'émission : SA ancienne de plusieurs exercices, capital entièrement libéré, décision de l'assemblée des actionnaires. Elle a garanti son emprunt par une hypothèque publiée avant la souscription, émis 20 000 obligations au pair, et comptabilisé la dette au prix d'émission au 1611. Chaque clôture lui impose de constater six mois d'intérêts courus et une quote-part de la prime de remboursement. Chaque 30 juin, elle paie le coupon en retenant 20 % à la source, qu'elle reverse avant le 15 juillet. Si la Bourse de Kinshasa ouvre comme prévu, une société comme KOLWEZI INFRA pourra un jour placer un tel emprunt auprès du public, avec les obligations d'information de l'appel public à l'épargne.",
       },
       { type: 'controle', question: QCM[3] },
       {
