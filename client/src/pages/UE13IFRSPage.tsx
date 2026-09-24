@@ -7,7 +7,7 @@ const CHAPITRES = [
   {
     num: 1,
     titre: "Fondements, cadre conceptuel et architecture des IFRS",
-    sousTitre: "Cadre conceptuel · IAS 1 · IAS 8 · IFRS 13 · AUDCIF art. 8 · GCEC-IFRS",
+    sousTitre: "Cadre conceptuel · IAS 1 · IAS 8 · IFRS 13 · AUDCIF art. 8 · SYSCOHADA révisé",
     duree: "7h",
     actif: true,
     route: '/ue13/chapitre-1',

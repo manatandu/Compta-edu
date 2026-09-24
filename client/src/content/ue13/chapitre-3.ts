@@ -11,8 +11,14 @@ import type { Chapitre } from '@/lib/chapitre-types'
 // - IFRS 13 (§ 9, hiérarchie), IAS 16 (§ 31-41), IAS 23, IFRS 5 (renvois).
 // - AUDCIF : art. 42, 43 et 46 ; SYSCOHADA révisé, Titre VIII, ch. 10
 //   (immeubles de placement) et ch. 12 (dépréciation des immobilisations).
-// - BOA RDC, états IFRS 2018 (note 3.13) ; BCDC, annexe au rapport annuel
-//   2018 (immeubles de placement, durées d'utilité, note 3.8).
+// - Support de cours d'origine : J.-B. Tshimanga Mulumba (CPCC), « IFRS -
+//   Dépréciation des actifs », module 3 ; ses illustrations INDUSTRIA,
+//   TRANSLOG et IMMO PLUS sont reprises et approfondies. Deux points du
+//   support sont rectifiés sur texte : la variation de juste valeur d'un
+//   immeuble de placement passe directement en résultat (IAS 40.35), sans
+//   écart de réévaluation ; un changement du taux d'actualisation peut
+//   justifier une reprise (IAS 36.115(b)), seule la désactualisation est
+//   exclue (§ 116). Public visé : entreprises commerciales et industrielles.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const QCM: Chapitre['qcm'] = [
@@ -338,8 +344,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Seulement si la juste valeur est inférieure au coût" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 40.32 : toutes les entités évaluent la juste valeur de leurs immeubles de placement, soit pour les évaluer, soit pour la fournir en notes (§ 79(e)) ; le recours à un évaluateur indépendant est encouragé, sans être obligatoire. La BCDC le rappelait dans son annexe 2018 : « une estimation de la juste valeur des immeubles de placement reste obligatoire, pour la comptabilisation au bilan ou pour la présentation en annexes ».",
-    articleRef: "IAS 40.32 et 40.79 ; BCDC, annexe 2018",
+    explication: "IAS 40.32 : toutes les entités évaluent la juste valeur de leurs immeubles de placement, soit pour les évaluer, soit pour la fournir en notes (§ 79(e)) ; le recours à un évaluateur indépendant est encouragé, sans être obligatoire. Au modèle du coût, cette juste valeur sert aussi de repère pour le test de dépréciation d'IAS 36.",
+    articleRef: "IAS 40.32 et 40.79",
   },
   {
     id: 'ue13c3-q26',
@@ -427,7 +433,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Jugement professionnel : les indices dans le contexte congolais",
-        texte: "La liste du § 12 est un minimum (§ 13). Dans la pratique congolaise, plusieurs faits méritent d'être examinés comme des indices possibles : une crise sécuritaire qui interrompt l'accès à un site, comme celle que Rawbank décrit pour l'est du pays dans ses états 2025 ; un changement du régime fiscal ou minier qui réduit la rentabilité d'un projet ; une hausse forte des taux directeurs ; une dépréciation rapide du franc congolais qui renchérit des intrants importés. Aucun de ces faits n'impose automatiquement une perte. Chacun impose de se poser la question, et de documenter la réponse. Le principe d'importance relative s'applique (§ 15), et un indice peut aussi conduire à revoir la durée d'utilité, le mode ou la valeur résiduelle de l'actif (§ 17).",
+        texte: "La liste du § 12 est un minimum (§ 13). Dans la pratique congolaise, plusieurs faits méritent d'être examinés comme des indices possibles : une crise sécuritaire qui interrompt l'accès à un site, comme dans l'est du pays ; un changement du régime fiscal ou minier qui réduit la rentabilité d'un projet ; une hausse forte des taux directeurs ; une dépréciation rapide du franc congolais qui renchérit des intrants importés. Aucun de ces faits n'impose automatiquement une perte. Chacun impose de se poser la question, et de documenter la réponse. Le principe d'importance relative s'applique (§ 15), et un indice peut aussi conduire à revoir la durée d'utilité, le mode ou la valeur résiduelle de l'actif (§ 17).",
       },
       { type: 'controle', question: QCM[2] },
     ],
@@ -442,6 +448,18 @@ const SECTIONS: Chapitre['sections'] = [
         texte: "IAS 36 définit la valeur recouvrable comme « la valeur la plus élevée entre sa juste valeur diminuée des coûts de sortie et sa valeur d'utilité » (§ 6 ; même formule au § 18). La **juste valeur diminuée des coûts de sortie** est le prix qu'obtiendraient des intervenants du marché (IFRS 13), net des coûts marginaux directement attribuables à la sortie : frais d'actes, droits, enlèvement, mise en état de vente, mais pas les charges financières, l'impôt, les indemnités de rupture ou les coûts de restructuration (§ 28). La **valeur d'utilité** est la valeur actualisée des flux que l'entité attend de l'utilisation continue de l'actif et de sa sortie en fin de vie (§ 30-31). Si l'une des deux dépasse la valeur comptable, inutile de calculer l'autre (§ 19).",
       },
       { type: 'controle', question: QCM[3] },
+      {
+        type: 'carte',
+        titre: "Pas à pas : la ligne de production d'INDUSTRIA SA",
+        liste: [
+          "**Donnée (31 décembre N).** Ligne de production spécialisée : valeur brute 1 200 000 USD, amortissements cumulés 500 000, valeur nette comptable **700 000**.",
+          "**Indices.** Le prix de marché des équipements similaires baisse et une technologie concurrente arrive : deux indices du § 12, l'un externe (a), l'autre lié à l'environnement technologique (b). Le test est donc obligatoire (§ 9).",
+          "**Estimations.** Juste valeur diminuée des coûts de sortie : 690 000. Valeur d'utilité, fondée sur des flux validés : 760 000.",
+          "**Valeur recouvrable** : max (690 000 ; 760 000) = **760 000**, supérieure à 700 000. **Aucune dépréciation**.",
+          "**Leçon.** Une baisse de la juste valeur ne suffit pas, à elle seule, à justifier une dépréciation tant que la valeur d'utilité reste supérieure à la valeur comptable (§ 19). La norme privilégie une approche économique globale plutôt qu'une simple lecture du marché.",
+          "**Mais** l'indice n'est pas perdu : il peut conduire à revoir la durée d'utilité restante, le mode d'amortissement ou la valeur résiduelle de la ligne (§ 17). Une technologie concurrente raccourcit souvent la durée d'utilité, même sans perte de valeur.",
+        ],
+      },
       {
         type: 'filet',
         titre: "Ce que dit la norme : juste valeur et valeur d'utilité ne sont pas la même chose (§ 53A)",
@@ -496,6 +514,21 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Si la valeur recouvrable est inférieure à la valeur comptable, celle-ci est ramenée à la valeur recouvrable ; la différence est une perte de valeur (§ 59), comptabilisée immédiatement en résultat net (§ 60). Pour un actif réévalué, la perte est traitée comme une réévaluation négative : elle réduit d'abord l'écart de réévaluation de cet actif, en autres éléments du résultat global, et le solde va en résultat net (§ 61). L'amortissement des périodes suivantes est calculé sur la nouvelle valeur comptable (§ 63), et les impôts différés sont ajustés (§ 64).",
       },
+      {
+        type: 'carte',
+        titre: "Pas à pas : l'immeuble réévalué de TRANSLOG SA",
+        texte: "TRANSLOG SA utilise pour son exploitation un immeuble industriel, évalué selon le modèle de la réévaluation d'IAS 16. Écart de réévaluation au 1er janvier N : 12 000 USD, créditeur. Au 31 décembre N : valeur nette comptable 180 000, valeur recouvrable 160 000.",
+        tableau: {
+          entetes: ['Étape', 'Fondement', 'Montant', 'Écriture'],
+          lignes: [
+            ['Perte de valeur totale', 'IAS 36.59', '180 000 − 160 000 = **20 000**', '—'],
+            ["Imputation sur l'écart de réévaluation", 'IAS 36.60-61 ; IAS 16.40', '**12 000**, en autres éléments du résultat global', "Débit Écart de réévaluation / crédit Dépréciations de l'immeuble"],
+            ['Solde en résultat net', 'IAS 36.60-61', '20 000 − 12 000 = **8 000**', "Débit Charges pour dépréciation / crédit Dépréciations de l'immeuble"],
+            ['Amortissement futur', 'IAS 36.63', 'Calculé sur 160 000', '—'],
+          ],
+        },
+        note: "Cette articulation entre IAS 16 et IAS 36 n'est pas une contradiction, mais une hiérarchie logique : on annule d'abord la plus-value passée, puis on constate la perte économique actuelle. Le SYSCOHADA révisé retient la même imputation (Titre VIII, ch. 12, § 2.5).",
+      },
       { type: 'controle', question: QCM[8] },
       {
         type: 'paragraphe',
@@ -505,6 +538,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'filet',
         titre: "Ce que dit la norme : « si, et seulement si » (§ 59, § 114, § 116)",
         texte: "La perte : « Si, et seulement si, la valeur recouvrable d'un actif est inférieure à sa valeur comptable, la valeur comptable de l'actif doit être ramenée à sa valeur recouvrable. Cette réduction est une perte de valeur. » (§ 59). La reprise : la perte d'un actif autre qu'un goodwill « doit être reprise si, et seulement si, il y a eu un changement dans les estimations utilisées pour déterminer la valeur recouvrable de l'actif depuis la dernière comptabilisation d'une perte de valeur » (§ 114). Et la limite : « une perte de valeur n'est pas reprise du simple fait du passage du temps (parfois nommé « désactualisation ») même si la valeur recouvrable de l'actif devient supérieure à sa valeur comptable » (§ 116). La même tournure encadre les deux mouvements : la norme ne laisse pas de choix, ni pour constater la perte, ni pour la reprendre.",
+      },
+      {
+        type: 'filet',
+        titre: "Ce que dit la norme : ce qui justifie une reprise, et ce qui ne la justifie pas (§ 115-116)",
+        texte: "Une reprise « reflète une augmentation du potentiel de service estimé d'un actif » (§ 115). La norme donne des exemples de changements d'estimation qui la justifient, dont, pour une valeur recouvrable fondée sur la valeur d'utilité, « un changement du montant ou de l'échéancier des flux de trésorerie futurs estimés ou du taux d'actualisation » (§ 115(b)). Une baisse durable des taux d'actualisation peut donc fonder une reprise. Ce qui est exclu, c'est le seul effet mécanique du temps : la perte n'est pas reprise « du simple fait du passage du temps (parfois nommé « désactualisation ») » (§ 116). La norme n'exige pas non plus que la hausse soit « durable » : elle exige un changement dans les estimations, qu'il faut identifier et indiquer dans les notes (§ 130).",
       },
       { type: 'controle', question: QCM[9] },
       {
@@ -684,7 +722,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Un **immeuble de placement** est « un bien immobilier (terrain ou bâtiment — ou partie d'un bâtiment — ou les deux) détenu (par le propriétaire ou, en tant qu'actif au titre du droit d'utilisation, par le preneur) pour en retirer des loyers ou pour réaliser une plus-value en capital ou les deux, plutôt que pour : (a) l'utiliser dans la production ou la fourniture de biens ou de services ou à des fins administratives ; ou (b) le vendre dans le cadre de l'activité ordinaire » (IAS 40.5). Son critère distinctif est économique : « un immeuble de placement génère des flux de trésorerie largement indépendants des autres actifs détenus par l'entité » (§ 7). Un immeuble de bureaux loué rapporte des loyers par lui-même ; le siège d'une banque ne rapporte rien sans l'activité bancaire.",
+        texte: "Un **immeuble de placement** est « un bien immobilier (terrain ou bâtiment — ou partie d'un bâtiment — ou les deux) détenu (par le propriétaire ou, en tant qu'actif au titre du droit d'utilisation, par le preneur) pour en retirer des loyers ou pour réaliser une plus-value en capital ou les deux, plutôt que pour : (a) l'utiliser dans la production ou la fourniture de biens ou de services ou à des fins administratives ; ou (b) le vendre dans le cadre de l'activité ordinaire » (IAS 40.5). Son critère distinctif est économique : « un immeuble de placement génère des flux de trésorerie largement indépendants des autres actifs détenus par l'entité » (§ 7). Un immeuble de bureaux loué rapporte des loyers par lui-même ; le siège d'une brasserie ne rapporte rien sans la production et la vente de bière.",
       },
       {
         type: 'tableau',
@@ -717,8 +755,8 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[22] },
       {
         type: 'filet',
-        titre: "Dans les comptes publiés : les immeubles saisis par les banques",
-        texte: "Une banque congolaise récupère souvent des immeubles en règlement de créances impayées. Où les classer ? BOA RDC (note 3.13, 2018) les présente en « actifs disponibles à la vente », « dans la mesure où leur valeur comptable sera recouvrée en les cédant plutôt qu'en les utilisant », évalués selon IFRS 5 au plus faible de la valeur nette comptable et de la « valeur réalisable nette ». Deux remarques. IFRS 5 retient la juste valeur diminuée des coûts de la vente, et non la valeur réalisable nette, notion d'IAS 2. Et le classement en IFRS 5 suppose que la vente soit hautement probable, en principe dans les douze mois. Un immeuble saisi, conservé plusieurs années en attente d'un acheteur et loué entre-temps, relève plutôt d'IAS 40.",
+        titre: "Dans l'entreprise : cités de travailleurs, terrains de réserve et biens loués au groupe",
+        texte: "Trois situations fréquentes dans les entreprises congolaises. Les **cités de travailleurs** d'une société minière ou sucrière ne sont pas des immeubles de placement, même si les salariés paient un loyer : IAS 40.9(c) exclut « un bien immobilier occupé par des membres du personnel (que ceux-ci paient ou non un loyer aux conditions du marché) » ; elles relèvent d'IAS 16. Un **terrain de réserve** acquis sans décision sur son usage est, en revanche, un immeuble de placement : si l'entité n'a pas déterminé qu'elle l'occupera ou le vendra à court terme, « le terrain est considéré comme étant détenu pour réaliser une plus-value en capital » (§ 8(b)). Enfin, un **entrepôt loué à une filiale** est un immeuble de placement dans les comptes individuels du bailleur, mais un bien occupé par son propriétaire dans les comptes consolidés du groupe (§ 15).",
       },
     ],
   },
@@ -772,9 +810,15 @@ const SECTIONS: Chapitre['sections'] = [
       },
       { type: 'controle', question: QCM[24] },
       {
-        type: 'filet',
-        titre: "Dans les comptes publiés : les immeubles de placement de la BCDC",
-        texte: "Dans son annexe 2018, la BCDC indique qu'à la date de première adoption, elle avait « opté pour la réévaluation de ses immeubles de placement par référence à leur valeur d'expertise au 31/12/2012 » et que, « pour les évaluations ultérieures, le modèle retenu est celui du coût amorti basé sur l'approche par composants ». C'est l'usage classique du coût présumé d'IFRS 1 (chapitre 7), suivi du modèle du coût. La même annexe publie un tableau instructif, qui compare pour chaque catégorie la durée « en social » et la durée « IFRS » ; d'après la mise en page reproduite, 4 ans contre 5 ans pour le matériel roulant, 10 ans contre 5 à 10 ans pour le matériel monétique. Deux jeux d'états, deux durées pour le même bien.",
+        type: 'carte',
+        titre: "Pas à pas : l'immeuble loué d'IMMO PLUS SA, et le piège du mélange des modèles",
+        liste: [
+          "**Donnée.** Immeuble loué à des tiers, acquis début N−5 pour 5 000 000 USD ; durée d'amortissement au modèle du coût : 25 ans. Au 31 décembre N, un expert indépendant l'estime à 4 300 000.",
+          "**Modèle du coût.** Valeur nette : 5 000 000 − 6 × 200 000 = **3 800 000** (six exercices, de N−5 à N). La valeur recouvrable, voisine de la valeur de marché, dépasse la valeur nette : aucune dépréciation (IAS 36 ; IAS 40.56). L'amortissement se poursuit et la juste valeur de 4 300 000 est indiquée dans les notes (§ 79(e)).",
+          "**Modèle de la juste valeur**, appliqué depuis l'acquisition. L'immeuble n'est pas amorti ; il figurait fin N−1 à sa juste valeur de cette date, par exemple 4 150 000. Variation de N : 4 300 000 − 4 150 000 = **+150 000**, en résultat net (§ 35), par le débit du compte d'immeuble de placement et le crédit d'un compte de produit (variation de juste valeur). Aucun écart de réévaluation n'intervient, et aucun test IAS 36 n'est requis (IAS 36.2(f)).",
+          "**Le piège.** Calculer la variation de juste valeur par rapport à la valeur nette du modèle du coût revient à mélanger les deux modèles. Au modèle de la juste valeur, on compare toujours à la juste valeur précédente. Et la variation ne transite jamais par un écart de réévaluation : c'est ce qui distingue IAS 40 du modèle de la réévaluation d'IAS 16.",
+        ],
+        note: "Synthèse du module d'origine : IAS 36 est une norme de prudence, qui corrige une surévaluation ; IAS 40 au modèle de la juste valeur est une norme d'évaluation, qui met à jour la valeur dans les deux sens. La baisse de valeur d'un immeuble à la juste valeur existe, mais elle ne s'appelle pas « dépréciation ».",
       },
       {
         type: 'filet',
@@ -835,28 +879,28 @@ const SECTIONS: Chapitre['sections'] = [
 const CAS: Chapitre['casPratiques'] = [
   {
     id: 'ue13c3-cp1',
-    titre: "Dossier réel : immeubles saisis et immeubles de placement dans deux banques congolaises",
-    contexte: "BOA RDC, note 3.13 des états IFRS 2018 : « La Banque détient certains actifs consécutivement au recouvrement des créances impayées. Il s'agit notamment des immeubles. [...] Ces actifs sont considérés comme des actifs immobilisés détenus dans un but de transaction dans la mesure où leur valeur comptable sera recouvrée en les cédant plutôt qu'en les utilisant. Conformément à IFRS 5, ils sont évalués au plus faible entre la valeur nette comptable et la valeur réalisable nette. » BCDC, annexe 2018 : « En date de FTA, la BCDC avait opté pour la réévaluation de ses immeubles de placement par référence à leur valeur d'expertise au 31/12/2012. Pour les évaluations ultérieures, le modèle retenu est celui du coût amorti basé sur l'approche par composants. [...] une estimation de la juste valeur des immeubles de placement reste obligatoire, pour la comptabilisation au bilan ou pour la présentation en annexes. »",
+    titre: "Calcul : TRANSLOG SA, de la perte de valeur à la reprise",
+    contexte: "TRANSLOG SA évalue son immeuble d'exploitation selon le modèle de la réévaluation d'IAS 16. Au 1er janvier N, l'écart de réévaluation créditeur s'élève à 12 000 USD. Au 31 décembre N, la valeur nette comptable est de 180 000 et la valeur recouvrable de 160 000 ; la durée d'utilité restante est de 16 ans, sans valeur résiduelle. Au 31 décembre N+1, TRANSLOG signe un contrat logistique de longue durée avec une société minière : les flux attendus de l'immeuble augmentent et sa valeur recouvrable est estimée à 175 000. Aucune nouvelle réévaluation n'est pratiquée.",
     questions: [
       {
         num: 1,
-        enonce: "À quelles conditions les immeubles saisis de BOA RDC peuvent-ils relever d'IFRS 5 ?",
-        correction: "IFRS 5.6-8 exige que la valeur comptable soit recouvrée principalement par une vente, que l'actif soit disponible à la vente immédiate dans son état actuel, et que la vente soit hautement probable : engagement de la direction, recherche active d'acheteur, prix raisonnable, conclusion attendue dans l'année, sauf prolongation due à des circonstances hors du contrôle de l'entité (§ 9). La note affirme le premier point mais ne dit rien des autres. Pour des immeubles saisis sur un marché peu liquide, la condition d'une vente dans l'année est rarement évidente et doit être documentée.",
+        enonce: "Comptabilisez la perte de valeur au 31 décembre N.",
+        correction: "Perte : 180 000 − 160 000 = 20 000 (IAS 36.59). Pour un actif réévalué, elle est traitée comme une réévaluation négative (§ 60) : 12 000 en autres éléments du résultat global, dans la limite de l'écart de réévaluation créditeur (IAS 16.40), et 8 000 en résultat net. Écritures : débit Écart de réévaluation 12 000 et débit Charges pour dépréciation 8 000, par le crédit des Dépréciations de l'immeuble pour 20 000.",
       },
       {
         num: 2,
-        enonce: "La note évalue ces actifs « au plus faible entre la valeur nette comptable et la valeur réalisable nette ». Est-ce conforme à IFRS 5 ?",
-        correction: "Pas dans les termes. IFRS 5.15 retient le plus faible de la valeur comptable et de la **juste valeur diminuée des coûts de la vente**. La valeur réalisable nette est la notion d'IAS 2 (stocks). Les deux mesures peuvent être proches, mais elles ne sont pas identiques : la juste valeur est une mesure de marché selon IFRS 13, la valeur réalisable nette est une mesure propre à l'entité dans le cours normal de son activité. Une note conforme utiliserait le vocabulaire de la norme revendiquée.",
+        enonce: "Quel amortissement pour N+1, et quelle valeur nette fin N+1 ?",
+        correction: "L'amortissement est recalculé sur la valeur comptable révisée (§ 63) : 160 000 / 16 = **10 000**. Valeur nette fin N+1 : 160 000 − 10 000 = **150 000**.",
       },
       {
         num: 3,
-        enonce: "Si la banque conserve ces immeubles plusieurs années et les loue en attendant un acheteur, quel classement retenir ?",
-        correction: "Les conditions d'IFRS 5 ne sont alors plus remplies. Un immeuble loué à des tiers et détenu pour ses loyers ou sa valorisation est un immeuble de placement (IAS 40.5 et 8(c)-(d)), évalué selon le modèle choisi par la banque pour tous ses immeubles de placement (§ 30). Il ne peut pas être classé en stocks, puisque la vente d'immeubles n'est pas l'activité ordinaire d'une banque (IAS 40.9(a)). Et un simple projet de vente sans aménagement ne suffit pas à le sortir d'IAS 40 (§ 58).",
+        enonce: "La valeur recouvrable remonte à 175 000. La reprise est-elle possible, et pour quel montant ?",
+        correction: "Oui : la hausse provient d'un changement dans les estimations des flux futurs (§ 114 et 115(b)), non du seul passage du temps. Plafond (§ 117) : la valeur nette qu'aurait eue l'immeuble sans perte, soit 180 000 − 180 000 / 16 = 168 750. La valeur est donc portée à 168 750, et non à 175 000 : **reprise de 18 750**. Au-delà, ce serait une réévaluation, qui supposerait une nouvelle réévaluation selon IAS 16 (§ 118).",
       },
       {
         num: 4,
-        enonce: "Analysez le choix de la BCDC et dites quelles informations le lecteur doit trouver dans ses notes.",
-        correction: "La BCDC a retenu, à la transition, la valeur d'expertise au 31 décembre 2012 comme coût présumé (faculté d'IFRS 1), puis le modèle du coût, avec approche par composants. C'est un choix admis (IAS 40.30 et 56). Il impose de fournir, en plus des informations du § 75 (modèle appliqué, recours à un évaluateur indépendant, loyers et charges directes), celles du § 79 : modes et durées d'amortissement, brut et amortissements cumulés, rapprochement des valeurs comptables et, surtout, la **juste valeur** des immeubles (§ 79(e)). La banque le rappelle elle-même : l'estimation de la juste valeur « reste obligatoire ». Au modèle du coût, les immeubles restent en outre soumis à IAS 36.",
+        enonce: "Où comptabiliser cette reprise ?",
+        correction: "Pour un actif réévalué, la reprise est traitée comme une réévaluation positive selon IAS 16 (IAS 36.119). IAS 16.39 : l'augmentation va en autres éléments du résultat global, mais « doit être comptabilisée en résultat net dans la mesure où elle compense une diminution de réévaluation du même actif, précédemment comptabilisée en résultat net ». D'où **8 000 en résultat net**, qui compensent la charge de N, et **10 750 en autres éléments du résultat global**, qui reconstituent en partie l'écart de réévaluation. Les notes indiquent l'événement qui a provoqué la reprise, ici le contrat logistique (§ 130).",
       },
     ],
   },
@@ -949,7 +993,7 @@ const chapitre: Chapitre = {
   id: 'ue13-chapitre-3',
   titre: 'Dépréciation des actifs et immeubles de placement',
   sousTitre: "Valeur recouvrable, UGT et goodwill (IAS 36) ; classer, évaluer et transférer les immeubles (IAS 40)",
-  infoBulle: "Chapitre 3 du module IFRS/IAS : champ et indices de perte de valeur, valeur recouvrable (juste valeur diminuée des coûts de sortie, valeur d'utilité), perte et reprise, unités génératrices de trésorerie, goodwill et cascade d'imputation, informations à fournir ; immeubles de placement (définition, classement, modèles du coût et de la juste valeur, transferts, sorties) ; passerelles avec le SYSCOHADA révisé et lecture de comptes bancaires congolais.",
+  infoBulle: "Chapitre 3 du module IFRS/IAS : champ et indices de perte de valeur, valeur recouvrable (juste valeur diminuée des coûts de sortie, valeur d'utilité), perte et reprise, unités génératrices de trésorerie, goodwill et cascade d'imputation, informations à fournir ; immeubles de placement (définition, classement, modèles du coût et de la juste valeur, transferts, sorties) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
   loiRef: "IAS 36 · IAS 40 · IFRS 5 · IFRS 13 · AUDCIF art. 42, 43 et 46 · SYSCOHADA, Titre VIII, ch. 10 et 12",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
@@ -982,12 +1026,11 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "IAS 40 — Immeubles de placement", precision: "§§ 1 à 79 (texte français intégral)" },
     { genre: 'texte', intitule: "IFRS 5 — Actifs non courants détenus en vue de la vente et activités abandonnées", precision: "§§ 6 à 9 et 15" },
     { genre: 'texte', intitule: "AUDCIF et SYSCOHADA révisé", precision: "art. 42, 43 et 46 ; Titre VIII, ch. 10 (immeubles de placement) et ch. 12 (dépréciation des immobilisations)" },
-    { genre: 'texte', intitule: "BOA RDC, états financiers IFRS 2018", precision: "note 3.13 (actifs disponibles à la vente)" },
-    { genre: 'texte', intitule: "BCDC, annexe au rapport annuel 2018", precision: "immeubles de placement, durées d'utilité, note 3.8" },
+    { genre: 'texte', intitule: "J.-B. Tshimanga Mulumba (CPCC), IFRS - Dépréciation des actifs", precision: "support de cours, module 3 : illustrations INDUSTRIA, TRANSLOG et IMMO PLUS" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 36, IAS 40 et IFRS 5 (texte français intégral) ; IFRS 13, IAS 16 ; Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; BOA RDC (2018) et BCDC (2018).",
+  sources: "IAS 36, IAS 40 et IFRS 5 (texte français intégral) ; IFRS 13, IAS 16 ; Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; support de cours du module 3 (J.-B. Tshimanga Mulumba, CPCC).",
 }
 
 export default chapitre

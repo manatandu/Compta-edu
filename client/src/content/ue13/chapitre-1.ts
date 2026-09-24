@@ -16,16 +16,15 @@ import type { Chapitre } from '@/lib/chapitre-types'
 // - AUDCIF (2017) : art. 8, 73-1, 75, 113 ; Cadre conceptuel du SYSCOHADA
 //   révisé (Titre V : utilisateurs, postulats, conventions, caractéristiques
 //   qualitatives, actif, valeur actuelle, maintien du capital).
-// - GCEC-IFRS de la BCC (vol. 1, ch. 1) : contexte congolais (loi 76-020,
-//   ordonnance 77-332, COPIMECI), conformité aux IFRS, reprise du Cadre
-//   conceptuel de 2010 avec ses renvois de paragraphes (OB, QC, 4.x).
 // - Rapport ROSC Comptabilité et audit RDC (Banque mondiale, 2010), ch. 3.
-// - Rapports publiés : BOA RDC 2018 (note 3.1 et rapport du CAC), BCDC 2018
-//   (rapport du CAC), Rawbank 2025 (rapport du CAC).
+// - Support de cours d'origine : J.-B. Tshimanga Mulumba (CPCC), « Normes
+//   comptables internationales (IAS/IFRS) », module 1 : fondements
+//   conceptuels, normalisation internationale, lecture africaine et contexte
+//   de la RDC. Public visé : entreprises commerciales et industrielles.
 // - Cadre conceptuel révisé de 2018 : texte officiel anglais (IFRS Foundation),
 //   encodé dans le skill ifrs (references/cadre-conceptuel-2018/). Cité par
 //   numéro de paragraphe ; les citations françaises en sont des traductions
-//   de travail. Le Cadre de 2010 n'est connu que par la reprise du GCEC-IFRS.
+//   de travail.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const QCM: Chapitre['qcm'] = [
@@ -52,7 +51,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Les IFRS, les IAS et les bases de conclusions" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 1.7 et IAS 8.5 définissent les IFRS comme « les normes et interprétations publiées par l'International Accounting Standards Board (IASB) », comprenant (a) les Normes internationales d'information financière, (b) les Normes comptables internationales, (c) les interprétations IFRIC et (d) les interprétations SIC. Le Cadre conceptuel n'en fait pas partie : il n'est pas une norme et, en cas de conflit, la norme l'emporte (GCEC-IFRS, vol. 1, § 2).",
+    explication: "IAS 1.7 et IAS 8.5 définissent les IFRS comme « les normes et interprétations publiées par l'International Accounting Standards Board (IASB) », comprenant (a) les Normes internationales d'information financière, (b) les Normes comptables internationales, (c) les interprétations IFRIC et (d) les interprétations SIC. Le Cadre conceptuel n'en fait pas partie : il n'est pas une norme et, en cas de conflit, la norme l'emporte (Cadre, § SP1.2).",
     articleRef: "IAS 1.7 ; IAS 8.5",
   },
   {
@@ -96,16 +95,16 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c1-q6',
-    question: "Une banque déclare en note : « Les états financiers sont préparés conformément aux IFRS. La norme IFRS 9 n'a pas pu être appliquée. » Que dit IAS 1.16 de cette déclaration ?",
+    question: "Une société industrielle déclare en note : « Les états financiers sont préparés conformément aux IFRS. La norme IFRS 16 n'a pas pu être appliquée. » Que dit IAS 1.16 de cette déclaration ?",
     options: [
       { id: 'a', texte: "Elle est valable, puisque l'écart est expliqué en note" },
-      { id: 'b', texte: "Elle est valable si le régulateur a autorisé le report d'IFRS 9" },
+      { id: 'b', texte: "Elle est valable si le commissaire aux comptes l'accepte" },
       { id: 'c', texte: "Elle est contradictoire : on ne peut décrire des états comme conformes aux IFRS que s'ils sont conformes à toutes les dispositions des IFRS" },
       { id: 'd', texte: "Elle est valable pendant une période transitoire de deux ans" },
     ],
     reponseCorrecte: 'c',
-    explication: "Cette formulation figure mot pour mot dans la note 3.1 des états IFRS 2018 de BOA RDC. IAS 1.16 exige une déclaration « explicite et sans réserve » et interdit de qualifier des états de conformes aux IFRS s'ils ne respectent pas toutes les dispositions des IFRS. IAS 1.18 ajoute que des méthodes inappropriées ne se corrigent pas par des notes. L'autorisation du régulateur peut régler la question prudentielle, pas la conformité aux IFRS : le commissaire aux comptes a d'ailleurs émis une opinion avec réserve sur ce point.",
-    articleRef: "IAS 1.16 et 1.18 ; BOA RDC, états IFRS 2018",
+    explication: "IAS 1.16 exige une déclaration « explicite et sans réserve » de conformité, et l'entité « ne doit décrire des états financiers comme étant conformes aux IFRS que s'ils sont conformes à toutes les dispositions des IFRS ». IAS 1.18 ajoute que des méthodes inappropriées ne se corrigent pas par des notes. Ni l'explication, ni l'accord d'un tiers ne rendent conformes des états qui ne le sont pas : une mention « conformes aux IFRS, à l'exception d'IFRS 16 » n'est pas une déclaration de conformité.",
+    articleRef: "IAS 1.16 et 1.18",
   },
   {
     id: 'ue13c1-q7',
@@ -213,16 +212,16 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c1-q15',
-    question: "Qu'est-ce qui distingue la définition de l'actif du Cadre de 2018 de celle du Cadre de 2010 (reprise par le GCEC-IFRS) ?",
+    question: "Selon le Cadre conceptuel de 2018, faut-il que l'entrée d'avantages économiques soit probable pour qu'un actif existe ?",
     options: [
-      { id: 'a', texte: "2018 exige la propriété juridique, 2010 non" },
-      { id: 'b', texte: "2010 lie l'actif à des avantages économiques futurs « attendus » ; 2018 le définit comme une ressource économique actuelle, c'est-à-dire un droit qui a le potentiel de produire des avantages" },
-      { id: 'c', texte: "Aucune différence de fond" },
-      { id: 'd', texte: "2018 supprime la notion de contrôle" },
+      { id: 'a', texte: "Oui, elle doit être au moins probable" },
+      { id: 'b', texte: "Non : il suffit d'un droit qui a le potentiel de produire des avantages économiques ; une faible probabilité pèse sur la décision de comptabiliser, pas sur l'existence de l'actif" },
+      { id: 'c', texte: "Oui, elle doit être certaine" },
+      { id: 'd', texte: "La question ne se pose que pour les actifs financiers" },
     ],
     reponseCorrecte: 'b',
-    explication: "Le Cadre de 2010, tel que le reprend le GCEC-IFRS (§ 2.3.3, renvoi au § 4.4), définit l'actif comme « une ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont attendus ». Le Cadre révisé de 2018 définit l'actif comme « a present economic resource controlled by the entity as a result of past events » (§ 4.3), la ressource économique étant « a right that has the potential to produce economic benefits » (§ 4.4). Le § 4.14 précise qu'il n'est pas nécessaire que les avantages soient certains, « or even likely ». L'accent passe de la probabilité des avantages à l'existence d'un droit. Le contrôle reste central dans les deux versions (§ 4.19-4.25 en 2018).",
-    articleRef: "Cadre 2018, § 4.3, 4.4 et 4.14 ; Cadre 2010, 4.4 (GCEC-IFRS vol. 1 § 2.3.3)",
+    explication: "Le Cadre de 2018 définit l'actif comme « a present economic resource controlled by the entity as a result of past events » (§ 4.3), la ressource économique étant « a right that has the potential to produce economic benefits » (§ 4.4). Le § 4.14 précise qu'il n'est pas nécessaire que les avantages soient certains, « or even likely ». La probabilité intervient au stade de la comptabilisation, parmi les facteurs qui peuvent rendre l'information peu pertinente (§ 5.15-5.17). Le cadre conceptuel du SYSCOHADA révisé a repris cette définition d'une « ressource économique actuelle contrôlée » (Titre V, ch. 4).",
+    articleRef: "Cadre 2018, § 4.3, 4.4, 4.14 et 5.15-5.17 ; SYSCOHADA révisé, Titre V",
   },
   {
     id: 'ue13c1-q16',
@@ -317,16 +316,16 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c1-q23',
-    question: "En 2018, BOA RDC a retraité en IFRS ses états établis selon le guide comptable national. Pourquoi sa note précise-t-elle qu'« un retraitement des états financiers n'est pas un passage aux IFRS » ?",
+    question: "Une filiale congolaise d'un groupe étranger tient ses comptes en SYSCOHADA et les retraite chaque année en IFRS pour la consolidation de sa mère. Quelle est la limite de ce retraitement de fin d'exercice ?",
     options: [
-      { id: 'a', texte: "Parce que les IFRS interdisent tout retraitement" },
-      { id: 'b', texte: "Parce qu'un passage intégral suppose de revoir les procédures pour que l'information soit saisie et produite directement selon les IFRS, et pas seulement convertie en fin d'exercice" },
-      { id: 'c', texte: "Parce que la BCC n'avait pas encore publié le GCEC-IFRS" },
-      { id: 'd', texte: "Parce que le retraitement ne portait que sur le bilan" },
+      { id: 'a', texte: "Aucune : c'est la méthode prévue par les IFRS" },
+      { id: 'b', texte: "Il convertit après coup des données saisies pour un autre référentiel : sans informations collectées dès l'origine (composants, historique des pertes, justes valeurs), certains retraitements reposent sur des estimations fragiles" },
+      { id: 'c', texte: "Il est interdit par l'AUDCIF" },
+      { id: 'd', texte: "Il dispense la filiale de tenir des comptes SYSCOHADA" },
     ],
     reponseCorrecte: 'b',
-    explication: "La note de BOA RDC explique qu'un passage intégral « implique que les procédures de la Banque soient complètement revues de sorte que l'information financière soit saisie de manière à rendre disponibles les données financières et permettre leur présentation conformément aux IFRS ». Retraiter en fin d'exercice, c'est traduire ; basculer, c'est penser et saisir en IFRS dès l'origine. Le retraitement a réduit le total bilan de FC 369,9 milliards à FC 365,6 milliards.",
-    articleRef: "BOA RDC, états IFRS 2018, base de préparation",
+    explication: "Retraiter en fin d'exercice est légitime, mais c'est traduire ; basculer, c'est collecter et saisir l'information selon les IFRS dès l'origine. Une approche par composants (IAS 16.43), une matrice de pertes de crédit fondée sur l'historique des créances (IFRS 9, B5.5.35) ou une évaluation à la juste valeur exigent des données que la comptabilité SYSCOHADA ne produit pas spontanément. Le retraitement ne dispense pas des comptes SYSCOHADA : l'article 8 de l'AUDCIF fait des IFRS des états établis « en sus ».",
+    articleRef: "AUDCIF art. 8 ; IAS 16.43 ; IFRS 9, B5.5.35",
   },
   {
     id: 'ue13c1-q24',
@@ -431,7 +430,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Ce que dit la norme : IAS 1.7 et IAS 8.5",
-        texte: "Les IFRS « sont les normes et interprétations publiées par l'International Accounting Standards Board (IASB). Elles comprennent : (a) les Normes internationales d'information financière ; (b) les Normes comptables internationales ; (c) les interprétations IFRIC ; et (d) les interprétations SIC. » Le Cadre conceptuel n'est pas dans la liste. Le GCEC-IFRS de la Banque centrale du Congo le dit à sa manière : le Cadre « n'est pas une norme. Dans le cas où il existerait un conflit avec une norme, c'est la norme qui prédomine ».",
+        texte: "Les IFRS « sont les normes et interprétations publiées par l'International Accounting Standards Board (IASB). Elles comprennent : (a) les Normes internationales d'information financière ; (b) les Normes comptables internationales ; (c) les interprétations IFRIC ; et (d) les interprétations SIC. » Le Cadre conceptuel n'est pas dans la liste.",
       },
       { type: 'controle', question: QCM[1] },
       {
@@ -478,12 +477,12 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "En RDC, le secteur bancaire a suivi un chemin propre, qui passe par le régulateur. La loi bancaire n° 003/2002 fixe le cadre des comptes des établissements de crédit ; la Banque centrale du Congo (BCC) crée en février 2010 le **COPIMECI** (Comité de pilotage de la migration des cadres comptables des établissements de crédit et des institutions de microfinance aux normes IFRS), dont les travaux produisent le **GCEC-IFRS** (2012). Le guide adopte le référentiel IFRS « dans toutes ses composantes » afin que les établissements puissent faire une « déclaration explicite et sans réserve de conformité aux IFRS », et prévoit que les normes nouvelles s'appliqueront à leurs dates d'effet « sans qu'il soit nécessaire de modifier le GCEC-IFRS ».",
+        texte: "En RDC comme dans tout l'espace OHADA, une entreprise privée rencontre les IFRS par trois portes. La porte légale : l'article 8 de l'AUDCIF, pour les entités dont les titres sont cotés ou qui font appel public à l'épargne. La porte du groupe : la filiale d'un groupe étranger remonte à sa mère une liasse IFRS pour la consolidation, tout en tenant ses comptes SYSCOHADA. La porte du financement : l'entreprise qui sollicite un investisseur ou un prêteur international se voit souvent demander des états comparables à ceux de ses concurrents étrangers. Dans les trois cas, les IFRS s'ajoutent au SYSCOHADA, elles ne le remplacent pas.",
       },
       {
         type: 'filet',
-        titre: "Dans les comptes publiés : ce que certifie réellement l'auditeur",
-        texte: "Lisez toujours la phrase d'opinion jusqu'au bout. Pour Rawbank (exercice 2025, rapport du commissaire aux comptes daté du 13 avril 2026), l'auditeur conclut que les états donnent une image fidèle « conformément aux règles et méthodes comptables applicables aux établissements de crédit (Guide Comptable des Établissements de Crédit) en vigueur en République Démocratique du Congo ». Pour BOA RDC et la BCDC (exercice 2018, états retraités en IFRS à la demande de la BCC), les auditeurs se prononcent « conformément aux normes internationales d'information financière (IFRS) ». Ce ne sont pas les mêmes référentiels. Une opinion sur un guide national, même d'inspiration IFRS, ne vaut pas déclaration de conformité aux IFRS au sens d'IAS 1.16.",
+        titre: "Jugement professionnel : ce que certifie réellement l'auditeur",
+        texte: "Lisez toujours la phrase d'opinion jusqu'au bout. Une opinion rendue sur des états établis « conformément au SYSCOHADA révisé » ne dit rien de leur conformité aux IFRS, et inversement : une entreprise qui tient deux jeux d'états peut obtenir deux opinions, sur deux référentiels. Et une déclaration de conformité aux IFRS ne vaut que si elle est « explicite et sans réserve » (IAS 1.16) : la formule « conformes aux IFRS, à l'exception de... » n'en est pas une.",
       },
       { type: 'controle', question: QCM[22] },
     ],
@@ -529,17 +528,17 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "La révision de 2018 a déplacé plusieurs lignes. Elle a réintroduit la **prudence**, absente de la version de 2010, sous une forme précise : « the exercise of caution when making judgements under conditions of uncertainty », qui *soutient* la neutralité au lieu de la contredire (§ 2.16) et n'autorise ni sous-évaluation des actifs et produits, ni surévaluation des passifs et charges ; elle n'implique pas davantage d'asymétrie systématique (§ 2.17). Elle a logé la primauté de la substance sur la forme au cœur de la fidélité (§ 2.12). Elle a défini l'**entité comptable** : « an entity that is required, or chooses, to prepare financial statements », qui n'est pas nécessairement une personne morale (§ 3.10). Et elle a réécrit les définitions des éléments.",
+        texte: "La révision de 2018 a déplacé plusieurs lignes. Elle fait une place précise à la **prudence** : « the exercise of caution when making judgements under conditions of uncertainty », qui *soutient* la neutralité au lieu de la contredire (§ 2.16) et n'autorise ni sous-évaluation des actifs et produits, ni surévaluation des passifs et charges ; elle n'implique pas davantage d'asymétrie systématique (§ 2.17). Elle a logé la primauté de la substance sur la forme au cœur de la fidélité (§ 2.12). Elle a défini l'**entité comptable** : « an entity that is required, or chooses, to prepare financial statements », qui n'est pas nécessairement une personne morale (§ 3.10). Et elle a réécrit les définitions des éléments, que le cadre conceptuel du SYSCOHADA révisé a largement reprises, sans en adopter la neutralité.",
       },
       {
         type: 'tableau',
         tableau: {
-          entetes: ['Élément', 'Cadre 2010 (repris par le GCEC-IFRS)', 'Cadre 2018 (texte officiel)'],
+          entetes: ['Élément', 'Cadre conceptuel 2018 (IASB)', 'Cadre conceptuel du SYSCOHADA révisé (Titre V)'],
           lignes: [
-            ['Actif', "Ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont **attendus** (4.4)", "Ressource économique **actuelle** contrôlée du fait d'événements passés (§ 4.3) ; la ressource économique est un **droit** ayant le potentiel de produire des avantages économiques (§ 4.4)"],
-            ['Passif', "Obligation actuelle résultant d'événements passés dont l'extinction devrait se traduire par une sortie de ressources (4.4)", "Obligation actuelle de **transférer** une ressource économique du fait d'événements passés (§ 4.26)"],
-            ['Comptabilisation', "Deux critères : avantage futur **probable** ; coût ou valeur évaluable de manière **fiable** (4.38)", "Définition remplie, **et** comptabilisation qui fournit une information pertinente et une image fidèle, pour un coût justifié par ses avantages (§ 5.6-5.8) ; une faible probabilité n'exclut ni l'existence ni la comptabilisation (§ 5.15-5.17)"],
-            ['Prudence', "Absente des caractéristiques qualitatives", "Réintroduite comme circonspection, au service de la neutralité (§ 2.16-2.17)"],
+            ['Actif', "Ressource économique **actuelle** contrôlée du fait d'événements passés (§ 4.3) ; la ressource économique est un **droit** ayant le potentiel de produire des avantages économiques (§ 4.4)", "Élément identifiable du patrimoine représentant une ressource économique **actuelle** contrôlée du fait d'événements passés ; le contrôle suppose aussi d'**assumer l'essentiel des risques** (ch. 4, § 4.1)"],
+            ['Passif', "Obligation actuelle de **transférer** une ressource économique du fait d'événements passés (§ 4.26)", "Le « passif » désigne l'ensemble des ressources, capitaux propres compris ; le **passif externe** est l'obligation actuelle de transférer une ressource économique à la suite d'événements passés (ch. 4, § 4.2)"],
+            ['Prudence et neutralité', "Prudence entendue comme circonspection, **au service de la neutralité** (§ 2.16-2.17)", "Prudence érigée en convention ; la **neutralité n'est pas retenue** comme caractéristique de l'image fidèle"],
+            ['Évaluation', "Plusieurs bases : coût historique et valeurs actuelles (chapitre 6)", "Convention du **coût historique** ; valeur actuelle à l'inventaire (AUDCIF art. 42-43)"],
           ],
         },
       },
@@ -661,8 +660,8 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[10] },
       {
         type: 'filet',
-        titre: "Dans les comptes publiés : les prêts au personnel de la BCDC",
-        texte: "Le prix de transaction n'égale pas toujours la juste valeur (§ 57-60), notamment entre parties liées ou lorsque les conditions ne sont pas celles du marché. Exercice 2018 : le commissaire aux comptes de la BCDC émet une opinion avec réserve parce que la banque « n'a pas procédé au retraitement (au taux le plus élevé sur le marché des prêts) des crédits octroyés à ses agents », soit FC 7,631 milliards, et qu'il n'a donc pu conclure sur leur valeur. Le mécanisme : un prêt de 10 000 sur deux ans à 2 %, quand le marché prête à 12 %, vaut 200 / 1,12 + 10 200 / 1,12² ≈ **8 310**. Les 1 690 d'écart ne sont pas un « prêt » : ils traduisent un avantage consenti au salarié, que d'autres normes viennent qualifier (§ 60 : « sauf disposition contraire »).",
+        titre: "Dans l'entreprise : les prêts au personnel à taux réduit",
+        texte: "Le prix de transaction n'égale pas toujours la juste valeur (§ 57-60), notamment entre parties liées ou lorsque les conditions ne sont pas celles du marché. Beaucoup d'entreprises congolaises consentent à leurs salariés des prêts à taux réduit. Le mécanisme : un prêt de 10 000 sur deux ans à 2 %, quand le marché prête à 12 %, vaut 200 / 1,12 + 10 200 / 1,12² ≈ **8 310**. Les 1 690 d'écart ne sont pas un « prêt » : ils traduisent un avantage consenti au salarié, que d'autres normes viennent qualifier (§ 60 : « sauf disposition contraire »). Lorsque ces prêts sont significatifs, les laisser à leur valeur nominale expose l'entreprise à une réserve de son auditeur.",
       },
       {
         type: 'filet',
@@ -704,8 +703,8 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Dans les comptes publiés : la continuité à l'épreuve de la crise dans l'Est",
-        texte: "Les états 2025 de Rawbank ont été arrêtés le 7 avril 2026 « dans un contexte évolutif de crise militaro-politique dans l'est de la République Démocratique du Congo ». Le commissaire aux comptes a formulé une observation renvoyant à la note 45, consacrée à cette crise et à l'analyse de son impact sur les états financiers, en précisant qu'elle ne modifie pas son opinion. Voilà ce que produit concrètement IAS 1.25 : la direction évalue, documente et informe ; l'auditeur attire l'attention du lecteur sur l'information fournie.",
+        titre: "Jugement professionnel : la continuité d'exploitation à l'épreuve de la crise dans l'Est",
+        texte: "Un distributeur dont les dépôts de Goma et de Bukavu sont devenus inaccessibles doit se poser la question d'IAS 1.25 : existe-t-il des « incertitudes significatives liées à des événements ou à des conditions susceptibles de jeter un doute important sur la capacité de l'entité à poursuivre son activité » ? La direction prend en compte toutes les informations disponibles sur l'avenir, au minimum sur douze mois à compter de la clôture (§ 26), documente son analyse et, si l'incertitude est significative, l'indique dans les notes. L'auditeur peut alors attirer l'attention du lecteur sur cette information, sans pour autant modifier son opinion.",
       },
       { type: 'controle', question: QCM[17] },
       {
@@ -775,7 +774,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[25] },
       {
         type: 'paragraphe',
-        texte: "Chacun de ces choix se défend. La neutralité sert un investisseur qui veut une image sans biais pour arbitrer entre des placements. La prudence sert un créancier et un État qui veulent éviter les distributions de profits fictifs. La juste valeur sert la pertinence ; le coût historique sert la vérifiabilité. Le praticien congolais n'a pas à choisir son camp une fois pour toutes. Il tient des états SYSCOHADA pour l'entité commerciale ordinaire, applique le GCEC-IFRS s'il travaille en banque, établit des états IFRS « en sus » pour la société cotée ou le groupe qui se finance à l'étranger. Il doit parler les deux langues et savoir, à chaque phrase, laquelle il parle. Les sept chapitres qui suivent vous y entraînent norme par norme.",
+        texte: "Chacun de ces choix se défend. La neutralité sert un investisseur qui veut une image sans biais pour arbitrer entre des placements. La prudence sert un créancier et un État qui veulent éviter les distributions de profits fictifs. La juste valeur sert la pertinence ; le coût historique sert la vérifiabilité. Le praticien congolais n'a pas à choisir son camp une fois pour toutes. Il tient des états SYSCOHADA pour l'entité commerciale ordinaire, établit des états IFRS « en sus » pour la société cotée ou le groupe qui se finance à l'étranger. Il doit parler les deux langues et savoir, à chaque phrase, laquelle il parle. Les sept chapitres qui suivent vous y entraînent norme par norme.",
       },
     ],
   },
@@ -784,28 +783,28 @@ const SECTIONS: Chapitre['sections'] = [
 const CAS: Chapitre['casPratiques'] = [
   {
     id: 'ue13c1-cp1',
-    titre: "Dossier réel : les premiers états IFRS de BOA RDC (exercice 2018)",
-    contexte: "À la demande de la Banque centrale du Congo, BOA RDC SA a retraité en IFRS ses états 2017 et 2018, établis selon le guide comptable national. Extraits de sa note 3 : « Les présents états financiers ont été préparés conformément aux Normes internationales d'information financière (IFRS) publiées par l'International Accounting Standards Board. La norme IFRS 9 n'a pas pu être appliquée. Par une circulaire, la Banque Centrale du Congo, en sa qualité de régulateur, a autorisé les banques en difficulté d'implémentation de la norme IFRS 9, de la transposer dès la clôture de l'année 2019, ceci en remplacement de l'IAS 39. » La base de préparation ajoute qu'« un retraitement des états financiers n'est pas un passage aux IFRS », et que le retraitement a fait passer le total bilan de FC 369 888 733 740 à FC 365 633 130 983. Le commissaire aux comptes a émis une opinion avec réserve, fondée sur la non-application d'IFRS 9, obligatoire pour les exercices ouverts à compter du 1er janvier 2018.",
+    titre: "Deux jeux d'états : KATANGA MINING SERVICES SA (société fictive)",
+    contexte: "KATANGA MINING SERVICES SA, sous-traitant minier de Lubumbashi, est la filiale d'un groupe coté à l'étranger. Elle tient ses comptes selon le SYSCOHADA révisé et remonte chaque année une liasse IFRS à sa mère. Pour l'exercice N : résultat SYSCOHADA 1 200 000 USD ; résultat IFRS 1 650 000 USD. L'écart vient pour l'essentiel d'un immeuble loué à des tiers, évalué en IFRS selon le modèle de la juste valeur (+500 000 de variation en N), et des pertes de crédit attendues sur les créances clients (−50 000). Les actionnaires minoritaires congolais demandent un dividende calculé sur le résultat IFRS. Le directeur financier propose par ailleurs d'écrire dans les notes que les états IFRS sont « conformes aux IFRS, à l'exception d'IFRS 16 ».",
     questions: [
       {
         num: 1,
-        enonce: "Confrontez la déclaration de conformité de la note 3.1 aux exigences d'IAS 1.",
-        correction: "La déclaration est contradictoire. IAS 1.16 exige une déclaration « explicite et sans réserve » et interdit de décrire des états comme conformes aux IFRS s'ils ne sont pas conformes à « toutes les dispositions des IFRS ». Annoncer la conformité, puis l'exception d'IFRS 9 dans la phrase suivante, revient à une conformité partielle, que la norme ne connaît pas. IAS 1.18 ferme la dernière issue : on ne corrige pas une méthode inappropriée par une note qui l'avoue. La formulation correcte aurait été une description exacte du référentiel suivi, par exemple des états établis selon les IFRS à l'exception d'IFRS 9, sans revendiquer la conformité aux IFRS.",
+        enonce: "Le dividende peut-il être calculé sur le résultat IFRS ?",
+        correction: "Non. L'article 8 de l'AUDCIF est explicite : les états IFRS « ne peuvent servir de support de base pour la détermination du bénéfice distribuable visé par l'Acte uniforme relatif au droit des sociétés commerciales et du groupement d'intérêt économique ». Le bénéfice distribuable se détermine sur les états SYSCOHADA. La raison est économique : les 500 000 de variation de juste valeur sont un profit latent ; les distribuer, ce serait verser en trésorerie un gain que l'entreprise n'a pas encaissé, au détriment de ses créanciers.",
       },
       {
         num: 2,
-        enonce: "La circulaire de la BCC autorisant le report d'IFRS 9 ne suffit-elle pas à régulariser la situation ?",
-        correction: "Elle règle la question prudentielle et réglementaire, pas la question normative. L'IASB est seul à fixer le contenu et la date d'effet d'IFRS 9 ; un régulateur national peut décider de ce qu'il exige des établissements qu'il supervise, mais il ne peut pas rendre « conformes aux IFRS » des états qui ne le sont pas. Deux cadres coexistent : celui du régulateur (le GCEC et ses mesures d'application) et celui de l'IASB. D'où l'opinion avec réserve : l'auditeur se prononce par rapport au référentiel revendiqué, ici les IFRS. On retrouve la logique d'IAS 1.19 et 1.23 : même lorsque le cadre réglementaire intervient, il ne transforme pas un écart en conformité, il appelle au mieux une information complète sur l'écart.",
+        enonce: "Expliquez l'écart de 450 000 entre les deux résultats par les philosophies des deux référentiels.",
+        correction: "L'immeuble : IAS 40 permet le modèle de la juste valeur, dont les variations passent en résultat net (IAS 40.35) ; le SYSCOHADA révisé ne connaît que le coût, avec amortissement (Titre VIII, ch. 10). C'est l'opposition entre coût historique et juste valeur. Les créances : IFRS 9 constate des pertes attendues dès l'origine (§ 5.5.15), le SYSCOHADA ne déprécie que des créances individualisées dont la perte est certaine dans son principe (commentaire du compte 49). C'est l'opposition entre neutralité et prudence : le cadre IFRS vise une image sans biais, orientée vers l'investisseur ; le SYSCOHADA protège d'abord les créanciers et l'État.",
       },
       {
         num: 3,
-        enonce: "Que signifie la phrase « un retraitement des états financiers n'est pas un passage aux IFRS » ? Pourquoi est-elle éclairante pour un futur praticien ?",
-        correction: "Retraiter, c'est convertir en fin d'exercice des comptes tenus selon un autre référentiel. Basculer, c'est revoir les procédures pour que l'information soit saisie et produite dès l'origine selon les IFRS : classement des instruments financiers, calcul des pertes attendues, taux d'intérêt effectif, juste valeur, informations sur les risques. La note de BOA RDC le dit elle-même : le passage intégral « implique que les procédures de la Banque soient complètement revues ». Pour le praticien, la leçon est double. Techniquement, un retraitement ne capte pas toujours les données que les IFRS exigent. Et le choix de référentiel engage les systèmes d'information, pas seulement la direction financière.",
+        enonce: "Que penser de la formule proposée par le directeur financier ?",
+        correction: "Elle est contradictoire. IAS 1.16 exige une déclaration de conformité « explicite et sans réserve », et interdit de décrire des états comme conformes aux IFRS « que s'ils sont conformes à toutes les dispositions des IFRS ». Les notes ne réparent pas une méthode inappropriée (IAS 1.18). Soit la filiale applique IFRS 16, soit elle ne déclare pas la conformité aux IFRS ; le groupe, qui consolide, devra de toute façon retraiter ses contrats de location.",
       },
       {
         num: 4,
-        enonce: "Le retraitement a réduit le total bilan d'environ FC 4,26 milliards. Calculez l'écart en pourcentage et proposez deux causes plausibles, sans prétendre les identifier.",
-        correction: "Écart : 369 888 733 740 − 365 633 130 983 = 4 255 602 757 FC, soit 4 255 602 757 / 369 888 733 740 ≈ 1,15 % du total initial. Causes plausibles, à vérifier dans les notes de rapprochement et non à affirmer : l'application stricte de la non-compensation et des critères de comptabilisation (suppression d'actifs qui ne répondent pas à la définition, comme certaines charges étalées que le ROSC signalait dans le référentiel national) ; l'évaluation de créances au coût amorti ou à la juste valeur au lieu de leur valeur nominale. Notez que la même note mentionne des terrains et bâtiments réévalués à la juste valeur, ce qui joue en sens inverse : un total bilan net résulte de mouvements de signes opposés.",
+        enonce: "Quelle confiance accorder aux 500 000 de variation de juste valeur, dans le contexte congolais ?",
+        correction: "Une confiance mesurée, et documentée. Faute de marché immobilier actif et de transactions comparables observables, la juste valeur reposera souvent sur des données non observables : elle relève alors du niveau 3 de la hiérarchie d'IFRS 13 (§ 73 et 86), avec des informations renforcées sur les techniques et les hypothèses. IAS 40.32 encourage le recours à un évaluateur indépendant qualifié et expérimenté pour la zone et la catégorie d'immeuble. Comme le dit le support du module, la juste valeur peut devenir « théoriquement pertinente mais pratiquement fragile en contexte africain » : c'est une raison de la documenter, non de l'écarter.",
       },
     ],
   },
@@ -844,7 +843,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 1,
         enonce: "« Le Cadre conceptuel prime sur les normes, puisqu'il en est la philosophie. »",
-        correction: "Faux. « The Conceptual Framework is not a Standard. Nothing in the Conceptual Framework overrides any Standard or any requirement in a Standard » (Cadre, § SP1.2). Le GCEC-IFRS le dit aussi (vol. 1, § 2). Il fait autorité par les renvois d'IAS 1.15 et d'IAS 8.11(b), et comme source du jugement en l'absence de norme spécifique, jamais contre une norme.",
+        correction: "Faux. « The Conceptual Framework is not a Standard. Nothing in the Conceptual Framework overrides any Standard or any requirement in a Standard » (Cadre, § SP1.2). Il fait autorité par les renvois d'IAS 1.15 et d'IAS 8.11(b), et comme source du jugement en l'absence de norme spécifique, jamais contre une norme.",
       },
       {
         num: 2,
@@ -912,16 +911,16 @@ const chapitre: Chapitre = {
   numero: 1,
   id: 'ue13-chapitre-1',
   titre: 'Fondements, cadre conceptuel et architecture des IFRS',
-  sousTitre: "Du krach de 1929 au GCEC-IFRS : la théorie qui tient le référentiel",
+  sousTitre: "Du krach de 1929 à l'AUDCIF : la théorie qui tient le référentiel",
   infoBulle: "Chapitre 1 du module IFRS/IAS : histoire et écoles de normalisation, architecture IFRS Foundation-IASB-ISSB, force obligatoire en droit OHADA et en RDC, Cadre conceptuel (2010 et 2018), bases d'évaluation et maintien du capital, juste valeur selon IFRS 13, caractéristiques générales d'IAS 1, hiérarchie d'IAS 8, comparaison avec le SYSCOHADA révisé.",
   loiRef: "Cadre conceptuel (2018) · IAS 1.7, 15-38 · IAS 8.5-14 · IFRS 13 · AUDCIF art. 8, 73-1, 75, 113",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
   objectifs: [
-    "Situer la normalisation IFRS parmi les écoles comptables (anglo-saxonne, socialiste, franco-germanique) et dans l'histoire congolaise, du PCGC de 1976 au GCEC-IFRS.",
+    "Situer la normalisation IFRS parmi les écoles comptables (anglo-saxonne, socialiste, franco-germanique) et dans l'histoire congolaise, du PCGC de 1976 au SYSCOHADA révisé et à l'article 8 de l'AUDCIF.",
     "Identifier les organes du dispositif, le contenu exact du référentiel (IAS 1.7) et les normes qui entrent en application de 2027 à 2029.",
-    "Expliquer la force obligatoire des IFRS en droit OHADA (AUDCIF art. 8, 73-1, 75) et dans le secteur bancaire congolais.",
+    "Expliquer la force obligatoire des IFRS en droit OHADA (AUDCIF art. 8, 73-1, 75), et les trois portes par lesquelles une entreprise privée congolaise rencontre les IFRS.",
     "Maîtriser le Cadre conceptuel : objectif, limites, caractéristiques qualitatives, définitions, et ce qui a changé entre 2010 et 2018.",
     "Distinguer les bases d'évaluation et calculer un résultat selon les trois concepts de maintien du capital.",
     "Évaluer à la juste valeur selon IFRS 13 : marché principal ou le plus avantageux, utilisation optimale, hiérarchie des données, espérance de la valeur actualisée.",
@@ -945,13 +944,13 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "IFRS 13 — Évaluation de la juste valeur", precision: "§ 9, §§ 15 à 90, § 93, annexe A, §§ B27 à B30" },
     { genre: 'texte', intitule: "IFRS 18 — Presentation and Disclosure in Financial Statements", precision: "annexe C, § C8, et annexe D" },
     { genre: 'texte', intitule: "Acte uniforme relatif au droit comptable et à l'information financière (AUDCIF, 2017)", precision: "art. 8, 73-1, 75 et 113 ; cadre conceptuel du SYSCOHADA révisé (Titre V)" },
-    { genre: 'texte', intitule: "Banque centrale du Congo, Guide comptable des établissements de crédit (GCEC-IFRS)", precision: "volume 1, chapitre 1 : contexte, conformité aux IFRS, Cadre conceptuel" },
+    { genre: 'texte', intitule: "J.-B. Tshimanga Mulumba (CPCC), Normes comptables internationales (IAS/IFRS)", precision: "support de cours, module 1 : fondements conceptuels, normalisation internationale et architecture IFRS" },
     { genre: 'texte', intitule: "Banque mondiale, Rapport sur le respect des normes et codes (ROSC), Comptabilité et audit, RDC", precision: "2010, chapitre 3 : le PCGC et les IFRS" },
     { genre: 'ouvrage', auteur: "Kinzonzi Mvutukidi Ngindu K.", titre: "La normalisation comptable", editeur: "Foucher", lieu: "Paris", annee: "1984" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 1, IAS 7, IAS 8 et IFRS 13 (texte français) ; IFRS 18 (texte anglais) ; AUDCIF et cadre conceptuel du SYSCOHADA révisé ; GCEC-IFRS (BCC, 2012) ; ROSC RDC (2010) ; rapports annuels de BOA RDC et de la BCDC (2018) et de Rawbank (2025). Cadre conceptuel de 2018 : texte officiel anglais de l'IFRS Foundation, cité par paragraphe en traduction de travail ; Cadre de 2010 : reprise du GCEC-IFRS.",
+  sources: "IAS 1, IAS 7, IAS 8 et IFRS 13 (texte français) ; IFRS 18 (texte anglais) ; AUDCIF et cadre conceptuel du SYSCOHADA révisé ; ROSC RDC (2010) ; support de cours du module 1 (J.-B. Tshimanga Mulumba, CPCC). Cadre conceptuel de 2018 : texte officiel anglais de l'IFRS Foundation, cité par paragraphe en traduction de travail.",
 }
 
 export default chapitre
