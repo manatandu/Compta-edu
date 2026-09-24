@@ -1,5 +1,4 @@
 import { generateId } from './utils'
-import { PLAN_COMPTABLE_OHADA } from './planComptable'
 
 // ===================== TYPES =====================
 
@@ -1090,14 +1089,9 @@ export function estCompteCorrectif(numero: string): boolean {
 }
 
 // ===================== ACCOUNTS =====================
-
-export function getComptes(): CompteOHADA[] {
-  return PLAN_COMPTABLE_OHADA
-}
-
-export function getCompteByNumero(num: string): CompteOHADA | undefined {
-  return PLAN_COMPTABLE_OHADA.find(c => c.numero === num)
-}
+// getComptes et getCompteByNumero sont dans lib/comptes.ts : le plan
+// comptable (85 Ko) n'est ainsi chargé que par les pages qui s'en servent,
+// et non par tout écran important un simple type depuis ce fichier.
 
 // ===================== SESSIONS =====================
 

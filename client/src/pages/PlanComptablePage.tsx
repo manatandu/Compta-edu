@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react'
 import BackButton from '@/components/BackButton'
-import { getComptes, CompteOHADA } from '@/lib/db'
+import {
+  CompteOHADA
+} from '@/lib/db'
+import { getComptes } from '@/lib/comptes'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Search, ChevronRight, ChevronDown, ListTree } from 'lucide-react'

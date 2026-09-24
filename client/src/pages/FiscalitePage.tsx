@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import {
   Calculator, Info, RotateCcw, FileText, Receipt,
   Building2, Users, AlertCircle, CheckCircle2, Percent,
@@ -13,10 +13,12 @@ import BackButton from '@/components/BackButton'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useNav } from '@/lib/navContext'
 import { InfoTooltip } from '@/components/InfoTooltip'
-import SimulateurTVA from '@/components/SimulateurTVA'
-import SimulateurAutresImpots from '@/components/SimulateurAutresImpots'
-import SimulateurDouane from '@/components/SimulateurDouane'
-import SimulateurFiscaliteMiniere from '@/components/SimulateurFiscaliteMiniere'
+// Les quatre grands simulateurs (TVA, autres impôts, douane, mines : plus de
+// 400 Ko à eux quatre) ne sont téléchargés qu'à l'ouverture de leur onglet.
+const SimulateurTVA = lazy(() => import('@/components/SimulateurTVA'))
+const SimulateurAutresImpots = lazy(() => import('@/components/SimulateurAutresImpots'))
+const SimulateurDouane = lazy(() => import('@/components/SimulateurDouane'))
+const SimulateurFiscaliteMiniere = lazy(() => import('@/components/SimulateurFiscaliteMiniere'))
 import {
   calculerBaremeIRPP as calculerBareme,
   appliquerReductionEtPlafondIRPP as appliquerReductionEtPlafond,
@@ -5648,11 +5650,13 @@ export default function FiscalitePage() {
             {impotActif === 'irpp' && catIrpp === 'irpp_cat5' && <Cat5Mobiliers />}
             {impotActif === 'irpp' && catIrpp === 'irpp_cat6' && <Cat6PlusValues />}
             {impotActif === 'is'         && <SimulateurIS />}
-            {impotActif === 'irl'        && <SimulateurAutresImpots />}
-            {impotActif === 'tva'        && <SimulateurTVA />}
+            <Suspense fallback={<p className="py-10 text-center text-sm text-muted-foreground">Chargement du simulateur…</p>}>
+              {impotActif === 'irl'        && <SimulateurAutresImpots />}
+              {impotActif === 'tva'        && <SimulateurTVA />}
+              {impotActif === 'douane'     && <SimulateurDouane />}
+              {impotActif === 'mines'      && <SimulateurFiscaliteMiniere />}
+            </Suspense>
             {impotActif === 'procedures' && <ProceduresFiscales />}
-            {impotActif === 'douane'     && <SimulateurDouane />}
-            {impotActif === 'mines'      && <SimulateurFiscaliteMiniere />}
           </CardContent>
         </Card>
         )}

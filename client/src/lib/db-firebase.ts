@@ -16,8 +16,7 @@ import {
   initializeAuth, browserLocalPersistence
 } from 'firebase/auth'
 import { initializeApp, getApps } from 'firebase/app'
-import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
-import { db, auth, storage } from './firebase'
+import { db, auth, getStorageDiffere } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import { anneeAcademiqueEnCours } from './utils'
 import type {
@@ -94,33 +93,38 @@ function cleanUndefined(obj: Record<string, any>): Record<string, any> {
  * Retourne l'URL de téléchargement permanent.
  */
 export async function uploadDevoirPDF(devoirId: string, file: File): Promise<string> {
-  const path = `devoirs/${devoirId}/${file.name}`
-  const ref = storageRef(storage, path)
-  const snapshot = await uploadBytes(ref, file)
-  const url = await getDownloadURL(snapshot.ref)
-  return url
+  return televerser(`devoirs/${devoirId}/${file.name}`, file)
+}
+
+// Module de stockage chargé à la demande (voir getStorageDiffere).
+async function moduleStockage() {
+  const [m, storage] = await Promise.all([import('firebase/storage'), getStorageDiffere()])
+  return { m, storage }
+}
+
+async function televerser(path: string, file: File): Promise<string> {
+  const { m, storage } = await moduleStockage()
+  const snapshot = await m.uploadBytes(m.ref(storage, path), file)
+  return await m.getDownloadURL(snapshot.ref)
 }
 
 /**
  * Supprime le PDF d'un devoir dans Firebase Storage.
  */
-function storageRefFromUrl(url: string) {
+function cheminDepuisUrl(url: string): string {
   // Extrait le chemin depuis une URL Firebase Storage complète
   // ex: https://firebasestorage.googleapis.com/v0/b/BUCKET/o/PATH?token=...
   if (url.startsWith('http')) {
     const match = url.match(/\/o\/(.+?)(?:\?|$)/)
-    if (match) {
-      const path = decodeURIComponent(match[1])
-      return storageRef(storage, path)
-    }
+    if (match) return decodeURIComponent(match[1])
   }
-  return storageRef(storage, url)
+  return url
 }
 
 export async function deleteDevoirPDF(pdfUrl: string): Promise<void> {
   try {
-    const ref = storageRefFromUrl(pdfUrl)
-    await deleteObject(ref)
+    const { m, storage } = await moduleStockage()
+    await m.deleteObject(m.ref(storage, cheminDepuisUrl(pdfUrl)))
   } catch (e) {
     console.warn('deleteDevoirPDF: fichier introuvable', e)
   }
@@ -131,17 +135,11 @@ export async function deleteDevoirPDF(pdfUrl: string): Promise<void> {
  * Chemin : exercices/{exerciceId}/{fileName}
  */
 export async function uploadExercicePDF(exerciceId: string, file: File): Promise<string> {
-  const path = `exercices/${exerciceId}/enonce_${Date.now()}_${file.name}`
-  const ref = storageRef(storage, path)
-  const snapshot = await uploadBytes(ref, file)
-  return await getDownloadURL(snapshot.ref)
+  return televerser(`exercices/${exerciceId}/enonce_${Date.now()}_${file.name}`, file)
 }
 
 export async function uploadExerciceCorrigePDF(exerciceId: string, file: File): Promise<string> {
-  const path = `exercices/${exerciceId}/corrige_${Date.now()}_${file.name}`
-  const ref = storageRef(storage, path)
-  const snapshot = await uploadBytes(ref, file)
-  return await getDownloadURL(snapshot.ref)
+  return televerser(`exercices/${exerciceId}/corrige_${Date.now()}_${file.name}`, file)
 }
 
 /**
@@ -149,17 +147,11 @@ export async function uploadExerciceCorrigePDF(exerciceId: string, file: File): 
  * Chemin : documents/{userId}/{fileName}
  */
 export async function uploadNoteCoursFile(userId: string, file: File): Promise<string> {
-  const path = `notes-cours/${userId}/${Date.now()}_${file.name}`
-  const ref = storageRef(storage, path)
-  const snapshot = await uploadBytes(ref, file)
-  return await getDownloadURL(snapshot.ref)
+  return televerser(`notes-cours/${userId}/${Date.now()}_${file.name}`, file)
 }
 
 export async function uploadDocumentFile(userId: string, file: File): Promise<string> {
-  const path = `documents/${userId}/${Date.now()}_${file.name}`
-  const ref = storageRef(storage, path)
-  const snapshot = await uploadBytes(ref, file)
-  return await getDownloadURL(snapshot.ref)
+  return televerser(`documents/${userId}/${Date.now()}_${file.name}`, file)
 }
 
 /**
@@ -167,8 +159,8 @@ export async function uploadDocumentFile(userId: string, file: File): Promise<st
  */
 export async function deleteStorageFile(fileUrl: string): Promise<void> {
   try {
-    const ref = storageRefFromUrl(fileUrl)
-    await deleteObject(ref)
+    const { m, storage } = await moduleStockage()
+    await m.deleteObject(m.ref(storage, cheminDepuisUrl(fileUrl)))
   } catch (e) {
     console.warn('deleteStorageFile: fichier introuvable', e)
   }

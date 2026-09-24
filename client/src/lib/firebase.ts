@@ -5,8 +5,8 @@ import { initializeApp } from 'firebase/app'
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
 } from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'
-import { getStorage } from 'firebase/storage'
+import { initializeAuth, indexedDBLocalPersistence, browserLocalPersistence } from 'firebase/auth'
+import type { FirebaseStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDERRGuR0EBGatLlcB5zzFi284JK6_IGmM",
@@ -28,6 +28,22 @@ const app = initializeApp(firebaseConfig)
 export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
 })
-export const auth    = getAuth(app)
-export const storage = getStorage(app)
+// initializeAuth plutôt que getAuth : getAuth embarque d'office le module de
+// connexion par fenêtre surgissante et par redirection (Google, Facebook...),
+// que l'application n'utilise pas. Même persistance que getAuth (IndexedDB en
+// premier), donc les sessions déjà ouvertes restent valides.
+export const auth = initializeAuth(app, {
+  persistence: [indexedDBLocalPersistence, browserLocalPersistence],
+})
+
+// Le stockage de fichiers ne sert qu'aux téléversements (devoirs, documents,
+// notes de cours) : son module n'est téléchargé qu'au premier envoi de
+// fichier, pas à l'ouverture de l'application.
+let storagePromise: Promise<FirebaseStorage> | null = null
+export function getStorageDiffere(): Promise<FirebaseStorage> {
+  if (!storagePromise) {
+    storagePromise = import('firebase/storage').then(m => m.getStorage(app))
+  }
+  return storagePromise
+}
 export default app
