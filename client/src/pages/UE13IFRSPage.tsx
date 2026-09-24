@@ -43,7 +43,7 @@ const CHAPITRES = [
   {
     num: 4,
     titre: "Stocks, créances et instruments financiers",
-    sousTitre: "IAS 2 · IFRS 9 · IAS 32 · SYSCOHADA ch. 14-15 · BCDC et BOA RDC 2018",
+    sousTitre: "IAS 2 · IFRS 9 · IAS 32 · AUDCIF art. 44 · SYSCOHADA ch. 14-15",
     duree: "8h",
     actif: true,
     route: '/ue13/chapitre-4',

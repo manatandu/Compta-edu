@@ -13,12 +13,14 @@ import type { Chapitre } from '@/lib/chapitre-types'
 //   B4.1.2C à B4.1.7A, B4.1.14, B5.2.3, B5.5.19, B5.5.22, B5.5.28, B5.5.33,
 //   B5.5.35, B5.5.37, B5.7.1. Les passages entre guillemets reproduisent le
 //   texte à l'identique ; le reste le paraphrase avec renvoi au §.
-// - IAS 32, § 11 (définitions) ; IAS 1, § 16.
+// - IAS 32, § 11 et AG11-AG12 (définitions).
 // - AUDCIF : art. 42 à 44 et 46 ; SYSCOHADA révisé, Titre VII (compte 49) et
 //   Titre VIII, ch. 14 (stocks) et ch. 15 (affacturage, titrisation).
-// - BCDC, annexe au rapport annuel 2018 (note 1.4, rapport des commissaires
-//   aux comptes) ; BOA RDC, états financiers IFRS 2018 (rapport du
-//   commissaire aux comptes, notes 2.2 et 3.1).
+// - IAS 8, § 8 (importance relative).
+// - Support de cours d'origine : J.-B. Tshimanga Mulumba (CPCC), « IFRS -
+//   Stocks, créances & instruments financiers (IAS 2 & IFRS 9) », module 4 ;
+//   ses trois illustrations (AGROFOOD, DISTRICOM, TECHMARKET) sont reprises
+//   et approfondies. Public visé : entreprises commerciales et industrielles.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const QCM: Chapitre['qcm'] = [
@@ -206,7 +208,7 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c4-q15',
-    question: "Une banque détient des bons du Trésor jusqu'à leur échéance pour en percevoir les coupons ; leurs flux sont uniquement du principal et des intérêts. Quel classement ?",
+    question: "Une société industrielle place sa trésorerie excédentaire en bons du Trésor, qu'elle conserve jusqu'à l'échéance pour en percevoir les coupons ; leurs flux sont uniquement du principal et des intérêts. Quel classement ?",
     options: [
       { id: 'a', texte: "Coût amorti" },
       { id: 'b', texte: "Juste valeur par le biais des autres éléments du résultat global" },
@@ -219,7 +221,7 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c4-q16',
-    question: "La trésorerie d'une compagnie d'assurance place des obligations qu'elle garde pour leurs coupons, mais qu'elle vend régulièrement pour faire face aux sinistres. Où vont les variations de juste valeur ?",
+    question: "Un groupe agro-industriel place ses excédents de trésorerie en obligations qu'il garde pour leurs coupons, mais qu'il vend régulièrement pour financer ses campagnes d'achat de maïs. Où vont les variations de juste valeur ?",
     options: [
       { id: 'a', texte: "En résultat net, immédiatement" },
       { id: 'b', texte: "En autres éléments du résultat global, recyclées en résultat net à la décomptabilisation ; intérêts et pertes de crédit en résultat net" },
@@ -258,12 +260,12 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c4-q19',
-    question: "Une banque gère un portefeuille de prêts pour en percevoir les flux, mais vend chaque année les prêts dont le risque de crédit s'est fortement dégradé. Ces ventes remettent-elles en cause le modèle « percevoir » ?",
+    question: "Une société gère un portefeuille d'obligations pour en percevoir les coupons, mais vend chaque année celles dont l'émetteur voit son risque de crédit fortement dégradé. Ces ventes remettent-elles en cause le modèle « percevoir » ?",
     options: [
       { id: 'a', texte: "Oui, toute vente l'interdit" },
       { id: 'b', texte: "Oui, au-delà de trois ventes par an" },
       { id: 'c', texte: "Non : les ventes dues à une augmentation du risque de crédit ne vont pas à l'encontre de ce modèle, quelles que soient leur fréquence et leur valeur" },
-      { id: 'd', texte: "Non, à condition que les ventes soient imposées par la Banque Centrale" },
+      { id: 'd', texte: "Non, à condition que les ventes soient imposées par un prêteur" },
     ],
     reponseCorrecte: 'c',
     explication: "IFRS 9.B4.1.3A : « Sans égard à leur fréquence et à leur valeur, les ventes attribuables à une augmentation du risque de crédit de l'actif ne vont pas à l'encontre d'un modèle économique dont l'objectif est de détenir des actifs financiers afin d'en percevoir les flux de trésorerie contractuels ». Pour les autres ventes, B4.1.3B regarde la fréquence et la valeur ; la question de savoir si la vente est exigée par un tiers « n'est pas pertinente ».",
@@ -286,7 +288,7 @@ const QCM: Chapitre['qcm'] = [
     id: 'ue13c4-q21',
     question: "Lequel de ces éléments N'ENTRE PAS dans le calcul du taux d'intérêt effectif d'un prêt ?",
     options: [
-      { id: 'a', texte: "Les frais de dossier perçus par la banque" },
+      { id: 'a', texte: "Les frais de dossier payés ou perçus à l'octroi" },
       { id: 'b', texte: "Les coûts de transaction marginaux" },
       { id: 'c', texte: "Les pertes de crédit attendues" },
       { id: 'd', texte: "Une décote à l'émission" },
@@ -297,7 +299,7 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c4-q22',
-    question: "Prêt de 100 000 USD sur 3 ans, intérêt de 10 % payé chaque année, remboursement in fine ; la banque perçoit 3 000 de frais de dossier et décaisse net 97 000. Le taux effectif est d'environ 11,23 %. Quel produit d'intérêts la première année ?",
+    question: "Une société emprunte 100 000 USD sur 3 ans, intérêt de 10 % payé chaque année, remboursement in fine ; la banque retient 3 000 de frais de dossier et la société encaisse net 97 000. Le taux effectif est d'environ 11,23 %. Quelle charge d'intérêts la première année ?",
     options: [
       { id: 'a', texte: "10 000" },
       { id: 'b', texte: "11 000" },
@@ -305,21 +307,21 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "13 000" },
     ],
     reponseCorrecte: 'c',
-    explication: "IFRS 9.5.4.1 : les produits d'intérêts sont calculés en appliquant le taux effectif à la valeur comptable brute : 97 000 × 11,23 % ≈ 10 896. Sur ce montant, 10 000 sont encaissés et 896 augmentent la valeur comptable brute, qui passe à 97 896. Les 3 000 de frais sont ainsi reconnus sur la durée du prêt, au rythme actuariel, non en produit immédiat (réponse d) ni ignorés (réponse a).",
-    articleRef: "IFRS 9.5.4.1 ; annexe A",
+    explication: "L'emprunt est un passif financier au coût amorti (IFRS 9.4.2.1) ; les frais de dossier viennent en déduction de sa valeur initiale (§ 5.1.1) et le taux effectif les étale (annexe A). Charge de N : 97 000 × 11,23 % ≈ 10 896. Sur ce montant, 10 000 sont payés et 896 augmentent le coût amorti de la dette, qui passe à 97 896. Les 3 000 de frais ne sont donc ni une charge immédiate (réponse d) ni ignorés (réponse a) : ils renchérissent le coût du crédit sur toute sa durée.",
+    articleRef: "IFRS 9.4.2.1, 5.1.1 ; annexe A",
   },
   {
     id: 'ue13c4-q23',
-    question: "À la transition IFRS 9, une banque congolaise étale ses commissions de crédit linéairement sur 36 mois au lieu d'utiliser le taux effectif. Comment l'auditeur a-t-il traité ce point dans le cas réel de la BCDC (2018) ?",
+    question: "Une société prête 10 000 USD à l'un de ses cadres, sans intérêt, remboursable en une fois dans deux ans. Le taux du marché pour un prêt comparable est de 8 %. À quel montant comptabiliser le prêt à l'origine ?",
     options: [
-      { id: 'a', texte: "Il a refusé de certifier" },
-      { id: 'b', texte: "Il a émis une réserve" },
-      { id: 'c', texte: "Il a formulé une observation, après avoir vérifié que l'impact global n'était pas significatif" },
-      { id: 'd', texte: "Il n'en a rien dit, la méthode étant autorisée" },
+      { id: 'a', texte: "10 000 USD, le montant versé" },
+      { id: 'b', texte: "Environ 8 573 USD, soit la valeur actualisée au taux du marché" },
+      { id: 'c', texte: "8 400 USD, soit 10 000 moins deux années d'intérêts simples" },
+      { id: 'd', texte: "Zéro, le prêt étant un avantage du personnel" },
     ],
-    reponseCorrecte: 'c',
-    explication: "Le rapport des commissaires aux comptes de la BCDC (annexe 2018) attire l'attention du lecteur : « contrairement à la norme IFRS 9, la Banque n'a pas procédé au retraitement des crédits au taux d'intérêt effectif. Elle a procédé à l'étalement linéaire des commissions sur une période de 36 mois. » Leur propre évaluation au taux effectif a montré que l'impact global n'était pas significatif, et l'opinion ne comporte pas de réserve sur ce point. La méthode n'est donc pas conforme (réponse d), mais l'écart est jugé non significatif.",
-    articleRef: "IFRS 9.5.4.1 ; BCDC, annexe 2018",
+    reponseCorrecte: 'b',
+    explication: "Lorsqu'une part de la contrepartie versée l'est pour autre chose que l'instrument financier, l'entité doit évaluer sa juste valeur ; B5.1.1 cite précisément le prêt à long terme qui ne porte pas intérêt, évalué à la valeur actualisée des encaissements futurs au taux du marché d'un instrument similaire : 10 000 / 1,08² ≈ 8 573. « Tout excédent prêté constitue une charge ou une réduction des produits, à moins qu'il ne remplisse les conditions de comptabilisation en tant qu'autre type d'actif » : ici, les 1 427 rémunèrent le cadre. Le prêt produit ensuite des intérêts au taux effectif de 8 %.",
+    articleRef: "IFRS 9.5.1.1 ; B5.1.1",
   },
   {
     id: 'ue13c4-q24',
@@ -341,17 +343,17 @@ const QCM: Chapitre['qcm'] = [
       { id: 'a', texte: "30 jours : défaillance ; 90 jours : passage en perte" },
       { id: 'b', texte: "Plus de 30 jours : augmentation importante du risque de crédit ; défaillance au plus tard 90 jours après l'échéance ; les deux présomptions sont réfutables" },
       { id: 'c', texte: "60 jours et 180 jours, présomptions irréfragables" },
-      { id: 'd', texte: "Aucune : seul le règlement de la Banque Centrale fixe des seuils" },
+      { id: 'd', texte: "Aucune : seuls les délais contractuels de paiement comptent" },
     ],
     reponseCorrecte: 'b',
-    explication: "IFRS 9.5.5.11 : il existe une présomption réfutable d'augmentation importante du risque de crédit « lorsque les paiements contractuels sont en souffrance depuis plus de 30 jours » ; B5.5.19 y voit le moment le plus tardif du passage aux pertes pour la durée de vie. B5.5.37 : présomption réfutable que la défaillance ne peut se situer plus de 90 jours après l'échéance impayée. La BCDC a repris ces deux seuils dans ses règles de classement (30 et 90 jours).",
+    explication: "IFRS 9.5.5.11 : il existe une présomption réfutable d'augmentation importante du risque de crédit « lorsque les paiements contractuels sont en souffrance depuis plus de 30 jours » ; B5.5.19 y voit le moment le plus tardif du passage aux pertes pour la durée de vie. B5.5.37 : présomption réfutable que la défaillance ne peut se situer plus de 90 jours après l'échéance impayée. Pour les créances clients, l'approche simplifiée dispense de ce suivi (§ 5.5.15).",
     articleRef: "IFRS 9.5.5.11 ; B5.5.19 ; B5.5.37",
   },
   {
     id: 'ue13c4-q26',
     question: "Pour ses créances clients sans composante financement importante, un distributeur doit-il suivre l'augmentation du risque de crédit créance par créance ?",
     options: [
-      { id: 'a', texte: "Oui, comme une banque" },
+      { id: 'a', texte: "Oui, comme pour un prêt" },
       { id: 'b', texte: "Non : la correction de valeur est toujours égale aux pertes attendues pour la durée de vie, et une matrice fondée sur l'antériorité des créances est une simplification admise" },
       { id: 'c', texte: "Non : les créances clients sont exclues du modèle de dépréciation" },
       { id: 'd', texte: "Oui, mais seulement pour les créances de plus de 90 jours" },
@@ -362,15 +364,15 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c4-q27',
-    question: "Créances clients : non échues 400 000 (taux 1 %), 1 à 30 jours 150 000 (3 %), 31 à 90 jours 80 000 (8 %), 91 à 180 jours 40 000 (25 %), plus de 180 jours 30 000 (60 %). Quelle correction de valeur ?",
+    question: "DISTRICOM SA : créances non échues 200 000 (taux de perte attendu 1 %), 1 à 30 jours 100 000 (5 %), 31 à 60 jours 60 000 (15 %), plus de 60 jours 40 000 (40 %). Quelle perte de crédit attendue comptabiliser ?",
     options: [
-      { id: 'a', texte: "18 000" },
-      { id: 'b', texte: "28 000" },
-      { id: 'c', texte: "42 900" },
-      { id: 'd', texte: "70 000" },
+      { id: 'a', texte: "16 000" },
+      { id: 'b', texte: "25 000" },
+      { id: 'c', texte: "32 000" },
+      { id: 'd', texte: "40 000" },
     ],
     reponseCorrecte: 'c',
-    explication: "4 000 + 4 500 + 6 400 + 10 000 + 18 000 = **42 900**. La réponse a ne retient que la tranche de plus de 180 jours, à la manière d'une dépréciation individuelle des seules créances douteuses. Or la matrice d'IFRS 9 (B5.5.35) couvre toutes les créances, y compris celles qui ne sont pas échues : même un client à jour porte une perte attendue.",
+    explication: "2 000 + 5 000 + 9 000 + 16 000 = **32 000**, soit 8 % de l'encours de 400 000. La réponse a ne retient que la tranche de plus de 60 jours, à la manière d'une dépréciation individuelle des seules créances douteuses. Or la matrice d'IFRS 9 (B5.5.35) couvre toutes les créances, y compris celles qui ne sont pas échues : même un client à jour porte une perte attendue.",
     articleRef: "IFRS 9.5.5.15 ; B5.5.35",
   },
   {
@@ -405,7 +407,7 @@ const QCM: Chapitre['qcm'] = [
     options: [
       { id: 'a', texte: "Une efficacité comprise entre 80 % et 125 %" },
       { id: 'b', texte: "Une désignation formelle et une documentation dès l'origine de la relation" },
-      { id: 'c', texte: "L'accord préalable de la Banque Centrale" },
+      { id: 'c', texte: "L'accord préalable du commissaire aux comptes" },
       { id: 'd', texte: "Un instrument de couverture coté" },
     ],
     reponseCorrecte: 'b',
@@ -446,6 +448,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "IAS 2 : ce qu'est un stock et la règle qui le gouverne",
     navLabel: 'IAS 2 : principe',
     blocs: [
+      {
+        type: 'paragraphe',
+        texte: "Stocks et créances clients occupent une place centrale dans les états financiers d'une entreprise commerciale ou industrielle, parce qu'ils sont exposés aux risques économiques du quotidien : le risque de ne pas vendre, le risque d'obsolescence, le risque de ne pas être payé. À la différence des immobilisations, ils sont destinés à se transformer rapidement en chiffre d'affaires puis en trésorerie. IAS 2 et IFRS 9 poursuivent donc un même objectif : éviter que l'entreprise présente au bilan des actifs courants pour des montants qu'elle ne récupérera pas. Chacune le fait avec sa propre technique, et c'est cette différence que le chapitre explore.",
+      },
       {
         type: 'paragraphe',
         texte: "Le stock est l'actif le plus ordinaire du bilan, et pourtant l'un des plus manipulables. Tout coût porté en stock quitte le compte de résultat de l'exercice pour réapparaître, plus tard, en coût des ventes. IAS 2 répond donc à une seule question de fond : « celle du montant des coûts à comptabiliser en tant qu'actif et à différer jusqu'à la comptabilisation des produits correspondants » (§ 1). Chaque euro, chaque franc ou chaque dollar mal classé déplace du résultat d'une période à l'autre.",
@@ -567,14 +573,16 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[8] },
       {
         type: 'carte',
-        titre: "Pas à pas : dépréciation puis reprise sur le stock de ciment",
+        titre: "Pas à pas : le stock de produits finis d'AGROFOOD SA",
         liste: [
-          "**Fin N.** Stock de 1 500 sacs au coût PEPS de 25. Prix de vente attendu 27, frais de vente 3 : valeur nette de réalisation 24. Dépréciation : 1 500 × 1 = **1 500**, en charges de N (§ 34).",
-          "**Valeur au bilan fin N** : 1 500 × 24 = 36 000.",
-          "**En N+1**, 700 sacs sont vendus : leur coût déprécié sort avec eux.",
-          "**Fin N+1.** Restent 800 sacs ; le prix remonte, valeur nette de réalisation 27. Reprise limitée à la dépréciation initiale de ces sacs : 800 × 1 = **800**. Valeur au bilan : 800 × 25 = 20 000, et non 800 × 27.",
-          "**Présentation** : la reprise réduit le montant des stocks comptabilisé en charges de N+1 ; les notes indiquent son montant et les circonstances qui l'ont provoquée (§ 36(f)-(g)).",
+          "**Donnée (31 décembre N).** 1 000 unités de produits finis au coût unitaire de 120 USD, soit 120 000. À la suite d'une baisse des prix du marché, le prix de vente estimé tombe à 110 et les coûts nécessaires à la vente sont de 10 par unité.",
+          "**Valeur nette de réalisation** : 110 − 10 = **100** par unité, inférieure au coût de 120 : la dépréciation est obligatoire (§ 9 et 28).",
+          "**Dépréciation** : (120 − 100) × 1 000 = **20 000**, en charges de N (§ 34). Stock au bilan : 100 000.",
+          "**En N+1**, 600 unités sont vendues : leur coût et la dépréciation qui s'y rattache (12 000) sortent ensemble, dans le coût des ventes.",
+          "**Fin N+1.** Restent 400 unités ; le marché se redresse : prix 125, coûts de vente 10, valeur nette de réalisation 115. Valeur retenue : le plus faible de 120 et 115, soit 115. Dépréciation nécessaire : 400 × 5 = 2 000 ; dépréciation existante : 400 × 20 = 8 000. **Reprise de 6 000**, en réduction du coût des stocks passé en charges (§ 33-34), et non une remontée au-dessus du coût.",
+          "**Notes** : montant de la dépréciation de N, montant de la reprise de N+1 et circonstances qui l'ont provoquée, ici le redressement des prix (§ 36(e)-(g)).",
         ],
+        note: "Comme le souligne le support d'origine du module, cette dépréciation « n'est pas une anticipation pessimiste, mais une correction réaliste de la valeur économique du stock ». Elle s'impose même si la perte n'est pas encore réalisée, et même en l'absence de bénéfice dans le SYSCOHADA révisé (compte 6593).",
       },
       { type: 'controle', question: QCM[9] },
       { type: 'controle', question: QCM[10] },
@@ -602,7 +610,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Avec IFRS 9, on change d'univers. L'objectif de la norme est de fournir des informations utiles « pour l'appréciation des montants, du calendrier et du degré d'incertitude des flux de trésorerie futurs de l'entité » (§ 1.1). Elle est entrée en vigueur pour les exercices ouverts à compter du 1er janvier 2018 (§ 7.1.1), en remplacement d'IAS 39, qui ne subsiste que pour certaines relations de couverture. Pour une entreprise commerciale, IFRS 9 gouverne les créances clients, la trésorerie, les placements et les emprunts ; pour une banque, c'est la norme qui détermine l'essentiel du bilan et du coût du risque.",
+        texte: "Avec IFRS 9, on change d'univers. L'objectif de la norme est de fournir des informations utiles « pour l'appréciation des montants, du calendrier et du degré d'incertitude des flux de trésorerie futurs de l'entité » (§ 1.1). Elle est entrée en vigueur pour les exercices ouverts à compter du 1er janvier 2018 (§ 7.1.1), en remplacement d'IAS 39, qui ne subsiste que pour certaines relations de couverture. Pour une entreprise commerciale ou industrielle, IFRS 9 gouverne les créances clients, la trésorerie et les placements, les prêts qu'elle consent (au personnel, à ses distributeurs, à des partenaires), ses emprunts et ses dettes fournisseurs, ainsi que les dérivés de change ou de matières premières qu'elle conclut.",
       },
       {
         type: 'filet',
@@ -682,7 +690,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Jugement professionnel : des actions non cotées au coût ?",
-        texte: "Beaucoup d'entités congolaises détiennent des participations minoritaires non cotées : parts dans une société de services interbancaires, actions d'un fournisseur, titres reçus lors d'une restructuration. IFRS 9 impose de les évaluer à la juste valeur (B5.2.3). Le même paragraphe admet toutefois que, « dans des circonstances limitées », le coût puisse constituer une estimation appropriée de la juste valeur : faute d'informations récentes suffisantes, ou lorsque le coût est la meilleure estimation dans une large fourchette. C'est une tolérance d'estimation, non une catégorie comptable : l'entité doit justifier chaque année que ces circonstances persistent. Le choix des autres éléments du résultat global évite en outre que la volatilité de ces titres ne se lise dans le résultat.",
+        texte: "Beaucoup d'entités congolaises détiennent des participations minoritaires non cotées : parts dans une société de transport fluvial qui dessert l'entreprise, actions d'un fournisseur, titres reçus lors d'une restructuration. IFRS 9 impose de les évaluer à la juste valeur (B5.2.3). Le même paragraphe admet toutefois que, « dans des circonstances limitées », le coût puisse constituer une estimation appropriée de la juste valeur : faute d'informations récentes suffisantes, ou lorsque le coût est la meilleure estimation dans une large fourchette. C'est une tolérance d'estimation, non une catégorie comptable : l'entité doit justifier chaque année que ces circonstances persistent. Le choix des autres éléments du résultat global évite en outre que la volatilité de ces titres ne se lise dans le résultat.",
       },
     ],
   },
@@ -703,10 +711,10 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[20] },
       {
         type: 'carte',
-        titre: "Pas à pas : un crédit d'équipement de 100 000 USD avec frais de dossier",
-        texte: "Le 1er janvier N, une banque de Kinshasa prête 100 000 USD sur trois ans, intérêt de 10 % payé en fin d'année, remboursement in fine. Elle retient 3 000 USD de frais de dossier : le décaissement net est de 97 000. Le taux qui égalise 97 000 et les flux futurs (10 000, 10 000 et 110 000) est d'environ **11,23 %**.",
+        titre: "Pas à pas : l'emprunt d'équipement de MBANZA CIMENT SA (société fictive)",
+        texte: "Le 1er janvier N, la société emprunte 100 000 USD sur trois ans pour financer un broyeur : intérêt de 10 % payé en fin d'année, remboursement in fine. La banque retient 3 000 USD de frais de dossier : la société encaisse 97 000. Le taux qui égalise 97 000 et les flux futurs (10 000, 10 000 et 110 000) est d'environ **11,23 %**.",
         tableau: {
-          entetes: ['Année', 'Valeur brute à l\'ouverture', 'Intérêt au taux effectif', 'Encaissement', 'Part des frais reconnue', 'Valeur brute à la clôture'],
+          entetes: ['Année', "Coût amorti de la dette à l'ouverture", 'Charge d\'intérêts au taux effectif', 'Intérêts payés', 'Part des frais étalée', 'Coût amorti à la clôture'],
           lignes: [
             ['N', '97 000', '10 896', '10 000', '896', '97 896'],
             ['N+1', '97 896', '10 996', '10 000', '996', '98 892'],
@@ -714,18 +722,18 @@ const SECTIONS: Chapitre['sections'] = [
             ['**Total**', '', '**33 000**', '', '**3 000**', ''],
           ],
         },
-        note: "Les 3 000 de frais ne sont pas un produit immédiat : ils forment un complément de rendement, reconnu au rythme actuariel (896, puis 996, puis 1 108). Un étalement linéaire donnerait 1 000 par an ; ici l'écart est faible, mais il grandit avec la durée, le niveau des frais et les remboursements anticipés.",
+        note: "Les 3 000 de frais ne sont pas une charge de N : ils renchérissent le coût du crédit, et le taux effectif les répartit au rythme actuariel (896, puis 996, puis 1 108). La dette figure au bilan pour 97 000 à l'origine, et non pour 100 000 avec des frais en charges. Un étalement linéaire donnerait 1 000 par an ; l'écart est faible ici, mais il grandit avec la durée, le niveau des frais et les remboursements anticipés.",
       },
       { type: 'controle', question: QCM[21] },
       {
         type: 'filet',
-        titre: "Dans les comptes publiés : l'observation des auditeurs de la BCDC",
-        texte: "Le rapport des commissaires aux comptes joint à l'annexe 2018 de la BCDC attire l'attention du lecteur sur un point : « contrairement à la norme IFRS 9, la Banque n'a pas procédé au retraitement des crédits au taux d'intérêt effectif. Elle a procédé à l'étalement linéaire des commissions sur une période de 36 mois. » Les auditeurs ont recalculé l'encours au taux effectif, constaté que l'impact global n'était pas significatif, et n'ont pas formulé de réserve sur ce point. La leçon est double. Une méthode simplifiée n'est acceptable que si son écart avec la norme reste non significatif, et cela se démontre par un calcul. Et le taux effectif exige un système d'information capable de rattacher chaque commission à chaque crédit, ce que beaucoup de banques de la place n'avaient pas en 2018.",
+        titre: "Jugement professionnel : frais d'emprunt en charges, étalement linéaire ou taux effectif ?",
+        texte: "Dans la pratique, beaucoup d'entreprises passent les frais de dossier d'un emprunt en charges dès l'octroi, ou les étalent linéairement. IFRS 9 exige la méthode du taux effectif. IAS 8.8 admet qu'« Il convient de ne pas appliquer ces méthodes lorsque l'effet de leur application n'est pas significatif », mais ajoute aussitôt qu'« il est inapproprié de faire, ou de ne pas corriger, des écarts non significatifs par rapport aux IFRS en vue de parvenir à une présentation particulière ». Une méthode simplifiée se défend donc par un calcul qui démontre que l'écart reste non significatif, pas par une affirmation. Le même raisonnement vaut pour les prêts au personnel sans intérêt : leur actualisation n'est pas un raffinement, dès lors que les montants sont significatifs.",
       },
       { type: 'controle', question: QCM[22] },
       {
         type: 'paragraphe',
-        texte: "Côté passif, la règle est symétrique et encore plus simple. L'entité classe « comme étant ultérieurement évalués au coût amorti tous les passifs financiers à l'exception » de ceux que la norme énumère : passifs à la juste valeur par le biais du résultat net, dont les dérivés, contrats de garantie financière, engagements de prêt à taux inférieur au marché, contrepartie éventuelle d'un regroupement (§ 4.2.1). Un emprunt bancaire ou obligataire est donc évalué au coût amorti : ses frais d'émission viennent en déduction de sa valeur initiale et sont étalés par le taux effectif. Le passif sort du bilan lorsqu'il est éteint, c'est-à-dire lorsque l'obligation est exécutée, annulée ou expirée (§ 3.3.1), et l'écart avec le montant payé va en résultat net (§ 3.3.3).",
+        texte: "Pour l'entreprise, la règle générale des passifs financiers est simple. L'entité classe « comme étant ultérieurement évalués au coût amorti tous les passifs financiers à l'exception » de ceux que la norme énumère : passifs à la juste valeur par le biais du résultat net, dont les dérivés, contrats de garantie financière, engagements de prêt à taux inférieur au marché, contrepartie éventuelle d'un regroupement (§ 4.2.1). Un emprunt bancaire ou obligataire est donc évalué au coût amorti, comme dans l'exemple de MBANZA CIMENT ; une dette fournisseur à court terme l'est aussi, et son coût amorti se confond en pratique avec son montant nominal. Le passif sort du bilan lorsqu'il est éteint, c'est-à-dire lorsque l'obligation est exécutée, annulée ou expirée (§ 3.3.1), et l'écart avec le montant payé va en résultat net (§ 3.3.3).",
       },
       { type: 'controle', question: QCM[30] },
     ],
@@ -737,7 +745,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "L'annexe 2018 de la BCDC résume le changement en une phrase : « La norme IFRS 9 remplace le modèle de pertes encourue [texte officiel] d'IAS 39 par un modèle unique de dépréciation, prospectif, fondé sur les « pertes attendues ». » Sous l'ancien modèle, la dépréciation attendait un événement de perte et arrivait souvent tard. IFRS 9 renverse la logique. L'entité comptabilise une correction de valeur au titre des **pertes de crédit attendues** sur tous les actifs au coût amorti ou à la juste valeur par le biais des autres éléments du résultat global, les créances locatives, les actifs sur contrat, les engagements de prêt et les garanties financières (§ 5.5.1). La perte attendue est une « Moyenne pondérée des pertes de crédit, dont les poids sont les risques de défaillance respectifs » (annexe A). Il y a perte même si l'on s'attend à être payé en entier, mais en retard (B5.5.28).",
+        texte: "Le comptable formé au SYSCOHADA déprécie une créance lorsqu'elle devient douteuse : il attend un fait, un retard, un litige, une faillite. IFRS 9 renverse cette logique : l'entreprise ne doit plus attendre que le client soit en difficulté pour constater le risque, parce que le risque de non-paiement existe dès la naissance de la créance. L'entité comptabilise une correction de valeur au titre des **pertes de crédit attendues** sur tous les actifs au coût amorti ou à la juste valeur par le biais des autres éléments du résultat global, les créances locatives, les actifs sur contrat, les engagements de prêt et les garanties financières (§ 5.5.1). La perte attendue est une « Moyenne pondérée des pertes de crédit, dont les poids sont les risques de défaillance respectifs » (annexe A). Il y a perte même si l'on s'attend à être payé en entier, mais en retard (B5.5.28).",
       },
       {
         type: 'filet',
@@ -757,17 +765,18 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "La norme ne parle pas d'étapes : ce vocabulaire, universel dans les banques, vient de la pratique. Ce qu'elle impose, c'est d'apprécier à chaque clôture si le risque de défaillance sur la durée de vie a augmenté de façon importante depuis l'origine, en comparant les deux dates (§ 5.5.9). Deux présomptions réfutables balisent le jugement : augmentation importante lorsque les paiements sont en souffrance depuis plus de 30 jours (§ 5.5.11), ce qui constitue le moment le plus tardif du passage aux pertes pour la durée de vie (B5.5.19) ; défaillance au plus tard 90 jours après l'échéance impayée (B5.5.37). Un instrument à risque faible peut être présumé sans augmentation importante (§ 5.5.10), mais pas simplement parce qu'il est garanti ou moins risqué que le pays de l'entité (B5.5.22). Les variations de la correction passent en résultat net comme gain ou perte de valeur (§ 5.5.8).",
+        texte: "La norme ne parle pas d'étapes : ce vocabulaire vient de la pratique. Pour une entreprise commerciale ou industrielle, ce modèle général vise surtout les prêts qu'elle consent et ses placements en titres de dette ; ses créances clients suivent l'approche simplifiée (section 4.8). Ce qu'elle impose, c'est d'apprécier à chaque clôture si le risque de défaillance sur la durée de vie a augmenté de façon importante depuis l'origine, en comparant les deux dates (§ 5.5.9). Deux présomptions réfutables balisent le jugement : augmentation importante lorsque les paiements sont en souffrance depuis plus de 30 jours (§ 5.5.11), ce qui constitue le moment le plus tardif du passage aux pertes pour la durée de vie (B5.5.19) ; défaillance au plus tard 90 jours après l'échéance impayée (B5.5.37). Un instrument à risque faible peut être présumé sans augmentation importante (§ 5.5.10), mais pas simplement parce qu'il est garanti ou moins risqué que le pays de l'entité (B5.5.22). Les variations de la correction passent en résultat net comme gain ou perte de valeur (§ 5.5.8).",
       },
       { type: 'controle', question: QCM[23] },
       { type: 'controle', question: QCM[24] },
       {
         type: 'carte',
-        titre: "Pas à pas : le crédit d'équipement traverse les étapes (simplification pédagogique)",
+        titre: "Pas à pas : le prêt de MBANZA CIMENT à son distributeur traverse les étapes (simplification pédagogique)",
         liste: [
           "**Convention de calcul.** Pertes attendues = probabilité de défaillance × taux de perte en cas de défaillance × valeur brute. Ce produit simplifié ignore l'actualisation et les scénarios multiples ; la norme exige les deux (§ 5.5.17). Il suffit ici à montrer la mécanique.",
-          "**Fin N, étape 1.** Valeur brute 97 896. Probabilité de défaillance à 12 mois 2 %, taux de perte 45 % : 97 896 × 2 % × 45 % ≈ **881**. Dotation de 881 en résultat. Coût amorti : 97 015. Intérêts de N+1 calculés sur la valeur brute : 10 996.",
-          "**Fin N+1, étape 2.** Une échéance est impayée depuis 45 jours : la présomption du § 5.5.11 joue. Valeur brute 98 892. Probabilité de défaillance sur la durée de vie restante 15 % : 98 892 × 15 % × 45 % ≈ **6 675**. Dotation complémentaire : 6 675 − 881 = **5 794**.",
+          "**Donnée.** Le 1er janvier N, MBANZA CIMENT prête 100 000 USD à son distributeur exclusif du Kwilu, pour trois ans, intérêt de 10 % payé en fin d'année, remboursement in fine, sans frais : le taux effectif est de 10 % et la valeur brute reste de 100 000.",
+          "**Fin N, étape 1.** Probabilité de défaillance à 12 mois 2 %, taux de perte 45 % : 100 000 × 2 % × 45 % = **900**. Dotation de 900 en résultat (§ 5.5.8). Coût amorti : 99 100. Produits d'intérêts de N+1 calculés sur la valeur brute : 10 000.",
+          "**Fin N+1, étape 2.** Un intérêt est impayé depuis 45 jours : la présomption du § 5.5.11 joue. Probabilité de défaillance sur la durée de vie restante 15 % : 100 000 × 15 % × 45 % = **6 750**. Dotation complémentaire : 6 750 − 900 = **5 850**.",
           "**Si l'emprunteur entre en difficultés financières importantes (étape 3)**, l'actif devient un actif financier déprécié : les intérêts des périodes suivantes se calculent sur le coût amorti net de la correction (§ 5.4.1(b)). Et lorsque plus aucun recouvrement n'est raisonnablement attendu, la valeur brute est réduite directement : c'est une décomptabilisation (§ 5.4.4).",
         ],
       },
@@ -775,7 +784,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Jugement professionnel : l'information prospective en économie congolaise",
-        texte: "Que signifie une « prévision de la conjoncture économique » pour une banque de Lubumbashi ? Le cours du cuivre et du cobalt, dont dépendent les sous-traitants miniers qu'elle finance ; la trajectoire du franc congolais, qui fragilise les emprunteurs endettés en dollars mais payés en francs ; la situation sécuritaire dans l'est du pays ; la politique monétaire de la Banque Centrale du Congo. La norme ne demande pas une prévision exacte, mais une pondération honnête de scénarios plausibles, justifiée et documentée. Deux dérives sont à éviter : ignorer la conjoncture, ce qui revient à revenir aux pertes subies ; ou l'invoquer pour lisser le résultat d'une année sur l'autre.",
+        texte: "Que signifie une « prévision de la conjoncture économique » pour un distributeur de Lubumbashi qui vend à crédit à des sous-traitants miniers ? Le cours du cuivre et du cobalt, dont dépend la solvabilité de ses clients ; la trajectoire du franc congolais, qui fragilise les clients endettés en dollars mais payés en francs ; la situation sécuritaire, qui peut couper l'accès à une province ; la hausse des taux d'intérêt, qui renchérit le crédit de ses clients. La norme ne demande pas une prévision exacte, mais une pondération honnête de scénarios plausibles, justifiée et documentée. Deux dérives sont à éviter : ignorer la conjoncture, ce qui revient à revenir aux pertes subies ; ou l'invoquer pour lisser le résultat d'une année sur l'autre.",
       },
     ],
   },
@@ -791,33 +800,27 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[25] },
       {
         type: 'carte',
-        titre: "Pas à pas : la matrice de dépréciation de KATANGA DISTRIBUTION SARL (société fictive)",
-        texte: "B5.5.35 cite la matrice comme exemple de simplification : des taux par tranche de retard, tirés de l'historique des pertes, ajustés des informations actuelles et prospectives. Les taux ci-dessous intègrent déjà un ajustement pour la dépréciation attendue du franc congolais, qui pèse sur des clients endettés en dollars.",
+        titre: "Pas à pas : la matrice de dépréciation de DISTRICOM SA",
+        texte: "La méthode pratique tient en quatre temps : classer les créances par ancienneté ; appliquer à chaque tranche un taux de perte estimé ; calculer la perte attendue ; la comptabiliser immédiatement. B5.5.35 cite cette matrice comme exemple de simplification, avec des taux tirés de l'historique des pertes, ajustés des informations actuelles et prospectives.",
         tableau: {
-          entetes: ['Tranche', 'Encours (USD)', 'Taux', 'Pertes attendues'],
+          entetes: ['Ancienneté', 'Montant (USD)', 'Taux de perte attendu', 'Perte attendue'],
           lignes: [
-            ['Non échues', '400 000', '1 %', '4 000'],
-            ['1 à 30 jours', '150 000', '3 %', '4 500'],
-            ['31 à 90 jours', '80 000', '8 %', '6 400'],
-            ['91 à 180 jours', '40 000', '25 %', '10 000'],
-            ['Plus de 180 jours', '30 000', '60 %', '18 000'],
-            ['**Total**', '**700 000**', '', '**42 900**'],
+            ['Non échues', '200 000', '1 %', '2 000'],
+            ['1 à 30 jours', '100 000', '5 %', '5 000'],
+            ['31 à 60 jours', '60 000', '15 %', '9 000'],
+            ['Plus de 60 jours', '40 000', '40 %', '16 000'],
+            ['**Total**', '**400 000**', '', '**32 000**'],
           ],
         },
-        note: "Une clientèle hétérogène justifie des matrices distinctes par segment (région, type de produit, notation, garanties, grossistes ou détaillants), si l'historique montre des profils de pertes différents (B5.5.35). La matrice se recalibre chaque année sur les pertes réellement constatées.",
+        note: "Écriture : charge de dépréciation en résultat net (§ 5.5.8), correction de valeur en déduction des créances ; les créances figurent au bilan pour 368 000, montant plus proche de la trésorerie réellement attendue. Ajustement prospectif : si la direction anticipe une dégradation de la conjoncture et porte le taux de la dernière tranche à 50 %, la perte attendue passe à 36 000. Une clientèle hétérogène justifie des matrices distinctes par segment (région, type de produit, grossistes ou détaillants), si l'historique montre des profils de pertes différents (B5.5.35).",
       },
       { type: 'controle', question: QCM[26] },
       {
         type: 'filet',
         titre: "Passerelle SYSCOHADA : la perte subie contre la perte attendue",
-        texte: "Le SYSCOHADA révisé déprécie les créances par le compte 491, avec une logique opposée. La dépréciation doit être « certaine quant à sa nature » et l'élément d'actif « individualisé » ; l'entité doit pouvoir justifier les motifs qui rendent la créance douteuse ou litigieuse, et les événements survenus après la clôture ne sont pas pris en compte (Titre VII, commentaire du compte 49). Sur l'exemple de KATANGA DISTRIBUTION, seuls les clients identifiés comme douteux, pour l'essentiel dans la tranche de plus de 180 jours, seraient dépréciés : de l'ordre de 18 000 USD, contre 42 900 en IFRS 9. L'écart n'est pas une erreur de l'un ou de l'autre : il mesure la différence entre un modèle qui constate une perte et un modèle qui l'anticipe. Il se retrouve dans les impôts différés des groupes qui établissent les deux jeux d'états (chapitre 6).",
+        texte: "Le SYSCOHADA révisé déprécie les créances par le compte 491, avec une logique opposée. La dépréciation doit être « certaine quant à sa nature » et l'élément d'actif « individualisé » ; l'entité doit pouvoir justifier les motifs qui rendent la créance douteuse ou litigieuse, et les événements survenus après la clôture ne sont pas pris en compte (Titre VII, commentaire du compte 49). Sur l'exemple de DISTRICOM, supposons que 25 000 des 40 000 de la tranche de plus de 60 jours correspondent à des clients identifiés comme douteux, recouvrables à 40 % : la dépréciation SYSCOHADA serait de 15 000, contre 32 000 en IFRS 9. L'écart n'est pas une erreur de l'un ou de l'autre : il mesure la différence entre un modèle qui constate une perte et un modèle qui l'anticipe. Il se retrouve dans les impôts différés des groupes qui établissent les deux jeux d'états (chapitre 6).",
       },
       { type: 'controle', question: QCM[27] },
-      {
-        type: 'filet',
-        titre: "Dans les comptes publiés : deux banques, deux transitions vers IFRS 9",
-        texte: "La BCDC indique qu'« À partir du 1er janvier 2018, la banque applique la norme IFRS 9 relative aux instruments financiers, en remplacement de la norme IAS 39. » Son annexe décrit un modèle à trois étapes fondé sur la classification réglementaire de la Banque Centrale du Congo et une liste de surveillance à trois couleurs : étape 2 pour un retard de 30 à 90 jours ou un dossier sous surveillance, étape 3 au-delà de 90 jours, « défaut selon l'instruction BCC ». Elle précise : « Le principe de contagion est appliquée [texte officiel] au reste des engagements d'une contrepartie dès que cette dernière dispose d'une ligne en stage 2 ou 3. » Chez BOA RDC, le commissaire aux comptes a au contraire exprimé une opinion avec réserve sur les états IFRS 2018, la banque n'ayant pas appliqué IFRS 9, en s'appuyant sur une circulaire par laquelle la Banque Centrale du Congo avait autorisé les établissements en difficulté à la transposer dès la clôture de 2019. Or IAS 1.16 est net : l'entité « ne doit décrire des états financiers comme étant conformes aux IFRS que s'ils sont conformes à toutes les dispositions des IFRS ». Un régulateur peut fixer un calendrier prudentiel ; il ne peut pas rendre conformes aux IFRS des états qui ne le sont pas.",
-      },
     ],
   },
   {
@@ -851,7 +854,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Jugement professionnel : ce que ce chapitre relie",
-        texte: "Stocks et instruments financiers semblent appartenir à deux mondes. Ils obéissent pourtant à une même idée : un actif ne vaut au bilan que ce qu'il rapportera. IAS 2 plafonne le stock à sa valeur nette de réalisation ; IFRS 9 réduit la créance des pertes de crédit qu'on en attend. La différence tient au moment : IAS 2 attend un indice de perte (prix en baisse, obsolescence), IFRS 9 anticipe la perte dès le premier jour. Le passage de la perte subie à la perte attendue est l'une des transformations les plus profondes de la comptabilité financière récente ; il explique pourquoi les banques congolaises ont dû refondre leurs systèmes d'information pour appliquer la norme.",
+        texte: "Stocks et instruments financiers semblent appartenir à deux mondes. Ils obéissent pourtant à une même idée : un actif ne vaut au bilan que ce qu'il rapportera. IAS 2 plafonne le stock à sa valeur nette de réalisation ; IFRS 9 réduit la créance des pertes de crédit qu'on en attend. La différence tient au moment : IAS 2 attend un indice de perte (prix en baisse, obsolescence), IFRS 9 anticipe la perte dès le premier jour. Le passage de la perte subie à la perte attendue est l'une des transformations les plus profondes de la comptabilité financière récente ; il oblige toute entreprise qui applique les IFRS à organiser le suivi de ses créances (balance âgée, historique des pertes, informations sur ses clients) bien au-delà de ce qu'exige la tenue des comptes en SYSCOHADA.",
       },
     ],
   },
@@ -860,28 +863,28 @@ const SECTIONS: Chapitre['sections'] = [
 const CAS: Chapitre['casPratiques'] = [
   {
     id: 'ue13c4-cp1',
-    titre: "Dossier réel : deux banques congolaises face à IFRS 9 en 2018",
-    contexte: "BCDC, annexe au rapport annuel 2018, note 1.4 : « À partir du 1er janvier 2018, la banque applique la norme IFRS 9 relative aux instruments financiers, en remplacement de la norme IAS 39. » Étape 2 : notamment les « Actifs avec un dépassement d'échéance compris entre 30 et 90 jours » et les « Crédits classés en Watchlist » ; étape 3 : les « Actifs avec un dépassement d'échéance de plus de 90 jours (correspond au défaut selon l'instruction BCC) ». « Au 1er janvier 2018 (IFRS 9 – First Time Adoption), l'estimation de l'ECL sur le portefeuille de crédits a fait ressortir une économie de l'ordre de USD 3,3 millions comparativement à la provision déterminée au 31 décembre 2017 sous la norme IAS 39. » BOA RDC, rapport du commissaire aux comptes sur les états IFRS 2018 : « la Banque n'a pas procédé à l'application de la nouvelle norme IFRS 9 applicable pour les exercices ouverts à compter du 1er janvier 2018 [...]. Comme indiqué à la Note 2.2 des états financiers, sur le plan local la Banque Centrale du Congo a autorisé aux entreprises en difficulté d'implémentation de la norme IFRS 9, de la transposer dès la clôture de l'année 2019. »",
+    titre: "Synthèse : stocks et créances de TECHMARKET SA",
+    contexte: "TECHMARKET SA distribue du matériel électronique à Kinshasa et établit, pour son actionnaire étranger, des états financiers IFRS en plus de ses comptes SYSCOHADA. Au 31 décembre N : coût des stocks 500 000 USD, valeur nette de réalisation estimée 450 000 USD ; créances clients 300 000 USD, dont 220 000 sur des clients solvables (taux de perte attendu 2 %) et 80 000 sur des clients fragiles (taux 25 %). L'inventaire détaillé révèle que les stocks se composent de téléphones (coût 300 000, valeur nette de réalisation 320 000) et d'ordinateurs d'une génération dépassée (coût 200 000, valeur nette de réalisation 130 000).",
     questions: [
       {
         num: 1,
-        enonce: "Les seuils de 30 et 90 jours retenus par la BCDC sont-ils conformes à IFRS 9 ?",
-        correction: "Oui, ils reprennent les deux présomptions réfutables de la norme : augmentation importante du risque de crédit au-delà de 30 jours de retard (§ 5.5.11), défaillance au plus tard 90 jours après l'échéance (B5.5.37). Mais la norme demande plus que des retards : si des informations prospectives sont disponibles sans coût déraisonnable, l'entité « ne peut pas s'appuyer exclusivement sur les informations sur les comptes en souffrance » (§ 5.5.11). La liste de surveillance de la BCDC, qui intègre l'évolution du secteur et le risque géographique, répond à cette exigence. Le seuil de 30 jours est un plafond, non un déclencheur unique (B5.5.19).",
+        enonce: "Sur la base des seuls montants globaux, quelle dépréciation des stocks faudrait-il constater ?",
+        correction: "Le plus faible du coût et de la valeur nette de réalisation (IAS 2.9) : 500 000 − 450 000 = **50 000**. Ce calcul global n'est toutefois qu'une première approche : il suppose que les gains latents d'une ligne de produits peuvent compenser les pertes d'une autre.",
       },
       {
         num: 2,
-        enonce: "La BCDC rattache sa définition du défaut à l'instruction de la Banque Centrale du Congo. Est-ce admissible ?",
-        correction: "B5.5.37 demande une définition de la défaillance qui corresponde à celle utilisée pour la gestion interne du risque de crédit, en tenant compte de facteurs qualitatifs, et appliquée uniformément. Reprendre la définition prudentielle est donc possible, pourvu qu'elle soit celle qui sert effectivement à piloter le risque et qu'elle respecte la présomption des 90 jours, ce qui est le cas. En revanche, la **provision** réglementaire de la BCC n'est pas la perte attendue d'IFRS 9 : l'une applique des taux fixés par le régulateur, l'autre doit être « un montant objectif et fondé sur des pondérations probabilistes » tenant compte de la valeur temps et de la conjoncture future (§ 5.5.17).",
+        enonce: "Reprenez le calcul avec l'inventaire détaillé. Pourquoi le résultat change-t-il ?",
+        correction: "IAS 2.29 impose une dépréciation élément par élément, ou par groupe d'éléments similaires, et interdit de raisonner sur une grande catégorie. Téléphones : valeur nette de réalisation (320 000) supérieure au coût, aucune dépréciation ; ils restent au coût, 300 000, sans constater de plus-value. Ordinateurs : 200 000 − 130 000 = **70 000** de dépréciation. Stock au bilan : 300 000 + 130 000 = 430 000, et non 450 000. Le calcul global masquait 20 000 de perte derrière la marge latente des téléphones.",
       },
       {
         num: 3,
-        enonce: "Le passage à IFRS 9 a réduit les provisions de la BCDC d'environ 3,3 millions USD. Comment l'expliquer, alors qu'on présente souvent IFRS 9 comme plus exigeant ?",
-        correction: "IFRS 9 anticipe les pertes, mais il ne les exagère pas : la perte attendue doit être objective (§ 5.5.17(a)), non prudente. Si la provision antérieure intégrait des marges de prudence, des taux forfaitaires ou des estimations individuelles pessimistes, le calcul probabiliste peut aboutir à un montant plus faible, surtout sur un portefeuille dont une large part reste en étape 1, avec des pertes à 12 mois seulement. Le résultat dépend du portefeuille : il n'y a pas de sens de variation automatique. Le lecteur doit en revanche trouver en note les hypothèses (probabilités de défaut, taux de perte, scénarios) qui justifient ce chiffre.",
+        enonce: "Quelle dépréciation constater sur les créances clients, et selon quelle approche ?",
+        correction: "Créances clients sans composante financement importante : pertes attendues pour la durée de vie, selon l'approche simplifiée (IFRS 9.5.5.15). La segmentation par profil de risque est admise (B5.5.35). Clients solvables : 220 000 × 2 % = 4 400 ; clients fragiles : 80 000 × 25 % = 20 000 ; total **24 400**. Créances au bilan : 275 600. La perte attendue sur les clients solvables n'est pas une prudence excessive : même un client à jour porte un risque de défaut que l'historique permet de mesurer.",
       },
       {
         num: 4,
-        enonce: "BOA RDC pouvait-elle présenter ses états 2018 comme conformes aux IFRS en s'appuyant sur la circulaire de la BCC ?",
-        correction: "Non. IAS 1.16 : l'entité « ne doit décrire des états financiers comme étant conformes aux IFRS que s'ils sont conformes à toutes les dispositions des IFRS ». IFRS 9 s'applique aux exercices ouverts à compter du 1er janvier 2018 (§ 7.1.1) ; une autorité nationale peut différer une exigence prudentielle ou la transmission de ses propres états, mais elle ne peut pas modifier le contenu des IFRS publiées par l'IASB. Le commissaire aux comptes en a tiré la conséquence : une opinion avec réserve, fondée sur la non-application d'IFRS 9, qui pouvait affecter les prêts et créances et le coût du risque. Une présentation fidèle aurait décrit les états comme établis selon les IFRS à l'exception d'IFRS 9, en chiffrant si possible l'écart.",
+        enonce: "Qu'est-ce qui change dans les comptes SYSCOHADA de la société ?",
+        correction: "Pour les stocks, rien sur le fond : le SYSCOHADA révisé évalue aussi au plus faible du coût d'entrée et de la valeur actuelle, égale à la valeur nette de réalisation, et refuse les dépréciations globales (Titre VIII, ch. 14) ; la dépréciation de 70 000 se comptabilise au débit du compte 6593 par le crédit du compte 39. Pour les créances, la différence est réelle : la dépréciation doit être certaine quant à sa nature et porter sur des créances individualisées dont le caractère douteux est justifié (commentaire du compte 49). Les 4 400 calculés sur des clients solvables n'y ont pas leur place ; sur les 80 000 de clients fragiles, seules les créances effectivement douteuses sont dépréciées, au débit du compte 659 par le crédit du compte 491. L'écart entre les deux jeux d'états est une différence temporelle, que le chapitre 6 traitera sous l'angle des impôts différés.",
       },
     ],
   },
@@ -941,13 +944,13 @@ const CAS: Chapitre['casPratiques'] = [
   },
   {
     id: 'ue13c4-cp4',
-    titre: "Classer : le portefeuille de l'ASSURANCE DU FLEUVE SA (société fictive)",
-    contexte: "Au 31 décembre N, une compagnie d'assurance de Kinshasa détient : (a) des bons du Trésor, conservés jusqu'à l'échéance ; (b) des obligations d'entreprise qu'elle vend régulièrement pour payer les sinistres et ajuster la durée de ses placements à celle de ses engagements ; (c) des actions cotées sur une bourse étrangère, achetées pour être revendues à court terme ; (d) une participation de 5 % dans une société de réassurance régionale, conservée pour des raisons stratégiques ; (e) une obligation convertible en actions de l'émetteur ; (f) un contrat de change à terme USD/CDF ; (g) des primes à recevoir de ses assurés.",
+    titre: "Classer : la trésorerie et les placements de KASAÏ AGRO SA (société fictive)",
+    contexte: "Au 31 décembre N, un groupe agro-industriel de Mbuji-Mayi détient : (a) des bons du Trésor, conservés jusqu'à l'échéance ; (b) des obligations d'entreprise qu'il vend régulièrement pour financer ses campagnes d'achat de maïs, qui reviennent chaque année ; (c) des actions cotées sur une bourse étrangère, achetées pour être revendues à court terme ; (d) une participation de 5 % dans une société de transport fluvial qui achemine ses produits, conservée pour des raisons stratégiques ; (e) une obligation convertible en actions de l'émetteur ; (f) un contrat de change à terme USD/CDF ; (g) une avance versée à un fournisseur de semences, qui sera réglée par la livraison des semences.",
     questions: [
       {
         num: 1,
         enonce: "Classez chaque élément selon IFRS 9, ou dites pourquoi il en est exclu.",
-        correction: "(a) Coût amorti : modèle « percevoir », flux de principal et d'intérêts (§ 4.1.2). (b) Juste valeur par le biais des autres éléments du résultat global : modèle « percevoir et vendre », qui correspond aux exemples de B4.1.4A (§ 4.1.2A). (c) Juste valeur par le biais du résultat net : titres détenus à des fins de transaction (§ 4.1.4 ; B4.1.6). (d) Juste valeur par le biais du résultat net, sauf choix irrévocable, à l'origine et titre par titre, pour les autres éléments du résultat global (§ 5.7.5). (e) Juste valeur par le biais du résultat net : échec au critère des flux contractuels (B4.1.14, instrument F). (f) Dérivé, à la juste valeur par le biais du résultat net, sauf comptabilité de couverture documentée (annexe A ; § 6.4.1). (g) Hors champ : les droits et obligations découlant de contrats d'assurance relèvent d'IFRS 17 (§ 2.1(e)).",
+        correction: "(a) Coût amorti : modèle « percevoir », flux de principal et d'intérêts (§ 4.1.2). (b) Juste valeur par le biais des autres éléments du résultat global : modèle « percevoir et vendre », qui correspond à la gestion des besoins de liquidités citée par B4.1.4A (§ 4.1.2A). (c) Juste valeur par le biais du résultat net : titres détenus à des fins de transaction (§ 4.1.4 ; B4.1.6). (d) Juste valeur par le biais du résultat net, sauf choix irrévocable, à l'origine et titre par titre, pour les autres éléments du résultat global (§ 5.7.5). (e) Juste valeur par le biais du résultat net : échec au critère des flux contractuels (B4.1.14, instrument F). (f) Dérivé, à la juste valeur par le biais du résultat net, sauf comptabilité de couverture documentée (annexe A ; § 6.4.1). (g) Hors champ : l'avance donne droit à des semences, non à de la trésorerie ; ce n'est pas un actif financier (IAS 32.11 ; AG11). Elle reste une avance sur achats de stocks.",
       },
       {
         num: 2,
@@ -961,8 +964,8 @@ const CAS: Chapitre['casPratiques'] = [
       },
       {
         num: 4,
-        enonce: "La compagnie paie ses réassureurs en dollars et encaisse ses primes en francs congolais. Que lui faut-il pour que le contrat de change (f) soit traité en couverture ?",
-        correction: "Désigner formellement la relation et la documenter dès l'origine : instrument de couverture, élément couvert (les paiements futurs en dollars), risque couvert, méthode d'appréciation de l'efficacité et détermination du ratio de couverture (§ 6.4.1(b)). Démontrer ensuite un lien économique, l'absence d'effet dominant du risque de crédit et un ratio cohérent avec la gestion réelle (§ 6.4.1(c)). Sans cette documentation initiale, le contrat reste un dérivé dont toutes les variations de juste valeur passent en résultat net, alors que l'élément couvert n'est pas encore au bilan : le résultat devient volatil sans que le risque économique ait changé.",
+        enonce: "Le groupe importe ses engrais en dollars et vend sa farine en francs congolais. Que lui faut-il pour que le contrat de change (f) soit traité en couverture ?",
+        correction: "Désigner formellement la relation et la documenter dès l'origine : instrument de couverture, élément couvert (les paiements futurs en dollars pour les engrais), risque couvert, méthode d'appréciation de l'efficacité et détermination du ratio de couverture (§ 6.4.1(b)). Démontrer ensuite un lien économique, l'absence d'effet dominant du risque de crédit et un ratio cohérent avec la gestion réelle (§ 6.4.1(c)). Sans cette documentation initiale, le contrat reste un dérivé dont toutes les variations de juste valeur passent en résultat net, alors que l'élément couvert n'est pas encore au bilan : le résultat devient volatil sans que le risque économique ait changé.",
       },
     ],
   },
@@ -974,8 +977,8 @@ const chapitre: Chapitre = {
   id: 'ue13-chapitre-4',
   titre: 'Stocks, créances et instruments financiers',
   sousTitre: "Coût et valeur nette de réalisation (IAS 2) ; classement, coût amorti, pertes de crédit attendues et décomptabilisation (IFRS 9)",
-  infoBulle: "Chapitre 4 du module IFRS/IAS : stocks (champ, coût d'acquisition et de transformation, capacité normale, formules PEPS et coût moyen, valeur nette de réalisation, dépréciation et reprise) ; instruments financiers (définitions d'IAS 32, champ d'IFRS 9, évaluation initiale, classement selon le modèle économique et les flux contractuels, coût amorti et taux d'intérêt effectif, passifs financiers, pertes de crédit attendues et approche simplifiée, décomptabilisation, couverture) ; passerelles avec le SYSCOHADA révisé et lecture des comptes de deux banques congolaises.",
-  loiRef: "IAS 2 · IFRS 9 · IAS 32 § 11 · IAS 1 § 16 · AUDCIF art. 42-44 et 46 · SYSCOHADA, Titre VII (compte 49) et Titre VIII, ch. 14-15",
+  infoBulle: "Chapitre 4 du module IFRS/IAS : stocks (champ, coût d'acquisition et de transformation, capacité normale, formules PEPS et coût moyen, valeur nette de réalisation, dépréciation et reprise) ; instruments financiers (définitions d'IAS 32, champ d'IFRS 9, évaluation initiale, classement selon le modèle économique et les flux contractuels, coût amorti et taux d'intérêt effectif, passifs financiers, pertes de crédit attendues et approche simplifiée, décomptabilisation, couverture) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
+  loiRef: "IAS 2 · IFRS 9 · IAS 32 § 11 · IAS 8 § 8 · AUDCIF art. 42-44 et 46 · SYSCOHADA, Titre VII (compte 49) et Titre VIII, ch. 14-15",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
@@ -989,7 +992,7 @@ const chapitre: Chapitre = {
     "Calculer un coût amorti avec le taux d'intérêt effectif, pour un actif comme pour un passif.",
     "Mesurer les pertes de crédit attendues à 12 mois ou pour la durée de vie, et construire une matrice pour les créances clients.",
     "Analyser une cession de créances au regard de la décomptabilisation, et énoncer les conditions de la comptabilité de couverture.",
-    "Comparer IAS 2 et IFRS 9 avec le SYSCOHADA révisé, et lire de façon critique les notes IFRS 9 de banques congolaises.",
+    "Comparer IAS 2 et IFRS 9 avec le SYSCOHADA révisé, et chiffrer l'écart entre les deux jeux d'états d'une même entreprise.",
   ],
   sections: SECTIONS,
   aRetenir: [
@@ -1007,14 +1010,13 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "IAS 2 — Stocks", precision: "§§ 1 à 42 (texte français intégral)" },
     { genre: 'texte', intitule: "IFRS 9 — Instruments financiers", precision: "chapitres 1 à 7, annexe A et guide d'application B (texte français intégral)" },
     { genre: 'texte', intitule: "IAS 32 — Instruments financiers : Présentation", precision: "§ 11 (définitions)" },
-    { genre: 'texte', intitule: "IAS 1 — Présentation des états financiers", precision: "§ 16 (déclaration de conformité)" },
+    { genre: 'texte', intitule: "IAS 8 — Méthodes comptables, changements d'estimations comptables et erreurs", precision: "§ 8 (importance relative)" },
     { genre: 'texte', intitule: "AUDCIF et SYSCOHADA révisé", precision: "art. 42 à 44 et 46 ; Titre VII, compte 49 ; Titre VIII, ch. 14 (stocks) et ch. 15 (affacturage, titrisation)" },
-    { genre: 'texte', intitule: "BCDC, annexe au rapport annuel 2018", precision: "note 1.4 (classement, évaluation et dépréciation des actifs financiers) et rapport des commissaires aux comptes" },
-    { genre: 'texte', intitule: "BOA RDC, états financiers IFRS 2018", precision: "rapport du commissaire aux comptes ; notes 2.2 et 3.1" },
+    { genre: 'texte', intitule: "J.-B. Tshimanga Mulumba (CPCC), IFRS - Stocks, créances & instruments financiers (IAS 2 & IFRS 9)", precision: "support de cours, module 4 : illustrations AGROFOOD, DISTRICOM et TECHMARKET" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 2 et IFRS 9 (texte français intégral) ; IAS 32 et IAS 1 ; AUDCIF et SYSCOHADA révisé ; BCDC (2018) et BOA RDC (2018).",
+  sources: "IAS 2 et IFRS 9 (texte français intégral) ; IAS 32 et IAS 8 ; AUDCIF et SYSCOHADA révisé ; support de cours du module 4 (J.-B. Tshimanga Mulumba, CPCC).",
 }
 
 export default chapitre
