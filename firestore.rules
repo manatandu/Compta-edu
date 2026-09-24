@@ -11,8 +11,19 @@ service cloud.firestore {
       return isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
 
+    // Personnel enseignant : l'assistant a les mêmes droits que le professeur
+    // (décision du 24/09/2026). Miroir de PROF_ROLES dans client/src/lib/permissions.ts.
     function isProf() {
-      return isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'professeur'];
+      return isAuth() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'professeur', 'assistant'];
+    }
+
+    // Aucun mot de passe dans un profil : le mot de passe vit uniquement dans
+    // Firebase Authentication. Création : champ interdit. Modification : on peut
+    // retirer un ancien mot de passe (nettoyage), jamais en ajouter ni en changer.
+    function sansMotDePasseAjoute() {
+      return !request.resource.data.keys().hasAny(['password']) ||
+        (resource != null && resource.data.keys().hasAny(['password']) &&
+         request.resource.data.password == resource.data.password);
     }
 
     function ownsResource(field) {
@@ -65,14 +76,14 @@ service cloud.firestore {
       //    (voir accountInvites) avant d'accepter un rôle à privilèges.
       // 3) Admin déjà authentifié écrivant directement (cas de repli import CSV / collision
       //    d'e-mail où l'uid généré ne correspond à aucun compte Auth).
-      allow create: if (request.auth.uid == userId && (
+      allow create: if !request.resource.data.keys().hasAny(['password']) && ((request.auth.uid == userId && (
         request.resource.data.role == 'etudiant' ||
         (
           request.resource.data.role in ['professeur', 'assistant', 'admin'] &&
           exists(/databases/$(database)/documents/accountInvites/$(userId)) &&
           get(/databases/$(database)/documents/accountInvites/$(userId)).data.role == request.resource.data.role
         )
-      )) || isAdmin();
+      )) || isAdmin());
       // Lecture : utilisateur lui-même OU prof/admin (isProf()). Les écrans de gestion
       // étudiants (ProfesseurPage, DocumentsPage, InscriptionPlatformePage) s'appuient
       // sur une lecture de la collection users entière et sont censés être accessibles
@@ -80,20 +91,38 @@ service cloud.firestore {
       // avec seulement isAdmin() ici, cette requête de liste échouait entièrement pour
       // un prof non-admin (Firestore rejette une requête non filtrée dès qu'une partie
       // des documents ne satisfait pas la règle), cassant silencieusement ces écrans.
-      // Le rôle 'assistant' n'est PAS inclus : isProf() ne le reconnaît nulle part
-      // ailleurs dans ce fichier, et l'élargir serait un changement de portée distinct
-      // (voir la note dans permissions.ts sur isStaffRole()).
+      // isProf() couvre aussi 'assistant' (mêmes droits que le professeur).
+      // Un étudiant ne lit jamais le profil complet d'un autre compte : les
+      // contacts de sa messagerie passent par la collection annuaire (ci-dessous),
+      // qui ne contient que le nom et le rôle. Une condition sur resource.data
+      // ne protège pas une requête de liste de façon fiable (testé à l'émulateur).
       allow read: if isAuth() && (request.auth.uid == userId || isProf());
       // Modification : un admin peut tout modifier. Un utilisateur peut modifier SON
       // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
       // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
       // en attente — même faille que sur la création, ici via update).
-      allow update: if isAdmin() || (
+      allow update: if sansMotDePasseAjoute() && (isAdmin() || (
         isAuth() && request.auth.uid == userId &&
         request.resource.data.role == resource.data.role &&
         request.resource.data.get('actif', null) == resource.data.get('actif', null) &&
         request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null)
-      );
+      ));
+      allow delete: if isAdmin();
+    }
+
+    // ─── ANNUAIRE DU PERSONNEL ────────────────────────────────────────────────
+    // Fiche publique minimale (nom, prénom, identifiant, rôle) de chaque membre
+    // du personnel, lisible par tout compte connecté : liste de contacts de la
+    // messagerie étudiante et noms des expéditeurs dans la cloche. Écrite par le
+    // membre lui-même (à la connexion) ou par l'admin ; aucun autre champ admis.
+    match /annuaire/{uid} {
+      allow read: if isAuth();
+      allow create, update: if (
+          (request.auth.uid == uid && isProf()) || isAdmin()
+        ) &&
+        request.resource.data.keys().hasOnly(['nom', 'prenom', 'username', 'role']) &&
+        request.resource.data.role in ['admin', 'professeur', 'assistant'] &&
+        (isAdmin() || request.resource.data.role == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role);
       allow delete: if isAdmin();
     }
 
@@ -392,9 +421,8 @@ service cloud.firestore {
     // Registre administratif des étudiants (interne/externe), distinct des
     // comptes de connexion (collection users) : une fiche peut exister sans
     // compte plateforme (userId == null, étudiant externe). Réservé au
-    // personnel (isProf(), miroir exact de isStaffRole() côté client dans
-    // permissions.ts — le rôle 'assistant' n'y est PAS inclus, voir la note
-    // dans ce fichier). AUCUNE règle n'existait ici avant ce correctif :
+    // personnel (isProf() : admin, professeur, assistant — miroir de
+    // isStaffRole() côté client dans permissions.ts). AUCUNE règle n'existait ici avant ce correctif :
     // Firestore refuse par défaut tout accès à une collection sans match
     // correspondant, ce qui rendait GestionEtudiantsPage inutilisable en
     // production (toast "Impossible de charger les étudiants").

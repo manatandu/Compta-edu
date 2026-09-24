@@ -48,7 +48,7 @@ export type CoursInscrit = 'syscohada' | 'sycebnl' | 'les-deux'
 export interface User {
   id: string
   username: string
-  password: string
+  password?: string  // n'est plus stocké dans Firestore ; reste utile au formulaire de création
   nom: string
   prenom?: string
   role: UserRole

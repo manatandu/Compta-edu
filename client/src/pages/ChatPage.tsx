@@ -3,7 +3,7 @@ import { isAdminRole } from '@/lib/permissions'
 import React, { useState, useRef, useEffect } from 'react'
 import { useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
-import { onMessagesSnapshot, saveMessageAsync, getUsersAsync, getEtudiantsAsync, getEtudiantsCreesParAsync, marquerMessagesLusAsync } from '@/lib/db-firebase'
+import { onMessagesSnapshot, saveMessageAsync, getPersonnelAsync, getEtudiantsAsync, getEtudiantsCreesParAsync, marquerMessagesLusAsync } from '@/lib/db-firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -17,8 +17,9 @@ export default function ChatPage() {
   // Contacts chargés par requête ciblée selon le rôle, plutôt que toute la
   // collection users : l'admin principal lit les étudiants, un professeur ou
   // assistant uniquement ceux qu'il a inscrits (createdBy = son uid ou son
-  // identifiant). Un étudiant n'a de toute façon droit, d'après firestore.rules,
-  // qu'à la lecture de son propre profil.
+  // identifiant), un étudiant les membres du personnel (lecture autorisée par
+  // firestore.rules sur les profils du personnel qui ne contiennent plus de
+  // mot de passe).
   React.useEffect(() => {
     if (!currentUser?.id) return
     const role = currentUser.role || ''
@@ -26,7 +27,7 @@ export default function ChatPage() {
       ? getEtudiantsAsync()
       : ['professeur', 'assistant'].includes(role)
         ? getEtudiantsCreesParAsync({ id: currentUser.id, username: (currentUser as any).username })
-        : getUsersAsync()
+        : getPersonnelAsync()
     chargement.then(setAllUsersRaw).catch(() => {})
   }, [currentUser?.id, currentUser?.role])
   const allUsers = allUsersRaw.filter(u => u.id !== currentUser?.id && u.actif)

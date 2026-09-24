@@ -6,14 +6,15 @@
 
 import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc,
-  deleteDoc, query, where, onSnapshot,
+  deleteDoc, query, where, onSnapshot, deleteField,
   writeBatch, getFirestore, getCountFromServer, documentId,
   type Unsubscribe
 } from 'firebase/firestore'
 import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signOut, onAuthStateChanged, type User as FirebaseUser,
-  initializeAuth, browserLocalPersistence
+  initializeAuth, browserLocalPersistence,
+  EmailAuthProvider, reauthenticateWithCredential, updatePassword
 } from 'firebase/auth'
 import { initializeApp, getApps } from 'firebase/app'
 import { db, auth, getStorageDiffere } from './firebase'
@@ -67,6 +68,7 @@ const C = {
   COURS_STATUTS:      'cours_statuts',
   ETUDIANTS:          'etudiants',
   CONFIG:             'config',
+  ANNUAIRE:           'annuaire',
 }
 
 // ─── Convertisseur Firestore → objet TS (dates, etc.) ────────────────────────
@@ -201,7 +203,6 @@ export async function loginAsync(username: string, password: string): Promise<Us
       const reconstructed: User = {
         id: uid,
         username: username.toLowerCase(),
-        password: password,
         nom: isDefaultAdmin ? 'TANDU SAVA' : username,
         prenom: isDefaultAdmin ? 'Manasse' : '',
         role: isDefaultAdmin ? 'admin' : 'etudiant',
@@ -222,7 +223,9 @@ export async function loginAsync(username: string, password: string): Promise<Us
       throw new Error('COMPTE_INACTIF')
     }
     localStorage.setItem('compta_current_user', uid)
-    return user
+    void purgerMonMotDePasseStockeAsync(user)
+    void publierMaFicheAnnuaireAsync(user)
+    return { ...user, password: undefined }
   } catch (e: any) {
     // Propager les erreurs métier (compte en attente, refusé, inactif)
     if (e.message === 'COMPTE_EN_ATTENTE' || e.message === 'COMPTE_REFUSE' || e.message === 'COMPTE_INACTIF') {
@@ -301,6 +304,50 @@ export async function getEtudiantsAsync(): Promise<User[]> {
   return snap.docs.map(d => fromDoc<User>(d))
 }
 
+// ─── Annuaire du personnel ──────────────────────────────────────────────────
+// Fiche minimale (nom, prénom, identifiant, rôle) de chaque membre du
+// personnel, lisible par tout compte connecté. C'est par elle, et jamais par
+// la collection users, qu'un étudiant voit ses contacts de messagerie et les
+// noms des expéditeurs.
+const ROLES_PERSONNEL = ['admin', 'professeur', 'assistant']
+
+function ficheAnnuaire(u: User) {
+  return { nom: u.nom || '', prenom: u.prenom || '', username: u.username || '', role: u.role }
+}
+
+// Publie (ou met à jour) SA propre fiche : appelé à la connexion d'un membre du personnel.
+export async function publierMaFicheAnnuaireAsync(user: User): Promise<void> {
+  if (!ROLES_PERSONNEL.includes(user.role)) return
+  try { await setDoc(doc(db, C.ANNUAIRE, user.id), ficheAnnuaire(user)) } catch { /* best-effort */ }
+}
+
+// Réservé à l'admin : aligne l'annuaire sur les profils du personnel
+// (ajouts, changements de nom ou de rôle) et retire les anciens membres.
+export async function synchroniserAnnuaireAsync(users: User[]): Promise<void> {
+  const personnel = users.filter(u => ROLES_PERSONNEL.includes(u.role) && u.actif !== false)
+  const ids = new Set(personnel.map(u => u.id))
+  const existants = await getDocs(collection(db, C.ANNUAIRE))
+  const batch = writeBatch(db)
+  personnel.forEach(u => batch.set(doc(db, C.ANNUAIRE, u.id), ficheAnnuaire(u)))
+  existants.docs.forEach(d => { if (!ids.has(d.id)) batch.delete(d.ref) })
+  await batch.commit()
+}
+
+// Contacts de la messagerie étudiante : tout le personnel, depuis l'annuaire.
+export async function getPersonnelAsync(): Promise<User[]> {
+  const snap = await getDocs(collection(db, C.ANNUAIRE))
+  return snap.docs.map(d => ({ ...(d.data() as any), id: d.id, actif: true }) as User)
+}
+
+// Noms affichables d'une liste de comptes, lus dans l'annuaire (personnel).
+export async function getFichesAnnuaireAsync(ids: string[]): Promise<User[]> {
+  const uniques = Array.from(new Set(ids.filter(Boolean)))
+  if (uniques.length === 0) return []
+  const snaps = await Promise.all(paquetsDe30(uniques).map(paquet =>
+    getDocs(query(collection(db, C.ANNUAIRE), where(documentId(), 'in', paquet)))))
+  return snaps.flatMap(s => s.docs.map(d => ({ ...(d.data() as any), id: d.id }) as User))
+}
+
 // Identifiants déjà pris parmi une liste (contrôle des doublons à l'inscription
 // et à l'import CSV), sans relire toute la collection.
 export async function getUsernamesExistantsAsync(usernames: string[]): Promise<Set<string>> {
@@ -310,6 +357,37 @@ export async function getUsernamesExistantsAsync(usernames: string[]): Promise<S
     getDocs(query(collection(db, C.USERS), where('username', 'in', paquet)))))
   snaps.forEach(s => s.docs.forEach(d => { const u = (d.data() as any).username; if (u) pris.add(u) }))
   return pris
+}
+
+// Retire le champ password des profils qui le contiennent encore (comptes
+// créés avant que le mot de passe cesse d'être stocké). Réservé à l'admin,
+// seul autorisé par firestore.rules à modifier le profil d'un autre compte.
+export async function purgerMotsDePasseStockesAsync(users: User[]): Promise<number> {
+  const cibles = users.filter(u => (u as any).password !== undefined)
+  for (let i = 0; i < cibles.length; i += 400) {
+    const batch = writeBatch(db)
+    cibles.slice(i, i + 400).forEach(u => batch.update(doc(db, C.USERS, u.id), { password: deleteField() }))
+    await batch.commit()
+  }
+  if (cibles.length > 0) invaliderCacheUsers()
+  return cibles.length
+}
+
+// Retire le mot de passe de SON propre profil (autorisé par la règle
+// d'auto-modification). Appelé à la connexion : chaque compte se nettoie
+// lui-même, sans attendre le passage d'un administrateur.
+export async function purgerMonMotDePasseStockeAsync(user: User): Promise<void> {
+  if ((user as any).password === undefined) return
+  try { await updateDoc(doc(db, C.USERS, user.id), { password: deleteField() }) } catch { /* best-effort */ }
+}
+
+// Changement de mot de passe par l'utilisateur lui-même : Firebase exige une
+// authentification récente, d'où la ré-authentification avec l'ancien mot de passe.
+export async function changerMonMotDePasseAsync(ancien: string, nouveau: string): Promise<void> {
+  const fbUser = auth.currentUser
+  if (!fbUser || !fbUser.email) throw new Error('NON_CONNECTE')
+  await reauthenticateWithCredential(fbUser, EmailAuthProvider.credential(fbUser.email, ancien))
+  await updatePassword(fbUser, nouveau)
 }
 
 export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise<User | null> {
@@ -322,7 +400,9 @@ export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise
   if (snap.exists()) {
     const user = fromDoc<User>(snap)
     localStorage.setItem('compta_current_user', uid)
-    return user
+    void purgerMonMotDePasseStockeAsync(user)
+    void publierMaFicheAnnuaireAsync(user)
+    return { ...user, password: undefined }
   }
 
   // Profil absent dans Firestore mais Firebase Auth est connecté
@@ -334,7 +414,6 @@ export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise
     const reconstructed: User = {
       id: resolvedFbUser.uid,
       username,
-      password: '',
       nom: isAdmin ? 'TANDU SAVA' : username,
       prenom: isAdmin ? 'Manasse' : '',
       role: isAdmin ? 'admin' : 'etudiant',
@@ -352,6 +431,8 @@ export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise
 
 export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): Promise<User> {
   invaliderCacheUsers()
+  const motDePasse = data.password
+  if (!motDePasse) throw new Error('MOT_DE_PASSE_REQUIS')
   // Utilise la seconde instance Auth pour ne PAS déconnecter l'admin courant.
   // IMPORTANT : le setDoc doit utiliser secondaryDb (instance liée à secondaryAuth)
   // et être fait AVANT signOut(secondaryAuth), sinon Firestore refuse l'écriture
@@ -361,14 +442,14 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   let useSecondaryDb = false
 
   try {
-    const cred = await createUserWithEmailAndPassword(secondaryAuth, email, data.password)
+    const cred = await createUserWithEmailAndPassword(secondaryAuth, email, motDePasse)
     uid = cred.user.uid
     useSecondaryDb = true  // secondaryAuth est connecté → on peut écrire avec secondaryDb
   } catch (e: any) {
     if (e.code === 'auth/email-already-in-use') {
       // Le compte Auth existe (ancienne session) - récupérer l'UID et mettre à jour
       try {
-        const cred2 = await signInWithEmailAndPassword(secondaryAuth, email, data.password)
+        const cred2 = await signInWithEmailAndPassword(secondaryAuth, email, motDePasse)
         uid = cred2.user.uid
         // Le compte Auth existe déjà ET accepte ce mot de passe : ça peut être la même
         // personne qui retente son inscription (légitime, il faut alors compléter/mettre
@@ -411,8 +492,13 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
     await setDoc(doc(db, 'accountInvites', uid), { role: data.role, dateCreation: new Date().toISOString() })
   }
 
+  // Le mot de passe ne sert qu'à créer le compte Firebase Authentication
+  // ci-dessus : il n'est JAMAIS recopié dans le profil Firestore (il y était
+  // auparavant en clair, lisible par tout professeur via la règle de lecture
+  // des profils, et ne servait à rien pour la connexion).
+  const { password: _motDePasse, ...profil } = data as any
   const user: User = {
-    ...data,
+    ...profil,
     username: data.username.toLowerCase(),
     id: uid,
     dateCreation: new Date().toISOString(),
@@ -441,6 +527,11 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
     if (data.role === 'etudiant') {
       await creerFicheEtudiantLiee(db, user).catch(() => {})
     }
+  }
+  // Nouveau membre du personnel : fiche d'annuaire écrite par l'admin (instance
+  // principale), pour qu'il apparaisse tout de suite dans les contacts étudiants.
+  if (data.role !== 'etudiant') {
+    await setDoc(doc(db, C.ANNUAIRE, uid), ficheAnnuaire(user)).catch(() => {})
   }
   return user
 }
@@ -491,7 +582,11 @@ export async function updateUserAsync(id: string, data: Partial<User>): Promise<
   // - fonctionne même si le document n'existe pas encore
   // - moins sujet aux restrictions Firestore sur updateDoc
   const ref = doc(db, C.USERS, id)
-  await setDoc(ref, cleanUndefined(data) as any, { merge: true })
+  // Jamais de mot de passe dans le profil (voir createUserAsync) : un mot de
+  // passe écrit ici ne changeait d'ailleurs rien à la connexion, qui passe par
+  // Firebase Authentication.
+  const { password: _motDePasse, ...profil } = data as any
+  await setDoc(ref, cleanUndefined(profil) as any, { merge: true })
 
   // Répercute actif sur le statut de la fiche 'etudiants' liée (voir
   // creerFicheEtudiantLiee) - notamment Valider/Refuser une inscription
@@ -518,6 +613,7 @@ export async function deleteUserAsync(id: string): Promise<void> {
     const snap = await getDocs(query(collection(db, C.ETUDIANTS), where('userId', '==', id)))
     await Promise.all(snap.docs.map(d => deleteDoc(d.ref)))
   } catch { /* best-effort */ }
+  try { await deleteDoc(doc(db, C.ANNUAIRE, id)) } catch { /* best-effort : absente pour un étudiant */ }
 }
 
 // ──────────────────────────────────────────────────────────────────────────────

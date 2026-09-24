@@ -23,7 +23,7 @@ import {
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField } from 'firebase/firestore'
 import { describe, it, beforeAll, afterAll, afterEach } from 'vitest'
 
 import { USERS, IDS, DOCS, token } from './helpers.js'
@@ -116,14 +116,79 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await assertSucceeds(getDoc(ref2))
   })
 
-  it('Un assistant NE PEUT PAS lire le profil d\'un autre utilisateur (isProf() ne couvre que admin/professeur)', async () => {
-    // Frontière volontaire : isProf() n'inclut pas 'assistant' nulle part ailleurs
-    // dans ce fichier ; l'élargir serait un changement de portée distinct (voir la
-    // note sur isStaffRole() dans client/src/lib/permissions.ts).
+  it('Un assistant peut lire les profils, comme un professeur (mêmes droits depuis le 24/09/2026)', async () => {
     await seedDoc('users', 'assistant1-uid', { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1' })
     await seedUsers(USERS.etud1)
     const ref = doc(db({ uid: 'assistant1-uid' }), 'users', USERS.etud1.uid)
-    await assertFails(getDoc(ref))
+    await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un assistant peut créer un devoir, comme un professeur', async () => {
+    await seedDoc('users', 'assistant1-uid', { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1' })
+    const ref = doc(db({ uid: 'assistant1-uid' }), 'devoirs', 'devoir-assistant')
+    await assertSucceeds(setDoc(ref, {
+      titre: 'TD', coursId: IDS.coursCompta, promotionId: 'L1', createdBy: 'assistant1-uid',
+    }))
+  })
+
+  // ─── Mots de passe : jamais stockés dans un profil ─────────────────────────
+  it('Créer son profil avec un champ password est REFUSÉ', async () => {
+    const nouveau = { uid: 'nouvel-etud-uid', role: 'etudiant', username: 'nouvel' }
+    const ref = doc(db(nouveau), 'users', nouveau.uid)
+    await assertFails(setDoc(ref, { ...nouveau, password: 'secret123' }))
+    await assertSucceeds(setDoc(ref, nouveau))
+  })
+
+  it('Même un admin NE PEUT PAS ajouter un mot de passe à un profil', async () => {
+    await seedUsers(USERS.admin1, USERS.etud1)
+    const ref = doc(db(USERS.admin1), 'users', USERS.etud1.uid)
+    await assertFails(updateDoc(ref, { password: 'secret123' }))
+  })
+
+  it('Un utilisateur peut retirer l\'ancien mot de passe de son profil, pas le changer', async () => {
+    await seedUsers({ ...USERS.etud1, password: 'ancien' })
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertFails(updateDoc(ref, { password: 'nouveau' }))
+    await assertSucceeds(updateDoc(ref, { password: deleteField() }))
+  })
+
+  it('Un profil qui contient encore un mot de passe peut être modifié sans y toucher', async () => {
+    await seedUsers({ ...USERS.etud1, password: 'ancien' })
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertSucceeds(updateDoc(ref, { telephone: '0990000000' }))
+  })
+
+  // ─── Messagerie : annuaire du personnel ─────────────────────────────────────
+  it('Un étudiant NE PEUT PAS lire ni lister les profils complets du personnel', async () => {
+    await seedUsers({ ...USERS.prof1, password: 'ancien' }, USERS.etud1)
+    const fs = db(USERS.etud1)
+    await assertFails(getDoc(doc(fs, 'users', USERS.prof1.uid)))
+    await assertFails(getDocs(query(collection(fs, 'users'), where('role', 'in', ['admin', 'professeur', 'assistant']))))
+  })
+
+  it('Un étudiant peut lister l\'annuaire du personnel', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('annuaire', USERS.prof1.uid, { nom: 'P', prenom: 'Un', username: 'prof1', role: 'professeur' })
+    await assertSucceeds(getDocs(collection(db(USERS.etud1), 'annuaire')))
+  })
+
+  it('Un professeur écrit SA fiche d\'annuaire (champs limités, rôle réel), pas celle d\'un autre', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2)
+    const fs = db(USERS.prof1)
+    await assertSucceeds(setDoc(doc(fs, 'annuaire', USERS.prof1.uid), { nom: 'P', prenom: 'Un', username: 'prof1', role: 'professeur' }))
+    await assertFails(setDoc(doc(fs, 'annuaire', USERS.prof1.uid), { nom: 'P', role: 'admin' }))
+    await assertFails(setDoc(doc(fs, 'annuaire', USERS.prof1.uid), { nom: 'P', role: 'professeur', telephone: '099' }))
+    await assertFails(setDoc(doc(fs, 'annuaire', USERS.prof2.uid), { nom: 'X', role: 'professeur' }))
+  })
+
+  it('Un étudiant NE PEUT PAS s\'inscrire dans l\'annuaire', async () => {
+    await seedUsers(USERS.etud1)
+    await assertFails(setDoc(doc(db(USERS.etud1), 'annuaire', USERS.etud1.uid), { nom: 'E', role: 'professeur' }))
+  })
+
+  it('L\'admin peut écrire la fiche d\'annuaire d\'un professeur', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1)
+    await assertSucceeds(setDoc(doc(db(USERS.admin1), 'annuaire', USERS.prof1.uid), { nom: 'P', prenom: 'Un', username: 'prof1', role: 'professeur' }))
   })
 
   it('Un utilisateur fraîchement authentifié (auto-inscription) peut créer SON profil étudiant', async () => {

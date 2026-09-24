@@ -10,30 +10,18 @@
 // donnée - mais c'était une source de divergence et de duplication.
 //
 // Règle de ce module : chaque fonction ici est un MIROIR EXACT de son équivalent
-// dans firestore.rules, pas une réinterprétation. En particulier :
-// - isProfRole()/useIsProf() ne reconnaît que 'admin' et 'professeur', comme
-//   isProf() côté serveur - le rôle 'assistant' (qui existe dans UserRole) n'y est
-//   PAS inclus, à dessein. Si l'assistant doit un jour obtenir des droits prof,
-//   changer isProf() dans firestore.rules d'abord, puis PROF_ROLES ici, jamais
-//   l'inverse : un rempart client plus permissif que le serveur ne protège rien
-//   et affiche des contrôles que l'utilisateur ne peut pas réellement utiliser ;
-//   un rempart client plus restrictif que le serveur cache des fonctionnalités
-//   auxquelles l'utilisateur a pourtant droit.
+// dans firestore.rules, pas une réinterprétation. isProfRole()/useIsProf()
+// reconnaissent 'admin', 'professeur' et 'assistant', comme isProf() côté
+// serveur : depuis le 24/09/2026, l'assistant a les mêmes droits que le
+// professeur. Toute évolution se fait d'abord dans firestore.rules, puis ici.
 // ─────────────────────────────────────────────────────────────────────────────
 import { useUser } from './userContext'
 import type { User, UserRole } from './db'
 
-const PROF_ROLES: UserRole[] = ['admin', 'professeur']
+const PROF_ROLES: UserRole[] = ['admin', 'professeur', 'assistant']
 
-// "Staff" au sens large (admin + professeur + assistant) : plusieurs pages affichent
-// des contrôles de gestion (modifier/supprimer un exercice, gérer un étudiant...) à ce
-// groupe élargi. ATTENTION : ce n'est PAS un miroir de isProf() côté serveur, qui
-// n'accepte que 'admin' et 'professeur' - un compte 'assistant' voit donc ici des
-// contrôles que Firestore refusera silencieusement s'il tente réellement l'action.
-// Ce helper centralise ce comportement existant tel quel (aucun changement fonctionnel
-// lors de son introduction), il ne le cautionne pas comme correct : si le rôle
-// assistant doit vraiment avoir ces droits, il faut d'abord élargir isProf() dans
-// firestore.rules, sans quoi ces contrôles resteront des boutons morts pour lui.
+// "Staff" : admin + professeur + assistant. Identique à PROF_ROLES depuis que
+// l'assistant a les droits du professeur ; conservé pour la lisibilité des pages.
 const STAFF_ROLES: UserRole[] = ['admin', 'professeur', 'assistant']
 
 export function isAdminRole(user: User | null | undefined): boolean {
