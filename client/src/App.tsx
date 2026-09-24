@@ -436,6 +436,9 @@ export default function App() {
         <Route path="/ue13/chapitre-6">
           <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="6" /></W>
         </Route>
+        <Route path="/ue13/chapitre-7">
+          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="7" /></W>
+        </Route>
 
         {/* Adresse inconnue : page explicite plutôt qu'un renvoi muet vers
             l'accueil, qui masquait les liens cassés (voir PageIntrouvable). */}
