@@ -49,7 +49,6 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
   const user = useUser()
   const allComptes = getComptes()
   const { sessions, loading: loadingSessions } = useSessions(user?.id, module)
-  const { ecritures, loading: loadingEcritures } = useEcritures(user?.id, module)
   // Lire l'ID de session demandée depuis l'URL (ex: /journal?session=xxx).
   // useSearch() (wouter), pas window.location.hash : en routage hash, le
   // navigate(...) de useHashLocation pose la query dans la vraie search de
@@ -63,6 +62,7 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
   }, [search])
 
   const [selectedSessionId, setSelectedSessionId] = useState('')
+  const { ecritures, loading: loadingEcritures } = useEcritures(user?.id, module, selectedSessionId || null)
 
   // Sélection auto de la session courante quand les sessions chargent
   React.useEffect(() => {

@@ -7,7 +7,7 @@
 import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc,
   deleteDoc, query, where, onSnapshot,
-  writeBatch, getFirestore,
+  writeBatch, getFirestore, getCountFromServer, documentId,
   type Unsubscribe
 } from 'firebase/firestore'
 import {
@@ -247,6 +247,71 @@ export async function getUsersAsync(): Promise<User[]> {
   return snap.docs.map(d => fromDoc<User>(d))
 }
 
+// Lecture unique et partagée de toute la collection users, pour les écrans qui
+// en ont réellement besoin (recherche globale, liste des promotions). Remplace
+// plusieurs écoutes temps réel simultanées de la collection entière : avec
+// quelques milliers d'étudiants, chaque écoute relisait tous les profils à
+// chaque ouverture de page. Le cache est vidé à toute création, modification
+// ou suppression de compte faite depuis ce navigateur.
+const USERS_CACHE_TTL_MS = 5 * 60 * 1000
+let usersCache: { at: number; promise: Promise<User[]> } | null = null
+export function getUsersCacheAsync(): Promise<User[]> {
+  if (usersCache && Date.now() - usersCache.at < USERS_CACHE_TTL_MS) return usersCache.promise
+  const promise = getUsersAsync().catch(err => { usersCache = null; throw err })
+  usersCache = { at: Date.now(), promise }
+  return promise
+}
+export function invaliderCacheUsers(): void { usersCache = null }
+
+// Découpe une liste pour l'opérateur Firestore "in" (30 valeurs au maximum).
+function paquetsDe30<T>(arr: T[]): T[][] {
+  const out: T[][] = []
+  for (let i = 0; i < arr.length; i += 30) out.push(arr.slice(i, i + 30))
+  return out
+}
+
+// Profils précis, lus par identifiant (noms des expéditeurs de messages, etc.)
+// au lieu de charger toute la collection pour n'en garder que quelques-uns.
+export async function getUsersByIdsAsync(ids: string[]): Promise<User[]> {
+  const uniques = Array.from(new Set(ids.filter(Boolean)))
+  if (uniques.length === 0) return []
+  const snaps = await Promise.all(paquetsDe30(uniques).map(paquet =>
+    getDocs(query(collection(db, C.USERS), where(documentId(), 'in', paquet)))))
+  return snaps.flatMap(s => s.docs.map(d => fromDoc<User>(d)))
+}
+
+// Étudiants rattachés à un membre du personnel. Le champ createdBy contient
+// l'uid du créateur, ou son identifiant pour les comptes les plus anciens :
+// on interroge donc les deux valeurs.
+export async function getEtudiantsCreesParAsync(
+  createur: { id: string; username?: string },
+  statutInscription?: string,
+): Promise<User[]> {
+  const refs = Array.from(new Set([createur.id, createur.username].filter(Boolean))) as string[]
+  if (refs.length === 0) return []
+  const conditions: any[] = [where('createdBy', 'in', refs), where('role', '==', 'etudiant')]
+  if (statutInscription) conditions.push(where('statutInscription', '==', statutInscription))
+  const snap = await getDocs(query(collection(db, C.USERS), ...conditions))
+  return snap.docs.map(d => fromDoc<User>(d))
+}
+
+// Tous les étudiants (écrans réservés à l'administrateur principal).
+export async function getEtudiantsAsync(): Promise<User[]> {
+  const snap = await getDocs(query(collection(db, C.USERS), where('role', '==', 'etudiant')))
+  return snap.docs.map(d => fromDoc<User>(d))
+}
+
+// Identifiants déjà pris parmi une liste (contrôle des doublons à l'inscription
+// et à l'import CSV), sans relire toute la collection.
+export async function getUsernamesExistantsAsync(usernames: string[]): Promise<Set<string>> {
+  const uniques = Array.from(new Set(usernames.map(u => u.trim().toLowerCase()).filter(Boolean)))
+  const pris = new Set<string>()
+  const snaps = await Promise.all(paquetsDe30(uniques).map(paquet =>
+    getDocs(query(collection(db, C.USERS), where('username', 'in', paquet)))))
+  snaps.forEach(s => s.docs.forEach(d => { const u = (d.data() as any).username; if (u) pris.add(u) }))
+  return pris
+}
+
 export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise<User | null> {
   // Utiliser l'utilisateur passé en paramètre, sinon le mémorisé, sinon le localStorage
   const resolvedFbUser = fbUser !== undefined ? fbUser : _currentFirebaseUser
@@ -286,6 +351,7 @@ export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise
 }
 
 export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): Promise<User> {
+  invaliderCacheUsers()
   // Utilise la seconde instance Auth pour ne PAS déconnecter l'admin courant.
   // IMPORTANT : le setDoc doit utiliser secondaryDb (instance liée à secondaryAuth)
   // et être fait AVANT signOut(secondaryAuth), sinon Firestore refuse l'écriture
@@ -420,6 +486,7 @@ async function creerFicheEtudiantLiee(dbInstance: typeof db, user: User): Promis
 }
 
 export async function updateUserAsync(id: string, data: Partial<User>): Promise<void> {
+  invaliderCacheUsers()
   // setDoc avec merge:true est plus robuste qu'updateDoc :
   // - fonctionne même si le document n'existe pas encore
   // - moins sujet aux restrictions Firestore sur updateDoc
@@ -440,6 +507,7 @@ export async function updateUserAsync(id: string, data: Partial<User>): Promise<
 }
 
 export async function deleteUserAsync(id: string): Promise<void> {
+  invaliderCacheUsers()
   await deleteDoc(doc(db, C.USERS, id))
   // Note: suppression du compte Firebase Auth nécessite Admin SDK (backend)
   // Pour l'instant on désactive l'utilisateur dans Firestore
@@ -491,6 +559,14 @@ export async function getEcrituresAsync(userId: string, sessionId?: string, modu
   if (module)    conditions.push(where('module', '==', module))
   const snap = await getDocs(query(collection(db, C.ECRITURES), ...conditions))
   return snap.docs.map(d => fromDoc<Ecriture>(d))
+}
+
+// Nombre de lignes d'écriture d'une session, compté côté serveur (une lecture
+// facturée par tranche de 1 000 lignes) au lieu de télécharger les lignes.
+export async function compterEcrituresSessionAsync(userId: string, sessionId: string): Promise<number> {
+  const snap = await getCountFromServer(query(collection(db, C.ECRITURES),
+    where('userId', '==', userId), where('sessionId', '==', sessionId)))
+  return snap.data().count
 }
 
 export async function addEcritureAsync(data: Omit<Ecriture, 'id'>, module?: 'syscohada' | 'sycebnl'): Promise<Ecriture> {

@@ -87,15 +87,25 @@ export function useSessions(userId: string | undefined, module?: 'syscohada' | '
 
 // ─── Écritures temps réel ─────────────────────────────────────────────────────
 
-export function useEcritures(userId: string | undefined, module?: 'syscohada' | 'sycebnl') {
+// sessionId : si fourni (même vide), n'écoute que les lignes de cette session.
+// Les pages Journal, Balance, Grand livre et Bilan n'affichent qu'une session à
+// la fois : écouter toutes les lignes du module faisait relire, à chaque
+// ouverture, l'historique complet de l'étudiant (plusieurs milliers de lignes
+// au fil des exercices). Sans sessionId, comportement d'origine (tout le module).
+export function useEcritures(userId: string | undefined, module?: 'syscohada' | 'sycebnl', sessionId?: string | null) {
   const [ecritures, setEcritures] = useState<Ecriture[]>([])
   const [loading, setLoading] = useState(true)
+  const parSession = sessionId !== undefined
 
   useEffect(() => {
-    if (!userId) { setEcritures([]); setLoading(false); return }
+    if (!userId || (parSession && !sessionId)) { setEcritures([]); setLoading(false); return }
 
+    // Pas de remise à true de loading au changement de session : les pages
+    // filtrent déjà par sessionId, l'ancienne session disparaît donc aussitôt
+    // sans faire clignoter l'écran de chargement pleine page.
     const conditions: any[] = [where('userId', '==', userId)]
-    if (module) conditions.push(where('module', '==', module))
+    if (parSession) conditions.push(where('sessionId', '==', sessionId))
+    else if (module) conditions.push(where('module', '==', module))
     const q = query(collection(db, 'ecritures'), ...conditions)
 
     const unsub = onSnapshot(q, (snap) => {
@@ -107,7 +117,7 @@ export function useEcritures(userId: string | undefined, module?: 'syscohada' | 
     })
 
     return () => unsub()
-  }, [userId, module])
+  }, [userId, module, parSession, sessionId])
 
   return { ecritures, loading }
 }

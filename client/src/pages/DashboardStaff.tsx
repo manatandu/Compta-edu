@@ -4,7 +4,7 @@ import {
   BookOpen, BookMarked, ClipboardList, Clock, Users, GraduationCap,
 } from 'lucide-react'
 import { useAllCours, useFacultes, useUniversites, useAllSoumissions, useDevoirs } from '@/lib/useFirestore'
-import { getUsersAsync, COURS_SYSTEME } from '@/lib/db-firebase'
+import { getEtudiantsCreesParAsync, COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
 import { DashboardHero, greeting, type DashboardStat } from '@/components/DashboardHero'
@@ -44,9 +44,12 @@ export default function DashboardStaff() {
   const { devoirs: mesDevoirs } = useDevoirs(user?.id)
   const [users, setUsers] = React.useState<any[]>([])
 
+  // Seuls les étudiants rattachés à ce compte sont lus (requête sur createdBy),
+  // pas toute la collection users : le tableau de bord n'affiche qu'eux.
   React.useEffect(() => {
-    getUsersAsync().then(setUsers).catch(() => {})
-  }, [])
+    if (!user?.id) return
+    getEtudiantsCreesParAsync({ id: user.id, username: (user as any).username }).then(setUsers).catch(() => {})
+  }, [user?.id])
 
   // Compte les UE distinctes, pas les instances par faculté : depuis que
   // chaque UE active est auto-provisionnée dans toutes les facultés

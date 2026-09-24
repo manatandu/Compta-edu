@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import BackButton from '@/components/BackButton'
 import {
@@ -9,7 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { useNav } from '@/lib/navContext'
-import { useSessions, useEcritures } from '@/lib/useFirestore'
+import { useSessions } from '@/lib/useFirestore'
+import { compterEcrituresSessionAsync } from '@/lib/db-firebase'
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface SubModule {
@@ -115,7 +116,19 @@ export default function ComptabiliteGeneralePage() {
   const [ouvert, setOuvert] = useState<string | null>(null)
   const user = useUser()
   const { sessions } = useSessions(user?.id)
-  const { ecritures } = useEcritures(user?.id)
+  // Nombre de lignes par session, compté côté serveur : cette page n'affiche
+  // que des totaux, inutile de télécharger toutes les écritures de l'étudiant.
+  const [comptes, setComptes] = useState<Record<string, number>>({})
+  const clesSessions = sessions.map(s => s.id).join(',')
+  useEffect(() => {
+    if (!user?.id || sessions.length === 0) { setComptes({}); return }
+    let actif = true
+    Promise.all(sessions.map(s =>
+      compterEcrituresSessionAsync(user.id, s.id).then(n => [s.id, n] as const).catch(() => [s.id, 0] as const)
+    )).then(paires => { if (actif) setComptes(Object.fromEntries(paires)) })
+    return () => { actif = false }
+  }, [user?.id, clesSessions])
+  const totalEcritures = Object.values(comptes).reduce((a, n) => a + n, 0)
   const recentSessions = [...sessions].reverse().slice(0, 3)
   const nbActifs = MODULES.filter(m => !m.soon).length
 
@@ -156,7 +169,7 @@ export default function ComptabiliteGeneralePage() {
           </div>
           <div>
             <p className="text-xs text-muted-foreground">Écritures</p>
-            <p className="text-lg font-bold text-foreground">{ecritures.length}</p>
+            <p className="text-lg font-bold text-foreground">{totalEcritures}</p>
           </div>
         </div>
         <button
@@ -185,7 +198,7 @@ export default function ComptabiliteGeneralePage() {
           </div>
           <div className="rounded-2xl border border-border bg-card divide-y divide-border overflow-hidden">
             {recentSessions.map(s => {
-              const count = ecritures.filter(e => e.sessionId === s.id).length
+              const count = comptes[s.id] ?? 0
               return (
                 <button
                   key={s.id}

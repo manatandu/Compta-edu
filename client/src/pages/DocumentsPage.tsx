@@ -3,7 +3,7 @@ import { isStudentRole } from '@/lib/permissions'
 import React, { useState, useEffect } from 'react'
 import BackButton from '@/components/BackButton'
 import { useNav } from '@/lib/navContext'
-import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, onUsersSnapshot } from '@/lib/db-firebase'
+import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, getUsersCacheAsync } from '@/lib/db-firebase'
 import { uploadDocumentFile } from '@/lib/db-firebase'
 import { useAllCours } from '@/lib/useFirestore'
 // PROMOTIONS statique supprimé - on dérive depuis les cours réels
@@ -167,14 +167,19 @@ export default function DocumentsPage() {
   useEffect(() => {
     // Depuis les cours
     const fromCours = allCours.map(c => (c as any).promotion).filter(Boolean) as string[]
-    // Depuis les étudiants
-    const unsub = onUsersSnapshot((users) => {
+    // Depuis les étudiants : lecture unique mise en cache (et non plus une
+    // écoute temps réel de toute la collection users pour extraire les classes).
+    // Réservée au personnel, seul autorisé à lire les profils des étudiants.
+    setDynamicPromotions(Array.from(new Set(fromCours)).sort())
+    if (isStudentRole(user)) return
+    let actif = true
+    getUsersCacheAsync().then(users => {
+      if (!actif) return
       const fromUsers = users.map(u => (u as any).classe).filter(Boolean) as string[]
-      const merged = Array.from(new Set([...fromCours, ...fromUsers])).sort()
-      setDynamicPromotions(merged)
-    })
-    return () => unsub()
-  }, [allCours])
+      setDynamicPromotions(Array.from(new Set([...fromCours, ...fromUsers])).sort())
+    }).catch(() => {})
+    return () => { actif = false }
+  }, [allCours, user?.role])
 
   // Promotion de l'étudiant connecté (champ 'classe', ex: 'L1')
   const isEtudiant = isStudentRole(user)
