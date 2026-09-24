@@ -20,8 +20,18 @@ import React from 'react'
 // premier motif simple.
 const MOTIF = /(\*\*[^*]+\*\*|\*[^*]+\*)/g
 
+// Les montants sont saisis avec une espace ordinaire comme séparateur des
+// milliers (« 666 667 »). Dans une cellule étroite, le navigateur peut couper
+// le nombre à cet endroit ; l'espace fine insécable (U+202F), séparateur de la
+// typographie française, garde chaque montant sur une seule ligne.
+const SEPARATEUR_MILLIERS = /(\d) (?=\d{3}(?!\d))/g
+
+function insecable(texte: string) {
+  return texte.replace(SEPARATEUR_MILLIERS, '$1\u202F')
+}
+
 export function TexteEnrichi({ texte, classeFort }: { texte: string; classeFort?: string }) {
-  const morceaux = texte.split(MOTIF).filter(m => m !== '')
+  const morceaux = insecable(texte).split(MOTIF).filter(m => m !== '')
   return (
     <>
       {morceaux.map((morceau, i) => {
