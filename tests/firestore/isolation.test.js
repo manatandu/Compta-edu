@@ -1583,3 +1583,97 @@ describe('🔑 Codes d\'accès — get public, list réservé aux profs/admins',
     }))
   })
 })
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  Équipe pédagogique — un titulaire et ses assistants gèrent la même classe
+// ══════════════════════════════════════════════════════════════════════════════
+describe('👥 Équipe pédagogique — titulaire + assistants', () => {
+  const ASSIST1 = { uid: 'assist1-uid', role: 'assistant', username: 'assist1', titulaireId: USERS.prof1.uid }
+  const ASSIST2 = { uid: 'assist2-uid', role: 'assistant', username: 'assist2', titulaireId: USERS.prof1.uid }
+  const ASSIST_LIBRE = { uid: 'assist-libre-uid', role: 'assistant', username: 'assistlibre' }
+
+  it('L\'assistant du titulaire peut modifier et supprimer le devoir du titulaire', async () => {
+    await seedUsers(USERS.prof1, ASSIST1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    const ref = doc(db(ASSIST1), 'devoirs', 'devoir-001')
+    await assertSucceeds(updateDoc(ref, { titre: 'Corrigé par l\'assistant' }))
+    await assertSucceeds(deleteDoc(ref))
+  })
+
+  it('Le titulaire peut modifier le devoir créé par son assistant', async () => {
+    await seedUsers(USERS.prof1, ASSIST1)
+    await seedDoc('devoirs', 'devoir-a1', { ...DOCS.devoirCompta, createdBy: ASSIST1.uid })
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'devoirs', 'devoir-a1'), { titre: 'Revu par le titulaire' }))
+  })
+
+  it('Deux assistants du même titulaire partagent aussi la classe', async () => {
+    await seedUsers(USERS.prof1, ASSIST1, ASSIST2)
+    await seedDoc('presences', 'pres-a1', { ...DOCS.presenceEtud1, createdBy: ASSIST1.uid })
+    await assertSucceeds(updateDoc(doc(db(ASSIST2), 'presences', 'pres-a1'), { titre: 'Séance 2' }))
+  })
+
+  it('Un autre professeur ou un assistant non rattaché NE PEUT PAS modifier le devoir', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, ASSIST1, ASSIST_LIBRE)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'devoirs', 'devoir-001'), { titre: 'X' }))
+    await assertFails(updateDoc(doc(db(ASSIST_LIBRE), 'devoirs', 'devoir-001'), { titre: 'X' }))
+  })
+
+  it('L\'assistant peut supprimer une soumission d\'un devoir du titulaire (ownsVia)', async () => {
+    await seedUsers(USERS.prof1, ASSIST1, USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid })
+    await assertSucceeds(deleteDoc(doc(db(ASSIST1), 'soumissions', 'soum-1')))
+  })
+
+  it('Un assistant NE PEUT PAS se rattacher lui-même à un titulaire', async () => {
+    await seedUsers(USERS.prof1, ASSIST_LIBRE)
+    await assertFails(updateDoc(doc(db(ASSIST_LIBRE), 'users', ASSIST_LIBRE.uid), { titulaireId: USERS.prof1.uid }))
+    await assertFails(updateDoc(doc(db(ASSIST1), 'users', ASSIST1.uid), { titulaireId: USERS.prof2.uid }))
+  })
+
+  it('L\'admin peut rattacher un assistant à un titulaire', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, ASSIST_LIBRE)
+    await assertSucceeds(updateDoc(doc(db(USERS.admin1), 'users', ASSIST_LIBRE.uid), { titulaireId: USERS.prof1.uid }))
+  })
+
+  it('Un étudiant qui s\'inscrit NE PEUT PAS se déclarer rattaché à un titulaire', async () => {
+    const nouveau = { uid: 'etud-neuf-uid', role: 'etudiant', username: 'neuf' }
+    await assertFails(setDoc(doc(db(nouveau), 'users', nouveau.uid), { ...nouveau, titulaireId: USERS.prof1.uid }))
+  })
+
+  it('Un assistant créé via invitation ne peut porter que le titulaire fixé par l\'admin', async () => {
+    const neuf = { uid: 'assist-neuf-uid', role: 'assistant', username: 'assistneuf' }
+    await seedDoc('accountInvites', neuf.uid, { role: 'assistant', titulaireId: USERS.prof1.uid })
+    const ref = doc(db(neuf), 'users', neuf.uid)
+    await assertFails(setDoc(ref, { ...neuf, titulaireId: USERS.prof2.uid }))
+    await assertSucceeds(setDoc(ref, { ...neuf, titulaireId: USERS.prof1.uid }))
+  })
+})
+
+describe('📝 Soumissions — correction', () => {
+  const ASSIST1 = { uid: 'assist1-uid', role: 'assistant', username: 'assist1', titulaireId: USERS.prof1.uid }
+  const correction = { note: 14, commentaire: 'Bien', statut: 'note', dateCorrection: '2026-09-24' }
+
+  it('Le créateur du devoir et son assistant peuvent noter une soumission', async () => {
+    await seedUsers(USERS.prof1, ASSIST1, USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid, statut: 'soumis' })
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'soumissions', 'soum-1'), correction))
+    await assertSucceeds(updateDoc(doc(db(ASSIST1), 'soumissions', 'soum-1'), { note: 15 }))
+  })
+
+  it('Un autre professeur NE PEUT PAS noter, ni modifier autre chose que la correction', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
+    await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid, statut: 'soumis' })
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'soumissions', 'soum-1'), correction))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'soumissions', 'soum-1'), { etudiantId: USERS.etud2.uid }))
+  })
+
+  it('Un étudiant NE PEUT PAS s\'attribuer une note', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid, statut: 'soumis' })
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 'soum-1'), { note: 20, statut: 'note' }))
+  })
+})

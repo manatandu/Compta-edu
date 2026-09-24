@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Send, MessageSquare, MessagesSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
 
 export default function ChatPage() {
   const currentUser = useUser()
@@ -17,23 +18,24 @@ export default function ChatPage() {
   // Contacts chargés par requête ciblée selon le rôle, plutôt que toute la
   // collection users : l'admin principal lit les étudiants, un professeur ou
   // assistant uniquement ceux qu'il a inscrits (createdBy = son uid ou son
-  // identifiant), un étudiant les membres du personnel (lecture autorisée par
-  // firestore.rules sur les profils du personnel qui ne contiennent plus de
-  // mot de passe).
+  // identifiant) ou par un membre de son équipe pédagogique, un étudiant les
+  // membres du personnel depuis l'annuaire (jamais les profils complets).
+  const equipe = useEquipe()
+  const refsEquipe = equipe?.refs.join(',') || ''
   React.useEffect(() => {
     if (!currentUser?.id) return
     const role = currentUser.role || ''
     const chargement = isAdminRole(currentUser)
       ? getEtudiantsAsync()
       : ['professeur', 'assistant'].includes(role)
-        ? getEtudiantsCreesParAsync({ id: currentUser.id, username: (currentUser as any).username })
+        ? getEtudiantsCreesParAsync({ id: currentUser.id, username: (currentUser as any).username }, undefined, equipe?.refs || [])
         : getPersonnelAsync()
     chargement.then(setAllUsersRaw).catch(() => {})
-  }, [currentUser?.id, currentUser?.role])
+  }, [currentUser?.id, currentUser?.role, refsEquipe])
   const allUsers = allUsersRaw.filter(u => u.id !== currentUser?.id && u.actif)
 
   // Filtrage des contacts selon le rôle :
-  // - Admin/prof/assistant : voit uniquement les étudiants qu'il a créés
+  // - Admin/prof/assistant : voit les étudiants créés par lui ou son équipe pédagogique
   // - Étudiant : voit l'admin qui a créé son code d'accès EN PREMIER, puis les autres staff
   const isStaff = ['admin', 'professeur', 'assistant'].includes(currentUser?.role || '')
   const isMainAdmin = isAdminRole(currentUser)
@@ -45,7 +47,7 @@ export default function ChatPage() {
         if (isMainAdmin) return true  // l'admin voit tous les étudiants
         const cb = (u as any).createdBy
         if (!cb) return true
-        return cb === currentUser?.id || cb === (currentUser as any)?.username
+        return cb === currentUser?.id || cb === (currentUser as any)?.username || creeParEquipe(cb, equipe)
       })
     : (() => {
         const staff = allUsers.filter(u => ['admin', 'professeur', 'assistant'].includes(u.role))
