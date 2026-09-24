@@ -27,7 +27,7 @@ const CHAPITRES = [
   { num: 6,  titre: 'Le groupement d’intérêt économique (GIE)', sousTitre: 'Art. 869–885 AUSCGIE — ni société ni association', duree: '4h', actif: true, route: '/ue2/chapitre-6' },
   { num: 7,  titre: 'Les dirigeants sociaux : pouvoirs et responsabilités', sousTitre: 'Art. 121–124, 159–172, 886–905 AUSCGIE · AUPCAP', duree: '5h', actif: true, route: '/ue2/chapitre-7' },
   { num: 8,  titre: 'Les associés, les assemblées et le capital', sousTitre: 'Art. 51–66, 125–136, 516–640, 764–778-2 AUSCGIE', duree: '5h', actif: true, route: '/ue2/chapitre-8' },
-  { num: 9,  titre: 'Difficultés et transformation', sousTitre: 'Art. 150–164, 180–200 AUSCGIE', duree: '2h', actif: true, route: '/ue2/chapitre-9' },
+  { num: 9,  titre: 'Transformations, restructurations, groupes et prévention des difficultés', sousTitre: 'Art. 150–158-1, 173–199, 671–693-1 AUSCGIE · AUPCAP', duree: '5h', actif: true, route: '/ue2/chapitre-9' },
   { num: 10, titre: 'Dissolution, liquidation et infractions', sousTitre: 'Art. 200–256, 886–920 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-10' },
   { num: 11, titre: 'Société en participation et société de fait', sousTitre: 'Art. 854–868 AUSCGIE', duree: '2h', actif: true, route: '/ue2/chapitre-11' },
 ]
