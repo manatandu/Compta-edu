@@ -978,8 +978,8 @@ const chapitre: Chapitre = {
     "Transferts sur changement d'utilisation seulement (§ 57) : juste valeur comme coût présumé en sortie de catégorie ; réévaluation IAS 16 à l'entrée depuis un bien occupé ; résultat net à l'entrée depuis les stocks (§ 60-65).",
   ],
   references: [
-    { genre: 'texte', intitule: "IAS 36 — Dépréciation d'actifs", precision: "§§ 1 à 137, annexes A et C (transcription condensée du corpus)" },
-    { genre: 'texte', intitule: "IAS 40 — Immeubles de placement", precision: "§§ 1 à 79 (transcription condensée du corpus)" },
+    { genre: 'texte', intitule: "IAS 36 — Dépréciation d'actifs", precision: "§§ 1 à 137, annexes A et C (texte français intégral)" },
+    { genre: 'texte', intitule: "IAS 40 — Immeubles de placement", precision: "§§ 1 à 79 (texte français intégral)" },
     { genre: 'texte', intitule: "IFRS 5 — Actifs non courants détenus en vue de la vente et activités abandonnées", precision: "§§ 6 à 9 et 15" },
     { genre: 'texte', intitule: "AUDCIF et SYSCOHADA révisé", precision: "art. 42, 43 et 46 ; Titre VIII, ch. 10 (immeubles de placement) et ch. 12 (dépréciation des immobilisations)" },
     { genre: 'texte', intitule: "BOA RDC, états financiers IFRS 2018", precision: "note 3.13 (actifs disponibles à la vente)" },
@@ -987,7 +987,7 @@ const chapitre: Chapitre = {
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 36, IAS 40 et IFRS 5 (transcriptions françaises condensées) ; IFRS 13, IAS 16 ; Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; BOA RDC (2018) et BCDC (2018).",
+  sources: "IAS 36, IAS 40 et IFRS 5 (texte français intégral) ; IFRS 13, IAS 16 ; Cadre conceptuel 2018 (texte anglais) ; AUDCIF et SYSCOHADA révisé ; BOA RDC (2018) et BCDC (2018).",
 }
 
 export default chapitre
