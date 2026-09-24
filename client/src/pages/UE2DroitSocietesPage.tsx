@@ -22,7 +22,7 @@ const CHAPITRES = [
   { num: 1,  titre: 'La société commerciale : notion, constitution et naissance', sousTitre: 'Art. 1–120-5, 242–262 AUSCGIE — OHADA en RDC, GUCE', duree: '5h', actif: true, route: '/ue2/chapitre-1' },
   { num: 2,  titre: 'La vie financière de la société', sousTitre: 'Art. 81–96-1, 137–149, 263–269-7 AUSCGIE — comptes, dividendes, appel public', duree: '4h', actif: true, route: '/ue2/chapitre-2' },
   { num: 3,  titre: 'Sociétés de personnes : SNC et SCS', sousTitre: 'Art. 270–308 AUSCGIE — intuitu personae', duree: '3h', actif: true, route: '/ue2/chapitre-3' },
-  { num: 4,  titre: 'Sociétés de capitaux : SA et SAS', sousTitre: 'Art. 385–561, 853-1–853-26 AUSCGIE', duree: '4h', actif: true, route: '/ue2/chapitre-4' },
+  { num: 4,  titre: 'Les sociétés par actions : SA et SAS', sousTitre: 'Art. 385–515, 694–743, 853-1–853-23 AUSCGIE', duree: '5h', actif: true, route: '/ue2/chapitre-4' },
   { num: 5,  titre: 'Société mixte : la SARL', sousTitre: 'Art. 309–384 AUSCGIE — capital libre RDC', duree: '3h', actif: true, route: '/ue2/chapitre-5' },
   { num: 6,  titre: 'Le groupement d’intérêt économique', sousTitre: 'Art. 869–919 AUSCGIE — catégorie distincte', duree: '2h', actif: true, route: '/ue2/chapitre-6' },
   { num: 7,  titre: 'Les dirigeants sociaux', sousTitre: 'Art. 101–135, 330–445 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-7' },
