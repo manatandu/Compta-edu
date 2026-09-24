@@ -6,7 +6,10 @@ import { User } from '@/lib/db'
 import { isStaffRole, isStudentRole } from '@/lib/permissions'
 import { useUniversites, useAllCours, useAllDevoirs } from '@/lib/useFirestore'
 import { onUsersSnapshot } from '@/lib/db-firebase'
-import { DICTIONNAIRE, DOMAINES_DICT } from '@/data/dictionnaire'
+// Le dictionnaire (plus de 600 termes, environ 400 Ko) n'est pas importé
+// statiquement : il serait téléchargé à chaque ouverture de l'application,
+// sur tous les écrans, alors qu'il ne sert qu'une fois une recherche saisie.
+type ModuleDictionnaire = typeof import('@/data/dictionnaire')
 
 interface SearchResult {
   id: string
@@ -46,6 +49,15 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
 
   const canAdmin = isStaffRole(user)
   const isStudent = isStudentRole(user)
+  const [dict, setDict] = useState<ModuleDictionnaire | null>(null)
+
+  // Chargement du dictionnaire à la première frappe seulement.
+  useEffect(() => {
+    if (dict || !query.trim()) return
+    let actif = true
+    import('@/data/dictionnaire').then(m => { if (actif) setDict(m) }).catch(() => {})
+    return () => { actif = false }
+  }, [query, dict])
 
   useEffect(() => {
     // Faille sécurité corrigée : dépend de role (stable) et non de canAdmin (dérivé)
@@ -161,7 +173,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
     // mène directement à la définition via le lien profond ?terme=<id>.
     const normDict = (v: string) => v.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     const qDict = normDict(q)
-    DICTIONNAIRE
+    ;(dict?.DICTIONNAIRE ?? [])
       .filter(t => normDict(t.terme).includes(qDict))
       .sort((a, b) => {
         const aDebut = normDict(a.terme).startsWith(qDict)
@@ -174,7 +186,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
         res.push({
           id: t.id,
           label: t.terme,
-          sublabel: DOMAINES_DICT[t.domaine],
+          sublabel: dict?.DOMAINES_DICT[t.domaine],
           type: 'dictionnaire',
           path: `/dictionnaire?terme=${encodeURIComponent(t.id)}`,
         })
@@ -182,7 +194,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
 
     setResults(res)
   // Faille sécurité corrigée : inclure user dans les dépendances pour filtrage coursIds
-  }, [query, allUsers, cours, universites, devoirs, canAdmin, isStudent, user])
+  }, [query, allUsers, cours, universites, devoirs, canAdmin, isStudent, user, dict])
 
   const typeIcon = (type: SearchResult['type']) => {
     switch (type) {

@@ -4,8 +4,9 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useParams } from 'wouter'
 import {
-  getCompteByNumero, getComptes, BAREME_DEFAUT
+  BAREME_DEFAUT
 } from '@/lib/db'
+import { getCompteByNumero, getComptes } from '@/lib/comptes'
 import { saveTentativeAsync } from '@/lib/db-firebase'
 import { useExercices, useTentatives } from '@/lib/useFirestore'
 import { formatMontant, generateId } from '@/lib/utils'

@@ -4,8 +4,9 @@ import { useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import {
-  getCompteByNumero, getComptes, Ecriture
+  Ecriture
 } from '@/lib/db'
+import { getCompteByNumero, getComptes } from '@/lib/comptes'
 import {
   createSessionAsync, deleteSessionAsync,
   addEcritureAsync, deleteEcrituresByGroupeAsync, clearSessionEcrituresAsync
