@@ -11,7 +11,7 @@ import type { Chapitre } from '@/lib/chapitre-types'
 //   4.1.1 à 4.1.5, 4.2.1, 4.3.3, 4.4.1, 5.1.1, 5.1.3, 5.4.1, 5.4.4, 5.5.1 à
 //   5.5.17, 5.6.2 à 5.6.4, 5.7.1 à 5.7.11, 6.1.1, 6.4.1, 7.1.1 ; annexe A ;
 //   B4.1.2C à B4.1.7A, B4.1.14, B5.2.3, B5.5.19, B5.5.22, B5.5.28, B5.5.33,
-//   B5.5.35, B5.5.37, B5.7.1. Les passages entre guillemets reproduisent le
+//   B5.5.35, B5.5.37, B5.7.1, B5.1.1. Les passages entre guillemets reproduisent le
 //   texte à l'identique ; le reste le paraphrase avec renvoi au §.
 // - IAS 32, § 11 et AG11-AG12 (définitions).
 // - AUDCIF : art. 42 à 44 et 46 ; SYSCOHADA révisé, Titre VII (compte 49) et
@@ -445,93 +445,114 @@ const QCM: Chapitre['qcm'] = [
 const SECTIONS: Chapitre['sections'] = [
   {
     numero: '4.1',
-    titre: "IAS 2 : ce qu'est un stock et la règle qui le gouverne",
-    navLabel: 'IAS 2 : principe',
+    titre: "Objectif, définitions et champ d'application d'IAS 2",
+    navLabel: 'IAS 2 : champ',
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Stocks et créances clients occupent une place centrale dans les états financiers d'une entreprise commerciale ou industrielle, parce qu'ils sont exposés aux risques économiques du quotidien : le risque de ne pas vendre, le risque d'obsolescence, le risque de ne pas être payé. À la différence des immobilisations, ils sont destinés à se transformer rapidement en chiffre d'affaires puis en trésorerie. IAS 2 et IFRS 9 poursuivent donc un même objectif : éviter que l'entreprise présente au bilan des actifs courants pour des montants qu'elle ne récupérera pas. Chacune le fait avec sa propre technique, et c'est cette différence que le chapitre explore.",
+        texte: "Les stocks et les créances clients constituent l'essentiel de l'actif courant d'une entreprise commerciale ou industrielle. Ils sont exposés aux risques ordinaires de l'exploitation : risque de mévente et d'obsolescence pour les premiers, risque de non-paiement pour les secondes. À la différence des immobilisations, ils sont destinés à se convertir à brève échéance en chiffre d'affaires puis en trésorerie. IAS 2 et IFRS 9 poursuivent à leur égard un objectif commun, qui est d'empêcher la présentation au bilan d'actifs courants pour un montant supérieur à celui que l'entité recouvrera, mais elles le mettent en œuvre selon des techniques distinctes : plafonnement du coût par la valeur nette de réalisation pour les stocks, anticipation des pertes de crédit pour les créances. Le chapitre examine successivement ces deux régimes, puis le classement, l'évaluation et la sortie des instruments financiers.",
       },
+      { type: 'intertitre', texte: "4.1.1 Objectif de la norme" },
       {
         type: 'paragraphe',
-        texte: "Le stock est l'actif le plus ordinaire du bilan, et pourtant l'un des plus manipulables. Tout coût porté en stock quitte le compte de résultat de l'exercice pour réapparaître, plus tard, en coût des ventes. IAS 2 répond donc à une seule question de fond : « celle du montant des coûts à comptabiliser en tant qu'actif et à différer jusqu'à la comptabilisation des produits correspondants » (§ 1). Chaque euro, chaque franc ou chaque dollar mal classé déplace du résultat d'une période à l'autre.",
+        texte: "Tout coût incorporé au stock est retiré des charges de l'exercice et n'est reconnu en résultat qu'au moment de la vente, sous forme de coût des ventes. La délimitation du coût des stocks commande donc la répartition du résultat entre les exercices. C'est pourquoi IAS 2 définit son objet comme la détermination du montant « des coûts à comptabiliser en tant qu'actif et à différer jusqu'à la comptabilisation des produits correspondants » (§ 1). Un coût indûment porté en stock majore le résultat de l'exercice au détriment de l'exercice suivant ; un coût indûment passé en charges produit l'effet inverse.",
+      },
+      { type: 'intertitre', texte: "4.1.2 Définitions et champ d'application" },
+      {
+        type: 'paragraphe',
+        texte: "Les stocks sont des actifs « (a) détenus en vue de la vente dans le cours normal de l'activité ; (b) en cours de production pour une telle vente ; ou (c) sous forme de matières premières ou de fournitures devant être consommées dans le processus de production ou de prestation de services » (§ 6). La définition repose sur la destination de l'actif et non sur sa nature : un même terrain constitue un stock chez le promoteur qui le détient pour la revente et une immobilisation chez l'industriel qui y construit son usine (§ 8).",
       },
       {
         type: 'carte',
-        titre: "Définitions et champ (§ 2-8)",
-        liste: [
-          "**Les stocks** sont des actifs « (a) détenus en vue de la vente dans le cours normal de l'activité ; (b) en cours de production pour une telle vente ; ou (c) sous forme de matières premières ou de fournitures devant être consommées dans le processus de production ou de prestation de services » (§ 6).",
-          "**Ce qui en fait partie** : marchandises d'un détaillant, terrains ou immeubles détenus pour la revente par un promoteur, produits finis, en-cours, matières et fournitures (§ 8).",
-          "**Hors champ** : instruments financiers (IAS 32 et IFRS 9), actifs biologiques et produits agricoles au moment de la récolte (IAS 41) (§ 2).",
-          "**Exclus des seules règles d'évaluation** : producteurs agricoles, forestiers et miniers qui évaluent leurs stocks à la valeur nette de réalisation selon des pratiques bien établies dans leur secteur, et courtiers négociants qui les évaluent à la juste valeur diminuée des coûts de vente ; dans les deux cas, les variations passent en résultat net (§ 3-5).",
-        ],
+        titre: "Tableau 4.1 — Champ d'application d'IAS 2 (§ 2-5 et 8)",
+        tableau: {
+          entetes: ['Catégorie', 'Traitement', 'Référence'],
+          lignes: [
+            ["Marchandises d'un distributeur, terrains et immeubles détenus pour la revente, produits finis, en-cours, matières et fournitures", "Application intégrale d'IAS 2", '§ 8'],
+            ["Instruments financiers ; actifs biologiques et produits agricoles au moment de la récolte", "Hors champ : IAS 32 et IFRS 9 ; IAS 41", '§ 2'],
+            ["Stocks des producteurs agricoles, forestiers et miniers évalués à la valeur nette de réalisation selon des pratiques bien établies dans leur secteur", "Exclus des seules règles d'évaluation ; variations en résultat net", '§ 3(a) et 4'],
+            ["Stocks des courtiers négociants évalués à la juste valeur diminuée des coûts de vente", "Exclus des seules règles d'évaluation ; variations en résultat net", '§ 3(b) et 5'],
+          ],
+        },
       },
-      { type: 'controle', question: QCM[0] },
+      { type: 'intertitre', texte: "4.1.3 Principe d'évaluation" },
       {
         type: 'filet',
-        titre: "Une règle d'évaluation en une ligne (§ 9)",
-        texte: "« Les stocks doivent être évalués au plus faible du coût et de la valeur nette de réalisation. » La valeur nette de réalisation est « le prix de vente estimé dans le cours normal de l'activité, diminué des coûts estimés pour l'achèvement et des coûts estimés nécessaires pour réaliser la vente » (§ 6). Elle n'est pas la juste valeur : « La première est une valeur spécifique à l'entité, contrairement à la seconde. » (§ 7).",
+        titre: "Texte de référence — IAS 2, § 9, 6 et 7",
+        texte: "« Les stocks doivent être évalués au plus faible du coût et de la valeur nette de réalisation. » (§ 9). La valeur nette de réalisation est « le prix de vente estimé dans le cours normal de l'activité, diminué des coûts estimés pour l'achèvement et des coûts estimés nécessaires pour réaliser la vente » (§ 6). Rapprochée de la juste valeur diminuée des coûts de la vente, elle s'en distingue ainsi : « La première est une valeur spécifique à l'entité, contrairement à la seconde. » (§ 7).",
       },
-      { type: 'controle', question: QCM[1] },
+      {
+        type: 'paragraphe',
+        texte: "La règle combine deux bases. Le coût, fondé sur les transactions passées, constitue la base normale ; la valeur nette de réalisation, fondée sur les perspectives de vente, intervient comme plafond. Le principe est asymétrique : une valeur nette de réalisation inférieure au coût entraîne une dépréciation, une valeur supérieure ne permet pas de constater la plus-value latente. Le caractère spécifique de la valeur nette de réalisation tient à ce qu'elle intègre les conditions propres de l'entité (circuits de distribution, coûts d'achèvement, contrats conclus), là où la juste valeur retient le point de vue des intervenants du marché.",
+      },
       {
         type: 'filet',
-        titre: "Le concentré de cuivre peut-il échapper au coût ?",
-        texte: "Un producteur de cuivre du Katanga peut-il évaluer son concentré à la valeur nette de réalisation, variations en résultat, plutôt qu'au plus faible du coût et de cette valeur ? IAS 2.3(a) et 2.4 ne le permettent que si la pratique est « bien établie » dans le secteur, et donnent des exemples de conditions : vente assurée par un contrat à terme ou une garantie de l'État, ou marché actif avec un risque de mévente négligeable. Le cuivre coté remplit en principe la seconde condition ; un produit intermédiaire sans débouché liquide, beaucoup moins. L'entité doit documenter la pratique invoquée, et le choix engage la volatilité de son résultat. Par défaut, c'est la règle générale du § 9 qui s'applique.",
+        titre: "Observation — Les stocks des producteurs miniers",
+        texte: "Un producteur de cuivre établi dans le Haut-Katanga peut être tenté d'évaluer son concentré à la valeur nette de réalisation, variations en résultat, plutôt qu'au plus faible du coût et de cette valeur. IAS 2 ne l'admet que si la pratique est « bien établie » dans le secteur (§ 3(a)) et cite des conditions qui la justifient : vente assurée par un contrat à terme ou une garantie de l'État, ou existence d'un marché actif sur lequel le risque de mévente est négligeable (§ 4). Le métal coté remplit en principe la seconde condition ; un produit intermédiaire dépourvu de débouché liquide la remplit difficilement. L'entité doit documenter la pratique dont elle se prévaut et mesurer la volatilité qu'elle introduit dans son résultat. À défaut, la règle générale du § 9 s'applique.",
       },
     ],
   },
   {
     numero: '4.2',
-    titre: "IAS 2 : construire le coût, choisir la formule",
+    titre: "La détermination du coût des stocks",
     navLabel: 'IAS 2 : le coût',
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Le coût des stocks comprend « tous les coûts d'acquisition, coûts de transformation et autres coûts engagés pour amener les stocks à l'endroit et dans l'état où ils se trouvent » (§ 10). Le critère est double : un lien avec le stock, et une contribution à le mettre en place et en état. Le coût d'acquisition comprend le prix d'achat, les droits de douane et taxes non récupérables, le transport et la manutention, remises et rabais déduits (§ 11). Pour une entreprise congolaise qui importe par Matadi ou par la frontière zambienne, les droits de douane et les frais d'acheminement pèsent souvent plus lourd que la marge ; les oublier fausse toute la chaîne.",
+        texte: "Le coût des stocks comprend « tous les coûts d'acquisition, coûts de transformation et autres coûts engagés pour amener les stocks à l'endroit et dans l'état où ils se trouvent » (§ 10). Un coût n'est incorporable que s'il satisfait à ce double critère : il se rattache au stock, et il contribue à le mettre en place et en état. Les coûts de commercialisation, qui interviennent après que le stock a atteint son état de vente, en sont exclus par construction.",
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "4.2.1 Le coût d'acquisition" },
       {
         type: 'paragraphe',
-        texte: "Le coût de transformation comprend les coûts directs, comme la main-d'œuvre directe, et une affectation systématique des frais généraux de production, variables et fixes (§ 12). Là se loge la principale difficulté technique de la norme : les frais fixes sont imputés sur la base de la **capacité normale**, c'est-à-dire la production moyenne attendue sur plusieurs périodes dans des circonstances normales, entretien planifié compris (§ 13). Les frais non imputés du fait d'une sous-activité sont une charge de la période. À l'inverse, en période de production anormalement élevée, la part de frais fixes par unité est diminuée « de telle sorte que les stocks ne soient pas évalués au-dessus du coût ».",
+        texte: "Le coût d'acquisition comprend le prix d'achat, les droits de douane et autres taxes non récupérables, les frais de transport et de manutention et les autres coûts directement attribuables à l'acquisition, diminués des remises, rabais et autres éléments similaires (§ 11). Pour une entreprise congolaise qui importe par le port de Matadi ou par la frontière zambienne, les droits et taxes non récupérables et les frais d'acheminement représentent souvent une fraction importante du coût de revient ; leur omission affecte l'ensemble de la chaîne d'évaluation, de la marge au stock final. La TVA récupérable, en revanche, ne constitue pas un élément du coût.",
+      },
+      { type: 'intertitre', texte: "4.2.2 Le coût de transformation et l'imputation des frais fixes" },
+      {
+        type: 'paragraphe',
+        texte: "Le coût de transformation comprend les coûts directement liés aux unités produites, comme la main-d'œuvre directe, ainsi qu'une affectation systématique des frais généraux de production variables et fixes (§ 12). Les frais fixes sont imputés sur la base de la **capacité normale** des installations, définie comme la production moyenne attendue sur un certain nombre de périodes dans des circonstances normales, compte tenu de la perte de capacité résultant de l'entretien planifié (§ 13). Les frais fixes non imputés en raison d'une sous-activité sont comptabilisés en charges de la période. En cas de production anormalement élevée, le montant de frais fixes affecté à chaque unité est réduit « de telle sorte que les stocks ne soient pas évalués au-dessus du coût » (§ 13). Le fondement de la règle est économique : le coût d'une capacité inemployée ne rémunère aucune unité produite et ne peut donc être différé dans le stock.",
       },
       {
         type: 'carte',
-        titre: "Les délestages coûtent, mais pas au stock (brasserie du Kasaï, société fictive)",
-        texte: "Frais généraux fixes de production de l'exercice : 1 200 000 USD. Capacité normale : 600 000 casiers. Production réelle, réduite par les coupures d'électricité : 450 000 casiers. Coûts variables (matières, main-d'œuvre directe, frais variables) : 3 USD par casier. 50 000 casiers restent en stock à la clôture.",
+        titre: "Exemple 4.1 — Imputation rationnelle des frais fixes de production (brasserie du Kasaï, société fictive)",
+        texte: "Frais généraux fixes de production de l'exercice : 1 200 000 USD. Capacité normale : 600 000 casiers. Production réelle, réduite par les interruptions de fourniture d'électricité : 450 000 casiers. Coûts variables (matières, main-d'œuvre directe, frais variables) : 3 USD par casier. Stock final : 50 000 casiers.",
         tableau: {
-          entetes: ['', 'Imputation rationnelle (IAS 2.13)', 'Imputation de tous les frais fixes (erronée)'],
+          entetes: ['', 'Imputation rationnelle (IAS 2, § 13)', 'Imputation intégrale (non conforme)'],
           lignes: [
             ['Frais fixes par casier', '1 200 000 / 600 000 = 2,00', '1 200 000 / 450 000 = 2,67'],
             ['Coût unitaire', '3 + 2 = **5,00**', '3 + 2,67 = 5,67'],
             ['Frais fixes imputés à la production', '450 000 × 2 = 900 000', '1 200 000'],
-            ['Charge de sous-activité', '**300 000**, en charges de la période', '0'],
+            ['Coût de la sous-activité', '**300 000**, en charges de la période', '0'],
             ['Stock final (50 000 casiers)', '**250 000**', '283 333'],
           ],
         },
-        note: "L'imputation de tous les frais fixes transférerait 33 333 USD de coût de la sous-activité dans le stock, donc dans le résultat de l'exercice suivant. La sous-activité est un coût de la période où elle survient, non un coût du produit. Le SYSCOHADA révisé retient exactement la même méthode, sous le nom d'imputation rationnelle des charges fixes (Titre VIII, ch. 14, § 2.3.2).",
+        note: "L'imputation intégrale reporterait 33 333 USD de coût de sous-activité sur l'exercice suivant, par l'intermédiaire du stock final. Le SYSCOHADA révisé retient la même méthode sous le nom d'imputation rationnelle des charges fixes (Titre VIII, ch. 14, § 2.3.2).",
       },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "4.2.3 Les coûts exclus" },
       {
         type: 'carte',
-        titre: "Ce qui n'entre jamais dans le coût (§ 16-18)",
-        liste: [
-          "Les **montants anormaux** de matière, de main-d'œuvre ou d'autres coûts de production gaspillés.",
-          "Les **coûts de stockage**, sauf s'ils sont nécessaires au processus de production avant une nouvelle étape : la maturation d'une bière ou le séchage d'un bois, oui ; l'entrepôt des produits finis qui attendent un acheteur, non.",
-          "Les **frais administratifs** qui ne contribuent pas à amener les stocks à l'endroit et dans l'état où ils se trouvent, et les **frais de commercialisation**.",
-          "L'**élément de financement** d'un achat à paiement différé : la différence entre le prix pour un crédit normal et le montant payé est une charge d'intérêt sur la durée du financement (§ 18). Les coûts d'emprunt ne sont incorporés que dans les cas limités prévus par IAS 23 (§ 17).",
-        ],
+        titre: "Tableau 4.2 — Coûts exclus du coût des stocks (IAS 2, § 16-18)",
+        tableau: {
+          entetes: ['Coût', 'Traitement', 'Justification'],
+          lignes: [
+            ["Montants anormaux de matières, de main-d'œuvre ou d'autres coûts de production gaspillés", 'Charges de la période', "Ils ne contribuent pas à amener le stock dans son état"],
+            ["Coûts de stockage, sauf s'ils sont nécessaires au processus de production préalablement à une nouvelle étape", 'Charges de la période', "La maturation d'une bière ou le séchage d'un bois est une étape de production ; l'entreposage de produits finis ne l'est pas"],
+            ["Frais généraux administratifs qui ne contribuent pas à amener les stocks à l'endroit et dans l'état où ils se trouvent", 'Charges de la période', "Absence de lien avec la production"],
+            ['Frais de commercialisation', 'Charges de la période', "Postérieurs à la mise en état de vente"],
+            ["Élément de financement d'un achat à paiement différé", "Charge d'intérêt sur la durée du financement (§ 18)", "Différence entre le prix d'un crédit normal et le montant payé ; incorporation limitée aux cas prévus par IAS 23 (§ 17)"],
+          ],
+        },
       },
-      { type: 'controle', question: QCM[4] },
+      { type: 'intertitre', texte: "4.2.4 Les formules de coût" },
       {
         type: 'paragraphe',
-        texte: "Reste à affecter le coût aux unités vendues et aux unités restantes. Pour les biens non fongibles ou affectés à des projets spécifiques, l'identification spécifique est obligatoire (§ 23). Pour les autres, la norme n'admet que deux formules : « la méthode du premier entré, premier sorti (PEPS) ou celle du coût moyen pondéré » (§ 25). Le dernier entré, premier sorti n'en fait pas partie. La même formule s'applique à tous les stocks de nature et d'usage similaires ; une différence de situation géographique ou de règles fiscales ne suffit pas à justifier des formules différentes (§ 26).",
+        texte: "Il reste à répartir le coût entre les unités vendues et les unités en stock. Pour les éléments qui ne sont pas habituellement fongibles et pour ceux qui sont affectés à des projets spécifiques, la méthode de l'identification spécifique est obligatoire (§ 23). Pour les autres, la norme admet deux formules seulement : « la méthode du premier entré, premier sorti (PEPS) ou celle du coût moyen pondéré » (§ 25). La méthode du dernier entré, premier sorti n'est pas autorisée. Une même formule doit être utilisée pour tous les stocks de nature et d'usage similaires ; une différence de situation géographique ou de règles fiscales ne suffit pas à justifier l'emploi de formules différentes (§ 26).",
       },
       {
         type: 'carte',
-        titre: "Mêmes sacs de ciment, deux résultats : PEPS ou coût moyen",
-        texte: "Stock initial 1 000 sacs à 20 ; achat de 3 000 sacs à 22 ; sortie de 2 500 ; achat de 2 000 à 25 ; sortie de 2 000. Coût total disponible : 20 000 + 66 000 + 50 000 = 136 000. Stock final : 1 500 sacs.",
+        titre: "Exemple 4.2 — Incidence de la formule de coût sur le résultat (stock de ciment)",
+        texte: "Stock initial : 1 000 sacs à 20. Achat de 3 000 sacs à 22 ; sortie de 2 500 sacs ; achat de 2 000 sacs à 25 ; sortie de 2 000 sacs. Coût total disponible : 20 000 + 66 000 + 50 000 = 136 000. Stock final : 1 500 sacs.",
         tableau: {
-          entetes: ['', 'PEPS', 'Coût moyen pondéré (à chaque entrée)'],
+          entetes: ['', 'PEPS', 'Coût moyen pondéré après chaque entrée'],
           lignes: [
             ['Sortie 1 (2 500 sacs)', '1 000 × 20 + 1 500 × 22 = 53 000', '2 500 × 21,5 = 53 750'],
             ['Sortie 2 (2 000 sacs)', '1 500 × 22 + 500 × 25 = 45 500', '2 000 × 23,5 = 47 000'],
@@ -539,182 +560,227 @@ const SECTIONS: Chapitre['sections'] = [
             ['Stock final (1 500 sacs)', '1 500 × 25 = **37 500**', '1 500 × 23,5 = **35 250**'],
           ],
         },
-        note: "Quand les prix montent, le PEPS affiche un stock plus proche des prix récents et un résultat plus élevé ; le coût moyen lisse l'effet. Dans une économie où le franc congolais se déprécie vite, l'écart entre les deux formules peut devenir significatif : il doit être expliqué par la méthode indiquée dans les notes (§ 36(a)), et la formule retenue ne se change pas au gré des résultats (IAS 8).",
+        note: "En période de hausse des prix, le PEPS valorise le stock final aux prix les plus récents et dégage un résultat plus élevé ; le coût moyen pondéré atténue cet effet. L'écart croît avec le rythme de dépréciation monétaire. La formule retenue figure dans les notes (§ 36(a)) et ne peut être modifiée que dans les conditions d'IAS 8.",
       },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[6] },
       {
         type: 'filet',
-        titre: "Sur le coût des stocks, SYSCOHADA et IFRS parlent d'une seule voix",
-        texte: "L'article 44 de l'AUDCIF et le chapitre 14 du Titre VIII reprennent les mêmes briques : coût d'acquisition et de production, exclusions identiques, imputation rationnelle, identification spécifique pour les biens individualisables, PEPS ou coût moyen pondéré pour les biens fongibles, coût standard et prix de détail tolérés s'ils donnent un résultat proche du coût. Une particularité : en inventaire intermittent, le SYSCOHADA admet un coût moyen pondéré calculé sur la durée moyenne de stockage, illustré par un exemple officiel (rotation de 5, soit 2,4 mois d'écoulement, coût d'entrée d'octobre appliqué au stock final). Une entité qui établit ses deux jeux d'états peut donc, sur ce point, garder un seul calcul de coût.",
+        titre: "Rapprochement avec le SYSCOHADA révisé",
+        texte: "L'article 44 de l'AUDCIF et le chapitre 14 du Titre VIII retiennent les mêmes composantes : coût d'acquisition et coût de production, exclusions identiques, imputation rationnelle des charges fixes, identification spécifique pour les biens individualisables, PEPS ou coût moyen pondéré pour les biens fongibles, coût standard et méthode du prix de détail admis lorsqu'ils donnent un résultat proche du coût. Le SYSCOHADA admet en outre, en inventaire intermittent, un coût moyen pondéré calculé sur la durée moyenne de stockage, qu'il illustre par un exemple (rotation de 5, soit 2,4 mois d'écoulement, coût d'entrée d'octobre appliqué au stock final). Sur la détermination du coût, une entité qui établit des états selon les deux référentiels peut donc conserver un calcul unique.",
       },
     ],
   },
   {
     numero: '4.3',
-    titre: "IAS 2 : la valeur nette de réalisation, la dépréciation et sa reprise",
-    navLabel: 'IAS 2 : VNR',
+    titre: "La valeur nette de réalisation, la dépréciation et sa reprise",
+    navLabel: 'IAS 2 : dépréciation',
     blocs: [
+      { type: 'intertitre', texte: "4.3.1 Estimation de la valeur nette de réalisation" },
       {
         type: 'paragraphe',
-        texte: "Un stock est déprécié lorsque son coût ne sera pas recouvré : produits endommagés ou obsolètes, prix de vente en baisse, coûts d'achèvement ou de vente en hausse (§ 28). La logique est celle d'IAS 36, appliquée à un actif court : un actif ne doit pas figurer pour plus que ce qu'on attend de sa vente ou de son utilisation. L'estimation se fait à la date de clôture sur les éléments probants les plus fiables, en tenant compte des événements postérieurs qui confirment des conditions existant à la clôture (§ 30), et du but dans lequel le stock est détenu (§ 31).",
+        texte: "Le coût d'un stock peut devenir irrécouvrable lorsque les articles sont endommagés ou obsolètes, lorsque leur prix de vente a baissé, ou lorsque les coûts d'achèvement ou de vente ont augmenté (§ 28). La dépréciation qui en résulte procède du même principe qu'IAS 36, appliqué à un actif à rotation rapide : un actif ne peut être présenté pour un montant supérieur à celui que sa vente ou son utilisation permettra de recouvrer. L'estimation est fondée sur les éléments probants les plus fiables disponibles à la date de clôture ; elle tient compte des événements postérieurs dans la mesure où ils confirment des conditions existant à la clôture (§ 30), ainsi que de l'objectif dans lequel le stock est détenu (§ 31).",
+      },
+      { type: 'intertitre', texte: "4.3.2 Règles d'application" },
+      {
+        type: 'carte',
+        titre: "Tableau 4.3 — Règles d'application de la dépréciation des stocks (IAS 2, § 29-33)",
+        tableau: {
+          entetes: ['Question', 'Règle', 'Référence'],
+          lignes: [
+            ["Niveau d'appréciation", "Élément par élément, avec regroupement possible d'éléments similaires d'une même gamme de produits ; jamais par grande catégorie ni par secteur opérationnel", '§ 29'],
+            ["Stocks affectés à des contrats fermes", "Prix du contrat pour les quantités engagées, prix de vente généraux pour l'excédent ; perte sur contrat excédant les stocks détenus relevant d'IAS 37", '§ 31'],
+            ["Matières premières", "Pas de dépréciation si les produits finis auxquels elles sont incorporées seront vendus au coût ou au-dessus ; sinon, dépréciation, le coût de remplacement pouvant constituer la meilleure mesure disponible", '§ 32'],
+            ["Reprise", "Lorsque les circonstances ont disparu ou que la valeur nette de réalisation a augmenté, reprise limitée au montant de la dépréciation initiale", '§ 33'],
+          ],
+        },
+      },
+      { type: 'intertitre', texte: "4.3.3 Comptabilisation de la dépréciation et de la reprise" },
+      {
+        type: 'filet',
+        titre: "Texte de référence — IAS 2, § 34",
+        texte: "« Le montant de toute dépréciation des stocks pour les ramener à leur valeur nette de réalisation et toutes les pertes de stocks doivent être comptabilisés en charges de la période au cours de laquelle la dépréciation ou la perte se produit. Le montant de toute reprise d'une dépréciation des stocks résultant d'une augmentation de la valeur nette de réalisation doit être comptabilisé comme une réduction du montant des stocks comptabilisé en charges dans la période au cours de laquelle la reprise intervient. »",
       },
       {
         type: 'carte',
-        titre: "Quatre règles d'application",
-        liste: [
-          "**Élément par élément** (§ 29), avec un regroupement possible d'éléments similaires d'une même ligne de produits ; jamais par grande catégorie ni pour tout un secteur opérationnel.",
-          "**Contrats fermes** (§ 31) : la valeur nette de réalisation des quantités engagées se fonde sur le prix du contrat ; celle de l'excédent, sur les prix généraux. Un contrat déficitaire au-delà des stocks détenus relève d'IAS 37.",
-          "**Matières premières** (§ 32) : pas de dépréciation si le produit fini se vendra au coût ou au-dessus ; sinon, dépréciation, le coût de remplacement pouvant être la meilleure mesure disponible.",
-          "**Reprise** (§ 33) : lorsque les circonstances ont disparu, la dépréciation est reprise, dans la limite de la dépréciation initiale, et la reprise vient en réduction du coût des stocks passé en charges (§ 34).",
-        ],
+        titre: "Exemple 4.3 — Dépréciation puis reprise sur produits finis (AGROFOOD SA)",
+        texte: "Au 31 décembre N, AGROFOOD détient 1 000 unités de produits finis au coût unitaire de 120 USD, soit 120 000. À la suite d'une baisse des prix du marché, le prix de vente estimé s'établit à 110 et les coûts nécessaires à la vente à 10 par unité. En N+1, 600 unités sont vendues ; à la clôture, le prix de vente estimé remonte à 125, les coûts de vente restant de 10.",
+        tableau: {
+          entetes: ['', 'Clôture N', 'Clôture N+1'],
+          lignes: [
+            ['Unités en stock', '1 000', '400'],
+            ['Valeur nette de réalisation unitaire', '110 − 10 = 100', '125 − 10 = 115'],
+            ['Valeur retenue (plus faible du coût de 120 et de la VNR)', '100', '115'],
+            ['Dépréciation nécessaire', '1 000 × 20 = **20 000**', '400 × 5 = 2 000'],
+            ['Dépréciation existante sur les unités restantes', '—', '400 × 20 = 8 000'],
+            ['Écriture de la période', 'Dotation de **20 000**', 'Reprise de **6 000**'],
+            ['Stock au bilan', '100 000', '46 000'],
+          ],
+        },
+        note: "La dépréciation afférente aux 600 unités vendues (12 000) sort avec leur valeur comptable dans le coût des ventes de N+1 (§ 34). La reprise de 6 000 réduit le coût des stocks comptabilisé en charges ; elle ne peut porter la valeur du stock au-dessus du coût. Les notes indiquent le montant de la dépréciation de N, celui de la reprise de N+1 et les circonstances qui l'ont provoquée, ici le redressement des prix (§ 36(e)-(g)). Selon le support d'origine du module, cette dépréciation « n'est pas une anticipation pessimiste, mais une correction réaliste de la valeur économique du stock ».",
       },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
+      { type: 'intertitre', texte: "4.3.4 Informations à fournir" },
       {
         type: 'carte',
-        titre: "AGROFOOD SA : 20 000 de dépréciation, puis 6 000 de reprise",
-        liste: [
-          "Au 31 décembre N, AGROFOOD détient 1 000 unités de produits finis au coût unitaire de 120 USD, soit 120 000. À la suite d'une baisse des prix du marché, le prix de vente estimé tombe à 110 et les coûts nécessaires à la vente sont de 10 par unité.",
-          "**Valeur nette de réalisation** : 110 − 10 = **100** par unité, inférieure au coût de 120 : la dépréciation est obligatoire (§ 9 et 28).",
-          "**Dépréciation** : (120 − 100) × 1 000 = **20 000**, en charges de N (§ 34). Stock au bilan : 100 000.",
-          "**En N+1**, 600 unités sont vendues : leur coût et la dépréciation qui s'y rattache (12 000) sortent ensemble, dans le coût des ventes.",
-          "**Fin N+1.** Restent 400 unités ; le marché se redresse : prix 125, coûts de vente 10, valeur nette de réalisation 115. Valeur retenue : le plus faible de 120 et 115, soit 115. Dépréciation nécessaire : 400 × 5 = 2 000 ; dépréciation existante : 400 × 20 = 8 000. **Reprise de 6 000**, en réduction du coût des stocks passé en charges (§ 33-34), et non une remontée au-dessus du coût.",
-          "**Notes** : montant de la dépréciation de N, montant de la reprise de N+1 et circonstances qui l'ont provoquée, ici le redressement des prix (§ 36(e)-(g)).",
-        ],
-        note: "Comme le souligne le support d'origine du module, cette dépréciation « n'est pas une anticipation pessimiste, mais une correction réaliste de la valeur économique du stock ». Elle s'impose même si la perte n'est pas encore réalisée, et même en l'absence de bénéfice dans le SYSCOHADA révisé (compte 6593).",
-      },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
-      {
-        type: 'carte',
-        titre: "Ce que les notes doivent montrer (§ 36)",
-        liste: [
-          "Les **méthodes** d'évaluation, dont la formule de coût.",
-          "La **valeur comptable totale** et par catégories appropriées, et celle des stocks évalués à la juste valeur diminuée des coûts de vente.",
-          "Le **montant des stocks passé en charges**, les **dépréciations** et les **reprises** de la période, avec les circonstances de ces reprises.",
-          "La valeur des **stocks donnés en nantissement** de passifs : une information que les prêteurs congolais, qui financent volontiers sur gage de marchandises, lisent attentivement.",
-        ],
+        titre: "Tableau 4.4 — Informations à fournir sur les stocks (IAS 2, § 36)",
+        tableau: {
+          entetes: ['Information', 'Utilité pour le lecteur'],
+          lignes: [
+            ["Méthodes comptables, dont la formule de coût", "Comparabilité entre entités et entre exercices"],
+            ["Valeur comptable totale et par catégories appropriées ; valeur des stocks comptabilisés à la juste valeur diminuée des coûts de vente", "Composition de l'actif courant"],
+            ["Montant des stocks comptabilisé en charges ; dépréciations et reprises de la période, avec les circonstances des reprises", "Appréciation de la qualité de la marge et des estimations"],
+            ["Valeur comptable des stocks donnés en nantissement de passifs", "Mesure des actifs affectés en garantie aux prêteurs"],
+          ],
+        },
       },
       {
         type: 'filet',
-        titre: "Valeur liquidative et sinistre HAO : les deux nuances du SYSCOHADA",
-        texte: "Le SYSCOHADA révisé évalue lui aussi les stocks « au plus faible du coût d'entrée et de la valeur actuelle », la valeur actuelle des stocks représentant la valeur nette de réalisation (Titre VIII, ch. 14, § 3.2.1). Il décline la règle par nature (matières, en-cours, produits intermédiaires, produits finis) avec la même logique que le § 32 d'IAS 2, refuse lui aussi toute dépréciation forfaitaire fondée sur la seule rotation, et comptabilise dépréciation et reprise par les comptes 6593, 39 et 7593, la dépréciation étant obligatoire même en l'absence de bénéfice. Deux nuances : en cas de non-continuité d'exploitation, il retient explicitement une valeur liquidative ; et la perte d'un stock par sinistre passe en charges HAO (compte 831), l'indemnité en produits HAO (compte 841), là où IAS 2 et IAS 1 ne connaissent pas de rubrique hors activités ordinaires.",
+        titre: "Rapprochement avec le SYSCOHADA révisé",
+        texte: "Le SYSCOHADA révisé évalue lui aussi les stocks « au plus faible du coût d'entrée et de la valeur actuelle », la valeur actuelle des stocks représentant la valeur nette de réalisation (Titre VIII, ch. 14, § 3.2.1). Il décline la règle par nature (matières, en-cours, produits intermédiaires, produits finis) selon la logique du § 32 d'IAS 2, exclut toute dépréciation forfaitaire fondée sur la seule rotation, et enregistre dépréciation et reprise par les comptes 6593, 39 et 7593, la dépréciation étant obligatoire même en l'absence de bénéfice. Deux différences subsistent. En cas de cessation de la continuité d'exploitation, il retient explicitement une valeur liquidative. La perte de stocks par sinistre est classée en charges hors activités ordinaires (compte 831) et l'indemnité correspondante en produits hors activités ordinaires (compte 841), alors qu'IAS 1 ne connaît pas cette rubrique.",
       },
     ],
   },
   {
     numero: '4.4',
-    titre: "IFRS 9 : l'instrument financier, son champ et sa première évaluation",
+    titre: "Les instruments financiers : définitions, champ d'application et évaluation initiale",
     navLabel: 'Instruments financiers',
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Avec IFRS 9, on change d'univers. L'objectif de la norme est de fournir des informations utiles « pour l'appréciation des montants, du calendrier et du degré d'incertitude des flux de trésorerie futurs de l'entité » (§ 1.1). Elle est entrée en vigueur pour les exercices ouverts à compter du 1er janvier 2018 (§ 7.1.1), en remplacement d'IAS 39, qui ne subsiste que pour certaines relations de couverture. Pour une entreprise commerciale ou industrielle, IFRS 9 gouverne les créances clients, la trésorerie et les placements, les prêts qu'elle consent (au personnel, à ses distributeurs, à des partenaires), ses emprunts et ses dettes fournisseurs, ainsi que les dérivés de change ou de matières premières qu'elle conclut.",
+        texte: "IFRS 9 a pour objectif d'établir des principes d'information financière sur les actifs et passifs financiers qui fournissent des informations utiles « pour l'appréciation des montants, du calendrier et du degré d'incertitude des flux de trésorerie futurs de l'entité » (§ 1.1). Applicable aux exercices ouverts à compter du 1er janvier 2018 (§ 7.1.1), elle a remplacé IAS 39, qui ne subsiste que pour certaines relations de couverture. Dans une entreprise commerciale ou industrielle, son champ couvre les créances clients, la trésorerie et les placements, les prêts consentis au personnel, aux distributeurs ou à des partenaires, les emprunts et les dettes fournisseurs, ainsi que les dérivés de change ou de matières premières.",
       },
+      { type: 'intertitre', texte: "4.4.1 Définitions" },
       {
         type: 'filet',
-        titre: "Un contrat, deux entités, trois définitions (IAS 32.11)",
-        texte: "« Un **instrument financier** est tout contrat qui donne lieu à un actif financier pour une entité et à un passif financier ou à un instrument de capitaux propres pour une autre entité. » Un actif financier est notamment de la trésorerie, un instrument de capitaux propres d'une autre entité, ou un droit contractuel de recevoir de la trésorerie ou un autre actif financier. « Un **instrument de capitaux propres** est tout contrat mettant en évidence un intérêt résiduel dans les actifs d'une entité après déduction de tous ses passifs. » Deux conséquences pratiques : un droit à recevoir des biens ou des services (avance à un fournisseur, charge payée d'avance) n'est pas un actif financier ; une obligation fiscale, qui ne naît pas d'un contrat, n'est pas un passif financier (IAS 32.AG11-AG12).",
+        titre: "Texte de référence — IAS 32, § 11",
+        texte: "« Un **instrument financier** est tout contrat qui donne lieu à un actif financier pour une entité et à un passif financier ou à un instrument de capitaux propres pour une autre entité. » « Un **instrument de capitaux propres** est tout contrat mettant en évidence un intérêt résiduel dans les actifs d'une entité après déduction de tous ses passifs. »",
       },
-      { type: 'controle', question: QCM[11] },
+      {
+        type: 'paragraphe',
+        texte: "La définition repose sur deux éléments : l'existence d'un contrat et la symétrie des positions entre deux entités. Un actif financier est notamment de la trésorerie, un instrument de capitaux propres d'une autre entité ou un droit contractuel de recevoir de la trésorerie ou un autre actif financier (IAS 32, § 11). Il en résulte deux exclusions d'importance pratique. Un droit à recevoir des biens ou des services, tel qu'une avance versée à un fournisseur ou une charge constatée d'avance, n'est pas un actif financier, faute de donner droit à de la trésorerie. Une dette d'impôt, qui procède de la loi et non d'un contrat, n'est pas un passif financier (IAS 32, AG11-AG12).",
+      },
+      { type: 'intertitre', texte: "4.4.2 Champ d'application et comptabilisation initiale" },
       {
         type: 'carte',
-        titre: "Le champ d'IFRS 9 en quatre repères",
-        liste: [
-          "**Exclus** (§ 2.1) : participations dans des filiales, entreprises associées et coentreprises (IFRS 10, IAS 27, IAS 28), droits et obligations des contrats de location (IFRS 16, sauf décomptabilisation et dépréciation des créances locatives), avantages du personnel, instruments de capitaux propres de l'émetteur, contrats d'assurance, entre autres.",
-          "**Inclus par assimilation** (§ 2.4) : les contrats d'achat ou de vente d'un élément non financier réglables en net, sauf ceux conclus et maintenus pour les besoins prévus de l'entité. Un contrat à terme sur le cuivre conclu pour spéculer entre dans IFRS 9 ; un contrat de livraison de ciment pour les besoins de l'usine, non.",
-          "**Comptabilisation** (§ 3.1.1) : « uniquement lorsqu'elle devient partie aux dispositions contractuelles de l'instrument ». Une commande reçue n'est pas une créance ; une promesse d'embauche n'est pas un passif financier.",
-          "**Dérivé** (annexe A) : un instrument dont la valeur varie en fonction d'un sous-jacent, qui ne requiert pas ou peu d'investissement initial, et dont le règlement se fait à une date future.",
-        ],
-      },
-      {
-        type: 'paragraphe',
-        texte: "À l'entrée, l'instrument est évalué à sa **juste valeur**, majorée ou minorée des coûts de transaction directement attribuables, sauf s'il est à la juste valeur par le biais du résultat net : ces coûts sont alors des charges (§ 5.1.1). Les coûts de transaction sont des coûts marginaux, c'est-à-dire des coûts qui n'auraient pas été engagés sans l'opération (annexe A). Exception de taille pour les entreprises commerciales : une créance client sans composante financement importante est évaluée à son prix de transaction au sens d'IFRS 15 (§ 5.1.3), ce qui dispense d'actualiser les créances à 30 ou 60 jours.",
-      },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
-    ],
-  },
-  {
-    numero: '4.5',
-    titre: "Classer un actif financier : modèle économique et flux contractuels",
-    navLabel: 'Classement',
-    blocs: [
-      {
-        type: 'paragraphe',
-        texte: "IFRS 9 remplace les catégories d'IAS 39 par un raisonnement en deux questions. Sauf désignation particulière, un actif financier est classé au coût amorti, à la juste valeur par le biais des autres éléments du résultat global ou à la juste valeur par le biais du résultat net, « en fonction à la fois : (a) du modèle économique que suit l'entité pour la gestion des actifs financiers ; (b) des caractéristiques des flux de trésorerie contractuels de l'actif financier » (§ 4.1.1). La première question porte sur la manière dont l'entité gère ses actifs, la seconde sur ce que le contrat promet.",
-      },
-      {
-        type: 'tableau',
+        titre: "Tableau 4.5 — Champ d'application et comptabilisation d'IFRS 9",
         tableau: {
-          entetes: ['Modèle économique', 'Flux uniquement principal et intérêts', 'Autres flux'],
+          entetes: ['Question', 'Règle', 'Référence'],
           lignes: [
-            ["Percevoir les flux contractuels (§ 4.1.2(a))", '**Coût amorti**', 'Juste valeur par le biais du résultat net'],
-            ["Percevoir les flux et vendre (§ 4.1.2A(a))", '**Juste valeur par le biais des autres éléments du résultat global**, avec recyclage', 'Juste valeur par le biais du résultat net'],
-            ["Autre, notamment gestion sur la base de la juste valeur ou transaction (§ 4.1.4 ; B4.1.5-B4.1.6)", 'Juste valeur par le biais du résultat net', 'Juste valeur par le biais du résultat net'],
+            ["Instruments exclus", "Participations dans des filiales, entreprises associées et coentreprises ; droits et obligations des contrats de location, sauf décomptabilisation et dépréciation des créances locatives ; avantages du personnel ; instruments de capitaux propres de l'émetteur ; contrats d'assurance, notamment", '§ 2.1'],
+            ["Contrats portant sur des éléments non financiers", "Inclus s'ils sont réglables en net, sauf lorsqu'ils sont conclus et maintenus pour les besoins d'achat, de vente ou d'utilisation prévus de l'entité", '§ 2.4'],
+            ["Date de comptabilisation", "« uniquement lorsqu'elle devient partie aux dispositions contractuelles de l'instrument »", '§ 3.1.1'],
+            ["Dérivé", "Valeur fonction d'un sous-jacent ; investissement initial nul ou faible ; règlement à une date future", 'Annexe A'],
           ],
         },
       },
       {
-        type: 'carte',
-        titre: "Le premier critère : le modèle économique",
-        liste: [
-          "**Il se constate, il ne se déclare pas.** Il s'apprécie au niveau des portefeuilles, d'après la fréquence, la valeur et les raisons des ventes passées et les attentes de ventes futures ; les ventes « ne peuvent donc pas être considérées isolément » (B4.1.2C).",
-          "**Percevoir n'oblige pas à tout garder** (B4.1.3) : des ventes rares, ou de faible valeur, restent compatibles ; celles qui répondent à une hausse du risque de crédit le sont toujours (B4.1.3A).",
-          "**Percevoir et vendre** (B4.1.4A) : gestion des besoins quotidiens de liquidités, maintien d'un profil de rendement, adossement de la durée des actifs à celle des passifs.",
-          "**Résiduel** (B4.1.5) : l'entité gère pour réaliser la juste valeur par la vente ; la perception des flux n'a qu'un rôle accessoire.",
-        ],
+        type: 'paragraphe',
+        texte: "Deux illustrations précisent la portée du § 2.4. Un contrat à terme sur le cuivre conclu dans un but spéculatif et réglable en net relève d'IFRS 9 ; un contrat de livraison de ciment conclu pour les besoins de production de l'usine n'en relève pas. De même, en application du § 3.1.1, une commande reçue ne constitue pas une créance tant que la livraison n'a pas eu lieu, et une promesse d'embauche ne constitue pas un passif financier.",
       },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
+      { type: 'intertitre', texte: "4.4.3 Évaluation initiale" },
       {
         type: 'paragraphe',
-        texte: "Le second critère, souvent appelé test SPPI (*solely payments of principal and interest*), vérifie que le contrat est un **prêt de base**. Le principal est la juste valeur de l'actif lors de la comptabilisation initiale ; les intérêts rémunèrent la valeur temps de l'argent, le risque de crédit, les autres risques et frais d'un prêt de base, et une marge (§ 4.1.3). Dès que les flux exposent le porteur à des risques sans rapport avec un prêt de base, comme la valeur d'une action ou le prix d'une matière première, le test échoue (B4.1.7A). B4.1.14 en donne des exemples : obligation convertible, prêt à taux variable inversé, instrument perpétuel dont les intérêts ne sont pas versés si leur paiement rendait l'émetteur insolvable, les intérêts différés ne portant pas eux-mêmes intérêt.",
+        texte: "Lors de la comptabilisation initiale, l'actif ou le passif financier est évalué à sa **juste valeur**, majorée ou minorée des coûts de transaction directement attribuables à son acquisition ou à son émission, sauf s'il est évalué à la juste valeur par le biais du résultat net, auquel cas ces coûts sont comptabilisés en charges (§ 5.1.1). Les coûts de transaction sont des coûts marginaux, c'est-à-dire des coûts qui n'auraient pas été engagés en l'absence de l'opération (annexe A). Par exception, une créance client qui ne comporte pas de composante financement importante est évaluée à son prix de transaction au sens d'IFRS 15 (§ 5.1.3), ce qui dispense d'actualiser les créances commerciales à échéance courte.",
       },
-      { type: 'controle', question: QCM[16] },
+      {
+        type: 'paragraphe',
+        texte: "La juste valeur initiale correspond normalement au prix de transaction. Lorsqu'une partie de la contrepartie versée rémunère autre chose que l'instrument financier, l'entité doit évaluer séparément la juste valeur de l'instrument ; B5.1.1 cite le cas du prêt à long terme ne portant pas intérêt, dont la juste valeur est la valeur actualisée des encaissements futurs au taux du marché d'un instrument similaire. « Tout excédent prêté constitue une charge ou une réduction des produits, à moins qu'il ne remplisse les conditions de comptabilisation en tant qu'autre type d'actif. » (B5.1.1).",
+      },
       {
         type: 'carte',
-        titre: "Quatre questions pour classer un actif financier",
-        liste: [
-          "**1.** Est-ce un instrument de capitaux propres ? Juste valeur par le biais du résultat net, sauf choix irrévocable, titre par titre, pour les autres éléments du résultat global s'il n'est pas détenu à des fins de transaction (§ 4.1.4, 5.7.5). Dans ce cas, pas de recyclage et dividendes en résultat (§ 5.7.6 ; B5.7.1).",
-          "**2.** Pour un instrument de dette : les flux sont-ils uniquement du principal et des intérêts ? Non : juste valeur par le biais du résultat net.",
-          "**3.** Oui : quel est le modèle économique du portefeuille ? Percevoir : coût amorti ; percevoir et vendre : juste valeur par le biais des autres éléments du résultat global ; autre : juste valeur par le biais du résultat net.",
-          "**4.** Une désignation à la juste valeur par le biais du résultat net élimine-t-elle une non-concordance comptable ? L'option, irrévocable, reste ouverte à l'origine (§ 4.1.5).",
-        ],
-        note: "Le classement se fixe à l'origine. On ne reclasse que si l'entité change de modèle économique pour la gestion de ses actifs financiers, « et seulement alors » (§ 4.4.1), ce qui doit rester très rare. Et « Une entité ne doit reclasser aucun passif financier. » (§ 4.4.2).",
+        titre: "Exemple 4.4 — Prêt sans intérêt consenti à un cadre",
+        texte: "Une société prête 10 000 USD à l'un de ses cadres, sans intérêt, remboursable en une fois dans deux ans. Le taux du marché pour un prêt comparable est de 8 %.",
+        tableau: {
+          entetes: ['Étape', 'Calcul', 'Montant (USD)'],
+          lignes: [
+            ["Juste valeur initiale du prêt", '10 000 / 1,08²', '**8 573**'],
+            ["Avantage consenti au cadre, en charges de personnel", '10 000 − 8 573', '**1 427**'],
+            ["Produit d'intérêts de l'année 1", '8 573 × 8 %', '686'],
+            ["Coût amorti à la fin de l'année 1", '8 573 + 686', '9 259'],
+            ["Produit d'intérêts de l'année 2", '9 259 × 8 %', '741'],
+            ["Coût amorti à l'échéance", '9 259 + 741', '10 000'],
+          ],
+        },
+        note: "La différence de 1 427 rémunère le cadre : elle constitue un avantage du personnel et non une composante du prêt. Le prêt produit ensuite des intérêts au taux effectif de 8 %, de sorte que sa valeur comptable atteint le montant nominal à l'échéance. La charge totale comptabilisée par la société sur les deux exercices reste nulle en net (1 427 de charges, 1 427 de produits d'intérêts), mais sa répartition entre charges de personnel et produits financiers reflète la substance de l'opération.",
       },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[19] },
+    ],
+  },
+  {
+    numero: '4.5',
+    titre: "Le classement des actifs financiers",
+    navLabel: 'Classement',
+    blocs: [
+      {
+        type: 'paragraphe',
+        texte: "IFRS 9 substitue aux catégories d'IAS 39 un classement fondé sur deux critères. Sauf désignation particulière, un actif financier est classé au coût amorti, à la juste valeur par le biais des autres éléments du résultat global ou à la juste valeur par le biais du résultat net, « en fonction à la fois : (a) du modèle économique que suit l'entité pour la gestion des actifs financiers ; (b) des caractéristiques des flux de trésorerie contractuels de l'actif financier » (§ 4.1.1). Le premier critère porte sur la gestion des actifs par l'entité, le second sur les droits que confère le contrat. Leur combinaison détermine la base d'évaluation, selon le tableau suivant.",
+      },
+      {
+        type: 'carte',
+        titre: "Tableau 4.6 — Classement des instruments de dette (IFRS 9, § 4.1.2 à 4.1.4)",
+        tableau: {
+          entetes: ['Modèle économique', 'Flux constitués uniquement de principal et d\'intérêts', 'Autres flux'],
+          lignes: [
+            ["Détention pour percevoir les flux contractuels (§ 4.1.2(a))", '**Coût amorti**', 'Juste valeur par le biais du résultat net'],
+            ["Détention pour percevoir les flux et vendre (§ 4.1.2A(a))", '**Juste valeur par le biais des autres éléments du résultat global**, avec recyclage', 'Juste valeur par le biais du résultat net'],
+            ["Autres modèles, notamment gestion sur la base de la juste valeur ou transaction (§ 4.1.4 ; B4.1.5-B4.1.6)", 'Juste valeur par le biais du résultat net', 'Juste valeur par le biais du résultat net'],
+          ],
+        },
+      },
+      { type: 'intertitre', texte: "4.5.1 Le modèle économique" },
+      {
+        type: 'paragraphe',
+        texte: "Le modèle économique est une donnée de fait et non une déclaration d'intention. Il s'apprécie au niveau des portefeuilles, à partir de la fréquence, de la valeur et des motifs des ventes passées ainsi que des attentes de ventes futures ; les ventes « ne peuvent donc pas être considérées isolément » (B4.1.2C). Le modèle de perception des flux contractuels n'exige pas la conservation de tous les actifs jusqu'à l'échéance : des ventes peu fréquentes ou de faible valeur restent compatibles avec lui (B4.1.3), de même que les ventes motivées par une augmentation du risque de crédit (B4.1.3A). Le modèle mixte, qui associe perception et vente, correspond notamment à la gestion des besoins de liquidités courants, au maintien d'un profil de rendement ou à l'adossement de la durée des actifs à celle des passifs (B4.1.4A). Le modèle résiduel vise la gestion en vue de réaliser la juste valeur par la vente, la perception des flux n'y ayant qu'un rôle accessoire (B4.1.5).",
+      },
+      { type: 'intertitre', texte: "4.5.2 Les caractéristiques des flux contractuels" },
+      {
+        type: 'paragraphe',
+        texte: "Le second critère, désigné dans la pratique par l'acronyme SPPI (*solely payments of principal and interest*), vérifie que l'instrument présente les caractéristiques d'un **contrat de prêt de base**. Le principal est la juste valeur de l'actif lors de sa comptabilisation initiale ; l'intérêt rémunère la valeur temps de l'argent, le risque de crédit associé au principal, les autres risques et frais d'un prêt de base, ainsi qu'une marge (§ 4.1.3). Le critère n'est pas satisfait lorsque les flux exposent le porteur à des risques étrangers à un prêt de base, tels que les variations du cours d'une action ou du prix d'une matière première (B4.1.7A). B4.1.14 en donne des exemples : obligation convertible en un nombre déterminé d'instruments de capitaux propres de l'émetteur, prêt à taux variable inversé, instrument perpétuel dont les intérêts ne sont pas versés si leur paiement compromettait la solvabilité de l'émetteur, les intérêts différés ne portant pas eux-mêmes intérêt.",
+      },
+      { type: 'intertitre', texte: "4.5.3 Démarche de classement et reclassement" },
+      {
+        type: 'carte',
+        titre: "Tableau 4.7 — Démarche de classement d'un actif financier",
+        tableau: {
+          entetes: ['Étape', 'Question', 'Conclusion'],
+          lignes: [
+            ['1', "L'actif est-il un instrument de capitaux propres ?", "Juste valeur par le biais du résultat net, sauf choix irrévocable, titre par titre, pour les autres éléments du résultat global s'il n'est pas détenu à des fins de transaction ; dans ce cas, pas de recyclage et dividendes en résultat (§ 4.1.4, 5.7.5, 5.7.6 ; B5.7.1)"],
+            ['2', "Pour un instrument de dette, les flux sont-ils uniquement du principal et des intérêts ?", "Dans la négative : juste valeur par le biais du résultat net"],
+            ['3', "Dans l'affirmative, quel est le modèle économique du portefeuille ?", "Perception : coût amorti ; perception et vente : juste valeur par le biais des autres éléments du résultat global ; autre : juste valeur par le biais du résultat net"],
+            ['4', "La désignation à la juste valeur par le biais du résultat net élimine-t-elle une non-concordance comptable ?", "Option irrévocable ouverte lors de la comptabilisation initiale (§ 4.1.5)"],
+          ],
+        },
+      },
+      {
+        type: 'paragraphe',
+        texte: "Le classement est arrêté lors de la comptabilisation initiale. Un actif financier n'est reclassé que si l'entité modifie son modèle économique de gestion des actifs financiers, « et seulement alors » (§ 4.4.1), ce qui doit demeurer exceptionnel. Pour les passifs, la règle est absolue : « Une entité ne doit reclasser aucun passif financier. » (§ 4.4.2).",
+      },
       {
         type: 'filet',
-        titre: "Des actions non cotées au coût ?",
-        texte: "Beaucoup d'entités congolaises détiennent des participations minoritaires non cotées : parts dans une société de transport fluvial qui dessert l'entreprise, actions d'un fournisseur, titres reçus lors d'une restructuration. IFRS 9 impose de les évaluer à la juste valeur (B5.2.3). Le même paragraphe admet toutefois que, « dans des circonstances limitées », le coût puisse constituer une estimation appropriée de la juste valeur : faute d'informations récentes suffisantes, ou lorsque le coût est la meilleure estimation dans une large fourchette. Il s'agit d'une tolérance d'estimation, non d'une catégorie comptable : l'entité doit justifier chaque année que ces circonstances persistent. Le choix des autres éléments du résultat global évite en outre que la volatilité de ces titres ne se lise dans le résultat.",
+        titre: "Observation — Les participations minoritaires non cotées",
+        texte: "De nombreuses entreprises congolaises détiennent des participations minoritaires non cotées : parts dans une société de transport fluvial qui les dessert, actions d'un fournisseur, titres reçus lors d'une restructuration. IFRS 9 impose leur évaluation à la juste valeur. B5.2.3 admet toutefois que, « dans des circonstances limitées », le coût puisse constituer une estimation appropriée de la juste valeur, notamment lorsque les informations récentes sont insuffisantes ou que le coût représente la meilleure estimation au sein d'une large fourchette de valeurs possibles. Il s'agit d'une tolérance d'estimation et non d'une catégorie comptable : l'entité doit vérifier à chaque clôture que ces circonstances persistent. Le choix irrévocable de la présentation en autres éléments du résultat global permet par ailleurs d'isoler la volatilité de ces titres du résultat net.",
       },
     ],
   },
   {
     numero: '4.6',
-    titre: "Le coût amorti et le taux d'intérêt effectif",
+    titre: "Le coût amorti et la méthode du taux d'intérêt effectif",
     navLabel: 'Coût amorti',
     blocs: [
+      { type: 'intertitre', texte: "4.6.1 Définitions" },
       {
         type: 'paragraphe',
-        texte: "Le coût amorti n'est pas le coût historique. C'est, selon l'annexe A, la valeur attribuée à l'actif ou au passif financier lors de sa comptabilisation initiale, « diminuée des remboursements en principal, majorée ou diminuée du cumul de l'amortissement, calculé par la méthode du taux d'intérêt effectif, de toute différence entre cette valeur initiale et la valeur à l'échéance et, dans le cas d'un actif financier, ajustée au titre de la correction de valeur pour pertes, le cas échéant ». Le moteur du calcul est le **taux d'intérêt effectif**, qui étale sur la durée de vie de l'instrument tout ce qui sépare le montant initial du montant final : frais de dossier, coûts de transaction, décotes et surcotes.",
+        texte: "Le coût amorti ne se confond pas avec le coût historique. L'annexe A le définit comme le montant attribué à l'actif ou au passif financier lors de sa comptabilisation initiale, « diminuée des remboursements en principal, majorée ou diminuée du cumul de l'amortissement, calculé par la méthode du taux d'intérêt effectif, de toute différence entre cette valeur initiale et la valeur à l'échéance et, dans le cas d'un actif financier, ajustée au titre de la correction de valeur pour pertes, le cas échéant ». Le **taux d'intérêt effectif** est l'instrument de cet amortissement : il répartit sur la durée de vie de l'instrument l'ensemble des écarts entre le montant initial et le montant remboursé, qu'il s'agisse de frais de dossier, de coûts de transaction, de décotes ou de primes.",
       },
       {
         type: 'filet',
-        titre: "Le taux qui fait tomber juste (annexe A ; § 5.4.1)",
-        texte: "Le taux d'intérêt effectif est le « Taux qui actualise les sorties ou entrées de trésorerie futures estimées sur la durée de vie attendue d'un actif financier ou d'un passif financier de manière à obtenir exactement la valeur comptable brute de l'actif financier ou le coût amorti du passif financier. » L'entité prend en compte toutes les modalités contractuelles, « mais elle ne doit pas tenir compte des pertes de crédit attendues ». Et les produits d'intérêts « doivent être calculés selon la méthode du taux d'intérêt effectif » (§ 5.4.1), par application de ce taux à la valeur comptable brute, sauf pour les actifs dépréciés.",
+        titre: "Texte de référence — IFRS 9, annexe A et § 5.4.1",
+        texte: "Le taux d'intérêt effectif est le « Taux qui actualise les sorties ou entrées de trésorerie futures estimées sur la durée de vie attendue d'un actif financier ou d'un passif financier de manière à obtenir exactement la valeur comptable brute de l'actif financier ou le coût amorti du passif financier. » Pour le calculer, l'entité prend en compte toutes les modalités contractuelles de l'instrument, « mais elle ne doit pas tenir compte des pertes de crédit attendues » (annexe A). Les produits d'intérêts « doivent être calculés selon la méthode du taux d'intérêt effectif » (§ 5.4.1), par application du taux à la valeur comptable brute, sauf pour les actifs financiers dépréciés.",
       },
-      { type: 'controle', question: QCM[20] },
+      { type: 'intertitre', texte: "4.6.2 Application à un emprunt" },
       {
         type: 'carte',
-        titre: "MBANZA CIMENT emprunte 100 000 et encaisse 97 000",
-        texte: "Le 1er janvier N, la société emprunte 100 000 USD sur trois ans pour financer un broyeur : intérêt de 10 % payé en fin d'année, remboursement in fine. La banque retient 3 000 USD de frais de dossier : la société encaisse 97 000. Le taux qui égalise 97 000 et les flux futurs (10 000, 10 000 et 110 000) est d'environ **11,23 %**.",
+        titre: "Exemple 4.5 — Emprunt assorti de frais de dossier (MBANZA CIMENT)",
+        texte: "Le 1er janvier N, la société emprunte 100 000 USD sur trois ans pour financer un broyeur : intérêt de 10 % payable en fin d'année, remboursement in fine. La banque retient 3 000 USD de frais de dossier ; la société encaisse 97 000. Le taux qui égalise 97 000 et la valeur actualisée des flux futurs (10 000, 10 000 et 110 000) est d'environ **11,23 %**.",
         tableau: {
-          entetes: ['Année', "Coût amorti de la dette à l'ouverture", 'Charge d\'intérêts au taux effectif', 'Intérêts payés', 'Part des frais étalée', 'Coût amorti à la clôture'],
+          entetes: ['Année', "Coût amorti à l'ouverture", "Charge d'intérêts au taux effectif", 'Intérêts payés', 'Frais amortis', 'Coût amorti à la clôture'],
           lignes: [
             ['N', '97 000', '10 896', '10 000', '896', '97 896'],
             ['N+1', '97 896', '10 996', '10 000', '996', '98 892'],
@@ -722,86 +788,92 @@ const SECTIONS: Chapitre['sections'] = [
             ['**Total**', '', '**33 000**', '', '**3 000**', ''],
           ],
         },
-        note: "Les 3 000 de frais ne sont pas une charge de N : ils renchérissent le coût du crédit, et le taux effectif les répartit au rythme actuariel (896, puis 996, puis 1 108). La dette figure au bilan pour 97 000 à l'origine, et non pour 100 000 avec des frais en charges. Un étalement linéaire donnerait 1 000 par an ; l'écart est faible ici, mais il grandit avec la durée, le niveau des frais et les remboursements anticipés.",
+        note: "À l'origine, la dette est comptabilisée pour 97 000 (débit trésorerie, crédit emprunt). En N, la charge d'intérêts de 10 896 est enregistrée en contrepartie d'un décaissement de 10 000 et d'une augmentation de 896 de la dette. Les frais de dossier ne constituent pas une charge immédiate : ils majorent le coût du financement et sont répartis au rythme actuariel. Un étalement linéaire donnerait 1 000 par an ; l'écart est faible dans cet exemple, mais il croît avec la durée de l'emprunt, le niveau des frais et l'éventualité de remboursements anticipés.",
       },
-      { type: 'controle', question: QCM[21] },
       {
         type: 'filet',
-        titre: "Frais d'emprunt : en charges, étalés, ou au taux effectif ?",
-        texte: "Dans la pratique, beaucoup d'entreprises passent les frais de dossier d'un emprunt en charges dès l'octroi, ou les étalent linéairement. IFRS 9 exige la méthode du taux effectif. IAS 8.8 admet qu'« Il convient de ne pas appliquer ces méthodes lorsque l'effet de leur application n'est pas significatif », mais ajoute aussitôt qu'« il est inapproprié de faire, ou de ne pas corriger, des écarts non significatifs par rapport aux IFRS en vue de parvenir à une présentation particulière ». Une méthode simplifiée se défend donc par un calcul qui démontre que l'écart reste non significatif, pas par une affirmation. Le même raisonnement vaut pour les prêts au personnel sans intérêt : leur actualisation n'est pas un raffinement, dès lors que les montants sont significatifs.",
+        titre: "Observation — Importance relative et méthodes simplifiées",
+        texte: "Dans la pratique, les frais de dossier sont fréquemment passés en charges lors de l'octroi du crédit ou étalés linéairement. IFRS 9 exige la méthode du taux d'intérêt effectif. IAS 8, § 8, dispose qu'« Il convient de ne pas appliquer ces méthodes lorsque l'effet de leur application n'est pas significatif », mais précise aussitôt qu'« il est inapproprié de faire, ou de ne pas corriger, des écarts non significatifs par rapport aux IFRS en vue de parvenir à une présentation particulière ». Le recours à une méthode simplifiée doit donc être justifié par un calcul démontrant le caractère non significatif de l'écart. Le même raisonnement s'applique à l'actualisation des prêts au personnel lorsque les montants sont significatifs.",
       },
-      { type: 'controle', question: QCM[22] },
+      { type: 'intertitre', texte: "4.6.3 Les passifs financiers" },
       {
         type: 'paragraphe',
-        texte: "Pour l'entreprise, la règle générale des passifs financiers est simple. L'entité classe « comme étant ultérieurement évalués au coût amorti tous les passifs financiers à l'exception » de ceux que la norme énumère : passifs à la juste valeur par le biais du résultat net, dont les dérivés, contrats de garantie financière, engagements de prêt à taux inférieur au marché, contrepartie éventuelle d'un regroupement (§ 4.2.1). Un emprunt bancaire ou obligataire est donc évalué au coût amorti, comme dans l'exemple de MBANZA CIMENT ; une dette fournisseur à court terme l'est aussi, et son coût amorti se confond en pratique avec son montant nominal. Le passif sort du bilan lorsqu'il est éteint, c'est-à-dire lorsque l'obligation est exécutée, annulée ou expirée (§ 3.3.1), et l'écart avec le montant payé va en résultat net (§ 3.3.3).",
+        texte: "L'entité classe « comme étant ultérieurement évalués au coût amorti tous les passifs financiers à l'exception » de ceux que la norme énumère : passifs à la juste valeur par le biais du résultat net, dont les dérivés, contrats de garantie financière, engagements de prêt à un taux inférieur à celui du marché et contrepartie éventuelle d'un regroupement d'entreprises (§ 4.2.1). Un emprunt bancaire ou obligataire est donc évalué au coût amorti, comme dans l'exemple 4.5 ; il en va de même d'une dette fournisseur à court terme, dont le coût amorti se confond en pratique avec le montant nominal. Le passif financier est décomptabilisé lorsqu'il est éteint, c'est-à-dire lorsque l'obligation est exécutée, annulée ou arrivée à expiration (§ 3.3.1) ; la différence entre sa valeur comptable et la contrepartie payée est comptabilisée en résultat net (§ 3.3.3).",
       },
-      { type: 'controle', question: QCM[30] },
     ],
   },
   {
     numero: '4.7',
-    titre: "Dépréciation : des pertes subies aux pertes de crédit attendues",
+    titre: "La dépréciation des actifs financiers : le modèle des pertes de crédit attendues",
     navLabel: 'Pertes attendues',
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Le comptable formé au SYSCOHADA déprécie une créance lorsqu'elle devient douteuse : il attend un fait, un retard, un litige, une faillite. IFRS 9 renverse cette logique : l'entreprise ne doit plus attendre que le client soit en difficulté pour constater le risque, parce que le risque de non-paiement existe dès la naissance de la créance. L'entité comptabilise une correction de valeur au titre des **pertes de crédit attendues** sur tous les actifs au coût amorti ou à la juste valeur par le biais des autres éléments du résultat global, les créances locatives, les actifs sur contrat, les engagements de prêt et les garanties financières (§ 5.5.1). La perte attendue est une « Moyenne pondérée des pertes de crédit, dont les poids sont les risques de défaillance respectifs » (annexe A). Il y a perte même si l'on s'attend à être payé en entier, mais en retard (B5.5.28).",
+        texte: "Le SYSCOHADA révisé ne déprécie une créance que lorsqu'un événement la rend douteuse : retard de paiement, litige, ouverture d'une procédure collective. IFRS 9 adopte la démarche inverse en considérant que le risque de non-paiement existe dès l'origine de la créance et doit être reflété avant sa matérialisation. L'entité comptabilise une correction de valeur au titre des **pertes de crédit attendues** sur les actifs financiers évalués au coût amorti ou à la juste valeur par le biais des autres éléments du résultat global, les créances locatives, les actifs sur contrat, les engagements de prêt et les contrats de garantie financière (§ 5.5.1). La perte de crédit attendue est la « Moyenne pondérée des pertes de crédit, dont les poids sont les risques de défaillance respectifs » (annexe A). Une perte existe même lorsque l'entité s'attend à être payée intégralement, mais avec retard, en raison de la valeur temps de l'argent (B5.5.28).",
       },
       {
         type: 'filet',
-        titre: "Probabilités, temps, conjoncture : les trois exigences du § 5.5.17",
-        texte: "Les pertes de crédit attendues doivent refléter « (a) un montant objectif et fondé sur des pondérations probabilistes, qui est déterminé par l'évaluation d'un intervalle de résultats possibles ; (b) la valeur temps de l'argent ; (c) les informations raisonnables et justifiables sur des événements passés, des circonstances actuelles et des prévisions de la conjoncture économique encore à venir, qu'il est possible, à la date de clôture, d'obtenir sans devoir engager des coûts ou des efforts déraisonnables ». Le point (c) est la vraie rupture : l'historique ne suffit plus, il faut y intégrer la conjoncture attendue.",
+        titre: "Texte de référence — IFRS 9, § 5.5.17",
+        texte: "Les pertes de crédit attendues doivent refléter « (a) un montant objectif et fondé sur des pondérations probabilistes, qui est déterminé par l'évaluation d'un intervalle de résultats possibles ; (b) la valeur temps de l'argent ; (c) les informations raisonnables et justifiables sur des événements passés, des circonstances actuelles et des prévisions de la conjoncture économique encore à venir, qu'il est possible, à la date de clôture, d'obtenir sans devoir engager des coûts ou des efforts déraisonnables ».",
       },
       {
-        type: 'tableau',
+        type: 'paragraphe',
+        texte: "Le point (c) marque la rupture principale avec le modèle antérieur : l'historique des pertes ne suffit plus et doit être ajusté des prévisions relatives à la conjoncture. Le montant retenu n'est pas le scénario le plus probable, mais une moyenne pondérée de plusieurs scénarios plausibles.",
+      },
+      { type: 'intertitre', texte: "4.7.1 Le modèle général en trois étapes" },
+      {
+        type: 'carte',
+        titre: "Tableau 4.8 — Modèle général de dépréciation (IFRS 9, § 5.5.3, 5.5.5 et 5.4.1)",
         tableau: {
-          entetes: ['Situation à la clôture', 'Correction de valeur', 'Base des intérêts', 'Vocabulaire de la pratique'],
+          entetes: ['Situation à la clôture', 'Correction de valeur', 'Base de calcul des intérêts', 'Désignation usuelle'],
           lignes: [
-            ["Risque de crédit sans augmentation importante depuis l'origine", "Pertes attendues pour les **12 mois à venir** (§ 5.5.5)", 'Valeur comptable brute (§ 5.4.1)', 'Étape 1 (stage 1)'],
-            ["Augmentation importante du risque de crédit", "Pertes attendues pour la **durée de vie** (§ 5.5.3)", 'Valeur comptable brute', 'Étape 2 (stage 2)'],
-            ["Actif financier déprécié (annexe A)", "Pertes attendues pour la durée de vie", '**Coût amorti**, net de la correction (§ 5.4.1(b))', 'Étape 3 (stage 3)'],
+            ["Risque de crédit sans augmentation importante depuis la comptabilisation initiale", "Pertes attendues pour les **douze mois à venir** (§ 5.5.5)", 'Valeur comptable brute (§ 5.4.1)', 'Étape 1'],
+            ["Augmentation importante du risque de crédit", "Pertes attendues pour la **durée de vie** (§ 5.5.3)", 'Valeur comptable brute', 'Étape 2'],
+            ["Actif financier déprécié (annexe A)", "Pertes attendues pour la durée de vie", '**Coût amorti**, net de la correction (§ 5.4.1(b))', 'Étape 3'],
           ],
         },
       },
       {
         type: 'paragraphe',
-        texte: "La norme ne parle pas d'étapes : ce vocabulaire vient de la pratique. Pour une entreprise commerciale ou industrielle, ce modèle général vise surtout les prêts qu'elle consent et ses placements en titres de dette ; ses créances clients suivent l'approche simplifiée (section 4.8). Ce qu'elle impose, c'est d'apprécier à chaque clôture si le risque de défaillance sur la durée de vie a augmenté de façon importante depuis l'origine, en comparant les deux dates (§ 5.5.9). Deux présomptions réfutables balisent le jugement : augmentation importante lorsque les paiements sont en souffrance depuis plus de 30 jours (§ 5.5.11), ce qui constitue le moment le plus tardif du passage aux pertes pour la durée de vie (B5.5.19) ; défaillance au plus tard 90 jours après l'échéance impayée (B5.5.37). Un instrument à risque faible peut être présumé sans augmentation importante (§ 5.5.10), mais pas simplement parce qu'il est garanti ou moins risqué que le pays de l'entité (B5.5.22). Les variations de la correction passent en résultat net comme gain ou perte de valeur (§ 5.5.8).",
+        texte: "La norme ne parle pas d'étapes ; cette terminologie est issue de la pratique. Dans une entreprise commerciale ou industrielle, le modèle général concerne principalement les prêts consentis et les placements en titres de dette, les créances clients relevant de l'approche simplifiée (section 4.8). Il impose d'apprécier à chaque clôture si le risque de défaillance sur la durée de vie a augmenté de façon importante depuis l'origine, par comparaison entre les deux dates (§ 5.5.9). Deux présomptions réfutables encadrent ce jugement. L'augmentation importante est présumée lorsque les paiements contractuels sont en souffrance depuis plus de 30 jours (§ 5.5.11), ce seuil constituant le moment le plus tardif de comptabilisation des pertes pour la durée de vie (B5.5.19). La défaillance est présumée au plus tard lorsqu'un paiement est en souffrance depuis 90 jours (B5.5.37). Un instrument présentant un risque de crédit faible peut être présumé ne pas avoir subi d'augmentation importante (§ 5.5.10), mais cette qualification ne peut résulter du seul fait qu'il est garanti ou moins risqué que le pays de l'entité (B5.5.22). Les variations de la correction de valeur sont comptabilisées en résultat net au titre de gain ou de perte de valeur (§ 5.5.8).",
       },
-      { type: 'controle', question: QCM[23] },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "4.7.2 Application à un prêt consenti à un distributeur" },
       {
         type: 'carte',
-        titre: "Le distributeur du Kwilu paie en retard : de 900 à 6 750 de pertes attendues",
-        liste: [
-          "**Convention de calcul.** Pertes attendues = probabilité de défaillance × taux de perte en cas de défaillance × valeur brute. Ce produit simplifié ignore l'actualisation et les scénarios multiples ; la norme exige les deux (§ 5.5.17). Il suffit ici à montrer la mécanique.",
-          "Le 1er janvier N, MBANZA CIMENT prête 100 000 USD à son distributeur exclusif du Kwilu, pour trois ans, intérêt de 10 % payé en fin d'année, remboursement in fine, sans frais : le taux effectif est de 10 % et la valeur brute reste de 100 000.",
-          "**Fin N, étape 1.** Probabilité de défaillance à 12 mois 2 %, taux de perte 45 % : 100 000 × 2 % × 45 % = **900**. Dotation de 900 en résultat (§ 5.5.8). Coût amorti : 99 100. Produits d'intérêts de N+1 calculés sur la valeur brute : 10 000.",
-          "**Fin N+1, étape 2.** Un intérêt est impayé depuis 45 jours : la présomption du § 5.5.11 joue. Probabilité de défaillance sur la durée de vie restante 15 % : 100 000 × 15 % × 45 % = **6 750**. Dotation complémentaire : 6 750 − 900 = **5 850**.",
-          "**Si l'emprunteur entre en difficultés financières importantes (étape 3)**, l'actif devient un actif financier déprécié : les intérêts des périodes suivantes se calculent sur le coût amorti net de la correction (§ 5.4.1(b)). Et lorsque plus aucun recouvrement n'est raisonnablement attendu, la valeur brute est réduite directement : c'est une décomptabilisation (§ 5.4.4).",
-        ],
+        titre: "Exemple 4.6 — Évolution de la correction de valeur d'un prêt (MBANZA CIMENT)",
+        texte: "Le 1er janvier N, MBANZA CIMENT prête 100 000 USD à son distributeur exclusif du Kwilu, pour trois ans, au taux de 10 % payable en fin d'année, remboursement in fine, sans frais ; le taux effectif est de 10 % et la valeur comptable brute demeure de 100 000. Par convention, la perte attendue est calculée comme le produit de la probabilité de défaillance, du taux de perte en cas de défaillance et de la valeur brute ; cette formule simplifiée omet l'actualisation et la pluralité des scénarios que requiert le § 5.5.17, mais suffit à décrire la mécanique.",
+        tableau: {
+          entetes: ['Date', 'Situation', 'Calcul', 'Correction de valeur', 'Écriture'],
+          lignes: [
+            ['Fin N', "Étape 1 : probabilité de défaillance à douze mois de 2 %, taux de perte de 45 %", '100 000 × 2 % × 45 %', '**900**', 'Dotation de 900 (§ 5.5.8) ; coût amorti 99 100'],
+            ['Fin N+1', "Étape 2 : intérêt impayé depuis 45 jours (présomption du § 5.5.11) ; probabilité de défaillance sur la durée de vie restante de 15 %", '100 000 × 15 % × 45 %', '**6 750**', 'Dotation complémentaire de 5 850'],
+          ],
+        },
+        note: "Les produits d'intérêts de N+1 sont calculés sur la valeur comptable brute, soit 10 000. Si l'emprunteur connaît des difficultés financières importantes, l'actif devient un actif financier déprécié (étape 3) : les intérêts des périodes suivantes sont calculés sur le coût amorti, net de la correction de valeur (§ 5.4.1(b)). Lorsque l'entité n'a plus d'attente raisonnable de recouvrement, la valeur comptable brute est directement réduite, ce qui constitue une décomptabilisation (§ 5.4.4).",
       },
-      { type: 'controle', question: QCM[31] },
       {
         type: 'filet',
-        titre: "Le cuivre, le franc et la sécurité dans la matrice",
-        texte: "Que signifie une « prévision de la conjoncture économique » pour un distributeur de Lubumbashi qui vend à crédit à des sous-traitants miniers ? Le cours du cuivre et du cobalt, dont dépend la solvabilité de ses clients ; la trajectoire du franc congolais, qui fragilise les clients endettés en dollars mais payés en francs ; la situation sécuritaire, qui peut couper l'accès à une province ; la hausse des taux d'intérêt, qui renchérit le crédit de ses clients. La norme ne demande pas une prévision exacte, mais une pondération honnête de scénarios plausibles, justifiée et documentée. Deux dérives sont à éviter : ignorer la conjoncture, ce qui revient à revenir aux pertes subies ; ou l'invoquer pour lisser le résultat d'une année sur l'autre.",
+        titre: "Observation — Les informations prospectives dans le contexte congolais",
+        texte: "Pour un distributeur de Lubumbashi qui vend à crédit à des sous-traitants miniers, la prise en compte des « prévisions de la conjoncture économique » porte sur des variables identifiables : le cours du cuivre et du cobalt, dont dépend la solvabilité de sa clientèle ; l'évolution du taux de change du franc congolais, qui fragilise les clients endettés en dollars et rémunérés en francs ; la situation sécuritaire, susceptible d'interrompre l'accès à une province ; le niveau des taux d'intérêt, qui détermine le coût du crédit de ses clients. La norme n'exige pas une prévision exacte, mais une pondération de scénarios plausibles, justifiée et documentée. Deux écueils sont à éviter : l'omission de la conjoncture, qui revient à appliquer le modèle des pertes subies, et son invocation pour lisser le résultat d'un exercice à l'autre.",
       },
     ],
   },
   {
     numero: '4.8',
-    titre: "Créances clients : l'approche simplifiée, la matrice et les passerelles",
+    titre: "Les créances clients : l'approche simplifiée",
     navLabel: 'Créances clients',
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Pour une entreprise commerciale, le modèle des étapes serait disproportionné. IFRS 9 l'en dispense : pour les créances clients et actifs sur contrat relevant d'IFRS 15 sans composante financement importante, l'entité « doit toujours évaluer la correction de valeur pour pertes au montant des pertes de crédit attendues pour la durée de vie » (§ 5.5.15(a)). Voilà l'**approche simplifiée** : plus de suivi de la dégradation depuis l'origine. Pour les créances avec composante financement et les créances locatives, elle est optionnelle, sur choix de méthode comptable (§ 5.5.15(a)(ii) et (b)).",
+        texte: "L'application du modèle général à un portefeuille de créances commerciales nombreuses et de courte durée serait disproportionnée. Pour les créances clients et les actifs sur contrat relevant d'IFRS 15 qui ne comportent pas de composante financement importante, l'entité « doit toujours évaluer la correction de valeur pour pertes au montant des pertes de crédit attendues pour la durée de vie » (§ 5.5.15(a)). Cette **approche simplifiée** supprime le suivi de l'évolution du risque depuis l'origine. Pour les créances comportant une composante financement importante et pour les créances locatives, elle est facultative et relève d'un choix de méthode comptable (§ 5.5.15(a)(ii) et (b)).",
       },
-      { type: 'controle', question: QCM[25] },
+      {
+        type: 'paragraphe',
+        texte: "La mise en œuvre repose généralement sur une matrice de provisionnement, que B5.5.35 cite comme exemple de méthode simplifiée. Elle comporte quatre opérations : le classement des créances par ancienneté, l'application à chaque tranche d'un taux de perte fondé sur l'historique et ajusté des informations actuelles et prospectives, le calcul de la perte attendue et sa comptabilisation. Une clientèle hétérogène justifie des matrices distinctes par segment (région, type de produit, grossistes ou détaillants) lorsque l'historique révèle des profils de pertes différents (B5.5.35).",
+      },
       {
         type: 'carte',
-        titre: "DISTRICOM SA : 400 000 de créances, 32 000 de pertes attendues",
-        texte: "La méthode pratique tient en quatre temps : classer les créances par ancienneté ; appliquer à chaque tranche un taux de perte estimé ; calculer la perte attendue ; la comptabiliser immédiatement. B5.5.35 cite cette matrice comme exemple de simplification, avec des taux tirés de l'historique des pertes, ajustés des informations actuelles et prospectives.",
+        titre: "Exemple 4.7 — Matrice de provisionnement des créances clients (DISTRICOM SA)",
         tableau: {
           entetes: ['Ancienneté', 'Montant (USD)', 'Taux de perte attendu', 'Perte attendue'],
           lignes: [
@@ -812,49 +884,50 @@ const SECTIONS: Chapitre['sections'] = [
             ['**Total**', '**400 000**', '', '**32 000**'],
           ],
         },
-        note: "Écriture : charge de dépréciation en résultat net (§ 5.5.8), correction de valeur en déduction des créances ; les créances figurent au bilan pour 368 000, montant plus proche de la trésorerie réellement attendue. Ajustement prospectif : si la direction anticipe une dégradation de la conjoncture et porte le taux de la dernière tranche à 50 %, la perte attendue passe à 36 000. Une clientèle hétérogène justifie des matrices distinctes par segment (région, type de produit, grossistes ou détaillants), si l'historique montre des profils de pertes différents (B5.5.35).",
+        note: "La dotation de 32 000 est comptabilisée en résultat net (§ 5.5.8) et la correction de valeur vient en déduction des créances, présentées au bilan pour 368 000. Si la direction anticipe une dégradation de la conjoncture et porte le taux de la dernière tranche à 50 %, la perte attendue s'élève à 36 000 : l'ajustement prospectif exigé par le § 5.5.17(c) modifie directement le montant comptabilisé.",
       },
-      { type: 'controle', question: QCM[26] },
       {
         type: 'filet',
-        titre: "15 000 ou 32 000 : perte subie contre perte attendue",
-        texte: "Le SYSCOHADA révisé déprécie les créances par le compte 491, avec une logique opposée. La dépréciation doit être « certaine quant à sa nature » et l'élément d'actif « individualisé » ; l'entité doit pouvoir justifier les motifs qui rendent la créance douteuse ou litigieuse, et les événements survenus après la clôture ne sont pas pris en compte (Titre VII, commentaire du compte 49). Sur l'exemple de DISTRICOM, supposons que 25 000 des 40 000 de la tranche de plus de 60 jours correspondent à des clients identifiés comme douteux, recouvrables à 40 % : la dépréciation SYSCOHADA serait de 15 000, contre 32 000 en IFRS 9. L'écart n'est pas une erreur de l'un ou de l'autre : il mesure la différence entre un modèle qui constate une perte et un modèle qui l'anticipe. Il se retrouve dans les impôts différés des groupes qui établissent les deux jeux d'états (chapitre 6).",
+        titre: "Rapprochement avec le SYSCOHADA révisé",
+        texte: "Le SYSCOHADA révisé déprécie les créances par le compte 491 selon une logique opposée. La dépréciation doit être « certaine quant à sa nature » et porter sur un élément d'actif « individualisé » ; l'entité doit justifier les motifs qui rendent la créance douteuse ou litigieuse, et les événements survenus après la clôture ne sont pas pris en compte (Titre VII, commentaire du compte 49). Dans l'exemple 4.7, si 25 000 des 40 000 de la tranche de plus de 60 jours correspondent à des clients identifiés comme douteux et recouvrables à 40 %, la dépréciation selon le SYSCOHADA s'établit à 15 000, contre 32 000 selon IFRS 9. L'écart ne traduit pas une erreur de l'un des référentiels : il mesure la différence entre un modèle qui constate une perte et un modèle qui l'anticipe. Il se retrouve dans les impôts différés des groupes qui établissent des états selon les deux référentiels (chapitre 6).",
       },
-      { type: 'controle', question: QCM[27] },
     ],
   },
   {
     numero: '4.9',
-    titre: "Décomptabiliser, puis couvrir : les deux dernières clés d'IFRS 9",
+    titre: "La décomptabilisation des actifs financiers et la comptabilité de couverture",
     navLabel: 'Sortie et couverture',
     blocs: [
+      { type: 'intertitre', texte: "4.9.1 La décomptabilisation des actifs financiers" },
       {
         type: 'paragraphe',
-        texte: "Un actif financier ne sort du bilan que dans deux cas : lorsque les droits contractuels aux flux expirent, ou lorsque l'entité le transfère dans des conditions qui répondent aux critères de décomptabilisation (§ 3.2.3). Le critère central est celui des **risques et avantages** (§ 3.2.6). Si l'entité transfère la quasi-totalité des risques et avantages, elle décomptabilise ; si elle en conserve la quasi-totalité, « elle doit laisser l'actif financier comptabilisé » ; entre les deux, tout dépend du **contrôle** : sans contrôle, décomptabilisation ; avec contrôle, maintien dans la mesure du lien conservé. À la sortie complète, l'écart entre la valeur comptable et la contrepartie reçue va en résultat net (§ 3.2.12).",
+        texte: "Un actif financier n'est décomptabilisé que dans deux cas : l'expiration des droits contractuels aux flux de trésorerie, ou un transfert qui satisfait aux conditions de décomptabilisation (§ 3.2.3). L'analyse d'un transfert repose d'abord sur le critère des **risques et avantages** (§ 3.2.6). Si l'entité transfère la quasi-totalité des risques et avantages inhérents à la propriété de l'actif, elle le décomptabilise ; si elle en conserve la quasi-totalité, « elle doit laisser l'actif financier comptabilisé ». Dans les situations intermédiaires, le critère du **contrôle** est déterminant : en l'absence de contrôle conservé, l'actif est décomptabilisé ; si le contrôle est conservé, l'actif reste comptabilisé dans la mesure de l'implication continue de l'entité. Lors d'une décomptabilisation intégrale, la différence entre la valeur comptable et la contrepartie reçue est comptabilisée en résultat net (§ 3.2.12).",
       },
       {
         type: 'carte',
-        titre: "Affacturage et titrisation : IFRS 9 face au SYSCOHADA",
+        titre: "Tableau 4.9 — Affacturage et titrisation selon IFRS 9 et le SYSCOHADA révisé",
         tableau: {
           entetes: ['Opération', 'IFRS 9 (§ 3.2.6)', 'SYSCOHADA révisé (Titre VIII, ch. 15)'],
           lignes: [
-            ['Affacturage sans recours, risque d\'impayé transféré au factor', 'Décomptabilisation de la créance', "Créance soldée du compte 411 par le 4716 Compte d'affacturage ; retenue de garantie au 4717"],
-            ['Affacturage avec recours intégral', "**Maintien** de la créance ; trésorerie reçue en passif financier (§ 4.2.1(b))", "Pas de traitement distinct : le chapitre 15 décrit un factor qui garantit la bonne fin ; créances cédées non échues mentionnées dans les notes"],
-            ['Titrisation avec conservation d\'une tranche subordonnée', "Analyse des risques conservés ; maintien probable, total ou partiel", "« s'analyse comme une cession » : décomptabilisation dès la remise du bordereau"],
+            ["Affacturage sans recours, risque d'impayé transféré au factor", 'Décomptabilisation de la créance', "Créance soldée du compte 411 par le compte 4716 Compte d'affacturage ; retenue de garantie au compte 4717"],
+            ['Affacturage avec recours intégral', "**Maintien** de la créance ; trésorerie reçue comptabilisée en passif financier (§ 4.2.1(b))", "Pas de traitement distinct : le chapitre 15 décrit un factor garantissant la bonne fin ; créances cédées non échues mentionnées dans les notes"],
+            ["Titrisation avec conservation d'une tranche subordonnée", "Analyse des risques conservés ; maintien probable, total ou partiel", "« s'analyse comme une cession » : décomptabilisation dès la remise du bordereau"],
           ],
         },
-        note: "L'enjeu est considérable pour la lecture du bilan : une créance cédée avec recours qui disparaît du bilan fait aussi disparaître un endettement. IFRS 9 raisonne sur la substance du risque ; le SYSCOHADA, sur la forme juridique du transfert.",
       },
-      { type: 'controle', question: QCM[28] },
       {
         type: 'paragraphe',
-        texte: "La comptabilité de couverture est facultative. Elle vise à « représenter dans les états financiers l'effet des activités de gestion des risques de l'entité » (§ 6.1.1) lorsque l'instrument de couverture et l'élément couvert seraient, sans elle, comptabilisés sur des bases différentes : un contrat de change à terme à la juste valeur en résultat, un achat futur de carburant en dollars qui n'est pas encore au bilan. Ses conditions sont strictes (§ 6.4.1) : instruments et éléments admis, désignation et documentation dès l'origine, lien économique, risque de crédit non dominant, ratio de couverture cohérent avec la gestion réelle du risque. Faute de documentation initiale, pas de couverture comptable, même si la couverture économique est parfaite.",
+        texte: "La divergence affecte directement la lecture de la structure financière. Lorsqu'une créance cédée avec recours est retirée du bilan, l'endettement correspondant disparaît également. IFRS 9 raisonne sur la substance économique du risque conservé ; le SYSCOHADA révisé s'attache à la forme juridique du transfert.",
       },
-      { type: 'controle', question: QCM[29] },
+      { type: 'intertitre', texte: "4.9.2 La comptabilité de couverture" },
+      {
+        type: 'paragraphe',
+        texte: "La comptabilité de couverture est facultative. Elle a pour objectif de « représenter dans les états financiers l'effet des activités de gestion des risques de l'entité » (§ 6.1.1) lorsque l'instrument de couverture et l'élément couvert seraient, en son absence, comptabilisés selon des bases différentes : un contrat de change à terme évalué à la juste valeur par le biais du résultat net et un achat futur de carburant libellé en dollars, non encore comptabilisé. Ses conditions sont strictes (§ 6.4.1) : instruments et éléments couverts admissibles, désignation et documentation formelles dès l'origine, lien économique entre l'élément couvert et l'instrument de couverture, absence de prépondérance du risque de crédit, ratio de couverture cohérent avec la gestion effective du risque. En l'absence de documentation initiale, la comptabilité de couverture ne peut être appliquée, quelle que soit l'efficacité économique de la couverture.",
+      },
       {
         type: 'filet',
-        titre: "Le stock et la créance, une même idée",
-        texte: "Stocks et instruments financiers semblent appartenir à deux mondes. Ils obéissent pourtant à une même idée : un actif ne vaut au bilan que ce qu'il rapportera. IAS 2 plafonne le stock à sa valeur nette de réalisation ; IFRS 9 réduit la créance des pertes de crédit qu'on en attend. La différence tient au moment : IAS 2 attend un indice de perte (prix en baisse, obsolescence), IFRS 9 anticipe la perte dès le premier jour. Le passage de la perte subie à la perte attendue est l'une des transformations les plus profondes de la comptabilité financière récente ; il oblige toute entreprise qui applique les IFRS à organiser le suivi de ses créances (balance âgée, historique des pertes, informations sur ses clients) bien au-delà de ce qu'exige la tenue des comptes en SYSCOHADA.",
+        titre: "Synthèse du chapitre",
+        texte: "Stocks et instruments financiers relèvent de normes distinctes, mais obéissent à un même principe : un actif ne peut figurer au bilan pour un montant supérieur à celui qu'il permettra de recouvrer. IAS 2 plafonne le stock à sa valeur nette de réalisation ; IFRS 9 réduit la créance des pertes de crédit attendues. La différence tient au moment de la constatation : IAS 2 requiert un indice de perte (baisse des prix, obsolescence), IFRS 9 anticipe la perte dès la comptabilisation initiale. Ce passage de la perte subie à la perte attendue impose à toute entité appliquant les IFRS un dispositif de suivi de ses créances (balance âgée, historique des pertes, information sur les clients et la conjoncture) plus exigeant que celui requis par la tenue des comptes selon le SYSCOHADA révisé.",
       },
     ],
   },
@@ -863,7 +936,7 @@ const SECTIONS: Chapitre['sections'] = [
 const CAS: Chapitre['casPratiques'] = [
   {
     id: 'ue13c4-cp1',
-    titre: "Synthèse : stocks et créances de TECHMARKET SA",
+    titre: "Dépréciation des stocks et des créances clients (TECHMARKET SA)",
     contexte: "TECHMARKET SA distribue du matériel électronique à Kinshasa et établit, pour son actionnaire étranger, des états financiers IFRS en plus de ses comptes SYSCOHADA. Au 31 décembre N : coût des stocks 500 000 USD, valeur nette de réalisation estimée 450 000 USD ; créances clients 300 000 USD, dont 220 000 sur des clients solvables (taux de perte attendu 2 %) et 80 000 sur des clients fragiles (taux 25 %). L'inventaire détaillé révèle que les stocks se composent de téléphones (coût 300 000, valeur nette de réalisation 320 000) et d'ordinateurs d'une génération dépassée (coût 200 000, valeur nette de réalisation 130 000).",
     questions: [
       {
@@ -890,7 +963,7 @@ const CAS: Chapitre['casPratiques'] = [
   },
   {
     id: 'ue13c4-cp2',
-    titre: "Calcul : les stocks de la MINOTERIE DU KONGO CENTRAL (société fictive)",
+    titre: "Coût et valeur nette de réalisation des stocks d'une minoterie (MINOTERIE DU KONGO CENTRAL, société fictive)",
     contexte: "Exercice N. Achat de blé importé : prix facturé 280 000 USD, remise 8 000, droits de douane 22 000, TVA récupérable 45 000, transport de Matadi à l'usine 12 000. Tout ce blé est transformé en 16 000 tonnes de farine, pour une capacité normale de 20 000 tonnes. Frais généraux fixes de production : 480 000 USD. Coûts variables de transformation : 18 USD la tonne. Autres charges : frais du siège 60 000, publicité 25 000, entrepôt des produits finis 15 000. À la clôture, 2 000 tonnes restent en stock, dont 1 200 engagées dans un contrat de vente ferme à 66 USD la tonne. Le prix du marché est tombé à 58 USD ; les frais de vente sont de 3 USD la tonne.",
     questions: [
       {
@@ -917,7 +990,7 @@ const CAS: Chapitre['casPratiques'] = [
   },
   {
     id: 'ue13c4-cp3',
-    titre: "Calcul : une obligation d'entreprise au coût amorti, puis à la juste valeur",
+    titre: "Obligation d'entreprise évaluée au coût amorti et à la juste valeur",
     contexte: "Le 1er janvier N, KIVU TÉLÉCOM SA (société fictive) acquiert une obligation d'entreprise : valeur nominale 200 000 USD, coupon annuel de 6 % payé le 31 décembre, remboursement au pair dans deux ans. Prix payé 195 000, frais de courtage 1 000. Le taux d'intérêt effectif qui égalise 196 000 et les flux futurs (12 000 puis 212 000) est d'environ 7,11 %. Fin N, le risque de crédit de l'émetteur n'a pas augmenté de façon importante : probabilité de défaillance à 12 mois 1,5 %, taux de perte en cas de défaillance 40 % (simplification pédagogique, sans actualisation). Juste valeur de l'obligation fin N : 198 500.",
     questions: [
       {
@@ -944,7 +1017,7 @@ const CAS: Chapitre['casPratiques'] = [
   },
   {
     id: 'ue13c4-cp4',
-    titre: "Classer : la trésorerie et les placements de KASAÏ AGRO SA (société fictive)",
+    titre: "Classement de la trésorerie et des placements (KASAÏ AGRO SA, société fictive)",
     contexte: "Au 31 décembre N, un groupe agro-industriel de Mbuji-Mayi détient : (a) des bons du Trésor, conservés jusqu'à l'échéance ; (b) des obligations d'entreprise qu'il vend régulièrement pour financer ses campagnes d'achat de maïs, qui reviennent chaque année ; (c) des actions cotées sur une bourse étrangère, achetées pour être revendues à court terme ; (d) une participation de 5 % dans une société de transport fluvial qui achemine ses produits, conservée pour des raisons stratégiques ; (e) une obligation convertible en actions de l'émetteur ; (f) un contrat de change à terme USD/CDF ; (g) une avance versée à un fournisseur de semences, qui sera réglée par la livraison des semences.",
     questions: [
       {
@@ -976,18 +1049,18 @@ const chapitre: Chapitre = {
   numero: 4,
   id: 'ue13-chapitre-4',
   titre: 'Stocks, créances et instruments financiers',
-  sousTitre: "Coût et valeur nette de réalisation (IAS 2) ; classement, coût amorti, pertes de crédit attendues et décomptabilisation (IFRS 9)",
+  sousTitre: "IAS 2, IFRS 9 et IAS 32 : évaluation des stocks, classement, évaluation et dépréciation des instruments financiers",
   infoBulle: "Chapitre 4 du module IFRS/IAS : stocks (champ, coût d'acquisition et de transformation, capacité normale, formules PEPS et coût moyen, valeur nette de réalisation, dépréciation et reprise) ; instruments financiers (définitions d'IAS 32, champ d'IFRS 9, évaluation initiale, classement selon le modèle économique et les flux contractuels, coût amorti et taux d'intérêt effectif, passifs financiers, pertes de crédit attendues et approche simplifiée, décomptabilisation, couverture) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
   loiRef: "IAS 2 · IFRS 9 · IAS 32 § 11 · IAS 8 § 8 · AUDCIF art. 42-44 et 46 · SYSCOHADA, Titre VII (compte 49) et Titre VIII, ch. 14-15",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
   objectifs: [
-    "Délimiter le champ d'IAS 2 et appliquer sa règle d'évaluation : le plus faible du coût et de la valeur nette de réalisation.",
+    "Délimiter le champ d'application d'IAS 2 et appliquer la règle d'évaluation au plus faible du coût et de la valeur nette de réalisation.",
     "Construire le coût d'un stock, imputer les frais fixes sur la capacité normale et isoler le coût de la sous-activité.",
     "Appliquer les formules PEPS et coût moyen pondéré, et mesurer leur effet en période de hausse des prix.",
     "Déprécier un stock élément par élément, traiter les contrats fermes et les matières premières, et limiter la reprise.",
-    "Reconnaître un instrument financier (IAS 32) et le champ d'IFRS 9 ; évaluer un instrument à l'origine.",
+    "Identifier un instrument financier au sens d'IAS 32, délimiter le champ d'IFRS 9 et déterminer l'évaluation initiale d'un instrument.",
     "Classer un actif financier selon le modèle économique et le critère des flux contractuels, et en tirer le traitement des variations de valeur.",
     "Calculer un coût amorti avec le taux d'intérêt effectif, pour un actif comme pour un passif.",
     "Mesurer les pertes de crédit attendues à 12 mois ou pour la durée de vie, et construire une matrice pour les créances clients.",
@@ -998,13 +1071,13 @@ const chapitre: Chapitre = {
   aRetenir: [
     "Les stocks sont évalués « au plus faible du coût et de la valeur nette de réalisation » (IAS 2.9). La valeur nette de réalisation est une valeur spécifique à l'entité, distincte de la juste valeur (§ 7).",
     "Le coût comprend les coûts d'acquisition, de transformation et les autres coûts engagés pour amener les stocks à l'endroit et dans l'état où ils se trouvent (§ 10). Les frais fixes sont imputés sur la capacité normale ; la sous-activité est une charge de la période (§ 13). Stockage de produits finis, frais administratifs et commerciaux sont exclus (§ 16).",
-    "Identification spécifique pour les biens non fongibles ; sinon PEPS ou coût moyen pondéré, jamais DEPS, avec une même formule pour les stocks de nature et d'usage similaires (§ 23-26).",
-    "Dépréciation élément par élément, jamais par grande catégorie (§ 29) ; prix du contrat pour les quantités sous contrat ferme (§ 31) ; reprise limitée à la dépréciation initiale (§ 33).",
+    "L'identification spécifique s'impose pour les biens non fongibles ; pour les autres, seuls le PEPS et le coût moyen pondéré sont admis, une même formule s'appliquant aux stocks de nature et d'usage similaires (§ 23-26).",
+    "La dépréciation s'apprécie élément par élément, et non par grande catégorie (§ 29) ; le prix du contrat est retenu pour les quantités sous contrat ferme (§ 31) ; la reprise est limitée au montant de la dépréciation initiale (§ 33).",
     "Un actif financier est classé au coût amorti, à la juste valeur par les autres éléments du résultat global ou à la juste valeur par le résultat net selon le modèle économique et les flux contractuels (IFRS 9.4.1.1). Les instruments de capitaux propres sont à la juste valeur, avec une option irrévocable, sans recyclage, pour les autres éléments du résultat global (§ 5.7.5 ; B5.7.1).",
     "Le coût amorti se calcule avec le taux d'intérêt effectif, qui étale frais et décotes sur la durée de vie, sans tenir compte des pertes attendues (annexe A ; § 5.4.1). Les passifs financiers sont au coût amorti, sauf exceptions (§ 4.2.1), et ne sont jamais reclassés (§ 4.4.2).",
-    "Les pertes de crédit attendues sont constatées dès l'origine : 12 mois tant que le risque n'a pas augmenté de façon importante, durée de vie ensuite (§ 5.5.3-5.5.5). Présomptions réfutables de 30 jours (augmentation importante) et de 90 jours (défaillance).",
-    "Créances clients sans composante financement : toujours les pertes pour la durée de vie, la matrice étant une simplification admise (§ 5.5.15 ; B5.5.35). Le SYSCOHADA, lui, ne déprécie que des créances individualisées dont la perte est certaine dans son principe.",
-    "Un actif financier cédé reste au bilan si l'entité en conserve la quasi-totalité des risques et avantages (§ 3.2.6) : un affacturage avec recours est un financement. La couverture exige une documentation dès l'origine (§ 6.4.1).",
+    "Les pertes de crédit attendues sont constatées dès l'origine : pertes à douze mois tant que le risque de crédit n'a pas augmenté de façon importante, pertes pour la durée de vie au-delà (§ 5.5.3-5.5.5). Deux présomptions réfutables s'appliquent : 30 jours de retard pour l'augmentation importante (§ 5.5.11), 90 jours pour la défaillance (B5.5.37).",
+    "Pour les créances clients sans composante financement importante, la correction de valeur est toujours égale aux pertes attendues pour la durée de vie, la matrice de provisionnement constituant une simplification admise (§ 5.5.15 ; B5.5.35). Le SYSCOHADA révisé ne déprécie que des créances individualisées dont la perte est certaine dans son principe.",
+    "Un actif financier cédé reste au bilan si l'entité en conserve la quasi-totalité des risques et avantages (§ 3.2.6) ; un affacturage avec recours s'analyse donc comme un financement. La comptabilité de couverture exige une désignation et une documentation formelles dès l'origine (§ 6.4.1).",
   ],
   references: [
     { genre: 'texte', intitule: "IAS 2 — Stocks", precision: "§§ 1 à 42 (texte français intégral)" },

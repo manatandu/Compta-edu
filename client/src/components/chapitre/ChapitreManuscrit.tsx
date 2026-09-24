@@ -157,6 +157,11 @@ function BlocTableau({ t }: { t: Tableau }) {
 // ─── Un bloc de corps de section ─────────────────────────────────────────────
 function BlocSection({ bloc, lettrine }: { bloc: Bloc; lettrine: boolean }) {
   switch (bloc.type) {
+    case 'intertitre':
+      return (
+        <h3 className={cn('font-serif font-semibold text-base pt-4', ENCRE)}>{bloc.texte}</h3>
+      )
+
     case 'paragraphe':
       return (
         <p className={lettrine ? LETTRINE : undefined}>
