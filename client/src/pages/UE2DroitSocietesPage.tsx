@@ -25,7 +25,7 @@ const CHAPITRES = [
   { num: 4,  titre: 'Les sociétés par actions : SA et SAS', sousTitre: 'Art. 385–515, 694–743, 853-1–853-23 AUSCGIE', duree: '5h', actif: true, route: '/ue2/chapitre-4' },
   { num: 5,  titre: 'La société à responsabilité limitée (SARL)', sousTitre: 'Art. 309–384 AUSCGIE — capital libre en RDC', duree: '5h', actif: true, route: '/ue2/chapitre-5' },
   { num: 6,  titre: 'Le groupement d’intérêt économique (GIE)', sousTitre: 'Art. 869–885 AUSCGIE — ni société ni association', duree: '4h', actif: true, route: '/ue2/chapitre-6' },
-  { num: 7,  titre: 'Les dirigeants sociaux', sousTitre: 'Art. 101–135, 330–445 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-7' },
+  { num: 7,  titre: 'Les dirigeants sociaux : pouvoirs et responsabilités', sousTitre: 'Art. 121–124, 159–172, 886–905 AUSCGIE · AUPCAP', duree: '5h', actif: true, route: '/ue2/chapitre-7' },
   { num: 8,  titre: 'Les associés et les assemblées', sousTitre: 'Art. 51–60, 133–163, 519–695 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-8' },
   { num: 9,  titre: 'Difficultés et transformation', sousTitre: 'Art. 150–164, 180–200 AUSCGIE', duree: '2h', actif: true, route: '/ue2/chapitre-9' },
   { num: 10, titre: 'Dissolution, liquidation et infractions', sousTitre: 'Art. 200–256, 886–920 AUSCGIE', duree: '3h', actif: true, route: '/ue2/chapitre-10' },
