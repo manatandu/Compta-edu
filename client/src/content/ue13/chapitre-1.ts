@@ -21,9 +21,10 @@ import type { Chapitre } from '@/lib/chapitre-types'
 // - Rapport ROSC Comptabilité et audit RDC (Banque mondiale, 2010), ch. 3.
 // - Rapports publiés : BOA RDC 2018 (note 3.1 et rapport du CAC), BCDC 2018
 //   (rapport du CAC), Rawbank 2025 (rapport du CAC).
-// - Cadre conceptuel révisé de 2018 : le texte de l'IASB n'est pas encodé dans
-//   le corpus. Ses apports sont repris de la présentation qu'en donne le
-//   manuel DSCG 4 (Obert, Dunod 2025, fiche 12), et signalés comme tels.
+// - Cadre conceptuel révisé de 2018 : texte officiel anglais (IFRS Foundation),
+//   encodé dans le skill ifrs (references/cadre-conceptuel-2018/). Cité par
+//   numéro de paragraphe ; les citations françaises en sont des traductions
+//   de travail. Le Cadre de 2010 n'est connu que par la reprise du GCEC-IFRS.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const QCM: Chapitre['qcm'] = [
@@ -37,8 +38,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "À l'ensemble des parties prenantes, sans hiérarchie, selon une pertinence partagée" },
     ],
     reponseCorrecte: 'b',
-    explication: "L'objectif posé au paragraphe OB2 du Cadre est de fournir des informations utiles aux investisseurs, aux prêteurs et aux autres créanciers actuels et potentiels pour leurs décisions sur la fourniture de ressources à l'entité. Le Cadre précise que les autorités de réglementation peuvent trouver ces rapports utiles, mais qu'ils ne visent pas prioritairement leurs besoins (OB10). La « pertinence partagée » (réponse d) est la position du cadre conceptuel du SYSCOHADA révisé, pas celle de l'IASB.",
-    articleRef: "Cadre conceptuel, OB2 et OB10 (repris au GCEC-IFRS, vol. 1, § 2.1.1)",
+    explication: "Le Cadre de 2018 (§ 1.2) fixe pour objectif de fournir des informations utiles aux investisseurs, aux prêteurs et aux autres créanciers actuels et potentiels pour leurs décisions sur la fourniture de ressources à l'entité. Il précise que d'autres parties, comme les autorités de réglementation, peuvent trouver ces rapports utiles, mais qu'ils ne leur sont pas prioritairement destinés (§ 1.10). La version de 2010 disait la même chose aux paragraphes OB2 et OB10. La « pertinence partagée » (réponse d) est la position du cadre conceptuel du SYSCOHADA révisé, pas celle de l'IASB.",
+    articleRef: "Cadre conceptuel (2018), § 1.2, 1.5 et 1.10",
   },
   {
     id: 'ue13c1-q2',
@@ -219,8 +220,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "2018 supprime la notion de contrôle" },
     ],
     reponseCorrecte: 'b',
-    explication: "Le Cadre de 2010, tel que le reprend le GCEC-IFRS (§ 2.3.3, renvoi au § 4.4), définit l'actif comme « une ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont attendus ». Le Cadre révisé de 2018 retient une « ressource économique actuelle » contrôlée du fait d'événements passés, la ressource économique étant « un droit ayant le potentiel de produire des avantages économiques » (présentation d'Obert, DSCG 4). L'accent passe de la probabilité des avantages à l'existence d'un droit. Le contrôle reste central dans les deux versions.",
-    articleRef: "GCEC-IFRS vol. 1 § 2.3.3 (Cadre 2010, 4.4) ; Cadre 2018 d'après Obert, fiche 12",
+    explication: "Le Cadre de 2010, tel que le reprend le GCEC-IFRS (§ 2.3.3, renvoi au § 4.4), définit l'actif comme « une ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont attendus ». Le Cadre révisé de 2018 définit l'actif comme « a present economic resource controlled by the entity as a result of past events » (§ 4.3), la ressource économique étant « a right that has the potential to produce economic benefits » (§ 4.4). Le § 4.14 précise qu'il n'est pas nécessaire que les avantages soient certains, « or even likely ». L'accent passe de la probabilité des avantages à l'existence d'un droit. Le contrôle reste central dans les deux versions (§ 4.19-4.25 en 2018).",
+    articleRef: "Cadre 2018, § 4.3, 4.4 et 4.14 ; Cadre 2010, 4.4 (GCEC-IFRS vol. 1 § 2.3.3)",
   },
   {
     id: 'ue13c1-q16',
@@ -232,8 +233,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "La comparabilité" },
     ],
     reponseCorrecte: 'c',
-    explication: "Le cadre conceptuel du SYSCOHADA révisé ne retient pas la neutralité comme caractéristique de l'image fidèle, en raison de la primauté de la convention de prudence (art. 3 et 6 AUDCIF). L'IASB fait l'inverse : l'information fidèle est complète, neutre et exempte d'erreurs, et la prudence n'y est admise que comme circonspection au service de la neutralité (Cadre 2018, d'après Obert). La comparabilité (d) est une caractéristique auxiliaire dans les deux référentiels.",
-    articleRef: "SYSCOHADA révisé, cadre conceptuel, ch. 3 ; Cadre IASB 2018",
+    explication: "Le cadre conceptuel du SYSCOHADA révisé ne retient pas la neutralité comme caractéristique de l'image fidèle, en raison de la primauté de la convention de prudence (art. 3 et 6 AUDCIF). L'IASB fait l'inverse : l'information fidèle est complète, neutre et exempte d'erreurs (§ 2.13), et « neutrality is supported by the exercise of prudence », la prudence étant définie comme « the exercise of caution when making judgements under conditions of uncertainty » (§ 2.16). Le § 2.17 ajoute qu'elle n'implique aucune asymétrie systématique. La comparabilité (d) est une caractéristique auxiliaire dans les deux référentiels.",
+    articleRef: "SYSCOHADA révisé, cadre conceptuel, ch. 3 ; Cadre 2018, § 2.13-2.17",
   },
   {
     id: 'ue13c1-q17',
@@ -284,8 +285,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "0" },
     ],
     reponseCorrecte: 'c',
-    explication: "En capital physique, il faut d'abord reconstituer la capacité de production de début d'exercice, soit 100 unités au coût actuel de 13, c'est-à-dire 1 300. Le résultat est donc 1 500 − 1 300 = 200. En capital financier nominal, le résultat serait 500 ; en capital financier à pouvoir d'achat constant, 1 500 − 1 000 × 1,20 = 300. Le concept de maintien du capital fixe le point de référence à partir duquel on mesure le résultat (Cadre, 4.59-4.60).",
-    articleRef: "Cadre conceptuel, 4.57-4.60 (repris au GCEC-IFRS, § 2.6)",
+    explication: "En capital physique, il faut d'abord reconstituer la capacité de production de début d'exercice, soit 100 unités au coût actuel de 13, c'est-à-dire 1 300. Le résultat est donc 1 500 − 1 300 = 200. En capital financier nominal, le résultat serait 500 ; en capital financier à pouvoir d'achat constant, 1 500 − 1 000 × 1,20 = 300. Le concept de maintien du capital fournit le point de référence à partir duquel on mesure le résultat (Cadre 2018, § 8.4), et le maintien du capital physique impose l'évaluation au coût actuel (§ 8.5).",
+    articleRef: "Cadre 2018, § 8.1-8.5",
   },
   {
     id: 'ue13c1-q21',
@@ -297,8 +298,8 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Aucun, la question relevant du droit des sociétés" },
     ],
     reponseCorrecte: 'c',
-    explication: "Le cadre conceptuel du SYSCOHADA révisé retient le maintien du capital financier, en francs courants, avec exclusion des gains de détention, sauf pour les devises détenues et les instruments financiers. Le Cadre de l'IASB laisse le choix du concept aux besoins des utilisateurs (4.58), la plupart des entités adoptant le capital financier (4.57).",
-    articleRef: "SYSCOHADA révisé, cadre conceptuel, ch. 5 ; Cadre IASB 4.57-4.58",
+    explication: "Le cadre conceptuel du SYSCOHADA révisé retient le maintien du capital financier, en francs courants, avec exclusion des gains de détention, sauf pour les devises détenues et les instruments financiers. Le Cadre de l'IASB fonde le choix du concept sur les besoins des utilisateurs (§ 8.2), la plupart des entités adoptant le capital financier (§ 8.1).",
+    articleRef: "SYSCOHADA révisé, cadre conceptuel, ch. 5 ; Cadre 2018, § 8.1-8.2",
   },
   {
     id: 'ue13c1-q22',
@@ -493,58 +494,58 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Le Cadre conceptuel est, selon la formule du GCEC-IFRS, la « pierre d'assise » du référentiel : les autres aspects du Cadre découlent logiquement de son **objectif** (OB1). Publié en 1989, amendé en 2010 et entièrement révisé en 2018, il sert à l'IASB pour écrire des normes cohérentes, et aux préparateurs pour traiter les cas qu'aucune norme ne règle. Son autorité est indirecte mais réelle : IAS 1.15 impose une représentation fidèle « selon les définitions et les critères de comptabilisation des actifs, des passifs, des produits et des charges exposés dans le Cadre conceptuel », et IAS 8.11(b) en fait la deuxième source de la hiérarchie à consulter en l'absence de norme.",
+        texte: "Le Cadre conceptuel pose d'emblée son propre statut : il aide l'IASB à élaborer des normes fondées sur des concepts cohérents, aide les préparateurs à développer des méthodes cohérentes lorsqu'aucune norme ne s'applique ou qu'une norme laisse un choix, et aide chacun à comprendre et interpréter les normes (§ SP1.1). Mais « the Conceptual Framework is not a Standard. Nothing in the Conceptual Framework overrides any Standard or any requirement in a Standard » (§ SP1.2). Son **objectif** en est la fondation, dont tout le reste « découle logiquement » (§ 1.1). Publié en 1989, remanié en 2010 et révisé en mars 2018, il fait autorité par renvoi. Son autorité est indirecte mais réelle : IAS 1.15 impose une représentation fidèle « selon les définitions et les critères de comptabilisation des actifs, des passifs, des produits et des charges exposés dans le Cadre conceptuel », et IAS 8.11(b) en fait la deuxième source de la hiérarchie à consulter en l'absence de norme.",
       },
       {
         type: 'filet',
-        titre: "Ce que dit le Cadre : l'objectif (OB2)",
-        texte: "L'objectif de l'information financière à usage général est « de fournir, au sujet de l'entité [...] qui la présente, des informations utiles aux investisseurs, aux prêteurs et aux autres créanciers actuels et potentiels aux fins de leur prise de décisions sur la fourniture de ressources à l'entité ». Ces utilisateurs sont dits principaux parce qu'ils ne peuvent pas exiger de l'entité des rapports sur mesure : IAS 1.7 le rappelle, ils doivent « se fier aux rapports financiers à usage général pour obtenir une bonne partie des informations financières dont ils ont besoin ».",
+        titre: "Ce que dit le Cadre : l'objectif (§ 1.2 à 1.5)",
+        texte: "« The objective of general purpose financial reporting is to provide financial information about the reporting entity that is useful to existing and potential investors, lenders and other creditors in making decisions relating to providing resources to the entity » (§ 1.2). Ces décisions portent sur l'achat, la vente ou la conservation de titres, l'octroi ou le règlement de prêts, et l'exercice des droits de vote ou d'influence sur la direction. Elles dépendent des rendements attendus, donc de l'appréciation des flux de trésorerie futurs **et** de la manière dont la direction gère les ressources de l'entité, la *stewardship* (§ 1.3-1.4). Ces utilisateurs sont dits principaux parce qu'ils ne peuvent pas exiger de rapports sur mesure et doivent se fier aux rapports à usage général (§ 1.5). Le texte officiel encodé est en anglais : les passages en français de ce chapitre en sont des traductions de travail.",
       },
       { type: 'controle', question: QCM[0] },
       {
         type: 'carte',
-        titre: "Ce que les états financiers ne sont pas (OB6 à OB11)",
+        titre: "Ce que les états financiers ne sont pas (§ 1.6 à 1.11)",
         liste: [
-          "**Pas exhaustifs** : ils ne contiennent pas toute l'information utile ; l'utilisateur doit y ajouter l'état de l'économie, le climat politique, les perspectives du secteur (OB6).",
-          "**Pas une valeur de l'entité** : ils ne sont pas conçus pour montrer ce que vaut l'entreprise, seulement pour aider à l'estimer (OB7).",
-          "**Pas taillés pour chacun** : les utilisateurs principaux ont des besoins potentiellement contradictoires ; l'IASB vise l'ensemble qui répond au plus grand nombre (OB8).",
-          "**Pas exacts** : ils reposent pour une bonne part sur des estimations, des jugements et des modèles ; la vision idéale du Cadre ne sera probablement jamais pleinement réalisée (OB11).",
+          "**Pas exhaustifs** : ils ne contiennent pas toute l'information utile ; l'utilisateur doit y ajouter l'état de l'économie, le climat politique, les perspectives du secteur (§ 1.6).",
+          "**Pas une valeur de l'entité** : ils ne sont pas conçus pour montrer ce que vaut l'entreprise, seulement pour aider à l'estimer (§ 1.7).",
+          "**Pas taillés pour chacun** : les utilisateurs principaux ont des besoins potentiellement contradictoires ; l'IASB vise l'ensemble qui répond au plus grand nombre (§ 1.8).",
+          "**Pas exacts** : ils reposent pour une bonne part sur des estimations, des jugements et des modèles ; la vision idéale du Cadre ne sera probablement pas atteinte en totalité, du moins à court terme (§ 1.11).",
         ],
       },
       {
         type: 'paragraphe',
-        texte: "Pour être utile, l'information doit réunir deux **caractéristiques qualitatives essentielles**. La *pertinence* d'abord : l'information peut faire une différence dans les décisions, parce qu'elle a une valeur prédictive, une valeur de confirmation, ou les deux ; l'importance relative en est un aspect propre à chaque entité, et l'IASB refuse pour cette raison de fixer un seuil chiffré uniforme (QC11). La *fidélité* ensuite : une image parfaitement fidèle est **complète**, **neutre** et **exempte d'erreurs**. Exempte d'erreurs ne veut pas dire exacte : une estimation peut être fidèlement représentée si elle est présentée comme telle, si le processus et ses limites sont expliqués, et s'il a été choisi et appliqué sans erreur. Quatre caractéristiques **auxiliaires** renforcent ensuite l'utilité : comparabilité, vérifiabilité, rapidité, compréhensibilité. Aucune ne peut rendre utile une information qui ne serait ni pertinente ni fidèle.",
+        texte: "Pour être utile, l'information doit réunir deux **caractéristiques qualitatives essentielles**. La *pertinence* d'abord : l'information peut faire une différence dans les décisions, parce qu'elle a une valeur prédictive, une valeur de confirmation, ou les deux ; l'importance relative en est « an entity-specific aspect of relevance », et l'IASB refuse pour cette raison de fixer un seuil chiffré uniforme (§ 2.6-2.11). La *fidélité* ensuite : l'information doit représenter la substance des phénomènes, car ne rendre compte que de leur forme juridique, lorsqu'elle en diffère, ne les représenterait pas fidèlement (§ 2.12) ; une image parfaitement fidèle est **complète**, **neutre** et **exempte d'erreurs** (§ 2.13). Exempte d'erreurs ne veut pas dire exacte : une estimation peut être fidèlement représentée si elle est présentée comme telle, si le processus et ses limites sont expliqués, et s'il a été choisi et appliqué sans erreur. Quatre caractéristiques **auxiliaires** renforcent ensuite l'utilité : comparabilité, vérifiabilité, rapidité, compréhensibilité. Aucune ne peut rendre utile une information qui ne serait ni pertinente ni fidèle (§ 2.23 et 2.37).",
       },
       {
         type: 'carte',
-        titre: "Pas à pas : appliquer les caractéristiques essentielles (QC18)",
+        titre: "Pas à pas : appliquer les caractéristiques essentielles (§ 2.21)",
         liste: [
           "**1.** Identifier un phénomène économique susceptible d'être utile aux utilisateurs.",
           "**2.** Déterminer quel type d'information serait le plus pertinent pour ce phénomène, s'il était disponible et pouvait être représenté fidèlement.",
           "**3.** Vérifier si cette information est disponible et peut être représentée fidèlement. Si oui, le processus est achevé ; sinon, reprendre avec le type d'information le plus pertinent suivant.",
         ],
-        note: "Contrainte transversale : le coût. Pour chaque projet, l'IASB apprécie si les avantages d'une information justifient les coûts de sa production et de son utilisation (QC38).",
+        note: "Contrainte transversale : le coût. Pour chaque projet, l'IASB apprécie si les avantages d'une information justifient les coûts de sa production et de son utilisation (§ 2.39-2.42).",
       },
       {
         type: 'paragraphe',
-        texte: "La révision de 2018 a déplacé plusieurs lignes. Elle a réintroduit la **prudence**, absente de la version de 2010, mais sous une forme précise : la circonspection dans l'exercice du jugement en situation d'incertitude, qui *soutient* la neutralité au lieu de la contredire. Elle a logé la primauté de la substance sur la forme au cœur de la fidélité : l'information fidèle « dépeint la substance économique de la transaction [...], laquelle ne correspond pas toujours à sa forme juridique ». Elle a introduit la notion d'**entité comptable**, celle qui prépare des états financiers à usage général, par choix ou par obligation. Et elle a réécrit les définitions des éléments.",
+        texte: "La révision de 2018 a déplacé plusieurs lignes. Elle a réintroduit la **prudence**, absente de la version de 2010, sous une forme précise : « the exercise of caution when making judgements under conditions of uncertainty », qui *soutient* la neutralité au lieu de la contredire (§ 2.16) et n'autorise ni sous-évaluation des actifs et produits, ni surévaluation des passifs et charges ; elle n'implique pas davantage d'asymétrie systématique (§ 2.17). Elle a logé la primauté de la substance sur la forme au cœur de la fidélité (§ 2.12). Elle a défini l'**entité comptable** : « an entity that is required, or chooses, to prepare financial statements », qui n'est pas nécessairement une personne morale (§ 3.10). Et elle a réécrit les définitions des éléments.",
       },
       {
         type: 'tableau',
         tableau: {
-          entetes: ['Élément', 'Cadre 2010 (repris par le GCEC-IFRS)', 'Cadre 2018 (présentations DSCG 4 : Obert, Baratay)'],
+          entetes: ['Élément', 'Cadre 2010 (repris par le GCEC-IFRS)', 'Cadre 2018 (texte officiel)'],
           lignes: [
-            ['Actif', "Ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont **attendus** (4.4)", "Ressource économique **actuelle** contrôlée du fait d'événements passés ; la ressource économique est un **droit** ayant le potentiel de produire des avantages économiques"],
-            ['Passif', "Obligation actuelle résultant d'événements passés dont l'extinction devrait se traduire par une sortie de ressources (4.4)", "Obligation actuelle de céder une ressource économique du fait d'événements passés"],
-            ['Comptabilisation', "Deux critères : avantage futur **probable** ; coût ou valeur évaluable de manière **fiable** (4.38)", "Définition remplie, **et** comptabilisation qui fournit à la fois une information pertinente et une image fidèle de l'élément"],
-            ['Prudence', "Absente des caractéristiques qualitatives", "Réintroduite comme circonspection, au service de la neutralité"],
+            ['Actif', "Ressource contrôlée par l'entité du fait d'événements passés et dont des avantages économiques futurs sont **attendus** (4.4)", "Ressource économique **actuelle** contrôlée du fait d'événements passés (§ 4.3) ; la ressource économique est un **droit** ayant le potentiel de produire des avantages économiques (§ 4.4)"],
+            ['Passif', "Obligation actuelle résultant d'événements passés dont l'extinction devrait se traduire par une sortie de ressources (4.4)", "Obligation actuelle de **transférer** une ressource économique du fait d'événements passés (§ 4.26)"],
+            ['Comptabilisation', "Deux critères : avantage futur **probable** ; coût ou valeur évaluable de manière **fiable** (4.38)", "Définition remplie, **et** comptabilisation qui fournit une information pertinente et une image fidèle, pour un coût justifié par ses avantages (§ 5.6-5.8) ; une faible probabilité n'exclut ni l'existence ni la comptabilisation (§ 5.15-5.17)"],
+            ['Prudence', "Absente des caractéristiques qualitatives", "Réintroduite comme circonspection, au service de la neutralité (§ 2.16-2.17)"],
           ],
         },
       },
       {
         type: 'filet',
         titre: "Jugement professionnel : pourquoi le passage du « probable » au « potentiel » compte",
-        texte: "Sous le Cadre de 2010, un droit dont les avantages sont peu probables pouvait échouer à la définition même de l'actif. Sous celui de 2018, le droit existe dès lors qu'il a le *potentiel* de produire des avantages ; la faible probabilité se traite ensuite, au stade de la comptabilisation et de l'évaluation. Exemple : une option d'achat de terrain très en dehors de la monnaie reste un actif au sens de 2018, puisqu'elle constitue un droit ; sa faible valeur se reflète dans son évaluation. Le raisonnement se fait en deux temps, d'abord « est-ce un actif ? », ensuite « faut-il le comptabiliser, et pour combien ? ».",
+        texte: "Sous le Cadre de 2010, un droit dont les avantages sont peu probables pouvait échouer à la définition même de l'actif. Sous celui de 2018, il suffit que le droit existe et que, « in at least one circumstance », il produise pour l'entité des avantages supérieurs à ceux dont disposent les autres parties : il n'est pas nécessaire que ce soit certain, « or even likely » (§ 4.14). Un droit peut donc être un actif même si la probabilité d'avantages est faible ; cette faible probabilité pèse ensuite sur la comptabilisation et l'évaluation (§ 4.15, 5.15-5.17). Le Cadre prend lui-même l'exemple de l'option achetée : la ressource économique est le droit présent d'exercer l'option, non les avantages futurs que son exercice procurera (§ 4.17). Le raisonnement se fait en deux temps, d'abord « est-ce un actif ? », ensuite « faut-il le comptabiliser, et pour combien ? ».",
       },
       { type: 'controle', question: QCM[14] },
     ],
@@ -556,7 +557,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Reconnaître un actif ne suffit pas : il faut lui donner un montant. L'évaluation est « le processus de détermination des montants monétaires » auxquels les éléments figurent dans les états (Cadre 2010, 4.53, repris par le GCEC-IFRS), et elle implique toujours le choix d'une **base d'évaluation**. Le Cadre de 2010 en énumérait quatre, combinées dans les mêmes états : le coût historique, le coût actuel, la valeur de réalisation (ou de règlement) et la valeur actuelle au sens de valeur actualisée. Le Cadre de 2018 les réorganise en deux familles : le **coût historique**, dérivé au moins en partie du prix de la transaction d'origine, et la **valeur actuelle**, qui reflète les conditions à la date d'évaluation et ne repose pas, même en partie, sur ce prix.",
+        texte: "Reconnaître un actif ne suffit pas : il faut lui donner un montant. L'évaluation implique toujours le choix d'une **base d'évaluation** (Cadre 2018, § 6.1). Le Cadre de 2010 en énumérait quatre, combinées dans les mêmes états : le coût historique, le coût actuel, la valeur de réalisation (ou de règlement) et la valeur actuelle au sens de valeur actualisée. Le Cadre de 2018 les réorganise en deux familles : le **coût historique**, qui utilise une information dérivée au moins en partie du prix de la transaction d'origine (§ 6.4), et la **valeur actuelle**, mise à jour pour refléter les conditions à la date d'évaluation et qui n'est pas dérivée, même en partie, de ce prix (§ 6.10).",
       },
       {
         type: 'carte',
@@ -564,16 +565,16 @@ const SECTIONS: Chapitre['sections'] = [
         tableau: {
           entetes: ['Base', 'Point de vue', 'Coûts de transaction'],
           lignes: [
-            ["**Juste valeur** : prix reçu pour vendre un actif ou payé pour transférer un passif entre intervenants du marché", "Celui des intervenants du marché", "Ni à l'entrée, ni à la sortie"],
-            ["**Valeur d'utilité** (actifs) ou **de remboursement** (passifs) : valeur actualisée des flux que l'entité attend de l'utilisation de l'actif ou devra transférer pour éteindre le passif", "Celui de l'entité", "Pas les coûts d'entrée ; les coûts de sortie sont intégrés"],
-            ["**Coût actuel** : contrepartie à payer aujourd'hui pour un actif équivalent, ou à recevoir pour assumer un passif équivalent", "Valeur d'entrée à la date d'évaluation", "Inclus (ajoutés pour un actif, déduits pour un passif)"],
+            ["**Juste valeur** (§ 6.12) : prix reçu pour vendre un actif ou payé pour transférer un passif, lors d'une transaction normale entre intervenants du marché", "Celui des intervenants du marché (valeur de sortie)", "Ni à l'entrée, ni à la sortie"],
+            ["**Valeur d'utilité** (actifs) ou **valeur d'exécution** (*fulfilment value*, passifs) (§ 6.17) : valeur actualisée des flux que l'entité attend de l'utilisation de l'actif et de sa sortie, ou qu'elle devra transférer pour exécuter le passif", "Celui de l'entité (§ 6.19)", "Pas les coûts d'entrée ; ceux de sortie ou d'exécution sont intégrés"],
+            ["**Coût actuel** (§ 6.21) : coût d'un actif équivalent à la date d'évaluation, ou contrepartie qui serait reçue pour un passif équivalent", "Valeur d'entrée, comme le coût historique", "Inclus (ajoutés pour un actif, déduits pour un passif)"],
           ],
         },
-        note: "Source : présentation du Cadre de 2018 par Baratay (DSCG 4, Gualino, 2023). La distinction du point de vue (marché ou entité) est capitale : elle sépare IFRS 13 d'IAS 36, que vous retrouverez au chapitre 3.",
+        note: "Le tableau 6.1 du Cadre détaille, base par base, l'information produite au bilan et au compte de résultat. La distinction du point de vue (marché ou entité) est capitale : elle sépare IFRS 13 d'IAS 36, que vous retrouverez au chapitre 3.",
       },
       {
         type: 'paragraphe',
-        texte: "Derrière la base d'évaluation se cache une question plus profonde : **quel capital l'entité doit-elle préserver avant de pouvoir se dire bénéficiaire ?** Le Cadre distingue le capital financier, synonyme d'actif net, adopté par la plupart des entités (4.57), et le capital physique, entendu comme la capacité de production. Le concept de maintien du capital « établit le lien entre le concept de capital et le concept de résultat parce qu'il fournit le point de référence par lequel le résultat est évalué » (4.60). Le choix dépend des besoins des utilisateurs : capital nominal ou pouvoir d'achat investi pour les uns, capacité opérationnelle pour les autres (4.58).",
+        texte: "Derrière la base d'évaluation se cache une question plus profonde : **quel capital l'entité doit-elle préserver avant de pouvoir se dire bénéficiaire ?** Le Cadre distingue le capital financier, synonyme d'actif net ou de capitaux propres, adopté par la plupart des entités, et le capital physique, entendu comme la capacité de production (§ 8.1). Le concept de maintien du capital fait le lien entre capital et résultat, parce qu'il fournit « the point of reference by which profit is measured » : seules les entrées d'actifs excédant ce qui est nécessaire au maintien du capital sont un rendement *du* capital, le reste en est un remboursement (§ 8.4). Le choix dépend des besoins des utilisateurs : capital nominal ou pouvoir d'achat investi pour les uns, capacité opérationnelle pour les autres (§ 8.2). Le capital physique impose l'évaluation au coût actuel (§ 8.5).",
       },
       {
         type: 'carte',
@@ -587,7 +588,7 @@ const SECTIONS: Chapitre['sections'] = [
             ['Capital physique', '100 unités × 13 = 1 300', '**200**', '300'],
           ],
         },
-        note: "L'ajustement n'est pas une charge : il est porté en capitaux propres, comme une réserve de maintien du capital. En période de forte inflation, comme la RDC en a connu, l'écart entre ces résultats cesse d'être théorique.",
+        note: "L'ajustement n'est pas une charge : il est porté en capitaux propres comme ajustement de maintien du capital ou réserve de réévaluation (§ 8.10). En période de forte inflation, comme la RDC en a connu, l'écart entre ces résultats cesse d'être théorique.",
       },
       { type: 'controle', question: QCM[19] },
       {
@@ -758,11 +759,11 @@ const SECTIONS: Chapitre['sections'] = [
         tableau: {
           entetes: ['Question', 'Cadre de l\'IASB', 'SYSCOHADA révisé'],
           lignes: [
-            ['Utilisateurs', "Principaux : investisseurs, prêteurs, autres créanciers (OB2 ; IAS 1.7)", "Pertinence partagée entre tous les utilisateurs"],
-            ['Neutralité', "Composante de la fidélité ; la prudence n'est que circonspection à son service", "Non retenue, en raison de la primauté de la prudence (art. 3 et 6 AUDCIF)"],
-            ['Réalité économique', "Principe général (IAS 8.10(b)(ii) ; Cadre)", "Application limitée à quatre cas"],
+            ['Utilisateurs', "Principaux : investisseurs, prêteurs, autres créanciers (Cadre § 1.2 et 1.5 ; IAS 1.7)", "Pertinence partagée entre tous les utilisateurs"],
+            ['Neutralité', "Composante de la fidélité (§ 2.13) ; la prudence n'est que circonspection à son service (§ 2.16)", "Non retenue, en raison de la primauté de la prudence (art. 3 et 6 AUDCIF)"],
+            ['Réalité économique', "Principe général (IAS 8.10(b)(ii) ; Cadre § 2.12, 4.59-4.62)", "Application limitée à quatre cas"],
             ['Évaluation', "Coût historique ou valeur actuelle selon les normes ; juste valeur définie par IFRS 13", "Plus faible de la valeur d'entrée et de la valeur actuelle"],
-            ['Maintien du capital', "Au choix, selon les besoins des utilisateurs (4.58)", "Capital financier en francs courants, gains de détention exclus sauf devises et instruments financiers"],
+            ['Maintien du capital', "Selon les besoins des utilisateurs (§ 8.2)", "Capital financier en francs courants, gains de détention exclus sauf devises et instruments financiers"],
             ['Flux opérationnels', "Méthode directe ou indirecte, la directe étant encouragée (IAS 7.18-19)", "Méthode indirecte imposée"],
             ['Rôle en droit OHADA', "États « en sus », destinés aux marchés, sans effet sur le bénéfice distribuable (art. 8)", "États de référence, base du bénéfice distribuable"],
           ],
@@ -842,7 +843,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 1,
         enonce: "« Le Cadre conceptuel prime sur les normes, puisqu'il en est la philosophie. »",
-        correction: "Faux. Le Cadre n'est pas une norme et, en cas de conflit, la norme prédomine (GCEC-IFRS, vol. 1, § 2). Il fait autorité par les renvois d'IAS 1.15 et d'IAS 8.11(b), et comme source du jugement en l'absence de norme spécifique, jamais contre une norme.",
+        correction: "Faux. « The Conceptual Framework is not a Standard. Nothing in the Conceptual Framework overrides any Standard or any requirement in a Standard » (Cadre, § SP1.2). Le GCEC-IFRS le dit aussi (vol. 1, § 2). Il fait autorité par les renvois d'IAS 1.15 et d'IAS 8.11(b), et comme source du jugement en l'absence de norme spécifique, jamais contre une norme.",
       },
       {
         num: 2,
@@ -877,7 +878,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 8,
         enonce: "« La prudence a disparu des IFRS. »",
-        correction: "Faux, mais la nuance est essentielle. IAS 8.10(b)(iv) exige d'une méthode développée par jugement qu'elle soit « prudente ». Le Cadre de 2018 a réintroduit la prudence comme circonspection au service de la neutralité, pas comme un biais systématique en faveur de la sous-évaluation. C'est le SYSCOHADA révisé qui fait primer la prudence au point d'écarter la neutralité.",
+        correction: "Faux, mais la nuance est essentielle. IAS 8.10(b)(iv) exige d'une méthode développée par jugement qu'elle soit « prudente ». Le Cadre de 2018 a réintroduit la prudence comme circonspection au service de la neutralité (§ 2.16), sans asymétrie systématique en faveur de la sous-évaluation (§ 2.17). C'est le SYSCOHADA révisé qui fait primer la prudence au point d'écarter la neutralité.",
       },
     ],
   },
@@ -899,7 +900,7 @@ const CAS: Chapitre['casPratiques'] = [
       {
         num: 3,
         enonce: "« La juste valeur est plus pertinente, la prudence plus fiable. » Discutez en une quinzaine de lignes, en mobilisant les deux cadres conceptuels.",
-        correction: "Plan possible. (1) La juste valeur sert la pertinence au sens de l'IASB : elle donne une valeur prédictive et de confirmation à jour, utile à l'investisseur qui arbitre (OB2 ; QC6-QC11). Mais elle peut coûter en vérifiabilité, surtout au niveau 3, dans une économie sans bourse : le Cadre l'admet, puisque les états reposent pour une bonne part sur des estimations (OB11), et IFRS 13 compense par l'information (§ 93). (2) La prudence du SYSCOHADA sert la protection des créanciers et prévient les distributions fictives ; mais en écartant la neutralité, elle accepte un biais, qui peut aller jusqu'aux réserves occultes que son propre cadre conceptuel condamne. (3) Le droit OHADA tranche par la répartition des rôles plutôt que par la hiérarchie : la prudence gouverne la distribution (états SYSCOHADA), la pertinence gouverne l'information des marchés (états IFRS). Conclusion : l'opposition n'est pas entre vérité et erreur, mais entre deux utilisateurs de référence.",
+        correction: "Plan possible. (1) La juste valeur sert la pertinence au sens de l'IASB : elle donne une valeur prédictive et de confirmation à jour, utile à l'investisseur qui arbitre (Cadre § 1.2 et 2.6-2.10). Mais elle peut coûter en vérifiabilité, surtout au niveau 3, dans une économie sans bourse : le Cadre l'admet, puisque les états reposent pour une bonne part sur des estimations (§ 1.11), et il admet qu'une incertitude d'évaluation élevée peut imposer un arbitrage entre pertinence et fidélité (§ 2.22), et IFRS 13 compense par l'information (§ 93). (2) La prudence du SYSCOHADA sert la protection des créanciers et prévient les distributions fictives ; mais en écartant la neutralité, elle accepte un biais, qui peut aller jusqu'aux réserves occultes que son propre cadre conceptuel condamne. (3) Le droit OHADA tranche par la répartition des rôles plutôt que par la hiérarchie : la prudence gouverne la distribution (états SYSCOHADA), la pertinence gouverne l'information des marchés (états IFRS). Conclusion : l'opposition n'est pas entre vérité et erreur, mais entre deux utilisateurs de référence.",
       },
     ],
   },
@@ -912,7 +913,7 @@ const chapitre: Chapitre = {
   titre: 'Fondements, cadre conceptuel et architecture des IFRS',
   sousTitre: "Du krach de 1929 au GCEC-IFRS : la théorie qui tient le référentiel",
   infoBulle: "Chapitre 1 du module IFRS/IAS : histoire et écoles de normalisation, architecture IFRS Foundation-IASB-ISSB, force obligatoire en droit OHADA et en RDC, Cadre conceptuel (2010 et 2018), bases d'évaluation et maintien du capital, juste valeur selon IFRS 13, caractéristiques générales d'IAS 1, hiérarchie d'IAS 8, comparaison avec le SYSCOHADA révisé.",
-  loiRef: "Cadre conceptuel · IAS 1.7, 15-38 · IAS 8.5-14 · IFRS 13 · AUDCIF art. 8, 73-1, 75, 113",
+  loiRef: "Cadre conceptuel (2018) · IAS 1.7, 15-38 · IAS 8.5-14 · IFRS 13 · AUDCIF art. 8, 73-1, 75, 113",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
@@ -928,15 +929,16 @@ const chapitre: Chapitre = {
   ],
   sections: SECTIONS,
   aRetenir: [
-    "Pour qui compte-t-on ? L'IASB répond : pour les investisseurs, prêteurs et autres créanciers qui ne peuvent exiger de rapports sur mesure (OB2 ; IAS 1.7). Le SYSCOHADA répond par une pertinence partagée ; le PCGC de 1976 répondait : pour la statistique nationale (ROSC 2010).",
+    "Pour qui compte-t-on ? L'IASB répond : pour les investisseurs, prêteurs et autres créanciers qui ne peuvent exiger de rapports sur mesure (Cadre § 1.2 et 1.5 ; IAS 1.7). Le SYSCOHADA répond par une pertinence partagée ; le PCGC de 1976 répondait : pour la statistique nationale (ROSC 2010).",
     "Les IFRS comprennent les IFRS, les IAS, les interprétations IFRIC et SIC (IAS 1.7 ; IAS 8.5). Le Cadre conceptuel n'est pas une norme ; en cas de conflit, la norme prédomine. IFRS 18 remplace IAS 1 pour les exercices ouverts à compter du 1er janvier 2027.",
     "En droit OHADA, les entités cotées ou faisant appel public à l'épargne établissent des états IFRS en sus des états SYSCOHADA, destinés exclusivement aux marchés et sans effet sur le bénéfice distribuable (AUDCIF art. 8), déposés et audités (art. 73-1), depuis le 1er janvier 2019 (art. 113).",
-    "Cadre : deux caractéristiques essentielles, pertinence et fidélité (complète, neutre, exempte d'erreurs), et quatre auxiliaires. En 2018, l'actif devient une ressource économique actuelle, c'est-à-dire un droit ayant le potentiel de produire des avantages, et la prudence revient comme circonspection au service de la neutralité.",
+    "Cadre : deux caractéristiques essentielles, pertinence et fidélité (complète, neutre, exempte d'erreurs), et quatre auxiliaires. En 2018, l'actif devient une ressource économique actuelle, c'est-à-dire un droit ayant le potentiel de produire des avantages, même peu probables (§ 4.3-4.15), et la prudence revient comme circonspection au service de la neutralité (§ 2.16). Le Cadre n'est pas une norme et ne l'emporte jamais sur une norme (§ SP1.2).",
     "Juste valeur (IFRS 13.9) : prix de sortie, fondé sur le marché, sur le marché principal ou à défaut le plus avantageux, sans coûts de transaction mais après transport, selon l'utilisation optimale ; hiérarchie à trois niveaux fondée sur les données d'entrée ; exigences d'information maximales au niveau 3.",
     "IAS 1 : image fidèle présumée (§ 15) ; conformité à toutes les dispositions ou pas de conformité (§ 16) ; dérogation extrêmement rare et entièrement documentée (§ 19-24) ; continuité évaluée sur au moins douze mois (§ 25-26) ; engagement ; significatif, y compris l'obscurcissement (§ 7) ; non-compensation (§ 32).",
     "IAS 8 : la norme spécifique d'abord (§ 7) ; sinon le jugement, guidé par les normes similaires puis le Cadre (§ 10-11), les pratiques n'intervenant qu'en appoint (§ 12) ; cohérence et permanence (§ 13-14). Aucun écart, même minime, ne peut viser une présentation particulière (§ 8).",
   ],
   references: [
+    { genre: 'texte', intitule: "IASB, Conceptual Framework for Financial Reporting (Cadre conceptuel de l'information financière), révisé en mars 2018", precision: "texte officiel anglais : SP1.1-SP1.5, chapitres 1 à 8, tableaux 4.1 et 6.1" },
     { genre: 'texte', intitule: "IAS 1 — Présentation des états financiers", precision: "§ 7 (définitions) et §§ 15 à 38 (caractéristiques générales)" },
     { genre: 'texte', intitule: "IAS 8 — Méthodes comptables, changements d'estimations comptables et erreurs", precision: "§ 5 et §§ 7 à 14" },
     { genre: 'texte', intitule: "IFRS 13 — Évaluation de la juste valeur", precision: "§ 9, §§ 15 à 90, § 93, annexe A, §§ B27 à B30" },
@@ -945,12 +947,10 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "Banque centrale du Congo, Guide comptable des établissements de crédit (GCEC-IFRS)", precision: "volume 1, chapitre 1 : contexte, conformité aux IFRS, Cadre conceptuel" },
     { genre: 'texte', intitule: "Banque mondiale, Rapport sur le respect des normes et codes (ROSC), Comptabilité et audit, RDC", precision: "2010, chapitre 3 : le PCGC et les IFRS" },
     { genre: 'ouvrage', auteur: "Kinzonzi Mvutukidi Ngindu K.", titre: "La normalisation comptable", editeur: "Foucher", lieu: "Paris", annee: "1984" },
-    { genre: 'ouvrage', auteur: "Obert R.", titre: "DSCG 4 Comptabilité et audit, fiches de révision", editeur: "Dunod", lieu: "Paris", annee: "2025" },
-    { genre: 'ouvrage', auteur: "Baratay C.", titre: "Les Carrés DSCG 4, Comptabilité et audit", editeur: "Gualino", lieu: "Paris", annee: "2023" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 1, IAS 7, IAS 8 et IFRS 13 (texte français) ; IFRS 18 (texte anglais) ; AUDCIF et cadre conceptuel du SYSCOHADA révisé ; GCEC-IFRS (BCC, 2012) ; ROSC RDC (2010) ; rapports annuels de BOA RDC et de la BCDC (2018) et de Rawbank (2025). Le texte du Cadre conceptuel de 2018 n'est pas encodé : ses apports sont repris des manuels DSCG 4 (Obert ; Baratay).",
+  sources: "IAS 1, IAS 7, IAS 8 et IFRS 13 (texte français) ; IFRS 18 (texte anglais) ; AUDCIF et cadre conceptuel du SYSCOHADA révisé ; GCEC-IFRS (BCC, 2012) ; ROSC RDC (2010) ; rapports annuels de BOA RDC et de la BCDC (2018) et de Rawbank (2025). Cadre conceptuel de 2018 : texte officiel anglais de l'IFRS Foundation, cité par paragraphe en traduction de travail ; Cadre de 2010 : reprise du GCEC-IFRS.",
 }
 
 export default chapitre
