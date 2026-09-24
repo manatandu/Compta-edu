@@ -19,8 +19,8 @@ const INDIGO = 'text-[#3B3A82]'
 const AMBRE = 'text-[#8A6416]'
 
 const CHAPITRES = [
-  { num: 1,  titre: 'Notions générales : la société commerciale', sousTitre: 'Définition, classification, réformes RDC, GUCE', duree: '3h', actif: true, route: '/ue2/chapitre-1' },
-  { num: 2,  titre: 'Constitution et formalités', sousTitre: 'Art. 7–14, 19–103, 256-1–263 AUSCGIE', duree: '4h', actif: true, route: '/ue2/chapitre-2' },
+  { num: 1,  titre: 'La société commerciale : notion, constitution et naissance', sousTitre: 'Art. 1–120-5, 242–262 AUSCGIE — OHADA en RDC, GUCE', duree: '5h', actif: true, route: '/ue2/chapitre-1' },
+  { num: 2,  titre: 'La vie financière de la société', sousTitre: 'Art. 81–96-1, 137–149, 263–269-7 AUSCGIE — comptes, dividendes, appel public', duree: '4h', actif: true, route: '/ue2/chapitre-2' },
   { num: 3,  titre: 'Sociétés de personnes : SNC et SCS', sousTitre: 'Art. 270–308 AUSCGIE — intuitu personae', duree: '3h', actif: true, route: '/ue2/chapitre-3' },
   { num: 4,  titre: 'Sociétés de capitaux : SA et SAS', sousTitre: 'Art. 385–561, 853-1–853-26 AUSCGIE', duree: '4h', actif: true, route: '/ue2/chapitre-4' },
   { num: 5,  titre: 'Société mixte : la SARL', sousTitre: 'Art. 309–384 AUSCGIE — capital libre RDC', duree: '3h', actif: true, route: '/ue2/chapitre-5' },
