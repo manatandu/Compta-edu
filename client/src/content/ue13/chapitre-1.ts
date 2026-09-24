@@ -8,8 +8,9 @@ import type { Chapitre } from '@/lib/chapitre-types'
 //   et l'obscurcissement), §§ 15 à 38 (caractéristiques générales).
 // - IAS 8 (texte français intégral) : § 5 (définitions), §§ 7 à 14.
 // - IAS 7 §§ 18-19 (méthodes directe et indirecte).
-// - IFRS 13 (texte français, transcription condensée) : § 9 (citation
-//   littérale), §§ 15-26, 27-33, 57-60, 61-90, annexe A, § B27-B30.
+// - IFRS 13 (texte intégral de la traduction française officielle) : § 9,
+//   §§ 15-26, 27-33, 57-60, 61-90, annexe A, § B27-B30 ; les passages entre
+//   guillemets le reproduisent à l'identique.
 // - IFRS 18, annexe C § C8 et annexe D (texte anglais intégral) : IFRS 18
 //   remplace IAS 1, amendements applicables au 1er janvier 2027.
 // - AUDCIF (2017) : art. 8, 73-1, 75, 113 ; Cadre conceptuel du SYSCOHADA
@@ -618,16 +619,16 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Les quatre questions de toute évaluation à la juste valeur",
         liste: [
           "**Quel élément ?** Les caractéristiques que le marché prendrait en compte (état, localisation, restrictions de vente ou d'utilisation), au niveau de l'unité de comptabilisation fixée par la norme applicable (§ 11-14).",
-          "**Sur quel marché ?** Le **marché principal**, celui qui présente le volume et le niveau d'activité les plus élevés pour l'élément. À défaut seulement, le **marché le plus avantageux**, qui maximise le prix net reçu après coûts de transaction et frais de transport (§ 15-19). Le prix du marché principal prévaut même si un autre marché serait plus avantageux à la date d'évaluation.",
+          "**Sur quel marché ?** Le **marché principal**, celui qui présente le volume et le niveau d'activité les plus élevés pour l'élément. À défaut seulement, le **marché le plus avantageux**, qui maximise le prix net reçu après coûts de transaction et frais de transport (§ 15-19). Le prix du marché principal prévaut, « même si le prix pratiqué sur un autre marché peut être plus avantageux à la date d'évaluation » (§ 18).",
           "**Avec quelles hypothèses ?** Celles d'intervenants du marché agissant au mieux de leur intérêt économique, décrits par leurs caractéristiques générales et non comme des contreparties identifiées (§ 22-23).",
-          "**Quel prix ?** Un prix non ajusté des coûts de transaction, qui sont propres à la transaction et non à l'élément (§ 25), mais ajusté des frais de transport lorsque la localisation est une caractéristique de l'élément (§ 26).",
+          "**Quel prix ?** Un prix qui « ne doit pas être ajusté en fonction des coûts de transaction », lesquels « sont plutôt propres à la transaction » (§ 25), mais ajusté des frais de transport lorsque la localisation est une caractéristique de l'élément (§ 26).",
         ],
       },
       { type: 'controle', question: QCM[7] },
       { type: 'controle', question: QCM[8] },
       {
         type: 'paragraphe',
-        texte: "Pour un actif non financier, un terrain, une usine, une marque, la juste valeur suppose son **utilisation optimale** : celle qui maximise sa valeur du point de vue des intervenants du marché, à condition d'être physiquement possible, légalement admissible et financièrement faisable (§ 27-28). L'usage actuel de l'entité est présumé optimal, sauf si le marché indique le contraire. Une parcelle agricole en bordure d'une ville qui s'étend se valorise peut-être comme terrain à bâtir, même si l'entité continue d'y cultiver. Pour un passif, la norme suppose un **transfert** à un intervenant du marché, le passif restant dû : sa juste valeur intègre le **risque de non-exécution**, y compris le risque de crédit propre de l'entité (§ 34, 42).",
+        texte: "Pour un actif non financier, un terrain, une usine, une marque, la juste valeur suppose son **utilisation optimale** : celle qui maximise sa valeur du point de vue des intervenants du marché, à condition d'être physiquement possible, légalement admissible et financièrement faisable (§ 27-28). Et « l'utilisation actuelle que l'entité fait d'un actif non financier est présumée être l'utilisation optimale, à moins que le marché ou d'autres facteurs donnent à penser que des intervenants du marché pourraient maximiser la valeur de l'actif en l'utilisant différemment » (§ 29). Une parcelle agricole en bordure d'une ville qui s'étend se valorise peut-être comme terrain à bâtir, même si l'entité continue d'y cultiver. Pour un passif, la norme suppose un **transfert** à un intervenant du marché, le passif restant dû : sa juste valeur intègre le **risque de non-exécution**, y compris le risque de crédit propre de l'entité (§ 34, 42).",
       },
       {
         type: 'carte',
@@ -640,7 +641,7 @@ const SECTIONS: Chapitre['sections'] = [
             ['**3**', "Données non observables, utilisées seulement à défaut de données observables pertinentes, mais qui reflètent les hypothèses des intervenants du marché", "Flux prévisionnels internes ; écart de crédit estimé sans référence de marché"],
           ],
         },
-        note: "La hiérarchie classe les données d'entrée, pas les techniques. La juste valeur prise dans son ensemble se classe au niveau de la donnée la plus basse qui est importante pour l'évaluation (§ 73). Et jamais de décote de bloc reflétant la seule taille de la position détenue (§ 69, § 80).",
+        note: "La hiérarchie classe les données d'entrée, pas les techniques. La juste valeur « est alors classée globalement au même niveau de la hiérarchie que la donnée d'entrée du plus bas niveau qui est importante pour la juste valeur prise dans son ensemble » (§ 73). Et jamais de décote de bloc reflétant la seule taille de la position détenue (§ 69, § 80).",
       },
       { type: 'controle', question: QCM[9] },
       {

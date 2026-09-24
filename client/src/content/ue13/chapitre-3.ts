@@ -5,8 +5,9 @@ import type { Chapitre } from '@/lib/chapitre-types'
 // (IAS 36, IAS 40)
 //
 // Sources lues sur texte pendant la rédaction :
-// - IAS 36 et IAS 40 : transcriptions françaises condensées du corpus ; les
-//   paragraphes sont cités par numéro et paraphrasés, sans guillemets.
+// - IAS 36 et IAS 40 : texte intégral de la traduction française officielle
+//   (IFRS Foundation), lu dans le corpus ; les passages entre guillemets le
+//   reproduisent à l'identique, le reste le paraphrase avec renvoi au §.
 // - IFRS 13 (§ 9, hiérarchie), IAS 16 (§ 31-41), IAS 23, IFRS 5 (renvois).
 // - AUDCIF : art. 42, 43 et 46 ; SYSCOHADA révisé, Titre VIII, ch. 10
 //   (immeubles de placement) et ch. 12 (dépréciation des immobilisations).
@@ -51,7 +52,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Une baisse du cours de l'action de l'entité inférieure à celle de l'indice boursier" },
     ],
     reponseCorrecte: 'd',
-    explication: "IAS 36.12 cite, parmi les sources externes, la baisse de valeur de l'actif, les changements défavorables d'environnement, la hausse des taux de marché (c) et l'excédent de l'actif net comptable sur la capitalisation boursière (a). Parmi les sources internes : obsolescence, changement d'utilisation, performance inférieure aux prévisions. Pour les participations, le dividende supérieur au résultat global (c). Une moindre baisse que l'indice n'est pas, en soi, un indice.",
+    explication: "IAS 36.12 cite, parmi les sources externes, la baisse de valeur de l'actif, les changements défavorables d'environnement, la hausse des taux de marché (c) et l'excédent de l'actif net comptable sur la capitalisation boursière (d). Parmi les sources internes : obsolescence, changement d'utilisation, performance inférieure aux prévisions. Pour les participations, le dividende supérieur au résultat global de la période (h)(ii). Une moindre baisse que l'indice n'est pas, en soi, un indice.",
     articleRef: "IAS 36.12-14",
   },
   {
@@ -160,9 +161,9 @@ const QCM: Chapitre['qcm'] = [
   },
   {
     id: 'ue13c3-q12',
-    question: "Une mine exploite une voie ferrée privée qui ne pourrait être vendue que comme ferraille et ne génère aucune entrée de trésorerie indépendante. À quel niveau teste-t-on la voie ferrée ?",
+    question: "Une mine exploite une voie ferrée privée qui ne pourrait être vendue que pour sa valeur à la casse et ne génère aucune entrée de trésorerie indépendante. À quel niveau teste-t-on la voie ferrée ?",
     options: [
-      { id: 'a', texte: "Au niveau de la voie ferrée seule, à sa valeur de ferraille" },
+      { id: 'a', texte: "Au niveau de la voie ferrée seule, à sa valeur à la casse" },
       { id: 'b', texte: "Au niveau de l'unité génératrice de trésorerie à laquelle elle appartient, ici la mine dans son ensemble" },
       { id: 'c', texte: "Au niveau du groupe entier" },
       { id: 'd', texte: "Elle n'est jamais testée" },
@@ -207,7 +208,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "À l'actif le plus important de l'entité acquise" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 36.80 : le goodwill est affecté, dès la date d'acquisition, à chacune des UGT ou groupes d'UGT censés bénéficier des synergies. Chaque unité représente le niveau le plus bas auquel le goodwill est suivi pour la gestion interne, et n'est pas plus grande qu'un secteur opérationnel. L'affectation initiale doit être achevée avant la fin du premier exercice qui suit l'acquisition (§ 84).",
+    explication: "IAS 36.80 : le goodwill est affecté, dès la date d'acquisition, à chacune des UGT ou groupes d'UGT censés bénéficier des synergies. Chaque unité représente le niveau le plus bas auquel le goodwill est suivi pour la gestion interne, et n'est pas plus grande qu'un secteur opérationnel. Si elle ne peut être achevée pendant l'exercice du regroupement, l'affectation initiale doit l'être « avant la fin du premier exercice commençant après la date d'acquisition » (§ 84).",
     articleRef: "IAS 36.80-84",
   },
   {
@@ -363,7 +364,7 @@ const QCM: Chapitre['qcm'] = [
       { id: 'd', texte: "Oui, en immobilisation corporelle" },
     ],
     reponseCorrecte: 'b',
-    explication: "IAS 40.57 : un transfert n'est possible qu'en cas de changement d'utilisation, et « un changement d'intention ne suffit pas ». Le § 58 vise précisément ce cas : la décision de vendre sans aménagement laisse le bien en immeuble de placement jusqu'à sa sortie. Le début d'un aménagement en vue de la vente, en revanche, justifie le transfert en stocks (§ 57(b)). Si les critères d'IFRS 5 sont remplis, un classement en actif détenu en vue de la vente reste à examiner.",
+    explication: "IAS 40.57 : un transfert n'est possible qu'en cas de changement d'utilisation, et « un changement dans les intentions de la direction quant à l'utilisation d'un bien immobilier ne constitue pas en soi une indication d'un changement d'utilisation ». Le § 58 vise précisément ce cas : la décision de vendre sans aménagement laisse le bien en immeuble de placement jusqu'à sa sortie. Le début d'un aménagement en vue de la vente, en revanche, justifie le transfert en stocks (§ 57(b)). Si les critères d'IFRS 5 sont remplis, un classement en actif détenu en vue de la vente reste à examiner.",
     articleRef: "IAS 40.57-58",
   },
   {
@@ -405,6 +406,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "IAS 36 ne demande pas d'estimer chaque année la valeur recouvrable de tous les actifs, ce qui serait coûteux et inutile. À chaque clôture, l'entité recherche s'il existe un **indice** de perte de valeur ; si oui, elle estime la valeur recouvrable (§ 9). Trois catégories échappent à ce filtre et sont testées **chaque année**, au même moment, qu'il y ait un indice ou non : les incorporelles à durée d'utilité indéterminée, les incorporelles pas encore prêtes à être mises en service, et le goodwill (§ 10-11). Ce sont les actifs les plus difficiles à apprécier et ceux qui ne sont pas amortis.",
       },
+      {
+        type: 'filet',
+        titre: "Ce que dit la norme : une obligation de recherche, pas de calcul (§ 9)",
+        texte: "« Une entité doit déterminer à la fin de chaque période de présentation de l'information financière s'il existe un quelconque indice qu'un actif a pu se déprécier. S'il existe un tel indice, l'entité doit estimer la valeur recouvrable de l'actif. » Le § 10 ouvre par la formule inverse : « Qu'il y ait un indice de dépréciation ou non, une entité doit aussi » tester chaque année les incorporelles à durée d'utilité indéterminée ou pas encore prêtes à être utilisées, ainsi que le goodwill. La première phrase du § 9 impose une diligence ; seule la seconde impose un calcul.",
+      },
       { type: 'controle', question: QCM[1] },
       {
         type: 'tableau',
@@ -414,7 +420,7 @@ const SECTIONS: Chapitre['sections'] = [
             ["Baisse de la valeur de l'actif plus forte que l'usure normale", "Obsolescence ou dégradation physique"],
             ["Changements défavorables de l'environnement technologique, économique, juridique ou du marché", "Mise hors service, abandon, restructuration, sortie anticipée, durée d'utilité devenue déterminée"],
             ["Hausse des taux de marché qui augmente le taux d'actualisation", "Performance économique inférieure aux prévisions : flux, résultat ou budget dégradés"],
-            ["Actif net comptable supérieur à la capitalisation boursière", "Participations : valeur de la participation supérieure aux actifs nets consolidés, ou dividende supérieur au résultat global (§ 12(h))"],
+            ["Actif net comptable supérieur à la capitalisation boursière", "Participations : un dividende est comptabilisé alors que la valeur de la participation dépasse les actifs nets consolidés de l'entité détenue, goodwill compris, ou que le dividende dépasse son résultat global de la période (§ 12(h))"],
           ],
         },
       },
@@ -433,13 +439,13 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "La valeur recouvrable est la plus élevée de deux grandeurs (§ 18). La **juste valeur diminuée des coûts de sortie** est le prix qu'obtiendraient des intervenants du marché (IFRS 13), net des coûts marginaux directement attribuables à la sortie : frais d'actes, droits, enlèvement, mise en état de vente, mais pas les charges financières, l'impôt, les indemnités de rupture ou les coûts de restructuration (§ 28). La **valeur d'utilité** est la valeur actualisée des flux que l'entité attend de l'utilisation continue de l'actif et de sa sortie en fin de vie (§ 30-31). Si l'une des deux dépasse la valeur comptable, inutile de calculer l'autre (§ 19).",
+        texte: "IAS 36 définit la valeur recouvrable comme « la valeur la plus élevée entre sa juste valeur diminuée des coûts de sortie et sa valeur d'utilité » (§ 6 ; même formule au § 18). La **juste valeur diminuée des coûts de sortie** est le prix qu'obtiendraient des intervenants du marché (IFRS 13), net des coûts marginaux directement attribuables à la sortie : frais d'actes, droits, enlèvement, mise en état de vente, mais pas les charges financières, l'impôt, les indemnités de rupture ou les coûts de restructuration (§ 28). La **valeur d'utilité** est la valeur actualisée des flux que l'entité attend de l'utilisation continue de l'actif et de sa sortie en fin de vie (§ 30-31). Si l'une des deux dépasse la valeur comptable, inutile de calculer l'autre (§ 19).",
       },
       { type: 'controle', question: QCM[3] },
       {
         type: 'filet',
         titre: "Ce que dit la norme : juste valeur et valeur d'utilité ne sont pas la même chose (§ 53A)",
-        texte: "La juste valeur reflète les hypothèses qu'utiliseraient les intervenants du marché. La valeur d'utilité reflète des facteurs propres à l'entité, que le marché ne peut pas nécessairement obtenir : synergies avec ses autres actifs, droits ou restrictions juridiques qui lui sont propres, avantages ou charges fiscaux spécifiques. Le Cadre de 2018 fait la même distinction entre valeurs de marché et valeurs spécifiques à l'entité (§ 6.12, 6.17-6.19). Si la juste valeur ne peut pas être estimée de façon fiable, on retient la valeur d'utilité ; si rien n'indique que la valeur d'utilité dépasse significativement la juste valeur, par exemple pour un actif destiné à être cédé, on retient la juste valeur (§ 20-21).",
+        texte: "« La juste valeur diffère de la valeur d'utilité. La juste valeur reflète les hypothèses que les intervenants du marché utiliseraient pour fixer le prix de l'actif. Par contre, la valeur d'utilité reflète les effets des facteurs qui peuvent être spécifiques à l'entité et ne pas s'appliquer aux entités en général. » La norme énumère ensuite ce que la juste valeur ne reflète pas : la valeur supplémentaire tirée d'un regroupement d'actifs, les synergies avec d'autres actifs, les droits ou restrictions juridiques propres au propriétaire actuel, ses avantages ou charges fiscaux spécifiques. Le Cadre de 2018 fait la même distinction entre valeurs de marché et valeurs spécifiques à l'entité (§ 6.12, 6.17-6.19). Si la juste valeur ne peut pas être évaluée faute de base fiable, l'entité peut retenir la valeur d'utilité ; s'il n'existe aucune raison de penser que la valeur d'utilité excède de façon significative la juste valeur diminuée des coûts de sortie, ce qui sera souvent le cas d'un actif détenu en vue d'être sorti, on peut retenir cette dernière (§ 20-21).",
       },
       {
         type: 'carte',
@@ -495,6 +501,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "À chaque clôture, l'entité recherche aussi les indices qu'une perte antérieure a diminué ou disparu, en miroir des indices de perte (§ 110-111). Une reprise n'est admise que si les **estimations** qui ont servi à déterminer la valeur recouvrable ont changé (§ 114), ce qui traduit un accroissement du potentiel de service de l'actif (§ 115). Le seul passage du temps, qui rapproche les flux et augmente mécaniquement leur valeur actualisée, ne suffit pas (§ 116).",
       },
+      {
+        type: 'filet',
+        titre: "Ce que dit la norme : « si, et seulement si » (§ 59, § 114, § 116)",
+        texte: "La perte : « Si, et seulement si, la valeur recouvrable d'un actif est inférieure à sa valeur comptable, la valeur comptable de l'actif doit être ramenée à sa valeur recouvrable. Cette réduction est une perte de valeur. » (§ 59). La reprise : la perte d'un actif autre qu'un goodwill « doit être reprise si, et seulement si, il y a eu un changement dans les estimations utilisées pour déterminer la valeur recouvrable de l'actif depuis la dernière comptabilisation d'une perte de valeur » (§ 114). Et la limite : « une perte de valeur n'est pas reprise du simple fait du passage du temps (parfois nommé « désactualisation ») même si la valeur recouvrable de l'actif devient supérieure à sa valeur comptable » (§ 116). La même tournure encadre les deux mouvements : la norme ne laisse pas de choix, ni pour constater la perte, ni pour la reprendre.",
+      },
       { type: 'controle', question: QCM[9] },
       {
         type: 'carte',
@@ -518,13 +529,13 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "La plupart des actifs ne génèrent pas de flux à eux seuls. Un four ne vend rien sans le broyeur, le broyeur sans l'ensacheuse. IAS 36 impose alors de tester l'**unité génératrice de trésorerie** (UGT), définie comme « le plus petit groupe identifiable d'actifs générant des entrées de trésorerie largement indépendantes » de celles d'autres actifs (§ 6). On teste l'actif isolé si possible ; à défaut, son UGT (§ 66-67). Identifier l'UGT est une affaire de jugement, qui tient compte de la manière dont la direction suit les activités et décide de les poursuivre ou de les arrêter (§ 68-69).",
+        texte: "La plupart des actifs ne génèrent pas de flux à eux seuls. Un four ne vend rien sans le broyeur, le broyeur sans l'ensacheuse. IAS 36 impose alors de tester l'**unité génératrice de trésorerie** (UGT), définie comme « le plus petit groupe identifiable d'actifs qui génère des entrées de trésorerie largement indépendantes des entrées de trésorerie générées par d'autres actifs ou groupes d'actifs » (§ 6). On teste l'actif isolé si possible ; à défaut, son UGT (§ 66-67). Identifier l'UGT est une affaire de jugement, qui tient compte de la manière dont la direction suit les activités et décide de les poursuivre ou de les arrêter (§ 68-69).",
       },
       {
         type: 'carte',
         titre: "Trois repères de la norme pour délimiter une UGT",
         liste: [
-          "**La desserte ferroviaire d'une mine** (§ 67) : elle ne génère pas d'entrées indépendantes et sa valeur d'utilité ne peut être isolée ; l'UGT est la mine.",
+          "**La desserte ferroviaire d'une mine** (§ 67) : elle « ne pourrait être vendue que pour sa valeur à la casse » et ne génère pas d'entrées largement indépendantes ; sa valeur d'utilité ne pouvant être déterminée, l'entité teste l'UGT, « c'est-à-dire la mine dans son ensemble ».",
           "**Le transporteur sous contrat municipal** (§ 68) : cinq itinéraires, mais un contrat qui interdit d'en abandonner un ; l'UGT est l'ensemble des cinq.",
           "**Le marché actif** (§ 70-71) : un groupe d'actifs dont la production a un marché actif est une UGT, même si la production est entièrement consommée en interne ; on raisonne alors aux prix de pleine concurrence, pas aux prix de cession interne.",
         ],
@@ -558,7 +569,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Le goodwill ne génère aucun flux à lui seul (§ 81). Il est donc affecté, dès l'acquisition, aux UGT ou groupes d'UGT censés bénéficier des synergies du regroupement, au niveau le plus bas où il est suivi par la gestion interne, sans dépasser un secteur opérationnel au sens d'IFRS 8 (§ 80). L'affectation initiale est achevée avant la fin du premier exercice qui suit l'acquisition (§ 84). En cas de cession d'une activité de l'UGT, une quote-part du goodwill part avec elle, en principe selon les valeurs relatives de la partie cédée et de la partie conservée (§ 86) ; en cas de réorganisation des UGT, il est réaffecté selon la même logique (§ 87).",
+        texte: "Le goodwill ne génère aucun flux à lui seul (§ 81). Il est donc affecté, dès l'acquisition, aux UGT ou groupes d'UGT censés bénéficier des synergies du regroupement, au niveau le plus bas où il est suivi par la gestion interne, sans dépasser un secteur opérationnel au sens d'IFRS 8 (§ 80). Si l'affectation initiale ne peut être achevée pendant l'exercice du regroupement, elle doit l'être « avant la fin du premier exercice commençant après la date d'acquisition » (§ 84). En cas de cession d'une activité de l'UGT, une quote-part du goodwill part avec elle, en principe selon les valeurs relatives de la partie cédée et de la partie conservée (§ 86) ; en cas de réorganisation des UGT, il est réaffecté selon la même logique (§ 87).",
       },
       { type: 'controle', question: QCM[14] },
       {
@@ -574,6 +585,11 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Lorsque la valeur recouvrable de l'UGT est inférieure à sa valeur comptable, la perte est imputée **dans un ordre imposé** (§ 104) : d'abord le goodwill affecté à l'UGT, puis les autres actifs au prorata de leur valeur comptable. Un plancher protège chaque actif : on ne le réduit pas en dessous du plus élevé de sa juste valeur diminuée des coûts de sortie, de sa valeur d'utilité, si elle est déterminable, et de zéro. Ce qui ne peut pas lui être imputé est réparti entre les autres actifs (§ 105).",
+      },
+      {
+        type: 'filet',
+        titre: "Ce que dit la norme : l'ordre et le plancher (§ 104-105, § 124)",
+        texte: "La perte d'une UGT « doit être répartie, en réduction de la valeur comptable des actifs de l'unité (du groupe d'unités) dans l'ordre suivant : (a) tout d'abord, réduction de la valeur comptable de tout goodwill affecté à l'unité génératrice de trésorerie (au groupe d'unités) ; et (b) ensuite, réduction des autres actifs de l'unité (du groupe d'unités) au prorata de la valeur comptable de chaque actif dans l'unité (le groupe d'unités). » (§ 104). Le plancher : l'entité « ne doit pas réduire la valeur comptable d'un actif en dessous du plus élevé de : (a) sa juste valeur diminuée des coûts de sortie (si on peut l'évaluer) ; (b) sa valeur d'utilité (si on peut la déterminer) ; et (c) zéro. » (§ 105). Et le sens unique : « Une perte de valeur comptabilisée pour un goodwill ne doit pas être reprise lors d'une période ultérieure. » (§ 124).",
       },
       {
         type: 'carte',
@@ -613,7 +629,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Ce que dit la norme : la sensibilité (§ 134(f))",
-        texte: "Pour chaque UGT portant un goodwill ou une incorporelle à durée indéterminée importants, l'entité indique les hypothèses clés, la période de projection, le taux de croissance d'extrapolation et le taux d'actualisation. Et si un changement raisonnablement possible d'une hypothèse clé ramenait la valeur recouvrable sous la valeur comptable, elle indique la marge actuelle, la valeur retenue pour l'hypothèse et l'ampleur du changement qui annulerait la marge. C'est l'information la plus utile au lecteur : elle dit à quelle distance se trouve la prochaine dépréciation.",
+        texte: "Pour chaque UGT portant un goodwill ou une incorporelle à durée d'utilité indéterminée importants, l'entité indique les hypothèses clés, la période de projection, le taux de croissance d'extrapolation et le taux d'actualisation (§ 134(a)-(e)). Le point (f) vise le cas où, « lorsqu'un changement raisonnablement possible d'une hypothèse clé sur laquelle la direction a fondé sa détermination de la valeur recouvrable de l'unité (du groupe d'unités) ferait en sorte que la valeur comptable de l'unité (du groupe d'unités) excède sa valeur recouvrable ». L'entité fournit alors « le montant de l'excédent de la valeur recouvrable de l'unité (du groupe d'unités) sur sa valeur comptable », « la valeur attribuée à l'hypothèse clé », et le montant du changement qui ramènerait la valeur recouvrable au niveau de la valeur comptable. C'est l'information la plus utile au lecteur : elle dit à quelle distance se trouve la prochaine dépréciation.",
       },
       { type: 'controle', question: QCM[18] },
       {
@@ -668,7 +684,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Un **immeuble de placement** est un bien immobilier, terrain ou bâtiment, en tout ou en partie, détenu par son propriétaire ou par un preneur au titre d'un droit d'utilisation, pour en retirer des loyers ou pour valoriser le capital, plutôt que pour l'utiliser dans la production, à des fins administratives, ou pour le vendre dans le cours normal de l'activité (IAS 40.5). Son critère distinctif est économique : il génère des flux de trésorerie **largement indépendants** des autres actifs de l'entité (§ 7). Un immeuble de bureaux loué rapporte des loyers par lui-même ; le siège d'une banque ne rapporte rien sans l'activité bancaire.",
+        texte: "Un **immeuble de placement** est « un bien immobilier (terrain ou bâtiment — ou partie d'un bâtiment — ou les deux) détenu (par le propriétaire ou, en tant qu'actif au titre du droit d'utilisation, par le preneur) pour en retirer des loyers ou pour réaliser une plus-value en capital ou les deux, plutôt que pour : (a) l'utiliser dans la production ou la fourniture de biens ou de services ou à des fins administratives ; ou (b) le vendre dans le cadre de l'activité ordinaire » (IAS 40.5). Son critère distinctif est économique : « un immeuble de placement génère des flux de trésorerie largement indépendants des autres actifs détenus par l'entité » (§ 7). Un immeuble de bureaux loué rapporte des loyers par lui-même ; le siège d'une banque ne rapporte rien sans l'activité bancaire.",
       },
       {
         type: 'tableau',
@@ -713,7 +729,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Un immeuble de placement détenu en propre est comptabilisé selon les critères habituels de probabilité et de fiabilité (§ 16), et évalué initialement **au coût**, coûts de transaction compris : prix d'achat, honoraires juridiques, droits de mutation (§ 20-21). Sont exclus les coûts de démarrage non nécessaires, les pertes d'exploitation avant le niveau d'occupation prévu et les gaspillages anormaux (§ 23). Les règles du paiement différé et des échanges sont celles d'IAS 16 (§ 24-29). Ensuite, l'entité choisit une méthode comptable unique pour **tous** ses immeubles de placement : le modèle de la juste valeur ou le modèle du coût (§ 30), sauf l'option du § 32A pour les immeubles adossés à des passifs indexés.",
+        texte: "Un immeuble de placement détenu en propre est comptabilisé selon les critères habituels de probabilité et de fiabilité (§ 16), et évalué initialement **au coût**, coûts de transaction compris : prix d'achat, honoraires juridiques, droits de mutation (§ 20-21). Sont exclus les coûts de démarrage non nécessaires, les pertes d'exploitation avant le niveau d'occupation prévu et les gaspillages anormaux (§ 23). Les règles du paiement différé et des échanges sont celles d'IAS 16 (§ 24-29). Ensuite, l'entité choisit une méthode comptable unique pour **tous** ses immeubles de placement : le modèle de la juste valeur ou le modèle du coût (§ 30), sauf l'option du § 32A, qui permet un choix distinct pour les immeubles adossés à des passifs dont le rendement est directement lié à leur juste valeur ou au rendement qu'ils procurent.",
       },
       {
         type: 'tableau',
@@ -743,7 +759,7 @@ const SECTIONS: Chapitre['sections'] = [
             ['Information en notes', 'Rapprochement des justes valeurs (§ 76)', 'Juste valeur : 2 300 (§ 79(e))'],
           ],
         },
-        note: "Le modèle de la juste valeur rend le résultat sensible au marché immobilier : un recul de 15 % de la juste valeur en N+1 ferait passer 345 en perte. Le § 31 avertit qu'un passage de la juste valeur au coût a peu de chances de donner une présentation plus appropriée.",
+        note: "Le modèle de la juste valeur rend le résultat sensible au marché immobilier : un recul de 15 % de la juste valeur en N+1 ferait passer 345 en perte. Le § 31 avertit : « Il est hautement improbable que l'abandon du modèle de la juste valeur pour le modèle du coût permette une présentation plus appropriée. »",
       },
       {
         type: 'carte',
@@ -775,7 +791,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Un bien entre dans la catégorie des immeubles de placement, ou en sort, **si et seulement s'il y a changement d'utilisation**, et « un changement d'intention ne suffit pas » (§ 57). Les indices sont concrets : début d'occupation par le propriétaire, début d'aménagement en vue de la vente, fin d'occupation par le propriétaire, location simple à un tiers d'un bien jusque-là en stock. La décision de vendre un immeuble sans le réaménager ne le fait pas sortir de la catégorie ; son réaménagement pour continuer à le louer non plus (§ 58).",
+        texte: "L'entité transfère un bien vers la catégorie des immeubles de placement, ou depuis celle-ci, « si, et seulement si, il y a changement d'utilisation », et la norme précise : « Un changement dans les intentions de la direction quant à l'utilisation d'un bien immobilier ne constitue pas en soi une indication d'un changement d'utilisation. » (§ 57). Les indices sont concrets : début d'occupation par le propriétaire, début d'aménagement en vue de la vente, fin d'occupation par le propriétaire, location simple à un tiers d'un bien jusque-là en stock. La décision de vendre un immeuble sans le réaménager ne le fait pas sortir de la catégorie ; son réaménagement pour continuer à le louer non plus (§ 58).",
       },
       { type: 'controle', question: QCM[26] },
       {

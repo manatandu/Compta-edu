@@ -6,10 +6,11 @@ import type { Chapitre } from '@/lib/chapitre-types'
 //
 // Sources lues sur texte pendant la rédaction :
 // - IAS 16 (texte français intégral) : §§ 1 à 79.
-// - IAS 38 (transcription française condensée du corpus : les paragraphes
-//   sont cités par numéro et paraphrasés, sans guillemets, sauf mention).
+// - IAS 38 et IFRS 6 (texte intégral de la traduction française officielle,
+//   IFRS Foundation) : les passages entre guillemets le reproduisent à
+//   l'identique, le reste le paraphrase avec renvoi au §.
 // - IAS 23 (texte français intégral) : §§ 1 à 26.
-// - IFRIC 1 et IFRIC 20 (texte anglais intégral) ; IFRS 6 (condensé).
+// - IFRIC 1 et IFRIC 20 (texte anglais intégral).
 // - Cadre conceptuel 2018 (texte anglais) : SP1.2, 4.3-4.4, 5.6-5.17.
 // - AUDCIF : art. 62 à 65 ; Titre VIII, ch. 1, 4, 6 et 7 (R&D, composants,
 //   démantèlement, coûts d'emprunt) ; ch. 28 (réévaluation des bilans).
@@ -734,7 +735,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Une **immobilisation incorporelle** est un actif non monétaire identifiable sans substance physique (IAS 38.8). La définition repose sur trois conditions : l'identifiabilité, le contrôle et des avantages économiques futurs. Si l'une manque, la dépense est une charge, ou, dans un regroupement d'entreprises, une partie du goodwill (§ 10). L'enjeu est considérable dans l'économie d'aujourd'hui : logiciels, licences de télécommunication, bases de clients, marques, droits de diffusion. Beaucoup de ces ressources créent de la valeur sans pouvoir entrer au bilan.",
+        texte: "Une **immobilisation incorporelle** est « un actif non monétaire identifiable sans substance physique » (IAS 38.8). La définition repose sur trois conditions : l'identifiabilité, le contrôle et des avantages économiques futurs. Si l'une manque, la dépense est une charge, ou, dans un regroupement d'entreprises, une partie du goodwill (§ 10). L'enjeu est considérable dans l'économie d'aujourd'hui : logiciels, licences de télécommunication, bases de clients, marques, droits de diffusion. Beaucoup de ces ressources créent de la valeur sans pouvoir entrer au bilan.",
       },
       {
         type: 'carte',
@@ -760,7 +761,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "La génération interne est le terrain le plus délicat. La norme impose de séparer une **phase de recherche** et une **phase de développement** (§ 52), et, si l'on ne peut pas les distinguer, de tout traiter comme de la recherche (§ 53). La recherche est toujours une charge (§ 54). Le développement donne naissance à une immobilisation si, et seulement si, l'entité démontre six éléments (§ 57) : (a) la faisabilité technique de l'achèvement ; (b) l'intention d'achever et d'utiliser ou de vendre ; (c) la capacité à utiliser ou à vendre ; (d) la façon dont l'actif générera des avantages probables, par l'existence d'un marché ou, en usage interne, par son utilité ; (e) la disponibilité des ressources techniques et financières, démontrable par un plan d'affaires ou l'accord d'un prêteur (§ 61) ; (f) la capacité d'évaluer de façon fiable les dépenses attribuables.",
+        texte: "La génération interne est le terrain le plus délicat. La norme impose de séparer une **phase de recherche** et une **phase de développement** (§ 52), et, si l'on ne peut pas les distinguer, de tout traiter comme de la recherche (§ 53). La recherche est toujours une charge (§ 54). Le développement donne naissance à une immobilisation incorporelle, qui « doit être comptabilisée si, et seulement si, une entité peut démontrer tout ce qui suit » (§ 57) : (a) la faisabilité technique de l'achèvement ; (b) l'intention d'achever et d'utiliser ou de vendre ; (c) la capacité à utiliser ou à vendre ; (d) la façon dont l'actif générera des avantages probables, par l'existence d'un marché ou, en usage interne, par son utilité ; (e) la disponibilité des ressources techniques et financières, démontrable par un plan d'affaires ou l'accord d'un prêteur (§ 61) ; (f) la capacité d'évaluer de façon fiable les dépenses attribuables.",
       },
       {
         type: 'carte',
@@ -784,7 +785,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Ce que dit la norme : ce qui n'entre jamais au bilan",
-        texte: "Ne sont jamais comptabilisés en immobilisations incorporelles : le goodwill généré en interne (§ 48) ; les marques, cartouches de titre, titres de publication, listes de clients et éléments similaires générés en interne (§ 63), parce que leurs dépenses ne se distinguent pas du développement de l'entreprise dans son ensemble (§ 64) ; les coûts de démarrage, de formation, de publicité et de promotion, de relocalisation ou de réorganisation (§ 69). Et une dépense passée en charges ne peut jamais être incorporée plus tard (§ 71). Le SYSCOHADA révisé reprend les six critères et la même interdiction de réincorporation (Titre VIII, ch. 1), avec un compte 211 dédié aux frais de développement.",
+        texte: "« Le goodwill généré en interne ne doit pas être comptabilisé en tant qu'actif. » (§ 48). « Lorsqu'ils sont générés en interne, les marques, cartouches de titre, titres de publication, listes de clients et autres éléments similaires en substance ne doivent pas être comptabilisés en tant qu'immobilisations incorporelles. » (§ 63), parce que leurs dépenses « ne peuvent pas être distinguées du coût de développement de l'entreprise dans son ensemble » (§ 64). Les coûts de démarrage, de formation, de publicité et de promotion, de relocalisation ou de réorganisation sont des charges (§ 69). Et le verrou final : « Les dépenses relatives à un élément incorporel qui ont été initialement comptabilisées en charges ne doivent pas être incorporées dans le coût d'une immobilisation incorporelle à une date ultérieure. » (§ 71). Le SYSCOHADA révisé reprend les six critères et la même interdiction de réincorporation (Titre VIII, ch. 1), avec un compte 211 dédié aux frais de développement.",
       },
     ],
   },
@@ -799,7 +800,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "La question décisive est celle de la **durée d'utilité**, déterminée ou indéterminée (§ 88). Elle est indéterminée lorsque, compte tenu de tous les facteurs pertinents (§ 90 : usage, cycles de vie, obsolescence, stabilité du secteur, concurrence, maintenance, limites juridiques, dépendance à d'autres actifs), il n'existe pas de limite prévisible à la période de génération de flux. « Indéterminé » ne veut pas dire « infini » (§ 91). Une incorporelle à durée déterminée est amortie ; une incorporelle à durée indéterminée ne l'est pas, mais elle est testée pour dépréciation chaque année et à chaque indice (§ 107-108), et sa durée est réexaminée à chaque période (§ 109).",
+        texte: "La question décisive est celle de la **durée d'utilité**, déterminée ou indéterminée (§ 88). Elle est indéterminée lorsque, compte tenu de tous les facteurs pertinents (§ 90 : usage, cycles de vie, obsolescence, stabilité du secteur, concurrence, maintenance, limites juridiques, dépendance à d'autres actifs), il n'existe pas de limite prévisible à la période de génération de flux. La norme le dit en une phrase : « Le terme « indéterminé » ne signifie pas « infini ». » (§ 91). Une incorporelle à durée déterminée est amortie ; une incorporelle à durée indéterminée ne l'est pas, mais elle est testée pour dépréciation chaque année et à chaque indice (§ 107-108), et sa durée est réexaminée à chaque période (§ 109).",
       },
       {
         type: 'carte',
@@ -814,7 +815,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'controle', question: QCM[25] },
       {
         type: 'paragraphe',
-        texte: "Le mode d'amortissement obéit aux mêmes principes qu'en IAS 16, avec une nuance importante. Un mode fondé sur les produits est présumé inapproprié, mais la présomption est **réfutable** (§ 98A) dans deux cas seulement : lorsque l'incorporelle est exprimée selon une mesure des produits, ou lorsque produits et consommation sont fortement corrélés. Le § 98C en donne l'illustration : un droit d'exploiter une concession ou une autoroute à péage jusqu'à ce qu'un montant total de produits, fixé par contrat, soit atteint. Le point de départ est d'identifier le **facteur limitatif prédominant** (§ 98B) : le temps, un nombre d'unités ou un montant de produits.",
+        texte: "Le mode d'amortissement obéit aux mêmes principes qu'en IAS 16, avec une nuance importante. Un mode fondé sur les produits est présumé inapproprié, mais la présomption est **réfutable** (§ 98A) dans deux cas seulement : lorsque l'incorporelle est exprimée selon une mesure des produits, ou lorsque produits et consommation sont fortement corrélés. Le § 98C en donne deux illustrations : une concession aurifère dont le contrat autorise l'extraction jusqu'à ce que le cumul des produits de la vente de l'or atteigne un montant fixé, et le droit d'exploiter une autoroute à péage jusqu'à un montant total déterminé de produits. Le point de départ est d'identifier le **facteur limitatif prédominant** (§ 98B) : le temps, un nombre d'unités ou un montant de produits.",
       },
       { type: 'controle', question: QCM[16] },
       {
@@ -831,7 +832,7 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Le cycle de vie d'une mine traverse trois territoires normatifs. En amont, la **prospection et l'évaluation**, après l'obtention des droits de prospecter et avant la démonstration de la faisabilité technique et de la viabilité commerciale de l'extraction, relèvent d'IFRS 6 : l'entité définit sa méthode de capitalisation (§ 9), bénéficie d'une exemption temporaire des §§ 11-12 d'IAS 8 (§ 7), classe ses actifs en corporels ou incorporels selon leur nature (§ 15-16), et teste la dépréciation avant tout reclassement (§ 17). Au milieu, les dépenses de **développement** de la mine relèvent du Cadre et d'IAS 38 (IFRS 6.10), et les équipements d'IAS 16. En production, enfin, une dépense propre aux mines à ciel ouvert appelle une interprétation spécifique.",
+        texte: "Le cycle de vie d'une mine traverse trois territoires normatifs. En amont, la **prospection et l'évaluation**, après l'obtention des droits de prospecter et avant la démonstration de la faisabilité technique et de la viabilité commerciale de l'extraction, relèvent d'IFRS 6 : l'entité définit sa méthode de capitalisation (§ 9), bénéficie d'une exemption temporaire des §§ 11-12 d'IAS 8 (§ 7), classe ses actifs en corporels ou incorporels selon leur nature (§ 15-16), et teste la dépréciation avant tout reclassement (§ 17). Au milieu, les dépenses de **développement** : « Les dépenses liées au développement des ressources minérales ne doivent pas être comptabilisées en tant qu'actifs de prospection et d'évaluation » ; le Cadre conceptuel et IAS 38 guident leur comptabilisation (IFRS 6.10), et les équipements relèvent d'IAS 16. La charnière est fixée par le § 17 : l'actif de prospection et d'évaluation « ne doit plus être classé comme tel lorsque la faisabilité technique et la viabilité commerciale de l'extraction d'une ressource minérale sont démontrables », et la perte de valeur éventuelle est comptabilisée « avant le reclassement ». En production, enfin, une dépense propre aux mines à ciel ouvert appelle une interprétation spécifique.",
       },
       {
         type: 'filet',
