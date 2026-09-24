@@ -23,7 +23,7 @@ const CHAPITRES = [
   { num: 2, titre: 'Constitution selon la forme sociale : SARL, SA, SAS, incidents de libération', sousTitre: 'AUSCGIE art. 309–316, 385–413, 774–777, 853-1 s., 886–888', duree: '5h', actif: true, route: '/ue3/chapitre-2' },
   { num: 3, titre: "L'affectation du résultat et la distribution des dividendes", sousTitre: 'AUSCGIE art. 137–146, 346–349, 546 · App. 65 · loi 23/053 (IS, retenue 20 %)', duree: '4h', actif: true, route: '/ue3/chapitre-3' },
   { num: 4, titre: "L'augmentation de capital", sousTitre: 'AUSCGIE art. 358–363, 562–626-6 · App. 60, 61, 76, 77', duree: '5h', actif: true, route: '/ue3/chapitre-4' },
-  { num: 5, titre: "La réduction et l'amortissement du capital", sousTitre: 'AUSCGIE art. 627–669, 371–373 · App. 62–64', duree: '4h', actif: true, route: '/ue3/chapitre-5' },
+  { num: 5, titre: "La réduction et l'amortissement du capital", sousTitre: 'AUSCGIE art. 366–373, 627–669 · App. 62–64 · loi 23/053 art. 74', duree: '4h', actif: true, route: '/ue3/chapitre-5' },
   { num: 6, titre: "L'emprunt obligataire", sousTitre: 'AUSCGIE art. 779–794 · App. 78–80', duree: '5h', actif: true, route: '/ue3/chapitre-6' },
   { num: 7, titre: "L'évaluation des titres sociaux et le portefeuille-titres", sousTitre: 'App. 48–51 · AUSCGIE art. 59', duree: '4h', actif: true, route: '/ue3/chapitre-7' },
   { num: 8, titre: 'Les fusions et opérations assimilées', sousTitre: 'AUSCGIE art. 189–199 · App. 116–120', duree: '6h', actif: true, route: '/ue3/chapitre-8' },
