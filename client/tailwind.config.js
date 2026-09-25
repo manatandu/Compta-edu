@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         display: ["\"Source Serif 4\"", "Georgia", "serif"],
+        serif: ["\"Source Serif 4\"", "Georgia", "serif"],
         mono: ["\"IBM Plex Mono\"", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
