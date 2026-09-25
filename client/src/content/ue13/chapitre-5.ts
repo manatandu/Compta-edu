@@ -439,6 +439,45 @@ const QCM: Chapitre['qcm'] = [
     explication: "Titre VIII, ch. 17, § 3.2 : la reprise annuelle, au crédit du compte 799, est égale à la dotation aux amortissements multipliée par le rapport entre la subvention et la valeur d'entrée de l'immobilisation. Le dixième ne s'applique qu'aux immobilisations non amortissables en l'absence de clause d'inaliénabilité.",
     articleRef: "SYSCOHADA, Titre VIII, ch. 17, § 3.2 ; compte 14",
   },
+  {
+    id: 'ue13c5-q33',
+    question: "Un commissionnaire en douane facture 50 000 USD à son client, dont 42 000 de droits et taxes acquittés pour son compte et 8 000 d'honoraires. Quel produit comptabilise-t-il ?",
+    options: [
+      { id: 'a', texte: "50 000" },
+      { id: 'b', texte: "8 000, les droits et taxes étant des débours pour lesquels il agit comme mandataire" },
+      { id: 'c', texte: "42 000" },
+      { id: 'd', texte: "Aucun, l'opération étant neutre" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 15.B34-B36 : le commissionnaire ne contrôle pas le service rendu par l'administration et n'a aucune latitude sur le montant des droits ; pour ces montants, il agit comme mandataire. Seuls ses honoraires, rémunération de sa propre prestation, constituent un produit.",
+    articleRef: "IFRS 15.B34-B37",
+  },
+  {
+    id: 'ue13c5-q34',
+    question: "Dans quel cas une remise accordée sur un contrat groupé est-elle affectée à certaines obligations de prestation seulement ?",
+    options: [
+      { id: 'a', texte: "Toujours, au choix de l'entité" },
+      { id: 'b', texte: "Lorsque l'entité vend couramment chaque élément séparément, vend aussi couramment un groupe de certains éléments avec une remise essentiellement identique, ce qui indique à quelles obligations la remise se rapporte" },
+      { id: 'c', texte: "Jamais : la remise est toujours répartie proportionnellement" },
+      { id: 'd', texte: "Lorsque le client le demande" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 15.82 : les trois conditions sont cumulatives. À défaut, la remise est répartie proportionnellement entre toutes les obligations (§ 81). L'affectation ciblée précède, le cas échéant, l'utilisation de la méthode résiduelle (§ 83).",
+    articleRef: "IFRS 15.81-83",
+  },
+  {
+    id: 'ue13c5-q35',
+    question: "À la clôture, une entreprise a exécuté 60 % d'un contrat de 1 000 et reçu une avance de 300 ; le solde n'est facturable qu'après la réception de l'ouvrage. Comment présente-t-elle le contrat ?",
+    options: [
+      { id: 'a', texte: "Créance de 300" },
+      { id: 'b', texte: "Actif sur contrat de 300, droit conditionné par la réception" },
+      { id: 'c', texte: "Passif sur contrat de 300" },
+      { id: 'd', texte: "Créance de 700" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 15.105-108 : produit comptabilisé 600, paiements reçus 300 ; la différence est un actif sur contrat, car le droit à la contrepartie dépend d'autre chose que l'écoulement du temps, la réception. Il deviendra une créance lors de la facturation du solde.",
+    articleRef: "IFRS 15.105-108",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -538,6 +577,21 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Lorsque les critères du § 9 ne sont pas remplis, notamment lorsque le recouvrement n'est pas probable, la contrepartie reçue du client est comptabilisée comme un passif (§ 16). Elle ne devient un produit que si l'entité n'a plus d'obligation de fournir des biens ou des services et a reçu la totalité ou la quasi-totalité d'une contrepartie non remboursable, ou si le contrat a été résilié et la contrepartie reçue n'est pas remboursable (§ 15). La règle interdit ainsi de comptabiliser un chiffre d'affaires sur un client dont la solvabilité est compromise dès l'origine, même si des acomptes ont été encaissés.",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 5.1 — Livraison à un client dont la capacité de paiement est douteuse",
+        texte: "En N, une cimenterie livre 100 000 USD de ciment à une entreprise de construction dont les chantiers sont arrêtés et qui a déjà accumulé des impayés auprès de plusieurs fournisseurs. Elle reçoit 30 000 USD à la livraison ; le solde est payable à 90 jours, et la direction juge improbable son recouvrement. Le ciment ne peut être repris.",
+        tableau: {
+          entetes: ['Analyse', 'Conséquence', 'Fondement'],
+          lignes: [
+            ['Le recouvrement de la contrepartie n\'est pas probable', "Le contrat ne remplit pas la condition du § 9(e) ; aucun produit n'est comptabilisé sur le fondement du contrat", '§ 9(e)'],
+            ['30 000 reçus, alors que la totalité de la contrepartie n\'a pas été reçue', 'Passif de 30 000', '§ 15-16'],
+            ['Résiliation ultérieure du contrat, montant reçu non remboursable', 'Le passif de 30 000 devient un produit', '§ 15(b)'],
+            ['Amélioration de la situation du client, recouvrement devenu probable', "Réexamen des critères ; comptabilisation du contrat selon le modèle général", '§ 14'],
+          ],
+        },
+        note: "L'appréciation porte sur la capacité et l'intention du client de payer lorsque le montant devient exigible (§ 9(e)). Elle se distingue de la dépréciation d'une créance selon IFRS 9 : lorsque le recouvrement est probable à l'origine, le produit est comptabilisé et une correction de valeur pour pertes attendues est constatée sur la créance ; lorsqu'il ne l'est pas, aucun produit n'est comptabilisé.",
+      },
       { type: 'intertitre', texte: "5.2.3 Regroupement et modification des contrats" },
       {
         type: 'paragraphe',
@@ -557,7 +611,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.1 — Modification d'un contrat de fourniture de ciment",
+        titre: "Exemple 5.2 — Modification d'un contrat de fourniture de ciment",
         texte: "Une cimenterie s'engage à livrer 1 000 tonnes de ciment à 100 USD la tonne ; le contrôle est transféré à chaque livraison. Après la livraison de 600 tonnes, le client commande 400 tonnes supplémentaires.",
         tableau: {
           entetes: ['', 'Hypothèse A : prix de 95 USD', 'Hypothèse B : prix de 80 USD'],
@@ -595,7 +649,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.2 — Vente d'un groupe électrogène avec installation et maintenance (FORALEC SARL, société fictive)",
+        titre: "Exemple 5.3 — Vente d'un groupe électrogène avec installation et maintenance (FORALEC SARL, société fictive)",
         texte: "FORALEC vend à une minoterie un groupe électrogène, son installation et deux ans de maintenance, pour un prix global.",
         tableau: {
           entetes: ['', 'Hypothèse A : installation standard', 'Hypothèse B : centrale intégrée sur mesure'],
@@ -656,7 +710,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.3 — Prime de performance dans un contrat de construction",
+        titre: "Exemple 5.4 — Prime de performance dans un contrat de construction",
         texte: "Une entreprise construit un entrepôt pour un prix fixe de 2 000 000 USD, assorti d'une prime de 200 000 si l'ouvrage est livré avant le 30 juin N+1. Deux issues sont possibles ; à la passation, l'entreprise estime à 70 % la probabilité d'obtenir la prime, mais le respect du délai dépend de la saison des pluies et de l'acheminement de matériaux importés.",
         tableau: {
           entetes: ['Étape', 'Analyse', 'Montant retenu'],
@@ -674,7 +728,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.4 — Vente avec droit de retour",
+        titre: "Exemple 5.5 — Vente avec droit de retour",
         texte: "Un distributeur vend 1 000 ventilateurs à 50 USD l'unité (coût 30 USD), payables à 30 jours, avec droit de retour pendant 60 jours. L'historique permet d'estimer à 50 unités les retours et de considérer comme hautement probable qu'ils n'excéderont pas ce nombre ; les coûts de récupération sont négligeables.",
         tableau: {
           entetes: ['Compte', 'Débit', 'Crédit'],
@@ -696,7 +750,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.5 — Vente assortie d'un paiement différé de deux ans",
+        titre: "Exemple 5.6 — Vente assortie d'un paiement différé de deux ans",
         texte: "Le 1er janvier N, une entreprise livre un équipement de broyage. Le client paiera 121 000 USD le 31 décembre N+1 ; le prix de vente au comptant est de 100 000 USD, ce qui fait ressortir un taux implicite de 10 %.",
         tableau: {
           entetes: ['Date', 'Écriture', 'Montant'],
@@ -745,7 +799,22 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.6 — Contrat portant sur un logiciel et sa maintenance",
+        titre: "Exemple 5.7 — Remise affectée à certaines obligations, puis méthode résiduelle",
+        texte: "Un intégrateur vend séparément, de façon courante, un logiciel de gestion (prix de vente spécifique 400), un module de paie (300) et un module de stocks (300) ; il vend aussi couramment les deux modules ensemble pour 480, soit une remise de 120. Un client achète le logiciel et les deux modules pour 880.",
+        tableau: {
+          entetes: ['Élément', 'Répartition proportionnelle (§ 81)', 'Remise affectée aux modules (§ 82)'],
+          lignes: [
+            ['Logiciel', '880 × 400 / 1 000 = 352', '400'],
+            ['Module de paie', '880 × 300 / 1 000 = 264', '480 × 300 / 600 = 240'],
+            ['Module de stocks', '880 × 300 / 1 000 = 264', '240'],
+            ['**Total**', '**880**', '**880**'],
+          ],
+        },
+        note: "Les trois conditions du § 82 sont réunies : chaque élément est vendu séparément de façon courante, le groupe des deux modules est vendu couramment avec une remise, et cette remise est la même que celle du contrat. La remise est donc affectée aux modules. Si le contrat comprenait en outre une prestation de paramétrage dont le prix varie fortement d'un client à l'autre, pour un prix global de 1 180, son prix de vente spécifique pourrait être estimé par la méthode résiduelle, après affectation de la remise (§ 79(c) et 83) : 1 180 − 880 = 300.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 5.8 — Contrat portant sur un logiciel et sa maintenance",
         texte: "Illustration du support d'origine, approfondie. Une entreprise vend une licence d'utilisation d'un logiciel et un contrat de maintenance de deux ans, pour un prix global de 12 000, payé d'avance. La licence confère un droit d'utilisation du logiciel tel qu'il existe à la date de sa mise à disposition (B61) ; la maintenance est un service fourni de manière uniforme sur 24 mois.",
         tableau: {
           entetes: ['', 'Cas 1 : prix spécifiques égaux aux prix du contrat', 'Cas 2 : remise sur les prix spécifiques'],
@@ -795,7 +864,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.7 — Contrat de construction comptabilisé à l'avancement (CONSTRUCTIONS DU LUALABA SA, société fictive)",
+        titre: "Exemple 5.9 — Contrat de construction comptabilisé à l'avancement (CONSTRUCTIONS DU LUALABA SA, société fictive)",
         texte: "L'entreprise construit un entrepôt sur le terrain d'une société minière pour un prix fixe de 5 000 000 USD (critère du § 35(b)). L'avancement est mesuré par les coûts engagés rapportés aux coûts totaux estimés. Coûts totaux estimés à l'origine : 4 000 000. Fin N : coûts engagés 1 200 000. Fin N+1 : coûts cumulés 3 000 000 ; coûts totaux réestimés à 4 500 000. N+2 : achèvement, coûts totaux effectifs 4 500 000.",
         tableau: {
           entetes: ['', 'N', 'N+1', 'N+2'],
@@ -828,6 +897,19 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Trois situations fréquentes dans la distribution et l'industrie appellent une vigilance particulière. Dans un accord de consignation, le distributeur détient le produit sans en avoir le contrôle, faute d'obligation inconditionnelle de le payer ; le produit n'est comptabilisé qu'à la revente au client final (B77-B78). Dans une vente à livrer, le client obtient le contrôle alors que l'entité conserve la possession matérielle, à condition que l'accord ait un motif réel, que le produit soit identifié séparément, prêt à être livré et indisponible pour d'autres clients (B81) ; l'entité rend alors un service de garde, éventuellement distinct (B82). Enfin, lorsqu'un tiers intervient dans la fourniture, l'entité doit déterminer si elle contrôle le bien ou service avant sa fourniture au client : dans l'affirmative, elle agit pour son propre compte et comptabilise le montant brut (B35B) ; dans la négative, elle agit comme mandataire et ne comptabilise que sa commission (B36).",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 5.10 — Commissionnaire en douane et distributeur : mandataire ou agissant pour son propre compte",
+        tableau: {
+          entetes: ['Situation', 'Indicateurs (B37)', 'Qualification', 'Produit comptabilisé'],
+          lignes: [
+            ["Un commissionnaire en douane facture à son client 50 000 USD, dont 42 000 de droits et taxes acquittés pour son compte et 8 000 d'honoraires", "Aucun contrôle sur le service de dédouanement rendu par l'administration ; aucune latitude sur le montant des droits", 'Mandataire pour les droits ; prestataire pour sa propre prestation', '8 000 (B36) ; les 42 000 sont des débours'],
+            ["Un distributeur achète des groupes électrogènes à un fabricant, les stocke à Lubumbashi, fixe ses prix de revente et assure le service après-vente", "Responsabilité première de la fourniture ; risque sur stocks ; latitude sur le prix (B37(a)-(c))", 'Agit pour son propre compte', 'Montant brut des ventes (B35B)'],
+            ["Une plateforme en ligne met en relation des acheteurs et des artisans, qui expédient eux-mêmes et fixent leurs prix, contre une commission de 10 %", "Pas de contrôle des biens avant leur fourniture ; pas de risque sur stocks", 'Mandataire', 'Commission de 10 % (B36)'],
+          ],
+        },
+        note: "La qualification n'affecte pas le résultat, mais le chiffre d'affaires : un mandataire qui présenterait les 42 000 de droits en produits gonflerait son chiffre d'affaires de plus de cinq fois. Les indicateurs du § B37 ne sont pas des critères cumulatifs ; leur pertinence varie selon la nature du bien ou du service (B37A).",
+      },
     ],
   },
   {
@@ -842,7 +924,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.8 — Coûts d'obtention d'un contrat de maintenance",
+        titre: "Exemple 5.11 — Coûts d'obtention d'un contrat de maintenance",
         tableau: {
           entetes: ['Coût', 'Traitement', 'Référence'],
           lignes: [
@@ -856,6 +938,20 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Dès que l'une des parties a exécuté ses obligations, le contrat est présenté comme un actif ou un passif sur contrat, selon le rapport entre la prestation de l'entité et le paiement du client (§ 105). Le passif sur contrat représente l'obligation de fournir des biens ou services pour lesquels l'entité a reçu, ou peut exiger, une contrepartie (§ 106) : c'est la nature des produits constatés d'avance. L'actif sur contrat représente un droit à contrepartie pour des biens ou services déjà fournis, lorsque ce droit dépend d'autre chose que de l'écoulement du temps, par exemple de l'achèvement d'une autre prestation (§ 107). La créance est un droit inconditionnel, dont l'exigibilité ne dépend que du passage du temps (§ 108). La distinction importe pour l'analyse du risque : un actif sur contrat comporte, outre le risque de crédit, un risque d'exécution.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 5.12 — Du passif sur contrat à la créance (en milliers de USD)",
+        texte: "Une entreprise conclut le 1er octobre N un contrat de fourniture et d'installation d'une station de pompage pour 1 000, obligation remplie progressivement. Le client verse une avance de 300 à la signature ; le solde est facturé après la réception définitive, prévue en mars N+1. Au 31 décembre N, l'avancement est de 60 %. La réception intervient le 15 mars N+1 et le solde est facturé le même jour.",
+        tableau: {
+          entetes: ['Date', 'Situation', 'Présentation', 'Fondement'],
+          lignes: [
+            ['1er octobre N', "Avance de 300 reçue avant toute prestation", 'Passif sur contrat 300', '§ 106'],
+            ['31 décembre N', "Produit comptabilisé 600 ; paiements reçus 300 ; solde conditionné à la réception", 'Actif sur contrat 300 (600 − 300)', '§ 107'],
+            ['15 mars N+1', 'Achèvement et réception ; facturation du solde de 700', 'Créance 700 ; actif sur contrat soldé', '§ 108'],
+          ],
+        },
+        note: "L'actif sur contrat et la créance ne sont pas de même nature : le premier est un droit conditionné par autre chose que l'écoulement du temps, ici la réception ; la seconde est un droit inconditionnel (§ 108). La distinction importe pour l'analyse du besoin en fonds de roulement et pour la dépréciation, les deux étant toutefois soumis aux pertes de crédit attendues d'IFRS 9. Chaque contrat est présenté pour sa position nette, comme un actif ou comme un passif sur contrat (§ 105).",
       },
       {
         type: 'paragraphe',
@@ -918,7 +1014,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.9 — Prêt public à taux bonifié",
+        titre: "Exemple 5.13 — Prêt public à taux bonifié",
         texte: "Une agroindustrie obtient d'un fonds public un prêt de 1 000 000 USD sur trois ans, au taux de 2 % payable annuellement, remboursable in fine, pour financer une ligne de conditionnement. Le taux du marché pour un emprunt comparable est de 10 %.",
         tableau: {
           entetes: ['Élément', 'Calcul', 'Montant (USD)'],
@@ -946,7 +1042,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.10 — Machine financée par une subvention d'équipement",
+        titre: "Exemple 5.14 — Machine financée par une subvention d'équipement",
         texte: "Illustration du support d'origine. Une entreprise acquiert une machine de 60 000, amortie linéairement sur 10 ans, et reçoit une subvention de 20 000 liée à cette acquisition.",
         tableau: {
           entetes: ['Écriture', 'Méthode des produits différés (§ 26)', "Méthode de déduction de l'actif (§ 27)"],
@@ -974,7 +1070,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 5.11 — Remboursement de la subvention de l'exemple 5.10 après quatre ans",
+        titre: "Exemple 5.15 — Remboursement de la subvention de l'exemple 5.14 après quatre ans",
         texte: "À la fin de la quatrième année, l'entreprise manque à une condition de maintien de l'emploi et doit rembourser l'intégralité de la subvention de 20 000.",
         tableau: {
           entetes: ['', 'Méthode des produits différés', "Méthode de déduction de l'actif"],
@@ -995,7 +1091,7 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'filet',
         titre: "Rapprochement avec le SYSCOHADA révisé",
-        texte: "Le chapitre 17 du Titre VIII reprend les définitions et le fait générateur d'IAS 20, mais retient une typologie et une présentation propres. Il distingue les subventions d'investissement (compte 14), d'exploitation (compte 71) et d'équilibre (compte 88). La subvention d'investissement est traitée comme un accroissement des capitaux propres : le compte 14 figure parmi les « autres capitaux propres », et la subvention est reprise au compte 799 au rythme de l'amortissement, la reprise annuelle étant égale à la dotation multipliée par le rapport entre la subvention et la valeur d'entrée ; pour un bien non amortissable sans clause d'inaliénabilité, la reprise s'effectue par dixièmes. Dans l'exemple 5.10, la reprise annuelle est de 6 000 × 20 000 / 60 000 = 2 000, comme selon la méthode des produits différés ; seul le classement au bilan diffère. IAS 20 écartant toute inscription directe en capitaux propres (§ 12 et 15), l'établissement d'états IFRS impose de reclasser le solde du compte 14 en produits différés ou en déduction des actifs, avec une incidence sur les capitaux propres ; la différence temporaire qui en résulte s'analyse selon IAS 12, dont le § 33 exclut la comptabilisation d'un impôt différé sur une subvention non imposable (chapitre 6). Une subvention perçue avant la réalisation de ses conditions est portée au compte 4497 État, avances sur subventions ; le remboursement d'une subvention d'investissement réduit le compte 14, celui d'une subvention d'exploitation s'impute d'abord sur le compte 477 et, pour l'excédent, au compte 831 Charges HAO constatées.",
+        texte: "Le chapitre 17 du Titre VIII reprend les définitions et le fait générateur d'IAS 20, mais retient une typologie et une présentation propres. Il distingue les subventions d'investissement (compte 14), d'exploitation (compte 71) et d'équilibre (compte 88). La subvention d'investissement est traitée comme un accroissement des capitaux propres : le compte 14 figure parmi les « autres capitaux propres », et la subvention est reprise au compte 799 au rythme de l'amortissement, la reprise annuelle étant égale à la dotation multipliée par le rapport entre la subvention et la valeur d'entrée ; pour un bien non amortissable sans clause d'inaliénabilité, la reprise s'effectue par dixièmes. Dans l'exemple 5.14, la reprise annuelle est de 6 000 × 20 000 / 60 000 = 2 000, comme selon la méthode des produits différés ; seul le classement au bilan diffère. IAS 20 écartant toute inscription directe en capitaux propres (§ 12 et 15), l'établissement d'états IFRS impose de reclasser le solde du compte 14 en produits différés ou en déduction des actifs, avec une incidence sur les capitaux propres ; la différence temporaire qui en résulte s'analyse selon IAS 12, dont le § 33 exclut la comptabilisation d'un impôt différé sur une subvention non imposable (chapitre 6). Une subvention perçue avant la réalisation de ses conditions est portée au compte 4497 État, avances sur subventions ; le remboursement d'une subvention d'investissement réduit le compte 14, celui d'une subvention d'exploitation s'impute d'abord sur le compte 477 et, pour l'excédent, au compte 831 Charges HAO constatées.",
       },
     ],
   },
@@ -1150,6 +1246,7 @@ const chapitre: Chapitre = {
     "Une obligation est remplie progressivement si l'un des trois critères du § 35 est satisfait ; l'avancement est mesuré par une méthode fondée sur les extrants ou les intrants, en excluant les inefficiences (B14-B19). Un contrat déficitaire relève d'IAS 37.",
     "Une subvention publique n'est comptabilisée qu'en présence d'une assurance raisonnable que les conditions seront respectées et qu'elle sera reçue (IAS 20.7), puis rapportée au résultat au rythme des coûts qu'elle compense (§ 12).",
     "Les subventions liées à des actifs sont présentées en produits différés ou en déduction de l'actif (§ 24) ; leur inscription directe en capitaux propres, pratiquée par le SYSCOHADA révisé au compte 14, n'est pas admise en IFRS.",
+    "Lorsque le recouvrement n'est pas probable, le contrat ne remplit pas le § 9(e) : les sommes reçues sont un passif jusqu'à ce que les conditions des § 15 ou 9 soient remplies. Un mandataire ne comptabilise que sa commission (B36) ; une remise n'est affectée à certaines obligations que si les trois conditions du § 82 sont réunies. L'actif sur contrat, droit conditionnel, se distingue de la créance, droit inconditionnel (§ 105-108).",
   ],
   references: [
     { genre: 'texte', intitule: "IFRS 15 — Produits des activités ordinaires tirés de contrats conclus avec des clients", precision: "§§ 1 à 110, annexe A, annexe B (B14 à B51, B56 à B61, B77 à B86), C1 et C10 (texte français intégral)" },
