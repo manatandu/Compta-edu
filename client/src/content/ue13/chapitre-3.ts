@@ -386,6 +386,58 @@ const QCM: Chapitre['qcm'] = [
     explication: "Le SYSCOHADA révisé reprend la définition et les critères de classement d'IAS 40 (Titre VIII, ch. 10), avec des comptes dédiés (2281, 2315, 2325). Mais à la clôture, les immeubles de placement « font l'objet d'un amortissement sur leur durée d'utilité », et, « étant donné qu'ils sont évalués selon le modèle du coût historique », les transferts n'ont pas d'incidence sur leur valeur comptable. Le modèle de la juste valeur d'IAS 40.33-35 n'a pas d'équivalent.",
     articleRef: "SYSCOHADA, Titre VIII, ch. 10, § 2.3-2.4 ; IAS 40.30",
   },
+  {
+    id: 'ue13c3-q29',
+    question: "Deux mines alimentent un concentrateur commun ; le minerai brut n'a pas de marché actif, mais le concentré en a un. Quelle est l'UGT ?",
+    options: [
+      { id: 'a', texte: "Chaque mine prise isolément" },
+      { id: 'b', texte: "Le concentrateur seul" },
+      { id: 'c', texte: "L'ensemble formé par les deux mines et le concentrateur, dont la production dispose d'un marché actif" },
+      { id: 'd', texte: "L'entreprise entière, obligatoirement" },
+    ],
+    reponseCorrecte: 'c',
+    explication: "IAS 36.6 et 70 : l'UGT est le plus petit groupe générant des entrées largement indépendantes ; lorsqu'il existe un marché actif pour la production d'un groupe d'actifs, ce groupe constitue une UGT. Sans marché actif pour le minerai brut, les mines ne génèrent pas d'entrées indépendantes du concentrateur.",
+    articleRef: "IAS 36.6, 67-71",
+  },
+  {
+    id: 'ue13c3-q30',
+    question: "Une UGT a une valeur comptable de 1 000 ; une quote-part de 200 du siège peut lui être affectée. Sa valeur recouvrable est de 1 150. Quelle perte de valeur est comptabilisée ?",
+    options: [
+      { id: 'a', texte: "Aucune, la valeur recouvrable excédant 1 000" },
+      { id: 'b', texte: "50, répartie entre les actifs de l'UGT et la quote-part du siège au prorata de leurs valeurs comptables" },
+      { id: 'c', texte: "50, imputée entièrement sur le siège" },
+      { id: 'd', texte: "150" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 36.102(a) : lorsque la quote-part d'un actif commun peut être affectée sur une base raisonnable et cohérente, la valeur comptable de l'UGT, quote-part comprise (1 200), est comparée à sa valeur recouvrable (1 150). La perte de 50 est répartie selon le § 104.",
+    articleRef: "IAS 36.100-104",
+  },
+  {
+    id: 'ue13c3-q31',
+    question: "Au sein d'un groupe d'actifs déprécié, un terrain a une valeur comptable de 50 et une juste valeur diminuée des coûts de sortie de 60. Selon IAS 36, quelle part de la perte peut-il absorber ?",
+    options: [
+      { id: 'a', texte: "Sa part au prorata de sa valeur comptable, comme dans l'exemple du SYSCOHADA révisé" },
+      { id: 'b', texte: "Aucune : un actif ne peut être ramené en dessous de la plus élevée de sa juste valeur diminuée des coûts de sortie, de sa valeur d'utilité et de zéro" },
+      { id: 'c', texte: "La totalité de la perte" },
+      { id: 'd', texte: "La perte est d'abord imputée sur le terrain" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 36.105 : le plancher interdit de réduire la valeur comptable d'un actif en dessous de la plus élevée de sa juste valeur diminuée des coûts de sortie, de sa valeur d'utilité et de zéro ; la part non absorbée est répartie sur les autres actifs. Le SYSCOHADA révisé (Titre VIII, ch. 12, § 2.4.3) répartit la perte au prorata sans prévoir ce plancher.",
+    articleRef: "IAS 36.104-105 ; SYSCOHADA révisé, Titre VIII, ch. 12",
+  },
+  {
+    id: 'ue13c3-q32',
+    question: "Le prix d'une machine neuve équivalente baisse fortement, mais les flux que l'entreprise tire de sa machine restent élevés. Quelle est la conséquence ?",
+    options: [
+      { id: 'a', texte: "Dépréciation selon IAS 36 et selon le SYSCOHADA" },
+      { id: 'b', texte: "Pas de perte selon IAS 36 si la valeur d'utilité couvre la valeur comptable ; dépréciation possible selon le SYSCOHADA, qui compare la VNC au coût actuel, si l'écart est significatif" },
+      { id: 'c', texte: "Aucune dépréciation dans les deux référentiels" },
+      { id: 'd', texte: "Dépréciation selon IAS 36 seulement" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 36.18 retient la plus élevée de la juste valeur diminuée des coûts de sortie et de la valeur d'utilité. Le SYSCOHADA révisé retient la valeur actuelle, égale au coût actuel corrigé de l'âge (AUDCIF, art. 42 et 46 ; Titre VIII, ch. 12, § 2.3.1), et ne déprécie que si l'écart est significatif.",
+    articleRef: "IAS 36.18, 59 ; AUDCIF, art. 42, 46",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -430,6 +482,21 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Cette liste constitue un minimum (§ 13). Dans l'environnement congolais, plusieurs faits appellent un examen particulier : une crise sécuritaire interrompant l'accès à un site, notamment dans l'est du pays ; une modification du régime fiscal ou minier réduisant la rentabilité d'un projet ; une hausse importante des taux directeurs ; une dépréciation rapide du franc congolais renchérissant les intrants importés. Aucun de ces faits n'emporte automatiquement une perte de valeur, mais chacun impose un examen documenté. Le principe d'importance relative s'applique à cette appréciation (§ 15), et la présence d'un indice peut conduire à réviser la durée d'utilité, le mode d'amortissement ou la valeur résiduelle de l'actif, même en l'absence de perte de valeur (§ 17).",
       },
+      {
+        type: 'carte',
+        titre: "Tableau 3.2 — De l'indice à la décision : quelques situations congolaises",
+        tableau: {
+          entetes: ['Fait constaté à la clôture', 'Indice (IAS 36.12)', 'Conséquence'],
+          lignes: [
+            ["Suspension durable de l'exploitation d'un site dans l'est du pays pour raisons de sécurité", "Changement défavorable de l'environnement ; performance inférieure aux prévisions (§ 12(b) et (e))", "Test de l'UGT ; révision éventuelle de la durée d'utilité (§ 17)"],
+            ["Relèvement important du taux directeur de la banque centrale", "Hausse des taux de marché (§ 12(c))", "Test si la hausse affecte sensiblement le taux d'actualisation et la valeur recouvrable (§ 16)"],
+            ["Arrivée d'un concurrent importateur à bas prix", "Changement défavorable du marché (§ 12(b))", "Révision des budgets et test de l'UGT concernée"],
+            ["Modification du régime fiscal ou minier réduisant la marge d'un projet", "Changement défavorable de l'environnement juridique (§ 12(b))", "Test de l'UGT du projet"],
+            ["Machine arrêtée en attente d'une pièce introuvable", "Dégradation physique ; inactivité (§ 12(e)-(f))", "Test de l'actif ; valeur d'utilité et juste valeur tenant compte de l'arrêt"],
+          ],
+        },
+        note: "Le § 16 dispense de recalculer la valeur recouvrable après une hausse des taux lorsque celle-ci ne devrait pas l'affecter sensiblement, par exemple parce qu'une marge importante existait lors du test précédent. L'analyse doit être documentée dans tous les cas : c'est elle que l'auditeur examinera.",
+      },
     ],
   },
   {
@@ -465,7 +532,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "3.2.2 Les règles d'estimation de la valeur d'utilité" },
       {
         type: 'carte',
-        titre: "Tableau 3.2 — Construction de la valeur d'utilité (IAS 36, § 33-57)",
+        titre: "Tableau 3.3 — Construction de la valeur d'utilité (IAS 36, § 33-57)",
         tableau: {
           entetes: ['Paramètre', 'Règle', 'Fondement'],
           lignes: [
@@ -584,6 +651,44 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "La comparaison de 900 à 800, qui ferait apparaître une perte de 100, ou de 600 à 800, qui n'en ferait apparaître aucune, repose sur des grandeurs hétérogènes et conduit à un résultat erroné.",
       },
+      { type: 'intertitre', texte: "3.4.3 Identification des UGT dans un groupe industriel intégré" },
+      {
+        type: 'carte',
+        titre: "Exemple 3.6 — Mines, concentrateur et marché actif du produit intermédiaire",
+        texte: "Une société cuprifère exploite deux mines à ciel ouvert (M1 et M2) qui alimentent un concentrateur commun. Le concentré produit est vendu à une fonderie tierce ; il existe pour ce concentré un marché actif, avec des cotations régulières. Par ailleurs, la mine M2 vend une partie de son minerai brut à un autre exploitant, mais aucun marché actif n'existe pour ce minerai.",
+        tableau: {
+          entetes: ['Question', 'Analyse', 'Fondement'],
+          lignes: [
+            ["Chaque mine est-elle une UGT ?", "Non : le minerai brut n'a pas de marché actif ; les entrées de trésorerie des mines dépendent du concentrateur", '§ 6, 67-69'],
+            ['Le concentrateur est-il une UGT isolée ?', "Non : il ne génère des entrées qu'à partir du minerai des deux mines", '§ 6'],
+            ["Quel est le plus petit groupe générant des entrées largement indépendantes ?", "L'ensemble M1 + M2 + concentrateur, dont la production (le concentré) a un marché actif", '§ 70'],
+            ["Les ventes occasionnelles de minerai de M2 changent-elles l'analyse ?", "Non, en l'absence de marché actif ; elles sont incluses dans les flux de l'UGT", '§ 70-71'],
+          ],
+        },
+        note: "Si, à l'inverse, le minerai brut disposait d'un marché actif, chaque mine constituerait une UGT, même si sa production est utilisée en interne ; ses entrées seraient alors estimées au prix du marché, et non au prix de cession interne (§ 70-71). L'identification des UGT, qui relève du jugement, commande tout le test : plus le groupe est large, plus les pertes d'une mine peuvent être compensées par les excédents de l'autre.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Les actifs communs, tels que le siège ou le système d'information, soulèvent une difficulté symétrique : ils ne génèrent aucune entrée de trésorerie propre, mais leur coût doit être couvert par les UGT qu'ils servent. Lorsqu'une partie de leur valeur comptable peut être affectée sur une base raisonnable et cohérente, l'entité compare la valeur recouvrable de chaque UGT à sa valeur comptable augmentée de cette quote-part ; la perte éventuelle est répartie selon le § 104 entre les actifs de l'UGT et la quote-part d'actif commun (§ 102).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 3.7 — Affectation d'un actif commun (en milliers de USD)",
+        texte: "Une entreprise agroalimentaire comprend deux UGT : l'usine de Kinshasa (valeur comptable 1 000) et l'usine de Lubumbashi (500). Son siège a une valeur comptable de 300, affectée au prorata des valeurs comptables des UGT. Valeurs recouvrables : Kinshasa 1 150 ; Lubumbashi 700.",
+        tableau: {
+          entetes: ['', 'Kinshasa', 'Lubumbashi', 'Total'],
+          lignes: [
+            ['Valeur comptable de l\'UGT', '1 000', '500', '1 500'],
+            ['Quote-part du siège (300 au prorata)', '200', '100', '300'],
+            ['Valeur comptable totale', '1 200', '600', '1 800'],
+            ['Valeur recouvrable', '1 150', '700', '1 850'],
+            ['**Perte de valeur**', '**50**', '**0**', '**50**'],
+            ['Imputation : actifs de l\'usine (1 000 / 1 200)', '41,7', '', ''],
+            ['Imputation : quote-part du siège (200 / 1 200)', '8,3', '', ''],
+          ],
+        },
+        note: "Tester l'usine de Kinshasa sans le siège ne révélerait aucune perte (1 150 > 1 000) : l'excédent apparent ne couvrait pas la part des coûts communs qui lui revient. Si la quote-part du siège ne pouvait être affectée de façon raisonnable, l'entité testerait chaque UGT sans le siège, puis le plus petit groupe d'UGT auquel il peut être affecté, ici l'entreprise entière (1 850 > 1 800 : pas de perte à ce niveau) (§ 102(b)).",
+      },
     ],
   },
   {
@@ -608,7 +713,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 3.6 — Imputation d'une perte de valeur sur une UGT portant un goodwill (BRASSERIE DU FLEUVE, société fictive)",
+        titre: "Exemple 3.8 — Imputation d'une perte de valeur sur une UGT portant un goodwill (BRASSERIE DU FLEUVE, société fictive)",
         texte: "L'UGT comprend un goodwill de 300, une usine de 1 200, du matériel pour 600 et une marque acquise de 300, soit une valeur comptable totale de 2 400. Sa valeur recouvrable s'élève à 1 500. La juste valeur diminuée des coûts de sortie de l'usine est de 1 000.",
         tableau: {
           entetes: ['Actif', 'Valeur comptable', 'Imputation au prorata', 'Imputation après plancher (§ 105)', 'Valeur après test'],
@@ -643,7 +748,26 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 3.3 — Points de contrôle d'un test de dépréciation",
+        titre: "Exemple 3.9 — Information sur la marge d'un test de goodwill (IAS 36, § 134(f))",
+        texte: "Une UGT de distribution portant un goodwill a une valeur comptable de 1 050 (en milliers de USD). Sa valeur d'utilité est déterminée par capitalisation d'un flux normatif avant impôt de 120, au taux d'actualisation de 12 % et avec un taux de croissance à l'infini de 2 % : 120 / (0,12 − 0,02) = 1 200.",
+        tableau: {
+          entetes: ['Information (§ 134(f))', 'Calcul', 'Montant'],
+          lignes: [
+            ["Excédent de la valeur recouvrable sur la valeur comptable", '1 200 − 1 050', '150'],
+            ["Taux d'actualisation rendant la valeur recouvrable égale à la valeur comptable", '0,02 + 120 / 1 050', '13,43 %, soit + 1,43 point'],
+            ['Flux normatif rendant la valeur recouvrable égale à la valeur comptable', '1 050 × (0,12 − 0,02)', '105, soit une baisse de 12,5 %'],
+            ['Taux de croissance rendant la valeur recouvrable égale à la valeur comptable', '0,12 − 120 / 1 050', '0,57 %, soit − 1,43 point'],
+          ],
+        },
+        note: "Une hausse de 1,5 point du taux d'actualisation, parfaitement plausible après un relèvement des taux directeurs, suffirait à faire apparaître une perte. C'est précisément la situation que vise le § 134(f) : l'entité indique la valeur attribuée à chaque hypothèse clé et l'ampleur du changement qui annulerait la marge, ce qui permet au lecteur d'apprécier le risque d'une dépréciation prochaine.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "La perte de valeur a enfin une incidence fiscale. Dans la plupart des cas, une dépréciation comptable n'est pas immédiatement déductible : la valeur comptable de l'actif devient inférieure à sa base fiscale et fait naître une différence temporaire déductible. L'entité comptabilise alors un actif d'impôt différé, dans la mesure où un bénéfice imposable futur suffisant est probable (IAS 36.64 ; IAS 12, chapitre 6). Pour la ligne d'embouteillage de l'exemple 3.2, la perte de 52,5 fait naître, au taux de 30 %, un actif d'impôt différé de 15,75, de sorte que l'incidence nette sur le résultat n'est que de 36,75.",
+      },
+      {
+        type: 'carte',
+        titre: "Tableau 3.4 — Points de contrôle d'un test de dépréciation",
         tableau: {
           entetes: ['Domaine', 'Point de contrôle', 'Fondement'],
           lignes: [
@@ -668,8 +792,17 @@ const SECTIONS: Chapitre['sections'] = [
         texte: "Le SYSCOHADA révisé déclare s'inspirer d'IAS 36 (Titre VIII, ch. 12) et en reprend l'essentiel de la mécanique : recherche d'indices à chaque clôture, selon une liste très proche ; dépréciation obligatoire même en l'absence de bénéfice (AUDCIF, art. 46) ; établissement d'un nouveau plan d'amortissement après dépréciation ; reprise plafonnée à la valeur nette qu'aurait eue l'actif en l'absence de dépréciation ; imputation prioritaire sur le goodwill au sein d'un groupe d'actifs, sans reprise possible ; imputation sur l'écart de réévaluation pour un actif réévalué. Il s'en écarte toutefois sur la valeur de comparaison.",
       },
       {
+        type: 'filet',
+        titre: "Texte de référence — AUDCIF, art. 42, 43 et 46",
+        texte: "« La valeur actuelle est une valeur d'estimation du moment qui s'apprécie en fonction du marché et de l'utilité de l'élément pour l'entité. » (art. 42, al. 2). La valeur d'inventaire, valeur actuelle à la clôture, est comparée à la valeur d'entrée ; si elle est inférieure, l'amoindrissement est constaté sous la forme d'un amortissement ou d'une dépréciation selon qu'il est jugé définitif ou non (art. 43). « L'actif doit être déprécié lorsque la VNC est supérieure à la valeur actuelle. » (art. 46, al. 2).",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Le Titre VIII précise que la valeur actuelle d'une immobilisation « représente son coût actuel », c'est-à-dire le prix actuel d'achat d'un bien équivalent, majoré le cas échéant des frais accessoires, ou le coût actuel de production, corrigé en baisse en fonction de l'usure ou de l'âge (ch. 12, § 2.3.1). La dépréciation n'est constatée que si l'écart entre la valeur nette comptable et la valeur actuelle est significatif (§ 2.3.3). Là où IAS 36 se demande combien l'actif rapportera, par son utilisation ou sa vente, le SYSCOHADA se demande combien il faudrait payer pour le remplacer dans son état.",
+      },
+      {
         type: 'carte',
-        titre: "Tableau 3.4 — IAS 36 et SYSCOHADA révisé",
+        titre: "Tableau 3.5 — IAS 36 et SYSCOHADA révisé",
         tableau: {
           entetes: ['', 'IAS 36', 'SYSCOHADA révisé'],
           lignes: [
@@ -685,6 +818,42 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Le SYSCOHADA illustre sa démarche par l'exemple d'un pont roulant de 30 tonnes acquis 300 000 000 F et mis en service le 31 décembre : un acquéreur de l'entité ne l'évaluerait pas à moins de 300 000 000 F, montant nécessaire pour disposer d'un matériel neuf équivalent, alors que sa revente n'en procurerait « peut-être à peine la moitié ». Aucune dépréciation n'est donc constatée. IAS 36 conduirait au même résultat par un autre raisonnement : si l'usine est rentable, la valeur d'utilité de l'UGT à laquelle appartient le pont couvre sa valeur comptable. Les deux référentiels divergent en revanche lorsque le prix du neuf baisse sans que les flux diminuent, cas dans lequel le SYSCOHADA conduit à déprécier et IAS 36 non, et lorsque les flux diminuent alors que le prix du neuf se maintient, cas inverse.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 3.10 — Deux cas de divergence (en milliers de USD)",
+        tableau: {
+          entetes: ['', 'Cas A : baisse du prix du neuf', 'Cas B : baisse des flux'],
+          lignes: [
+            ['Valeur nette comptable', '600', '600'],
+            ['Coût actuel (valeur actuelle SYSCOHADA)', '450', '650'],
+            ["Valeur d'utilité", '700', '400'],
+            ['Juste valeur diminuée des coûts de sortie', '420', '380'],
+            ['**Dépréciation SYSCOHADA (art. 46)**', '**150**, si l\'écart est jugé significatif', '**0**'],
+            ['**Perte de valeur IAS 36 (§ 59)**', '**0** (valeur recouvrable 700)', '**200** (valeur recouvrable 400)'],
+          ],
+        },
+        note: "Dans le cas A, un concurrent peut désormais acheter la même machine moins cher, mais l'entreprise continue d'en tirer des flux suffisants : IAS 36 ne voit aucune perte, le SYSCOHADA constate la baisse du coût de remplacement. Dans le cas B, la machine coûterait toujours aussi cher à remplacer, mais elle ne produit plus assez : IAS 36 constate la perte économique, le SYSCOHADA l'ignore. Le retraitement des dépréciations est donc un point systématique du passage des comptes SYSCOHADA aux états IFRS.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "La répartition d'une perte au sein d'un groupe d'actifs offre une seconde divergence. Le SYSCOHADA impute la perte d'abord sur le goodwill, puis sur les autres immobilisations au prorata de leur valeur comptable (ch. 12, § 2.4.3), sans prévoir de plancher. IAS 36 interdit de ramener un actif en dessous de la plus élevée de sa juste valeur diminuée des coûts de sortie, de sa valeur d'utilité et de zéro (§ 105). L'exemple officiel du SYSCOHADA permet de mesurer l'écart.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 3.11 — Exemple du SYSCOHADA repris selon IAS 36 (en francs)",
+        texte: "Groupe d'actifs de valeur nette comptable 260 000 000 : fonds commercial 20 000 000, terrain 50 000 000, immeuble industriel 150 000 000, flotte de camions 40 000 000. Valeur actuelle, ou valeur recouvrable, du groupe : 200 000 000 (Titre VIII, ch. 12, § 2.4.3). Pour la comparaison, le fonds commercial est assimilé à un goodwill et l'on suppose que la juste valeur diminuée des coûts de sortie du terrain est de 60 000 000 ; celle des autres actifs ne peut être déterminée.",
+        tableau: {
+          entetes: ['Actif', 'Valeur comptable', 'SYSCOHADA (prorata sans plancher)', 'IAS 36 (§ 104-105)'],
+          lignes: [
+            ['Fonds commercial / goodwill', '20 000 000', '20 000 000', '20 000 000'],
+            ['Terrain', '50 000 000', '8 333 333', '0 (plancher de 60 000 000 supérieur à la valeur comptable)'],
+            ['Immeuble industriel', '150 000 000', '25 000 000', '40 000 000 × 150 / 190 = 31 578 947'],
+            ['Flotte de camions', '40 000 000', '6 666 667', '40 000 000 × 40 / 190 = 8 421 053'],
+            ['**Total**', '**260 000 000**', '**60 000 000**', '**60 000 000**'],
+          ],
+        },
+        note: "La perte totale est identique ; sa répartition diffère. Le SYSCOHADA déprécie un terrain dont la valeur de marché excède la valeur comptable, ce qu'IAS 36 exclut. En IFRS, la part de perte que le terrain ne peut absorber est reportée sur l'immeuble et les camions, dont l'amortissement futur est réduit d'autant.",
       },
     ],
   },
@@ -705,7 +874,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 3.5 — Exemples de qualification (IAS 40, § 8 et 9)",
+        titre: "Tableau 3.6 — Exemples de qualification (IAS 40, § 8 et 9)",
         tableau: {
           entetes: ['Immeubles de placement (§ 8)', 'Biens exclus de la catégorie (§ 9)'],
           lignes: [
@@ -726,6 +895,21 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Trois situations fréquentes dans les entreprises congolaises illustrent ces règles. Les cités de travailleurs d'une société minière ou sucrière ne sont pas des immeubles de placement, même lorsque les salariés acquittent un loyer, en vertu du § 9(c), et relèvent d'IAS 16. Un terrain de réserve acquis sans décision quant à son utilisation est un immeuble de placement, puisque, lorsque l'entité n'a pas déterminé qu'elle l'occupera ou le vendra à court terme, « le terrain est considéré comme étant détenu pour réaliser une plus-value en capital » (§ 8(b)). Un entrepôt loué à une filiale est un immeuble de placement dans les états individuels du bailleur, mais un bien occupé par son propriétaire dans les états consolidés du groupe (§ 15).",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 3.12 — Qualification de biens à usage mixte ou assortis de services",
+        tableau: {
+          entetes: ['Situation', 'Analyse', 'Qualification'],
+          lignes: [
+            ["Immeuble de cinq étages à Kinshasa : le rez-de-chaussée abrite l'agence de l'entreprise, les quatre étages sont loués ; les étages peuvent être vendus séparément sous le régime de la copropriété", "Parties séparables (§ 10)", "Rez-de-chaussée : IAS 16 ; étages loués : IAS 40"],
+            ["Même immeuble, sans possibilité de vente ou de location séparée, l'entreprise occupant un étage sur cinq", "Partie occupée non négligeable (§ 10)", "Immeuble entier selon IAS 16"],
+            ["Immeuble de bureaux loués, avec gardiennage et entretien des parties communes", "Services accessoires, non significatifs (§ 11)", 'IAS 40'],
+            ["Hôtel exploité par son propriétaire", "Services significatifs : le propriétaire exploite une activité hôtelière (§ 12)", 'IAS 16'],
+            ["Résidence meublée louée avec ménage quotidien, restauration et réception", "Jugement : importance des services par rapport à l'ensemble du contrat (§ 13-14)", 'Selon critères définis et indiqués en notes (§ 14 et 75(c))'],
+          ],
+        },
+        note: "Le classement conditionne l'évaluation : si l'entité applique le modèle de la juste valeur, un immeuble classé selon IAS 40 voit ses variations de valeur passer en résultat, alors qu'un bien relevant d'IAS 16 est amorti. Les critères de jugement doivent donc être définis, appliqués de façon cohérente et indiqués dans les notes.",
+      },
     ],
   },
   {
@@ -740,7 +924,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 3.6 — Modèle de la juste valeur et modèle du coût",
+        titre: "Tableau 3.7 — Modèle de la juste valeur et modèle du coût",
         tableau: {
           entetes: ['', 'Modèle de la juste valeur (§ 33-55)', 'Modèle du coût (§ 56 et 79)'],
           lignes: [
@@ -759,7 +943,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "3.9.2 Applications chiffrées" },
       {
         type: 'carte',
-        titre: "Exemple 3.7 — Immeuble de bureaux évalué selon les deux modèles (en milliers de USD)",
+        titre: "Exemple 3.13 — Immeuble de bureaux évalué selon les deux modèles (en milliers de USD)",
         texte: "Un immeuble de bureaux situé à Lubumbashi est acquis au début de N pour 2 000, frais d'acquisition compris : terrain 500, bâtiment 1 500 amorti sur 30 ans. Sa juste valeur s'élève à 2 300 à la fin de N. Les loyers de N s'élèvent à 180.",
         tableau: {
           entetes: ['', 'Modèle de la juste valeur', 'Modèle du coût'],
@@ -775,7 +959,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 3.8 — Immeuble loué évalué à la juste valeur ou au coût (IMMO PLUS SA)",
+        titre: "Exemple 3.14 — Immeuble loué évalué à la juste valeur ou au coût (IMMO PLUS SA)",
         liste: [
           "IMMO PLUS SA détient un immeuble loué à des tiers, acquis au début de N−5 pour 5 000 000 USD ; la durée d'amortissement retenue selon le modèle du coût est de 25 ans. Au 31 décembre N, un expert indépendant l'évalue à 4 300 000.",
           "Selon le modèle du coût, la valeur nette s'établit à 5 000 000 − 6 × 200 000 = 3 800 000, après six exercices d'amortissement. La valeur recouvrable, proche de la valeur de marché, excède cette valeur nette : aucune dépréciation n'est constatée. L'amortissement se poursuit et la juste valeur de 4 300 000 est indiquée dans les notes (§ 79(e)).",
@@ -785,7 +969,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 3.7 — IAS 36 et IAS 40 (modèle de la juste valeur) : synthèse",
+        titre: "Tableau 3.8 — IAS 36 et IAS 40 (modèle de la juste valeur) : synthèse",
         tableau: {
           entetes: ['Élément', 'IAS 36', 'IAS 40, modèle de la juste valeur'],
           lignes: [
@@ -815,7 +999,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 3.8 — Traitement des transferts",
+        titre: "Tableau 3.9 — Traitement des transferts",
         tableau: {
           entetes: ['Transfert', 'Traitement', 'Fondement'],
           lignes: [
@@ -829,7 +1013,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 3.9 — Transfert d'un bâtiment administratif en immeuble de placement",
+        titre: "Exemple 3.15 — Transfert d'un bâtiment administratif en immeuble de placement",
         liste: [
           "Un bâtiment administratif d'un coût de 1 000, amorti à hauteur de 200 (valeur nette 800), est libéré le 30 juin N et loué à des tiers. L'entité évalue ses immeubles de placement selon le modèle de la juste valeur. La juste valeur s'élève à 1 100 au 30 juin et à 1 050 au 31 décembre.",
           "Jusqu'au 30 juin, le bâtiment est amorti et soumis à IAS 36 selon IAS 16 (§ 62).",
@@ -842,6 +1026,21 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Un immeuble de placement est décomptabilisé lors de sa sortie, par vente ou par conclusion d'un contrat de location-financement, ou lorsque son utilisation est arrêtée de manière permanente et qu'aucun avantage économique futur n'est attendu de sa sortie (§ 66-67). Le profit ou la perte, égal à la différence entre le produit net de la sortie et la valeur comptable, est comptabilisé en résultat net (§ 69). Les indemnisations reçues de tiers au titre d'immeubles dépréciés, perdus ou abandonnés sont comptabilisées en résultat net lorsqu'elles deviennent exigibles (§ 72). Les obligations conservées par le vendeur après la sortie, telles qu'une garantie contre les impayés de loyers ou un passif environnemental, relèvent d'IAS 37 (§ 71).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 3.16 — Entrée depuis les stocks, puis sortie d'un immeuble de placement (en milliers de USD)",
+        texte: "Un promoteur a construit à Goma un immeuble de bureaux destiné à la vente, comptabilisé en stocks pour 700. Faute d'acquéreur, il conclut le 1er juillet N un bail de six ans avec une organisation internationale : le bien devient un immeuble de placement, évalué selon le modèle de la juste valeur. Juste valeur au 1er juillet N : 900 ; au 31 décembre N : 950. L'immeuble est vendu le 30 juin N+2 pour 1 000, avec 20 de frais de vente ; sa juste valeur au 31 décembre N+1 était de 980.",
+        tableau: {
+          entetes: ['Date', 'Opération', 'Incidence en résultat', 'Fondement'],
+          lignes: [
+            ['1er juillet N', 'Transfert des stocks vers les immeubles de placement : 900 − 700', '+200', 'IAS 40.57(d), 63-64'],
+            ['31 décembre N', 'Variation de juste valeur : 950 − 900', '+50', 'IAS 40.35'],
+            ['31 décembre N+1', 'Variation de juste valeur : 980 − 950', '+30', 'IAS 40.35'],
+            ['30 juin N+2', 'Sortie : (1 000 − 20) − 980', '0', 'IAS 40.69'],
+          ],
+        },
+        note: "La conclusion d'un contrat de location simple sur un bien jusque-là en stocks constitue le changement d'utilisation qui justifie le transfert (§ 57(d)) ; la seule intention de louer n'aurait pas suffi. Sur toute la période, le résultat cumulé (280) est égal à l'écart entre le produit net de cession (980) et le coût de construction (700) ; le modèle de la juste valeur le répartit entre les exercices au rythme de l'évolution du marché.",
       },
       {
         type: 'paragraphe',
@@ -968,7 +1167,7 @@ const chapitre: Chapitre = {
   id: 'ue13-chapitre-3',
   titre: 'Dépréciation des actifs et immeubles de placement',
   sousTitre: "IAS 36 et IAS 40 : dépréciation des actifs, unités génératrices de trésorerie et immeubles de placement",
-  infoBulle: "Chapitre 3 du module IFRS/IAS : champ et indices de perte de valeur, valeur recouvrable (juste valeur diminuée des coûts de sortie, valeur d'utilité), perte et reprise, unités génératrices de trésorerie, goodwill et cascade d'imputation, informations à fournir ; immeubles de placement (définition, classement, modèles du coût et de la juste valeur, transferts, sorties) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
+  infoBulle: "Chapitre 3 du module IFRS/IAS : champ et indices de perte de valeur, valeur recouvrable (juste valeur diminuée des coûts de sortie, valeur d'utilité), perte et reprise, unités génératrices de trésorerie, goodwill, actifs communs et cascade d'imputation, informations à fournir et sensibilité (§ 134(f)), incidence d'impôt différé ; immeubles de placement (définition, classement, modèles du coût et de la juste valeur, transferts, sorties) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
   loiRef: "IAS 36 · IAS 40 · IFRS 5 · IFRS 13 · AUDCIF art. 42, 43 et 46 · SYSCOHADA, Titre VIII, ch. 10 et 12",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
@@ -980,7 +1179,7 @@ const chapitre: Chapitre = {
     "Identifier une UGT et construire une valeur comptable homogène, y compris en présence d'un passif de remise en état.",
     "Affecter et tester le goodwill, imputer une perte en cascade avec le plancher du § 105, traiter les actifs communs.",
     "Apprécier la pertinence des hypothèses d'un test de dépréciation et des informations fournies en annexe.",
-    "Comparer la dépréciation IAS 36 avec celle du SYSCOHADA révisé.",
+    "Comparer la dépréciation IAS 36 avec celle du SYSCOHADA révisé, sur la valeur de comparaison comme sur la répartition d'une perte au sein d'un groupe d'actifs.",
     "Classer un bien immobilier (IAS 40, IAS 16, IAS 2, IFRS 5) et l'évaluer selon le modèle du coût ou de la juste valeur.",
     "Comptabiliser les transferts et les sorties d'immeubles de placement.",
   ],
@@ -991,7 +1190,8 @@ const chapitre: Chapitre = {
     "La perte va en résultat, ou d'abord en réduction de l'écart de réévaluation pour un actif réévalué (§ 59-61). La reprise exige un changement d'estimation, jamais le seul passage du temps, et elle est plafonnée à la valeur nette qu'aurait eue l'actif sans perte (§ 114-117).",
     "L'UGT est le plus petit groupe d'actifs générant des entrées largement indépendantes (§ 6, 66-73). Sa valeur comptable est homogène avec sa valeur recouvrable, passif repris par l'acheteur compris (§ 75-79).",
     "Le goodwill est affecté aux UGT bénéficiant des synergies (§ 80). La perte est imputée d'abord sur le goodwill, puis au prorata des autres actifs, sans descendre sous leur valeur recouvrable propre (§ 104-105). La perte sur goodwill n'est jamais reprise (§ 124).",
-    "Le SYSCOHADA révisé partage la mécanique d'IAS 36, mais compare la VNC à la valeur actuelle, c'est-à-dire au coût actuel corrigé de l'âge, du point de vue d'un acquéreur de l'entité.",
+    "Le SYSCOHADA révisé partage la mécanique d'IAS 36, mais compare la VNC à la valeur actuelle, c'est-à-dire au coût actuel corrigé de l'âge, du point de vue d'un acquéreur de l'entité ; les deux référentiels divergent lorsque le prix du neuf et les flux évoluent en sens différents. Le SYSCOHADA répartit la perte d'un groupe d'actifs au prorata sans le plancher du § 105.",
+    "L'identification des UGT dépend de l'existence d'un marché actif pour la production intermédiaire (§ 70-71) ; les actifs communs sont affectés aux UGT ou testés au niveau du plus petit groupe d'UGT (§ 100-102). Lorsque la marge d'un test est sensible à une hypothèse clé, l'entité en indique l'ampleur (§ 134(f)).",
     "Un immeuble de placement est détenu pour ses loyers ou sa valorisation et génère des flux largement indépendants (IAS 40.5-7) ; hôtels exploités, biens occupés par le personnel et biens à vendre dans l'activité ordinaire en sont exclus.",
     "L'entité applique un modèle unique à l'ensemble de ses immeubles de placement : le modèle de la juste valeur, avec variations en résultat et sans amortissement, ou le modèle du coût, assorti de la juste valeur en annexe (§ 30-56, 79). Le SYSCOHADA révisé ne connaît que le coût.",
     "Un transfert n'intervient qu'en cas de changement d'utilisation (§ 57) : juste valeur comme coût présumé en sortie de catégorie ; réévaluation IAS 16 à l'entrée depuis un bien occupé ; résultat net à l'entrée depuis les stocks (§ 60-65).",

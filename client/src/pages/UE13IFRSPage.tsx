@@ -32,11 +32,11 @@ const CHAPITRES = [
     num: 3,
     titre: "Dépréciation des actifs et immeubles de placement",
     sousTitre: "IAS 36 · IAS 40 · IFRS 5 · AUDCIF art. 42-46 · SYSCOHADA ch. 10 et 12",
-    duree: "7h",
+    duree: "8h",
     actif: true,
     route: '/ue13/chapitre-3',
     lecons: 10,
-    exercices: 32,
+    exercices: 36,
     couleur: 'bg-blue-50 text-blue-700',
     accent: 'border-l-blue-500',
   },
@@ -130,7 +130,7 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>259 QCM</span>
+            <span>263 QCM</span>
             <span>34 cas pratiques</span>
           </div>
         </div>
