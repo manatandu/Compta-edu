@@ -271,8 +271,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La chaîne de la dépense : quatre phases immuables',
     navLabel: 'Les 4 phases',
     blocs: [
-      { type: 'filet', titre: 'Art. 90 LOFIP - texte exact', texte: "« En matière de dépenses, l'engagement est l'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge. La liquidation a pour objet de vérifier la réalité de la dette et d'arrêter le montant exact de la dépense. L'ordonnancement est l'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l'ordre est donné au caissier concerné de payer la dette du pouvoir central. Le paiement est l'acte par lequel le pouvoir central se libère de sa dette. »" },
-      { type: 'carte', titre: 'Les quatre phases (art. 90-91 LOFIP ; art. 80-87 RGCP)', tableau: {
+      { type: 'intertitre', texte: "7.1.1 Les définitions légales" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 90 : les phases de la dépense", texte: "« En matière de dépenses, l'engagement est l'acte par lequel le pouvoir central crée ou constate à son encontre une obligation de laquelle résultera une charge. La liquidation a pour objet de vérifier la réalité de la dette et d'arrêter le montant exact de la dépense. L'ordonnancement est l'acte administratif par lequel, conformément aux résultats des calculs de la liquidation, l'ordre est donné au caissier concerné de payer la dette du pouvoir central. Le paiement est l'acte par lequel le pouvoir central se libère de sa dette. »" },
+      { type: 'intertitre', texte: "7.1.2 Les phases et leurs acteurs" },
+      { type: 'carte', titre: "Tableau 7.1 — Les quatre phases de la dépense (art. 90-91 LOFIP ; art. 80-87 RGCP)", tableau: {
         entetes: ['Phase', 'Contenu', 'Acteur'],
         lignes: [
           ['**1. Engagement**', "Création ou constatation de l'obligation (contrat, marché, décision) ; l'engagement juridique est consécutif ou concomitant à l'engagement comptable, qui réserve les crédits (art. 81 RGCP) ; visa préalable du contrôleur budgétaire (art. 82 RGCP ; art. 112 LOFIP)", 'Ordonnateur'],
@@ -281,12 +283,17 @@ const SECTIONS: Chapitre['sections'] = [
           ['**4. Paiement**', "Libération de la dette - la phase comptable : mise en règlement du titre, décaissement par espèces, chèque, virement ou autre instrument autorisé, libératoire s'il intervient au profit du créancier attitré (art. 86-87 RGCP)", 'Comptable public'],
         ],
       }, note: "« Toute dépense, régulièrement engagée et liquidée par l'ordonnateur fait l'objet, préalablement à son paiement, d'un ordonnancement » (art. 91 LOFIP). Exception cadrée : certaines dépenses limitativement énumérées peuvent être payées sans ordonnancement préalable, avec engagement, liquidation et ordonnancement de régularisation (art. 80 RGCP)." },
+      { type: 'intertitre', texte: "7.1.3 Le calendrier de la chaîne" },
       { type: 'paragraphe', texte: "Le calendrier discipline la chaîne : les dépenses sont prises en compte au titre du budget de l'année de leur prise en charge par le comptable public et imputées sur les crédits de cette même année, et **les engagements de dépenses autres que de personnel, sur autorisations d'engagement annuelles, ne peuvent intervenir après le 31 octobre** (art. 92 LOFIP). Le paiement, lui, ne peut précéder l'échéance de la dette, l'exécution du service ou la décision individuelle d'attribution des subventions - sous réserve des acomptes et avances consentis conformément aux textes (art. 86 RGCP)." },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[4] },
+      { type: 'intertitre', texte: "7.1.4 Une dépense suivie de bout en bout" },
+      { type: 'carte', titre: "Exemple 7.1 — L'achat de matériel informatique auprès d'un fournisseur privé (montants fictifs)", tableau: { entetes: ["Date", "Étape", "Acteur et pièce", "Fondement"], lignes: [
+        ["Janvier", "Programmation : les crédits du trimestre figurent dans le plan d'engagement budgétaire du ministère", "Ordonnateur ; plan d'engagement budgétaire sectoriel", "Décret n° 22/37, art. 143-144"],
+        ["10 mars", "Engagement : réservation de 48 millions FC sur le titre VII, puis signature du bon de commande avec la société fournisseur", "Ordonnateur ; visa préalable du contrôleur budgétaire", "Art. 90 et 112 LOFIP ; art. 81-82 RGCP"],
+        ["5 avril", "Service fait : livraison et procès-verbal de réception ; la société émet une facture normalisée", "Service bénéficiaire ; fournisseur", "Art. 24 LF 2026 (facture normalisée)"],
+        ["12 avril", "Liquidation : vérification de la réalité de la dette et arrêt du montant exact", "Ordonnateur ; visa du contrôleur budgétaire", "Art. 90 LOFIP"],
+        ["18 avril", "Ordonnancement : ordre donné de payer 48 millions FC", "Ordonnateur ; visa du contrôleur budgétaire", "Art. 90-91 LOFIP"],
+        ["25 avril", "Contrôle du comptable, puis virement au compte bancaire de la société", "Comptable public assignataire ; ordre de virement", "Art. 119 LOFIP ; décret n° 24/02, art. 3 et 6-7"],
+      ] }, note: "Au taux moyen retenu par la loi de finances pour 2026 (2 467,0 FC pour un dollar), 48 millions FC représentent environ 19 457 dollars. Le montant dépassant 10 000 dollars, le paiement ne peut être effectué ni en espèces ni par titre au porteur (décret n° 24/02, art. 3). Pour la société, la créance naît du service fait ; si elle n'était ni payée ni réclamée, elle serait prescrite au terme du délai quadriennal étudié à la section 7.3." },
     ],
   },
   {
@@ -294,19 +301,23 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'ordonnateur et les deux ministres financiers",
     navLabel: 'Ordonnateur',
     blocs: [
-      { type: 'filet', titre: 'Art. 103 LOFIP - texte exact', texte: "« Est ordonnateur, le responsable d'institution, le ministre, le responsable de budget annexe ou la personne déléguée par lui au niveau central et au niveau déconcentré. L'ordonnateur a le pouvoir, dans la limite des crédits budgétaires qui lui sont accordés par les lois de finances, d'engager, de liquider et d'ordonnancer les dépenses nécessaires au fonctionnement de son institution ou ministère, ou service déconcentré, ou budget annexe rattaché. Il le fait dans le respect des lois, règlements et instructions qui régissent la matière, et sous réserve du pouvoir de régulation des crédits budgétaires du ministre ayant le budget dans ses attributions et du pouvoir de gestion de la trésorerie du ministre ayant les finances dans ses attributions. »" },
-      { type: 'carte', titre: 'Les deux ministres financiers', tableau: {
+      { type: 'intertitre', texte: "7.2.1 L'ordonnateur" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 103 : l'ordonnateur", texte: "« Est ordonnateur, le responsable d'institution, le ministre, le responsable de budget annexe ou la personne déléguée par lui au niveau central et au niveau déconcentré. L'ordonnateur a le pouvoir, dans la limite des crédits budgétaires qui lui sont accordés par les lois de finances, d'engager, de liquider et d'ordonnancer les dépenses nécessaires au fonctionnement de son institution ou ministère, ou service déconcentré, ou budget annexe rattaché. Il le fait dans le respect des lois, règlements et instructions qui régissent la matière, et sous réserve du pouvoir de régulation des crédits budgétaires du ministre ayant le budget dans ses attributions et du pouvoir de gestion de la trésorerie du ministre ayant les finances dans ses attributions. »" },
+      { type: 'intertitre', texte: "7.2.2 Les deux ministres financiers" },
+      { type: 'carte', titre: "Tableau 7.2 — Les deux ministres financiers", tableau: {
         entetes: ['', 'Ministre du Budget (art. 105)', 'Ministre des Finances (art. 106)'],
         lignes: [
           ['Qualité propre', 'Ordonnateur des **charges communes** et **contrôleur général du budget** par le truchement des contrôleurs budgétaires', "**Ordonnateur général de toutes les recettes** : il les constate, liquide et ordonnance"],
           ['Pouvoirs transversaux', "Met les crédits à disposition par arrêté (art. 88) ; pouvoir de régulation des crédits (art. 103) ; avis préalable sur tout acte à incidence financière et toute création d'emploi (art. 107)", 'Régulateur de la trésorerie ; désigne les comptables publics ; conclut les opérations financières (emprunts, prêts, garanties, participations) après avis du Ministre du Budget (art. 108)'],
         ],
       }, note: "Les opérations financières « ne peuvent entrer en vigueur que si une loi les autorise » (art. 108) ; en cas de vacances parlementaires seulement, une ordonnance-loi peut approuver les conventions de prêts ou d'emprunts, avec projet de loi de ratification déposé immédiatement. La déconcentration de l'ordonnancement prévue à l'art. 103 est accélérée par l'art. 5 de la LF 2026, avec neuf ministères sectoriels pilotes." },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[20] },
+      { type: 'intertitre', texte: "7.2.3 Le régime transitoire en vigueur en 2026" },
+      { type: 'paragraphe', texte: "Le schéma de l'article 103, qui fait de chaque ministre l'ordonnateur de ses crédits, n'est pas encore appliqué dans tous les ministères. La loi de finances pour 2026 organise la transition. Son article 5 engage la déconcentration de l'ordonnancement dans neuf ministères pilotes : Finances ; Santé publique, hygiène et prévoyance sociale ; Éducation et nouvelle citoyenneté ; Développement rural ; Infrastructures et travaux publics ; Agriculture et sécurité alimentaire ; Défense nationale et anciens combattants ; Pêche et élevage ; Enseignement supérieur et universitaire. Pour les autres, les articles 84 et 85 maintiennent un régime transitoire." },
+      { type: 'carte', titre: "Tableau 7.3 — L'exécution de la dépense : régime cible et régime transitoire", tableau: { entetes: ["Étape", "Régime cible (LOFIP)", "Régime transitoire (LF 2026, art. 84-85)"], lignes: [
+        ["Liquidation", "Ministre sectoriel ordonnateur", "Ministre du Budget, par visa préalable"],
+        ["Ordonnancement", "Ministre sectoriel ordonnateur", "Ministre des Finances"],
+        ["Information", "Comptabilités administrative et budgétaire rapprochées", "Transmission journalière, par le Ministre des Finances au Ministre du Budget, de la situation des encaissements et des décaissements (art. 85)"],
+      ] }, note: "L'art. 84 ne vise que la liquidation et l'ordonnancement : l'engagement reste régi par les art. 103 et 112 de la LOFIP. Le 29 janvier 2026, les comptables publics affectés aux ministères pilotes ont prêté serment ; la phase pilote s'appuie sur quatre postes comptables prenant en charge sept ministères. La cérémonie a été présentée comme une étape des engagements pris par le Gouvernement dans le cadre du programme conclu avec le FMI." },
     ],
   },
   {
@@ -314,12 +325,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le comptable public payeur : contrôles, refus et réquisition',
     navLabel: 'Comptable payeur',
     blocs: [
+      { type: 'intertitre', texte: "7.3.1 Les contrôles du comptable" },
       { type: 'paragraphe', texte: "Avant de payer, le comptable public assignataire **contrôle** : la qualité de l'ordonnateur ou de son délégué, l'assignation de la dépense, la validité de la créance au regard des pièces justificatives, l'existence des contrôles préalables, l'existence d'oppositions, le caractère libératoire du règlement et les règles de prescription (art. 119 LOFIP) ; il vérifie la régularité de l'engagement, de la liquidation et de l'ordonnancement au moyen des pièces prévues par les textes (art. 88 RGCP). Aucun ordonnancement ne lui parvient d'ailleurs sans le visa du contrôleur budgétaire (art. 119 LOFIP). Les oppositions au paiement lui sont adressées (art. 89 RGCP) et, si le créancier refuse le paiement, la somme est consignée dans sa comptabilité en attendant la solution du litige (art. 90 RGCP)." },
-      { type: 'filet', titre: 'Le refus de payer et la réquisition (art. 91 RGCP)', texte: "Constatant une irrégularité, le comptable « est tenu de refuser de payer la dépense » et adresse à l'ordonnateur une déclaration écrite et motivée de refus, pièces rejetées jointes, copie au Ministre des finances. L'ordonnateur peut saisir le Ministre des finances, qui peut donner **par écrit** l'ordre d'exécuter le paiement : le comptable annexe alors au titre la déclaration de rejet et l'original de la réquisition, en adresse copies à la Cour des comptes, et la responsabilité du ministre **subroge** la sienne. Mais quatre motifs de rejet sont insurmontables - aucune réquisition ne peut les vaincre : l'absence de crédits disponibles, le défaut de service fait, l'absence de visa préalable du contrôleur budgétaire, l'omission ou l'irrégularité des pièces. Un ordre téléphonique n'est donc jamais un titre : le droit organise la pression hiérarchique elle-même, par écrit, tracée et transmise au juge des comptes." },
-      { type: 'paragraphe', texte: "Dernier verrou temporel : la **prescription quadriennale** - toute créance sur l'État non payée et non réclamée dans les quatre ans à partir du premier jour de l'année suivant celle de l'acquisition des droits est prescrite au profit de l'État, sous réserve des causes d'interruption (réclamation écrite, recours juridictionnel, communication de l'administration) et de suspension (incapacité, force majeure, opposition d'un tiers) - art. 92 RGCP." },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[18] },
+      { type: 'intertitre', texte: "7.3.2 Le refus de payer et la réquisition" },
+      { type: 'filet', titre: "Le refus de payer et la réquisition (art. 91 RGCP)", texte: "Constatant une irrégularité, le comptable « est tenu de refuser de payer la dépense » et adresse à l'ordonnateur une déclaration écrite et motivée de refus, pièces rejetées jointes, copie au Ministre des finances. L'ordonnateur peut saisir le Ministre des finances, qui peut donner **par écrit** l'ordre d'exécuter le paiement : le comptable annexe alors au titre la déclaration de rejet et l'original de la réquisition, en adresse copies à la Cour des comptes, et la responsabilité du ministre **subroge** la sienne. Mais quatre motifs de rejet sont insurmontables - aucune réquisition ne peut les vaincre : l'absence de crédits disponibles, le défaut de service fait, l'absence de visa préalable du contrôleur budgétaire, l'omission ou l'irrégularité des pièces. Un ordre téléphonique n'est donc jamais un titre : le droit organise la pression hiérarchique elle-même, par écrit, tracée et transmise au juge des comptes." },
+      { type: 'intertitre', texte: "7.3.3 Les modalités de paiement" },
+      { type: 'paragraphe', texte: "Le décret n° 24/02 du 20 juin 2024, texte d'application de la loi n° 22/068 relative à la lutte contre le blanchiment de capitaux, encadre le règlement des dépenses publiques. Aucun paiement d'une dépense publique égal ou supérieur à 10 000 dollars, ou sa contre-valeur, ne peut être effectué en espèces ou par titre au porteur ; il passe par chèque nominatif, virement interbancaire ou postal, carte de paiement ou autre instrument scriptural (art. 3). L'interdiction vaut dans les deux sens, pour les paiements de l'État comme pour ceux qu'il reçoit (art. 4). Le circuit est le suivant : les services du Trésor émettent un ordre de paiement informatisé ; la Banque centrale approvisionne le compte du ministère et avise le comptable ; celui-ci prépare l'ordre de virement vers le compte du bénéficiaire, après vérification des pièces, des calculs, de l'identité du bénéficiaire et de l'absence d'opposition (art. 5-7). Seules trois catégories de dépenses peuvent être retirées en espèces, sur dérogation expresse du Ministre des Finances : le fonds spécial d'intervention, le fonds secret de recherche et les frais stratégiques de sécurité (art. 10)." },
+      { type: 'intertitre', texte: "7.3.4 La prescription quadriennale" },
+      { type: 'paragraphe', texte: "La **prescription quadriennale** constitue le dernier verrou temporel : toute créance sur l'État non payée et non réclamée dans les quatre ans à partir du premier jour de l'année suivant celle de l'acquisition des droits est prescrite au profit de l'État, sous réserve des causes d'interruption (réclamation écrite, recours juridictionnel, communication de l'administration) et de suspension (incapacité, force majeure, opposition d'un tiers) - art. 92 RGCP." },
     ],
   },
   {
@@ -327,15 +340,29 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le contrôleur budgétaire : le visa qui précède tout',
     navLabel: 'Contrôleur budgétaire',
     blocs: [
+      { type: 'intertitre', texte: "7.4.1 Le visa préalable" },
       { type: 'paragraphe', texte: "Le **contrôle administratif a priori** des dépenses est assuré par le contrôleur budgétaire : « tous les actes portant engagement, liquidation et ordonnancement sont soumis à son visa préalable notamment, les contrats, arrêtés, mesures ou décisions » des responsables d'institutions, ministres, responsables de services déconcentrés ou fonctionnaires habilités (art. 112). Un contrôleur est affecté auprès de chaque ordonnateur (art. 104), de chaque institution, ministère de dépenses et service déconcentré (art. 115), et il relève de l'autorité du Ministre du Budget (art. 105) - non de l'ordonnateur qu'il contrôle." },
-      { type: 'carte', titre: 'Le régime du visa (art. 113-114)', liste: [
+      { type: 'intertitre', texte: "7.4.2 Le régime du visa" },
+      { type: 'carte', titre: "Encadré 7.1 — Le régime du visa du contrôleur budgétaire (art. 113-114 LOFIP)", liste: [
         "**Instruction** : le contrôleur obtient communication de toutes les pièces propres à justifier les engagements et liquidations et à éclairer sa décision (art. 113).",
         "**Refus protégé** : si les actes lui paraissent entachés d'irrégularités, il refuse le visa - « pour ce faire, il ne peut en aucun cas être sanctionné » (art. 113). Toute mesure de rétorsion (mutation-sanction, mise en disponibilité) est illégale, et son auteur serait de surcroît incompétent : le contrôleur ne relève pas de l'ordonnateur.",
         "**Désaccord persistant** : le contrôleur en réfère au Ministre du Budget - ou au représentant du pouvoir central en province - et il ne peut être passé outre au refus « que sur autorisation motivée écrite » dudit ministre ou représentant (art. 114). L'écrit et la motivation déplacent la responsabilité sur qui autorise.",
       ] },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
+      { type: 'intertitre', texte: "7.4.3 La programmation des engagements et la régulation budgétaire" },
+      { type: 'paragraphe', texte: "Le vote des crédits ne garantit pas que la trésorerie permettra de les consommer au rythme souhaité par chaque ordonnateur. Le décret n° 22/37, dont ces dispositions sont d'application immédiate (art. 166), organise donc la programmation et la régulation de la dépense. Le contrôleur budgétaire y participe : outre la régularité des actes, il vise le document de programmation des crédits, contrôle la soutenabilité des engagements au regard des autorisations votées et veille au respect de la régulation (art. 138)." },
+      { type: 'carte', titre: "Tableau 7.4 — Les instruments de programmation et de régulation (décret n° 22/37)", tableau: { entetes: ["Instrument", "Objet", "Autorité", "Articles"], lignes: [
+        ["Plan d'engagement budgétaire (PEB)", "Programme le rythme des engagements et des liquidations en fonction de la trésorerie ; fixe les montants que les ordonnateurs peuvent engager ; établi pour l'année et révisé chaque trimestre ou semestre", "Ministre du Budget (PEB consolidé) ; chaque ministre (PEB sectoriel)", "143-146"],
+        ["Plan de trésorerie (PTR)", "Projections mensuelles des recettes et des dépenses, solde et mode de financement ; actualisé chaque mois", "Ministre des Finances", "148-150"],
+        ["Réserve de précaution", "Part des crédits votés rendue indisponible dès le début de l'exercice, par l'arrêté de mise à disposition des crédits, qui en fixe le taux", "Ministre du Budget", "153-156"],
+        ["Gel des crédits", "Indisponibilité temporaire de crédits en cours d'exercice en cas de difficultés de trésorerie ; levée dès le retournement de la conjoncture", "Ministre du Budget", "157"],
+      ] }, note: "La régulation vise à maîtriser l'évolution des dépenses, à éviter les tensions de trésorerie et l'accumulation des arriérés (art. 152)." },
+      { type: 'carte', titre: "Exemple 7.2 — La régulation des crédits d'un programme au cours d'un exercice (montants et taux fictifs, milliards FC)", tableau: { entetes: ["Moment", "Opération", "Crédits disponibles pour l'ordonnateur"], lignes: [
+        ["Vote de la loi de finances", "Crédits ouverts au programme : 100", "—"],
+        ["Janvier", "L'arrêté de mise à disposition fixe une réserve de précaution de 8 %", "92"],
+        ["Juin", "Recettes inférieures aux prévisions : gel de 10 sur l'enveloppe disponible", "82"],
+        ["Octobre", "Amélioration de la trésorerie : levée du gel et libération de la moitié de la réserve", "96"],
+        ["31 décembre", "La réserve non libérée (4) reste inemployée", "96"],
+      ] }, note: "La régulation ne modifie pas l'autorisation parlementaire : les crédits votés restent de 100. Elle en module l'emploi dans le temps. Une régulation durablement forte peut toutefois vider l'autorisation de sa portée, ce qui renvoie à la sincérité des prévisions de recettes étudiée au chapitre 2." },
     ],
   },
   {
@@ -343,7 +370,8 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les quatre comptabilités et les reports de crédits',
     navLabel: 'Comptabilités · reports',
     blocs: [
-      { type: 'carte', titre: 'Les quatre comptabilités (art. 95-101 LOFIP)', tableau: {
+      { type: 'intertitre', texte: "7.5.1 Les quatre comptabilités" },
+      { type: 'carte', titre: "Tableau 7.5 — Les quatre comptabilités (art. 95-101 LOFIP)", tableau: {
         entetes: ['Comptabilité', 'Tenue par', 'Objet'],
         lignes: [
           ['**Administrative** (art. 96)', 'Ordonnateur', "Établissement et mise en recouvrement des recettes ; engagement et ordonnancement des dépenses ; suivi de la consommation des crédits - règles fixées par le RGCP"],
@@ -352,11 +380,8 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Générale** (art. 99-100)', 'Comptable public', "Toutes les opérations - recettes, dépenses, trésorerie, patrimoine ; partie double, droits constatés ; plan comptable fixé par décret du Premier ministre, inspiré du plan comptable national ; dégage états financiers, restes à payer et à recouvrer, résultat"],
         ],
       } },
-      { type: 'filet', titre: 'Les reports de crédits (art. 93-94)', texte: "Par dérogation à l'annualité, peuvent être reportées « les parties des crédits disponibles à la fin de l'année budgétaire, destinées à couvrir des dépenses résultant d'obligations existant à charge du pouvoir central à la date du 31 octobre et qui n'ont pu être ordonnancées et payées au 31 décembre » ; elles s'ajoutent aux crédits de paiement correspondants du budget suivant (art. 93). L'état des articles et montants concernés est approuvé par ordonnance-loi du Président de la République, sur proposition conjointe des Ministres des Finances et du Budget, dans les deux mois suivant la fin de l'année, puis fait l'objet d'un arrêté du Ministre du Budget et d'une ratification en loi de finances (art. 94). À ne pas confondre avec les reports d'AE pluriannuelles et de CP de l'art. 53, par arrêtés conjoints avant le 31 mars." },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[19] },
+      { type: 'intertitre', texte: "7.5.2 Les reports de crédits" },
+      { type: 'filet', titre: "Les reports de crédits (art. 93-94 LOFIP)", texte: "Par dérogation à l'annualité, peuvent être reportées « les parties des crédits disponibles à la fin de l'année budgétaire, destinées à couvrir des dépenses résultant d'obligations existant à charge du pouvoir central à la date du 31 octobre et qui n'ont pu être ordonnancées et payées au 31 décembre » ; elles s'ajoutent aux crédits de paiement correspondants du budget suivant (art. 93). L'état des articles et montants concernés est approuvé par ordonnance-loi du Président de la République, sur proposition conjointe des Ministres des Finances et du Budget, dans les deux mois suivant la fin de l'année, puis fait l'objet d'un arrêté du Ministre du Budget et d'une ratification en loi de finances (art. 94). À ne pas confondre avec les reports d'AE pluriannuelles et de CP de l'art. 53, par arrêtés conjoints avant le 31 mars." },
     ],
   },
   {
@@ -364,14 +389,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les responsabilités au bout de la chaîne',
     navLabel: 'Responsabilités',
     blocs: [
+      { type: 'intertitre', texte: "7.6.1 Les responsabilités des acteurs" },
       { type: 'paragraphe', texte: "Chaque maillon répond de ses actes. L'**ordonnateur** est responsable des certifications qu'il délivre (art. 128 LOFIP) ; engager sans pouvoir, sans crédits disponibles ou en violation des règles d'exécution est une **faute de gestion** (art. 129), passible d'une amende pouvant atteindre le double du traitement brut annuel, prononcée par la Cour des comptes (art. 131) - les membres du Gouvernement relevant, eux, des sanctions prévues par la Constitution et les lois (art. 128 ; art. 57 RGCP). Le **comptable public** est personnellement et pécuniairement responsable (art. 131 LOFIP ; art. 32-35 RGCP) : paiement irrégulier en manquement à ses contrôles = débet. Le **contrôleur budgétaire** répond devant la Cour des comptes des fautes de gestion commises dans l'exercice de ses fonctions (art. 131). Et l'intrus - quiconque s'ingère sans qualité dans les opérations - voit ses actes frappés de nullité (art. 58 RGCP) et peut être déclaré comptable de fait (art. 130 LOFIP ; art. 17 et 36 RGCP)." },
-      { type: 'carte', titre: 'Le juge des comptes', liste: [
+      { type: 'intertitre', texte: "7.6.2 Le juge des comptes" },
+      { type: 'carte', titre: "Encadré 7.2 — La Cour des comptes, juge des comptes", liste: [
         "**Assise constitutionnelle** : l'art. 178 de la Constitution institue la Cour des comptes, qui relève de l'Assemblée nationale ; l'art. 180 la charge de contrôler « la gestion des finances de l'État, des biens publics ainsi que les comptes des provinces, des entités territoriales décentralisées ainsi que des organismes publics », avec rapport annuel publié au Journal officiel.",
         "**Contrôle juridictionnel (art. 123-126 LOFIP)** : la Cour vérifie a posteriori, sur pièces et sur place, la régularité des opérations des ordonnateurs et des comptables ; elle « juge les comptes des comptables publics pour aboutir soit à des arrêts de quitus, soit à des arrêts de débet » (art. 126) ; les comptes de gestion lui sont soumis au plus tard le 31 mars (art. 30 RGCP).",
         "**Ne pas confondre** : l'Inspection générale des finances exerce un contrôle administratif à compétence générale (art. 121-122 LOFIP) - enquêtes et vérifications - mais ne juge pas ; le contrôle parlementaire (art. 127) sanctionne politiquement, lors de la reddition des comptes.",
       ] },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[21] },
     ],
   },
 ]
