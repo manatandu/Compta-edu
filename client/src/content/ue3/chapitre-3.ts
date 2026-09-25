@@ -362,6 +362,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Kinshasa, 31 décembre N. Au siège de **BANDAL MOTORS SA**, concessionnaire automobile au capital de 200 000 000 FC, l'exercice se clôt sur un résultat comptable avant impôt de 150 000 000 FC. Dans les semaines qui suivent, le conseil d'administration arrêtera les comptes, calculera l'impôt, proposera une affectation du résultat, puis l'assemblée votera les dividendes. Les actionnaires attendent leur part, l'administration fiscale la sienne, et les créanciers comptent sur les réserves. Ce chapitre suit BANDAL MOTORS de la clôture au paiement du dividende, et montre comment le droit des sociétés, la fiscalité congolaise et la comptabilité s'articulent à chaque étape.",
       },
+      { type: 'intertitre', texte: "3.1.1 L'arrêté des comptes et le rapport de gestion" },
       {
         type: 'paragraphe',
         texte: "Chaque année, la société rend compte à ses associés. Le cycle commence à la clôture : « le gérant ou le conseil d'administration ou l'administrateur général, selon le cas, établit et arrête les états financiers de synthèse » conformément au droit comptable (art. 137). *Arrêter* les comptes, c'est les fixer sous la responsabilité des organes de gestion, avant tout contrôle ou vote. Les mêmes organes établissent un **rapport de gestion** exposant la situation de la société durant l'exercice écoulé, son évolution prévisible, les événements importants survenus entre la clôture et la date du rapport, et en particulier les perspectives de continuation de l'activité, l'évolution de la trésorerie et le plan de financement (art. 138).",
@@ -370,9 +371,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le contenu des états financiers est fixé par l'AUDCIF : bilan, compte de résultat, tableau des flux de trésorerie et Notes annexes pour le système normal. L'AUSCGIE y ajoute deux exigences propres au droit des sociétés : l'état annexé comprend un **état des cautionnements, avals et garanties** donnés par la société et un **état des sûretés réelles** qu'elle a consenties (art. 139). Toute modification dans la présentation des états financiers ou dans les méthodes d'évaluation, d'amortissement ou de provisions doit être signalée dans le rapport de gestion et, le cas échéant, dans celui du commissaire aux comptes (art. 141). Le principe est la permanence ; le changement est possible, mais il doit être visible pour ceux qui votent.",
       },
+      { type: 'intertitre', texte: "3.1.2 Le calendrier et ses sanctions" },
       {
         type: 'carte',
-        titre: "Le calendrier de l'approbation",
+        titre: "Tableau 3.1 — Le calendrier de l'approbation des comptes",
         tableau: {
           entetes: ["Étape", "Délai", "Source"],
           lignes: [
@@ -386,15 +388,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Ces délais ne sont pas des formalités. Si l'assemblée annuelle de la SARL n'est pas réunie dans les six mois, le ministère public ou tout associé peut saisir le juge statuant à bref délai pour enjoindre aux gérants, le cas échéant sous astreinte, de la convoquer, ou faire désigner un mandataire ad hoc (art. 348). Les dirigeants qui ne déposent pas les états financiers au RCCM dans le mois de leur approbation encourent une sanction pénale (art. 890-1), comme ceux qui, sciemment, présentent aux associés des états financiers ne donnant pas une image fidèle en vue de dissimuler la véritable situation de la société (art. 890). Le comptable qui prépare le dossier de clôture doit donc raisonner à rebours : fixer la date de l'assemblée, puis celle de la transmission au commissaire aux comptes, puis celle de l'arrêté des comptes.",
+        texte: "Ces délais sont assortis de sanctions. Si l'assemblée annuelle de la SARL n'est pas réunie dans les six mois, le ministère public ou tout associé peut saisir le juge statuant à bref délai pour enjoindre aux gérants, le cas échéant sous astreinte, de la convoquer, ou faire désigner un mandataire ad hoc (art. 348). Les dirigeants qui ne déposent pas les états financiers au RCCM dans le mois de leur approbation encourent une sanction pénale (art. 890-1), comme ceux qui, sciemment, présentent aux associés des états financiers ne donnant pas une image fidèle en vue de dissimuler la véritable situation de la société (art. 890). Le comptable qui prépare le dossier de clôture doit donc raisonner à rebours : fixer la date de l'assemblée, puis celle de la transmission au commissaire aux comptes, puis celle de l'arrêté des comptes.",
       },
+      { type: 'intertitre', texte: "3.1.3 Les écritures d'inventaire" },
       {
         type: 'paragraphe',
-        texte: "Pour le comptable, l'arrêté des comptes est un moment de vérité. C'est à cette date que toutes les écritures d'inventaire doivent être passées : amortissements, dépréciations des stocks et des créances, provisions pour risques et charges, charges à payer et produits à recevoir, charges et produits constatés d'avance. Le résultat qui en sort est celui sur lequel l'assemblée votera ; il ne peut plus être modifié ensuite que par une nouvelle délibération des organes de gestion, avant l'envoi au commissaire aux comptes. Le rapport de gestion, lui, n'est pas un document comptable, mais il doit être cohérent avec les états financiers : un rapport qui annonce une trésorerie confortable alors que le tableau des flux révèle un découvert grandissant alerterait légitimement les associés et le commissaire aux comptes.",
+        texte: "Pour le comptable, l'arrêté des comptes est une échéance décisive. C'est à cette date que toutes les écritures d'inventaire doivent être passées : amortissements, dépréciations des stocks et des créances, provisions pour risques et charges, charges à payer et produits à recevoir, charges et produits constatés d'avance. Le résultat qui en sort est celui sur lequel l'assemblée votera ; il ne peut plus être modifié ensuite que par une nouvelle délibération des organes de gestion, avant l'envoi au commissaire aux comptes. Le rapport de gestion, lui, n'est pas un document comptable, mais il doit être cohérent avec les états financiers : un rapport qui annonce une trésorerie confortable alors que le tableau des flux révèle un découvert grandissant alerterait légitimement les associés et le commissaire aux comptes.",
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[2] },
     ],
   },
   {
@@ -402,6 +402,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Du résultat comptable au résultat à affecter : l'impôt sur les sociétés",
     navLabel: "Résultat et IS",
     blocs: [
+      { type: 'intertitre', texte: "3.2.1 Le résultat net après impôt" },
       {
         type: 'paragraphe',
         texte: "L'assemblée n'affecte pas n'importe quel résultat : elle affecte le **résultat net**, après impôt. Le compte 13 de l'AUDCIF permet de calculer, à la clôture, « le résultat net à affecter, après déduction de l'impôt sur les bénéfices et autres prélèvements obligatoires ». En RDC, depuis la réforme de la loi n° 23/053 du 30 novembre 2023, applicable aux revenus de 2026, les sociétés de capitaux sont soumises à l'**impôt sur les sociétés** au taux de **30 %** du bénéfice net imposable (art. 56), avec un **impôt minimum** de **1 %** du chiffre d'affaires déclaré lorsque les résultats sont déficitaires ou que l'impôt calculé serait inférieur à ce montant (art. 57). La loi de finances n° 25/060 pour 2026 n'a modifié ni le taux ni l'impôt minimum.",
@@ -412,7 +413,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple : de la base imposable au résultat à affecter",
+        titre: "Exemple 3.1 — De la base imposable au résultat à affecter",
         tableau: {
           entetes: ["Élément", "Montant (FC)"],
           lignes: [
@@ -426,6 +427,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "L'impôt se calcule sur le bénéfice fiscal, mais il se retranche du résultat comptable. C'est ce résultat net de 120 000 000 que l'assemblée affecte.",
       },
+      { type: 'intertitre', texte: "3.2.2 Résultat, trésorerie et résultat en instance d'affectation" },
       {
         type: 'paragraphe',
         texte: "Le résultat net n'est pas une somme d'argent disponible. Une société peut dégager un bénéfice important et manquer de trésorerie, parce que ses clients ne l'ont pas encore payée, qu'elle a reconstitué ses stocks ou remboursé un emprunt. C'est pourquoi l'article 138 demande au rapport de gestion d'exposer l'évolution de la trésorerie et le plan de financement : l'assemblée doit savoir, avant de voter un dividende, si la société peut le payer sans se mettre en difficulté. Le droit fixe ce qui est *distribuable* ; la gestion dit ce qui est *raisonnablement distribuable*.",
@@ -434,22 +436,21 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "À la réouverture des comptes de l'exercice suivant, le résultat attend la décision de l'assemblée. L'AUDCIF donne aux entités « la possibilité d'utiliser un compte spécial Résultat en instance d'affectation (130) », subdivisé en **1301** pour un bénéfice et **1309** pour une perte. Le compte 13 est ensuite soldé lors de la comptabilisation de l'affectation, et le résultat non affecté à une réserve ni distribué est viré au report à nouveau. Le plan de comptes réserve par ailleurs les comptes 131 à 139 à la présentation des soldes intermédiaires : marge commerciale, valeur ajoutée, excédent brut d'exploitation, résultats d'exploitation, financier, des activités ordinaires et hors activités ordinaires.",
       },
+      { type: 'intertitre', texte: "3.2.3 Les situations particulières" },
       {
         type: 'paragraphe',
-        texte: "Deux situations particulières méritent l'attention. Une société **déficitaire** ne paie pas d'IS au taux de 30 %, mais elle reste redevable de l'impôt minimum de 1 % de son chiffre d'affaires (art. 57) : ce montant est une charge de l'exercice au compte 895, qui aggrave la perte comptable. Une société **bénéficiaire** qui a versé des acomptes supérieurs à l'impôt finalement dû dispose d'une créance sur l'État : le solde débiteur du 441 figure alors à l'actif. En cours d'exercice, chaque acompte se comptabilise au débit du 441 par le crédit de la banque ; à la clôture, l'impôt de l'exercice est porté au crédit du 441 par le débit du 891, et le solde du compte donne le reliquat à payer ou à récupérer. Comme les acomptes de l'exercice N+1 sont calculés sur l'impôt de N, une forte hausse du bénéfice pèse aussi sur la trésorerie de l'année suivante.",
+        texte: "Deux situations particulières obéissent à des règles propres. Une société **déficitaire** ne paie pas d'IS au taux de 30 %, mais elle reste redevable de l'impôt minimum de 1 % de son chiffre d'affaires (art. 57) : ce montant est une charge de l'exercice au compte 895, qui aggrave la perte comptable. Une société **bénéficiaire** qui a versé des acomptes supérieurs à l'impôt finalement dû dispose d'une créance sur l'État : le solde débiteur du 441 figure alors à l'actif. En cours d'exercice, chaque acompte se comptabilise au débit du 441 par le crédit de la banque ; à la clôture, l'impôt de l'exercice est porté au crédit du 441 par le débit du 891, et le solde du compte donne le reliquat à payer ou à récupérer. Comme les acomptes de l'exercice N+1 sont calculés sur l'impôt de N, une forte hausse du bénéfice pèse aussi sur la trésorerie de l'année suivante.",
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : 102 millions de bénéfice, donc 102 millions en caisse ?",
-        texte: "Non. Le résultat net de BANDAL MOTORS, 102 000 000 FC, mesure un enrichissement, pas une trésorerie. Une partie des ventes n'est peut-être pas encore encaissée, des stocks ont peut-être été reconstitués, un emprunt a pu être remboursé. Le conseil doit donc vérifier deux choses avant de proposer un dividende : que la distribution est juridiquement possible (bénéfice distribuable et butoir de l'article 143) et qu'elle est financièrement supportable (trésorerie disponible à la date de mise en paiement). Un dividende régulier que la société doit emprunter pour payer est un mauvais signal.",
+        titre: "Résultat net et trésorerie",
+        texte: "Le résultat net ne se trouve pas en caisse. Celui de BANDAL MOTORS, 102 000 000 FC, mesure un enrichissement, pas une trésorerie. Une partie des ventes n'est peut-être pas encore encaissée, des stocks ont peut-être été reconstitués, un emprunt a pu être remboursé. Le conseil doit donc vérifier deux choses avant de proposer un dividende : que la distribution est juridiquement possible (bénéfice distribuable et butoir de l'article 143) et qu'elle est financièrement supportable (trésorerie disponible à la date de mise en paiement). Un dividende régulier que la société doit emprunter pour payer est un mauvais signal.",
       },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "3.2.4 Résultat comptable et bénéfice imposable" },
       {
         type: 'paragraphe',
-        texte: "La différence entre le résultat comptable et le bénéfice imposable mérite d'être comprise. Certaines charges comptabilisées ne sont pas déductibles fiscalement : l'IS lui-même, les amendes et pénalités, certaines provisions, la fraction exagérée des rémunérations d'associés dirigeants. Elles sont réintégrées dans la déclaration fiscale, sans modifier la comptabilité. L'impôt est donc calculé sur une base différente du résultat comptable, mais il est enregistré dans les comptes pour son montant réel. Le résultat net qui en résulte est le seul que l'assemblée puisse affecter : distribuer le résultat avant impôt reviendrait à partager une somme que la société doit à l'État.",
+        texte: "Le résultat comptable diffère du bénéfice imposable. Certaines charges comptabilisées ne sont pas déductibles fiscalement : l'IS lui-même, les amendes et pénalités, certaines provisions, la fraction exagérée des rémunérations d'associés dirigeants. Elles sont réintégrées dans la déclaration fiscale, sans modifier la comptabilité. L'impôt est donc calculé sur une base différente du résultat comptable, mais il est enregistré dans les comptes pour son montant réel. Le résultat net qui en résulte est le seul que l'assemblée puisse affecter : distribuer le résultat avant impôt reviendrait à partager une somme que la société doit à l'État.",
       },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[5] },
     ],
   },
   {
@@ -457,6 +458,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'approbation des comptes selon la forme sociale",
     navLabel: "Approbation",
     blocs: [
+      { type: 'intertitre', texte: "3.3.1 L'organe compétent selon la forme" },
       {
         type: 'paragraphe',
         texte: "L'organe qui approuve les comptes et affecte le résultat dépend de la forme. « L'assemblée générale décide de l'affectation du résultat dans le respect des dispositions légales et statutaires. Elle constitue les dotations nécessaires à la réserve légale et aux réserves statutaires » (art. 142). Dans la **SA**, l'assemblée générale ordinaire est compétente pour « statuer sur les états financiers de synthèse de l'exercice » et « décider de l'affectation du résultat » (art. 546, 1° et 2°). Lorsque la SA n'a qu'un actionnaire, c'est lui qui prend, dans les six mois de la clôture, toutes les décisions de l'assemblée ordinaire annuelle, au vu des rapports de l'administrateur général et du commissaire aux comptes (art. 558 et 559).",
@@ -471,7 +473,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Qui approuve, et comment ?",
+        titre: "Tableau 3.2 — L'approbation des comptes selon la forme sociale",
         tableau: {
           entetes: ["Forme", "Organe", "Majorité ou modalité"],
           lignes: [
@@ -483,13 +485,11 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "3.3.2 Le procès-verbal, pièce justificative" },
       {
         type: 'paragraphe',
         texte: "Le procès-verbal de la décision d'approbation est la pièce justificative de l'écriture d'affectation. Il reproduit la résolution, qui suit en général un modèle constant : l'assemblée approuve les états financiers de l'exercice clos le 31 décembre N faisant apparaître un bénéfice de tel montant ; elle décide de l'affecter comme suit : réserve légale, réserves statutaires, réserves facultatives, dividendes, report à nouveau ; elle fixe le dividende par titre et sa date de mise en paiement. Le comptable n'a pas à interpréter : il transcrit. Mais il doit vérifier, avant la réunion, que le projet de résolution respecte les règles de ce chapitre, car une délibération contraire à la réserve légale ou au butoir des capitaux propres est nulle (art. 143, 346, 546).",
       },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
     ],
   },
   {
@@ -497,13 +497,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Réserves et bénéfice distribuable (art. 142-143)",
     navLabel: "Bénéfice distribuable",
     blocs: [
+      { type: 'intertitre', texte: "3.4.1 Le bénéfice distribuable" },
       {
         type: 'paragraphe',
         texte: "L'article 143 définit la masse que l'assemblée peut partager. Le **bénéfice distribuable** est « le résultat de l'exercice, augmenté du report bénéficiaire et diminué des pertes antérieures, des dividendes partiels régulièrement distribués ainsi que des sommes portées en réserve en application de la loi ou des statuts ». La formule se lit comme une opération en quatre temps : partir du résultat net ; y ajouter les bénéfices anciens laissés en report à nouveau ; retrancher les pertes anciennes non encore apurées ; retrancher enfin ce que la loi (réserve légale) et les statuts (réserves statutaires) imposent de mettre de côté. Ce qui reste peut être distribué, mis en réserves facultatives ou reporté à nouveau (art. 144).",
       },
       {
         type: 'carte',
-        titre: "La hiérarchie des réserves",
+        titre: "Tableau 3.3 — La hiérarchie des réserves",
         tableau: {
           entetes: ["Réserve", "Source", "Compte", "Régime"],
           lignes: [
@@ -514,6 +515,7 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "3.4.2 Les réserves et leur distribution" },
       {
         type: 'paragraphe',
         texte: "Les **réserves** sont des bénéfices laissés à la disposition de l'entité et non incorporés au capital (AUDCIF, compte 11). Elles renforcent les capitaux propres et donc la solidité de la société, sans en changer le capital. Certaines sont imposées : la réserve légale par la loi, les réserves statutaires par les statuts. D'autres sont décidées librement par l'assemblée pour financer un investissement ou se prémunir contre les aléas. Les réserves réglementées (compte 113) suivent le régime du texte qui les crée ; le plan de comptes en cite plusieurs, dont les réserves consécutives à l'attribution gratuite d'actions au personnel et aux dirigeants (1132), étudiées au chapitre 4.",
@@ -523,17 +525,15 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Distribuer des réserves : possible, sous deux verrous (art. 143, al. 2 à 4)",
         texte: "L'assemblée peut décider la distribution de tout ou partie des réserves, à la double condition qu'il ne s'agisse pas de réserves **indisponibles** au regard de la loi ou des statuts, toute délibération contraire étant **nulle**, et qu'elle indique **expressément les postes de réserve** sur lesquels les prélèvements sont effectués. S'y ajoute le butoir général : sauf réduction de capital, aucune distribution ne peut être faite lorsque les capitaux propres sont, ou deviendraient de ce fait, inférieurs au montant du capital augmenté des réserves que la loi ou les statuts ne permettent pas de distribuer, là encore à peine de nullité.",
       },
+      { type: 'intertitre', texte: "3.4.3 Le butoir des capitaux propres" },
       {
         type: 'paragraphe',
         texte: "Le butoir de l'article 143 est l'outil de contrôle le plus puissant de ce chapitre, car il raisonne sur les capitaux propres et non sur le seul résultat. Prenons une société au capital de 100 000 000, avec une réserve légale de 15 000 000, des réserves facultatives de 30 000 000 et un report à nouveau débiteur de 40 000 000 : ses capitaux propres s'élèvent à 105 000 000. Le seuil protégé est de 100 000 000 + 15 000 000 = 115 000 000. Les capitaux propres sont déjà en dessous : aucune distribution n'est possible, même par prélèvement sur les réserves facultatives, qui existent en comptabilité mais sont économiquement absorbées par les pertes. Le comptable qui présente un projet de distribution doit toujours faire ce calcul.",
       },
       {
         type: 'paragraphe',
-        texte: "Appliquons la formule. Une SA au capital de 80 000 000 a une réserve légale de 12 000 000, un report à nouveau créditeur de 3 000 000 et un résultat net de 40 000 000 ; ses statuts imposent une réserve statutaire de 5 % du résultat. Réserve légale : un dixième de 40 000 000 donne 4 000 000, mais le plafond est de 16 000 000 − 12 000 000 = 4 000 000 : la dotation est de 4 000 000. Réserve statutaire : 2 000 000. Bénéfice distribuable : 40 000 000 + 3 000 000 − 4 000 000 − 2 000 000 = 37 000 000. L'assemblée peut distribuer jusqu'à ce montant, sous réserve du butoir, ou en mettre une partie en réserves facultatives, ou la reporter. Si, l'année suivante, le capital est porté à 120 000 000, le plafond de la réserve légale passe à 24 000 000, et la dotation redevient obligatoire.",
+        texte: "La formule s'applique ainsi. Une SA au capital de 80 000 000 a une réserve légale de 12 000 000, un report à nouveau créditeur de 3 000 000 et un résultat net de 40 000 000 ; ses statuts imposent une réserve statutaire de 5 % du résultat. Réserve légale : un dixième de 40 000 000 donne 4 000 000, mais le plafond est de 16 000 000 − 12 000 000 = 4 000 000 : la dotation est de 4 000 000. Réserve statutaire : 2 000 000. Bénéfice distribuable : 40 000 000 + 3 000 000 − 4 000 000 − 2 000 000 = 37 000 000. L'assemblée peut distribuer jusqu'à ce montant, sous réserve du butoir, ou en mettre une partie en réserves facultatives, ou la reporter. Si, l'année suivante, le capital est porté à 120 000 000, le plafond de la réserve légale passe à 24 000 000, et la dotation redevient obligatoire.",
       },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
     ],
   },
   {
@@ -541,13 +541,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La réserve légale et la sanction du dividende fictif",
     navLabel: "Réserve légale",
     blocs: [
+      { type: 'intertitre', texte: "3.5.1 La dotation à la réserve légale" },
       {
         type: 'paragraphe',
         texte: "SARL et SA obéissent à la même discipline, énoncée par l'article 346 pour la première et l'article 546, 2°, pour la seconde : il est obligatoirement constitué, sur le bénéfice de l'exercice diminué le cas échéant des pertes antérieures, une dotation égale à **un dixième au moins**, affectée à la **réserve légale** ; cette dotation cesse d'être obligatoire lorsque la réserve atteint **le cinquième du montant du capital social**. Toute délibération prise en violation de cette règle est **nulle**. Le calcul appelle deux réflexes : l'assiette est le bénéfice *net des pertes antérieures*, et la dotation de l'exercice est plafonnée par la distance restant à parcourir jusqu'au cinquième du capital.",
       },
       {
         type: 'carte',
-        titre: "Méthode de calcul de la dotation",
+        titre: "Encadré 3.1 — Le calcul de la dotation à la réserve légale",
         liste: [
           "1. Assiette = bénéfice de l'exercice − pertes antérieures (report à nouveau débiteur).",
           "2. Dotation minimale = 1/10 × assiette.",
@@ -561,9 +562,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La réserve légale est **indisponible** : elle ne peut pas être distribuée (art. 143, al. 2), et elle entre dans le seuil protégé par le butoir. Elle peut en revanche absorber des pertes, sur décision de l'assemblée, puisque le compte 13 peut être crédité, pour apurer une perte, par le débit du compte 11 Réserves (AUDCIF). Elle peut aussi être incorporée au capital lors d'une augmentation de capital par incorporation de réserves (art. 62 et 68, chapitre 4). Dans ce dernier cas, le capital augmente et le plafond du cinquième aussi : la société devra de nouveau doter la réserve légale sur ses bénéfices futurs.",
       },
+      { type: 'intertitre', texte: "3.5.2 Le dividende fictif" },
       {
         type: 'carte',
-        titre: "Le dividende fictif et sa répétition",
+        titre: "Encadré 3.2 — Le dividende fictif et sa répétition",
         liste: [
           "**Définition** : l'article 144 subordonne toute distribution à l'approbation des états financiers et à la constatation de sommes distribuables ; « tout dividende distribué en violation des règles énoncées au présent article est un dividende fictif ».",
           "**Répétition** : la répétition des dividendes ne correspondant pas à des bénéfices réellement acquis peut être exigée des associés qui les ont reçus (art. 346, al. 3, SARL).",
@@ -575,20 +577,16 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le dividende fictif naît le plus souvent d'un résultat surévalué : stocks gonflés, créances douteuses non dépréciées, charges à payer oubliées, provisions insuffisantes. C'est pourquoi l'article 889 vise l'absence d'inventaire ou l'inventaire frauduleux : sans inventaire sincère, il n'y a pas de résultat fiable, donc pas de bénéfice distribuable certain. Le comptable est ici en première ligne. Chaque écriture d'inventaire (dépréciations, provisions, charges constatées) diminue le résultat, donc le distribuable ; la tentation de les « oublier » pour permettre un dividende est la source classique du délit. Lorsque le dividende fictif est découvert, la société enregistre sa créance de répétition sur les associés (compte d'associés concerné) et corrige ses comptes.",
       },
+      { type: 'intertitre', texte: "3.5.3 Les erreurs fréquentes" },
       {
         type: 'paragraphe',
-        texte: "Trois erreurs reviennent sans cesse dans les copies et dans la pratique. La première consiste à calculer la dotation sur le bénéfice brut sans retrancher les pertes antérieures : c'est l'assiette nette qui compte. La deuxième consiste à oublier le plafond et à doter le dixième alors que la réserve a presque atteint le cinquième du capital : l'excédent n'est pas interdit, mais il n'est plus obligatoire, et l'assemblée doit le décider comme une réserve facultative. La troisième consiste à calculer le plafond sur les capitaux propres ou sur le capital libéré : l'Acte uniforme vise « le cinquième du montant du capital social », c'est-à-dire le capital souscrit inscrit dans les statuts, qu'il soit ou non entièrement libéré.",
+        texte: "Trois erreurs sont fréquentes. La première consiste à calculer la dotation sur le bénéfice brut sans retrancher les pertes antérieures : c'est l'assiette nette qui compte. La deuxième consiste à oublier le plafond et à doter le dixième alors que la réserve a presque atteint le cinquième du capital : l'excédent n'est pas interdit, mais il n'est plus obligatoire, et l'assemblée doit le décider comme une réserve facultative. La troisième consiste à calculer le plafond sur les capitaux propres ou sur le capital libéré : l'Acte uniforme vise « le cinquième du montant du capital social », c'est-à-dire le capital souscrit inscrit dans les statuts, qu'il soit ou non entièrement libéré.",
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Doter mécaniquement la réserve légale du dixième du bénéfice, sans regarder le plafond. Chez BANDAL MOTORS, le dixième du résultat net donnerait 10 200 000 FC. Mais la dotation cesse d'être obligatoire lorsque la réserve atteint le cinquième du capital : avec un capital de 200 000 000 FC et une réserve déjà portée à 36 000 000 FC, il ne manque que 4 000 000 FC pour atteindre 40 000 000 FC. La dotation obligatoire est donc de 4 000 000 FC. Doter davantage n'est pas interdit, mais c'est alors une réserve facultative, que l'assemblée doit voter comme telle.",
+        titre: "Le plafond de la réserve légale",
+        texte: "La réserve légale ne se dote pas mécaniquement du dixième du bénéfice : le plafond doit être vérifié. Chez BANDAL MOTORS, le dixième du résultat net donnerait 10 200 000 FC. Mais la dotation cesse d'être obligatoire lorsque la réserve atteint le cinquième du capital : avec un capital de 200 000 000 FC et une réserve déjà portée à 36 000 000 FC, il ne manque que 4 000 000 FC pour atteindre 40 000 000 FC. La dotation obligatoire est donc de 4 000 000 FC. Doter davantage n'est pas interdit, mais c'est alors une réserve facultative, que l'assemblée doit voter comme telle.",
       },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
     ],
   },
   {
@@ -596,13 +594,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le dividende : premier dividende, superdividende, mise en paiement",
     navLabel: "Dividendes",
     blocs: [
+      { type: 'intertitre', texte: "3.6.1 Premier dividende et superdividende" },
       {
         type: 'paragraphe',
         texte: "Après approbation des états financiers et constatation de sommes distribuables, l'assemblée détermine : les dotations éventuelles à des **réserves facultatives**, la **part de bénéfices à distribuer** aux actions ou parts sociales, et le montant du **report à nouveau** éventuel ; la part de bénéfice revenant à chaque titre est appelée **dividende** (art. 144). Dans la SA, à chaque action est attaché un droit au dividende proportionnel à la quotité du capital qu'elle représente (art. 754), sauf actions de préférence jouissant d'avantages (art. 755 et 778-1 s.). Les statuts peuvent prévoir un **premier dividende**, que la pratique appelle aussi intérêt statutaire, versé si l'assemblée constate des bénéfices distribuables suffisants : il est « calculé comme un intérêt sur le montant libéré des actions » (art. 145).",
       },
       {
         type: 'carte',
-        titre: "Décomposer un dividende",
+        titre: "Tableau 3.4 — La décomposition d'un dividende",
         tableau: {
           entetes: ["Élément", "Assiette", "Fondement"],
           lignes: [
@@ -617,6 +616,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le **tableau de répartition** est l'outil qui articule ces règles. Il part du résultat net, ajoute le report bénéficiaire, retranche les pertes antérieures, puis impute dans l'ordre : la réserve légale, les réserves statutaires, le premier dividende, les réserves facultatives éventuellement décidées, le superdividende, et enfin le reliquat reporté à nouveau. Le superdividende se fixe souvent en montant rond par titre, pour faciliter le paiement ; les arrondis qui en résultent alimentent le report à nouveau, que l'AUDCIF définit notamment par « les sommes venant des arrondis des dividendes distribués » (compte 12). À chaque étape, le comptable vérifie que le total distribué reste inférieur au bénéfice distribuable et respecte le butoir des capitaux propres.",
       },
+      { type: 'intertitre', texte: "3.6.2 La mise en paiement et les acomptes" },
       {
         type: 'paragraphe',
         texte: "Les modalités de mise en paiement sont fixées par la collectivité des associés ou, à défaut, par le conseil d'administration, l'administrateur général ou les gérants ; « dans tous les cas, la mise en paiement des dividendes doit avoir lieu dans un délai maximum de neuf (9) mois après la clôture de l'exercice », prorogeable par la juridiction compétente (art. 146). Dans la SA, les dates de paiement des dividendes sont fixées par l'assemblée générale ou, à défaut, par le conseil d'administration ou l'administrateur général (art. 756). Pour les actions de préférence, le dividende peut être accordé en titres de capital, selon les modalités fixées par l'assemblée extraordinaire ou les statuts (art. 778-13) : dans ce cas, aucun flux de trésorerie ne sort de la société.",
@@ -625,18 +625,16 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'article 143 mentionne les « dividendes partiels régulièrement distribués » parmi les éléments qui viennent en diminution du bénéfice distribuable. Il vise les sommes déjà versées sur le bénéfice de la période : elles ne peuvent être distribuées une seconde fois. L'Acte uniforme ne consacre pas de régime détaillé à ces versements en cours d'exercice ; ils ne peuvent en tout état de cause être réguliers que s'ils respectent les conditions de l'article 144, et tout versement en violation de ces règles est un dividende fictif. Sur le plan fiscal, la loi n° 23/053 assimile d'ailleurs aux revenus distribués les sommes mises à la disposition des associés à titre d'avances, de prêts ou d'acomptes, sauf preuve contraire (art. 73).",
       },
+      { type: 'intertitre', texte: "3.6.3 Application : des actions inégalement libérées" },
       {
         type: 'paragraphe',
         texte: "Un exemple montre l'effet du premier dividende sur des actions inégalement libérées. Une SA de 10 000 actions de 10 000 compte 6 000 actions entièrement libérées et 4 000 libérées du quart ; ses statuts prévoient un premier dividende de 6 %. Les actions libérées reçoivent 6 % × 10 000 = 600 ; les actions libérées du quart, 6 % × 2 500 = 150. Premier dividende total : 6 000 × 600 + 4 000 × 150 = 3 600 000 + 600 000 = 4 200 000. Si l'assemblée ajoute un superdividende de 1 000 par action, uniforme, il coûte 10 000 000. Le dividende total par action est donc de 1 600 pour une action libérée et de 1 150 pour une action libérée du quart. L'écart rémunère exactement l'argent que les premiers actionnaires ont déjà mis à la disposition de la société.",
       },
       {
         type: 'filet',
-        titre: "Et si toutes les actions étaient libérées ?",
+        titre: "Le premier dividende de BANDAL MOTORS et la libération des actions",
         texte: "BANDAL MOTORS compte 15 000 actions entièrement libérées et 5 000 libérées de moitié. Le premier dividende, calculé comme un intérêt sur le montant libéré (art. 145), donne 500 FC aux premières et 250 FC aux secondes, soit 8 750 000 FC au total. Si les 20 000 actions avaient été entièrement libérées, le premier dividende aurait été de 500 FC pour chacune, soit 10 000 000 FC, et le superdividende aurait été réduit d'autant. La libération fractionnée étudiée aux chapitres 1 et 2 a donc un prix pour l'actionnaire : tant que ses actions ne sont pas libérées, il perçoit un premier dividende réduit.",
       },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[19] },
     ],
   },
   {
@@ -644,13 +642,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation de l'affectation d'un bénéfice (Application 65)",
     navLabel: "Écritures d'affectation",
     blocs: [
+      { type: 'intertitre', texte: "3.7.1 Les écritures de l'Application 65" },
       {
         type: 'paragraphe',
         texte: "L'Application 65 du Guide d'application comptabilise l'affectation d'un bénéfice de 150 000 000 décidée par l'assemblée générale ordinaire du 10/06/N : réserve légale 15 000 000, réserve statutaire 20 000 000, réserves facultatives 25 000 000, dividendes 89 000 000, report à nouveau 1 000 000. Les dividendes sont versés le 30/06/N.",
       },
       {
         type: 'carte',
-        titre: "L'écriture d'affectation du bénéfice (10/06/N)",
+        titre: "Exemple 3.2 — Application 65 : l'écriture d'affectation du bénéfice (10/06/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -665,7 +664,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Le paiement des dividendes (30/06/N)",
+        titre: "Exemple 3.3 — Application 65 : le paiement des dividendes (30/06/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -675,6 +674,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "L'Application 65 présente l'écriture sans retenue fiscale. En RDC, lorsque les bénéficiaires sont soumis à la retenue de 20 %, le paiement se décompose entre la banque (net versé) et le compte 447 État, impôts retenus à la source (section 3.9).",
       },
+      { type: 'intertitre', texte: "3.7.2 La lecture de l'écriture d'affectation" },
       {
         type: 'paragraphe',
         texte: "L'écriture d'affectation se lit comme la traduction exacte de la résolution de l'assemblée : chaque montant voté devient un crédit, le résultat en instance d'affectation est soldé au débit. Trois cas particuliers enrichissent le schéma. Si l'assemblée distribue aussi un **report à nouveau créditeur antérieur**, le compte 121 est débité aux côtés du 1301 : l'AUDCIF prévoit expressément que le compte 12 est débité « par le crédit du 465 (Associés, dividendes à payer), pour le report à nouveau mis en distribution ». Si elle distribue des **réserves facultatives**, le compte 1181 est débité par le crédit du 465, la résolution indiquant le poste prélevé (art. 143, al. 3). Si le résultat comprend un **report à nouveau débiteur** à apurer, le 1301 est d'abord imputé sur ce report, par le crédit du 1291.",
@@ -683,12 +683,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Entre le vote et le paiement, les dividendes votés sont une **dette** de la société envers ses associés, au passif circulant (rubrique DM Autres dettes, par les soldes créditeurs du compte 46). Les capitaux propres ont donc diminué dès le vote, avant même tout décaissement. À la clôture, un dividende voté mais non encore payé figure au passif, pas dans les capitaux propres. Inversement, une société qui clôture son exercice N avant la réunion de l'assemblée présente au bilan de N l'intégralité du résultat de N dans ses capitaux propres ; c'est au bilan de N+1 que l'affectation apparaîtra. Le lecteur des états financiers doit garder cette chronologie en tête.",
       },
+      { type: 'intertitre', texte: "3.7.3 Le dividende laissé à la disposition de la société" },
       {
         type: 'paragraphe',
         texte: "Il arrive qu'un associé laisse son dividende à la disposition de la société au lieu de l'encaisser. Le dividende est alors « payé » par inscription en compte courant : l'AUDCIF prévoit que le compte 46 est débité des sommes réglées au titre des dividendes « par le crédit des comptes de trésorerie (ou des comptes courants) ». L'écriture devient : débit 465, crédit 4621 Associés, comptes courants. Le dividende n'est plus une dette de répartition mais une avance de l'associé, remboursable selon les conditions convenues. Sur le plan fiscal, la retenue reste due au moment de la mise à disposition du revenu, puisque l'arrêté n° 008/2025 vise aussi bien le versement que la « mise à disposition des bénéficiaires ». Et sur le plan du tableau des flux, aucune trésorerie ne sort : ce n'est pas un dividende versé.",
       },
-      { type: 'controle', question: QCM[20] },
-      { type: 'controle', question: QCM[21] },
     ],
   },
   {
@@ -696,13 +695,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'affectation d'une perte et l'apurement des pertes antérieures",
     navLabel: "Affectation d'une perte",
     blocs: [
+      { type: 'intertitre', texte: "3.8.1 Les traitements d'une perte" },
       {
         type: 'paragraphe',
         texte: "Lorsque l'exercice se solde par une perte, l'assemblée n'a rien à partager, mais elle doit décider du sort de cette perte. Le compte 13 est alors débiteur ; à la réouverture, il est porté au **1309 Résultat en instance d'affectation : perte**. L'AUDCIF indique que le compte 13 est « crédité, après la clôture de l'exercice et décision d'imputation des pertes, du montant du résultat déficitaire, par le débit des comptes 12 (Report à nouveau), 11 (Réserves), 101 (Capital social) ». Trois voies s'offrent donc à l'assemblée : reporter la perte à nouveau, l'imputer sur des réserves, ou réduire le capital.",
       },
       {
         type: 'carte',
-        titre: "Les trois traitements d'une perte",
+        titre: "Tableau 3.5 — Les trois traitements d'une perte",
         tableau: {
           entetes: ["Décision", "Écriture", "Effet"],
           lignes: [
@@ -716,6 +716,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le report à nouveau débiteur est inscrit au passif « en moins si son solde est débiteur » ; il constitue un élément des capitaux propres (AUDCIF, compte 12). Il n'est pas neutre : tant qu'il subsiste, il diminue le bénéfice distribuable des exercices suivants, puisque l'article 143 retranche les pertes antérieures, et il réduit l'assiette de la réserve légale, calculée sur le bénéfice diminué des pertes antérieures. Une société qui a accumulé des pertes doit donc d'abord les apurer avant de pouvoir distribuer. C'est une protection des créanciers : on ne partage pas les bénéfices d'une année tant que les pertes des années précédentes n'ont pas été compensées.",
       },
+      { type: 'intertitre', texte: "3.8.2 Les pertes importantes" },
       {
         type: 'paragraphe',
         texte: "Lorsque les pertes deviennent importantes, le droit des sociétés impose une réaction. Si les capitaux propres deviennent inférieurs à la moitié du capital, les dirigeants doivent consulter les associés sur l'éventuelle dissolution anticipée ; à défaut de dissolution, la société doit reconstituer ses capitaux propres ou réduire son capital dans un délai déterminé. Ces règles, propres à chaque forme, sont étudiées au chapitre 5. Le comptable doit les anticiper : c'est à la lecture du report à nouveau débiteur et du total des capitaux propres, dès l'arrêté des comptes, que le seuil de la moitié se franchit.",
@@ -724,12 +725,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'AUDCIF prévoit aussi, lorsque la législation fiscale traite les amortissements différés différemment des pertes ordinaires, la substitution des sous-comptes **1291 Perte nette à reporter** et **1292 Perte, amortissements réputés différés** au compte 129. Il s'agit d'un suivi à finalité fiscale : la partie de la perte correspondant à des amortissements peut, selon la législation applicable, bénéficier d'un régime de report différent. La décision d'affectation ne change pas, mais la ventilation du report à nouveau débiteur doit être tenue avec soin pour que la déclaration fiscale puisse en tirer les conséquences.",
       },
+      { type: 'intertitre', texte: "3.8.3 Application sur trois exercices" },
       {
         type: 'paragraphe',
-        texte: "Suivons une société sur trois exercices. En N, elle subit une perte de 30 000 000, que l'assemblée reporte à nouveau : débit 1291, crédit 1309. En N+1, elle réalise un bénéfice de 18 000 000 : la réserve légale se calcule sur 18 000 000 − 30 000 000, soit une assiette négative ; aucune dotation n'est due, et le bénéfice distribuable est nul. L'assemblée impute le bénéfice sur le report débiteur : débit 1301, crédit 1291 pour 18 000 000, qui ramène le report débiteur à 12 000 000. En N+2, elle réalise un bénéfice de 25 000 000 : l'assiette de la réserve légale est de 13 000 000, la dotation minimale de 1 300 000, et le bénéfice distribuable de 25 000 000 − 12 000 000 − 1 300 000 = 11 700 000. Trois années auront été nécessaires pour revenir à une situation où les associés peuvent être rémunérés.",
+        texte: "Soit une société observée sur trois exercices. En N, elle subit une perte de 30 000 000, que l'assemblée reporte à nouveau : débit 1291, crédit 1309. En N+1, elle réalise un bénéfice de 18 000 000 : la réserve légale se calcule sur 18 000 000 − 30 000 000, soit une assiette négative ; aucune dotation n'est due, et le bénéfice distribuable est nul. L'assemblée impute le bénéfice sur le report débiteur : débit 1301, crédit 1291 pour 18 000 000, qui ramène le report débiteur à 12 000 000. En N+2, elle réalise un bénéfice de 25 000 000 : l'assiette de la réserve légale est de 13 000 000, la dotation minimale de 1 300 000, et le bénéfice distribuable de 25 000 000 − 12 000 000 − 1 300 000 = 11 700 000. Trois années auront été nécessaires pour revenir à une situation où les associés peuvent être rémunérés.",
       },
-      { type: 'controle', question: QCM[22] },
-      { type: 'controle', question: QCM[23] },
     ],
   },
   {
@@ -737,18 +737,19 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La fiscalité des distributions en RDC",
     navLabel: "Fiscalité des dividendes",
     blocs: [
+      { type: 'intertitre', texte: "3.9.1 La retenue sur les dividendes" },
       {
         type: 'paragraphe',
         texte: "Depuis le 1er janvier 2026, les dividendes versés à des personnes physiques relèvent de l'**impôt sur le revenu des personnes physiques** (IRPP), dans la catégorie des **revenus des capitaux mobiliers** créée par la loi n° 23/053. Cette catégorie comprend quatre sous-catégories : produits des actions, parts sociales et revenus assimilés ; revenus des obligations ; revenus des créances, dépôts, cautionnements et comptes courants ; revenus des bons de caisse (art. 72). Pour les actions et parts sociales, la base d'imposition est « le montant brut des dividendes versés » (art. 81), et ces revenus font l'objet d'une **retenue à la source** de **20 %** (art. 120).",
       },
       {
         type: 'filet',
-        titre: "Qui retient, et quand ? (arrêté ministériel n° 008/2025 du 19 février 2025)",
+        titre: "La retenue à la source sur les dividendes (arrêté ministériel n° 008/2025 du 19 février 2025)",
         texte: "Tout débiteur de revenus des capitaux mobiliers, c'est-à-dire la société qui verse le dividende et non l'associé qui le reçoit, doit calculer, retenir à la source et reverser l'IRPP de cette catégorie. Le reversement s'effectue auprès du service gestionnaire de l'Administration des impôts dont relève le débiteur, au plus tard le 15 du mois qui suit celui du versement des revenus ou de leur mise à disposition (art. 2 ; art. 18 bis de la loi relative aux procédures fiscales). L'arrêté précise que la retenue est opérée sur « le montant net du revenu imposable » (art. 3) ; pour les dividendes, la loi définit ce revenu imposable par le montant brut distribué (art. 81), si bien que la retenue porte en pratique sur le dividende brut.",
       },
       {
         type: 'carte',
-        titre: "Comptabiliser un dividende soumis à la retenue",
+        titre: "Exemple 3.4 — La comptabilisation d'un dividende soumis à la retenue",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -763,6 +764,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "La retenue n'est pas une charge de la société : elle est prélevée sur le revenu de l'associé, que la société collecte pour le compte de l'État. Le dividende voté (brut) reste la mesure de la distribution.",
       },
+      { type: 'intertitre', texte: "3.9.2 Les distributions assimilées" },
       {
         type: 'paragraphe',
         texte: "La loi fiscale a une conception large de la distribution. Sont assimilés à des produits d'actions (art. 73) tous les bénéfices qui ne demeurent pas investis dans l'entreprise, notamment les sommes mises à la disposition des associés à titre d'avances, de prêts ou d'acomptes, sauf preuve contraire, les rémunérations et avantages occultes, la fraction non déductible des rémunérations des associés, les **indemnités de fonction et de session allouées aux membres des conseils d'administration**, et les recettes non déclarées. À l'inverse, ne sont pas des revenus distribués les remboursements d'apports ou de primes d'émission, à condition que tous les bénéfices et réserves autres que la réserve légale aient été auparavant répartis (art. 74). Un remboursement de capital n'échappe donc à l'impôt que si la société n'a plus de réserves distribuables.",
@@ -771,6 +773,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les indemnités de fonction des administrateurs illustrent l'écart entre le droit des sociétés et la fiscalité. En droit des sociétés, l'assemblée ordinaire peut allouer aux administrateurs une somme fixe annuelle à titre d'indemnité de fonction, répartie par le conseil (art. 431) ; hors contrat de travail, ils ne peuvent recevoir d'autres rémunérations que celles des articles 431 et 432, les dividendes régulièrement répartis restant évidemment permis (art. 430). En comptabilité, ces indemnités sont une charge de l'exercice, au compte **6581 Indemnités de fonction et autres rémunérations d'administrateurs**. Mais la loi fiscale les assimile à des revenus distribués (art. 73) : elles relèvent donc, chez leurs bénéficiaires, du régime des revenus de capitaux mobiliers.",
       },
+      { type: 'intertitre', texte: "3.9.3 Dividendes versés à une société mère et dividendes reçus" },
       {
         type: 'paragraphe',
         texte: "Lorsque le dividende est versé à une **société mère**, la loi organise l'élimination de la double imposition : l'impôt payé sur les produits distribués s'impute sur celui dont la mère est redevable, si elle détient au moins 25 % du capital de la filiale, que les deux sièges sociaux sont en RDC, que l'imposition de la filiale est équivalente, et que les titres restent nominatifs au moins deux années consécutives (art. 76 et socle 2026) ; la rupture de l'engagement de conservation entraîne l'imposition des revenus indûment exonérés. Pour un associé résident d'un État lié à la RDC par une convention fiscale, le taux prélevé en RDC est plafonné par la convention : 5 % ou 15 % selon le seuil de détention de 25 % avec l'Afrique du Sud ; 10 % dans le cas général, ou 15 % pour certains dividendes de sociétés bénéficiant du Code des investissements, avec la Belgique (art. 10 des deux conventions).",
@@ -779,20 +782,16 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La société peut elle-même être associée d'une autre et **recevoir** des dividendes. Ils constituent pour elle un produit financier, au compte 772 Revenus de participations et autres titres immobilisés (7721 pour les titres de participation), et entrent dans son résultat imposable : la loi n° 23/053 range les revenus bruts des capitaux mobiliers parmi les produits imposables à l'IS (art. 14). Pour éviter qu'un même bénéfice soit taxé deux fois, d'abord chez la filiale puis chez la mère, l'article 76 organise le régime mère-fille décrit plus haut. Le chapitre 7 reviendra sur la comptabilisation des titres et de leurs revenus chez la société qui les détient.",
       },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "3.9.4 Le calendrier et le contrôle de la retenue" },
       {
         type: 'paragraphe',
         texte: "La retenue s'inscrit dans un calendrier précis. Pour un dividende voté le 20 mai et payé le 28 juin, la société doit reverser la retenue au plus tard le 15 juillet, au moyen du formulaire de déclaration fourni par l'Administration des impôts (AM n° 008/2025, art. 2). Si le dividende voté n'est payé qu'en partie, la retenue suit chaque versement ou chaque mise à disposition, et non le vote lui-même. Le compte 447 doit être soldé à chaque échéance ; un solde ancien au crédit de ce compte à la clôture révèle une retenue collectée mais non reversée, ce qui expose la société aux pénalités de la loi relative aux procédures fiscales. Le comptable rapproche donc, mois par mois, les paiements portés au débit du 465 et les reversements portés au débit du 447.",
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle des dividendes versés et de la retenue",
         texte: "Pour chaque dividende versé, l'auditeur rapproche trois documents : le procès-verbal de l'assemblée (montant voté), l'état de paiement (montant brut, retenue de 20 %, net versé à chaque associé) et la preuve du reversement de la retenue au plus tard le 15 du mois suivant le paiement. Il vérifie que la retenue a été comptabilisée au crédit du 447 et reversée, et que les dividendes non réclamés restent au 465. Chez BANDAL MOTORS, un dividende de 74 750 000 FC appelle une retenue de 14 950 000 FC : un oubli de reversement exposerait la société à des pénalités.",
       },
-      { type: 'controle', question: QCM[25] },
-      { type: 'controle', question: QCM[26] },
-      { type: 'controle', question: QCM[27] },
-      { type: 'controle', question: QCM[28] },
     ],
   },
   {
@@ -800,13 +799,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Présentation, flux de trésorerie et contrôle de la distribution",
     navLabel: "Présentation et contrôle",
     blocs: [
+      { type: 'intertitre', texte: "3.10.1 La présentation dans les états financiers" },
       {
         type: 'paragraphe',
         texte: "L'affectation du résultat laisse des traces dans chacun des états financiers de l'exercice suivant. Au **bilan**, les réserves (111 à 118) et le report à nouveau (121 ou 129) apparaissent dans les capitaux propres, les dividendes votés et non payés au passif circulant (465). Au **tableau des flux de trésorerie**, seuls les dividendes effectivement payés constituent un flux de financement : le Guide d'application les mesure par le « mouvement débit du compte 465, à l'exclusion des mouvements ne traduisant pas un flux réel (paiement de dividendes en actions, par exemple) ». Un dividende voté en juin et payé en juillet figure dans le TFT de l'exercice du paiement ; un dividende payé en actions n'y figure pas.",
       },
       {
         type: 'carte',
-        titre: "Les contrôles avant toute distribution",
+        titre: "Encadré 3.3 — Les contrôles avant toute distribution",
         liste: [
           "**Approbation** : les états financiers de l'exercice ont-ils été approuvés par l'organe compétent, dans les six mois (art. 140, 144) ?",
           "**Bénéfice distribuable** : calcul de l'article 143 refait, pertes antérieures et réserves obligatoires comprises.",
@@ -818,23 +818,25 @@ const SECTIONS: Chapitre['sections'] = [
           "**Trésorerie** : capacité effective de payer sans compromettre la continuité de l'exploitation (art. 138).",
         ],
       },
+      { type: 'intertitre', texte: "3.10.2 Le contrôle de la distribution" },
       {
         type: 'paragraphe',
         texte: "Le commissaire aux comptes, lorsqu'il existe, vérifie la régularité et la sincérité des états financiers sur lesquels l'assemblée statue ; il reçoit les documents quarante-cinq jours avant l'assemblée (art. 140). Il n'est pas juge de l'opportunité d'un dividende, mais il doit s'assurer que le projet d'affectation présenté aux associés respecte la loi et les statuts, et que les comptes qui fondent le bénéfice distribuable sont fiables. Une distribution fondée sur des comptes erronés expose les associés à la répétition (art. 346), les dirigeants à la sanction de l'article 889, et la société à un redressement fiscal si des distributions déguisées sont découvertes (art. 73 de la loi n° 23/053).",
       },
+      { type: 'intertitre', texte: "3.10.3 Perspectives" },
       {
         type: 'paragraphe',
-        texte: "Ce chapitre prépare les suivants. L'**incorporation de réserves au capital** (chapitre 4) utilise les réserves constituées par l'affectation ; la **réduction de capital pour pertes** (chapitre 5) traite le report à nouveau débiteur que l'affectation n'a pas pu apurer ; l'**amortissement du capital** (chapitre 5) rembourse le nominal sur des bénéfices ou réserves distribuables. Dans chaque cas, le comptable part de la même question : quelle masse de capitaux propres la loi permet-elle de mobiliser, et au profit de qui ? La réponse commence toujours par l'article 143.",
+        texte: "Les notions de ce chapitre servent dans les suivants. L'**incorporation de réserves au capital** (chapitre 4) utilise les réserves constituées par l'affectation ; la **réduction de capital pour pertes** (chapitre 5) traite le report à nouveau débiteur que l'affectation n'a pas pu apurer ; l'**amortissement du capital** (chapitre 5) rembourse le nominal sur des bénéfices ou réserves distribuables. Dans chaque cas, le comptable part de la même question : quelle masse de capitaux propres la loi permet-elle de mobiliser, et au profit de qui ? La réponse commence toujours par l'article 143.",
       },
       {
         type: 'paragraphe',
         texte: "Enfin, la distribution doit rester cohérente avec la politique financière de la société. Une entreprise qui distribue chaque année l'intégralité de son bénéfice distribuable ne constitue aucune réserve facultative : elle finance sa croissance par l'endettement, et ses capitaux propres stagnent. À l'inverse, une société qui ne distribue jamais rien peut décevoir ses associés et, fiscalement, la loi congolaise veille aux bénéfices qui sortent de l'entreprise sous d'autres formes que le dividende (art. 73). Les banques congolaises examinent la politique de distribution avant d'accorder un crédit, et les contrats de prêt comportent parfois des clauses qui limitent les dividendes tant que l'emprunt n'est pas remboursé. Le comptable, en présentant le tableau de répartition, éclaire ce choix qui appartient aux associés.",
       },
+      { type: 'intertitre', texte: "3.10.4 Application : BANDAL MOTORS" },
       {
         type: 'paragraphe',
         texte: "Retour à BANDAL MOTORS, dont le cas 5 détaille les calculs. De son résultat comptable de 150 000 000 FC, la société a déduit un IS de 48 000 000 FC, plus élevé que l'impôt minimum. Sur le résultat net de 102 000 000 FC, elle a doté la réserve légale de 4 000 000 FC seulement, jusqu'à son plafond, puis la réserve statutaire. Elle a ensuite calculé un premier dividende proportionnel au montant libéré, voté des réserves facultatives et arrondi le superdividende. Elle a vérifié le butoir des capitaux propres, retenu 20 % à la source et reversé cette retenue dans les délais. Chaque décision de l'assemblée est devenue une écriture, et chaque écriture laisse une trace dans les états financiers de l'exercice suivant.",
       },
-      { type: 'controle', question: QCM[29] },
     ],
   },
 ]
