@@ -338,12 +338,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Quarante ans de réformes : de la loi de 1983 à la LOFIP',
     navLabel: 'Chronologie',
     blocs: [
+      { type: 'intertitre', texte: "10.1.1 De la loi de 1983 à la LOFIP" },
       {
         type: 'paragraphe',
         texte: "Les finances publiques congolaises ont longtemps été régies par la **loi financière n° 83-003 du 23 février 1983**, modifiée par l'ordonnance-loi n° 87-004 du 10 janvier 1987 — un cadre de *budget de moyens*, où les crédits étaient alloués par nature de dépenses sans lien avec des résultats attendus. La **loi n° 11/011 du 13 juillet 2011 relative aux finances publiques (LOFIP)**, prise sur le fondement de l'article 122 point 3 de la Constitution, opère la bascule vers une gestion axée sur les résultats : budget-programme, décentralisation financière (40 % aux provinces, péréquation), unité de trésorerie, contrôles rénovés, régime des responsabilités et sanctions.",
       },
+      { type: 'intertitre', texte: "10.1.2 Les grandes étapes" },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 10.1 — Les grandes étapes de la réforme des finances publiques",
         tableau: {
           entetes: ['Année', 'Texte', 'Apport principal'],
           lignes: [
@@ -357,10 +360,10 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[0] },
+      { type: 'intertitre', texte: "10.1.3 Les prorogations" },
       {
         type: 'carte',
-        titre: "Les deux prorogations du budget-programme",
+        titre: "Encadré 10.1 — Les deux prorogations du budget-programme",
         liste: [
           "**Rédaction 2011** (art. 234) : entrée en vigueur intégrale « au premier janvier de la huitième année suivant celle de sa promulgation », soit le 1er janvier 2019, date d'abrogation de toutes dispositions contraires.",
           "**Loi n° 18/010 de 2018** : le délai est « prorogé de cinq ans » (échéance portée à 2024) et l'article 230ter fait repartir la progressivité de la gestion axée sur les résultats à dater de la promulgation de la loi de 2018. L'abrogation de la loi financière de 1983 est différée « à dater de cette échéance ».",
@@ -368,9 +371,6 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "L'échéance d'application intégrale se situe donc vers la fin de la décennie (aux alentours de 2028-2029 selon le point de départ retenu pour la seconde prorogation). Jusqu'à cette échéance, la loi de finances de chaque année identifie les entités éligibles à la gestion de budgets de résultats, l'ancien régime restant applicable aux autres (art. 230).",
       },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[4] },
     ],
   },
   {
@@ -378,15 +378,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le budget-programme : architecture juridique',
     navLabel: 'Budget-programme',
     blocs: [
+      { type: 'intertitre', texte: "10.2.1 La spécialisation des crédits par programme" },
       {
         type: 'paragraphe',
         texte: "La LOFIP s'applique aux finances de l'État — pouvoir central, provinces, ETD et leurs organismes auxiliaires (art. 2). Le cœur de la réforme est la **spécialisation des crédits par programme** : l'article 8 spécialise les crédits par titre et par source de financement et les regroupe par programme ; dans le cadre d'un budget-programme, la présentation par chapitre, article et littera devient *indicative*. La loi n° 23/030 a ajouté la **dotation budgétaire** pour les institutions de la République dont la gestion n'est pas soumise à la règle de la performance : les crédits sont désormais regroupés « par programme ou par dotation ».",
       },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[7] },
+      { type: 'intertitre', texte: "10.2.2 La discipline du programme" },
       {
         type: 'carte',
-        titre: "Le programme et sa discipline (art. 43-44, 22 LOFIP)",
+        titre: "Encadré 10.2 — Le programme et sa discipline (art. 22, 43 et 44 LOFIP)",
         liste: [
           "**Programme** (art. 43) : ensemble cohérent d'actions d'un même ministère ou institution, avec objectifs précis définis en fonction de finalités d'intérêt général, résultats attendus et évaluation par **indicateurs de performance** ; possibilité d'un programme « administration générale » ; création et suppression réservées à une loi de finances d'initiative gouvernementale.",
           "**Fonctions** (art. 44) : les programmes — et, depuis 2023, les dotations — peuvent être regroupés en fonctions institutionnelles, ministérielles ou interministérielles ; la fonction interministérielle impose une coordination d'exécution et une présentation conjointe des résultats.",
@@ -394,16 +394,12 @@ const SECTIONS: Chapitre['sections'] = [
           "**Documents de performance** : les projets annuels de performance accompagnent le projet de loi de finances (art. 79 point 6, rédaction 2023, parmi onze documents) et le rapport annuel de performance par programme accompagne le projet de loi portant reddition des comptes (art. 82 point 4).",
         ],
       },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
+      { type: 'intertitre', texte: "10.2.3 Le débat d'orientation budgétaire" },
       {
         type: 'filet',
         titre: "Le débat d'orientation budgétaire",
         texte: "Institutionnalisé par la loi n° 23/030, le débat d'orientation budgétaire (art. 3 point 18, rédaction 2023) est organisé en séance plénière par l'Assemblée nationale autour du cadre budgétaire à moyen terme. L'article 13 (rédaction 2023) en fixe le tempo : le CBMT à trois ans, adopté en Conseil des ministres, est transmis à l'Assemblée nationale au plus tard le 1er juin ; le débat, suivi éventuellement de recommandations, se tient au plus tard le 15 juin. Il éclaire le Parlement en amont du projet de loi de finances sans lier juridiquement le Gouvernement.",
       },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
     ],
   },
   {
@@ -411,14 +407,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le régime transitoire : ce qui s'applique déjà, ce qui attend",
     navLabel: 'Régime transitoire',
     blocs: [
+      { type: 'intertitre', texte: "10.3.1 La progressivité" },
       {
         type: 'paragraphe',
         texte: "La cinquième partie de la LOFIP (art. 230 à 235) organise la transition. L'article 230 pose la **progressivité** : la loi de finances de chaque année identifie les ministères, institutions, provinces et ETD éligibles à la gestion de budgets de résultats, la loi financière de 1983 restant applicable aux entités non identifiées. L'article 231 impose, dès la promulgation, le **reclassement des organismes auxiliaires** en services de dépenses, budgets annexes ou établissements publics.",
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "10.3.2 Les dispositions d'application immédiate" },
       {
         type: 'carte',
-        titre: "Les dispositions d'application immédiate (art. 232 LOFIP)",
+        titre: "Encadré 10.3 — Les dispositions d'application immédiate (art. 232 LOFIP)",
         liste: [
           "Articles 32 à 37, 74, 75 et 145 à 150 : détermination des ressources et charges budgétaires et de trésorerie.",
           "Articles 83, 84 et 182 à 185 : dépôt des lois de finances, des édits et des décisions budgétaires.",
@@ -427,15 +424,22 @@ const SECTIONS: Chapitre['sections'] = [
           "Articles 110 et 209 : gestion de la trésorerie — l'unité de caisse s'impose depuis 2011.",
         ],
       },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
+      { type: 'intertitre', texte: "10.3.3 Abrogations et coordinations" },
       {
         type: 'filet',
-        titre: "L'article 233 : abrogations et coordinations",
+        titre: "Les abrogations et coordinations de l'article 233",
         texte: "Outre l'abrogation de la loi financière n° 83-003 de 1983 (différée à l'échéance prorogée par les lois de 2018 et 2023), l'article 233 modifie l'article 16 de la loi n° 08/012 du 31 juillet 2008 sur la libre administration des provinces (calendrier des sessions des Assemblées provinciales) et abroge ses articles 54 alinéas 2 et 3 (retenue à la source), 55 (recettes à caractère national) et 58 alinéa 1er (emprunts provinciaux) — ces matières relevant désormais de la LOFIP.",
       },
-      { type: 'controle', question: QCM[17] },
+      { type: 'intertitre', texte: "10.3.4 Les échéances de la réforme de 2026 à 2028" },
+      { type: 'carte', titre: "Tableau 10.2 — Les étapes récentes et à venir de la réforme", tableau: { entetes: ["Date", "Événement", "Portée"], lignes: [
+        ["1er janvier 2026", "Entrée en vigueur de la loi de finances n° 25/060 et de la réforme de l'impôt sur les sociétés et de l'impôt sur le revenu des personnes physiques (loi n° 23/053)", "Premier budget présenté par section, programme et action (annexe XXI) ; neuf ministères pilotes de la déconcentration"],
+        ["29 janvier 2026", "Prestation de serment des comptables publics affectés aux ministères pilotes", "Quatre postes comptables pour sept ministères en phase pilote"],
+        ["19 février 2026", "Cérémonie d'opérationnalisation de la DGTCP", "Le réseau comptable prévu par la LOFIP devient effectif"],
+        ["Février 2026", "Rapport public annuel de la Cour des comptes sur les exercices 2024 et 2025", "Contrôle de l'exécution de la loi de finances pour 2023"],
+        ["24 avril 2026", "Mission du FMI à la DGTCP dans le cadre de la troisième revue du programme de facilité élargie de crédit", "Suivi des engagements de réforme de la gestion des finances publiques"],
+        ["1er janvier 2027", "Entrée en vigueur intégrale du décret n° 22/37 portant gouvernance budgétaire (art. 167)", "Application de la mécanique complète des programmes, des UOP et des responsables de programme"],
+        ["Vers 2028", "Échéance de la seconde prorogation de cinq ans prévue par la loi n° 23/030", "Application intégrale de la LOFIP et abrogation de la loi financière de 1983"],
+      ] }, note: "Sources : loi de finances n° 25/060 ; décret n° 22/37 ; communications de la DGTCP et presse économique congolaise (2026). Les événements non normatifs doivent être revérifiés sur les sources officielles avant toute citation dans un travail académique." },
     ],
   },
   {
@@ -443,14 +447,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le verrou budgétaire préventif et le calendrier d'adoption",
     navLabel: 'Verrou préventif',
     blocs: [
+      { type: 'intertitre', texte: "10.4.1 L'avis préalable du Ministre du Budget" },
       {
         type: 'paragraphe',
         texte: "En amont de l'exécution, la LOFIP verrouille la création de charges non budgétisées. L'article 107 soumet à l'**avis préalable du ministre ayant le budget dans ses attributions** — et, le cas échéant, du ministre des Finances — tout projet de loi, toute décision ou convention pouvant avoir une répercussion immédiate ou future sur les recettes ou les dépenses, ainsi que tout acte d'administration portant création d'emploi, extension des cadres organiques ou modification du statut pécuniaire des agents. Une exonération fiscale, qui ampute les recettes, comme la création d'une structure nouvelle, qui crée des charges, entrent dans ce champ ; l'article 9 rappelle en outre qu'aucune exemption ni aucun allégement fiscal ne peut être établi qu'en vertu de la loi.",
       },
-      { type: 'controle', question: QCM[18] },
+      { type: 'intertitre', texte: "10.4.2 Le calendrier d'adoption" },
       {
         type: 'carte',
-        titre: "Le calendrier d'adoption de la loi de finances (art. 83 LOFIP ; art. 126 Constitution)",
+        titre: "Tableau 10.3 — Le calendrier d'adoption de la loi de finances (art. 83 LOFIP ; art. 126 Constitution)",
         tableau: {
           entetes: ['Étape', 'Échéance', 'Base'],
           lignes: [
@@ -464,7 +469,6 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Les délais de 40 et 20 jours figurent à l'article 83 de la LOFIP ; l'article 126 de la Constitution fixe le dépôt au 15 septembre et organise les crédits provisoires. En pratique, l'élaboration est encadrée chaque année par une circulaire du ministre du Budget contenant les instructions relatives à la préparation du budget (calendrier interne des prévisions sectorielles, conférences budgétaires et fiscales) — pratique administrative dont les prescriptions détaillées ne se substituent jamais aux textes cités ici.",
       },
-      { type: 'controle', question: QCM[19] },
     ],
   },
   {
@@ -472,14 +476,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'actualité budgétaire : LFR 2025 et loi de finances 2026",
     navLabel: 'LFR 2025 et LF 2026',
     blocs: [
+      { type: 'intertitre', texte: "10.5.1 La loi de finances rectificative pour 2025" },
       {
         type: 'paragraphe',
         texte: "Seule une **loi de finances rectificative** peut, en cours d'année, modifier certaines dispositions de la loi de finances de l'année (art. 26), dans les mêmes formes que celle-ci (art. 27) — c'est l'une des quatre espèces de lois de finances énumérées à l'article 18, avec la loi de finances de l'année, la loi portant reddition des comptes et la loi portant ouverture de crédits provisoires. L'exercice 2025 en offre une illustration : le budget initial de **51 553,5 milliards de FC** (loi n° 24/011) a été révisé à la baisse à **50 691,8 milliards** par la LFR n° 25/044, soit environ −1,7 %, la contraction portant surtout sur les recettes internes (de 33 141,9 à 30 647,9 milliards de FC).",
       },
-      { type: 'controle', question: QCM[22] },
+      { type: 'intertitre', texte: "10.5.2 La loi de finances pour 2026" },
       {
         type: 'carte',
-        titre: 'La loi de finances n° 25/060 du 29 décembre 2025 pour 2026 — chiffres vérifiés',
+        titre: "Tableau 10.4 — La loi de finances n° 25/060 du 29 décembre 2025 pour 2026 : principaux chiffres",
         tableau: {
           entetes: ['Poste', 'LF 2025', 'LFR 2025', 'LF 2026'],
           lignes: [
@@ -493,16 +498,17 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le budget 2026 progresse d'environ 7,2 % par rapport à la LFR 2025. Cadrage macroéconomique 2026 : croissance du PIB 5,3 %, inflation moyenne 4,4 %, taux de change moyen 2 467,0 FC/USD, PIB nominal 269 291,9 Mds FC, pression fiscale projetée 12,3 %.",
       },
-      { type: 'controle', question: QCM[20] },
+      { type: 'intertitre', texte: "10.5.3 Les réformes d'exécution" },
       {
         type: 'paragraphe',
         texte: "Au-delà des masses, la LF 2026 porte plusieurs réformes d'exécution : l'article 5 accélère la **déconcentration de l'ordonnancement** (art. 103 LOFIP) avec neuf ministères sectoriels pilotes ; l'article 84 organise le régime transitoire de la chaîne de la dépense (liquidation par visa préalable du ministre du Budget, ordonnancement par le ministre des Finances) ; l'article 85 impose la transmission journalière de la situation des encaissements et décaissements du ministre des Finances au ministre du Budget ; l'article 77 autorise la levée de fonds par bons et obligations du Trésor plafonnée à 0,5 % du PIB.",
       },
-      { type: 'controle', question: QCM[21] },
-      { type: 'controle', question: QCM[23] },
+      { type: 'intertitre', texte: "10.5.4 Les nouveaux instruments de la loi de finances pour 2026" },
+      { type: 'paragraphe', texte: "La loi de finances pour 2026 crée aussi plusieurs instruments qui intéressent directement les entreprises. Elle institue un prélèvement de 20 % sur le montant brut des revenus de capitaux mobiliers versés par des sociétés établies en RDC à des personnes non résidentes, retenu à la source par la société qui paie et déclaré au plus tard le 15 du mois suivant (art. 42 à 48). Elle crée le Fonds d'investissement stratégique de la RDC, compte d'affectation spéciale alimenté notamment par une quote-part des redevances sur les commissions de mobile money et des recettes tirées du portefeuille de l'État (art. 51-52). Elle institue enfin une taxe carbone (art. 74). Les recettes des impôts sont prévues à 19 033,6 milliards FC, en hausse de 16,0 % par rapport à la LFR 2025, pour le premier exercice soumis au nouveau régime de l'impôt sur les sociétés et de l'impôt sur le revenu des personnes physiques." },
+      { type: 'intertitre', texte: "10.5.5 Le contexte économique et financier" },
       {
         type: 'filet',
-        titre: "L'actualité non normative, à manier avec précaution",
+        titre: "Le contexte économique et financier",
         texte: "Le contexte de ces exercices — conflit armé dans l'est du pays pesant sur les recettes et les dépenses de sécurité, programme conclu avec le FMI (facilité élargie de crédit et facilité pour la résilience et la durabilité), rapports d'organisations de la société civile sur les taux d'exécution — relève de l'actualité économique et non des textes : ces éléments, utiles à la compréhension, doivent toujours être vérifiés sur les documents officiels du moment (Journal officiel, communiqués du FMI, rapports publiés) avant d'être cités dans un travail académique.",
       },
     ],
@@ -512,14 +518,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Bilan et perspectives de la réforme',
     navLabel: 'Perspectives',
     blocs: [
+      { type: 'intertitre', texte: "10.6.1 Un bilan contrasté" },
       {
         type: 'paragraphe',
         texte: "Quinze ans après la promulgation de la LOFIP, le bilan est contrasté. D'un côté, un socle appliqué : les dispositions d'application immédiate de l'article 232 — répartition des recettes aux provinces et aux ETD, unité de trésorerie, calendriers de dépôt — sont en vigueur depuis 2011, et le cadre du budget-programme s'est enrichi en 2023 (dotations, débat d'orientation budgétaire, documents de performance portés à onze). De l'autre, un basculement intégral deux fois prorogé, dont l'exposé des motifs de la loi n° 23/030 reconnaît lui-même les préalables inachevés : découpage des ministères en programmes, instruments d'évaluation de la performance, réforme de la comptabilité publique, rationalisation des cadres organiques, déconcentration de l'ordonnancement et adaptation du système d'information des finances publiques.",
       },
-      { type: 'controle', question: QCM[5] },
+      { type: 'intertitre', texte: "10.6.2 Les chantiers ouverts" },
       {
         type: 'carte',
-        titre: "Les chantiers ouverts à l'échéance de la seconde prorogation",
+        titre: "Encadré 10.4 — Les chantiers ouverts jusqu'à l'échéance de la seconde prorogation",
         liste: [
           "**Basculement au budget-programme** : généraliser la gestion par programmes au-delà des entités identifiées chaque année par la loi de finances (art. 230), en s'appuyant sur le rapport annuel de progression présenté à l'Assemblée nationale (art. 234, réd. 2023).",
           "**Déconcentration de l'ordonnancement** : étendre l'expérimentation des neuf ministères pilotes (art. 5 LF 2026) et sortir du régime transitoire de l'article 84 de la LF 2026 vers le droit commun des articles 103 et suivants de la LOFIP.",
@@ -528,7 +535,8 @@ const SECTIONS: Chapitre['sections'] = [
           "**Transparence et reddition des comptes** : respecter le calendrier de la loi portant reddition des comptes (dépôt au 15 mai, art. 84 LOFIP), produire les rapports annuels de performance (art. 82 pt 4) et s'appuyer sur la Cour des comptes et ses chambres déconcentrées (loi organique n° 18/024).",
         ],
       },
-      { type: 'controle', question: QCM[9] },
+      { type: 'intertitre', texte: "10.6.3 Vers une comptabilité d'exercice" },
+      { type: 'paragraphe', texte: "Le dernier chantier concerne la comptabilité de l'État. La LOFIP prévoit une comptabilité générale « d'exercice ou comptabilité en droits constatés », dans laquelle les opérations sont rattachées à l'exercice auquel elles se rapportent, indépendamment de leur date d'encaissement ou de paiement (art. 99). Cette logique est celle que les étudiants connaissent en comptabilité privée avec le SYSCOHADA : une créance est enregistrée quand elle naît, et non quand elle est encaissée. Lors de la prestation de serment des comptables des ministères pilotes, en janvier 2026, la réforme a été présentée comme la transition vers une comptabilité d'exercice fondée sur les droits constatés. Les normes comptables internationales du secteur public (IPSAS) fournissent le référentiel de cette transition ; l'Ordre national des experts-comptables de la RDC a organisé des formations à ces normes, annoncées en 2025 et rappelées en février 2026. La profession comptable libérale participe ainsi à la diffusion des normes du secteur public." },
     ],
   },
 ]
