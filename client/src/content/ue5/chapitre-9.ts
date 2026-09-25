@@ -333,12 +333,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Vue d'ensemble : les quatre étages du contrôle",
     navLabel: "Vue d'ensemble",
     blocs: [
+      { type: 'intertitre', texte: "9.1.1 Trois contrôles organisés par la LOFIP" },
       {
         type: 'paragraphe',
         texte: "L'exécution du budget est enserrée dans un système de contrôles à plusieurs étages. La LOFIP en organise trois : le **contrôle administratif** — « le contrôle de l'administration sur ses services » (art. 111) —, le **contrôle juridictionnel** confié à la Cour des comptes (art. 123 à 126) et le **contrôle parlementaire**, qui est un contrôle politique (art. 127). Le socle constitutionnel est posé aux articles 178 à 180 : l'article 178 institue la Cour des comptes et la fait relever de l'Assemblée nationale, l'article 179 renvoie sa composition, son organisation et son fonctionnement à une loi organique — c'est la loi organique n° 18/024 du 13 novembre 2018 —, et l'article 180 définit sa mission de contrôle et son rapport annuel publié au Journal officiel.",
       },
+      { type: 'intertitre', texte: "9.1.2 La typologie des contrôles" },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 9.1 — Les étages du contrôle des finances publiques",
         tableau: {
           entetes: ['Type de contrôle', 'Nature', 'Moment', 'Organes', 'Bases'],
           lignes: [
@@ -349,13 +352,12 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[0] },
+      { type: 'intertitre', texte: "9.1.3 La primauté du contrôle juridictionnel" },
       {
         type: 'filet',
-        titre: 'La primauté du contrôle de la Cour des comptes',
+        titre: "La primauté du contrôle de la Cour des comptes",
         texte: "L'article 38 de la loi organique n° 18/024 affirme la prépondérance de la juridiction financière : « Le contrôle de la Cour des comptes tient tout autre en état à l'exception du contrôle politique exercé par le Parlement, les assemblées provinciales et les organes délibérants des entités territoriales décentralisées. » Tout refus de s'y soumettre ou toute manœuvre dilatoire expose son auteur aux pénalités prévues par la loi.",
       },
-      { type: 'controle', question: QCM[12] },
     ],
   },
   {
@@ -363,14 +365,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le contrôle a priori : le contrôleur budgétaire',
     navLabel: 'Contrôleur budgétaire',
     blocs: [
+      { type: 'intertitre', texte: "9.2.1 Le visa préalable" },
       {
         type: 'paragraphe',
         texte: "Le contrôle administratif a priori des opérations budgétaires de dépenses du pouvoir central est assuré par le **contrôleur budgétaire** (art. 112). Tous les actes portant engagement, liquidation et ordonnancement sont soumis à son **visa préalable** — notamment les contrats, arrêtés, mesures ou décisions émanant d'un responsable d'institution, d'un ministre, d'un responsable de service déconcentré ou d'un fonctionnaire habilité. Le visa couvre donc les trois premières phases de la chaîne de la dépense, sans condition de montant, et l'article 119 verrouille le dispositif : aucun ordonnancement ne peut être transféré au comptable public sans ce visa.",
       },
-      { type: 'controle', question: QCM[1] },
+      { type: 'intertitre', texte: "9.2.2 L'indépendance et les missions élargies du contrôleur" },
       {
         type: 'carte',
-        titre: "L'indépendance fonctionnelle du contrôleur (art. 113-114 LOFIP)",
+        titre: "Encadré 9.1 — L'indépendance fonctionnelle du contrôleur budgétaire (art. 113-114 LOFIP)",
         liste: [
           "**Accès aux pièces** : le contrôleur obtient communication de toutes les pièces propres à justifier les engagements et les liquidations et à éclairer sa décision (art. 113).",
           "**Refus de visa protégé** : si les actes de l'ordonnateur lui paraissent entachés d'irrégularités, il refuse le visa et « ne peut en aucun cas être sanctionné » pour ce refus (art. 113).",
@@ -378,9 +381,7 @@ const SECTIONS: Chapitre['sections'] = [
           "**Maillage universel** : les contrôleurs budgétaires sont affectés auprès de chaque institution et ministère de dépenses et auprès des services déconcentrés de l'État (art. 115).",
         ],
       },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[4] },
+      { type: 'paragraphe', texte: "Le décret n° 22/37 élargit la mission du contrôleur budgétaire au-delà du contrôle de régularité. Il vise le document de programmation des crédits, exerce un contrôle de soutenabilité budgétaire au regard des autorisations votées, veille au respect de la régulation budgétaire et donne un avis préalable sur les demandes de mouvements de crédits (art. 138). Le visa ne porte donc plus seulement sur la conformité d'un acte isolé ; il apprécie aussi la capacité du budget à supporter l'engagement, compte tenu des engagements déjà pris et de la trésorerie. Les procédures du contrôle a priori sont fixées dans un guide établi par le Ministre du Budget (art. 139)." },
     ],
   },
   {
@@ -388,22 +389,25 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Ordonnateur, comptable public et Inspection générale des finances",
     navLabel: 'Ordonnateur, comptable, IGF',
     blocs: [
+      { type: 'intertitre', texte: "9.3.1 L'autocontrôle de l'ordonnateur et du comptable" },
       {
         type: 'paragraphe',
         texte: "Le contrôle interne se poursuit chez les acteurs de l'exécution eux-mêmes. Le contrôle de l'**ordonnateur** porte sur la régularité des opérations de recettes et de dépenses, l'exhaustivité de leur enregistrement, l'efficacité de la dépense en conformité avec le budget et le suivi et la maîtrise des coûts (art. 116) : l'autocontrôle intègre déjà la logique de performance. Le contrôle du **comptable public** porte sur trois domaines (art. 117), chacun borné par l'adverbe *exclusivement* : les recettes (autorisation de perception, exactitude de la liquidation et de la mise en recouvrement, régularité des réductions et annulations de titres — art. 118), les dépenses (contrôle de régularité avant paiement : qualité de l'ordonnateur, assignation, validité de la créance au regard des pièces, intervention des contrôles préalables, oppositions, caractère libératoire, prescription — art. 119) et le patrimoine (conservation des droits, privilèges et hypothèques — art. 120).",
       },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[7] },
+      { type: 'intertitre', texte: "9.3.2 L'Inspection générale des finances" },
       {
         type: 'carte',
-        titre: "L'Inspection générale des finances (art. 121-122 LOFIP)",
+        titre: "Encadré 9.2 — L'Inspection générale des finances (art. 121-122 LOFIP)",
         texte: "L'IGF dispose d'une **compétence générale** en matière de contrôle des finances et des biens publics : toute enquête ou mission de contrôle, de vérification, de contre-vérification et de surveillance de toutes les opérations financières, en recettes et en dépenses, du pouvoir central ainsi que des organismes ou entreprises de toute nature bénéficiant de son concours financier sous forme de participation en capital, de subvention, de prêt, d'avance ou de garantie (art. 121). Ses missions sont ordonnées par l'inspecteur général des finances-chef de service — sur instruction du Premier ministre, sur réquisition des autorités politiques, administratives et judiciaires, ou sur dénonciation des tiers — selon un programme d'action annuel ou ponctuel approuvé par le ministre des Finances (art. 122). Au niveau provincial et local, l'article 210 étend ce dispositif mutatis mutandis.",
         note: "L'IGF exerce un contrôle administratif : elle enquête et rapporte, mais ne juge pas. Le jugement des comptes et des fautes de gestion appartient à la Cour des comptes, qui peut d'ailleurs recourir aux services de l'IGF pour des enquêtes à caractère technique (art. 37 de la loi organique n° 18/024).",
       },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[8] },
+      { type: 'intertitre', texte: "9.3.3 Le contrôle et l'audit internes dans les ministères" },
+      { type: 'paragraphe', texte: "Le décret n° 22/37 organise, en amont des corps de contrôle, un dispositif de contrôle interne dans chaque institution et chaque ministère (art. 116). Défini par le ministre, permanent et adapté aux missions des services, il vise la maîtrise des risques liés à la gestion des politiques publiques et comprend le contrôle interne budgétaire, orienté vers la soutenabilité de la gestion et la qualité de la comptabilité administrative (art. 117-118). L'audit interne s'assure de l'efficacité de ce dispositif, de manière indépendante et objective (art. 119). Ces dispositions sont d'application immédiate (art. 166)." },
+      { type: 'carte', titre: "Tableau 9.2 — Les organes du contrôle et de l'audit internes (décret n° 22/37)", tableau: { entetes: ["Organe", "Composition", "Missions", "Rapport"], lignes: [
+        ["Comité de maîtrise des risques", "Présidé par le secrétaire général ; composé des directeurs-chefs de services du ministère (art. 122)", "Politique de contrôle interne, cartographie des risques, manuels de procédures, suivi des recommandations d'audit (art. 121)", "Rapport annuel dans les 45 jours de la fin de l'année, au ministre et au comité d'audit, avec ampliation à l'IGF (art. 123)"],
+        ["Comité d'audit interne", "Présidé par un inspecteur général des finances ; directeur de cabinet, contrôleur budgétaire du ministère et une personnalité extérieure (art. 125)", "Politique d'audit, qualité du contrôle interne, programme annuel d'audit, suivi des actions décidées (art. 124)", "Rapport annuel communiqué à l'IGF dans les trois mois de la fin de l'année (art. 129)"],
+        ["Cadre de concertation des structures de contrôle interne", "Présidé par l'Inspecteur général des finances-chef de service ; y participent les services du contrôle budgétaire et des marchés publics (art. 134)", "Coordination des inspections sectorielles et des pools d'audit interne (art. 133)", "—"],
+      ] }, note: "Le contrôle interne relève des gestionnaires eux-mêmes ; l'audit interne vérifie ce contrôle ; l'IGF et la Cour des comptes interviennent ensuite de l'extérieur. Les ministères appliquent ainsi des outils comparables à ceux que les entreprises privées connaissent sous le nom de contrôle interne et de comité d'audit." },
     ],
   },
   {
@@ -411,14 +415,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La Cour des comptes : institution et missions",
     navLabel: 'Cour des comptes',
     blocs: [
+      { type: 'intertitre', texte: "9.4.1 Le statut de la Cour" },
       {
         type: 'paragraphe',
         texte: "La loi organique n° 18/024 du 13 novembre 2018 — prise en application des articles 179 et 180 de la Constitution — fait de la Cour des comptes *« l'institution supérieure de contrôle des finances et des biens publics »*, une **juridiction financière** compétente sur toute l'étendue du territoire national, comprenant un siège et un parquet, et relevant de l'Assemblée nationale (art. 3). Elle n'est soumise dans l'exercice de ses attributions qu'à l'autorité de la loi et jouit d'une autonomie administrative et financière avec dotation propre (art. 5). Ses membres — magistrats du siège et Procureur général — sont nommés par le Président de la République après avis de l'Assemblée nationale (art. 11 ; art. 178 de la Constitution) ; le Premier président a un mandat de cinq ans renouvelable une seule fois (art. 12).",
       },
-      { type: 'controle', question: QCM[13] },
+      { type: 'intertitre', texte: "9.4.2 Les missions" },
       {
         type: 'carte',
-        titre: "Les missions de la Cour des comptes (loi organique n° 18/024, art. 24 à 39)",
+        titre: "Encadré 9.3 — Les missions de la Cour des comptes (loi organique n° 18/024, art. 24 à 39)",
         liste: [
           "**Pouvoir général et permanent de contrôle** de la gestion des finances, des biens et des comptes du pouvoir central, des provinces, des ETD et de leurs organismes auxiliaires, ainsi que de toute personne bénéficiaire d'un concours financier public (art. 24 et 31).",
           "**Jugement des comptes** des comptables publics principaux assignataires et des personnes déclarées comptables de fait (art. 25), avec amende pour retard dans la production des comptes plafonnée à un mois de rémunération (art. 26).",
@@ -430,13 +435,12 @@ const SECTIONS: Chapitre['sections'] = [
           "**Mesures conservatoires** : en cas de graves irrégularités, proposition de suspension ou de destitution, blocage de comptes bancaires, interdiction de sortie du territoire, interdiction d'accomplir certains actes de gestion, proposition de nomination d'un intérimaire — l'autorité saisie répond dans les cinq jours francs (art. 39).",
         ],
       },
+      { type: 'intertitre', texte: "9.4.3 Les chambres des comptes déconcentrées" },
       {
         type: 'filet',
-        titre: 'Les chambres des comptes déconcentrées',
+        titre: "Les chambres des comptes déconcentrées",
         texte: "Innovation de la loi organique de 2018, annoncée par l'article 211 de la LOFIP : des chambres des comptes déconcentrées sont créées en province, avec le ministère public y rattaché. La chambre ayant son siège dans un chef-lieu de province porte le nom de ce chef-lieu et exerce l'ensemble des compétences dévolues à la Cour des comptes sur les comptes de la province et des ETD de son ressort ; le Premier président peut en outre lui déléguer le contrôle d'un organisme d'État situé dans son ressort (art. 84 de la loi organique).",
       },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[23] },
     ],
   },
   {
@@ -444,14 +448,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le contrôle juridictionnel : comptes, gestion de fait, discipline budgétaire",
     navLabel: 'Contrôle juridictionnel',
     blocs: [
+      { type: 'intertitre', texte: "9.5.1 Le jugement des comptes" },
       {
         type: 'paragraphe',
         texte: "Le contrôle juridictionnel des recettes et des dépenses publiques est effectué par la Cour des comptes, contrôle *« externe à l'Administration et a posteriori »* (art. 126 LOFIP). Il vise deux cibles distinctes : la **gestion des ordonnateurs**, contrôlée « eu égard à la régularité de leurs actes, règlements ou décisions » (art. 125), et les **comptes des comptables publics**, que la Cour juge « pour aboutir soit à des arrêts de quitus, soit à des arrêts de débet » (art. 126). La procédure devant la Cour est *« inquisitoriale, secrète, écrite et contradictoire »* (art. 88 de la loi organique) ; le dépôt des comptes opère saisine de la Cour, et son action sur un compte régulièrement déposé se prescrit le 31 décembre de la dixième année suivant sa réception (art. 91 de la loi organique).",
       },
-      { type: 'controle', question: QCM[16] },
       {
         type: 'carte',
-        titre: "Le jugement des comptes : arrêts provisoires puis définitifs (loi organique, art. 110 à 116)",
+        titre: "Encadré 9.4 — Le jugement des comptes : arrêts provisoires puis définitifs (loi organique, art. 110 à 116)",
         liste: [
           "**Arrêt provisoire** : il enjoint au comptable public principal assignataire d'apporter, dans un délai maximum d'un mois, toute explication ou justification à sa décharge ; il peut contenir des injonctions fermes ou pour l'avenir, des réserves et des mentions (art. 110). Faute de réponse dans les délais, les injonctions sont réputées admises (art. 111).",
           "**Arrêt définitif** : si le comptable n'a pas rétabli la situation de son compte ni obtenu une décharge de responsabilité, la Cour le met en **débet**, assorti d'intérêts au taux directeur de la Banque centrale du Congo courant depuis la notification de l'arrêt provisoire ; sinon, elle prononce un arrêt de **décharge** (comptable en fonction) ou de **quitus** (comptable sorti de fonctions) (art. 113).",
@@ -459,19 +463,22 @@ const SECTIONS: Chapitre['sections'] = [
           "**Force majeure** : la décharge de responsabilité résultant d'un cas de force majeure est accordée par un arrêt de la Cour ; le débet non apuré fait obstacle à la décharge ou au quitus, et la Cour peut faire inscrire une hypothèque sur les biens du condamné (art. 115).",
         ],
       },
-      { type: 'controle', question: QCM[17] },
+      { type: 'intertitre', texte: "9.5.2 La gestion de fait" },
       {
         type: 'carte',
-        titre: "La gestion de fait (loi organique, art. 117 à 126)",
+        titre: "Encadré 9.5 — La gestion de fait (loi organique, art. 117 à 126)",
         texte: "La Cour statue sur les gestions de fait d'office ou sur requête du Procureur général, saisi notamment par les autorités politiques et administratives (art. 118) ; l'action en déclaration de gestion de fait se prescrit par dix ans à dater de la découverte des actes (art. 118). La procédure suit le schéma des arrêts provisoires et définitifs : arrêt provisoire de déclaration de gestion de fait enjoignant de produire un compte unique dans un délai maximal d'un mois (art. 119), reconnaissance par l'autorité compétente du caractère d'utilité publique des opérations — seules les dépenses d'utilité publique avérée sont admises, le débet étant constitué du solde (art. 122) —, et condamnation possible à une **amende pour immixtion** dont le montant ne peut dépasser le total des sommes indûment détenues ou maniées (art. 124). Lorsque plusieurs personnes sont impliquées, elles sont déclarées conjointement et solidairement responsables (art. 120). Le débet prononcé contre le comptable de fait ne peut faire l'objet d'aucune décharge ou remise, « sauf par une grâce présidentielle » (art. 123).",
       },
-      { type: 'controle', question: QCM[18] },
+      { type: 'intertitre', texte: "9.5.3 La discipline budgétaire et financière" },
       {
         type: 'paragraphe',
         texte: "La **discipline budgétaire et financière** vise les fautes de gestion définies aux articles 129 et 214 de la LOFIP : non-respect des règles d'engagement, engagement sans pouvoir ou sans crédits disponibles, dissimulation permettant une fausse imputation, avantage injustifié, infraction aux règles d'exécution des recettes et des dépenses. Sont justiciables devant la Cour les contrôleurs budgétaires, les comptables publics, les ordonnateurs autres que les responsables des organes politiques, et tout responsable ou agent des entreprises et établissements publics ; les membres du Gouvernement et des exécutifs répondent de leurs fautes de gestion devant les organes politiques compétents (art. 32 de la loi organique ; art. 128 LOFIP). La sanction est une amende comprise entre le quart et le double du traitement ou salaire brut annuel (art. 129 LOFIP), outre les sanctions disciplinaires, civiles et pénales, et les poursuites devant la Cour ne font pas obstacle à l'action pénale (art. 137 de la loi organique).",
       },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[20] },
+      { type: 'carte', titre: "Exemple 9.1 — De l'irrégularité à la sanction : trois situations", tableau: { entetes: ["Situation", "Qualification", "Personne en cause", "Juge et sanction"], lignes: [
+        ["Un directeur signe un marché de 900 millions FC alors que le crédit disponible est de 600 millions FC, sans visa du contrôleur budgétaire", "Faute de gestion : engagement sans crédits disponibles (art. 129 LOFIP)", "L'agent qui a engagé la dépense", "Cour des comptes ; amende pouvant atteindre le double du traitement brut annuel"],
+        ["La vérification d'un poste comptable révèle un déficit de caisse de 35 millions FC", "Responsabilité personnelle et pécuniaire du comptable (art. 34-35 RGCP)", "Le comptable public", "Arrêt de la Cour mettant le comptable en débet ; versement sur ses deniers personnels, sauf décharge pour force majeure"],
+        ["Un chef de service encaisse des droits pour le compte de l'État sur un compte personnel et règle des dépenses avec ces fonds", "Gestion de fait : maniement de deniers publics sans titre (art. 130 LOFIP)", "Le comptable de fait", "Cour des comptes ; obligations d'un comptable public et amende pouvant atteindre le total des sommes maniées (art. 36 RGCP)"],
+      ] }, note: "Montants fictifs. Une même opération peut relever de plusieurs régimes : la faute de gestion de l'ordonnateur peut coexister avec la mise en débet du comptable qui a payé une dépense irrégulière (art. 34 RGCP)." },
     ],
   },
   {
@@ -479,14 +486,16 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le contrôle parlementaire et la reddition des comptes',
     navLabel: 'Contrôle parlementaire',
     blocs: [
+      { type: 'intertitre', texte: "9.6.1 Le contrôle politique" },
       {
         type: 'paragraphe',
         texte: "Le contrôle parlementaire est un **contrôle politique** (art. 127 LOFIP). Il s'exerce d'abord en cours de gestion : le Parlement veille à la bonne exécution de la loi de finances, et *« les informations qu'il demande ou les investigations sur pièces ou sur place qu'il entend conduire, ne peuvent lui être refusées »* ; il procède à l'audition des ministres et des responsables des programmes. Il s'exerce ensuite a posteriori, lors de l'examen et du vote du projet de **loi portant reddition des comptes**, occasion à laquelle le Parlement prononce, s'il échet, la **décharge des ordonnateurs**. La Cour des comptes l'assiste dans ce contrôle et évalue notamment les rapports de performance (art. 124).",
       },
-      { type: 'controle', question: QCM[21] },
+      { type: 'paragraphe', texte: "Le rapport public annuel de la Cour des comptes est l'un des principaux instruments de ce contrôle. Le rapport portant sur les exercices 2024 et 2025, présenté en février 2026 lors de l'audience solennelle de rentrée de la Cour en présence du chef de l'État, expose les irrégularités relevées lors du contrôle de l'exécution de la loi de finances pour 2023. Il relève notamment que les recettes réalisées, 29 607,09 milliards FC, n'ont atteint que 91,22 % des 32 456,78 milliards FC votés, alors que la circulaire d'exécution exigeait un taux minimal de 100 %. À cette occasion, le Premier président de la Cour a présenté la redevabilité comme une obligation à la fois morale, juridique et démocratique, qui impose à tout gestionnaire public de rendre compte de l'utilisation des fonds, biens et valeurs de l'État, des provinces et des ETD. Le rapport est transmis au Parlement, qui peut en tirer les conséquences lors de l'examen de la loi portant reddition des comptes." },
+      { type: 'intertitre', texte: "9.6.2 La loi portant reddition des comptes" },
       {
         type: 'carte',
-        titre: 'La loi portant reddition des comptes (art. 28 à 30 et 82, 84 LOFIP)',
+        titre: "Encadré 9.6 — La loi portant reddition des comptes (art. 28 à 30, 82 et 84 LOFIP)",
         liste: [
           "**Objet** (art. 28) : constater les résultats définitifs de l'exécution de la loi de finances et approuver les différences entre résultats et prévisions ; elle est présentée dans les mêmes formes que la loi de finances de l'exercice clos.",
           "**Contenu** (art. 29) : arrêter le compte général du pouvoir central, régler définitivement le budget de l'exercice précédent, ratifier le cas échéant les crédits ouverts par ordonnance-loi du Président de la République, approuver par le vote de crédits complémentaires les dépassements résultant de cas de force majeure, annuler les crédits non consommés compte tenu des reports (art. 53 et 93).",
@@ -496,7 +505,6 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "L'article 173 de la Constitution ferme la boucle : « Le compte général de la République est soumis chaque année au Parlement par la Cour des comptes avec ses observations. Le compte général de la République est arrêté par la loi. »",
       },
-      { type: 'controle', question: QCM[22] },
     ],
   },
 ]
