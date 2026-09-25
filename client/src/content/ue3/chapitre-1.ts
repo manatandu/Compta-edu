@@ -360,6 +360,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Août N, Kalemie, au bord du lac Tanganyika. Mme A. et M. N. veulent créer **KALEMIE LOGISTIQUE SARL** pour stocker et acheminer les marchandises débarquées au port. Avant même la signature des statuts, Mme A. loue un entrepôt, achète deux ordinateurs et règle les frais du Guichet unique de création d'entreprise. De son côté, M. N. commande un véhicule d'occasion. Le capital est fixé à 20 000 000 FC, entièrement libéré et déposé en banque. Ce chapitre suit leur projet pas à pas, de l'obligation d'apport à la clôture du premier exercice, et montre à chaque étape ce que le droit exige et ce que le comptable enregistre.",
       },
+      { type: 'intertitre', texte: "1.1.1 Le contrat de société et sa traduction comptable" },
       {
         type: 'paragraphe',
         texte: "La comptabilité des sociétés commence avec la société elle-même, c'est-à-dire avec le contrat. L'article 4 de l'AUSCGIE définit la société commerciale comme celle que créent deux ou plusieurs personnes « qui conviennent, par un contrat, d'affecter à une activité des biens en numéraire ou en nature, ou de l'industrie, dans le but de partager le bénéfice ou de profiter de l'économie qui peut en résulter ». Les associés s'engagent à contribuer aux pertes dans les conditions prévues par l'Acte uniforme, et la société est créée « dans l'intérêt commun des associés ». L'article 5 admet la société unipersonnelle : dans les cas prévus par l'Acte uniforme, une seule personne, l'**associé unique**, peut créer une société par un acte écrit.",
@@ -373,17 +374,19 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Commercialité par la forme (art. 6)",
         texte: "Le caractère commercial d'une société est déterminé par sa forme ou par son objet. Sont commerciales à raison de leur forme, et quel que soit leur objet : la société en nom collectif, la société en commandite simple, la société à responsabilité limitée, la société anonyme et la société par actions simplifiée.",
       },
+      { type: 'intertitre', texte: "1.1.2 Le champ de l'Acte uniforme" },
       {
         type: 'paragraphe',
         texte: "Le champ de l'Acte uniforme est large : il s'applique à toute société commerciale dont le siège est situé sur le territoire d'un État partie, « y compris celle dans laquelle un État ou une personne morale de droit public est associé », ainsi qu'à tout groupement d'intérêt économique (art. 1er). Une société d'économie mixte de Kinshasa ou une société commerciale dont l'État congolais détient toutes les actions tient donc sa comptabilité de constitution exactement comme une société privée. L'article 1er réserve toutefois l'application des lois nationales non contraires à l'Acte uniforme : c'est par cette porte qu'entrent les textes congolais étudiés à la section 1.4.",
       },
+      { type: 'intertitre', texte: "1.1.3 L'obligation d'apport" },
       {
         type: 'paragraphe',
         texte: "Le pivot du dispositif est l'**obligation d'apport** : « Chaque associé doit faire un apport à la société. Chaque associé est débiteur envers la société de tout ce qu'il s'est obligé à lui apporter en numéraire, en nature ou en industrie » (art. 37). En contrepartie, les associés reçoivent des titres émis par la société (art. 38). L'article 39 étend tout le régime des apports à ceux réalisés en cours de vie sociale, lors d'une augmentation de capital : le présent chapitre prépare donc aussi le chapitre 4. Retenez le mot *débiteur* : dès la signature des statuts, l'associé a une dette envers la société. C'est cette dette que les comptes 4611, 4612, 4613 et 109 vont suivre, jusqu'à son extinction par la libération.",
       },
       {
         type: 'carte',
-        titre: "Les trois types d'apports (art. 40), une liste limitative",
+        titre: "Tableau 1.1 — Les trois types d'apports, liste limitative (art. 40)",
         tableau: {
           entetes: ["Type", "Objet", "Concourt au capital ?"],
           lignes: [
@@ -394,16 +397,16 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "« Tout autre apport est interdit » (art. 40 in fine). Une caution personnelle, une simple promesse de crédit ou une « influence » dans les affaires ne peuvent rémunérer aucun titre social.",
       },
+      { type: 'intertitre', texte: "1.1.4 L'apport et les opérations voisines" },
       {
         type: 'paragraphe',
-        texte: "Il faut enfin distinguer l'apport de deux opérations voisines, que le plan de comptes sépare avec soin. Le **prêt d'un associé** à sa société, ou les fonds qu'il lui laisse temporairement, ne sont pas des apports : ils ne donnent aucun titre, restent remboursables et s'inscrivent au compte 462 Associés, comptes courants. Les **dividendes** votés et non encore payés sont une dette ordinaire de la société envers l'associé, au compte 465. L'apport, lui, est définitif tant que dure la société et ne se retrouve qu'au passage des comptes 461 (opérations sur le capital) vers le compte 101. L'AUDCIF le dit en excluant du compte 101 « les versements et/ou retraits temporaires de fonds des associés », qui relèvent du compte 46 (Titre VII, compte 101, exclusions).",
+        texte: "L'apport se distingue enfin de deux opérations voisines, que le plan de comptes sépare avec soin. Le **prêt d'un associé** à sa société, ou les fonds qu'il lui laisse temporairement, ne sont pas des apports : ils ne donnent aucun titre, restent remboursables et s'inscrivent au compte 462 Associés, comptes courants. Les **dividendes** votés et non encore payés sont une dette ordinaire de la société envers l'associé, au compte 465. L'apport, lui, est définitif tant que dure la société et ne se retrouve qu'au passage des comptes 461 (opérations sur le capital) vers le compte 101. L'AUDCIF le dit en excluant du compte 101 « les versements et/ou retraits temporaires de fonds des associés », qui relèvent du compte 46 (Titre VII, compte 101, exclusions).",
       },
+      { type: 'intertitre', texte: "1.1.5 Souscrire, appeler, libérer" },
       {
         type: 'paragraphe',
-        texte: "Trois verbes rythment désormais le chapitre, et il faut les employer avec précision. **Souscrire**, c'est s'engager à apporter : l'associé qui signe les statuts ou un bulletin de souscription devient débiteur de la société pour le montant souscrit. **Appeler**, c'est, pour la société, rendre exigible tout ou partie de cette dette : à la constitution, la loi fixe la fraction minimale appelée d'office, et les organes sociaux appellent ensuite le solde. **Libérer**, c'est exécuter la promesse : verser l'argent, remettre le bien, commencer les prestations. Le capital *souscrit* peut donc être plus élevé que le capital *appelé*, lui-même plus élevé que le capital *libéré*. Les subdivisions du compte 101 reproduisent exactement ces trois étages.",
+        texte: "Trois verbes doivent être employés avec précision. **Souscrire**, c'est s'engager à apporter : l'associé qui signe les statuts ou un bulletin de souscription devient débiteur de la société pour le montant souscrit. **Appeler**, c'est, pour la société, rendre exigible tout ou partie de cette dette : à la constitution, la loi fixe la fraction minimale appelée d'office, et les organes sociaux appellent ensuite le solde. **Libérer**, c'est exécuter la promesse : verser l'argent, remettre le bien, commencer les prestations. Le capital *souscrit* peut donc être plus élevé que le capital *appelé*, lui-même plus élevé que le capital *libéré*. Les subdivisions du compte 101 reproduisent exactement ces trois étages.",
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
     ],
   },
   {
@@ -411,6 +414,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La réalisation des apports : numéraire, nature, industrie",
     navLabel: "Réalisation des apports",
     blocs: [
+      { type: 'intertitre', texte: "1.2.1 L'apport en numéraire et sa libération" },
       {
         type: 'paragraphe',
         texte: "L'apport en **numéraire** est réalisé par le transfert à la société de la propriété des sommes que l'associé s'est engagé à apporter ; sauf disposition contraire de l'Acte uniforme, il est **libéré intégralement lors de la constitution** (art. 41). La libération s'entend strictement : ne sont considérés comme libérés que les apports correspondant à des sommes dont la société est devenue propriétaire et qu'elle a **intégralement et définitivement encaissées** (art. 42). Une promesse, un chèque non encore encaissé ou un virement annoncé ne libèrent rien. En cas de retard, les sommes restant dues portent **de plein droit** intérêt au taux légal à compter du jour où le versement devait être effectué, sans préjudice de dommages et intérêts (art. 43). Enfin, à l'occasion d'une augmentation de capital, et à ce moment seulement, l'apport en numéraire peut être réalisé par **compensation** avec une créance certaine, liquide et exigible sur la société, à moins que les statuts ne l'interdisent (art. 44).",
@@ -419,10 +423,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le principe de libération intégrale de l'article 41 réserve les « dispositions contraires ». Ce sont elles qui ouvrent la **libération fractionnée** des sociétés de capitaux : dans la SA, les actions de numéraire sont libérées d'un quart au moins à la souscription, le surplus dans les trois ans de l'immatriculation (art. 389) ; dans la SARL, les parts de numéraire le sont de la moitié au moins, le surplus dans les deux ans (art. 311-1). Les formes pour lesquelles l'Acte uniforme ne prévoit rien, comme la SNC, restent sous la règle de principe. Comptablement, c'est cette faculté qui donne son rôle au compte 109 (section 1.8).",
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "1.2.2 L'apport en nature : propriété ou jouissance" },
       {
         type: 'carte',
-        titre: "L'apport en nature (art. 45-50)",
+        titre: "Encadré 1.1 — L'apport en nature (art. 45 à 50)",
         liste: [
           "**Réalisation** : transfert des droits réels ou personnels correspondant aux biens apportés et mise à la disposition effective de la société ; libération **intégrale** dès la constitution (art. 45).",
           "**Garanties** : l'apporteur en propriété est garant envers la société *comme un vendeur envers son acheteur* (art. 46) ; l'apporteur en jouissance, *comme un bailleur envers son preneur*. Pour les choses de genre et les biens appelés à être renouvelés, la propriété passe à la société à charge d'en rendre pareille quantité, qualité et valeur (art. 47).",
@@ -440,13 +444,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Inscrire en immobilisation le bien qu'un associé apporte en jouissance. L'apporteur en reste propriétaire : la société n'a qu'un droit d'usage, et elle ne comptabilise aucune immobilisation. Elle supporte seulement les charges d'entretien que les statuts mettent à sa charge. Le bien apporté en propriété, lui, entre dans son patrimoine, à l'actif, et il est amorti. La même question se pose chez KALEMIE LOGISTIQUE : si M. N. avait mis son propre camion à disposition au lieu d'en commander un, la société ne l'aurait pas inscrit à son bilan.",
+        titre: "L'apport en jouissance ne crée pas d'immobilisation",
+        texte: "Le bien qu'un associé apporte en jouissance ne s'inscrit pas en immobilisation. L'apporteur en reste propriétaire : la société n'a qu'un droit d'usage, et elle ne comptabilise aucune immobilisation. Elle supporte seulement les charges d'entretien que les statuts mettent à sa charge. Le bien apporté en propriété, lui, entre dans son patrimoine, à l'actif, et il est amorti. La même question se pose chez KALEMIE LOGISTIQUE : si M. N. avait mis son propre camion à disposition au lieu d'en commander un, la société ne l'aurait pas inscrit à son bilan.",
       },
-      { type: 'controle', question: QCM[5] },
+      { type: 'intertitre', texte: "1.2.3 L'apport en industrie" },
       {
         type: 'carte',
-        titre: "L'apport en industrie (art. 50-1 à 50-4)",
+        titre: "Encadré 1.2 — L'apport en industrie (art. 50-1 à 50-4)",
         liste: [
           "Réalisé par la mise à disposition effective de connaissances techniques ou professionnelles ou de services ; **interdit dans les sociétés anonymes** (art. 50-1).",
           "L'apporteur doit rendre la contribution promise et compte de tous les gains réalisés par l'activité apportée ; les statuts décrivent l'apport, ses modalités de libération, la durée des prestations, le nombre de titres attribués et leurs droits (art. 50-2).",
@@ -459,14 +463,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La SAS occupe une place à part : l'article 853-5 lui permet d'émettre des **actions inaliénables résultant d'apports en industrie**, les statuts déterminant leurs modalités de souscription et de répartition. C'est la forme retenue par nombre de jeunes entreprises technologiques, où un fondateur apporte son savoir-faire et les autres leur argent. Pour le comptable, la règle ne change pas : ces actions ne correspondent à aucune valeur inscrite au capital, et le capital de la SAS ne comprend que les apports en numéraire et en nature.",
       },
+      { type: 'intertitre', texte: "1.2.4 Les intérêts dus par l'associé en retard" },
       {
         type: 'paragraphe',
         texte: "L'article 43 a lui aussi une traduction comptable. Les intérêts dus par l'associé en retard ne sont pas un complément d'apport : ils indemnisent la société de n'avoir pas disposé des fonds à la date convenue. Ils constituent donc un produit financier de la société, que le plan de comptes range au compte 7713 Intérêts sur créances diverses, et non une augmentation du capital ni une prime. Symétriquement, l'associé qui a versé en retard ne reçoit aucun titre supplémentaire : le nombre de titres dépend du montant souscrit, pas de la date du versement.",
       },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[20] },
     ],
   },
   {
@@ -474,21 +475,21 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Titres sociaux et capital social",
     navLabel: "Titres et capital",
     blocs: [
+      { type: 'intertitre', texte: "1.3.1 Les titres sociaux" },
       {
         type: 'paragraphe',
         texte: "En contrepartie des apports, la société émet des **titres sociaux** qui représentent les droits des associés : **actions** dans les sociétés par actions, **parts sociales** dans les autres (art. 51). Ce sont des biens meubles (art. 52). L'article 53 énumère ce qu'ils confèrent : un droit sur les bénéfices *lorsque leur distribution a été décidée*, un droit sur les actifs nets lors de leur répartition, à la dissolution ou à l'occasion d'une réduction de capital, le cas échéant l'obligation de contribuer aux pertes, et le droit de participer aux votes des décisions collectives. Sauf clause ou disposition contraire, droits et obligations sont **proportionnels aux apports** (art. 54, al. 1er). Sont en revanche réputées non écrites les **clauses léonines** : attribuer à un associé la totalité du profit, l'exonérer de la totalité des pertes, l'exclure totalement du profit ou mettre à sa charge la totalité des pertes (art. 54, al. 2).",
       },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[6] },
       {
         type: 'carte',
-        titre: "Valeur nominale et circulation des titres (art. 56-59)",
+        titre: "Encadré 1.3 — Valeur nominale et circulation des titres (art. 56 à 59)",
         liste: [
           "Les titres de même catégorie émis par une société doivent avoir la **même valeur nominale** (art. 56).",
           "Les parts sociales sont **cessibles** ; les actions sont **cessibles ou négociables** (art. 57). Seules les sociétés par actions émettent des titres négociables ; l'émission ou la garantie de titres négociables par les autres formes est nulle (art. 58).",
           "En cas de cession ou de rachat prévu par l'Acte uniforme, la valeur des droits est déterminée, à défaut d'accord amiable, par **expert** désigné par les parties ou par la juridiction compétente statuant à bref délai (art. 59).",
         ],
       },
+      { type: 'intertitre', texte: "1.3.2 Le capital social" },
       {
         type: 'paragraphe',
         texte: "Le **capital social**, que toute société doit avoir et indiquer dans ses statuts (art. 61), « représente le montant des apports en capital faits par les associés à la société et augmente, le cas échéant, des incorporations de réserves, de bénéfices ou de primes d'apports, d'émission ou de fusion » (art. 62). La société rémunère l'apporteur par des titres « pour une valeur égale à celle des apports ». En cas d'incorporation, elle émet des titres nouveaux ou élève le nominal des titres existants, les deux procédés pouvant être combinés (art. 63). Le capital est divisé en parts sociales ou en actions selon la forme (art. 64).",
@@ -499,7 +500,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Montant, fixité, variations (art. 65-70)",
+        titre: "Tableau 1.2 — Le montant, la fixité et les variations du capital (art. 65 à 70)",
         tableau: {
           entetes: ["Règle", "Contenu"],
           lignes: [
@@ -511,18 +512,16 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "1.3.3 Actions et parts sociales en comptabilité" },
       {
         type: 'paragraphe',
-        texte: "Pour le comptable, actions et parts sociales se traitent exactement de la même manière à la constitution : mêmes comptes 101, 109 et 461, mêmes écritures. Les différences tiennent à la circulation des titres et à l'organisation de la société, qui relèvent du droit des sociétés (UE2). La **valeur nominale**, en revanche, mérite l'attention. Elle est la fraction du capital que représente chaque titre : 4 000 actions pour un capital de 40 000 000 FC donnent un nominal de 10 000 FC. Elle ne dit rien de la valeur réelle du titre, qui dépendra ensuite des résultats et des perspectives de la société. Dès la première augmentation de capital, un titre de nominal 10 000 FC pourra valoir 15 000 FC, et le nouvel associé paiera la différence sous forme de prime (chapitre 4). Dans la SA, le nominal est « librement fixé par les statuts » et « exprimé en nombre entier » (art. 387).",
+        texte: "Pour le comptable, actions et parts sociales se traitent exactement de la même manière à la constitution : mêmes comptes 101, 109 et 461, mêmes écritures. Les différences tiennent à la circulation des titres et à l'organisation de la société, qui relèvent du droit des sociétés (UE2). La **valeur nominale**, en revanche, obéit à des règles précises. Elle est la fraction du capital que représente chaque titre : 4 000 actions pour un capital de 40 000 000 FC donnent un nominal de 10 000 FC. Elle ne dit rien de la valeur réelle du titre, qui dépendra ensuite des résultats et des perspectives de la société. Dès la première augmentation de capital, un titre de nominal 10 000 FC pourra valoir 15 000 FC, et le nouvel associé paiera la différence sous forme de prime (chapitre 4). Dans la SA, le nominal est « librement fixé par les statuts » et « exprimé en nombre entier » (art. 387).",
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : le capital, c'est l'argent en banque ?",
-        texte: "Non. Le capital de KALEMIE LOGISTIQUE est de 20 000 000 FC, et ce chiffre restera inscrit dans les statuts et au passif du bilan tant qu'il ne sera pas modifié. L'argent déposé en banque le jour de la constitution sera dépensé dès les premières semaines : loyer, ordinateurs, carburant. Le capital n'est pas une somme d'argent : c'est un chiffre de référence, qui mesure l'engagement des associés et sert de gage aux créanciers. Au jour de la constitution, il correspond à la valeur des apports ; ensuite, il vit sa propre vie, indépendamment de la trésorerie.",
+        titre: "Capital social et trésorerie",
+        texte: "Le capital ne se confond pas avec les fonds déposés en banque. Celui de KALEMIE LOGISTIQUE est de 20 000 000 FC, et ce chiffre restera inscrit dans les statuts et au passif du bilan tant qu'il ne sera pas modifié. L'argent déposé en banque le jour de la constitution sera dépensé dès les premières semaines : loyer, ordinateurs, carburant. Le capital n'est pas une somme d'argent : c'est un chiffre de référence, qui mesure l'engagement des associés et sert de gage aux créanciers. Au jour de la constitution, il correspond à la valeur des apports ; ensuite, il vit sa propre vie, indépendamment de la trésorerie.",
       },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[18] },
     ],
   },
   {
@@ -530,6 +529,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le capital social en RDC : monnaie, minima et formalités",
     navLabel: "Le capital en RDC",
     blocs: [
+      { type: 'intertitre', texte: "1.4.1 La monnaie du capital" },
       {
         type: 'paragraphe',
         texte: "Les montants de l'AUSCGIE sont exprimés en francs CFA. L'article 906 règle le cas des États qui, comme la RDC, n'ont pas cette monnaie : « Le franc CFA, au sens du présent Acte uniforme, constitue la monnaie de référence. Pour les États parties qui n'ont pas comme unité monétaire le franc CFA, la contre-valeur en monnaie nationale est initialement celle qui est déterminée par application de la parité en vigueur entre le franc CFA et la monnaie nationale desdits États parties le jour de l'adoption du présent Acte uniforme. » Cette contre-valeur est arrondie à l'unité supérieure, et le Conseil des ministres de l'OHADA peut réviser les montants en fonction de l'évolution économique et monétaire (art. 906, al. 2). Un seuil comme les 10 000 000 FCFA du capital minimum de la SA (art. 387) doit donc se lire, en RDC, comme sa contre-valeur en francs congolais.",
@@ -538,10 +538,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La comptabilité, elle, ne connaît qu'une monnaie. L'article 17 de l'AUDCIF impose « la tenue de la comptabilité dans la langue officielle et dans l'unité monétaire ayant cours légal dans l'État partie » : en RDC, le français et le franc congolais. L'économie congolaise est pourtant largement dollarisée, et il est fréquent qu'un associé libère son apport en dollars américains. Les règles de conversion de l'AUDCIF s'appliquent alors : les biens acquis en devises sont comptabilisés en monnaie légale au cours de change du jour de l'acquisition (art. 51), et les créances et dettes en devises au cours de la date de formalisation de l'accord ou de mise à disposition des devises (art. 52). Si la créance sur l'apporteur naît au cours d'un jour et s'éteint au cours d'un autre, l'écart éventuel est une perte ou un gain de change de l'exercice (art. 53), jamais une variation du capital.",
       },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "1.4.2 Les minima de capital" },
       {
         type: 'carte',
-        titre: "Les minima de capital applicables en RDC",
+        titre: "Tableau 1.3 — Les minima de capital applicables en RDC",
         tableau: {
           entetes: ["Forme", "Capital minimum", "Libération du numéraire à la souscription", "Source"],
           lignes: [
@@ -554,6 +554,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "L'article 311 fixe un million de FCFA pour la SARL « sauf dispositions nationales contraires ». L'arrêté interministériel du 30 décembre 2014 use de cette réserve : en RDC, le capital de la SARL « est librement fixé par les associés en tenant compte de l'objet social de la société » (art. 2).",
       },
+      { type: 'intertitre', texte: "1.4.3 Le dépôt des fonds" },
       {
         type: 'paragraphe',
         texte: "Les fonds libérés ne restent pas entre les mains des fondateurs. Dans la SARL, ils font l'objet d'un dépôt immédiat, contre récépissé, en banque ou dans un établissement de crédit ou de microfinance agréé, dans un compte ouvert au nom de la société en formation, ou en l'étude d'un notaire (art. 313). En RDC, l'arrêté du 30 décembre 2014 prévoit que le bordereau de versement acquitté vaut preuve de la libération et du dépôt (art. 3). Dans la SA, le dépôt et la déclaration notariée de souscription et de versement sont étudiés au chapitre 2. Comptablement, tant que les fonds sont chez le notaire, ils ne sont pas encore à la banque de la société : c'est pourquoi l'Application 58 les fait transiter par le compte 4732 Mandataires.",
@@ -562,7 +563,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Un exemple montre comment ces règles s'articulent. Les statuts d'une SARL de Lubumbashi fixent le capital à 57 000 000 FC ; un associé doit en libérer 11 400 000 FC et propose de payer 4 000 USD. Si, le jour de l'encaissement, le dollar vaut 2 850 FC (hypothèse), la banque crédite le compte de la société de 11 400 000 FC et la dette de l'associé est éteinte. Si le dollar ne vaut plus que 2 800 FC, les 4 000 USD ne produisent que 11 200 000 FC : l'associé reste débiteur de 200 000 FC, car seules sont libérées les sommes « intégralement et définitivement encaissées » (art. 42), et c'est en francs congolais que sa dette est exprimée. Le capital statutaire ne bouge pas : c'est la dette de l'apporteur, et non le capital, qui supporte le risque de change jusqu'à la libération complète.",
       },
-      { type: 'controle', question: QCM[25] },
+      { type: 'intertitre', texte: "1.4.4 Les formalités de création et leur coût" },
       {
         type: 'filet',
         titre: "Le Guichet unique de création d'entreprise",
@@ -579,6 +580,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'évaluation comptable des apports",
     navLabel: "Évaluer les apports",
     blocs: [
+      { type: 'intertitre', texte: "1.5.1 La valeur d'apport" },
       {
         type: 'paragraphe',
         texte: "Un apport en numéraire ne pose aucun problème d'évaluation : 1 000 000 FC apportés valent 1 000 000 FC. L'apport en nature, lui, doit être chiffré, et ce chiffre commande à la fois le nombre de titres remis à l'apporteur et la valeur d'entrée du bien dans la comptabilité de la société. L'AUDCIF tranche le second point : le coût historique des biens inscrits à l'actif est constitué par « le coût réel d'acquisition pour ceux achetés à des tiers, la **valeur d'apport** pour ceux apportés par les actionnaires/associés/membres » (art. 36). Le cadre conceptuel précise que les apports des associés ou de l'État sont retenus pour leur « valeur d'apport contrôlée dans le contrat ». La comptabilité ne réévalue donc pas l'apport : elle reprend la valeur que les statuts ont fixée, sous le contrôle prévu par l'Acte uniforme.",
@@ -591,10 +593,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Poursuivons l'exemple du camion apporté pour 35 000 000 FC. Si la SARL estime pouvoir l'utiliser encore cinq ans, elle l'amortit sur cette durée, soit 7 000 000 FC par an en linéaire, dotations au compte 6813 par le crédit du compte 2845, quelle que soit la durée d'amortissement que pratiquait l'apporteur. L'apporteur, lui, constate dans ses propres livres la sortie du camion pour sa valeur nette comptable de 30 000 000 FC et l'entrée de parts sociales pour 35 000 000 FC : la différence de 5 000 000 FC est pour lui un résultat de cession. Les deux comptabilités ne se regardent pas : chacune applique ses propres règles à sa propre opération, l'une comme un achat payé en titres, l'autre comme une vente payée en titres. Le chapitre 7 étudiera l'entrée des titres dans le portefeuille de l'apporteur.",
       },
-      { type: 'controle', question: QCM[21] },
+      { type: 'intertitre', texte: "1.5.2 Le contrôle de la valeur d'apport" },
       {
         type: 'carte',
-        titre: "Qui contrôle la valeur d'apport ?",
+        titre: "Tableau 1.4 — Le contrôle de la valeur d'apport selon la forme sociale",
         tableau: {
           entetes: ["Forme", "Contrôle par un commissaire aux apports", "Sanction d'une évaluation non contrôlée ou modifiée"],
           lignes: [
@@ -605,6 +607,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le commissaire aux apports est choisi sur la liste des commissaires aux comptes (art. 312 et 400). Son rapport « atteste que la valeur des apports correspond au moins à la valeur du nominal des parts à émettre » (art. 312, SARL). La garantie des associés ne vise que la valeur au moment de la constitution, pas son maintien.",
       },
+      { type: 'intertitre', texte: "1.5.3 L'apport d'un ensemble de biens" },
       {
         type: 'paragraphe',
         texte: "Lorsque l'associé apporte non un bien isolé mais un **ensemble** (une unité de production, un fonds de commerce, une branche d'activité), l'apport comprend souvent des dettes, que la société prend en charge. L'apport est alors rémunéré pour sa **valeur nette** : biens apportés moins passif pris en charge. Dans l'Application 58, l'apporteur remet 290 000 000 de biens et la société reprend un emprunt de 50 000 000 : il reçoit des actions pour 240 000 000. Chaque bien entre à sa propre valeur d'apport (licences au 2122, terrain au 2231, bâtiment au 2311, matériel au 2411, créances au 4111), et le passif repris est crédité au compte correspondant (162 pour l'emprunt). C'est le solde de ces débits et crédits qui éteint la créance de la société sur l'apporteur.",
@@ -615,11 +618,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Et la prime d'apport ?",
+        titre: "La prime d'apport à la constitution",
         texte: "Le compte 1052 Primes d'apport enregistre « la différence entre la valeur du/des bien(s) apporté(s) et la valeur nominale des actions ou parts rémunérant l'apport » (AUDCIF, compte 105). À la constitution, les titres sont en principe émis pour une valeur égale à celle des apports (art. 63) et le nominal est fixé en conséquence : la prime apparaît surtout lors des augmentations de capital en nature, lorsque les titres existants valent plus que leur nominal. Elle est étudiée au chapitre 4.",
       },
-      { type: 'controle', question: QCM[22] },
-      { type: 'controle', question: QCM[23] },
     ],
   },
   {
@@ -627,13 +628,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le dispositif comptable : les comptes du capital et des apporteurs",
     navLabel: "Comptes du capital",
     blocs: [
+      { type: 'intertitre', texte: "1.6.1 Les comptes du capital et des apporteurs" },
       {
         type: 'paragraphe',
         texte: "Le plan de comptes SYSCOHADA suit pas à pas la chronologie juridique de la constitution : promesse, appel, libération. Le compte **101 Capital social** se subdivise pour suivre l'avancement de la libération, le compte **109** isole la fraction souscrite mais non appelée, et le compte **461 Apporteurs, opérations sur le capital** suit la relation avec chaque apporteur. Selon l'AUDCIF, le capital social « traduit le montant des valeurs apportées par les associés » ; dans les sociétés, le capital initial correspond à la valeur des apports effectués à la création, « tels qu'ils figurent dans les statuts », et il « représente la valeur nominale des actions ou parts sociales » (Titre VII, compte 101).",
       },
       {
         type: 'carte',
-        titre: "Les comptes du cycle du capital",
+        titre: "Tableau 1.5 — Les comptes du cycle du capital",
         tableau: {
           entetes: ["Compte", "Intitulé", "Rôle"],
           lignes: [
@@ -649,7 +651,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Les comptes d'apporteurs (461 et 467)",
+        titre: "Tableau 1.6 — Les comptes d'apporteurs (461 et 467)",
         tableau: {
           entetes: ["Compte", "Intitulé", "Rôle"],
           lignes: [
@@ -665,6 +667,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Ne pas confondre 461 (opérations sur le capital) avec 462 Associés, comptes courants (fonds laissés ou mis temporairement à la disposition de la société) ni avec 465 Associés, dividendes à payer.",
       },
+      { type: 'intertitre', texte: "1.6.2 Le fonctionnement du compte 101" },
       {
         type: 'paragraphe',
         texte: "Deux textes décrivent le mécanisme, avec une nuance qu'il faut connaître. Le commentaire du compte 101 dans l'AUDCIF indique que le 1011 est crédité des promesses « par le débit du compte 109 » et qu'au moment de l'appel, « le compte 467 (Apporteurs, restant dû sur capital appelé) est débité du même montant par le crédit du 109 » ; le compte 109 représente « la créance globale de la société sur les apporteurs », personnalisée pour chacun au moment des appels. Les Applications 58 et 59 du Guide d'application, elles, font transiter la créance d'appel par le compte **4613**. Les deux lectures décrivent la même réalité : une créance non exigible (109) qui devient exigible à l'appel. Ce cours suit les Applications du Guide, dont les écritures sont chiffrées ; en entreprise, on peut ouvrir des sous-comptes par associé du 4613 ou du 467 pour suivre chaque apporteur.",
@@ -673,9 +676,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le fonctionnement du compte 101 distingue aussi selon la forme sociale. Il est crédité des apports « par le débit du 46 (Apporteurs, Associés et Groupe) pour les apports en espèces ou nature, pour les sociétés de personnes et GIE », et « par le débit du 109 (Apporteurs, capital souscrit, non appelé) pour les sociétés de capitaux » (AUDCIF, compte 101). La raison est juridique : dans une SNC, les apports en numéraire sont libérés intégralement à la constitution (art. 41), si bien qu'il n'existe jamais de capital non appelé à isoler. Le compte 109 n'a de raison d'être que là où l'Acte uniforme autorise une libération fractionnée, c'est-à-dire dans les SA, les SAS et les SARL.",
       },
+      { type: 'intertitre', texte: "1.6.3 La présentation au bilan et les sous-comptes" },
       {
         type: 'filet',
-        titre: "Lecture du bilan",
+        titre: "Le capital et le capital non appelé au bilan",
         texte: "La maquette du bilan réserve au passif la rubrique **CA Capital** (comptes 101 à 104) et, juste en dessous, la rubrique **CB Apporteurs, capital non appelé** (compte 109), « portée en négatif ». Le capital figure donc pour son montant souscrit, diminué de la fraction que la société n'a pas encore appelée. Le compte 4613 ou 467, créance exigible, relève en revanche de l'actif circulant : les soldes débiteurs du compte 46 alimentent la rubrique BJ Autres créances, et ses soldes créditeurs, comme les versements anticipés du 4616, la rubrique DM Autres dettes.",
       },
       {
@@ -684,12 +688,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Créditer le compte 101 des sommes qu'un associé prête à la société ou lui laisse temporairement. Ces fonds ne sont pas des apports : ils ne donnent aucun titre, restent remboursables et s'inscrivent au compte 462 Associés, comptes courants. L'AUDCIF exclut expressément du compte 101 « les versements et/ou retraits temporaires de fonds des associés ». Les dépenses que Mme A. a réglées de ses deniers pour KALEMIE LOGISTIQUE suivent la même logique : la société lui doit ces sommes, au 4621, et non un supplément de capital.",
+        titre: "Les avances d'associés ne sont pas des apports",
+        texte: "Les sommes qu'un associé prête à la société ou lui laisse temporairement ne se créditent pas au compte 101. Ces fonds ne sont pas des apports : ils ne donnent aucun titre, restent remboursables et s'inscrivent au compte 462 Associés, comptes courants. L'AUDCIF exclut expressément du compte 101 « les versements et/ou retraits temporaires de fonds des associés ». Les dépenses que Mme A. a réglées de ses deniers pour KALEMIE LOGISTIQUE suivent la même logique : la société lui doit ces sommes, au 4621, et non un supplément de capital.",
       },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
     ],
   },
   {
@@ -697,13 +698,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation de la constitution : libération intégrale",
     navLabel: "Libération intégrale",
     blocs: [
+      { type: 'intertitre', texte: "1.7.1 Le schéma de l'Application 58" },
       {
         type: 'paragraphe',
         texte: "L'Application 58 du Guide d'application déroule le schéma complet. Une entité est constituée le 19/09/N au capital de **300 000 000** (30 000 actions de 10 000). L'apporteur en nature X apporte : licences 30 000 000, terrain bâti 20 000 000, bâtiment 150 000 000, matériel 50 000 000, créances clients 40 000 000, la société prenant en charge un emprunt bancaire de 50 000 000. Son actif net apporté est de 290 000 000 − 50 000 000 = **240 000 000**. Les autres associés souscrivent le solde en numéraire : 300 000 000 − 240 000 000 = **60 000 000**. Le notaire perçoit 5 000 000 d'honoraires et 500 000 de frais d'actes.",
       },
       {
         type: 'carte',
-        titre: "1re étape : promesses d'apport et appel (19/09/N)",
+        titre: "Exemple 1.1 — Libération intégrale, 1re étape : promesses d'apport et appel (19/09/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -721,7 +723,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "2e étape : réalisation des apports (20/09/N)",
+        titre: "Exemple 1.2 — Libération intégrale, 2e étape : réalisation des apports (20/09/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -742,7 +744,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "3e étape : versement des fonds par le notaire, sous déduction des frais (30/09/N)",
+        titre: "Exemple 1.3 — Libération intégrale, 3e étape : versement des fonds par le notaire, sous déduction des frais (30/09/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -753,14 +755,16 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "1.7.2 L'analyse du schéma" },
       {
         type: 'paragraphe',
-        texte: "Trois observations permettent de comprendre plutôt que d'apprendre ce schéma. D'abord, chaque étape juridique a son écriture : la signature des statuts crée la créance (4611, 4612 contre 1011), l'appel la rend exigible (4613 et virement 1011 vers 1012), la réalisation l'éteint (biens ou fonds contre 4613, et virement 1012 vers 1013). Ensuite, les comptes de capital ne changent jamais de montant : 300 000 000 passent seulement de 1011 à 1012 puis à 1013, comme une marchandise qui change d'étagère sans changer de valeur. Enfin, le notaire ne verse que 54 500 000 : la société ne « perd » pas 5 500 000 de capital, elle a payé des frais avec une partie de ses fonds, et ces frais sont des charges.",
+        texte: "Trois observations éclairent ce schéma. D'abord, chaque étape juridique a son écriture : la signature des statuts crée la créance (4611, 4612 contre 1011), l'appel la rend exigible (4613 et virement 1011 vers 1012), la réalisation l'éteint (biens ou fonds contre 4613, et virement 1012 vers 1013). Ensuite, les comptes de capital ne changent jamais de montant : 300 000 000 passent seulement de 1011 à 1012 puis à 1013, comme une marchandise qui change d'étagère sans changer de valeur. Enfin, le notaire ne verse que 54 500 000 : la société ne « perd » pas 5 500 000 de capital, elle a payé des frais avec une partie de ses fonds, et ces frais sont des charges.",
       },
       {
         type: 'paragraphe',
         texte: "Après ces écritures, le bilan de départ de l'entité est simple à dresser. À l'actif : immobilisations incorporelles 30 000 000 (licences), corporelles 220 000 000 (terrain, bâtiment, matériel), créances clients 40 000 000 et banque 54 500 000, soit 344 500 000. Au passif : capital 300 000 000, emprunt 50 000 000, et un résultat provisoire négatif de 5 500 000 correspondant aux frais, soit 344 500 000. L'égalité entre capital et actif net est déjà rompue le jour même de la constitution, par l'effet des seuls frais.",
       },
+      { type: 'intertitre', texte: "1.7.3 Les frais de constitution et les pièces justificatives" },
       {
         type: 'filet',
         titre: "Les frais de constitution ne s'immobilisent plus",
@@ -772,11 +776,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Les pièces justificatives de la constitution",
         texte: "Chaque écriture de constitution doit reposer sur une pièce justificative, comme l'exige l'article 17 de l'AUDCIF. Face au dossier de KALEMIE LOGISTIQUE, l'auditeur demande les statuts signés, l'état des actes et engagements annexé, le récépissé de dépôt des fonds, l'extrait d'immatriculation et, pour chaque dépense reprise, la facture ou le reçu. Il rapproche le montant du capital inscrit au 101 de celui des statuts, et le solde de la banque du récépissé de dépôt. Une écriture sans pièce, dans une constitution, est le premier signal d'alerte.",
       },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
     ],
   },
   {
@@ -784,13 +786,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation de la constitution : libération fractionnée",
     navLabel: "Libération fractionnée",
     blocs: [
+      { type: 'intertitre', texte: "1.8.1 Le schéma de l'Application 59" },
       {
         type: 'paragraphe',
         texte: "Lorsque l'Acte uniforme le permet pour la forme sociale considérée, par dérogation au principe de libération intégrale de l'article 41, le capital en numéraire peut n'être libéré que partiellement à la souscription, le solde étant appelé plus tard par les organes sociaux. Le compte **109 Apporteurs, capital souscrit, non appelé** entre alors en scène : il isole, au débit, la fraction promise mais pas encore exigible, en regard du crédit de 1011. L'Application 59 du Guide en donne le schéma : constitution le 15/11/N, 2 500 actions de numéraire de 10 000 libérées **de moitié** à la souscription ; la seconde moitié est appelée le 10/03/N+1 et versée le 15/04/N+1.",
       },
       {
         type: 'carte',
-        titre: "Souscription et appel de la 1re moitié (15/11/N)",
+        titre: "Exemple 1.4 — Libération fractionnée : souscription et appel de la première moitié (15/11/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -804,7 +807,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Le cycle complet en quatre temps (Application 59)",
+        titre: "Exemple 1.5 — Libération fractionnée : le cycle complet en quatre temps (Application 59)",
         tableau: {
           entetes: ["Date", "Écriture", "Montant"],
           lignes: [
@@ -820,21 +823,20 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Lecture du bilan en cours de libération",
         texte: "Tant que la seconde moitié n'est pas appelée, le capital social figure au passif pour son montant total souscrit (1011 + 1012 + 1013), et le compte 109, de sens débiteur, vient en retranchement (rubrique CB) : il matérialise la créance conditionnelle de la société sur ses apporteurs. Après l'appel, la créance devenue exigible migre de 109 vers 4613 ; après le versement, elle s'éteint. Les versements reçus par anticipation, avant tout appel, se logent au crédit du compte 4616 Apporteurs, versements anticipés.",
       },
+      { type: 'intertitre', texte: "1.8.2 Les conséquences juridiques de la libération fractionnée" },
       {
         type: 'paragraphe',
-        texte: "La libération fractionnée n'est pas qu'une commodité. Elle a des conséquences juridiques que le comptable doit signaler. Dans la SA, tant que le capital n'est pas entièrement libéré, la société ne peut ni augmenter son capital, sauf par apports en nature, ni émettre des obligations, et les actions non intégralement libérées doivent rester nominatives (art. 389). Les délais légaux, trois ans pour la SA et deux ans pour la SARL, courent à compter de l'immatriculation : un solde débiteur ancien au compte 109 doit alerter l'auditeur. Enfin, l'associé qui ne répond pas à l'appel devient un « apporteur défaillant » (compte 4617), dont le régime propre à la SA est étudié au chapitre 2.",
+        texte: "La libération fractionnée a des conséquences juridiques que le comptable doit signaler. Dans la SA, tant que le capital n'est pas entièrement libéré, la société ne peut ni augmenter son capital, sauf par apports en nature, ni émettre des obligations, et les actions non intégralement libérées doivent rester nominatives (art. 389). Les délais légaux, trois ans pour la SA et deux ans pour la SARL, courent à compter de l'immatriculation : un solde débiteur ancien au compte 109 doit alerter l'auditeur. Enfin, l'associé qui ne répond pas à l'appel devient un « apporteur défaillant » (compte 4617), dont le régime propre à la SA est étudié au chapitre 2.",
       },
       {
         type: 'paragraphe',
         texte: "Le premier dividende, s'il est prévu par les statuts, « est calculé comme un intérêt sur le montant libéré des actions » (art. 145, étudié au chapitre 3). Une action de 10 000 libérée de moitié ne reçoit donc que l'intérêt statutaire de 5 000 tant que le solde n'est pas versé. Le suivi exact de la libération, action par action et apporteur par apporteur, conditionne ainsi le calcul des dividendes : c'est une raison supplémentaire de tenir des sous-comptes par apporteur.",
       },
+      { type: 'intertitre', texte: "1.8.3 La situation à la clôture" },
       {
         type: 'paragraphe',
         texte: "Reprenons l'Application 59 au 31/12/N, date de clôture située entre la libération de la première moitié et l'appel de la seconde. Le compte 1013 présente un solde créditeur de 12 500 000 et le compte 1011 un solde créditeur de 12 500 000 : la rubrique CA Capital affiche 25 000 000. Le compte 109, débiteur de 12 500 000, figure juste en dessous, en négatif, dans la rubrique CB. Les capitaux propres ne comprennent donc que 12 500 000 de capital effectivement appelé, ce qui correspond à la banque encaissée. Le 4613 est soldé, puisque la fraction appelée a été versée le 30/11/N. Le lecteur du bilan voit d'un coup d'œil que la moitié des promesses reste à appeler, et la Note 13 lui en donne le délai.",
       },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
     ],
   },
   {
@@ -842,13 +844,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La société en formation et le premier exercice",
     navLabel: "Société en formation",
     blocs: [
+      { type: 'intertitre', texte: "1.9.1 La société en formation et la reprise des engagements" },
       {
         type: 'paragraphe',
         texte: "Entre l'idée de créer une société et son immatriculation, il se passe des semaines, parfois des mois. Pendant ce temps, les fondateurs agissent : ils louent un local, commandent du matériel, paient un géomètre ou un conseil. Or la société n'a pas encore d'existence juridique : elle ne jouit de la personnalité qu'à compter de son immatriculation au RCCM (art. 98). L'Acte uniforme distingue deux périodes. La société est **en formation** tant qu'elle n'est pas constituée (art. 100) ; elle est **constituée** à compter de la signature des statuts ou de leur adoption par l'assemblée générale constitutive (art. 101), mais son existence n'est opposable aux tiers qu'après l'immatriculation.",
       },
       {
         type: 'carte',
-        titre: "La reprise des engagements (art. 106 à 113)",
+        titre: "Tableau 1.7 — La reprise des engagements (art. 106 à 113)",
         tableau: {
           entetes: ["Situation", "Condition de la reprise", "Article"],
           lignes: [
@@ -861,17 +864,18 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Effet de la reprise : les actes repris « sont réputés avoir été contractés par celle-ci dès l'origine ». À défaut, ils sont inopposables à la société et leurs auteurs « sont tenus solidairement et indéfiniment par les obligations qu'ils comportent » (art. 110).",
       },
+      { type: 'intertitre', texte: "1.9.2 La traduction comptable de la reprise" },
       {
         type: 'paragraphe',
         texte: "La règle de l'article 110 a une conséquence comptable nette. Puisque les engagements repris sont réputés contractés par la société dès l'origine, c'est la société, et non le fondateur, qui les enregistre dans sa comptabilité, en principe à leur date et pour leur montant. Un loyer payé par un fondateur avant l'immatriculation devient une charge de loyer de la société (622) ; un ordinateur acheté par lui pour la société entre à l'actif de celle-ci (2441) ; une facture de conseil non encore payée devient une dette fournisseur (401). À l'inverse, un engagement qui n'a pas été repris ne concerne pas la société : il reste l'affaire personnelle de ses auteurs et ne doit laisser aucune trace dans ses comptes.",
       },
       {
         type: 'paragraphe',
-        texte: "Reste à savoir qui a payé. Lorsqu'un fondateur a avancé les fonds de sa poche, la société lui doit ces sommes : c'est une dette envers un associé, qui se loge au compte **462 Associés, comptes courants**. L'AUDCIF le prévoit expressément : le compte 46 est « crédité des fonds mis ou laissés temporairement à la disposition de la société, par le débit des comptes de trésorerie (ou de charges, s'il s'agit de frais réglés pour le compte de l'entité) ». Si le fondateur accepte ensuite de convertir sa créance en capital lors d'une augmentation, il libérera ses titres par compensation (art. 44, chapitre 4) ; s'il en demande le remboursement, la société débitera le 462 par le crédit de la banque.",
+        texte: "Il reste à identifier qui a payé. Lorsqu'un fondateur a avancé les fonds de sa poche, la société lui doit ces sommes : c'est une dette envers un associé, qui se loge au compte **462 Associés, comptes courants**. L'AUDCIF le prévoit expressément : le compte 46 est « crédité des fonds mis ou laissés temporairement à la disposition de la société, par le débit des comptes de trésorerie (ou de charges, s'il s'agit de frais réglés pour le compte de l'entité) ». Si le fondateur accepte ensuite de convertir sa créance en capital lors d'une augmentation, il libérera ses titres par compensation (art. 44, chapitre 4) ; s'il en demande le remboursement, la société débitera le 462 par le crédit de la banque.",
       },
       {
         type: 'carte',
-        titre: "Exemple de reprise dans les comptes de la société",
+        titre: "Exemple 1.6 — La reprise des engagements dans les comptes de la société",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -884,6 +888,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Écriture passée à la date de l'immatriculation, pour des engagements figurant dans l'état annexé aux statuts (art. 107). Les montants sont illustratifs.",
       },
+      { type: 'intertitre', texte: "1.9.3 Le premier exercice" },
       {
         type: 'paragraphe',
         texte: "Les opérations de la période de formation tombent dans le **premier exercice**. L'AUDCIF fixe l'exercice à douze mois, coïncidant avec l'année civile, mais prévoit deux assouplissements pour le premier : sa durée est « exceptionnellement inférieure à douze mois pour le premier exercice débutant au cours du premier semestre de l'année civile », et elle « peut être supérieure à douze mois pour le premier exercice commencé au cours du deuxième semestre de l'année » (art. 7). Une société immatriculée en mars N clôt donc son premier exercice le 31 décembre N, après dix mois ; une société immatriculée en septembre N peut le clore le 31 décembre N+1, après seize mois, ce qui évite de dresser des comptes pour quelques semaines d'activité.",
@@ -898,12 +903,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Et si M. N. avait signé seul ?",
+        titre: "L'engagement non repris : la commande de M. N.",
         texte: "La commande du véhicule par M. N., non mentionnée dans l'état des actes annexé aux statuts, n'est pas reprise à l'immatriculation. Elle reste son affaire personnelle : faute de reprise, l'engagement est inopposable à la société, et M. N. en répond personnellement (art. 110). La société peut encore le reprendre après sa constitution, si l'assemblée ordinaire l'approuve en connaissance de cause, M. N. ne prenant pas part au vote (art. 108). Tant que cette approbation n'existe pas, le comptable n'enregistre rien. Le jour où elle intervient, l'engagement est réputé contracté par la société dès l'origine.",
       },
-      { type: 'controle', question: QCM[26] },
-      { type: 'controle', question: QCM[27] },
-      { type: 'controle', question: QCM[28] },
     ],
   },
   {
@@ -911,13 +913,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le capital variable et la présentation du capital",
     navLabel: "Capital variable et bilan",
     blocs: [
+      { type: 'intertitre', texte: "1.10.1 Le capital variable" },
       {
         type: 'paragraphe',
         texte: "Le capital est fixe par principe, mais l'article 67 renvoie à une dérogation : le **capital variable** des articles 269-1 à 269-7. Il peut être stipulé dans les statuts des SA ne faisant pas appel public à l'épargne et des SAS « que le capital social est susceptible soit d'augmentation par des versements successifs des associés ou l'admission d'associés nouveaux, soit de diminution par la reprise totale ou partielle des apports effectués » (art. 269-1). La mention « à capital variable » s'ajoute alors à la forme sociale dans tous les actes et documents destinés aux tiers (art. 269-2), et les statuts organisent eux-mêmes les modalités de souscription, de libération et de reprise des apports (art. 269-2-1).",
       },
       {
         type: 'carte',
-        titre: "Les règles du capital variable (art. 269-3 à 269-7)",
+        titre: "Encadré 1.4 — Les règles du capital variable (art. 269-3 à 269-7)",
         liste: [
           "Les actes constatant les augmentations ou diminutions opérées dans ce cadre ne sont assujettis ni au dépôt ni à la publication ; le droit d'opposition des créanciers en cas de réduction non motivée par des pertes est écarté (art. 269-3).",
           "Les statuts peuvent donner aux dirigeants ou à l'assemblée le droit de s'opposer au transfert des titres ; tout transfert réalisé en violation est nul (art. 269-4).",
@@ -934,14 +937,15 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le capital variable répond à des besoins concrets : sociétés dont les associés entrent et sortent souvent, groupements de producteurs organisés en SAS, jeunes entreprises qui accueillent des investisseurs par tranches successives. Il évite de réunir une assemblée extraordinaire et d'accomplir des formalités de publicité à chaque mouvement. Mais la souplesse a un prix pour les tiers : le capital qu'ils lisent dans les statuts n'est plus une garantie figée. C'est pourquoi l'Acte uniforme compense l'absence d'opposition par deux protections, le plancher statutaire et la responsabilité quinquennale de l'associé sortant dans la limite de ce qui lui a été restitué. Pour le comptable, le capital du bilan est alors celui qui résulte des mouvements réellement enregistrés, et il peut différer du chiffre inscrit dans les statuts.",
       },
+      { type: 'intertitre', texte: "1.10.2 Application : la constitution de KALEMIE LOGISTIQUE" },
       {
         type: 'paragraphe',
         texte: "Retour à KALEMIE LOGISTIQUE, dont le cas 5 détaille les écritures. Le 25 août N, la société est immatriculée : le capital de 20 000 000 FC est entièrement libéré et déposé en banque, les dépenses de formation avancées par Mme A. sont reprises dans ses comptes avec une dette de 6 199 500 FC au 4621, et la commande du véhicule attend l'approbation de l'assemblée. Immatriculée au second semestre, la société peut prolonger son premier exercice jusqu'au 31 décembre N+1 (art. 7 AUDCIF). En quelques écritures, elle a parcouru tout ce chapitre : l'obligation d'apport, la libération, le dépôt des fonds, la reprise des engagements de la période de formation et le premier exercice. Les chapitres suivants la verront grandir, emprunter, distribuer ses premiers dividendes, et peut-être un jour fusionner ou se dissoudre.",
       },
-      { type: 'controle', question: QCM[29] },
+      { type: 'intertitre', texte: "1.10.3 La présentation du capital dans les états financiers" },
       {
         type: 'carte',
-        titre: "Où retrouver le capital dans les états financiers",
+        titre: "Tableau 1.8 — Le capital dans les états financiers",
         tableau: {
           entetes: ["Élément", "Comptes", "Présentation"],
           lignes: [
@@ -961,7 +965,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Ce premier chapitre installe les outils de tout le module. Les comptes 101, 109 et 461 reviendront dans chaque opération sur le capital : au chapitre 2 pour les incidents de libération propres à la SARL et à la SA, au chapitre 4 pour les augmentations, au chapitre 5 pour les réductions et l'amortissement, au chapitre 8 pour les fusions, qui ne sont rien d'autre qu'un apport en nature d'un patrimoine entier. La méthode ne change pas : identifier l'étape juridique (promesse, appel, libération, remboursement), en déduire la créance ou la dette entre la société et ses associés, et faire passer le capital d'une subdivision à l'autre sans jamais en modifier le montant sans décision régulière.",
+        texte: "Les outils présentés dans ce chapitre servent dans tout le module. Les comptes 101, 109 et 461 reviendront dans chaque opération sur le capital : au chapitre 2 pour les incidents de libération propres à la SARL et à la SA, au chapitre 4 pour les augmentations, au chapitre 5 pour les réductions et l'amortissement, au chapitre 8 pour les fusions, qui ne sont rien d'autre qu'un apport en nature d'un patrimoine entier. La méthode ne change pas : identifier l'étape juridique (promesse, appel, libération, remboursement), en déduire la créance ou la dette entre la société et ses associés, et faire passer le capital d'une subdivision à l'autre sans jamais en modifier le montant sans décision régulière.",
       },
     ],
   },
