@@ -904,7 +904,7 @@ const SECTIONS: Chapitre['sections'] = [
   },
   {
     numero: '6.10',
-    titre: "Le marché obligataire en RDC : l'État ouvre la voie, la Bourse se construit",
+    titre: "Le marché obligataire en RDC : l'émission internationale de l'État et la future Bourse",
     navLabel: "Marché congolais",
     blocs: [
       { type: 'intertitre', texte: "6.10.1 Le contexte congolais" },
