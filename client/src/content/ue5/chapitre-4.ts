@@ -232,8 +232,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Du budget de moyens au budget-programme',
     navLabel: 'La réforme',
     blocs: [
+      { type: 'intertitre', texte: "4.1.1 Les limites du budget de moyens" },
       { type: 'paragraphe', texte: "Avant la LOFIP, le budget congolais était un **budget de moyens** : chaque ministère recevait des dotations par nature de dépense, sans avoir à justifier des résultats obtenus. Deux défauts majeurs : aucun lien entre crédits et résultats, et aucun instrument pour évaluer l'efficacité de la dépense. La LOFIP de 2011 consacre à la place une **gestion budgétaire axée sur les résultats** : les crédits sont regroupés par *programmes* porteurs d'objectifs mesurables - l'exposé des motifs de la loi n° 23/030 de 2023 parle du « budget-programme, mode de gestion par lequel l'allocation des crédits budgétaires est opérée au profit d'actions à mener dans le cadre des politiques »." },
-      { type: 'carte', titre: 'Budget de moyens et budget-programme comparés', tableau: {
+      { type: 'carte', titre: "Tableau 4.1 — Budget de moyens et budget-programme comparés", tableau: {
         entetes: ['Critère', 'Budget de moyens (ancien)', 'Budget-programme (LOFIP)'],
         lignes: [
           ['Présentation', 'Par lignes de crédit et nature de dépense', 'Par programmes, avec objectifs et indicateurs'],
@@ -243,9 +244,15 @@ const SECTIONS: Chapitre['sections'] = [
           ['Contrôle du Parlement', 'Sur les moyens votés', 'Sur les résultats : PAP au vote, RAP à la reddition'],
         ],
       } },
+      { type: 'intertitre', texte: "4.1.2 Programmes et dotations" },
       { type: 'paragraphe', texte: "La présentation par programme n'abolit pas la nomenclature : les crédits restent spécialisés par titre et par source de financement (art. 8), mais « dans le cadre d'un budget programme, la présentation des crédits par subdivision de la nomenclature budgétaire, chapitre, article et littera est indicative » (art. 8 in fine). Et depuis la loi n° 23/030, le système est double : les ministères gèrent des **programmes** soumis à la performance, les institutions de la République reçoivent des **dotations** - « crédits budgétaires alloués aux institutions de la République dont la gestion budgétaire n'est pas soumise à la règle de la performance » (art. 3 pt. 20), sans objectifs ni indicateurs, mais sans échapper à la comptabilité publique ni au contrôle." },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
+      { type: 'intertitre', texte: "4.1.3 Les trois dimensions de la performance" },
+      { type: 'paragraphe', texte: "La performance d'un programme ne se mesure pas à la consommation de ses crédits. Le guide d'élaboration des PAP et RAP publié en juillet 2021 par les ministères du Budget et des Finances distingue trois dimensions. L'**efficacité** est la capacité à atteindre des objectifs socio-économiques fixés à l'avance. L'**efficience** consiste, selon le guide, pour « un même niveau de ressources, à accroître les produits des activités publiques ou, pour un même niveau d'activité, à nécessiter moins de moyens ». La **qualité du service rendu** précise la nature du produit délivré à l'usager. Le guide associe chaque dimension à un point de vue : le citoyen s'attache à l'efficacité des politiques publiques, le contribuable à l'efficience, l'usager à la qualité des prestations." },
+      { type: 'carte', titre: "Tableau 4.2 — Les trois dimensions de la performance appliquées à la délivrance des passeports", tableau: { entetes: ["Dimension", "Question posée", "Exemple d'indicateur", "Point de vue"], lignes: [
+        ["Efficacité", "L'objectif est-il atteint ?", "Proportion des demandes recevables satisfaites dans l'année", "Citoyen"],
+        ["Efficience", "À quel coût ?", "Coût unitaire de délivrance d'un passeport", "Contribuable"],
+        ["Qualité de service", "Dans quelles conditions pour l'usager ?", "Délai moyen de délivrance", "Usager"],
+      ] }, note: "L'exemple des passeports est repris du guide PAP/RAP de 2021 ; les formulations d'indicateurs sont proposées à titre pédagogique. Un programme équilibré combine les trois dimensions : un service peut délivrer tous les passeports demandés (efficacité) à un coût excessif (efficience) et avec des délais de plusieurs mois (qualité)." },
     ],
   },
   {
@@ -253,8 +260,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'architecture : fonction, programme, action, dotation",
     navLabel: 'Architecture',
     blocs: [
-      { type: 'filet', titre: 'Art. 43 LOFIP - texte exact', texte: "« Un programme regroupe les crédits destinés à mettre en œuvre une action ou un ensemble cohérent d'actions relevant d'un même ministère ou institution et auquel sont associés des objectifs précis, définis en fonction des finalités d'intérêt général, ainsi que des résultats attendus et faisant l'objet d'une évaluation au moyen d'indicateurs de performance. Chaque ministère ou Institution peut créer un programme intitulé « administration générale » destinée à recevoir les crédits non spécifiquement affectés à un autre programme. Seule une disposition de loi de finances d'initiative gouvernementale peut créer ou supprimer un programme. »" },
-      { type: 'carte', titre: 'Les quatre étages de l\'architecture', tableau: {
+      { type: 'intertitre', texte: "4.2.1 Le programme" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 43 : le programme", texte: "« Un programme regroupe les crédits destinés à mettre en œuvre une action ou un ensemble cohérent d'actions relevant d'un même ministère ou institution et auquel sont associés des objectifs précis, définis en fonction des finalités d'intérêt général, ainsi que des résultats attendus et faisant l'objet d'une évaluation au moyen d'indicateurs de performance. Chaque ministère ou Institution peut créer un programme intitulé « administration générale » destinée à recevoir les crédits non spécifiquement affectés à un autre programme. Seule une disposition de loi de finances d'initiative gouvernementale peut créer ou supprimer un programme. »" },
+      { type: 'intertitre', texte: "4.2.2 Fonctions, programmes, actions et dotations" },
+      { type: 'carte', titre: "Tableau 4.3 — Les quatre niveaux de l'architecture budgétaire", tableau: {
         entetes: ['Niveau', 'Base', 'Rôle'],
         lignes: [
           ['**Fonction**', 'Art. 44 · art. 3 pt. 26', "Regroupement de programmes (et, depuis 2023, de dotations) concourant à une même politique publique ; institutionnelle, ministérielle ou interministérielle - l'interministérialité impose coordination et présentation conjointe des résultats à la reddition des comptes"],
@@ -263,16 +272,20 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Action**', 'Art. 3 pt. 1', "« Composante d'un programme créée pour la prestation de services et d'activités subordonnés. Elle précise la destination de la dépense » - pas de crédits propres : la mise à disposition des crédits est détaillée par titre et source correspondant aux dotations ouvertes pour chaque action (art. 88)"],
         ],
       } },
-      { type: 'carte', titre: 'Exemple : un ministère de la santé structuré en programmes', liste: [
+      { type: 'carte', titre: "Exemple 4.1 — Un ministère de la santé structuré en programmes", liste: [
         "**Programme 1 - Soins de santé primaires** : actions « vaccination », « santé maternelle et infantile », « lutte contre le paludisme » ; objectif : couverture vaccinale, avec indicateur chiffré et cible annuelle.",
         "**Programme 2 - Hôpitaux généraux de référence** : actions « équipements hospitaliers », « formation du personnel soignant ».",
         "**Programme 3 - Administration générale** : crédits non affectés aux autres programmes (art. 43).",
         "Une **fonction « santé »** peut regrouper ces programmes et, si d'autres ministères y concourent, devenir interministérielle (art. 44).",
       ], note: "Exemple pédagogique. Dans les documents réels, l'annexe XXI de la LF 2026 présente pour la première fois les crédits de chaque section budgétaire par programme et par action." },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[14] },
+      { type: 'intertitre', texte: "4.2.3 Les acteurs de la gestion de programme" },
+      { type: 'paragraphe', texte: "Le décret n° 22/37 du 29 octobre 2022 portant gouvernance budgétaire donne corps à cette architecture. Chaque ministère ou institution dispose de programmes opérationnels, qui justifient sa raison d'être, et d'un programme « Administration générale », programme d'appui qui reçoit les crédits non affectés (art. 70). Le programme se décline en **unités opérationnelles de programme (UOP)**, qui correspondent à des structures existantes de l'organigramme : direction générale, direction, service ou division provinciale d'un service déconcentré (art. 72-73). Le décret distingue des acteurs de pilotage, l'ordonnateur et le responsable de programme, et des acteurs de mise en œuvre, le responsable d'unité opérationnelle et l'opérateur de l'État (art. 85)." },
+      { type: 'carte', titre: "Tableau 4.4 — Les acteurs de la gestion de programme (décret n° 22/37)", tableau: { entetes: ["Acteur", "Désignation", "Rôle"], lignes: [
+        ["Ordonnateur (ministre ou responsable d'institution)", "Ministre ou responsable d'institution, ordonnateur des crédits mis à sa disposition ; il peut déléguer son pouvoir au RPROG et au RUOP (art. 86, 88-89)", "Fixe les objectifs généraux des programmes, nomme leurs responsables, arbitre l'allocation des ressources entre programmes, anime le dialogue de gestion et rend compte à travers le RAP (art. 86)"],
+        ["Responsable de programme (RPROG)", "Nommé par l'ordonnateur parmi les responsables des structures existantes, sans création d'emploi ni d'échelon hiérarchique (art. 92 et 96) ; le secrétaire général pilote le programme « Administration générale » (art. 98)", "Pilote la mise en œuvre du programme : détermine les objectifs spécifiques, affecte les moyens, contrôle les résultats, définit le périmètre des UOP et organise le dialogue de gestion (art. 91)"],
+        ["Responsable d'unité opérationnelle (RUOP)", "Responsable de la structure érigée en UOP", "Détermine les modalités de mise en œuvre des activités, prescrit l'exécution des dépenses de son unité et en rend compte au RPROG (art. 99)"],
+      ] }, note: "Le décret n'est applicable dans l'intégralité de ses dispositions qu'au 1er janvier de la cinquième année suivant sa signature, soit le 1er janvier 2027 (art. 167) ; seul un bloc de dispositions, relatif notamment à l'élaboration des lois de finances, au contrôle budgétaire et à la transparence, est d'application immédiate (art. 166)." },
+      { type: 'paragraphe', texte: "Le passage du budget de moyens au budget-programme modifie ainsi la chaîne des responsabilités. Dans le budget de moyens, le directeur administratif et financier gère des lignes de crédits pour l'ensemble du ministère. Dans le budget-programme, un responsable identifié s'engage devant le ministre, puis devant le Parlement à travers le PAP, sur des objectifs chiffrés, et rend compte de leur réalisation dans le RAP. La responsabilisation suppose une contrepartie : une marge de manœuvre réelle dans l'emploi des crédits, que la fongibilité organise." },
     ],
   },
   {
@@ -280,20 +293,23 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La gestion des crédits du programme : fongibilité et mouvements',
     navLabel: 'Fongibilité · mouvements',
     blocs: [
+      { type: 'intertitre', texte: "4.3.1 Les degrés de liberté du gestionnaire" },
       { type: 'paragraphe', texte: "Le gestionnaire de programme dispose d'une liberté graduée, étudiée en détail au chapitre 2 et rappelée ici du point de vue du pilotage. Premier degré, la **fongibilité** : « les crédits ouverts au sein d'un programme sont fongibles à l'intérieur du titre et de la source de financement », sous le suivi du Ministre du Budget (art. 45) - le gestionnaire réalloue librement entre actions et lignes d'un même titre. Deuxième degré, le **virement** entre titres d'un même programme : arrêté du Ministre du Budget sur proposition du ministre concerné (art. 47). Troisième degré, le **transfert** entre programmes : d'un même ministère ou entre dotations (art. 48, plafond annuel par décret du Premier ministre) ou de ministères différents (art. 49, décret du Premier ministre après avis du Ministre du Budget), avec ratification des ouvertures de crédits en LFR." },
-      { type: 'carte', titre: 'Les verrous', liste: [
+      { type: 'intertitre', texte: "4.3.2 Les limites" },
+      { type: 'carte', titre: "Encadré 4.1 — Les limites de la liberté du gestionnaire", liste: [
         "**Art. 50** : aucun virement ni transfert au profit d'un programme non prévu par une loi de finances - on ne crée pas un programme par mouvement de crédits.",
         "**Art. 51** : aucun virement ni transfert au profit du titre des dépenses de personnel ; les crédits de personnel sont des plafonds assortis de plafonds d'autorisation d'emplois spécialisés par ministère, institution et budget annexe, et les créations d'emplois relèvent d'une loi de finances.",
         "**Art. 3 pt. 28** : la fongibilité est asymétrique - les crédits du personnel peuvent être utilisés pour le fonctionnement, l'intervention et l'investissement, « tandis que l'inverse est interdit ».",
         "**Art. 58-59** : aucun mouvement entre un budget annexe ou un compte spécial et le budget général.",
       ] },
+      { type: 'intertitre', texte: "4.3.3 L'investissement pluriannuel" },
       { type: 'filet', titre: "L'investissement pluriannuel : AE, révisions et reports", texte: "Les autorisations d'engagement pluriannuelles permettent d'engager des marchés dont l'exécution s'étale sur plusieurs exercices (art. 3 pt. 2, 22, 42). Elles peuvent être révisées « pour tenir compte des modifications techniques ou des variations de coûts », en priorité sur les AE ouvertes et non utilisées (art. 52). Les AE pluriannuelles et les crédits de paiement non consommés sont reportés sur le même programme et le même titre par arrêtés conjoints du Ministre du Budget et du ministre intéressé, pris au plus tard le 31 mars de l'année suivante (art. 53). C'est l'outillage qui permet au budget-programme d'épouser le temps long des infrastructures sans briser l'annualité." },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[8] },
+      { type: 'carte', titre: "Exemple 4.2 — Autorisations d'engagement et crédits de paiement d'un marché routier sur trois ans (montants fictifs, milliards FC)", tableau: { entetes: ["Exercice", "Autorisation d'engagement", "Crédits de paiement", "Opération"], lignes: [
+        ["N", "90", "30", "Signature du marché de réhabilitation d'une route pour 90 ; paiement de l'avance de démarrage et de la première tranche de travaux"],
+        ["N+1", "0", "40", "Paiement des décomptes de travaux de l'année"],
+        ["N+2", "0", "20", "Paiement du solde après réception"],
+        ["**Total**", "**90**", "**90**", ""],
+      ] }, note: "L'autorisation d'engagement couvre en une fois l'engagement juridique total de l'État, car le marché oblige l'administration dès sa signature. Les crédits de paiement suivent le rythme des décaissements (art. 42). Si l'on n'ouvrait que des crédits de paiement annuels, le marché ne pourrait être signé que pour la tranche de l'année, ce qui fragmenterait les chantiers. Si le coût augmente pour des raisons techniques, l'autorisation d'engagement est révisée en priorité sur les autorisations ouvertes et non utilisées (art. 52)." },
     ],
   },
   {
@@ -301,8 +317,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les instruments de la performance : PAP, RAP et documents budgétaires',
     navLabel: 'PAP · RAP',
     blocs: [
+      { type: 'intertitre', texte: "4.4.1 Le projet et le rapport annuels de performance" },
       { type: 'paragraphe', texte: "La performance se joue dans deux documents symétriques. Le **projet annuel de performance (PAP)** accompagne le projet de loi de finances de l'année : introduit dans la liste de l'art. 79 par la loi n° 23/030 (point 6), il expose, programme par programme, la stratégie, les objectifs, les indicateurs chiffrés et les cibles - c'est l'engagement du responsable de programme devant le Parlement. Le **rapport annuel de performance (RAP)** accompagne le projet de loi portant reddition des comptes : l'art. 82 point 4 exige « le rapport annuel de performance par programme rendant compte de leur gestion et de leurs résultats » - c'est la reddition de comptes, où les réalisations sont confrontées aux cibles du PAP." },
-      { type: 'carte', titre: 'PAP et RAP comparés', tableau: {
+      { type: 'carte', titre: "Tableau 4.5 — PAP et RAP comparés", tableau: {
         entetes: ['Critère', 'PAP', 'RAP'],
         lignes: [
           ['Nature', 'Prévisionnel : cibles et moyens', 'Constaté : réalisations et écarts'],
@@ -311,7 +328,19 @@ const SECTIONS: Chapitre['sections'] = [
           ['Portée', 'Engagement du responsable de programme', "Reddition de comptes - l'approbation de la loi vaut quitus du Gouvernement (art. 87)"],
         ],
       } },
-      { type: 'carte', titre: "Les onze documents accompagnant le PLF (art. 79, réd. loi n° 23/030)", liste: [
+      { type: 'paragraphe', texte: "Le décret n° 22/37 précise le contenu des deux documents. Le PAP présente d'abord le ministère ou l'institution (organisation, stratégie, objectifs et indicateurs représentatifs, évolution des autorisations d'engagement et des crédits de paiement par programme, prévisions d'effectifs), puis chaque programme : périmètre, stratégie, objectifs, indicateurs et cibles, principales actions, tableaux commentés des crédits et des effectifs, opérateurs et fiches des indicateurs (art. 75). Le RAP adopte une structure symétrique ; pour chaque programme, il rend compte de l'exécution des engagements physiques pris dans le PAP, de l'exécution effective des moyens alloués et de la qualité de la gestion (art. 76-77). La symétrie permet de comparer, ligne par ligne, la prévision et la réalisation." },
+      { type: 'intertitre', texte: "4.4.2 La formulation des objectifs et des indicateurs" },
+      { type: 'paragraphe', texte: "La qualité d'un PAP dépend de ses objectifs et de ses indicateurs. Le guide de 2021 recommande un nombre limité d'objectifs, de l'ordre de deux à trois par programme, et estime que deux ou trois indicateurs par objectif suffisent. L'objectif s'énonce sous une forme non quantifiée qui indique une direction ; c'est la cible de l'indicateur qui fixe le niveau à atteindre, sur plusieurs années, en cohérence avec les prévisions budgétaires. Un bon indicateur est pertinent, clair et mesurable ; le guide déconseille les indicateurs composites, dont la cible dépend de pondérations difficiles à interpréter. Il met surtout en garde contre les indicateurs d'activité : le nombre de kilomètres de routes bitumées décrit ce que fait le programme, mais ne dit rien de son efficacité, qui porte sur l'amélioration de la desserte, ni de son efficience, qui s'apprécie par le coût du kilomètre construit." },
+      { type: 'carte', titre: "Exemple 4.3 — La fiche de performance d'un programme de soins de santé primaires (valeurs fictives)", tableau: { entetes: ["Élément", "Contenu"], lignes: [
+        ["Objectif stratégique", "Améliorer la couverture vaccinale des enfants de moins d'un an"],
+        ["Indicateur d'efficacité", "Taux de couverture vaccinale complète des enfants de moins d'un an : 62 % en N-1 (réalisation), cible 70 % en N et 80 % en N+2"],
+        ["Indicateur d'efficience", "Coût moyen par enfant complètement vacciné : 38 000 FC en N-1, cible 34 000 FC en N"],
+        ["Indicateur de qualité de service", "Proportion des centres de santé sans rupture de stock de vaccins pendant l'année : 71 % en N-1, cible 85 % en N"],
+        ["Source des données", "Système d'information sanitaire du ministère, sans enquête ad hoc coûteuse"],
+        ["Lecture au RAP", "Si la couverture atteint 66 %, le RAP explique l'écart de 4 points avec la cible et les mesures correctrices envisagées"],
+      ] }, note: "Le guide recommande de privilégier les systèmes de suivi existants : le coût de suivi d'un indicateur ne doit pas absorber les ressources destinées au service public." },
+      { type: 'intertitre', texte: "4.4.3 Les documents accompagnant le projet de loi de finances" },
+      { type: 'carte', titre: "Encadré 4.2 — Les onze documents accompagnant le projet de loi de finances (art. 79, rédaction de la loi n° 23/030)", liste: [
         "1. L'exposé général (synthèse du budget, politique économique et financière, environnement, CBMT, exécution en cours).",
         "2. Le rapport d'évaluation de l'exécution du budget de l'année précédente.",
         '3. Le rapport d\'exécution du budget en cours au premier semestre.',
@@ -324,8 +353,6 @@ const SECTIONS: Chapitre['sections'] = [
         '10. Le **rapport consolidé de la situation financière des entreprises publiques et des établissements publics**.',
         '11. La **déclaration sur les risques budgétaires**.',
       ], note: 'Les points 6 à 11 sont les apports de la loi n° 23/030 : la version de 2011 s\'arrêtait aux cinq premiers. En amont du dépôt, le CBMT est transmis à l\'Assemblée nationale au plus tard le 1er juin pour le débat d\'orientation budgétaire (art. 13, réd. 2023).' },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[16] },
     ],
   },
   {
@@ -333,18 +360,18 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La réforme en marche : délais, acquis et défis',
     navLabel: 'État de la réforme',
     blocs: [
-      { type: 'paragraphe', texte: "Le basculement intégral au budget-programme est une trajectoire, pas un événement. Les dispositions transitoires de la LOFIP (art. 230) prévoyaient une application progressive de ses innovations « endéans une période de sept ans » à dater de sa promulgation du 13 juillet 2011. Le délai s'est révélé insuffisant : la loi n° 18/010 du 9 juillet 2018 a prorogé de **cinq ans** le délai d'application intégrale et fait repartir la progressivité de sa propre promulgation (art. 230ter) ; la loi n° 23/030 du 28 juin 2023 a prorogé de **cinq ans encore** (art. 234), portant l'échéance théorique aux alentours de 2028 - et ajouté une obligation nouvelle : chaque année, le Ministre du Budget présente à l'Assemblée nationale, au cours de la session budgétaire, un rapport décrivant les progrès de la réforme." },
-      { type: 'carte', titre: 'Les acquis (exposé des motifs de la loi n° 23/030 et textes récents)', liste: [
+      { type: 'intertitre', texte: "4.5.1 Le calendrier de la réforme" },
+      { type: 'paragraphe', texte: "Le basculement intégral au budget-programme s'inscrit dans une trajectoire de plusieurs années. Les dispositions transitoires de la LOFIP (art. 230) prévoyaient une application progressive de ses innovations « endéans une période de sept ans » à dater de sa promulgation du 13 juillet 2011. Le délai s'est révélé insuffisant : la loi n° 18/010 du 9 juillet 2018 a prorogé de **cinq ans** le délai d'application intégrale et fait repartir la progressivité de sa propre promulgation (art. 230ter) ; la loi n° 23/030 du 28 juin 2023 a prorogé de **cinq ans encore** (art. 234), portant l'échéance théorique aux alentours de 2028 - et ajouté une obligation nouvelle : chaque année, le Ministre du Budget présente à l'Assemblée nationale, au cours de la session budgétaire, un rapport décrivant les progrès de la réforme." },
+      { type: 'intertitre', texte: "4.5.2 Les acquis" },
+      { type: 'carte', titre: "Encadré 4.3 — Les acquis de la réforme", liste: [
         "**Découpage des ministères en programmes budgétaires** : accompli selon l'exposé des motifs de 2023 ; l'annexe XXI de la LF 2026 présente pour la première fois les crédits par section, programme et action.",
         "**Instruments d'évaluation de la performance** et cadre juridique du budget-programme mis en place ; les PAP accompagnent désormais le PLF (art. 79 pt. 6).",
         "**Déconcentration de l'ordonnancement** : l'art. 5 de la LF 2026 (n° 25/060) accélère la déconcentration prévue à l'art. 103 LOFIP, avec neuf ministères sectoriels pilotes dès 2026 (Finances, Santé publique, Éducation, Développement rural, Infrastructures et Travaux publics, Agriculture, Défense nationale, Pêche et élevage, Enseignement supérieur et universitaire).",
         "**Dotations des institutions** : la loi n° 23/030 a clarifié le régime des crédits des institutions de la République, non soumis à la performance.",
       ] },
-      { type: 'filet', titre: 'Les défis - données externes à manier avec prudence', texte: "L'exposé des motifs de 2023 reconnaît que la migration reste tributaire de réformes transversales : comptabilité publique, rationalisation des cadres organiques, déconcentration de l'ordonnancement, système d'information des finances publiques. Des observateurs de la société civile - dont l'Observatoire de la Dépense Publique (ODEP), qui rapportait pour le premier trimestre 2025 un taux d'exécution global de 17,1% et d'environ 4% pour les investissements - pointent la persistance d'une culture de moyens : ces chiffres, extérieurs aux textes officiels, illustrent l'écart entre la lettre de la réforme et sa pratique. La logique de performance ne produira ses effets que si l'exécution suit l'autorisation." },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[13] },
+      { type: 'paragraphe', texte: "L'année 2026 marque une accélération. La loi de finances pour 2026 présente pour la première fois, dans son annexe XXI, les crédits de chaque section par programme et par action, et son article 5 engage la déconcentration de l'ordonnancement dans neuf ministères pilotes. Le 29 janvier 2026, les comptables publics affectés à ces ministères ont prêté serment ; la phase pilote s'appuie sur quatre postes comptables qui prennent en charge les opérations de sept ministères. Le 1er janvier 2027, le décret n° 22/37 entrera en vigueur dans l'intégralité de ses dispositions, y compris la mécanique des programmes, des UOP et des responsables de programme. L'échéance de l'application intégrale de la LOFIP, prorogée par la loi n° 23/030, se situe peu après. Tant que ces étapes ne sont pas franchies, les articles 84 et 85 de la loi de finances pour 2026 maintiennent un régime transitoire, dans lequel le Ministre du Budget liquide les dépenses par visa préalable et le Ministre des Finances les ordonnance." },
+      { type: 'intertitre', texte: "4.5.3 Les défis" },
+      { type: 'filet', titre: "Les défis de la réforme", texte: "L'exposé des motifs de 2023 reconnaît que la migration reste tributaire de réformes transversales : comptabilité publique, rationalisation des cadres organiques, déconcentration de l'ordonnancement, système d'information des finances publiques. Des observateurs de la société civile - dont l'Observatoire de la Dépense Publique (ODEP), qui rapportait pour le premier trimestre 2025 un taux d'exécution global de 17,1% et d'environ 4% pour les investissements - pointent la persistance d'une culture de moyens : ces chiffres, extérieurs aux textes officiels, illustrent l'écart entre la lettre de la réforme et sa pratique. La logique de performance ne produira ses effets que si l'exécution suit l'autorisation." },
     ],
   },
 ]
