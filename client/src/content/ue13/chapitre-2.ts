@@ -393,6 +393,58 @@ const QCM: Chapitre['qcm'] = [
     explication: "Machines et terrains sont des catégories distinctes (IAS 16.37), et la réévaluation s'apprécie actif par actif. La diminution de la machine (30 − 10 = 20) va en résultat net, faute d'écart de réévaluation antérieur sur ce même actif (§ 40). La hausse du terrain (150 − 100 = 50) va en autres éléments du résultat global, dans l'écart de réévaluation (§ 39). On ne compense pas la moins-value d'un actif avec la plus-value d'un autre : 20 en charges, 50 en capitaux propres.",
     articleRef: "IAS 16.36-37 et 16.39-40",
   },
+  {
+    id: 'ue13c2-q29',
+    question: "Une société minière détient un moteur de rechange pour ses camions, utilisable pendant plusieurs années. Comment le classe-t-elle ?",
+    options: [
+      { id: 'a', texte: "Toujours en stocks, s'agissant d'une pièce de rechange" },
+      { id: 'b', texte: "En immobilisation corporelle, s'il répond à la définition d'une immobilisation corporelle ; sinon en stocks" },
+      { id: 'c', texte: "En charges dès l'acquisition" },
+      { id: 'd', texte: "En immobilisation incorporelle" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 16.8 : les pièces de rechange, les pièces de sécurité et le matériel d'entretien sont comptabilisés selon IAS 16 s'ils répondent à la définition des immobilisations corporelles, notamment une utilisation attendue sur plus d'une période ; sinon, ils sont classés en stocks.",
+    articleRef: "IAS 16.6-8",
+  },
+  {
+    id: 'ue13c2-q30',
+    question: "Une entité remplace une partie d'une immobilisation dont la valeur comptable n'a jamais été suivie séparément. Que prévoit IAS 16 ?",
+    options: [
+      { id: 'a', texte: "La partie remplacée reste au bilan, faute de valeur connue" },
+      { id: 'b', texte: "Le nouveau coût est passé en charges" },
+      { id: 'c', texte: "La partie remplacée est décomptabilisée ; si sa valeur comptable ne peut être déterminée, le coût de remplacement peut servir d'indication de son coût d'origine" },
+      { id: 'd', texte: "La totalité de l'immobilisation est décomptabilisée" },
+    ],
+    reponseCorrecte: 'c',
+    explication: "IAS 16.70 : la valeur comptable de la partie remplacée est décomptabilisée, qu'elle ait ou non été amortie séparément ; s'il n'est pas praticable de la déterminer, le coût de remplacement peut être utilisé comme indication du coût de la partie remplacée au moment de son acquisition.",
+    articleRef: "IAS 16.13, 70",
+  },
+  {
+    id: 'ue13c2-q31',
+    question: "La durée d'utilité d'une marque, jusque-là indéterminée, devient déterminée. Quelles conséquences ?",
+    options: [
+      { id: 'a', texte: "Retraitement rétrospectif de l'amortissement depuis l'acquisition" },
+      { id: 'b', texte: "Changement d'estimation appliqué prospectivement, et test de dépréciation selon IAS 36, ce changement étant un indice de perte de valeur" },
+      { id: 'c', texte: "Aucune conséquence avant la fin de la durée d'utilité" },
+      { id: 'd', texte: "Décomptabilisation de la marque" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 38.109 : le passage d'une durée indéterminée à une durée déterminée est un changement d'estimation selon IAS 8. IAS 38.110 : ce changement indique qu'il se peut que l'actif se soit déprécié ; l'entité effectue un test de dépréciation.",
+    articleRef: "IAS 38.109-110",
+  },
+  {
+    id: 'ue13c2-q32',
+    question: "Lequel de ces faits constitue, selon IFRS 6, un indice de dépréciation d'un actif de prospection et d'évaluation ?",
+    options: [
+      { id: 'a', texte: "Une hausse du cours du cuivre" },
+      { id: 'b', texte: "L'expiration prochaine du droit de prospecter dans la zone, sans renouvellement prévu" },
+      { id: 'c', texte: "Le forage d'un nouveau puits d'exploration" },
+      { id: 'd', texte: "L'obtention d'un permis d'exploitation" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 6.20 : l'expiration, pendant la période ou dans un proche avenir, du droit de prospecter sans renouvellement prévu, l'absence de dépenses ultérieures importantes prévues, l'absence de découverte commercialement viable et la décision de cesser l'activité, ou des données indiquant que la valeur comptable ne sera pas récupérée, imposent un test selon IAS 36.",
+    articleRef: "IFRS 6.18-21",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -414,6 +466,25 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Cette délimitation revêt une importance particulière dans l'économie minière congolaise : le gisement exploité à Kolwezi échappe à IAS 16, tandis que les engins de chantier, les camions de roulage et l'usine de traitement y sont soumis.",
+      },
+      { type: 'intertitre', texte: "2.1.4 Pièces de rechange, pièces de sécurité et matériel d'entretien" },
+      {
+        type: 'paragraphe',
+        texte: "Les entreprises minières et industrielles congolaises détiennent souvent d'importants stocks de pièces, en raison des délais d'approvisionnement : un moteur de rechange pour les camions de roulage, un rotor de broyeur, un transformateur de secours. IAS 16 règle leur classement par renvoi à la définition : « Les éléments tels que les pièces de rechange, les pièces de sécurité et le matériel d'entretien sont comptabilisés selon la présente norme s'ils répondent à la définition des immobilisations corporelles. Sinon, ils sont classés en stocks. » (§ 8). Une pièce destinée à être utilisée sur plus d'une période relève donc d'IAS 16 ; un consommable courant relève d'IAS 2 et passe en charges lors de sa consommation.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 2.1 — Classement des pièces détenues par une société minière",
+        tableau: {
+          entetes: ['Élément', 'Analyse', 'Traitement'],
+          lignes: [
+            ['Filtres, huiles et courroies', 'Consommés en moins d\'un an, dans le cadre de l\'entretien courant', 'Stocks (IAS 2), puis charge à la consommation'],
+            ['Moteur de rechange pour la flotte de camions, utilisable pendant plusieurs années', "Répond à la définition d'une immobilisation corporelle", 'IAS 16'],
+            ['Transformateur de secours, conservé pour garantir la continuité de l\'usine', "Pièce de sécurité utilisée sur plus d'une période", "IAS 16 ; amortissement dès qu'il est prêt à être mis en service (§ 55)"],
+            ["Rotor de broyeur installé lors d'une révision majeure", "Remplacement d'une partie : activation du nouveau rotor, décomptabilisation de l'ancien", 'IAS 16.13 et 70'],
+          ],
+        },
+        note: "La frontière se déplace avec la durée d'usage, non avec le prix : une pièce coûteuse mais consommée dans l'année reste un stock. Le classement a des effets sur le bilan (actif non courant ou courant), sur l'amortissement et sur le tableau des flux de trésorerie (investissement ou exploitation).",
       },
       { type: 'intertitre', texte: "2.1.2 Critères de comptabilisation" },
       {
@@ -459,7 +530,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.1 — Analyse des coûts d'acquisition d'une ligne de mise en bouteilles",
+        titre: "Exemple 2.2 — Analyse des coûts d'acquisition d'une ligne de mise en bouteilles",
         texte: "Une brasserie acquiert une ligne de mise en bouteilles. Les dépenses suivantes sont analysées au regard des § 16 à 22 d'IAS 16.",
         tableau: {
           entetes: ['Dépense', 'Traitement', 'Justification'],
@@ -487,7 +558,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.2 — Acquisition d'une machine avec paiement échelonné",
+        titre: "Exemple 2.3 — Acquisition d'une machine avec paiement échelonné",
         texte: "Une machine est acquise au début de l'exercice N. Elle est payée 100 comptant, 110 à la fin de N et 121 à la fin de N+1 (montants en milliers de USD). Le taux d'actualisation retenu est de 10 %.",
         tableau: {
           entetes: ['Élément', 'Calcul', 'Montant'],
@@ -525,7 +596,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.3 — Coûts d'emprunt incorporés à une ligne de cuisson (MBANZA CIMENT SA, société fictive)",
+        titre: "Exemple 2.4 — Coûts d'emprunt incorporés à une ligne de cuisson (MBANZA CIMENT SA, société fictive)",
         texte: "La société construit une ligne de cuisson pendant tout l'exercice N. Emprunt spécifique : 4 000 000 USD à 9 %, tiré le 1er janvier ; produits du placement temporaire des fonds non encore dépensés : 150 000 USD. Emprunts généraux : 10 000 000 USD à 8 % et 5 000 000 USD à 11 %. Dépenses financées par les fonds généraux : 2 000 000 USD le 1er avril et 3 000 000 USD le 1er octobre.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant (USD)'],
@@ -563,7 +634,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.4 — Comptabilisation initiale d'un coût de démantèlement",
+        titre: "Exemple 2.5 — Comptabilisation initiale d'un coût de démantèlement",
         texte: "Un matériel industriel lourd est acquis le 2 janvier N pour 200 000 000 F ; sa durée d'utilité est de 10 ans. Le coût de démantèlement est estimé à 10 000 000 F au terme, et le taux d'actualisation à 12 %. L'exemple est repris du SYSCOHADA révisé (Titre VIII, ch. 6) et traité selon les IFRS.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant (F)'],
@@ -583,7 +654,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.5 — Révision de l'estimation du coût de démantèlement (IFRIC 1)",
+        titre: "Exemple 2.6 — Révision de l'estimation du coût de démantèlement (IFRIC 1)",
         liste: [
           "Situation au 31 décembre N+1 : provision 10 000 000 × 1,12⁻⁸, soit environ 4 038 832 ; valeur nette de l'actif de démantèlement 3 219 732 × 8/10, soit environ 2 575 786.",
           "Nouvelle estimation : 14 000 000 F au terme, au taux de 12 %. La provision s'établit à 14 000 000 × 1,12⁻⁸, soit environ 5 654 365, en hausse de 1 615 533.",
@@ -620,7 +691,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.6 — Amortissement par composants d'un camion de roulage minier",
+        titre: "Exemple 2.7 — Amortissement par composants d'un camion de roulage minier",
         texte: "Un camion de roulage exploité à Kolwezi a coûté 1 200 000 USD : moteur 300 000, remplacé tous les 4 ans ; jeu de pneus 120 000, remplacé tous les 18 mois ; structure 780 000, durée d'utilité 12 ans, valeur résiduelle 60 000. Le mode linéaire est retenu.",
         tableau: {
           entetes: ['Composant', 'Base amortissable', 'Durée', 'Dotation annuelle'],
@@ -646,7 +717,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.7 — Amortissement en unités d'œuvre et révision des estimations (avion ALPHA)",
+        titre: "Exemple 2.8 — Amortissement en unités d'œuvre et révision des estimations (avion ALPHA)",
         liste: [
           "Le 1er janvier N, une compagnie aérienne privée acquiert l'avion ALPHA pour 10 000 000 USD. Sa durée de vie physique est d'environ 20 ans, mais la compagnie revend habituellement ses avions après cinq à dix ans d'utilisation ; elle prévoit de conserver celui-ci cinq ans et de le revendre 8 000 000. La consommation des avantages est proportionnelle au kilométrage, estimé à 3 000 000 km sur cinq ans. Par hypothèse, l'avion n'est pas décomposé.",
           "La durée d'utilité retenue est de cinq ans, et non la durée de vie physique ; la valeur résiduelle est de 8 000 000 (IAS 16.6). Le montant amortissable s'élève à 2 000 000.",
@@ -678,7 +749,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.8 — Réévaluation d'un immeuble de bureaux (en milliers de USD)",
+        titre: "Exemple 2.9 — Réévaluation d'un immeuble de bureaux (en milliers de USD)",
         texte: "Un immeuble de bureaux situé à la Gombe a coûté 2 000 et est amorti sur 25 ans. Au bout de cinq ans, les amortissements cumulés s'élèvent à 400 et la valeur nette à 1 600. Un expert en estime la juste valeur à 2 400.",
         tableau: {
           entetes: ['', 'Méthode (a) : retraitement proportionnel', 'Méthode (b) : élimination'],
@@ -695,7 +766,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.9 — Réévaluations successives d'un composant",
+        titre: "Exemple 2.10 — Réévaluations successives d'un composant",
         texte: "Un composant acquis le 2 janvier N pour 100 000 USD HT, amorti linéairement sur 20 ans, appartient à une catégorie évaluée selon le modèle de la réévaluation. Justes valeurs : 95 500 fin N ; 108 000 fin N+1 ; 93 500 fin N+2 ; 72 000 fin N+3.",
         tableau: {
           entetes: ['Clôture', 'Amortissement', 'Valeur comptable avant réévaluation', 'Juste valeur', 'Traitement'],
@@ -727,6 +798,36 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "La perte d'un actif et son indemnisation constituent des événements distincts. Lorsqu'un entrepôt est détruit par un incendie, que l'assureur accepte d'indemniser le sinistre et que l'entreprise reconstruit, IAS 16.66 impose de traiter séparément la perte de l'actif, par dépréciation selon IAS 36 ou par décomptabilisation selon IAS 16, l'indemnité, comptabilisée en résultat net « lorsqu'elle devient exigible » (§ 65), et le coût du nouvel entrepôt, déterminé selon IAS 16. La perte n'est pas compensée par l'indemnité attendue, et celle-ci n'est pas comptabilisée tant qu'elle n'est pas exigible.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 2.11 — Remplacement d'une partie dont la valeur comptable n'est pas suivie séparément",
+        texte: "Une cimenterie remplace le revêtement réfractaire de son four pour 600 000 USD. Le four avait été acquis il y a six ans pour 9 000 000 USD, amorti sur quinze ans, sans que le revêtement ait été identifié comme composant. Le coût d'un revêtement équivalent il y a six ans est estimé, par indexation du coût actuel, à 480 000 USD ; ce revêtement aurait dû être amorti sur huit ans.",
+        tableau: {
+          entetes: ['Étape', 'Calcul', 'Montant'],
+          lignes: [
+            ['Coût estimé de la partie remplacée (IAS 16.70)', "Coût de remplacement utilisé comme indication, ajusté à la date d'acquisition", '480 000'],
+            ['Amortissement cumulé de la partie remplacée', '480 000 × 6 / 8', '360 000'],
+            ['Valeur comptable décomptabilisée (perte de sortie)', '480 000 − 360 000', '120 000'],
+            ['Nouveau composant activé', '', '600 000, amorti sur huit ans'],
+          ],
+        },
+        note: "IAS 16.70 impose de décomptabiliser la partie remplacée, « que cette dernière ait ou non été amortie séparément », et admet, lorsqu'il n'est pas praticable de déterminer sa valeur comptable, d'utiliser le coût de remplacement comme indication du coût d'origine. Sans cette décomptabilisation, le four porterait à la fois l'ancien et le nouveau revêtement. Le cas illustre l'intérêt de l'approche par composants dès l'acquisition (section 2.5).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 2.12 — Cession d'une immobilisation et comparaison avec le SYSCOHADA",
+        texte: "Une entreprise de transport cède le 30 septembre N un car acquis 150 000 USD et amorti linéairement sur six ans, dont trois ans et neuf mois écoulés. Le prix de cession est de 70 000 USD, les frais de cession de 2 000 USD.",
+        tableau: {
+          entetes: ['Élément', 'Calcul', 'Montant'],
+          lignes: [
+            ['Amortissement cumulé à la date de sortie', '150 000 × 3,75 / 6', '93 750'],
+            ['Valeur comptable', '150 000 − 93 750', '56 250'],
+            ['Produit net de la sortie', '70 000 − 2 000', '68 000'],
+            ['**Profit de sortie (IAS 16.68 et 71)**', '68 000 − 56 250', '**11 750**'],
+          ],
+        },
+        note: "Selon IAS 16, le profit est présenté en net et n'est pas classé en produits des activités ordinaires (§ 68). Le compte de résultat du SYSCOHADA révisé présente séparément, dans la partie hors activités ordinaires, le produit de cession (70 000) et la valeur comptable cédée (56 250), les frais étant portés en charges (chapitre 8). L'amortissement est calculé jusqu'à la date de sortie. Si le car avait été classé comme détenu en vue de la vente avant sa cession, son amortissement aurait cessé à la date de ce classement (IFRS 5.25).",
       },
       {
         type: 'carte',
@@ -780,7 +881,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.10 — Coût d'un brevet généré en interne (laboratoire MI SA)",
+        titre: "Exemple 2.13 — Coût d'un brevet généré en interne (laboratoire MI SA)",
         texte: "Le laboratoire pharmaceutique MI engage le 1er janvier N le projet A, destiné à produire en interne le brevet d'un médicament contre le rhume, prêt à la fin de N. Entre le 1er janvier et le 1er avril N−1, des frais de recherche de 30 000 USD, non affectés à un projet précis, ont conduit à la découverte d'une molécule utilisée dans le projet A. Dépenses de N : recherche 50 000 ; développement 192 000, dont 157 000 engagés à compter du 15 septembre, date à laquelle les critères du § 57 sont remplis ; obtention de l'agrément de commercialisation 16 000. Le brevet est utilisé à compter du 1er janvier N+1, pendant trois ans, selon le mode linéaire.",
         tableau: {
           entetes: ['Dépense', 'Traitement', 'Fondement'],
@@ -836,6 +937,19 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Observation — Activation et dépréciation (IAS 38, exemple illustrant le § 65)",
         texte: "En 20X5, une entité engage 1 000 de dépenses pour développer un procédé, dont 900 avant le 1er décembre, date à laquelle les critères sont remplis, et 100 ensuite. L'immobilisation est comptabilisée pour 100 à la fin de 20X5, les 900 demeurant définitivement en charges. En 20X6, l'entité engage 2 000 supplémentaires : le coût atteint 2 100, alors que la valeur recouvrable est estimée à 1 900. Une perte de valeur de 200 est comptabilisée selon IAS 36. L'activation d'une dépense ne garantit pas sa recouvrabilité, qui demeure soumise au test de dépréciation.",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 2.14 — Licence de télécommunications et marque acquise",
+        texte: "Un opérateur de télécommunications acquiert le 1er janvier N une licence d'exploitation de quinze ans pour 45 000 000 USD, renouvelable moyennant le paiement d'une redevance égale à la valeur de marché de la licence à cette date, et une marque de distribution acquise auprès d'un concurrent pour 6 000 000 USD, protégée par un dépôt renouvelable tous les dix ans à un coût négligeable, soutenue par des dépenses publicitaires régulières.",
+        tableau: {
+          entetes: ['Actif', 'Durée d\'utilité', 'Traitement de N', 'Fondement'],
+          lignes: [
+            ['Licence', "Déterminée : quinze ans ; le renouvellement, coûteux, s'analyse en acquisition d'un nouvel actif", 'Amortissement de 3 000 000', 'IAS 38.94-96'],
+            ['Marque', "Indéterminée si aucun facteur ne limite la période de génération des flux", "Pas d'amortissement ; test de dépréciation annuel", 'IAS 38.88-91, 107-108'],
+          ],
+        },
+        note: "Si, en N+3, l'arrivée d'une technologie concurrente fait apparaître que la marque ne générera plus de flux au-delà de cinq ans, la durée devient déterminée : il s'agit d'un changement d'estimation, appliqué prospectivement (§ 109), et d'un indice de perte de valeur, qui impose un test selon IAS 36 avant l'amortissement sur cinq ans de la valeur comptable, éventuellement réduite (§ 110).",
+      },
     ],
   },
   {
@@ -848,6 +962,25 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le cycle de vie d'une mine relève successivement de plusieurs textes. La prospection et l'évaluation, qui se situent entre l'obtention des droits de prospecter et la démonstration de la faisabilité technique et de la viabilité commerciale de l'extraction, relèvent d'IFRS 6 : l'entité définit la méthode de capitalisation des dépenses (§ 9), bénéficie d'une exemption temporaire des § 11 et 12 d'IAS 8 (§ 7) et classe ses actifs en immobilisations corporelles ou incorporelles selon leur nature (§ 15). La norme précise que « les dépenses liées au développement des ressources minérales ne doivent pas être comptabilisées en tant qu'actifs de prospection et d'évaluation », le Cadre conceptuel et IAS 38 guidant leur comptabilisation (§ 10) ; les équipements relèvent d'IAS 16. La transition est fixée par le § 17 : un actif de prospection et d'évaluation « ne doit plus être classé comme tel lorsque la faisabilité technique et la viabilité commerciale de l'extraction d'une ressource minérale sont démontrables », et la perte de valeur éventuelle est comptabilisée « avant le reclassement ».",
       },
+      {
+        type: 'paragraphe',
+        texte: "Les actifs de prospection et d'évaluation sont soumis à un test de dépréciation lorsque les faits et circonstances suggèrent que leur valeur comptable peut excéder leur valeur recouvrable (IFRS 6, § 18). Faute de flux de trésorerie avant la découverte, IFRS 6 adapte les indices d'IAS 36 à la prospection : expiration du droit de prospecter sans renouvellement prévu ; absence de dépenses ultérieures importantes prévues au budget ; absence de découverte de quantités commercialement viables et décision de cesser l'activité dans la zone ; données indiquant que la valeur comptable ne sera probablement pas récupérée en totalité par un développement réussi ou par la vente (§ 20). Les actifs sont affectés à des UGT ou groupes d'UGT qui ne peuvent être plus grands qu'un secteur opérationnel (§ 21).",
+      },
+      {
+        type: 'carte',
+        titre: "Tableau 2.4 — Actifs de prospection et d'évaluation : IFRS 6 et SYSCOHADA révisé",
+        tableau: {
+          entetes: ['Point', 'IFRS 6', 'SYSCOHADA révisé (Titre VIII, ch. 3)'],
+          lignes: [
+            ['Méthode de comptabilisation', "Méthode définie par l'entité et appliquée de façon cohérente (§ 9)", "Choix entre charge immédiate et activation, appliqué de façon cohérente et permanente"],
+            ['Évaluation après comptabilisation', 'Modèle du coût ou de la réévaluation (§ 12)', 'Modèle du coût historique'],
+            ['Amortissement', "Pas de règle propre ; les actifs corporels relèvent d'IAS 16, dont l'amortissement commence lorsque l'actif est prêt à être mis en service (§ 55)", "Amortissement sur la durée d'utilisation, à compter du début de la consommation des avantages"],
+            ['Dépréciation', 'Indices spécifiques (§ 18-20) ; niveau limité au secteur opérationnel (§ 21)', 'Règles générales de dépréciation (ch. 12)'],
+            ['Dépenses de développement', "Exclues des actifs de prospection et d'évaluation (§ 10)", "Exclues ; comptabilisées en frais de recherche et développement (ch. 1)"],
+          ],
+        },
+        note: "Le SYSCOHADA déclare s'inspirer d'IFRS 6 et d'IFRIC 20, mais son exigence d'amortissement des actifs de prospection à la clôture constitue un point de divergence à examiner lors de l'établissement d'états IFRS par une société minière.",
+      },
       { type: 'intertitre', texte: "2.10.2 Les frais de découverture en phase de production" },
       {
         type: 'paragraphe',
@@ -855,7 +988,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 2.11 — Répartition du coût de découverture (IFRIC 20, § 13)",
+        titre: "Exemple 2.15 — Répartition du coût de découverture (IFRIC 20, § 13)",
         texte: "Mine de cuivre à ciel ouvert, composante A du gisement. Le ratio stériles/minerai attendu pour la composante est de 3 pour 1. Au cours de l'exercice N, 400 000 t de minerai sont extraites et 2 000 000 t de stériles enlevées, soit un ratio réel de 5 pour 1. Le coût total de découverture s'élève à 10 000 000 USD, soit 5 USD par tonne de stériles.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant'],
@@ -1037,6 +1170,7 @@ const chapitre: Chapitre = {
     "IAS 23 : incorporation obligatoire des coûts d'emprunt d'un actif qualifié, coûts réels nets de placement pour un emprunt spécifique, taux moyen pondéré pour les emprunts généraux, sous plafond ; début, suspension et arrêt encadrés (§ 17-25).",
     "Démantèlement : actif et provision actualisée à l'origine ; désactualisation en charges financières ; révisions portées sur le coût de l'actif, dans la limite de sa valeur comptable (IFRIC 1). Ce passif se distingue de la provision fiscale de l'article 258 du Code minier et de la sûreté exigée par son article 204.",
     "Amortissement : composants significatifs amortis séparément (§ 43), révision annuelle de la durée, de la valeur résiduelle et du mode (§ 51, 61), mode fondé sur les produits interdit (§ 62A), pas d'arrêt pour inutilisation (§ 55), terrains non amortis (§ 58).",
+    "Les pièces de rechange relèvent d'IAS 16 si elles répondent à la définition d'une immobilisation corporelle (§ 8) ; la partie remplacée d'une immobilisation est décomptabilisée, son coût pouvant être estimé à partir du coût de remplacement (§ 70). Le profit de cession est présenté en net et n'est pas un produit des activités ordinaires (§ 68, 71).",
     "Réévaluation : par catégorie entière, à la juste valeur, régulièrement ; hausse en autres éléments du résultat global, baisse en résultat au-delà de l'écart du même actif ; transfert possible de l'écart en résultats non distribués, hors résultat (§ 29-42). L'AUDCIF et le droit fiscal congolais (loi n° 23/053, art. 129 à 133, qui a remplacé l'O.-L. 89-017 au 1er janvier 2026) suivent d'autres logiques : réévaluation globale, écart non distribuable, neutralité fiscale.",
     "IAS 38 : identifiabilité, contrôle, avantages. La recherche est toujours une charge ; le développement est activé si les six critères du § 57 sont démontrés, sans réincorporation des charges antérieures (§ 71). Marques et listes clients générées en interne, goodwill interne, formation et publicité ne sont jamais activés.",
     "Durée d'une incorporelle déterminée (amortie) ou indéterminée (non amortie, testée chaque année) ; renouvellements pris en compte s'ils se font sans coût important (§ 94-96) ; mode fondé sur les produits présumé inapproprié, sauf les exceptions des § 98A-98C.",
@@ -1049,6 +1183,8 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "IFRIC 1 — Changes in Existing Decommissioning, Restoration and Similar Liabilities", precision: "§§ 1 à 8" },
     { genre: 'texte', intitule: "IFRIC 20 — Stripping Costs in the Production Phase of a Surface Mine", precision: "§§ 1 à 16" },
     { genre: 'texte', intitule: "IFRS 6 — Prospection et évaluation de ressources minérales", precision: "§§ 1 à 25" },
+    { genre: 'texte', intitule: "IFRS 5 — Actifs non courants détenus en vue de la vente et activités abandonnées", precision: "§ 25" },
+    { genre: 'texte', intitule: "SYSCOHADA révisé, Titre VIII, ch. 3", precision: "frais de prospection et d'exploitation des ressources minérales" },
     { genre: 'texte', intitule: "AUDCIF et SYSCOHADA révisé", precision: "art. 62 à 65 ; Titre VIII, ch. 1, 3, 4, 6, 7 et 28" },
     { genre: 'texte', intitule: "Loi n° 23/053 du 30 novembre 2023 (RDC)", precision: "art. 129 à 133 (réévaluation de l'actif immobilisé) et 152 (abrogation de l'O.-L. 89-017)" },
     { genre: 'texte', intitule: "Ordonnance-loi n° 89-017 du 18 février 1989 portant réévaluation de l'actif immobilisé des entreprises", precision: "art. 2, 6 et 9 ; abrogée au 1er janvier 2026" },

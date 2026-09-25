@@ -20,11 +20,11 @@ const CHAPITRES = [
     num: 2,
     titre: "Immobilisations corporelles et incorporelles",
     sousTitre: "IAS 16 · IAS 38 · IAS 23 · IFRIC 1 · IFRIC 20 · AUDCIF art. 62-65",
-    duree: "8h",
+    duree: "9h",
     actif: true,
     route: '/ue13/chapitre-2',
     lecons: 10,
-    exercices: 32,
+    exercices: 36,
     couleur: 'bg-cyan-50 text-cyan-700',
     accent: 'border-l-cyan-500',
   },
@@ -130,7 +130,7 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>263 QCM</span>
+            <span>267 QCM</span>
             <span>34 cas pratiques</span>
           </div>
         </div>
