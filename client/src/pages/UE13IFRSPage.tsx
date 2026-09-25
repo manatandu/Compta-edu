@@ -60,7 +60,7 @@ const CHAPITRES = [
     actif: true,
     route: '/ue13/chapitre-5',
     lecons: 9,
-    exercices: 36,
+    exercices: 39,
     couleur: 'bg-violet-50 text-violet-700',
     accent: 'border-l-violet-500',
   },
@@ -130,7 +130,7 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>271 QCM</span>
+            <span>274 QCM</span>
             <span>34 cas pratiques</span>
           </div>
         </div>
