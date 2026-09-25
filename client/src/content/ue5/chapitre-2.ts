@@ -276,9 +276,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les six principes budgétaires : vue d'ensemble et fondement",
     navLabel: "Vue d'ensemble",
     blocs: [
-      { type: 'paragraphe', texte: "L'article 4 de la LOFIP est l'article-clé du droit budgétaire congolais : il énonce les **six principes** sur lesquels repose le Budget de l'État et qui encadrent l'ensemble du cycle budgétaire, de l'élaboration à l'exécution et au contrôle. Ces principes ne sont pas de simples règles techniques : ils forment les garanties juridiques de la transparence, de la légalité et de l'honnêteté dans la gestion des deniers publics, et chacun est développé par un ou deux articles qui suivent immédiatement (art. 5 à 11)." },
-      { type: 'filet', titre: 'Art. 4 LOFIP - texte exact', texte: "« Le Budget de l'État repose sur les principes ci-après : 1) principe de l'annualité ; 2) principe de l'unité ; 3) principe de l'universalité ; 4) principe de la spécialité ; 5) principe de la légalité des recettes et des dépenses ; 6) principe de la sincérité. »" },
-      { type: 'carte', titre: 'Les six principes et leurs sièges', tableau: {
+      { type: 'intertitre', texte: "2.1.1 L'énoncé légal des six principes" },
+      { type: 'paragraphe', texte: "L'article 4 de la LOFIP est l'article-clé du droit budgétaire congolais : il énonce les **six principes** sur lesquels repose le Budget de l'État et qui encadrent l'ensemble du cycle budgétaire, de l'élaboration à l'exécution et au contrôle. Ces principes constituent les garanties juridiques de la transparence, de la légalité et de l'honnêteté dans la gestion des deniers publics, et chacun est développé par un ou deux articles qui suivent immédiatement (art. 5 à 11)." },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 4 : les six principes budgétaires", texte: "« Le Budget de l'État repose sur les principes ci-après : 1) principe de l'annualité ; 2) principe de l'unité ; 3) principe de l'universalité ; 4) principe de la spécialité ; 5) principe de la légalité des recettes et des dépenses ; 6) principe de la sincérité. »" },
+      { type: 'carte', titre: "Tableau 2.1 — Les six principes et leurs sièges", tableau: {
         entetes: ['Principe', 'Articles', 'Règle en une phrase'],
         lignes: [
           ['**Annualité**', 'Art. 5', "L'exercice budgétaire couvre l'année civile, du 1er janvier au 31 décembre"],
@@ -289,8 +290,9 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Sincérité**', 'Art. 11', 'Prévisions honnêtes, comptes réguliers et fidèles'],
         ],
       } },
+      { type: 'intertitre', texte: "2.1.2 Un système au fondement démocratique" },
       { type: 'paragraphe', texte: "Ces six principes forment un système : l'*annualité* fixe le cadre temporel ; l'*unité* et l'*universalité* imposent la globalité et la transparence du document ; la *spécialité* rend l'autorisation précise et contraignante ; la *légalité* protège contre l'arbitraire ; la *sincérité* impose la bonne foi des prévisions et des comptes. Leur fondement commun est démocratique : c'est le Parlement, représentant du peuple, qui autorise les recettes et les dépenses. L'art. 3 de la LOFIP en donne d'ailleurs des définitions autonomes (points 33 à 37), qu'il faut savoir citer distinctement des articles 5 à 11." },
-      { type: 'carte', titre: 'Le socle constitutionnel', liste: [
+      { type: 'carte', titre: "Encadré 2.1 — Le socle constitutionnel des principes budgétaires", liste: [
         "**Art. 122 pt. 3** : la loi fixe les règles concernant « les finances publiques » - c'est le fondement de la LOFIP elle-même (art. 1er LOFIP).",
         "**Art. 122 pt. 10** : la loi fixe « l'assiette, le taux et les modalités de recouvrement des impositions de toute nature » - socle de la légalité fiscale.",
         "**Art. 126** : les lois de finances déterminent les ressources et les charges de l'État ; dépôt du projet au plus tard le 15 septembre ; procédure des crédits provisoires ; Gouvernement réputé démissionnaire s'il n'a pas déposé son projet quinze jours avant la fin de la session budgétaire.",
@@ -298,8 +300,6 @@ const SECTIONS: Chapitre['sections'] = [
         "**Art. 174** : il ne peut être établi d'impôts que par la loi ; il ne peut être établi d'exemption ou d'allègement fiscal qu'en vertu de la loi.",
         "**Art. 175 al. 1** : le budget des recettes et des dépenses de l'État - pouvoir central et provinces - est arrêté chaque année par une loi.",
       ] },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
     ],
   },
   {
@@ -307,10 +307,13 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le principe d'annualité et ses aménagements",
     navLabel: 'Annualité',
     blocs: [
+      { type: 'intertitre', texte: "2.2.1 Les fonctions et le siège du principe" },
       { type: 'paragraphe', texte: "Le principe d'annualité est l'un des plus anciens du droit budgétaire : l'autorisation parlementaire est donnée pour une durée limitée à une année. Il remplit trois fonctions : encadrer l'exécutif, dont la liberté de dépenser expire avec l'autorisation annuelle ; permettre un contrôle démocratique régulier ; garantir l'adaptation du budget aux évolutions économiques. En RDC, la règle est à double détente : constitutionnelle (art. 172) et légale (art. 5 LOFIP), et l'art. 3 point 33 la définit comme « la règle budgétaire qui impose le vote annuel du budget par le pouvoir législatif »." },
-      { type: 'filet', titre: 'Art. 5 LOFIP - texte exact', texte: "« L'exercice budgétaire s'étend sur une année civile allant du 1er janvier au 31 décembre. Toutefois, les crédits y afférents découlent d'une budgétisation pluriannuelle consistant à prévoir les recettes, les dépenses et le financement des opérations du pouvoir central, des provinces et des entités territoriales décentralisées sur un horizon de trois années. Ce cadrage budgétaire pluriannuel inclut le cadre des dépenses à moyen terme. »" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 5 : l'exercice budgétaire", texte: "« L'exercice budgétaire s'étend sur une année civile allant du 1er janvier au 31 décembre. Toutefois, les crédits y afférents découlent d'une budgétisation pluriannuelle consistant à prévoir les recettes, les dépenses et le financement des opérations du pouvoir central, des provinces et des entités territoriales décentralisées sur un horizon de trois années. Ce cadrage budgétaire pluriannuel inclut le cadre des dépenses à moyen terme. »" },
+      { type: 'intertitre', texte: "2.2.2 Annualité et pluriannualité" },
       { type: 'paragraphe', texte: "L'annualité n'exclut donc pas la vision à moyen terme : elle s'y insère. Le **cadre budgétaire à moyen terme (CBMT)** - défini à l'art. 3 point 8 - est établi chaque année par le Ministre du Budget sur un horizon de trois ans, à partir des hypothèses macroéconomiques du ministère du Plan (art. 13). Depuis la loi n° 23/030 de 2023, ce CBMT, adopté en Conseil des ministres, est transmis à l'Assemblée nationale **au plus tard le 1er juin** et donne lieu à un **débat d'orientation budgétaire** au plus tard le 15 juin - un rendez-vous parlementaire nouveau, en amont de la session budgétaire. Le budget de l'année s'établit ensuite sur la base des hypothèses de la lettre d'orientation du Premier ministre." },
-      { type: 'carte', titre: "Les aménagements légaux de l'annualité", tableau: {
+      { type: 'intertitre', texte: "2.2.3 Les aménagements légaux" },
+      { type: 'carte', titre: "Tableau 2.2 — Les aménagements légaux de l'annualité", tableau: {
         entetes: ['Aménagement', 'Mécanisme', 'Base légale'],
         lignes: [
           ['**Crédits provisoires**', "Loi de finances à part entière (art. 18) autorisant recettes et dépenses « nécessaires au fonctionnement minimum des services publics » quand la LF de l'année n'est pas promulguée à temps ; dépôt avant le 15 décembre, exécution jusqu'au 31 janvier - ou jusqu'au vote de la LF si le Gouvernement est réputé démissionnaire", 'Art. 18, 31 et 83 LOFIP · art. 126 Constitution'],
@@ -320,11 +323,18 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Période complémentaire**', "Comptabilisation des recettes et dépenses budgétaires possible jusqu'au 31 janvier de l'année suivante, par décret du Premier ministre ; ouverte aussi aux opérations d'une LFR promulguée en décembre", 'Art. 97 LOFIP'],
         ],
       }, note: "Les « décrets d'avance » et « douzièmes provisoires » qu'on rencontre dans certains manuels appartiennent à d'autres droits budgétaires : la LOFIP congolaise ne les connaît pas - son mécanisme est la loi portant ouverture de crédits provisoires, relayée le cas échéant par l'ordonnance-loi du Président de la République (art. 83)." },
+      { type: 'intertitre', texte: "2.2.4 L'annualité dans l'exécution" },
       { type: 'paragraphe', texte: "L'annualité gouverne aussi l'exécution : les recettes sont rattachées au budget de l'année de leur encaissement et les dépenses à celle de leur prise en charge par le comptable public (art. 92 al. 1-2) ; surtout, **les engagements de dépenses autres que de personnel, sur autorisations d'engagement annuelles, ne peuvent intervenir après le 31 octobre** (art. 92 al. 3) - discipline qui réserve la fin d'exercice à la liquidation, à l'ordonnancement et au paiement." },
-      { type: 'filet', titre: 'Illustration - la LFR n° 25/044 du 28 juin 2025', texte: "La loi de finances rectificative n° 25/044 illustre l'art. 26 : en cours d'exercice 2025, le Gouvernement a révisé les hypothèses macroéconomiques (croissance ramenée de 5,7% à **5,3%**, taux de change moyen à **2 859,2 FC/USD**) et le budget est passé de 51 553,5 à **50 691,8 milliards FC**. La modification du budget initial a bien pris la forme d'une loi votée par le Parlement - jamais d'un simple acte réglementaire." },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[14] },
+      { type: 'paragraphe', texte: "La date du 31 octobre produit des effets concrets. Elle ne concerne que les **autorisations d'engagement annuelles** : les dépenses de personnel y échappent, puisque les salaires sont dus jusqu'au dernier jour de l'année, et les opérations pluriannuelles suivent leur propre échéancier. Pour les autres dépenses, l'ordonnateur dispose de dix mois pour engager et de deux mois pour conduire les engagements déjà pris jusqu'au paiement. Les crédits qui couvrent une obligation née avant le 31 octobre et restée impayée au 31 décembre ne sont pas perdus : ils peuvent être reportés sur l'exercice suivant et ajoutés aux crédits de paiement correspondants (art. 93). Les articles et les montants concernés sont énumérés dans un état approuvé par ordonnance-loi du Président de la République dans les deux mois qui suivent la fin de l'année, puis ratifiés dans la prochaine loi de finances (art. 94)." },
+      { type: 'carte', titre: "Exemple 2.1 — Le calendrier d'exécution d'une dépense de fonctionnement (montants fictifs)", tableau: { entetes: ["Date", "Opération", "Régime juridique"], lignes: [
+        ["20 septembre N", "Le ministère engage l'achat de fournitures de bureau pour 40 millions FC sur les crédits du titre IV", "Engagement régulier : il intervient avant le 31 octobre, dans la limite du crédit disponible (art. 10 et 92)"],
+        ["12 novembre N", "Le même ministère veut signer un nouveau bon de commande de 25 millions FC", "Engagement interdit sur autorisation d'engagement annuelle : la date limite du 31 octobre est dépassée (art. 92 al. 3)"],
+        ["15 novembre N", "Livraison, puis liquidation le 25 novembre et ordonnancement le 10 décembre", "La fin d'exercice est consacrée à la liquidation, à l'ordonnancement et au paiement des engagements déjà pris"],
+        ["31 décembre N", "Le paiement des 40 millions FC n'a pu être exécuté", "Report possible des crédits correspondants sur N+1, l'obligation étant née avant le 31 octobre (art. 93)"],
+        ["Fin février N+1", "État des articles et montants reportés", "Approbation par ordonnance-loi dans les deux mois suivant la clôture, puis ratification dans la prochaine loi de finances (art. 94)"],
+        ["31 mars N+1", "Arrêtés de report des autorisations d'engagement pluriannuelles et crédits de paiement non consommés", "Arrêtés conjoints du Ministre du Budget et du ministre intéressé (art. 53)"],
+      ] }, note: "Si un décret du Premier ministre ouvre une période complémentaire, les recettes et les dépenses budgétaires de l'année N peuvent encore être comptabilisées jusqu'au 31 janvier N+1 (art. 97). Cette période ne permet pas de prendre de nouveaux engagements ; elle sert à achever la comptabilisation d'opérations de l'exercice." },
+      { type: 'filet', titre: "La loi de finances rectificative n° 25/044 du 28 juin 2025", texte: "La loi de finances rectificative n° 25/044 illustre l'art. 26 : en cours d'exercice 2025, le Gouvernement a révisé les hypothèses macroéconomiques (croissance ramenée de 5,7% à **5,3%**, taux de change moyen à **2 859,2 FC/USD**) et le budget est passé de 51 553,5 à **50 691,8 milliards FC**. La modification du budget initial a bien pris la forme d'une loi votée par le Parlement - jamais d'un simple acte réglementaire." },
     ],
   },
   {
@@ -332,20 +342,28 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'unité et l'universalité",
     navLabel: 'Unité · universalité',
     blocs: [
+      { type: 'intertitre', texte: "2.3.1 Le principe d'unité" },
       { type: 'paragraphe', texte: "Le **principe d'unité** exige que toutes les ressources et toutes les charges d'une entité figurent dans un seul et même document : le Parlement - ou l'organe délibérant local - doit pouvoir embrasser d'un regard la totalité des finances qu'il autorise. L'art. 3 point 34 le définit comme « la règle budgétaire qui exige que les prévisions des recettes et des dépenses soient présentées dans un seul et même document »." },
-      { type: 'filet', titre: 'Art. 6 LOFIP - texte exact', texte: "« Le pouvoir central, la province ou l'entité territoriale décentralisée présente, chacun en ce qui le concerne et dans un document unique, toutes les ressources et toutes les charges afférentes à une année. Le budget de l'entité territoriale décentralisée est intégré en recettes et en dépenses dans le budget de la province pour constituer le budget provincial. Les budgets provinciaux sont consolidés avec le budget du pouvoir central pour constituer le Budget de l'État. »" },
-      { type: 'carte', titre: "L'unité en cascade : intégration puis consolidation", liste: [
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 6 : l'unité budgétaire", texte: "« Le pouvoir central, la province ou l'entité territoriale décentralisée présente, chacun en ce qui le concerne et dans un document unique, toutes les ressources et toutes les charges afférentes à une année. Le budget de l'entité territoriale décentralisée est intégré en recettes et en dépenses dans le budget de la province pour constituer le budget provincial. Les budgets provinciaux sont consolidés avec le budget du pouvoir central pour constituer le Budget de l'État. »" },
+      { type: 'carte', titre: "Encadré 2.2 — L'unité en cascade : intégration puis consolidation", liste: [
         "**Niveau 1** - le budget de l'ETD (commune, secteur, chefferie) est *intégré* en recettes et en dépenses dans celui de la province : le résultat est le « budget provincial » (art. 3 pt. 5).",
         "**Niveau 2** - les budgets provinciaux sont *consolidés* avec le budget du pouvoir central : le résultat est le « Budget de l'État » (art. 3 pt. 4).",
         "**Niveau 3** - le budget du pouvoir central lui-même comprend le budget général, les budgets annexes et les comptes spéciaux (art. 20), tous retracés dans la loi de finances de l'année.",
       ], note: "La loi de finances 2026 (n° 25/060) donne la mesure de cette structure : budget du pouvoir central en équilibre à 54 335,8 milliards FC (art. 6), dont 48 969,3 milliards pour le budget général (art. 7), 962,3 milliards pour les budgets annexes et 4 404,2 milliards pour les comptes spéciaux." },
+      { type: 'intertitre', texte: "2.3.2 Le principe d'universalité" },
       { type: 'paragraphe', texte: "Le **principe d'universalité** complète l'unité : non seulement tout doit figurer dans le document, mais tout doit y figurer *en brut* et *sans fléchage*. L'art. 3 point 35 parle de « la règle budgétaire du produit brut qui interdit aux services la compensation, en amont, entre les recettes et les dépenses »." },
-      { type: 'filet', titre: 'Art. 7 LOFIP - texte exact', texte: "« Le montant intégral des produits est enregistré sans contraction entre les recettes et les dépenses et, par conséquent, entre les dettes et les créances. L'ensemble de recettes assure l'exécution de l'ensemble de dépenses sans aucune affectation de leur produit à des dépenses particulières. »" },
-      { type: 'carte', titre: 'Les deux règles jumelles de l\'universalité', liste: [
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 7 : l'universalité budgétaire", texte: "« Le montant intégral des produits est enregistré sans contraction entre les recettes et les dépenses et, par conséquent, entre les dettes et les créances. L'ensemble de recettes assure l'exécution de l'ensemble de dépenses sans aucune affectation de leur produit à des dépenses particulières. »" },
+      { type: 'carte', titre: "Encadré 2.3 — Les deux règles de l'universalité", liste: [
         "**Règle du produit brut (non-contraction)** : un service qui perçoit 10 millions FC de recettes et supporte 2 millions de frais verse 10 millions au Trésor - ses 2 millions de frais sont inscrits en dépenses budgétaires. Verser le solde net de 8 millions serait une contraction prohibée.",
         "**Règle de non-affectation** : aucune recette n'est réservée à une dépense déterminée ; l'ensemble des recettes couvre l'ensemble des dépenses. L'art. 54 le redit et n'admet d'exception que « prévue expressément » par la loi de finances.",
       ] },
-      { type: 'carte', titre: "Les dérogations organisées par la LOFIP", tableau: {
+      { type: 'carte', titre: "Exemple 2.2 — La règle de non-contraction appliquée à un service générateur de recettes (montants fictifs)", tableau: { entetes: ["Présentation", "Recettes inscrites", "Dépenses inscrites", "Appréciation"], lignes: [
+        ["Présentation nette", "750 millions FC", "Néant", "Irrégulière : les frais de perception de 150 millions FC ont été déduits des 900 millions FC de droits encaissés ; le Parlement ignore l'existence de la dépense"],
+        ["Présentation brute", "900 millions FC", "150 millions FC", "Conforme à l'art. 7 : le produit intégral et la charge figurent séparément ; la dépense passe par la chaîne engagement, liquidation, ordonnancement et paiement"],
+      ] }, note: "La contraction masque deux informations : le rendement réel du prélèvement et le coût du service qui le perçoit. Elle soustrait aussi la dépense au contrôle de l'ordonnateur, du contrôleur budgétaire et du comptable public. La même règle interdit au service de conserver une partie des recettes pour couvrir ses propres dépenses : les fonds encaissés sont versés au Trésor, et la dépense est payée sur les crédits votés." },
+      { type: 'paragraphe', texte: "La règle de non-affectation obéit à la même logique. Si chaque recette était attachée à une dépense particulière, le rendement d'un impôt dicterait le niveau d'une politique publique, et le Parlement perdrait la faculté d'arbitrer entre les besoins. L'article 54 de la LOFIP rappelle que « l'ensemble des recettes sert à la couverture de l'ensemble des dépenses du budget du pouvoir central », avant d'ouvrir une porte étroite : « la loi de finances peut prévoir expressément l'affectation de certaines recettes à certaines dépenses », sous la forme de budgets annexes, de comptes spéciaux ou de procédures comptables particulières. Les comptes d'affectation spéciale n'accueillent que des recettes « par nature, en relation directe avec les dépenses concernées » (art. 62), et aucun versement ne peut en sortir au profit du budget général, d'un budget annexe ou d'un autre compte spécial, sauf dérogation expresse d'une loi de finances (art. 63)." },
+      { type: 'intertitre', texte: "2.3.3 Les dérogations" },
+      { type: 'carte', titre: "Tableau 2.3 — Les dérogations à l'universalité organisées par la LOFIP", tableau: {
         entetes: ['Dérogation', 'Mécanisme', 'Articles'],
         lignes: [
           ['**Budgets annexes**', "Services du pouvoir central non dotés de la personnalité juridique produisant des biens ou services contre redevances ; deux sections (opérations courantes, opérations en capital) ; excédent reversé au budget général, déficit couvert par subvention", 'Art. 55-58'],
@@ -356,9 +374,6 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Rétablissement de crédits**', 'Restitution au Trésor de sommes payées indûment ou à titre provisoire, et recettes de cessions de biens et services', 'Art. 73'],
         ],
       }, note: "Toutes ces dérogations passent par la loi de finances ou par des actes qu'elle encadre : l'affectation reste un monopole du législateur financier (art. 54, 60). La LF 2026 en offre un exemple vivant avec le Fonds d'Investissement Stratégique de la RDC (FIS-RDC), créé comme compte d'affectation spéciale par son art. 51." },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[12] },
     ],
   },
   {
@@ -366,9 +381,11 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La spécialité, les neuf titres et les mouvements de crédits',
     navLabel: 'Spécialité · crédits',
     blocs: [
+      { type: 'intertitre', texte: "2.4.1 Définition et réceptacles des crédits" },
       { type: 'paragraphe', texte: "Le **principe de spécialité** donne à l'autorisation budgétaire son caractère précis et contraignant : les crédits ne sont pas votés en bloc mais libellés par destination et par nature. L'art. 3 point 36 le définit comme « la règle budgétaire qui prescrit de libeller, de façon détaillée, l'autorisation budgétaire des dépenses et des recettes ». Depuis la loi n° 23/030 du 28 juin 2023, l'art. 8 distingue deux réceptacles : le **programme** - assorti d'objectifs, de résultats attendus et d'indicateurs de performance (art. 43) - pour les ministères, et la **dotation budgétaire** - sans démarche de performance (art. 3 pt. 20) - pour les institutions de la République." },
-      { type: 'filet', titre: 'Art. 8 LOFIP (réd. loi n° 23/030) - substance', texte: "Les crédits sont spécialisés par grande nature de dépenses ou titres, tels que précisés à l'art. 37, et par source de financement. Ils sont regroupés par programme ou par dotation ; les programmes ou les dotations peuvent être regroupés par fonction. La spécialité et le détail des crédits sont conformes à la nomenclature budgétaire en vigueur ; dans un budget-programme, la présentation par chapitre, article et littera est indicative." },
-      { type: 'carte', titre: "Les neuf titres de l'art. 37 LOFIP", tableau: {
+      { type: 'filet', titre: "LOFIP, art. 8 (rédaction de la loi n° 23/030) : la spécialité des crédits, en substance", texte: "Les crédits sont spécialisés par grande nature de dépenses ou titres, tels que précisés à l'art. 37, et par source de financement. Ils sont regroupés par programme ou par dotation ; les programmes ou les dotations peuvent être regroupés par fonction. La spécialité et le détail des crédits sont conformes à la nomenclature budgétaire en vigueur ; dans un budget-programme, la présentation par chapitre, article et littera est indicative." },
+      { type: 'intertitre', texte: "2.4.2 Les titres de dépenses" },
+      { type: 'carte', titre: "Tableau 2.4 — Les neuf titres de dépenses (art. 37 LOFIP)", tableau: {
         entetes: ['Titre', 'Nature', 'Exemples (LF 2026, milliards FC)'],
         lignes: [
           ['**I**', 'Dette publique en capital', 'Remboursement du principal des dettes intérieure et extérieure - 2 060,0'],
@@ -382,19 +399,25 @@ const SECTIONS: Chapitre['sections'] = [
           ['**IX**', 'Prêts et avances', 'Concours financiers consentis par le pouvoir central'],
         ],
       }, note: "Les titres I à VI regroupent les dépenses courantes, les titres VII et VIII les dépenses en capital, le titre IX les prêts et avances. La présentation en « 5 titres » que l'on trouve dans certains supports ne correspond pas au texte congolais." },
+      { type: 'intertitre', texte: "2.4.3 Les mouvements de crédits" },
       { type: 'paragraphe', texte: "La spécialité est tempérée par une souplesse graduée. D'abord la **fongibilité** : au sein d'un programme, les crédits sont fongibles *à l'intérieur du titre et de la source de financement* (art. 45) - le gestionnaire redéploie librement entre lignes d'un même titre, sous le suivi du Ministre du Budget. Ensuite le **virement** : entre titres d'un même programme, par arrêté du Ministre du Budget sur proposition du ministre concerné (art. 47). Enfin le **transfert** : entre programmes d'un même ministère ou entre dotations (art. 48, plafond annuel fixé par décret du Premier ministre) et entre programmes de ministères différents (art. 49, décret du Premier ministre après avis du Ministre du Budget) - avec ouverture de crédits à ratifier en LFR. Aucun virement ni transfert ne peut bénéficier à un programme non prévu par une loi de finances (art. 50)." },
+      { type: 'carte', titre: "Exemple 2.3 — La qualification des mouvements de crédits au sein d'un ministère (montants fictifs)", tableau: { entetes: ["Opération envisagée", "Qualification", "Autorité et acte", "Base légale"], lignes: [
+        ["Redéployer 50 millions FC des médicaments vers les consommables, au sein du titre IV d'un même programme", "Fongibilité", "Le gestionnaire du programme, sous le suivi du Ministre du Budget", "Art. 45"],
+        ["Passer 120 millions FC du titre IV (biens et matériels) au titre VII (équipements) du même programme", "Virement", "Arrêté du Ministre du Budget, sur proposition du ministre concerné", "Art. 47"],
+        ["Passer 200 millions FC du titre VII d'un programme au titre VII d'un autre programme du même ministère", "Transfert interne", "Décret du Premier ministre fixant le plafond annuel cumulé ; proposition d'ouverture de crédits dans la LFR", "Art. 48"],
+        ["Passer 300 millions FC du titre VII d'un programme de la Santé au titre VII d'un programme de l'Éducation", "Transfert interministériel", "Décret du Premier ministre, après avis du Ministre du Budget ; proposition d'ouverture de crédits dans la LFR", "Art. 49"],
+        ["Passer 80 millions FC du titre IV au titre III (personnel)", "Interdit", "Aucune autorité administrative ne peut y procéder", "Art. 51"],
+        ["Doter un programme nouveau, absent de la loi de finances", "Interdit", "Seule une loi de finances d'initiative gouvernementale peut créer un programme", "Art. 43 et 50"],
+      ] }, note: "Plus le mouvement s'éloigne de l'autorisation initiale, plus l'autorité compétente s'élève et plus l'information du Parlement devient nécessaire. Les virements et transferts ne concernent en outre que le budget général : aucun mouvement de crédits n'est possible entre un budget annexe ou un compte spécial doté de crédits et le budget auquel il est rattaché (art. 58 et 59)." },
+      { type: 'intertitre', texte: "2.4.4 La protection de la masse salariale" },
       { type: 'filet', titre: "La fongibilité asymétrique et le verrou de l'art. 51", texte: "L'art. 3 point 28 définit la fongibilité asymétrique : les crédits du personnel « peuvent être utilisés pour d'autres natures de dépenses, à savoir, le fonctionnement, l'intervention et l'investissement tandis que l'inverse est interdit ». L'art. 51 pose le verrou opérationnel : les crédits de personnel sont des plafonds, assortis de plafonds d'autorisation d'emplois spécialisés par ministère, institution et budget annexe ; les créations d'emplois relèvent d'une loi de finances ; et « aucun virement ni transfert ne peut être effectué au profit du titre des dépenses de personnel à partir d'un autre titre ». La masse salariale ne peut donc croître que par décision du législateur financier - jamais par redéploiement administratif." },
-      { type: 'carte', titre: 'La nature des crédits : trois régimes', liste: [
+      { type: 'paragraphe', texte: "Les lois de finances récentes montrent l'enjeu de ce verrou. Les crédits de personnel du budget général sont passés de 10 695,1 milliards FC dans la loi de finances initiale pour 2025 à 12 097,4 milliards FC dans la loi de finances rectificative, puis à 14 033,0 milliards FC pour 2026, soit une hausse de 31,2 % par rapport au budget initial de 2025. Chaque étape a pris la forme d'une loi. De même, le plafond des emplois rémunérés est porté de 1 518 275 à 1 544 275 par la loi de finances pour 2026 (annexe XX), qui autorise 26 000 entrées nouvelles : 18 000 à la Défense nationale et 8 000 à l'Intérieur et Sécurité. Un recrutement au-delà de ces plafonds, ou financé par des crédits prélevés sur un autre titre, serait irrégulier, quelle que soit l'urgence invoquée." },
+      { type: 'intertitre', texte: "2.4.5 La nature des crédits" },
+      { type: 'carte', titre: "Encadré 2.4 — La nature des crédits : trois régimes", liste: [
         "**Crédits limitatifs** (droit commun, art. 38) : les dépenses ne peuvent être engagées ni ordonnancées au-delà des dotations.",
         "**Crédits évaluatifs** (art. 39) : charges de la dette du pouvoir central - le dépassement est possible, avec information du Parlement et régularisation en LFR.",
         "**Crédits provisionnels** (art. 40) : dépenses accidentelles et imprévisibles (faits de guerre, catastrophes naturelles) - ordonnancement dans la limite des allocations, crédits supplémentaires demandés au Parlement en cas d'insuffisance, conformément à l'art. 129 de la Constitution.",
       ] },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[21] },
     ],
   },
   {
@@ -402,20 +425,28 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La légalité des recettes et des dépenses',
     navLabel: 'Légalité',
     blocs: [
+      { type: 'intertitre', texte: "2.5.1 Le fondement du principe" },
       { type: 'paragraphe', texte: "Le **principe de légalité** est la traduction budgétaire de l'État de droit. Il se dédouble : légalité des recettes (art. 9) - nul prélèvement sans loi - et légalité des dépenses (art. 10) - nulle dépense hors des conditions légales. Son socle est constitutionnel : l'art. 174 dispose qu'« il ne peut être établi d'impôts que par la loi » et qu'« il ne peut être établi d'exemption ou d'allègement fiscal qu'en vertu de la loi », et l'art. 122 point 10 range l'assiette, le taux et le recouvrement des impositions de toute nature dans le domaine de la loi." },
-      { type: 'filet', titre: 'Art. 9 LOFIP - substance exacte', texte: "« Il ne peut être établi d'impôts que par la loi. Il ne peut être établi d'exemption ou d'allégement fiscal qu'en vertu de la loi. » Les Assemblées provinciales et les organes délibérants des ETD « ne peuvent créer ni impôt, ni taxe, ni droit ou redevance ». Toutefois, conformément à l'art. 205 al. 2 de la Constitution, l'Assemblée nationale et le Sénat peuvent habiliter par une loi les Assemblées provinciales et les organes délibérants des ETD à fixer, par édit ou décision budgétaire, le taux et/ou les modalités de recouvrement de certains impôts provinciaux et locaux." },
+      { type: 'intertitre', texte: "2.5.2 La légalité des recettes" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 9 : la légalité des recettes", texte: "« Il ne peut être établi d'impôts que par la loi. Il ne peut être établi d'exemption ou d'allégement fiscal qu'en vertu de la loi. » Les Assemblées provinciales et les organes délibérants des ETD « ne peuvent créer ni impôt, ni taxe, ni droit ou redevance ». Toutefois, conformément à l'art. 205 al. 2 de la Constitution, l'Assemblée nationale et le Sénat peuvent habiliter par une loi les Assemblées provinciales et les organes délibérants des ETD à fixer, par édit ou décision budgétaire, le taux et/ou les modalités de recouvrement de certains impôts provinciaux et locaux." },
       { type: 'paragraphe', texte: "La portée est considérable : seul le Parlement crée l'impôt, en fixe le taux et en règle le recouvrement ; les provinces et les ETD ne disposent d'aucun pouvoir fiscal créateur, seulement d'un pouvoir délégué et encadré sur le taux ou le recouvrement de certains impôts locaux. Tout prélèvement fondé sur un acte non législatif est illégal - et symétriquement, toute exonération accordée par simple arrêté est nulle. Les lois de finances annuelles le rappellent : la loi n° 25/060 pour 2026 réaffirme, dans ses dispositions générales (art. 2 à 4), la non-contraction de l'art. 7 LOFIP et le principe qu'aucune exonération ou allégement fiscal ne peut être établi qu'en vertu d'une loi, conformément à l'art. 9 al. 2 LOFIP." },
-      { type: 'filet', titre: 'Art. 10 LOFIP - les quatre conditions cumulatives', texte: "« Aucune dépense ne peut être exécutée : si elle ne rentre pas dans les compétences du pouvoir central, des provinces ou des entités territoriales décentralisées telles que définies dans la Constitution et la loi ; si elle n'a pas été définie par un texte régulièrement adopté et publié par l'autorité compétente [...] ; si les crédits nécessaires ne sont pas disponibles au budget ; si elle correspond à des opérations financées en tout ou partie sur ressources extérieures pour lesquelles la mobilisation des fonds y relatifs n'est pas effective. »" },
-      { type: 'carte', titre: 'Les quatre conditions décryptées', liste: [
+      { type: 'intertitre', texte: "2.5.3 La légalité des dépenses" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 10 : les quatre conditions de la dépense", texte: "« Aucune dépense ne peut être exécutée : si elle ne rentre pas dans les compétences du pouvoir central, des provinces ou des entités territoriales décentralisées telles que définies dans la Constitution et la loi ; si elle n'a pas été définie par un texte régulièrement adopté et publié par l'autorité compétente [...] ; si les crédits nécessaires ne sont pas disponibles au budget ; si elle correspond à des opérations financées en tout ou partie sur ressources extérieures pour lesquelles la mobilisation des fonds y relatifs n'est pas effective. »" },
+      { type: 'carte', titre: "Encadré 2.5 — La portée des quatre conditions de l'art. 10", liste: [
         "**Compétence de l'entité** : la dépense doit relever des attributions constitutionnelles et légales du pouvoir central, de la province ou de l'ETD qui l'exécute - la condition vise l'entité publique, pas seulement l'ordonnateur.",
         "**Texte régulier** : les obligations financières créées par une loi, un édit, une décision, une ordonnance, un règlement ou un contrat « ne deviennent certaines et définitives qu'avec l'ouverture des crédits correspondants » - un engagement sans crédit n'oblige pas définitivement l'État.",
         "**Crédits disponibles** : condition la plus fréquemment violée ; engager sans crédits est une faute de gestion expressément visée à l'art. 129.",
         "**Mobilisation effective des fonds extérieurs** : une dépense sur financement extérieur ne s'exécute pas tant que les fonds du bailleur ne sont pas effectivement mobilisés.",
       ] },
+      { type: 'paragraphe', texte: "La quatrième condition prend un relief particulier dans le budget congolais. En 2026, les recettes extérieures du budget général, dons et tirages sur emprunts, sont évaluées à 14 390,3 milliards FC sur 48 969,3 milliards FC, soit 29,4 % (annexe I de la loi n° 25/060). Une part importante des dépenses d'investissement dépend donc du rythme de décaissement des partenaires. Lorsque les fonds ne sont pas mobilisés, la dépense ne peut être exécutée, même si le crédit figure dans la loi de finances. La règle évite que le Trésor préfinance sur ressources internes des projets dont le financement extérieur resterait incertain." },
+      { type: 'carte', titre: "Exemple 2.4 — L'application du principe de légalité à quatre situations", tableau: { entetes: ["Situation", "Analyse", "Fondement"], lignes: [
+        ["Un arrêté ministériel accorde à une entreprise privée une exonération de droits pour cinq ans", "L'acte est illégal : une exonération ne peut être établie qu'en vertu de la loi", "Art. 174 Constitution ; art. 9 LOFIP ; art. 4 LF 2026"],
+        ["Une assemblée provinciale crée par édit une taxe sur les groupes électrogènes", "L'édit est illégal : les provinces ne peuvent créer ni impôt, ni taxe, ni droit ou redevance. Une loi peut seulement les habiliter à fixer le taux ou les modalités de recouvrement de certains impôts provinciaux", "Art. 9 LOFIP ; art. 205 al. 2 Constitution"],
+        ["Un ministère signe un marché de 2 milliards FC alors que le crédit disponible n'est que de 1,2 milliard FC", "L'engagement excède les crédits : il constitue une faute de gestion imputable à son auteur", "Art. 10 et 129 LOFIP"],
+        ["Un projet financé par un prêt extérieur démarre avant le décaissement du bailleur", "La dépense ne peut être exécutée tant que la mobilisation des fonds n'est pas effective", "Art. 10 LOFIP"],
+      ] } },
+      { type: 'intertitre', texte: "2.5.4 Les sanctions" },
       { type: 'paragraphe', texte: "La sanction de l'illégalité est organisée par le titre VII : les ordonnateurs répondent de leurs certifications, et toute personne qui engage des dépenses sans pouvoir, sans crédits disponibles, ou qui enfreint les règles d'exécution des recettes et des dépenses, commet une **faute de gestion** punie d'une amende pouvant atteindre le double du traitement brut annuel (art. 128-129). Qui manie des fonds publics sans titre est **comptable de fait** (art. 130). Ces fautes sont jugées par la **Cour des comptes** (art. 131), dont le contrôle sur les finances de l'État est lui-même constitutionnel (art. 178-180 de la Constitution)." },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[9] },
     ],
   },
   {
@@ -423,15 +454,29 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La sincérité et la synthèse des six principes',
     navLabel: 'Sincérité · synthèse',
     blocs: [
+      { type: 'intertitre', texte: "2.6.1 Définition et portée" },
       { type: 'paragraphe', texte: "Le **principe de sincérité** est le plus récent des six, hérité des réformes modernes de la gestion publique. L'art. 3 point 37 le définit en creux : c'est « la règle budgétaire qui interdit à l'État de sous-estimer ou de surestimer les charges et les ressources qu'il présente dans la loi de finances, l'édit budgétaire et la décision budgétaire ». Il vise l'honnêteté des prévisions comme la fidélité des comptes." },
-      { type: 'filet', titre: 'Art. 11 LOFIP - texte exact', texte: "« Le budget du pouvoir central, de la province ou de l'entité territoriale décentralisée présente de façon sincère l'ensemble de leurs ressources et de leurs charges. La sincérité s'apprécie compte tenu des informations disponibles et des prévisions qui en découlent. Tout projet de loi, d'édit, de décision, d'ordonnance ou de règlement ayant une incidence financière doit être accompagné d'une annexe précisant ses conséquences au titre du budget de l'année d'entrée en vigueur et de l'année suivante. Les comptes du pouvoir central, de la province et de l'entité territoriale décentralisée doivent être réguliers, sincères et refléter une image fidèle de leur situation financière et patrimoniale. »" },
-      { type: 'carte', titre: 'Les trois dimensions de la sincérité', liste: [
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 11 : la sincérité", texte: "« Le budget du pouvoir central, de la province ou de l'entité territoriale décentralisée présente de façon sincère l'ensemble de leurs ressources et de leurs charges. La sincérité s'apprécie compte tenu des informations disponibles et des prévisions qui en découlent. Tout projet de loi, d'édit, de décision, d'ordonnance ou de règlement ayant une incidence financière doit être accompagné d'une annexe précisant ses conséquences au titre du budget de l'année d'entrée en vigueur et de l'année suivante. Les comptes du pouvoir central, de la province et de l'entité territoriale décentralisée doivent être réguliers, sincères et refléter une image fidèle de leur situation financière et patrimoniale. »" },
+      { type: 'carte', titre: "Encadré 2.6 — Les trois dimensions de la sincérité", liste: [
         "**Sincérité des prévisions** : les hypothèses macroéconomiques (croissance, inflation, taux de change) qui fondent recettes et dépenses doivent être établies de bonne foi, « compte tenu des informations disponibles » - ni optimisme de façade, ni sous-estimation délibérée.",
         "**Sincérité des comptes** : réguliers, sincères, image fidèle de la situation financière et patrimoniale - une exigence parallèle à celle que le droit comptable OHADA impose aux entreprises, ici portée par la comptabilité générale de l'État en droits constatés (art. 99-100).",
         "**Étude d'impact financière** : tout acte normatif ayant une incidence financière - loi, édit, décision, ordonnance ou règlement - est accompagné d'une annexe chiffrant ses conséquences pour l'année d'entrée en vigueur et l'année suivante, afin que l'autorisation soit donnée en connaissance de cause.",
       ] },
-      { type: 'filet', titre: 'La sincérité en actes : 2025-2026', texte: "La révision à la baisse du budget 2025 par la LFR n° 25/044 (de 51 553,5 à **50 691,8 milliards FC**, croissance ramenée à 5,3%) est une correction sincère de prévisions devenues irréalistes. Le budget 2026 (loi n° 25/060) affiche ensuite **54 335,8 milliards FC** en équilibre, bâti sur une croissance de 5,3%, une inflation moyenne de 4,4% et un taux de change de 2 467,0 FC/USD - des hypothèses que le Parlement a pu confronter aux réalisations de 2025 grâce aux documents annexés exigés par l'art. 79, enrichi en 2023 (projets annuels de performance, plan de trésorerie prévisionnel, rapport sur les dépenses fiscales, déclaration sur les risques budgétaires)." },
-      { type: 'carte', titre: 'Synthèse - les six principes, leurs règles et leurs dérogations', tableau: {
+      { type: 'intertitre', texte: "2.6.2 La sincérité à l'épreuve de l'exécution" },
+      { type: 'filet', titre: "La sincérité dans la séquence budgétaire 2025-2026", texte: "La révision à la baisse du budget 2025 par la LFR n° 25/044 (de 51 553,5 à **50 691,8 milliards FC**, croissance ramenée à 5,3%) est une correction sincère de prévisions devenues irréalistes. Le budget 2026 (loi n° 25/060) affiche ensuite **54 335,8 milliards FC** en équilibre, bâti sur une croissance de 5,3%, une inflation moyenne de 4,4% et un taux de change de 2 467,0 FC/USD - des hypothèses que le Parlement a pu confronter aux réalisations de 2025 grâce aux documents annexés exigés par l'art. 79, enrichi en 2023 (projets annuels de performance, plan de trésorerie prévisionnel, rapport sur les dépenses fiscales, déclaration sur les risques budgétaires)." },
+      { type: 'carte', titre: "Tableau 2.5 — Les révisions opérées par la loi de finances rectificative pour 2025 (budget général, milliards FC)", tableau: { entetes: ["Poste", "LF 2025", "LFR 2025", "Écart"], lignes: [
+        ["Recettes internes", "33 141,9", "30 647,9", "- 2 494,0 (- 7,5 %)"],
+        ["dont douanes et accises", "7 769,1", "6 693,1", "- 1 076,0 (- 13,8 %)"],
+        ["Recettes extérieures", "13 657,8", "15 101,7", "+ 1 443,9"],
+        ["Frais financiers (titre II)", "331,4", "1 175,4", "+ 844,1"],
+        ["Dépenses de personnel (titre III)", "10 695,1", "12 097,4", "+ 1 402,3"],
+        ["Dépenses de prestations (titre V)", "2 333,1", "6 206,3", "+ 3 873,2"],
+        ["Équipements et constructions (titres VII et VIII)", "22 669,1", "16 981,4", "- 5 687,7 (- 25,1 %)"],
+      ] }, note: "Source : annexe I de la loi n° 25/060 (colonnes LF 2025 et LFR 2025) ; calculs de l'auteur." },
+      { type: 'paragraphe', texte: "La lecture de ce tableau relève du principe de sincérité. Une révision est la réponse normale à une conjoncture qui s'écarte des hypothèses. L'ampleur de certains écarts invite toutefois à s'interroger sur la qualité de la prévision initiale : les frais financiers ont été multipliés par 3,5 en six mois, et les recettes de douanes et accises réduites de près d'un septième. L'ajustement s'est fait en grande partie sur l'investissement, réduit d'un quart, alors que les dépenses de personnel et de prestations augmentaient. Cette asymétrie est fréquente dans les budgets publics : les dépenses d'investissement sont les plus faciles à différer, et elles supportent la correction des prévisions trop optimistes. Le principe de sincérité ne sanctionne pas l'erreur de prévision, puisque la sincérité s'apprécie « compte tenu des informations disponibles » ; il interdit la sous-estimation ou la surestimation délibérée des charges et des ressources." },
+      { type: 'paragraphe', texte: "Le contrôle a posteriori donne la mesure de l'enjeu. Dans son rapport public annuel portant sur les exercices 2024 et 2025, publié en février 2026, la Cour des comptes a relevé que la loi de finances pour 2023, votée en équilibre à 32 456,78 milliards FC, n'a été réalisée en recettes qu'à hauteur de 29 607,09 milliards FC, soit un taux de 91,22 %. L'écart de 2 849,69 milliards FC entre recettes votées et recettes encaissées a dû être absorbé au stade de l'exécution des dépenses. Lorsque les recettes ne sont pas au rendez-vous, les crédits votés deviennent des plafonds théoriques, et la répartition réelle des dépenses échappe en partie à l'arbitrage parlementaire. La sincérité des prévisions conditionne donc la portée effective de l'autorisation budgétaire." },
+      { type: 'intertitre', texte: "2.6.3 Synthèse" },
+      { type: 'carte', titre: "Tableau 2.6 — Synthèse : les six principes, leurs règles et leurs aménagements", tableau: {
         entetes: ['Principe', 'Articles', 'Règle', 'Aménagements'],
         lignes: [
           ['**Annualité**', 'Art. 5 · 172 Const.', '1er janvier - 31 décembre', 'Crédits provisoires, LFR, AE pluriannuelles, reports, période complémentaire'],
@@ -442,11 +487,6 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Sincérité**', 'Art. 11', 'Prévisions honnêtes, comptes fidèles', 'Aucun - la sincérité s\'apprécie selon les informations disponibles'],
         ],
       } },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[20] },
-      { type: 'controle', question: QCM[11] },
     ],
   },
 ]
