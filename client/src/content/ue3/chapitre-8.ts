@@ -365,13 +365,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Lubumbashi. **MOERO BOISSONS SA**, qui embouteille des boissons gazeuses, veut absorber **LUAPULA EAUX SA**, qui produit de l'eau minérale sur la même zone. Les deux conseils se sont rapprochés : les actionnaires de LUAPULA recevront des actions MOERO, LUAPULA disparaîtra, et ses usines, ses clients et ses dettes passeront à MOERO. Il faut évaluer les deux sociétés, fixer un rapport d'échange, respecter une procédure exigeante et passer les écritures dans les deux comptabilités. Ce chapitre suit cette fusion, puis examine les cas plus complexes où les sociétés se détiennent déjà l'une l'autre, ainsi que la scission et l'apport partiel d'actif.",
       },
+      { type: 'intertitre', texte: "8.1.1 Trois techniques de regroupement" },
       {
         type: 'paragraphe',
         texte: "Une société qui veut grandir peut acheter des actifs un par un, racheter les actions d'une autre société, ou **fusionner** avec elle. La fusion est la voie la plus radicale : deux entreprises n'en forment plus qu'une, avec un seul patrimoine, un seul bilan et un seul groupe d'associés. L'Acte uniforme la définit comme l'opération par laquelle deux ou plusieurs sociétés se réunissent pour n'en former qu'une seule, **soit par création d'une société nouvelle** (fusion-réunion), **soit par absorption** par l'une d'entre elles (fusion-absorption) (art. 189). Une société même **en liquidation** peut être absorbée ou participer à la constitution d'une société nouvelle : la fusion peut ainsi servir de sortie à une société qui ne veut pas vendre ses actifs un à un.",
       },
       {
         type: 'carte',
-        titre: "Trois opérations, un régime commun",
+        titre: "Tableau 8.1 — Fusion, scission et apport partiel d'actif : un régime commun",
         tableau: {
           entetes: ["Opération", "Définition", "Sort de la société d'origine", "Rémunération"],
           lignes: [
@@ -382,24 +383,21 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "[texte officiel] L'article 195 est imprimé « L'apport partie d'd'actif est soumis au régime de la scission » : coquille évidente, le sens étant « l'apport partiel d'actif ». Les trois opérations peuvent intervenir entre sociétés de formes différentes, sauf disposition contraire (art. 196), et entre sociétés d'États parties différents, chacune restant soumise à l'Acte uniforme dans l'État de son siège (art. 199).",
       },
-      { type: 'controle', question: QCM[0] },
+      { type: 'intertitre', texte: "8.1.2 Les effets de la fusion et de la scission" },
       {
         type: 'paragraphe',
         texte: "La fusion et la scission produisent trois effets simultanés (art. 191). D'abord, la **dissolution sans liquidation** des sociétés qui disparaissent : pas de vente des actifs ni de paiement des dettes, pas de liquidateur. Ensuite, la **transmission universelle** de leur patrimoine aux bénéficiaires, « dans l'état où il se trouve à la date de réalisation définitive » : actifs, dettes, contrats et litiges passent en bloc, sans qu'il faille céder chaque élément séparément. Enfin, l'**échange des titres** : les associés des sociétés qui disparaissent deviennent associés des bénéficiaires, dans les conditions du contrat de fusion. C'est ce qui distingue la fusion d'une cession de fonds de commerce : le prix n'est pas payé en argent à la société, mais en titres aux associés.",
       },
-      { type: 'controle', question: QCM[1] },
       {
         type: 'filet',
         titre: "La soulte et les titres non échangés (art. 191)",
         texte: "Les associés peuvent recevoir, en plus des titres, une **soulte** en argent, plafonnée à **10 % de la valeur d'échange** des parts ou actions attribuées. Au-delà, l'opération cesserait d'être un échange de titres pour devenir en partie une vente. Par ailleurs, il n'est pas procédé à l'échange des titres de la société qui disparaît lorsqu'ils sont détenus par la société bénéficiaire, ou par la société qui disparaît elle-même (directement ou par personne interposée). Cette règle, qui évite qu'une société se remette ses propres titres, commande la technique de la fusion-renonciation (section 8.7).",
       },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "8.1.3 La date d'effet" },
       {
         type: 'paragraphe',
         texte: "La **date d'effet** est essentielle pour le comptable, car elle détermine à partir de quand les opérations de l'absorbée sont réputées faites pour le compte de l'absorbante. En cas de création de sociétés nouvelles, la fusion ou la scission prend effet à l'**immatriculation** au RCCM de la nouvelle société ou de la dernière d'entre elles. Dans les autres cas, elle prend effet à la date de la **dernière assemblée générale** ayant approuvé l'opération, sauf si le contrat prévoit une autre date. Celle-ci ne doit être ni postérieure à la clôture de l'exercice en cours des bénéficiaires, ni antérieure à la clôture du dernier exercice clos des sociétés qui transmettent leur patrimoine (art. 192). Une **rétroactivité** est donc possible, mais bornée : une fusion approuvée le 30 septembre N peut remonter au 1er janvier N si l'absorbée a clos son dernier exercice au 31 décembre N−1.",
       },
-      { type: 'controle', question: QCM[4] },
     ],
   },
   {
@@ -407,13 +405,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La procédure commune : projet, publicité, décision, conformité",
     navLabel: "Procédure",
     blocs: [
+      { type: 'intertitre', texte: "8.2.1 Le projet et sa publicité" },
       {
         type: 'paragraphe',
         texte: "Toute fusion commence par une négociation entre dirigeants, qui aboutit à un **projet de fusion ou de scission**. Chaque société participante l'arrête par son organe de gestion : conseil d'administration, administrateur général ou gérant (art. 193). Le projet est le document pivot de l'opération. Il fixe les valeurs, la parité, la prime et la date d'effet comptable, et c'est sur lui que les associés, les commissaires, les créanciers et le greffe raisonnent. L'AUDCIF en tire une conséquence comptable directe : les apports sont inscrits chez la bénéficiaire pour les valeurs figurant dans le traité, qui sert de support de base à la comptabilisation (ch. 38, § 2.1).",
       },
       {
         type: 'carte',
-        titre: "Les huit mentions du projet (art. 193)",
+        titre: "Encadré 8.1 — Les huit mentions du projet (art. 193)",
         liste: [
           "1° Forme, dénomination, numéro RCCM et siège de toutes les sociétés participantes.",
           "2° Motifs et conditions de l'opération.",
@@ -429,17 +428,17 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le projet est ensuite **déposé au RCCM** du siège de chaque société et fait l'objet d'un **avis** dans un journal d'annonces légales. L'avis reprend l'identification des sociétés, l'évaluation de l'actif et du passif transmis, le rapport d'échange et la prime prévue. Dépôt et publicité doivent intervenir **un mois au moins** avant la première assemblée appelée à statuer (art. 194). L'opération est ensuite **décidée**, dans chaque société, aux conditions requises pour la **modification de ses statuts**, selon les procédures d'augmentation de capital (pour la bénéficiaire) et de dissolution (pour la société qui disparaît). Si elle **augmente les engagements** des associés, par exemple quand des associés d'une SARL deviennent associés d'une SNC indéfiniment responsables, l'**unanimité** est requise, à peine de nullité (art. 197). Enfin, à peine de nullité, les sociétés déposent au greffe une **déclaration de conformité** relatant tous les actes accomplis et affirmant la régularité de l'opération (art. 198).",
       },
+      { type: 'intertitre', texte: "8.2.2 Le délai d'un mois et la décision" },
       {
         type: 'paragraphe',
-        texte: "Pourquoi un délai d'un mois entre la publicité et l'assemblée ? Parce que plusieurs catégories de personnes doivent pouvoir réagir avant que la décision ne soit prise. Les associés doivent avoir le temps d'étudier la parité et, dans les SA, les rapports. Les créanciers doivent pouvoir préparer une éventuelle opposition, dont le délai de trente jours court à compter de la publicité (art. 679). Les obligataires doivent pouvoir être convoqués en assemblée. Le comptable doit construire un calendrier à rebours : date de l'assemblée, date limite de publicité un mois plus tôt, date d'arrêté des comptes de référence (mention 5° du projet), et date de l'état comptable intermédiaire si les derniers comptes ont plus de six mois (art. 674). Un calendrier mal construit peut obliger à reporter l'assemblée, voire exposer l'opération à la nullité.",
+        texte: "Le délai d'un mois entre la publicité et l'assemblée permet à plusieurs catégories de personnes de réagir avant que la décision ne soit prise. Les associés doivent avoir le temps d'étudier la parité et, dans les SA, les rapports. Les créanciers doivent pouvoir préparer une éventuelle opposition, dont le délai de trente jours court à compter de la publicité (art. 679). Les obligataires doivent pouvoir être convoqués en assemblée. Le comptable doit construire un calendrier à rebours : date de l'assemblée, date limite de publicité un mois plus tôt, date d'arrêté des comptes de référence (mention 5° du projet), et date de l'état comptable intermédiaire si les derniers comptes ont plus de six mois (art. 674). Un calendrier mal construit peut obliger à reporter l'assemblée, voire exposer l'opération à la nullité.",
       },
-      { type: 'controle', question: QCM[5] },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle du calendrier de la fusion MOERO–LUAPULA",
         texte: "Pour la fusion de MOERO BOISSONS et de LUAPULA EAUX, l'auditeur commence par le calendrier. Le projet a-t-il été arrêté par les deux conseils, avec ses huit mentions ? A-t-il été déposé au RCCM et publié par chacune des deux sociétés un mois au moins avant la première assemblée ? Les documents étaient-ils à la disposition des actionnaires quinze jours avant ? Il vérifie ensuite les rapports du conseil et du commissaire à la fusion, les majorités de chaque AGE et la déclaration de conformité. Un seul maillon manquant peut entraîner la nullité, et avec elle toutes les écritures de la fusion.",
       },
-      { type: 'controle', question: QCM[6] },
+      { type: 'intertitre', texte: "8.2.3 Les fusions de SARL" },
       {
         type: 'filet',
         titre: "Les fusions de SARL (art. 382-383)",
@@ -452,13 +451,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les règles propres aux sociétés anonymes",
     navLabel: "Fusions de SA",
     blocs: [
+      { type: 'intertitre', texte: "8.3.1 Le commissaire à la fusion" },
       {
         type: 'paragraphe',
         texte: "Lorsque l'opération réunit uniquement des sociétés anonymes, les articles 670 et suivants renforcent l'information des actionnaires. La fusion est décidée par l'**assemblée générale extraordinaire** de chaque société, et, le cas échéant, ratifiée par les assemblées spéciales de catégories d'actions (art. 671). Le conseil d'administration ou l'administrateur général de chaque société établit un **rapport** qui explique et justifie le projet du point de vue juridique et économique, notamment le rapport d'échange et les méthodes d'évaluation. Ces méthodes doivent être **concordantes** pour les sociétés concernées. À défaut de ce rapport, les délibérations sont nulles. [texte officiel] L'article 670 frappe de nullité « toute délibération prise en violation des alinéas premier et deuxième du présent article », alors qu'il ne comporte qu'un alinéa de fond.",
       },
       {
         type: 'carte',
-        titre: "Le commissaire à la fusion (art. 672-673)",
+        titre: "Encadré 8.2 — Le commissaire à la fusion (art. 672 et 673)",
         liste: [
           "Un ou plusieurs commissaires à la fusion sont **désignés par la juridiction compétente** et établissent, sous leur responsabilité, un rapport écrit sur les modalités de la fusion.",
           "Ils vérifient que les **valeurs relatives** attribuées aux actions sont pertinentes et que le **rapport d'échange est équitable**.",
@@ -472,12 +472,12 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le rapport du conseil d'administration et celui du commissaire à la fusion ne font pas double emploi. Le conseil, qui a négocié l'opération, **explique et justifie** son projet : pourquoi fusionner, avec qui, à quelle parité, selon quelles méthodes. Le commissaire à la fusion, désigné par le juge et indépendant des deux sociétés, **contrôle** ce travail : il vérifie que les méthodes sont adaptées et concordantes, et que la parité qui en résulte est équitable pour les deux groupes d'actionnaires. Une fusion n'est en effet jamais neutre entre eux : une parité trop favorable aux actionnaires de l'absorbée dilue ceux de l'absorbante, et inversement. Le commissaire aux comptes de l'une des sociétés ne peut pas remplir cette mission (art. 673), car il n'aurait pas l'indépendance voulue à l'égard des deux parties.",
       },
-      { type: 'controle', question: QCM[7] },
+      { type: 'intertitre', texte: "8.3.2 L'information des actionnaires" },
       {
         type: 'paragraphe',
         texte: "Quinze jours au moins avant l'assemblée, chaque SA tient à la disposition de ses actionnaires, au siège social ou par voie électronique, le projet de fusion, les rapports du conseil et des commissaires à la fusion, les **états financiers et rapports de gestion des trois derniers exercices** des sociétés participantes, et un **état comptable intermédiaire**. Cet état est obligatoire si les derniers comptes se rapportent à un exercice clos plus de six mois avant la date du projet ; il doit alors être arrêté moins de trois mois avant cette date, selon les mêmes méthodes et la même présentation que le dernier bilan (art. 674). C'est souvent au comptable qu'il revient de préparer cet état, qui sert de base à l'évaluation des apports.",
       },
-      { type: 'controle', question: QCM[8] },
+      { type: 'intertitre', texte: "8.3.3 Les procédures allégées" },
       {
         type: 'paragraphe',
         texte: "Deux cas allègent la procédure. Le premier est la **fusion simplifiée**. Si l'absorbante détient en permanence la totalité du capital des absorbées, depuis le dépôt du projet au RCCM jusqu'à la réalisation de l'opération, il n'y a lieu ni à approbation par l'AGE des absorbées, ni aux rapports du conseil et du commissaire à la fusion (art. 676). Il n'y a en effet aucun actionnaire minoritaire à protéger ni aucune parité à négocier. Le second est la **fusion-réunion**. La société nouvelle peut être constituée sans autres apports que ceux des sociétés qui fusionnent ; son projet de statuts est approuvé par l'AGE de chacune des sociétés qui disparaissent, sans approbation par l'assemblée de la société nouvelle (art. 677). Pour la scission de SA, les mêmes règles s'appliquent (art. 684). Si des SA nouvelles sont constituées par le seul apport de la scindée et que leurs actions sont attribuées proportionnellement, le rapport du commissaire à la fusion n'est pas requis (art. 685).",
@@ -486,7 +486,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La fusion simplifiée se comprend aisément. Si l'absorbante détient toutes les actions de l'absorbée, l'échange de titres n'a pas d'objet : elle ne peut pas se remettre ses propres actions (art. 191). Il n'y a donc ni parité à négocier ni actionnaire minoritaire à informer, et les rapports du conseil et du commissaire à la fusion perdent leur raison d'être. La condition est stricte : la détention doit être **permanente**, depuis le dépôt du projet au RCCM jusqu'à la réalisation. Une seule action cédée à un tiers entre-temps fait tomber le régime. En pratique, les groupes utilisent souvent ce mécanisme pour simplifier leur organigramme, par exemple en absorbant des sociétés devenues de simples coquilles ou en regroupant des filiales qui exercent la même activité dans plusieurs provinces.",
       },
-      { type: 'controle', question: QCM[9] },
     ],
   },
   {
@@ -494,13 +493,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Créanciers et obligataires face à la fusion",
     navLabel: "Créanciers",
     blocs: [
+      { type: 'intertitre', texte: "8.4.1 La protection des créanciers et des obligataires" },
       {
         type: 'paragraphe',
         texte: "La fusion change le débiteur des créanciers de l'absorbée : ils avaient traité avec une société, ils se retrouvent face à une autre, peut-être plus endettée. L'Acte uniforme organise leur protection sans leur donner de droit de veto. L'absorbante devient débitrice des créanciers non obligataires de l'absorbée **aux lieu et place** de celle-ci, **sans novation** (art. 679). Les créanciers non obligataires des sociétés participantes, y compris les bailleurs des locaux, dont la créance est antérieure à la publicité du projet, peuvent former **opposition** devant la juridiction compétente dans un délai de **trente jours** à compter de cette publicité. Le juge rejette l'opposition ou ordonne le remboursement des créances ou la constitution de garanties. À défaut, la fusion est **inopposable** au créancier. L'opposition n'empêche pas la poursuite de l'opération. Les clauses d'exigibilité anticipée en cas de fusion restent applicables (art. 680).",
       },
       {
         type: 'carte',
-        titre: "Le sort des obligataires",
+        titre: "Tableau 8.2 — Le sort des obligataires dans la fusion",
         tableau: {
           entetes: ["Obligataires de…", "Règle", "Articles"],
           lignes: [
@@ -512,7 +512,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "[texte officiel] L'article 682 fait courir le délai d'opposition de trente jours à compter de « l'insertion prescrite par l'article 265 », qui traite des formalités de la transformation et non de la fusion. Le délai se calcule en pratique à compter de la publicité du projet de fusion (art. 194 et 679).",
       },
-      { type: 'controle', question: QCM[10] },
+      { type: 'intertitre', texte: "8.4.2 Les conséquences comptables" },
       {
         type: 'paragraphe',
         texte: "Pour le comptable, ces règles ont trois conséquences. Les dettes de l'absorbée passent **telles quelles** au passif de l'absorbante, avec leurs échéances et leurs garanties : la reprise se fait au montant dû, sans novation. Un emprunt obligataire de l'absorbée devient un emprunt de l'absorbante (compte 161), avec la prime de remboursement restant à étaler (chapitre 6). Enfin, une opposition accueillie peut obliger à rembourser par anticipation ou à constituer des garanties, qui doivent être mentionnées dans les Notes annexes parmi les engagements donnés. Dans une **scission**, la solidarité des bénéficiaires envers les créanciers de la scindée (art. 688) est un engagement hors bilan pour chacune, sauf clause la limitant au passif mis à sa charge (art. 689).",
@@ -521,7 +521,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'opposition d'un créancier n'est pas une menace théorique. Un fournisseur de l'absorbée qui voit sa créance transférée à une absorbante très endettée peut demander au juge une garantie ou un remboursement anticipé. Un banquier qui a prêté à l'absorbée avec une clause d'exigibilité en cas de fusion peut exiger le remboursement immédiat, puisque l'article 680 réserve l'application de ces conventions. Avant de lancer une fusion, le directeur financier recense donc les contrats de prêt, les baux et les contrats commerciaux importants, et leurs clauses de changement de contrôle ou de fusion. Il négocie les accords nécessaires, et le comptable prévoit les conséquences : reclassement d'une dette à court terme si elle devient exigible, engagements hors bilan pour les garanties données.",
       },
-      { type: 'controle', question: QCM[11] },
     ],
   },
   {
@@ -529,13 +528,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Évaluer les apports et fixer la parité d'échange",
     navLabel: "Évaluation et parité",
     blocs: [
+      { type: 'intertitre', texte: "8.5.1 Les principes de l'AUDCIF" },
       {
         type: 'paragraphe',
         texte: "L'AUDCIF fonde le traitement comptable des fusions sur quatre principes : la **référence obligatoire au traité** d'apport, l'**application d'une seule méthode** d'évaluation pour une situation donnée, une méthodologie inspirée des **comptes consolidés** pour apprécier le contrôle, et la recherche de la **neutralité** des regroupements entre entités sous contrôle exclusif sur le résultat et les capitaux propres de l'absorbante (ch. 38, § 1.2.2). Il en déduit une règle simple, qui **n'est pas au choix des sociétés** (§ 3.1). Si l'opération emporte une **prise de contrôle**, elle est traitée comme une acquisition, et les apports sont évalués à la **valeur réelle**. S'il s'agit de l'absorption d'une filiale détenue **en permanence à 100 %**, c'est une restructuration interne, un maintien de contrôle, et les apports sont évalués à la **valeur comptable** (§ 2.2.1).",
       },
       {
         type: 'carte',
-        titre: "Valeur réelle ou valeur comptable ?",
+        titre: "Tableau 8.3 — Valeur réelle et valeur comptable des apports",
         tableau: {
           entetes: ["", "Valeur réelle", "Valeur comptable"],
           lignes: [
@@ -550,14 +550,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La prise de contrôle justifie la valeur réelle, parce que l'opération ressemble à un achat. L'absorbante « paie » les actifs de l'absorbée avec ses propres actions, et elle doit inscrire ce qu'elle a acquis pour ce qu'elle l'a payé, comme pour tout achat. Dans une restructuration interne, rien n'est acheté : la mère possédait déjà, à travers sa filiale, les actifs qu'elle reprend. Réévaluer ces actifs créerait des plus-values fictives, simplement parce que le groupe a changé son organigramme. D'où la valeur comptable, qui garantit la **neutralité** de l'opération sur le résultat et les capitaux propres de l'absorbante (AUDCIF, ch. 38, § 1.2.2). Entre ces deux cas extrêmes, l'AUDCIF demande d'apprécier la substance de l'opération en termes de prise de contrôle (§ 3.5.3).",
       },
-      { type: 'controle', question: QCM[12] },
+      { type: 'intertitre', texte: "8.5.2 La parité d'échange" },
       {
         type: 'paragraphe',
         texte: "La **parité d'échange** est le rapport entre la valeur d'un titre de l'absorbée et la valeur d'un titre de l'absorbante : (valeur de l'absorbée / nombre de ses titres) / (valeur de l'absorbante / nombre de ses titres). Elle indique combien de titres de l'absorbante chaque associé de l'absorbée reçoit pour un titre ancien. L'AUDCIF recommande des méthodes **multicritères**, **homogènes** entre les sociétés, et une **base arrêtée à la même date** (§ 2.3.1). Il cite les méthodes patrimoniales, les méthodes fondées sur les flux, les approches mixtes, les multiples comparables et les méthodes de création de valeur (§ 3.1). La cohérence est décisive : évaluer l'absorbée à sa valeur de rendement et l'absorbante à son actif net fausserait l'échange au détriment de l'un des deux groupes d'associés. C'est précisément ce que contrôle le commissaire à la fusion.",
       },
       {
         type: 'carte',
-        titre: "Application 116 : du bilan de B à la parité",
+        titre: "Exemple 8.1 — Application 116 : du bilan de B à la parité",
         liste: [
           "Actif réel de B : frais de développement 3 000 000 + terrains 37 500 000 + bâtiments 50 000 000 + matériels 9 500 000 + stocks 15 000 000 + clients 5 000 000 + banque 10 000 000 = 130 000 000.",
           "Actif net apporté : 130 000 000 − emprunts 40 000 000 = **90 000 000**. Vérification : capitaux propres 72 500 000 + plus-values (terrains 7 500 000, bâtiments 10 000 000) = 90 000 000.",
@@ -567,7 +567,7 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "[texte officiel] Le Guide numérote les étapes « 3 », « 5 » et « 6 » sans étape 4 visible.",
       },
-      { type: 'controle', question: QCM[13] },
+      { type: 'intertitre', texte: "8.5.3 Arrondis et cohérence des méthodes" },
       {
         type: 'paragraphe',
         texte: "La parité tombe rarement juste. L'AUDCIF propose de chercher un nombre entier par approches successives ou par le plus grand commun diviseur. Restent les **rompus** : un associé qui détient 5 parts B, avec une parité de 5 A pour 3 B, a droit à 8,33 actions A. Quatre solutions existent (§ 2.3.2). On peut ne rien faire, et l'associé perd la fraction. On peut verser une **soulte**. On peut obtenir d'un actionnaire qu'il renonce à ses droits sur quelques titres pour arrondir. On peut enfin racheter des actions propres, suivi d'une réduction de capital. [texte officiel] Pour la soulte, le § 2.3.2 de l'AUDCIF parle de « 10 % de la valeur nominale des parts ou actions attribuées », alors que l'article 191 qu'il cite retient la **valeur d'échange** : c'est la règle de l'Acte uniforme qu'il faut appliquer.",
@@ -578,10 +578,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : que faire d'une parité de 35 pour 24 ?",
+        titre: "Le traitement d'une parité de 35 pour 24",
         texte: "L'action LUAPULA vaut 17 500 FC et l'action MOERO 12 000 FC : le rapport exact est de 35/24, soit 11 666,67 actions MOERO pour les 8 000 actions LUAPULA. Aucun actionnaire ne veut recevoir des fractions d'action. Les parties peuvent arrondir et compenser les rompus par une soulte, plafonnée à 10 % de la valeur d'échange des titres attribués (art. 191), ou ajuster légèrement les valeurs pour obtenir une parité simple. C'est ce que fait le cas 1 en retenant 3 actions MOERO pour 2 actions LUAPULA, soit 12 000 titres émis. Toute parité négociée doit rester défendable devant le commissaire à la fusion.",
       },
-      { type: 'controle', question: QCM[14] },
     ],
   },
   {
@@ -589,13 +588,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La fusion simple : écritures chez l'absorbante et chez l'absorbée (Application 116)",
     navLabel: "Fusion simple",
     blocs: [
+      { type: 'intertitre', texte: "8.6.1 Chez l'absorbante" },
       {
         type: 'paragraphe',
         texte: "Dans une fusion simple, les deux sociétés sont **indépendantes** : aucune ne détient de titres de l'autre. L'opération est une prise de contrôle, évaluée à la valeur réelle. Pour l'absorbante, tout se passe comme une **augmentation de capital par apport en nature** (chapitre 4), avec une égalité fondamentale : **apports nets = augmentation de capital + prime de fusion**. L'augmentation de capital est le nombre de titres créés multiplié par leur nominal. La prime de fusion est la différence entre la valeur des apports et cette augmentation, et elle représente le **droit d'entrée** des nouveaux actionnaires dans une société dont les réserves et les plus-values latentes appartenaient jusque-là aux anciens. L'AUDCIF décrit trois phases chez l'absorbante : promesse des apports, réalisation des apports, constatation des frais.",
       },
       {
         type: 'carte',
-        titre: "Chez l'absorbante A",
+        titre: "Exemple 8.2 — Application 116 : écritures chez l'absorbante A",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -619,19 +619,18 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Chaque actif est repris à sa **valeur réelle individuelle** : l'Application 116 réévalue les terrains (+7 500 000) et les bâtiments (+10 000 000), et laisse les autres éléments à leur valeur comptable, jugée proche de leur valeur réelle. Si le traité mentionne des éléments absents du bilan de l'absorbée, comme une marque, une clientèle ou un droit au bail, ils sont inscrits au 215 Fonds commercial. S'il reste un écart entre l'apport net et la somme des éléments identifiés, c'est également au 215 qu'il est porté (ch. 38, § 3.4.1.4). Cet écart représente ce que l'absorbante « paie » au-delà des actifs identifiables : réputation, savoir-faire, synergies attendues. Il fait ensuite l'objet des tests de dépréciation applicables au fonds commercial.",
       },
-      { type: 'controle', question: QCM[15] },
       {
         type: 'paragraphe',
         texte: "Le choix entre les deux options pour les frais externes n'est pas indifférent. En charges, les frais réduisent le résultat de l'exercice de la fusion, et donc le bénéfice distribuable. Imputés sur la prime, ils réduisent les capitaux propres sans passer par le résultat : l'opération est présentée comme un coût d'émission des titres nouveaux, supporté par l'ensemble des actionnaires. L'AUDCIF considère ces coûts externes comme des **frais d'émission de titres**, ce qui justifie l'imputation. Les coûts internes (temps passé par le personnel, déplacements, frais administratifs) restent toujours en charges, car ils ne sont pas directement liés à l'émission (ch. 38, § 3.4.1.3). L'option retenue doit être décrite dans les Notes annexes.",
       },
-      { type: 'controle', question: QCM[16] },
+      { type: 'intertitre', texte: "8.6.2 Chez l'absorbée" },
       {
         type: 'paragraphe',
         texte: "Chez l'**absorbée**, la fusion est une dissolution. Il faut faire disparaître tous ses comptes en quatre étapes. **(1) Transfert du patrimoine** : l'absorbée constate sa créance sur l'absorbante au 4718 pour la valeur réelle de l'actif net apporté, débite ses dettes et ses amortissements, crédite ses actifs en valeur brute, et inscrit la plus-value d'apport au **1381 Résultat de fusion**. **(2) Rémunération** : elle reçoit les titres de l'absorbante (502) en paiement de sa créance. **(3) Droits des associés** : capital, réserves et résultat de fusion sont virés au 4618 Apporteurs, titres à échanger. **(4) Désintéressement** : les titres reçus sont remis aux associés, et le 4618 et le 502 sont soldés. À la fin, le bilan de l'absorbée est vide.",
       },
       {
         type: 'carte',
-        titre: "Chez l'absorbée B",
+        titre: "Exemple 8.3 — Application 116 : écritures chez l'absorbée B",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -650,17 +649,15 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Contrôle de l'étape 1 : débits 90 000 000 + 33 500 000 + 40 000 000 = 163 500 000 ; crédits 146 000 000 + 17 500 000 = 163 500 000. Le plan de comptes intitule le 4718 « Apport, compte de fusion et opérations assimilées ». [texte officiel] L'AUDCIF relève lui-même que le Titre VII et le chapitre 32 du Titre VIII emploient ce compte comme « Autres débiteurs divers ».",
       },
-      { type: 'controle', question: QCM[17] },
       {
         type: 'paragraphe',
-        texte: "Pourquoi l'absorbée enregistre-t-elle une plus-value alors qu'elle disparaît ? Parce que ses associés ne reçoivent pas la valeur comptable de leur société, mais sa valeur réelle, sous forme d'actions de l'absorbante. Le 1381 fait apparaître cet enrichissement, puis il est viré avec le capital et les réserves au 4618 : il fait partie des droits des associés. Le résultat de fusion ne transite pas par le compte de résultat, puisque l'absorbée ne publie plus de comptes après sa dissolution. Pour l'absorbante, les actifs repris à la valeur réelle serviront de nouvelle base d'amortissement comptable. Fiscalement, l'article 54 de la loi n° 23/053 impose de conserver la base de l'apporteuse (section 8.10).",
+        texte: "L'absorbée enregistre une plus-value, bien qu'elle disparaisse, parce que ses associés ne reçoivent pas la valeur comptable de leur société, mais sa valeur réelle, sous forme d'actions de l'absorbante. Le 1381 fait apparaître cet enrichissement, puis il est viré avec le capital et les réserves au 4618 : il fait partie des droits des associés. Le résultat de fusion ne transite pas par le compte de résultat, puisque l'absorbée ne publie plus de comptes après sa dissolution. Pour l'absorbante, les actifs repris à la valeur réelle serviront de nouvelle base d'amortissement comptable. Fiscalement, l'article 54 de la loi n° 23/053 impose de conserver la base de l'apporteuse (section 8.10).",
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Créditer le capital de la valeur totale des apports. MOERO BOISSONS reçoit un actif net de 140 000 000 FC, mais son capital n'augmente que du nominal des titres créés : 12 000 × 5 000 = 60 000 000 FC. Les 80 000 000 FC restants sont une prime de fusion (1053), qui représente le droit d'entrée des actionnaires de LUAPULA dans une société dont les réserves et les plus-values appartenaient jusque-là aux actionnaires de MOERO. Chez LUAPULA, symétriquement, l'écart entre la valeur d'apport et la valeur comptable des actifs n'est pas un bénéfice d'exploitation : c'est un résultat de fusion (1381), viré aux droits des associés.",
+        titre: "L'augmentation de capital n'égale pas la valeur des apports",
+        texte: "Le capital ne se crédite pas de la valeur totale des apports. MOERO BOISSONS reçoit un actif net de 140 000 000 FC, mais son capital n'augmente que du nominal des titres créés : 12 000 × 5 000 = 60 000 000 FC. Les 80 000 000 FC restants sont une prime de fusion (1053), qui représente le droit d'entrée des actionnaires de LUAPULA dans une société dont les réserves et les plus-values appartenaient jusque-là aux actionnaires de MOERO. Chez LUAPULA, symétriquement, l'écart entre la valeur d'apport et la valeur comptable des actifs n'est pas un bénéfice d'exploitation : c'est un résultat de fusion (1381), viré aux droits des associés.",
       },
-      { type: 'controle', question: QCM[18] },
     ],
   },
   {
@@ -668,13 +665,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Participations préexistantes : renonciation, allotissement, actions propres, réciprocité",
     navLabel: "Participations",
     blocs: [
+      { type: 'intertitre', texte: "8.7.1 L'absorbante détient des titres de l'absorbée" },
       {
         type: 'paragraphe',
         texte: "Les fusions entre sociétés liées sont fréquentes : on absorbe plus volontiers une société dont on est déjà actionnaire. Trois situations se présentent (AUDCIF, ch. 38, § 3.3) : l'absorbante détient des titres de l'absorbée, l'absorbée détient des titres de l'absorbante, ou les participations sont réciproques. Dans chaque cas, le problème est le même : à l'issue de l'échange, une société se retrouverait propriétaire de ses propres actions, ce que l'article 639 interdit (chapitre 5) et ce que l'article 191 écarte. La technique comptable consiste à **neutraliser** ces titres.",
       },
       {
         type: 'carte',
-        titre: "Application 117 : A détient 40 % de B (fusion-renonciation)",
+        titre: "Exemple 8.4 — Application 117 : A détient 40 % de B (fusion-renonciation)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -690,19 +688,18 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Valeurs : B = 100 000 000 / 5 000 = 20 000 ; A = (230 000 000 + 40 % × 100 000 000 + 60 000 000 − 30 000 000) / 10 000 = 30 000 ; parité 2 A pour 3 B. Seuls les 3 000 titres B des tiers sont échangés, contre 2 000 titres A. Chez B, le 4718 (100 000 000) n'est soldé qu'à hauteur de 60 000 000 par les titres reçus ; le solde de 40 000 000, quote-part de A, est soldé à l'étape 3 contre les capitaux propres. [texte officiel] À l'étape 1 chez B, le Guide crédite un compte 2231 intitulé « Matériels industriels » : 2231 est un compte de terrains, et les matériels industriels relèvent du 2411.",
       },
-      { type: 'controle', question: QCM[19] },
       {
         type: 'paragraphe',
         texte: "La renonciation peut aussi être **partielle** : l'absorbante renonce à certains titres seulement, par exemple pour ajuster les rompus. Elle peut enfin conduire à un **mali**. Imaginons que A ait payé 50 000 000 pour ses 40 % de B, soit plus que la quote-part d'apport correspondante (40 000 000). Le mali de 10 000 000 est une moins-value de fusion. Il traduit souvent des plus-values latentes sur les actifs de B que le prix d'acquisition avait déjà payées, ou un surpaiement. L'AUDCIF demande d'en indiquer dans les Notes annexes la composante qui correspond aux plus-values latentes sur la quote-part détenue par l'absorbante (ch. 38, section 6). Le lecteur des comptes peut ainsi distinguer un mali qui reflète une valeur réelle d'un mali qui révèle une mauvaise acquisition.",
       },
-      { type: 'controle', question: QCM[20] },
       {
         type: 'paragraphe',
         texte: "Le **boni de fusion** (ici 30 000 000) est la différence entre la quote-part d'apport représentée par les titres annulés (40 % de 100 000 000) et leur valeur nette comptable chez l'absorbante (10 000 000). Il traduit l'enrichissement de B depuis que A a acquis sa participation : réserves accumulées et plus-values latentes. L'AUDCIF le traite comme une prime de fusion, au 1053. Il ne passe donc pas en résultat. Si la quote-part était inférieure à la valeur des titres, il s'agirait d'un **mali**, qui viendrait en diminution de la prime. L'AUDCIF décrit une variante, la **fusion-allotissement** : le patrimoine de l'absorbée est partagé en deux lots. L'un revient à l'absorbante pour ses titres, comme dans une liquidation partielle ; l'autre est apporté contre titres pour la fraction extérieure. La plus-value sur le lot alloti est économiquement une plus-value de liquidation, mais le SYSCOHADA préconise de l'inscrire au 1053 (§ 3.5.1.2).",
       },
+      { type: 'intertitre', texte: "8.7.2 L'absorbée détient des titres de l'absorbante" },
       {
         type: 'carte',
-        titre: "Application 118 : B détient 20 % de A (actions propres puis réduction de capital)",
+        titre: "Exemple 8.5 — Application 118 : B détient 20 % de A (actions propres puis réduction de capital)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -721,20 +718,18 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Et si MOERO détenait déjà 25 % de LUAPULA ?",
+        titre: "Une participation préexistante de MOERO dans LUAPULA",
         texte: "MOERO ne pourrait pas échanger les 2 000 actions LUAPULA qu'elle possède contre ses propres actions (art. 191). Seules les 6 000 actions des autres actionnaires seraient échangées, contre 9 000 actions MOERO, soit une augmentation de capital de 45 000 000 FC. Sur l'apport de 140 000 000 FC, la part échangée (105 000 000 FC) donnerait une prime de fusion de 60 000 000 FC. La part revenant à MOERO (35 000 000 FC) servirait à annuler ses titres LUAPULA : l'écart avec leur valeur comptable serait un boni de fusion, logé au 1053, ou un mali s'il était négatif.",
       },
-      { type: 'controle', question: QCM[21] },
+      { type: 'intertitre', texte: "8.7.3 Les participations réciproques" },
       {
         type: 'paragraphe',
         texte: "Quand les participations sont **réciproques**, la valeur de chaque société dépend de celle de l'autre. Dans l'Application 119, A détient 500 titres B et B détient 500 titres A. L'actif net de A hors titres B est de 185 000 000, et celui de B hors titres A de 140 000 000. D'où le système : 10 000 A = 500 B + 185 000 000 et 5 000 B = 500 A + 140 000 000. On le résout par substitution : B = (500 A + 140 000 000) / 5 000 = 0,1 A + 28 000 ; donc 10 000 A = 50 A + 14 000 000 + 185 000 000, soit 9 950 A = 199 000 000, A = **20 000** et B = **30 000**. La parité est de 3 A pour 2 B. L'opération combine ensuite les deux techniques précédentes. A renonce à se rémunérer pour ses 500 titres B, avec un boni de 10 000 000. Elle reçoit 500 actions propres, qu'elle annule par une réduction de capital de 5 000 000 au nominal et une imputation de 5 000 000 sur la prime. La prime finale est de 72 500 000. [texte officiel] Le Guide note cette imputation au compte « 10523 », qui n'existe pas au plan de comptes : il faut lire 1053.",
       },
-      { type: 'controle', question: QCM[22] },
       {
         type: 'paragraphe',
         texte: "Ces situations croisées ne sont pas des curiosités d'examen. Dans les groupes familiaux ou issus de rapprochements successifs, il est fréquent que deux sociétés sœurs se détiennent mutuellement quelques pour cent de leur capital, héritage d'échanges de titres anciens. L'article 177 plafonne ces participations réciproques à 10 % (chapitre 7), mais rien n'interdit qu'elles existent en dessous de ce seuil. Au moment de la fusion, elles compliquent le calcul des valeurs, qui deviennent interdépendantes, et elles imposent à la fois une renonciation et une réduction de capital. Le comptable doit vérifier que le résultat est cohérent : la somme des capitaux propres après fusion doit correspondre aux actifs nets réellement apportés par les tiers, sans double comptage des titres réciproques.",
       },
-      { type: 'controle', question: QCM[23] },
     ],
   },
   {
@@ -742,13 +737,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Filiale à 100 %, fusion-réunion et scission",
     navLabel: "Autres formes",
     blocs: [
+      { type: 'intertitre', texte: "8.8.1 L'absorption d'une filiale à 100 %" },
       {
         type: 'paragraphe',
         texte: "L'absorption d'une filiale détenue **en permanence à 100 %** est la forme la plus courante de restructuration interne. Juridiquement, c'est la fusion simplifiée de l'article 676 : ni AGE de l'absorbée, ni rapports. Comptablement, les apports sont évalués à la **valeur comptable**, et l'absorbante reprend chaque élément tel qu'il figurait chez l'absorbée, en ventilant la valeur nette entre valeur d'origine, amortissements et dépréciations. Aucune augmentation de capital n'est nécessaire, puisque l'absorbante ne peut pas se remettre ses propres titres (art. 191) : les titres de la filiale sont annulés. L'écart entre l'actif net comptable repris et le coût des titres annulés est un **boni ou mali** de fusion, traité selon la logique du § 3.5.1.1, c'est-à-dire en 1053 pour le boni.",
       },
       {
         type: 'carte',
-        titre: "Exemple : absorption de la filiale à 100 % SANKURU BOIS SARL",
+        titre: "Exemple 8.6 — Absorption de la filiale à 100 % SANKURU BOIS SARL",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -766,7 +762,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Dans une absorption à la valeur comptable, l'égalité fondamentale change de forme : apports nets = titres annulés + boni (ou − mali). Il n'y a ni capital nouveau ni prime de fusion au sens strict. L'opération ne crée pas non plus de résultat chez l'absorbante : le boni est porté en capitaux propres (1053). Pour l'analyste, les comptes de l'absorbante après fusion ressemblent aux comptes consolidés du groupe avant fusion, puisque les actifs de la filiale y figurent désormais directement, à leurs valeurs historiques. C'est exactement l'objectif de neutralité recherché par l'AUDCIF pour les regroupements entre entités sous contrôle exclusif.",
       },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "8.8.2 Fusion-réunion et scission" },
       {
         type: 'paragraphe',
         texte: "Dans la **fusion-réunion**, toutes les sociétés participantes disparaissent au profit d'une société nouvelle créée à cet effet. Celle-ci peut être constituée sans autres apports que ceux des sociétés qui fusionnent, sur approbation de ses statuts par l'AGE de chacune d'elles (art. 677). Ses écritures sont celles d'une **constitution** avec apports en nature (chapitre 1) : promesse des apports au 4614, capital et prime de fusion, puis réalisation. Chaque société qui disparaît passe les écritures de dissolution de l'absorbée. La **scission** obéit à la même logique, avec plusieurs bénéficiaires (ch. 38, section 5). La société scindée passe les écritures de l'absorbée, mais elle reçoit des titres de plusieurs sociétés et les remet à ses associés. Chaque bénéficiaire enregistre la fraction de patrimoine qui lui revient, à la valeur réelle ou comptable retenue dans le projet de scission. Une bénéficiaire nouvelle comptabilise l'apport comme une constitution de société.",
@@ -778,13 +774,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'apport partiel d'actif (Application 120)",
     navLabel: "Apport partiel",
     blocs: [
+      { type: 'intertitre', texte: "8.9.1 Le principe et l'Application 120" },
       {
         type: 'paragraphe',
         texte: "L'apport partiel d'actif sert souvent à **filialiser** une activité : une société transfère une branche à une filiale, existante ou créée pour l'occasion, et reçoit en échange des titres de cette filiale. La branche doit être **autonome**, c'est-à-dire capable de fonctionner par ses propres moyens (art. 195). L'apport d'actifs **isolés** (un immeuble, quelques machines) n'est pas un apport partiel d'actif. Il se comptabilise comme un échange ordinaire, à la valeur actuelle du bien acquis lorsque les deux lots sont évaluables de façon fiable (AUDCIF, ch. 38, § 4.1.2.3).",
       },
       {
         type: 'carte',
-        titre: "Application 120 : Y apporte une branche à X, rémunérée en actions de 10 000 émises à 15 000",
+        titre: "Exemple 8.7 — Application 120 : Y apporte une branche à X, rémunérée en actions de 10 000 émises à 15 000",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -803,21 +800,20 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Apport net : 25 000 000 + 45 000 000 + 36 000 000 + 29 820 000 − 12 820 000 = 123 000 000 ; 123 000 000 / 15 000 = 8 200 actions. [texte officiel] Le Guide libelle la prime « 8 200 × (10 000 − 5 000) » : le montant (41 000 000) est juste, mais le libellé du calcul ne l'est pas.",
       },
-      { type: 'controle', question: QCM[25] },
+      { type: 'intertitre', texte: "8.9.2 Chez l'apporteuse et chez la bénéficiaire" },
       {
         type: 'paragraphe',
         texte: "Chez la société **apporteuse**, qui survit, les titres reçus sont inscrits au **26 Titres de participation** pour la valeur retenue dans le traité : valeur réelle des apports si l'opération est à la valeur réelle, valeur comptable sinon (AUDCIF, ch. 38, § 4.1). La contrepartie dépend de la nature des éléments apportés. Les **immobilisations** sont traitées comme cédées : crédit du 82 pour la valeur d'apport, puis sortie de la valeur nette par le 81. Les **stocks** sont crédités au 843 Produits liés aux opérations de restructuration ; pour ne pas fausser le résultat d'exploitation, la sortie du stock constatée par le 603 est neutralisée par un débit du 833 Charges liées aux opérations de restructuration et un crédit du 781 Transferts de charges d'exploitation. Les **autres éléments** sont crédités à leur compte, les écarts éventuels passant au 843 ou au 833.",
       },
       {
         type: 'paragraphe',
-        texte: "Chez la société bénéficiaire, l'apport partiel d'actif ressemble en tout point à une augmentation de capital par apport en nature (chapitre 4) : commissaire aux apports si la bénéficiaire est une société par actions, approbation par l'AGE, et prime d'apport au 1052. Deux points méritent l'attention. Les éléments incorporels non inscrits au bilan de l'apporteuse, comme le fonds commercial de l'Application 120, entrent pour leur valeur d'apport. Les créances douteuses sont reprises en brut avec leur dépréciation, ce qui préserve l'information sur le risque et permet de suivre leur recouvrement. Si l'apport est fait à la valeur comptable, les amortissements et les dépréciations sont repris distinctement, comme dans une fusion à la valeur comptable (ch. 38, § 4.2.1).",
+        texte: "Chez la société bénéficiaire, l'apport partiel d'actif ressemble en tout point à une augmentation de capital par apport en nature (chapitre 4) : commissaire aux apports si la bénéficiaire est une société par actions, approbation par l'AGE, et prime d'apport au 1052. Deux points doivent être relevés. Les éléments incorporels non inscrits au bilan de l'apporteuse, comme le fonds commercial de l'Application 120, entrent pour leur valeur d'apport. Les créances douteuses sont reprises en brut avec leur dépréciation, ce qui préserve l'information sur le risque et permet de suivre leur recouvrement. Si l'apport est fait à la valeur comptable, les amortissements et les dépréciations sont repris distinctement, comme dans une fusion à la valeur comptable (ch. 38, § 4.2.1).",
       },
-      { type: 'controle', question: QCM[26] },
+      { type: 'intertitre', texte: "8.9.3 Un outil d'organisation du groupe" },
       {
         type: 'paragraphe',
         texte: "Pour le groupe, l'apport partiel d'actif est un outil d'organisation. Une société qui exerce deux métiers, par exemple la production agricole et le transport, peut isoler chacun dans une filiale : elle clarifie la gestion, peut accueillir un partenaire dans une seule des activités, ou préparer la cession de l'une sans toucher à l'autre. Comme l'apporteuse reçoit des titres et non de l'argent, l'opération ne dégage pas de trésorerie. Sa plus-value d'apport, si elle est comptabilisée à la valeur réelle, peut bénéficier de l'exonération de l'article 54 de la loi n° 23/053, lorsque les titres reçus sont attribués dans les conditions prévues et que la bénéficiaire, SA, SAS ou SARL, a son siège en RDC.",
       },
-      { type: 'controle', question: QCM[27] },
     ],
   },
   {
@@ -825,13 +821,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Fiscalité, Notes annexes et contexte congolais",
     navLabel: "Fiscalité et annexe",
     blocs: [
+      { type: 'intertitre', texte: "8.10.1 Le régime fiscal de faveur" },
       {
         type: 'paragraphe',
         texte: "Une fusion dégage des plus-values chez l'absorbée : la différence entre la valeur d'apport et la valeur comptable des actifs transmis (compte 1381). Sans régime particulier, ces plus-values seraient imposables, et beaucoup de restructurations deviendraient trop coûteuses. La loi n° 23/053 organise donc un **régime de faveur** (art. 54). Sont exonérées les plus-values, **autres que celles réalisées sur les marchandises**, résultant de l'attribution d'actions ou de parts à la suite de la **fusion** de SA, SAS ou SARL. Il en va de même des plus-values résultant de l'attribution gratuite d'actions ou de parts à la suite d'un **apport partiel d'actif** à une société de l'une de ces formes. Deux conditions s'appliquent : la bénéficiaire a son **siège social en RDC**, et l'apport prend la forme d'une fusion, d'un apport partiel ou d'une scission.",
       },
       {
         type: 'carte',
-        titre: "Les deux obligations du régime de faveur (loi n° 23/053, art. 54)",
+        titre: "Encadré 8.3 — Les deux obligations du régime de faveur (loi n° 23/053, art. 54)",
         liste: [
           "**Continuité des valeurs fiscales** : les amortissements et les plus-values ultérieures sur les éléments autres que les marchandises sont calculés d'après le **prix de revient chez la société apporteuse**, déduction faite des amortissements déjà pratiqués.",
           "**Reprise des provisions** : les provisions pour renouvellement de l'outillage et du matériel qui figuraient chez l'apporteuse sont immédiatement inscrites au passif de la bénéficiaire.",
@@ -839,7 +836,7 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "Conséquence pratique : dans une fusion à la valeur réelle, l'absorbante tient deux jeux de valeurs pour les actifs repris, la valeur d'apport en comptabilité et le prix de revient de l'apporteuse en fiscalité. La base fiscale restant le prix de revient chez l'apporteuse, la part des amortissements calculée sur la plus-value d'apport doit être suivie à part, jusqu'à la sortie des biens. La plus-value sur les marchandises reste imposable, puisque l'exonération ne les vise pas.",
       },
-      { type: 'controle', question: QCM[28] },
+      { type: 'intertitre', texte: "8.10.2 Les obligations déclaratives et le contexte congolais" },
       {
         type: 'paragraphe',
         texte: "Sur le plan déclaratif, la fusion par absorption ou par création d'une société nouvelle figure parmi les cas de **retrait du Numéro Impôt** de la société qui disparaît. Le numéro retiré est définitivement désactivé et ne peut être réattribué (décret n° 03/012 et mesures d'exécution de la loi n° 004/2003). La société absorbée doit donc régulariser ses obligations fiscales jusqu'à la date d'effet, et l'absorbante, qui reprend son passif à titre universel, hérite de ses dettes fiscales comme de toutes ses autres dettes. Dans les **Notes annexes** de l'exercice de l'opération, l'absorbante ou la bénéficiaire mentionne le contexte de l'opération, les modalités d'évaluation des apports, et la composante de la moins-value globale de fusion qui correspond aux plus-values latentes sur la quote-part qu'elle détenait (AUDCIF, ch. 38, section 6).",
@@ -848,11 +845,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "En RDC, les fusions servent aussi à répondre aux exigences réglementaires de certains secteurs. Au chapitre 4, on a vu que les banques doivent détenir un capital minimum élevé. Un rapprochement entre deux établissements peut être une voie pour l'atteindre, sous réserve des autorisations de l'autorité de supervision bancaire, qui s'ajoutent alors aux règles de l'AUSCGIE. Plus largement, toute fusion dans un secteur réglementé (banque, assurance, mines, télécommunications) suppose de vérifier le cadre sectoriel avant de fixer le calendrier. La loi relative aux marchés boursiers de 2026 (chapitre 6) pourrait enfin rendre plus fréquentes les opérations sur sociétés cotées, pour lesquelles l'information du marché s'ajoutera à celle des actionnaires.",
       },
+      { type: 'intertitre', texte: "8.10.3 Application : MOERO BOISSONS et LUAPULA EAUX" },
       {
         type: 'paragraphe',
         texte: "Retour à MOERO BOISSONS et LUAPULA EAUX, dont le cas 1 détaille les écritures. L'actif net de LUAPULA, réévalué à 140 000 000 FC, a été apporté à MOERO en échange de 12 000 actions nouvelles, selon une parité négociée de 3 pour 2. Chez MOERO, l'augmentation de capital s'élève à 60 000 000 FC, la prime de fusion à 80 000 000 FC, puis à 71 000 000 FC après imputation des frais. Chez LUAPULA, les actifs ont été sortis à leur valeur comptable, la plus-value d'apport a été portée au résultat de fusion, et les actions MOERO reçues ont été remises aux associés : la société a disparu sans liquidation. En RDC, la plus-value d'apport peut échapper à l'impôt grâce au régime de faveur de l'article 54, à condition de respecter la continuité des valeurs fiscales.",
       },
-      { type: 'controle', question: QCM[29] },
       {
         type: 'filet',
         titre: "Les contrôles de l'auditeur sur une fusion",
