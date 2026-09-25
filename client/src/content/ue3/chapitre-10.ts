@@ -355,15 +355,17 @@ const QCM: Chapitre['qcm'] = [
 const SECTIONS: Chapitre['sections'] = [
   {
     numero: '10.1',
-    titre: "Quatre montages à Lubumbashi",
+    titre: "Les sociétés particulières : quatre situations",
     navLabel: "Panorama",
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Un même mois, à Lubumbashi, le cabinet d'expertise comptable où vous faites votre stage reçoit quatre dossiers. Deux entreprises de BTP, **KATANGA ROUTES** et **LUALABA TP**, vont réhabiliter ensemble un tronçon de route, sans créer de nouvelle société. Six pharmacies de la ville veulent mutualiser leurs achats de médicaments au sein d'un **groupement**. Trois menuisiers de Kenya partagent depuis des années un atelier, une enseigne et leurs bénéfices, sans avoir rien signé, et un fournisseur impayé cherche à les poursuivre tous. Enfin, **KIPUSHI AGRO SARL** veut devenir une société anonyme pour accueillir un investisseur. Aucun de ces dossiers ne relève des chapitres précédents. Tous relèvent pourtant de l'AUSCGIE, qui connaît, à côté des sociétés « classiques », des structures aux règles propres.",
+        texte: "Un même mois, à Lubumbashi, un cabinet d'expertise comptable reçoit quatre dossiers. Deux entreprises de BTP, **KATANGA ROUTES** et **LUALABA TP**, vont réhabiliter ensemble un tronçon de route, sans créer de nouvelle société. Six pharmacies de la ville veulent mutualiser leurs achats de médicaments au sein d'un **groupement**. Trois menuisiers de Kenya partagent depuis des années un atelier, une enseigne et leurs bénéfices, sans avoir rien signé, et un fournisseur impayé cherche à les poursuivre tous. Enfin, **KIPUSHI AGRO SARL** veut devenir une société anonyme pour accueillir un investisseur. Aucun de ces dossiers ne relève des chapitres précédents. Tous relèvent pourtant de l'AUSCGIE, qui connaît, à côté des sociétés « classiques », des structures aux règles propres.",
       },
+      { type: 'intertitre', texte: "10.1.1 Quatre formes comparées" },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 10.1 — Les quatre formes particulières comparées",
         tableau: {
           entetes: ["", "Société en participation", "Société créée de fait / de fait", "GIE", "Société transformée"],
           lignes: [
@@ -377,29 +379,29 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Pourquoi « particulières » ?",
+        titre: "Ce qui rend ces sociétés particulières",
         texte: "Toutes les sociétés étudiées jusqu'ici avaient trois traits communs : une immatriculation au RCCM, une personnalité morale distincte de celle des associés, et un patrimoine propre, gage des créanciers. Les structures de ce chapitre s'écartent de ce modèle, chacune à sa manière. La SEP renonce volontairement à la personnalité morale. La société créée de fait n'a jamais cherché à l'obtenir. Le GIE l'obtient, mais pour une mission limitée et sans protéger ses membres. La société transformée la garde en changeant de forme. Pour chacune, il faut donc répondre de nouveau à des questions qui allaient de soi : qui possède les biens, qui répond des dettes, et qui tient les comptes.",
       },
-      { type: 'controle', question: QCM[0] },
+      { type: 'intertitre', texte: "10.1.2 Des réponses à des besoins différents" },
       {
         type: 'paragraphe',
-        texte: "Ces structures répondent à des besoins différents : coopérer sans fusionner, mutualiser sans perdre son indépendance, s'associer sans formalité, ou changer de cadre sans disparaître. Elles partagent pourtant un trait : la **responsabilité** de leurs membres dépasse souvent leurs apports. C'est le prix de leur souplesse. Le comptable doit donc toujours se poser deux questions. Qui est juridiquement engagé envers les tiers ? Et comment traduire dans les comptes de chacun une activité menée en commun ? Les sections suivantes reprennent les quatre dossiers un à un, et la dernière propose une grille pour choisir le bon véhicule.",
+        texte: "Ces structures répondent à des besoins différents : coopérer sans fusionner, mutualiser sans perdre son indépendance, s'associer sans formalité, ou changer de cadre sans disparaître. Elles partagent pourtant un trait : la **responsabilité** de leurs membres dépasse souvent leurs apports. C'est le prix de leur souplesse. Le comptable doit donc toujours se poser deux questions. Il faut déterminer qui est juridiquement engagé envers les tiers et comment traduire dans les comptes de chacun une activité menée en commun. Les sections suivantes reprennent les quatre dossiers un à un, et la dernière propose une grille pour choisir le bon véhicule.",
       },
-      { type: 'controle', question: QCM[1] },
     ],
   },
   {
     numero: '10.2',
-    titre: "La société en participation : s'associer sans exister",
+    titre: "La société en participation : notion et organisation",
     navLabel: "SEP : nature",
     blocs: [
+      { type: 'intertitre', texte: "10.2.1 Notion et liberté contractuelle" },
       {
         type: 'paragraphe',
         texte: "KATANGA ROUTES et LUALABA TP ne veulent ni fusionner ni créer une filiale commune pour un chantier de dix-huit mois. Leur avocat leur propose une **société en participation** (SEP). Il s'agit d'une société dans laquelle les associés **conviennent qu'elle n'est pas immatriculée** au RCCM : elle n'a pas la personnalité morale et n'est pas soumise à publicité (art. 854). C'est un véritable contrat de société, avec des apports, un partage des bénéfices et des pertes, et la volonté de travailler ensemble, mais sans personne morale distincte. Son existence peut être prouvée par **tous moyens**, ce qui n'empêche pas les deux entreprises de signer un contrat détaillé.",
       },
       {
         type: 'carte',
-        titre: "Ce que les associés décident librement (art. 855-856)",
+        titre: "Encadré 10.1 — La liberté contractuelle des associés de la SEP (art. 855 et 856)",
         liste: [
           "L'**objet** : ici, la réhabilitation du tronçon routier.",
           "La **durée** : celle du chantier, ou une durée indéterminée.",
@@ -409,31 +411,31 @@ const SECTIONS: Chapitre['sections'] = [
           "Limite : ne pas déroger aux règles impératives communes à toutes les sociétés, sauf celles qui supposent la personnalité morale. À défaut d'organisation différente, les rapports entre associés suivent les règles de la **SNC** (art. 856).",
         ],
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "10.2.2 Les usages de la SEP" },
       {
         type: 'paragraphe',
         texte: "Dans le BTP, les mines ou les grands marchés publics, la SEP est un outil courant, souvent appelé « groupement momentané » ou « consortium ». Il répond à un besoin simple : réunir, le temps d'un projet, des compétences ou des moyens qu'aucune entreprise ne possède seule. KATANGA ROUTES apporte ses niveleuses et son expérience des routes en latérite ; LUALABA TP apporte ses équipes de terrassement et sa centrale à béton. Créer une société commune coûterait des formalités, des frais et du temps, puis une liquidation à la fin du chantier. La SEP évite tout cela. Son contrat doit toutefois être précis : désignation du gérant, clé de répartition, règles de facturation entre associés, sort des biens acquis en commun, et durée.",
       },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "10.2.3 L'absence de patrimoine" },
       {
         type: 'paragraphe',
         texte: "Sans personnalité morale, la SEP n'a pas de patrimoine. Les biens nécessaires au chantier (engins, groupes électrogènes, bureaux de chantier) sont **mis à la disposition du gérant**, mais chaque associé **reste propriétaire** de ce qu'il met à disposition (art. 857). Les associés peuvent convenir d'une **indivision** sur certains biens, ou décider que l'un d'eux sera, à l'égard des tiers, propriétaire des biens qu'il acquiert pour la SEP (art. 858). Sont réputés indivis les biens acquis avec des deniers indivis, et ceux que les associés ont convenu de mettre en indivision (art. 859). Sauf clause contraire, aucun associé ne peut demander le partage des biens indivis avant la dissolution (art. 860). Pour le comptable, la conséquence est nette : chaque engin reste au bilan de l'entreprise qui en est propriétaire, même s'il travaille sur le chantier commun.",
       },
-      { type: 'controle', question: QCM[4] },
     ],
   },
   {
     numero: '10.3',
-    titre: "La SEP face aux tiers et au fisc",
+    titre: "La société en participation à l'égard des tiers et du fisc",
     navLabel: "SEP : tiers et fisc",
     blocs: [
+      { type: 'intertitre', texte: "10.3.1 Les rapports avec les tiers" },
       {
         type: 'paragraphe',
-        texte: "Le fournisseur de bitume ne connaît que KATANGA ROUTES, qui a passé commande en son nom. Si la facture reste impayée, peut-il se retourner contre LUALABA TP ? En principe, non. **Chaque associé contracte en son nom personnel et est seul engagé** à l'égard des tiers (art. 861). C'est la logique de la SEP occulte : le tiers a traité avec une entreprise et ne peut pas se prévaloir d'une société qu'il ignorait. La règle s'inverse dans deux cas, et le comptable doit savoir les repérer, car ils changent la nature des engagements hors bilan de chaque associé.",
+        texte: "Le fournisseur de bitume ne connaît que KATANGA ROUTES, qui a passé commande en son nom. Si la facture reste impayée, il ne peut en principe pas se retourner contre LUALABA TP. **Chaque associé contracte en son nom personnel et est seul engagé** à l'égard des tiers (art. 861). C'est la logique de la SEP occulte : le tiers a traité avec une entreprise et ne peut pas se prévaloir d'une société qu'il ignorait. La règle s'inverse dans deux cas, et le comptable doit savoir les repérer, car ils changent la nature des engagements hors bilan de chaque associé.",
       },
       {
         type: 'carte',
-        titre: "Quand un associé répond des dettes de l'autre (art. 861)",
+        titre: "Tableau 10.2 — La responsabilité d'un associé pour les dettes de l'autre (art. 861)",
         tableau: {
           entetes: ["Situation", "Conséquence"],
           lignes: [
@@ -447,7 +449,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La propriété des biens a aussi des conséquences en cas de difficulté. Si LUALABA TP tombe en redressement judiciaire au milieu du chantier, ses créanciers peuvent saisir les engins qu'elle a mis à la disposition de la SEP, puisqu'ils restent sa propriété. KATANGA ROUTES risque alors de voir le chantier s'arrêter. Pour s'en prémunir, les associés peuvent convenir d'une indivision sur les biens essentiels (art. 858), ou prévoir dans le contrat les conditions de remplacement du matériel retiré. Le comptable de chaque associé doit connaître ces clauses : un bien mis en indivision ne figure plus pour sa totalité au bilan de celui qui l'a apporté, mais pour sa quote-part.",
       },
-      { type: 'controle', question: QCM[5] },
+      { type: 'intertitre', texte: "10.3.2 La fin de la SEP et les marchés publics" },
       {
         type: 'paragraphe',
         texte: "La fin de la SEP est tout aussi souple. Elle est dissoute par les événements qui mettent fin à une SNC, sauf si les associés ont convenu de continuer malgré eux (art. 862). Si elle est à durée indéterminée, un associé peut y mettre fin à tout moment par **notification** à tous les autres, par lettre au porteur contre récépissé ou lettre recommandée avec avis de réception, à condition d'être de **bonne foi** et de ne pas agir **à contretemps** (art. 863). Quitter la SEP au milieu du chantier, en laissant l'autre sans moyens, serait une rupture à contretemps. Le contrat de KATANGA ROUTES et de LUALABA TP prévoit donc une durée égale à celle du chantier, prolongée jusqu'à la réception définitive des travaux.",
@@ -456,27 +458,26 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Dans les marchés publics, le maître d'ouvrage exige souvent de connaître tous les membres du groupement et leur engagement solidaire. La SEP cesse alors d'être occulte : les associés soumissionnent ensemble et signent conjointement le marché. Ils agissent donc « expressément en leur qualité d'associé » au sens de l'article 861, et chacun répond de l'exécution de l'ensemble du marché. Le comptable de chaque associé doit en tirer les conséquences : l'engagement solidaire envers le maître d'ouvrage est un **engagement hors bilan**, à mentionner dans les Notes annexes, et il peut justifier une provision si l'autre associé est en difficulté. Le choix entre SEP occulte et SEP déclarée n'est donc jamais neutre.",
       },
-      { type: 'controle', question: QCM[6] },
       {
         type: 'filet',
-        titre: "Et le fisc congolais ?",
+        titre: "Le régime fiscal congolais de la société en participation",
         texte: "La loi n° 23/053 range la société en participation parmi les sociétés qui ne sont soumises à l'IS que **sur option** (art. 4), comme la SNC et la SCS. L'option est **irrévocable**. Elle se lève en assemblée générale, par un procès-verbal notifié dans les trois mois du début de l'exercice fiscal, et elle est fermée aux sociétés de personnes issues de la transformation antérieure d'une société par actions. Sans option, les résultats de la SEP sont imposés chez ses associés, à travers leurs propres déclarations. C'est pourquoi la répartition du résultat entre coparticipants (section 10.5) doit être rigoureuse : elle détermine la base imposable de chacun.",
       },
-      { type: 'controle', question: QCM[7] },
     ],
   },
   {
     numero: '10.4',
-    titre: "Tenir les comptes d'une société qui n'a pas de bilan (Application 106)",
+    titre: "La comptabilité de la société en participation (Application 106)",
     navLabel: "SEP : comptabilité",
     blocs: [
+      { type: 'intertitre', texte: "10.4.1 Les principes de l'AUDCIF" },
       {
         type: 'paragraphe',
-        texte: "Comment tenir la comptabilité d'une société sans patrimoine ? L'AUDCIF (Titre VIII, chapitre 33) part d'un principe double. Pour les **tiers**, seule compte l'apparence juridique : les biens et les dettes figurent au bilan de l'associé qui en est propriétaire ou débiteur, en général le gérant. Pour les **coparticipants**, l'apparence s'efface derrière le contrat : toutes les opérations entre eux passent par le compte **463 Associés, opérations faites en commun** (4631 au plan de comptes), dans chacune de leurs comptabilités. Avec un seul gérant, deux organisations sont possibles : une **comptabilité autonome** de la SEP, rattachée à celle du gérant par le compte **188 Comptes de liaison des sociétés en participation**, ou une comptabilité **intégrée** dans celle du gérant.",
+        texte: "Pour la comptabilité d'une société sans patrimoine, l'AUDCIF (Titre VIII, chapitre 33) part d'un principe double. Pour les **tiers**, seule compte l'apparence juridique : les biens et les dettes figurent au bilan de l'associé qui en est propriétaire ou débiteur, en général le gérant. Pour les **coparticipants**, l'apparence s'efface derrière le contrat : toutes les opérations entre eux passent par le compte **463 Associés, opérations faites en commun** (4631 au plan de comptes), dans chacune de leurs comptabilités. Avec un seul gérant, deux organisations sont possibles : une **comptabilité autonome** de la SEP, rattachée à celle du gérant par le compte **188 Comptes de liaison des sociétés en participation**, ou une comptabilité **intégrée** dans celle du gérant.",
       },
       {
         type: 'carte',
-        titre: "Application 106 : SEP entre A (gérant, 3/4) et B (1/4), en milliers de francs",
+        titre: "Exemple 10.1 — Application 106 : SEP entre A (gérant, 3/4) et B (1/4), en milliers de francs",
         tableau: {
           entetes: ["Opération", "Comptabilité autonome de la SEP (tenue par A)", "Comptabilité propre de A", "Comptabilité de B"],
           lignes: [
@@ -491,31 +492,30 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Résultat de la SEP : produits 1 800 − charges 1 532 = 268, soit 201 pour A et 67 pour B. [texte officiel] L'AUDCIF (ch. 33, § 4.3) enregistre la part du non-gérant dans les biens acquis aux comptes génériques 181 (chez le gérant) et 2771 (chez le non-gérant), par le 463. Le plan de comptes prévoit des comptes dédiés, **182 Dettes liées à des sociétés en participation** et **2773 Créances rattachées à des sociétés en participation**, que le Guide utilise. Ce cours suit le plan et le Guide.",
       },
-      { type: 'controle', question: QCM[8] },
+      { type: 'intertitre', texte: "10.4.2 Le choix de l'organisation comptable" },
       {
         type: 'paragraphe',
-        texte: "Quelle organisation choisir ? La comptabilité autonome reliée par le 188 donne une image complète de la SEP, avec son propre compte de résultat, ce qui facilite la reddition de comptes et le contrôle par les autres associés. Elle convient aux SEP importantes et durables, comme un chantier de dix-huit mois. La comptabilité intégrée, avec des comptes dédiés ou une analytique, est plus légère pour des opérations ponctuelles. La pluralité de gérants, où chacun enregistre ce qu'il traite puis cumule, est la plus difficile à contrôler, et l'AUDCIF en souligne les inconvénients pour les activités complexes ou durables (ch. 33, § 2.2). Dans tous les cas, les associés doivent pouvoir vérifier les comptes : la reddition de comptes est une obligation entre membres, que le régime de la SNC renforce.",
+        texte: "Le choix de l'organisation dépend des besoins. La comptabilité autonome reliée par le 188 donne une image complète de la SEP, avec son propre compte de résultat, ce qui facilite la reddition de comptes et le contrôle par les autres associés. Elle convient aux SEP importantes et durables, comme un chantier de dix-huit mois. La comptabilité intégrée, avec des comptes dédiés ou une analytique, est plus légère pour des opérations ponctuelles. La pluralité de gérants, où chacun enregistre ce qu'il traite puis cumule, est la plus difficile à contrôler, et l'AUDCIF en souligne les inconvénients pour les activités complexes ou durables (ch. 33, § 2.2). Dans tous les cas, les associés doivent pouvoir vérifier les comptes : la reddition de comptes est une obligation entre membres, que le régime de la SNC renforce.",
       },
-      { type: 'controle', question: QCM[9] },
       {
         type: 'paragraphe',
         texte: "Le matériel illustre bien la double lecture. Juridiquement, A l'a acheté en son nom : il est propriétaire, et le matériel figure à son actif (2413). Mais B en a financé un quart à travers la SEP : A lui doit donc 4 000, inscrits au 182, et B détient une créance de même montant au 2773. Chaque année, l'amortissement du matériel constaté dans la SEP réduit à la fois la dette de A et la créance de B, à hauteur de la quote-part de B (AUDCIF, ch. 33, § 4.3). Si le matériel est réévalué, l'écart est partagé : A pour sa part, B par l'augmentation de sa créance. Les biens simplement **mis à disposition** par un associé restent à son bilan, et leur usure est facturée à la SEP comme une location, pour le montant de l'amortissement ou selon le contrat (§ 4.1).",
       },
-      { type: 'controle', question: QCM[10] },
     ],
   },
   {
     numero: '10.5',
-    titre: "Partager le résultat et informer les lecteurs",
+    titre: "La répartition du résultat et l'information financière",
     navLabel: "SEP : partage",
     blocs: [
+      { type: 'intertitre', texte: "10.5.1 La comptabilité intégrée et la répartition" },
       {
         type: 'paragraphe',
         texte: "L'Application 107 reprend les mêmes opérations dans une comptabilité **intégrée** : A n'ouvre pas de comptabilité distincte pour la SEP, mais des comptes dédiés dans la sienne, que le Guide nomme « 06 Exploitation en SP, charges » et « 07 Exploitation en SP, produits ». En fin de période, il solde ces comptes : débit 07 pour 1 800, crédit 06 pour 1 532, crédit 4631 pour la part de B (67) et crédit 752 pour sa propre part (201). [texte officiel] Les comptes « 06 » et « 07 » n'existent pas au plan de comptes : ce sont des comptes de regroupement internes, que l'on peut remplacer par des subdivisions des classes 6 et 7 ou par la comptabilité analytique, comme l'autorise l'AUDCIF (ch. 33, § 2.1).",
       },
       {
         type: 'carte',
-        titre: "Trois niveaux de répartition (AUDCIF, ch. 33, section 6)",
+        titre: "Tableau 10.3 — Les trois niveaux de répartition (AUDCIF, ch. 33, section 6)",
         tableau: {
           entetes: ["Niveau", "Ce qui est partagé", "Écritures"],
           lignes: [
@@ -527,29 +527,29 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Inscrire au bilan du gérant un compte « Capital de la SEP » ou « Apports des associés à la SEP ». La SEP n'ayant ni personnalité ni patrimoine, elle n'a pas de capital. Les fonds versés par un associé au gérant sont une dette du gérant envers cet associé (4631), et les biens achetés pour la SEP appartiennent à celui qui les a achetés, avec une dette envers les autres pour leur part de financement (182). Rien ne doit apparaître dans les capitaux propres. Le résultat de la SEP, lui, rejoint les résultats de chacun par le 752 ou le 652.",
+        titre: "Pas de capital de la SEP au bilan du gérant",
+        texte: "Le bilan du gérant ne comporte ni compte « Capital de la SEP » ni compte « Apports des associés à la SEP ». La SEP n'ayant ni personnalité ni patrimoine, elle n'a pas de capital. Les fonds versés par un associé au gérant sont une dette du gérant envers cet associé (4631), et les biens achetés pour la SEP appartiennent à celui qui les a achetés, avec une dette envers les autres pour leur part de financement (182). Rien ne doit apparaître dans les capitaux propres. Le résultat de la SEP, lui, rejoint les résultats de chacun par le 752 ou le 652.",
       },
-      { type: 'controle', question: QCM[11] },
+      { type: 'intertitre', texte: "10.5.2 L'information des lecteurs" },
       {
         type: 'paragraphe',
         texte: "Le partage final a un inconvénient pour le lecteur des comptes. Chez le gérant, le chiffre d'affaires comprend toutes les ventes de la SEP, y compris la part qui revient aux autres. Chez les non-gérants, il n'apparaît rien d'autre qu'une quote-part de résultat. Ni l'un ni l'autre ne reflète l'activité réelle. L'AUDCIF demande donc des informations dans les **Notes annexes** (ch. 33, section 7). Le gérant peut fournir un compte de résultat retraité jusqu'au résultat d'exploitation. Les non-gérants peuvent présenter des « produits des activités courantes » plus représentatifs que leur chiffre d'affaires. Tous indiquent la part de leurs créances et dettes liée à la SEP. Le compte de résultat est complété par un poste « Quote-part de résultat partagé » en charges et en produits, à la fin du niveau exploitation, avec l'analyse des comptes 6521, 6525, 7521 et 7525.",
       },
-      { type: 'controle', question: QCM[12] },
     ],
   },
   {
     numero: '10.6',
-    titre: "Associés sans le savoir : la société créée de fait et la société de fait",
+    titre: "La société créée de fait et la société de fait",
     navLabel: "Sociétés de fait",
     blocs: [
+      { type: 'intertitre', texte: "10.6.1 Deux notions voisines" },
       {
         type: 'paragraphe',
         texte: "Les trois menuisiers de Kenya n'ont jamais signé de statuts. Pourtant, depuis six ans, ils louent ensemble un atelier, achètent le bois sur un compte commun, se présentent sous l'enseigne « Menuiserie des Trois Frères » et se partagent les bénéfices chaque trimestre. Un fournisseur de bois, impayé de 4 500 000, a traité avec l'un d'eux et découvre que les deux autres encaissaient aussi les recettes. Le droit OHADA a une réponse : il y a **société créée de fait** lorsque deux ou plusieurs personnes se comportent comme des associés sans avoir constitué entre elles l'une des sociétés reconnues par l'Acte uniforme (art. 864).",
       },
       {
         type: 'carte',
-        titre: "Deux notions voisines (art. 864-865)",
+        titre: "Tableau 10.4 — Société créée de fait et société de fait (art. 864 et 865)",
         tableau: {
           entetes: ["", "Société créée de fait", "Société de fait"],
           lignes: [
@@ -565,7 +565,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Dans l'Application 106, la SEP n'a duré qu'un mois, mais les principes valent pour un chantier de dix-huit mois. Chaque fin d'exercice des associés impose un arrêté intermédiaire de la SEP pour répartir le résultat de la période, ou au moins pour estimer la part de chacun. Les marchés à long terme posent en outre la question de la méthode de reconnaissance du chiffre d'affaires : à l'avancement ou à l'achèvement. Elle doit être la même pour tous les associés, faute de quoi le résultat partagé ne correspondrait à rien. Le contrat de SEP gagne à fixer ces règles comptables communes, comme un groupe fixe ses règles pour la consolidation.",
       },
-      { type: 'controle', question: QCM[13] },
+      { type: 'intertitre', texte: "10.6.2 La reconnaissance judiciaire et ses effets" },
       {
         type: 'paragraphe',
         texte: "Pour le fournisseur, la reconnaissance judiciaire change tout. Il réunit les preuves : factures communes, enseigne, relevés du compte partagé, témoignages de clients. Il demande au juge de constater l'existence d'une société créée de fait entre les trois menuisiers, qu'il doit identifier (art. 866). Une fois cette existence reconnue, les règles de la SNC s'appliquent : chacun des trois répond **indéfiniment et solidairement** des dettes sociales (art. 868). Le fournisseur pourra réclamer les 4 500 000 à n'importe lequel d'entre eux. L'absence de formalités, qui semblait une facilité, se retourne contre eux : ils supportent la responsabilité la plus lourde que connaisse le droit des sociétés.",
@@ -574,27 +574,26 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La société créée de fait n'est pas qu'une question d'artisans. Deux entreprises qui coopèrent de manière de plus en plus étroite (clients communs, compte bancaire partagé, partage des marges) sans formaliser leur relation courent le même risque. Un créancier de l'une peut chercher à atteindre l'autre en prouvant qu'elles se comportent comme des associées. Pour l'auditeur, les indices d'une société créée de fait se trouvent dans les comptes : partages de résultats, facturations croisées sans prix de marché, comptes courants importants entre entités non liées par une participation. Leur découverte doit conduire à qualifier la relation et, le cas échéant, à mentionner le risque dans les Notes annexes.",
       },
-      { type: 'controle', question: QCM[14] },
       {
         type: 'filet',
-        titre: "Faux amis : SEP et société créée de fait",
+        titre: "Société en participation et société créée de fait",
         texte: "Dans les deux cas, il n'y a pas d'immatriculation. Mais la SEP résulte d'un **choix** : les associés conviennent de ne pas immatriculer et organisent leurs rapports par contrat (art. 854-855). Chacun n'est alors engagé que par ses propres actes, sauf action commune ou immixtion (art. 861). La société créée de fait résulte d'un **comportement**, sans convention sur la forme : le juge lui applique d'office le régime de la SNC (art. 868). Fiscalement, les sociétés de fait et créées de fait relèvent de l'IS par leur activité (loi n° 23/053, art. 3), alors que la SEP n'y est soumise que sur option (art. 4). Pour les trois menuisiers, régulariser en constituant une SARL limiterait leur responsabilité pour l'avenir, sans effacer leurs dettes passées.",
       },
-      { type: 'controle', question: QCM[15] },
     ],
   },
   {
     numero: '10.7',
-    titre: "Le GIE : mettre en commun sans fusionner",
+    titre: "Le groupement d'intérêt économique",
     navLabel: "GIE : régime",
     blocs: [
+      { type: 'intertitre', texte: "10.7.1 Le régime du GIE" },
       {
         type: 'paragraphe',
         texte: "Les six pharmacies de Lubumbashi ne veulent pas fusionner : chacune garde sa clientèle, son pharmacien titulaire et son enseigne. Elles veulent seulement acheter ensemble pour obtenir de meilleurs prix, partager un entrepôt et une camionnette de livraison. Le **groupement d'intérêt économique** est fait pour cela. Son but exclusif est de mettre en œuvre, pour une durée déterminée, tous les moyens propres à faciliter ou à développer l'activité économique de ses membres, à améliorer ou accroître ses résultats. Son activité doit se **rattacher** à celle des membres et rester **auxiliaire** (art. 869). Il peut être constitué **sans capital**, et il ne donne pas lieu par lui-même à réalisation et partage de bénéfices (art. 870).",
       },
       {
         type: 'carte',
-        titre: "Le GIE en dix règles",
+        titre: "Encadré 10.2 — Le GIE en dix règles",
         liste: [
           "**Membres** : deux ou plus, personnes physiques ou morales, y compris des professions libérales réglementées comme les pharmaciens (art. 871).",
           "**Pas de titres négociables** représentant les droits des membres (art. 871).",
@@ -608,22 +607,19 @@ const SECTIONS: Chapitre['sections'] = [
           "**Dissolution** : terme, objet, décision, juste motif, décès ou dissolution d'un membre sauf clause contraire (art. 883-884) ; liquidation et partage de l'excédent selon le contrat, à défaut par parts égales (art. 885).",
         ],
       },
-      { type: 'controle', question: QCM[16] },
       {
         type: 'paragraphe',
         texte: "Le GIE se distingue d'une coopérative ou d'une centrale d'achat constituée en société par son **caractère auxiliaire**. Il n'a pas le droit de mener sa propre activité principale : il prolonge celle de ses membres. Le GIE des pharmacies achète et stocke des médicaments pour les revendre aux officines membres, et il ne peut pas ouvrir sa propre pharmacie concurrente. S'il sortait de ce rôle, il perdrait sa raison d'être juridique, et ses membres s'exposeraient à une requalification. C'est aussi pourquoi il ne peut pas émettre de titres négociables (art. 871) : ses membres ne sont pas des investisseurs, mais des entreprises qui mutualisent des moyens. Le contrat doit enfin fixer une **durée déterminée** (art. 869), renouvelable par prorogation (art. 877).",
       },
-      { type: 'controle', question: QCM[17] },
+      { type: 'intertitre', texte: "10.7.2 La solidarité et l'administration" },
       {
         type: 'paragraphe',
         texte: "La solidarité est le point qui inquiète le plus les pharmaciens. Si le GIE ne paie pas son grossiste, celui-ci peut, après une mise en demeure restée sans effet, réclamer la totalité de la dette à n'importe quelle pharmacie membre, qui se retournera ensuite contre les autres selon la contribution fixée au contrat. Deux parades existent. La première est **contractuelle** : le GIE peut négocier avec ses principaux fournisseurs une clause écartant la solidarité, que l'article 873 autorise « par convention contraire avec le tiers cocontractant ». La seconde est **organisationnelle** : un contrôle rigoureux de la trésorerie du GIE et des cotisations à jour évitent d'en arriver là. Le comptable du GIE doit, à chaque clôture, rapprocher les dettes du groupement de la capacité de paiement de ses membres.",
       },
-      { type: 'controle', question: QCM[18] },
       {
         type: 'paragraphe',
         texte: "L'administration du GIE est souple. Le contrat, ou à défaut l'assemblée, nomme un ou plusieurs administrateurs et fixe leurs pouvoirs. Une personne morale peut être administrateur, à condition de désigner un représentant permanent, qui engage sa responsabilité comme s'il administrait en son nom propre (art. 879). À l'égard des tiers, tout administrateur engage le GIE pour les actes entrant dans son objet, et les limites de ses pouvoirs leur sont inopposables. Le contrôle de la gestion et des comptes est organisé par le contrat (art. 880). Pour un GIE de six pharmacies, un commissaire aux comptes n'est obligatoire que si le groupement émet des obligations, mais le contrat peut en prévoir un, et c'est souvent prudent compte tenu de la solidarité des membres.",
       },
-      { type: 'controle', question: QCM[19] },
     ],
   },
   {
@@ -631,13 +627,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La comptabilité du GIE et de ses membres (Applications 96-97)",
     navLabel: "GIE : comptes",
     blocs: [
+      { type: 'intertitre', texte: "10.8.1 La comptabilité du GIE" },
       {
         type: 'paragraphe',
         texte: "Doté de la personnalité morale, le GIE tient sa propre comptabilité, arrête ses comptes et les soumet à son assemblée, après le contrôle éventuel du commissaire aux comptes (AUDCIF, ch. 26, § 2.1). Son compte de résultat reflète sa fonction : n'ayant pas vocation à réaliser des bénéfices pour lui-même, il facture ses services à ses membres. Dans un **GIE de services**, les cotisations des membres sont des produits (**706 Services vendus**), régularisées en fin d'exercice lorsqu'elles sont versées sous forme d'abonnements. Dans un **GIE d'achats**, comme celui des pharmacies, le groupement achète en son nom pour revendre aux membres, ou agit comme mandataire ou commissionnaire, selon le contrat.",
       },
       {
         type: 'carte',
-        titre: "Chez le membre : quatre types d'opérations",
+        titre: "Tableau 10.5 — Les opérations du membre avec le GIE",
         tableau: {
           entetes: ["Opération", "Compte chez le membre", "Exemple (Guide)"],
           lignes: [
@@ -650,11 +647,12 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "[texte officiel] L'Application 97 passe les avances au compte 277, qui est au plan de comptes le compte de regroupement « Créances rattachées à des participations et avances à des GIE » : le sous-compte dédié est le **2774 Avances à des GIE**. Chez le GIE, l'Application 97 crédite le 101 Capital social pour les parts et le 168 Autres emprunts et dettes pour les avances.",
       },
+      { type: 'intertitre', texte: "10.8.2 Le contrat et les opérations des membres" },
       {
         type: 'paragraphe',
         texte: "Le contrat de GIE doit être rédigé avec soin sur trois points. La **contribution aux dettes** entre membres, que l'article 876 laisse libre, à défaut par parts égales : un membre qui réalise 40 % des achats peut accepter de supporter 40 % des dettes. L'**entrée et la sortie** des membres : conditions d'admission, exonération éventuelle des dettes antérieures (art. 873), retrait possible après exécution de ses obligations (art. 876). Les **règles de décision** : l'unanimité, règle par défaut (art. 877), devient paralysante à six membres, et le contrat prévoit souvent des majorités pour les décisions courantes. Le comptable du GIE vérifie que les appels de cotisations et les répartitions de résultat respectent ces clés.",
       },
-      { type: 'controle', question: QCM[20] },
+      { type: 'intertitre', texte: "10.8.3 Le résultat du GIE chez les membres" },
       {
         type: 'paragraphe',
         texte: "Le résultat d'un GIE n'est appréhendé par ses membres que lorsqu'une **décision de distribution** est intervenue (AUDCIF, ch. 26, § 2.2). Un bénéfice est alors constaté, dans l'exercice de la distribution, au crédit du 772. Une perte est apurée soit par un complément de cotisation si elle est définitive, soit par des apports ou avances complémentaires si elle ne l'est pas. Dans l'Application 96, le membre C constate dès la clôture de son exercice N la perte probable du GIE déficitaire, par une charge pour dépréciation (659 / 4963) de 2 000 000, avant même l'arrêté des comptes du groupement. C'est la prudence : un membre solidaire ne peut pas ignorer une perte qu'il devra combler. Chaque membre déprécie aussi sa participation lorsque sa valeur comptable dépasse sa quote-part des capitaux propres du GIE, en imputant la dépréciation successivement sur le 266, le 2774 puis le compte courant, et en provisionnant le surplus.",
@@ -663,27 +661,26 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La frontière entre cotisation et participation au résultat est importante pour le membre. Les cotisations régulières rémunèrent un service : elles sont des charges d'exploitation (621), déductibles dans les conditions générales. La participation au résultat, elle, n'apparaît que lorsque le GIE décide de distribuer un bénéfice ou d'apurer une perte. Un GIE bien géré ajuste ses cotisations pour couvrir exactement ses coûts : son résultat est alors proche de zéro, conformément à sa vocation de ne pas réaliser de bénéfices pour lui-même (art. 870). Si des bénéfices apparaissent de façon régulière, c'est le signe que les cotisations sont trop élevées, ou que le GIE réalise des opérations avec des tiers qui dépassent son rôle auxiliaire.",
       },
-      { type: 'controle', question: QCM[21] },
       {
         type: 'filet',
-        titre: "Transparence fiscale : ce que dit le SYSCOHADA, ce que dit la loi congolaise",
+        titre: "La transparence fiscale du GIE : SYSCOHADA et loi congolaise",
         texte: "L'AUDCIF (ch. 26) et le Guide présentent le GIE comme fiscalement transparent : chaque membre serait imposé sur sa part des bénéfices. Mais le SYSCOHADA n'est pas un texte fiscal : c'est la loi de chaque État qui fixe l'imposition. En RDC, la loi n° 23/053 exonère le GIE de l'IS **pour la quote-part de bénéfice distribuée à ses membres personnes physiques** (art. 6). Pour les autres situations, notamment une quote-part revenant à des membres sociétés ou un bénéfice non distribué, le régime doit être déterminé au regard de la loi, et non déduit du principe comptable de transparence.",
       },
-      { type: 'controle', question: QCM[22] },
     ],
   },
   {
     numero: '10.9',
-    titre: "Changer de forme sans changer d'identité : la transformation",
+    titre: "La transformation : conditions et effets",
     navLabel: "Transformation",
     blocs: [
+      { type: 'intertitre', texte: "10.9.1 Les conditions de la transformation" },
       {
         type: 'paragraphe',
-        texte: "KIPUSHI AGRO SARL a trouvé un investisseur prêt à entrer à son capital, à condition qu'elle devienne une SA, avec un conseil d'administration et des actions librement négociables. Faut-il dissoudre la SARL et créer une SA ? Non. La **transformation** est l'opération par laquelle une société change de forme juridique par décision des associés. Régulière, elle **n'entraîne pas la création d'une personne morale nouvelle** : ce n'est qu'une modification des statuts, soumise aux mêmes conditions de forme et de délai (art. 181). La société garde son numéro RCCM, ses contrats, ses dettes, ses créances et son historique comptable.",
+        texte: "KIPUSHI AGRO SARL a trouvé un investisseur prêt à entrer à son capital, à condition qu'elle devienne une SA, avec un conseil d'administration et des actions librement négociables. La SARL n'a pas à être dissoute pour créer une SA. La **transformation** est l'opération par laquelle une société change de forme juridique par décision des associés. Régulière, elle **n'entraîne pas la création d'une personne morale nouvelle** : ce n'est qu'une modification des statuts, soumise aux mêmes conditions de forme et de délai (art. 181). La société garde son numéro RCCM, ses contrats, ses dettes, ses créances et son historique comptable.",
       },
       {
         type: 'carte',
-        titre: "Les conditions selon la forme de départ ou d'arrivée",
+        titre: "Tableau 10.6 — Les conditions de la transformation selon la forme",
         tableau: {
           entetes: ["Transformation", "Condition particulière", "Article"],
           lignes: [
@@ -697,12 +694,11 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[23] },
       {
         type: 'paragraphe',
-        texte: "La transformation de l'article 882 mérite une attention particulière. Une société dont l'objet correspond à celui d'un GIE, par exemple une SARL créée par plusieurs entreprises pour gérer un entrepôt commun, peut devenir GIE sans dissolution ni création d'une personne morale nouvelle. Inversement, un GIE peut devenir SNC ou SARL. Ce passage est fréquent lorsque le GIE se met à mener une activité propre, au-delà de son rôle auxiliaire : la forme sociale doit alors suivre la réalité économique. Dans ce cas, comme pour une SNC devenue SARL, les créanciers antérieurs conservent leurs droits contre le GIE et ses membres (art. 882).",
+        texte: "La transformation de l'article 882 obéit à une règle propre. Une société dont l'objet correspond à celui d'un GIE, par exemple une SARL créée par plusieurs entreprises pour gérer un entrepôt commun, peut devenir GIE sans dissolution ni création d'une personne morale nouvelle. Inversement, un GIE peut devenir SNC ou SARL. Ce passage est fréquent lorsque le GIE se met à mener une activité propre, au-delà de son rôle auxiliaire : la forme sociale doit alors suivre la réalité économique. Dans ce cas, comme pour une SNC devenue SARL, les créanciers antérieurs conservent leurs droits contre le GIE et ses membres (art. 882).",
       },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "10.9.2 L'application à KIPUSHI AGRO" },
       {
         type: 'paragraphe',
         texte: "Pour KIPUSHI AGRO, deux vérifications s'imposent avant l'assemblée. D'abord, ses **capitaux propres** doivent être au moins égaux à son capital, et un commissaire aux comptes doit le certifier (art. 374-375). Une SARL qui a accumulé des pertes devra d'abord reconstituer ses capitaux propres (chapitre 5). Ensuite, n'ayant pas de commissaire aux comptes, elle doit faire désigner des **commissaires à la transformation**, sauf accord unanime de ses associés (art. 187-1). Ils apprécient sous leur responsabilité la valeur des biens de l'actif et les avantages particuliers, et leur rapport peut tenir lieu de celui de l'article 375. Les associés statuent sur cette évaluation et ne peuvent la réduire qu'à l'unanimité. Sans approbation expresse au procès-verbal, la transformation est nulle.",
@@ -711,11 +707,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La transformation est souvent l'étape qui accompagne la croissance. Une SARL familiale devient SA pour accueillir des investisseurs, se doter d'un conseil d'administration et préparer, un jour, une cotation à la future Bourse de Kinshasa (chapitre 6). À l'inverse, une SA dont l'actionnariat s'est réduit peut devenir SARL ou SAS pour alléger ses coûts de fonctionnement, notamment le commissariat aux comptes, obligatoire dans toute SA. Les conditions financières (capitaux propres au moins égaux au capital pour la SARL, actif net au moins égal au capital pour la SA) visent à empêcher qu'une société en difficulté se serve de la transformation pour échapper à ses obligations ou tromper ses nouveaux partenaires sur sa solidité.",
       },
-      { type: 'controle', question: QCM[25] },
-      { type: 'controle', question: QCM[26] },
+      { type: 'intertitre', texte: "10.9.3 Les effets de la transformation" },
       {
         type: 'carte',
-        titre: "Les effets de la transformation",
+        titre: "Tableau 10.7 — Les effets de la transformation",
         tableau: {
           entetes: ["Question", "Réponse", "Article"],
           lignes: [
@@ -731,17 +726,17 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : pourquoi pas de rétroactivité ?",
+        titre: "L'absence de rétroactivité de la transformation",
         texte: "La fusion peut rétroagir (art. 192), la transformation non (art. 182). La différence tient à la nature des opérations. Dans une fusion, deux patrimoines se rejoignent, et il est commode de fixer une date comptable commune, par exemple le début de l'exercice. Dans une transformation, rien ne change dans le patrimoine : seule la forme change. Faire rétroagir une forme sociale reviendrait à dire que des décisions passées ont été prises par des organes qui n'existaient pas encore. En revanche, l'article 183 permet de rattacher l'exercice entier à la nouvelle forme pour l'approbation des comptes et la répartition du bénéfice, ce qui répond au besoin pratique sans fiction juridique.",
       },
-      { type: 'controle', question: QCM[27] },
     ],
   },
   {
     numero: '10.10',
-    titre: "Transformer, et choisir le bon véhicule",
+    titre: "La comptabilisation de la transformation et le choix de la forme",
     navLabel: "Grille de choix",
     blocs: [
+      { type: 'intertitre', texte: "10.10.1 La comptabilisation" },
       {
         type: 'paragraphe',
         texte: "Comptablement, la transformation est presque invisible, et c'est voulu. La personne morale continue : il n'y a ni bilan de clôture, ni bilan d'ouverture, ni réévaluation des actifs. Les comptes de l'exercice en cours se poursuivent sans interruption, sauf si les associés décident un arrêté intermédiaire (art. 183). Seuls changent les **intitulés** : le capital de KIPUSHI AGRO, jusque-là divisé en parts sociales, est désormais divisé en actions ; le compte 101 reste le même, avec un nouveau détail dans les Notes annexes. Les états financiers de l'exercice sont établis et approuvés selon les règles de la SA, et c'est la nouvelle assemblée qui répartira le bénéfice. Les frais de la transformation (commissaires, publicité, greffe) sont des charges de l'exercice.",
@@ -750,15 +745,15 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La continuité comptable n'empêche pas certains ajustements. Les statuts de la SA prévoient une dotation à la réserve légale selon ses propres règles, et le capital, divisé en actions, doit respecter le minimum légal de la SA (chapitre 2). Si le capital de la SARL est inférieur à ce minimum, la transformation doit s'accompagner d'une augmentation de capital (chapitre 4). Les comptes courants d'associés, les dividendes à payer et les dettes envers les dirigeants restent inscrits à l'identique. Enfin, le changement de forme se répercute dans les Notes annexes : description de l'opération, date d'effet, nouvelle composition du capital et identité des nouveaux organes.",
       },
-      { type: 'controle', question: QCM[28] },
       {
         type: 'filet',
-        titre: "Deux pièges fiscaux et juridiques",
+        titre: "Deux risques fiscaux et juridiques",
         texte: "Premier piège : une SA qui se transforme en SNC pour échapper à l'IS se heurte à la loi congolaise, qui ferme l'option pour le régime de l'IS aux sociétés de personnes issues de la transformation antérieure de sociétés par actions (loi n° 23/053, art. 4). Il faudrait d'ailleurs l'unanimité pour une telle transformation (art. 692). Second piège : la transformation ne peut pas servir à effacer des dettes. Une SNC qui devient SARL laisse ses créanciers antérieurs libres de poursuivre les associés sur leurs biens personnels (art. 186), et un GIE transformé en SARL fait de même (art. 882).",
       },
+      { type: 'intertitre', texte: "10.10.2 Le choix de la structure" },
       {
         type: 'carte',
-        titre: "Grille de choix : quel véhicule pour quel projet ?",
+        titre: "Tableau 10.8 — Le choix de la structure selon le projet",
         tableau: {
           entetes: ["Projet", "Véhicule adapté", "Pourquoi"],
           lignes: [
@@ -770,16 +765,16 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "10.10.3 Application : les quatre dossiers du cabinet" },
       {
         type: 'paragraphe',
         texte: "Retour aux quatre dossiers du cabinet. KATANGA ROUTES et LUALABA TP signent un contrat de SEP à durée égale au chantier, avec KATANGA ROUTES pour gérant et une comptabilité autonome reliée par le compte 188. Les six pharmacies constituent un GIE d'achats, immatriculé, et négocient avec leur grossiste une clause écartant la solidarité. Les trois menuisiers, conseillés, règlent le fournisseur et constituent une SARL pour l'avenir. KIPUSHI AGRO fait certifier ses capitaux propres, obtient le rapport des commissaires à la transformation et devient une SA le jour de son assemblée, sans perdre un seul de ses contrats. Chacune de ces solutions découle des mêmes questions : qui est engagé envers les tiers, et comment traduire fidèlement dans les comptes une activité menée à plusieurs.",
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Les contrôles de l'auditeur sur les sociétés particulières",
         texte: "Sur une SEP : contrat, clé de répartition, rapprochement des comptes de liaison (188, 4631, 182, 2773) chez tous les coparticipants, engagements solidaires éventuels. Sur un GIE : contrat publié, cotisations appelées et payées, dépréciation des participations et comptes courants selon la quote-part des capitaux propres, perte prévisible anticipée. Sur une transformation : conditions de capitaux propres certifiées, rapport des commissaires à la transformation, majorités, date d'effet, publicité, continuité des comptes et maintien ou fin du mandat du commissaire aux comptes. Sur une coopération informelle : indices d'une société créée de fait et risque de solidarité.",
       },
-      { type: 'controle', question: QCM[29] },
     ],
   },
 ]
