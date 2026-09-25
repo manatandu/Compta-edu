@@ -252,9 +252,12 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le cadre : légalité, classification et rattachement des recettes',
     navLabel: 'Cadre général',
     blocs: [
+      { type: 'intertitre', texte: "6.1.1 Légalité et classification des recettes" },
       { type: 'paragraphe', texte: "Aucune recette publique ne se perçoit sans texte : « il ne peut être établi d'impôts que par la loi » et il ne peut être établi d'exemption ou d'allégement fiscal qu'en vertu de la loi (art. 9 LOFIP ; art. 174 de la Constitution) ; les règles d'assiette, de taux et de recouvrement des impositions de toute nature relèvent du domaine de la loi (art. 122 pt. 10 de la Constitution). Côté classification, l'art. 34 LOFIP range les ressources budgétaires en recettes courantes, en capital et exceptionnelles (ressources internes) et en ressources extérieures, leur rendement étant évalué par les lois de finances (art. 35). Le RGCP le redit à son échelle : les recettes comprennent « les produits d'impôts, taxes, droits, redevances, dons et autres produits autorisés par les lois en vigueur ou résultant de décisions de justice ou de conventions » (art. 60 RGCP)." },
-      { type: 'filet', titre: 'Le rattachement à l\'exercice (art. 92 LOFIP)', texte: "« Les recettes sont prises en compte au titre du budget de l'année au cours de laquelle elles sont encaissées par un comptable public. » La comptabilité budgétaire suit l'encaissement (art. 3 pt. 10) ; la comptabilité générale, en droits constatés, rattache les créances à l'exercice de leur naissance (art. 99). La période complémentaire de l'art. 97 permet de comptabiliser jusqu'au 31 janvier." },
-      { type: 'carte', titre: 'Les recettes 2026 en chiffres (LF n° 25/060, annexe II, milliards FC)', tableau: {
+      { type: 'intertitre', texte: "6.1.2 Le rattachement à l'exercice" },
+      { type: 'filet', titre: "Le rattachement des recettes à l'exercice (art. 92 LOFIP)", texte: "« Les recettes sont prises en compte au titre du budget de l'année au cours de laquelle elles sont encaissées par un comptable public. » La comptabilité budgétaire suit l'encaissement (art. 3 pt. 10) ; la comptabilité générale, en droits constatés, rattache les créances à l'exercice de leur naissance (art. 99). La période complémentaire de l'art. 97 permet de comptabiliser jusqu'au 31 janvier." },
+      { type: 'intertitre', texte: "6.1.3 Les recettes prévues pour 2026" },
+      { type: 'carte', titre: "Tableau 6.1 — Les recettes 2026 en chiffres (LF n° 25/060, annexe II, milliards FC)", tableau: {
         entetes: ['Poste', 'LFR 2025', 'LF 2026', 'Évolution'],
         lignes: [
           ['Impôts (DGI)', '16 407,6', '**19 033,6**', '+16,0%'],
@@ -263,9 +266,6 @@ const SECTIONS: Chapitre['sections'] = [
           ['Recettes totales du budget général', '45 749,6', '**48 969,3**', '+7,0%'],
         ],
       }, note: "Cadrage macroéconomique 2026 : croissance 5,3%, inflation moyenne 4,4%, change moyen 2 467,0 FC/USD, pression fiscale projetée 12,3% du PIB. Le budget total est en équilibre à 54 335,8 milliards FC (art. 6)." },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[16] },
-      { type: 'controle', question: QCM[19] },
     ],
   },
   {
@@ -273,8 +273,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les phases de la recette : constatation, liquidation, ordonnancement, recouvrement',
     navLabel: 'Les phases',
     blocs: [
-      { type: 'filet', titre: 'Art. 89 LOFIP - texte exact', texte: "« En matière de recettes, la constatation a pour objet d'identifier et d'évaluer la matière imposable. La liquidation consiste à déterminer le montant de la créance sur le redevable en indiquant les bases, taux et tarifs appliqués. L'ordonnancement consiste à établir un titre de perception destiné à la prise en charge de la recette et permettant au comptable public d'en assurer le recouvrement. En matière de recettes au comptant, les documents justifiant le paiement forment titres de perception. » Attention à la confusion classique : l'art. 90 décrit la chaîne de la DÉPENSE (engagement, liquidation, ordonnancement, paiement)." },
-      { type: 'carte', titre: 'La chaîne complète (art. 89, 91 LOFIP ; art. 61-70 RGCP)', tableau: {
+      { type: 'intertitre', texte: "6.2.1 Les quatre phases" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 89 : les phases de la recette", texte: "« En matière de recettes, la constatation a pour objet d'identifier et d'évaluer la matière imposable. La liquidation consiste à déterminer le montant de la créance sur le redevable en indiquant les bases, taux et tarifs appliqués. L'ordonnancement consiste à établir un titre de perception destiné à la prise en charge de la recette et permettant au comptable public d'en assurer le recouvrement. En matière de recettes au comptant, les documents justifiant le paiement forment titres de perception. » Attention à la confusion classique : l'art. 90 décrit la chaîne de la DÉPENSE (engagement, liquidation, ordonnancement, paiement)." },
+      { type: 'carte', titre: "Tableau 6.2 — La chaîne d'exécution de la recette (art. 89 et 91 LOFIP ; art. 61-70 RGCP)", tableau: {
         entetes: ['Phase', 'Contenu', 'Acteur'],
         lignes: [
           ['**1. Constatation**', "Identifier et évaluer la matière imposable - le fait générateur et l'assiette", 'Ordonnateur de recettes (phase administrative)'],
@@ -283,9 +284,25 @@ const SECTIONS: Chapitre['sections'] = [
           ['**4. Recouvrement**', 'Prise en charge du titre, encaissement amiable puis forcé le cas échéant - la phase comptable (art. 61 RGCP)', 'Comptable public assignataire'],
         ],
       }, note: "Séquence impérative : « toute recette régulièrement constatée par les services générateurs des recettes fait l'objet, préalablement à son recouvrement, d'une liquidation et d'un ordonnancement » (art. 91 LOFIP). Une erreur de liquidation se corrige par ordre d'annulation ou de réduction de recette, ou par titre de perception complémentaire (art. 67 RGCP)." },
+      { type: 'carte', titre: "Exemple 6.1 — L'exécution d'une redevance administrative due par une entreprise privée (montants fictifs)", tableau: { entetes: ["Étape", "Opération", "Acte ou pièce"], lignes: [
+        ["Constatation", "Une société de transport demande le renouvellement d'une autorisation d'exploitation ; le service d'assiette du ministère vérifie que l'opération entre dans le champ de la redevance", "Dossier de demande, contrôle de l'assiette"],
+        ["Liquidation", "Application du tarif fixé par le texte réglementaire : 2 500 000 FC", "Titre de constatation et de liquidation indiquant la base et le tarif (art. 65 RGCP)"],
+        ["Ordonnancement", "Émission du titre de perception au nom de la société", "Titre de perception, dans la forme fixée par arrêté du Ministre des Finances (art. 66 et 70 RGCP)"],
+        ["Recouvrement", "La société paie par virement au compte du Trésor ; le comptable prend en charge le titre et constate l'encaissement", "Acquit libératoire délivré par le comptable public (art. 78 RGCP)"],
+        ["Correction", "Le service constate que le tarif appliqué était celui d'une catégorie supérieure : la redevance due n'est que de 2 000 000 FC", "Ordre de réduction de recette de 500 000 FC ; en cas d'insuffisance, titre de perception complémentaire (art. 67 RGCP)"],
+      ] }, note: "Chaque étape est accomplie par un agent différent, et chacune laisse une pièce. La traçabilité permet au comptable de vérifier que la somme encaissée correspond à un titre régulier, et à la Cour des comptes de reconstituer l'opération." },
+      { type: 'intertitre', texte: "6.2.2 Les recettes au comptant" },
       { type: 'paragraphe', texte: "**Les recettes au comptant** inversent la fin de la séquence : perçues immédiatement - droits de caisse, timbres, nombreuses recettes administratives -, elles sont imputées provisoirement en comptabilité générale, puis le comptable saisit l'ordonnateur, par un document ad hoc, des encaissements effectués « en vue de l'émission d'un titre de perception de régularisation pour une imputation budgétaire et comptable définitive » (art. 62 RGCP) - c'est l'« ordonnancement pour régularisation » de l'art. 91 LOFIP. La retenue à la source (impôts sur les rémunérations retenus par l'employeur, retenues sur les revenus des capitaux mobiliers) obéit à une logique voisine : la déclaration accompagnée du paiement tient lieu de justification, l'imputation définitive suivant l'encaissement." },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
+      { type: 'intertitre', texte: "6.2.3 Les impôts déclaratifs et le calendrier fiscal de l'entreprise" },
+      { type: 'paragraphe', texte: "Pour les principaux impôts, la constatation et la liquidation reposent d'abord sur la déclaration du contribuable, que l'administration contrôle ensuite. L'entreprise privée participe ainsi à l'exécution des recettes publiques : elle déclare, calcule et verse l'impôt, et elle retient à la source celui qui est dû par d'autres. La loi de finances pour 2026 rappelle la portée de cette fonction : la personne tenue de retenir à la source qui ne l'a pas fait, ou l'a fait insuffisamment, devient personnellement redevable du montant non retenu et des pénalités (art. 35, qui insère un art. 96 bis dans la loi relative aux procédures fiscales)." },
+      { type: 'carte', titre: "Tableau 6.3 — Les principales échéances fiscales d'une société soumise à l'impôt sur les sociétés en 2026", tableau: { entetes: ["Obligation", "Échéance", "Base légale (LF 2026)"], lignes: [
+        ["Déclaration annuelle des revenus salariaux et assimilés versés aux employés", "31 mars", "Art. 22"],
+        ["Liste annuelle des fournisseurs", "31 mars", "Art. 30"],
+        ["Déclaration de l'impôt sur les sociétés et déclaration annuelle des prix de transfert", "30 avril", "Art. 18 et 26"],
+        ["Acomptes provisionnels (30 %, 30 % et 20 % de la base)", "25 juillet, 25 septembre et 25 novembre", "Art. 31"],
+        ["Déclaration et paiement de la TVA", "15 du mois suivant", "Dispositions TVA de la LF 2026"],
+        ["Prélèvement de 20 % sur les revenus de capitaux mobiliers versés à des non-résidents", "15 du mois suivant le paiement", "Art. 45 et 48"],
+      ] }, note: "Seule l'échéance des acomptes provisionnels a été déplacée par la loi de finances pour 2026 : la loi n° 23/052 les fixait avant le 1er août, le 1er octobre et le 1er décembre. Le détail de l'assiette de chaque impôt relève du module de fiscalité." },
     ],
   },
   {
@@ -293,19 +310,20 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les acteurs : ordonnateurs de recettes, receveurs et régies',
     navLabel: 'Acteurs',
     blocs: [
+      { type: 'intertitre', texte: "6.3.1 La séparation des fonctions" },
       { type: 'paragraphe', texte: "L'exécution des recettes repose sur la **séparation des ordonnateurs et des comptables publics** : « les fonctions d'ordonnateur et celles de comptable public sont incompatibles » (art. 4 RGCP), et les conjoints, ascendants et descendants d'un ordonnateur ne peuvent être comptables des organismes où il exerce. L'**ordonnateur de recettes** est « toute autorité ayant qualité pour constater, liquider et ordonnancer au nom de l'État des recettes inscrites au budget » (art. 13 RGCP) : le Ministre des Finances est l'ordonnateur général de toutes les recettes du pouvoir central (art. 106 LOFIP), et il délègue ce pouvoir aux responsables des administrations financières - ordonnateurs délégués des recettes -, la constatation et la liquidation des recettes non fiscales étant conférées d'office aux fonctionnaires qualifiés (art. 14 RGCP). Les ordonnateurs sont responsables des titres qu'ils délivrent et les notifient aux comptables principaux assignataires (art. 15 RGCP)." },
-      { type: 'carte', titre: 'Les régies financières et le réseau comptable', liste: [
+      { type: 'intertitre', texte: "6.3.2 Les régies financières et les régies de recettes" },
+      { type: 'carte', titre: "Encadré 6.1 — Les régies financières et le réseau comptable", liste: [
         "**DGI** - fiscalité intérieure : TVA (taux normal 16%), IS et IRPP (loi n° 23/053 depuis le 1er janvier 2026). Prévision 2026 : 19 033,6 milliards FC.",
         "**DGDA** - fiscalité de frontière : droits de douane du tarif d'importation (structure 5% / 10% / 20% de l'O.-L. n° 011/2012, dont la LF 2026 réaménage des positions en annexe XVII) et droits d'accises (Code des accises, annexe XVIII). Prévision 2026 : 7 522,0 milliards FC.",
         "**DGRAD** - recettes administratives, judiciaires, domaniales et de participations (droits de chancellerie, amendes et frais de justice, redevances domaniales et minières, dividendes du portefeuille). Prévision 2026 : 5 474,6 milliards FC, au sein de 6 469,4 milliards de recettes non fiscales.",
         "**Les receveurs des administrations financières** sont des comptables publics relevant des cadres organiques de leurs services, « chargés du recouvrement des impôts, des droits, des taxes, des redevances et des recettes diverses ainsi que des pénalités fiscales » selon les codes et lois applicables (art. 19 RGCP) ; les comptables directs du Trésor exécutent principalement les dépenses (art. 20).",
         "**Le réseau comptable** est centralisé : comptables centralisateurs et non centralisateurs sont reliés à l'Agent Comptable Central du Trésor (ACCT), qui assure la centralisation finale des comptabilités et flux financiers et la consolidation de la comptabilité de l'État (art. 23 RGCP).",
       ] },
-      { type: 'filet', titre: 'Les régies de recettes (art. 50-54 RGCP)', texte: "Pour les encaissements de proximité, la régie de recettes « permet à un agent de carrière des services publics de l'État de constater, de liquider et d'encaisser des recettes au nom et pour le compte d'un comptable public assignataire », à charge de reversement. Création sur proposition des responsables des administrations financières, par le Ministre ou l'échevin des finances ; l'acte constitutif fixe la liste limitative des recettes, le montant maximum de l'encaisse et la périodicité de la reddition des comptes ; les régies ne couvrent que les droits au comptant ou spontanés, et le régisseur - désigné par le ministre des finances sur proposition de l'ordonnateur - est personnellement et pécuniairement responsable de ses opérations." },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[11] },
+      { type: 'filet', titre: "Les régies de recettes (art. 50-54 RGCP)", texte: "Pour les encaissements de proximité, la régie de recettes « permet à un agent de carrière des services publics de l'État de constater, de liquider et d'encaisser des recettes au nom et pour le compte d'un comptable public assignataire », à charge de reversement. Création sur proposition des responsables des administrations financières, par le Ministre ou l'échevin des finances ; l'acte constitutif fixe la liste limitative des recettes, le montant maximum de l'encaisse et la périodicité de la reddition des comptes ; les régies ne couvrent que les droits au comptant ou spontanés, et le régisseur - désigné par le ministre des finances sur proposition de l'ordonnateur - est personnellement et pécuniairement responsable de ses opérations." },
+      { type: 'intertitre', texte: "6.3.3 Le réseau des postes comptables du Trésor" },
+      { type: 'paragraphe', texte: "Le décret n° 24/15 du 14 octobre 2024 a réorganisé la Direction générale du Trésor et de la Comptabilité publique (DGTCP) et abrogé le décret n° 22/012B de 2022 (art. 100). Il énumère dix postes comptables du Trésor (art. 34) : l'Agence comptable centrale du Trésor (ACCT), la Paierie générale du Trésor, la Recette générale du Trésor (RGT), la Paierie pour l'étranger, les trésoreries-paieries provinciales, territoriales et urbaines, et les postes comptables des ministères, des budgets annexes et des comptes d'affectation spéciale. Le Receveur général du Trésor, désigné par le Ministre des Finances, est un comptable public principal assignataire (art. 63 et 65). Il prend en charge les opérations budgétaires sur les titres émis par son ordonnateur de rattachement, tient la comptabilité budgétaire et générale de son poste, la rapproche de la comptabilité administrative de l'ordonnateur et produit son compte de gestion pour la Cour des comptes (art. 64)." },
+      { type: 'paragraphe', texte: "Ce réseau est entré en fonction récemment. La DGTCP a déployé son personnel, ses directions et ses postes comptables entre juin et août 2025, et une cérémonie tenue à Kinshasa le 19 février 2026 a marqué son opérationnalisation, près de quinze ans après l'adoption de la LOFIP qui la prévoyait." },
     ],
   },
   {
@@ -313,15 +331,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le recouvrement : force exécutoire, contrainte et extinction de la créance',
     navLabel: 'Recouvrement',
     blocs: [
+      { type: 'intertitre', texte: "6.4.1 La force exécutoire et le recouvrement forcé" },
       { type: 'paragraphe', texte: "Les titres de perception transmis au comptable public **ont force exécutoire** (art. 68 RGCP) : nul besoin d'un jugement pour recouvrer. Le paiement s'opère par espèces, chèques ou effets bancaires, virement ou tout autre moyen autorisé (art. 71). Le recouvrement est d'abord **amiable** ; à défaut, il devient **forcé, par toutes voies de droit**, exécuté par des agents ayant qualité d'huissier du Trésor ou, le cas échéant, d'huissier de justice (art. 72 et 74), l'ordonnateur émettant des titres complémentaires pour constater les majorations et accroissements légalement dus." },
-      { type: 'carte', titre: "Aménagements et extinction de la créance", liste: [
+      { type: 'intertitre', texte: "6.4.2 L'extinction de la créance et les incitations au paiement" },
+      { type: 'carte', titre: "Encadré 6.2 — Les aménagements et l'extinction de la créance", liste: [
         "**Surséance, remise, non-valeurs** : la mise en surséance indéfinie, la remise gracieuse, l'annulation ou l'admission en non-valeurs des créances irrécouvrables sont prononcées par le Ministre - ou l'échevin - ayant les finances dans ses attributions (art. 73 et 75 RGCP) ; jamais par le comptable, dont la responsabilité serait engagée par un abandon irrégulier (art. 34).",
         "**Pas de compensation à l'initiative du débiteur** : « les débiteurs de l'État ne peuvent pas se prévaloir de leurs créances vis-à-vis de l'État pour s'opposer au paiement de leurs dettes » (art. 76) - écho de la non-contraction de l'art. 7 LOFIP et de l'art. 63 RGCP ; le comptable opère en revanche, avant tout paiement, la compensation légale entre dettes et créances assignées sur sa caisse.",
         "**Libération du débiteur** : acquit libératoire délivré par le comptable pour tout règlement (art. 78), prescription régie par les lois en vigueur (art. 77), ou preuve de l'encaissement effectif des effets de commerce émis au profit de l'État (art. 79).",
       ] },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[17] },
+      { type: 'paragraphe', texte: "La loi de finances pour 2026 renforce les instruments qui incitent les entreprises à s'acquitter de leurs dettes fiscales. Un quitus fiscal en cours de validité est exigé pour l'accès aux marchés publics et pour les documents et services énumérés par arrêté ; est en règle le contribuable sans dette d'impôt échue, y compris celui qui bénéficie d'un échelonnement ou d'un sursis (art. 32). Le contribuable qui corrige spontanément et de bonne foi une déclaration souscrite à l'échéance ne supporte que les intérêts de retard, réclamés par avis de mise en recouvrement, sans pénalité de déclaration tardive (art. 23). Le recouvrement combine ainsi la contrainte, attachée à la force exécutoire du titre, et l'incitation à la régularisation volontaire." },
     ],
   },
   {
@@ -329,17 +347,18 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'unité de trésorerie : le compte général du Trésor",
     navLabel: 'Unité de trésorerie',
     blocs: [
-      { type: 'filet', titre: 'Art. 110 LOFIP - texte exact', texte: "« Sauf disposition expresse d'une loi de finances, toutes les administrations et tous les services publics, y compris les projets émargeant au budget du pouvoir central, sont tenus de déposer toutes leurs disponibilités dans le compte général du trésor ouvert auprès du caissier de l'État. » Le caissier de l'État est la Banque centrale du Congo, dont la Constitution fait la gardienne des fonds publics (art. 176) - tout en lui interdisant de financer l'État par avances (art. 16 LOFIP)." },
-      { type: 'carte', titre: "Pourquoi l'unité de trésorerie ?", liste: [
+      { type: 'intertitre', texte: "6.5.1 Le principe" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 110 : l'unité de trésorerie", texte: "« Sauf disposition expresse d'une loi de finances, toutes les administrations et tous les services publics, y compris les projets émargeant au budget du pouvoir central, sont tenus de déposer toutes leurs disponibilités dans le compte général du trésor ouvert auprès du caissier de l'État. » Le caissier de l'État est la Banque centrale du Congo, dont la Constitution fait la gardienne des fonds publics (art. 176) - tout en lui interdisant de financer l'État par avances (art. 16 LOFIP)." },
+      { type: 'intertitre', texte: "6.5.2 Les justifications" },
+      { type: 'carte', titre: "Encadré 6.3 — Les justifications de l'unité de trésorerie", liste: [
         "**Transparence** : toutes les disponibilités dans un compte unique - pas de caisses parallèles ni de recettes dissimulées.",
         "**Pilotage de la liquidité** : l'État connaît à tout instant sa position globale de trésorerie ; le plan de trésorerie prévisionnel accompagne d'ailleurs le PLF (art. 79 pt. 7, réd. 2023) et le Ministre des Finances est le régulateur de la trésorerie (art. 106).",
         "**Prolongement de l'universalité** : l'art. 7 interdit d'affecter le produit des recettes à des dépenses particulières ; l'art. 110 interdit d'en disperser la trésorerie. Les deux règles se complètent sans se confondre.",
         "**Dérogation = loi de finances** : le « sauf disposition expresse d'une loi de finances » de l'art. 110 verrouille les exceptions au même niveau que les affectations de l'art. 54 - budgets annexes, comptes spéciaux, procédures particulières - et que les régies de recettes, encadrées par le RGCP avec reversement obligatoire au comptable.",
       ] },
-      { type: 'paragraphe', texte: "La part des provinces elle-même passe par ce circuit : la retenue à la source des 40% est définie comme l'opération bancaire créditant le compte de la province génératrice « lors du nivellement au profit du compte général du trésor de l'ensemble de recettes mobilisées dans la province » (art. 3 pt. 39 LOFIP). Rien n'échappe donc au compte général : les recettes y montent, les répartitions en redescendent." },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[10] },
+      { type: 'intertitre', texte: "6.5.3 Le circuit des recettes et le caissier de l'État" },
+      { type: 'paragraphe', texte: "La part des provinces elle-même passe par ce circuit : la retenue à la source des 40% est définie comme l'opération bancaire créditant le compte de la province génératrice « lors du nivellement au profit du compte général du trésor de l'ensemble de recettes mobilisées dans la province » (art. 3 pt. 39 LOFIP). Toutes les recettes transitent ainsi par le compte général, d'où partent ensuite les répartitions." },
+      { type: 'paragraphe', texte: "Le caissier de l'État reste, pour l'instant, la Banque centrale du Congo. Le décret n° 24/15 prévoit qu'elle exerce cette fonction « en attendant la signature de la convention de tenue des comptes uniques du Trésor » (art. 98). La mise en place d'un compte unique du Trésor figure parmi les réformes conduites par la DGTCP ; elle doit permettre de réunir dans un dispositif unique les comptes aujourd'hui dispersés entre administrations et projets, conformément à l'article 110. Tant que cette convention n'est pas signée, l'unité de trésorerie reste un principe en cours de mise en œuvre." },
     ],
   },
   {
@@ -347,8 +366,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les responsabilités : débet, gestion de fait, force majeure',
     navLabel: 'Responsabilités',
     blocs: [
+      { type: 'intertitre', texte: "6.6.1 La responsabilité personnelle et pécuniaire du comptable" },
       { type: 'paragraphe', texte: "Le comptable public est **personnellement et pécuniairement responsable** des opérations dont il a la charge (art. 131 LOFIP ; art. 32 RGCP). Sa responsabilité est engagée en cas de déficit ou d'excédent de caisse, de manquant de matières, de recette non recouvrée conformément aux textes, de dépense irrégulièrement payée ou d'indemnisation d'un tiers par sa faute (art. 34 RGCP) : il doit alors verser de ses deniers personnels une somme égale au manquant (art. 35). La mise en jeu suit deux voies : **non contentieuse** - ordre de versement émis par le Ministre des Finances, sursis possible, demandes en décharge ou en remise gracieuse (art. 38-39) - et **contentieuse** - arrêté de débet, saisie du cautionnement, intérêts au taux légal, recours devant le Conseil d'État, transmission systématique à la Cour des comptes (art. 40-42) ; la Cour met aussi la responsabilité en jeu lors du jugement du compte de gestion (art. 45)." },
-      { type: 'carte', titre: 'Trois figures à distinguer', tableau: {
+      { type: 'intertitre', texte: "6.6.2 Débet, gestion de fait et force majeure" },
+      { type: 'carte', titre: "Tableau 6.4 — Débet, gestion de fait et force majeure", tableau: {
         entetes: ['Figure', 'Définition', 'Régime'],
         lignes: [
           ['**Débet**', "Somme mise à la charge du comptable dont la responsabilité est établie", "Ordre de versement puis arrêté de débet ; apurement poursuivi par le pouvoir central par toutes voies de droit (art. 43 RGCP) ; recouvrement par le receveur des recettes non fiscales (art. 44)"],
@@ -356,11 +377,6 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Force majeure**', 'Faits de guerre, incendie, vol à main armée - et, après examen, faux indétectables', "Décharge totale ou partielle de responsabilité (art. 46) ; refusée en cas de faille ou de négligence ; la remise gracieuse, elle, dispense du paiement sans éteindre la responsabilité (art. 39)"],
         ],
       }, note: "Garanties d'entrée en fonction : cautionnement et serment (art. 26 RGCP) ; accréditation réciproque avec ordonnateurs, contrôleurs budgétaires et banques (art. 6 et 27) ; arrêt mensuel des écritures, dépôt trimestriel des comptabilités à la Cour des comptes et compte de gestion soumis au plus tard le 31 mars (art. 29-30) - la non-transmission est elle-même une faute de gestion (art. 31). Le comptable n'est pas tenu de déférer aux ordres contraires aux textes qui engageraient sa responsabilité (art. 37)." },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
     ],
   },
 ]
