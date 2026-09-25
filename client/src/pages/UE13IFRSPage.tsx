@@ -7,12 +7,12 @@ const CHAPITRES = [
   {
     num: 1,
     titre: "Fondements, cadre conceptuel et architecture des IFRS",
-    sousTitre: "Cadre conceptuel · IAS 1 · IAS 8 · IFRS 13 · AUDCIF art. 8 · SYSCOHADA révisé",
-    duree: "7h",
+    sousTitre: "Cadre conceptuel · IAS 1 · IAS 8 · IFRS 13 · IFRIC 21 · AUDCIF art. 8 · SYSCOHADA révisé",
+    duree: "9h",
     actif: true,
     route: '/ue13/chapitre-1',
     lecons: 9,
-    exercices: 30,
+    exercices: 35,
     couleur: 'bg-sky-50 text-sky-700',
     accent: 'border-l-sky-500',
   },
@@ -130,7 +130,7 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>254 QCM</span>
+            <span>259 QCM</span>
             <span>34 cas pratiques</span>
           </div>
         </div>

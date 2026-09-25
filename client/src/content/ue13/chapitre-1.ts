@@ -366,6 +366,71 @@ const QCM: Chapitre['qcm'] = [
     explication: "IAS 7.18 permet la méthode directe (principales catégories d'entrées et de sorties brutes) ou la méthode indirecte (résultat net ajusté). IAS 7.19 encourage la directe, qui apporte des informations utiles pour estimer les flux futurs, non disponibles par la méthode indirecte. Le cadre conceptuel du SYSCOHADA révisé impose au contraire la méthode indirecte pour les flux opérationnels.",
     articleRef: "IAS 7.18-19 ; SYSCOHADA révisé, cadre conceptuel",
   },
+  {
+    id: 'ue13c1-q27',
+    question: "Selon le Cadre conceptuel, quelle base d'évaluation fournit probablement l'information la plus pertinente pour des stocks utilisés, avec d'autres ressources, pour produire et vendre des biens ?",
+    options: [
+      { id: 'a', texte: "La juste valeur, dans tous les cas" },
+      { id: 'b', texte: "Le coût historique ou le coût actuel, qui permettent de dégager les marges de la période" },
+      { id: 'c', texte: "La valeur de liquidation" },
+      { id: 'd', texte: "Aucune base n'est préférable ; le choix est libre" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "Cadre, § 6.55 (traduction de travail) : lorsque des ressources produisent des flux indirectement, en combinaison avec d'autres, le coût historique ou le coût actuel fournit une information pertinente. Pour les actifs qui produisent des flux directement et peuvent être vendus isolément, une valeur actuelle est probablement plus pertinente (§ 6.56). Aucun facteur n'est à lui seul déterminant (§ 6.44).",
+    articleRef: "Cadre conceptuel (2018), § 6.43-6.56",
+  },
+  {
+    id: 'ue13c1-q28',
+    question: "Une caution de 40 000 USD donnée au bénéfice d'une société appartenant au dirigeant représente moins de 1 % du résultat. Est-elle significative ?",
+    options: [
+      { id: 'a', texte: "Non, car elle est inférieure à un seuil de 5 % du résultat" },
+      { id: 'b', texte: "Elle peut l'être en raison de sa nature, le caractère significatif dépendant de la nature ou de l'ampleur de l'information, ou des deux" },
+      { id: 'c', texte: "Non, car les engagements hors bilan ne sont jamais significatifs" },
+      { id: 'd', texte: "Oui, mais seulement si elle est exécutée" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 1.7 : le caractère significatif dépend de la nature ou de l'ampleur de l'information, ou des deux, et s'apprécie au regard des décisions des principaux utilisateurs. Une transaction avec une partie liée révélatrice d'un conflit d'intérêts peut être significative quel que soit son montant ; aucun seuil chiffré n'est fixé par les normes.",
+    articleRef: "IAS 1.7",
+  },
+  {
+    id: 'ue13c1-q29',
+    question: "Une société minière doit consacrer au moins 0,3 % de son chiffre d'affaires de l'exercice à une dotation pour le développement communautaire (Code minier, art. 258 bis). Si cette dotation répond à la définition d'un prélèvement au sens d'IFRIC 21, quand le passif est-il comptabilisé ?",
+    options: [
+      { id: 'a', texte: "Lors du paiement aux communautés, l'exercice suivant" },
+      { id: 'b', texte: "Progressivement, au fur et à mesure de la réalisation du chiffre d'affaires, activité qui déclenche la dotation selon la loi" },
+      { id: 'c', texte: "En totalité au 1er janvier, en raison de la continuité d'exploitation" },
+      { id: 'd', texte: "Jamais : il s'agit d'une distribution de bénéfices" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRIC 21, § 8 et 11 (traduction de travail) : le fait générateur est l'activité qui déclenche le paiement, telle qu'identifiée par la législation ; si elle se produit sur une période, le passif est comptabilisé progressivement. La continuité d'exploitation ne crée pas d'obligation pour l'activité future (§ 10). L'entité doit d'abord établir, et documenter, que la dotation répond à la définition d'un prélèvement (§ 4).",
+    articleRef: "IFRIC 21, § 4, 8-11 ; Code minier, art. 258 bis et 285 octies",
+  },
+  {
+    id: 'ue13c1-q30',
+    question: "Une entreprise tenant ses comptes en francs congolais détient une créance en dollars. À la clôture, la hausse du dollar fait apparaître un gain latent. Quel est le traitement selon le SYSCOHADA révisé et selon IAS 21 ?",
+    options: [
+      { id: 'a', texte: "Gain en résultat dans les deux référentiels" },
+      { id: 'b', texte: "SYSCOHADA : gain latent en écart de conversion-passif, hors résultat ; IAS 21 : gain en résultat de l'exercice" },
+      { id: 'c', texte: "Aucun ajustement de la créance dans les deux référentiels" },
+      { id: 'd', texte: "SYSCOHADA : gain en résultat ; IAS 21 : gain en autres éléments du résultat global" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "AUDCIF, art. 54 : les gains latents inscrits au compte 479 n'interviennent pas dans la formation du résultat, alors que les pertes probables donnent lieu à provision. IAS 21 convertit les éléments monétaires au cours de clôture et comptabilise les écarts en résultat (§ 23 et 28). L'asymétrie du SYSCOHADA traduit la prudence, la symétrie d'IAS 21 la neutralité.",
+    articleRef: "AUDCIF, art. 54 ; IAS 21.23, 28",
+  },
+  {
+    id: 'ue13c1-q31',
+    question: "Qui a pour mission, en RDC, de contribuer à l'amélioration et au développement de la doctrine comptable et d'autoriser l'exercice de la profession d'expert-comptable ?",
+    options: [
+      { id: 'a', texte: "La Direction générale des impôts" },
+      { id: 'b', texte: "L'Ordre national des Experts-comptables (ONEC), créé par la loi n° 15/002" },
+      { id: 'c', texte: "L'IASB" },
+      { id: 'd', texte: "La Banque centrale du Congo" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "Loi n° 15/002 du 12 février 2015, art. 1 et 4 : l'Ordre veille notamment au respect de l'éthique et de la déontologie, à la formation permanente, autorise l'exercice de la profession et contribue à l'amélioration et au développement de la doctrine comptable.",
+    articleRef: "Loi n° 15/002, art. 1 à 4",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -409,6 +474,15 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "En République démocratique du Congo, la normalisation engagée en 1974 a abouti à la loi n° 76-020 du 16 juillet 1976 portant normalisation de la comptabilité, modifiée par l'ordonnance-loi n° 81-017 du 3 avril 1981, et à l'ordonnance n° 77-332 du 30 novembre 1977 fixant les modalités d'application obligatoire du Plan comptable général congolais (PCGC). Selon le rapport ROSC de la Banque mondiale, ce plan « avait d'abord pour objectif premier de répondre aux besoins de l'État en matière de statistiques nationales », les besoins des investisseurs n'y constituant « pas une priorité ». Le même rapport relève l'absence de cadre conceptuel, des tableaux de synthèse conçus pour la comptabilité nationale, une présentation des charges exclusivement par nature, l'absence de règles de consolidation et l'admission de provisions sans obligation juridique ou implicite. Ces écarts éclairent, par contraste, la logique des normes étudiées dans ce module. L'adhésion de la RDC à l'OHADA a ensuite substitué au PCGC le SYSCOHADA, révisé en 2017.",
+      },
+      { type: 'intertitre', texte: "1.1.4 Pourquoi normaliser : l'asymétrie d'information" },
+      {
+        type: 'paragraphe',
+        texte: "La justification économique de la normalisation tient à la position respective des dirigeants et des apporteurs de capitaux. Les dirigeants connaissent la situation de l'entreprise mieux que les actionnaires et les prêteurs, qui ne peuvent exiger des informations établies à leur intention et doivent se fier aux rapports à usage général (Cadre conceptuel, § 1.5). Cette asymétrie produit deux effets. Avant l'apport des fonds, les investisseurs, incapables de distinguer les bonnes entreprises des mauvaises, appliquent à toutes une prime de risque, ce qui renchérit le capital des entreprises saines. Après l'apport, ils ne peuvent vérifier que les ressources confiées sont gérées dans leur intérêt, ce que le Cadre désigne par la notion de *stewardship* (§ 1.3-1.4). Des règles communes, publiques et vérifiables réduisent ces deux effets : elles limitent la latitude des dirigeants dans la présentation des résultats, rendent les états comparables et permettent l'intervention d'un auditeur qui certifie leur application.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "La normalisation a cependant un coût, qui explique l'existence de plusieurs référentiels. Une norme conçue pour les marchés financiers impose des estimations et des informations dont l'utilité est grande pour un investisseur diversifié, mais moindre pour le créancier d'une entreprise familiale ou pour l'administration fiscale. Le choix d'un référentiel est donc, en dernière analyse, le choix d'un destinataire privilégié de l'information. C'est ce qui distingue le plus profondément les IFRS, orientées vers l'investisseur et le prêteur, du SYSCOHADA, qui sert simultanément l'État, les créanciers et les associés.",
       },
     ],
   },
@@ -461,6 +535,29 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Pour IFRS 19 et IFRS 20, seuls des documents d'accompagnement (analyse des effets, résumé de projet) sont disponibles dans le corpus de la plateforme ; aucune de leurs dispositions n'est citée comme texte normatif dans ce cours.",
       },
+      {
+        type: 'carte',
+        titre: "Tableau 1.4 — Les normes étudiées dans le module et leur répartition",
+        tableau: {
+          entetes: ['Chapitre', 'Normes et interprétations', 'Objet'],
+          lignes: [
+            ['1', 'Cadre conceptuel, IAS 1 (principes généraux), IAS 8 (hiérarchie), IFRS 13', 'Fondements, statut juridique, juste valeur'],
+            ['2', 'IAS 16, IAS 38, IAS 23, IFRIC 1, IFRIC 20, IFRS 6', 'Immobilisations corporelles et incorporelles'],
+            ['3', 'IAS 36, IAS 40', 'Dépréciation des actifs, immeubles de placement'],
+            ['4', 'IAS 2, IFRS 9 (avec IAS 32 et IFRS 7)', 'Stocks, instruments financiers'],
+            ['5', 'IFRS 15, IAS 20', "Produits des contrats avec des clients, subventions"],
+            ['6', 'IAS 12, IAS 21, IAS 19', 'Impôts sur le résultat, change, avantages du personnel'],
+            ['7', 'IFRS 1, IFRS pour les PME', 'Première adoption, référentiel des PME'],
+            ['8', 'IAS 1, IFRS 18, IAS 7, IAS 8, IAS 10', 'Présentation, flux de trésorerie, méthodes, événements postérieurs'],
+          ],
+        },
+        note: "Le module ne traite pas les normes propres aux groupes (IFRS 3, IFRS 10, IFRS 11, IFRS 12, IAS 27, IAS 28), ni IFRS 16 et IFRS 17, qui relèvent d'enseignements spécialisés ; elles sont citées lorsque leur articulation avec les normes étudiées l'exige.",
+      },
+      { type: 'intertitre', texte: "1.2.4 Les normes de durabilité de l'ISSB" },
+      {
+        type: 'paragraphe',
+        texte: "Depuis 2021, l'IFRS Foundation abrite un second conseil de normalisation, l'ISSB, dont les normes ne portent pas sur les états financiers mais sur l'information financière liée à la durabilité. Elles en reprennent pourtant la logique. IFRS S1 a pour objectif d'imposer la publication d'informations sur les risques et opportunités liés à la durabilité « utiles aux principaux utilisateurs des rapports financiers à usage général pour la prise de décisions relatives à la fourniture de ressources à l'entité » (§ 1, traduction de travail) : ce sont les mêmes destinataires que ceux du Cadre conceptuel. La justification avancée est que la capacité de l'entité à générer des flux de trésorerie à court, moyen et long terme est indissociable de ses interactions avec ses parties prenantes, la société, l'économie et l'environnement naturel tout au long de sa chaîne de valeur (§ 2). IFRS S2 applique ces principes aux risques et opportunités liés au climat. Ces normes n'ont pas, à ce jour, de force obligatoire dans l'espace OHADA ; elles intéressent néanmoins les entreprises minières et industrielles congolaises dont les investisseurs et prêteurs internationaux exigent de telles informations, et elles prolongent, dans le domaine extra-financier, la même exigence d'information utile à la décision.",
+      },
     ],
   },
   {
@@ -492,6 +589,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'filet',
         titre: "Observation — Portée de l'opinion d'audit",
         texte: "L'opinion d'un commissaire aux comptes ne vaut que pour le référentiel qu'elle désigne. Une opinion exprimée sur des états établis conformément au SYSCOHADA révisé ne se prononce pas sur leur conformité aux IFRS, et inversement ; une entreprise qui établit deux jeux d'états peut donc recevoir deux opinions distinctes. De même, une déclaration de conformité aux IFRS n'est valable que si elle est « explicite et sans réserve » (IAS 1.16) : une mention de conformité « à l'exception de » telle norme ne constitue pas une déclaration de conformité.",
+      },
+      { type: 'intertitre', texte: "1.3.4 La profession comptable congolaise et l'application des normes" },
+      {
+        type: 'paragraphe',
+        texte: "La force obligatoire d'un référentiel ne suffit pas à garantir son application : encore faut-il des professionnels formés pour l'appliquer et des auditeurs indépendants pour en vérifier le respect. En RDC, la loi n° 15/002 du 12 février 2015 a créé l'Ordre national des Experts-comptables (ONEC), doté de la personnalité juridique (art. 1 et 2). Elle définit la certification des comptes comme l'examen auquel procède un expert-comptable « en vue d'exprimer une opinion motivée sur la régularité et la sincérité des états comptables et financiers », et le commissaire aux comptes comme l'expert-comptable chargé, en vertu des textes, de la vérification des états financiers des tiers en vue de leur certification (art. 3). Parmi les missions de l'Ordre figurent le respect des règles d'éthique et de déontologie, la formation permanente de ses membres et la contribution « à l'amélioration et au développement de la doctrine comptable » (art. 4). La mise en œuvre des IFRS dans les entreprises congolaises dépend ainsi autant de la compétence de cette profession que des textes qui les rendent obligatoires.",
       },
     ],
   },
@@ -531,7 +633,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 1.4 — Cadre conceptuel de l'IASB et cadre conceptuel du SYSCOHADA révisé",
+        titre: "Tableau 1.5 — Cadre conceptuel de l'IASB et cadre conceptuel du SYSCOHADA révisé",
         tableau: {
           entetes: ['Élément', 'Cadre conceptuel 2018 (IASB)', 'Cadre conceptuel du SYSCOHADA révisé (Titre V)'],
           lignes: [
@@ -556,7 +658,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 1.5 — Les trois mesures de la valeur actuelle",
+        titre: "Tableau 1.6 — Les trois mesures de la valeur actuelle",
         tableau: {
           entetes: ['Mesure', 'Point de vue', 'Coûts de transaction'],
           lignes: [
@@ -567,6 +669,25 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "La distinction entre le point de vue du marché et celui de l'entité fonde la différence entre la juste valeur d'IFRS 13 et la valeur d'utilité d'IAS 36, étudiée au chapitre 3.",
       },
+      {
+        type: 'paragraphe',
+        texte: "Le Cadre ne désigne pas une base d'évaluation préférable à toutes les autres. Il indique les facteurs qui guident le choix, dont aucun n'est à lui seul déterminant (§ 6.43-6.44). Le premier tient à la manière dont l'actif contribue aux flux de trésorerie. Lorsque des ressources sont utilisées en combinaison pour produire et vendre des biens, comme les immobilisations corporelles ou les stocks, le coût historique ou le coût actuel fournit une information pertinente, qui permet de dégager les marges de la période (§ 6.55). Lorsqu'un actif produit des flux directement, parce qu'il peut être vendu isolément sans pénalité économique significative, une valeur actuelle intégrant les estimations courantes des flux est probablement plus pertinente (§ 6.56). Le second facteur est l'incertitude d'évaluation : une incertitude élevée n'interdit pas une base pertinente, mais elle peut, dans certains cas, ôter à l'information une représentation suffisamment fidèle, et conduire à choisir une autre base (§ 6.60). Le Cadre distingue à cet égard l'incertitude d'évaluation de l'incertitude sur le dénouement et de l'incertitude sur l'existence (§ 6.61-6.62) : un titre coté a une juste valeur certaine même si les flux qu'il procurera ne le sont pas.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 1.1 — Une même machine selon quatre bases d'évaluation",
+        texte: "Une presse à briques acquise 400 000 USD il y a quatre ans est amortie sur dix ans. À la clôture, une presse d'occasion comparable se négocie 200 000 USD entre professionnels ; une presse neuve équivalente coûte 450 000 USD, soit, pour un bien de même âge et même état, un coût de remplacement estimé à 270 000 USD ; la valeur actualisée des flux que l'entreprise attend de son utilisation et de sa sortie est de 310 000 USD.",
+        tableau: {
+          entetes: ['Base (Cadre, ch. 6)', 'Montant', 'Information fournie'],
+          lignes: [
+            ['Coût historique amorti', '240 000', "Coût consommé, rapproché des produits pour dégager une marge (§ 6.55)"],
+            ['Juste valeur', '200 000', "Prix de sortie entre intervenants du marché, indépendant de l'usage prévu par l'entité (§ 6.12)"],
+            ["Valeur d'utilité", '310 000', "Flux attendus par l'entité elle-même (§ 6.17)"],
+            ['Coût actuel', '270 000', "Coût d'un actif équivalent à la date d'évaluation (§ 6.21)"],
+          ],
+        },
+        note: "Aucune de ces valeurs n'est « la vraie ». Les normes en retiennent une selon l'information recherchée : IAS 16 le coût amorti ou la juste valeur réévaluée, IAS 36 la plus élevée de la juste valeur diminuée des coûts de sortie et de la valeur d'utilité pour tester la dépréciation. Ici, la valeur recouvrable (310 000) excède la valeur comptable (240 000) : aucune dépréciation n'est à constater, bien que la juste valeur soit inférieure au coût amorti.",
+      },
       { type: 'intertitre', texte: "1.5.2 Les concepts de maintien du capital" },
       {
         type: 'paragraphe',
@@ -574,7 +695,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 1.1 — Détermination du résultat selon trois concepts de maintien du capital",
+        titre: "Exemple 1.2 — Détermination du résultat selon trois concepts de maintien du capital",
         texte: "Les capitaux propres d'ouverture, soit 1 000, sont investis dans 100 unités de marchandises au prix unitaire de 10. Les 100 unités sont revendues 1 500 en fin d'exercice. L'inflation de l'exercice est de 20 % et le coût de remplacement d'une unité s'élève à 13 à la clôture.",
         tableau: {
           entetes: ['Concept', 'Capital à maintenir', 'Résultat', 'Ajustement de maintien du capital'],
@@ -619,7 +740,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "1.6.2 Hiérarchie des données et techniques d'évaluation" },
       {
         type: 'carte',
-        titre: "Tableau 1.6 — Hiérarchie des justes valeurs (§ 72-90)",
+        titre: "Tableau 1.7 — Hiérarchie des justes valeurs (§ 72-90)",
         tableau: {
           entetes: ['Niveau', "Données d'entrée", 'Exemples'],
           lignes: [
@@ -636,7 +757,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 1.2 — Espérance de la valeur actualisée (IFRS 13, B27-B30)",
+        titre: "Exemple 1.3 — Espérance de la valeur actualisée (IFRS 13, B27-B30)",
         liste: [
           "Données : flux de trésorerie attendu dans un an, pondéré par les probabilités, 780 ; taux sans risque 5 % ; prime exigée par le marché au titre du risque systématique 3 %.",
           "Méthode 2, par ajustement du taux : 780 / 1,08 = 722.",
@@ -653,6 +774,22 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'filet',
         titre: "Observation — La juste valeur en l'absence de marché organisé",
         texte: "Le rapport ROSC relevait en 2010 que la RDC « n'a pas de bourse de valeurs ». Les évaluations de niveau 1 y sont donc rares, et la plupart des justes valeurs relèvent des niveaux 2 et 3. Les exigences d'information sont alors les plus étendues (§ 93) : description du processus d'évaluation, données non observables quantifiées, rapprochement entre soldes d'ouverture et de clôture, sensibilité aux hypothèses. L'étroitesse du marché n'autorise pas pour autant à retenir un prix de liquidation, l'objectif demeurant le prix d'une transaction normale (§ B37-B47). Comme le relève le support d'origine du module, la juste valeur peut ainsi devenir « théoriquement pertinente mais pratiquement fragile en contexte africain ».",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 1.4 — Juste valeur d'un terrain : utilisation optimale et niveau 3",
+        texte: "Une brasserie détient à la périphérie de Lubumbashi un terrain de 2 hectares affecté à un dépôt de bouteilles. Il n'existe pas de marché actif de terrains comparables. Les intervenants du marché valorisent le terrain en usage industriel à 900 000 USD, par capitalisation des loyers d'entrepôts voisins. Un changement de zonage déjà approuvé par l'autorité provinciale permettrait une utilisation résidentielle : un promoteur paierait 1 400 000 USD, sous déduction des coûts de démolition et de viabilisation estimés à 250 000 USD.",
+        tableau: {
+          entetes: ['Étape (IFRS 13)', 'Analyse', 'Montant'],
+          lignes: [
+            ["Utilisations possibles (§ 27-28)", "Usage industriel actuel ; usage résidentiel physiquement possible, légalement admissible et financièrement faisable", ''],
+            ['Valeur en usage industriel', 'Approche par le résultat (capitalisation des loyers)', '900 000'],
+            ['Valeur en usage résidentiel', '1 400 000 − 250 000', '1 150 000'],
+            ['**Juste valeur (utilisation optimale, § 29)**', "Le marché maximiserait la valeur par l'usage résidentiel, même si l'entité conserve le dépôt", '**1 150 000**'],
+            ['Niveau de la hiérarchie (§ 73)', "Données importantes non observables (coûts de viabilisation, prix du promoteur estimé)", 'Niveau 3'],
+          ],
+        },
+        note: "L'intention de l'entité de maintenir le dépôt est sans incidence sur la juste valeur. Elle doit en revanche indiquer que l'utilisation actuelle diffère de l'utilisation optimale et pourquoi (IFRS 13, § 93(i)), ainsi que les données non observables et la sensibilité de l'évaluation. Si l'actif est un immeuble de placement évalué à la juste valeur (IAS 40), l'écart de 250 000 avec la valeur en usage actuel affecte directement le résultat.",
       },
     ],
   },
@@ -678,7 +815,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "1.7.2 Les autres caractéristiques générales" },
       {
         type: 'carte',
-        titre: "Tableau 1.7 — Caractéristiques générales des états financiers (IAS 1, § 25-38)",
+        titre: "Tableau 1.8 — Caractéristiques générales des états financiers (IAS 1, § 25-38)",
         tableau: {
           entetes: ['Caractéristique', 'Contenu'],
           lignes: [
@@ -699,6 +836,24 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La notion d'information significative gouverne l'ensemble de la présentation. IAS 1.7 dispose qu'une information est significative « si on peut raisonnablement s'attendre à ce que son omission, son inexactitude ou son obscurcissement influence les décisions que les principaux utilisateurs [...] prennent ». La mention de l'obscurcissement est la plus récente ; la norme en donne cinq cas : formulation imprécise, information dispersée dans les états, regroupement d'éléments dissemblables, ventilation d'éléments semblables, et informations non significatives masquant les informations significatives. Le § 30A en tire la conséquence que l'entité ne doit pas réduire la compréhensibilité de ses états en y noyant les informations essentielles, de sorte qu'une annexe abondante peut être moins transparente qu'une annexe concise.",
       },
+      {
+        type: 'paragraphe',
+        texte: "La même disposition précise que le caractère significatif « dépend de la nature ou de l'ampleur de l'information, ou des deux », et qu'il s'apprécie dans le contexte des états financiers pris dans leur ensemble, pour chaque information prise individuellement ou avec d'autres (IAS 1.7). L'importance relative n'est donc pas un seuil chiffré : un montant faible peut être significatif en raison de sa nature, et un montant élevé peut ne pas l'être s'il ne modifie aucune décision.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 1.5 — Appréciation de l'importance relative d'une information",
+        texte: "Une société de négoce de carburant réalise un résultat net de 5 000 000 USD et un chiffre d'affaires de 120 000 000 USD. Trois informations sont examinées lors de l'arrêté des comptes.",
+        tableau: {
+          entetes: ['Information', 'Montant', 'Appréciation'],
+          lignes: [
+            ["Écart d'inventaire non expliqué sur un dépôt", '15 000 USD', "Non significatif par son ampleur et par sa nature, en l'absence d'indice de fraude"],
+            ["Caution donnée par la société au bénéfice d'une entreprise détenue par son dirigeant", '40 000 USD', "Significative par sa nature : transaction avec une partie liée, révélatrice d'un risque de conflit d'intérêts, même si le montant représente moins de 1 % du résultat"],
+            ["Ratio d'endettement dépassant de peu le seuil prévu par un contrat de prêt", 'Sans montant propre', "Significatif : le dépassement peut rendre la dette exigible et modifier son classement en passif courant (chapitre 8)"],
+          ],
+        },
+        note: "Un seuil exprimé en pourcentage du résultat peut servir de point de départ au travail de l'auditeur ou du préparateur, mais il ne remplace pas l'analyse de la nature de l'information. C'est ce que traduit le § 7 lorsqu'il vise les décisions des principaux utilisateurs, et non la taille des montants.",
+      },
     ],
   },
   {
@@ -713,7 +868,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "1.8.1 La hiérarchie des sources en l'absence de norme applicable" },
       {
         type: 'carte',
-        titre: "Tableau 1.8 — Démarche prescrite par IAS 8, § 7 à 14",
+        titre: "Tableau 1.9 — Démarche prescrite par IAS 8, § 7 à 14",
         tableau: {
           entetes: ['Étape', 'Contenu', 'Fondement'],
           lignes: [
@@ -730,6 +885,20 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Une coopérative agricole du Kwilu reçoit gratuitement des unités de réduction d'émissions qu'elle peut revendre. Aucune norme IFRS ne traite spécifiquement de ces droits, de sorte que la démarche des § 10 et 11 d'IAS 8 s'applique. L'examen des normes traitant de questions similaires oriente vers IAS 38, s'agissant d'un droit négociable dépourvu de substance physique, et vers IAS 20, s'agissant d'une attribution gratuite par une autorité publique. Le recours au Cadre conduit à rechercher si le droit constitue une ressource économique contrôlée par l'entité, ce qui est le cas s'il est négociable et que l'entité peut en disposer. Plusieurs méthodes peuvent se justifier ; l'exigence consiste à retenir une méthode fondée sur la hiérarchie d'IAS 8, à l'appliquer de façon cohérente (§ 13) et à la décrire dans les notes.",
       },
+      { type: 'intertitre', texte: "1.8.3 Application : vérifier d'abord l'existence d'un texte, la dotation minière de 0,3 %" },
+      {
+        type: 'paragraphe',
+        texte: "La hiérarchie d'IAS 8 commence par une vérification que les praticiens négligent parfois : avant d'élaborer une méthode par jugement, il faut s'assurer qu'aucune norme ni interprétation ne traite de la transaction. Le Code minier congolais en fournit un exemple. Il impose au titulaire d'un droit d'exploitation ou d'une autorisation de carrières permanente une dotation minimale de 0,3 % du chiffre d'affaires de l'exercice pour la contribution aux projets de développement communautaire, mise à la disposition des communautés locales avant l'expiration de l'exercice suivant (art. 258 bis) et gérée par une entité juridique associant le titulaire et les communautés (art. 285 octies). Aucune norme IFRS ne mentionne cette dotation ; l'entité pourrait être tentée d'en fixer le traitement par analogie. Or IFRIC 21 traite des prélèvements imposés par les autorités publiques conformément à la législation, autres que les impôts sur le résultat relevant d'IAS 12 et que les amendes (§ 4), et le passif correspondant relève d'IAS 37.",
+      },
+      {
+        type: 'filet',
+        titre: "Texte de référence — IFRIC 21, § 8 et 11 (traduction de travail)",
+        texte: "« Le fait générateur d'obligation qui donne naissance à un passif au titre du paiement d'un prélèvement est l'activité qui déclenche le paiement du prélèvement, telle qu'elle est identifiée par la législation. » (§ 8). « Le passif au titre du paiement d'un prélèvement est comptabilisé progressivement si le fait générateur d'obligation se produit sur une période » (§ 11).",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Si la dotation répond à la définition d'un prélèvement, question qu'il appartient à l'entité d'apprécier et de documenter, le fait générateur désigné par la loi est la réalisation du chiffre d'affaires de l'exercice : le passif naît au fur et à mesure que le chiffre d'affaires est réalisé et se comptabilise progressivement, y compris dans les rapports intermédiaires (§ 11 et 13). Une entité qui a réalisé un chiffre d'affaires de 400 millions USD comptabilise ainsi à la clôture un passif d'au moins 1,2 million USD, à régler au cours de l'exercice suivant. Si l'analyse conclut que la dotation ne répond pas à cette définition, par exemple parce qu'elle s'analyse comme une contrepartie de l'accès au gisement, la démarche d'IAS 8 reprend à l'étape suivante. Dans les deux cas, le raisonnement suit la hiérarchie des sources, et la méthode retenue est décrite dans les notes.",
+      },
     ],
   },
   {
@@ -743,7 +912,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 1.9 — Comparaison des deux référentiels",
+        titre: "Tableau 1.10 — Comparaison des deux référentiels",
         tableau: {
           entetes: ['Question', "Cadre de l'IASB", 'SYSCOHADA révisé'],
           lignes: [
@@ -760,6 +929,41 @@ const SECTIONS: Chapitre['sections'] = [
       {
         type: 'paragraphe',
         texte: "Chacun de ces choix répond à une finalité. La neutralité sert l'investisseur qui recherche une image dépourvue de biais pour arbitrer entre des placements ; la prudence sert le créancier et l'État, qui entendent prévenir la distribution de profits fictifs. La juste valeur privilégie la pertinence, le coût historique la vérifiabilité. Le support d'origine de ce module souligne qu'en RDC, le coût historique offre simplicité, sécurité fiscale et adaptation à des marchés peu liquides, au prix de valeurs parfois éloignées de la réalité économique, tandis que la juste valeur, plus proche de cette réalité, se heurte à la faible profondeur des marchés et à la subjectivité des estimations. Le praticien congolais doit maîtriser les deux référentiels et savoir, pour chaque opération, lequel il applique ; les chapitres suivants en font l'étude norme par norme.",
+      },
+      { type: 'intertitre', texte: "1.9.1 Une même opération dans les deux référentiels" },
+      {
+        type: 'carte',
+        titre: "Exemple 1.6 — Créance en dollars d'une entreprise tenant ses comptes en francs congolais",
+        texte: "Une entreprise dont la monnaie des comptes est le franc congolais vend à crédit, en novembre N, des marchandises pour 10 000 USD, au cours hypothétique de 2 800 CDF pour 1 USD, soit 28 000 000 CDF. La créance est encaissée en février N+1. Deux hypothèses de cours au 31 décembre N sont envisagées.",
+        tableau: {
+          entetes: ['Cours au 31/12/N', 'SYSCOHADA révisé (chapitre 6)', 'IAS 21 (chapitre 6)'],
+          lignes: [
+            ['2 900 CDF/USD : gain latent de 1 000 000 CDF', "Créance portée à 29 000 000 ; gain latent inscrit en écart de conversion-passif, sans effet sur le résultat de N (AUDCIF, art. 54)", "Créance portée à 29 000 000 ; gain de change de 1 000 000 en résultat de N (§ 23 et 28)"],
+            ['2 700 CDF/USD : perte latente de 1 000 000 CDF', "Créance ramenée à 27 000 000 ; écart de conversion-actif et provision pour perte de change de 1 000 000 en résultat de N (art. 54)", "Créance ramenée à 27 000 000 ; perte de change de 1 000 000 en résultat de N"],
+          ],
+        },
+        note: "En cas de perte, les deux référentiels aboutissent au même résultat ; en cas de gain, ils divergent. L'asymétrie du SYSCOHADA traduit la primauté de la prudence : le gain n'est reconnu qu'à sa réalisation, en N+1. La symétrie d'IAS 21 traduit la neutralité : le résultat de N reflète l'exposition de l'entreprise au change, favorable ou défavorable. Aucune des deux solutions n'est erronée ; chacune sert le destinataire privilégié de son référentiel.",
+      },
+      {
+        type: 'carte',
+        titre: "Tableau 1.11 — Principaux retraitements du SYSCOHADA révisé vers les IFRS étudiés dans le module",
+        tableau: {
+          entetes: ['Domaine', 'SYSCOHADA révisé', 'IFRS', 'Chapitre'],
+          lignes: [
+            ['Juste valeur', "Usage limité ; plus faible de la valeur d'entrée et de la valeur actuelle", "Définie par IFRS 13 ; imposée ou permise par plusieurs normes", '1, 3, 4'],
+            ['Immobilisations', 'Approche par composants ; réévaluation globale', 'Approche par composants ; réévaluation par catégorie', '2'],
+            ['Dépréciation', "Comparaison à la valeur actuelle", "Valeur recouvrable, unités génératrices de trésorerie, test annuel du goodwill", '3'],
+            ['Créances', "Dépréciation des créances douteuses", 'Pertes de crédit attendues', '4'],
+            ['Chiffre d\'affaires', 'Principes inspirés des normes internationales', 'Modèle en cinq étapes (IFRS 15)', '5'],
+            ['Subventions', "Subventions d'investissement en capitaux propres", 'Produits différés ou déduction du coût (IAS 20)', '5'],
+            ['Impôts', "Impôt exigible dans les comptes individuels", 'Impôt exigible et impôt différé (IAS 12)', '6'],
+            ['Change', "Écarts de conversion au bilan ; pertes latentes provisionnées", 'Gains et pertes latents en résultat (IAS 21)', '6'],
+            ['Avantages du personnel', "Méthode actuarielle ou simplifiée selon les cas", 'Unités de crédit projetées (IAS 19)', '6'],
+            ['Présentation', 'Bilan fonctionnel ; résultat HAO ; pas d\'état des variations des capitaux propres', 'Courant et non courant ; aucun élément extraordinaire ; état des variations des capitaux propres', '8'],
+            ['Erreurs', "Correction dans l'exercice de rectification", 'Retraitement rétrospectif (IAS 8)', '8'],
+          ],
+        },
+        note: "Ce tableau sert de feuille de route au module. Chaque ligne correspond à un retraitement qu'une entreprise congolaise doit opérer pour passer de ses comptes légaux à des états IFRS ; la plupart s'accompagnent d'un effet d'impôt différé.",
       },
     ],
   },
@@ -897,8 +1101,8 @@ const chapitre: Chapitre = {
   id: 'ue13-chapitre-1',
   titre: 'Fondements, cadre conceptuel et architecture des IFRS',
   sousTitre: "Normalisation internationale, Cadre conceptuel, IFRS 13, IAS 1 et IAS 8",
-  infoBulle: "Chapitre 1 du module IFRS/IAS : histoire et écoles de normalisation, architecture IFRS Foundation-IASB-ISSB, force obligatoire en droit OHADA et en RDC, Cadre conceptuel (2018), bases d'évaluation et maintien du capital, juste valeur selon IFRS 13, caractéristiques générales d'IAS 1, hiérarchie d'IAS 8, comparaison avec le SYSCOHADA révisé.",
-  loiRef: "Cadre conceptuel (2018) · IAS 1.7, 15-38 · IAS 8.5-14 · IFRS 13 · AUDCIF art. 8, 73-1, 75, 113",
+  infoBulle: "Chapitre 1 du module IFRS/IAS : histoire et écoles de normalisation, architecture IFRS Foundation-IASB-ISSB, force obligatoire en droit OHADA et en RDC, Cadre conceptuel (2018), bases d'évaluation et maintien du capital, juste valeur selon IFRS 13, caractéristiques générales d'IAS 1, hiérarchie d'IAS 8, choix d'une base d'évaluation, importance relative, application d'IFRIC 21 à la dotation minière de 0,3 %, profession comptable congolaise (ONEC), normes de durabilité de l'ISSB, comparaison avec le SYSCOHADA révisé et feuille de route des retraitements.",
+  loiRef: "Cadre conceptuel (2018) · IAS 1.7, 15-38 · IAS 8.5-14 · IFRS 13 · IFRIC 21 · AUDCIF art. 8, 54, 73-1, 75, 113 · loi n° 15/002",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
@@ -907,10 +1111,10 @@ const chapitre: Chapitre = {
     "Décrire l'architecture institutionnelle de la normalisation internationale et le contenu exact du référentiel IFRS.",
     "Exposer la force obligatoire des IFRS en droit OHADA et les situations dans lesquelles une entreprise privée congolaise les applique.",
     "Présenter le Cadre conceptuel de 2018 : statut, objectif, caractéristiques qualitatives, définition des éléments.",
-    "Distinguer les bases d'évaluation et déterminer un résultat selon les différents concepts de maintien du capital.",
-    "Évaluer un élément à la juste valeur selon IFRS 13.",
-    "Appliquer les caractéristiques générales d'IAS 1 et la hiérarchie des sources d'IAS 8.",
-    "Comparer de manière argumentée le Cadre de l'IASB et le cadre conceptuel du SYSCOHADA révisé.",
+    "Distinguer les bases d'évaluation, justifier le choix de l'une d'elles selon les critères du Cadre, et déterminer un résultat selon les différents concepts de maintien du capital.",
+    "Évaluer un élément à la juste valeur selon IFRS 13, y compris selon son utilisation optimale et à partir de données de niveau 3.",
+    "Apprécier l'importance relative d'une information, appliquer les caractéristiques générales d'IAS 1 et la hiérarchie des sources d'IAS 8, en commençant par la recherche d'un texte applicable.",
+    "Comparer de manière argumentée le Cadre de l'IASB et le cadre conceptuel du SYSCOHADA révisé, et identifier les principaux retraitements entre les deux référentiels.",
   ],
   sections: SECTIONS,
   aRetenir: [
@@ -920,7 +1124,9 @@ const chapitre: Chapitre = {
     "Les caractéristiques qualitatives essentielles sont la pertinence et la fidélité ; quatre caractéristiques auxiliaires les renforcent. L'actif est une ressource économique actuelle, c'est-à-dire un droit ayant le potentiel de produire des avantages, même peu probables (§ 4.3-4.15) ; la prudence est une circonspection au service de la neutralité (§ 2.16).",
     "La juste valeur est un prix de sortie déterminé du point de vue des intervenants du marché, sur le marché principal ou, à défaut, sur le marché le plus avantageux, hors coûts de transaction et selon l'utilisation optimale ; la hiérarchie à trois niveaux classe les données d'entrée (IFRS 13).",
     "IAS 1 présume l'image fidèle par l'application des IFRS (§ 15), exige une déclaration de conformité sans réserve (§ 16), n'admet la dérogation que dans des circonstances extrêmement rares (§ 19-24) et impose l'appréciation de la continuité d'exploitation sur au moins douze mois (§ 25-26).",
-    "IAS 8 impose d'appliquer la norme spécifique (§ 7), à défaut une méthode élaborée par jugement en référence aux normes similaires puis au Cadre (§ 10-11), avec cohérence et permanence (§ 13-14) ; aucun écart ne peut viser une présentation particulière (§ 8).",
+    "IAS 8 impose d'appliquer la norme spécifique (§ 7), à défaut une méthode élaborée par jugement en référence aux normes similaires puis au Cadre (§ 10-11), avec cohérence et permanence (§ 13-14) ; aucun écart ne peut viser une présentation particulière (§ 8). La première étape consiste à rechercher un texte applicable : la dotation minière de 0,3 % peut relever d'IFRIC 21, qui fixe le fait générateur à l'activité désignée par la loi.",
+    "Le choix d'une base d'évaluation dépend de la manière dont l'actif contribue aux flux de trésorerie et de l'incertitude d'évaluation (Cadre, § 6.43-6.62) ; le caractère significatif dépend de la nature ou de l'ampleur de l'information, ou des deux (IAS 1.7).",
+    "Les deux référentiels traduisent deux destinataires privilégiés : la symétrie d'IAS 21 et l'asymétrie du SYSCOHADA (AUDCIF, art. 54) pour les gains de change latents en sont une illustration.",
   ],
   references: [
     { genre: 'texte', intitule: "IASB, Conceptual Framework for Financial Reporting (Cadre conceptuel de l'information financière), révisé en mars 2018", precision: "texte officiel anglais : SP1.1-SP1.5, chapitres 1 à 8, tableaux 4.1 et 6.1" },
@@ -928,14 +1134,18 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "IAS 8 — Méthodes comptables, changements d'estimations comptables et erreurs", precision: "§ 5 et §§ 7 à 14" },
     { genre: 'texte', intitule: "IFRS 13 — Évaluation de la juste valeur", precision: "§ 9, §§ 15 à 90, § 93, annexe A, §§ B27 à B30" },
     { genre: 'texte', intitule: "IFRS 18 — Presentation and Disclosure in Financial Statements", precision: "annexe C, § C8, et annexe D" },
-    { genre: 'texte', intitule: "Acte uniforme relatif au droit comptable et à l'information financière (AUDCIF, 2017)", precision: "art. 8, 73-1, 75 et 113 ; cadre conceptuel du SYSCOHADA révisé (Titre V)" },
+    { genre: 'texte', intitule: "IFRIC 21 — Levies (Prélèvements)", precision: "§ 4 à 14 (texte anglais ; traductions de travail)" },
+    { genre: 'texte', intitule: "IFRS S1 — General Requirements for Disclosure of Sustainability-related Financial Information", precision: "§ 1 à 3 (texte anglais ; traduction de travail)" },
+    { genre: 'texte', intitule: "Loi n° 15/002 du 12 février 2015 portant création et organisation de l'Ordre national des Experts-comptables (RDC)", precision: "art. 1 à 4" },
+    { genre: 'texte', intitule: "Code minier de la RDC (loi n° 007/2002 modifiée par la loi n° 18/001)", precision: "art. 258 bis et 285 octies" },
+    { genre: 'texte', intitule: "Acte uniforme relatif au droit comptable et à l'information financière (AUDCIF, 2017)", precision: "art. 8, 54, 73-1, 75 et 113 ; cadre conceptuel du SYSCOHADA révisé (Titre V) ; Titre VIII, ch. 22" },
     { genre: 'texte', intitule: "J.-B. Tshimanga Mulumba (CPCC), Normes comptables internationales (IAS/IFRS)", precision: "support de cours, module 1 : fondements conceptuels, normalisation internationale et architecture IFRS" },
     { genre: 'texte', intitule: "Banque mondiale, Rapport sur le respect des normes et codes (ROSC), Comptabilité et audit, RDC", precision: "2010, chapitre 3 : le PCGC et les IFRS" },
     { genre: 'ouvrage', auteur: "Kinzonzi Mvutukidi Ngindu K.", titre: "La normalisation comptable", editeur: "Foucher", lieu: "Paris", annee: "1984" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 1, IAS 7, IAS 8 et IFRS 13 (texte français) ; IFRS 18 (texte anglais) ; AUDCIF et cadre conceptuel du SYSCOHADA révisé ; ROSC RDC (2010) ; support de cours du module 1 (J.-B. Tshimanga Mulumba, CPCC). Cadre conceptuel de 2018 : texte officiel anglais de l'IFRS Foundation, cité par paragraphe en traduction de travail.",
+  sources: "IAS 1, IAS 7, IAS 8 et IFRS 13 (texte français) ; IFRS 18, IFRIC 21 et IFRS S1 (texte anglais) ; loi n° 15/002 et Code minier (RDC) ; AUDCIF et cadre conceptuel du SYSCOHADA révisé ; ROSC RDC (2010) ; support de cours du module 1 (J.-B. Tshimanga Mulumba, CPCC). Cadre conceptuel de 2018 : texte officiel anglais de l'IFRS Foundation, cité par paragraphe en traduction de travail.",
 }
 
 export default chapitre
