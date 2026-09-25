@@ -10,10 +10,10 @@
 //   d'augmentation) ; SYSCOHADA révisé, Applications 60, 61, 76 et 77 ;
 //   plan de comptes (1013, 1051-1054, 1132, 118, 4615, 4719, 5021, 6772,
 //   781), skills audcif-acte-uniforme et syscohada ;
-// - ANAPI, « Comment créer une banque ? » (février 2026) ; Bankable,
-//   23 avril et 18 juin 2025 ; ACP, 26 novembre 2025 ; Droit Médias
-//   Finance, janvier 2026 (réforme de la loi n° 22/069, non promulguée à
-//   notre connaissance), consultés le 24 septembre 2026 via Firecrawl.
+// - loi n° 15/005 du 17 mars 2015 portant Code des assurances : art. 285,
+//   295, 299-302, 388-390 (skill code-assurances-rdc). Les montants minimaux
+//   de l'art. 295 sont illisibles dans la transcription disponible : le
+//   cours décrit le mécanisme sans les chiffrer.
 // La valeur théorique des droits est présentée comme technique financière
 // de la pratique, non comme règle légale.
 import type { Chapitre } from '@/lib/chapitre-types'
@@ -328,26 +328,26 @@ const QCM: Chapitre['qcm'] = [
     explication: "Valeur après = (10 000 × 16 000 + 2 500 × 12 000) / 12 500 = 15 200. Droit = 16 000 − 15 200 = 800. Contrôle : il faut 4 droits pour une action nouvelle ; 12 000 + 4 × 800 = 15 200.",
   },
   {
-    id: 'ch4-q29', question: "Selon l'ANAPI, quel est le capital minimum d'une banque en RDC ?",
+    id: 'ch4-q29', question: "Sous quelle forme une entreprise d'assurance doit-elle se constituer pour obtenir l'agrément en RDC ?",
     options: [
-      { id: 'a', texte: "L'équivalent en francs congolais de 10 millions de dollars" },
-      { id: 'b', texte: "L'équivalent en francs congolais de 50 millions de dollars depuis le 31 décembre 2020" },
-      { id: 'c', texte: "10 000 000 FCFA, comme toute SA" },
-      { id: 'd', texte: "100 millions de dollars" },
+      { id: 'a', texte: "SARL ou SA, au choix des fondateurs" },
+      { id: 'b', texte: "Société anonyme non unipersonnelle ou mutuelle, avec siège social en RDC" },
+      { id: 'c', texte: "SA ou SAS, y compris unipersonnelle" },
+      { id: 'd', texte: "Toute forme sociale, pourvu que le capital minimum soit atteint" },
     ],
-    reponseCorrecte: 'b', articleRef: 'ANAPI, « Comment créer une banque ? » (2026)',
-    explication: "La banque se constitue en SA selon le droit OHADA et doit justifier d'un capital souscrit et libéré ; l'ANAPI indique que, depuis le 31 décembre 2020, le minimum est relevé à l'équivalent en francs congolais de 50 millions de dollars. Le droit bancaire complète ici le minimum de l'art. 387 AUSCGIE.",
+    reponseCorrecte: 'b', articleRef: 'Loi n° 15/005, art. 285',
+    explication: "L'article 285 du Code des assurances impose la société anonyme non unipersonnelle ou la mutuelle, avec siège social en RDC. La SA doit en outre justifier du capital minimum de l'article 295, apprécié hors apports en nature.",
   },
   {
-    id: 'ch4-q30', question: "Qu'en est-il de la règle des quatre actionnaires imposée aux établissements de crédit par la loi n° 22/069 ?",
+    id: 'ch4-q30', question: "Une cession d'actions d'une entreprise d'assurance confère à l'acquéreur 22 % du capital. Que prévoit le Code des assurances ?",
     options: [
-      { id: 'a', texte: "Elle a été abrogée en 2023" },
-      { id: 'b', texte: "Elle figure à l'article 11 ; une proposition de loi la ramenant à deux actionnaires a été votée par l'Assemblée nationale en juin 2025 et examinée au Sénat, sans promulgation connue à ce jour" },
-      { id: 'c', texte: "Elle ne concerne que les microfinances" },
-      { id: 'd', texte: "Elle a été annulée par la Cour constitutionnelle" },
+      { id: 'a', texte: "Une simple déclaration à l'ARCA après la cession" },
+      { id: 'b', texte: "Une autorisation préalable de l'ARCA, qui dispose d'un mois pour se prononcer, son silence valant autorisation" },
+      { id: 'c', texte: "Un agrément du ministre des Finances dans les six mois" },
+      { id: 'd', texte: "Aucune formalité : seul l'agrément statutaire s'applique" },
     ],
-    reponseCorrecte: 'b', articleRef: 'Loi n° 22/069, art. 11 ; Bankable, 18 juin 2025 ; ACP, 26 novembre 2025',
-    explication: "L'article 11 exige au moins quatre actionnaires détenant chacun une quotité significative, fixée à 15 % par l'Instruction n° 18 de la BCC. La proposition de loi modificative n'est, selon les sources consultées, pas encore promulguée : la règle de 2022 reste le droit applicable.",
+    reponseCorrecte: 'b', articleRef: 'Loi n° 15/005, art. 299-301',
+    explication: "Toute opération de vente conférant une participation atteignant 20 % du capital, ou la majorité des droits de vote, doit être préalablement autorisée par l'ARCA (art. 299), sur dossier (art. 300). L'Autorité se prononce dans le mois ; à défaut, la cession peut être réalisée (art. 301). À défaut d'autorisation, l'exercice des droits attachés aux actions est suspendu jusqu'à régularisation.",
   },
 ]
 
@@ -466,7 +466,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "La suppression du DPS est l'outil de l'entrée d'un partenaire stratégique : une banque qui veut faire entrer un investisseur pour respecter une exigence prudentielle, une société familiale qui accueille un fonds d'investissement, une entreprise qui rémunère un fournisseur par des actions. Elle comporte un risque réel pour les actionnaires existants : si le prix d'émission est inférieur à la valeur réelle de l'action, la différence est transférée aux nouveaux venus. C'est précisément ce que mesure l'« incidence sur la quote-part de capitaux propres » exigée par l'article 590. Le comptable prépare ce calcul : capitaux propres par action avant l'opération, capitaux propres par action après, et écart. Un prix fixé au-dessus des capitaux propres par action protège les anciens ; un prix fixé en dessous les appauvrit.",
+        texte: "La suppression du DPS est l'outil de l'entrée d'un partenaire stratégique : une entreprise d'assurance qui veut faire entrer un investisseur pour renforcer sa marge de solvabilité, une société familiale qui accueille un fonds d'investissement, une entreprise qui rémunère un fournisseur par des actions. Elle comporte un risque réel pour les actionnaires existants : si le prix d'émission est inférieur à la valeur réelle de l'action, la différence est transférée aux nouveaux venus. C'est précisément ce que mesure l'« incidence sur la quote-part de capitaux propres » exigée par l'article 590. Le comptable prépare ce calcul : capitaux propres par action avant l'opération, capitaux propres par action après, et écart. Un prix fixé au-dessus des capitaux propres par action protège les anciens ; un prix fixé en dessous les appauvrit.",
       },
       { type: 'intertitre', texte: "4.3.2 La renonciation individuelle" },
       {
@@ -780,27 +780,27 @@ const SECTIONS: Chapitre['sections'] = [
   },
   {
     numero: '4.10',
-    titre: "Augmenter le capital en RDC : l'exemple des banques",
-    navLabel: "Le cas des banques",
+    titre: "Augmenter le capital en RDC : l'exemple des entreprises d'assurance",
+    navLabel: "Le cas des assureurs",
     blocs: [
-      { type: 'intertitre', texte: "4.10.1 Le capital minimum des banques" },
+      { type: 'intertitre', texte: "4.10.1 La forme sociale et le capital minimum des assureurs" },
       {
         type: 'paragraphe',
-        texte: "Le secteur bancaire congolais offre une illustration concrète des augmentations de capital. Une banque doit se constituer en **société anonyme** selon le droit OHADA et justifier d'un capital social minimum souscrit et libéré ; selon l'Agence nationale pour la promotion des investissements (page « Comment créer une banque ? », mise à jour en février 2026), ce minimum a été relevé à l'équivalent en francs congolais de **50 millions de dollars** depuis le 31 décembre 2020. Le droit bancaire vient ici compléter le minimum de 10 000 000 FCFA de l'article 387 de l'AUSCGIE, que l'article 1er de l'Acte uniforme permet d'articuler avec les lois nationales non contraires. Pour se conformer, les banques ont dû augmenter leur capital, souvent par incorporation de réserves ou par apports nouveaux de leurs actionnaires.",
+        texte: "Le secteur des assurances, libéralisé par la loi n° 15/005 du 17 mars 2015 portant Code des assurances, montre comment un droit sectoriel se superpose à l'AUSCGIE. Toute entreprise qui sollicite l'agrément « est tenue de se constituer sous forme de société anonyme non unipersonnelle ou de mutuelle et de fixer son siège social en République Démocratique du Congo » (art. 285). La SA d'assurance doit ensuite justifier d'un **capital social minimum**, fixé par l'article 295 selon le type d'agrément : un seuil pour les entreprises qui contractent des engagements dépendant de la durée de la vie humaine ou qui font appel à l'épargne en vue de la capitalisation, un autre pour les autres entreprises d'assurance, y compris d'assistance. Deux précisions du texte intéressent directement ce chapitre. Le minimum s'apprécie « non compris les apports en nature » : seuls les apports en numéraire, ou ce qui en tient lieu comme la compensation de créances, permettent de l'atteindre. Et l'Autorité de régulation et de contrôle des assurances (ARCA) « peut exiger la constitution d'un capital social supérieur au minimum précité », en considération des opérations pratiquées et des engagements prévus. Le Code des assurances vient ainsi compléter le minimum de 10 000 000 FCFA de l'article 387 de l'AUSCGIE, que l'article 1er de l'Acte uniforme permet d'articuler avec les lois nationales non contraires.",
       },
       {
         type: 'paragraphe',
-        texte: "Les techniques du chapitre y sont toutes mobilisées. Selon le média économique Bankable (23 avril 2025), une grande banque congolaise a mobilisé 35 millions de dollars au premier semestre 2024 au moyen d'**obligations convertibles** souscrites par ses deux actionnaires, pour respecter l'exigence de capital minimum : c'est l'augmentation par conversion de valeurs mobilières donnant accès au capital (art. 562, al. 4). La loi n° 22/069 du 27 décembre 2022 relative à l'activité et au contrôle des établissements de crédit impose par ailleurs, en son article 11, que les établissements de crédit comptent au moins **quatre actionnaires**, associés ou sociétaires détenant chacun une quotité significative, que la Banque centrale a fixée à 15 % par son Instruction n° 18. Respecter cette règle suppose de faire entrer de nouveaux actionnaires, donc souvent une augmentation de capital avec suppression du DPS au profit d'investisseurs désignés (art. 586), ou des cessions d'actions.",
+        texte: "Le Code des assurances resserre aussi la **libération**. Chaque actionnaire doit libérer, avant la constitution définitive, la moitié au moins des actions en numéraire qu'il a souscrites, et le reliquat dans un délai qui n'excède pas six mois à compter de l'immatriculation au RCCM (art. 295) ; l'AUSCGIE se contente du quart et accorde trois ans (art. 389). Il encadre enfin l'**actionnariat** : toute opération de vente qui confère directement ou indirectement une participation atteignant 20 % du capital social, ou la majorité des droits de vote, doit être préalablement autorisée par l'ARCA (art. 299), sur un dossier décrivant l'acquéreur et l'opération (art. 300) ; l'Autorité dispose d'un mois pour se prononcer, et son silence vaut autorisation (art. 301). En cas de manquement, l'exercice des droits attachés aux actions détenues irrégulièrement est suspendu jusqu'à régularisation. Le texte vise les « opérations de vente » ; son application à une souscription d'actions nouvelles n'est pas réglée expressément, mais une augmentation réservée qui produirait le même effet (art. 586) justifie, par prudence, une consultation préalable de l'ARCA.",
       },
       {
         type: 'filet',
-        titre: "Une réforme parlementaire non encore promulguée",
-        texte: "Constatant qu'aucun établissement ne s'était conformé à l'exigence de quatre actionnaires, un député a déposé une proposition de loi modifiant les articles 11 et 190 de la loi n° 22/069 pour ramener ce nombre à deux et accorder un délai de trente-six mois. Selon Bankable (18 juin 2025), l'Assemblée nationale l'a adoptée le 15 juin 2025 ; selon l'Agence congolaise de presse (26 novembre 2025), le Sénat devait en examiner le rapport en seconde lecture le 27 novembre 2025, et Droit Médias Finance indiquait en janvier 2026 que la réforme était « en cours ». Nous n'avons trouvé aucune trace de sa promulgation : il s'agit d'une initiative parlementaire, et l'article 11 dans sa rédaction de 2022 reste le droit applicable tant qu'une loi modificative n'est pas promulguée et publiée.",
+        titre: "Texte de référence — loi n° 15/005, art. 302 : la distribution de dividendes",
+        texte: "« Il ne peut être procédé à une distribution de dividendes qu'après constitution des réserves et provisions prescrites par la présente loi, après amortissement intégral des dépenses d'établissement et après que les dispositions réglementaires concernant la marge de solvabilité et la couverture des engagements réglementés aient été satisfaites » (art. 302). Pour une entreprise d'assurance, le bénéfice distribuable de l'article 143 de l'AUSCGIE n'est donc qu'un plafond : la distribution suppose en outre le respect des exigences prudentielles.",
       },
-      { type: 'intertitre', texte: "4.10.2 Les vigilances du comptable" },
+      { type: 'intertitre', texte: "4.10.2 La marge de solvabilité" },
       {
         type: 'paragraphe',
-        texte: "Pour le comptable d'une banque ou de toute société soumise à un capital minimum sectoriel, deux vigilances en découlent. D'abord, le capital **libéré**, et non seulement souscrit, est souvent exigé : les fractions non appelées (compte 109) ne comptent pas, et une augmentation libérée du quart ne suffit pas à atteindre le seuil. Ensuite, la conversion des montants exprimés en dollars se fait en francs congolais au cours du jour, comme pour tout apport en devises (art. 51 et 52 AUDCIF, chapitre 1) : une dépréciation du franc congolais peut faire passer un capital en dessous de l'équivalent requis, même si aucun actionnaire ne s'est retiré. Le suivi du capital réglementaire devient alors un exercice permanent, qui dépasse la seule comptabilité des sociétés.",
+        texte: "Au-delà du capital, l'assureur doit justifier en permanence d'une **marge de solvabilité** suffisante pour l'ensemble de ses activités (art. 388). Cette marge se calcule à partir des capitaux propres : après déduction des pertes, des frais d'établissement et des autres actifs incorporels, elle comprend notamment le capital social libéré, la moitié de la fraction non libérée du capital, les réserves de toute dénomination ne correspondant pas à des engagements et les bénéfices reportés, ainsi que, dans certaines limites, les fonds provenant de titres ou emprunts subordonnés (art. 389). Pour une entreprise d'assurance de dommages, le minimum réglementaire est le plus élevé de deux calculs, l'un fondé sur les primes, l'autre sur la charge moyenne des sinistres des trois derniers exercices (art. 390). Selon le premier, la marge minimale est égale à 20 % des primes émises de l'exercice, nettes d'annulations, multipliés par le rapport entre les sinistres conservés après réassurance et les sinistres bruts, ce rapport ne pouvant être inférieur à 50 %. Un assureur qui émet 10 000 000 000 FC de primes et conserve 70 % de ses sinistres doit ainsi disposer d'une marge d'au moins 20 % × 10 000 000 000 × 70 % = 1 400 000 000 FC, si le calcul fondé sur les sinistres ne donne pas davantage.",
       },
       { type: 'intertitre', texte: "4.10.3 Synthèse des écritures" },
       {
@@ -818,15 +818,15 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'intertitre', texte: "4.10.4 Les autres activités réglementées" },
+      { type: 'intertitre', texte: "4.10.4 Le choix de la technique d'augmentation" },
       {
         type: 'paragraphe',
-        texte: "Au-delà du secteur bancaire, d'autres activités réglementées imposent en RDC des exigences de capital ou de fonds propres, que le comptable doit connaître lorsqu'il accompagne une augmentation : assurances, microfinance, monnaie électronique, par exemple. La méthode est la même. On identifie le texte sectoriel et le seuil, on vérifie s'il vise le capital souscrit, le capital libéré ou les fonds propres, on convertit les seuils exprimés en devises au cours pertinent, et l'on choisit la technique d'augmentation la mieux adaptée : incorporation si les réserves suffisent, apports nouveaux sinon, conversion de dettes lorsque les actionnaires ont déjà financé la société en compte courant ou par obligations.",
+        texte: "Ces règles orientent le choix de la technique d'augmentation. Une **incorporation de réserves** ne modifie pas la marge de solvabilité, puisque les réserves y figuraient déjà : elle peut servir à atteindre un capital minimum, jamais à combler une insuffisance de marge. Un **apport en numéraire** accroît à la fois le capital et la marge ; libéré du quart, il ne compte dans la marge que pour la partie libérée augmentée de la moitié de la fraction non libérée (art. 389). La **conversion de titres subordonnés** en actions ne crée pas de ressource nouvelle, mais elle transforme en capital des fonds dont la prise en compte dans la marge est plafonnée (art. 389, 7°). La même méthode vaut pour les autres activités réglementées, comme la microfinance ou la monnaie électronique : identifier le texte sectoriel, vérifier s'il vise le capital souscrit, le capital libéré ou les fonds propres, puis choisir la technique qui répond à l'exigence en cause.",
       },
       { type: 'intertitre', texte: "4.10.5 Application : MONGALA ENERGIE" },
       {
         type: 'paragraphe',
-        texte: "Retour à MONGALA ENERGIE, dont le cas 1 détaille les écritures. L'assemblée extraordinaire a décidé l'émission de 3 000 actions à 14 000 FC, sur les rapports du conseil et du commissaire aux comptes, après avoir vérifié que l'ancien capital était entièrement libéré. Le droit préférentiel de souscription, d'une valeur théorique de 800 FC, a protégé les anciens actionnaires contre la dilution. Les 42 000 000 FC versés chez le notaire ont transité par le 4615, puis la réalisation a porté 30 000 000 FC au capital et 12 000 000 FC à la prime d'émission. Le capital passe de 120 000 000 à 150 000 000 FC. KIVU CRÉDIT (cas 5) montre la même mécanique à l'échelle d'une banque, avec une suppression du DPS au profit d'investisseurs désignés.",
+        texte: "Retour à MONGALA ENERGIE, dont le cas 1 détaille les écritures. L'assemblée extraordinaire a décidé l'émission de 3 000 actions à 14 000 FC, sur les rapports du conseil et du commissaire aux comptes, après avoir vérifié que l'ancien capital était entièrement libéré. Le droit préférentiel de souscription, d'une valeur théorique de 800 FC, a protégé les anciens actionnaires contre la dilution. Les 42 000 000 FC versés chez le notaire ont transité par le 4615, puis la réalisation a porté 30 000 000 FC au capital et 12 000 000 FC à la prime d'émission. Le capital passe de 120 000 000 à 150 000 000 FC. KIVU ASSURANCES (cas 5) montre la même mécanique à l'échelle d'une entreprise d'assurance, avec une suppression du DPS au profit d'un investisseur désigné.",
       },
     ],
   },
@@ -949,14 +949,14 @@ const CAS: Chapitre['casPratiques'] = [
 
   {
     id: 'cas5',
-    titre: "KIVU CRÉDIT SA : recapitaliser une banque congolaise",
-    contexte: "KIVU CRÉDIT SA, banque établie à Goma, a un capital de 120 000 000 000 FC (1 200 000 actions de 100 000 FC, entièrement libérées), détenu à parts égales par deux actionnaires. Pour atteindre l'équivalent de 50 millions de dollars (cours retenu : 2 850 FC le dollar, hypothèse) et compter quatre actionnaires détenant chacun au moins 15 %, l'AGE décide une augmentation de 540 000 actions au prix de 150 000 FC, avec suppression du DPS au profit de deux investisseurs nommément désignés, qui souscrivent chacun 270 000 actions et libèrent intégralement. Les fonds sont déposés en banque. Les frais de l'opération (honoraires, notaire, publicité) s'élèvent à 400 000 000 FC et la société décide de les imputer sur la prime.",
+    titre: "KIVU ASSURANCES SA : recapitaliser une entreprise d'assurance",
+    contexte: "KIVU ASSURANCES SA, entreprise d'assurance de dommages établie à Goma, a un capital de 6 000 000 000 FC (600 000 actions de 10 000 FC, entièrement libérées), détenu à parts égales par deux actionnaires. Ses capitaux propres comprennent en outre 1 500 000 000 FC de réserves et un report à nouveau débiteur de 3 900 000 000 FC ; ses actifs incorporels s'élèvent à 200 000 000 FC. Elle a émis 40 000 000 000 FC de primes au cours de l'exercice et conserve 60 % de ses sinistres après réassurance ; on admet que le calcul de la marge fondé sur les sinistres donne un montant inférieur à celui fondé sur les primes. Hypothèse : l'ARCA exige, en application de l'article 295, un capital d'au moins 8 000 000 000 FC. L'AGE décide une augmentation de 250 000 actions au prix de 14 000 FC, avec suppression du DPS au profit d'un investisseur nommément désigné, qui libère intégralement. Les frais de l'opération s'élèvent à 60 000 000 FC et la société décide de les imputer sur la prime.",
     questions: [
-      { num: 1, enonce: "Vérifiez la régularité de la décision au regard de l'AUSCGIE.", correction: "AGE seule compétente, sur les rapports du conseil et du commissaire aux comptes (art. 564). La suppression du DPS au profit de bénéficiaires nommément désignés est possible (art. 586) ; les rapports doivent indiquer les motifs, les attributaires, le prix justifié et l'incidence sur la quote-part de capitaux propres de chaque actionnaire, faute de quoi la délibération est nulle (art. 588-591). Les bénéficiaires, non encore actionnaires, ne votent pas de toute façon (art. 587). Préalable : le capital ancien est entièrement libéré (art. 572)." },
-      { num: 2, enonce: "Calculez le capital et la prime, puis passez les écritures de versement et de réalisation.", correction: "Fonds : 540 000 × 150 000 = 81 000 000 000 ; nominal : 540 000 × 100 000 = 54 000 000 000 ; prime : 27 000 000 000. Versement : débit 521 (compte spécial) 81 000 000 000 / crédit 4615 81 000 000 000. Réalisation au jour de la déclaration notariée (art. 571) : débit 4615 81 000 000 000 / crédit 1013 54 000 000 000 et crédit 1051 27 000 000 000. Les fonds ne sont disponibles qu'après la réalisation (art. 615)." },
-      { num: 3, enonce: "Comptabilisez les frais et leur imputation sur la prime.", correction: "Les frais sont d'abord enregistrés en charges par nature, par exemple débit 6324 Honoraires et 6271 Annonces, insertions pour 400 000 000 / crédit 521. Imputation sur la prime, faculté prévue par l'AUDCIF (compte 105) : débit 1051 Primes d'émission 400 000 000 / crédit 781 Transferts de charges d'exploitation 400 000 000. La prime nette s'établit à 26 600 000 000 ; le résultat n'est pas affecté." },
-      { num: 4, enonce: "La banque respecte-t-elle ensuite le capital minimum et la règle des quatre actionnaires ?", correction: "Capital : 120 000 000 000 + 54 000 000 000 = 174 000 000 000 FC, supérieur à 50 000 000 × 2 850 = 142 500 000 000 FC : le minimum indiqué par l'ANAPI est atteint, et le capital est libéré. Actionnariat : 1 740 000 actions ; chaque ancien actionnaire détient 600 000 actions, soit 34,5 %, chaque investisseur 270 000, soit 15,5 % : quatre actionnaires à 15 % au moins, conformément à l'article 11 de la loi n° 22/069 et à l'Instruction n° 18 de la BCC." },
-      { num: 5, enonce: "Deux ans plus tard, le franc congolais s'est déprécié à 3 600 FC le dollar. Quelle conséquence, et quelles solutions ?", correction: "L'équivalent de 50 millions de dollars devient 180 000 000 000 FC, supérieur au capital de 174 000 000 000 FC : la banque passe sous le seuil sans qu'aucun actionnaire ne se soit retiré, puisque le capital est inscrit en francs congolais (art. 17 AUDCIF). Solutions : incorporation de réserves au capital (art. 565, Application 61), si la banque en dispose, nouvel apport en numéraire des actionnaires, ou conversion d'obligations convertibles (art. 562, al. 4). Le suivi du capital réglementaire doit donc tenir compte du taux de change." },
+      { num: 1, enonce: "Vérifiez la régularité de la décision au regard de l'AUSCGIE et du Code des assurances.", correction: "AUSCGIE : AGE seule compétente, sur les rapports du conseil et du commissaire aux comptes (art. 564) ; capital ancien entièrement libéré (art. 572) ; suppression du DPS au profit d'un bénéficiaire nommément désigné (art. 586), avec des rapports indiquant les motifs, l'attributaire, le prix et l'incidence sur la quote-part de capitaux propres, à peine de nullité (art. 588-591). Code des assurances : l'investisseur détiendra 250 000 / 850 000 = 29,4 % du capital. L'article 299 soumet à autorisation préalable de l'ARCA les opérations de vente conférant 20 % du capital ; son application à une souscription n'est pas expresse, mais la prudence commande de consulter l'ARCA avant l'AGE." },
+      { num: 2, enonce: "Calculez le capital et la prime, puis passez les écritures de versement et de réalisation.", correction: "Fonds : 250 000 × 14 000 = 3 500 000 000 ; nominal : 250 000 × 10 000 = 2 500 000 000 ; prime : 1 000 000 000. Versement : débit 521 (compte spécial) 3 500 000 000 / crédit 4615 3 500 000 000. Réalisation au jour de la déclaration notariée (art. 571) : débit 4615 3 500 000 000 / crédit 1013 2 500 000 000 et crédit 1051 1 000 000 000. Les fonds ne sont disponibles qu'après la réalisation (art. 615)." },
+      { num: 3, enonce: "Comptabilisez les frais et leur imputation sur la prime.", correction: "Les frais sont d'abord enregistrés en charges par nature, par exemple débit 6324 Honoraires et 6271 Annonces, insertions pour 60 000 000 / crédit 521. Imputation sur la prime, faculté prévue par l'AUDCIF (compte 105) : débit 1051 Primes d'émission 60 000 000 / crédit 781 Transferts de charges d'exploitation 60 000 000. La prime nette s'établit à 940 000 000 ; le résultat n'est pas affecté." },
+      { num: 4, enonce: "Calculez la marge de solvabilité minimale et la marge disponible avant et après l'opération. L'entreprise respecte-t-elle ensuite ses obligations ?", correction: "Marge minimale (art. 390, calcul fondé sur les primes) : 20 % × 40 000 000 000 × 60 % = 4 800 000 000. Marge disponible avant (art. 389) : capital libéré 6 000 000 000 + réserves 1 500 000 000 − pertes reportées 3 900 000 000 − incorporels 200 000 000 = 3 400 000 000, insuffisante. Après : 3 400 000 000 + 2 500 000 000 de capital + 940 000 000 de prime nette, retenue parmi les réserves ne correspondant pas à des engagements = 6 840 000 000 ≥ 4 800 000 000. Capital : 8 500 000 000 ≥ 8 000 000 000 exigés par l'ARCA dans l'hypothèse du cas. Les deux exigences sont satisfaites." },
+      { num: 5, enonce: "L'exercice suivant dégage un bénéfice de 900 000 000 FC. Un dividende peut-il être distribué ?", correction: "Selon l'AUSCGIE, le bénéfice distribuable est le résultat diminué des pertes antérieures (art. 143) : 900 000 000 − 3 900 000 000 est négatif, aucun dividende n'est possible tant que le report débiteur n'est pas apuré, même si l'augmentation a restauré la marge. Le Code des assurances ajoute ses propres conditions : réserves et provisions prescrites constituées, dépenses d'établissement intégralement amorties, marge de solvabilité et couverture des engagements réglementés satisfaites (art. 302). L'incorporation de réserves, au contraire, n'aurait rien changé à la marge, puisque les réserves y figuraient déjà." },
     ],
   },
   {
@@ -978,9 +978,9 @@ export const chapitre: Chapitre = {
   numero: 4,
   id: 'ue3-chapitre-4',
   titre: "L'augmentation de capital",
-  sousTitre: "AUSCGIE révisé, art. 357-363 (SARL), 562-626-6 (SA), 853-11 (SAS) · AUDCIF, compte 105 · SYSCOHADA, Applications 60, 61, 76 et 77 · loi bancaire n° 22/069",
-  infoBulle: "Procédés et compétence, droit préférentiel de souscription et sa valeur, suppression du DPS, libération et réalisation dans la SA, régime de la SARL et de la SAS, écritures en numéraire avec prime et frais imputés, incorporation de réserves et droit d'attribution, apports en nature, compensation et conversion, attribution gratuite d'actions au personnel, et l'exemple des banques congolaises.",
-  loiRef: "Art. 44, 62-63, 358-363, 562-626-6, 853-3, 853-4, 853-11 AUSCGIE · AUDCIF, compte 105 · App. 60, 61, 76, 77 · loi n° 22/069, art. 11",
+  sousTitre: "AUSCGIE révisé, art. 357-363 (SARL), 562-626-6 (SA), 853-11 (SAS) · AUDCIF, compte 105 · SYSCOHADA, Applications 60, 61, 76 et 77 · Code des assurances (loi n° 15/005)",
+  infoBulle: "Procédés et compétence, droit préférentiel de souscription et sa valeur, suppression du DPS, libération et réalisation dans la SA, régime de la SARL et de la SAS, écritures en numéraire avec prime et frais imputés, incorporation de réserves et droit d'attribution, apports en nature, compensation et conversion, attribution gratuite d'actions au personnel, et l'exemple des entreprises d'assurance congolaises.",
+  loiRef: "Art. 44, 62-63, 358-363, 562-626-6, 853-3, 853-4, 853-11 AUSCGIE · AUDCIF, compte 105 · App. 60, 61, 76, 77 · loi n° 15/005, art. 285, 295, 299-302, 388-390",
   moduleLabel: 'UE 3 · Comptabilité des sociétés',
   retourRoute: '/ue3-compta-societes',
   coursId: 'ue3-compta-societes',
@@ -992,7 +992,7 @@ export const chapitre: Chapitre = {
     "Comptabiliser une augmentation en numéraire avec prime, libération partielle et imputation des frais (Application 60 ; AUDCIF, compte 105)",
     "Comptabiliser une incorporation de réserves, un apport en nature avec prime d'apport et une compensation de créances",
     "Mettre en œuvre l'attribution gratuite d'actions au personnel et aux dirigeants (art. 626-1 à 626-6 ; Applications 76 et 77)",
-    "Replacer l'augmentation de capital dans le contexte bancaire congolais : capital minimum, actionnariat, réforme en cours",
+    "Replacer l'augmentation de capital dans le contexte des assurances en RDC : forme sociale, capital minimum, contrôle de l'actionnariat et marge de solvabilité",
   ],
   sections: SECTIONS,
   aRetenir: [
@@ -1006,26 +1006,21 @@ export const chapitre: Chapitre = {
     "Incorporation (Application 61) : débit réserve ou prime, crédit 1013, capitaux propres inchangés ; droit d'attribution da = n × V / (N + n) ; rompus négociables sauf décision contraire de l'AGE (art. 566).",
     "Apport en nature : commissaire aux apports distinct du commissaire aux comptes, rapport déposé huit jours avant l'AGE ; prime d'apport au 1052 ; nombre d'actions fixé sur la valeur réelle de l'action (art. 619-626).",
     "Actions gratuites : plafond global de 10 % du capital, seuil individuel de 10 % (20 % si statuts d'une société non cotée), acquisition et conservation de deux ans au moins ; mali au 6772 pour des actions rachetées, virement réserve vers capital pour des actions à émettre (art. 626-1 s. ; Applications 76-77).",
-    "En RDC, les banques doivent justifier d'un capital libéré équivalant à 50 millions de dollars et, selon l'art. 11 de la loi n° 22/069, d'au moins quatre actionnaires ; la réforme parlementaire ramenant ce nombre à deux n'est pas promulguée à notre connaissance.",
+    "En RDC, les entreprises d'assurance sont des SA non unipersonnelles ou des mutuelles (art. 285, loi n° 15/005) ; le capital minimum s'apprécie hors apports en nature et l'ARCA peut exiger davantage (art. 295) ; toute cession conférant 20 % du capital ou la majorité des droits de vote est soumise à son autorisation (art. 299-301) ; la distribution de dividendes suppose une marge de solvabilité suffisante (art. 302, 388-390).",
   ],
   references: [
     { genre: 'texte', intitule: "Acte uniforme révisé relatif au droit des sociétés commerciales et du groupement d'intérêt économique (AUSCGIE)", precision: "30 janvier 2014 ; art. 1, 44, 62-63, 68, 357-363, 387, 562-626-6, 822-1 s., 853-3, 853-4 et 853-11" },
     { genre: 'texte', intitule: "Acte uniforme relatif au droit comptable et à l'information financière (AUDCIF)", precision: "art. 17, 36, 51-52 ; Titre VII, compte 105 (primes et imputation des frais d'augmentation)" },
     { genre: 'texte', intitule: "SYSCOHADA révisé, Guide d'application", precision: "Applications 59, 60 (augmentation en numéraire), 61 (incorporation de réserves), 76 et 77 (attribution gratuite d'actions), 80 (obligations convertibles)" },
     { genre: 'texte', intitule: "SYSCOHADA révisé, plan de comptes", precision: "comptes 1011-1013, 1051-1054, 109, 1132, 118, 1612, 4611, 4615, 4621, 5021, 6772, 781" },
-    { genre: 'texte', intitule: "Loi n° 22/069 du 27 décembre 2022 relative à l'activité et au contrôle des établissements de crédit", precision: "art. 11 (forme et actionnariat des établissements de crédit), dans sa rédaction de 2022" },
-    { genre: 'article', auteur: "Agence nationale pour la promotion des investissements (ANAPI)", titre: "Comment créer une banque ?", support: "anapi.cd", precision: "mise à jour du 21 février 2026, consultée le 24 septembre 2026" },
-    { genre: 'article', auteur: "Bamba G. A.", titre: "Les banques de RDC sous pression pour attirer de nouveaux actionnaires d'ici juillet 2026", support: "Bankable", precision: "23 avril 2025" },
-    { genre: 'article', auteur: "Kabeya B.", titre: "Banque : la RDC fait un pas vers la réduction du nombre minimum d'actionnaires", support: "Bankable", precision: "18 juin 2025" },
-    { genre: 'article', auteur: "Lutete C.", titre: "Sénat : audition jeudi du rapport sur une proposition de loi des établissements bancaires", support: "Agence congolaise de presse (acp.cd)", precision: "26 novembre 2025" },
-    { genre: 'article', auteur: "Rédaction de Droit Médias Finance", titre: "RDC, réglementation bancaire : une réforme en cours de la loi n° 22-069 du 27 décembre 2022", support: "droitmediasfinance.com", precision: "janvier 2026" },
+    { genre: 'texte', intitule: "Loi n° 15/005 du 17 mars 2015 portant Code des assurances", precision: "art. 285 (forme), 295 (capital social), 299-301 (contrôle des cessions), 302 (dividendes), 388-390 (marge de solvabilité)" },
     { genre: 'ouvrage', auteur: "Mapapa Mbangala A., Nkoy Mbangala C. et Mensah Freitas C.", titre: "Comptabilité des sociétés OHADA", editeur: "Droit Afrique", lieu: "s.l.", annee: "2026" },
     { genre: 'ouvrage', auteur: "Dobill M.", titre: "Comptabilité OHADA, tome 3 : comptabilité des sociétés", editeur: "Karthala", lieu: "Paris", annee: "2013" },
     { genre: 'ouvrage', auteur: "Nzoimbengene Luyindula B. D.", titre: "Comptabilité des sociétés suivant le système comptable OHADA révisé", editeur: "2e éd., à compte d'auteur", lieu: "s.l.", annee: "2025" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "Sources : AUSCGIE révisé du 30 janvier 2014 · AUDCIF et SYSCOHADA révisé (Applications 60, 61, 76, 77) · loi n° 22/069 du 27 décembre 2022 · ANAPI (2026) · Bankable (2025) · ACP (2025) · Droit Médias Finance (2026).",
+  sources: "Sources : AUSCGIE révisé du 30 janvier 2014 · AUDCIF et SYSCOHADA révisé (Applications 60, 61, 76, 77) · loi n° 15/005 du 17 mars 2015 portant Code des assurances.",
 }
 
 export default chapitre
