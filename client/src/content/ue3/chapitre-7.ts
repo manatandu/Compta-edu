@@ -362,19 +362,21 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Kinshasa, quartier de la Gombe. **KINSHASA AGRO HOLDING SA** (KAH) gère les participations d'un groupe agro-industriel. Cette année, elle souscrit 45 % du capital d'une huilerie de la Tshopo, acquiert 12 % d'une cimenterie de Matadi et encaisse le dividende d'une société de transport de Kolwezi dont elle détient 25 %. Sa trésorerie excédentaire est placée en actions cotées et en bons du Trésor. Chaque titre pose les mêmes questions : où l'inscrire, pour quelle valeur, comment en constater les revenus, et comment l'évaluer à la clôture ? Ce chapitre répond à ces questions à partir du portefeuille de KAH.",
+        texte: "Kinshasa, quartier de la Gombe. **KINSHASA AGRO HOLDING SA** (KAH) gère les participations d'un groupe agro-industriel. Cette année, elle souscrit 45 % du capital d'une huilerie de la Tshopo, acquiert 12 % d'une cimenterie de Matadi et encaisse le dividende d'une société de transport de Kolwezi dont elle détient 25 %. Sa trésorerie excédentaire est placée en actions cotées et en bons du Trésor. Pour chaque titre, il faut déterminer le compte d'inscription, la valeur d'entrée, le traitement des revenus et l'évaluation à la clôture. Ce chapitre traite ces questions à partir du portefeuille de KAH.",
       },
+      { type: 'intertitre', texte: "7.1.1 Le point de vue du détenteur" },
       {
         type: 'paragraphe',
         texte: "Les chapitres précédents regardaient les titres du côté de la société qui les **émet** : capital, primes, emprunt obligataire. Ce chapitre se place du côté de celui qui les **détient**. Une société commerciale achète des actions ou des obligations pour des raisons très différentes : prendre le contrôle d'un fournisseur, s'associer durablement à un partenaire, placer une trésorerie disponible, ou simplement faire fructifier un excédent de fonds en attendant un investissement. La comptabilité doit rendre ces intentions visibles, car elles n'ont pas la même signification pour le lecteur des états financiers. Une participation dans une filiale est un outil de l'activité ; un placement est une réserve de liquidité.",
       },
+      { type: 'intertitre', texte: "7.1.2 Les valeurs mobilières et leurs destinations" },
       {
         type: 'paragraphe',
         texte: "L'AUDCIF (Titre VIII, chapitre 13) définit les **valeurs mobilières** comme des titres émis par des personnes morales, qui donnent droit soit à une quotité de capital (les actions), soit à un droit de créance (les obligations). Il en cite les principales formes : actions, obligations, titres de créances négociables, parts d'OPCVM (SICAV et FCP), bons de souscription, certificats d'investissement et options. Les fonds d'investissement qui détiennent des actions, des obligations ou des créances à court terme sont eux-mêmes des valeurs mobilières. Du côté du droit des sociétés, l'AUSCGIE rappelle que les titres d'une même catégorie ont la même valeur nominale (art. 56), que les parts sociales sont cessibles alors que les actions sont cessibles ou négociables (art. 57), et que seules les sociétés par actions émettent des titres négociables (art. 58).",
       },
       {
         type: 'carte',
-        titre: "Deux grandes familles, quatre destinations",
+        titre: "Tableau 7.1 — Les familles de titres et leurs destinations comptables",
         tableau: {
           entetes: ["Famille", "Compte", "Intention de l'entité", "Rubrique du bilan"],
           lignes: [
@@ -385,12 +387,12 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "La nature juridique du titre ne décide de rien : une action peut aller au 261, au 2748 ou au 5022. C'est l'intention, et la durée de détention qu'elle implique, qui commande le classement. Le Guide illustre cette logique par cinq acquisitions dans l'Application 48.",
       },
+      { type: 'intertitre', texte: "7.1.3 Titres et créances" },
       {
         type: 'paragraphe',
         texte: "Il ne faut pas confondre les **titres** avec les **créances** que l'entité détient sur les mêmes sociétés. Une mère qui prête de l'argent à sa filiale ne lui achète pas de titres : elle constate un prêt au compte 27, et plus précisément une **créance rattachée à une participation** (2771 pour le groupe, 2772 hors groupe) si le prêt accompagne une participation. Les avances à un GIE vont au 2774, alors que les parts du GIE vont au 266. De même, les sommes laissées en compte courant par un associé sont, chez la société qui les reçoit, une dette envers l'associé, et chez l'associé une créance. La frontière compte, car un titre donne des droits d'associé (vote, dividende, boni de liquidation), alors qu'une créance donne un droit au remboursement et, le cas échéant, à un intérêt.",
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
+      { type: 'intertitre', texte: "7.1.4 La portée du classement" },
       {
         type: 'paragraphe',
         texte: "Le classement n'est pas une formalité. Il détermine la **méthode d'évaluation à l'inventaire** : valeur d'utilité pour une participation, cours moyen du dernier mois pour des titres cotés détenus en placement. Il détermine aussi le **traitement de la cession**, en résultat hors activités ordinaires pour une immobilisation financière, en résultat financier pour un placement. Il se reflète enfin dans le **tableau des flux** : l'achat d'une participation est un investissement, alors que les titres de placement font partie de la trésorerie. Un mauvais classement fausse donc à la fois le bilan, le compte de résultat et le tableau des flux.",
@@ -402,6 +404,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les titres de participation : contrôle, influence et groupe",
     navLabel: "Participations",
     blocs: [
+      { type: 'intertitre', texte: "7.2.1 Lien durable, contrôle et influence" },
       {
         type: 'paragraphe',
         texte: "Les titres de participation sont les droits dans le capital d'autres entités qui, en créant un **lien durable** avec celles-ci, sont destinés à contribuer à l'activité de la société détentrice (AUDCIF, commentaire du compte 26). Un titre est qualifié de participation lorsque sa détention permet d'exercer une **certaine influence** sur l'émetteur, de la simple relation commerciale privilégiée à la véritable prise de contrôle. Pour éviter les discussions sans fin sur l'intention, le référentiel pose des **présomptions** : sont présumés être des titres de participation ceux acquis par offre publique d'achat ou d'échange, et ceux qui représentent une fraction significative du capital de l'émetteur.",
@@ -413,7 +416,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Les subdivisions du compte 26 et leurs critères",
+        titre: "Tableau 7.2 — Les subdivisions du compte 26 et leurs critères",
         tableau: {
           entetes: ["Compte", "Situation", "Critère"],
           lignes: [
@@ -427,20 +430,19 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Lorsque le type de contrôle change (par exemple de 263 à 261 après un rachat de titres), les transferts sont opérés entre ces comptes. La ventilation prépare la consolidation, qui traite différemment les filiales contrôlées, les entités sous contrôle conjoint et celles sous influence notable.",
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "7.2.2 Le contrôle indirect" },
       {
         type: 'paragraphe',
         texte: "Le contrôle peut être **indirect**. Supposons que la société A détienne 60 % des droits de vote de B, et que B détienne 30 % de ceux de C. A contrôle B, et, à travers B, dispose de 30 % des voix de C. Son **intérêt** économique dans C n'est pourtant que de 60 % × 30 % = 18 %. Les deux notions servent à des fins différentes. Le **pourcentage de contrôle** (ici 30 %) sert à qualifier le lien et donc le compte ou la méthode de consolidation. Le **pourcentage d'intérêt** (18 %) mesure la part des résultats et de l'actif net de C qui revient finalement aux actionnaires de A. Dans les comptes individuels de A, seule la participation directe dans B apparaît, au 261. La participation de B dans C figure dans les comptes de B, au 263 si elle y confère une influence notable.",
       },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "7.2.3 Groupes et participations croisées" },
       {
         type: 'paragraphe',
         texte: "Le droit des sociétés organise les mêmes notions. Un **groupe de sociétés** est l'ensemble formé par des sociétés unies par des liens qui permettent à l'une d'elles de contrôler les autres (art. 173). Le **contrôle** est la détention effective du pouvoir de décision (art. 174). Une société est **société mère** d'une autre lorsqu'elle possède plus de la moitié de son capital (art. 179), et une **filiale commune** est détenue par plusieurs mères qui, chacune, disposent d'une participation suffisante pour bloquer toute décision extraordinaire et participent à sa gestion (art. 180). Remarquez la nuance : l'article 179 raisonne en **capital**, l'article 175 en **droits de vote**. Avec des actions à droit de vote double ou des actions de préférence sans droit de vote, les deux peuvent diverger.",
       },
-      { type: 'controle', question: QCM[4] },
       {
         type: 'carte',
-        titre: "Les participations croisées sont plafonnées (art. 177-178)",
+        titre: "Encadré 7.1 — Le plafonnement des participations croisées (art. 177 et 178)",
         liste: [
           "Une société par actions ou une SARL **ne peut posséder** d'actions ou de parts d'une autre société si celle-ci détient **plus de 10 %** de son capital (art. 177).",
           "À défaut d'accord pour régulariser, la société qui détient la fraction **la plus faible** cède ses titres ; à égalité, chacune réduit sa participation à 10 % au plus.",
@@ -455,10 +457,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Et si KAH gardait ses parts de MATADI CIMENT ?",
+        titre: "La participation croisée de KAH et de MATADI CIMENT",
         texte: "KINSHASA AGRO HOLDING (KAH) a acquis 12 % de MATADI CIMENT, qui détient elle-même 18 % de KAH. L'article 177 l'interdit : une société par actions ne peut posséder de titres d'une société qui détient plus de 10 % de son propre capital. À défaut d'accord, c'est KAH, qui détient la fraction la plus faible, qui doit céder. Si elle tarde, ses parts restent privées de vote et de dividende jusqu'à leur cession. Comptablement, KAH ne constate aucun revenu sur ces parts et doit apprécier, à la clôture, si le prix de cession attendu impose une dépréciation.",
       },
-      { type: 'controle', question: QCM[5] },
     ],
   },
   {
@@ -466,20 +467,22 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Titres immobilisés et titres de placement",
     navLabel: "Immobilisés et placement",
     blocs: [
+      { type: 'intertitre', texte: "7.3.1 Les titres immobilisés" },
       {
         type: 'paragraphe',
         texte: "Les **titres immobilisés** (compte 274) sont des titres que l'entité a décidé de **conserver durablement** sans qu'ils répondent à la définition des titres de participation : ce sont des placements à long terme. Le plus caractéristique est le **TIAP** (2741, titre immobilisé de l'activité de portefeuille). L'entité investit une partie de ses actifs dans un portefeuille pour en retirer, à plus ou moins longue échéance, une rentabilité satisfaisante, **sans intervenir dans la gestion** des sociétés dont elle détient les titres. Les autres subdivisions suivent la nature du titre : titres participatifs (2742), certificats d'investissement (2743, droits pécuniaires sans droit de vote), parts de FCP (2744), obligations (2745), autres titres immobilisés (2748).",
       },
       {
         type: 'filet',
-        titre: "Le compte 2746 : attention au piège du Guide",
+        titre: "Le compte 2746 : une divergence du Guide d'application",
         texte: "Dans le plan de comptes du SYSCOHADA révisé, le compte **2746** est intitulé « **Actions ou parts propres** » : il sert aux actions de la société elle-même détenues durablement. Or les Applications 48 et 49 du Guide inscrivent au 2746 des actions d'**autres** sociétés, qualifiées de « titres immobilisés, actions » [texte officiel]. Dans ce cours, les actions d'autres sociétés conservées durablement sans influence sont inscrites au **2748 Autres titres immobilisés**, conformément au plan de comptes, et les montants des Applications sont repris tels quels.",
       },
-      { type: 'controle', question: QCM[6] },
+      { type: 'intertitre', texte: "7.3.2 Les titres de placement" },
       {
         type: 'paragraphe',
         texte: "Les **titres de placement** (compte 50) sont des titres **cessibles**, acquis en vue d'en retirer un **revenu direct ou une plus-value à brève échéance**. Ils sont ventilés selon l'émetteur, le type de titre et le lieu de négociation : 501 titres du Trésor et bons de caisse à court terme, 502 actions (5021 actions propres, 5022 cotées, 5023 non cotées), 503 obligations (dont 5031, les obligations rachetées par la société émettrice étudiées au chapitre 6), 504 bons de souscription, 505 titres négociables hors Région, 508 autres. Ils sont réalisables immédiatement en cas de besoin, et c'est pourquoi la maquette les range dans la **trésorerie-actif** (rubrique BQ).",
       },
+      { type: 'intertitre', texte: "7.3.3 Le changement d'intention et les cas frontières" },
       {
         type: 'paragraphe',
         texte: "L'intention peut changer. Si la direction n'a plus l'intention ou la possibilité de revendre des titres de placement dans les **12 mois** qui suivent la clôture, ils doivent être reclassés au **2748 Autres titres immobilisés** (AUDCIF, ch. 13, § 2.6). Le transfert se fait par virement de compte à compte : le compte d'origine est crédité pour solde par le débit du compte adapté. Il ne dégage aucun résultat, mais il déplace les titres de la trésorerie vers l'actif immobilisé. C'est une décision que l'auditeur examine avec soin, car elle peut servir à éviter une dépréciation au cours de bourse en invoquant une valeur d'utilité à long terme.",
@@ -488,7 +491,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La frontière entre les catégories n'est pas toujours évidente. Des parts de SICAV monétaire, rachetables à tout moment et acquises pour placer une trésorerie de quelques mois, sont des titres de placement. Les mêmes parts, achetées pour constituer une réserve de long terme qu'on n'entend pas mobiliser, relèveraient plutôt des titres immobilisés (2744 pour les FCP, 2748 pour les autres). Des obligations de l'État achetées à l'émission pour être gardées jusqu'à l'échéance sont des obligations immobilisées (2745). Si la société compte les revendre au premier besoin de trésorerie, elles restent au 503. Des certificats d'investissement (2743), qui ne confèrent que des droits pécuniaires sans droit de vote, ne peuvent pas être des titres de participation, puisqu'ils ne donnent aucune influence. La règle est toujours la même : se demander ce que l'entité veut faire du titre, puis vérifier que les faits ne contredisent pas l'intention affichée.",
       },
-      { type: 'controle', question: QCM[7] },
     ],
   },
   {
@@ -496,18 +498,19 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le coût d'entrée : prix, frais, droits et coupons courus",
     navLabel: "Coût d'entrée",
     blocs: [
+      { type: 'intertitre', texte: "7.4.1 Le coût d'acquisition et les frais" },
       {
         type: 'paragraphe',
         texte: "Toutes les catégories de titres sont évaluées à leur entrée au **coût d'acquisition**. La question délicate est celle des **frais** : commissions d'intermédiaire, courtages, honoraires, impôts sur l'opération. Pour les **titres de placement**, l'AUDCIF les enregistre dans un **sous-compte du compte 50** : 5016 pour les titres du Trésor, 5026 pour les actions, 5036 pour les obligations. Ils restent ainsi identifiables tout en faisant partie de la valeur d'achat, et le commentaire du compte 50 précise que c'est cette valeur, **frais inclus**, que l'on compare au cours pour apprécier une perte. Pour les **titres immobilisés**, le commentaire du compte 27 est net : les frais accessoires (impôts, courtages, commissions, honoraires) sont **inclus dans le prix d'achat**.",
       },
       {
         type: 'filet',
-        titre: "Les frais d'acquisition des participations : un texte qui se contredit",
+        titre: "Les frais d'acquisition des participations : une contradiction du texte",
         texte: "Le commentaire du compte 26 fixe la valeur d'entrée des titres de participation au « prix d'acquisition **majoré des frais accessoires d'achat** », et l'Application 48 du Guide incorpore la commission au coût du 261. Le chapitre 13 de l'AUDCIF (§ 2.1.2) écrit au contraire que les frais d'acquisition des titres de participation « sont enregistrés par nature », c'est-à-dire en charges [texte officiel]. Ce cours suit la solution majoritaire, celle du plan de comptes et du Guide : les frais sont incorporés au coût. Quelle que soit l'option retenue, elle doit être appliquée de façon permanente et décrite dans les Notes annexes. Les **coûts d'emprunt**, eux, sont toujours exclus du coût des titres et restent en charges, les titres n'étant pas des actifs éligibles.",
       },
       {
         type: 'carte',
-        titre: "Application 48 : cinq acquisitions, commission de 1,5 %",
+        titre: "Exemple 7.1 — Application 48 : cinq acquisitions, commission de 1,5 %",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -527,19 +530,18 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le Guide passe la dernière acquisition au 2746 ; le plan de comptes réserve ce compte aux actions propres, d'où le 2748 retenu ici (voir section 7.3). Le Guide range la SICAV au 5022 Actions cotées ; une part de SICAV est une action de société d'investissement à capital variable.",
       },
-      { type: 'controle', question: QCM[8] },
+      { type: 'intertitre', texte: "7.4.2 Droits de souscription et coupons courus" },
       {
         type: 'paragraphe',
         texte: "Un exemple montre le traitement des droits préférentiels de souscription. Une société émet des actions nouvelles à 12 000, à raison d'une action nouvelle pour trois anciennes. Un investisseur qui ne possède aucune action ancienne achète en bourse 300 droits à 1 500 pour souscrire 100 actions nouvelles. Il paie 300 × 1 500 = 450 000 pour les droits et 100 × 12 000 = 1 200 000 pour la souscription, soit 1 650 000 au total, à quoi s'ajoutent les frais. Si les titres sont des placements, le coût des actions est de 1 650 000 (16 500 par action), et les frais vont au 5026. Chez l'ancien actionnaire qui a vendu ses droits, le produit de la vente vient au contraire diminuer le coût de ses anciennes actions ou constitue un gain, selon la méthode que l'entité retient et applique de façon permanente.",
       },
-      { type: 'controle', question: QCM[9] },
       {
         type: 'paragraphe',
         texte: "Deux situations particulières reviennent souvent. La première est l'**achat de droits**. Lors d'une augmentation de capital en numéraire (chapitre 4), un nouvel investisseur doit acheter aux anciens actionnaires assez de **droits préférentiels de souscription** pour souscrire des actions nouvelles. Lors d'une incorporation de réserves, ce sont des **droits d'attribution** qu'il achète pour recevoir des actions gratuites. Le coût de ces droits est **ajouté au prix d'acquisition** des actions obtenues (AUDCIF, ch. 13, § 2.4.2). La seconde est l'**achat d'une obligation cotée entre deux échéances**. Le prix payé comprend le capital et les **intérêts courus** depuis le dernier coupon, que l'acheteur rembourse au vendeur. Ces intérêts courus sont isolés : 5063 pour une obligation de placement, et, selon l'AUDCIF, 2768 pour une obligation immobilisée (le plan de comptes offre aussi le 2764 Intérêts courus sur titres immobilisés). Le compte d'obligations (503 ou 2745) ne reçoit que le coût du capital.",
       },
       {
         type: 'carte',
-        titre: "Exemple : achat d'une obligation cotée avec coupon couru",
+        titre: "Exemple 7.2 — Achat d'une obligation cotée avec coupon couru",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -553,8 +555,6 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Montants pédagogiques : coupon annuel de 8 % payable le 31/12 sur un nominal de 10 000. Des obligations d'État ont été choisies parce que leurs intérêts sont exonérés de la retenue à la source (loi n° 23/053, art. 80) : le coupon est encaissé brut. Sans l'isolement des 600 000 d'intérêts courus, le coût du titre serait surévalué et le produit de l'exercice aussi.",
       },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
     ],
   },
   {
@@ -562,13 +562,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les titres souscrits mais non libérés",
     navLabel: "Titres non libérés",
     blocs: [
+      { type: 'intertitre', texte: "7.5.1 La dette de libération" },
       {
         type: 'paragraphe',
         texte: "Au chapitre 1, la société émettrice suivait la fraction non appelée de son capital au compte 109 et la fraction appelée non versée au 4613. Ce chapitre montre l'autre face. Le **souscripteur** qui ne libère qu'une partie de ses actions lors d'une constitution ou d'une augmentation de capital en numéraire inscrit néanmoins les titres à l'actif pour leur **coût d'acquisition total**. La partie non versée devient une **dette** envers l'émetteur. Il ne s'agit pas d'une dette fournisseur ordinaire, et le plan de comptes lui donne des comptes spécifiques selon la catégorie de titres.",
       },
       {
         type: 'carte',
-        titre: "Quel compte pour la dette de libération ?",
+        titre: "Tableau 7.3 — Le compte de la dette de libération selon la catégorie de titres",
         tableau: {
           entetes: ["Titres souscrits", "Dette de libération (plan de comptes)", "À l'appel des fonds (AUDCIF)"],
           lignes: [
@@ -581,7 +582,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Application 49 : 20 000 actions (nominal 10 000, prime 2 000) libérées de moitié, frais 1 000 000",
+        titre: "Exemple 7.3 — Application 49 : 20 000 actions (nominal 10 000, prime 2 000) libérées de moitié, frais 1 000 000",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -594,21 +595,20 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "[texte officiel] Le Guide passe cette opération au 2746 et au 472. Le plan de comptes réserve le 2746 aux actions propres et le 4726 (sous-compte du 472) aux titres de placement : pour des titres immobilisés, les comptes cohérents sont le 2748 et le 4813. Les montants sont ceux du Guide. La prime d'émission est intégralement versée à la souscription, comme l'exige le droit des sociétés (chapitre 4) : seule la moitié du nominal reste due.",
       },
-      { type: 'controle', question: QCM[12] },
+      { type: 'intertitre', texte: "7.5.2 L'inscription pour le coût total et le défaut de libération" },
       {
         type: 'paragraphe',
-        texte: "Pourquoi inscrire les titres pour leur coût total alors que la moitié n'est pas payée ? Parce que le souscripteur est **propriétaire** de toutes les actions souscrites dès la souscription, avec les droits qui s'y attachent (vote, dividende), et qu'il est **engagé** à verser le solde à première demande. L'actif et la dette naissent ensemble. Si la société émettrice se révèle en difficulté avant l'appel du solde, le souscripteur ne peut pas se soustraire à son engagement : il doit apprécier la valeur actuelle de ses titres **pour leur coût total** et, le cas échéant, déprécier en tenant compte de ce qu'il devra encore verser. L'auditeur du souscripteur rapproche d'ailleurs la dette de libération de la situation de l'émetteur, telle qu'elle ressort de ses comptes 109 et 4613.",
+        texte: "Les titres s'inscrivent pour leur coût total, alors même que la moitié n'est pas payée, parce que le souscripteur est **propriétaire** de toutes les actions souscrites dès la souscription, avec les droits qui s'y attachent (vote, dividende), et qu'il est **engagé** à verser le solde à première demande. L'actif et la dette naissent ensemble. Si la société émettrice se révèle en difficulté avant l'appel du solde, le souscripteur ne peut pas se soustraire à son engagement : il doit apprécier la valeur actuelle de ses titres **pour leur coût total** et, le cas échéant, déprécier en tenant compte de ce qu'il devra encore verser. L'auditeur du souscripteur rapproche d'ailleurs la dette de libération de la situation de l'émetteur, telle qu'elle ressort de ses comptes 109 et 4613.",
       },
       {
         type: 'paragraphe',
-        texte: "Que se passe-t-il si le souscripteur ne verse pas le solde appelé ? Du côté de l'émetteur, le chapitre 2 a montré la procédure contre l'actionnaire défaillant : mise en demeure, vente des actions, et poursuites pour la différence. Du côté du souscripteur, le risque est double. Il peut perdre des titres qu'il a déjà en partie payés, pour un prix de vente peut-être inférieur à ce qu'il a versé, et rester débiteur de la différence. Tant que la situation n'est pas réglée, il doit aussi apprécier la valeur actuelle de ses titres en tenant compte de ce risque, et constater une dépréciation si nécessaire. Dans les Notes annexes, la dette de libération est présentée distinctement, avec l'échéance probable de l'appel quand elle est connue, pour que le lecteur mesure l'engagement de trésorerie qui reste à honorer.",
+        texte: "Le souscripteur peut ne pas verser le solde appelé. Du côté de l'émetteur, le chapitre 2 a montré la procédure contre l'actionnaire défaillant : mise en demeure, vente des actions, et poursuites pour la différence. Du côté du souscripteur, le risque est double. Il peut perdre des titres qu'il a déjà en partie payés, pour un prix de vente peut-être inférieur à ce qu'il a versé, et rester débiteur de la différence. Tant que la situation n'est pas réglée, il doit aussi apprécier la valeur actuelle de ses titres en tenant compte de ce risque, et constater une dépréciation si nécessaire. Dans les Notes annexes, la dette de libération est présentée distinctement, avec l'échéance probable de l'appel quand elle est connue, pour que le lecteur mesure l'engagement de trésorerie qui reste à honorer.",
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "N'inscrire à l'actif que la partie versée des titres souscrits. KAH a souscrit 4 500 actions de TSHOPO HUILERIE pour un coût total de 113 625 000 FC, frais compris, mais n'en a versé que 46 125 000 FC à la souscription. Le compte 261 doit recevoir le coût total, et la partie non versée (67 500 000 FC) devient une dette au 4813. Réduire l'actif à la partie payée masquerait à la fois la participation réelle de KAH et son engagement de verser le solde à la première demande de TSHOPO.",
+        titre: "Les titres souscrits s'inscrivent pour leur coût total",
+        texte: "Les titres souscrits s'inscrivent à l'actif pour leur totalité, et non pour la seule partie versée. KAH a souscrit 4 500 actions de TSHOPO HUILERIE pour un coût total de 113 625 000 FC, frais compris, mais n'en a versé que 46 125 000 FC à la souscription. Le compte 261 doit recevoir le coût total, et la partie non versée (67 500 000 FC) devient une dette au 4813. Réduire l'actif à la partie payée masquerait à la fois la participation réelle de KAH et son engagement de verser le solde à la première demande de TSHOPO.",
       },
-      { type: 'controle', question: QCM[13] },
     ],
   },
   {
@@ -616,13 +616,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les revenus du portefeuille : dividendes et intérêts",
     navLabel: "Revenus",
     blocs: [
+      { type: 'intertitre', texte: "7.6.1 Dividendes et intérêts" },
       {
         type: 'paragraphe',
         texte: "Un portefeuille-titres produit deux sortes de revenus : les **dividendes** des actions et parts sociales, et les **intérêts** des obligations. Leur comptabilisation obéit à deux faits générateurs différents. Pour le dividende, c'est la **décision de distribution** prise par l'assemblée des associés de la société émettrice (AUDCIF, ch. 13, § 2.5.1). Avant cette décision, le détenteur n'a aucun droit acquis, même si la filiale a réalisé des bénéfices ; après elle, il a une créance, même si le paiement intervient plus tard. Pour l'obligation, c'est l'écoulement du temps : les intérêts courent jour après jour, et ceux de l'exercice doivent être rattachés à la clôture, même s'ils ne sont encaissés qu'à l'échéance suivante.",
       },
       {
         type: 'carte',
-        titre: "Les comptes de produits selon la catégorie de titres",
+        titre: "Tableau 7.4 — Les comptes de produits selon la catégorie de titres",
         tableau: {
           entetes: ["Titres", "Créance", "Produit"],
           lignes: [
@@ -634,14 +635,14 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "[texte officiel] Le chapitre 13 de l'AUDCIF écrit « compte 47 » pour les dividendes des participations et « 4711 » pour les autres titres, et il crédite un compte 7747 que le plan de comptes ne contient pas. Le plan range les revenus des titres de participation et des autres titres immobilisés sous le 772 (7721 et 7722). Ce cours suit le plan de comptes.",
       },
-      { type: 'controle', question: QCM[14] },
+      { type: 'intertitre', texte: "7.6.2 La retenue à la source et le régime mère-fille" },
       {
         type: 'paragraphe',
         texte: "En RDC, la société qui distribue opère une **retenue à la source de 20 %** sur les produits d'actions et de parts sociales (loi n° 23/053, art. 72 et 120), comme on l'a vu au chapitre 3 du côté de la distribuante. Le détenteur encaisse donc le dividende net, mais le **produit** qu'il comptabilise est le dividende **brut** décidé par l'assemblée : la retenue est un impôt prélevé sur ce revenu. Supposons que la filiale KASAI BOIS SA décide un dividende de 10 000 000 revenant à sa mère. La mère constate une créance et un produit de 10 000 000 au 7721. À l'encaissement, elle reçoit 8 000 000, et la retenue de 2 000 000 est traitée selon le régime fiscal applicable. Si ses conditions sont remplies, le **régime mère-fille** de l'article 76 permet d'imputer l'impôt payé sur les produits distribués sur celui dont la société mère est redevable.",
       },
       {
         type: 'carte',
-        titre: "Le régime mère-fille congolais (loi n° 23/053, art. 76)",
+        titre: "Encadré 7.2 — Le régime mère-fille congolais (loi n° 23/053, art. 76)",
         liste: [
           "Une **société par actions ou une SARL** détient des titres d'une autre société.",
           "Participation d'au moins **25 %** du capital de la filiale (paramètres 2026).",
@@ -651,20 +652,20 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "Le seuil fiscal de 25 % ne coïncide ni avec le seuil de participation de l'AUSCGIE (10 %, art. 176) ni avec la définition de la société mère (plus de la moitié du capital, art. 179). Une même participation peut donc être une « participation » au sens comptable sans ouvrir droit au régime fiscal.",
       },
+      { type: 'intertitre', texte: "7.6.3 Le rattachement des intérêts et le montant du produit" },
       {
         type: 'paragraphe',
         texte: "Pour les obligations immobilisées, le rattachement des intérêts à la clôture se fait comme pour l'émetteur au chapitre 6, mais en sens inverse. Une société détient 2 000 obligations de 10 000 au taux de 9 %, coupon annuel payable le 30 juin. Au 31 décembre, six mois ont couru : 2 000 × 10 000 × 9 % × 6/12 = 900 000. Écriture : débit 2764 Intérêts courus sur titres immobilisés / crédit 7745 Revenus des obligations, 900 000. L'écriture est contrepassée à l'ouverture, et le coupon entier est comptabilisé en produit à son encaissement du 30 juin. Si les obligations sont des placements, le compte d'intérêts courus est le 5063. Si la retenue à la source s'applique à ces intérêts, le produit reste le montant brut ; les obligations de l'État, des Provinces et des ETD en sont exonérées (loi n° 23/053, art. 80).",
       },
-      { type: 'controle', question: QCM[15] },
       {
         type: 'filet',
-        titre: "Question d'étudiant : produit de 6 000 000 ou de 4 800 000 ?",
+        titre: "Le produit de dividende : montant brut ou net de retenue",
         texte: "LUALABA TRANSPORT a décidé un dividende de 6 000 000 FC revenant à KAH. La société distributrice retient 20 % à la source, si bien que KAH n'encaisse que 4 800 000 FC. Le produit inscrit au 7721, lui, reste le montant brut de 6 000 000 FC : la retenue est un impôt prélevé sur ce revenu, et non une réduction du revenu. Comme KAH détient 25 % de LUALABA TRANSPORT sous forme nominative depuis plus de deux ans, avec deux sièges en RDC, le régime mère-fille de l'article 76 peut lui permettre d'imputer cet impôt sur le sien.",
       },
-      { type: 'controle', question: QCM[16] },
+      { type: 'intertitre', texte: "7.6.4 Les dividendes versés en actions" },
       {
         type: 'paragraphe',
-        texte: "Les **dividendes versés en actions** méritent une remarque. Si l'assemblée de la filiale propose le paiement du dividende en actions (chapitre 3), l'associé qui choisit cette option ne reçoit pas de trésorerie. Il comptabilise le dividende en produit et augmente d'autant le coût de ses titres. Le tableau des flux n'en retient aucun encaissement. À l'inverse, l'**attribution gratuite d'actions** par incorporation de réserves (chapitre 4) ne crée pas de produit chez le détenteur : il possède plus de titres pour le même coût global, et son coût unitaire baisse en conséquence. Ce coût unitaire compte pour le calcul des sorties en PEPS ou au coût moyen pondéré.",
+        texte: "Les **dividendes versés en actions** obéissent à une règle propre. Si l'assemblée de la filiale propose le paiement du dividende en actions (chapitre 3), l'associé qui choisit cette option ne reçoit pas de trésorerie. Il comptabilise le dividende en produit et augmente d'autant le coût de ses titres. Le tableau des flux n'en retient aucun encaissement. À l'inverse, l'**attribution gratuite d'actions** par incorporation de réserves (chapitre 4) ne crée pas de produit chez le détenteur : il possède plus de titres pour le même coût global, et son coût unitaire baisse en conséquence. Ce coût unitaire compte pour le calcul des sorties en PEPS ou au coût moyen pondéré.",
       },
     ],
   },
@@ -673,13 +674,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'évaluation à l'inventaire et les dépréciations",
     navLabel: "Inventaire",
     blocs: [
+      { type: 'intertitre', texte: "7.7.1 La valeur actuelle" },
       {
         type: 'paragraphe',
         texte: "À chaque clôture, l'entité recense ses biens et les évalue à leur **valeur actuelle**, valeur d'estimation du moment appréciée en fonction du marché et de l'utilité de l'élément pour l'entité (art. 42 AUDCIF). Cette valeur d'inventaire est comparée à la valeur d'entrée. Si elle est **supérieure**, la valeur d'entrée est maintenue. Si elle est **inférieure**, la perte est constatée par une dépréciation (art. 43). Pour les titres, le principe est donc asymétrique : les moins-values latentes sont constatées, les plus-values latentes ne le sont jamais. Les dépréciations sont obligatoires même en l'absence ou en cas d'insuffisance de bénéfice (art. 46).",
       },
       {
         type: 'carte',
-        titre: "Quelle valeur actuelle selon la catégorie de titres ?",
+        titre: "Tableau 7.5 — La valeur actuelle selon la catégorie de titres",
         tableau: {
           entetes: ["Titres", "Valeur actuelle retenue", "Dépréciation"],
           lignes: [
@@ -692,19 +694,18 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le cours moyen du dernier mois évite de retenir une variation journalière peu caractéristique. Les dépréciations se calculent ligne par ligne, **sans compensation** entre titres en baisse et titres en hausse. Les dotations sur immobilisations financières sont des charges financières (rubrique RN) ; les charges pour dépréciation des titres de placement (6795) relèvent aussi du résultat financier.",
       },
-      { type: 'controle', question: QCM[17] },
+      { type: 'intertitre', texte: "7.7.2 La dépréciation des titres de participation" },
       {
         type: 'paragraphe',
-        texte: "Prenons une participation de 70 % dans UVIRA SUCRE SA, acquise pour 60 000 000. À la clôture, les capitaux propres de la filiale s'élèvent à 80 000 000 : la quote-part d'actif net de la mère est de 56 000 000. Faut-il déprécier de 4 000 000 ? Pas forcément. Si le prix payé intégrait un savoir-faire, une clientèle ou des perspectives de résultats qui restent crédibles, la valeur d'utilité peut dépasser la quote-part d'actif net. L'entité peut par exemple actualiser les dividendes attendus, ou apprécier la rentabilité prévisionnelle. Si en revanche la filiale accumule les pertes sans plan de redressement crédible, la quote-part d'actif net, voire une valeur de liquidation, devient la référence. L'AUDCIF cite d'ailleurs la « réalisation possible » parmi les éléments de la valeur actuelle. La conclusion doit être documentée et reprise chaque année.",
+        texte: "Prenons une participation de 70 % dans UVIRA SUCRE SA, acquise pour 60 000 000. À la clôture, les capitaux propres de la filiale s'élèvent à 80 000 000 : la quote-part d'actif net de la mère est de 56 000 000. Une dépréciation de 4 000 000 ne s'impose pas nécessairement. Si le prix payé intégrait un savoir-faire, une clientèle ou des perspectives de résultats qui restent crédibles, la valeur d'utilité peut dépasser la quote-part d'actif net. L'entité peut par exemple actualiser les dividendes attendus, ou apprécier la rentabilité prévisionnelle. Si en revanche la filiale accumule les pertes sans plan de redressement crédible, la quote-part d'actif net, voire une valeur de liquidation, devient la référence. L'AUDCIF cite d'ailleurs la « réalisation possible » parmi les éléments de la valeur actuelle. La conclusion doit être documentée et reprise chaque année.",
       },
-      { type: 'controle', question: QCM[18] },
       {
         type: 'paragraphe',
         texte: "La valeur d'utilité d'une participation est affaire de jugement. Une filiale qui perd de l'argent peut rester précieuse si elle assure l'approvisionnement du groupe ou lui ouvre un marché. À l'inverse, une filiale bénéficiaire peut valoir moins que son coût si le prix payé intégrait des espoirs déçus. L'entité doit documenter son estimation : prévisions de résultats, quote-part d'actif net, comparaison avec des transactions récentes. Le commissaire aux comptes vérifie la cohérence de ces hypothèses. Une dépréciation antérieure est **ajustée** chaque année : complétée si la valeur baisse encore, reprise en tout ou partie si elle remonte (7972 pour les immobilisations financières, 7795 pour les titres de placement), sans jamais porter les titres au-dessus de leur coût d'entrée.",
       },
       {
         type: 'carte',
-        titre: "Application 51 : dépréciation au 31/12/N−1",
+        titre: "Exemple 7.4 — Application 51 : dépréciation au 31/12/N−1",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -714,22 +715,21 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "1 500 titres détenus : valeur d'entrée 1 000 × 12 000 + 500 × 12 500 = 18 250 000 ; valeur au cours moyen de décembre (12 050) = 18 075 000 ; dépréciation 175 000. Le Guide ne montre pas la reprise de cette dépréciation lors de la cession de N ; selon l'AUDCIF (ch. 13, § 4.2), elle est reprise au crédit du 7795.",
       },
-      { type: 'controle', question: QCM[19] },
+      { type: 'intertitre', texte: "7.7.3 La dépréciation des titres de placement" },
       {
         type: 'paragraphe',
         texte: "La dépréciation des titres de placement se calcule à chaque clôture sur la situation du moment. Supposons qu'un portefeuille déprécié de 175 000 au 31/12/N−1 soit encore détenu au 31/12/N, avec une moins-value latente ramenée à 60 000. La dépréciation nécessaire n'est plus que de 60 000 : l'entité reprend 115 000 par le débit du 590 et le crédit du 7795. Si la moins-value s'est au contraire creusée à 300 000, elle complète la dépréciation de 125 000 par le débit du 6795. L'ajustement se fait **titre par titre** : une ligne dont la perte se résorbe ne peut pas absorber la perte nouvelle d'une autre ligne. Cette mécanique vaut aussi pour les titres immobilisés et les participations, avec les comptes 6972, 296 ou 297 et 7972.",
       },
-      { type: 'controle', question: QCM[20] },
       {
         type: 'filet',
         titre: "Deux cas sans dépréciation (ch. 13, § 3.3)",
         texte: "Aucune dépréciation n'est constatée en cas de baisse du cours pour les titres qui font l'objet d'**opérations de couverture**, puisque la perte est compensée par le gain sur l'instrument de couverture, ni pour les **actions ou parts propres destinées à être attribuées gratuitement** aux salariés et dirigeants, dont le coût sera constaté lors de l'attribution. Hors de ces deux cas, la règle de non-compensation s'applique sans exception.",
       },
+      { type: 'intertitre', texte: "7.7.4 L'absence d'amortissement des titres" },
       {
         type: 'paragraphe',
         texte: "Les titres ne s'amortissent pas. L'article 43 de l'AUDCIF distingue l'amortissement, qui constate une perte de valeur jugée définitive, et la dépréciation, qui constate une perte jugée non définitive. Un titre n'est pas consommé par l'usage : sa valeur peut baisser puis remonter avec la santé de l'émetteur ou le marché. C'est pourquoi l'amoindrissement de valeur d'un titre passe toujours par une dépréciation, réversible, et jamais par un amortissement. Même quand l'émetteur est en liquidation, la dépréciation peut aller jusqu'à 100 % du coût. Les titres ne sortent du bilan qu'à la clôture de la liquidation ou lors de leur cession, par le circuit de la section 7.8.",
       },
-      { type: 'controle', question: QCM[21] },
     ],
   },
   {
@@ -737,13 +737,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les cessions : circuit HAO ou résultat financier",
     navLabel: "Cessions",
     blocs: [
+      { type: 'intertitre', texte: "7.8.1 Les règles communes et le circuit HAO" },
       {
         type: 'paragraphe',
         texte: "La sortie d'un titre obéit à deux règles communes. La **valeur comptable sortie** est le coût d'acquisition, **non diminué** de la dépréciation éventuelle, qui est reprise séparément. Le **prix de cession** est le prix stipulé dans l'acte, **diminué des frais de cession** strictement nécessaires (commissions, courtages). Pour le reste, tout dépend de la catégorie. La cession d'un titre de participation ou d'un titre immobilisé est la sortie d'une **immobilisation** : c'est une opération **hors activités ordinaires**, qui passe par les comptes 81 et 82. La cession d'un titre de placement est une opération **financière ordinaire**, qui passe par le 777 ou le 6771 (AUDCIF, ch. 13, section 4).",
       },
       {
         type: 'carte',
-        titre: "Application 50 : valeur d'origine 50 000 000, dépréciation 6 000 000, prix 48 000 000 à crédit",
+        titre: "Exemple 7.5 — Application 50 : valeur d'origine 50 000 000, dépréciation 6 000 000, prix 48 000 000 à crédit",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -757,29 +758,28 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "[texte officiel] L'Application 50 est intitulée « cession de titres de participation », mais elle solde le 274 et le 2974 (titres immobilisés). Pour une participation, on créditerait le 26 et on reprendrait le 296. Le Guide débite par ailleurs un compte 4856 que le plan de comptes ne contient pas : le compte générique est le 485 Créances sur cessions d'immobilisations. Incidence : −2 000 000 en HAO (826 − 816) et +6 000 000 en financier, soit +4 000 000.",
       },
-      { type: 'controle', question: QCM[22] },
+      { type: 'intertitre', texte: "7.8.2 La cession partielle et la présentation brute" },
       {
         type: 'paragraphe',
-        texte: "La cession peut être **partielle**. Une société qui détient 70 % d'une filiale au 261 en cède 30 % : elle passe à 40 %. Deux questions se posent. D'abord, quelle valeur sortir ? Si les titres ont été achetés en plusieurs fois à des prix différents, le chapitre 13 admet ici aussi le PEPS ou le coût moyen pondéré. Ensuite, dans quel compte laisser les titres restants ? Avec 40 %, la société peut encore exercer un contrôle exclusif présumé si aucun autre associé ne détient davantage. Sinon, elle exerce au moins une influence notable. Les titres restants sont alors virés du 261 au 263, et la dépréciation éventuelle du 2961 au 2963. Si la cession ramène la participation sous 10 % et que la société n'entend plus exercer d'influence, les titres restants peuvent devenir des titres immobilisés (2748), voire des placements (50) si elle compte les revendre rapidement.",
+        texte: "La cession peut être **partielle**. Une société qui détient 70 % d'une filiale au 261 en cède 30 % : elle passe à 40 %. Deux questions se posent. D'abord, la valeur à sortir : si les titres ont été achetés en plusieurs fois à des prix différents, le chapitre 13 admet ici aussi le PEPS ou le coût moyen pondéré. Ensuite, le compte des titres restants : avec 40 %, la société peut encore exercer un contrôle exclusif présumé si aucun autre associé ne détient davantage. Sinon, elle exerce au moins une influence notable. Les titres restants sont alors virés du 261 au 263, et la dépréciation éventuelle du 2961 au 2963. Si la cession ramène la participation sous 10 % et que la société n'entend plus exercer d'influence, les titres restants peuvent devenir des titres immobilisés (2748), voire des placements (50) si elle compte les revendre rapidement.",
       },
-      { type: 'controle', question: QCM[23] },
       {
         type: 'paragraphe',
-        texte: "Pourquoi ne pas simplement créditer le compte de titres et constater la différence ? Parce que la présentation brute (valeur sortie en 81, prix en 82) alimente les rubriques RO et TN du compte de résultat, et que le lecteur doit voir le volume des cessions et non seulement leur solde. La reprise de la dépréciation, elle, passe par le résultat financier (TL). Une même cession produit donc deux effets dans deux soldes différents : une moins-value HAO et une reprise financière, qui se compensent en partie. L'analyste qui ne lit que le résultat HAO croit à une perte, alors que l'essentiel de celle-ci avait été constaté les années précédentes par les dotations.",
+        texte: "La cession ne se réduit pas au crédit du compte de titres avec constatation de la différence, car la présentation brute (valeur sortie en 81, prix en 82) alimente les rubriques RO et TN du compte de résultat, et que le lecteur doit voir le volume des cessions et non seulement leur solde. La reprise de la dépréciation, elle, passe par le résultat financier (TL). Une même cession produit donc deux effets dans deux soldes différents : une moins-value HAO et une reprise financière, qui se compensent en partie. L'analyste qui ne lit que le résultat HAO croit à une perte, alors que l'essentiel de celle-ci avait été constaté les années précédentes par les dotations.",
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle de la cession d'une participation",
         texte: "Si KAH cède un jour sa participation dans TSHOPO HUILERIE, l'auditeur vérifiera que la cession a été traitée comme une opération hors activités ordinaires : valeur d'entrée au débit du 816, prix au crédit du 826, et reprise séparée de la dépréciation éventuelle au 7972. Une écriture nette, qui ne ferait apparaître que la plus-value ou la moins-value, fausserait les rubriques RO et TN du compte de résultat. Il vérifiera aussi que le prix de cession est bien diminué des frais strictement nécessaires.",
       },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "7.8.3 La cession de titres de placement" },
       {
         type: 'paragraphe',
         texte: "Pour les titres de placement, les achats successifs d'un même titre se font à des prix différents, et il faut choisir quels titres sortent. Le chapitre 13 de l'AUDCIF admet au choix le **premier entré, premier sorti** (PEPS) ou le **coût moyen pondéré** (CUMP), par analogie avec l'article 44 applicable aux stocks. Le commentaire du compte 50 ne mentionne que le PEPS [texte officiel]. L'Application 51 montre que le choix n'est pas neutre. Sur un portefeuille de 3 000 titres, acquis 1 000 à 12 000, 500 à 12 500, 1 200 à 11 000 et 300 à 10 000, la cession de 2 500 titres pour 29 000 000 donne une perte de 250 000 en PEPS et un gain de 291 667 au coût moyen pondéré.",
       },
       {
         type: 'carte',
-        titre: "Application 51 : cession de 2 500 titres le 01/09/N, prix 29 000 000 à crédit",
+        titre: "Exemple 7.6 — Application 51 : cession de 2 500 titres le 01/09/N, prix 29 000 000 à crédit",
         tableau: {
           entetes: ["Méthode", "Valeur de sortie", "Résultat", "Écriture", "Portefeuille restant"],
           lignes: [
@@ -789,12 +789,11 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le total « résultat + portefeuille restant » est identique dans les deux méthodes : le choix déplace du résultat d'un exercice à l'autre, d'où l'exigence de permanence des méthodes. La créance sur cession va au 4721 (le chapitre 13 cite un 4714, absent du plan de comptes révisé). La dépréciation de 175 000 constituée en N−1 sur les titres cédés est reprise par le 7795.",
       },
-      { type: 'controle', question: QCM[25] },
+      { type: 'intertitre', texte: "7.8.4 Les questions juridiques préalables" },
       {
         type: 'paragraphe',
         texte: "La cession d'une participation soulève souvent des questions juridiques préalables que le comptable doit connaître. Les statuts peuvent soumettre la cession à un **agrément** ou à un **droit de préemption** des autres associés. Dans une SARL, à défaut de clause statutaire, la cession de parts à des tiers exige le consentement de la majorité des associés non cédants représentant les trois quarts des parts, déduction faite de celles du cédant. En cas de refus, les autres associés doivent acquérir les parts dans les trois mois, à un prix fixé à défaut d'accord par un expert nommé par la juridiction compétente (art. 319). La cession n'est opposable à la société qu'après signification, acceptation authentique ou dépôt de l'acte au siège (art. 317). Le comptable ne peut constater la cession qu'au **transfert de propriété**, c'est-à-dire lorsque les conditions suspensives (agrément, autorisations réglementaires) sont levées. Entre la signature d'une promesse et le transfert, les titres restent à l'actif, et un prix convenu inférieur au coût peut déjà justifier une dépréciation à la clôture.",
       },
-      { type: 'controle', question: QCM[26] },
     ],
   },
   {
@@ -802,13 +801,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Évaluer des droits sociaux : de la valeur nominale à l'expertise",
     navLabel: "Évaluation des titres",
     blocs: [
+      { type: 'intertitre', texte: "7.9.1 Les valeurs de la pratique" },
       {
         type: 'paragraphe',
-        texte: "Combien vaut une action ou une part sociale non cotée ? La question se pose à chaque cession de gré à gré, à chaque refus d'agrément suivi d'un rachat, à chaque exclusion ou retrait d'un associé, à chaque succession. L'Acte uniforme y répond d'abord par une règle de **procédure**. Dans tous les cas où il prévoit la cession des titres d'un associé ou leur rachat par la société, la valeur des droits est déterminée, à défaut d'accord amiable, **par expert**, désigné par les parties ou, à défaut d'accord entre elles, par la juridiction compétente **statuant à bref délai** (art. 59). L'Acte uniforme ne fixe **aucune méthode** : celles que l'expert mobilise relèvent de la pratique financière.",
+        texte: "La valeur d'une action ou d'une part sociale non cotée doit être établie à chaque cession de gré à gré, à chaque refus d'agrément suivi d'un rachat, à chaque exclusion ou retrait d'un associé, à chaque succession. L'Acte uniforme y répond d'abord par une règle de **procédure**. Dans tous les cas où il prévoit la cession des titres d'un associé ou leur rachat par la société, la valeur des droits est déterminée, à défaut d'accord amiable, **par expert**, désigné par les parties ou, à défaut d'accord entre elles, par la juridiction compétente **statuant à bref délai** (art. 59). L'Acte uniforme ne fixe **aucune méthode** : celles que l'expert mobilise relèvent de la pratique financière.",
       },
       {
         type: 'carte',
-        titre: "Les valeurs de la pratique",
+        titre: "Tableau 7.6 — Les valeurs utilisées dans la pratique de l'évaluation",
         tableau: {
           entetes: ["Valeur", "Formule", "Ce qu'elle mesure"],
           lignes: [
@@ -822,16 +822,16 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Ces formules sont des conventions de la pratique : l'expert combine souvent une valeur patrimoniale et une valeur de flux, avec des pondérations qui dépendent de la nature de la société (patrimoniale ou d'exploitation) et de l'objet de l'évaluation.",
       },
+      { type: 'intertitre', texte: "7.9.2 Au-delà des formules" },
       {
         type: 'paragraphe',
         texte: "L'expert ne s'arrête pas toujours aux formules du tableau. Pour une société d'exploitation, il actualise souvent les **flux de trésorerie futurs** qu'elle dégagera, ou il applique aux résultats un multiple observé sur des transactions comparables. Pour une société patrimoniale (holding, société immobilière), l'**actif net réévalué** domine. Deux corrections reviennent souvent. La première est la **fiscalité latente** : une plus-value sur un terrain ne vaut pas son montant brut si sa réalisation doit supporter l'impôt. La seconde est la **décote de minorité** ou la **prime de contrôle** : un bloc de 15 % sans pouvoir ne vaut pas 15 % d'une société achetée en totalité. L'expert désigné en application de l'article 59 doit expliquer ses choix, car les parties peuvent les contester.",
       },
-      { type: 'controle', question: QCM[27] },
+      { type: 'intertitre', texte: "7.9.3 Application : l'évaluation d'une part de SARL" },
       {
         type: 'paragraphe',
         texte: "Prenons une SARL au capital de 100 000 000 divisé en 10 000 parts, avec 46 000 000 de réserves et un report à nouveau créditeur de 4 000 000. La valeur mathématique comptable est de 150 000 000 / 10 000 = **15 000** par part, contre un nominal de 10 000. Si un terrain inscrit pour 20 000 000 vaut 35 000 000, l'actif net corrigé passe à 165 000 000, soit une valeur intrinsèque de **16 500**. Si la société distribue 900 par part et gagne 1 500 par part, avec un taux de capitalisation de 10 %, la valeur financière est de **9 000** et la valeur de rendement de **15 000**. L'écart entre 9 000 et 16 500 n'a rien d'anormal : il montre qu'un associé minoritaire, qui ne touche que les dividendes, ne valorise pas la société comme un acquéreur qui en prendrait le contrôle. C'est précisément ce débat que tranche l'expert de l'article 59.",
       },
-      { type: 'controle', question: QCM[28] },
       {
         type: 'filet',
         titre: "Évaluer pour l'inventaire ou évaluer pour une cession",
@@ -844,13 +844,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Fiscalité, présentation et contexte congolais",
     navLabel: "Fiscalité et présentation",
     blocs: [
+      { type: 'intertitre', texte: "7.10.1 Fiscalité et présentation" },
       {
         type: 'paragraphe',
         texte: "Sur le plan fiscal, le bénéfice imposable à l'IS est déterminé d'après le résultat de l'ensemble des activités de l'entreprise, **cessions d'éléments d'actif comprises** (loi n° 23/053, art. 9). Les plus-values de cession de titres, qu'elles soient HAO ou financières, entrent donc dans la base de l'IS. Une exonération particulière vise les plus-values résultant de l'attribution d'actions ou de parts à la suite d'une fusion de SA, SAS ou SARL, ou d'un apport partiel d'actif (art. 54, chapitre 8). Pour les dépréciations, l'article 50 exclut des charges déductibles les **provisions**, sauf quatre exceptions qui ne visent pas les portefeuilles-titres des sociétés commerciales ordinaires : reconstitution de gisements miniers, créances des établissements de crédit et de microfinance, engagements réglementés des assurances. La déductibilité d'une dépréciation de titres doit donc être examinée avec prudence, et la dotation réintégrée si elle tombe sous cette exclusion.",
       },
       {
         type: 'carte',
-        titre: "Où retrouver le portefeuille dans les états financiers",
+        titre: "Tableau 7.7 — Le portefeuille-titres dans les états financiers",
         tableau: {
           entetes: ["État", "Rubrique", "Contenu"],
           lignes: [
@@ -870,11 +871,12 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Au tableau des flux, une acquisition de titres non entièrement libérés illustre la logique des flux réels. Reprenons le cas de TSHOPO HUILERIE : titres inscrits au 261 pour 113 625 000, dont 46 125 000 payés à la souscription et 22 500 000 au second quart. Le décaissement lié à l'investissement de l'exercice est de 68 625 000, et non de 113 625 000 : la dette de libération qui reste au 4813 (45 000 000) n'a encore donné lieu à aucun flux. Les versements des quarts suivants seront des décaissements d'investissement des exercices où ils interviendront. De la même manière, une cession à crédit (485) ne produit un encaissement que lors du règlement. Et la reprise d'une dépréciation, écriture purement comptable, n'apparaît jamais dans les flux.",
       },
+      { type: 'intertitre', texte: "7.10.2 Application : KINSHASA AGRO HOLDING" },
       {
         type: 'paragraphe',
         texte: "Retour à KINSHASA AGRO HOLDING, dont le cas 5 détaille les écritures. En une seule année, KAH a mobilisé presque tout ce chapitre. La participation dans TSHOPO HUILERIE va au 261, avec une dette de libération au 4813 : KAH en détient 45 % et aucun autre associé ne la dépasse. La participation croisée dans MATADI CIMENT tombe sous le coup de l'article 177. Enfin, le dividende de LUALABA TRANSPORT est constaté au brut, dans le cadre du régime mère-fille. À la clôture, KAH évaluera chaque participation à sa valeur d'utilité, ligne par ligne, et dépréciera sans compenser les plus-values des unes avec les moins-values des autres.",
       },
-      { type: 'controle', question: QCM[29] },
+      { type: 'intertitre', texte: "7.10.3 Le contexte congolais et le contrôle" },
       {
         type: 'paragraphe',
         texte: "Le contexte congolais donne à ce chapitre une portée pratique particulière. Faute de bourse des valeurs en activité, la plupart des titres détenus par les sociétés congolaises sont **non cotés**. Leur valeur d'inventaire est donc la **valeur probable de négociation**, et leur évaluation repose sur les méthodes de la section 7.9 plutôt que sur un cours. La loi relative aux marchés boursiers, promulguée le 20 août 2026 et publiée au Journal officiel le 2 septembre 2026, prépare l'ouverture de la **Kinshasa Stock Exchange**, dont les premières cotations sont annoncées entre juin et décembre 2027 (RFI, 6 septembre 2026 ; voir le chapitre 6). Lorsque des titres congolais seront cotés, le **cours moyen du dernier mois** deviendra la référence d'inventaire pour les titres immobilisés et de placement cotés, avec la volatilité qu'un marché naissant et peu liquide peut comporter. Pour les participations, la valeur d'utilité restera la règle, et un cours de bourse ne sera qu'un indice parmi d'autres.",
