@@ -356,12 +356,13 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Goma, au bord du lac Kivu. Un groupe d'investisseurs veut construire **GOMA LACS HÔTELS**. M. R. apportera un terrain bâti au bord du lac ; d'autres souscripteurs apporteront des fonds ; Mme V., qui a conçu le projet, demande une reconnaissance particulière. Faut-il créer une SARL, une SA ou une SAS ? Le choix n'est pas qu'une affaire de statuts. Il fixe le capital minimum, la part à libérer dès la souscription, le contrôle des apports, la forme des actes et, pour le comptable, le rythme des écritures. Ce chapitre compare les formes, puis suit GOMA LACS HÔTELS, qui retiendra la SA.",
+        texte: "Goma, au bord du lac Kivu. Un groupe d'investisseurs veut construire **GOMA LACS HÔTELS**. M. R. apportera un terrain bâti au bord du lac ; d'autres souscripteurs apporteront des fonds ; Mme V., qui a conçu le projet, demande une reconnaissance particulière. Le choix entre SARL, SA et SAS dépasse la rédaction des statuts : il fixe le capital minimum, la part à libérer dès la souscription, le contrôle des apports, la forme des actes et, pour le comptable, le rythme des écritures. Ce chapitre compare les formes, puis suit GOMA LACS HÔTELS, qui retiendra la SA.",
       },
       {
         type: 'paragraphe',
         texte: "Le chapitre 1 a posé les règles communes à toutes les sociétés. Celui-ci montre comment elles se déclinent selon la forme choisie, car c'est la forme qui fixe le capital minimum, la fraction à libérer, le contrôle des apports et le circuit des fonds, donc les écritures. La société à responsabilité limitée est une société « dans laquelle les associés ne sont responsables des dettes sociales qu'à concurrence de leurs apports et dont les droits sont représentés par des parts sociales » ; elle peut être instituée par une personne physique ou morale, la SARL unipersonnelle, ou entre plusieurs personnes (art. 309). Sa dénomination est immédiatement précédée ou suivie des mots « société à responsabilité limitée » ou du sigle « S.A.R.L. » (art. 310). C'est, en RDC comme ailleurs dans l'espace OHADA, la forme la plus répandue chez les petites et moyennes entreprises.",
       },
+      { type: 'intertitre', texte: "2.1.1 Le capital de la SARL" },
       {
         type: 'filet',
         titre: "Capital minimum : un million de FCFA, sauf dispositions nationales contraires (art. 311)",
@@ -371,9 +372,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La liberté congolaise n'est pas une invitation à constituer des sociétés sans moyens. La formule « en tenant compte de l'objet social » rappelle que le capital doit rester cohérent avec l'activité : une SARL de transport qui prévoit d'exploiter dix camions ne peut raisonnablement démarrer avec un capital symbolique, sauf à dépendre entièrement de l'endettement. Pour le comptable et l'analyste, un capital trop faible se lit immédiatement dans le bilan : capitaux propres minces, dettes financières lourdes, et risque de franchir rapidement le seuil des capitaux propres inférieurs à la moitié du capital, étudié au chapitre 5. Les banques congolaises le savent et demandent souvent aux associés d'apporter des fonds complémentaires, en capital ou en compte courant bloqué, avant d'accorder un crédit.",
       },
+      { type: 'intertitre', texte: "2.1.2 Souscription et libération" },
       {
         type: 'carte',
-        titre: "Souscription et libération (art. 311-1)",
+        titre: "Tableau 2.1 — Souscription et libération des parts de SARL (art. 311-1)",
         tableau: {
           entetes: ["Règle", "Contenu"],
           lignes: [
@@ -389,13 +391,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La distinction entre souscription et libération prend ici tout son sens. Les associés doivent souscrire la **totalité** du capital : il n'existe pas de SARL dont une partie des parts attendrait un souscripteur. Mais ils peuvent n'en **libérer** qu'une partie : la moitié du numéraire au minimum. Une SARL au capital de 20 000 000 FC, dont 8 000 000 en nature et 12 000 000 en numéraire, doit donc recevoir dès la souscription les biens apportés et au moins 6 000 000 FC ; les 6 000 000 FC restants peuvent être appelés par le gérant, selon les statuts, dans les deux ans de l'immatriculation. Dans les comptes, les 6 000 000 non appelés sont inscrits au débit du 109 et au crédit du 1011 ; ils figureront au bilan en négatif sous le capital (rubrique CB) jusqu'à l'appel.",
       },
+      { type: 'intertitre', texte: "2.1.3 Le nominal des parts" },
       {
         type: 'paragraphe',
-        texte: "Le nominal des parts mérite un mot. L'article 311 impose des parts égales d'une valeur nominale d'au moins 5 000 FCFA ; l'arrêté congolais, qui porte sur le montant du capital, ne dit rien d'autre sur ce point, si bien que la prudence commande de retenir un nominal au moins égal à la contre-valeur de ce montant en francs congolais (art. 906). En pratique, les SARL congolaises retiennent des nominaux ronds, 10 000 ou 100 000 FC, qui facilitent les calculs de répartition. Le nombre de parts de chaque associé détermine ensuite ses droits dans les bénéfices et l'actif net, en proportion de ses apports (art. 54), et le comptable doit pouvoir le justifier à tout moment par un tableau de répartition du capital tenu à jour.",
+        texte: "L'article 311 impose des parts égales d'une valeur nominale d'au moins 5 000 FCFA ; l'arrêté congolais, qui porte sur le montant du capital, ne dit rien d'autre sur ce point, si bien que la prudence commande de retenir un nominal au moins égal à la contre-valeur de ce montant en francs congolais (art. 906). En pratique, les SARL congolaises retiennent des nominaux ronds, 10 000 ou 100 000 FC, qui facilitent les calculs de répartition. Le nombre de parts de chaque associé détermine ensuite ses droits dans les bénéfices et l'actif net, en proportion de ses apports (art. 54), et le comptable doit pouvoir le justifier à tout moment par un tableau de répartition du capital tenu à jour.",
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[2] },
     ],
   },
   {
@@ -403,6 +403,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La SARL : contrôle des apports en nature, dépôt des fonds et forme des statuts",
     navLabel: "SARL : contrôle et dépôt",
     blocs: [
+      { type: 'intertitre', texte: "2.2.1 Le contrôle des apports en nature" },
       {
         type: 'paragraphe',
         texte: "Les statuts doivent nécessairement contenir l'évaluation de chaque apport en nature et la description, le cas échéant l'évaluation, des avantages particuliers stipulés (art. 312, al. 1er). Le contrôle d'un **commissaire aux apports** est obligatoire dès que la valeur de l'apport en nature considéré, ou de l'ensemble des apports en nature, est supérieure à **cinq millions (5.000.000) de francs CFA** ; il l'est toujours pour les avantages particuliers. Choisi sur la liste des commissaires aux comptes, désigné à l'unanimité des futurs associés ou, à défaut, par la juridiction compétente, il établit sous sa responsabilité un rapport annexé aux statuts qui décrit chaque apport, indique le mode d'évaluation et **atteste que la valeur des apports correspond au moins à la valeur du nominal des parts à émettre**.",
@@ -422,13 +423,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : commissaire aux apports ou commissaire aux comptes ?",
-        texte: "Ce ne sont pas les mêmes, même si le commissaire aux apports est choisi sur la même liste. Le commissaire aux comptes contrôle les comptes de la société pendant toute sa vie. Le commissaire aux apports intervient une seule fois, à la constitution ou lors d'une augmentation de capital, pour apprécier la valeur des apports en nature et des avantages particuliers. Chez GOMA LACS HÔTELS, c'est lui qui a évalué le terrain de M. R. à 45 000 000 FC et apprécié l'avantage accordé à Mme V. ; le commissaire aux comptes n'interviendra qu'ensuite, sur les comptes annuels.",
+        titre: "Commissaire aux apports et commissaire aux comptes",
+        texte: "Le commissaire aux apports et le commissaire aux comptes exercent deux fonctions distinctes, même si le premier est choisi sur la même liste que le second. Le commissaire aux comptes contrôle les comptes de la société pendant toute sa vie. Le commissaire aux apports intervient une seule fois, à la constitution ou lors d'une augmentation de capital, pour apprécier la valeur des apports en nature et des avantages particuliers. Chez GOMA LACS HÔTELS, c'est lui qui a évalué le terrain de M. R. à 45 000 000 FC et apprécié l'avantage accordé à Mme V. ; le commissaire aux comptes n'interviendra qu'ensuite, sur les comptes annuels.",
       },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "2.2.2 Le dépôt et le retrait des fonds" },
       {
         type: 'carte',
-        titre: "Dépôt, indisponibilité et retrait des fonds (art. 313-314)",
+        titre: "Encadré 2.1 — Dépôt, indisponibilité et retrait des fonds (art. 313 et 314)",
         liste: [
           "**Dépôt immédiat** par le fondateur des fonds provenant de la libération des parts, contre récépissé, dans un compte ouvert au nom de la société en formation, en banque ou dans un établissement de crédit ou de microfinance agréé, ou en l'étude d'un notaire ; mention en est portée dans les statuts (art. 313).",
           "**Constat** : sauf dispositions nationales contraires, libération et dépôt sont constatés par une **déclaration notariée de souscription et de versement** listant les souscripteurs et les sommes versées par chacun (art. 314, al. 1er).",
@@ -445,6 +446,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Dans le dossier comptable, le bordereau acquitté devient ainsi la pièce justificative de la libération. Il doit correspondre, associé par associé, aux sommes portées au crédit du 4613. Deux pièges sont fréquents. Le premier consiste à déposer les fonds sur un compte personnel du gérant plutôt que sur le compte ouvert au nom de la société en formation : les fonds ne sont alors ni déposés au sens de l'article 313, ni libérés au sens de l'article 42, faute d'être devenus la propriété de la société. Le second consiste à retirer les fonds avant l'immatriculation, alors qu'ils sont indisponibles (art. 314) : l'écriture de sortie de banque n'a pas de place avant la naissance de la personne morale.",
       },
+      { type: 'intertitre', texte: "2.2.3 La forme des statuts" },
       {
         type: 'paragraphe',
         texte: "La forme de l'acte obéit enfin à une règle stricte. Tous les associés doivent intervenir à l'acte instituant la société, en personne ou par mandataire justifiant d'un pouvoir spécial ; « à défaut, la société est nulle » (art. 315). Les premiers gérants et les associés auxquels la nullité est imputable sont solidairement responsables envers les autres associés et les tiers du dommage résultant de l'annulation, l'action se prescrivant par trois ans à compter du jour où la décision d'annulation est passée en force de chose jugée (art. 316). La simplification des statuts sous seing privé ne dispense donc pas de la signature de chacun.",
@@ -453,11 +455,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le bordereau bancaire présente un avantage pratique évident : il est délivré immédiatement par la banque ou l'institution de microfinance, sans frais de notaire. Il présente aussi une limite : il prouve un versement sur un compte, mais ne dit rien de la répartition entre associés si un seul d'entre eux a versé pour tous. Le comptable exigera donc, en plus du bordereau global, un état des versements par associé, signé par le gérant, qui justifie le crédit de chaque sous-compte d'apporteur. Lorsque l'associé verse en dollars américains, le bordereau indique en général le montant en devises : la conversion en francs congolais se fait au cours du jour du versement (art. 51 et 52 AUDCIF), et un apport insuffisant après conversion laisse subsister une créance sur l'associé.",
       },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
     ],
   },
   {
@@ -465,13 +462,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation de la constitution d'une SARL",
     navLabel: "Écritures SARL",
     blocs: [
+      { type: 'intertitre', texte: "2.3.1 Le schéma de BUSANGA TRANSPORT" },
       {
         type: 'paragraphe',
-        texte: "Illustrons la mécanique par une SARL congolaise ordinaire. BUSANGA TRANSPORT SARL est constituée le 02/05/N au capital de 30 000 000 FC, divisé en 3 000 parts de 10 000 FC. M. L. apporte un camion évalué à 12 000 000 FC par un commissaire aux apports ; Mme P. et M. S. souscrivent chacun 900 parts en numéraire, soit 18 000 000 FC au total, libérées de moitié à la souscription par versement sur le compte bancaire ouvert au nom de la société en formation, le bordereau acquitté étant joint au dossier. La société est immatriculée le 12/05/N. Le solde du numéraire est appelé le 01/03/N+1 et versé le 20/03/N+1.",
+        texte: "La mécanique s'applique à une SARL congolaise ordinaire. BUSANGA TRANSPORT SARL est constituée le 02/05/N au capital de 30 000 000 FC, divisé en 3 000 parts de 10 000 FC. M. L. apporte un camion évalué à 12 000 000 FC par un commissaire aux apports ; Mme P. et M. S. souscrivent chacun 900 parts en numéraire, soit 18 000 000 FC au total, libérées de moitié à la souscription par versement sur le compte bancaire ouvert au nom de la société en formation, le bordereau acquitté étant joint au dossier. La société est immatriculée le 12/05/N. Le solde du numéraire est appelé le 01/03/N+1 et versé le 20/03/N+1.",
       },
       {
         type: 'carte',
-        titre: "02/05/N : souscription et appel de la fraction exigible",
+        titre: "Exemple 2.1 — BUSANGA TRANSPORT SARL : souscription et appel de la fraction exigible (02/05/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -490,7 +488,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "02/05/N : réalisation des apports",
+        titre: "Exemple 2.2 — BUSANGA TRANSPORT SARL : réalisation des apports (02/05/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -505,7 +503,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "01/03/N+1 et 20/03/N+1 : appel et versement du solde",
+        titre: "Exemple 2.3 — BUSANGA TRANSPORT SARL : appel et versement du solde (01/03/N+1 et 20/03/N+1)",
         tableau: {
           entetes: ["Date", "Écriture", "Montant"],
           lignes: [
@@ -516,17 +514,19 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "L'appel intervient moins de deux ans après l'immatriculation du 12/05/N : il respecte l'article 311-1.",
       },
+      { type: 'intertitre', texte: "2.3.2 La présentation au bilan" },
       {
         type: 'paragraphe',
         texte: "Au 31/12/N, le bilan de BUSANGA TRANSPORT présente dans ses capitaux propres une rubrique CA Capital de 30 000 000 et une rubrique CB Apporteurs, capital non appelé de − 9 000 000. Les frais de constitution payés (honoraires, frais du guichet unique, annonces légales) figurent dans les charges du premier exercice. La Note 13 des Notes annexes présente le capital associé par associé et indique, pour le capital non appelé, le délai restant pour l'appeler : ici, jusqu'au 12/05/N+2 au plus tard.",
       },
+      { type: 'intertitre', texte: "2.3.3 Libérations anticipées et SARL unipersonnelle" },
       {
         type: 'paragraphe',
         texte: "Les statuts peuvent aussi prévoir que certains associés libèrent davantage que la moitié dès la souscription. La fraction versée au-delà de ce qui est appelé n'est pas encore exigible : elle est portée au crédit du compte 4616 Apporteurs, versements anticipés, et restera au passif, dans la rubrique DM Autres dettes, jusqu'à l'appel du solde. À l'appel, le 4616 est soldé par imputation sur la créance d'appel (débit 4616, crédit 4613), et l'associé n'a plus rien à verser pour cette fraction. Cette technique évite de déroger à l'égalité entre associés : la décision d'appel reste collective et s'applique à tous, mais l'associé qui a déjà versé en est simplement libéré par compensation comptable. Le gérant, qui procède aux appels selon les modalités statutaires, doit veiller à ce que l'ensemble du numéraire soit appelé et versé avant l'expiration du délai de deux ans de l'article 311-1.",
       },
       {
         type: 'paragraphe',
-        texte: "La SARL unipersonnelle suit exactement les mêmes écritures, avec un seul compte d'apporteur. Deux particularités méritent l'attention du comptable. D'abord, l'associé unique est souvent aussi le gérant : les flux entre son patrimoine personnel et celui de la société doivent être strictement séparés, et toute somme qu'il met à disposition au-delà de son apport relève du compte courant 462, jamais du capital. Ensuite, la confusion des patrimoines est la première cause de difficulté des petites SARL : payer des dépenses personnelles avec la trésorerie sociale ou encaisser des recettes sociales sur un compte personnel prive la comptabilité de toute fiabilité et expose le dirigeant aux sanctions étudiées en UE2.",
+        texte: "La SARL unipersonnelle suit exactement les mêmes écritures, avec un seul compte d'apporteur. Deux particularités concernent le comptable. D'abord, l'associé unique est souvent aussi le gérant : les flux entre son patrimoine personnel et celui de la société doivent être strictement séparés, et toute somme qu'il met à disposition au-delà de son apport relève du compte courant 462, jamais du capital. Ensuite, la confusion des patrimoines est la première cause de difficulté des petites SARL : payer des dépenses personnelles avec la trésorerie sociale ou encaisser des recettes sociales sur un compte personnel prive la comptabilité de toute fiabilité et expose le dirigeant aux sanctions étudiées en UE2.",
       },
     ],
   },
@@ -535,13 +535,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La SA : capital, souscription intégrale et libération du quart",
     navLabel: "SA : capital",
     blocs: [
+      { type: 'intertitre', texte: "2.4.1 La libération du quart" },
       {
         type: 'paragraphe',
         texte: "La société anonyme est une société « dans laquelle les actionnaires ne sont responsables des dettes sociales qu'à concurrence de leurs apports et dont les droits des actionnaires sont représentés par des actions » ; elle peut ne comprendre qu'un seul actionnaire (art. 385). Le capital minimum est de **dix millions (10.000.000) de francs CFA**, divisé en actions dont le montant nominal, un nombre entier, est librement fixé par les statuts (art. 387) ; l'article 824 porte ce minimum à cent millions pour les sociétés faisant appel public à l'épargne. Le capital doit être **entièrement souscrit avant la date de la signature des statuts** (art. 388).",
       },
       {
         type: 'carte',
-        titre: "La libération des actions de numéraire (art. 389)",
+        titre: "Encadré 2.2 — La libération des actions de numéraire (art. 389)",
         liste: [
           "**Un quart au moins** de la valeur nominale libéré lors de la souscription.",
           "Surplus libéré dans un délai maximal de **trois ans** à compter de l'immatriculation au RCCM, selon les modalités des statuts ou une décision du conseil d'administration ou de l'administrateur général.",
@@ -555,26 +556,25 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Deux points de départ pour un même délai [texte officiel]",
         texte: "L'article 389 fait courir le délai de trois ans « à compter de l'immatriculation ». L'article 774, placé dans le titre consacré aux valeurs mobilières, prévoit que le solde est versé au fur et à mesure des appels « dans un délai maximum de trois (3) ans à compter de la date de souscription ». La discordance figure dans le texte officiel. La prudence commande d'appeler le solde dans les trois ans de la souscription : cette date, antérieure à l'immatriculation, satisfait les deux textes.",
       },
+      { type: 'intertitre', texte: "2.4.2 Le bulletin de souscription" },
       {
         type: 'paragraphe',
         texte: "La souscription en numéraire est constatée par un **bulletin de souscription** établi par les fondateurs, daté et signé par le souscripteur qui écrit en toutes lettres le nombre de titres souscrits (art. 390), dressé en deux exemplaires originaux, l'un pour la société en formation, l'autre pour le notaire (art. 391). Il comporte les mentions de l'article 392 : dénomination, forme, capital à souscrire en distinguant nature et numéraire, siège prévu, nombre et valeur nominale des actions, modalités d'émission, identité du souscripteur et versements effectués, dépositaire des fonds, notaire chargé de la déclaration. Pour le comptable, les bulletins sont les pièces justificatives de l'écriture de souscription : leur total doit égaler le capital en numéraire crédité au 1011 et au 1012.",
       },
+      { type: 'intertitre', texte: "2.4.3 La justification et le calendrier de la libération" },
       {
         type: 'paragraphe',
-        texte: "Pourquoi une libération minimale plus faible dans la SA que dans la SARL ? Parce que la SA est conçue pour des projets plus lourds, où les actionnaires s'engagent sur des montants importants qu'ils ne peuvent pas toujours mobiliser d'un coup. En contrepartie, la loi entoure la libération fractionnée de garde-fous : forme nominative, qui permet à la société de connaître à tout moment ses débiteurs ; interdiction d'augmenter le capital en numéraire ou d'emprunter par obligations tant que les actionnaires n'ont pas eux-mêmes tenu leurs engagements ; et procédure d'exécution forcée contre le défaillant (section 2.9). Enfin, la négociation d'actions non entièrement libérées ou d'actions de numéraire dont le quart n'a pas été versé est pénalement sanctionnée (art. 888).",
+        texte: "La libération minimale est plus faible dans la SA que dans la SARL parce que la SA est conçue pour des projets plus lourds, où les actionnaires s'engagent sur des montants importants qu'ils ne peuvent pas toujours mobiliser d'un coup. En contrepartie, la loi entoure la libération fractionnée de garde-fous : forme nominative, qui permet à la société de connaître à tout moment ses débiteurs ; interdiction d'augmenter le capital en numéraire ou d'emprunter par obligations tant que les actionnaires n'ont pas eux-mêmes tenu leurs engagements ; et procédure d'exécution forcée contre le défaillant (section 2.9). Enfin, la négociation d'actions non entièrement libérées ou d'actions de numéraire dont le quart n'a pas été versé est pénalement sanctionnée (art. 888).",
       },
       {
         type: 'paragraphe',
-        texte: "Suivons sur la durée une SA dont le capital de 100 000 000 FC est libéré du quart à la souscription, puis appelé en trois fractions égales au cours des trois années suivantes. À la constitution, le compte 1013 porte 25 000 000 et le compte 1011 porte 75 000 000, avec en contrepartie un 109 débiteur de 75 000 000. À chaque appel, 25 000 000 passent du 109 au 4613 et du 1011 au 1012 ; à chaque versement, du 4613 à la banque et du 1012 au 1013. Au bilan, la rubrique CA reste constante à 100 000 000, tandis que la rubrique CB, négative, passe de − 75 000 000 à − 50 000 000, puis − 25 000 000, puis zéro. Les capitaux propres augmentent ainsi à mesure des appels, sans qu'aucune décision d'augmentation de capital n'intervienne : c'est l'exécution progressive d'un engagement déjà pris.",
+        texte: "Soit une SA dont le capital de 100 000 000 FC est libéré du quart à la souscription, puis appelé en trois fractions égales au cours des trois années suivantes. À la constitution, le compte 1013 porte 25 000 000 et le compte 1011 porte 75 000 000, avec en contrepartie un 109 débiteur de 75 000 000. À chaque appel, 25 000 000 passent du 109 au 4613 et du 1011 au 1012 ; à chaque versement, du 4613 à la banque et du 1012 au 1013. Au bilan, la rubrique CA reste constante à 100 000 000, tandis que la rubrique CB, négative, passe de − 75 000 000 à − 50 000 000, puis − 25 000 000, puis zéro. Les capitaux propres augmentent ainsi à mesure des appels, sans qu'aucune décision d'augmentation de capital n'intervienne : c'est l'exécution progressive d'un engagement déjà pris.",
       },
       {
         type: 'filet',
-        titre: "Et si GOMA LACS HÔTELS avait choisi la SARL ?",
+        titre: "GOMA LACS HÔTELS sous la forme d'une SARL : la libération comparée",
         texte: "Les actions de numéraire de GOMA LACS HÔTELS sont libérées du quart à la souscription, comme le permet la SA. Dans une SARL, les parts de numéraire auraient dû être libérées de la moitié au moins de leur valeur nominale lors de la souscription. Pour les 10 500 titres de numéraire de 10 000 FC, cela aurait représenté au moins 52 500 000 FC à verser dès l'origine, au lieu de 26 250 000 FC. La SA ménage donc davantage la trésorerie des fondateurs au départ, au prix d'une organisation plus lourde : commissaire aux comptes dès l'origine, assemblée constitutive en cas d'apports en nature.",
       },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
     ],
   },
   {
@@ -582,9 +582,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La SA : dépôt des fonds, déclaration notariée, statuts et retrait",
     navLabel: "SA : circuit des fonds",
     blocs: [
+      { type: 'intertitre', texte: "2.5.1 Le circuit des fonds" },
       {
         type: 'carte',
-        titre: "Le circuit des fonds (art. 393-398)",
+        titre: "Tableau 2.2 — Le circuit des fonds dans la SA (art. 393 à 398)",
         tableau: {
           entetes: ["Étape", "Règle"],
           lignes: [
@@ -599,6 +600,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Chaque étape a sa pièce, et chaque pièce son rôle comptable. La liste remise au dépositaire et le certificat du dépositaire justifient les sommes versées par chaque souscripteur, donc le crédit du 4613. La déclaration notariée, que l'AUDCIF range parmi les « éléments de contrôle » du compte 101, justifie le capital souscrit et libéré. Le certificat d'immatriculation marque la date à partir de laquelle les fonds deviennent disponibles. Le relevé du compte spécial, enfin, permet de rapprocher la trésorerie comptable de la trésorerie réelle. Un dossier de constitution de SA sans l'une de ces pièces est un dossier incomplet.",
       },
+      { type: 'intertitre', texte: "2.5.2 Le rôle du dépositaire" },
       {
         type: 'paragraphe',
         texte: "Le dépositaire est souvent le notaire. Dans ce cas, les fonds ne sont pas encore à la banque de la société : ils transitent comptablement par le compte **4732 Mandataires**, comme dans l'Application 58. À la réception des fonds par le notaire, la société débite 4732 et crédite 4613 ; au reversement, après l'immatriculation, elle débite 521 pour le montant net reçu et les comptes de charges pour les honoraires et frais retenus (6324, 6325), par le crédit de 4732. Lorsque le dépositaire est une banque, les fonds sont directement portés au débit du 521, sur un compte spécial indisponible jusqu'à l'immatriculation.",
@@ -611,13 +613,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le choix du dépositaire a des conséquences pratiques. Un dépôt en banque ou en institution de microfinance agréée met les fonds sur un compte spécial au nom de la société en formation, qui apparaît directement au débit du 521 ; il génère parfois des frais de tenue de compte, qui sont des charges bancaires (631) du premier exercice. Un dépôt chez le notaire fait transiter les fonds par le compte 4732 jusqu'au reversement. Dans les deux cas, le dépositaire doit communiquer, jusqu'au retrait des fonds, la liste des souscripteurs et de leurs versements à tout souscripteur qui en fait la demande (art. 393). Cette transparence est une protection pour les actionnaires minoritaires, qui peuvent vérifier que chacun a tenu son engagement.",
       },
-      { type: 'controle', question: QCM[13] },
+      { type: 'intertitre', texte: "2.5.3 Le champ des simplifications congolaises" },
       {
         type: 'paragraphe',
-        texte: "Attention à une confusion fréquente : les simplifications de l'arrêté du 30 décembre 2014 ne concernent que la SARL, dont il détermine « la forme des statuts et le capital social ». La société anonyme congolaise reste soumise au droit commun de l'Acte uniforme : bulletins de souscription, dépôt sur compte spécial dans les huit jours, déclaration notariée de souscription et de versement (art. 394), statuts signés après le certificat du dépositaire. Le guichet unique traite les deux formes, mais le dossier d'une SA comprend nécessairement l'acte notarié. Pour le comptable, cela signifie que la pièce justificative de la libération n'est pas la même selon la forme : bordereau acquitté pour la SARL, déclaration notariée accompagnée du certificat du dépositaire pour la SA.",
+        texte: "Les simplifications de l'arrêté du 30 décembre 2014 ne concernent que la SARL, dont il détermine « la forme des statuts et le capital social ». La société anonyme congolaise reste soumise au droit commun de l'Acte uniforme : bulletins de souscription, dépôt sur compte spécial dans les huit jours, déclaration notariée de souscription et de versement (art. 394), statuts signés après le certificat du dépositaire. Le guichet unique traite les deux formes, mais le dossier d'une SA comprend nécessairement l'acte notarié. Pour le comptable, cela signifie que la pièce justificative de la libération n'est pas la même selon la forme : bordereau acquitté pour la SARL, déclaration notariée accompagnée du certificat du dépositaire pour la SA.",
       },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
     ],
   },
   {
@@ -625,6 +625,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La SA : apports en nature, avantages particuliers et assemblée constitutive",
     navLabel: "SA : assemblée constitutive",
     blocs: [
+      { type: 'intertitre', texte: "2.6.1 Apports en nature et avantages particuliers" },
       {
         type: 'paragraphe',
         texte: "Lorsque la SA est constituée avec des apports en nature ou des avantages particuliers, un régime renforcé s'ajoute au précédent (art. 399). Le contrôle d'un **commissaire aux apports est obligatoire sans seuil** (art. 400), c'est la différence majeure avec la SARL. Son rapport décrit chaque apport et chaque avantage, en indique la valeur, précise le mode d'évaluation et les raisons de ce choix, et établit que la valeur correspond au moins au nominal des actions à émettre (art. 401). Il peut se faire assister d'experts, dont les honoraires sont à la charge de la société sauf clause contraire (art. 402). Le rapport est annexé aux statuts ; si la valeur retenue diffère de celle qu'il propose, les actionnaires sont solidairement responsables pendant cinq ans, envers les tiers, de la valeur attribuée (art. 403).",
@@ -633,9 +634,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les **avantages particuliers** sont des droits accordés à une personne, associée ou non, en rémunération d'un service rendu lors de la constitution : par exemple une part des bénéfices pendant quelques années au profit d'un fondateur qui a monté le projet. Ils ne sont pas des apports et ne donnent pas lieu à l'émission d'actions ; ils ne sont donc pas inscrits au capital. Mais ils pèsent sur les autres actionnaires, d'où le contrôle obligatoire du commissaire aux apports, qui, lorsqu'il ne peut pas les chiffrer, en apprécie « la consistance et les incidences sur la situation des actionnaires » (art. 401). Comptablement, les sommes versées au bénéficiaire au titre de l'avantage seront traitées lors de leur exigibilité selon leur nature, charge ou répartition du bénéfice selon les stipulations des statuts.",
       },
+      { type: 'intertitre', texte: "2.6.2 L'assemblée générale constitutive" },
       {
         type: 'carte',
-        titre: "L'assemblée générale constitutive (art. 404-413)",
+        titre: "Encadré 2.3 — L'assemblée générale constitutive (art. 404 à 413)",
         liste: [
           "Convoquée par les fondateurs après la déclaration notariée, par lettre au porteur contre récépissé ou recommandée, quinze jours au moins avant sa date (art. 404).",
           "**Quorum** : moitié des actions sur première convocation, quart sur deuxième et troisième (art. 405) ; **majorité des deux tiers** des voix, bulletins blancs non comptés (art. 406) ; présidence par l'actionnaire ayant le plus grand nombre d'actions ou, à défaut, par le doyen d'âge (art. 407).",
@@ -645,6 +647,7 @@ const SECTIONS: Chapitre['sections'] = [
           "Une assemblée irrégulièrement convoquée peut être annulée, sauf si tous les actionnaires étaient présents ou représentés (art. 412) ; les fondateurs et administrateurs auxquels la nullité est imputable peuvent être déclarés solidairement responsables du dommage causé aux tiers (art. 413).",
         ],
       },
+      { type: 'intertitre', texte: "2.6.3 Le calcul du quorum et de la majorité" },
       {
         type: 'paragraphe',
         texte: "Le calcul du quorum de l'article 408 est un exercice classique. Soit une SA de 10 000 actions, dont 3 000 attribuées à un apporteur en nature qui a aussi souscrit 500 actions de numéraire. Pour le vote spécial sur son apport, ses 3 500 actions sont exclues : le quorum se calcule sur 6 500 actions, et la moitié sur première convocation représente 3 250 actions. La majorité des deux tiers se calcule sur les voix des seuls souscripteurs présents ou représentés autorisés à voter. Pour les autres résolutions, comme l'adoption des statuts ou la nomination des administrateurs, l'apporteur vote avec toutes ses actions.",
@@ -659,19 +662,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle du quorum de l'assemblée constitutive",
         texte: "Dans le procès-verbal de l'assemblée constitutive de GOMA LACS HÔTELS, l'auditeur vérifie d'abord le quorum. Pour le vote sur l'apport de M. R., ses 5 000 actions, y compris ses 500 actions de numéraire, ne comptent ni dans le quorum ni dans la majorité (art. 408). Sur 9 500 actions présentes, il n'en reste que 4 500 à prendre en compte, face à une base de 10 000 : le quorum de la moitié n'est pas atteint sur première convocation. Une approbation votée en ignorant cette règle fragiliserait toute la constitution, et avec elle les écritures du comptable.",
       },
-      { type: 'controle', question: QCM[16] },
       {
         type: 'paragraphe',
         texte: "Pour les résolutions ordinaires de l'assemblée constitutive, la majorité se calcule sur les voix des souscripteurs présents ou représentés. Si, sur une SA de 10 000 actions, 6 000 actions sont présentes et que 4 100 votent pour l'adoption des statuts, 1 500 contre et 400 blanc, la majorité requise est des deux tiers des voix exprimées hors bulletins blancs (art. 406), soit deux tiers de 5 600 voix, ou 3 734 voix environ : la résolution est adoptée avec 4 100 voix. Rappelons toutefois que les statuts ne peuvent être modifiés qu'à l'unanimité (art. 410, 2°) : l'assemblée adopte ou rejette le projet, elle ne le réécrit pas à la majorité. Les résolutions sur la valeur des apports suivent, elles, les règles spéciales des articles 408 et 409.",
       },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[20] },
-      { type: 'controle', question: QCM[21] },
     ],
   },
   {
@@ -679,13 +676,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation : la constitution d'une SA libérée du quart",
     navLabel: "Écritures SA",
     blocs: [
+      { type: 'intertitre', texte: "2.7.1 Le schéma de KATANGA MINERAUX" },
       {
         type: 'paragraphe',
         texte: "La mécanique comptable est celle du chapitre 1, paramétrée par les règles propres de la SA. Soit KATANGA MINERAUX SA, constituée le 15/02/N au capital de **40 000 000 FC** (4 000 actions de numéraire de 10 000 FC), libérée du minimum légal, le quart, à la souscription. Les fonds sont déposés chez le notaire le 10/02/N. La société est immatriculée le 28/02/N ; le notaire reverse les fonds le 05/03/N sous déduction de 1 200 000 d'honoraires et 300 000 de frais d'actes.",
       },
       {
         type: 'carte',
-        titre: "15/02/N : souscription et appel du quart",
+        titre: "Exemple 2.4 — KATANGA MINERAUX SA : souscription et appel du quart (15/02/N)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -699,7 +697,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Libération du quart chez le notaire, puis reversement après immatriculation",
+        titre: "Exemple 2.5 — KATANGA MINERAUX SA : libération du quart chez le notaire, puis reversement après immatriculation",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -715,19 +713,20 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le reversement suit l'immatriculation (art. 398). Les frais sont des charges du premier exercice. Les appels ultérieurs suivent le cycle de l'Application 59 : 4613 contre 109 et 1011 vers 1012 à l'appel, puis 521 contre 4613 et 1012 vers 1013 au versement.",
       },
+      { type: 'intertitre', texte: "2.7.2 L'analyse des écritures" },
       {
         type: 'paragraphe',
-        texte: "Remarquez que les fonds reçus du notaire (8 500 000) sont inférieurs au capital libéré (10 000 000). Il n'y a là aucune anomalie : le capital libéré mesure l'exécution de l'engagement des actionnaires, et l'actionnaire qui a versé 2 500 000 a entièrement libéré son quart, quels que soient les frais que la société paie ensuite avec ces fonds. L'erreur à ne pas commettre serait de ne virer au 1013 que 8 500 000, ou d'imputer les frais sur le capital : le capital ne se réduit que par une décision régulière (chapitre 5). Les frais diminuent le résultat, donc les capitaux propres, pas le capital.",
+        texte: "Les fonds reçus du notaire (8 500 000) sont inférieurs au capital libéré (10 000 000). Il n'y a là aucune anomalie : le capital libéré mesure l'exécution de l'engagement des actionnaires, et l'actionnaire qui a versé 2 500 000 a entièrement libéré son quart, quels que soient les frais que la société paie ensuite avec ces fonds. L'erreur à ne pas commettre serait de ne virer au 1013 que 8 500 000, ou d'imputer les frais sur le capital : le capital ne se réduit que par une décision régulière (chapitre 5). Les frais diminuent le résultat, donc les capitaux propres, pas le capital.",
       },
       {
         type: 'paragraphe',
         texte: "Au 31/12/N, en l'absence d'autre appel, les capitaux propres de KATANGA MINERAUX présentent : rubrique CA Capital 40 000 000, rubrique CB Apporteurs, capital non appelé − 30 000 000, et le résultat de l'exercice, qui intègre les 1 500 000 de frais de constitution. La Note 13 indique que le capital non appelé doit l'être dans les trois ans ; compte tenu de la discordance entre les articles 389 et 774, la société a intérêt à fixer l'échéance au plus tard au 15/02/N+3, trois ans après la souscription.",
       },
+      { type: 'intertitre', texte: "2.7.3 Le calendrier légal" },
       {
         type: 'paragraphe',
         texte: "Le calendrier de KATANGA MINERAUX illustre la chronologie imposée par la loi : dépôt des fonds (10/02/N) dans les huit jours de leur réception, signature des statuts après le certificat du dépositaire (15/02/N), immatriculation (28/02/N), puis seulement retrait des fonds (05/03/N). Toute écriture qui ne respecterait pas cet ordre, par exemple un paiement fournisseur tiré sur le compte spécial avant le 28/02/N, trahirait une irrégularité. Le comptable de la société en formation doit donc tenir un échéancier des formalités, et ne comptabiliser les dépenses payées avec les fonds du capital qu'à partir du retrait régulier. Les dépenses antérieures, payées par les fondateurs, relèvent de la reprise des engagements étudiée au chapitre 1.",
       },
-      { type: 'controle', question: QCM[12] },
     ],
   },
   {
@@ -735,6 +734,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La SAS et les sociétés unipersonnelles par actions",
     navLabel: "SAS et SASU",
     blocs: [
+      { type: 'intertitre', texte: "2.8.1 La SAS et le renvoi aux règles de la SA" },
       {
         type: 'paragraphe',
         texte: "La société par actions simplifiée est une société « instituée par un ou plusieurs associés et dont les statuts prévoient librement l'organisation et le fonctionnement de la société sous réserve des règles impératives » du livre qui lui est consacré ; ses associés ne répondent des dettes qu'à concurrence de leurs apports et leurs droits sont représentés par des actions (art. 853-1). Lorsqu'elle ne compte qu'un associé, celui-ci est dénommé « associé unique » et la société est désignée par les mots « société par actions simplifiée unipersonnelle » ou le sigle « SASU » (art. 853-1 et 853-2).",
@@ -745,7 +745,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Constitution comparée : SARL, SA, SAS",
+        titre: "Tableau 2.3 — La constitution comparée de la SARL, de la SA et de la SAS",
         tableau: {
           entetes: ["Point", "SARL", "SA", "SAS"],
           lignes: [
@@ -759,10 +759,12 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Pour la SAS, les règles de la SA ne s'appliquent que « dans la mesure où elles sont compatibles » avec le livre qui lui est propre (art. 853-3) : vérifier chaque point dans les statuts.",
       },
+      { type: 'intertitre', texte: "2.8.2 Les sociétés unipersonnelles par actions" },
       {
         type: 'paragraphe',
         texte: "Dans la SA à actionnaire unique, les décisions qui doivent être prises en assemblée le sont par l'actionnaire unique (art. 558). Dans la SASU, l'associé unique exerce les pouvoirs dévolus aux associés, et ses décisions qui donneraient lieu à publicité légale si elles étaient prises par une assemblée sont publiées dans les mêmes formes (art. 853-1). Sur le plan comptable, rien ne change : la constitution d'une SASU se comptabilise comme celle d'une SA, avec un seul compte d'apporteur, et la vigilance sur la séparation des patrimoines est la même que pour la SARL unipersonnelle.",
       },
+      { type: 'intertitre', texte: "2.8.3 Le choix de la forme" },
       {
         type: 'paragraphe',
         texte: "La SAS séduit par sa souplesse : organisation libre de la direction autour d'un président obligatoire, absence de capital minimum, possibilité d'actions d'industrie et de clauses statutaires encadrant l'entrée et la sortie des associés, étudiées en UE2. Pour le comptable, cette souplesse a une contrepartie : les statuts deviennent la première source de règles, avant même l'Acte uniforme, puisque celui-ci ne s'applique que « dans la mesure » de sa compatibilité. Avant de comptabiliser la constitution d'une SAS, il faut donc lire les statuts : qui appelle les fonds, dans quel délai, qui peut retirer les fonds déposés, et comment les décisions collectives sont prises. Les écritures, elles, sont celles de la SA.",
@@ -771,7 +773,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le choix de la forme a enfin un coût comptable qu'il faut anticiper dès la constitution. La SA doit désigner un commissaire aux comptes et un suppléant dès l'origine, nommés par l'assemblée constitutive ou par les statuts, et en supporter les honoraires chaque année. La SARL et la SAS n'y sont tenues qu'au-delà de certains seuils, étudiés en UE2. La SA suppose aussi un conseil d'administration ou un administrateur général, avec les procès-verbaux correspondants. Pour une petite entreprise de Bukavu ou de Kananga, ces coûts fixes pèsent lourd : c'est une raison fréquente de préférer la SARL, ou la SAS lorsque les associés recherchent une organisation plus souple ou prévoient l'entrée d'investisseurs.",
       },
-      { type: 'controle', question: QCM[25] },
     ],
   },
   {
@@ -779,13 +780,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'actionnaire défaillant (art. 774-777) et son traitement comptable",
     navLabel: "Défaillance",
     blocs: [
+      { type: 'intertitre', texte: "2.9.1 La procédure contre l'actionnaire défaillant" },
       {
         type: 'paragraphe',
         texte: "Le solde des actions est versé « au fur et à mesure des appels du conseil d'administration ou de l'administrateur général » (art. 774). Si un actionnaire ne répond pas à un appel, l'article 775 organise l'**exécution** : la société lui adresse une mise en demeure par lettre au porteur contre récépissé ou recommandée avec avis de réception ; un mois après, restée sans effet, elle poursuit **de sa propre initiative** la vente des actions. À compter de ce même délai, les actions concernées **cessent de donner droit au vote**, elles sont déduites du quorum et des majorités, et le **droit au dividende** comme le **droit préférentiel de souscription** sont suspendus jusqu'au paiement.",
       },
       {
         type: 'carte',
-        titre: "La vente forcée (art. 776) et la solidarité (art. 777)",
+        titre: "Encadré 2.4 — La vente forcée (art. 776) et la solidarité (art. 777)",
         liste: [
           "Actions **cotées** : vente en bourse. Actions **non cotées** : enchères publiques par un notaire.",
           "Publicité préalable : publication des numéros des actions dans un journal habilité trente jours après la mise en demeure ; avis au débiteur et à ses codébiteurs ; vente au plus tôt quinze jours après cet avis.",
@@ -793,9 +795,10 @@ const SECTIONS: Chapitre['sections'] = [
           "**Solidarité** : le défaillant, les cessionnaires successifs et les souscripteurs sont tenus solidairement du montant non libéré ; la société peut agir avant, après ou en même temps que la vente ; celui qui paie a un recours pour le tout contre les titulaires successifs, la charge définitive incombant au dernier d'entre eux (art. 777).",
         ],
       },
+      { type: 'intertitre', texte: "2.9.2 La traduction comptable" },
       {
         type: 'carte',
-        titre: "Traduction comptable : le compte 4617 Apporteurs défaillants",
+        titre: "Tableau 2.4 — Le compte 4617 Apporteurs défaillants",
         tableau: {
           entetes: ["Étape", "Écriture"],
           lignes: [
@@ -809,7 +812,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Un point mérite d'être compris. Le capital appelé (1012) reste inchangé tant que l'appel n'est pas payé : c'est la créance qui change de compte, pas le capital. Lorsque le produit de la vente couvre la dette, la fraction appelée peut être considérée comme versée et virée du 1012 au 1013. Lorsque la vente ne couvre pas la dette, la société conserve une créance sur le défaillant et ses coobligés, qu'elle pourra déprécier si son recouvrement devient douteux ; la fraction correspondante reste alors non versée tant qu'aucun coobligé n'a payé. Le comptable suit donc en parallèle deux questions distinctes : le recouvrement de la créance (4617) et l'état de libération du capital (1012, 1013).",
+        texte: "Le capital appelé (1012) reste inchangé tant que l'appel n'est pas payé : c'est la créance qui change de compte, pas le capital. Lorsque le produit de la vente couvre la dette, la fraction appelée peut être considérée comme versée et virée du 1012 au 1013. Lorsque la vente ne couvre pas la dette, la société conserve une créance sur le défaillant et ses coobligés, qu'elle pourra déprécier si son recouvrement devient douteux ; la fraction correspondante reste alors non versée tant qu'aucun coobligé n'a payé. Le comptable suit donc en parallèle deux questions distinctes : le recouvrement de la créance (4617) et l'état de libération du capital (1012, 1013).",
       },
       {
         type: 'paragraphe',
@@ -817,17 +820,14 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Réduire le capital appelé (1012) quand un actionnaire ne paie pas son appel. Le capital ne change pas : c'est la créance qui change de compte. La créance d'appel non payée peut être isolée au 4617, puis dépréciée au besoin par le 496 si son recouvrement devient douteux. Le 1012 n'est viré au 1013 que lorsque la fraction appelée est effectivement versée, par le défaillant, par un coobligé ou grâce au produit de la vente de ses actions. Le comptable suit donc deux questions en parallèle : le recouvrement de la créance et l'état de libération du capital.",
+        titre: "La défaillance ne réduit pas le capital appelé",
+        texte: "Le capital appelé (1012) ne se réduit pas quand un actionnaire ne paie pas son appel. Le capital ne change pas : c'est la créance qui change de compte. La créance d'appel non payée peut être isolée au 4617, puis dépréciée au besoin par le 496 si son recouvrement devient douteux. Le 1012 n'est viré au 1013 que lorsque la fraction appelée est effectivement versée, par le défaillant, par un coobligé ou grâce au produit de la vente de ses actions. Le comptable suit donc deux questions en parallèle : le recouvrement de la créance et l'état de libération du capital.",
       },
-      { type: 'controle', question: QCM[26] },
+      { type: 'intertitre', texte: "2.9.3 La procédure d'exécution" },
       {
         type: 'paragraphe',
         texte: "La procédure d'exécution des articles 775 à 777 est placée dans le titre consacré aux valeurs mobilières émises par les sociétés par actions ; elle vise donc les actionnaires. Dans la SARL, dont les parts ne sont pas des valeurs mobilières négociables, la société qui n'obtient pas le versement d'un associé dispose des moyens du droit commun : intérêt légal de plein droit (art. 43), dommages et intérêts, action en exécution contre l'associé débiteur. Comptablement, le traitement est le même : la créance d'appel non payée peut être isolée au compte 4617, puis dépréciée au besoin par le compte 496, et le capital appelé reste au 1012 tant qu'il n'est pas versé.",
       },
-      { type: 'controle', question: QCM[27] },
-      { type: 'controle', question: QCM[28] },
-      { type: 'controle', question: QCM[29] },
     ],
   },
   {
@@ -835,13 +835,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Irrégularités de la constitution : nullités, responsabilités et infractions",
     navLabel: "Irrégularités",
     blocs: [
+      { type: 'intertitre', texte: "2.10.1 Nullités et infractions" },
       {
         type: 'paragraphe',
-        texte: "Une constitution irrégulière n'est pas seulement une affaire de juristes : elle fragilise les écritures du comptable, qui reposent toutes sur la validité de l'acte de société. L'Acte uniforme prévoit trois séries de sanctions. Les **nullités** frappent l'acte lui-même : la SARL dont un associé n'est pas intervenu à l'acte est nulle (art. 315), et l'assemblée constitutive irrégulièrement convoquée peut être annulée, sauf présence ou représentation de tous les actionnaires (art. 412). Les **responsabilités civiles** obligent ceux qui ont causé le dommage à le réparer : premiers gérants et associés responsables de la nullité de la SARL (art. 316), fondateurs et administrateurs responsables de la nullité de l'assemblée constitutive (art. 413), actionnaires et administrateurs garants pendant cinq ans de la valeur des apports lorsqu'elle s'écarte de celle du commissaire (art. 403, 409). Les **infractions pénales**, enfin, visent les comportements frauduleux.",
+        texte: "Une constitution irrégulière concerne aussi le comptable : elle fragilise les écritures du comptable, qui reposent toutes sur la validité de l'acte de société. L'Acte uniforme prévoit trois séries de sanctions. Les **nullités** frappent l'acte lui-même : la SARL dont un associé n'est pas intervenu à l'acte est nulle (art. 315), et l'assemblée constitutive irrégulièrement convoquée peut être annulée, sauf présence ou représentation de tous les actionnaires (art. 412). Les **responsabilités civiles** obligent ceux qui ont causé le dommage à le réparer : premiers gérants et associés responsables de la nullité de la SARL (art. 316), fondateurs et administrateurs responsables de la nullité de l'assemblée constitutive (art. 413), actionnaires et administrateurs garants pendant cinq ans de la valeur des apports lorsqu'elle s'écarte de celle du commissaire (art. 403, 409). Les **infractions pénales**, enfin, visent les comportements frauduleux.",
       },
       {
         type: 'carte',
-        titre: "Les infractions relatives à la constitution (art. 886-888)",
+        titre: "Tableau 2.5 — Les infractions relatives à la constitution (art. 886 à 888)",
         tableau: {
           entetes: ["Article", "Comportement visé"],
           lignes: [
@@ -858,6 +859,7 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "En RDC : des peines toujours en attente",
         texte: "Selon les sources consultées, la RDC n'a pas adopté de loi fixant les peines applicables aux infractions des Actes uniformes. Une proposition de loi modifiant le Code pénal à cette fin, initiée par le député Lucain Kasongo, a été déclarée recevable par l'Assemblée nationale le 13 mai 2021 et renvoyée en commission (Actualite.cd, 14 mai 2021). Il s'agit d'une initiative parlementaire dont nous n'avons trouvé aucune trace d'adoption. En 2022, des praticiens relevaient que le tribunal de commerce de Lubumbashi avait jugé en sens contraires, l'une de ses décisions retenant l'absence de peine, l'autre appliquant l'ordonnance-loi n° 66/286 du 2 mai 1966 (Village de la Justice, 23 août 2022). Ce vide ne rend pas les comportements licites : les nullités et responsabilités civiles s'appliquent pleinement.",
       },
+      { type: 'intertitre', texte: "2.10.2 Le rôle du comptable et du commissaire aux comptes" },
       {
         type: 'paragraphe',
         texte: "Le comptable et le commissaire aux comptes occupent ici une position d'observateurs privilégiés. Les rapprochements décrits dans ce chapitre (bulletins et déclaration notariée, bordereau et comptes d'apporteurs, rapport du commissaire aux apports et valeurs d'entrée, certificat d'immatriculation et date du retrait des fonds) sont précisément ceux qui révèlent une souscription fictive, un versement simulé ou un apport surévalué. Une souscription fictive se traduit par un capital crédité sans encaissement réel, donc par une créance sur apporteur qui ne se solde jamais ; un apport surévalué par une immobilisation dont la valeur d'entrée ne résiste pas au premier test de dépréciation. La rigueur des écritures de constitution est ainsi la première ligne de défense contre la fraude.",
@@ -866,13 +868,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Pour le commissaire aux comptes, ces irrégularités ne se traitent pas de la même manière selon leur gravité. Une erreur de virement entre le 1012 et le 1013 se corrige par une écriture de régularisation. Un apport surévalué appelle une dépréciation et une information dans les Notes annexes. Une souscription fictive ou un retrait prématuré des fonds engagent la responsabilité des dirigeants et doivent être portés à la connaissance des associés. Le commissaire aux comptes n'est pas un juge : il décrit, il quantifie et il informe. Mais son rapport sur les premiers états financiers d'une société est souvent le premier document où les irrégularités de la constitution apparaissent au grand jour.",
       },
-      { type: 'controle', question: QCM[22] },
-      { type: 'controle', question: QCM[23] },
+      { type: 'intertitre', texte: "2.10.3 Application : GOMA LACS HÔTELS" },
       {
         type: 'paragraphe',
         texte: "Retour à GOMA LACS HÔTELS, dont le cas 5 détaille les chiffres. La société a choisi la SA pour accueillir plusieurs investisseurs et un apport en nature important. Ce choix a imposé un commissaire aux apports pour le terrain de M. R. et l'avantage de Mme V., un dépôt des fonds de numéraire sur un compte spécial, et une assemblée constitutive dont le quorum se calcule sans les actions de l'apporteur. Sur deuxième convocation, le quart suffit, et la valeur de 45 000 000 FC ne peut être réduite qu'avec l'unanimité des souscripteurs et l'accord exprès de M. R. Chacune de ces règles se traduit dans les comptes : 4612 pour l'apport en nature, 4613 et 1012 pour l'appel du quart, 1013 pour la fraction versée, et 109 pour les trois quarts qui restent à appeler.",
       },
-      { type: 'controle', question: QCM[24] },
     ],
   },
 ]
