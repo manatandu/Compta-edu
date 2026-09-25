@@ -440,6 +440,58 @@ const QCM: Chapitre['qcm'] = [
     explication: "IFRS 9.5.4.1(b) : pour un actif devenu déprécié après son octroi, l'entité applique le taux effectif « au coût amorti de l'actif financier » dans les périodes suivantes, donc net de la correction de valeur. Les indications de dépréciation sont listées à l'annexe A (difficultés financières importantes, défaillance, faveurs accordées, probabilité de faillite...). Lorsque plus aucun recouvrement n'est raisonnablement attendu, la valeur brute est directement réduite (§ 5.4.4).",
     articleRef: "IFRS 9.5.4.1(b), 5.4.4 ; annexe A",
   },
+  {
+    id: 'ue13c4-q33',
+    question: "Selon IFRS 9, comment l'entité détermine-t-elle les taux d'une matrice de provisionnement des créances clients ?",
+    options: [
+      { id: 'a', texte: "Par un taux forfaitaire fixé par la direction, identique pour toutes les tranches" },
+      { id: 'b', texte: "À partir de l'historique des pertes par tranche, ajusté des informations actuelles et prospectives raisonnables et justifiables" },
+      { id: 'c', texte: "Uniquement à partir des créances déjà en litige" },
+      { id: 'd', texte: "Selon le taux fiscal de déductibilité des provisions" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 9.5.5.17 et B5.5.35 : les pertes attendues reflètent un montant objectif pondéré par les probabilités, la valeur temps de l'argent et les informations raisonnables et justifiables sur le passé, le présent et les prévisions. La matrice applique à chaque tranche un taux historique ajusté de ces informations.",
+    articleRef: "IFRS 9.5.5.15, 5.5.17 ; B5.5.35",
+  },
+  {
+    id: 'ue13c4-q34',
+    question: "Une entreprise cède des créances de 500 000 à un affactureur pour 480 000, avec recours intégral en cas d'impayé. Selon IFRS 9 :",
+    options: [
+      { id: 'a', texte: "Les créances sont décomptabilisées et une perte de 20 000 est comptabilisée" },
+      { id: 'b', texte: "Les créances restent au bilan et les 480 000 reçus sont comptabilisés en passif financier" },
+      { id: 'c', texte: "Les créances sont décomptabilisées et un engagement hors bilan est mentionné" },
+      { id: 'd', texte: "Seule la moitié des créances est décomptabilisée" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 9.3.2.6(b) et 3.2.15 : l'entité qui conserve la quasi-totalité des risques et avantages maintient l'actif et comptabilise un passif financier pour la contrepartie reçue. L'opération s'analyse en un emprunt garanti par les créances.",
+    articleRef: "IFRS 9.3.2.6, 3.2.15",
+  },
+  {
+    id: 'ue13c4-q35',
+    question: "Dans une couverture de flux de trésorerie d'un achat d'équipement en devises, que devient la réserve de couverture lors de la comptabilisation de l'équipement ?",
+    options: [
+      { id: 'a', texte: "Elle est reclassée en résultat net immédiatement" },
+      { id: 'b', texte: "Elle reste indéfiniment en capitaux propres" },
+      { id: 'c', texte: "Elle est sortie des capitaux propres et incorporée au coût initial de l'équipement, sans constituer un ajustement de reclassement" },
+      { id: 'd', texte: "Elle est virée en résultats non distribués" },
+    ],
+    reponseCorrecte: 'c',
+    explication: "IFRS 9.6.5.11(d)(i) : lorsque la transaction prévue couverte conduit à comptabiliser un actif non financier, le montant accumulé dans la réserve de couverture est incorporé au coût initial de l'actif ; les autres éléments du résultat global ne sont pas touchés. L'équipement est ainsi comptabilisé au cours garanti par la couverture.",
+    articleRef: "IFRS 9.6.5.11",
+  },
+  {
+    id: 'ue13c4-q36',
+    question: "Un client dont la créance de 10 000 était dépréciée à 60 % est liquidé sans perspective de répartition. Quelle est l'incidence sur le résultat de la période ?",
+    options: [
+      { id: 'a', texte: "10 000" },
+      { id: 'b', texte: "4 000 : la valeur brute est réduite de 10 000 et la correction de valeur de 6 000 est utilisée" },
+      { id: 'c', texte: "6 000" },
+      { id: 'd', texte: "Aucune, la créance restant au bilan" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 9.5.4.4 : l'entité réduit directement la valeur comptable brute lorsqu'elle n'a plus d'attente raisonnable de recouvrement, ce qui constitue une décomptabilisation. La correction de valeur déjà constituée (6 000) absorbe la perte, seul le complément (4 000) affectant le résultat.",
+    articleRef: "IFRS 9.5.4.4",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -886,6 +938,36 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "La dotation de 32 000 est comptabilisée en résultat net (§ 5.5.8) et la correction de valeur vient en déduction des créances, présentées au bilan pour 368 000. Si la direction anticipe une dégradation de la conjoncture et porte le taux de la dernière tranche à 50 %, la perte attendue s'élève à 36 000 : l'ajustement prospectif exigé par le § 5.5.17(c) modifie directement le montant comptabilisé.",
       },
+      { type: 'intertitre', texte: "4.8.1 La construction des taux de perte" },
+      {
+        type: 'paragraphe',
+        texte: "Les taux d'une matrice ne sont pas fixés à dire d'expert. Le § 5.5.17 exige que les pertes de crédit attendues reflètent « un montant objectif et fondé sur des pondérations probabilistes », la valeur temps de l'argent et les informations raisonnables et justifiables sur les événements passés, les circonstances actuelles et les prévisions de la conjoncture, qu'il est possible d'obtenir sans coûts ou efforts déraisonnables. La démarche usuelle part de l'historique : pour chaque tranche d'ancienneté, le taux de perte observé rapporte les pertes finalement subies aux encours de la tranche sur plusieurs exercices. Ce taux est ensuite ajusté pour tenir compte des différences entre la conjoncture de la période d'observation et celle qui est attendue. Même lorsque la probabilité de perte est très faible, elle doit être prise en compte (§ 5.5.18).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 4.8 — Construction des taux de la matrice de DISTRICOM SA",
+        texte: "DISTRICOM SA dispose de l'historique de ses créances sur trois exercices. Ses clients, principalement des sous-traitants miniers, voient leur activité dépendre des cours du cuivre ; la direction anticipe pour l'exercice suivant un ralentissement qui, selon l'expérience de la crise précédente, majore d'environ 15 % les taux de perte observés.",
+        tableau: {
+          entetes: ['Tranche', 'Encours moyen observé', 'Pertes finalement subies', 'Taux historique', 'Taux ajusté (× 1,15)', 'Taux retenu'],
+          lignes: [
+            ['Non échues', '180 000', '1 800', '1,0 %', '1,15 %', '1 %'],
+            ['1 à 30 jours', '90 000', '4 050', '4,5 %', '5,2 %', '5 %'],
+            ['31 à 60 jours', '50 000', '6 500', '13,0 %', '15,0 %', '15 %'],
+            ['Plus de 60 jours', '35 000', '12 250', '35,0 %', '40,3 %', '40 %'],
+          ],
+        },
+        note: "Les taux retenus sont ceux de l'exemple 4.7. L'ajustement prospectif doit être documenté : indicateur retenu, lien historique avec les pertes, source des prévisions. L'auditeur vérifiera que l'information utilisée pouvait être obtenue sans coûts ou efforts déraisonnables et qu'elle n'est pas orientée dans un sens optimiste ou pessimiste (§ 5.5.17(a)).",
+      },
+      { type: 'intertitre', texte: "4.8.2 La sortie du bilan des créances irrécouvrables" },
+      {
+        type: 'filet',
+        titre: "Texte de référence — IFRS 9, § 5.4.4",
+        texte: "« L'entité doit réduire directement la valeur comptable brute d'un actif financier lorsqu'elle n'a pas d'attente raisonnable de recouvrement à l'égard de la totalité ou d'une partie de cet actif financier. Cette situation donne lieu à une décomptabilisation (voir paragraphe B3.2.16(r)). »",
+      },
+      {
+        type: 'paragraphe',
+        texte: "La sortie du bilan ne se confond pas avec la dépréciation. La correction de valeur mesure une perte attendue sur une créance encore détenue ; la sortie constate qu'il n'existe plus d'attente raisonnable de recouvrement. Lorsqu'un client dont la créance de 10 000 USD était dépréciée à 60 % est placé en liquidation sans perspective de répartition, la valeur brute est réduite de 10 000, la correction de valeur de 6 000 est utilisée, et seuls 4 000 affectent le résultat de la période. Si un recouvrement partiel intervient ultérieurement, il est comptabilisé en produit. La politique de sortie du bilan, qui fixe le moment où l'entité considère qu'elle n'a plus d'attente raisonnable, est un élément de jugement à documenter et à appliquer de façon cohérente.",
+      },
       {
         type: 'filet',
         titre: "Rapprochement avec le SYSCOHADA révisé",
@@ -919,10 +1001,45 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La divergence affecte directement la lecture de la structure financière. Lorsqu'une créance cédée avec recours est retirée du bilan, l'endettement correspondant disparaît également. IFRS 9 raisonne sur la substance économique du risque conservé ; le SYSCOHADA révisé s'attache à la forme juridique du transfert.",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 4.9 — Affacturage avec recours (en USD)",
+        texte: "Le 1er décembre N, une entreprise cède à un établissement d'affacturage des créances clients de 500 000, échéant fin février N+1, pour un prix de 480 000. Le contrat prévoit que toute créance impayée à l'échéance est rétrocédée à l'entreprise, qui en rembourse le montant : l'entreprise conserve donc la quasi-totalité du risque de crédit. L'historique des impayés de cette clientèle est de 2 %.",
+        tableau: {
+          entetes: ['', 'Selon IFRS 9', 'Selon une décomptabilisation'],
+          lignes: [
+            ['Créances au 31/12/N', '500 000, maintenues au bilan (§ 3.2.6(b))', '0'],
+            ['Trésorerie reçue', '480 000', '480 000'],
+            ["Passif envers l'affactureur", '480 000 (§ 3.2.15)', '0'],
+            ['Charge de N', "Coût de financement couru sur un mois, soit environ 6 700 ; correction de valeur pour pertes sur les créances maintenues", 'Perte de cession de 20 000'],
+            ['Endettement présenté', '+ 480 000', 'Inchangé'],
+          ],
+        },
+        note: "Le coût de financement de 20 000 est réparti sur les trois mois de l'opération selon la méthode du taux d'intérêt effectif ; le montant d'environ 6 700 pour décembre en est une approximation linéaire. Selon IFRS 9, l'opération est ce qu'elle est en substance : un emprunt garanti par les créances. Le ratio d'endettement présenté aux prêteurs en est directement affecté.",
+      },
       { type: 'intertitre', texte: "4.9.2 La comptabilité de couverture" },
       {
         type: 'paragraphe',
         texte: "La comptabilité de couverture est facultative. Elle a pour objectif de « représenter dans les états financiers l'effet des activités de gestion des risques de l'entité » (§ 6.1.1) lorsque l'instrument de couverture et l'élément couvert seraient, en son absence, comptabilisés selon des bases différentes : un contrat de change à terme évalué à la juste valeur par le biais du résultat net et un achat futur de carburant libellé en dollars, non encore comptabilisé. Ses conditions sont strictes (§ 6.4.1) : instruments et éléments couverts admissibles, désignation et documentation formelles dès l'origine, lien économique entre l'élément couvert et l'instrument de couverture, absence de prépondérance du risque de crédit, ratio de couverture cohérent avec la gestion effective du risque. En l'absence de documentation initiale, la comptabilité de couverture ne peut être appliquée, quelle que soit l'efficacité économique de la couverture.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Dans une couverture de flux de trésorerie, la partie efficace du profit ou de la perte sur l'instrument de couverture est portée en autres éléments du résultat global, dans une réserve de couverture ajustée au plus faible, en valeur absolue, du cumul des profits et pertes sur l'instrument et du cumul des variations de valeur actualisée de l'élément couvert ; le reliquat, qui représente l'inefficacité, va en résultat net (§ 6.5.11(a)-(c)). Lorsque la transaction couverte conduit à comptabiliser un actif non financier, le montant accumulé dans la réserve est sorti et incorporé au coût initial de cet actif ; il ne s'agit pas d'un ajustement de reclassement (§ 6.5.11(d)(i)).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 4.10 — Couverture de l'achat d'un équipement en euros (monnaie fonctionnelle : dollar)",
+        texte: "Le 1er octobre N, une société minière dont la monnaie fonctionnelle est le dollar commande en Europe un broyeur de 1 000 000 EUR, livrable et payable le 30 juin N+1. Elle achète le même jour 1 000 000 EUR à terme au cours de 1,10 USD, désigne ce contrat comme instrument de couverture de l'achat prévu, hautement probable, et documente la relation. Au 31 décembre N, la juste valeur du contrat à terme est de 30 000 USD et la variation de valeur actualisée du prix d'achat couvert de 32 000 USD. Au 30 juin N+1, le cours au comptant est de 1,14 USD : le contrat est dénoué avec un gain cumulé de 40 000 USD et le broyeur est livré.",
+        tableau: {
+          entetes: ['Date', 'Opération', 'Montant (USD)', 'Fondement'],
+          lignes: [
+            ['31/12/N', 'Contrat à terme à l\'actif ; réserve de couverture : plus faible de 30 000 et 32 000', '30 000 en autres éléments du résultat global ; inefficacité nulle', '§ 6.5.11(a)-(c)'],
+            ['30/06/N+1', 'Gain complémentaire sur le contrat : 40 000 − 30 000', '10 000 en autres éléments du résultat global', '§ 6.5.11(b)'],
+            ['30/06/N+1', 'Broyeur comptabilisé au cours du jour : 1 000 000 × 1,14', '1 140 000', 'IAS 21.21'],
+            ['30/06/N+1', 'Réserve de couverture incorporée au coût du broyeur', '− 40 000 ; coût retenu 1 100 000', '§ 6.5.11(d)(i)'],
+          ],
+        },
+        note: "Le broyeur entre au bilan pour 1 100 000, soit au cours garanti par la couverture ; son amortissement est calculé sur ce montant. Sans comptabilité de couverture, le gain de 30 000 aurait affecté le résultat de N et le broyeur aurait été comptabilisé pour 1 140 000 : la couverture économique n'aurait pas été lisible dans les états financiers.",
       },
       {
         type: 'filet',
@@ -1078,6 +1195,8 @@ const chapitre: Chapitre = {
     "Les pertes de crédit attendues sont constatées dès l'origine : pertes à douze mois tant que le risque de crédit n'a pas augmenté de façon importante, pertes pour la durée de vie au-delà (§ 5.5.3-5.5.5). Deux présomptions réfutables s'appliquent : 30 jours de retard pour l'augmentation importante (§ 5.5.11), 90 jours pour la défaillance (B5.5.37).",
     "Pour les créances clients sans composante financement importante, la correction de valeur est toujours égale aux pertes attendues pour la durée de vie, la matrice de provisionnement constituant une simplification admise (§ 5.5.15 ; B5.5.35). Le SYSCOHADA révisé ne déprécie que des créances individualisées dont la perte est certaine dans son principe.",
     "Un actif financier cédé reste au bilan si l'entité en conserve la quasi-totalité des risques et avantages (§ 3.2.6) ; un affacturage avec recours s'analyse donc comme un financement. La comptabilité de couverture exige une désignation et une documentation formelles dès l'origine (§ 6.4.1).",
+    "Les taux d'une matrice de provisionnement partent de l'historique des pertes par tranche, ajusté des informations actuelles et prospectives raisonnables et justifiables (§ 5.5.17) ; une créance sans attente raisonnable de recouvrement est sortie du bilan, la correction de valeur existante absorbant la perte (§ 5.4.4).",
+    "En couverture de flux de trésorerie, la partie efficace va en autres éléments du résultat global ; pour un achat d'actif non financier, la réserve est incorporée au coût de l'actif (§ 6.5.11(d)(i)).",
   ],
   references: [
     { genre: 'texte', intitule: "IAS 2 — Stocks", precision: "§§ 1 à 42 (texte français intégral)" },
