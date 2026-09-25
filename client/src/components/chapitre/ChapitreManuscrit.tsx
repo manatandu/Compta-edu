@@ -131,10 +131,37 @@ function BlocCasPratique({ cp, index }: { cp: CasPratique; index: number }) {
 // ─── Tableau ─────────────────────────────────────────────────────────────────
 // L'enveloppe à défilement horizontal vaut pour tous les tableaux, y compris
 // ceux posés dans une carte : sur un écran étroit, un tableau de quatre ou
-// cinq colonnes défile dans son cadre au lieu d'élargir la page.
+// cinq colonnes défile dans son cadre au lieu d'élargir la page. Tant qu'une
+// partie du tableau reste masquée à droite, une ombre le signale ; une mention
+// au-dessus du tableau annonce qu'il défile. Sans ces repères, une colonne
+// coupée passe pour une colonne absente.
 function BlocTableau({ t }: { t: Tableau }) {
+  const cadre = useRef<HTMLDivElement>(null)
+  const [debordant, setDebordant] = useState(false)
+  const [masque, setMasque] = useState(false)
+
+  useEffect(() => {
+    const el = cadre.current
+    if (!el) return
+    const mesurer = () => {
+      setDebordant(el.scrollWidth > el.clientWidth + 1)
+      setMasque(el.scrollLeft + el.clientWidth < el.scrollWidth - 1)
+    }
+    mesurer()
+    el.addEventListener('scroll', mesurer, { passive: true })
+    const observateur = new ResizeObserver(mesurer)
+    observateur.observe(el)
+    return () => {
+      el.removeEventListener('scroll', mesurer)
+      observateur.disconnect()
+    }
+  }, [])
+
   return (
-    <div className="overflow-x-auto">
+    <div>
+    {debordant && <p className={cn('mt-2 -mb-1 text-right text-[10px] font-mono', ENCRE_FAIBLE)}>Faire défiler le tableau →</p>}
+    <div className="relative">
+    <div ref={cadre} className="overflow-x-auto">
     <table className="w-full text-xs border-collapse mt-2">
       <thead>
         <tr className={VERT_SOFT}>
@@ -155,6 +182,9 @@ function BlocTableau({ t }: { t: Tableau }) {
         ))}
       </tbody>
     </table>
+    </div>
+    {masque && <div aria-hidden className="pointer-events-none absolute top-2 right-0 bottom-0 w-6 bg-gradient-to-l from-black/15 to-transparent" />}
+    </div>
     </div>
   )
 }
