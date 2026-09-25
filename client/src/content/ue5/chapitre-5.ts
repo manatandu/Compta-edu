@@ -4,7 +4,7 @@
 // vérification sur les textes : LOFIP art. 13, 26-31, 42-53, 76-87 (réd.
 // 2023 comprises) ; Constitution art. 126-127, 134 ; Guide d'élaboration
 // des PAP et RAP (Ministères du Budget et des Finances/COREF, juillet
-// 2021, texte intégral) ; décret n° 22/37 du 5 août 2022 portant
+// 2021, texte intégral) ; décret n° 22/37 du 29 octobre 2022 portant
 // gouvernance budgétaire (RPROG/RUOP, dialogue de gestion) ; décret
 // n° 23/18 du 31 mai 2023 sur la gestion des investissements publics.
 // Corrections majeures : l'art. 79 réd. 2023 liste ONZE documents, non
@@ -258,14 +258,14 @@ const QCM: Chapitre['qcm'] = [
     explication: "Le Guide organise le dialogue de gestion : les RAP des ministères, examinés fin mars-début avril par les groupes de travail internes, passent en « conférences de performance et revue des dépenses » au cours de la deuxième quinzaine d'avril, présidées par la direction compétente du Ministère du Budget - réexamen des priorités et identification des activités à maintenir, en amont du cadrage du PLF.",
   },
   {
-    id: 'ch5-q22', question: 'Selon le décret n° 22/37 du 5 août 2022 portant gouvernance budgétaire, qui détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats des services chargés de la mise en œuvre du programme ?',
+    id: 'ch5-q22', question: 'Selon le décret n° 22/37 du 29 octobre 2022 portant gouvernance budgétaire, qui détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats des services chargés de la mise en œuvre du programme ?',
     options: [
       { id: 'a', texte: "L'ordonnateur délégué" },
       { id: 'b', texte: 'Le Responsable de Programme (RPROG)' },
       { id: 'c', texte: 'Le contrôleur budgétaire' },
       { id: 'd', texte: 'Le comptable public' },
     ],
-    reponseCorrecte: 'b', articleRef: 'Décret n° 22/37 du 5 août 2022, partie 4',
+    reponseCorrecte: 'b', articleRef: 'Décret n° 22/37 du 29 octobre 2022, partie 4',
     explication: "Le décret n° 22/37 structure la chaîne managériale : sur la base des objectifs généraux fixés par l'ordonnateur, le RPROG « détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats des services chargés de la mise en œuvre du programme sous sa responsabilité » ; il définit le périmètre des unités opérationnelles et organise le dialogue de gestion conformément à la charte de gestion. Le Responsable de l'Unité Opérationnelle du Programme (RUOP) lui propose la programmation des crédits et les mouvements de crédits de son unité.",
   },
   {
@@ -298,8 +298,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Le calendrier budgétaire, du CBMT à la promulgation',
     navLabel: 'Calendrier',
     blocs: [
+      { type: 'intertitre', texte: "5.1.1 Le cadrage pluriannuel" },
       { type: 'paragraphe', texte: "L'élaboration du budget est un cycle continu, cadencé par la LOFIP et la Constitution. En amont, le Ministre du Budget établit chaque année le **cadre budgétaire à moyen terme** à trois ans, sur les hypothèses macroéconomiques du ministère du Plan (art. 13) ; il en découle le cadre des dépenses à moyen terme et les prévisions par ministère (art. 76). Sous l'autorité du Premier ministre, le Ministre du Budget prépare le projet de loi de finances, approuvé par le Gouvernement avant transmission à l'Assemblée nationale (art. 77)." },
-      { type: 'carte', titre: 'Le calendrier légal', tableau: {
+      { type: 'intertitre', texte: "5.1.2 Le calendrier légal" },
+      { type: 'carte', titre: "Tableau 5.1 — Le calendrier légal de la loi de finances", tableau: {
         entetes: ['Échéance', 'Étape', 'Base'],
         lignes: [
           ['**Au plus tard le 1er juin**', "CBMT adopté en Conseil des ministres et transmis à l'Assemblée nationale", 'Art. 13 (réd. 2023)'],
@@ -312,12 +314,25 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Au plus tard le 15 mai (N+1)**', "Dépôt du projet de loi portant reddition des comptes, examiné avant le vote de la LF suivante", 'Art. 84 et 87'],
         ],
       } },
-      { type: 'filet', titre: 'La pratique et ses écarts', texte: "Le calendrier légal n'est pas toujours tenu : les dépôts tardifs du PLF sont récurrents - la presse budgétaire congolaise l'a documenté pour plusieurs exercices récents (données de pratique, extérieures aux textes). La LOFIP a précisément prévu les amortisseurs : ordonnance-loi de mise en vigueur, loi portant ouverture de crédits provisoires exécutable jusqu'au 31 janvier (art. 31, 83). La sanction ultime - le Gouvernement réputé démissionnaire - ne frappe que le non-dépôt au 1er décembre, non le retard de vote." },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[5] },
+      { type: 'intertitre', texte: "5.1.3 La phase administrative de préparation" },
+      { type: 'paragraphe', texte: "Avant le dépôt au Parlement, le projet de loi de finances traverse une phase administrative que le décret n° 22/37 du 29 octobre 2022 portant gouvernance budgétaire organise en détail ; ces dispositions sont d'application immédiate (art. 166). La préparation part du cadrage pluriannuel, associe les provinces, s'ouvre à la société civile, puis se resserre autour de deux arbitrages successifs." },
+      { type: 'carte', titre: "Tableau 5.2 — Les étapes de la préparation du projet de loi de finances (décret n° 22/37)", tableau: { entetes: ["Échéance", "Étape", "Article"], lignes: [
+        ["Fin mars", "Les ministres provinciaux du Budget transmettent leurs projections de ressources propres et de charges, ETD comprises", "14"],
+        ["25 avril", "Le Ministre du Budget adresse aux provinces l'avant-projet de CBMT, avec les projections macroéconomiques et les quotités provisoires de recettes à caractère national et de péréquation", "15"],
+        ["15 mai", "Les provinces adressent leurs observations", "16"],
+        ["25 mai", "Consultations pré-budgétaires sur l'avant-projet de CBMT, élargies à la société civile et aux partenaires techniques et financiers", "17-18"],
+        ["1er juin", "Adoption du CBMT en Conseil des ministres", "19"],
+        ["Avant le vote du budget", "Débat d'orientation budgétaire au Parlement, sur la base du CBMT et d'un rapport sur la situation économique et l'exécution du budget en cours", "20"],
+        ["Après le CBMT", "Lettre d'orientation budgétaire signée par le Premier ministre : hypothèses macroéconomiques et orientations des politiques publiques", "38"],
+        ["25 juin", "Circulaire d'instructions : plafonds des allocations, planchers des recettes, directives sur les PAP", "41-43"],
+        ["Été", "Conférences de performance (examen des PAP) et conférences budgétaires (conformité des prévisions)", "48-51"],
+        ["Fin de la phase", "Arbitrage du Ministre du Budget avec les ministres sectoriels, puis second arbitrage du Premier ministre", "52"],
+        ["Avant le 15 septembre", "Adoption du projet en Conseil des ministres, puis dépôt au bureau de l'Assemblée nationale", "54 et 56"],
+      ] }, note: "Les dates des conférences ne sont pas fixées par le décret, qui renvoie à un calendrier budgétaire annexé (art. 59) ; cette annexe n'est pas disponible dans la source consultée." },
+      { type: 'paragraphe', texte: "Le double arbitrage mérite attention. Les conférences budgétaires font apparaître les écarts entre les demandes des ministères et les plafonds du cadrage ; leur rapport consigne « les différents points de compromis et de désaccord » (art. 51). Le Ministre du Budget arbitre d'abord avec les ministres sectoriels, et un procès-verbal est établi ; le Premier ministre procède ensuite au second arbitrage, avant l'adoption du projet en Conseil des ministres (art. 52). Le Conseil des ministres se prononce notamment sur les grandes masses du budget, les assignations de recettes et les allocations de dépenses (art. 54)." },
+      { type: 'intertitre', texte: "5.1.4 Le calendrier dans la pratique" },
+      { type: 'filet', titre: "Le calendrier dans la pratique", texte: "Le calendrier légal n'est pas toujours tenu : les dépôts tardifs du PLF sont récurrents - la presse budgétaire congolaise l'a documenté pour plusieurs exercices récents (données de pratique, extérieures aux textes). La LOFIP a précisément prévu les amortisseurs : ordonnance-loi de mise en vigueur, loi portant ouverture de crédits provisoires exécutable jusqu'au 31 janvier (art. 31, 83). La sanction ultime - le Gouvernement réputé démissionnaire - ne frappe que le non-dépôt au 1er décembre, non le retard de vote." },
+      { type: 'paragraphe', texte: "Le cycle de l'exercice 2026 s'est déroulé dans les délais. La loi de finances n° 25/060 a été promulguée le 29 décembre 2025, avant l'ouverture de l'exercice, et elle est entrée en vigueur le 1er janvier 2026 (art. 88). Le recours à l'ordonnance-loi ou aux crédits provisoires n'a donc pas été nécessaire. L'exercice précédent avait en revanche exigé une correction en cours d'année : la loi de finances rectificative n° 25/044 du 28 juin 2025 a révisé les hypothèses et ramené le budget de 51 553,5 à 50 691,8 milliards FC." },
     ],
   },
   {
@@ -325,7 +340,8 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les acteurs de la procédure budgétaire',
     navLabel: 'Acteurs',
     blocs: [
-      { type: 'carte', titre: 'Qui fait quoi', tableau: {
+      { type: 'intertitre', texte: "5.2.1 La répartition des rôles" },
+      { type: 'carte', titre: "Tableau 5.3 — Les acteurs de la procédure budgétaire et leurs rôles", tableau: {
         entetes: ['Acteur', 'Rôle', 'Base'],
         lignes: [
           ['**Premier ministre**', "Autorité sous laquelle le PLF est préparé ; lettre d'orientation adoptée en Conseil des ministres ; rapport au Parlement pour toute ouverture de crédits supplémentaires", 'Art. 13, 41, 77'],
@@ -335,9 +351,18 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Cour des comptes**', 'Son rapport accompagne le projet de reddition des comptes ; elle assiste l\'Assemblée nationale dans le contrôle de l\'exécution et évalue les rapports de performance', 'Art. 82 pt. 3, 124 · art. 180 Const.'],
         ],
       }, note: "L'initiative des lois de finances est gouvernementale : le Parlement amende, il ne substitue pas son propre budget (art. 126 de la Constitution ; art. 130 : le projet de loi de finances est impérativement déposé au bureau de l'Assemblée nationale)." },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
-      { type: 'controle', question: QCM[11] },
+      { type: 'intertitre', texte: "5.2.2 Le niveau du vote parlementaire" },
+      { type: 'paragraphe', texte: "L'article 85 de la LOFIP fixe le niveau auquel le Parlement vote. Les évaluations de recettes font l'objet d'un vote d'ensemble pour le titre sous lequel elles sont regroupées dans le budget général, et d'un vote par budget annexe et par compte spécial. Les dépenses du budget du pouvoir central sont votées « par ministère ou institution et par programme ». Le niveau du vote détermine la portée de l'autorisation : les crédits d'un programme lient le Gouvernement, alors que leur répartition interne entre actions relève de la gestion et des mouvements encadrés étudiés au chapitre 2." },
+      { type: 'intertitre', texte: "5.2.3 La transparence budgétaire et la participation citoyenne" },
+      { type: 'paragraphe', texte: "Le citoyen est aussi un acteur de la procédure. Le décret n° 22/37 définit la transparence budgétaire comme l'accès du public à une information budgétaire « disponible, exhaustive, fiable, sincère, compréhensible et globale » (art. 158). Il impose au Gouvernement d'associer le citoyen à la conception, au suivi et à l'évaluation des politiques publiques, par des canaux de communication, des mécanismes de consultation et des cadres de concertation sur les questions budgétaires et fiscales (art. 163-164). Chaque document budgétaire clé est publié en version citoyenne, en français et dans les quatre langues nationales, au même moment que le document lui-même (art. 161)." },
+      { type: 'carte', titre: "Tableau 5.4 — Les obligations de publication des documents budgétaires (art. 160 du décret n° 22/37)", tableau: { entetes: ["Document", "Délai de publication"], lignes: [
+        ["Cadre budgétaire à moyen terme", "Au plus tard la deuxième semaine d'août"],
+        ["Projet de loi de finances et documents qui l'accompagnent", "Au plus tard fin septembre, et avant l'adoption par le Parlement"],
+        ["Loi de finances de l'année", "Au plus tard 14 jours après la promulgation"],
+        ["Rapports mensuels ou trimestriels d'exécution", "Dans le mois qui suit la période couverte"],
+        ["Revue de milieu d'année", "Au plus tard 45 jours après le semestre concerné"],
+        ["Projet de loi portant reddition des comptes", "Dans les six mois qui suivent la période couverte"],
+      ] }, note: "Ces obligations incombent aux ministres du Budget et des Finances, chacun pour ce qui le concerne, et s'appliquent aux provinces et aux ETD (art. 162)." },
     ],
   },
   {
@@ -345,8 +370,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les neuf états faisant partie intégrante du PLF (art. 78)',
     navLabel: 'États intégrants',
     blocs: [
+      { type: 'intertitre', texte: "5.3.1 États intégrants et documents d'accompagnement" },
       { type: 'paragraphe', texte: "L'art. 78 distingue soigneusement ce qui **fait partie intégrante** du projet de loi de finances - voté avec lui, avec force de loi - de ce qui l'**accompagne** (art. 79) à titre d'information. Neuf états sont intégrants :" },
-      { type: 'carte', titre: 'Les neuf états (art. 78)', liste: [
+      { type: 'carte', titre: "Encadré 5.1 — Les neuf états faisant partie intégrante du projet de loi de finances (art. 78)", liste: [
         "1. L'état de la liste et de l'évaluation des prévisions de recettes à caractère national, accordant les autorisations nécessaires en matière d'impôts, taxes, redevances et droits - le consentement à l'impôt.",
         '2. L\'état de la répartition des recettes à caractère national allouées à chaque province - la traduction des 40% constitutionnels, province par province.',
         "3. L'état des prévisions de dépenses par ministère ou institution et par programme, titre et source de financement.",
@@ -357,9 +383,6 @@ const SECTIONS: Chapitre['sections'] = [
         "8. L'état des plafonds d'autorisations des emplois rémunérés par le pouvoir central, la création d'emplois nouveaux et la répartition des emplois autorisés - sans lui, aucun recrutement n'est légal (art. 51).",
         '9. La liste complète des budgets annexes et des comptes spéciaux, avec leurs recettes et dépenses prévues.',
       ], note: "Un PLF déposé sans l'un de ces états est incomplet au sens de l'art. 83, qui exige le dépôt du projet « y compris les états et documents prévus aux articles 78 et 79 »." },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[14] },
     ],
   },
   {
@@ -367,8 +390,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les documents d'accompagnement : PLF (art. 79) et reddition des comptes (art. 81-82)",
     navLabel: 'Documents joints',
     blocs: [
-      { type: 'paragraphe', texte: "Le PLF est accompagné de **onze documents** depuis la loi n° 23/030 - la liste de 2011 en comptait cinq. Attention aux listes apocryphes : certains supports y ajoutent un « plan d'engagement budgétaire » ou un « plan de passation des marchés » qui, s'ils existent dans la pratique administrative, ne figurent pas dans l'énumération légale de l'art. 79." },
-      { type: 'carte', titre: "Les onze documents accompagnant le PLF (art. 79, réd. 2023)", liste: [
+      { type: 'intertitre', texte: "5.4.1 Les documents accompagnant le projet de loi de finances" },
+      { type: 'paragraphe', texte: "Le PLF est accompagné de **onze documents** depuis la loi n° 23/030 - la liste de 2011 en comptait cinq. Le décret n° 22/37 complète cette liste. Son article 56 énumère, en plus des documents de l'art. 79 et « sans préjudice » de celui-ci, les projets annuels de performance, le plan d'engagement budgétaire, le plan de trésorerie, le plan de passation des marchés, le programme d'investissements publics, le rapport sur les dépenses fiscales, le rapport consolidé sur la situation financière des entreprises et établissements publics et la déclaration sur les risques budgétaires. Le plan d'engagement budgétaire et le plan de passation des marchés accompagnent donc le projet en vertu du décret, et non de la LOFIP." },
+      { type: 'carte', titre: "Encadré 5.2 — Les onze documents accompagnant le projet de loi de finances (art. 79, rédaction de 2023)", liste: [
         "1. L'exposé général - synthèse du budget, politique économique et financière, environnement, CBMT, niveau d'exécution du budget en cours.",
         "2. Le rapport d'évaluation de l'exécution du budget de l'année précédente.",
         "3. Le rapport d'exécution du budget en cours au premier semestre.",
@@ -381,7 +405,8 @@ const SECTIONS: Chapitre['sections'] = [
         '10. Le rapport consolidé de la situation financière des entreprises publiques et des établissements publics.',
         '11. La déclaration sur les risques budgétaires.',
       ] },
-      { type: 'carte', titre: 'La reddition des comptes : intégrant (art. 81) et accompagnant (art. 82)', tableau: {
+      { type: 'intertitre', texte: "5.4.2 Les documents de la reddition des comptes" },
+      { type: 'carte', titre: "Tableau 5.5 — Les documents de la reddition des comptes (art. 81 et 82)", tableau: {
         entetes: ['Art. 81 - font partie intégrante', 'Art. 82 - accompagnent'],
         lignes: [
           ["Synthèse des recettes et dépenses de l'exercice clos", 'Rapport explicatif des dépassements et de la nature du résultat'],
@@ -390,8 +415,6 @@ const SECTIONS: Chapitre['sections'] = [
           ['Opérations de chaque budget annexe et compte spécial ; situation de la dette ; état comparatif AE/dépenses engagées', 'Rapport annuel de performance par programme (RAP)'],
         ],
       } },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[7] },
     ],
   },
   {
@@ -399,15 +422,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Amendements parlementaires et quitus : les deux verrous du cycle",
     navLabel: 'Amendements · quitus',
     blocs: [
-      { type: 'filet', titre: "La règle d'or des amendements (art. 86 ; art. 127 et 134 Const.)", texte: "« Les amendements au projet de loi de finances ne sont pas recevables lorsque leur adoption a pour conséquence, soit une diminution des recettes, soit un accroissement des dépenses, à moins qu'ils ne soient assortis de propositions compensatoires. » Et au-delà du PLF, toute proposition de loi ou amendement parlementaire diminuant les ressources publiques ou créant/aggravant une charge publique est irrecevable sans « propositions dégageant les recettes ou les économies correspondantes » (art. 134 de la Constitution). Le Parlement peut réallouer - il ne peut pas déséquilibrer." },
-      { type: 'carte', titre: 'Recevable ou non ?', liste: [
+      { type: 'intertitre', texte: "5.5.1 La recevabilité financière des amendements" },
+      { type: 'filet', titre: "Texte de référence — LOFIP, art. 86 : la recevabilité financière des amendements", texte: "« Les amendements au projet de loi de finances ne sont pas recevables lorsque leur adoption a pour conséquence, soit une diminution des recettes, soit un accroissement des dépenses, à moins qu'ils ne soient assortis de propositions compensatoires. » Et au-delà du PLF, toute proposition de loi ou amendement parlementaire diminuant les ressources publiques ou créant/aggravant une charge publique est irrecevable sans « propositions dégageant les recettes ou les économies correspondantes » (art. 134 de la Constitution). Le Parlement peut réallouer - il ne peut pas déséquilibrer." },
+      { type: 'carte', titre: "Exemple 5.1 — La recevabilité des amendements : situations types", liste: [
         "**Recevable** : augmenter un programme en réduisant d'autant un autre, ou en créant une recette équivalente ; supprimer une exonération (l'effet réel est un accroissement de recettes) ; un amendement purement rédactionnel sans impact financier.",
         "**Irrecevable** : accroître des crédits ou réduire une recette sans compensation ; créer un programme nouveau par amendement - la création d'un programme relève d'une disposition de loi de finances d'initiative gouvernementale (art. 43), et aucun mouvement de crédits ne peut bénéficier à un programme non prévu par une loi de finances (art. 50).",
       ] },
+      { type: 'intertitre', texte: "5.5.2 La reddition des comptes et le quitus" },
       { type: 'paragraphe', texte: "Le second verrou ferme le cycle : le projet de loi portant reddition des comptes du dernier exercice clos « doit être examiné par le Parlement préalablement au vote du projet de la loi de finances de l'année », et son approbation, au regard des observations de la Cour des comptes, « vaut quitus de la gestion du Gouvernement pour l'exercice concerné » (art. 87). Le refus d'approbation prive le Gouvernement du quitus - les responsabilités des ordonnateurs et comptables restent alors entières devant la Cour des comptes (art. 123-131), et le Parlement prononce, s'il échet, la décharge des ordonnateurs à cette même occasion (art. 127). C'est à ce moment que le RAP prend toute sa valeur : il documente, programme par programme, ce que le quitus couvre." },
-      { type: 'controle', question: QCM[16] },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[8] },
+      { type: 'paragraphe', texte: "Le décalage entre l'exécution et son contrôle reste important. Le rapport public annuel de la Cour des comptes portant sur les exercices 2024 et 2025, présenté en février 2026, expose les irrégularités relevées lors du contrôle de l'exécution de la loi de finances pour 2023. Le Parlement se prononce ainsi sur une gestion vieille de plus de deux ans. Plus la reddition des comptes est tardive, moins le quitus éclaire le vote du budget suivant, alors que l'article 87 a précisément pour objet de lier ces deux moments." },
     ],
   },
   {
@@ -415,20 +438,22 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La fabrique de la performance : Guide PAP/RAP et gouvernance des programmes',
     navLabel: 'PAP · RAP en pratique',
     blocs: [
-      { type: 'paragraphe', texte: "Comment un ministère construit-il concrètement son PAP ? Le référentiel opérationnel est le **Guide d'élaboration du Projet Annuel de Performance et du Rapport Annuel de Performance** (Ministères du Budget et des Finances, sous l'encadrement technique du COREF, juillet 2021) - guide méthodologique non normatif, mais référentiel unique en la matière -, adossé au **décret n° 22/37 du 5 août 2022 portant gouvernance budgétaire**, qui donne leur assise juridique aux acteurs de programme." },
-      { type: 'carte', titre: 'La structuration du budget en programmes : cinq étapes (Guide, partie I)', liste: [
+      { type: 'intertitre', texte: "5.6.1 Le guide PAP/RAP et le décret n° 22/37" },
+      { type: 'paragraphe', texte: "Pour construire son PAP, un ministère s'appuie sur un référentiel opérationnel, le **Guide d'élaboration du Projet Annuel de Performance et du Rapport Annuel de Performance** (Ministères du Budget et des Finances, sous l'encadrement technique du COREF, juillet 2021) - guide méthodologique non normatif, mais référentiel unique en la matière -, adossé au **décret n° 22/37 du 29 octobre 2022 portant gouvernance budgétaire**, qui donne leur assise juridique aux acteurs de programme." },
+      { type: 'carte', titre: "Encadré 5.3 — La structuration du budget en programmes en cinq étapes (guide PAP/RAP, partie I)", liste: [
         '1. Identifier la mission ministérielle - la finalité politique du ministère.',
         '2. Recenser les politiques sectorielles conduites.',
         '3. Regrouper ces politiques en programmes cohérents - le nombre de programmes par ministère « sera limité (4 à 5 en moyenne) ».',
         "4. Définir les objectifs et les indicateurs de performance de chaque programme, en nombre restreint.",
         '5. Désigner le responsable de programme (RProg).',
       ] },
-      { type: 'carte', titre: 'Les acteurs de la gestion de programme (décret n° 22/37)', liste: [
+      { type: 'carte', titre: "Encadré 5.4 — Les acteurs de la gestion de programme (décret n° 22/37)", liste: [
         "**Le Responsable de Programme (RPROG)** : sur la base des objectifs généraux fixés par l'ordonnateur, il « détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats des services chargés de la mise en œuvre du programme » ; il définit le périmètre des unités opérationnelles, s'assure du contrôle interne et du contrôle de gestion, et organise le dialogue de gestion conformément à la charte de gestion.",
         "**Le Responsable de l'Unité Opérationnelle du Programme (RUOP)** : il propose au RPROG la programmation des crédits de son unité et les mouvements de crédits, dans les limites de la charte de gestion.",
         "**Le dialogue de gestion** rythme l'année : travaux préparatoires du RAP en janvier-février, examen interne fin mars-début avril, puis « conférences de performance et revue des dépenses » avec chaque ministère au cours de la deuxième quinzaine d'avril, avant le cadrage du PLF.",
       ] },
-      { type: 'carte', titre: 'Les indicateurs de performance (Guide, partie I)', tableau: {
+      { type: 'intertitre', texte: "5.6.2 Les indicateurs" },
+      { type: 'carte', titre: "Tableau 5.6 — Les familles d'indicateurs (guide PAP/RAP, partie I)", tableau: {
         entetes: ['Famille', 'Ce qu\'elle mesure', 'Exemple'],
         lignes: [
           ['**Moyens**', "Volume ou valeur des ressources mobilisées - « pris isolément, les indicateurs de moyens ne sont pas des indicateurs de performance »", 'Crédits consommés, effectifs'],
@@ -438,11 +463,8 @@ const SECTIONS: Chapitre['sections'] = [
           ["**Efficience**", 'Le rapport entre moyens et produits', 'Coût du kilomètre bitumé, coût par élève'],
         ],
       }, note: "Le canevas du guide est entièrement tabulé : tableaux P-I.x (présentation du ministère : crédits par programme, par titre, AE pluriannuelles, effectifs) et P-II.k.x (par programme : stratégie, objectifs et indicateurs, actions, crédits, investissements) pour le PAP ; tableaux R-I.x et R-II.k.x, miroirs des précédents, pour le RAP. Les projets d'un coût total supérieur à 10 millions de dollars y sont présentés individuellement, et le RAP fait ressortir le « reste à payer » sur les AE consommées." },
-      { type: 'filet', titre: 'La circulaire budgétaire annuelle - pratique administrative', texte: "Chaque année, une circulaire du Ministre du Budget cadre l'élaboration des prévisions (la circulaire n° 004/ME/MIN.BUDGET/2025 pour l'exercice 2026, citée par les praticiens - document administratif que nos référentiels ne permettent pas de vérifier ligne à ligne). Selon cette pratique rapportée, elle plafonne le nombre de programmes par ministère, limite les objectifs et indicateurs par programme, impose une double présentation des prévisions (classique et en mode programme) pour les ministères disposant de PAP validés, et rappelle que la désignation du responsable de programme se fait parmi les hauts fonctionnaires existants, sans créer d'emploi. Ces règles convergent avec le Guide PAP/RAP vérifié (4 à 5 programmes en moyenne, indicateurs en nombre restreint) et avec l'art. 230 LOFIP (application progressive du budget-programme)." },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[20] },
-      { type: 'controle', question: QCM[21] },
+      { type: 'intertitre', texte: "5.6.3 La circulaire budgétaire annuelle" },
+      { type: 'filet', titre: "La circulaire budgétaire annuelle", texte: "Chaque année, une circulaire du Ministre du Budget cadre l'élaboration des prévisions (la circulaire n° 004/ME/MIN.BUDGET/2025 pour l'exercice 2026, citée par les praticiens - document administratif que nos référentiels ne permettent pas de vérifier ligne à ligne). Selon cette pratique rapportée, elle plafonne le nombre de programmes par ministère, limite les objectifs et indicateurs par programme, impose une double présentation des prévisions (classique et en mode programme) pour les ministères disposant de PAP validés, et rappelle que la désignation du responsable de programme se fait parmi les hauts fonctionnaires existants, sans créer d'emploi. Ces règles convergent avec le Guide PAP/RAP vérifié (4 à 5 programmes en moyenne, indicateurs en nombre restreint) et avec l'art. 230 LOFIP (application progressive du budget-programme)." },
     ],
   },
   {
@@ -450,18 +472,16 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le programme d'investissements publics (PIP)",
     navLabel: 'PIP',
     blocs: [
+      { type: 'intertitre', texte: "5.7.1 Le cadre juridique du PIP" },
       { type: 'paragraphe', texte: "Troisième instrument opérationnel : le **programme d'investissements publics**, document de programmation triennale glissante des investissements, dont la tranche annuelle s'intègre au PLF - il figure parmi les documents accompagnants (art. 79 pt. 8, réd. 2023). Son cadre juridique est le **décret n° 23/18 du 31 mai 2023** relatif à la gestion des investissements publics : cycle du projet en sept étapes (de l'identification à l'évaluation ex-post), banque des projets (art. 14), fonds de préinvestissement doté de 5% du budget d'investissement pour financer les études préparatoires (art. 17-18), crédit de suivi-évaluation de 2% (art. 76-77), et **COPIP** - Comité du Programme d'Investissement Public, présidé par le Ministre du Plan avec les Ministres du Budget et des Finances aux vice-présidences (art. 36-38)." },
-      { type: 'carte', titre: 'AE et CP : la mécanique pluriannuelle', liste: [
+      { type: 'intertitre', texte: "5.7.2 La programmation pluriannuelle des projets" },
+      { type: 'carte', titre: "Encadré 5.5 — Autorisations d'engagement et crédits de paiement", liste: [
         "**Autorisation d'engagement (AE)** : « la permission de signer sur l'année considérée un ou plusieurs marchés pour un montant total maximum mais dont l'exécution peut se réaliser sur plusieurs exercices budgétaires selon un échéancier des paiements » (art. 3 pt. 2) ; les AE constituent la limite supérieure des dépenses pouvant être engagées (art. 42).",
         "**Crédit de paiement (CP)** : la limite supérieure des dépenses pouvant être ordonnancées ou payées pendant l'année pour la couverture des engagements contractés dans le cadre des AE (art. 3 pt. 17, art. 42).",
         "**Exemple** : un marché routier de 30 millions USD signé en année N mobilise 30 millions d'AE en N, mais des CP de 10 millions par an sur N, N+1 et N+2 selon l'avancement - le « reste à payer » (AE consommées - CP payés) mesure la charge des exercices futurs.",
         "**Révision et report** : les AE pluriannuelles d'investissement sont révisables pour modifications techniques ou variations de coûts (art. 52) et reportées avec les CP non consommés par arrêtés conjoints avant le 31 mars (art. 53).",
       ] },
-      { type: 'filet', titre: 'La fiche projet', texte: "Chaque projet d'investissement fait l'objet d'une fiche projet - le gabarit officiel de la Direction de la Programmation et Budgétisation des Investissements du Ministère du Plan structure l'identification, les résultats et bénéficiaires attendus, les activités et le planning, les aspects financiers, économiques et environnementaux. Sans fiche, pas d'inscription régulière à la banque des projets ni d'évaluation ex-ante - et le suivi de l'exécution comme le futur RAP en sont compromis. Dans le canevas PAP/RAP, les projets de plus de 10 millions de dollars sont en outre présentés individuellement, avec leur coût total, les tranches engagées et les besoins futurs de CP." },
-      { type: 'controle', question: QCM[22] },
-      { type: 'controle', question: QCM[23] },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[6] },
+      { type: 'filet', titre: "La fiche projet", texte: "Chaque projet d'investissement fait l'objet d'une fiche projet - le gabarit officiel de la Direction de la Programmation et Budgétisation des Investissements du Ministère du Plan structure l'identification, les résultats et bénéficiaires attendus, les activités et le planning, les aspects financiers, économiques et environnementaux. Sans fiche, pas d'inscription régulière à la banque des projets ni d'évaluation ex-ante - et le suivi de l'exécution comme le futur RAP en sont compromis. Dans le canevas PAP/RAP, les projets de plus de 10 millions de dollars sont en outre présentés individuellement, avec leur coût total, les tranches engagées et les besoins futurs de CP." },
     ],
   },
 ]
@@ -518,7 +538,7 @@ const CAS: Chapitre['casPratiques'] = [
     contexte: "Un ministère soumet son cadre de performance : 9 programmes déclarés, dont un « programme transversal » et deux programmes-soutien ; aucun responsable de programme désigné pour 4 programmes, et un même directeur désigné RPROG de 3 programmes ; les tableaux d'objectifs et indicateurs sont vides pour 6 programmes, et les 3 programmes documentés n'affichent que des indicateurs de moyens (agents formés, réunions tenues, crédits consommés) ; le programme d'investissements joint présente les crédits globalement, sans distinction AE/CP, et un projet de campus universitaire de 12 millions USD y figure sans fiche projet.",
     questions: [
       { num: 1, enonce: 'La structuration en 9 programmes est-elle conforme ? Analysez les programmes « transversal » et les deux programmes-soutien.', correction: "Non conforme au référentiel. Le Guide PAP/RAP limite le nombre de programmes par ministère à « 4 à 5 en moyenne » : neuf programmes pulvérisent les responsabilités et les crédits. Un « programme transversal » contredit la définition légale : l'art. 43 LOFIP exige « un ensemble cohérent d'actions relevant d'un même ministère » au service de finalités d'intérêt général - un intitulé transversal ne désigne aucune politique publique identifiable ; ses crédits doivent rejoindre les programmes opérationnels ou le programme « administration générale », seul programme d'accueil prévu par l'art. 43 pour les crédits non spécifiquement affectés. Deux programmes-soutien font double emploi avec ce programme unique d'administration générale : fusion requise. La correction passe par la maquette du PLF elle-même : la création et la suppression de programmes relèvent d'une disposition de loi de finances d'initiative gouvernementale (art. 43)." },
-      { num: 2, enonce: 'Appréciez la situation des responsables de programme au regard du décret n° 22/37.', correction: "Le décret n° 22/37 du 5 août 2022 portant gouvernance budgétaire fait du RPROG la clef de voûte de la gestion : sur la base des objectifs généraux fixés par l'ordonnateur, il détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats ; il définit le périmètre des unités opérationnelles, garantit contrôle interne et contrôle de gestion, et organise le dialogue de gestion conformément à la charte de gestion. Quatre programmes sans RPROG sont ingérables : personne pour arrêter les objectifs du PAP ni pour en répondre dans le RAP - le rapport d'évaluation de l'art. 82 pt. 2, qui doit préciser par programme le degré d'atteinte des objectifs, ne peut être renseigné. Le cumul de trois programmes par un même directeur dilue la responsabilité managériale que le dispositif veut précisément individualiser : si un seul répond de tout, nul ne répond de rien. La chaîne doit être complétée par les RUOP, qui proposent au RPROG la programmation et les mouvements de crédits de leurs unités dans les limites de la charte de gestion." },
+      { num: 2, enonce: 'Appréciez la situation des responsables de programme au regard du décret n° 22/37.', correction: "Le décret n° 22/37 du 29 octobre 2022 portant gouvernance budgétaire fait du RPROG la clef de voûte de la gestion : sur la base des objectifs généraux fixés par l'ordonnateur, il détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats ; il définit le périmètre des unités opérationnelles, garantit contrôle interne et contrôle de gestion, et organise le dialogue de gestion conformément à la charte de gestion. Quatre programmes sans RPROG sont ingérables : personne pour arrêter les objectifs du PAP ni pour en répondre dans le RAP - le rapport d'évaluation de l'art. 82 pt. 2, qui doit préciser par programme le degré d'atteinte des objectifs, ne peut être renseigné. Le cumul de trois programmes par un même directeur dilue la responsabilité managériale que le dispositif veut précisément individualiser : si un seul répond de tout, nul ne répond de rien. La chaîne doit être complétée par les RUOP, qui proposent au RPROG la programmation et les mouvements de crédits de leurs unités dans les limites de la charte de gestion." },
       { num: 3, enonce: 'Les indicateurs exclusivement « de moyens » sont-ils admissibles ? Quelles conséquences pour le futur RAP ?', correction: "Non. Le Guide PAP/RAP l'énonce : « pris isolément, les indicateurs de moyens ne sont pas des indicateurs de performance » - ils ne valent qu'en dénominateur d'un ratio d'efficience. « Agents formés » et « réunions tenues » décrivent des ressources ou des activités ; « crédits consommés » mesure l'exécution financière, pas les résultats. La démarche exige de combiner indicateurs de produits, de qualité de service et de résultats (efficacité socio-économique), l'efficience rapportant les moyens aux produits - par exemple le coût du kilomètre bitumé. L'art. 43 LOFIP l'impose juridiquement : les résultats attendus font « l'objet d'une évaluation au moyen d'indicateurs de performance ». Conséquence en aval : un RAP construit sur ces seuls indicateurs de moyens ne peut pas comparer prévision et réalisation en termes de résultats - il se réduit à un compte d'exécution financière, quand l'art. 82 pt. 4 exige un « rapport annuel de performance par programme rendant compte de leur gestion et de leurs résultats »." },
       { num: 4, enonce: "Analysez les anomalies du volet investissement (absence de distinction AE/CP ; projet de 12 millions USD sans fiche).", correction: "(1) La présentation globale sans distinction AE/CP méconnaît la structure légale des crédits : ils « sont constitués d'autorisations d'engagement et de crédits de paiement », les AE plafonnant les engagements et les CP les paiements de l'année (art. 42 ; définitions art. 3 pt. 2 et 17), et la loi de finances fixe par programme les AE annuelles et pluriannuelles ainsi que les CP (art. 22). Sans cette dissociation, le Parlement ne voit ni le coût total des engagements pluriannuels ni la charge de trésorerie de l'exercice - et le « reste à payer », que le RAP doit faire ressortir, devient incalculable. (2) Le projet de 12 millions USD sans fiche projet contourne le cycle du décret n° 23/18 du 31 mai 2023 : identification, inscription à la banque des projets (art. 14), évaluation ex-ante, programmation - le gabarit officiel de fiche projet du Ministère du Plan structure ces informations minimales. Sans fiche, pas de validation par les instances du PIP - au premier chef le COPIP, présidé par le Ministre du Plan (art. 36-38) -, risque de double inscription, et impossibilité de suivi. Le canevas PAP/RAP exige au surplus une présentation individuelle des projets de plus de 10 millions de dollars, avec coût total, tranches engagées et besoins futurs de CP : le campus y échappe irrégulièrement." },
     ],
@@ -552,7 +572,7 @@ export const chapitre: Chapitre = {
     "Aucun amendement diminuant les recettes ou accroissant les dépenses sans compensation (art. 86 ; art. 127 Const.) ; l'irrecevabilité vaut toute l'année pour toute initiative parlementaire (art. 134 Const.) ; on ne crée pas de programme par amendement (art. 43, 50).",
     "La reddition des comptes est déposée au plus tard le 15 mai (art. 84), accompagnée du rapport de la Cour des comptes et du RAP (art. 82) ; son examen précède obligatoirement le vote de la LF suivante et son approbation vaut quitus de la gestion du Gouvernement (art. 87).",
     "Le Guide PAP/RAP (juillet 2021, COREF) structure la performance : cinq étapes de structuration, 4 à 5 programmes par ministère en moyenne, indicateurs de moyens/produits/qualité/résultats avec l'efficience en ratio - les indicateurs de moyens seuls ne sont pas des indicateurs de performance ; conférences de performance et revue des dépenses en deuxième quinzaine d'avril ; canevas tabulés P-I/P-II.k (PAP) et R-I/R-II.k (RAP), avec présentation individuelle des projets de plus de 10 millions USD et calcul du reste à payer sur les AE.",
-    "Le décret n° 22/37 du 5 août 2022 institue la chaîne managériale : le RPROG détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats ; le RUOP propose la programmation et les mouvements de crédits de son unité ; le dialogue de gestion suit la charte de gestion.",
+    "Le décret n° 22/37 du 29 octobre 2022 institue la chaîne managériale : le RPROG détermine les objectifs spécifiques, affecte les moyens et contrôle les résultats ; le RUOP propose la programmation et les mouvements de crédits de son unité ; le dialogue de gestion suit la charte de gestion.",
     "Le PIP, triennal glissant, accompagne le PLF (art. 79 pt. 8) ; le décret n° 23/18 du 31 mai 2023 organise le cycle des projets, la banque des projets, le fonds de préinvestissement (5%), le crédit de suivi (2%) et le COPIP présidé par le Ministre du Plan ; la mécanique AE/CP (art. 3, 22, 42) permet l'investissement pluriannuel sous contrôle annuel.",
   ],
   references: [
@@ -573,7 +593,7 @@ export const chapitre: Chapitre = {
     },
     {
       genre: 'texte',
-      intitule: 'Décret n° 22/37 du 5 août 2022 portant gouvernance budgétaire',
+      intitule: 'Décret n° 22/37 du 29 octobre 2022 portant gouvernance budgétaire',
       precision: 'partie 4 : acteurs de la gestion de programme (RPROG, RUOP), dialogue et charte de gestion',
     },
     {
@@ -584,7 +604,7 @@ export const chapitre: Chapitre = {
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: 'Sources : LOFIP n° 11/011 du 13 juillet 2011 (mod. lois n° 18/010 et n° 23/030), art. 13, 26-31, 42-53, 76-87 · Constitution, art. 126-127, 134 · Guide PAP/RAP (COREF, juillet 2021) · décret n° 22/37 du 5 août 2022 · décret n° 23/18 du 31 mai 2023 · LF n° 25/060 (2026)',
+  sources: 'Sources : LOFIP n° 11/011 du 13 juillet 2011 (mod. lois n° 18/010 et n° 23/030), art. 13, 26-31, 42-53, 76-87 · Constitution, art. 126-127, 134 · Guide PAP/RAP (COREF, juillet 2021) · décret n° 22/37 du 29 octobre 2022 · décret n° 23/18 du 31 mai 2023 · LF n° 25/060 (2026)',
 }
 
 export default chapitre
