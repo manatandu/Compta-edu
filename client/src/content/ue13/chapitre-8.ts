@@ -443,6 +443,110 @@ const QCM: Chapitre['qcm'] = [
     explication: "IAS 10.14-15 : l'entité ne doit pas établir ses états financiers sur la base de la continuité de l'exploitation si la direction détermine, après la clôture, qu'elle a l'intention ou n'a pas d'autre solution réaliste que de liquider l'entité ou de cesser son activité ; il en résulte une modification fondamentale de la convention comptable.",
     articleRef: "IAS 10.14-16",
   },
+  {
+    id: 'ue13c8-q33',
+    question: "Une entreprise établissant des états IFRS à partir de comptes SYSCOHADA fait apparaître un « résultat hors activités ordinaires ». Selon IAS 1 :",
+    options: [
+      { id: 'a', texte: "Ce résultat peut être maintenu sous l'intitulé « éléments extraordinaires »" },
+      { id: 'b', texte: "Aucun élément ne peut être présenté comme extraordinaire, ni dans les états ni dans les notes ; les éléments significatifs sont présentés séparément avec leur nature et leur montant" },
+      { id: 'c', texte: "Ce résultat est porté en autres éléments du résultat global" },
+      { id: 'd', texte: "Ce résultat est porté directement en capitaux propres" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 1.87 interdit de présenter des éléments de produits ou de charges en tant qu'éléments extraordinaires, dans les états comme dans les notes. Les éléments significatifs font l'objet d'une information distincte sur leur nature et leur montant (§ 97-98). Le SYSCOHADA révisé définit au contraire les charges et produits HAO comme des flux non récurrents, ayant un caractère accidentel ou extraordinaire (Titre IX, ch. 4).",
+    articleRef: "IAS 1.87, 97-98 ; SYSCOHADA révisé, Titre IX, ch. 4",
+  },
+  {
+    id: 'ue13c8-q34',
+    question: "Une entreprise cède un camion pour 900 ; sa valeur comptable est de 650. Comment la cession est-elle présentée ?",
+    options: [
+      { id: 'a', texte: "Selon IAS 1 comme selon le SYSCOHADA, en brut : produit de 900 et charge de 650" },
+      { id: 'b', texte: "Selon IAS 1, en net (profit de 250), la compensation traduisant la nature de l'opération ; selon le SYSCOHADA, en brut dans la partie HAO (postes TN et RO)" },
+      { id: 'c', texte: "Selon IAS 1, en produits des activités ordinaires pour 900" },
+      { id: 'd', texte: "Selon les deux référentiels, en autres éléments du résultat global" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 1.34(a) : les profits et pertes sur la sortie d'actifs non courants sont présentés après déduction, du prix reçu, de la valeur comptable et des frais de vente. Le compte de résultat du SYSCOHADA révisé présente séparément les produits des cessions d'immobilisations (TN) et leurs valeurs comptables (RO), dans le résultat HAO.",
+    articleRef: "IAS 1.32-34 ; SYSCOHADA révisé, Titre IX, ch. 4",
+  },
+  {
+    id: 'ue13c8-q35',
+    question: "Un emprunt de 3 000, dont 800 remboursables dans les douze mois, figure au bilan SYSCOHADA. Comment est-il présenté selon IAS 1 ?",
+    options: [
+      { id: 'a', texte: "Pour 3 000 en passifs non courants, comme dans les ressources stables du SYSCOHADA" },
+      { id: 'b', texte: "Pour 3 000 en passifs courants" },
+      { id: 'c', texte: "Pour 2 200 en passifs non courants et 800 en passifs courants" },
+      { id: 'd', texte: "En trésorerie-passif" },
+    ],
+    reponseCorrecte: 'c',
+    explication: "IAS 1.69 : un passif dont le règlement est dû dans les douze mois est courant. Le bilan fonctionnel du SYSCOHADA range la totalité des emprunts dans les ressources stables et renvoie l'échéancier à la note 16A. Le reclassement réduit les actifs courants nets par rapport au fonds de roulement fonctionnel.",
+    articleRef: "IAS 1.60, 69 ; SYSCOHADA révisé, Titre IX, ch. 3 et note 16A",
+  },
+  {
+    id: 'ue13c8-q36',
+    question: "Selon IFRS 18, lequel de ces sous-totaux, utilisé dans la communication publique d'une entité, est une mesure de la performance définie par la direction ?",
+    options: [
+      { id: 'a', texte: "La marge brute" },
+      { id: 'b', texte: "Le résultat d'exploitation avant amortissements et pertes de valeur relevant d'IAS 36" },
+      { id: 'c', texte: "Le résultat avant impôt" },
+      { id: 'd', texte: "Un « EBITDA ajusté » qui exclut en outre les coûts de restructuration" },
+    ],
+    reponseCorrecte: 'd',
+    explication: "IFRS 18.118 exclut de la définition la marge brute, le résultat d'exploitation avant amortissements et pertes de valeur, le résultat avant impôt, notamment. Un sous-total ajusté d'éléments supplémentaires, utilisé dans la communication publique, est présumé traduire la vision de la direction (§ 117 et 119) : il fait l'objet d'une note unique comportant un rapprochement, avec les effets d'impôt et sur les participations ne donnant pas le contrôle (§ 122-123). Traduction de travail.",
+    articleRef: "IFRS 18.117-123",
+  },
+  {
+    id: 'ue13c8-q37',
+    question: "Une entité qui présente ses charges d'exploitation par fonction selon IFRS 18 doit en outre :",
+    options: [
+      { id: 'a', texte: "Présenter aussi l'intégralité de ses charges par nature dans le compte de résultat" },
+      { id: 'b', texte: "Indiquer dans une note unique le total des amortissements, des avantages du personnel, des pertes de valeur et des dépréciations de stocks, et leur répartition entre les lignes de la catégorie exploitation" },
+      { id: 'c', texte: "Ne fournir aucune information par nature" },
+      { id: 'd', texte: "Présenter un tableau des soldes intermédiaires de gestion" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IFRS 18.83 (traduction de travail). L'entité présente aussi séparément le coût des ventes et décrit qualitativement la nature des charges de chaque ligne par fonction (§ 82). La présentation peut combiner nature et fonction, chaque ligne ne reposant que sur l'une des deux caractéristiques (§ 78).",
+    articleRef: "IFRS 18.78, 82-83",
+  },
+  {
+    id: 'ue13c8-q38',
+    question: "Quelles variations des passifs issus des activités de financement IAS 7 demande-t-elle d'expliquer ?",
+    options: [
+      { id: 'a', texte: "Uniquement les flux de trésorerie de financement" },
+      { id: 'b', texte: "Les flux de trésorerie, mais aussi les changements sans contrepartie de trésorerie : nouveaux contrats de location, effets de change, variations de juste valeur, variations de périmètre" },
+      { id: 'c', texte: "Uniquement les variations de change" },
+      { id: 'd', texte: "Aucune : le tableau des flux suffit" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 7.44A-44B : l'entité fournit des informations permettant d'évaluer les variations des passifs issus des activités de financement, y compris les changements sans contrepartie de trésorerie, par exemple au moyen d'un rapprochement entre les soldes d'ouverture et de clôture.",
+    articleRef: "IAS 7.44A-44E",
+  },
+  {
+    id: 'ue13c8-q39',
+    question: "Dans ses états de l'exercice 2026, une entité n'applique pas encore IFRS 18, obligatoire à compter de 2027. Que doit-elle indiquer ?",
+    options: [
+      { id: 'a', texte: "Rien, la norme n'étant pas encore en vigueur" },
+      { id: 'b', texte: "Ce fait, et les informations connues ou raisonnablement estimables sur l'impact possible de sa première application" },
+      { id: 'c', texte: "Un retraitement des comparatifs selon IFRS 18" },
+      { id: 'd', texte: "Uniquement le titre de la norme" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 8.30. Le § 31 précise les informations à envisager : titre de la norme, nature des changements imminents, date d'application obligatoire, date prévue de première application, impact prévu ou déclaration selon laquelle il n'est pas connu.",
+    articleRef: "IAS 8.30-31",
+  },
+  {
+    id: 'ue13c8-q40',
+    question: "Dans quel cas IAS 1 impose-t-elle un troisième état de la situation financière, arrêté au début de la période précédente ?",
+    options: [
+      { id: 'a', texte: "Chaque année" },
+      { id: 'b', texte: "Lorsque l'entité applique une méthode rétrospectivement, effectue un retraitement rétrospectif ou un reclassement ayant une incidence significative sur ce bilan d'ouverture" },
+      { id: 'c', texte: "Uniquement lors d'un changement d'estimation" },
+      { id: 'd', texte: "Uniquement en cas de regroupement d'entreprises" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 1.40A-40B. Les notes relatives à ce troisième bilan ne sont pas exigées (§ 40C). Un changement d'estimation, appliqué prospectivement, n'entraîne pas cette obligation.",
+    articleRef: "IAS 1.40A-40C",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -485,6 +589,41 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Tous les états sont présentés avec la même importance (§ 11). Le résultat net et les autres éléments du résultat global peuvent figurer dans un état unique, en deux sections successives, ou dans deux états distincts, l'état du résultat net précédant immédiatement celui du résultat global (§ 10A). Les intitulés de la norme ne sont pas imposés : l'entité peut, par exemple, parler d'« état du résultat global » (§ 10).",
       },
+      { type: 'intertitre', texte: "8.1.3 Les principes transversaux : regroupement, importance relative et compensation" },
+      {
+        type: 'paragraphe',
+        texte: "Un état financier est le produit d'un regroupement : des milliers de transactions sont agrégées en quelques dizaines de postes. IAS 1 encadre ce regroupement par trois règles. L'entité présente séparément chaque catégorie significative d'éléments similaires, ainsi que les éléments de nature ou de fonction dissemblables, sauf s'ils sont non significatifs (§ 29) ; un élément qui ne justifie pas une ligne dans les états peut justifier une mention dans les notes (§ 30). Elle ne doit pas « diminuer la compréhensibilité des états financiers en obscurcissant les informations significatives par la communication d'informations non significatives » (§ 30A). Enfin, une information exigée par une norme n'a pas à être fournie si elle est non significative, même lorsque la norme en dresse une liste minimale ; à l'inverse, le simple respect des dispositions particulières ne suffit pas si les utilisateurs ne peuvent comprendre l'incidence d'une transaction, et l'entité fournit alors des informations supplémentaires (§ 31). L'importance relative joue donc dans les deux sens : elle autorise à omettre et elle oblige à ajouter.",
+      },
+      {
+        type: 'filet',
+        titre: "Texte de référence — IAS 1, § 32",
+        texte: "« L'entité ne doit pas compenser les actifs et les passifs ou les produits et les charges, sauf si cette compensation est imposée ou autorisée par une IFRS. »",
+      },
+      {
+        type: 'paragraphe',
+        texte: "La justification de l'interdiction est donnée au § 33 : sauf lorsqu'elle correspond à la substance de l'opération, la compensation réduit la capacité des utilisateurs de comprendre les transactions et d'évaluer les flux futurs. Deux précisions en délimitent la portée. L'évaluation d'un actif net de ses dépréciations, par exemple des stocks obsolètes ou des créances douteuses, n'est pas une compensation (§ 33). Inversement, certaines opérations qui ne génèrent pas de produits des activités ordinaires sont présentées en net lorsque cette présentation traduit leur nature : ainsi, l'entité présente les profits et pertes sur la sortie d'actifs non courants après déduction, du prix reçu, de la valeur comptable de l'actif et des frais de vente (§ 34(a)). Le compte de résultat du SYSCOHADA révisé procède à l'inverse : il présente en brut les produits des cessions d'immobilisations (poste TN) et leurs valeurs comptables (poste RO), dans la partie hors activités ordinaires.",
+      },
+      { type: 'intertitre', texte: "8.1.4 Les états financiers du SYSCOHADA révisé : une autre conception" },
+      {
+        type: 'paragraphe',
+        texte: "L'article 8 de l'AUDCIF dispose qu'« Un jeu complet d'états financiers annuels comprend le Bilan, le Compte de résultat, le Tableau des flux de trésorerie ainsi que les Notes annexes. » L'exercice coïncide avec l'année civile (art. 7), les états sont arrêtés au plus tard dans les quatre mois qui suivent la clôture et la date d'arrêté est mentionnée dans toute transmission (art. 23). La présentation varie selon la taille de l'entité : le Système normal est la règle, le Système minimal de trésorerie étant réservé aux petites entités (art. 11 et 13). Ces états servent plusieurs destinataires à la fois : associés, créanciers, administration fiscale, statistique nationale. De là leur conception : un bilan fonctionnel construit pour l'analyse de l'équilibre financier, un compte de résultat en liste qui fait apparaître en cascade les soldes intermédiaires de gestion, une distinction entre activités ordinaires et hors activités ordinaires. IAS 1 est orientée vers un destinataire privilégié, l'investisseur et le prêteur qui apprécient les flux futurs, et laisse une large liberté de forme sous réserve d'un contenu minimal.",
+      },
+      {
+        type: 'carte',
+        titre: "Tableau 8.2 — IAS 1 et SYSCOHADA révisé : différences de conception",
+        tableau: {
+          entetes: ['Point', 'IAS 1', 'SYSCOHADA révisé'],
+          lignes: [
+            ['Forme des états', "Contenu minimal, forme libre (§ 54, 57, 82)", "Modèles normalisés, postes codifiés (Titre IX)"],
+            ['Bilan', "Distinction courant / non courant ou ordre de liquidité (§ 60)", "Bilan fonctionnel en six masses, avant répartition"],
+            ['Performance', "Résultat net et autres éléments du résultat global ; aucun élément extraordinaire (§ 87)", "Compte de résultat en liste ; soldes intermédiaires de gestion ; résultat HAO"],
+            ['Variations des capitaux propres', 'État distinct (§ 106)', "Pas d'état distinct"],
+            ['Compensation', 'Interdite sauf disposition contraire ; cessions présentées en net (§ 32-34)', 'Cessions présentées en brut (postes TN et RO)'],
+            ['Exercice', "Période de présentation de l'entité (§ 36)", "Année civile (art. 7)"],
+            ['Date de référence des événements postérieurs', "Date d'autorisation de publication (IAS 10.3)", "Date d'arrêté, au plus tard quatre mois après la clôture (art. 23)"],
+          ],
+        },
+      },
     ],
   },
   {
@@ -504,7 +643,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 8.2 — Critères de classement en éléments courants (IAS 1, § 66 et 69)",
+        titre: "Tableau 8.3 — Critères de classement en éléments courants (IAS 1, § 66 et 69)",
         tableau: {
           entetes: ['Actif courant (§ 66)', 'Passif courant (§ 69)'],
           lignes: [
@@ -534,6 +673,45 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le reclassement de 5 000 000 USD en passif courant modifie sensiblement le fonds de roulement et les ratios de liquidité présentés. La vérification du respect des clauses restrictives à la clôture est donc un point d'attention de l'arrêté des comptes, et de l'audit.",
       },
+      { type: 'intertitre', texte: "8.2.3 Du bilan fonctionnel SYSCOHADA à l'état de la situation financière" },
+      {
+        type: 'paragraphe',
+        texte: "Le bilan du SYSCOHADA révisé opte pour « un classement fonctionnel des postes du bilan » en six grandes masses : actif immobilisé et ressources stables, actif et passif circulants, trésorerie-actif et trésorerie-passif (Titre IX, ch. 3). Sa logique est celle de l'analyse de l'équilibre financier : les ressources stables financent les emplois stables, et le fonds de roulement qui en résulte couvre le besoin de financement du cycle d'exploitation. Il s'ensuit que les emprunts et les dettes de location-acquisition figurent dans les ressources stables pour leur totalité, quelle que soit la part remboursable dans l'année ; l'échéancier est renvoyé à la note 16A, qui ventile les dettes à un an au plus, entre un et deux ans et à plus de deux ans. IAS 1 raisonne en termes de liquidité : la part d'une dette remboursable dans les douze mois est un passif courant, parce qu'elle mobilisera la trésorerie de l'exercice suivant. Le passage de l'un à l'autre n'est donc pas une simple mise en forme : il modifie les indicateurs d'équilibre.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.2 — Reclassement d'un bilan SYSCOHADA selon IAS 1 (en milliers de USD)",
+        texte: "Une société cimentière présente au 31 décembre N le bilan SYSCOHADA suivant ; les évaluations sont supposées déjà conformes aux IFRS, seul le classement est étudié. Actif : immobilisations incorporelles 200 ; corporelles 6 000 ; financières 300, dont un prêt au personnel de 50 remboursable dans l'année ; actif circulant HAO (créance sur cession d'immobilisation) 120 ; stocks 1 500 ; clients 1 800 ; autres créances 400 ; trésorerie-actif 600 ; total 10 920. Passif : capitaux propres 4 800 ; emprunts 3 000, dont 800 à moins d'un an ; dettes de location-acquisition 400, dont 100 à moins d'un an ; provisions pour risques et charges 350, dont un litige de 150 dont le dénouement est attendu dans l'année ; dettes circulantes HAO (fournisseur d'immobilisation) 250 ; fournisseurs 1 200 ; dettes fiscales et sociales 500 ; autres dettes 120 ; trésorerie-passif (découvert) 300 ; total 10 920.",
+        tableau: {
+          entetes: ['État de la situation financière (IAS 1)', 'Montant', 'Origine SYSCOHADA'],
+          lignes: [
+            ['Immobilisations incorporelles et corporelles', '6 200', 'Actif immobilisé'],
+            ['Autres actifs financiers non courants', '250', 'Immobilisations financières, hors part à moins d\'un an'],
+            ['**Actifs non courants**', '**6 450**', ''],
+            ['Stocks', '1 500', 'Stocks'],
+            ['Clients', '1 800', 'Clients'],
+            ['Autres actifs courants', '570', 'Autres créances 400 + actif circulant HAO 120 + prêt à moins d\'un an 50'],
+            ['Trésorerie et équivalents de trésorerie', '600', 'Trésorerie-actif'],
+            ['**Actifs courants**', '**4 470**', ''],
+            ['**Capitaux propres**', '**4 800**', ''],
+            ['Emprunts non courants', '2 200', 'Emprunts, hors part à moins d\'un an'],
+            ['Obligations locatives non courantes', '300', 'Location-acquisition, hors part à moins d\'un an'],
+            ['Provisions non courantes', '200', 'Provisions pour risques et charges, hors litige'],
+            ['**Passifs non courants**', '**2 700**', ''],
+            ['Fournisseurs et autres créditeurs', '1 570', 'Fournisseurs 1 200 + dettes HAO 250 + autres dettes 120'],
+            ['Dettes fiscales et sociales', '500', 'Dettes fiscales et sociales'],
+            ['Emprunts courants et découverts', '1 100', "Part à moins d'un an des emprunts 800 + trésorerie-passif 300"],
+            ['Obligations locatives courantes', '100', "Part à moins d'un an"],
+            ['Provisions courantes', '150', 'Litige'],
+            ['**Passifs courants**', '**3 420**', ''],
+          ],
+        },
+        note: "Le fonds de roulement SYSCOHADA s'élève à 8 550 − 6 500 = **2 050** (ressources stables : 4 800 + 3 000 + 400 + 350 ; actif immobilisé : 200 + 6 000 + 300). Les actifs courants nets selon IAS 1 ne sont que de 4 470 − 3 420 = **1 050**. L'écart de 1 000 correspond aux parts à moins d'un an des emprunts (800), des obligations locatives (100) et des provisions (150), diminuées du prêt au personnel à moins d'un an (50). Un prêteur qui lit les états IFRS voit une liquidité sensiblement plus tendue que celle que suggère le bilan fonctionnel. Le découvert est un passif courant au bilan ; dans le tableau des flux, il peut toutefois être une composante de la trésorerie lorsqu'il fait partie intégrante de la gestion de trésorerie (IAS 7.8).",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Au-delà des postes, IAS 1 exige des informations sur le capital : pour chaque catégorie d'actions, le nombre d'actions autorisées, émises et entièrement libérées ou non, la valeur nominale, le rapprochement du nombre d'actions en circulation entre l'ouverture et la clôture, les droits et restrictions attachés, les actions détenues par l'entité ou ses filiales, ainsi que la nature et l'objet de chaque réserve (§ 79). Le SYSCOHADA révisé traite ces informations dans les notes 13 (capital) et 14 (primes et réserves).",
+      },
     ],
   },
   {
@@ -552,7 +730,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 8.3 — Autres éléments du résultat global étudiés dans le module",
+        titre: "Tableau 8.4 — Autres éléments du résultat global étudiés dans le module",
         tableau: {
           entetes: ['Élément', 'Reclassement en résultat net', 'Référence'],
           lignes: [
@@ -571,7 +749,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 8.2 — Présentation des charges par nature et par fonction (en milliers de USD)",
+        titre: "Exemple 8.3 — Présentation des charges par nature et par fonction (en milliers de USD)",
         texte: "Une entreprise de transformation alimentaire réalise un chiffre d'affaires de 10 000. Ses charges de l'exercice sont les suivantes : matières consommées 4 000 ; personnel 2 500 (production 1 500, commercial 600, administration 400) ; amortissements 1 000 (production 700, commercial 100, administration 200) ; autres charges 800 (production 300, commercial 300, administration 200). Le stock de produits finis a augmenté de 200.",
         tableau: {
           entetes: ['Présentation par nature', 'Montant', 'Présentation par fonction', 'Montant'],
@@ -587,10 +765,75 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le résultat est identique ; l'information diffère. La présentation par fonction fait apparaître la marge brute et le poids des fonctions commerciale et administrative ; elle impose de publier en annexe les amortissements (1 000) et les charges de personnel (2 500). La présentation par nature, retenue par le compte de résultat du SYSCOHADA révisé, permet le calcul direct des soldes intermédiaires de gestion.",
       },
-      { type: 'intertitre', texte: "8.3.3 L'état des variations des capitaux propres" },
+      { type: 'intertitre', texte: "8.3.3 Les éléments hors activités ordinaires face à l'interdiction des éléments extraordinaires" },
+      {
+        type: 'filet',
+        titre: "Texte de référence — IAS 1, § 87",
+        texte: "« L'entité ne doit pas présenter des éléments de produits ou de charges en tant qu'éléments extraordinaires, que ce soit dans l'état ou les états du résultat net et des autres éléments du résultat global ou dans les notes. »",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Le SYSCOHADA révisé distingue au contraire, dans son compte de résultat, l'activité ordinaire et l'activité hors activités ordinaires (HAO), dont les charges et produits « correspondent à des flux non récurrents, ayant un caractère accidentel ou extraordinaire » (Titre IX, ch. 4). Le résultat des activités ordinaires y est présenté comme le résultat courant, et le résultat HAO comme celui des opérations peu fréquentes et non récurrentes. L'IASB a supprimé la notion d'élément extraordinaire parce que la frontière entre l'ordinaire et l'extraordinaire dépend largement du jugement de la direction, qui peut être tentée de ranger les charges défavorables dans la seconde catégorie pour flatter un résultat « courant ». IAS 1 ne renonce pas pour autant à l'information sur les éléments inhabituels : lorsque des produits et charges sont significatifs, l'entité en indique séparément la nature et le montant (§ 97), notamment pour les dépréciations de stocks ou d'immobilisations, les restructurations, les sorties d'immobilisations et de placements, les activités abandonnées, le règlement de litiges et les reprises de provisions (§ 98). La différence tient donc au lieu et au statut de l'information : une ligne distincte dans la performance de l'entité, et non un résultat séparé qui échapperait à la mesure de la performance.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.4 — Reclassement du résultat HAO (en milliers de USD)",
+        texte: "Le compte de résultat SYSCOHADA d'une entreprise de transport fait apparaître un résultat des activités ordinaires de 1 500 et un résultat HAO de 180, composé des éléments suivants : produit de cession d'un camion 900 (poste TN) et valeur comptable du camion cédé 650 (poste RO) ; pénalités fiscales 40 et don à une œuvre sociale 30 (autres charges HAO, poste RP).",
+        tableau: {
+          entetes: ['Élément HAO', 'Présentation IFRS (IAS 1)', 'Montant'],
+          lignes: [
+            ['Cession du camion', "Profit de sortie présenté en net (§ 34(a)), avec les autres produits et charges ; mention séparée s'il est significatif (§ 98(c))", '+250'],
+            ['Pénalités fiscales', "Charge de la période ; information distincte si significative (§ 97)", '−40'],
+            ['Don', 'Autres charges', '−30'],
+            ['**Incidence sur le résultat avant impôt**', '', '**+180**'],
+          ],
+        },
+        note: "Le résultat net est inchangé ; ce qui change, c'est que les 180 font désormais partie de la performance présentée, au lieu d'être isolés sous un résultat distinct. Selon IFRS 18, ces éléments relèveraient de la catégorie exploitation, résiduelle, et seraient donc inclus dans le résultat d'exploitation (section 8.5).",
+      },
+      { type: 'intertitre', texte: "8.3.4 Le reclassement des autres éléments du résultat global" },
+      {
+        type: 'paragraphe',
+        texte: "La distinction entre autres éléments du résultat global recyclables et non recyclables (§ 82A) a une portée pratique. Un élément recyclable transite deux fois par l'état du résultat global : une première fois en autres éléments du résultat global lors de sa naissance, une seconde fois lors de son reclassement en résultat net, avec un montant de sens opposé dans les autres éléments du résultat global, pour que le résultat global total ne le compte qu'une fois. Les ajustements de reclassement sont indiqués pour chaque composante (§ 92).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.5 — Reclassement d'une réserve de conversion lors de la cession d'une filiale",
+        texte: "Un groupe congolais consolide une filiale zambienne dont la réserve de conversion cumulée, portée en autres éléments du résultat global, s'élève à un gain de 120 au 1er janvier N. La filiale est cédée le 30 juin N ; aucun autre écart de conversion n'est né au cours de N. Le profit de cession calculé sur l'actif net consolidé est de 300.",
+        tableau: {
+          entetes: ['Élément', 'Résultat net', 'Autres éléments du résultat global', 'Résultat global'],
+          lignes: [
+            ['Profit de cession sur l\'actif net', '300', '', '300'],
+            ['Reclassement de la réserve de conversion (IAS 21.48)', '120', '(120)', '0'],
+            ['**Total N**', '**420**', '**(120)**', '**300**'],
+          ],
+        },
+        note: "Le gain de change de 120, déjà compris dans le résultat global des exercices antérieurs, n'augmente pas une seconde fois le résultat global de N ; il est simplement transféré en résultat net. La norme IFRS pour les PME ne prévoit pas ce reclassement (chapitre 7).",
+      },
+      { type: 'intertitre', texte: "8.3.5 L'état des variations des capitaux propres" },
       {
         type: 'paragraphe',
         texte: "L'état des variations des capitaux propres présente le résultat global total, réparti entre propriétaires de la société mère et participations ne donnant pas le contrôle, les effets des applications et retraitements rétrospectifs selon IAS 8 pour chaque composante, et, pour chaque composante, un rapprochement entre l'ouverture et la clôture distinguant le résultat net, les autres éléments du résultat global et les transactions avec les propriétaires : apports, distributions et variations de pourcentage d'intérêt sans perte de contrôle (§ 106). L'analyse des autres éléments du résultat global par élément est présentée dans l'état ou dans les notes (§ 106A). Cet état n'a pas d'équivalent distinct dans le SYSCOHADA révisé ; il est pourtant le lieu où apparaissent les effets de la première adoption et des corrections d'erreurs.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.6 — État des variations des capitaux propres (en milliers de USD)",
+        texte: "Une société présente au 1er janvier N un capital de 2 000, une réserve de réévaluation de 300 et des résultats non distribués de 1 500. Au cours de N, elle corrige une erreur de N-1 qui réduit de 60 les résultats non distribués d'ouverture, réalise un résultat net de 400, comptabilise une perte actuarielle nette d'impôt de 30 et une réévaluation d'immobilisations nette d'impôt de 90, vire aux résultats non distribués 20 de réserve de réévaluation au titre de l'amortissement de l'écart, distribue un dividende de 150 et augmente son capital de 500.",
+        tableau: {
+          entetes: ['', 'Capital', 'Réserve de réévaluation', 'Résultats non distribués', 'Total'],
+          lignes: [
+            ['Solde publié au 1er janvier N', '2 000', '300', '1 500', '3 800'],
+            ["Correction d'erreur (IAS 8)", '', '', '(60)', '(60)'],
+            ['**Solde retraité au 1er janvier N**', '**2 000**', '**300**', '**1 440**', '**3 740**'],
+            ['Résultat net', '', '', '400', '400'],
+            ['Autres éléments du résultat global', '', '90', '(30)', '60'],
+            ['**Résultat global de N**', '', '**90**', '**370**', '**460**'],
+            ['Virement de la réserve de réévaluation', '', '(20)', '20', '0'],
+            ['Dividendes', '', '', '(150)', '(150)'],
+            ['Augmentation de capital', '500', '', '', '500'],
+            ['**Solde au 31 décembre N**', '**2 500**', '**370**', '**1 680**', '**4 550**'],
+          ],
+        },
+        note: "La perte actuarielle, non recyclable, est présentée ici directement en résultats non distribués ; IAS 19 permet de la transférer dans les capitaux propres, sans l'imposer, et une entité peut aussi la cumuler dans une réserve distincte. L'état distingue les trois sources de variation que le § 106 impose de séparer : les retraitements rétrospectifs, le résultat global et les transactions avec les propriétaires.",
       },
     ],
   },
@@ -611,7 +854,7 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "8.4.2 Jugements, incertitudes et gestion du capital" },
       {
         type: 'carte',
-        titre: "Tableau 8.4 — Informations des notes relatives au jugement et au capital",
+        titre: "Tableau 8.5 — Informations des notes relatives au jugement et au capital",
         tableau: {
           entetes: ['Information', 'Contenu', 'Référence'],
           lignes: [
@@ -625,6 +868,50 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'filet',
         titre: "Observation — Les estimations sensibles dans les entreprises congolaises",
         texte: "Les chapitres précédents permettent d'identifier les sources d'incertitude qui relèvent le plus souvent du § 125 dans une entreprise commerciale ou industrielle congolaise : les pertes de crédit attendues sur des créances exposées à la conjoncture minière et au change ; la valeur recouvrable d'actifs miniers ou industriels dépendant des cours des matières premières ; les passifs de démantèlement et de remise en état ; les obligations au titre des indemnités de départ, sensibles au taux d'actualisation ; la recouvrabilité des actifs d'impôt différé. Pour chacune, l'information utile porte sur la valeur comptable exposée et sur la sensibilité aux hypothèses, et non sur une description générale de la méthode.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "L'information requise par le § 125 porte sur la nature des hypothèses et sur la valeur comptable des actifs et passifs concernés. Elle est présentée de manière à aider les utilisateurs à comprendre les jugements de la direction, par exemple par la sensibilité des valeurs comptables aux méthodes, hypothèses et estimations, ou par l'intervalle des résultats raisonnablement possibles au cours de l'exercice suivant (§ 129). La norme n'impose pas de fournir des budgets ou des prévisions (§ 130).",
+      },
+      { type: 'intertitre', texte: "8.4.3 Des informations propres à l'entité" },
+      {
+        type: 'carte',
+        titre: "Exemple 8.7 — Information sur une source d'incertitude : l'obligation au titre des indemnités de départ",
+        texte: "Une entreprise industrielle évalue son obligation au titre des indemnités de fin de carrière à 2 400 (milliers de USD) avec un taux d'actualisation de 9 % et une progression annuelle des salaires de 6 %. Son actuaire estime qu'une baisse d'un point du taux d'actualisation porterait l'obligation à 2 640, et une hausse d'un point des salaires à 2 590.",
+        tableau: {
+          entetes: ['Information générique, peu utile', 'Information propre à l\'entité (IAS 1.125 et 129)'],
+          lignes: [
+            ["« Les engagements sociaux sont évalués selon IAS 19 à partir d'hypothèses actuarielles. »", "Obligation de 2 400 au 31 décembre N ; hypothèses : actualisation 9 %, progression des salaires 6 %"],
+            ["« Les hypothèses sont revues chaque année. »", "Une baisse d'un point du taux d'actualisation augmenterait l'obligation de 240 ; une hausse d'un point de la progression salariale, de 190"],
+            ["« Le taux d'actualisation est déterminé par référence au marché. »", "Base de détermination du taux retenue par l'entité et justification du choix"],
+          ],
+        },
+        note: "La colonne de gauche reproduit les normes ; celle de droite permet à un prêteur d'apprécier le risque d'ajustement de l'exercice suivant. Le SYSCOHADA révisé demande lui aussi, dans la note 16A, la valeur retenue pour les principales hypothèses actuarielles et leur base de détermination.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Les notes du SYSCOHADA révisé suivent une maquette normalisée de 36 notes, de la note 1 (dettes garanties par des sûretés réelles) à la note 36 (tables des codes). Elles comportent obligatoirement une déclaration explicite de conformité au SYSCOHADA, et chaque élément des états fait l'objet d'une référence croisée vers la note correspondante (Titre IX, ch. 6). L'approche est prescriptive : les tableaux sont prédéfinis, et les modèles non documentés ne sont pas joints. IAS 1 et, plus encore, IFRS 18 privilégient une approche par objectifs et par importance relative : l'entité détermine ce qui est significatif pour ses utilisateurs, ce qui suppose un jugement documenté mais évite la production mécanique de tableaux sans objet.",
+      },
+      { type: 'intertitre', texte: "8.4.4 La gestion du capital et les exigences externes" },
+      {
+        type: 'paragraphe',
+        texte: "L'entité fournit les informations permettant d'évaluer ses objectifs, procédures et processus de gestion du capital (§ 134) : description de ce qu'elle gère comme capital, nature des exigences en matière de capital imposées de l'extérieur et manière dont elles sont intégrées à sa gestion, résumé des données quantitatives, variations par rapport à la période précédente, respect de ces exigences et, en cas de manquement, ses conséquences (§ 135). Ces informations reposent sur celles qui sont fournies en interne aux principaux dirigeants (§ 135). La notion d'exigence imposée de l'extérieur ne se limite pas aux réglementations prudentielles : pour une entreprise commerciale ou industrielle de l'espace OHADA, elle recouvre les clauses restrictives des contrats d'emprunt, mais aussi les règles de l'AUSCGIE relatives aux capitaux propres.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.8 — Information sur la gestion du capital d'une société anonyme congolaise",
+        texte: "Une société anonyme au capital social de 10 000 (milliers de USD) gère comme capital ses capitaux propres et son endettement net. Deux exigences externes s'imposent à elle : un emprunt bancaire exige un rapport entre endettement net et capitaux propres inférieur à 1,5 ; l'article 664 de l'AUSCGIE impose de convoquer l'assemblée générale extraordinaire, dans les quatre mois de l'approbation des comptes, si les capitaux propres deviennent inférieurs à la moitié du capital social du fait des pertes. Au 31 décembre N, les capitaux propres sont de 8 200 et l'endettement net de 9 800.",
+        tableau: {
+          entetes: ['Information (IAS 1.135)', 'Contenu'],
+          lignes: [
+            ['(a)(i) Ce qui est géré comme capital', "Capitaux propres (8 200) et endettement net (9 800)"],
+            ['(a)(ii) Exigences externes', "Clause restrictive bancaire (ratio inférieur à 1,5) ; seuil de la moitié du capital social (AUSCGIE, art. 664)"],
+            ['(b) Données quantitatives', "Ratio endettement net / capitaux propres : 9 800 / 8 200 = 1,20 ; capitaux propres à 82 % du capital social"],
+            ['(d) Respect des exigences', "Les deux exigences sont respectées au 31 décembre N"],
+            ['(e) Conséquences d\'un manquement', "Sans objet pour N ; l'entité peut décrire la marge disponible avant franchissement des seuils"],
+          ],
+        },
+        note: "Le seuil de l'article 664 s'apprécie sur les capitaux propres des comptes légaux SYSCOHADA, et non sur ceux des états IFRS, qui ne peuvent servir de base aux effets juridiques des comptes (AUDCIF, art. 8 ; chapitre 7). L'entité qui publie en IFRS doit donc, pour informer correctement sur cette exigence, se référer aux capitaux propres de ses comptes légaux, en indiquant l'écart éventuel avec les capitaux propres IFRS.",
       },
     ],
   },
@@ -644,7 +931,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 8.5 — Totaux et sous-totaux imposés par IFRS 18 (§ 69-72, traduction de travail)",
+        titre: "Tableau 8.6 — Totaux et sous-totaux imposés par IFRS 18 (§ 69-72, traduction de travail)",
         tableau: {
           entetes: ['Total ou sous-total', 'Composition'],
           lignes: [
@@ -656,12 +943,12 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 8.3 — Reclassement d'un compte de résultat selon IFRS 18 (en milliers de USD)",
-        texte: "Reprise de l'exemple 8.2 (résultat avant charges financières et impôt : 1 900), complété par : produits des placements de trésorerie 150 ; quote-part du résultat d'une entreprise associée 100 ; charges d'intérêts sur emprunt bancaire 400 ; impôt sur le résultat 500.",
+        titre: "Exemple 8.9 — Reclassement d'un compte de résultat selon IFRS 18 (en milliers de USD)",
+        texte: "Reprise de l'exemple 8.3 (résultat avant charges financières et impôt : 1 900), complété par : produits des placements de trésorerie 150 ; quote-part du résultat d'une entreprise associée 100 ; charges d'intérêts sur emprunt bancaire 400 ; impôt sur le résultat 500.",
         tableau: {
           entetes: ['Catégorie', 'Éléments', 'Montant'],
           lignes: [
-            ['Exploitation', "Produits et charges de l'exemple 8.2", '1 900'],
+            ['Exploitation', "Produits et charges de l'exemple 8.3", '1 900'],
             ['**Résultat d\'exploitation**', '', '**1 900**'],
             ['Investissement', 'Produits de trésorerie 150 ; quote-part de l\'entreprise associée 100', '250'],
             ['**Résultat avant financement et impôts sur le résultat**', '', '**2 150**'],
@@ -672,10 +959,46 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Selon IAS 1, la quote-part des entreprises associées et les produits de trésorerie n'avaient pas de place imposée, et le « résultat opérationnel » publié par les entités était défini librement. IFRS 18 impose une définition commune du résultat d'exploitation, ce qui améliore la comparabilité entre entités.",
       },
-      { type: 'intertitre', texte: "8.5.2 Les mesures de la performance définies par la direction" },
+      { type: 'intertitre', texte: "8.5.2 Regroupement et analyse des charges" },
+      {
+        type: 'paragraphe',
+        texte: "IFRS 18 érige en principes le regroupement et la ventilation des informations. L'entité classe et regroupe les éléments d'après leurs caractéristiques communes, ventile ceux qui présentent des caractéristiques différentes, et veille à ce que le regroupement n'obscurcisse pas une information significative (§ 41) ; elle ventile un élément chaque fois que l'information qui en résulte est significative, dans les états ou, à défaut, dans les notes (§ 42). Pour les charges de la catégorie exploitation, elle retient la présentation qui fournit le résumé structuré le plus utile, selon la nature des charges, leur fonction, ou les deux, chaque ligne ne regroupant toutefois que des charges d'une seule de ces caractéristiques (§ 78). L'entité qui présente au moins une ligne par fonction présente séparément le coût des ventes et décrit qualitativement la nature des charges comprises dans chaque ligne (§ 82). Elle indique en outre, dans une note unique, le total des amortissements des immobilisations corporelles et incorporelles, des avantages du personnel, des pertes de valeur et des dépréciations de stocks, ainsi que leur répartition entre les lignes de la catégorie exploitation (§ 83).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.10 — Note sur les charges spécifiées (IFRS 18, § 83), à partir de l'exemple 8.3",
+        tableau: {
+          entetes: ['Charge', 'Coût des ventes', 'Coûts commerciaux', 'Charges administratives', 'Total'],
+          lignes: [
+            ['Amortissements des immobilisations corporelles', '700', '100', '200', '1 000'],
+            ['Avantages du personnel', '1 500', '600', '400', '2 500'],
+          ],
+        },
+        note: "L'entité qui présente ses charges par fonction ne perd pas l'information par nature : IFRS 18 la rend obligatoire pour les charges les plus utiles à l'analyse. Ce tableau permet par exemple de reconstituer un excédent brut d'exploitation au sens du SYSCOHADA à partir d'un compte de résultat IFRS présenté par fonction.",
+      },
+      { type: 'intertitre', texte: "8.5.3 Les mesures de la performance définies par la direction" },
       {
         type: 'paragraphe',
         texte: "Une mesure de la performance définie par la direction est un sous-total de produits et de charges que l'entité utilise dans ses communications publiques en dehors des états financiers, pour communiquer la vision de la direction sur un aspect de sa performance d'ensemble, et qui n'est ni imposé par les IFRS ni énuméré au § 118 (§ 117). Sont notamment exclus la marge brute et les sous-totaux similaires, ainsi que le résultat d'exploitation avant amortissements et pertes de valeur (§ 118). Un « résultat opérationnel courant » ou un « EBITDA ajusté » communiqué aux investisseurs en relève typiquement : l'entité doit alors présenter, dans une note unique, ce que la mesure communique selon la direction, son mode de calcul et un rapprochement avec le total ou sous-total IFRS le plus directement comparable (§ 122-123). Ces mesures cessent ainsi d'échapper au contrôle des états financiers audités.",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Le § 118 énumère les sous-totaux qui ne sont pas des mesures de la performance définies par la direction : marge brute, résultat d'exploitation avant amortissements et pertes de valeur relevant d'IAS 36, résultat d'exploitation augmenté des résultats des participations mises en équivalence, résultat avant impôt, résultat des activités poursuivies. Un excédent brut d'exploitation calculé sans ajustement n'est donc pas une telle mesure ; un « EBITDA ajusté » qui exclut les coûts de restructuration en est une. Tout sous-total utilisé dans la communication publique est présumé traduire la vision de la direction, sauf preuve contraire fondée sur des informations raisonnables et justifiables (§ 119-120). Pour chaque mesure, la note indique ce qu'elle communique et pourquoi elle est utile, son mode de calcul, le rapprochement avec le sous-total IFRS le plus directement comparable et, pour chaque élément de rapprochement, l'effet d'impôt et l'effet sur les participations ne donnant pas le contrôle (§ 123).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.11 — Rapprochement d'une mesure de la performance définie par la direction (en milliers de USD)",
+        texte: "Une société minière communique à ses investisseurs un « résultat opérationnel courant » qui exclut les coûts de restructuration et les pertes de valeur. Son résultat d'exploitation IFRS 18 est de 4 000 ; les coûts de restructuration s'élèvent à 300 et la perte de valeur d'une concession à 500. Le taux d'impôt applicable est de 30 % ; une participation ne donnant pas le contrôle de 20 % existe dans la filiale qui a supporté la perte de valeur, la restructuration concernant la société mère.",
+        tableau: {
+          entetes: ['Rapprochement (§ 123(c)-(d))', 'Montant', "Effet d'impôt", 'Effet sur les participations ne donnant pas le contrôle'],
+          lignes: [
+            ["Résultat d'exploitation (sous-total IFRS 18)", '4 000', '', ''],
+            ['Coûts de restructuration', '+300', '(90)', '—'],
+            ['Perte de valeur de la concession', '+500', '(150)', '(70)'],
+            ['**Résultat opérationnel courant (mesure de la direction)**', '**4 800**', '', ''],
+          ],
+        },
+        note: "L'effet sur les participations ne donnant pas le contrôle est calculé sur le montant net d'impôt : (500 − 150) × 20 % = 70. La note précise que la mesure traduit la vision de la direction et n'est pas nécessairement comparable aux mesures portant un intitulé semblable publiées par d'autres entités (§ 122).",
       },
     ],
   },
@@ -690,7 +1013,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 8.6 — Définitions d'IAS 7 (§ 6)",
+        titre: "Tableau 8.7 — Définitions d'IAS 7 (§ 6)",
         tableau: {
           entetes: ['Terme', 'Définition'],
           lignes: [
@@ -705,12 +1028,12 @@ const SECTIONS: Chapitre['sections'] = [
       { type: 'intertitre', texte: "8.6.1 Méthode directe et méthode indirecte" },
       {
         type: 'paragraphe',
-        texte: "Les flux d'exploitation sont présentés selon la méthode directe, qui présente les principales catégories d'entrées et de sorties brutes, ou selon la méthode indirecte, qui ajuste le résultat net des éléments sans effet sur la trésorerie, des variations du besoin en fonds de roulement et des éléments relevant de l'investissement ou du financement (§ 18 et 20). IAS 7 encourage la méthode directe, qui fournit des informations utiles à l'estimation des flux futurs (§ 19). Le cadre conceptuel du SYSCOHADA révisé impose, lui, la méthode indirecte.",
+        texte: "Les flux d'exploitation sont présentés selon la méthode directe, qui présente les principales catégories d'entrées et de sorties brutes, ou selon la méthode indirecte, qui ajuste le résultat net des éléments sans effet sur la trésorerie, des variations du besoin en fonds de roulement et des éléments relevant de l'investissement ou du financement (§ 18 et 20). IAS 7 encourage la méthode directe, qui fournit des informations utiles à l'estimation des flux futurs (§ 19). Le SYSCOHADA révisé retient une méthode indirecte particulière : le point de départ n'est pas le résultat net mais l'excédent brut d'exploitation, dont on déduit la capacité d'autofinancement globale, corrigée ensuite de la variation du besoin de financement lié aux activités opérationnelles (Titre IX, ch. 5 ; exemple 8.13).",
       },
       {
         type: 'carte',
-        titre: "Exemple 8.4 — Flux de trésorerie d'exploitation selon la méthode indirecte (en milliers de USD)",
-        texte: "Reprise de l'exemple 8.3 (résultat net 1 250). Au cours de l'exercice, les stocks ont augmenté de 200, les créances clients de 300 et les dettes fournisseurs de 150. L'entité classe les intérêts payés et l'impôt payé en exploitation, les produits de trésorerie encaissés en investissement ; l'entreprise associée n'a pas distribué de dividende.",
+        titre: "Exemple 8.12 — Flux de trésorerie d'exploitation selon la méthode indirecte (en milliers de USD)",
+        texte: "Reprise de l'exemple 8.9 (résultat net 1 250). Au cours de l'exercice, les stocks ont augmenté de 200, les créances clients de 300 et les dettes fournisseurs de 150. L'entité classe les intérêts payés et l'impôt payé en exploitation, les produits de trésorerie encaissés en investissement ; l'entreprise associée n'a pas distribué de dividende.",
         tableau: {
           entetes: ['Élément', 'Montant'],
           lignes: [
@@ -726,10 +1049,45 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le résultat net de 1 250 ne s'est traduit que partiellement en trésorerie : l'augmentation du besoin en fonds de roulement (350) et la quote-part non distribuée de l'entreprise associée (100) l'expliquent. Les produits de trésorerie de 150 apparaissent dans les flux d'investissement, conformément au classement retenu, qui doit être permanent (§ 31).",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 8.13 — Flux d'exploitation selon la méthode directe et par la CAFG du SYSCOHADA (suite de l'exemple 8.12)",
+        texte: "Données complémentaires : les encaissements clients s'élèvent à 9 700 (chiffre d'affaires 10 000 moins l'augmentation des créances de 300). Les matières consommées de 4 000 correspondent à des achats consommés sans variation des stocks de matières ; l'augmentation de 200 des stocks porte sur les produits finis. Les décaissements aux fournisseurs de matières et autres charges externes sont de 4 650, les charges de personnel sont payées pour 2 500, les intérêts de 400 et l'impôt de 500 sont payés dans l'exercice.",
+        tableau: {
+          entetes: ['Méthode directe (IAS 7.18(a))', 'Montant', 'CAFG du SYSCOHADA (Titre IX, ch. 5)', 'Montant'],
+          lignes: [
+            ['Encaissements reçus des clients', '9 700', "Excédent brut d'exploitation (10 000 + 200 − 4 000 − 800 − 2 500)", '2 900'],
+            ['Paiements aux fournisseurs', '(4 650)', '+ Revenus financiers', '+150'],
+            ['Paiements au personnel', '(2 500)', '− Frais financiers', '−400'],
+            ['Intérêts payés', '(400)', "− Impôt sur le résultat", '−500'],
+            ['Impôt sur le résultat payé', '(500)', '**= CAFG**', '**2 150**'],
+            ['', '', "− Variation du besoin de financement (stocks +200, créances +300, dettes +150)", '−350'],
+            ['', '', "= Flux des activités opérationnelles, produits de trésorerie compris", '1 800'],
+            ["**Flux net lié aux activités d'exploitation**", '**1 650**', "**Flux hors produits de trésorerie (1 800 − 150)**", '**1 650**'],
+          ],
+        },
+        note: "Les trois voies aboutissent au même montant. La méthode indirecte d'IAS 7 part du résultat net ; la CAFG du SYSCOHADA part de l'excédent brut d'exploitation, sans passer par les dotations aux amortissements ; la méthode directe présente les flux bruts. Le SYSCOHADA classe les produits financiers en activités opérationnelles : pour comparer avec la présentation IFRS retenue ici, qui les range en investissement, il faut les retrancher. Contrôle des paiements aux fournisseurs : matières 4 000 + autres charges 800 − augmentation des dettes 150 = 4 650.",
+      },
       { type: 'intertitre', texte: "8.6.2 Classements particuliers et informations" },
       {
         type: 'paragraphe',
         texte: "Les intérêts et dividendes perçus ou versés sont présentés séparément et classés de manière permanente (§ 31). Pour les entités autres que les institutions financières, les intérêts versés et les intérêts et dividendes reçus peuvent être classés en exploitation, ou respectivement en financement et en investissement (§ 33) ; les dividendes versés, en financement ou en exploitation (§ 34). Les impôts sur le résultat sont classés en exploitation, sauf rattachement spécifique (§ 35). Les flux liés à l'obtention ou à la perte du contrôle de filiales relèvent de l'investissement (§ 39), ceux liés aux variations de pourcentage sans perte de contrôle, du financement (§ 42A). Les transactions sans effet sur la trésorerie, telle l'acquisition d'un actif financée par un contrat de location, sont exclues du tableau et décrites ailleurs (§ 43). Enfin, l'entité explique les variations des passifs issus des activités de financement, y compris celles sans contrepartie de trésorerie, par exemple par un rapprochement entre soldes d'ouverture et de clôture (§ 44A-44E).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.14 — Rapprochement des passifs issus des activités de financement (IAS 7, § 44A-44E, en milliers de USD)",
+        texte: "Emprunts bancaires en dollars et obligations locatives d'une entreprise de télécommunications. Au cours de N, elle a emprunté 1 500, remboursé 900 d'emprunts et 250 d'obligations locatives, pris en location de nouveaux pylônes pour 400 (transaction sans effet sur la trésorerie, IAS 7.43) et constaté un écart de change latent de 60 sur un emprunt en euros.",
+        tableau: {
+          entetes: ['', 'Emprunts', 'Obligations locatives', 'Total'],
+          lignes: [
+            ['Solde au 1er janvier N', '3 000', '1 200', '4 200'],
+            ['Flux de trésorerie de financement', '+600', '(250)', '+350'],
+            ['Nouveaux contrats de location', '', '+400', '+400'],
+            ['Effet des variations de change', '+60', '', '+60'],
+            ['**Solde au 31 décembre N**', '**3 660**', '**1 350**', '**5 010**'],
+          ],
+        },
+        note: "Seuls les 350 de flux nets apparaissent dans le tableau des flux de trésorerie ; les 460 de variations sans contrepartie de trésorerie n'y figurent pas, mais le rapprochement les rend visibles. Sans lui, un lecteur ne pourrait pas expliquer l'augmentation de 810 de l'endettement à partir du seul tableau des flux. L'entité indique en outre, avec un commentaire de la direction, le montant des soldes de trésorerie importants qui ne sont pas disponibles pour le groupe, par exemple en raison de restrictions de change dans le pays d'une filiale (§ 48-49).",
       },
       {
         type: 'filet',
@@ -759,7 +1117,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 8.5 — Passage du coût moyen pondéré au premier entré, premier sorti",
+        titre: "Exemple 8.15 — Passage du coût moyen pondéré au premier entré, premier sorti",
         texte: "En N, une entreprise de distribution de matériaux adopte la méthode PEPS pour ses stocks, jugée plus représentative de la rotation physique de ses produits. Ses états de N présentent N-1 en comparatif. Valeurs des stocks, hors effet d'impôt : 1er janvier N-1 : CMP 700, PEPS 740 ; 31 décembre N-1 : CMP 800, PEPS 860 ; 31 décembre N : CMP 900, PEPS 990.",
         tableau: {
           entetes: ['Élément', 'Calcul', 'Effet'],
@@ -779,7 +1137,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 8.6 — Révision de la durée d'utilité d'une machine",
+        titre: "Exemple 8.16 — Révision de la durée d'utilité d'une machine",
         texte: "Une machine acquise 1 000 000 USD est amortie linéairement sur 10 ans. Au début de la cinquième année, l'entreprise constate que l'usure accélérée liée à un travail en trois équipes réduit la durée d'utilité totale à 7 ans.",
         tableau: {
           entetes: ['Élément', 'Calcul', 'Montant'],
@@ -791,6 +1149,27 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
         note: "Le changement est prospectif : il affecte la charge des années 5 à 7 et n'appelle aucun retraitement des exercices antérieurs, dont l'estimation reposait sur les informations alors disponibles. L'entité indique la nature et le montant du changement (§ 39).",
+      },
+      {
+        type: 'carte',
+        titre: "Tableau 8.8 — Méthode ou estimation : cas de qualification",
+        tableau: {
+          entetes: ['Situation', 'Qualification', 'Traitement'],
+          lignes: [
+            ["Passage du coût moyen pondéré au premier entré, premier sorti", 'Changement de méthode', 'Rétrospectif (IAS 8.19, 22)'],
+            ["Révision de la durée d'utilité ou du mode d'amortissement", "Changement d'estimation", 'Prospectif (IAS 8.36 ; IAS 16.61)'],
+            ["Modification des paramètres de la matrice de pertes de crédit attendues", "Changement d'estimation (données d'entrée)", 'Prospectif (IAS 8.34A)'],
+            ["Passage du modèle du coût au modèle de la juste valeur pour les immeubles de placement", 'Changement de méthode', 'Rétrospectif (IAS 8 ; IAS 40)'],
+            ["Première application du modèle de la réévaluation à des immobilisations corporelles", 'Changement de méthode', "Traité selon IAS 16 comme une réévaluation, sans retraitement (IAS 8.17)"],
+            ["Nouvelle catégorie de transactions sans précédent dans l'entité", "Ni l'un ni l'autre : nouvelle méthode", 'Application à compter de la première transaction (IAS 8.16(b))'],
+            ["Doute sur la qualification", "Changement d'estimation", 'Prospectif (IAS 8.35)'],
+          ],
+        },
+      },
+      { type: 'intertitre', texte: "8.7.3 Les normes publiées mais non encore en vigueur" },
+      {
+        type: 'paragraphe',
+        texte: "Une entité qui n'a pas appliqué une nouvelle norme publiée mais non encore entrée en vigueur indique ce fait, ainsi que les informations connues ou raisonnablement estimables sur l'impact possible de sa première application (§ 30). Elle envisage d'indiquer le titre de la norme, la nature des changements imminents, la date d'application obligatoire, la date prévue de première application et une description de l'impact prévu, ou une déclaration selon laquelle cet impact n'est pas connu (§ 31). Pour les exercices clos en 2025 et 2026, IFRS 18 est l'exemple type : l'entité devrait indiquer qu'elle remplacera IAS 1 pour les exercices ouverts à compter du 1er janvier 2027, décrire les changements attendus sur la structure de son compte de résultat, par exemple le reclassement de la quote-part des entreprises associées hors du résultat d'exploitation, et signaler les mesures de la performance qu'elle communique et qui devront faire l'objet d'une note.",
       },
     ],
   },
@@ -815,7 +1194,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 8.7 — Omission d'une charge dans les états publiés de l'exercice précédent",
+        titre: "Exemple 8.17 — Omission d'une charge dans les états publiés de l'exercice précédent",
         texte: "En préparant les états de N, une société cimentière découvre qu'une facture de maintenance de 50 000 USD, relative à des travaux achevés en novembre N-1, n'a pas été comptabilisée dans les états de N-1, déjà publiés. Le montant est significatif. L'effet d'impôt est ignoré pour simplifier.",
         tableau: {
           entetes: ['Élément', 'Selon IAS 8', 'Selon le SYSCOHADA révisé'],
@@ -828,6 +1207,21 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Selon le cadre conceptuel du SYSCOHADA révisé, une charge ou un produit d'exploitation omis au cours d'un exercice antérieur est comptabilisé dans les activités ordinaires de l'exercice de rectification (Titre V). L'écart de traitement avec IAS 8 est l'un des retraitements courants lors de l'établissement d'états IFRS à partir de comptes SYSCOHADA : il déplace l'effet d'une erreur de l'exercice de découverte vers l'exercice où elle a été commise.",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 8.18 — Erreur remontant avant la période comparative, avec effet d'impôt",
+        texte: "En N, une entreprise découvre que des stocks de pièces détachées obsolètes auraient dû être dépréciés de 100 000 USD dès le 31 décembre N-2 ; l'information sur leur obsolescence était disponible à cette date. L'erreur est significative. La dépréciation aurait été fiscalement déductible ; taux d'impôt 30 %. Les états de N présentent N-1 en comparatif.",
+        tableau: {
+          entetes: ['Élément', 'Correction', 'Référence'],
+          lignes: [
+            ['Soldes d\'ouverture de N-1 (première période présentée)', 'Stocks −100 000 ; impôt exigible à récupérer ou impôt différé +30 000 ; résultats non distribués −70 000', 'IAS 8.42(b)'],
+            ['Résultat de N-1 et de N', 'Non affectés, les stocks dépréciés restant en stock', 'IAS 8.42, 46'],
+            ['État de la situation financière au 1er janvier N-1', "Présenté en plus des deux bilans habituels, l'incidence étant significative", 'IAS 1.40A-40B'],
+            ['Informations', "Nature de l'erreur ; montant de la correction pour chaque poste et chaque période ; montant au début de N-1", 'IAS 8.49'],
+          ],
+        },
+        note: "L'état des variations des capitaux propres présente la correction sur une ligne distincte, entre le solde publié et le solde retraité au 1er janvier N-1 (IAS 1.106(b)). Le traitement de l'effet d'impôt dépend du droit fiscal : si la dépréciation peut encore être déduite sur une déclaration rectificative, un impôt exigible à récupérer est comptabilisé ; si elle ne sera déduite qu'à la sortie des stocks, il s'agit d'un actif d'impôt différé.",
+      },
       { type: 'intertitre', texte: "8.8.2 Les événements postérieurs à la date de clôture" },
       {
         type: 'paragraphe',
@@ -835,7 +1229,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Tableau 8.7 — Qualification des événements postérieurs à la clôture (IAS 10, § 9 à 22)",
+        titre: "Tableau 8.9 — Qualification des événements postérieurs à la clôture (IAS 10, § 9 à 22)",
         tableau: {
           entetes: ['Événement', 'Traitement', 'Référence'],
           lignes: [
@@ -854,6 +1248,29 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'filet',
         titre: "Rapprochement avec le SYSCOHADA révisé",
         texte: "Le cadre conceptuel du SYSCOHADA révisé, au titre de la spécialisation des exercices, retient la même distinction : les événements postérieurs à la clôture mais antérieurs à la date d'arrêté des comptes donnent lieu à ajustement s'ils confirment des situations existant à la clôture, par exemple une créance devenue douteuse, et non s'ils révèlent une situation apparue postérieurement, par exemple un sinistre ne remettant pas en cause la continuité de l'exploitation (Titre V). Pour les changements de méthodes, il prévoit un calcul rétrospectif de l'effet après impôt exigible, imputé en report à nouveau, avec informations pro forma ; pour les changements d'estimation, une application à l'exercice en cours et aux exercices futurs. Les divergences avec IAS 8 portent sur le retraitement des comparatifs et sur la correction des erreurs, traitée dans le résultat de l'exercice de rectification.",
+      },
+      { type: 'intertitre', texte: "8.8.3 La continuité d'exploitation après la clôture et le calendrier OHADA" },
+      {
+        type: 'paragraphe',
+        texte: "La continuité d'exploitation fait exception à la règle selon laquelle les événements survenus après la clôture qui révèlent une situation nouvelle ne donnent pas lieu à ajustement. Une entité ne doit pas établir ses états sur la base de la continuité si la direction a l'intention de la liquider ou de cesser son activité, ou n'a pas d'autre solution réaliste, même si cette situation est apparue après la clôture (IAS 10.14). La détérioration du résultat et de la situation financière après la clôture peut imposer de réexaminer l'hypothèse ; si elle n'est plus appropriée, l'effet est si étendu qu'il impose un changement fondamental de la base de comptabilisation, et non un simple ajustement des montants (IAS 10.15). Le chapitre 31 du Titre VIII du SYSCOHADA révisé, qui s'inspire expressément d'IAS 10, retient la même solution : les états ne sont alors plus établis sur une base de continuité d'exploitation, « mais en valeurs liquidatives ».",
+      },
+      {
+        type: 'paragraphe',
+        texte: "Le calendrier OHADA donne à ces règles un cadre précis. Les événements postérieurs se situent entre la clôture, fixée au 31 décembre, et la date d'arrêté des états financiers, qui intervient au plus tard quatre mois après (AUDCIF, art. 23) ; l'approbation par les associés doit intervenir dans les six mois de la clôture. IAS 10 impose de mentionner la date d'autorisation de publication et l'organe qui l'a donnée (§ 17), et de mettre à jour les informations sur les situations existant à la clôture lorsque de nouvelles informations sont reçues (§ 19). Le SYSCOHADA prévoit en outre que, si des informations susceptibles de remettre profondément en cause les états ne sont connues qu'après l'arrêté, les dirigeants procèdent à un nouvel arrêté des comptes, dans le délai légal de quatre mois ; les événements importants survenus après l'arrêté font par ailleurs l'objet du rapport de gestion.",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 8.19 — Chronologie d'événements postérieurs pour une clôture au 31 décembre N",
+        tableau: {
+          entetes: ['Date', 'Événement', 'Traitement'],
+          lignes: [
+            ['15 janvier N+1', "Jugement condamnant l'entité pour un litige né en N", "Ajustement de la provision (IAS 10.9(a))"],
+            ['10 février N+1', "Incendie d'un entrepôt, sans remise en cause de la continuité", "Pas d'ajustement ; nature et estimation de l'effet financier en note (IAS 10.21-22)"],
+            ['1er mars N+1', "Adoption d'une loi de finances modifiant le taux de l'impôt sur les sociétés", "Pas d'ajustement si la modification n'était pas adoptée ou quasi adoptée à la clôture ; information en note (IAS 10.22(h))"],
+            ['25 mars N+1', "Arrêté des comptes par le conseil d'administration", "Date d'autorisation de publication (IAS 10.5-6) ; au plus tard le 30 avril N+1 (AUDCIF, art. 23)"],
+            ['20 avril N+1', "Faillite d'un client important dont la situation était déjà dégradée au 31 décembre N", "Après l'arrêté : hors champ d'IAS 10 ; nouvel arrêté si l'information remet profondément en cause les états (SYSCOHADA, Titre VIII, ch. 31)"],
+          ],
+        },
       },
       {
         type: 'filet',
@@ -953,6 +1370,33 @@ const CAS: Chapitre['casPratiques'] = [
       },
     ],
   },
+  {
+    id: 'ue13c8-cp5',
+    titre: "Du compte de résultat SYSCOHADA à la présentation IFRS 18 (LUALABA TRANSPORTS SA, société fictive)",
+    contexte: "LUALABA TRANSPORTS SA prépare ses premiers états selon IFRS 18 pour l'exercice N (en milliers de USD). Son compte de résultat SYSCOHADA fait apparaître : excédent brut d'exploitation 3 500 ; dotations aux amortissements 1 200 ; résultat d'exploitation 2 300 ; résultat financier −300, constitué d'intérêts sur emprunts bancaires ; résultat des activités ordinaires 2 000 ; résultat HAO 150, composé d'un produit de cession de camions de 600, de leur valeur comptable de 380 et d'amendes de 70 ; impôt sur le résultat 540 ; résultat net 1 610. Au bilan, les emprunts s'élèvent à 4 000, dont 1 000 remboursables dans l'année, et la banque accorde un découvert de 200, utilisé de façon fluctuante dans la gestion courante de la trésorerie. Dans sa communication aux investisseurs, la société publie un « EBE » de 3 500. Taux d'impôt : 30 % ; les amendes ne sont pas fiscalement déductibles.",
+    questions: [
+      {
+        num: 1,
+        enonce: "Présentez le compte de résultat selon les catégories et sous-totaux d'IFRS 18.",
+        correction: "Catégorie exploitation : excédent brut 3 500, amortissements −1 200, profit de cession présenté en net (600 − 380) +220 (IAS 1.34(a)), amendes −70 ; **résultat d'exploitation 2 450**. Aucun élément ne relève de la catégorie investissement : **résultat avant financement et impôts sur le résultat 2 450**. Financement : intérêts −300. Impôts sur le résultat : −540. **Résultat net 1 610**, identique au résultat SYSCOHADA. Les éléments HAO disparaissent comme catégorie : ils sont intégrés à la catégorie exploitation, qui est résiduelle (IFRS 18.52), et aucun élément ne peut être qualifié d'extraordinaire.",
+      },
+      {
+        num: 2,
+        enonce: "Comment les emprunts et le découvert sont-ils présentés dans l'état de la situation financière et dans le tableau des flux de trésorerie ?",
+        correction: "État de la situation financière : emprunts non courants **3 000** ; part courante **1 000** en passifs courants (IAS 1.69) ; découvert de **200** en passifs courants. Tableau des flux : le découvert, remboursable à vue et faisant partie intégrante de la gestion de trésorerie, peut être traité comme une composante de la trésorerie et des équivalents de trésorerie (IAS 7.8), comme dans la trésorerie-passif du SYSCOHADA. Les variations des emprunts figurent dans le rapprochement des passifs issus des activités de financement (IAS 7.44A).",
+      },
+      {
+        num: 3,
+        enonce: "L'« EBE » publié par la société est-il une mesure de la performance définie par la direction au sens d'IFRS 18 ?",
+        correction: "Le sous-total exclu par IFRS 18.118(b), résultat d'exploitation avant amortissements et pertes de valeur, s'élève ici à 2 450 + 1 200 = 3 650. L'« EBE » publié, de 3 500, exclut en outre le profit de cession (220) et les amendes (70) : c'est un sous-total ajusté, utilisé dans la communication publique, donc présumé être une mesure de la performance définie par la direction (§ 117 et 119). La société doit le décrire, expliquer son calcul et le rapprocher du sous-total IFRS le plus directement comparable, dans une note unique (§ 122-123).",
+      },
+      {
+        num: 4,
+        enonce: "Établissez le rapprochement exigé par IFRS 18.123(c)-(d), avec l'effet d'impôt de chaque élément.",
+        correction: "Résultat d'exploitation (IFRS 18) **2 450** ; + amortissements 1 200, effet d'impôt −360 ; − profit de cession 220, effet d'impôt +66 ; + amendes 70, effet d'impôt nul, les amendes n'étant pas déductibles ; = « EBE » publié **3 500**. Aucune participation ne donnant pas le contrôle n'est concernée. La note indique en outre que la mesure traduit la vision de la direction et n'est pas nécessairement comparable aux mesures d'intitulé semblable d'autres entités, et décrit la méthode de calcul des effets d'impôt (§ 122-123(e)).",
+      },
+    ],
+  },
 ]
 
 const chapitre: Chapitre = {
@@ -961,43 +1405,46 @@ const chapitre: Chapitre = {
   id: 'ue13-chapitre-8',
   titre: 'Présentation des états financiers et méthodes comptables',
   sousTitre: "IAS 1, IFRS 18, IAS 7, IAS 8 et IAS 10 : structure des états, flux de trésorerie, changements comptables et événements postérieurs",
-  infoBulle: "Chapitre 8 du module IFRS/IAS : composantes des états financiers (IAS 1) ; état de la situation financière et classement courant/non courant, clauses restrictives ; état du résultat global, charges par nature ou par fonction, état des variations des capitaux propres ; notes ; IFRS 18 (catégories, sous-totaux, mesures définies par la direction) ; tableau des flux de trésorerie (IAS 7) ; changements de méthodes et d'estimations, corrections d'erreurs (IAS 8) ; événements postérieurs à la clôture (IAS 10) ; rapprochements avec le SYSCOHADA révisé.",
-  loiRef: "IAS 1 · IFRS 18 · IAS 7 · IAS 8 · IAS 10 · SYSCOHADA révisé, Titre V",
+  infoBulle: "Chapitre 8 du module IFRS/IAS : composantes des états financiers (IAS 1) ; état de la situation financière et classement courant/non courant, clauses restrictives ; état du résultat global, charges par nature ou par fonction, état des variations des capitaux propres ; regroupement et compensation ; éléments HAO et interdiction des éléments extraordinaires ; passage du bilan fonctionnel SYSCOHADA à l'état de la situation financière ; notes et gestion du capital ; IFRS 18 (catégories, sous-totaux, charges spécifiées, mesures définies par la direction) ; tableau des flux de trésorerie (IAS 7, méthode directe, indirecte et CAFG du SYSCOHADA) ; changements de méthodes et d'estimations, corrections d'erreurs (IAS 8) ; événements postérieurs à la clôture (IAS 10) ; rapprochements avec le SYSCOHADA révisé.",
+  loiRef: "IAS 1 · IFRS 18 · IAS 7 · IAS 8 · IAS 10 · AUDCIF art. 7, 8, 23 · SYSCOHADA révisé, Titres V, VIII (ch. 31) et IX",
   moduleLabel: 'UE 13 · IFRS / IAS',
   retourRoute: '/ue13-ifrs-ias',
   coursId: 'ue13-ifrs-ias',
   objectifs: [
-    "Identifier les composantes d'un jeu complet d'états financiers et leurs équivalents SYSCOHADA.",
-    "Présenter l'état de la situation financière et classer actifs et passifs en éléments courants et non courants, y compris en présence de clauses restrictives.",
-    "Présenter l'état du résultat global, distinguer les autres éléments recyclables et non recyclables, et analyser les charges par nature ou par fonction.",
-    "Déterminer les informations significatives à fournir sur les méthodes, les jugements et les incertitudes.",
-    "Appliquer les catégories et sous-totaux d'IFRS 18 et identifier une mesure de la performance définie par la direction.",
-    "Établir les flux de trésorerie d'exploitation selon la méthode indirecte et classer les flux particuliers.",
+    "Identifier les composantes d'un jeu complet d'états financiers, les principes de regroupement et de compensation, et les différences de conception avec les états du SYSCOHADA révisé.",
+    "Présenter l'état de la situation financière, classer actifs et passifs en éléments courants et non courants, y compris en présence de clauses restrictives, et reclasser un bilan fonctionnel SYSCOHADA.",
+    "Présenter l'état du résultat global et l'état des variations des capitaux propres, traiter les reclassements d'autres éléments du résultat global, reclasser les éléments HAO et analyser les charges par nature ou par fonction.",
+    "Déterminer les informations significatives et propres à l'entité à fournir sur les méthodes, les jugements, les incertitudes et la gestion du capital.",
+    "Appliquer les catégories et sous-totaux d'IFRS 18, établir la note sur les charges spécifiées, et identifier et rapprocher une mesure de la performance définie par la direction.",
+    "Établir les flux de trésorerie d'exploitation selon les méthodes directe et indirecte et par la CAFG du SYSCOHADA, classer les flux particuliers et rapprocher les passifs de financement.",
     "Distinguer changement de méthode, changement d'estimation et correction d'erreur, et appliquer le traitement correspondant.",
-    "Qualifier les événements postérieurs à la clôture et en déterminer les conséquences.",
+    "Qualifier les événements postérieurs à la clôture dans le calendrier OHADA et en déterminer les conséquences, y compris sur la continuité d'exploitation.",
   ],
   sections: SECTIONS,
   aRetenir: [
-    "Un jeu complet d'états financiers comprend l'état de la situation financière, l'état du résultat global, l'état des variations des capitaux propres, le tableau des flux de trésorerie, les notes et les comparatifs, avec un troisième bilan en cas de retraitement rétrospectif (IAS 1.10).",
+    "Un jeu complet d'états financiers comprend l'état de la situation financière, l'état du résultat global, l'état des variations des capitaux propres, le tableau des flux de trésorerie, les notes et les comparatifs, avec un troisième bilan en cas de retraitement rétrospectif significatif (IAS 1.10, 40A). La compensation est interdite sauf disposition contraire ; les profits de cession d'actifs non courants sont présentés en net (IAS 1.32-34).",
+    "Le bilan fonctionnel du SYSCOHADA range la totalité des emprunts dans les ressources stables ; IAS 1 en isole la part à moins d'un an, ce qui réduit les actifs courants nets par rapport au fonds de roulement fonctionnel.",
     "Les éléments du cycle d'exploitation sont courants même au-delà de douze mois ; un passif est courant si l'entité n'a pas, à la clôture, le droit de différer son règlement d'au moins douze mois. Les impôts différés sont toujours non courants (IAS 1.56, 66-76ZA).",
-    "Les autres éléments du résultat global distinguent éléments recyclables et non recyclables ; les charges sont analysées par nature ou par fonction, cette dernière imposant une information sur la nature des charges (IAS 1.82A, 99-104).",
+    "Les autres éléments du résultat global distinguent éléments recyclables et non recyclables, le reclassement étant neutre sur le résultat global ; les charges sont analysées par nature ou par fonction, cette dernière imposant une information sur la nature des charges (IAS 1.82A, 92, 99-104). Aucun élément ne peut être présenté comme extraordinaire (IAS 1.87) : le résultat HAO du SYSCOHADA est réintégré dans la performance, les éléments significatifs étant présentés séparément (§ 97-98).",
     "Les notes fournissent les informations significatives sur les méthodes, les jugements et les sources d'incertitude à risque d'ajustement significatif dans l'exercice suivant (IAS 1.117-125).",
-    "IFRS 18 remplace IAS 1 à compter de 2027 : cinq catégories, résultat d'exploitation et résultat avant financement et impôts obligatoires, encadrement des mesures de la performance définies par la direction.",
-    "IAS 7 classe les flux en exploitation, investissement et financement, encourage la méthode directe et laisse un choix permanent pour les intérêts et dividendes ; le SYSCOHADA impose la méthode indirecte.",
+    "IFRS 18 remplace IAS 1 à compter de 2027 : cinq catégories, résultat d'exploitation et résultat avant financement et impôts obligatoires, principes de regroupement, note sur les charges spécifiées en cas de présentation par fonction, et note unique sur les mesures de la performance définies par la direction avec rapprochement, effets d'impôt et sur les participations ne donnant pas le contrôle.",
+    "IAS 7 classe les flux en exploitation, investissement et financement, encourage la méthode directe et laisse un choix permanent pour les intérêts et dividendes ; le SYSCOHADA part de l'EBE et de la CAFG. Les variations des passifs de financement, y compris sans contrepartie de trésorerie, sont rapprochées (IAS 7.44A).",
     "Changement de méthode : rétrospectif ; changement d'estimation : prospectif ; en cas de doute, estimation (IAS 8.19-38). Erreur significative d'une période antérieure : retraitement rétrospectif, hors résultat de la période de découverte (IAS 8.42-46), alors que le SYSCOHADA la corrige dans l'exercice de rectification.",
-    "Les événements postérieurs qui confirment des situations existant à la clôture donnent lieu à ajustement ; les autres, à information s'ils sont significatifs. Les dividendes déclarés après la clôture ne sont pas des passifs (IAS 10.8-13).",
+    "Les événements postérieurs qui confirment des situations existant à la clôture donnent lieu à ajustement ; les autres, à information s'ils sont significatifs. Les dividendes déclarés après la clôture ne sont pas des passifs (IAS 10.8-13). La remise en cause de la continuité impose un changement de base (IAS 10.14-15). Dans l'espace OHADA, les comptes sont arrêtés au plus tard quatre mois après la clôture (AUDCIF, art. 23).",
   ],
   references: [
-    { genre: 'texte', intitule: "IAS 1 — Présentation des états financiers", precision: "§§ 9 à 11, 54 à 76B, 81A à 106A, 112 à 136 (texte français intégral)" },
-    { genre: 'texte', intitule: "IFRS 18 — Presentation and Disclosure in Financial Statements (avril 2024)", precision: "§ 47-73, 117-118, C1-C3 (texte anglais ; traductions de travail)" },
+    { genre: 'texte', intitule: "IAS 1 — Présentation des états financiers", precision: "§§ 9 à 11, 29 à 34, 40A à 40C, 54 à 79, 81A à 106A, 112 à 136 (texte français intégral)" },
+    { genre: 'texte', intitule: "IFRS 18 — Presentation and Disclosure in Financial Statements (avril 2024)", precision: "§ 41-42, 47-73, 78-83, 117-124, C1-C3 (texte anglais ; traductions de travail)" },
     { genre: 'texte', intitule: "IAS 7 — Tableau des flux de trésorerie", precision: "§§ 6, 10, 18 à 20, 31 à 35, 39 à 44E (texte français intégral)" },
     { genre: 'texte', intitule: "IAS 8 — Méthodes comptables, changements d'estimations comptables et erreurs", precision: "§§ 5, 14 à 53 (texte français intégral)" },
     { genre: 'texte', intitule: "IAS 10 — Événements postérieurs à la date de clôture", precision: "§§ 1 à 22 (texte français intégral)" },
     { genre: 'texte', intitule: "SYSCOHADA révisé, Titre V (cadre conceptuel)", precision: "permanence des méthodes, changements, événements postérieurs, tableau des flux de trésorerie" },
+    { genre: 'texte', intitule: "AUDCIF et SYSCOHADA révisé, Titres VIII et IX", precision: "art. 7, 8, 11, 13 et 23 ; Titre VIII, ch. 31 (événements postérieurs) ; Titre IX, ch. 3 à 6 (bilan, compte de résultat, tableau des flux, notes annexes)" },
+    { genre: 'texte', intitule: "AUSCGIE", precision: "art. 664 (capitaux propres inférieurs à la moitié du capital social)" },
   ],
   qcm: QCM,
   casPratiques: CAS,
-  sources: "IAS 1, IAS 7, IAS 8 et IAS 10 (texte français intégral) ; IFRS 18 (texte anglais, traductions de travail) ; AUDCIF et SYSCOHADA révisé, Titre V.",
+  sources: "IAS 1, IAS 7, IAS 8 et IAS 10 (texte français intégral) ; IFRS 18 (texte anglais, traductions de travail) ; AUDCIF et SYSCOHADA révisé, Titres V, VIII et IX ; AUSCGIE.",
 }
 
 export default chapitre
