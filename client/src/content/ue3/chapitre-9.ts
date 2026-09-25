@@ -359,16 +359,17 @@ const QCM: Chapitre['qcm'] = [
 const SECTIONS: Chapitre['sections'] = [
   {
     numero: '9.1',
-    titre: "« La société prend fin » : les causes de dissolution",
+    titre: "Les causes de dissolution",
     navLabel: "Causes",
     blocs: [
       {
         type: 'paragraphe',
         texte: "Kinshasa, 25 janvier N. Dans la salle de réunion de **LUKENIE FRIGO SA**, l'assemblée générale extraordinaire vote la dissolution anticipée de la société. Pendant quinze ans, elle a loué des chambres froides aux importateurs de poisson du port de Kinshasa. Mais ses équipements sont usés, deux grands clients ont construit leurs propres entrepôts, et les actionnaires préfèrent récupérer leur mise plutôt que de réinvestir. Ce chapitre suit LUKENIE FRIGO jusqu'à sa radiation, en s'appuyant sur les chiffres de l'Application 122 du Guide, et montre à chaque étape ce que le droit exige et ce que le comptable enregistre.",
       },
+      { type: 'intertitre', texte: "9.1.1 Les causes de l'article 200" },
       {
         type: 'carte',
-        titre: "Les sept causes de l'article 200",
+        titre: "Tableau 9.1 — Les sept causes de l'article 200",
         tableau: {
           entetes: ["Cause", "Qui la déclenche ?", "Exemple"],
           lignes: [
@@ -382,39 +383,41 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "9.1.2 Les dissolutions-sanctions" },
       {
         type: 'paragraphe',
         texte: "À ces causes générales s'ajoutent des dissolutions qui **sanctionnent** une situation irrégulière, rencontrées dans les chapitres précédents. La SA dont les capitaux propres deviennent inférieurs à la moitié du capital doit se prononcer sur sa dissolution anticipée (art. 664-668 ; art. 736 pour le renvoi). Une société dont le capital tombe sous le minimum légal sans régularisation encourt la dissolution (art. 66). Dans les formes qui n'admettent pas l'unipersonnalité, tout intéressé peut demander la dissolution si la réunion de tous les titres en une seule main n'est pas régularisée dans l'année (art. 60). Inversement, certains événements **ne dissolvent pas** la société : la SARL survit à l'interdiction, à la faillite ou à l'incapacité d'un associé et, sauf clause contraire, à son décès (art. 384).",
       },
+      { type: 'intertitre', texte: "9.1.3 La portée de la dissolution" },
       {
         type: 'paragraphe',
-        texte: "Dissoudre n'est pas faire disparaître. La dissolution est l'acte qui met fin au **pacte social** : les associés cessent de poursuivre ensemble l'objet qu'ils s'étaient donné. La société, elle, ne s'éteint qu'au terme d'une période parfois longue, la **liquidation**, pendant laquelle ses biens sont vendus, ses créances encaissées et ses dettes payées. Il faut garder cette distinction en tête : la dissolution ouvre une phase, la clôture de la liquidation la ferme. Entre les deux, la société continue d'exister, de tenir une comptabilité et de répondre de ses dettes. Pour LUKENIE FRIGO, cette période va durer neuf mois ; pour d'autres, elle dure plusieurs années, dans la limite de trois ans fixée par l'article 216.",
+        texte: "La dissolution ne fait pas disparaître la société. La dissolution est l'acte qui met fin au **pacte social** : les associés cessent de poursuivre ensemble l'objet qu'ils s'étaient donné. La société, elle, ne s'éteint qu'au terme d'une période parfois longue, la **liquidation**, pendant laquelle ses biens sont vendus, ses créances encaissées et ses dettes payées. Il faut garder cette distinction en tête : la dissolution ouvre une phase, la clôture de la liquidation la ferme. Entre les deux, la société continue d'exister, de tenir une comptabilité et de répondre de ses dettes. Pour LUKENIE FRIGO, cette période va durer neuf mois ; pour d'autres, elle dure plusieurs années, dans la limite de trois ans fixée par l'article 216.",
       },
-      { type: 'controle', question: QCM[0] },
       {
         type: 'filet',
-        titre: "Justes motifs : une porte étroite",
+        titre: "Les justes motifs de dissolution judiciaire",
         texte: "La dissolution judiciaire de l'art. 200, 5° est l'arme de l'associé minoritaire enfermé dans une société qui ne fonctionne plus. Le juge ne la prononce que si la mésentente ou l'inexécution empêche **le fonctionnement normal** de la société. Un conflit sur la politique de dividendes, tant que les organes continuent de fonctionner et que les comptes sont approuvés, ne suffit pas. En pratique, l'associé cherche d'abord une sortie par la cession de ses titres, dont le prix sera fixé, à défaut d'accord, par l'expert de l'article 59 (chapitre 7).",
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : la société peut-elle « revenir en arrière » ?",
-        texte: "Oui, tant que la liquidation n'est pas close, les associés d'une société dissoute par leur propre décision peuvent en principe décider de poursuivre l'activité, en revenant sur la dissolution aux conditions de modification des statuts. Mais il faut alors défaire ce qui a été fait : publier la décision, réinscrire la société sans la mention « en liquidation », reprendre la comptabilité d'exploitation. Si des actifs essentiels ont déjà été vendus, le retour en arrière n'a guère de sens. L'Acte uniforme ne consacre pas de procédure expresse pour cette hypothèse : elle se construit à partir des règles générales, et sa faisabilité doit être vérifiée au cas par cas.",
+        titre: "Le retour sur la dissolution avant la clôture",
+        texte: "Tant que la liquidation n'est pas close, les associés d'une société dissoute par leur propre décision peuvent en principe décider de poursuivre l'activité, en revenant sur la dissolution aux conditions de modification des statuts. Mais il faut alors défaire ce qui a été fait : publier la décision, réinscrire la société sans la mention « en liquidation », reprendre la comptabilité d'exploitation. Si des actifs essentiels ont déjà été vendus, le retour en arrière n'a guère de sens. L'Acte uniforme ne consacre pas de procédure expresse pour cette hypothèse : elle se construit à partir des règles générales, et sa faisabilité doit être vérifiée au cas par cas.",
       },
-      { type: 'controle', question: QCM[1] },
     ],
   },
   {
     numero: '9.2',
-    titre: "Une société qui survit à sa propre dissolution",
+    titre: "Les effets de la dissolution et la survie de la personnalité morale",
     navLabel: "Effets",
     blocs: [
+      { type: 'intertitre', texte: "9.2.1 La publicité de la dissolution" },
       {
         type: 'paragraphe',
         texte: "Le 5 février N, un avis paraît dans un journal d'annonces légales de Kinshasa : « LUKENIE FRIGO SA, société en liquidation ». Le procès-verbal de l'AGE est déposé et l'inscription au RCCM est modifiée. Ces trois formalités constituent la publicité de la dissolution (art. 202). Elles ne sont pas de pure forme : la dissolution n'a d'effet à l'égard des tiers qu'à compter de la **publication** de l'avis (art. 201). Un fournisseur qui livre le 1er février, avant la publication, peut ignorer la dissolution.",
       },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 9.2 — Ce que la dissolution change et ne change pas",
         tableau: {
           entetes: ["Ce qui change le jour de la dissolution", "Ce qui ne change pas"],
           lignes: [
@@ -429,10 +432,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La publicité a aussi une fonction comptable. Elle fixe le point de départ de plusieurs délais : trente jours d'opposition dans l'unipersonnelle (art. 201), cinq ans de prescription des actions contre les associés (art. 222). Et elle marque, pour le comptable, la fin de la comptabilité d'exploitation et le début de la comptabilité de liquidation. L'exercice en cours est arrêté à la date de dissolution, avec un bilan qui servira de bilan avant liquidation. Pour LUKENIE FRIGO, l'arrêté au 25 janvier N a exigé un inventaire complet en quelques jours : comptage des stocks, confirmation des soldes clients, évaluation des créances douteuses. Ce travail conditionne toute la suite, puisque c'est par rapport à ces valeurs que se mesurera le résultat de liquidation.",
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "9.2.2 La survie de la personnalité morale" },
       {
         type: 'paragraphe',
-        texte: "Pourquoi maintenir en vie une société dissoute ? Parce qu'il faut bien que quelqu'un vende les chambres froides, encaisse les créances et paie les fournisseurs. Sans personnalité morale, les biens n'auraient plus de propriétaire, et chaque créancier devrait poursuivre individuellement les associés. La survie est donc **fonctionnelle** : elle dure autant que la liquidation. L'Acte uniforme en fixe le terme avec deux formules. L'article 201 parle de la survie « jusqu'à la clôture », l'article 205 « jusqu'à la publication de la clôture » [texte officiel]. La seconde, plus précise, est celle qui protège les tiers : tant que la clôture n'est pas publiée, la société peut encore être assignée.",
+        texte: "La société dissoute est maintenue en vie parce que ses chambres froides doivent être vendues, ses créances encaissées et ses fournisseurs payés. Sans personnalité morale, les biens n'auraient plus de propriétaire, et chaque créancier devrait poursuivre individuellement les associés. La survie est donc **fonctionnelle** : elle dure autant que la liquidation. L'Acte uniforme en fixe le terme avec deux formules. L'article 201 parle de la survie « jusqu'à la clôture », l'article 205 « jusqu'à la publication de la clôture » [texte officiel]. La seconde, plus précise, est celle qui protège les tiers : tant que la clôture n'est pas publiée, la société peut encore être assignée.",
       },
       {
         type: 'filet',
@@ -441,23 +444,23 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Concrètement, la mention « société en liquidation » change la vie quotidienne de l'entreprise. Les factures, les lettres et les bons de commande doivent la porter, avec le nom du liquidateur (art. 204). Les banques bloquent souvent les lignes de crédit et ne laissent fonctionner que les comptes de dépôt. Les clients s'interrogent sur le service après-vente, et les fournisseurs exigent le paiement comptant. Le liquidateur doit gérer cette défiance, car elle pèse sur la valeur de réalisation des actifs. Un stock vendu par une société « en liquidation » se négocie rarement à son prix normal. C'est l'une des raisons pour lesquelles les valeurs de réalisation diffèrent des valeurs comptables, et pour lesquelles l'Application 122 affiche des moins-values sur le matériel et les stocks.",
+        texte: "La mention « société en liquidation » change la vie quotidienne de l'entreprise. Les factures, les lettres et les bons de commande doivent la porter, avec le nom du liquidateur (art. 204). Les banques bloquent souvent les lignes de crédit et ne laissent fonctionner que les comptes de dépôt. Les clients s'interrogent sur le service après-vente, et les fournisseurs exigent le paiement comptant. Le liquidateur doit gérer cette défiance, car elle pèse sur la valeur de réalisation des actifs. Un stock vendu par une société « en liquidation » se négocie rarement à son prix normal. C'est l'une des raisons pour lesquelles les valeurs de réalisation diffèrent des valeurs comptables, et pour lesquelles l'Application 122 affiche des moins-values sur le matériel et les stocks.",
       },
-      { type: 'controle', question: QCM[3] },
     ],
   },
   {
     numero: '9.3',
-    titre: "L'associé unique : dissoudre sans liquider",
+    titre: "La dissolution sans liquidation de la société unipersonnelle",
     navLabel: "Associé unique",
     blocs: [
+      { type: 'intertitre', texte: "9.3.1 La transmission universelle du patrimoine" },
       {
         type: 'paragraphe',
         texte: "LUKENIE FRIGO détenait une filiale, **LUKENIE LOGISTIQUE SARLU**, qui assurait le transport frigorifique de ses clients. Avant de dissoudre la mère, le conseil a fait dissoudre la filiale par décision de son associée unique, LUKENIE FRIGO elle-même. Ici, pas de liquidateur ni de vente des camions : l'article 201 prévoit que la dissolution d'une société dont tous les titres sont détenus par un seul associé entraîne la **transmission universelle** de son patrimoine à cet associé, **sans liquidation**. Les camions, les créances et les dettes de la filiale passent directement dans le patrimoine de la mère, qui les réalisera dans le cadre de sa propre liquidation.",
       },
       {
         type: 'carte',
-        titre: "Le mécanisme de l'article 201, alinéas 4 et 5",
+        titre: "Encadré 9.1 — Le mécanisme de l'article 201, alinéas 4 et 5",
         liste: [
           "**Publication** de la dissolution, point de départ du délai d'opposition.",
           "**Trente jours** pendant lesquels les créanciers de la filiale peuvent faire opposition devant la juridiction compétente.",
@@ -467,13 +470,12 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "L'exception protège les créanciers sociaux : leur gage ne doit pas se confondre avec le patrimoine personnel d'un individu, qui a ses propres créanciers. Face à une société mère, ils trouvent en revanche un débiteur de même nature, soumis aux mêmes règles comptables et de publicité.",
       },
-      { type: 'controle', question: QCM[4] },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Confondre la dissolution de l'unipersonnelle avec une simple « fermeture » administrative. La transmission universelle fait passer à la mère **toutes** les dettes de la filiale, y compris celles qu'elle ignore : litiges en cours, redressements fiscaux à venir, garanties données. Avant de dissoudre une filiale par ce mécanisme, la mère doit donc faire un inventaire complet de son passif, exactement comme dans une fusion. Le délai d'opposition de trente jours ne concerne que les créanciers qui se manifestent : ceux qui ne disent rien conservent leurs droits contre la mère.",
+        titre: "Dissolution de l'unipersonnelle et fermeture administrative",
+        texte: "La dissolution de l'unipersonnelle ne se réduit pas à une simple « fermeture » administrative. La transmission universelle fait passer à la mère **toutes** les dettes de la filiale, y compris celles qu'elle ignore : litiges en cours, redressements fiscaux à venir, garanties données. Avant de dissoudre une filiale par ce mécanisme, la mère doit donc faire un inventaire complet de son passif, exactement comme dans une fusion. Le délai d'opposition de trente jours ne concerne que les créanciers qui se manifestent : ceux qui ne disent rien conservent leurs droits contre la mère.",
       },
-      { type: 'controle', question: QCM[5] },
+      { type: 'intertitre', texte: "9.3.2 La comparaison avec la fusion simplifiée" },
       {
         type: 'paragraphe',
         texte: "Ce mécanisme ressemble à la fusion simplifiée du chapitre 8 : dans les deux cas, une société disparaît et son patrimoine passe à celle qui la détient entièrement. La différence tient à la procédure. La dissolution-confusion se contente d'une décision de l'associé unique, d'une publicité et d'un délai d'opposition de trente jours. La fusion suppose un projet, une publicité un mois avant l'assemblée et une déclaration de conformité (art. 193-198). Comptablement, la mère reprend les actifs et les dettes de la filiale et annule ses titres de participation. L'écart entre l'actif net repris et le coût des titres traduit l'enrichissement ou l'appauvrissement de la filiale depuis son acquisition, et il est traité dans les comptes de la mère.",
@@ -482,16 +484,17 @@ const SECTIONS: Chapitre['sections'] = [
   },
   {
     numero: '9.4',
-    titre: "Le liquidateur entre en scène",
+    titre: "La nomination et le statut du liquidateur",
     navLabel: "Le liquidateur",
     blocs: [
+      { type: 'intertitre', texte: "9.4.1 La nomination" },
       {
         type: 'paragraphe',
         texte: "L'AGE du 25 janvier a aussi nommé le liquidateur : le cabinet **MWANGAZA CONSEIL**, une société d'experts-comptables. Rien n'obligeait à choisir un associé ; le liquidateur peut être un tiers, et même une personne morale (art. 207). Dans une SA, il est nommé aux conditions de quorum et de majorité de l'AGE (art. 206). Sa rémunération est fixée par la décision qui le nomme (art. 210). S'ils sont plusieurs, les liquidateurs peuvent agir séparément, sauf disposition contraire, mais présentent un rapport commun (art. 209).",
       },
       {
         type: 'carte',
-        titre: "Qui nomme le liquidateur ? (art. 206)",
+        titre: "Tableau 9.3 — La nomination du liquidateur (art. 206)",
         tableau: {
           entetes: ["Forme sociale", "Décision"],
           lignes: [
@@ -504,41 +507,41 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Les délibérations prises en violation de l'art. 206 sont nulles (art. 215-1). Le liquidateur peut être révoqué et remplacé dans les mêmes formes, et tout associé peut demander sa révocation en justice pour motifs légitimes (art. 211).",
       },
-      { type: 'controle', question: QCM[6] },
+      { type: 'intertitre', texte: "9.4.2 La publicité et le choix du liquidateur" },
       {
         type: 'paragraphe',
-        texte: "Premier réflexe du cabinet : publier sa nomination. L'acte de nomination doit paraître dans un journal d'annonces légales **dans le mois** qui suit la nomination, avec les mentions de l'article 266. Celles-ci comprennent la dénomination suivie de la mention « société en liquidation », le capital, le siège, la cause de la liquidation, l'identité du liquidateur et les limites éventuelles de ses pouvoirs, et l'adresse où envoyer la correspondance. Nomination et révocation ne sont opposables aux tiers qu'à compter de cette publication (art. 212). Une fois la publication faite, ni la société ni les tiers ne peuvent se prévaloir d'une irrégularité de la nomination pour échapper à leurs engagements.",
+        texte: "Le cabinet doit d'abord publier sa nomination. L'acte de nomination doit paraître dans un journal d'annonces légales **dans le mois** qui suit la nomination, avec les mentions de l'article 266. Celles-ci comprennent la dénomination suivie de la mention « société en liquidation », le capital, le siège, la cause de la liquidation, l'identité du liquidateur et les limites éventuelles de ses pouvoirs, et l'adresse où envoyer la correspondance. Nomination et révocation ne sont opposables aux tiers qu'à compter de cette publication (art. 212). Une fois la publication faite, ni la société ni les tiers ne peuvent se prévaloir d'une irrégularité de la nomination pour échapper à leurs engagements.",
       },
       {
         type: 'paragraphe',
-        texte: "Le choix d'un liquidateur **extérieur** comme MWANGAZA CONSEIL n'est pas anodin. Un associé ou un ancien dirigeant connaît l'entreprise, ses clients et ses actifs, et il coûte moins cher. Mais il peut être en conflit d'intérêts : tenté de racheter lui-même les actifs, de favoriser certains créanciers ou de ménager un associé plutôt qu'un autre. Un professionnel indépendant apporte la neutralité et la technique : inventaire, négociation des ventes, comptabilité de liquidation, formalités. Sa rémunération (art. 210) est une charge de liquidation, qui réduit le boni. Pour une société comme LUKENIE FRIGO, dont les actionnaires ne s'entendaient plus sur l'avenir, la neutralité valait bien les 3 000 000 de frais de liquidation.",
+        texte: "Le choix d'un liquidateur **extérieur** comme MWANGAZA CONSEIL a des conséquences. Un associé ou un ancien dirigeant connaît l'entreprise, ses clients et ses actifs, et il coûte moins cher. Mais il peut être en conflit d'intérêts : tenté de racheter lui-même les actifs, de favoriser certains créanciers ou de ménager un associé plutôt qu'un autre. Un professionnel indépendant apporte la neutralité et la technique : inventaire, négociation des ventes, comptabilité de liquidation, formalités. Sa rémunération (art. 210) est une charge de liquidation, qui réduit le boni. Pour une société comme LUKENIE FRIGO, dont les actionnaires ne s'entendaient plus sur l'avenir, la neutralité valait bien les 3 000 000 de frais de liquidation.",
       },
-      { type: 'controle', question: QCM[7] },
+      { type: 'intertitre', texte: "9.4.3 La responsabilité pénale et les premières diligences" },
       {
         type: 'filet',
-        titre: "Ce que le liquidateur risque (art. 902)",
+        titre: "Les infractions du liquidateur (art. 902)",
         texte: "Encourt une sanction pénale le liquidateur qui, **sciemment**, n'a pas publié sa nomination et déposé au RCCM les décisions de dissolution dans le mois, n'a pas convoqué les associés en fin de liquidation pour statuer sur le compte définitif, le quitus et la clôture, ou n'a pas déposé ses comptes définitifs ni demandé leur approbation en justice. L'Acte uniforme fixe les éléments de l'infraction ; la peine relève du droit pénal national.",
       },
       {
         type: 'filet',
-        titre: "Et en pratique ?",
+        titre: "Les premières diligences du liquidateur",
         texte: "Un liquidateur professionnel commence par un **inventaire contradictoire** avec les anciens dirigeants, ouvre si nécessaire un compte bancaire dédié, informe les salariés, les banques et l'administration fiscale, et établit la liste des créanciers à partir de la comptabilité et des contrats. Il fixe ensuite un plan de réalisation : quels actifs vendre en premier, à quel prix plancher, par quel canal (gré à gré, enchères, appel d'offres). Ce plan est présenté aux associés, qui peuvent l'encadrer dans l'acte de nomination ; ces limites, si elles ne sont pas opposables aux tiers (art. 230), engagent le liquidateur envers la société.",
       },
-      { type: 'controle', question: QCM[8] },
     ],
   },
   {
     numero: '9.5',
-    titre: "Vendre, mais pas à n'importe qui",
+    titre: "La réalisation de l'actif et les cessions réglementées",
     navLabel: "Pouvoirs et interdits",
     blocs: [
+      { type: 'intertitre', texte: "9.5.1 Les cessions réglementées" },
       {
         type: 'paragraphe',
         texte: "Mars N. L'ancien directeur général de LUKENIE FRIGO, qui connaît parfaitement les chambres froides, propose de racheter le bâtiment. Son fils, de son côté, s'intéresse aux groupes électrogènes, et un cousin du gérant de MWANGAZA CONSEIL voudrait les camionnettes. Le cabinet doit trier ces offres selon trois régimes que l'Acte uniforme distingue avec soin.",
       },
       {
         type: 'carte',
-        titre: "Trois régimes de cession pendant la liquidation",
+        titre: "Tableau 9.4 — Les trois régimes de cession pendant la liquidation",
         tableau: {
           entetes: ["Acquéreur", "Régime", "Sanction"],
           lignes: [
@@ -549,27 +552,25 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[9] },
       {
         type: 'paragraphe',
-        texte: "Appliquons. L'**ancien directeur général** peut acheter le bâtiment, mais seulement avec l'accord unanime des actionnaires ou l'autorisation du juge : sa connaissance de l'entreprise pourrait lui permettre d'acheter à bas prix. Le **fils** de l'ancien directeur général n'est visé par aucun texte : l'art. 214 ne vise que la famille du liquidateur et de ses employés, et l'art. 213 ne vise que les anciens dirigeants eux-mêmes. Le **cousin** du gérant du cabinet liquidateur n'est pas non plus dans la liste de l'art. 214, limitée aux conjoints, ascendants et descendants. Une vente à prix de faveur engagerait toutefois la responsabilité du liquidateur et, en cas de mauvaise foi, tomberait sous l'art. 904, 1° (usage des biens contraire à l'intérêt de la société pour favoriser une autre personne).",
+        texte: "L'**ancien directeur général** peut acheter le bâtiment, mais seulement avec l'accord unanime des actionnaires ou l'autorisation du juge : sa connaissance de l'entreprise pourrait lui permettre d'acheter à bas prix. Le **fils** de l'ancien directeur général n'est visé par aucun texte : l'art. 214 ne vise que la famille du liquidateur et de ses employés, et l'art. 213 ne vise que les anciens dirigeants eux-mêmes. Le **cousin** du gérant du cabinet liquidateur n'est pas non plus dans la liste de l'art. 214, limitée aux conjoints, ascendants et descendants. Une vente à prix de faveur engagerait toutefois la responsabilité du liquidateur et, en cas de mauvaise foi, tomberait sous l'art. 904, 1° (usage des biens contraire à l'intérêt de la société pour favoriser une autre personne).",
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle des acquéreurs d'actifs",
         texte: "Dans un dossier de liquidation, l'auditeur dresse la liste des acquéreurs de chaque actif significatif et la rapproche de la liste des anciens dirigeants, du liquidateur, de ses employés et de leurs proches. Il vérifie que les cessions de l'art. 213 ont reçu le consentement unanime ou l'autorisation du juge, que les prix sont cohérents avec des estimations indépendantes, et que les cessions globales ont été votées aux majorités de l'art. 215. Une vente irrégulière est nulle (art. 215-1) : l'actif revient à la société, le prix doit être restitué, et le résultat de liquidation doit être corrigé.",
       },
-      { type: 'controle', question: QCM[10] },
+      { type: 'intertitre', texte: "9.5.2 Les pouvoirs du liquidateur et la cession globale" },
       {
         type: 'filet',
-        titre: "Des pouvoirs larges, une activité figée",
+        titre: "Les pouvoirs du liquidateur dans le régime des articles 223 et suivants",
         texte: "Dans la liquidation régie par les art. 223 et suivants, le liquidateur représente la société et dispose des pouvoirs les plus étendus pour **réaliser l'actif**, même à l'amiable. Les restrictions statutaires ne sont pas opposables aux tiers (art. 230). Il paie les créanciers et répartit le solde entre les associés, mais il ne peut **continuer les affaires** en cours ou en engager de nouvelles que s'il y est autorisé par le juge (art. 231). LUKENIE FRIGO peut donc honorer les contrats de location en cours jusqu'à leur terme si le juge l'y autorise, mais pas signer de nouveaux baux de chambres froides.",
       },
       {
         type: 'paragraphe',
         texte: "La cession globale de l'actif, prévue par l'article 215, est une autre voie de sortie. Au lieu de vendre les chambres froides, les camions et les créances un par un, le liquidateur peut céder l'ensemble à un repreneur, ou l'apporter à une autre société, notamment par une fusion (chapitre 8). Cette solution préserve souvent mieux la valeur, car un ensemble en état de marche vaut plus que la somme de ses pièces détachées. Elle suppose toutefois une décision des associés aux majorités renforcées de l'article 215 : l'unanimité dans une SNC, la majorité de modification des statuts dans une SARL, les conditions de l'AGE dans une société par actions. Comptablement, le prix global doit être ventilé entre les éléments cédés, pour mesurer le résultat de liquidation sur chacun.",
       },
-      { type: 'controle', question: QCM[11] },
     ],
   },
   {
@@ -577,13 +578,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Quand le juge organise la liquidation (art. 223-241)",
     navLabel: "Régime légal",
     blocs: [
+      { type: 'intertitre', texte: "9.6.1 Le régime légal de liquidation" },
       {
         type: 'paragraphe',
-        texte: "Et si les actionnaires de LUKENIE FRIGO s'étaient déchirés sur le choix du liquidateur ? L'Acte uniforme prévoit un **régime légal** de liquidation, plus encadré, défini aux articles 224 à 241. Il s'applique dans deux cas (art. 223). Le premier est une liquidation amiable pour laquelle les statuts ou une convention entre associés n'ont rien prévu, ou qui renvoie expressément à ces articles. Le second est une décision de justice rendue à la demande de la majorité des associés d'une SNC, d'associés représentant au moins le **dixième du capital** dans les autres formes, de créanciers sociaux ou du représentant de la masse des obligataires. Dans ce second cas, les clauses statutaires contraires sont réputées non écrites.",
+        texte: "Les actionnaires de LUKENIE FRIGO auraient pu se diviser sur le choix du liquidateur. Pour ces situations, l'Acte uniforme prévoit un **régime légal** de liquidation, plus encadré, défini aux articles 224 à 241. Il s'applique dans deux cas (art. 223). Le premier est une liquidation amiable pour laquelle les statuts ou une convention entre associés n'ont rien prévu, ou qui renvoie expressément à ces articles. Le second est une décision de justice rendue à la demande de la majorité des associés d'une SNC, d'associés représentant au moins le **dixième du capital** dans les autres formes, de créanciers sociaux ou du représentant de la masse des obligataires. Dans ce second cas, les clauses statutaires contraires sont réputées non écrites.",
       },
       {
         type: 'carte',
-        titre: "Le calendrier d'un liquidateur désigné par le juge",
+        titre: "Tableau 9.5 — Le calendrier d'un liquidateur désigné par le juge",
         tableau: {
           entetes: ["Échéance", "Obligation", "Article"],
           lignes: [
@@ -598,20 +600,19 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "La plupart de ces obligations sont assorties de sanctions pénales lorsque le liquidateur les méconnaît sciemment (art. 903).",
       },
-      { type: 'controle', question: QCM[12] },
       {
         type: 'paragraphe',
-        texte: "Pourquoi un régime légal aussi détaillé ? Parce que le liquidateur désigné par le juge intervient dans un contexte de conflit : associés divisés, créanciers inquiets, obligataires sans interlocuteur. Les échéances imposées (rapport dans les six mois, comptes annuels, assemblée annuelle) garantissent que la liquidation avance et que chacun est informé. Le mandat limité à trois ans, renouvelable seulement sur demande motivée (art. 227), empêche qu'une liquidation s'éternise. Le juge garde la main : il peut prolonger les délais, autoriser la poursuite de l'activité, dispenser de l'assemblée annuelle ou trancher une répartition contestée. Ce régime s'applique aussi à une liquidation amiable lorsque les statuts n'ont rien prévu (art. 223, 1°), ce qui est fréquent dans les petites sociétés.",
+        texte: "Ce régime légal est détaillé parce que le liquidateur désigné par le juge intervient dans un contexte de conflit : associés divisés, créanciers inquiets, obligataires sans interlocuteur. Les échéances imposées (rapport dans les six mois, comptes annuels, assemblée annuelle) garantissent que la liquidation avance et que chacun est informé. Le mandat limité à trois ans, renouvelable seulement sur demande motivée (art. 227), empêche qu'une liquidation s'éternise. Le juge garde la main : il peut prolonger les délais, autoriser la poursuite de l'activité, dispenser de l'assemblée annuelle ou trancher une répartition contestée. Ce régime s'applique aussi à une liquidation amiable lorsque les statuts n'ont rien prévu (art. 223, 1°), ce qui est fréquent dans les petites sociétés.",
       },
-      { type: 'controle', question: QCM[13] },
+      { type: 'intertitre', texte: "9.6.2 Les comptes pendant la liquidation" },
       {
         type: 'paragraphe',
         texte: "Pour le comptable, l'obligation la plus lourde est celle de l'article 232. La liquidation ne suspend pas la comptabilité. Tant qu'elle dure, chaque exercice se clôture par un inventaire et des états financiers de synthèse, établis dans les trois mois. Une liquidation qui s'étend sur deux ou trois ans produit donc deux ou trois jeux de comptes annuels avant les comptes définitifs. Les associés conservent leur droit de communication des documents sociaux (art. 234), et l'assemblée annuelle statue aux majorités de l'art. 235 : unanimité en SNC, majorité en capital en SARL, conditions de l'AGE en société par actions, les associés liquidateurs prenant part au vote.",
       },
-      { type: 'controle', question: QCM[14] },
+      { type: 'intertitre', texte: "9.6.3 La répartition" },
       {
         type: 'carte',
-        titre: "Répartir l'argent : quatre règles",
+        titre: "Encadré 9.2 — Les quatre règles de la répartition",
         liste: [
           "**Opportunité** : sous réserve des droits des créanciers, le liquidateur décide s'il y a lieu de distribuer les fonds disponibles **en cours** de liquidation ; après mise en demeure infructueuse, tout intéressé peut saisir le juge (art. 241).",
           "**Clé de partage** : sauf clause contraire, les capitaux propres restant après remboursement du nominal se partagent **au prorata de la participation au capital** (art. 237).",
@@ -623,25 +624,25 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La clé de partage de l'article 237 s'applique « sauf clause contraire des statuts ». Une société qui a émis des **actions de préférence** peut ainsi avoir prévu que certaines actions reçoivent un boni majoré ou soient remboursées en priorité. Des actions **amorties** (chapitre 5) ont déjà reçu le remboursement de leur nominal : leurs porteurs, titulaires d'actions de jouissance, ne peuvent pas le percevoir une seconde fois lors de la liquidation. Le liquidateur doit donc lire attentivement les statuts et l'historique du capital avant de calculer ce qui revient à chacun. Pour LUKENIE FRIGO, aucune de ces particularités n'existe : les 2 000 actions ordinaires reçoivent chacune la même somme.",
       },
-      { type: 'controle', question: QCM[15] },
       {
         type: 'paragraphe',
-        texte: "La répartition en cours de liquidation mérite réflexion. Les associés attendent leur argent, et une trésorerie qui dort sur un compte bancaire ne leur rapporte rien. Mais tant que toutes les dettes ne sont pas connues, notamment l'impôt de liquidation et les litiges, chaque franc distribué est un franc qui pourrait manquer aux créanciers. L'article 241 laisse la décision au liquidateur, sous réserve des droits des créanciers. La pratique consiste à distribuer par tranches, en conservant une réserve pour les dettes probables. Si le liquidateur tarde sans raison, tout intéressé peut le mettre en demeure puis saisir le juge. Pour LUKENIE FRIGO, le cabinet a choisi de ne rien distribuer avant d'avoir payé les fournisseurs et évalué l'impôt.",
+        texte: "La répartition en cours de liquidation exige de la prudence. Les associés attendent leur argent, et une trésorerie qui dort sur un compte bancaire ne leur rapporte rien. Mais tant que toutes les dettes ne sont pas connues, notamment l'impôt de liquidation et les litiges, chaque franc distribué est un franc qui pourrait manquer aux créanciers. L'article 241 laisse la décision au liquidateur, sous réserve des droits des créanciers. La pratique consiste à distribuer par tranches, en conservant une réserve pour les dettes probables. Si le liquidateur tarde sans raison, tout intéressé peut le mettre en demeure puis saisir le juge. Pour LUKENIE FRIGO, le cabinet a choisi de ne rien distribuer avant d'avoir payé les fournisseurs et évalué l'impôt.",
       },
-      { type: 'controle', question: QCM[16] },
     ],
   },
   {
     numero: '9.7',
-    titre: "Le comptable face à la liquidation : quatre phases, trois comptes",
+    titre: "Le dispositif comptable de la liquidation",
     navLabel: "Principes comptables",
     blocs: [
+      { type: 'intertitre', texte: "9.7.1 Les phases comptables" },
       {
         type: 'paragraphe',
         texte: "L'AUDCIF définit la liquidation comme l'ensemble des opérations qui, après la dissolution, ont pour objet la **réalisation des éléments d'actif** et le **paiement des créanciers sociaux**, en vue du **partage** de l'actif net subsistant entre les associés (ch. 40, § 1.1). Il en découle un changement de perspective. Tant que la société vivait, ses comptes reposaient sur la continuité d'exploitation : les actifs valaient par leur utilité future. En liquidation, ils valent ce qu'on en tirera à la vente. C'est pourquoi la comptabilité de liquidation mesure un résultat d'un genre particulier : l'écart entre ce que la réalisation rapporte et ce que les éléments valaient au bilan.",
       },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 9.6 — Les quatre phases comptables de la liquidation",
         tableau: {
           entetes: ["Phase", "Travaux", "Document produit"],
           lignes: [
@@ -652,10 +653,10 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[17] },
+      { type: 'intertitre', texte: "9.7.2 Les comptes de la liquidation" },
       {
         type: 'carte',
-        titre: "Les comptes de la liquidation",
+        titre: "Tableau 9.7 — Les comptes de la liquidation",
         tableau: {
           entetes: ["Compte", "Contenu"],
           lignes: [
@@ -671,25 +672,26 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'inventaire d'ouverture a une conséquence souvent oubliée : il faut **solder** les amortissements et les provisions existants, c'est-à-dire les faire disparaître au moment de la sortie des actifs auxquels ils se rattachent (AUDCIF, ch. 40, § 2.1). Dans les écritures de l'Application 122, les amortissements du bâtiment (2831) et du matériel (2841) sont débités lors de la cession, et la dépréciation des stocks (391) lors de leur vente. La dépréciation des créances douteuses (4912) est annulée au crédit du résultat de liquidation, pendant que la perte réelle est constatée. Rien ne doit rester au bilan final qui ne corresponde à de la trésorerie ou à des droits des associés.",
       },
-      { type: 'controle', question: QCM[18] },
+      { type: 'intertitre', texte: "9.7.3 Le bilan avant liquidation" },
       {
         type: 'paragraphe',
-        texte: "Voici le **bilan avant liquidation** de LUKENIE FRIGO au 25 janvier N, repris de l'Application 122. À l'actif : bâtiments industriels 40 000 000 amortis de 26 500 000 (net 13 500 000), matériel industriel 20 000 000 amorti de 15 000 000 (net 5 000 000), stocks de marchandises 7 500 000 dépréciés de 3 450 000 (net 4 050 000), créances clients 22 500 000 dépréciées de 3 900 000 (net 18 600 000, dont 11 500 000 de créances douteuses), banque 9 850 000. Total : 51 000 000. Au passif : capital 20 000 000 (2 000 actions de 10 000), réserves 14 000 000, fournisseurs 17 000 000. Les capitaux propres comptables s'élèvent à 34 000 000, soit 17 000 par action. La liquidation dira si la réalisation fait mieux ou moins bien.",
+        texte: "Le **bilan avant liquidation** de LUKENIE FRIGO au 25 janvier N est repris de l'Application 122. À l'actif : bâtiments industriels 40 000 000 amortis de 26 500 000 (net 13 500 000), matériel industriel 20 000 000 amorti de 15 000 000 (net 5 000 000), stocks de marchandises 7 500 000 dépréciés de 3 450 000 (net 4 050 000), créances clients 22 500 000 dépréciées de 3 900 000 (net 18 600 000, dont 11 500 000 de créances douteuses), banque 9 850 000. Total : 51 000 000. Au passif : capital 20 000 000 (2 000 actions de 10 000), réserves 14 000 000, fournisseurs 17 000 000. Les capitaux propres comptables s'élèvent à 34 000 000, soit 17 000 par action. La liquidation dira si la réalisation fait mieux ou moins bien.",
       },
     ],
   },
   {
     numero: '9.8',
-    titre: "De la vente des actifs au boni : l'Application 122 pas à pas",
+    titre: "La réalisation de l'actif et le résultat de liquidation (Application 122)",
     navLabel: "Réalisation",
     blocs: [
+      { type: 'intertitre', texte: "9.8.1 La méthode directe" },
       {
         type: 'paragraphe',
         texte: "Entre février et septembre N, MWANGAZA CONSEIL réalise l'actif. Le bâtiment est vendu 25 000 000, le matériel 4 500 000, les stocks 3 750 000. Les créances douteuses (nominal 11 500 000) sont recouvrées pour 8 500 000. Les autres clients (11 000 000) paient par anticipation sous déduction d'un escompte de 1 500 000. Les fournisseurs sont réglés pour 17 000 000, et les frais de liquidation s'élèvent à 3 000 000. Le Guide propose de tout passer directement au 1384.",
       },
       {
         type: 'carte',
-        titre: "Méthode directe : les écritures",
+        titre: "Exemple 9.1 — Application 122 : écritures selon la méthode directe",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -725,14 +727,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Une subtilité concerne l'**escompte** accordé aux clients qui paient avant l'échéance. Dans une société en activité, ce serait une charge financière. En liquidation, c'est le prix de l'accélération : le liquidateur préfère encaisser 9 500 000 tout de suite plutôt que 11 000 000 dans plusieurs mois, avec le risque que certains clients ne paient jamais et le coût de maintenir la structure ouverte en attendant. Le Guide porte cet escompte au débit du résultat de liquidation, avec les autres coûts de la réalisation. Le même raisonnement vaut pour les rabais consentis sur les stocks : un acheteur qui sait que le vendeur doit liquider négocie en conséquence. Le résultat de liquidation mesure ainsi, au-delà des plus et moins-values, le coût du temps.",
       },
-      { type: 'controle', question: QCM[19] },
       {
         type: 'paragraphe',
-        texte: "Lisons ce boni. Le bâtiment rapporte 11 500 000 de plus que sa valeur nette : les amortissements comptables avaient réduit sa valeur plus vite que le marché. À l'inverse, le matériel (−500 000) et les stocks (−300 000) se vendent un peu sous leur valeur nette. Sur les créances douteuses, la dépréciation de 3 900 000 s'avère presque juste : la perte réelle est de 3 000 000, et la différence de 900 000 améliore le résultat. L'escompte (1 500 000) et les frais (3 000 000) sont le coût de la liquidation elle-même. Au total, les actionnaires récupéreront plus que la valeur comptable de leurs capitaux propres : le boni de 7 100 000 vient essentiellement du bâtiment.",
+        texte: "Le boni s'analyse ainsi. Le bâtiment rapporte 11 500 000 de plus que sa valeur nette : les amortissements comptables avaient réduit sa valeur plus vite que le marché. À l'inverse, le matériel (−500 000) et les stocks (−300 000) se vendent un peu sous leur valeur nette. Sur les créances douteuses, la dépréciation de 3 900 000 s'avère presque juste : la perte réelle est de 3 000 000, et la différence de 900 000 améliore le résultat. L'escompte (1 500 000) et les frais (3 000 000) sont le coût de la liquidation elle-même. Au total, les actionnaires récupéreront plus que la valeur comptable de leurs capitaux propres : le boni de 7 100 000 vient essentiellement du bâtiment.",
       },
+      { type: 'intertitre', texte: "9.8.2 La méthode par les comptes 837 et 847" },
       {
         type: 'carte',
-        titre: "Seconde méthode : le passage par 837 et 847",
+        titre: "Exemple 9.2 — Application 122 : écritures par les comptes 837 et 847",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -745,35 +747,34 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Compenser directement le prix de vente avec la valeur comptable, comme le ferait une écriture unique « débit 521, crédit immobilisation ». Le compte d'immobilisation doit être soldé pour sa valeur **brute**, les amortissements pour leur **cumul**, et le résultat de liquidation doit recevoir séparément le prix et la valeur nette. Sinon, le bilan conserve des résidus d'immobilisations et d'amortissements qui n'ont plus de réalité, et le résultat de liquidation est faux. Le cas TSHIKAPA DIAMANT SERVICES (cas 5) illustre cette erreur.",
+        titre: "Prix de cession et valeur comptable ne se compensent pas",
+        texte: "Le prix de vente ne se compense pas directement avec la valeur comptable, comme le ferait une écriture unique « débit 521, crédit immobilisation ». Le compte d'immobilisation doit être soldé pour sa valeur **brute**, les amortissements pour leur **cumul**, et le résultat de liquidation doit recevoir séparément le prix et la valeur nette. Sinon, le bilan conserve des résidus d'immobilisations et d'amortissements qui n'ont plus de réalité, et le résultat de liquidation est faux. Le cas TSHIKAPA DIAMANT SERVICES (cas 5) illustre cette erreur.",
       },
-      { type: 'controle', question: QCM[20] },
       {
         type: 'filet',
-        titre: "Quelle méthode choisir ?",
+        titre: "Le choix entre les deux méthodes",
         texte: "La méthode directe est plus rapide, mais elle ne laisse qu'un solde : pour savoir ce qu'a coûté la liquidation, il faut reprendre toutes les écritures. Le passage par le 837 et le 847 conserve une vue « compte de résultat » de la période de liquidation. C'est utile pour le rapport annuel du liquidateur (art. 232), pour l'assemblée de clôture qui statue sur le quitus (art. 217) et pour défendre sa gestion si sa responsabilité est recherchée (art. 221). Dans une liquidation longue ou contestée, la seconde méthode est la plus prudente.",
       },
       {
         type: 'filet',
-        titre: "Et si le résultat avait été négatif ?",
+        titre: "Un résultat de liquidation négatif",
         texte: "Supposons que le bâtiment ne se soit vendu que 10 000 000. Le 1384 aurait reçu 10 000 000 au crédit et 13 500 000 au débit pour ce seul bien, soit une perte de 3 500 000 au lieu d'un gain de 11 500 000. Le résultat de liquidation serait passé de +7 100 000 à −7 900 000 : un **mali**. La banque finale aurait été de 26 100 000, et chaque actionnaire aurait récupéré 13 050 par action, moins que les capitaux propres comptables de départ (17 000). Les associés supportent le mali dans la limite de leurs apports ; au-delà, c'est une insuffisance d'actif, et les créanciers ne sont pas intégralement payés.",
       },
-      { type: 'controle', question: QCM[21] },
     ],
   },
   {
     numero: '9.9',
-    titre: "Clôturer, partager, puis disparaître",
+    titre: "La clôture, le partage et la radiation",
     navLabel: "Clôture et partage",
     blocs: [
+      { type: 'intertitre', texte: "9.9.1 Le bilan de clôture et le partage" },
       {
         type: 'paragraphe',
         texte: "Octobre N. Il ne reste à LUKENIE FRIGO qu'un compte bancaire créditeur de 41 100 000. Son **bilan de clôture** tient en une ligne à l'actif, la banque, et trois au passif : capital 20 000 000, réserves 14 000 000, résultat de liquidation 7 100 000. Chaque actionnaire va récupérer 41 100 000 / 2 000 = **20 550** par action, soit le nominal (10 000), sa part des réserves (7 000) et sa part du boni (3 550). La clé de partage est celle de l'article 237 : remboursement du nominal, puis partage du surplus au prorata du capital, sauf clause contraire.",
       },
       {
         type: 'carte',
-        titre: "Les écritures de partage",
+        titre: "Exemple 9.3 — Application 122 : les écritures de partage",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -791,21 +792,19 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le bilan de clôture n'est pas un bilan comme les autres. Il ne sert plus à mesurer une performance ni à évaluer une entreprise qui continue : il constate simplement ce qui reste pour les associés. On y trouve la trésorerie à l'actif et, au passif, les capitaux propres d'origine augmentés du boni (ou diminués du mali). S'il reste des dettes, ce n'est pas un bilan de clôture : la liquidation n'est pas finie. S'il reste des actifs non monétaires, le liquidateur doit soit les vendre, soit les attribuer en nature aux associés avec leur accord, en les évaluant pour calculer les droits de chacun. Cette attribution en nature se comptabilise comme un règlement du 4619 par la sortie de l'actif concerné, à sa valeur d'attribution.",
       },
-      { type: 'controle', question: QCM[22] },
+      { type: 'intertitre', texte: "9.9.2 L'assemblée de clôture et la radiation" },
       {
         type: 'paragraphe',
-        texte: "Reste à fermer juridiquement la société. Le cabinet convoque l'**assemblée de clôture**, qui statue sur les comptes définitifs, donne quitus au liquidateur, le décharge de son mandat et constate la clôture (art. 217). Si personne ne convoque, tout associé peut demander au juge un mandataire ad hoc. Si l'assemblée ne peut délibérer ou refuse les comptes, le juge statue à sa place, et le liquidateur dépose ses comptes au RCCM (art. 218). Les comptes définitifs sont ensuite déposés au RCCM avec la décision d'approbation (art. 219). Dans le mois qui suit la **publication de la clôture**, le liquidateur demande la **radiation** (art. 220). Tout cela doit intervenir dans les **trois ans** de la dissolution, sinon le ministère public ou tout intéressé peut saisir le juge (art. 216).",
+        texte: "Il reste à fermer juridiquement la société. Le cabinet convoque l'**assemblée de clôture**, qui statue sur les comptes définitifs, donne quitus au liquidateur, le décharge de son mandat et constate la clôture (art. 217). Si personne ne convoque, tout associé peut demander au juge un mandataire ad hoc. Si l'assemblée ne peut délibérer ou refuse les comptes, le juge statue à sa place, et le liquidateur dépose ses comptes au RCCM (art. 218). Les comptes définitifs sont ensuite déposés au RCCM avec la décision d'approbation (art. 219). Dans le mois qui suit la **publication de la clôture**, le liquidateur demande la **radiation** (art. 220). Tout cela doit intervenir dans les **trois ans** de la dissolution, sinon le ministère public ou tout intéressé peut saisir le juge (art. 216).",
       },
-      { type: 'controle', question: QCM[23] },
       {
         type: 'paragraphe',
-        texte: "L'assemblée de clôture est plus qu'une formalité. En votant le **quitus**, les associés approuvent la gestion du liquidateur ; la **décharge** met fin à son mandat. Le quitus ne supprime pas la responsabilité du liquidateur envers les tiers, qui peuvent agir dans les délais de l'article 221, mais il rend plus difficile une action des associés qui ont approuvé les comptes en connaissance de cause. C'est pourquoi le liquidateur prépare un dossier complet : comptes définitifs, détail des cessions, liste des créanciers payés, justification des frais, rapprochement bancaire. Pour LUKENIE FRIGO, le choix du passage par le 837 et le 847 aurait permis de présenter en une page les charges et les produits de la liquidation.",
+        texte: "L'assemblée de clôture a une portée juridique propre. En votant le **quitus**, les associés approuvent la gestion du liquidateur ; la **décharge** met fin à son mandat. Le quitus ne supprime pas la responsabilité du liquidateur envers les tiers, qui peuvent agir dans les délais de l'article 221, mais il rend plus difficile une action des associés qui ont approuvé les comptes en connaissance de cause. C'est pourquoi le liquidateur prépare un dossier complet : comptes définitifs, détail des cessions, liste des créanciers payés, justification des frais, rapprochement bancaire. Pour LUKENIE FRIGO, le choix du passage par le 837 et le 847 aurait permis de présenter en une page les charges et les produits de la liquidation.",
       },
-      { type: 'controle', question: QCM[24] },
-      { type: 'controle', question: QCM[25] },
+      { type: 'intertitre', texte: "9.9.3 Les actions après la radiation" },
       {
         type: 'carte',
-        titre: "Après la radiation : les actions qui survivent",
+        titre: "Tableau 9.8 — Les actions qui subsistent après la radiation",
         tableau: {
           entetes: ["Contre qui ?", "Délai", "Point de départ"],
           lignes: [
@@ -819,27 +818,25 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La prescription triennale de l'action contre le liquidateur court du fait dommageable, et non de la clôture. Pour une vente à vil prix conclue en février N et connue de tous, l'action est ouverte jusqu'en février N+3. Si le liquidateur a dissimulé l'opération et qu'elle n'est révélée qu'en mars N+2, le délai court de cette révélation : l'action reste possible jusqu'en mars N+5. La faute qualifiée de crime, par exemple un détournement de fonds, porte le délai à dix ans. Pour un liquidateur, la meilleure protection reste la transparence : décisions motivées, prix justifiés par des estimations, rapports réguliers aux associés et comptes approuvés en assemblée.",
       },
-      { type: 'controle', question: QCM[26] },
       {
         type: 'paragraphe',
         texte: "Ces délais de prescription expliquent pourquoi les liquidateurs expérimentés procèdent à une **publicité** large et à un recensement minutieux des créanciers. Un créancier oublié qui se manifeste après la clôture n'a plus de société contre laquelle agir, mais il peut se retourner contre les associés qui ont reçu les fonds, dans la limite de ce qu'ils ont perçu, pendant cinq ans à compter de la publication de la dissolution (art. 222). Il peut aussi rechercher la responsabilité du liquidateur, s'il prouve une faute, pendant trois ans (art. 221). Le liquidateur a donc tout intérêt à constituer une réserve pour les litiges connus et à ne clôturer qu'une fois les réclamations prévisibles réglées.",
       },
-      { type: 'controle', question: QCM[27] },
     ],
   },
   {
     numero: '9.10',
-    titre: "Le fisc a le dernier mot",
+    titre: "Les obligations fiscales de la liquidation",
     navLabel: "Fiscalité",
     blocs: [
+      { type: 'intertitre', texte: "9.10.1 L'exigibilité de l'impôt" },
       {
         type: 'paragraphe',
         texte: "Pour la DGI, la dissolution n'efface pas l'impôt : elle en accélère l'exigibilité. En cas de dissolution, la loi n° 23/053 prévoit une **cotisation spéciale immédiate** d'après les résultats de la période d'activité et, en cas de liquidation, une **seconde cotisation** d'après le dernier bilan de liquidation (art. 13). Les **bénéfices de liquidation** font partie du bénéfice imposable (art. 11). Pour LUKENIE FRIGO, cela signifie deux choses. Le résultat de l'exercice N jusqu'au 25 janvier est imposé sans attendre le calendrier normal. Et le boni de 7 100 000, qui provient surtout de la plus-value sur le bâtiment, entre dans la base de la seconde cotisation. Le liquidateur doit donc garder la trésorerie nécessaire avant de partager.",
       },
-      { type: 'controle', question: QCM[28] },
       {
         type: 'carte',
-        titre: "Trois points d'attention fiscaux pour le liquidateur",
+        titre: "Encadré 9.3 — Les points d'attention fiscaux du liquidateur",
         liste: [
           "**Quitus fiscal** : les mutations d'immeubles et de véhicules exigent la présentation d'un quitus fiscal, attestation de la DGI établissant que la société est en règle de paiement (arrêté ministériel n° 028 du 28 septembre 2022, art. 3). Sans lui, la vente du bâtiment de LUKENIE FRIGO bloque.",
           "**Numéro Impôt** : la clôture de la liquidation après dissolution fait partie des cas de retrait du Numéro Impôt, définitivement désactivé ensuite (décret n° 03/012 et mesures d'exécution).",
@@ -850,14 +847,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Ces règles invitent à une discipline de calendrier. Un liquidateur prudent commence par solder la situation fiscale (déclarations, cotisation spéciale, retenues), obtient le quitus nécessaire aux ventes immobilières, puis réalise l'actif. Il constitue une réserve pour la seconde cotisation d'IS et ne partage qu'une fois l'impôt et les retenues éventuelles sur les répartitions déterminés. Répartir trop tôt, c'est exposer les associés à des actions en restitution pendant cinq ans (art. 222) et exposer le liquidateur à une mise en cause de sa responsabilité (art. 221).",
       },
+      { type: 'intertitre', texte: "9.10.2 Bilan de la liquidation de LUKENIE FRIGO" },
       {
         type: 'paragraphe',
         texte: "Au terme de ce parcours, la liquidation de LUKENIE FRIGO a duré neuf mois, dégagé un boni de 7 100 000 et rendu 20 550 à chaque action de 10 000 de nominal. Le cadre juridique a imposé ses étapes (publicité, nomination, contrôle des cessions, assemblée de clôture, radiation), la comptabilité a mesuré le résultat de la réalisation, et la fiscalité a prélevé sa part à deux moments. La même logique s'applique à une petite SARL comme à une grande SA : seule l'échelle change. Le chapitre 10 étudie les sociétés particulières (société en participation, GIE, transformation) : on y retrouvera des questions voisines, notamment celle de la continuité de la personne morale lors d'un changement de forme.",
       },
-      { type: 'controle', question: QCM[29] },
       {
         type: 'filet',
-        titre: "Et l'entreprise individuelle ?",
+        titre: "La liquidation de l'entreprise individuelle",
         texte: "Le chapitre 40 de l'AUDCIF (section 3) traite aussi de la liquidation de l'entité individuelle : vente, apport en société ou liquidation judiciaire. La méthode est simplifiée. Les charges et produits du paiement du passif, les frais et l'écart entre la valeur nette des actifs et leur prix de vente passent directement au résultat de liquidation. Celui-ci est ensuite viré au **compte de l'exploitant (104)**, et les disponibilités sont transférées au patrimoine privé. Il n'y a ni associés à rembourser ni partage : c'est la même personne qui reprend le solde.",
       },
     ],
