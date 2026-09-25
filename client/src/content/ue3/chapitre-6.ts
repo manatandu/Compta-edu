@@ -369,8 +369,9 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Kolwezi, capitale du cuivre et du cobalt. **KOLWEZI INFRA SA**, constituée en 2019, veut construire un dépôt logistique pour les exploitations minières voisines. Plutôt que d'emprunter auprès d'une seule banque, son conseil propose d'émettre un emprunt obligataire : 20 000 obligations de 10 000 FC, au taux de 8 %, remboursables en une fois au bout de cinq ans, et garanties par une hypothèque sur le futur dépôt. Qui peut émettre des obligations ? Comment les porteurs sont-ils protégés ? Comment comptabiliser la dette, les coupons et la prime de remboursement ? Ce chapitre répond à ces questions et suit KOLWEZI INFRA de l'émission au paiement de ses premiers coupons.",
+        texte: "Kolwezi, capitale du cuivre et du cobalt. **KOLWEZI INFRA SA**, constituée en 2019, veut construire un dépôt logistique pour les exploitations minières voisines. Plutôt que d'emprunter auprès d'une seule banque, son conseil propose d'émettre un emprunt obligataire : 20 000 obligations de 10 000 FC, au taux de 8 %, remboursables en une fois au bout de cinq ans, et garanties par une hypothèque sur le futur dépôt. Ce chapitre étudie les conditions d'émission des obligations, la protection des porteurs et la comptabilisation de la dette, des coupons et de la prime de remboursement ; il suit KOLWEZI INFRA de l'émission au paiement de ses premiers coupons.",
       },
+      { type: 'intertitre', texte: "6.1.1 La nature de l'obligation" },
       {
         type: 'paragraphe',
         texte: "Une société qui a besoin de ressources longues a deux voies. Elle peut demander des **capitaux propres** à ses associés (augmentation de capital, chapitre 4) ou s'endetter. L'endettement peut venir d'une banque ou, pour les plus grandes sociétés, directement de l'épargne, par l'**emprunt obligataire**. L'emprunt est alors fractionné en titres de même valeur, les **obligations**, que des investisseurs souscrivent et peuvent revendre. L'article 779 de l'AUSCGIE les définit comme « des titres négociables qui dans une même émission, confèrent les mêmes droits de créance pour une même valeur nominale ». Trois idées tiennent dans cette phrase. L'obligation est un titre **négociable** : elle circule sans les formalités d'une cession de créance. Elle confère un **droit de créance** : son porteur est un prêteur, pas un associé. Et ce droit est **identique** pour tous les titres d'une même émission, ce qui justifie leur organisation collective en masse.",
@@ -379,9 +380,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Cette nature de créance commande tout le régime. L'obligataire reçoit un **intérêt** (le coupon), fixé à l'avance, que la société ait fait des bénéfices ou non. Il a droit au **remboursement** de sa créance selon les modalités du contrat d'émission. En revanche, il ne vote pas aux assemblées d'actionnaires, ne perçoit pas de dividende et ne supporte pas les pertes tant que la société reste solvable. Pour la société, l'emprunt obligataire ne dilue pas le pouvoir des actionnaires, mais il crée une charge fixe et une dette à rembourser. Les obligations peuvent être au porteur ou nominatives (art. 745), et leur valeur nominale est identique pour toutes les obligations d'une même émission.",
       },
+      { type: 'intertitre', texte: "6.1.2 Les conditions de l'émission" },
       {
         type: 'carte',
-        titre: "Les verrous de l'émission (art. 780 à 783-1)",
+        titre: "Tableau 6.1 — Les conditions de l'émission (art. 780 à 783-1)",
         tableau: {
           entetes: ["Condition", "Règle", "Raison d'être"],
           lignes: [
@@ -394,17 +396,16 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
       {
         type: 'paragraphe',
         texte: "Ces conditions valent pour l'**obligation ordinaire**. Lorsque l'emprunt donne accès au capital (obligations convertibles, remboursables en actions, obligations à bons de souscription d'actions), il relève en outre du régime des **valeurs mobilières composées** (art. 822 et suivants). Ces émissions sont autorisées par l'**assemblée générale extraordinaire**, selon les règles de l'augmentation de capital, sur rapport du conseil (ou de l'administrateur général) et rapport spécial du commissaire aux comptes, à peine de nullité (art. 822-5). La section 6.8 y revient. Quant à la **SAS**, elle ne peut faire publiquement appel à l'épargne (art. 853-4). L'article 780 ne vise que les SA et les GIE de SA, et l'article 853-3 n'étend à la SAS les règles de la SA que « dans la mesure où elles sont compatibles » avec son régime propre. Une SAS qui voudrait émettre des obligations ordinaires doit donc faire vérifier la question par un juriste plutôt que la tenir pour acquise.",
       },
+      { type: 'intertitre', texte: "6.1.3 L'intérêt de l'emprunt obligataire" },
       {
         type: 'paragraphe',
-        texte: "Pourquoi une société préfère-t-elle parfois l'obligation au crédit bancaire ? D'abord pour la **durée** : un emprunt obligataire court souvent sur cinq, sept ou dix ans, là où les banques prêtent volontiers à plus court terme. Ensuite pour le **coût** : en s'adressant directement aux épargnants et aux investisseurs institutionnels, la société supprime la marge de l'intermédiaire. Enfin pour la **diversification** : une société qui ne dépend que d'une ou deux banques est vulnérable à leurs propres difficultés. En contrepartie, l'emprunt obligataire est rigide. Le taux, l'échéancier et les garanties sont fixés pour toute la durée de l'emprunt, et les modifier suppose de réunir la masse. L'émission elle-même coûte cher en frais de placement, de publicité et d'impression. C'est pourquoi l'obligation reste l'instrument des sociétés d'une certaine taille, établies et transparentes. Les conditions de l'article 780 (deux ans d'existence et deux bilans approuvés) traduisent cette exigence de transparence.",
+        texte: "Une société peut préférer l'obligation au crédit bancaire pour plusieurs raisons. D'abord pour la **durée** : un emprunt obligataire court souvent sur cinq, sept ou dix ans, là où les banques prêtent volontiers à plus court terme. Ensuite pour le **coût** : en s'adressant directement aux épargnants et aux investisseurs institutionnels, la société supprime la marge de l'intermédiaire. Enfin pour la **diversification** : une société qui ne dépend que d'une ou deux banques est vulnérable à leurs propres difficultés. En contrepartie, l'emprunt obligataire est rigide. Le taux, l'échéancier et les garanties sont fixés pour toute la durée de l'emprunt, et les modifier suppose de réunir la masse. L'émission elle-même coûte cher en frais de placement, de publicité et d'impression. C'est pourquoi l'obligation reste l'instrument des sociétés d'une certaine taille, établies et transparentes. Les conditions de l'article 780 (deux ans d'existence et deux bilans approuvés) traduisent cette exigence de transparence.",
       },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "6.1.4 L'appel public à l'épargne et la décision d'émettre" },
       {
         type: 'filet',
         titre: "Émission par appel public à l'épargne (art. 842-844)",
@@ -414,8 +415,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les deux régimes de décision ne se confondent pas. Pour l'obligation **ordinaire**, qui ne touche pas au capital, l'article 546, 5°, confie la décision à l'**assemblée générale ordinaire** : l'endettement est un acte de gestion important, mais il ne modifie pas les statuts. Pour les valeurs mobilières **donnant accès au capital**, la décision relève de l'**assemblée générale extraordinaire** (art. 822-5), parce qu'elle prépare une augmentation de capital future et prive les actionnaires de leur DPS sur les actions à créer (art. 587-2). Dans les deux cas, la délégation au conseil ou à l'administrateur général est courante. L'assemblée fixe l'enveloppe et le cadre, et le conseil choisit le moment de l'émission et en arrête les modalités (taux, durée, prix), dans la limite des deux ans de l'article 783. Le procès-verbal de l'assemblée est une pièce que l'auditeur vérifie avant de valider la comptabilisation de l'emprunt.",
       },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[5] },
     ],
   },
   {
@@ -423,17 +422,19 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La masse des obligataires et ses représentants",
     navLabel: "La masse",
     blocs: [
+      { type: 'intertitre', texte: "6.2.1 La masse" },
       {
         type: 'paragraphe',
         texte: "Un emprunt de plusieurs milliers de titres peut compter des centaines de porteurs, dispersés et souvent anonymes. Face à la société émettrice, chacun pèse peu. L'Acte uniforme les regroupe donc **de plein droit**, pour la défense de leurs intérêts, dans une **masse** qui jouit de la **personnalité juridique** (art. 785). La masse n'est pas une association que les obligataires choisiraient de créer : elle naît avec l'émission. En cas d'émissions successives, la société peut réunir en un groupement unique les porteurs ayant des droits identiques, à condition qu'une clause de **chaque** contrat d'émission le prévoie.",
       },
+      { type: 'intertitre', texte: "6.2.2 Les représentants de la masse" },
       {
         type: 'paragraphe',
         texte: "La masse agit par ses **représentants**, **un à trois** mandataires élus par l'assemblée générale des obligataires (art. 786) et révocables par elle (art. 789). En cas d'urgence, la juridiction compétente peut les désigner à la demande de tout intéressé (art. 788). Leur rémunération est fixée par l'assemblée ou le contrat d'émission, et elle est **à la charge de la société débitrice**. À défaut de fixation, ou en cas de contestation, le juge la fixe (art. 794). Pour le comptable de la société, c'est une charge d'exploitation courante liée au service de l'emprunt.",
       },
       {
         type: 'carte',
-        titre: "Qui ne peut pas représenter la masse (art. 787)",
+        titre: "Encadré 6.1 — Les incompatibilités des représentants de la masse (art. 787)",
         liste: [
           "Condition positive : être une personne physique ou morale **résidente** dans l'État partie du siège de la société débitrice.",
           "La **société débitrice** elle-même, les **sociétés qui ont une participation** dans son capital et les **sociétés garantes** de tout ou partie de ses engagements.",
@@ -443,13 +444,12 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "Ces exclusions visent un seul risque : que le défenseur des prêteurs dépende de l'emprunteur. Les mêmes personnes ne peuvent pas non plus représenter des obligataires à l'assemblée (art. 801).",
       },
-      { type: 'controle', question: QCM[7] },
       {
         type: 'filet',
-        titre: "Question d'étudiant : qui défendra les porteurs de KOLWEZI INFRA ?",
+        titre: "La masse des obligataires de KOLWEZI INFRA",
         texte: "Les porteurs des 20 000 obligations de KOLWEZI INFRA forment de plein droit une masse dotée de la personnalité juridique (art. 785). Ils élisent un à trois représentants, résidents en RDC et indépendants de la société : ni la société débitrice, ni les sociétés qui détiennent une participation dans son capital, ni ses dirigeants, ni ses employés, ni son commissaire aux comptes (art. 787). Le directeur financier de KOLWEZI INFRA, qui connaît le mieux l'emprunt, est précisément celui qui ne peut pas défendre les prêteurs : il est l'employé de l'emprunteur.",
       },
-      { type: 'controle', question: QCM[8] },
+      { type: 'intertitre', texte: "6.2.3 Les pouvoirs des représentants" },
       {
         type: 'paragraphe',
         texte: "Sauf restriction décidée par l'assemblée des obligataires, les représentants accomplissent au nom du groupement et de tous les obligataires **tous les actes de gestion** pour la défense des intérêts communs (art. 790). Ils ne peuvent pas **s'immiscer dans la gestion** de la société. Ils peuvent assister aux assemblées d'actionnaires, mais **sans voix délibérative**, et obtiennent communication des documents mis à la disposition des actionnaires, dans les mêmes conditions (art. 791). Ils savent donc tout ce que savent les actionnaires, mais ne décident de rien. Leur rôle devient décisif si la société connaît des difficultés. En cas de redressement judiciaire ou de liquidation des biens, ils déclarent au passif, pour **tous** les obligataires, les sommes dues en capital et en intérêts, sans avoir à produire les titres (art. 792). Les frais de cette représentation incombent à la société comme frais d'administration judiciaire (art. 793), et le redressement judiciaire ne met pas fin au rôle de l'assemblée des obligataires (art. 812).",
@@ -458,8 +458,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "En pratique, le représentant de la masse est souvent un établissement ou un cabinet spécialisé, choisi pour sa compétence et sa neutralité. Sa mission est de veiller à l'exécution du contrat d'émission : paiement des coupons à bonne date, respect des engagements de la société (maintien des garanties, limites d'endettement éventuellement stipulées), renouvellement des inscriptions hypothécaires (art. 819). S'il constate un manquement, il réunit l'assemblée des obligataires et peut agir en justice au nom de tous. Pour la société émettrice, la relation avec le représentant fait partie du coût de l'emprunt. Sa rémunération (art. 794), les frais de convocation des assemblées et, le cas échéant, les frais de procédure sont des charges que le budget de l'emprunt doit prévoir. Le commissaire aux comptes de la société, lui, ne peut pas être représentant de la masse (art. 787, 6°), afin qu'il n'ait pas à contrôler des comptes où il défend en même temps les intérêts des créanciers.",
       },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
     ],
   },
   {
@@ -467,13 +465,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'assemblée générale des obligataires et les droits individuels",
     navLabel: "Assemblée des obligataires",
     blocs: [
+      { type: 'intertitre', texte: "6.3.1 La réunion et les compétences de l'assemblée" },
       {
         type: 'paragraphe',
         texte: "L'assemblée générale des obligataires d'une même masse peut être réunie **à toute époque** (art. 795). Elle est convoquée par les représentants de la masse, par le conseil d'administration ou l'administrateur général, ou par le liquidateur. Des obligataires représentant au moins **le trentième** des titres peuvent aussi en obtenir la convocation, par les représentants ou par un mandataire ad hoc désigné par le juge (art. 796). La convocation suit les formes et délais des assemblées d'actionnaires (art. 797) et comporte des mentions obligatoires : l'emprunt concerné, l'auteur de la convocation et, le cas échéant, la décision de justice qui l'a désigné (art. 798). Une assemblée irrégulièrement convoquée peut être annulée, sauf si tous les obligataires de la masse étaient présents ou représentés (art. 799). L'ordre du jour est arrêté par l'auteur de la convocation, et des porteurs du trentième des titres peuvent y faire inscrire des projets de résolution (art. 800).",
       },
       {
         type: 'carte',
-        titre: "Assemblée ordinaire et assemblée extraordinaire des obligataires",
+        titre: "Tableau 6.2 — Assemblée ordinaire et assemblée extraordinaire des obligataires",
         tableau: {
           entetes: ["", "Assemblée ordinaire (art. 803)", "Assemblée extraordinaire (art. 804)"],
           lignes: [
@@ -488,15 +487,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'assemblée des obligataires prend tout son sens quand la société traverse une passe difficile. Un report d'échéance, une réduction de garanties ou une transaction sur une créance litigieuse ne peuvent être imposés par la société : ils doivent être acceptés par l'assemblée extraordinaire, à la majorité renforcée des deux tiers (art. 804). La majorité lie ensuite la minorité, ce qui évite qu'un seul porteur bloque un accord favorable à tous, dans la limite de l'article 808 : pas de charge nouvelle, pas d'inégalité. Si la société est placée en redressement judiciaire, l'assemblée des obligataires continue de fonctionner (art. 812) et les représentants déclarent la créance de toute la masse (art. 792). Pour le comptable, un report d'échéance voté par l'assemblée modifie le tableau d'amortissement : il faut recalculer les échéances, la ventilation à moins d'un an et, pour un emprunt avec prime, le rythme de l'étalement.",
       },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[12] },
+      { type: 'intertitre', texte: "6.3.2 Droit de vote et majorités" },
       {
         type: 'paragraphe',
         texte: "Le **droit de vote** est proportionnel à la quotité de l'emprunt que représentent les obligations, avec au moins une voix par obligation, et le vote par correspondance ou à distance est admis comme pour les actionnaires (art. 805). Deux règles écartent les conflits d'intérêts. La société qui détient **au moins 10 %** du capital de la débitrice ne peut pas voter avec ses obligations (art. 806). En cas de démembrement, le vote appartient au nu-propriétaire, sauf convention contraire (art. 807). Surtout, la majorité a des limites : les assemblées ne peuvent **ni accroître les charges** des obligataires, **ni établir un traitement inégal** entre obligataires d'une même émission, à peine de nullité (art. 808).",
       },
       {
         type: 'carte',
-        titre: "Calculer une majorité à l'assemblée extraordinaire",
+        titre: "Exemple 6.1 — Le calcul d'une majorité à l'assemblée extraordinaire",
         tableau: {
           entetes: ["Élément", "Nombre de voix", "Commentaire"],
           lignes: [
@@ -511,14 +509,13 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle d'un report d'échéance",
         texte: "Lorsque KOLWEZI INFRA proposera un report d'échéance, l'auditeur vérifiera le procès-verbal de l'assemblée extraordinaire des obligataires : quorum de l'article 553, majorité des deux tiers, et surtout exclusion des voix de la société qui détient 12 % du capital de KOLWEZI INFRA et possède 2 000 obligations (art. 806). Ses titres ne votent pas, même s'ils représentent un dixième de l'emprunt. Une délibération qui les aurait comptés serait fragile, et le nouvel échéancier inscrit dans les comptes le serait avec elle.",
       },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[14] },
+      { type: 'intertitre', texte: "6.3.3 Le refus des obligataires et les droits individuels" },
       {
         type: 'carte',
-        titre: "Que se passe-t-il si les obligataires disent non ?",
+        titre: "Tableau 6.3 — Les conséquences d'un refus des obligataires",
         tableau: {
           entetes: ["Projet de la société", "Refus de l'assemblée des obligataires", "Conséquence"],
           lignes: [
@@ -529,7 +526,6 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Ces règles relient ce chapitre aux fusions (chapitre 8) et à la liquidation (chapitre 9) : l'emprunt obligataire en cours pèse sur toute restructuration.",
       },
-      { type: 'controle', question: QCM[15] },
       {
         type: 'filet',
         titre: "Pas de contrôle individuel (art. 813)",
@@ -542,13 +538,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Garanties, remboursement anticipé, rachat et annulation",
     navLabel: "Garanties et rachat",
     blocs: [
+      { type: 'intertitre', texte: "6.4.1 Les garanties" },
       {
         type: 'paragraphe',
         texte: "Pour attirer les souscripteurs ou abaisser le taux, l'assemblée qui décide l'émission peut assortir les obligations d'une **sûreté** (hypothèque, nantissement, gage). Elle la détermine elle-même ou délègue ce pouvoir au conseil ou à l'administrateur général (art. 815). La difficulté est pratique : au moment où la sûreté est constituée, les créanciers bénéficiaires n'existent pas encore. L'Acte uniforme la fait donc constituer par un **acte spécial**, pour le compte du groupement des obligataires **en formation**, et impose d'en accomplir la publicité **avant toute souscription** (art. 816). Chaque souscription vaut acceptation de la garantie, avec effet rétroactif à la date de l'inscription pour les sûretés inscrites (art. 817).",
       },
       {
         type: 'carte',
-        titre: "Le calendrier des sûretés",
+        titre: "Encadré 6.2 — Le calendrier des sûretés",
         liste: [
           "**Avant la souscription** : acte spécial et publicité de la sûreté (art. 816).",
           "**Dans les six mois** de l'ouverture de la souscription : constatation du résultat par **acte notarié**, à la diligence du représentant légal (art. 818).",
@@ -562,14 +559,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les sûretés obéissent à un formalisme strict parce qu'elles sont opposables aux autres créanciers. Une hypothèque inscrite au profit de la masse donne aux obligataires un rang préférentiel sur le bien grevé. Les autres créanciers doivent pouvoir le savoir, d'où la publicité préalable à toute souscription (art. 816). La sanction du non-respect des articles 815, 816 et 821 est la **nullité** de la sûreté (art. 821-1). Les obligataires redeviendraient alors de simples créanciers chirographaires. Pour le comptable et l'auditeur, les sûretés consenties sont des **engagements donnés** : l'emprunt garanti est signalé dans les Notes annexes parmi les dettes garanties par des sûretés réelles, avec le montant et la nature de la garantie. Un lecteur des états financiers doit pouvoir savoir quels actifs de la société ne sont plus librement disponibles pour les autres créanciers.",
       },
-      { type: 'controle', question: QCM[17] },
+      { type: 'intertitre', texte: "6.4.2 Remboursement anticipé, rachat et annulation" },
       {
         type: 'paragraphe',
         texte: "Le contrat d'émission fixe l'échéancier de remboursement, et la société ne peut pas le raccourcir unilatéralement. En l'absence de stipulation particulière, elle **ne peut pas imposer** un remboursement anticipé (art. 814). Pour se désendetter plus tôt, par exemple après une baisse des taux, elle doit donc avoir prévu une clause (c'est le principe des **obligations à fenêtres**) ou **racheter** les titres à des porteurs consentants. Le rachat est fréquent pour les obligations cotées, surtout quand le cours est inférieur au prix de remboursement : la société éteint sa dette pour moins que ce qu'elle devrait au terme. Les obligations rachetées et remboursées sont **annulées** et ne peuvent pas être remises en circulation (art. 784).",
       },
       {
         type: 'carte',
-        titre: "Rachat en bourse puis annulation (AUDCIF, ch. 20, § 1.7 à 1.9)",
+        titre: "Exemple 6.2 — Rachat en bourse puis annulation (AUDCIF, ch. 20, § 1.7 à 1.9)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -586,9 +583,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'intérêt économique du rachat se comprend avec les taux. Une obligation à taux fixe de 8 % vaut moins que son nominal lorsque les taux du marché montent à 12 % : l'acheteur exige un rendement de marché et paie donc moins cher un titre qui ne rapporte que 8 %. À l'inverse, si les taux baissent, le cours de l'obligation dépasse le nominal. L'émettrice qui dispose de trésorerie a intérêt à racheter quand le cours est bas : elle éteint une dette pour moins que sa valeur de remboursement et constate un gain. Quand les taux baissent, elle aimerait rembourser par anticipation pour se refinancer moins cher, mais l'article 814 l'en empêche sans clause. D'où l'intérêt, pour l'émetteur, de négocier dès l'émission une faculté de remboursement anticipé, que les souscripteurs feront payer par une pénalité ou une prime plus élevée.",
       },
-      { type: 'controle', question: QCM[16] },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[25] },
     ],
   },
   {
@@ -596,13 +590,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le vocabulaire financier et le tableau d'amortissement",
     navLabel: "Tableau d'amortissement",
     blocs: [
+      { type: 'intertitre', texte: "6.5.1 Le vocabulaire du contrat d'émission" },
       {
         type: 'paragraphe',
-        texte: "Avant d'écrire la moindre écriture, il faut savoir lire un contrat d'émission. L'AUDCIF (Titre VIII, chapitre 20) fixe la terminologie. La **valeur nominale** (ou pair) est la quote-part de l'emprunt qui sert au calcul des intérêts ; elle est fixée librement par l'émetteur. Le **prix d'émission** est ce que verse le souscripteur : égal au nominal (émission au pair) ou inférieur. Le **prix de remboursement** est ce que la société restitue : au minimum le nominal, parfois davantage. L'Acte uniforme n'interdit que les obligations à lots : l'émission au-dessous ou au-dessus du pair est donc libre.",
+        texte: "La comptabilisation suppose la lecture du contrat d'émission. L'AUDCIF (Titre VIII, chapitre 20) fixe la terminologie. La **valeur nominale** (ou pair) est la quote-part de l'emprunt qui sert au calcul des intérêts ; elle est fixée librement par l'émetteur. Le **prix d'émission** est ce que verse le souscripteur : égal au nominal (émission au pair) ou inférieur. Le **prix de remboursement** est ce que la société restitue : au minimum le nominal, parfois davantage. L'Acte uniforme n'interdit que les obligations à lots : l'émission au-dessous ou au-dessus du pair est donc libre.",
       },
       {
         type: 'carte',
-        titre: "Trois primes à ne pas confondre",
+        titre: "Tableau 6.4 — Les trois primes d'un emprunt obligataire",
         tableau: {
           entetes: ["Prime", "Calcul", "Application 78 (par obligation)"],
           lignes: [
@@ -613,13 +608,14 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "C'est la prime au sens comptable (200 par titre, 2 000 000 pour 10 000 titres) qui est étalée au compte 6714. Attention : la « prime d'émission » d'une obligation n'a rien à voir avec la prime d'émission d'actions du compte 1051 (chapitre 4). Pour l'obligation, c'est un rabais consenti au prêteur ; pour l'action, c'est un supplément payé par le nouvel associé.",
       },
+      { type: 'intertitre', texte: "6.5.2 Le service de l'emprunt et le tableau d'amortissement" },
       {
         type: 'paragraphe',
         texte: "Le **service de l'emprunt** comprend les coupons et le remboursement des obligations échues. L'obligation remboursée est dite **amortie** (« morte ») ; les autres sont **vivantes**. L'AUDCIF distingue trois lois d'amortissement. Avec l'**amortissement constant**, le même nombre d'obligations est remboursé chaque année, si bien que les intérêts et les annuités décroissent. Avec l'**annuité constante**, la même somme couvre chaque année coupons et remboursements : les intérêts baissent et le nombre de titres remboursés augmente. L'annuité se calcule par la formule financière a = E × i / (1 − (1 + i)^−n), où E est l'emprunt au prix de remboursement, et le nombre de titres est arrondi à l'entier. Avec le **remboursement in fine**, seuls les coupons sont payés jusqu'au terme, où tout l'emprunt est remboursé en une fois.",
       },
       {
         type: 'carte',
-        titre: "Exemple : emprunt remboursable par annuités constantes",
+        titre: "Exemple 6.3 — Emprunt remboursable par annuités constantes",
         tableau: {
           entetes: ["Année", "Obligations vivantes", "Intérêts (10 %)", "Obligations amorties", "Remboursement", "Annuité"],
           lignes: [
@@ -631,11 +627,9 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Données : 1 000 obligations de 10 000 remboursables au pair, taux 10 %, trois ans. Annuité théorique : 10 000 000 × 0,10 / (1 − 1,10^−3) ≈ 4 021 148. Le premier amortissement théorique (3 021 148) donne 302 titres après arrondi. Les amortissements théoriques suivants croissent au taux de l'emprunt (× 1,10), et la dernière année rembourse les titres restants. Les annuités réelles s'écartent légèrement de l'annuité théorique à cause des arrondis.",
       },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[22] },
       {
         type: 'carte',
-        titre: "Le tableau d'amortissement de l'Application 78",
+        titre: "Exemple 6.4 — Le tableau d'amortissement de l'Application 78",
         tableau: {
           entetes: ["Exercice", "Obligations vivantes", "Intérêts", "Obligations amorties", "Remboursement (× 5 100)", "Annuité"],
           lignes: [
@@ -659,13 +653,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabiliser l'émission et le service de l'emprunt (Application 78)",
     navLabel: "Émission et service",
     blocs: [
+      { type: 'intertitre', texte: "6.6.1 L'émission" },
       {
         type: 'paragraphe',
         texte: "L'AUDCIF décrit l'émission en **trois phases** : ouverture de la souscription, souscription, versement des fonds. À l'ouverture, la société constate l'emprunt au crédit du **1611 Emprunts obligataires ordinaires**, pour le **prix d'émission**, par le débit d'un compte d'attente, le **47131 Obligataires, obligations à placer**. Au fur et à mesure des souscriptions, l'engagement des obligataires passe au **47132 Obligataires, compte de souscription**. Enfin, la libération des fonds débite la banque par le crédit du 47132. Les sous-comptes 47131 et 47132 sont ceux de l'AUDCIF et du Guide, au sein du compte 4713 Obligataires du plan de comptes. Lorsqu'une banque prend ferme l'emprunt, elle verse d'un coup le produit et se charge du placement : une écriture unique, débit 521 et crédit 1611, suffit.",
       },
       {
         type: 'carte',
-        titre: "Émission au 01/01/N : 10 000 × 4 900 = 49 000 000",
+        titre: "Exemple 6.5 — Application 78 : émission au 01/01/N (10 000 × 4 900 = 49 000 000)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -683,27 +678,27 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Une phrase à ne pas mal lire",
+        titre: "L'étalement des primes selon l'AUDCIF",
         texte: "Après avoir posé l'étalement de la prime au 6714 par le crédit du 1661, l'AUDCIF ajoute : « les primes afférentes à la fraction d'emprunts remboursée ne peuvent en aucun cas être maintenues au bilan ». Cette phrase est un vestige de l'ancien SYSCOHADA, où la prime figurait à l'actif (compte 206) et s'amortissait. Dans le référentiel révisé, la prime n'est jamais inscrite à l'actif : la phrase n'a plus d'objet et ne doit pas faire croire qu'un actif « primes de remboursement » existe encore. Le seul lien subsistant avec l'ancien système est la première application : les primes non échues figurent dans les Notes annexes parmi les engagements hors bilan.",
       },
-      { type: 'controle', question: QCM[19] },
+      { type: 'intertitre', texte: "6.6.2 La prise ferme et la prime de remboursement" },
       {
         type: 'paragraphe',
         texte: "La **prise ferme** transfère le risque de placement à la banque. Elle s'engage à acheter l'ensemble des titres au prix convenu, puis les revend à ses clients. Si le placement se passe mal, c'est elle qui garde les obligations. Pour la société émettrice, l'opération est sûre : elle connaît dès le premier jour le montant exact qu'elle recevra. Ce service a un prix : la commission de prise ferme, qui s'ajoute aux frais d'émission du compte 6316. Dans l'écriture, les comptes d'attente 47131 et 47132 deviennent inutiles, puisqu'il n'y a qu'un souscripteur et un versement unique : débit 521, crédit 1611. Pour un emprunt placé par la société elle-même, au contraire, le suivi des souscriptions et des versements justifie les trois phases de l'AUDCIF, et le contrôle de la concordance entre bulletins, fonds reçus et dette inscrite.",
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Inscrire la prime de remboursement à l'actif, comme le faisait l'ancien SYSCOHADA avec le compte 206. Dans le référentiel révisé, la dette est constatée au prix d'émission, et la prime est prise en charge au fil de l'emprunt par le compte 6714, par le crédit du 1661 pour un emprunt in fine. Chez KOLWEZI INFRA, les obligations sont émises au pair à 10 000 FC et remboursables à 10 400 FC : la prime de 8 000 000 FC n'apparaît pas à l'émission, et elle est rattachée aux exercices au prorata des intérêts courus.",
+        titre: "La prime de remboursement n'est plus un actif",
+        texte: "La prime de remboursement ne s'inscrit plus à l'actif, comme le faisait l'ancien SYSCOHADA avec le compte 206. Dans le référentiel révisé, la dette est constatée au prix d'émission, et la prime est prise en charge au fil de l'emprunt par le compte 6714, par le crédit du 1661 pour un emprunt in fine. Chez KOLWEZI INFRA, les obligations sont émises au pair à 10 000 FC et remboursables à 10 400 FC : la prime de 8 000 000 FC n'apparaît pas à l'émission, et elle est rattachée aux exercices au prorata des intérêts courus.",
       },
-      { type: 'controle', question: QCM[20] },
       {
         type: 'paragraphe',
         texte: "Si la dette est inscrite à 4 900 par titre alors que la société remboursera 5 100, les 200 d'écart sont une charge financière supplémentaire, qu'il faut répartir sur la durée de l'emprunt. L'AUDCIF pose le principe d'un étalement « au prorata des intérêts courus », par le débit du **6714 Primes de remboursement des obligations** et le crédit du **1661 Intérêts courus sur emprunts obligataires**. Le Guide d'application affine la règle. Pour un emprunt remboursé par séries (amortissements constants ou annuités constantes), il étale la prime **au prorata du nombre d'obligations échues**. Chaque série remboursée emporte sa part de prime, directement dans l'écriture de l'annuité. Pour l'emprunt in fine, il retient le prorata des intérêts courus. Dans l'Application 78, 2 500 obligations sur 10 000 étant remboursées chaque année, la prime de 2 000 000 est prise en charge par quarts de 500 000.",
       },
+      { type: 'intertitre', texte: "6.6.3 La première annuité" },
       {
         type: 'carte',
-        titre: "Première annuité au 31/12/N",
+        titre: "Exemple 6.6 — Application 78 : première annuité au 31/12/N",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -715,11 +710,11 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Contrôle : 12 250 000 + 500 000 = 12 750 000, soit 2 500 titres au prix de remboursement de 5 100. Les annuités suivantes suivent le même schéma : en N+1, 12 250 000 / 3 750 000 / 500 000 pour 16 500 000. Au terme, le 1611 est soldé (4 × 12 250 000 = 49 000 000) et la prime totale (2 000 000) a été entièrement prise en charge.",
       },
+      { type: 'intertitre', texte: "6.6.4 L'émission surcouverte et le rattachement de la prime" },
       {
         type: 'paragraphe',
         texte: "L'AUDCIF envisage aussi l'**émission surcouverte**. Lorsque les souscriptions sont recueillies aux guichets de plusieurs banques, elles peuvent dépasser le nombre de titres offerts. On distingue alors les souscriptions à titre **irréductible**, servies en priorité pour un nombre assez faible de titres, et les souscriptions à titre **réductible**, servies au prorata du reste. La société peut appeler tout ou partie du prix à la souscription, le solde étant versé à la clôture de la souscription. Les comptes 47131 et 47132 permettent de suivre ces étapes : le 47131 mesure ce qui reste à placer, le 47132 ce que les souscripteurs doivent encore verser. À la fin de l'opération, les deux comptes sont soldés, et le 1611 porte la dette au prix d'émission des seuls titres placés.",
       },
-      { type: 'controle', question: QCM[21] },
       {
         type: 'filet',
         titre: "Deux méthodes, deux profils de charge",
@@ -732,13 +727,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'emprunt in fine, les intérêts courus et les obligations à coupon zéro",
     navLabel: "In fine et intérêts courus",
     blocs: [
+      { type: 'intertitre', texte: "6.7.1 L'emprunt in fine" },
       {
         type: 'paragraphe',
         texte: "L'Application 79 porte sur 5 000 obligations de nominal 10 000, émises à 9 500 le 01/01/N et remboursables **in fine** le 31/12/N+4 à 10 500, avec un intérêt de 6 % l'an à terme échu. Les écritures d'émission sont celles de la section précédente, pour 47 500 000. Chaque 31/12, la société paie le coupon : 5 000 × 6 % × 10 000 = 3 000 000, débit 6711, crédit 521. Aucune obligation n'étant remboursée avant le terme, la prime ne peut pas suivre les titres échus. Elle est rattachée **au prorata des intérêts courus**. Les intérêts totaux s'élèvent à 15 000 000, dont 3 000 000 par exercice, et chaque exercice porte donc un cinquième de la prime de 5 000 000 (5 000 × 1 000), soit 1 000 000.",
       },
       {
         type: 'carte',
-        titre: "Écritures de l'Application 79",
+        titre: "Exemple 6.7 — Application 79 : les écritures de l'emprunt in fine",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -757,24 +753,24 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "À la clôture, l'auditeur contrôle l'emprunt obligataire en quelques points simples. Il rapproche le solde du 1611 du tableau d'amortissement : nombre d'obligations vivantes multiplié par le prix d'émission. Il recalcule les intérêts courus du 1661 depuis la dernière échéance du coupon, ainsi que la quote-part de prime de l'exercice. Il vérifie que les coupons échus ont été payés et que la retenue à la source a été déclarée et reversée. Il s'assure que les obligations rachetées ont été annulées plutôt que conservées (art. 784), et que les sûretés promises ont été constituées et renouvelées. Il contrôle enfin la ventilation par échéance dans les Notes annexes : la part remboursable dans l'année qui suit est une information essentielle pour apprécier la liquidité. Un emprunt in fine qui arrive à échéance l'année suivante peut à lui seul transformer une situation confortable en tension de trésorerie.",
       },
-      { type: 'controle', question: QCM[23] },
+      { type: 'intertitre', texte: "6.7.2 Les intérêts courus" },
       {
         type: 'paragraphe',
         texte: "Le coupon tombe rarement le jour de la clôture. Supposons un emprunt de 100 000 000 au taux de 9 %, dont le coupon annuel de 9 000 000 est payable le **30 juin**. Au 31 décembre, six mois d'intérêts ont couru sans être payés : 9 000 000 × 6/12 = 4 500 000. Le principe d'indépendance des exercices impose de les rattacher à l'exercice clos, par le débit du **6711** et le crédit du **1661**. L'écriture est **contrepassée** à l'ouverture de l'exercice suivant (AUDCIF, chapitre 20, § 1.6). Le 30 juin suivant, le paiement du coupon entier au débit du 6711 ne laissera alors à la charge du nouvel exercice que les six mois qui le concernent. Si les intérêts sont soumis à une retenue à la source (section 6.9), celle-ci n'est due qu'au paiement ; les intérêts courus sont constatés pour leur montant brut.",
       },
       {
         type: 'paragraphe',
-        texte: "Pourquoi le Guide porte-t-il la prime de l'emprunt in fine au crédit du **1661 Intérêts courus** plutôt qu'au 1611 ? Parce que la prime est économiquement un **supplément d'intérêt** : le prêteur est rémunéré à la fois par le coupon annuel et par l'écart entre ce qu'il a versé et ce qu'il recevra. Le 1661 regroupe donc, à la clôture, les intérêts courus non échus et la prime acquise jusqu'à cette date. Dans l'annexe, il est utile d'en distinguer les deux composantes, car les intérêts courus sont contrepassés à l'ouverture alors que la prime cumulée ne l'est pas. Elle reste au 1661 jusqu'au remboursement. L'obligation à coupon zéro pousse la logique à son terme. Tout le rendement prend la forme de la prime, et celle-ci est rattachée chaque année au taux actuariel, exactement comme des intérêts capitalisés (AUDCIF, ch. 20, § 3.1).",
+        texte: "Le Guide porte la prime de l'emprunt in fine au crédit du **1661 Intérêts courus** plutôt qu'au 1611 parce que la prime est économiquement un **supplément d'intérêt** : le prêteur est rémunéré à la fois par le coupon annuel et par l'écart entre ce qu'il a versé et ce qu'il recevra. Le 1661 regroupe donc, à la clôture, les intérêts courus non échus et la prime acquise jusqu'à cette date. Dans l'annexe, il est utile d'en distinguer les deux composantes, car les intérêts courus sont contrepassés à l'ouverture alors que la prime cumulée ne l'est pas. Elle reste au 1661 jusqu'au remboursement. L'obligation à coupon zéro pousse la logique à son terme. Tout le rendement prend la forme de la prime, et celle-ci est rattachée chaque année au taux actuariel, exactement comme des intérêts capitalisés (AUDCIF, ch. 20, § 3.1).",
       },
       {
         type: 'filet',
-        titre: "Et si le coupon tombait le 31 décembre ?",
+        titre: "Les intérêts courus de KOLWEZI INFRA à la clôture",
         texte: "Le coupon de KOLWEZI INFRA est payable le 30 juin. À chaque clôture, six mois d'intérêts ont donc couru sans être payés : 200 000 000 × 8 % × 6/12 = 8 000 000 FC, constatés par débit 6711 et crédit 1661, puis contrepassés à l'ouverture. Si le coupon tombait le 31 décembre, il n'y aurait aucun intérêt couru à la clôture : le coupon entier serait comptabilisé à son paiement, dans l'exercice qu'il rémunère. Le décalage entre la date du coupon et la date de clôture est ce qui crée le travail d'inventaire.",
       },
-      { type: 'controle', question: QCM[24] },
+      { type: 'intertitre', texte: "6.7.3 Les autres emprunts obligataires" },
       {
         type: 'carte',
-        titre: "Autres emprunts obligataires (AUDCIF, ch. 20, section 3)",
+        titre: "Tableau 6.5 — Les autres emprunts obligataires (AUDCIF, ch. 20, section 3)",
         tableau: {
           entetes: ["Titre", "Caractéristique", "Traitement chez l'émetteur"],
           lignes: [
@@ -791,13 +787,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Obligations convertibles et autres valeurs mobilières composées",
     navLabel: "Convertibles",
     blocs: [
+      { type: 'intertitre', texte: "6.8.1 Le régime des valeurs mobilières composées" },
       {
         type: 'paragraphe',
         texte: "Depuis la révision de 2014, les sociétés par actions peuvent émettre des **valeurs mobilières donnant accès au capital** ou donnant droit à l'attribution de titres de créance (art. 822) : obligations convertibles en actions (OCA), obligations remboursables en actions (ORA), obligations à bons de souscription d'actions (OBSA). Ces titres mêlent dette et capital. Le porteur prête aujourd'hui avec la faculté (OCA) ou l'obligation (ORA) de devenir actionnaire demain. En échange de cette option, il accepte généralement un taux plus faible. L'inverse n'est pas possible : des titres de capital ne peuvent pas être convertis en titres de créance (art. 822-3).",
       },
       {
         type: 'carte',
-        titre: "Le régime juridique des valeurs mobilières composées",
+        titre: "Encadré 6.3 — Le régime juridique des valeurs mobilières composées",
         liste: [
           "**Décision** : AGE des actionnaires, selon les règles de l'augmentation de capital (art. 562-572 et 588-618), sur rapport du conseil (ou du président de SAS, ou de l'administrateur général) et rapport spécial du commissaire aux comptes, à peine de nullité (art. 822-5).",
           "**DPS** : les actionnaires ont un droit préférentiel à la souscription de ces valeurs, proportionnel à leurs actions (art. 822-1), et la décision d'émission emporte **renonciation** à leur DPS sur les actions à provenir de la conversion (art. 587-2).",
@@ -810,14 +807,14 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le choix entre obligation ordinaire et obligation convertible est aussi une question de signal. Une société qui offre la conversion dit aux investisseurs qu'elle croit à la hausse future de son action : sinon, l'option ne vaudrait rien et le taux d'intérêt consenti en échange serait trop bas. Pour les obligataires, la convertible combine un plancher et une option. Le plancher est la créance, remboursée au terme si l'action a déçu. L'option est la possibilité de devenir actionnaire à un prix fixé d'avance si l'action a monté. Cette double nature explique le traitement comptable. Tant que les porteurs n'ont pas choisi, l'emprunt reste une dette au prix d'émission, et seul le risque de devoir payer la prime est provisionné. Au jour de la conversion, la dette disparaît au profit du capital et de la prime de conversion, sans aucun mouvement de trésorerie.",
       },
-      { type: 'controle', question: QCM[28] },
+      { type: 'intertitre', texte: "6.8.2 Les obligations convertibles" },
       {
         type: 'paragraphe',
         texte: "Comptablement, tout dépend de la prime. Une **OCA sans prime de remboursement** suit le schéma de l'ORA : l'emprunt est inscrit au crédit du **1612 Emprunts obligataires convertibles** (1613 pour l'ORA), les intérêts sont servis normalement, et chaque conversion débite le 1612 par le crédit du **1013** pour le nominal des actions et du **1054 Primes de conversion** pour le solde. Une **OCA avec prime** pose une difficulté : la prime ne sera due que si le porteur choisit d'être remboursé en numéraire. L'AUDCIF en tire deux règles. Seul le **prix d'émission** est constaté au 1612, et la prime n'est ni comptabilisée ni étalée. En revanche, une **provision** pour le risque de devoir la payer est constituée à la clôture de l'exercice d'émission, pour la prime totale ou selon la probabilité de non-conversion au vu de l'état du marché, puis reprise au fil des conversions.",
       },
       {
         type: 'carte',
-        titre: "Application 80 : 25 000 OCA de nominal 15 000, émises à 13 000 (prise ferme)",
+        titre: "Exemple 6.8 — Application 80 : 25 000 OCA de nominal 15 000, émises à 13 000 (prise ferme)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -838,12 +835,11 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Pour l'actionnaire en place, la conversion a un coût : la **dilution**. Dans l'Application 80, si les 25 000 obligations étaient toutes converties, 18 750 actions nouvelles seraient créées (25 000 × 3/4). Leur prix implicite est de 13 000 × 4/3 ≈ 17 333 par action, soit la dette éteinte divisée par le nombre d'actions reçues. Tant que ce prix reste supérieur à la valeur réelle de l'action, la conversion n'appauvrit pas les anciens actionnaires. S'il devient inférieur, les obligataires convertissent volontiers, et ce sont les anciens actionnaires qui supportent l'écart. C'est la raison pour laquelle l'AUSCGIE soumet l'émission à l'AGE et au rapport du commissaire aux comptes (art. 822-5), et protège ensuite les titulaires contre les opérations qui modifieraient la valeur de leurs droits (art. 822-8 et 822-10). Le rapport d'échange est un prix fixé à l'avance, que les deux parties ont intérêt à surveiller.",
       },
-      { type: 'controle', question: QCM[26] },
+      { type: 'intertitre', texte: "6.8.3 ORA, OBSA et bons autonomes" },
       {
         type: 'paragraphe',
         texte: "Les **obligations remboursables en actions** (ORA) illustrent l'autre bout de l'éventail. Leur remboursement se fait obligatoirement par remise d'actions, selon un rapport fixé dès l'émission et intangible, sauf opérations spécifiques sur les capitaux propres. Exemple : 2 000 ORA de 10 000, remboursables chacune en une action de nominal 8 000. À l'émission, débit 521 et crédit 1613 pour 20 000 000. Les intérêts sont servis normalement, et il n'y a pas de prime de remboursement. Au terme, débit 1613 pour 20 000 000, crédit 1013 pour 16 000 000 et crédit 1054 pour 4 000 000. Pour l'analyste, l'ORA est presque des capitaux propres différés : la société sait dès l'origine qu'elle ne remboursera pas en argent. Le plan de comptes la maintient pourtant parmi les emprunts (compte 16) jusqu'au remboursement, parce que la société doit servir les intérêts jusqu'à l'échéance.",
       },
-      { type: 'controle', question: QCM[27] },
       {
         type: 'filet',
         titre: "OBSA et bons autonomes",
@@ -856,13 +852,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Fiscalité congolaise et présentation dans les états financiers",
     navLabel: "Fiscalité et présentation",
     blocs: [
+      { type: 'intertitre', texte: "6.9.1 La fiscalité des revenus obligataires" },
       {
         type: 'paragraphe',
         texte: "Depuis le 1er janvier 2026, la loi n° 23/053 du 30 novembre 2023 range les **revenus des obligations** parmi les revenus des capitaux mobiliers soumis à l'IRPP (art. 72). L'article 77 vise les intérêts, arrérages et tous autres produits des obligations et titres d'emprunt négociables émis notamment par les sociétés et entreprises quelconques, ainsi que les « lots et primes de remboursement » payés aux porteurs d'obligations émises en RDC. La base est l'intérêt ou le revenu distribué durant l'exercice et, pour les primes de remboursement, la différence entre la somme remboursée et le taux d'émission (art. 81). Ces revenus font l'objet d'une **retenue à la source de 20 %** opérée par le débiteur (art. 120), c'est-à-dire par la société émettrice, et reversée **au plus tard le 15 du mois qui suit** le versement (arrêté ministériel n° 008/2025). Sont exonérés les intérêts des titres d'emprunt négociables émis par l'**État, les Provinces et les ETD** (art. 80).",
       },
       {
         type: 'carte',
-        titre: "Paiement d'un coupon de 5 000 000 soumis à la retenue",
+        titre: "Exemple 6.9 — Paiement d'un coupon de 5 000 000 soumis à la retenue",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -875,18 +872,19 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "La charge d'intérêts reste le montant brut : la retenue est un impôt de l'obligataire, que la société collecte. Les conventions fiscales peuvent réduire le taux pour un porteur non résident ; il faut alors vérifier la convention applicable, comme au chapitre 3 pour les dividendes.",
       },
+      { type: 'intertitre', texte: "6.9.2 L'obligation chez l'investisseur" },
       {
         type: 'paragraphe',
         texte: "Côté investisseur, une société qui souscrit des obligations d'une autre société les inscrit, selon l'intention de détention, en titres de placement (compte **503 Obligations**) ou en titres immobilisés, et comptabilise les coupons au compte **7745 Revenus des obligations**. Le coupon qu'elle encaisse a subi la retenue de 20 % prélevée par l'émettrice : elle enregistre le produit pour son montant brut. Le traitement de la retenue dans sa propre déclaration d'IS doit être vérifié dans la loi n° 23/053 avant toute conclusion. Cette symétrie est utile en audit. Le coupon payé par l'émettrice (6711) se retrouve en produit chez le souscripteur (7745), et la retenue déclarée par l'une doit correspondre à celle que l'autre a subie. Dans un groupe, l'élimination de ces opérations réciproques fait partie de la consolidation.",
       },
-      { type: 'controle', question: QCM[29] },
+      { type: 'intertitre', texte: "6.9.3 La déductibilité et la présentation" },
       {
         type: 'paragraphe',
         texte: "Du côté de l'IS, les intérêts et la prime de remboursement sont des charges financières déductibles s'ils remplissent les conditions générales de l'article 20 : intérêt direct de l'entreprise, charge effective et justifiée, diminution de l'actif net, rattachement à l'exercice d'engagement. Pour les sommes soumises à retenue, la société doit en outre prouver la **déclaration et le paiement de la retenue**. Oublier de reverser la retenue coûte donc deux fois : des pénalités de recouvrement et la déductibilité de la charge. Les articles 39 à 42 encadrent par ailleurs les intérêts versés aux associés et aux entités liées. Une filiale qui placerait l'essentiel de son emprunt auprès de sa société mère doit donc vérifier ces plafonds.",
       },
       {
         type: 'carte',
-        titre: "Où retrouver l'emprunt dans les états financiers",
+        titre: "Tableau 6.6 — L'emprunt obligataire dans les états financiers",
         tableau: {
           entetes: ["État", "Poste", "Contenu"],
           lignes: [
@@ -909,6 +907,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le marché obligataire en RDC : l'État ouvre la voie, la Bourse se construit",
     navLabel: "Marché congolais",
     blocs: [
+      { type: 'intertitre', texte: "6.10.1 Le contexte congolais" },
       {
         type: 'paragraphe',
         texte: "En RDC, l'emprunt obligataire des sociétés reste rare. Faute de bourse des valeurs, une SA congolaise qui voulait emprunter auprès du public devait placer ses titres par les banques, sans marché secondaire pour les revendre. Les grandes entreprises se financent surtout par le crédit bancaire et par les capitaux de leurs groupes. Le cadre OHADA étudié dans ce chapitre est pourtant pleinement applicable en RDC depuis son adhésion à l'OHADA, et deux événements de 2026 changent la perspective.",
@@ -921,18 +920,19 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le second est la **loi relative aux marchés boursiers**, promulguée le **20 août 2026** et publiée au Journal officiel le **2 septembre 2026** (RFI, 6 septembre 2026). Elle doit permettre aux entreprises de lever des capitaux en actions ou d'**emprunter à moyen et long terme en émettant des obligations** sur la future **Kinshasa Stock Exchange**. Selon la même source, le marché reste à bâtir. Il faut installer l'Autorité de régulation, adopter le règlement général, agréer la bourse, désigner le dépositaire central et les banques de règlement, et mettre en service la plateforme de cotation. Les premières cotations sont annoncées entre juin et décembre 2027. Le contenu détaillé de la loi n'ayant pas été consulté pour ce cours, on s'en tient ici à ces éléments datés et sourcés.",
       },
+      { type: 'intertitre', texte: "6.10.2 La préparation à la bourse" },
       {
         type: 'paragraphe',
         texte: "Pour une SA congolaise qui envisage un jour d'émettre des obligations sur la future bourse, le travail commence bien avant l'ouverture du marché. Il faut vérifier les conditions de l'AUSCGIE : forme de SA, deux ans d'existence, deux bilans approuvés, capital entièrement libéré. Il faut disposer de comptes certifiés, établis selon le SYSCOHADA révisé, que des investisseurs pourront analyser. Il faut enfin apprécier sa capacité à servir l'emprunt : un tableau d'amortissement prévisionnel confronté aux flux de trésorerie attendus. Le taux obtenu par l'État lors de son eurobond donne un ordre de grandeur. Une société privée, plus risquée que l'État, devra en principe offrir davantage, sauf garanties solides. Ces chiffres rappellent que l'obligation n'est pas une ressource bon marché : c'est une ressource longue et stable, dont le coût doit être comparé à celui du crédit bancaire et des capitaux propres.",
       },
+      { type: 'intertitre', texte: "6.10.3 Application : KOLWEZI INFRA" },
       {
         type: 'paragraphe',
         texte: "Retour à KOLWEZI INFRA, dont le cas 5 détaille les écritures. La société réunissait les conditions de l'émission : SA ancienne de plusieurs exercices, capital entièrement libéré, décision de l'assemblée des actionnaires. Elle a garanti son emprunt par une hypothèque publiée avant la souscription, émis 20 000 obligations au pair, et comptabilisé la dette au prix d'émission au 1611. Chaque clôture lui impose de constater six mois d'intérêts courus et une quote-part de la prime de remboursement. Chaque 30 juin, elle paie le coupon en retenant 20 % à la source, qu'elle reverse avant le 15 juillet. Si la Bourse de Kinshasa ouvre comme prévu, une société comme KOLWEZI INFRA pourra un jour placer un tel emprunt auprès du public, avec les obligations d'information de l'appel public à l'épargne.",
       },
-      { type: 'controle', question: QCM[3] },
       {
         type: 'filet',
-        titre: "Ce que le comptable doit anticiper",
+        titre: "Les obligations d'information à anticiper",
         texte: "Dès que la bourse fonctionnera, les SA congolaises cotées relèveront des règles de publicité renforcée de l'AUSCGIE : publication des états financiers dans les quatre mois de la clôture, puis des comptes approuvés dans les quarante-cinq jours (art. 846-848). Les règles de l'appel public à l'épargne s'y ajouteront, dont la notice d'émission des obligations (art. 842-844) et les avis de convocation des assemblées d'obligataires (art. 845). Le règlement général à venir fixera les exigences propres au marché de Kinshasa, et il faudra le lire à sa publication.",
       },
     ],
