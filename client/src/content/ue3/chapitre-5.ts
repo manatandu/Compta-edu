@@ -357,15 +357,16 @@ const SECTIONS: Chapitre['sections'] = [
     blocs: [
       {
         type: 'paragraphe',
-        texte: "Boma, à l'embouchure du fleuve Congo. **BOMA ÉNERGIE SA**, au capital de 60 000 000 FC, a accumulé des pertes : son report à nouveau débiteur atteint 64 000 000 FC, et ses capitaux propres sont devenus négatifs. Un investisseur, SOLAR INVEST, est prêt à apporter 40 000 000 FC, à condition que le passé soit d'abord apuré. Faut-il dissoudre, réduire le capital, recapitaliser ? À quelles conditions les créanciers peuvent-ils s'y opposer ? Ce chapitre étudie les opérations qui font baisser le capital ou le rendent aux associés : réduction, rachat d'actions propres, amortissement. Il suit BOMA ÉNERGIE jusqu'à son coup d'accordéon.",
+        texte: "Boma, à l'embouchure du fleuve Congo. **BOMA ÉNERGIE SA**, au capital de 60 000 000 FC, a accumulé des pertes : son report à nouveau débiteur atteint 64 000 000 FC, et ses capitaux propres sont devenus négatifs. Un investisseur, SOLAR INVEST, est prêt à apporter 40 000 000 FC, à condition que le passé soit d'abord apuré. La société doit choisir entre dissoudre, réduire le capital ou recapitaliser, et vérifier à quelles conditions les créanciers peuvent s'y opposer. Ce chapitre étudie les opérations qui font baisser le capital ou le rendent aux associés : réduction, rachat d'actions propres, amortissement. Il suit BOMA ÉNERGIE jusqu'à son coup d'accordéon.",
       },
+      { type: 'intertitre', texte: "5.1.1 Les motifs de la réduction" },
       {
         type: 'paragraphe',
         texte: "Le capital est fixe, mais il n'est pas immuable. L'article 69 annonçait qu'il peut être réduit « par remboursement aux associés d'une partie de leurs apports » ou par imputation des pertes, et l'article 70 précise que le remboursement peut se faire en numéraire ou par attribution d'actifs. Réduire le capital, c'est donc soit **constater** une perte de substance déjà subie, soit **restituer** aux associés une partie de ce qu'ils ont apporté. Ces deux situations n'ont ni la même cause ni les mêmes risques, et l'Acte uniforme les traite différemment, notamment à l'égard des créanciers. La comptabilité suit : une réduction pour pertes est un simple reclassement interne aux capitaux propres, une réduction par remboursement fait sortir de la trésorerie.",
       },
       {
         type: 'carte',
-        titre: "Les trois motifs de réduction",
+        titre: "Tableau 5.1 — Les trois motifs de réduction",
         tableau: {
           entetes: ["Motif", "Mécanisme", "Effet sur la trésorerie", "Opposition des créanciers"],
           lignes: [
@@ -375,6 +376,7 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "5.1.2 Les modalités et le contrôle" },
       {
         type: 'paragraphe',
         texte: "Dans la SA, le capital est réduit par **diminution de la valeur nominale** des actions ou par **diminution de leur nombre** (art. 627, dont le texte officiel comporte une phrase tronquée, le sens étant celui restitué ici). La réduction est **autorisée ou décidée par l'assemblée générale extraordinaire**, qui peut déléguer au conseil d'administration ou à l'administrateur général tous pouvoirs pour la réaliser ; elle ne peut **en aucun cas porter atteinte à l'égalité des actionnaires**, sauf consentement exprès des actionnaires défavorisés (art. 628). Les délibérations prises en violation de ces règles sont nulles (art. 638-1). Lorsque le conseil réalise la réduction sur délégation, il en dresse un procès-verbal soumis à publicité et modifie les statuts (art. 631), et la réduction fait l'objet des formalités de publicité de l'article 264 (art. 638).",
@@ -388,18 +390,15 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Le choix entre diminution du nominal et diminution du nombre d'actions n'est pas neutre. Diminuer le nominal, par exemple de 10 000 à 7 500, touche tous les actionnaires de la même façon et respecte naturellement l'égalité exigée par l'article 628. Diminuer le nombre d'actions, par regroupement ou par rachat, peut créer des rompus pour les petits porteurs, ou ne concerner que certains actionnaires : c'est pourquoi l'égalité est protégée et que le rachat pour annulation obéit à une procédure d'offre à tous les actionnaires (section 5.5). Pour le comptable, la technique retenue ne change pas l'écriture de principe, qui porte toujours sur le compte 1013 ; elle change la tenue du registre des actions et la répartition entre associés.",
       },
+      { type: 'intertitre', texte: "5.1.3 La pratique congolaise et l'égalité des actionnaires" },
       {
         type: 'paragraphe',
         texte: "Dans la pratique congolaise, les réductions de capital accompagnent surtout deux situations. La première est celle de sociétés dont les pertes accumulées ont vidé le capital de sa substance : l'assainissement par réduction est alors le préalable à toute recapitalisation, à toute entrée d'un investisseur ou à toute demande de crédit, car un bilan affichant un capital de 500 000 000 FC et des capitaux propres négatifs n'inspire confiance à personne. La seconde est celle de sociétés qui disposent de fonds propres excédentaires, par exemple après la cession d'une activité, et qui souhaitent les restituer aux associés sans liquider la société. Dans les deux cas, le comptable prépare les chiffres sur lesquels l'assemblée délibère : montant des pertes à apurer, capitaux propres avant et après l'opération, respect du minimum légal et des seuils sectoriels (chapitre 4).",
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
       {
         type: 'paragraphe',
         texte: "L'égalité entre actionnaires est la ligne rouge de toute réduction. Elle interdit, par exemple, de rembourser les seuls actionnaires majoritaires, ou d'imputer les pertes sur les seules actions d'une catégorie, sans le consentement exprès des actionnaires défavorisés (art. 628). Elle n'interdit pas les différences qui découlent des droits attachés aux titres : des actions de préférence peuvent avoir un droit prioritaire au remboursement si les statuts le prévoient. Le comptable qui prépare un tableau de réduction vérifie donc que chaque action d'une même catégorie est traitée de la même façon : même réduction de nominal, même montant remboursé, même prix de rachat.",
       },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[3] },
     ],
   },
   {
@@ -407,13 +406,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La protection des créanciers : le droit d'opposition",
     navLabel: "Opposition des créanciers",
     blocs: [
+      { type: 'intertitre', texte: "5.2.1 Le droit d'opposition selon le motif" },
       {
         type: 'paragraphe',
         texte: "Tout dépend du **motif** de la réduction. Motivée par des pertes, elle ne fait que mettre le capital au niveau d'un actif net déjà entamé : les créanciers **ne peuvent pas s'y opposer** (art. 632). Non motivée par des pertes, elle restitue aux associés une fraction du gage commun : les créanciers dont la créance est **antérieure** à la publication de l'avis relatif au procès-verbal de l'assemblée peuvent s'y opposer (art. 633). Le capital est en effet, dans les sociétés à risque limité, la garantie minimale des créanciers : ils ont prêté ou vendu à crédit en sachant que les associés avaient apporté un certain montant qui ne pouvait leur être rendu librement. Réduire ce montant sans leur accord reviendrait à diminuer leur garantie en cours de contrat.",
       },
       {
         type: 'carte',
-        titre: "La procédure d'opposition (art. 634-637)",
+        titre: "Tableau 5.2 — La procédure d'opposition (art. 634 à 637)",
         tableau: {
           entetes: ["Étape", "Règle"],
           lignes: [
@@ -425,6 +425,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "En SARL, l'article 370 prévoit le même délai de trente jours et le même effet suspensif ; la juridiction rejette l'opposition ou ordonne le remboursement des créances ou la constitution de garanties.",
       },
+      { type: 'intertitre', texte: "5.2.2 Le calendrier et l'enjeu pour le créancier" },
       {
         type: 'paragraphe',
         texte: "Le calendrier d'une réduction par remboursement se construit donc à rebours. Après l'AGE, le procès-verbal est déposé au RCCM et un avis est publié dans un journal habilité ; le délai de trente jours court à compter de cette publication. Ce n'est qu'à son expiration, sans opposition, ou après la décision de première instance rejetant l'opposition, que la société peut payer. Si une banque créancière forme opposition et obtient gain de cause, la société doit la rembourser ou lui offrir une garantie suffisante, par exemple une caution bancaire ou un nantissement, avant de pouvoir rendre les apports. Le comptable ne passe l'écriture de remboursement (débit 4619, crédit 521) qu'à ce moment, même si la dette envers les associés a été constatée dès la décision.",
@@ -435,16 +436,14 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : pourquoi les créanciers de BOMA ÉNERGIE ne peuvent-ils pas s'opposer ?",
-        texte: "Parce que la réduction qu'envisage BOMA ÉNERGIE est motivée par des pertes. Elle ne fait sortir aucun franc de la société : elle aligne simplement le chiffre du capital sur un actif net déjà entamé. Le gage des créanciers n'est pas diminué par l'écriture, il l'avait déjà été par les pertes. Il en irait autrement d'une réduction par remboursement, qui fait sortir de la trésorerie au profit des associés : les créanciers antérieurs peuvent alors former opposition dans les trente jours de la publication, et les opérations sont suspendues jusqu'au règlement de l'opposition (art. 633-637).",
+        titre: "Pas d'opposition à une réduction motivée par des pertes",
+        texte: "Les créanciers de BOMA ÉNERGIE ne peuvent pas s'opposer, car la réduction qu'envisage la société est motivée par des pertes. Elle ne fait sortir aucun franc de la société : elle aligne simplement le chiffre du capital sur un actif net déjà entamé. Le gage des créanciers n'est pas diminué par l'écriture, il l'avait déjà été par les pertes. Il en irait autrement d'une réduction par remboursement, qui fait sortir de la trésorerie au profit des associés : les créanciers antérieurs peuvent alors former opposition dans les trente jours de la publication, et les opérations sont suspendues jusqu'au règlement de l'opposition (art. 633-637).",
       },
-      { type: 'controle', question: QCM[4] },
+      { type: 'intertitre', texte: "5.2.3 Les garanties offertes aux créanciers" },
       {
         type: 'paragraphe',
         texte: "Les garanties que la société peut offrir pour lever une opposition sont variées : caution bancaire, nantissement d'un compte bloqué, hypothèque sur un immeuble, ou simple remboursement anticipé de la créance. Leur coût doit être intégré au projet de réduction. Une réduction destinée à rendre 150 000 000 aux associés, mais qui oblige la société à bloquer 150 000 000 en garantie au profit d'une banque, n'atteint pas son objectif ; il peut alors être plus simple de rembourser d'abord la banque. Comptablement, une caution bancaire obtenue pour garantir un créancier est un engagement hors bilan, que les Notes annexes mentionnent ; un dépôt bloqué reste à l'actif mais n'est plus disponible, ce qui doit être indiqué pour une lecture honnête de la trésorerie.",
       },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[6] },
     ],
   },
   {
@@ -452,13 +451,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation de la réduction : pertes ou remboursement",
     navLabel: "Écritures de réduction",
     blocs: [
+      { type: 'intertitre', texte: "5.3.1 Imputation des pertes et remboursement" },
       {
         type: 'paragraphe',
         texte: "L'AUDCIF décrit le fonctionnement : le compte 101 Capital social est **débité** des réductions de capital décidées par les assemblées « par le crédit du 12 (Report à nouveau) pour l'absorption des pertes antérieures reportées ; ou par le crédit du 109 (Apporteurs, capital souscrit non appelé) en cas de renonciation à une partie du capital non libéré ; ou par le crédit du 46 (Apporteurs, Associés et Groupe) en cas de remboursement d'une partie du capital ». Les Applications 62 et 63 du Guide illustrent les deux cas principaux.",
       },
       {
         type: 'carte',
-        titre: "Application 62 : réduction par imputation des pertes (80 000 000)",
+        titre: "Exemple 5.1 — Application 62 : réduction par imputation des pertes (80 000 000)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -470,7 +470,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Application 63 : réduction par remboursement (moitié du nominal, 5 000 actions de 10 000)",
+        titre: "Exemple 5.2 — Application 63 : réduction par remboursement (moitié du nominal, 5 000 actions de 10 000)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -482,25 +482,25 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Réduction non motivée par des pertes : le remboursement ne peut intervenir qu'après l'expiration du délai d'opposition de trente jours et, le cas échéant, le sort de l'opposition (art. 633-637). Le remboursement peut aussi se faire par attribution d'actifs (art. 70).",
       },
+      { type: 'intertitre', texte: "5.3.2 La renonciation au capital non libéré" },
       {
         type: 'paragraphe',
         texte: "La troisième hypothèse de l'AUDCIF, la **renonciation au capital non libéré**, est plus rare mais instructive. Une société dont le capital n'est libéré qu'en partie peut décider de réduire son capital en dispensant les actionnaires de verser le solde : c'est une réduction non motivée par des pertes, puisque la société renonce à une créance. L'écriture solde la créance conditionnelle : débit 1011 Capital souscrit, non appelé, crédit 109 Apporteurs, capital souscrit, non appelé. Aucune trésorerie ne sort, mais le gage des créanciers diminue, puisqu'ils pouvaient compter sur l'appel futur de ces sommes : les créanciers antérieurs disposent donc du droit d'opposition.",
       },
+      { type: 'intertitre', texte: "5.3.3 Le remboursement par attribution d'actifs" },
       {
         type: 'paragraphe',
         texte: "Lorsque le remboursement se fait par **attribution d'actifs** (art. 70), par exemple la remise d'un terrain ou de titres à un associé, la société constate la sortie de l'actif à sa valeur comptable et l'extinction de la dette 4619 pour la valeur retenue. La différence éventuelle entre la valeur de remboursement et la valeur comptable du bien est un résultat de cession, enregistré dans les comptes hors activités ordinaires comme toute cession d'immobilisation. La valeur de l'actif attribué doit être justifiée, car une sous-évaluation avantagerait l'associé au détriment des créanciers et des autres associés, et porterait atteinte à l'égalité protégée par l'article 628.",
       },
       {
         type: 'paragraphe',
-        texte: "Illustrons l'attribution d'actifs. Une SA décide une réduction de capital de 30 000 000 par remboursement à un associé qui se retire, sous forme d'un terrain d'une valeur de 30 000 000 et d'une valeur nette comptable de 18 000 000. Après expiration du délai d'opposition, la société constate sa dette (débit 1013, crédit 4619 pour 30 000 000), puis la sortie du terrain : la valeur comptable sort de l'actif (débit du compte de charges hors activités ordinaires correspondant, crédit 22 pour 18 000 000), et la valeur de remboursement éteint la dette (débit 4619, crédit du compte de produits de cession pour 30 000 000). Le résultat hors activités ordinaires enregistre une plus-value de 12 000 000, qui entre dans le résultat imposable. L'associé reçoit un bien au lieu d'argent, mais la société réalise fiscalement la plus-value latente.",
+        texte: "Soit une SA qui décide une réduction de capital de 30 000 000 par remboursement à un associé qui se retire, sous forme d'un terrain d'une valeur de 30 000 000 et d'une valeur nette comptable de 18 000 000. Après expiration du délai d'opposition, la société constate sa dette (débit 1013, crédit 4619 pour 30 000 000), puis la sortie du terrain : la valeur comptable sort de l'actif (débit du compte de charges hors activités ordinaires correspondant, crédit 22 pour 18 000 000), et la valeur de remboursement éteint la dette (débit 4619, crédit du compte de produits de cession pour 30 000 000). Le résultat hors activités ordinaires enregistre une plus-value de 12 000 000, qui entre dans le résultat imposable. L'associé reçoit un bien au lieu d'argent, mais la société réalise fiscalement la plus-value latente.",
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Imputer les pertes sur le capital sans passer par le report à nouveau, ou l'inverse : laisser les pertes au report à nouveau alors que l'assemblée a voté la réduction. Dans une réduction pour pertes, le compte 101 (1013) est débité par le crédit du compte 129 Report à nouveau débiteur (1291) : l'écriture ne touche ni la trésorerie ni le résultat. Chez BOMA ÉNERGIE, la réduction de 60 000 000 FC solde le capital ancien, et il subsiste un report à nouveau débiteur de 4 000 000 FC, que les premiers bénéfices devront apurer.",
+        titre: "L'imputation des pertes passe par le report à nouveau",
+        texte: "Deux erreurs sont à éviter : imputer les pertes sur le capital sans passer par le report à nouveau ou, à l'inverse, laisser les pertes au report à nouveau alors que l'assemblée a voté la réduction. Dans une réduction pour pertes, le compte 101 (1013) est débité par le crédit du compte 129 Report à nouveau débiteur (1291) : l'écriture ne touche ni la trésorerie ni le résultat. Chez BOMA ÉNERGIE, la réduction de 60 000 000 FC solde le capital ancien, et il subsiste un report à nouveau débiteur de 4 000 000 FC, que les premiers bénéfices devront apurer.",
       },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
     ],
   },
   {
@@ -508,13 +508,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "La réduction de capital dans la SARL et la SAS",
     navLabel: "SARL et SAS",
     blocs: [
+      { type: 'intertitre', texte: "5.4.1 La SARL" },
       {
         type: 'paragraphe',
         texte: "Dans la SARL, la réduction de capital est une modification des statuts, décidée à la majorité des trois quarts du capital (art. 358). L'article 366 pose le principe d'égalité : « La réduction de capital ne peut en aucun cas porter atteinte à l'égalité des associés », toute délibération contraire étant nulle. Elle peut être réalisée par réduction du nominal des parts ou par diminution de leur nombre ; s'il existe un commissaire aux comptes, le projet lui est communiqué dans les trente jours précédant l'assemblée, et il fait connaître son appréciation sur les causes et conditions de la réduction (art. 367).",
       },
       {
         type: 'carte',
-        titre: "Les règles propres à la SARL (art. 366-370)",
+        titre: "Encadré 5.1 — Les règles propres à la SARL (art. 366 à 370)",
         liste: [
           "**Égalité** des associés, à peine de nullité (art. 366).",
           "**Commissaire aux comptes**, s'il existe : projet communiqué dans les trente jours précédant l'assemblée (art. 367).",
@@ -527,16 +528,16 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La règle du minimum légal a une portée particulière en RDC. L'article 311 fixe le capital minimum de la SARL à un million de FCFA « sauf dispositions nationales contraires », et l'arrêté interministériel du 30 décembre 2014 dispose que le capital de la SARL congolaise « est librement fixé par les associés en tenant compte de l'objet social de la société » (art. 2). Il n'existe donc pas, pour la SARL congolaise, de plancher chiffré sous lequel une réduction serait interdite ; l'exigence de cohérence avec l'objet social demeure, et un capital réduit à un montant dérisoire exposerait la société à la défiance de ses partenaires. Dans la SA, en revanche, le minimum de l'article 387 s'applique pleinement, et l'article 66 impose la dissolution si le capital est réduit sous ce minimum sans être reconstitué.",
       },
+      { type: 'intertitre', texte: "5.4.2 La SAS" },
       {
         type: 'paragraphe',
         texte: "Dans la SAS, les attributions des assemblées de SA en matière de réduction de capital sont exercées collectivement par les associés, dans les conditions prévues par les statuts, à peine de nullité (art. 853-11). Les règles de la SA compatibles avec le livre de la SAS s'appliquent par renvoi (art. 853-3) : rapport du commissaire aux comptes s'il en existe un, droit d'opposition des créanciers, rachat pour annulation selon la procédure d'offre. Rappelons enfin que dans les SA non cotées et les SAS à **capital variable** (chapitre 1), les diminutions de capital par reprise d'apports ne sont soumises ni à publicité ni à opposition, mais sont limitées par le plancher statutaire (art. 269-3 et 269-5).",
       },
+      { type: 'intertitre', texte: "5.4.3 Application : le retrait d'un associé de SARL" },
       {
         type: 'paragraphe',
         texte: "Prenons une SARL congolaise au capital de 40 000 000 FC, sans pertes, dont un associé détenant 25 % souhaite se retirer. Les associés décident, à la majorité des trois quarts du capital (art. 358), une réduction de capital non motivée par des pertes de 10 000 000, et autorisent le gérant à acheter pour les annuler les 1 000 parts de l'associé sortant (art. 367), au prix de leur valeur réelle, soit 14 000 000. Après le délai d'opposition de trente jours (art. 370), la société paie : débit 1013 10 000 000 et débit 1181 4 000 000, crédit 4619 14 000 000 ; puis débit 4619, crédit 521. Le capital tombe à 30 000 000. La société doit veiller à ce que l'excédent payé sur le nominal ne porte pas atteinte au butoir des capitaux propres (art. 143), et à l'égalité entre associés (art. 366).",
       },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[10] },
     ],
   },
   {
@@ -544,13 +545,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le rachat par la société de ses propres actions",
     navLabel: "Rachat d'actions",
     blocs: [
+      { type: 'intertitre', texte: "5.5.1 L'interdiction et ses dérogations" },
       {
         type: 'paragraphe',
         texte: "Le principe est l'**interdiction** : « La souscription ou l'achat par la société de ses propres actions, soit directement, soit par une personne agissant en son nom propre mais pour le compte de la société est interdite. » La société ne peut pas davantage avancer des fonds, accorder des prêts ou consentir une sûreté en vue de la souscription ou de l'achat de ses propres actions par un tiers (art. 639, al. 1er). La raison est simple : une société qui achète ses propres actions rend à certains associés leur apport, en dehors de toute procédure de réduction, et elle vide son capital de sa substance tout en l'affichant intact au bilan. Les fondateurs ou administrateurs sont tenus de libérer les actions souscrites ou acquises en violation de cette règle (art. 639, al. 3).",
       },
       {
         type: 'carte',
-        titre: "Les dérogations (art. 639-642)",
+        titre: "Tableau 5.3 — Les dérogations à l'interdiction du rachat (art. 639 à 642)",
         tableau: {
           entetes: ["Situation", "Règle"],
           lignes: [
@@ -561,13 +563,14 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "5.5.2 Le rachat en vue d'annulation" },
       {
         type: 'paragraphe',
         texte: "Lorsque la société achète ses actions **en vue de les annuler** et de réduire son capital, elle présente son offre à **tous** les actionnaires, par un avis dans un journal habilité précisant notamment le nombre d'actions visées, le prix offert, le mode de paiement et un délai d'au moins trente jours (art. 643), ou par notification individuelle si toutes les actions sont nominatives (art. 644). Si les actions présentées excèdent le nombre prévu, chaque vendeur subit une réduction proportionnelle (art. 645) ; si elles sont insuffisantes, le capital est réduit à due concurrence, le conseil pouvant renouveler l'opération dans le délai fixé par l'assemblée (art. 646). Les actions sont annulées dans les quinze jours suivant l'expiration du délai de l'offre (art. 649). Ces règles protègent l'égalité : tous les actionnaires ont la même chance de vendre au même prix.",
       },
       {
         type: 'carte',
-        titre: "Comptabiliser un rachat suivi d'annulation",
+        titre: "Exemple 5.3 — Rachat d'actions suivi d'annulation",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -580,28 +583,24 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Schéma cohérent avec l'Application 63 et le fonctionnement des comptes 101 et 105 de l'AUDCIF (débités, en cas de remboursement du capital, par le crédit d'un compte d'associés). L'excédent du prix sur le nominal est une restitution de réserves : il suppose des réserves disponibles et le respect du butoir des capitaux propres (art. 143). Si les actions transitent un temps à l'actif avant annulation, on peut utiliser le compte 5021 Actions ou parts propres.",
       },
+      { type: 'intertitre', texte: "5.5.3 Le prix et les motifs du rachat" },
       {
         type: 'paragraphe',
         texte: "Le prix de rachat pose une question de valeur. S'il est supérieur à la valeur réelle de l'action, les vendeurs sont avantagés au détriment de ceux qui restent ; s'il est inférieur, c'est l'inverse. D'où le rôle du commissaire aux comptes, qui donne son avis sur l'opportunité et les modalités de l'achat envisagé lorsque le rachat vise à faciliter une augmentation de capital, une fusion ou une scission, dans la limite d'un pour cent du capital (art. 647). Lorsque des actions sont grevées d'usufruit, l'offre est faite au nu-propriétaire, et le rachat n'est définitif qu'avec le consentement exprès de l'usufruitier (art. 648). Le chapitre 7 donnera les méthodes d'évaluation qui permettent de fixer un prix justifié.",
       },
       {
         type: 'paragraphe',
-        texte: "Pourquoi une société voudrait-elle racheter ses propres actions ? Dans une société non cotée, le rachat est souvent le seul moyen d'offrir une sortie à un actionnaire minoritaire qui ne trouve pas d'acheteur : les titres d'une SA familiale de Lubumbashi ne se négocient sur aucun marché. Il peut aussi permettre de reprendre les actions d'un cessionnaire que le conseil a refusé d'agréer, hypothèse que l'article 647 dispense de la procédure d'offre à tous les actionnaires. Il peut enfin servir à restituer des fonds propres excédentaires en concentrant le capital entre moins d'actions. Dans tous les cas, l'opération reste une réduction de capital non motivée par des pertes, avec ses garanties pour les créanciers.",
+        texte: "Les motifs du rachat varient selon la société. Dans une société non cotée, le rachat est souvent le seul moyen d'offrir une sortie à un actionnaire minoritaire qui ne trouve pas d'acheteur : les titres d'une SA familiale de Lubumbashi ne se négocient sur aucun marché. Il peut aussi permettre de reprendre les actions d'un cessionnaire que le conseil a refusé d'agréer, hypothèse que l'article 647 dispense de la procédure d'offre à tous les actionnaires. Il peut enfin servir à restituer des fonds propres excédentaires en concentrant le capital entre moins d'actions. Dans tous les cas, l'opération reste une réduction de capital non motivée par des pertes, avec ses garanties pour les créanciers.",
       },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[12] },
+      { type: 'intertitre', texte: "5.5.4 Les dispenses de procédure et la détention temporaire" },
       {
         type: 'paragraphe',
         texte: "La procédure d'offre publique ou de notification à tous les actionnaires n'est pas toujours exigée. L'article 647 en dispense deux hypothèses : lorsque l'assemblée, pour faciliter une augmentation de capital, une fusion ou une scission, a autorisé le conseil à acheter un nombre d'actions représentant au plus 1 % du capital en vue de les annuler, afin par exemple de supprimer des rompus ; et en cas de rachat des actions d'un cessionnaire que la société n'a pas agréé. Dans ces cas, le commissaire aux comptes donne son avis, dans son rapport sur l'opération projetée, sur l'opportunité et les modalités de l'achat. Les opérations de rachat réalisées en violation des articles 643 à 646 sont nulles (art. 646-1).",
       },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[14] },
       {
         type: 'paragraphe',
         texte: "La société qui détient temporairement ses propres actions, dans les cas où la loi l'y autorise, doit en tirer les conséquences. Les actions possédées par la société ne donnent pas droit aux dividendes (art. 640) : lors de la répartition, le dividende se calcule sur les seules actions en circulation, et la part qui aurait dû revenir aux actions propres reste dans la société. Ces actions ne peuvent pas non plus servir à consolider artificiellement une majorité. Enfin, leur détention immobilise des fonds : une SA qui rachète ses actions pour les attribuer à son personnel doit les attribuer dans l'année (art. 640), et une SA qui les a reçues par transmission universelle ou décision de justice doit les céder dans les deux ans, faute de quoi elles sont annulées (art. 641).",
       },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
     ],
   },
   {
@@ -609,6 +608,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'amortissement du capital",
     navLabel: "Amortissement",
     blocs: [
+      { type: 'intertitre', texte: "5.6.1 Notion et décision" },
       {
         type: 'paragraphe',
         texte: "L'**amortissement du capital** est l'opération par laquelle la société rembourse aux actionnaires tout ou partie du montant nominal de leurs actions, **à titre d'avance sur le produit de la liquidation future** (art. 651). Il ne faut pas le confondre avec l'amortissement des immobilisations, qui constate une dépréciation, ni avec la réduction de capital : l'amortissement « est réalisé par voie de remboursement égal pour chaque action d'une même catégorie et n'entraîne pas de réduction de capital » (art. 654). Le capital social reste inchangé au bilan ; ce sont des bénéfices ou des réserves qui financent le remboursement. L'actionnaire reçoit par avance ce qu'il aurait reçu à la liquidation au titre de son apport.",
@@ -617,9 +617,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Il est décidé par l'assemblée générale **ordinaire** lorsqu'il est prévu par les statuts, par l'assemblée générale **extraordinaire** dans leur silence, à peine de nullité (art. 652). Les actions peuvent être intégralement ou partiellement amorties ; intégralement amorties, elles deviennent des **actions de jouissance** (art. 653). L'amortissement a une justification économique claire dans les sociétés dont l'actif est destiné à disparaître : une société concessionnaire dont les installations reviendront à l'État à la fin de la concession, une société d'exploitation d'un gisement minier limité, une société constituée pour un projet d'une durée déterminée. Rembourser progressivement le nominal évite d'accumuler une trésorerie inutile en attendant une liquidation lointaine.",
       },
+      { type: 'intertitre', texte: "5.6.2 Les ressources et la comptabilisation" },
       {
         type: 'carte',
-        titre: "Ressources et limites (art. 655-656)",
+        titre: "Encadré 5.2 — Les ressources et les limites de l'amortissement (art. 655 et 656)",
         liste: [
           "Prélèvement sur les **bénéfices** ou les **réserves non statutaires** ; jamais sur la **réserve légale** ; sur les réserves statutaires seulement par décision contraire de l'AGE (art. 655, al. 1-2).",
           "Butoir : le remboursement ne peut réduire les capitaux propres sous le montant du capital augmenté des réserves indisponibles (art. 655, al. 3). Opérations contraires **nulles** (art. 655-1).",
@@ -628,7 +629,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Application 64 : amortissement de la moitié du capital (7 500 actions de 10 000, sur réserves diverses)",
+        titre: "Exemple 5.4 — Application 64 : amortissement de la moitié du capital (7 500 actions de 10 000, sur réserves diverses)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -642,22 +643,19 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le total du compte 101 est inchangé (1013 + 1014 = capital social, art. 654) ; ce sont les réserves qui financent le remboursement. La distinction entre 1013 et 1014 permet de suivre les droits différenciés des actions amorties (art. 656).",
       },
+      { type: 'intertitre', texte: "5.6.3 Amortissement et réduction comparés" },
       {
         type: 'paragraphe',
-        texte: "Comparons avec la réduction par remboursement de l'Application 63. Dans les deux cas, les actionnaires reçoivent de l'argent. Mais la réduction diminue le capital, donc le gage des créanciers, d'où leur droit d'opposition ; l'amortissement laisse le capital intact et consomme des réserves distribuables, si bien qu'il se rapproche économiquement d'une distribution de dividendes, encadrée par le même butoir des capitaux propres. L'AUDCIF résume la situation : les organes compétents peuvent rembourser aux associés tout ou partie du nominal « à titre d'avances sur le produit de la liquidation future ; le capital demeure inchangé, les actions amorties devenant actions de jouissance, dont la contre-valeur est isolée au compte 1014 » (commentaires du compte 101).",
+        texte: "L'amortissement doit être comparé à la réduction par remboursement de l'Application 63. Dans les deux cas, les actionnaires reçoivent de l'argent. Mais la réduction diminue le capital, donc le gage des créanciers, d'où leur droit d'opposition ; l'amortissement laisse le capital intact et consomme des réserves distribuables, si bien qu'il se rapproche économiquement d'une distribution de dividendes, encadrée par le même butoir des capitaux propres. L'AUDCIF résume la situation : les organes compétents peuvent rembourser aux associés tout ou partie du nominal « à titre d'avances sur le produit de la liquidation future ; le capital demeure inchangé, les actions amorties devenant actions de jouissance, dont la contre-valeur est isolée au compte 1014 » (commentaires du compte 101).",
       },
       {
         type: 'paragraphe',
-        texte: "Chiffrons l'effet sur les dividendes. Une SA de 10 000 actions de 10 000 amortit intégralement 4 000 actions d'une catégorie donnée ; ses statuts prévoient un premier dividende de 6 %. L'année suivante, l'assemblée distribue 10 000 000. Les 6 000 actions non amorties reçoivent d'abord le premier dividende de 600 chacune, soit 3 600 000 ; les 4 000 actions de jouissance n'y ont pas droit (art. 656). Le solde de 6 400 000 est réparti également entre toutes les actions comme superdividende, soit 640 par action. Dividende total : 1 240 par action non amortie, 640 par action de jouissance. L'écart rémunère, chaque année, le fait que les porteurs d'actions amorties ont déjà récupéré leur apport.",
+        texte: "L'effet sur les dividendes se chiffre ainsi. Une SA de 10 000 actions de 10 000 amortit intégralement 4 000 actions d'une catégorie donnée ; ses statuts prévoient un premier dividende de 6 %. L'année suivante, l'assemblée distribue 10 000 000. Les 6 000 actions non amorties reçoivent d'abord le premier dividende de 600 chacune, soit 3 600 000 ; les 4 000 actions de jouissance n'y ont pas droit (art. 656). Le solde de 6 400 000 est réparti également entre toutes les actions comme superdividende, soit 640 par action. Dividende total : 1 240 par action non amortie, 640 par action de jouissance. L'écart rémunère, chaque année, le fait que les porteurs d'actions amorties ont déjà récupéré leur apport.",
       },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[18] },
       {
         type: 'paragraphe',
         texte: "L'amortissement du capital suppose des sommes disponibles, exactement comme un dividende. Le butoir de l'article 655 reprend celui de l'article 143 : après le remboursement, les capitaux propres doivent rester au moins égaux au capital augmenté des réserves que la loi ou les statuts ne permettent pas de distribuer. Or l'amortissement ne réduit pas le capital : le seuil protégé reste donc inchangé, alors que les capitaux propres diminuent du montant remboursé. Une société au capital de 100 000 000, avec une réserve légale de 20 000 000 et des réserves facultatives de 30 000 000, peut donc amortir au plus 30 000 000 : au-delà, les capitaux propres (150 000 000 avant l'opération) tomberaient sous 120 000 000. C'est pourquoi l'amortissement ne peut être financé ni par le capital, ni par la réserve légale (art. 655).",
       },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[20] },
     ],
   },
   {
@@ -665,13 +663,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Les actions amorties et leur reconversion en actions de capital",
     navLabel: "Reconversion",
     blocs: [
+      { type: 'intertitre', texte: "5.7.1 Les droits des actions amorties" },
       {
         type: 'paragraphe',
         texte: "Les actions amorties conservent tous leurs droits, à l'exception du premier dividende et du remboursement du nominal, qu'elles perdent à due concurrence (art. 656). Concrètement, une action de jouissance vote, reçoit le superdividende et participe au boni de liquidation, mais elle ne touche pas l'intérêt statutaire et, à la liquidation, son porteur ne sera pas remboursé une seconde fois du nominal qu'il a déjà perçu. Une action partiellement amortie ne perd ces droits qu'à proportion du montant amorti. La coexistence d'actions amorties et non amorties crée donc, de fait, deux catégories d'actions aux droits différents, que le comptable doit suivre séparément.",
       },
+      { type: 'intertitre', texte: "5.7.2 La reconversion" },
       {
         type: 'carte',
-        titre: "La reconversion en actions de capital (art. 657-663-1)",
+        titre: "Encadré 5.3 — La reconversion en actions de capital (art. 657 à 663-1)",
         liste: [
           "**Décision** : l'AGE, aux conditions de quorum et de majorité de la modification des statuts (art. 657).",
           "**Financement** : prélèvement obligatoire, à concurrence du montant amorti, sur la part des bénéfices revenant à ces actions après paiement du premier dividende des actions partiellement amorties, ou reversement par les actionnaires du montant amorti, augmenté le cas échéant du premier dividende de la période (art. 658).",
@@ -687,14 +687,12 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Pourquoi reconvertir ? Une société qui avait amorti son capital en prévision de la fin d'une concession peut obtenir le renouvellement de celle-ci : l'hypothèse de liquidation s'éloigne, et il devient logique de rétablir l'égalité entre toutes les actions. La reconversion supprime la catégorie des actions de jouissance et simplifie la répartition des bénéfices. Elle a un coût pour les porteurs d'actions amorties, qui renoncent à une part de leurs dividendes ou reversent des fonds ; c'est pourquoi l'Acte uniforme exige la ratification des assemblées spéciales de chaque catégorie.",
+        texte: "La reconversion répond à un changement de perspective. Une société qui avait amorti son capital en prévision de la fin d'une concession peut obtenir le renouvellement de celle-ci : l'hypothèse de liquidation s'éloigne, et il devient logique de rétablir l'égalité entre toutes les actions. La reconversion supprime la catégorie des actions de jouissance et simplifie la répartition des bénéfices. Elle a un coût pour les porteurs d'actions amorties, qui renoncent à une part de leurs dividendes ou reversent des fonds ; c'est pourquoi l'Acte uniforme exige la ratification des assemblées spéciales de chaque catégorie.",
       },
       {
         type: 'paragraphe',
         texte: "Un exemple : 4 000 actions intégralement amorties pour 40 000 000 doivent être reconverties par prélèvement sur les bénéfices qui leur reviennent. Chaque année, l'assemblée affecte à un compte de réserve de reconversion la part des bénéfices revenant à ces actions : par exemple 8 000 000 en N, 12 000 000 en N+1, 20 000 000 en N+2 (débit 1301, crédit du sous-compte de réserve). Au terme de N+2, la réserve atteint 40 000 000, montant amorti : la reconversion est réalisée (art. 661). Le capital amorti redevient non amorti (débit 1014, crédit 1013 pour 40 000 000), et la réserve, dont la fonction est épuisée, est reclassée selon la décision de l'assemblée. Pendant ces trois années, les actions concernées ont droit au premier dividende calculé sur le montant de la réserve constituée à la clôture de l'exercice précédent (art. 663).",
       },
-      { type: 'controle', question: QCM[21] },
-      { type: 'controle', question: QCM[22] },
     ],
   },
   {
@@ -702,13 +700,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Capitaux propres inférieurs à la moitié du capital",
     navLabel: "Perte de la moitié",
     blocs: [
+      { type: 'intertitre', texte: "5.8.1 La procédure" },
       {
         type: 'paragraphe',
         texte: "Lorsque les pertes s'accumulent, l'Acte uniforme oblige les associés à se prononcer sur l'avenir de la société. Le déclencheur est comptable : il faut que, « du fait de pertes constatées dans les états financiers de synthèse, les capitaux propres de la société deviennent inférieurs à la moitié du capital social » (art. 664 pour la SA, 371 pour la SARL). Le calcul se fait donc sur les comptes approuvés, en comparant le total des capitaux propres (capital, primes, réserves, report à nouveau, résultat de l'exercice, subventions d'investissement et provisions réglementées selon la maquette) à la moitié du capital social. C'est au comptable qu'il revient de faire ce calcul dès l'arrêté des comptes et d'alerter les dirigeants.",
       },
       {
         type: 'carte',
-        titre: "SA (art. 664-669) et SARL (art. 371-373) : le parallèle",
+        titre: "Tableau 5.4 — Capitaux propres inférieurs à la moitié du capital : SA (art. 664 à 669) et SARL (art. 371 à 373)",
         tableau: {
           entetes: ["Étape", "SA", "SARL"],
           lignes: [
@@ -721,13 +720,15 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Ces dispositions ne s'appliquent pas aux sociétés en redressement judiciaire ou en liquidation des biens (art. 669). L'article 668 comporte dans le texte officiel une formule tronquée (« peut accorder à la maximal de six mois ») : le sens est celui d'un délai maximal de six mois.",
       },
+      { type: 'intertitre', texte: "5.8.2 Les trois issues" },
       {
         type: 'paragraphe',
         texte: "La procédure offre trois issues. La **dissolution anticipée**, si les associés estiment que l'entreprise n'est pas viable : c'est l'objet du chapitre 9. La **reconstitution des capitaux propres**, par des bénéfices futurs, par un apport nouveau en capital ou, plus fréquemment, par une augmentation de capital ; notez qu'un apport en compte courant d'associé, qui est une dette, ne reconstitue pas les capitaux propres, à la différence d'une augmentation de capital ou d'une conversion de ce compte courant en capital (chapitre 4). La **réduction du capital**, enfin, d'un montant au moins égal aux pertes non imputées sur les réserves : elle ne crée aucune ressource, mais rapproche le capital de l'actif net réel, ce qui suffit mécaniquement à repasser au-dessus du seuil de la moitié.",
       },
+      { type: 'intertitre', texte: "5.8.3 Application et calcul des délais" },
       {
         type: 'paragraphe',
-        texte: "Un exemple montre la mécanique. Une SA au capital de 100 000 000 a une réserve légale de 6 000 000 et un report à nouveau débiteur de 60 000 000 après la perte de l'exercice : ses capitaux propres sont de 46 000 000, inférieurs à 50 000 000. Si l'AGE écarte la dissolution et que la situation n'est pas rétablie dans le délai légal, la société doit réduire son capital d'au moins les pertes non imputées sur les réserves. Si elle impute d'abord la réserve légale (débit 111, crédit 1291 pour 6 000 000), il reste 54 000 000 de pertes ; une réduction de 54 000 000 (débit 1013, crédit 1291) ramène le capital à 46 000 000 et les capitaux propres à 46 000 000, soit bien plus que la moitié du nouveau capital. Mais le capital d'une SA ne peut descendre sous le minimum de l'article 387 sans augmentation corrélative (art. 66) : pour une grande société, la contrainte est rarement mordante ; pour une petite SA, elle l'est souvent.",
+        texte: "Soit une SA au capital de 100 000 000 qui a une réserve légale de 6 000 000 et un report à nouveau débiteur de 60 000 000 après la perte de l'exercice : ses capitaux propres sont de 46 000 000, inférieurs à 50 000 000. Si l'AGE écarte la dissolution et que la situation n'est pas rétablie dans le délai légal, la société doit réduire son capital d'au moins les pertes non imputées sur les réserves. Si elle impute d'abord la réserve légale (débit 111, crédit 1291 pour 6 000 000), il reste 54 000 000 de pertes ; une réduction de 54 000 000 (débit 1013, crédit 1291) ramène le capital à 46 000 000 et les capitaux propres à 46 000 000, soit bien plus que la moitié du nouveau capital. Mais le capital d'une SA ne peut descendre sous le minimum de l'article 387 sans augmentation corrélative (art. 66) : pour une grande société, la contrainte est rarement mordante ; pour une petite SA, elle l'est souvent.",
       },
       {
         type: 'paragraphe',
@@ -735,17 +736,14 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Et si BOMA ÉNERGIE avait laissé passer le délai ?",
+        titre: "Le délai de l'article 664 appliqué à BOMA ÉNERGIE",
         texte: "Les comptes de BOMA ÉNERGIE, approuvés le 20/05/N+1, font apparaître des capitaux propres de − 4 000 000 FC, inférieurs à la moitié du capital. Le conseil doit convoquer l'AGE dans les quatre mois, soit avant le 20/09/N+1, pour décider s'il y a lieu à dissolution anticipée (art. 664). S'il ne le fait pas, ou si la société ne régularise pas sa situation dans le délai légal, tout intéressé peut demander au juge la dissolution de la société (chapitre 9). Le juge ne peut toutefois la prononcer si la régularisation est intervenue au jour où il statue sur le fond.",
       },
-      { type: 'controle', question: QCM[23] },
+      { type: 'intertitre', texte: "5.8.4 Le cas de la SARL" },
       {
         type: 'paragraphe',
         texte: "Dans la SARL, la consultation des associés est déclenchée par le gérant ou, le cas échéant, par le commissaire aux comptes (art. 371). Cette précision n'est pas anodine : si le gérant ne réagit pas, le commissaire aux comptes a le pouvoir, et le devoir, de provoquer la consultation. À défaut de décision, ou si les associés n'ont pu délibérer valablement, tout intéressé, créancier, associé minoritaire ou salarié, peut demander au juge la dissolution de la société (art. 373). Le juge ne la prononcera pas si, au jour où il statue sur le fond, la cause a cessé d'exister : une recapitalisation réalisée pendant la procédure sauve la société. Le comptable qui constate la franchise du seuil doit le signaler clairement dans les documents de clôture.",
       },
-      { type: 'controle', question: QCM[24] },
-      { type: 'controle', question: QCM[25] },
-      { type: 'controle', question: QCM[26] },
     ],
   },
   {
@@ -753,13 +751,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le « coup d'accordéon » : assainir puis recapitaliser",
     navLabel: "Coup d'accordéon",
     blocs: [
+      { type: 'intertitre', texte: "5.9.1 Le mécanisme" },
       {
         type: 'paragraphe',
         texte: "Pour sortir d'une situation de capitaux propres dégradés, la pratique enchaîne fréquemment une **réduction motivée par les pertes** et une **augmentation immédiate**. Le capital « se replie » sur l'actif net réel, puis « se déploie » par des apports nouveaux : c'est le « coup d'accordéon », expression doctrinale qui ne figure pas dans l'Acte uniforme. Chaque temps de l'opération obéit à ses propres règles. La réduction pour pertes n'ouvre pas de droit d'opposition aux créanciers (art. 632) ; l'augmentation relève du chapitre 4 : AGE, DPS ou suppression du DPS au profit d'un repreneur (art. 586-587), libération et déclaration notariée. Lorsque la réduction ramène provisoirement le capital sous le minimum légal, l'augmentation corrélative décidée par la même assemblée la rend régulière (art. 368 pour la SARL ; art. 66 et 387 pour la SA).",
       },
       {
         type: 'carte',
-        titre: "Exemple chiffré : réduction à zéro puis augmentation réservée",
+        titre: "Exemple 5.5 — Réduction à zéro puis augmentation réservée",
         tableau: {
           entetes: ["Étape", "Écriture", "Capital après l'étape"],
           lignes: [
@@ -775,6 +774,7 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'opération est brutale pour les anciens actionnaires : si le capital est ramené à zéro, leurs actions sont annulées, et ils ne restent associés que s'ils souscrivent à l'augmentation. Elle est pourtant souvent la seule issue lorsque les pertes ont absorbé toute la valeur de la société : un repreneur n'acceptera d'apporter des fonds que si ceux-ci ne servent pas d'abord à combler un passé dont il n'est pas responsable. La réduction préalable « purge » les pertes, et l'apport nouveau recapitalise une société assainie. Pour le comptable, la clé est la chronologie : la réduction est comptabilisée avant l'augmentation, et le report à nouveau débiteur qui subsiste éventuellement après l'opération continuera de peser sur les distributions futures (art. 143).",
       },
+      { type: 'intertitre', texte: "5.9.2 Les variantes" },
       {
         type: 'paragraphe',
         texte: "Une variante consiste à faire entrer le repreneur par **compensation** avec une créance qu'il détient déjà sur la société, par exemple un prêt consenti pendant la crise (chapitre 4, art. 611) : l'augmentation n'apporte alors pas de trésorerie, mais elle transforme une dette en capitaux propres, ce qui améliore d'autant la structure financière. Dans les sociétés congolaises en difficulté, où les associés financent souvent l'exploitation par des avances en compte courant, cette conversion est un levier courant de reconstitution des capitaux propres. Dans tous les cas, si la société est déjà en redressement judiciaire, les règles des articles 664 à 668 cèdent la place au droit des procédures collectives (art. 669), étudié en UE2.",
@@ -785,10 +785,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle d'un coup d'accordéon",
         texte: "Dans un coup d'accordéon comme celui de BOMA ÉNERGIE, l'auditeur vérifie que la réduction et l'augmentation sont votées par la même assemblée, pour que le capital ne reste pas sous le minimum légal, et que les rapports du commissaire aux comptes existent pour chacune des deux opérations. Il contrôle aussi la suppression du DPS au profit de SOLAR INVEST : motifs, nom du bénéficiaire, justification du prix et incidence sur la situation des actionnaires doivent figurer dans les rapports (art. 588-591), à peine de nullité. Enfin, il rapproche le versement de 40 000 000 FC de la déclaration notariée avant de valider la réalisation.",
       },
-      { type: 'controle', question: QCM[27] },
     ],
   },
   {
@@ -796,6 +795,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Fiscalité, présentation et contrôle des opérations sur le capital",
     navLabel: "Fiscalité et contrôle",
     blocs: [
+      { type: 'intertitre', texte: "5.10.1 La fiscalité des remboursements" },
       {
         type: 'paragraphe',
         texte: "Rendre de l'argent aux associés n'est pas fiscalement neutre. La loi n° 23/053 range parmi les revenus distribués, soumis à la retenue de 20 % (chapitre 3), les bénéfices qui ne demeurent pas investis dans l'entreprise. Elle exclut en revanche des revenus distribués les répartitions présentant le caractère de **remboursement d'apports** ou de primes d'émission, mais seulement si « tous les bénéfices et réserves autres que la réserve légale ont été auparavant répartis » (art. 74). Autrement dit, une société qui dispose encore de réserves distribuables et qui rembourse du capital est présumée distribuer d'abord ses réserves : le remboursement est alors, pour la part correspondante, imposable comme un dividende. L'article 74 vise aussi les amortissements de capital effectués par les sociétés concessionnaires lorsqu'ils sont justifiés par la caducité de l'actif social, et les remboursements consécutifs à la liquidation portant sur le capital amorti ayant déjà supporté l'impôt.",
@@ -804,9 +804,10 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Cette règle fiscale renverse l'intuition comptable. En comptabilité, un remboursement de capital et une distribution de réserves sont deux opérations distinctes, l'une débitant le 1013, l'autre le 11. En fiscalité, l'ordre d'imputation est imposé : les réserves sont réputées sortir les premières. Le comptable qui prépare une réduction par remboursement doit donc vérifier l'état des réserves distribuables, et, s'il en existe, calculer la retenue à la source due sur la fraction réputée distribuée, la retenir et la reverser au plus tard le 15 du mois suivant le versement (arrêté n° 008/2025). L'amortissement du capital, financé par définition sur des bénéfices ou réserves, relève en principe du même régime, sauf l'exception propre aux sociétés concessionnaires.",
       },
+      { type: 'intertitre', texte: "5.10.2 La présentation et le contrôle" },
       {
         type: 'carte',
-        titre: "Présentation dans les états financiers",
+        titre: "Tableau 5.5 — La présentation des opérations sur le capital dans les états financiers",
         tableau: {
           entetes: ["Opération", "Bilan", "Tableau des flux de trésorerie", "Notes annexes"],
           lignes: [
@@ -826,16 +827,16 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Un dernier point de vigilance concerne la date des opérations. La réduction pour pertes est comptabilisée à la date de la décision de l'assemblée qui la constate ; la réduction par remboursement donne lieu à une dette dès la décision (compte 4619), mais le paiement n'intervient qu'après le délai d'opposition ; le rachat pour annulation est comptabilisé à l'annulation, dans les quinze jours de l'expiration de l'offre ; l'amortissement du capital est comptabilisé à la date fixée par l'assemblée pour le remboursement. Lorsque ces dates chevauchent une clôture, les états financiers doivent refléter l'étape atteinte : selon l'Application 63, la réduction par remboursement reclasse le capital en dette envers les associés (4619) dès la décision, et cette dette figure au passif circulant tant qu'elle n'est pas payée ; la trésorerie ne sort qu'au paiement.",
       },
-      { type: 'controle', question: QCM[28] },
+      { type: 'intertitre', texte: "5.10.3 Synthèse" },
       {
         type: 'paragraphe',
         texte: "En synthèse, les trois grandes opérations de ce chapitre se distinguent par leur effet sur le capital, sur les capitaux propres et sur la trésorerie. La réduction pour pertes diminue le capital sans toucher aux capitaux propres ni à la trésorerie ; elle ne lèse personne, puisque la perte est déjà là, d'où l'absence d'opposition. La réduction par remboursement, y compris par rachat pour annulation, diminue à la fois le capital, les capitaux propres et la trésorerie ; elle lèse potentiellement les créanciers, d'où leur droit d'opposition, et fiscalement elle peut être requalifiée en distribution tant que des réserves existent. L'amortissement du capital laisse le capital intact mais diminue les capitaux propres et la trésorerie ; il se finance comme un dividende, sur des sommes distribuables, et reste soumis au même butoir. Retenir ce tableau à trois colonnes permet de ne jamais se tromper d'écriture.",
       },
+      { type: 'intertitre', texte: "5.10.4 Application : BOMA ÉNERGIE" },
       {
         type: 'paragraphe',
         texte: "Retour à BOMA ÉNERGIE, dont le cas 6 détaille les écritures. Ses pertes cumulées avaient fait fondre ses capitaux propres sous zéro. L'assemblée a écarté la dissolution et voté, dans la même séance, une réduction du capital à zéro par imputation des pertes, sans opposition possible des créanciers, puis une augmentation de 40 000 000 FC réservée à SOLAR INVEST. Après l'opération, les capitaux propres s'élèvent à 36 000 000 FC pour un capital de 40 000 000 FC, au-dessus de la moitié : la situation est régularisée. Le prix de ce redressement est payé par les anciens actionnaires, qui n'ont pas souscrit et perdent leur qualité d'associé. Réduction, rachat, amortissement : chaque opération de ce chapitre se lit ainsi par son effet sur le capital, sur les capitaux propres et sur la trésorerie.",
       },
-      { type: 'controle', question: QCM[29] },
     ],
   },
 ]
