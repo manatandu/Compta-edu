@@ -44,11 +44,11 @@ const CHAPITRES = [
     num: 4,
     titre: "Stocks, créances et instruments financiers",
     sousTitre: "IAS 2 · IFRS 9 · IAS 32 · AUDCIF art. 44 · SYSCOHADA ch. 14-15",
-    duree: "8h",
+    duree: "9h",
     actif: true,
     route: '/ue13/chapitre-4',
     lecons: 9,
-    exercices: 36,
+    exercices: 40,
     couleur: 'bg-indigo-50 text-indigo-700',
     accent: 'border-l-indigo-500',
   },
@@ -130,7 +130,7 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>267 QCM</span>
+            <span>271 QCM</span>
             <span>34 cas pratiques</span>
           </div>
         </div>
