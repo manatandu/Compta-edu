@@ -260,8 +260,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les lois de finances : quatre espèces, un monopole',
     navLabel: 'Lois de finances',
     blocs: [
+      { type: 'intertitre', texte: "3.1.1 L'objet des lois de finances" },
       { type: 'paragraphe', texte: "Avant d'entrer dans la structure du budget, il faut situer son véhicule juridique. Les lois de finances « déterminent, pour un exercice, la nature, le montant et l'affectation des ressources et des charges de l'État compte tenu d'un équilibre économique et financier qu'elles définissent » (art. 17). Elles tiennent compte des priorités du programme de développement économique et social du Gouvernement, et concernent les finances du pouvoir central (art. 19)." },
-      { type: 'carte', titre: "Les quatre catégories de lois de finances (art. 18)", tableau: {
+      { type: 'carte', titre: "Tableau 3.1 — Les quatre catégories de lois de finances (art. 18 LOFIP)", tableau: {
         entetes: ['Loi', 'Objet', 'Articles'],
         lignes: [
           ["**Loi de finances de l'année**", "Contient, pour une année civile, toutes les ressources et charges du pouvoir central - le budget - avec leur évaluation en objectifs et résultats attendus ; déposée au plus tard le 15 septembre", 'Art. 20-25, 83'],
@@ -270,11 +271,20 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Loi portant ouverture de crédits provisoires**', "Autorise recettes et dépenses « nécessaires au fonctionnement minimum des services publics » quand la LF de l'année ne peut être promulguée avant l'exercice ; déposée avant le 15 décembre, exécutée jusqu'au 31 janvier", 'Art. 31, 83'],
         ],
       } },
+      { type: 'intertitre', texte: "3.1.2 Le contenu de la loi de finances de l'année" },
       { type: 'paragraphe', texte: "La loi de finances de l'année fixe, par ministère ou institution et par programme - ou par dotation depuis la loi n° 23/030 -, les autorisations d'engagement et les crédits de paiement, ainsi que les plafonds d'autorisations d'emplois rémunérés (art. 22). Elle autorise l'octroi des garanties de l'État et la prise en charge des dettes de tiers (art. 23), fixe les plafonds des charges de chaque composante du budget, arrête les données générales de l'équilibre et fixe globalement la dotation de 40% des recettes à caractère national allouées aux provinces (art. 24). Deux garde-fous encadrent l'ensemble : le budget est présenté **en équilibre** (art. 14) et **les avances de la Banque centrale du Congo sont prohibées** (art. 16) - pour tous les étages, pouvoir central, provinces et ETD." },
-      { type: 'filet', titre: 'Recevabilité financière des amendements', texte: "L'art. 86 LOFIP, reprenant les art. 127 et 134 de la Constitution, déclare irrecevables les amendements dont l'adoption entraînerait une diminution des recettes ou un accroissement des dépenses, à moins d'être assortis de propositions compensatoires. Le Parlement autorise - il ne peut pas déséquilibrer ce qu'il autorise." },
-      { type: 'controle', question: QCM[15] },
-      { type: 'controle', question: QCM[16] },
-      { type: 'controle', question: QCM[17] },
+      { type: 'filet', titre: "Recevabilité financière des amendements", texte: "L'art. 86 LOFIP, reprenant les art. 127 et 134 de la Constitution, déclare irrecevables les amendements dont l'adoption entraînerait une diminution des recettes ou un accroissement des dépenses, à moins d'être assortis de propositions compensatoires. Le Parlement autorise - il ne peut pas déséquilibrer ce qu'il autorise." },
+      { type: 'intertitre', texte: "3.1.3 La structure de la loi de finances pour 2026" },
+      { type: 'paragraphe', texte: "La loi n° 25/060 du 29 décembre 2025 permet de voir comment ces contenus s'ordonnent dans un texte réel. Elle comprend 88 articles et vingt et une annexes, qui « font partie intégrante » de la loi (art. 86). Les premiers articles fixent les grandes masses ; viennent ensuite les mesures fiscales, douanières et non fiscales de l'année, puis les autorisations de dépenses et d'emprunt, enfin les dispositions finales." },
+      { type: 'carte', titre: "Tableau 3.2 — L'organisation de la loi de finances n° 25/060 pour l'exercice 2026", tableau: { entetes: ["Articles", "Objet", "Contenu principal"], lignes: [
+        ["1 à 9", "Dispositions générales", "Rappel de la non-contraction et de la légalité des exonérations ; déconcentration de l'ordonnancement dans neuf ministères pilotes (art. 5) ; équilibre à 54 335,8 milliards FC (art. 6) ; recettes du budget général (art. 7) ; part des provinces (art. 8) et de la Caisse nationale de péréquation (art. 9)"],
+        ["10 à 15", "Recettes des douanes et accises", "Modifications du tarif et des taux d'accises (annexes XVII et XVIII)"],
+        ["16 à 49", "Recettes des impôts", "Mesures fiscales de l'année, dont un prélèvement de 20 % sur les revenus de capitaux mobiliers versés à des non-résidents (art. 42 à 48)"],
+        ["50 à 74", "Recettes non fiscales", "Création du Fonds d'investissement stratégique de la RDC (art. 51) et d'une taxe carbone (art. 74)"],
+        ["76 à 80", "Dépenses", "Dépenses du budget général (art. 76) ; émission de bons et obligations du Trésor dans la limite de 0,5 % du PIB (art. 77) ; instruments de garantie (art. 78) ; investissements du programme de développement local des 145 territoires (art. 80)"],
+        ["81 à 82", "Budgets annexes et comptes spéciaux", "Chaque composante présentée en équilibre"],
+        ["83 à 88", "Dispositions finales", "Régime transitoire d'exécution de la dépense (art. 84-85) ; annexes (art. 86) ; entrée en vigueur au 1er janvier 2026 (art. 88)"],
+      ] }, note: "L'annexe XXI, nouvelle en 2026, présente les crédits par section, par programme et par action. Elle rapproche la loi de finances du format budget-programme étudié au chapitre 4." },
     ],
   },
   {
@@ -282,13 +292,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La structure tripartite du budget du pouvoir central',
     navLabel: 'Structure tripartite',
     blocs: [
+      { type: 'intertitre', texte: "3.2.1 Un document unique en trois composantes" },
       { type: 'paragraphe', texte: "L'art. 20 de la LOFIP dispose que la loi de finances de l'année « contient, pour une année civile, toutes les ressources et toutes les charges du pouvoir central qui traduisent, à travers un document unique appelé budget du pouvoir central, le plan d'actions du Gouvernement, ainsi que son évaluation en termes d'objectifs et de résultats attendus », et que ce budget « comprend le budget général, les budgets annexes et les comptes spéciaux tels que définis aux articles 55 et 62 »." },
-      { type: 'carte', titre: 'Les trois composantes', liste: [
+      { type: 'carte', titre: "Encadré 3.1 — Les trois composantes du budget du pouvoir central", liste: [
         "**Le budget général** - la composante principale : il retrace l'ensemble des ressources et des charges ordinaires, présentées par ministère ou institution et par programme ou dotation (art. 22), votées par ministère ou institution et par programme (art. 85).",
         "**Les budgets annexes** - services du pouvoir central sans personnalité juridique produisant des biens ou services contre redevances (art. 55-58) ; chaque budget annexe constitue un programme.",
         "**Les comptes spéciaux** - comptes d'affectation spéciale et comptes de concours financiers, ouverts uniquement par une loi de finances (art. 59-68).",
       ] },
-      { type: 'carte', titre: 'Le budget du pouvoir central en chiffres (milliards FC)', tableau: {
+      { type: 'intertitre', texte: "3.2.2 Le poids des trois composantes" },
+      { type: 'carte', titre: "Tableau 3.3 — Le budget du pouvoir central en chiffres (milliards FC)", tableau: {
         entetes: ['Composante', 'LF 2025 (n° 24/011)', 'LFR 2025 (n° 25/044)', 'LF 2026 (n° 25/060)'],
         lignes: [
           ['Budget général', '46 799,7', '45 749,6', '48 969,3'],
@@ -297,10 +309,7 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Total en équilibre**', '**51 553,5**', '**50 691,8**', '**54 335,8**'],
         ],
       }, note: "Montants des art. 7 LF 2025, de la LFR n° 25/044 et des art. 6-7 LF 2026 et de leurs annexes I. Le budget général représente ainsi environ 90% du total, les comptes spéciaux 8% et les budgets annexes moins de 2%." },
-      { type: 'filet', titre: "Étanchéité des composantes (art. 58 et 59)", texte: "Aucun des mouvements de crédits des art. 46 à 50 - virements et transferts - ne peut être effectué entre un budget annexe et le budget général, ni entre budgets annexes (art. 58) ; ni entre un compte spécial doté de crédits et le budget auquel il est rattaché, ni entre comptes spéciaux dotés de crédits (art. 59). Cette étanchéité garantit que l'affectation votée par le Parlement n'est pas défaite par l'administration." },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[10] },
+      { type: 'filet', titre: "L'étanchéité des composantes (art. 58 et 59 LOFIP)", texte: "Aucun des mouvements de crédits des art. 46 à 50 - virements et transferts - ne peut être effectué entre un budget annexe et le budget général, ni entre budgets annexes (art. 58) ; ni entre un compte spécial doté de crédits et le budget auquel il est rattaché, ni entre comptes spéciaux dotés de crédits (art. 59). Cette étanchéité garantit que l'affectation votée par le Parlement n'est pas défaite par l'administration." },
     ],
   },
   {
@@ -308,8 +317,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les ressources et les charges du pouvoir central',
     navLabel: 'Ressources · charges',
     blocs: [
+      { type: 'intertitre', texte: "3.3.1 Les opérations budgétaires et les opérations de trésorerie" },
       { type: 'paragraphe', texte: "L'art. 32 distingue deux masses : « Les ressources et les charges du pouvoir central comprennent les ressources et les charges budgétaires ainsi que les ressources et les charges de trésorerie. » Les ressources et charges budgétaires sont retracées dans le budget sous forme de recettes et de dépenses (art. 33) ; les opérations de trésorerie - mouvement des disponibilités, émission et remboursement des emprunts à court terme - relèvent des art. 74-75 et ne se confondent pas avec le budget." },
-      { type: 'carte', titre: "La classification légale des ressources budgétaires (art. 34)", tableau: {
+      { type: 'intertitre', texte: "3.3.2 La classification des ressources" },
+      { type: 'carte', titre: "Tableau 3.4 — La classification légale des ressources budgétaires (art. 34 LOFIP)", tableau: {
         entetes: ['Catégorie', 'Contenu'],
         lignes: [
           ['**Recettes courantes** (ressources internes)', "Produit des impôts et taxes (fiscalité directe et indirecte) ; revenu du domaine, des participations financières et autres actifs - dont la part de l'État dans le bénéfice des entreprises publiques ; recettes administratives et judiciaires, redevances et taxes rémunératoires ; produit des amendes ; produits divers"],
@@ -318,11 +329,20 @@ const SECTIONS: Chapitre['sections'] = [
           ['**Ressources extérieures**', 'Dons et legs extérieurs courants et projets ; tirages sur emprunts extérieurs'],
         ],
       }, note: "Le rendement des impôts, droits et taxes est évalué par les lois de finances, comme les amendes, rémunérations pour services rendus, revenus du domaine, emprunts et dons (art. 35). En pratique, trois régies mobilisent ces recettes : la DGI (impôts), la DGDA (douanes et accises) et la DGRAD (recettes administratives, judiciaires, domaniales et de participations) - la LF 2026 leur assigne respectivement 19 033,6, 7 522,0 et 5 474,6 milliards FC." },
+      { type: 'intertitre', texte: "3.3.3 La structure des recettes du budget général en 2026" },
+      { type: 'carte', titre: "Tableau 3.5 — La structure des recettes du budget général 2026 (milliards FC)", tableau: { entetes: ["Catégorie", "LFR 2025", "LF 2026", "Part en 2026"], lignes: [
+        ["Impôts (DGI)", "16 407,6", "19 033,6", "38,9 %"],
+        ["Douanes et accises (DGDA)", "6 693,1", "7 522,0", "15,4 %"],
+        ["Recettes non fiscales (DGRAD et autres)", "6 798,0", "6 469,4", "13,2 %"],
+        ["Emprunts intérieurs", "690,0", "1 553,9", "3,2 %"],
+        ["Appuis budgétaires extérieurs (emprunt programme et dons)", "2 965,4", "2 900,6", "5,9 %"],
+        ["Financement extérieur des investissements (dons et emprunts projets)", "12 136,3", "11 489,8", "23,5 %"],
+        ["**Total du budget général**", "**45 749,6**", "**48 969,3**", "**100 %**"],
+      ] }, note: "Source : annexe II de la loi n° 25/060 ; parts calculées par l'auteur. La LFR 2025 comportait en outre une ligne de 59,1 milliards FC de fonds de concours pour la guerre." },
+      { type: 'paragraphe', texte: "Trois constats se dégagent. D'abord, l'impôt reste la première ressource de l'État : il fournit près de quatre francs sur dix du budget général, et sa prévision progresse de 16,0 % par rapport à la LFR 2025. L'exercice 2026 est le premier soumis à la réforme de l'impôt sur les sociétés et de l'impôt sur le revenu des personnes physiques (loi n° 23/053), mais les documents budgétaires ne permettent pas d'isoler l'effet de cette réforme de celui de l'inflation ou de l'élargissement de l'assiette. Ensuite, les recettes non fiscales reculent, notamment la ligne des autres recettes non fiscales, qui passe de 1 548,5 à 994,7 milliards FC ; les royalties du contrat chinois y sont évaluées à 799,3 milliards FC. Enfin, la nature du financement extérieur change : les dons projets passent de 8 782,0 à 3 825,5 milliards FC, tandis que les emprunts projets passent de 3 354,3 à 7 664,3 milliards FC. Un investissement financé par emprunt pèse sur les budgets futurs, sous forme d'intérêts (titre II) et de remboursements en capital (titre I)." },
+      { type: 'intertitre', texte: "3.3.4 La classification des charges et la part des provinces" },
       { type: 'paragraphe', texte: "Côté charges, l'art. 36 les classe « par programme ou dotation, administration, nature économique telles que définies par la nomenclature en vigueur ou suivant toute autre classification présentant un intérêt pour leur analyse, suivi et évaluation » ; elles comprennent les dépenses courantes, les dépenses en capital ainsi que les prêts et avances - la nomenclature détaillée étant l'affaire de l'art. 37 (section suivante)." },
-      { type: 'filet', titre: 'La part des provinces et la péréquation', texte: "La loi de finances « fixe globalement la dotation de 40% des recettes à caractère national allouées aux provinces conformément à la Constitution » (art. 24 ; art. 175 al. 2 de la Constitution : 40%, retenus à la source) et établit leur répartition conformément aux art. 219 à 221. Dans la LF 2025 : **9 505,8 milliards FC** pour les provinces (art. 9) et **2 376,5 milliards** pour la Caisse nationale de péréquation (art. 10) ; dans la LF 2026 : **7 694,5 milliards** (art. 8) et **744,6 milliards** (art. 9)." },
-      { type: 'controle', question: QCM[6] },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[4] },
+      { type: 'filet', titre: "La part des provinces et la péréquation", texte: "La loi de finances « fixe globalement la dotation de 40% des recettes à caractère national allouées aux provinces conformément à la Constitution » (art. 24 ; art. 175 al. 2 de la Constitution : 40%, retenus à la source) et établit leur répartition conformément aux art. 219 à 221. Dans la LF 2025 : **9 505,8 milliards FC** pour les provinces (art. 9) et **2 376,5 milliards** pour la Caisse nationale de péréquation (art. 10) ; dans la LF 2026 : **7 694,5 milliards** (art. 8) et **744,6 milliards** (art. 9)." },
     ],
   },
   {
@@ -330,8 +350,9 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La nomenclature des dépenses : les neuf titres',
     navLabel: 'Neuf titres',
     blocs: [
+      { type: 'intertitre', texte: "3.4.1 Les neuf grandes natures de dépenses" },
       { type: 'paragraphe', texte: "L'art. 37 constitue la colonne vertébrale de la présentation des dépenses. Il groupe les **dépenses courantes** sous six titres, les **dépenses en capital** sous deux titres et les **prêts et avances** sous un titre - neuf grandes natures au total, auxquelles renvoie le principe de spécialité de l'art. 8." },
-      { type: 'carte', titre: "Les neuf titres et leur poids dans la LF 2026 (budget général, milliards FC)", tableau: {
+      { type: 'carte', titre: "Tableau 3.6 — Les neuf titres et leur poids dans la LF 2026 (budget général, milliards FC)", tableau: {
         entetes: ['Titre', 'Nature', 'Exemples', 'LF 2026'],
         lignes: [
           ['**I**', 'Dette publique en capital', 'Remboursement du principal des dettes intérieure et extérieure', '2 060,0'],
@@ -345,8 +366,20 @@ const SECTIONS: Chapitre['sections'] = [
           ['**IX**', 'Prêts et avances', 'Concours financiers retracés dans les comptes de concours financiers (art. 66)', '-'],
         ],
       }, note: "Titres I à VI : dépenses courantes. Titres VII-VIII : dépenses en capital. Titre IX : prêts et avances. Montants de l'annexe « synthèse des dépenses par titre » de la LF 2026 (total budget général : 48 969,3 milliards FC)." },
-      { type: 'filet', titre: "L'exécution en pratique - donnée externe à manier avec prudence", texte: "Selon le rapport d'exécution budgétaire de l'Observatoire de la Dépense Publique (ODEP) portant sur le premier trimestre 2025, le taux d'exécution global du budget était de 17,1% des crédits votés, et les dépenses d'investissement (titres VII-VIII) n'auraient exécuté que 4% de leurs crédits. Cette statistique, issue d'une organisation de la société civile et non des textes officiels, illustre un déséquilibre récurrent : les dépenses de personnel s'exécutent presque intégralement quand les investissements restent largement inexécutés - au détriment des infrastructures que le budget affiche." },
-      { type: 'controle', question: QCM[3] },
+      { type: 'intertitre', texte: "3.4.2 La lecture du budget 2026 par titre" },
+      { type: 'paragraphe', texte: "La nomenclature par titre permet de lire les choix du budget. Les dépenses de personnel atteignent 14 033,0 milliards FC, soit 28,7 % du budget général ; elles se partagent entre le traitement de base (7 855,9 milliards FC) et les dépenses accessoires (6 177,1 milliards FC), qui représentent 44 % de la masse salariale. La dette en capital progresse de 36,5 % par rapport à la LFR 2025, et sa composante extérieure de 70,3 %, conséquence du recours accru à l'emprunt. À l'inverse, le titre VII (équipements) recule de 6,8 % ; au sein de ce titre, la ligne des équipements divers passe de 10 430,0 à 3 419,0 milliards FC, tandis que les équipements de santé passent de 146,5 à 2 920,1 milliards FC. L'analyse d'un budget ne s'arrête donc pas aux totaux : une stabilité apparente d'un titre peut recouvrir des réallocations importantes entre ses lignes." },
+      { type: 'intertitre', texte: "3.4.3 La présentation par section et par programme" },
+      { type: 'paragraphe', texte: "L'article 36 prévoit que les charges sont classées par programme ou dotation, par administration et par nature économique. Une même dépense se lit donc selon plusieurs classifications. L'achat d'appareils d'imagerie pour un hôpital public relève, par nature, du titre VII (équipements) ; par administration, de la section 37 (Santé publique, hygiène et prévoyance sociale) ; par destination, d'un programme et d'une action de ce ministère. La classification par nature sert au contrôle de la spécialité ; la classification par programme sert à mesurer la performance ; la classification par administration désigne l'ordonnateur responsable." },
+      { type: 'carte', titre: "Tableau 3.7 — Les six sections les mieux dotées du budget général 2026 (annexe XXI)", tableau: { entetes: ["Section", "Intitulé", "Crédits (milliards FC)", "Part du budget général"], lignes: [
+        ["27", "Défense et anciens combattants", "7 926,7", "16,2 %"],
+        ["30", "Finances", "6 050,9", "12,4 %"],
+        ["38", "Éducation et nouvelle citoyenneté", "5 213,5", "10,6 %"],
+        ["37", "Santé publique, hygiène et prévoyance sociale", "4 986,9", "10,2 %"],
+        ["42", "Infrastructures et travaux publics", "3 774,6", "7,7 %"],
+        ["25", "Intérieur, sécurité et décentralisation (intitulé abrégé)", "3 291,3", "6,7 %"],
+      ] }, note: "Source : annexe XXI de la loi n° 25/060 ; parts calculées par l'auteur. Ces six sections totalisent 29 243,8 milliards FC, soit 59,7 % du budget général. L'annexe détaille chaque section par programme puis par action." },
+      { type: 'intertitre', texte: "3.4.4 L'exécution effective des crédits" },
+      { type: 'filet', titre: "L'exécution des crédits selon l'Observatoire de la dépense publique", texte: "Selon le rapport d'exécution budgétaire de l'Observatoire de la Dépense Publique (ODEP) portant sur le premier trimestre 2025, le taux d'exécution global du budget était de 17,1% des crédits votés, et les dépenses d'investissement (titres VII-VIII) n'auraient exécuté que 4% de leurs crédits. Cette statistique, issue d'une organisation de la société civile et non des textes officiels, illustre un déséquilibre récurrent : les dépenses de personnel s'exécutent presque intégralement quand les investissements restent largement inexécutés - au détriment des infrastructures que le budget affiche." },
     ],
   },
   {
@@ -354,8 +387,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Les régimes juridiques des crédits : limitatifs, évaluatifs, provisionnels',
     navLabel: 'Régimes des crédits',
     blocs: [
+      { type: 'intertitre', texte: "3.5.1 La règle : des crédits limitatifs" },
       { type: 'paragraphe', texte: "L'autorisation parlementaire n'a pas partout la même rigidité. L'art. 38 pose la règle : « Sous réserve des dispositions des articles 39 et 40 de la présente loi, les crédits budgétaires sont limitatifs. Les dépenses sur crédits limitatifs ne peuvent être engagées ni ordonnancées au-delà des dotations budgétaires. » Deux exceptions seulement, chacune strictement délimitée." },
-      { type: 'carte', titre: 'Les trois régimes comparés', tableau: {
+      { type: 'intertitre', texte: "3.5.2 Les exceptions : crédits évaluatifs et provisionnels" },
+      { type: 'carte', titre: "Tableau 3.8 — Les trois régimes de crédits comparés", tableau: {
         entetes: ['Critère', 'Limitatifs (art. 38)', 'Évaluatifs (art. 39)', 'Provisionnels (art. 40)'],
         lignes: [
           ['Nature', 'Plafond absolu', 'Simple évaluation', 'Provision pour dépenses accidentelles et imprévisibles'],
@@ -363,10 +398,15 @@ const SECTIONS: Chapitre['sections'] = [
           ['Domaine', 'Règle générale (personnel, fonctionnement, investissement...)', 'Charges de la dette du pouvoir central', 'Faits de guerre, catastrophes naturelles, dépenses non chiffrables au moment du vote'],
         ],
       } },
+      { type: 'carte', titre: "Exemple 3.1 — Les crédits évaluatifs de la dette dans la séquence 2025-2026 (milliards FC)", tableau: { entetes: ["Poste", "LF 2025", "LFR 2025", "LF 2026"], lignes: [
+        ["Dette publique en capital (titre I)", "1 380,0", "1 509,6", "2 060,0"],
+        ["Frais financiers (titre II)", "331,4", "1 175,4", "907,8"],
+        ["dont intérêts de la dette intérieure", "222,1", "1 012,4", "654,4"],
+        ["dont intérêts de la dette extérieure", "109,3", "163,0", "253,4"],
+      ] }, note: "Source : tableau des dépenses par titre annexé à la loi n° 25/060. La dotation des intérêts de la dette intérieure a été multipliée par 4,6 entre la loi initiale et la LFR 2025. Le mécanisme de l'art. 39 permet de payer ces charges au-delà du crédit ouvert, à condition d'informer le Parlement des motifs du dépassement et de proposer l'ouverture des crédits correspondants dans la loi de finances rectificative. L'échéance d'une dette doit être honorée à sa date, faute de quoi l'État serait en défaut." },
       { type: 'paragraphe', texte: "L'art. 3 complète ces régimes par ses définitions : les crédits provisionnels couvrent « les dépenses liées aux événements dont la survenance ne dépend pas de la volonté de l'administration » - catastrophes naturelles, réception de personnalités étrangères, élections, entretien des détenus (pt. 15) ; les crédits limitatifs sont « les montants plafonnés [...] que les administrations ne peuvent pas dépasser » (pt. 16). Et l'art. 41 verrouille l'ensemble : toute ouverture de crédits supplémentaires « prévoit les voies et moyens nécessaires à leur exécution et s'accompagne d'un rapport adressé au Parlement par le Premier ministre » - pas de crédit nouveau sans financement identifié." },
-      { type: 'filet', titre: 'Conséquence pour le gestionnaire', texte: "Engager une dépense au-delà d'un crédit limitatif est une faute de gestion expressément visée par l'art. 129 (« qui aura engagé des dépenses sans disponibilité des crédits »), jugée par la Cour des comptes (art. 131) ; le contrôleur budgétaire doit refuser son visa (art. 112-113) et le comptable public refuser le paiement (art. 119). Seuls les crédits évaluatifs - la dette - échappent au plafond, parce que l'État ne peut pas suspendre le service de sa dette au motif que la dotation est épuisée." },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[20] },
+      { type: 'intertitre', texte: "3.5.3 Les conséquences pour le gestionnaire" },
+      { type: 'filet', titre: "Les conséquences du caractère limitatif pour le gestionnaire", texte: "Engager une dépense au-delà d'un crédit limitatif est une faute de gestion expressément visée par l'art. 129 (« qui aura engagé des dépenses sans disponibilité des crédits »), jugée par la Cour des comptes (art. 131) ; le contrôleur budgétaire doit refuser son visa (art. 112-113) et le comptable public refuser le paiement (art. 119). Seuls les crédits évaluatifs - la dette - échappent au plafond, parce que l'État ne peut pas suspendre le service de sa dette au motif que la dotation est épuisée." },
     ],
   },
   {
@@ -374,31 +414,27 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Budgets annexes et comptes spéciaux',
     navLabel: 'Annexes · comptes spéciaux',
     blocs: [
+      { type: 'intertitre', texte: "3.6.1 Les affectations organisées par la loi de finances" },
       { type: 'paragraphe', texte: "Les budgets annexes (art. 55-58) et les comptes spéciaux (art. 59-68) sont les affectations organisées de l'art. 54 : des dérogations à l'universalité, entièrement sous le contrôle de la loi de finances - leur création, leur suppression et l'affectation d'une recette « ne peuvent résulter que d'une disposition de loi de finances » (art. 55 et 60)." },
-      { type: 'carte', titre: 'Les budgets annexes (art. 55-58)', liste: [
+      { type: 'carte', titre: "Encadré 3.2 — Les budgets annexes (art. 55-58 LOFIP)", liste: [
         "**Éligibilité (art. 56)** : services du pouvoir central non dotés de la personnalité juridique, s'adonnant à titre principal à une activité de production de biens ou de prestations de services rémunérés sous forme de redevances.",
         "**Équilibre (art. 56)** : versement au budget général en cas d'excédent, subvention en cas de déficit dûment justifié par la situation bilantaire.",
         "**Présentation (art. 57)** : deux sections - opérations courantes (recettes et dépenses d'exploitation) et opérations en capital (investissements et ressources affectées).",
         "**Étanchéité (art. 58)** : aucun virement ni transfert entre un budget annexe et le budget général, ni entre budgets annexes.",
         "**Illustration LF 2025 (art. 87)** : 903,0 milliards FC de budgets annexes - enseignement supérieur et universitaire (425,8 milliards), santé publique (322,3 milliards), organismes reclassés (154,9 milliards).",
       ] },
-      { type: 'carte', titre: 'Les comptes spéciaux (art. 59-68)', tableau: {
+      { type: 'intertitre', texte: "3.6.2 Les comptes spéciaux" },
+      { type: 'carte', titre: "Tableau 3.9 — Les comptes spéciaux (art. 59-68 LOFIP)", tableau: {
         entetes: ['Catégorie', 'Objet', 'Règles clés'],
         lignes: [
           ["**Comptes d'affectation spéciale** (art. 62-65)", "Opérations budgétaires financées par des recettes particulières « par nature, en relation directe avec les dépenses concernées »", "Dépenses plafonnées aux recettes constatées, sauf découvert borné pendant les trois mois suivant la création (art. 65) ; aucun versement vers le budget général sauf dérogation expresse (art. 63) ; excédent de recettes en cours d'année → crédits supplémentaires dans la limite de l'excédent, ratifiés en LFR (art. 64)"],
           ['**Comptes de concours financiers** (art. 66-68)', 'Prêts et avances consentis par le pouvoir central à une personne physique ou morale, un compte distinct par débiteur ou catégorie de débiteurs', "Crédits **limitatifs** ; durée déterminée ; taux d'intérêt au plus égal au taux interbancaire de même échéance, sauf avances sur dépenses de personnel (art. 67) ; échéance impayée → recouvrement immédiat (poursuites sous 6 mois), rééchelonnement ou constatation d'une perte imputée au résultat (art. 68)"],
         ],
       }, note: "Sauf dispositions contraires d'une loi de finances, le solde de chaque compte spécial est reporté sur l'année suivante (art. 61) - à la différence des crédits du budget général, que la loi portant reddition des comptes annule (art. 29). Exemple récent : le Fonds d'Investissement Stratégique de la RDC, créé comme compte d'affectation spéciale par l'art. 51 de la LF 2026." },
+      { type: 'paragraphe', texte: "La loi de finances pour 2026 fournit un exemple de compte d'affectation spéciale. Son article 51 institue le **Fonds d'investissement stratégique de la RDC (FIS-RDC)**, alimenté par 25 % des pas-de-porte, royalties, primes de cession et redevances supplémentaires perçus sur les entreprises du portefeuille de l'État, 50 % de la redevance sur les commissions de mobile money et 30 % du Fonds minier pour les générations futures ; les versements interviennent dans les quinze jours suivant la fin de chaque trimestre (art. 52). La création résulte bien d'une disposition de loi de finances, comme l'exige l'article 60 de la LOFIP. Le compte déroge à l'universalité, puisque des recettes déterminées financent une catégorie déterminée de dépenses ; il reste soumis à l'autorisation parlementaire, puisque ses opérations sont prévues, autorisées et exécutées dans les mêmes conditions que celles du budget auquel il est rattaché (art. 61)." },
+      { type: 'intertitre', texte: "3.6.3 Les procédures particulières" },
       { type: 'paragraphe', texte: "Trois **procédures particulières** complètent le dispositif au sein du budget général, d'un budget annexe ou d'un compte spécial (art. 69) : les *fonds de concours* - fonds non fiscaux versés par des tiers pour des dépenses d'intérêt public et produits de legs et donations, portés directement en recettes avec ouverture de crédits de même montant par arrêté du Ministre du Budget, l'emploi devant rester conforme à l'intention de la partie versante (art. 70-71) ; les *attributions de produits* - recettes de prestations régulièrement fournies par un service, affectées à ce service par arrêté (art. 72) ; et le *rétablissement de crédits* - restitution de sommes payées indûment ou à titre provisoire et recettes de cessions de biens et services (art. 73)." },
-      { type: 'controle', question: QCM[5] },
-      { type: 'controle', question: QCM[9] },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[13] },
-      { type: 'controle', question: QCM[19] },
-      { type: 'controle', question: QCM[18] },
-      { type: 'controle', question: QCM[14] },
+      { type: 'paragraphe', texte: "La LFR 2025 illustre la procédure des fonds de concours : elle inscrit en recettes une ligne de 59,1 milliards FC intitulée « fonds de concours pour la guerre » (annexe II). Ces fonds, versés par des tiers pour une dépense d'intérêt public, sont portés directement en recettes, et des crédits de même montant sont ouverts par arrêté du Ministre du Budget. Leur emploi doit rester conforme à l'intention de la partie versante (art. 70-71). La procédure évite de faire transiter ces sommes par la masse commune des recettes, où elles perdraient leur destination." },
     ],
   },
 ]
