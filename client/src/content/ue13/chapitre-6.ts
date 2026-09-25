@@ -440,6 +440,58 @@ const QCM: Chapitre['qcm'] = [
     explication: "AUDCIF, art. 17 : l'organisation comptable doit respecter « la tenue de la comptabilité dans la langue officielle et dans l'unité monétaire ayant cours légal dans l'État partie ». Une entité congolaise dont la monnaie fonctionnelle IFRS est le dollar tient donc sa comptabilité légale en francs congolais et établit ses états IFRS par conversion.",
     articleRef: "AUDCIF, art. 17 ; IAS 21.34",
   },
+  {
+    id: 'ue13c6-q33',
+    question: "Selon IAS 19, quand une entreprise congolaise comptabilise-t-elle le coût des congés payés, alors que le droit au congé ne naît qu'après une année de services (Code du travail, art. 140) ?",
+    options: [
+      { id: 'a', texte: "Uniquement lorsque le travailleur prend son congé" },
+      { id: 'b', texte: "Au fur et à mesure que les services sont rendus, les droits étant cumulables, en tenant compte de la probabilité que certains droits non acquis ne soient pas utilisés" },
+      { id: 'c', texte: "Uniquement à l'expiration de l'année de services" },
+      { id: 'd', texte: "Jamais, le congé étant une obligation légale" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 19.13(a), 15 et 16 : pour des droits à absences rémunérées cumulables, l'obligation naît lorsque les services qui donnent droit aux absences futures sont rendus, même si les droits ne sont pas encore acquis ; l'évaluation tient compte de la possibilité que des salariés partent avant de les acquérir.",
+    articleRef: "IAS 19.13-16 ; Code du travail, art. 140-142",
+  },
+  {
+    id: 'ue13c6-q34',
+    question: "Comment sont comptabilisés les écarts actuariels sur une prime d'ancienneté versée aux vingt ans de service ?",
+    options: [
+      { id: 'a', texte: "En autres éléments du résultat global, comme pour les régimes postérieurs à l'emploi" },
+      { id: 'b', texte: "En résultat net : il s'agit d'un autre avantage à long terme" },
+      { id: 'c', texte: "Directement en capitaux propres" },
+      { id: 'd', texte: "Ils ne sont pas comptabilisés" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 19.153-156 : pour les autres avantages à long terme, dont les primes d'ancienneté, le coût des services, les intérêts nets et les réévaluations sont comptabilisés en résultat net ; la norme justifie cette simplification par le moindre degré d'incertitude de leur évaluation (§ 154).",
+    articleRef: "IAS 19.153-156",
+  },
+  {
+    id: 'ue13c6-q35',
+    question: "Une entreprise propose le 1er novembre un plan de départs volontaires ouvert jusqu'au 15 janvier. Au 31 décembre, 20 salariés sur 60 ont accepté. Quel passif comptabilise-t-elle ?",
+    options: [
+      { id: 'a', texte: "Pour les 60 salariés, dès la proposition du plan" },
+      { id: 'b', texte: "Pour les 20 salariés ayant accepté, l'entité ne pouvant plus retirer son offre à leur égard" },
+      { id: 'c', texte: "Aucun avant la clôture de l'offre" },
+      { id: 'd', texte: "Pour les 40 salariés n'ayant pas encore répondu" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 19.165-166 : pour des indemnités payables par suite de l'acceptation d'une offre, l'entité ne peut plus retirer son offre à la première des dates suivantes : l'acceptation par le salarié ou la prise d'effet d'une restriction à la faculté de retrait.",
+    articleRef: "IAS 19.165-166",
+  },
+  {
+    id: 'ue13c6-q36',
+    question: "Une société mère prête à sa filiale étrangère un montant dont le remboursement n'est ni planifié ni probable. Où sont comptabilisés, dans les états consolidés, les écarts de change sur ce prêt ?",
+    options: [
+      { id: 'a', texte: "En résultat net" },
+      { id: 'b', texte: "En autres éléments du résultat global, puis reclassés en résultat net lors de la sortie de l'investissement net" },
+      { id: 'c', texte: "Ils sont éliminés sans effet" },
+      { id: 'd', texte: "En résultats non distribués" },
+    ],
+    reponseCorrecte: 'b',
+    explication: "IAS 21.15 et 32 : le prêt fait partie de l'investissement net dans l'établissement à l'étranger. Les écarts de change vont en résultat net dans les états individuels, mais en autres éléments du résultat global dans les états qui incluent l'établissement et la mère, puis sont reclassés lors de la sortie (§ 48).",
+    articleRef: "IAS 21.15, 32-33, 48",
+  },
 ]
 
 const SECTIONS: Chapitre['sections'] = [
@@ -775,6 +827,24 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Pour intégrer un établissement à l'étranger par consolidation ou mise en équivalence, les procédures de consolidation normales s'appliquent, mais un élément monétaire intragroupe ne peut être éliminé sans que soit présenté l'effet des fluctuations de change (§ 45). Le goodwill et les ajustements de juste valeur issus de l'acquisition sont des actifs et passifs de l'établissement à l'étranger, libellés dans sa monnaie fonctionnelle et convertis au cours de clôture (§ 47). Lors de la sortie, le cumul des écarts de conversion est reclassé en résultat net (§ 48), une réduction de valeur ne constituant pas une sortie partielle (§ 49). Les conséquences fiscales des écarts de change relèvent d'IAS 12 (§ 50). L'entité indique le montant des écarts de change comptabilisés en résultat net et le rapprochement des écarts cumulés en capitaux propres (§ 52).",
       },
+      {
+        type: 'paragraphe',
+        texte: "Un cas particulier concerne les prêts intragroupe dont le règlement n'est ni planifié ni probable dans un avenir prévisible : ils font en substance partie de l'investissement net dans l'établissement à l'étranger (§ 15). Les écarts de change qu'ils génèrent sont comptabilisés en résultat net dans les états individuels. Le § 32 ajoute : « Dans les états financiers qui incluent l'établissement à l'étranger et l'entité présentant l'information financière (par exemple, les états financiers consolidés lorsque l'établissement à l'étranger est une filiale), ces écarts de change doivent être comptabilisés initialement dans les autres éléments du résultat global » ; ils sont reclassés en résultat net lors de la sortie de l'investissement (§ 48).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 6.8 — Prêt d'une société mère congolaise à sa filiale zambienne",
+        texte: "Une société mère dont la monnaie fonctionnelle est le dollar prête 1 000 000 USD à sa filiale zambienne, dont la monnaie fonctionnelle est le kwacha ; aucun remboursement n'est prévu ni probable. Le cours passe de 25 à 27 ZMW pour 1 USD au cours de l'exercice (cours hypothétiques).",
+        tableau: {
+          entetes: ['États financiers', 'Écart de change', 'Comptabilisation'],
+          lignes: [
+            ['États individuels de la mère', "Aucun : le prêt est libellé dans sa monnaie fonctionnelle", '—'],
+            ['États individuels de la filiale', "Dette portée de 25 000 000 à 27 000 000 ZMW : perte de 2 000 000 ZMW", 'Résultat net (§ 28 et 32)'],
+            ['États consolidés', "Même écart, converti en dollars", 'Autres éléments du résultat global (§ 32-33), reclassés en résultat net lors de la cession de la filiale (§ 48)'],
+          ],
+        },
+        note: "En consolidation, la perte de change de la filiale sur sa dette envers la mère est compensée économiquement par l'augmentation, en dollars, de la valeur de l'actif net de la filiale lors de la conversion : présenter la seule perte en résultat donnerait une image erronée de la performance du groupe. Le § 32 la transfère donc en autres éléments du résultat global, aux côtés des écarts de conversion.",
+      },
     ],
   },
   {
@@ -805,6 +875,24 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les avantages à court terme sont comptabilisés pour leur montant non actualisé, en passif après déduction des sommes déjà versées, et en charges sauf incorporation dans le coût d'un actif (§ 11). Les absences rémunérées cumulables, reportables sur des périodes futures, sont comptabilisées à mesure que le personnel rend les services qui génèrent les droits, même si ceux-ci ne sont pas acquis ; les absences non cumulables le sont lorsqu'elles se produisent (§ 13-18). Les primes et l'intéressement ne sont comptabilisés que si l'entité a une obligation actuelle, juridique ou implicite, et si une estimation fiable est possible (§ 19) ; l'évaluation tient compte des départs attendus (§ 20).",
       },
+      {
+        type: 'paragraphe',
+        texte: "Le droit congolais du travail fournit une application directe de cette distinction. L'employeur est tenu d'accorder un congé annuel auquel le travailleur ne peut renoncer ; le droit au congé naît à l'expiration d'une année de services, et le travailleur « ne peut éventuellement cumuler que la moitié des congés pendant une période de deux ans » (Code du travail, art. 140). La durée du congé est d'au moins un jour ouvrable par mois entier de service pour le travailleur de plus de dix-huit ans, augmentée d'un jour par tranche de cinq années d'ancienneté (art. 141), et l'allocation de congé est égale à la rémunération dont le travailleur jouit au moment du départ (art. 142). Les droits se constituent donc mois après mois et peuvent, dans une certaine mesure, être reportés : ce sont des droits cumulables au sens d'IAS 19, que l'entité comptabilise au fur et à mesure que les services sont rendus, même lorsqu'ils ne sont pas encore acquis (§ 13(a) et 15), pour le montant supplémentaire qu'elle s'attend à payer du fait du cumul des droits non utilisés (§ 16).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 6.9 — Provision pour congés payés au 31 décembre N",
+        texte: "Une entreprise emploie 100 travailleurs de plus de dix-huit ans. Au 31 décembre N, ils ont constitué en moyenne 7 jours de congé non encore pris, dont une partie au titre d'années de service non encore achevées. L'entreprise estime, d'après son expérience, que 5 % de ces droits ne seront jamais utilisés, du fait de départs avant l'ouverture du droit. Le coût journalier moyen, calculé sur la rémunération servant de base à l'allocation de congé, est de 60 USD.",
+        tableau: {
+          entetes: ['Élément', 'Calcul', 'Montant (USD)'],
+          lignes: [
+            ['Droits constitués', '100 × 7 jours', '700 jours'],
+            ['Droits dont l\'utilisation est attendue', '700 × 95 %', '665 jours'],
+            ['**Passif au titre des congés payés**', '665 × 60', '**39 900**'],
+          ],
+        },
+        note: "Le passif est évalué sans actualisation, les congés étant pris dans les douze mois (§ 11). Il n'est pas limité aux droits nés au sens de l'article 140 : un droit non encore acquis, mais constitué par les services déjà rendus, est une obligation dont la probabilité d'utilisation entre dans l'évaluation (§ 15). Le coût journalier doit inclure les éléments variables de rémunération retenus pour l'allocation de congé (art. 142).",
+      },
       { type: 'intertitre', texte: "6.6.3 Régimes à cotisations définies et régimes à prestations définies" },
       {
         type: 'paragraphe',
@@ -812,7 +900,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 6.8 — Cotisations patronales à la CNSS",
+        titre: "Exemple 6.10 — Cotisations patronales à la CNSS",
         texte: "Le décret n° 18/041 du 24 novembre 2018 fixe les taux des cotisations dues à la Caisse nationale de sécurité sociale : branche des prestations aux familles, 6,5 % à charge exclusive de l'employeur ; branche des pensions, 10 %, dont 5 % à charge de l'employeur ; branche des risques professionnels, 1,5 % à charge exclusive de l'employeur (art. 2 à 4), sous réserve d'une révision ultérieure de ces taux. Une entreprise dont la masse salariale de décembre N s'élève à 100 000 000 CDF règle ses cotisations en janvier N+1.",
         tableau: {
           entetes: ['Branche', 'Taux employeur', 'Charge de décembre (CDF)'],
@@ -860,7 +948,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 6.9 — Indemnité de départ à la retraite (agent B)",
+        titre: "Exemple 6.11 — Indemnité de départ à la retraite (agent B)",
         texte: "Illustration du support d'origine, rectifiée. Au 31 décembre N, l'agent B a 55 ans et 20 ans d'ancienneté ; il partira à la retraite à 65 ans, dans 10 ans, avec 30 ans d'ancienneté. Salaire mensuel actuel : 1 200 USD ; augmentation annuelle estimée : 3 %. Règle conventionnelle retenue par l'énoncé : un mois de salaire par tranche de cinq années d'ancienneté. Taux d'actualisation : 8 %. Pour simplifier, les probabilités de départ anticipé et de décès sont ignorées.",
         tableau: {
           entetes: ['Étape', 'Calcul', 'Montant (USD)'],
@@ -911,10 +999,41 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Les autres avantages à long terme comprennent notamment les congés liés à l'ancienneté, les primes d'ancienneté, les prestations d'invalidité de longue durée et la rémunération différée, lorsque leur règlement intégral n'est pas attendu dans les douze mois (§ 153). Leur évaluation étant habituellement moins incertaine que celle des avantages postérieurs à l'emploi, la norme prévoit une méthode simplifiée : l'obligation est évaluée selon la méthode des unités de crédit projetées, mais le total net du coût des services, des intérêts nets et des réévaluations est comptabilisé en résultat net (§ 154-156). Une médaille du travail ou une prime versée après vingt ans de service relève de cette catégorie.",
       },
+      {
+        type: 'carte',
+        titre: "Exemple 6.12 — Prime d'ancienneté versée aux vingt ans de service (en USD)",
+        texte: "Une entreprise verse à chaque salarié une prime égale à deux mois de salaire lorsqu'il atteint vingt ans de service. Au 1er janvier N, l'obligation évaluée selon la méthode des unités de crédit projetées s'élève à 80 000. Pour N : coût des services rendus 12 000 ; taux d'actualisation 9 % ; primes versées 5 000 en fin d'exercice. L'actuaire évalue l'obligation à 100 000 au 31 décembre N.",
+        tableau: {
+          entetes: ['Élément', 'Calcul', 'Montant', 'Comptabilisation'],
+          lignes: [
+            ["Obligation d'ouverture", '', '80 000', ''],
+            ['Coût des services rendus', '', '+12 000', 'Résultat net'],
+            ['Intérêts nets', '80 000 × 9 %', '+7 200', 'Résultat net'],
+            ['Prestations versées', '', '−5 000', ''],
+            ['Obligation attendue', '', '94 200', ''],
+            ['**Réévaluation (perte actuarielle)**', '100 000 − 94 200', '**+5 800**', '**Résultat net (§ 156)**'],
+          ],
+        },
+        note: "Pour une indemnité de départ à la retraite, la perte actuarielle de 5 800 serait portée en autres éléments du résultat global (§ 120). Pour une prime d'ancienneté, autre avantage à long terme, l'ensemble des variations passe en résultat net : la norme justifie cette simplification par le moindre degré d'incertitude de ces évaluations (§ 154). La charge totale de N s'élève à 12 000 + 7 200 + 5 800 = 25 000.",
+      },
       { type: 'intertitre', texte: "6.8.2 Les indemnités de cessation d'emploi" },
       {
         type: 'paragraphe',
         texte: "Pour les indemnités de cessation d'emploi, l'événement qui génère l'obligation n'est pas le service rendu, mais la cessation d'emploi résultant de la décision de l'entité ou de l'acceptation par le salarié d'une offre d'indemnités (§ 159). Les prestations dues en cas de départ à l'initiative du salarié ou de retraite obligatoire sont des avantages postérieurs à l'emploi ; seule la différence entre l'indemnité versée à l'initiative de l'entité et celle due à l'initiative du salarié constitue une indemnité de cessation d'emploi (§ 160). Des prestations dont le paiement est certain mais la date incertaine sont des avantages postérieurs à l'emploi, même si elles sont appelées indemnités de licenciement (§ 164).",
+      },
+      {
+        type: 'carte',
+        titre: "Exemple 6.13 — Plan de départs volontaires et plan de licenciement",
+        texte: "Le 1er novembre N, une société de brassage propose à ses 60 agents de maintenance une indemnité de départ volontaire de 10 000 USD chacun, offre ouverte jusqu'au 15 janvier N+1. Au 31 décembre N, 20 agents ont accepté. Par ailleurs, le 15 décembre N, elle communique aux 30 salariés d'un dépôt qu'elle ferme un plan de licenciement détaillé (effectifs, fonctions, lieux, calendrier et indemnités de 6 000 USD chacun), dont il est improbable qu'il soit modifié.",
+        tableau: {
+          entetes: ['Plan', "Date à laquelle l'entité ne peut plus retirer son offre", 'Passif au 31/12/N (USD)', 'Fondement'],
+          lignes: [
+            ['Départs volontaires', "Acceptation par chaque salarié (ou prise d'effet d'une restriction à la faculté de retrait)", '20 × 10 000 = 200 000', 'IAS 19.166'],
+            ['Licenciement', 'Communication du plan satisfaisant aux critères du § 167, le 15 décembre N', '30 × 6 000 = 180 000', 'IAS 19.167'],
+            ['**Total**', '', '**380 000**', 'IAS 19.165'],
+          ],
+        },
+        note: "Les 40 agents qui n'ont pas encore accepté l'offre ne donnent lieu à aucun passif en N ; leurs acceptations en janvier N+1 seront comptabilisées en N+1. Si la fermeture du dépôt entrait dans une restructuration comptabilisée selon IAS 37 à une date antérieure, le passif serait comptabilisé à cette date (§ 165(b)).",
       },
       {
         type: 'filet',
@@ -923,7 +1042,7 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'carte',
-        titre: "Exemple 6.10 — Départ immédiat à la retraite (agent A)",
+        titre: "Exemple 6.14 — Départ immédiat à la retraite (agent A)",
         texte: "Illustration du support d'origine, rectifiée. L'agent A part à la retraite à 65 ans avec 25 ans d'ancienneté ; son dernier salaire mensuel est de 1 000 USD. Règle conventionnelle retenue par l'énoncé : un mois de salaire par tranche de cinq ans.",
         tableau: {
           entetes: ['Élément', 'Calcul', 'Montant (USD)'],
@@ -1088,6 +1207,7 @@ const chapitre: Chapitre = {
     "La conversion dans une monnaie de présentation applique le cours de clôture aux actifs et passifs et le cours des transactions aux produits et charges ; l'écart va dans les autres éléments du résultat global (IAS 21.39).",
     "Les cotisations à un régime général et obligatoire tel que celui de la CNSS relèvent normalement des cotisations définies (IAS 19.43-45). Un régime à prestations définies s'évalue selon la méthode des unités de crédit projetées, qui rattache la prestation projetée aux seules années de service rendues (§ 67-70).",
     "Coût des services et intérêts nets vont en résultat net, réévaluations en autres éléments du résultat global sans reclassement (IAS 19.120-122) ; le SYSCOHADA comptabilise les écarts actuariels en résultat. Les indemnités de cessation d'emploi sont comptabilisées lorsque l'offre ne peut plus être retirée ou lors de la restructuration (§ 165).",
+    "Les congés payés du Code du travail (art. 140-142) sont des droits cumulables : leur coût est comptabilisé au fur et à mesure des services rendus (IAS 19.13-16). Les autres avantages à long terme, comme les primes d'ancienneté, ont toutes leurs variations en résultat net (§ 156) ; les indemnités de cessation d'emploi naissent quand l'entité ne peut plus retirer son offre (§ 165-167). Les écarts de change sur un prêt intragroupe faisant partie de l'investissement net vont en autres éléments du résultat global en consolidation (IAS 21.32).",
   ],
   references: [
     { genre: 'texte', intitule: "IAS 12 — Impôts sur le résultat", precision: "objectif, §§ 1 à 36, 46 à 61A, 71 à 81 (texte français intégral)" },
@@ -1097,6 +1217,7 @@ const chapitre: Chapitre = {
     { genre: 'texte', intitule: "Loi n° 23/053 du 30 novembre 2023 relative à l'impôt sur les sociétés et à l'impôt sur le revenu des personnes physiques", precision: "art. 56 (taux de l'IS) et 57 (impôt minimum)" },
     { genre: 'texte', intitule: "Décret n° 18/041 du 24 novembre 2018 fixant les taux des cotisations dues à la CNSS", precision: "art. 2 à 4" },
     { genre: 'texte', intitule: "J.-B. Tshimanga Mulumba (CPCC), Impôts différés, monnaies étrangères & avantages du personnel", precision: "support de cours, module 6 : illustrations MBOKA INDUSTRIES, KASA SARL, JBM SARL et agents A et B" },
+    { genre: 'texte', intitule: "Code du travail de la RDC (loi n° 015/2002 du 16 octobre 2002, modifiée par la loi n° 16/010 du 15 juillet 2016)", precision: "art. 140 à 142 (congé annuel)" },
   ],
   qcm: QCM,
   casPratiques: CAS,

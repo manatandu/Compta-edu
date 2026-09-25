@@ -68,11 +68,11 @@ const CHAPITRES = [
     num: 6,
     titre: "Impôts différés, monnaies étrangères et avantages du personnel",
     sousTitre: "IAS 12 · IAS 21 · IAS 19 · AUDCIF art. 17 · SYSCOHADA ch. 21-22",
-    duree: "9h",
+    duree: "10h",
     actif: true,
     route: '/ue13/chapitre-6',
     lecons: 8,
-    exercices: 36,
+    exercices: 40,
     couleur: 'bg-purple-50 text-purple-700',
     accent: 'border-l-purple-500',
   },
@@ -130,7 +130,7 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>274 QCM</span>
+            <span>278 QCM</span>
             <span>34 cas pratiques</span>
           </div>
         </div>
