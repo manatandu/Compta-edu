@@ -91,12 +91,12 @@ const CHAPITRES = [
   {
     num: 8,
     titre: "Présentation des états financiers et méthodes comptables",
-    sousTitre: "IAS 1 · IFRS 18 · IAS 7 · IAS 8 · IAS 10 · SYSCOHADA Titre V",
-    duree: "8h",
+    sousTitre: "IAS 1 · IFRS 18 · IAS 7 · IAS 8 · IAS 10 · SYSCOHADA Titres V, VIII et IX",
+    duree: "10h",
     actif: true,
     route: '/ue13/chapitre-8',
     lecons: 8,
-    exercices: 36,
+    exercices: 45,
     couleur: 'bg-rose-50 text-rose-700',
     accent: 'border-l-rose-500',
   },
@@ -130,8 +130,8 @@ export default function UE13IFRSPage() {
           </p>
           <div className="flex gap-4 mt-3 text-xs text-sky-200">
             <span>72 leçons</span>
-            <span>246 QCM</span>
-            <span>33 cas pratiques</span>
+            <span>254 QCM</span>
+            <span>34 cas pratiques</span>
           </div>
         </div>
       </div>
