@@ -335,18 +335,19 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'architecture de la décentralisation financière",
     navLabel: 'Architecture',
     blocs: [
+      { type: 'intertitre', texte: "8.1.1 Un État unitaire décentralisé" },
       {
         type: 'paragraphe',
         texte: "La Constitution du 18 février 2006 organise un État unitaire fortement décentralisé. Son article 171 pose le principe cardinal : *« Les finances du pouvoir central et celles des provinces sont distinctes. »* Son article 175 ajoute que le budget des recettes et des dépenses de l'État — celui du pouvoir central et des provinces — est arrêté chaque année par une loi, et que la part des recettes à caractère national allouée aux provinces est établie à **40 %**, retenue à la source.",
       },
+      { type: 'intertitre', texte: "8.1.2 Trois niveaux, trois actes budgétaires" },
       {
         type: 'paragraphe',
         texte: "Trois niveaux de gouvernance budgétaire coexistent ainsi : le **pouvoir central** (loi de finances votée par le Parlement), la **province** (édit budgétaire voté par l'Assemblée provinciale, qui légifère par voie d'édit selon l'article 197 de la Constitution) et les **entités territoriales décentralisées** (décision budgétaire votée par l'organe délibérant local). L'article 133 de la LOFIP énumère les ETD : *« la ville, la commune, le secteur ou la chefferie »* — la ville en fait partie, ce qu'on oublie souvent.",
       },
-      { type: 'controle', question: QCM[0] },
       {
         type: 'carte',
-        titre: "Les définitions légales de l'article 3 de la LOFIP",
+        titre: "Encadré 8.1 — Les définitions légales de l'article 3 de la LOFIP",
         liste: [
           "**Édit budgétaire** (pt 19) : acte par lequel sont prévues et autorisées, *par l'Assemblée provinciale*, les ressources et les charges provinciales d'un exercice budgétaire — traduction financière annuelle du programme d'action de développement de la province.",
           "**Décision budgétaire** (pt 18, rédaction 2011) : le même acte, pour les ressources et charges locales, voté par les organes délibérants des ETD.",
@@ -357,9 +358,9 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "La loi n° 23/030 du 28 juin 2023 a porté la liste des définitions à 43 points, en insérant notamment le « débat d'orientation budgétaire » et la « dotation budgétaire » ; la numérotation des points cités ici est celle du texte de 2011.",
       },
-      { type: 'controle', question: QCM[1] },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 8.1 — Les trois niveaux de gouvernance budgétaire et leurs actes",
         tableau: {
           entetes: ['Niveau', 'Acte budgétaire', 'Organe votant', 'Base'],
           lignes: [
@@ -369,13 +370,12 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "8.1.3 Le fondement constitutionnel des compétences" },
       {
         type: 'filet',
-        titre: 'Le socle constitutionnel des compétences',
+        titre: "Le fondement constitutionnel de la répartition des compétences",
         texte: "La répartition des compétences (Constitution, art. 201 à 204) fonde la répartition des charges : les « finances publiques de la République » sont de la compétence exclusive du pouvoir central (art. 202 point 9), tandis que « les finances publiques provinciales », « la dette publique provinciale » et « les emprunts intérieurs pour les besoins des provinces » relèvent de la compétence exclusive des provinces (art. 204 points 5 à 7). L'article 205 interdit à chaque législateur d'empiéter sur la compétence exclusive de l'autre, la législation nationale primant sur l'édit provincial dans les matières concurrentes.",
       },
-      { type: 'controle', question: QCM[2] },
-      { type: 'controle', question: QCM[3] },
     ],
   },
   {
@@ -383,20 +383,20 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La répartition des recettes à caractère national',
     navLabel: 'Retenue de 40 %',
     blocs: [
+      { type: 'intertitre', texte: "8.2.1 Le droit des provinces à 40 %" },
       {
         type: 'paragraphe',
         texte: "L'article 218 de la LOFIP met en œuvre l'article 175 de la Constitution : *« les provinces ont droit à quarante pour cent des recettes à caractère national retenues à la source »*, les modalités de cette retenue étant décrites aux articles 219 à 222. Le même article tempère aussitôt ce droit : l'allocation *« tient compte du transfert effectif des compétences et des responsabilités en matière des dépenses »*, et le pouvoir central peut retenir de la quote-part provinciale le coût des compétences non transférées, **dans les conditions définies par une loi de finances** — jamais par simple acte réglementaire.",
       },
-      { type: 'controle', question: QCM[5] },
       {
         type: 'carte',
-        titre: "La « retenue à la source » : une opération bancaire (art. 3 pt 39 LOFIP)",
+        titre: "Encadré 8.2 — La retenue à la source, une opération bancaire (art. 3 pt 39 LOFIP)",
         texte: "La LOFIP définit la retenue à la source comme *« l'opération bancaire qui consiste à créditer le compte d'une province génératrice des recettes, d'une quotité de 40 % sur le montant total recouvré au titre des recettes à caractère national lors du nivellement au profit du compte général du trésor de l'ensemble de recettes mobilisées dans la province »*. La part provinciale n'est donc pas rétrocédée après coup par le Trésor : elle est prélevée au moment même du nivellement des comptes vers le Compte général du Trésor.",
       },
-      { type: 'controle', question: QCM[6] },
+      { type: 'intertitre', texte: "8.2.2 Les deux catégories de recettes" },
       {
         type: 'carte',
-        titre: "Les deux catégories de recettes à caractère national (art. 219 LOFIP)",
+        titre: "Tableau 8.2 — Les deux catégories de recettes à caractère national (art. 219 LOFIP)",
         tableau: {
           entetes: ['Catégorie A', 'Catégorie B'],
           lignes: [
@@ -407,29 +407,33 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
-      { type: 'controle', question: QCM[7] },
+      { type: 'intertitre', texte: "8.2.3 Les mécanismes de répartition" },
       {
         type: 'paragraphe',
         texte: "Le mécanisme de répartition diffère selon la catégorie. Pour la **catégorie A**, l'article 220 prévoit que la retenue de 40 % est portée au compte de la province génératrice *« lors du nivellement au profit du Compte général du Trésor, sur instruction permanente du ministre ayant les finances dans ses attributions conformément aux prescrits du Règlement général sur la comptabilité publique »* : la province qui génère la recette la conserve. Pour la **catégorie B**, l'article 221 organise une mutualisation : la retenue de 40 % s'effectue au profit de l'ensemble des provinces, *« suivant leur capacité contributive et leur poids démographique »*, selon les modalités d'un arrêté conjoint des ministres ayant les finances et le budget dans leurs attributions.",
       },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[9] },
       {
         type: 'filet',
         titre: "L'allocation compensatoire pétrolière",
         texte: "L'article 221 alinéa 2 ajoute : « S'agissant des recettes pétrolières inclues dans la catégorie B, une allocation de 10 % de la part revenant aux provinces est attribuée à la province productrice à titre compensatoire pour réparer notamment les dommages d'environnement résultant de l'extraction. » Cette allocation est textuellement limitée au pétrole : une province minière ne peut pas l'invoquer pour le cuivre ou le cobalt sans modification législative.",
       },
-      { type: 'controle', question: QCM[10] },
       {
         type: 'carte',
-        titre: 'Application chiffrée — loi de finances n° 25/060 pour 2026',
+        titre: "Encadré 8.3 — Les montants inscrits dans la loi de finances n° 25/060 pour 2026",
         liste: [
           "**Art. 8** : part des recettes à caractère national allouée aux provinces : **7 694 540 952 980 FC** (environ 7 694,5 milliards).",
           "**Art. 9** : ressources de la Caisse nationale de péréquation : **744 632 995 450 FC** (environ 744,6 milliards).",
         ],
         note: "Ces montants sont rapportés à des recettes du budget général arrêtées à 48 969 279 573 100 FC (art. 7) et à un budget du pouvoir central en équilibre à 54 335 751 192 461 FC (art. 6).",
       },
-      { type: 'controle', question: QCM[11] },
+      { type: 'intertitre', texte: "8.2.4 L'évolution des transferts entre 2025 et 2026" },
+      { type: 'carte', titre: "Tableau 8.3 — Les transferts aux provinces et aux territoires dans les lois de finances 2025 et 2026 (milliards FC)", tableau: { entetes: ["Transfert", "LF 2025", "LF 2026", "Variation"], lignes: [
+        ["Part des recettes à caractère national allouée aux provinces", "9 505,8 (art. 9)", "7 694,5 (art. 8)", "- 19,1 %"],
+        ["Caisse nationale de péréquation", "2 376,5 (art. 10)", "744,6 (art. 9)", "- 68,7 %"],
+        ["Programme de développement local des 145 territoires", "824,7", "824,7 (art. 80)", "Stable"],
+      ] }, note: "Source : lois de finances n° 24/011 et n° 25/060 ; variations calculées par l'auteur." },
+      { type: 'paragraphe', texte: "Ces chiffres appellent une lecture juridique. Le recul de la part provinciale intervient alors que les recettes du budget général progressent. Plusieurs éléments du droit positif doivent être mobilisés pour l'analyser. D'abord, les 40 % portent sur les seules recettes à caractère national des catégories A et B, et non sur l'ensemble du budget général, qui comprend aussi les dons et les emprunts. Ensuite, l'article 218 permet de tenir compte du transfert effectif des compétences et des charges. Enfin, le décret n° 22/37 prévoit que l'avant-projet de cadre budgétaire adressé aux provinces chiffre « le coût des compétences et responsabilités non transférées à retenir sur la quote-part des recettes à caractère national dévolue aux provinces » (art. 15). L'analyste doit donc vérifier, dans les annexes de chaque loi, l'assiette retenue et les retenues opérées avant de conclure à une diminution des droits des provinces." },
+      { type: 'paragraphe', texte: "La répartition entre provinces est par ailleurs très concentrée. Selon l'annexe XI de la loi de finances pour 2025, Kinshasa reçoit 14,77 % de la part provinciale, le Haut-Katanga 10,16 % et le Kongo Central 8,21 % : trois provinces sur vingt-six perçoivent le tiers de l'enveloppe. Viennent ensuite le Nord-Kivu (5,13 %) et le Sud-Kivu (4,80 %). Cette concentration est la conséquence directe d'une retenue à la source assise sur les recettes générées dans chaque province ; elle justifie l'existence d'un mécanisme de péréquation." },
     ],
   },
   {
@@ -437,18 +441,19 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'La Caisse nationale de péréquation',
     navLabel: 'Péréquation',
     blocs: [
+      { type: 'intertitre', texte: "8.3.1 Le fondement de la péréquation" },
       {
         type: 'paragraphe',
         texte: "La retenue de 40 % avantage mécaniquement les provinces à forte base économique. La Constitution y répond par la **péréquation** : son article 181 institue une Caisse nationale de péréquation, *dotée de la personnalité juridique*, avec pour mission *« de financer des projets et programmes d'investissement public, en vue d'assurer la solidarité nationale et de corriger le déséquilibre de développement entre les provinces et entre les autres entités territoriales décentralisées »*. Elle dispose d'un budget alimenté par le Trésor public *« à concurrence de dix pour cent de la totalité des recettes à caractère national revenant à l'État chaque année »*, est placée sous la tutelle du Gouvernement, et une loi organique fixe son organisation et son fonctionnement.",
       },
-      { type: 'controle', question: QCM[12] },
+      { type: 'intertitre', texte: "8.3.2 Le financement de la Caisse" },
       {
         type: 'paragraphe',
         texte: "L'article 222 de la LOFIP articule ce financement avec la catégorisation des recettes : le budget de la Caisse est alimenté *« à concurrence de dix pour cent de la totalité des recettes de catégorie A et B telle que définies à l'article 219 »*. Ce prélèvement de 10 % est distinct de la retenue de 40 % : il porte sur la totalité des recettes des deux catégories, y compris la part qui alimente le budget du pouvoir central, et finance exclusivement des **dépenses d'investissement** — les articles 148 et 149 rangent d'ailleurs les ressources provenant de la Caisse parmi les *recettes en capital* des provinces et des ETD.",
       },
-      { type: 'controle', question: QCM[13] },
       {
-        type: 'tableau',
+        type: 'carte',
+        titre: "Tableau 8.4 — Retenue à la source et péréquation comparées",
         tableau: {
           entetes: ['Mécanisme', 'Base constitutionnelle', 'Articles LOFIP', 'Taux', 'LF 2026'],
           lignes: [
@@ -457,12 +462,14 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "8.3.3 Une logique redistributive" },
       {
         type: 'filet',
-        titre: 'Une logique redistributive, pas productiviste',
+        titre: "Une logique redistributive",
         texte: "La péréquation est un instrument de solidarité nationale : les ressources de la Caisse bénéficient aux provinces et aux ETD selon les besoins de correction des déséquilibres de développement, et non au prorata de la contribution de chacune. Une province fortement contributrice ne peut donc pas revendiquer un « retour » proportionnel sur la Caisse : ce serait contraire à la mission que l'article 181 de la Constitution lui assigne.",
       },
-      { type: 'controle', question: QCM[14] },
+      { type: 'intertitre', texte: "8.3.4 Le programme de développement local des 145 territoires" },
+      { type: 'paragraphe', texte: "À côté de la Caisse, le pouvoir central finance directement des investissements dans les territoires. La loi de finances pour 2026 inscrit 824,7 milliards FC au titre du programme de développement local des 145 territoires (art. 80), répartis territoire par territoire dans son annexe XIX. Le total est presque identique à celui de 2025, mais les dotations individuelles varient : celle du territoire de Kiri, au Mai-Ndombe, passe de 6,40 à 7,18 milliards FC (+ 12,2 %), celle de Beni-Oicha, au Nord-Kivu, de 5,73 à 5,26 milliards FC (- 8,1 %). Ce programme n'est pas un transfert aux entités décentralisées : les crédits restent inscrits au budget du pouvoir central et sont exécutés selon ses règles. Il complète la péréquation sans se confondre avec elle, puisque la Caisse est une personne morale distincte dotée de son propre budget." },
     ],
   },
   {
@@ -470,15 +477,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'édit et la décision budgétaires : contenu et crédits",
     navLabel: 'Édit et décision',
     blocs: [
+      { type: 'intertitre', texte: "8.4.1 Définition et espèces" },
       {
         type: 'paragraphe',
         texte: "L'article 132 de la LOFIP définit l'édit budgétaire et la décision budgétaire comme *« des actes par lesquels sont prévus et autorisés, par les organes délibérants respectifs, les ressources et les charges provinciales et locales d'un exercice budgétaire »*, dans le respect de l'équilibre budgétaire et financier. L'article 134 en distingue quatre espèces, en miroir des quatre espèces de lois de finances : l'édit ou la décision de l'année, ceux portant ouverture de crédits provisoires, les rectificatifs et ceux portant reddition des comptes.",
       },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[15] },
       {
         type: 'carte',
-        titre: "Le contenu obligatoire de l'édit ou de la décision de l'année (art. 135 à 139 LOFIP)",
+        titre: "Encadré 8.4 — Le contenu obligatoire de l'édit ou de la décision de l'année (art. 135 à 139 LOFIP)",
         liste: [
           "**Art. 135 — unité** : toutes les ressources et toutes les charges d'une année civile dans un document unique, traduisant les programmes d'actions du Gouvernement provincial ou du Collège exécutif de l'ETD avec leurs évaluations en objectifs et résultats attendus.",
           "**Art. 136 — recettes** : dispositions relatives à la perception des recettes de toute nature, aux ressources affectant l'équilibre, aux affectations de recettes, et évaluation de chaque nature de recettes.",
@@ -487,14 +493,14 @@ const SECTIONS: Chapitre['sections'] = [
           "**Art. 139 — dispositions facultatives** : modalités de répartition des concours aux ETD, approbation de conventions financières, information et contrôle de l'organe délibérant.",
         ],
       },
-      { type: 'controle', question: QCM[16] },
+      { type: 'intertitre', texte: "8.4.2 Ressources et crédits" },
       {
         type: 'paragraphe',
         texte: "Les ressources sont détaillées aux articles 147 à 149 : recettes courantes (part des recettes à caractère national, impôts et taxes provinciaux d'intérêt commun, fiscalité propre, recettes administratives, participations), recettes en capital (cessions d'actifs, ressources de la Caisse nationale de péréquation) et recettes exceptionnelles (dons et legs, subventions, emprunts). L'article 146 rappelle deux garde-fous nationaux : le recours aux avances de la Banque centrale du Congo est **prohibé** (art. 16) et le recours à l'emprunt est **encadré** (art. 15). Les charges suivent la nomenclature de l'article 150 : six titres de dépenses courantes (dette publique en capital, frais financiers, personnel, biens et matériels, prestations, transferts et interventions), deux titres de dépenses en capital (équipements ; construction, réfection, réhabilitation et acquisitions immobilières) et un titre de prêts et avances.",
       },
       {
         type: 'carte',
-        titre: 'Le régime des crédits provinciaux et locaux (art. 151 à 166 LOFIP)',
+        titre: "Encadré 8.5 — Le régime des crédits provinciaux et locaux (art. 151 à 166 LOFIP)",
         liste: [
           "**Crédits limitatifs** par principe (art. 151) ; **évaluatifs** pour les charges de la dette (art. 152) ; **provisionnels** pour les dépenses accidentelles et imprévisibles, notamment les catastrophes naturelles (art. 153).",
           "**AE et CP** (art. 155) : les autorisations d'engagement sont la limite supérieure des dépenses pouvant être engagées, les crédits de paiement celle des dépenses pouvant être ordonnancées ou payées pendant l'année.",
@@ -505,7 +511,6 @@ const SECTIONS: Chapitre['sections'] = [
         ],
         note: "Les articles 167 à 171 permettent en outre des budgets annexes provinciaux et locaux — dérogation à l'universalité de l'article 167 —, entre lesquels aucun mouvement de crédits n'est possible (art. 171).",
       },
-      { type: 'controle', question: QCM[19] },
     ],
   },
   {
@@ -513,13 +518,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Élaboration, adoption et exécution',
     navLabel: 'Adoption et exécution',
     blocs: [
+      { type: 'intertitre', texte: "8.5.1 L'élaboration" },
       {
         type: 'paragraphe',
         texte: "L'élaboration suit la discipline nationale : le projet d'édit ou de décision est élaboré conformément aux mesures d'encadrement de l'article 13 (cadre budgétaire à moyen terme, lettre d'orientation), traduites et notifiées par une instruction du Gouverneur (art. 174). Les instances provinciales et locales élaborent un **cadre de dépenses à moyen terme sur trois années** d'où découlent leurs prévisions. Le ministre provincial ou l'échevin du budget prépare le projet, arrêté par le Gouvernement provincial ou le Collège exécutif, puis déposé à l'organe délibérant (art. 175). Les articles 176 à 178 énumèrent les documents qui en font partie intégrante ou y sont joints — la loi n° 23/030 de 2023 a réécrit l'article 178 en huit points, ajoutant notamment les projets annuels de performance et le plan de trésorerie prévisionnel au niveau provincial.",
       },
+      { type: 'intertitre', texte: "8.5.2 Le calendrier légal" },
       {
         type: 'carte',
-        titre: "Le calendrier budgétaire provincial et local (art. 182 à 189 LOFIP)",
+        titre: "Tableau 8.5 — Le calendrier budgétaire provincial et local (art. 182 à 189 LOFIP)",
         tableau: {
           entetes: ['Étape', 'Échéance', 'Base'],
           lignes: [
@@ -533,8 +540,19 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Le projet d'édit prend en compte les résultats des votes conjoints de l'Assemblée nationale et du Sénat sur la quotité revenant à la province (art. 187) ; les ETD s'ajustent au calendrier de vote du budget de la province (art. 186 et 189). Les édits et décisions votés sont rendus exécutoires par le représentant de l'État par l'apposition de la date de réception, et publiés (art. 184).",
       },
-      { type: 'controle', question: QCM[17] },
-      { type: 'controle', question: QCM[18] },
+      { type: 'intertitre', texte: "8.5.3 La préparation administrative des budgets provinciaux et locaux" },
+      { type: 'carte', titre: "Tableau 8.6 — La préparation des budgets provinciaux et locaux selon le décret n° 22/37", tableau: { entetes: ["Échéance", "Étape", "Article"], lignes: [
+        ["Fin mars", "Le ministre provincial du Budget transmet au pouvoir central les projections de ressources propres et de charges de la province, ETD comprises", "14"],
+        ["25 avril", "Le pouvoir central adresse l'avant-projet de CBMT, avec les quotités provisoires de recettes à caractère national et de péréquation et le coût des compétences non transférées", "15"],
+        ["15 mai", "Observations des provinces", "16"],
+        ["Après la lettre d'orientation", "Instruction du Gouverneur notifiant les mesures d'encadrement à l'Assemblée provinciale, au Gouvernement provincial et aux organes locaux", "44"],
+        ["30 juillet", "Circulaire d'instructions pour l'édit budgétaire", "45"],
+        ["25 août", "Circulaire d'instructions pour la décision budgétaire des ETD", "47"],
+        ["25 novembre", "Dépôt du projet d'édit budgétaire à l'Assemblée provinciale", "57"],
+        ["20 décembre", "Dépôt du projet de décision budgétaire", "58"],
+        ["30 mai N+1", "Dépôt du projet d'édit portant reddition des comptes", "66"],
+      ] }, note: "Les obligations de transparence et de publication des documents budgétaires, y compris les versions citoyennes, s'appliquent aux provinces et aux ETD (art. 162)." },
+      { type: 'intertitre', texte: "8.5.4 L'exécution" },
       {
         type: 'paragraphe',
         texte: "L'exécution reprend les canons de la comptabilité publique : mise à disposition des crédits par programme (art. 190), liquidation et ordonnancement préalables des recettes et des dépenses (art. 191), rattachement des recettes à l'année de leur encaissement et des dépenses à l'année de leur paiement (art. 192), encaissement et règlement par un **comptable public** (art. 193), butoir d'engagement au **31 octobre** avec report possible des crédits couvrant des obligations non payées au 31 décembre (art. 194). Quatre comptabilités sont tenues (art. 196 à 201) : administrative, budgétaire, des matières et générale — cette dernière en droits constatés et en partie double. L'ordonnateur (responsable d'institution, ministre provincial, échevin ou délégué) et le comptable public se partagent l'exécution (art. 202 à 208), le comptable relevant du ministre du pouvoir central ayant les finances dans ses attributions (art. 208). Enfin, l'article 209 impose l'unité de trésorerie : sauf disposition expresse d'un édit ou d'une décision budgétaire, toutes les disponibilités sont déposées dans un seul et unique compte ouvert auprès du caissier de l'État.",
@@ -546,14 +564,15 @@ const SECTIONS: Chapitre['sections'] = [
     titre: 'Consolidation, ETD, contrôle et sanctions',
     navLabel: 'Consolidation et contrôle',
     blocs: [
+      { type: 'intertitre', texte: "8.6.1 Les rapports financiers et la consolidation" },
       {
         type: 'paragraphe',
         texte: "L'article 217 de la LOFIP arrime les rapports financiers entre le pouvoir central et les provinces aux *« principes de base édictés par les articles 171, 175, 202, 203 et 204 de la Constitution »* : distinction des finances, retenue de 40 % et répartition constitutionnelle des compétences. La **consolidation** ferme la boucle : conformément à l'article 175 de la Constitution, le budget du pouvoir central et ceux des provinces sont consolidés chaque année par une loi (art. 223), *« pour des raisons statistiques et informatives »* — la consolidation ne modifie pas les crédits votés. Le projet de loi de consolidation est déposé au plus tard le **31 mai** de l'année suivante et voté au plus tard le **15 juin** (art. 224).",
       },
-      { type: 'controle', question: QCM[20] },
+      { type: 'intertitre', texte: "8.6.2 Les entités territoriales décentralisées" },
       {
         type: 'carte',
-        titre: 'Les rapports entre les provinces et les ETD (art. 225 à 229 LOFIP)',
+        titre: "Encadré 8.6 — Les rapports entre les provinces et les ETD (art. 225 à 229 LOFIP)",
         liste: [
           "**Art. 225** : les ETD ont droit à **40 % de la part des recettes à caractère national allouées aux provinces** (conformément à l'article 115 de la loi organique n° 08/016 sur les ETD) et à **40 % des impôts et taxes provinciaux d'intérêt commun**.",
           "**Art. 226** : la répartition entre ETD est fonction de la **capacité contributive**, de la **superficie** et du **poids démographique** ; un édit en détermine les modalités d'exécution.",
@@ -562,18 +581,17 @@ const SECTIONS: Chapitre['sections'] = [
           "**Art. 229** : la décision budgétaire promulguée est transmise au Gouverneur pour intégration au plus tard le **30 mars** ; l'édit de consolidation intégrant les budgets des ETD est transmis au Gouvernement central au plus tard le **20 avril**.",
         ],
       },
-      { type: 'controle', question: QCM[21] },
+      { type: 'intertitre', texte: "8.6.3 Le contrôle" },
       {
         type: 'paragraphe',
         texte: "Le **contrôle** est calqué sur celui du pouvoir central. Contrôle administratif : organes locaux de contrôle et Inspection générale des finances, les articles 111 à 122 s'appliquant *mutatis mutandis* (art. 210). Contrôle juridictionnel : les articles 123 à 126 s'appliquent de même, et la Cour des comptes *« ouvre sous son contrôle des chambres des comptes déconcentrées dans les provinces »* (art. 211) — application provinciale de l'article 180 de la Constitution, qui charge la Cour de contrôler la gestion des finances de l'État, des biens publics *« ainsi que les comptes des provinces, des entités territoriales décentralisées ainsi que des organismes publics »*. Contrôle politique enfin : les organes délibérants veillent à la bonne exécution des édits et décisions, peuvent conduire des investigations sur pièces et sur place, auditionner les ordonnateurs, et prononcent, s'il échet, la **décharge des ordonnateurs** lors de l'examen de la reddition des comptes (art. 212).",
       },
-      { type: 'controle', question: QCM[22] },
+      { type: 'intertitre', texte: "8.6.4 Les sanctions" },
       {
         type: 'filet',
-        titre: 'Le régime des sanctions (art. 213 à 216 LOFIP)',
+        titre: "Le régime des sanctions (art. 213 à 216 LOFIP)",
         texte: "Les ordonnateurs sont responsables des certifications qu'ils délivrent et des résultats atteints par rapport aux objectifs du budget-programme (art. 213). L'article 214 érige en faute de gestion, notamment, l'engagement de dépenses sans pouvoir ou sans crédits disponibles, la dissimulation permettant une fausse imputation, ou l'octroi à soi-même ou à autrui d'un avantage injustifié : l'amende encourue ne peut atteindre le double du traitement ou salaire brut annuel, sans être inférieure au quart. Toute personne qui s'ingère sans titre dans les opérations de recettes, de dépenses ou de maniement de valeurs est réputée comptable de fait et assume les obligations et responsabilités d'un comptable public (art. 215). Les fautes de gestion des contrôleurs budgétaires, comptables publics et ordonnateurs — autres que les membres du Gouvernement provincial, de l'Assemblée provinciale ou de l'exécutif et de l'organe délibérant local — sont examinées et jugées par la Cour des comptes ; la responsabilité personnelle et pécuniaire du comptable est mise en cause au moyen d'une décision de débet (art. 216).",
       },
-      { type: 'controle', question: QCM[23] },
     ],
   },
 ]
