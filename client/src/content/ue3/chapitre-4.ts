@@ -361,13 +361,15 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "Kinshasa. **MONGALA ENERGIE SA**, producteur d'électricité au capital de 120 000 000 FC divisé en 12 000 actions de 10 000 FC, veut financer une nouvelle centrale. La banque accepte de prêter, à condition que les actionnaires renforcent d'abord les fonds propres. Le conseil d'administration étudie les options : émettre des actions nouvelles contre de l'argent frais, faire entrer un partenaire par un apport, incorporer des réserves, ou transformer des dettes en capital. Ce chapitre examine chacune de ces voies. Il suit MONGALA ENERGIE, qui choisira d'émettre 3 000 actions nouvelles à 14 000 FC, alors que l'action est estimée à 18 000 FC.",
       },
+      { type: 'intertitre', texte: "4.1.1 Les motifs et les procédés" },
       {
         type: 'paragraphe',
         texte: "Une société augmente son capital pour trois raisons principales : lever des fonds propres nouveaux pour financer sa croissance, consolider des réserves accumulées afin de rendre le capital plus représentatif, ou faire entrer un partenaire qui apporte un actif, une créance ou un savoir-faire. L'article 68 l'annonçait : le capital peut être augmenté par de **nouveaux apports** ou par l'**incorporation** de réserves, de bénéfices ou de primes. Pour la SA, l'article 562 précise les deux procédés : émission d'actions ordinaires ou de préférence, ou **majoration du montant nominal** des actions existantes, cette dernière exigeant le consentement unanime des actionnaires sauf incorporation. Il énumère aussi les modes de libération des actions nouvelles : espèces, **compensation** avec des créances certaines, liquides et exigibles, incorporation de réserves, bénéfices ou primes, ou apport en nature. Le capital peut encore être augmenté par l'exercice de droits attachés à des valeurs mobilières donnant accès au capital (art. 562, al. 4). Les actions nouvelles sont émises à leur nominal, ou à ce nominal majoré d'une **prime d'émission** (art. 563).",
       },
+      { type: 'intertitre', texte: "4.1.2 La compétence de l'assemblée" },
       {
         type: 'carte',
-        titre: "Qui décide ? (art. 564-569)",
+        titre: "Tableau 4.1 — La compétence pour décider l'augmentation (art. 564 à 569)",
         tableau: {
           entetes: ["Situation", "Règle"],
           lignes: [
@@ -382,22 +384,18 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "La distinction entre augmentation en numéraire et incorporation est la clé de tout le chapitre. Une augmentation **en numéraire** ou **en nature** apporte à la société des ressources nouvelles : l'actif et les capitaux propres augmentent ensemble, et de nouveaux actionnaires peuvent entrer. Une augmentation **par incorporation** n'apporte rien : elle transforme des réserves ou des primes déjà présentes dans les capitaux propres en capital, sans flux de trésorerie. D'où la différence de régime : la première modifie l'équilibre entre actionnaires et exige une AGE, avec un droit préférentiel pour protéger les anciens ; la seconde ne change rien aux droits respectifs et relève des conditions de l'AGO (art. 565). Le comptable doit identifier la nature de l'opération avant toute écriture, car les comptes mouvementés ne sont pas les mêmes.",
+        texte: "La distinction entre augmentation en numéraire et incorporation commande l'ensemble du chapitre. Une augmentation **en numéraire** ou **en nature** apporte à la société des ressources nouvelles : l'actif et les capitaux propres augmentent ensemble, et de nouveaux actionnaires peuvent entrer. Une augmentation **par incorporation** n'apporte rien : elle transforme des réserves ou des primes déjà présentes dans les capitaux propres en capital, sans flux de trésorerie. D'où la différence de régime : la première modifie l'équilibre entre actionnaires et exige une AGE, avec un droit préférentiel pour protéger les anciens ; la seconde ne change rien aux droits respectifs et relève des conditions de l'AGO (art. 565). Le comptable doit identifier la nature de l'opération avant toute écriture, car les comptes mouvementés ne sont pas les mêmes.",
       },
+      { type: 'intertitre', texte: "4.1.3 Le déroulement d'une augmentation en numéraire" },
       {
         type: 'paragraphe',
         texte: "Le déroulement type d'une augmentation de capital en numéraire dans une SA s'enchaîne ainsi. Le conseil d'administration prépare l'opération et rédige son rapport ; le commissaire aux comptes établit le sien. L'AGE décide l'augmentation, ou autorise le conseil à la décider par délégation de compétence (art. 567-1), ou décide et délègue au conseil la réalisation (art. 568). La souscription est ouverte pendant vingt jours au moins ; les souscripteurs signent leurs bulletins et versent au moins le quart du nominal et toute la prime ; les fonds sont déposés dans les huit jours. Le notaire établit la déclaration notariée de souscription et de versement, qui marque la réalisation (art. 571) ; les statuts sont modifiés, l'inscription modificative est demandée au RCCM, et les fonds peuvent être retirés (art. 615). Chacune de ces étapes a sa date, et le comptable doit les connaître pour dater ses écritures.",
       },
-      { type: 'controle', question: QCM[0] },
-      { type: 'controle', question: QCM[1] },
-      { type: 'controle', question: QCM[2] },
+      { type: 'intertitre', texte: "4.1.4 La délégation de compétence" },
       {
         type: 'paragraphe',
-        texte: "La **délégation de compétence** mérite une attention particulière, car elle est souvent mal comprise. Lorsque l'assemblée *autorise* l'augmentation sans la décider elle-même, elle peut déléguer au conseil la compétence pour la décider, pour une durée maximale de vingt-quatre mois et dans la limite d'un plafond global qu'elle fixe (art. 567-1). Le conseil choisit alors le moment et les modalités, ce qui permet de saisir une occasion de marché ou d'attendre l'arrivée d'un investisseur. Mais la compétence de principe reste celle de l'AGE : toute clause qui confierait au conseil, de façon permanente, le pouvoir de décider une augmentation serait réputée non écrite (art. 569). Pour le comptable, la décision du conseil agissant sur délégation est la pièce justificative de l'opération, et elle doit viser la résolution de l'AGE et respecter son plafond.",
+        texte: "La **délégation de compétence** est souvent mal comprise. Lorsque l'assemblée *autorise* l'augmentation sans la décider elle-même, elle peut déléguer au conseil la compétence pour la décider, pour une durée maximale de vingt-quatre mois et dans la limite d'un plafond global qu'elle fixe (art. 567-1). Le conseil choisit alors le moment et les modalités, ce qui permet de saisir une occasion de marché ou d'attendre l'arrivée d'un investisseur. Mais la compétence de principe reste celle de l'AGE : toute clause qui confierait au conseil, de façon permanente, le pouvoir de décider une augmentation serait réputée non écrite (art. 569). Pour le comptable, la décision du conseil agissant sur délégation est la pièce justificative de l'opération, et elle doit viser la résolution de l'AGE et respecter son plafond.",
       },
-      { type: 'controle', question: QCM[3] },
-      { type: 'controle', question: QCM[4] },
-      { type: 'controle', question: QCM[5] },
     ],
   },
   {
@@ -405,26 +403,28 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Le droit préférentiel de souscription et sa valeur",
     navLabel: "Le DPS",
     blocs: [
+      { type: 'intertitre', texte: "4.2.1 Le principe et le déroulement de la souscription" },
       {
         type: 'paragraphe',
         texte: "Les actions comportent un **droit préférentiel de souscription** aux augmentations de capital : les actionnaires ont, proportionnellement au montant de leurs actions, un droit de préférence **irréductible** à la souscription des actions de numéraire émises (art. 573). Pendant la souscription, ce droit est **négociable** lorsqu'il est détaché d'actions elles-mêmes négociables ; sinon, il est cessible dans les mêmes conditions que l'action (art. 574). Si l'assemblée le décide expressément, les actionnaires bénéficient en outre d'un droit de souscription **à titre réductible** : les actions non souscrites à titre irréductible sont attribuées à ceux qui en ont demandé davantage, dans la limite de leur demande (art. 575-576).",
       },
       {
         type: 'carte',
-        titre: "Le déroulement de la souscription",
+        titre: "Encadré 4.1 — Le déroulement de la souscription",
         liste: [
           "**Délai** : vingt jours au moins à compter de l'ouverture de la souscription (art. 577), avec clôture anticipée dès que tous les droits sont exercés ou que l'augmentation est intégralement souscrite après renonciations (art. 578).",
           "**Souscriptions insuffisantes** (art. 579-580) : le conseil peut, dans l'ordre qu'il détermine, limiter l'augmentation au montant souscrit s'il atteint les trois quarts du montant prévu et si l'assemblée l'a expressément permis, répartir librement les actions non souscrites, ou les offrir au public si l'assemblée l'a admis ; à défaut, l'opération n'est pas réalisée. Faculté d'office : limiter au montant atteint dès que les souscriptions représentent **97 %** de l'augmentation.",
           "**Usufruit** (art. 581-585) : sauf accord contraire, le DPS appartient au **nu-propriétaire** ; s'il néglige de l'exercer, l'usufruitier peut se substituer à lui ; les actions nouvelles appartiennent au nu-propriétaire pour la nue-propriété et à l'usufruitier pour l'usufruit.",
         ],
       },
+      { type: 'intertitre', texte: "4.2.2 La valeur du droit préférentiel" },
       {
         type: 'paragraphe',
         texte: "Le DPS a une valeur économique : il compense la **dilution** subie par l'action ancienne lorsque le prix d'émission est inférieur à sa valeur. La pratique financière, et non l'Acte uniforme, qui se borne à rendre le droit négociable ou cessible (art. 574), en calcule la valeur théorique en comparant la valeur de l'action avant et après l'opération. Un actionnaire qui ne souhaite pas souscrire peut vendre ses droits : il reçoit alors l'équivalent de la perte de valeur de ses actions. Un investisseur extérieur qui veut souscrire doit acheter les droits nécessaires : il paie ainsi, en plus du prix d'émission, sa part des réserves accumulées par les anciens.",
       },
       {
         type: 'carte',
-        titre: "Formules de la pratique",
+        titre: "Encadré 4.2 — Les formules de la valeur du droit préférentiel de souscription",
         liste: [
           "**Valeur de l'action après l'opération** = (N × V + n × E) / (N + n), où N = actions anciennes, V = valeur de l'action avant, n = actions nouvelles, E = prix d'émission.",
           "**Droit de souscription (ds)** = V − valeur après = n × (V − E) / (N + n).",
@@ -439,17 +439,14 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Question d'étudiant : pourquoi vendre moins cher que la valeur ?",
+        titre: "Un prix d'émission inférieur à la valeur de l'action",
         texte: "MONGALA ENERGIE émet ses actions nouvelles à 14 000 FC alors que l'action vaut 18 000 FC. Ce prix attractif facilite le placement, mais il appauvrit les anciens actionnaires : après l'opération, l'action ne vaut plus que 17 200 FC en théorie. Le droit préférentiel de souscription corrige cette dilution. Chaque action ancienne porte un droit, qui vaut théoriquement 800 FC (18 000 − 17 200), et il faut quatre droits pour souscrire une action nouvelle. L'actionnaire qui souscrit garde sa part ; celui qui ne souscrit pas vend ses droits et récupère la valeur perdue. Un nouveau venu, lui, paie 14 000 FC plus quatre droits, soit exactement 17 200 FC.",
       },
-      { type: 'controle', question: QCM[6] },
+      { type: 'intertitre', texte: "4.2.3 Titre irréductible et titre réductible" },
       {
         type: 'paragraphe',
         texte: "Le **titre réductible** complète le titre irréductible lorsque l'assemblée l'a expressément prévu. Soit une émission de 3 000 actions à raison d'une action nouvelle pour quatre anciennes. Un actionnaire de 400 actions a droit, à titre irréductible, à 100 actions ; il peut demander en outre, à titre réductible, 50 actions supplémentaires. Si d'autres actionnaires n'exercent pas tous leurs droits, les actions restées disponibles sont attribuées aux actionnaires qui ont souscrit plus que leur droit irréductible, dans la limite de leur demande (art. 575-576) ; les modalités de répartition entre eux relèvent de la décision d'émission. Le titre réductible évite ainsi que les actions non souscrites échappent aux actionnaires existants avant d'être offertes à des tiers ; il ne se présume pas et doit figurer dans la décision de l'assemblée.",
       },
-      { type: 'controle', question: QCM[7] },
-      { type: 'controle', question: QCM[8] },
-      { type: 'controle', question: QCM[27] },
     ],
   },
   {
@@ -457,6 +454,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Suppression du DPS, prix d'émission et rapports obligatoires",
     navLabel: "Suppression du DPS",
     blocs: [
+      { type: 'intertitre', texte: "4.3.1 La suppression du droit préférentiel" },
       {
         type: 'paragraphe',
         texte: "L'assemblée qui décide ou autorise l'augmentation peut **supprimer le DPS** en faveur d'un ou plusieurs bénéficiaires nommément désignés, pour la totalité de l'augmentation ou pour certaines tranches (art. 586) ; les bénéficiaires actionnaires ne prennent pas part au vote, ni pour eux-mêmes ni comme mandataires, et leurs actions sont exclues du quorum et de la majorité (art. 587). Chaque actionnaire peut par ailleurs **renoncer individuellement** à son droit, au profit de personnes dénommées, la renonciation devant être accompagnée de leur acceptation, ou sans indication de bénéficiaire, en avisant la société avant l'expiration du délai de souscription (art. 593-595).",
@@ -470,16 +468,16 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "La suppression du DPS est l'outil de l'entrée d'un partenaire stratégique : une banque qui veut faire entrer un investisseur pour respecter une exigence prudentielle, une société familiale qui accueille un fonds d'investissement, une entreprise qui rémunère un fournisseur par des actions. Elle comporte un risque réel pour les actionnaires existants : si le prix d'émission est inférieur à la valeur réelle de l'action, la différence est transférée aux nouveaux venus. C'est précisément ce que mesure l'« incidence sur la quote-part de capitaux propres » exigée par l'article 590. Le comptable prépare ce calcul : capitaux propres par action avant l'opération, capitaux propres par action après, et écart. Un prix fixé au-dessus des capitaux propres par action protège les anciens ; un prix fixé en dessous les appauvrit.",
       },
+      { type: 'intertitre', texte: "4.3.2 La renonciation individuelle" },
       {
         type: 'paragraphe',
         texte: "La **renonciation individuelle** au DPS est l'outil souple de l'entrée d'un nouvel actionnaire lorsque l'assemblée ne veut pas supprimer le droit de tous. Chaque actionnaire peut renoncer à titre individuel à son droit, soit au profit de personnes dénommées, qui doivent accepter, soit sans indication de bénéficiaire, en avisant la société avant l'expiration du délai de souscription (art. 593-595). Un actionnaire familial qui ne peut pas suivre l'augmentation peut ainsi laisser sa part à un partenaire désigné, sans que l'assemblée ait à statuer sur une suppression générale et sans les rapports spéciaux exigés dans ce cas. Pour le comptable, rien ne change : le souscripteur, quel qu'il soit, verse le nominal et la prime, et les écritures sont les mêmes.",
       },
-      { type: 'controle', question: QCM[9] },
+      { type: 'intertitre', texte: "4.3.3 Les conséquences d'une irrégularité" },
       {
         type: 'paragraphe',
-        texte: "Une augmentation de capital irrégulière n'est pas une simple anomalie de procédure : si la délibération est annulée, l'opération tombe, et la comptabilité doit en tirer les conséquences. Les fonds versés par les souscripteurs redeviennent une dette de la société envers eux ; le capital et la prime crédités à tort doivent être contrepassés, par le débit du 1013 et du 1051 et le crédit d'un compte de tiers, jusqu'au remboursement. C'est pourquoi le comptable et le commissaire aux comptes vérifient, avant la réalisation, l'existence et le contenu des rapports exigés, le respect des majorités, l'exclusion des bénéficiaires du vote et la libération intégrale préalable du capital ancien. Une vérification en amont évite des corrections lourdes après coup.",
+        texte: "Une augmentation de capital irrégulière a des conséquences lourdes : si la délibération est annulée, l'opération tombe, et la comptabilité doit en tirer les conséquences. Les fonds versés par les souscripteurs redeviennent une dette de la société envers eux ; le capital et la prime crédités à tort doivent être contrepassés, par le débit du 1013 et du 1051 et le crédit d'un compte de tiers, jusqu'au remboursement. C'est pourquoi le comptable et le commissaire aux comptes vérifient, avant la réalisation, l'existence et le contenu des rapports exigés, le respect des majorités, l'exclusion des bénéficiaires du vote et la libération intégrale préalable du capital ancien. Une vérification en amont évite des corrections lourdes après coup.",
       },
-      { type: 'controle', question: QCM[10] },
     ],
   },
   {
@@ -487,9 +485,10 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Libération, dépôt des fonds et réalisation dans la SA",
     navLabel: "Libération et DNSV",
     blocs: [
+      { type: 'intertitre', texte: "4.4.1 La libération des actions nouvelles" },
       {
         type: 'carte',
-        titre: "La libération des actions nouvelles (art. 604-606, 611, 626)",
+        titre: "Tableau 4.2 — La libération des actions nouvelles (art. 604 à 606, 611 et 626)",
         tableau: {
           entetes: ["Situation", "Règle"],
           lignes: [
@@ -500,26 +499,25 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "4.4.2 Le dépôt des fonds et le versement de la prime" },
       {
         type: 'paragraphe',
         texte: "Les fonds sont déposés par les dirigeants sociaux, dans les **huit jours** de leur réception, dans un établissement de crédit ou de microfinance agréé de l'État partie du siège ou chez un notaire, avec la liste des souscripteurs et de leurs versements (art. 607-608) ; le dépositaire délivre un certificat (art. 610) et communique la liste à tout souscripteur qui la demande (art. 609). Les souscriptions et versements sont constatés par la **déclaration notariée de souscription et de versement**, et l'augmentation est réputée réalisée au jour de son établissement (art. 571). Le **retrait des fonds** ne peut intervenir qu'une fois l'augmentation réalisée, par un mandataire de la société, sur présentation de cette déclaration au dépositaire (art. 615).",
       },
       {
         type: 'paragraphe',
-        texte: "La règle de la prime intégralement versée mérite une explication. La prime n'est pas une fraction du capital : elle rémunère la valeur accumulée par la société avant l'entrée du nouveau souscripteur. Il serait anormal qu'il acquière des droits sur des réserves dont il n'aurait pas payé le prix. Le souscripteur verse donc toute la prime dès la souscription, et seul le nominal peut être libéré par fractions. Pour une action de nominal 10 000 émise à 15 000 et libérée du quart, le souscripteur verse 2 500 + 5 000 = 7 500 ; il reste devoir 7 500, qui seront appelés dans les trois ans de la réalisation. Le comptable suit cette créance par les comptes 109 et 4613, exactement comme à la constitution.",
+        texte: "La règle de la prime intégralement versée s'explique par la nature de la prime. La prime n'est pas une fraction du capital : elle rémunère la valeur accumulée par la société avant l'entrée du nouveau souscripteur. Il serait anormal qu'il acquière des droits sur des réserves dont il n'aurait pas payé le prix. Le souscripteur verse donc toute la prime dès la souscription, et seul le nominal peut être libéré par fractions. Pour une action de nominal 10 000 émise à 15 000 et libérée du quart, le souscripteur verse 2 500 + 5 000 = 7 500 ; il reste devoir 7 500, qui seront appelés dans les trois ans de la réalisation. Le comptable suit cette créance par les comptes 109 et 4613, exactement comme à la constitution.",
       },
+      { type: 'intertitre', texte: "4.4.3 La déclaration notariée et la réalisation" },
       {
         type: 'paragraphe',
         texte: "La **déclaration notariée de souscription et de versement** joue dans l'augmentation le même rôle qu'à la constitution. Le notaire y affirme, au vu des bulletins et du certificat du dépositaire, que le montant des souscriptions est conforme aux bulletins et que celui des versements est conforme aux sommes déposées. C'est à sa date que l'augmentation est réputée réalisée (art. 571) : c'est donc aussi la date de l'écriture qui solde le 4615 par le crédit du capital et de la prime. Si une clôture d'exercice intervient entre le versement des fonds et la déclaration, les fonds figurent au bilan de clôture comme une dette envers les souscripteurs (4615), et non comme du capital ; ils ne deviendront capital qu'à l'exercice suivant.",
       },
       {
         type: 'filet',
-        titre: "Erreur fréquente",
-        texte: "Créditer le capital dès la réception des fonds. Tant que l'augmentation n'est pas réalisée, rien n'est acquis : si elle échoue, les fonds doivent être restitués aux souscripteurs. Les versements transitent donc par le compte 4615 Apporteurs, versements reçus sur augmentation de capital, et ce n'est qu'au jour de la réalisation, constatée par la déclaration notariée de souscription et de versement, que le 4615 est soldé au crédit du capital (1013) et de la prime (1051). Chez MONGALA ENERGIE, les 42 000 000 FC reçus par le notaire restent au 4615 jusqu'à cette date.",
+        titre: "Le capital n'est crédité qu'à la réalisation",
+        texte: "Le capital ne se crédite pas dès la réception des fonds. Tant que l'augmentation n'est pas réalisée, rien n'est acquis : si elle échoue, les fonds doivent être restitués aux souscripteurs. Les versements transitent donc par le compte 4615 Apporteurs, versements reçus sur augmentation de capital, et ce n'est qu'au jour de la réalisation, constatée par la déclaration notariée de souscription et de versement, que le 4615 est soldé au crédit du capital (1013) et de la prime (1051). Chez MONGALA ENERGIE, les 42 000 000 FC reçus par le notaire restent au 4615 jusqu'à cette date.",
       },
-      { type: 'controle', question: QCM[11] },
-      { type: 'controle', question: QCM[12] },
-      { type: 'controle', question: QCM[13] },
     ],
   },
   {
@@ -527,13 +525,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'augmentation de capital dans la SARL et la SAS",
     navLabel: "SARL et SAS",
     blocs: [
+      { type: 'intertitre', texte: "4.5.1 La SARL" },
       {
         type: 'paragraphe',
         texte: "Dans la SARL, l'augmentation de capital est une modification des statuts, décidée par les associés représentant au moins **les trois quarts du capital social** (art. 358) ; l'unanimité est requise si elle augmente les engagements des associés (art. 359), par exemple si elle obligeait chacun à souscrire. Par dérogation, l'augmentation **par incorporation** de bénéfices, réserves ou primes est décidée par les associés représentant au moins **la moitié des parts sociales** (art. 360). Toute délibération contraire aux articles 358 à 360 est nulle (art. 360-1). Les parts de la SARL n'étant pas négociables, il n'existe pas de DPS négociable au sens de la SA ; l'entrée d'un tiers suppose en outre, selon les statuts, l'agrément des associés étudié en UE2.",
       },
       {
         type: 'carte',
-        titre: "Le régime de l'augmentation de capital de SARL (art. 361-363)",
+        titre: "Encadré 4.3 — Le régime de l'augmentation de capital de SARL (art. 361 à 363)",
         liste: [
           "**Dépôt des fonds** : en banque, dans un établissement de crédit ou de microfinance agréé, ou chez un notaire, comme à la constitution ; le gérant en dispose sur remise au dépositaire d'un certificat du RCCM attestant le dépôt d'une inscription modificative (art. 361).",
           "**Libération** : moitié au moins lors de la souscription ; surplus dans les deux ans à compter du jour où l'augmentation est devenue définitive (art. 361-1).",
@@ -542,26 +541,25 @@ const SECTIONS: Chapitre['sections'] = [
           "**Apports en nature** : commissaire aux apports désigné par les associés au-delà de 5 000 000 FCFA par apport ou pour l'ensemble, et toujours en cas d'avantages particuliers ; il peut aussi être nommé par le juge à la demande de tout associé ; délibérations nulles en son absence (art. 363).",
         ],
       },
+      { type: 'intertitre', texte: "4.5.2 La SAS" },
       {
         type: 'paragraphe',
         texte: "Dans la SAS, les attributions des assemblées de SA « en matière d'augmentation [...] de capital » sont exercées collectivement par les associés, dans les conditions prévues par les statuts, à peine de nullité (art. 853-11). Les statuts fixent donc la majorité ; mais, par le renvoi de l'article 853-3, les règles de la SA compatibles avec le livre de la SAS s'appliquent : DPS, libération du quart et de la totalité de la prime, dépôt des fonds et déclaration notariée, commissaire aux apports. La SAS ne peut toutefois pas faire publiquement appel à l'épargne (art. 853-4) : ses augmentations de capital se font entre associés ou auprès d'investisseurs choisis, jamais par offre au public. C'est ce qui en fait la forme privilégiée des levées de fonds privées.",
       },
+      { type: 'intertitre', texte: "4.5.3 Les écritures" },
       {
         type: 'paragraphe',
         texte: "Pour le comptable, les écritures d'une augmentation de SARL sont identiques à celles de la SA : versements reçus au crédit du 4615, réalisation par le crédit du 1013 et, s'il y a lieu, d'une prime au 1051 ou au 1052, fraction non appelée au débit du 109. Deux différences de calendrier doivent être suivies. D'abord, les fonds ne sont disponibles qu'après l'inscription modificative au RCCM (art. 361), et non après une déclaration notariée. Ensuite, le délai de libération du solde est de deux ans à compter du jour où l'augmentation est devenue définitive (art. 361-1), et non de trois ans. Un tableau de suivi des appels, tenu par associé, évite les dépassements de délai.",
       },
+      { type: 'intertitre', texte: "4.5.4 Applications" },
       {
         type: 'paragraphe',
-        texte: "Un exemple chiffré fixe les idées. Une SARL au capital de 20 000 000 (2 000 parts de 10 000) décide, à l'unanimité des trois associés (plus des trois quarts requis par l'art. 358), une augmentation de 8 000 000 par création de 800 parts nouvelles de 10 000, souscrites en numéraire par un nouvel associé agréé. Il libère la moitié, soit 4 000 000, versés sur un compte bancaire. Après le procès-verbal constatant la réalisation (art. 361-2) et l'inscription modificative au RCCM, le gérant dispose des fonds (art. 361). Écritures : débit 521 4 000 000 et débit 109 4 000 000 / crédit 1013 4 000 000 et crédit 1011 4 000 000. Le solde de 4 000 000 devra être appelé dans les deux ans de la date où l'augmentation est devenue définitive (art. 361-1).",
+        texte: "Une SARL au capital de 20 000 000 (2 000 parts de 10 000) décide, à l'unanimité des trois associés (plus des trois quarts requis par l'art. 358), une augmentation de 8 000 000 par création de 800 parts nouvelles de 10 000, souscrites en numéraire par un nouvel associé agréé. Il libère la moitié, soit 4 000 000, versés sur un compte bancaire. Après le procès-verbal constatant la réalisation (art. 361-2) et l'inscription modificative au RCCM, le gérant dispose des fonds (art. 361). Écritures : débit 521 4 000 000 et débit 109 4 000 000 / crédit 1013 4 000 000 et crédit 1011 4 000 000. Le solde de 4 000 000 devra être appelé dans les deux ans de la date où l'augmentation est devenue définitive (art. 361-1).",
       },
-      { type: 'controle', question: QCM[14] },
-      { type: 'controle', question: QCM[15] },
       {
         type: 'paragraphe',
         texte: "La SAS qui accueille un investisseur illustre la souplesse de la forme. Supposons que les statuts d'une SAS de Kinshasa prévoient que les augmentations de capital sont décidées par les associés représentant les deux tiers des actions. Les associés adoptent à cette majorité une augmentation réservée à un fonds d'investissement, avec suppression du DPS à son profit ; le rapport du président, qui exerce les attributions du conseil en l'absence de clause contraire (art. 853-3), et celui du commissaire aux comptes s'il en existe un, éclairent la décision. Le fonds libère le quart du nominal et toute la prime. Les écritures sont celles de la SA ; la différence tient à l'organe qui décide, fixé par les statuts, et à l'impossibilité d'une offre au public.",
       },
-      { type: 'controle', question: QCM[16] },
-      { type: 'controle', question: QCM[17] },
     ],
   },
   {
@@ -569,13 +567,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Comptabilisation de l'augmentation en numéraire (Application 60)",
     navLabel: "Écritures en numéraire",
     blocs: [
+      { type: 'intertitre', texte: "4.6.1 Le schéma de l'Application 60" },
       {
         type: 'paragraphe',
         texte: "L'Application 60 du Guide comptabilise une augmentation en numéraire : 5 000 actions de nominal 10 000 émises à **15 000**, fonds appelés dès la souscription et reçus par le notaire le 08/05/N, augmentation réalisée le 09/05/N, fonds reversés le 10/05/N. Le compte pivot est **4615 Apporteurs, versements reçus sur augmentation de capital** ; la prime loge au compte **1051 Primes d'émission**, que l'AUDCIF définit comme « l'excédent du prix d'émission en numéraire (prix payé par le souscripteur) sur la valeur nominale des actions ou parts ».",
       },
       {
         type: 'carte',
-        titre: "Application 60 : augmentation en numéraire avec prime",
+        titre: "Exemple 4.1 — Application 60 : augmentation en numéraire avec prime",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -591,11 +590,11 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Pourquoi un compte d'attente, le 4615, plutôt qu'un crédit direct du capital ? Parce qu'entre le versement et la réalisation, rien n'est encore acquis : si l'augmentation n'est pas réalisée, par exemple parce que les souscriptions n'atteignent pas le seuil de l'article 580, les fonds doivent être restitués aux souscripteurs. Le 4615 constate donc une dette de la société envers les souscripteurs, qui ne se transforme en capital et en prime qu'au jour de la réalisation, c'est-à-dire de la déclaration notariée (art. 571). À la clôture, un solde créditeur du 4615 révèle une augmentation en cours et non encore réalisée, qui ne doit pas être présentée comme du capital.",
+        texte: "Les versements transitent par un compte d'attente, le 4615, plutôt que par un crédit direct du capital, car entre le versement et la réalisation, rien n'est encore acquis : si l'augmentation n'est pas réalisée, par exemple parce que les souscriptions n'atteignent pas le seuil de l'article 580, les fonds doivent être restitués aux souscripteurs. Le 4615 constate donc une dette de la société envers les souscripteurs, qui ne se transforme en capital et en prime qu'au jour de la réalisation, c'est-à-dire de la déclaration notariée (art. 571). À la clôture, un solde créditeur du 4615 révèle une augmentation en cours et non encore réalisée, qui ne doit pas être présentée comme du capital.",
       },
       {
         type: 'carte',
-        titre: "Variante : augmentation libérée du quart, avec prime",
+        titre: "Exemple 4.2 — Augmentation en numéraire libérée du quart, avec prime",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -608,6 +607,7 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Mêmes 5 000 actions de 10 000 émises à 15 000, libérées du minimum légal : chaque souscripteur verse 2 500 de nominal et 5 000 de prime (art. 604), soit 37 500 000 au total. Les appels ultérieurs suivent le cycle de l'Application 59 (chapitre 1).",
       },
+      { type: 'intertitre', texte: "4.6.2 Les frais d'augmentation" },
       {
         type: 'filet',
         titre: "Les frais d'augmentation de capital (AUDCIF, compte 105)",
@@ -617,21 +617,21 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'imputation des frais sur la prime est une faculté, non une obligation, et elle suppose l'existence d'une prime suffisante. Elle a un sens économique : ces frais sont le coût d'obtention des capitaux propres nouveaux, et il est logique de les retrancher de ce que les souscripteurs ont apporté au-delà du nominal plutôt que de faire supporter une charge au résultat de l'exercice. Sans prime, les frais restent en charges. Dans tous les cas, ils ne peuvent jamais être imputés sur le capital lui-même, qui ne se réduit que par une décision régulière de réduction (chapitre 5).",
       },
+      { type: 'intertitre', texte: "4.6.3 Le tableau des flux et le contrôle" },
       {
         type: 'paragraphe',
         texte: "Dans le **tableau des flux de trésorerie**, l'augmentation de capital en numéraire est un flux de financement. Le Guide d'application la mesure, sur la ligne « Augmentation de capital par apport nouveau », par la variation des comptes de la classe 10 hors écarts de réévaluation (106) et capital non appelé (109), du compte 467 et du compte 4581. Une augmentation par incorporation de réserves ne modifie pas la trésorerie ; une augmentation par compensation de créances ou par conversion d'obligations n'en modifie pas davantage, puisque la société ne reçoit aucun fonds : ces opérations doivent être identifiées et neutralisées lors de l'établissement du TFT, qui ne retrace que les flux réels.",
       },
       {
         type: 'filet',
-        titre: "Le regard de l'auditeur",
+        titre: "Le contrôle du dossier d'augmentation de MONGALA ENERGIE",
         texte: "Dans le dossier d'augmentation de MONGALA ENERGIE, l'auditeur vérifie la chaîne des pièces : procès-verbal de l'AGE et rapports du conseil et du commissaire aux comptes, bulletins de souscription, certificat du dépositaire, déclaration notariée, et publicité. Il contrôle que les fonds ont été déposés dans les huit jours de leur réception, que la prime a été intégralement versée, et que les fonds n'ont été utilisés qu'après la réalisation de l'augmentation (art. 615). Une écriture de réalisation datée d'avant la déclaration notariée est une anomalie à corriger.",
       },
-      { type: 'controle', question: QCM[18] },
+      { type: 'intertitre', texte: "4.6.4 L'appel ultérieur du solde" },
       {
         type: 'paragraphe',
         texte: "Lorsque l'augmentation n'a été libérée que partiellement, l'appel ultérieur du solde suit exactement le cycle de la constitution. Au jour de l'appel décidé par le conseil, dans les trois ans de la réalisation (art. 605), on débite 4613 par le crédit du 109, et l'on vire le 1011 au 1012 pour le montant appelé ; au versement, on débite la banque par le crédit du 4613, et l'on vire le 1012 au 1013. La prime, versée intégralement dès la souscription, n'intervient plus à ce stade. Un actionnaire qui ne répond pas à l'appel devient défaillant et relève des articles 775 à 777 étudiés au chapitre 2 ; tant que ces sommes restent dues, la société ne peut ni émettre de nouvelles actions en numéraire (art. 572), ni émettre d'obligations (art. 389).",
       },
-      { type: 'controle', question: QCM[19] },
     ],
   },
   {
@@ -639,13 +639,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'augmentation par incorporation de réserves et le droit d'attribution",
     navLabel: "Incorporation",
     blocs: [
+      { type: 'intertitre', texte: "4.7.1 Le mécanisme de l'incorporation" },
       {
         type: 'paragraphe',
         texte: "L'augmentation par incorporation transforme en capital des réserves, des bénéfices ou des primes. Elle est réalisée, au choix, par l'émission d'actions nouvelles distribuées gratuitement aux actionnaires, ou par l'élévation du nominal des actions existantes ; les deux procédés peuvent être combinés (art. 63). L'Application 61 du Guide comptabilise l'émission, le 01/04/N, de 2 000 actions gratuites de 10 000 prélevées sur les réserves facultatives.",
       },
       {
         type: 'carte',
-        titre: "Application 61 : incorporation de réserves (2 000 actions gratuites de 10 000)",
+        titre: "Exemple 4.3 — Application 61 : incorporation de réserves (2 000 actions gratuites de 10 000)",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -655,14 +656,16 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "Virement interne aux capitaux propres : aucun flux de trésorerie, total des capitaux propres inchangé. On peut incorporer de la même façon la réserve légale, des réserves statutaires si les statuts le permettent, le report à nouveau créditeur ou des primes (débit 1051, 1052 ou 1053).",
       },
+      { type: 'intertitre', texte: "4.7.2 Les motifs et les effets pour l'actionnaire" },
       {
         type: 'paragraphe',
-        texte: "Pourquoi incorporer des réserves, puisque cela ne rapporte rien à la société ? D'abord pour rendre le capital plus représentatif de la taille réelle de l'entreprise, ce qui améliore son image auprès des banques et des partenaires. Ensuite pour rendre ces sommes définitivement indisponibles : une réserve facultative peut être distribuée, un capital ne peut être rendu que par une réduction entourée de garanties pour les créanciers. Enfin, pour ajuster le capital à une exigence légale ou réglementaire, comme le capital minimum imposé à certaines activités. Pour la réserve légale, l'incorporation a une conséquence : le capital ayant augmenté, le plafond du cinquième monte aussi, et la dotation annuelle redevient obligatoire (chapitre 3).",
+        texte: "L'incorporation de réserves ne rapporte rien à la société. Elle sert d'abord à rendre le capital plus représentatif de la taille réelle de l'entreprise, ce qui améliore son image auprès des banques et des partenaires. Elle sert ensuite à rendre ces sommes définitivement indisponibles : une réserve facultative peut être distribuée, un capital ne peut être rendu que par une réduction entourée de garanties pour les créanciers. Elle permet enfin d'ajuster le capital à une exigence légale ou réglementaire, comme le capital minimum imposé à certaines activités. Pour la réserve légale, l'incorporation a une conséquence : le capital ayant augmenté, le plafond du cinquième monte aussi, et la dotation annuelle redevient obligatoire (chapitre 3).",
       },
       {
         type: 'paragraphe',
         texte: "L'actionnaire ne s'enrichit pas avec des actions gratuites : il détient plus d'actions, mais chacune vaut moins, puisque les capitaux propres n'ont pas changé. La pratique mesure cette perte de valeur unitaire par le **droit d'attribution**, da = n × V / (N + n). Soit 8 000 actions valant 14 000 et l'attribution d'une action gratuite pour quatre anciennes (n = 2 000) : valeur après = 8 000 × 14 000 / 10 000 = 11 200 ; da = 14 000 − 11 200 = 2 800. Un actionnaire qui possède 130 actions a droit à 32 actions gratuites pour 128 droits ; il lui reste 2 **rompus**, c'est-à-dire des droits qui ne suffisent pas pour une action entière. Il peut les vendre, ou acheter 2 droits supplémentaires pour obtenir une 33e action.",
       },
+      { type: 'intertitre', texte: "4.7.3 L'élévation du nominal et les postes incorporables" },
       {
         type: 'paragraphe',
         texte: "L'élévation du nominal est l'autre technique : au lieu de créer des actions nouvelles, on porte par exemple le nominal de 10 000 à 12 500, en incorporant 2 500 par action. Elle évite les rompus mais n'est possible sans unanimité que si elle est financée par incorporation (art. 562, al. 3). Comptablement, l'écriture est la même : débit du compte de réserve ou de prime, crédit du 1013. Pour une SARL, l'incorporation est décidée par les associés représentant au moins la moitié des parts (art. 360) ; pour une SA, aux conditions de l'AGO (art. 565).",
@@ -673,10 +676,9 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'filet',
-        titre: "Et si MONGALA ENERGIE avait incorporé ses réserves ?",
+        titre: "Incorporation de réserves et apport de trésorerie",
         texte: "Une augmentation par incorporation de réserves n'apporte aucun franc à la société : elle déplace des sommes d'un poste des capitaux propres à un autre (réserves vers capital). Les actionnaires reçoivent des actions gratuites ou voient le nominal de leurs actions relevé, mais les capitaux propres et la trésorerie ne changent pas. Pour financer un nouveau barrage ou une ligne électrique, MONGALA ENERGIE a besoin d'argent frais : seule une augmentation en numéraire, ou l'entrée d'un investisseur par apport, peut le lui apporter.",
       },
-      { type: 'controle', question: QCM[20] },
     ],
   },
   {
@@ -684,13 +686,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'augmentation par apport en nature et par compensation de créances",
     navLabel: "Nature et compensation",
     blocs: [
+      { type: 'intertitre', texte: "4.8.1 L'apport en nature" },
       {
         type: 'paragraphe',
         texte: "Lorsque l'augmentation est réalisée par **apports en nature** ou comporte des **avantages particuliers**, la SA doit faire désigner un ou plusieurs commissaires aux apports, à l'unanimité des actionnaires ou, à défaut, par la juridiction compétente (art. 619). Le commissaire est soumis aux incompatibilités des commissaires aux comptes et « ne peut être le commissaire aux comptes de la société » (art. 620). Son rapport décrit chaque apport, en indique la valeur, précise le mode d'évaluation et établit que la valeur correspond au moins au nominal des actions à émettre (art. 621) ; il est déposé au siège et au RCCM huit jours au moins avant l'AGE, à peine de nullité (art. 622). L'apporteur ne vote pas sur son apport (art. 623), la réduction de l'évaluation suppose son approbation expresse (art. 625), et les actions d'apport sont intégralement libérées dès leur émission (art. 626).",
       },
       {
         type: 'carte',
-        titre: "Comptabiliser un apport en nature avec prime d'apport",
+        titre: "Exemple 4.4 — Apport en nature avec prime d'apport",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -705,12 +708,14 @@ const SECTIONS: Chapitre['sections'] = [
       },
       {
         type: 'paragraphe',
-        texte: "Comment fixe-t-on le nombre d'actions remises à l'apporteur ? En divisant la valeur de l'apport par la **valeur réelle** de l'action, et non par son nominal. Si l'action vaut 15 000 et que l'apport vaut 60 000 000, l'apporteur reçoit 4 000 actions : la prime d'apport de 20 000 000 correspond à sa contribution aux réserves existantes, comme la prime d'émission pour un souscripteur en numéraire. Remettre 6 000 actions (60 000 000 / 10 000) reviendrait à lui donner, gratuitement, une part des réserves accumulées par les anciens actionnaires. L'évaluation de l'action, étudiée au chapitre 7, commande donc la parité de l'apport ; le chapitre 8 appliquera la même logique aux fusions.",
+        texte: "Le nombre d'actions remises à l'apporteur s'obtient en divisant la valeur de l'apport par la **valeur réelle** de l'action, et non par son nominal. Si l'action vaut 15 000 et que l'apport vaut 60 000 000, l'apporteur reçoit 4 000 actions : la prime d'apport de 20 000 000 correspond à sa contribution aux réserves existantes, comme la prime d'émission pour un souscripteur en numéraire. Remettre 6 000 actions (60 000 000 / 10 000) reviendrait à lui donner, gratuitement, une part des réserves accumulées par les anciens actionnaires. L'évaluation de l'action, étudiée au chapitre 7, commande donc la parité de l'apport ; le chapitre 8 appliquera la même logique aux fusions.",
       },
+      { type: 'intertitre', texte: "4.8.2 La compensation de créances" },
       {
         type: 'paragraphe',
         texte: "La **compensation de créances** permet à un créancier de la société de devenir actionnaire en renonçant à sa créance. Elle vise des créances certaines, liquides et exigibles (art. 44 et 562), constatées par un arrêté des comptes du conseil ou de l'administrateur général certifié exact par le commissaire aux comptes (art. 611). Comptablement, la dette disparaît et le capital augmente : un associé qui détient une créance de 30 000 000 en compte courant souscrit 2 000 actions à 15 000 ; la société débite 4621 Associés, comptes courants pour 30 000 000 et crédite 1013 pour 20 000 000 et 1051 pour 10 000 000, en passant le cas échéant par le 4615. Aucune trésorerie n'entre, mais l'endettement diminue et les capitaux propres augmentent : c'est une opération de restructuration du passif, fréquente pour les sociétés en difficulté.",
       },
+      { type: 'intertitre', texte: "4.8.3 La conversion de valeurs mobilières" },
       {
         type: 'paragraphe',
         texte: "Le capital peut enfin être augmenté par la conversion de valeurs mobilières donnant accès au capital, en particulier d'obligations convertibles (art. 562, al. 4 ; art. 822-1 et suivants). L'emprunt obligataire convertible (compte 1612) disparaît au profit du capital et d'une éventuelle prime de conversion (compte 1054), définie par l'AUDCIF comme « la différence entre la valeur de conversion du/des titre(s) de créances et la valeur nominale des actions ou parts rémunérant l'apport ». L'Application 80 du Guide, étudiée au chapitre 6, en détaille les écritures. C'est une technique utilisée en RDC pour renforcer les fonds propres des banques (section 4.10).",
@@ -719,9 +724,6 @@ const SECTIONS: Chapitre['sections'] = [
         type: 'paragraphe',
         texte: "L'augmentation par apport en nature et la compensation de créances sont deux façons de faire entrer au capital autre chose que de l'argent frais. Le comptable doit y porter une vigilance particulière, car la valeur d'entrée ne résulte pas d'un encaissement. Pour l'apport, c'est le rapport du commissaire aux apports qui fonde la valeur d'entrée du bien, exactement comme à la constitution (art. 36 AUDCIF). Pour la compensation, c'est l'arrêté des comptes certifié par le commissaire aux comptes qui établit l'existence et le montant de la créance (art. 611). Dans les deux cas, une surévaluation gonflerait artificiellement les capitaux propres ; c'est pourquoi l'Acte uniforme entoure ces opérations de contrôles préalables sanctionnés par la nullité.",
       },
-      { type: 'controle', question: QCM[21] },
-      { type: 'controle', question: QCM[22] },
-      { type: 'controle', question: QCM[23] },
     ],
   },
   {
@@ -729,13 +731,14 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "L'attribution gratuite d'actions au personnel et aux dirigeants",
     navLabel: "Actions gratuites",
     blocs: [
+      { type: 'intertitre', texte: "4.9.1 Le régime de l'attribution gratuite" },
       {
         type: 'paragraphe',
         texte: "L'Acte uniforme révisé en 2014 a introduit l'**attribution gratuite d'actions** au personnel salarié. L'AGE, sur le rapport du conseil ou de l'administrateur général et sur le rapport spécial du commissaire aux comptes, peut autoriser l'attribution d'actions existantes ou à émettre au profit des salariés ou de certaines catégories d'entre eux ; les délibérations prises sans ces rapports sont nulles (art. 626-1). Le dispositif est étendu, sous conditions, aux dirigeants de SA et de SAS (art. 626-1-2) et aux salariés de certaines sociétés liées (art. 626-2).",
       },
       {
         type: 'carte',
-        titre: "Les limites de l'attribution gratuite (art. 626-1 à 626-3)",
+        titre: "Encadré 4.4 — Les limites de l'attribution gratuite (art. 626-1 à 626-3)",
         liste: [
           "**Plafond global** : 10 % du capital à la date de la décision d'attribution par le conseil ; autorisation valable 36 mois au plus (art. 626-1).",
           "**Plafond individuel** : aucune attribution aux salariés et dirigeants détenant chacun plus de 10 % du capital, ni attribution ayant pour effet de leur faire dépasser ce seuil ; 20 % au plus si les statuts d'une société non cotée le prévoient (art. 626-1-2-1).",
@@ -745,13 +748,14 @@ const SECTIONS: Chapitre['sections'] = [
           "**Information** : rapport spécial annuel du conseil à l'AGO sur les attributions, notamment aux dirigeants et aux dix salariés les mieux servis (art. 626-4).",
         ],
       },
+      { type: 'intertitre', texte: "4.9.2 Les deux techniques comptables" },
       {
         type: 'paragraphe',
         texte: "Le Guide d'application présente deux techniques comptables. Avec des **actions existantes** rachetées par la société (Application 76), l'achat est enregistré au compte 5021 Actions ou parts propres ; lors de l'attribution, le coût d'acquisition non couvert par la somme éventuellement réglée par le bénéficiaire est une charge au compte **6772 Mali provenant d'attribution gratuite d'actions au personnel salarié et aux dirigeants**. Dans l'Application, 1 000 actions rachetées à 15 000 sont attribuées aux dirigeants contre règlement de leur nominal de 12 000 : le mali est de 3 000 000. Avec des **actions à émettre** (Application 77), l'assemblée affecte une partie du résultat à une réserve, puis l'augmentation de capital vire cette réserve au 1013 : c'est une incorporation de réserves au profit des seuls bénéficiaires.",
       },
       {
         type: 'carte',
-        titre: "Application 77 : attribution gratuite par prélèvement sur le résultat",
+        titre: "Exemple 4.5 — Application 77 : attribution gratuite par prélèvement sur le résultat",
         tableau: {
           entetes: ["Débit", "Crédit", "Libellé", "Montant débit", "Montant crédit"],
           lignes: [
@@ -763,17 +767,15 @@ const SECTIONS: Chapitre['sections'] = [
         },
         note: "L'Application utilise le compte 118 ; le plan de comptes comporte aussi un compte spécifique, 1132 Réserves d'attribution gratuite d'actions au personnel salarié et aux dirigeants, parmi les réserves réglementées.",
       },
+      { type: 'intertitre', texte: "4.9.3 Finalité et effets comparés" },
       {
         type: 'paragraphe',
         texte: "L'attribution gratuite d'actions répond à une logique de fidélisation : elle associe les salariés et les dirigeants à la réussite de l'entreprise, en différant leur accès aux actions (période d'acquisition) et leur liberté de les céder (obligation de conservation). Elle a un coût pour les actionnaires existants, qui voient leur part diluée, d'où l'intervention de l'AGE, du commissaire aux comptes et d'un rapport annuel spécial à l'AGO (art. 626-4). Pour les sociétés cotées, l'Acte uniforme ajoute des fenêtres négatives autour de la publication des comptes et des informations privilégiées (art. 626-1-1) et subordonne l'attribution aux dirigeants à une attribution à l'ensemble des salariés (art. 626-6). Les délibérations prises en violation de ces règles sont nulles.",
       },
-      { type: 'controle', question: QCM[24] },
-      { type: 'controle', question: QCM[25] },
       {
         type: 'paragraphe',
         texte: "Les deux techniques comptables de l'attribution gratuite n'ont pas le même effet sur les comptes. Avec des actions rachetées (Application 76), la société décaisse le prix de rachat et supporte une charge, le mali, qui diminue son résultat ; le nombre d'actions en circulation ne change pas, puisque des actions existantes passent des mains de la société à celles des bénéficiaires. Avec des actions à émettre (Application 77), la société ne décaisse rien : elle affecte une partie de ses bénéfices à une réserve, puis l'incorpore au capital au profit des seuls bénéficiaires ; le nombre d'actions augmente et les actionnaires existants sont dilués. Le choix entre les deux dépend de la trésorerie disponible, du régime du rachat d'actions propres (chapitre 5) et de l'acceptation de la dilution par les actionnaires.",
       },
-      { type: 'controle', question: QCM[26] },
     ],
   },
   {
@@ -781,6 +783,7 @@ const SECTIONS: Chapitre['sections'] = [
     titre: "Augmenter le capital en RDC : l'exemple des banques",
     navLabel: "Le cas des banques",
     blocs: [
+      { type: 'intertitre', texte: "4.10.1 Le capital minimum des banques" },
       {
         type: 'paragraphe',
         texte: "Le secteur bancaire congolais offre une illustration concrète des augmentations de capital. Une banque doit se constituer en **société anonyme** selon le droit OHADA et justifier d'un capital social minimum souscrit et libéré ; selon l'Agence nationale pour la promotion des investissements (page « Comment créer une banque ? », mise à jour en février 2026), ce minimum a été relevé à l'équivalent en francs congolais de **50 millions de dollars** depuis le 31 décembre 2020. Le droit bancaire vient ici compléter le minimum de 10 000 000 FCFA de l'article 387 de l'AUSCGIE, que l'article 1er de l'Acte uniforme permet d'articuler avec les lois nationales non contraires. Pour se conformer, les banques ont dû augmenter leur capital, souvent par incorporation de réserves ou par apports nouveaux de leurs actionnaires.",
@@ -794,13 +797,15 @@ const SECTIONS: Chapitre['sections'] = [
         titre: "Une réforme parlementaire non encore promulguée",
         texte: "Constatant qu'aucun établissement ne s'était conformé à l'exigence de quatre actionnaires, un député a déposé une proposition de loi modifiant les articles 11 et 190 de la loi n° 22/069 pour ramener ce nombre à deux et accorder un délai de trente-six mois. Selon Bankable (18 juin 2025), l'Assemblée nationale l'a adoptée le 15 juin 2025 ; selon l'Agence congolaise de presse (26 novembre 2025), le Sénat devait en examiner le rapport en seconde lecture le 27 novembre 2025, et Droit Médias Finance indiquait en janvier 2026 que la réforme était « en cours ». Nous n'avons trouvé aucune trace de sa promulgation : il s'agit d'une initiative parlementaire, et l'article 11 dans sa rédaction de 2022 reste le droit applicable tant qu'une loi modificative n'est pas promulguée et publiée.",
       },
+      { type: 'intertitre', texte: "4.10.2 Les vigilances du comptable" },
       {
         type: 'paragraphe',
         texte: "Pour le comptable d'une banque ou de toute société soumise à un capital minimum sectoriel, deux vigilances en découlent. D'abord, le capital **libéré**, et non seulement souscrit, est souvent exigé : les fractions non appelées (compte 109) ne comptent pas, et une augmentation libérée du quart ne suffit pas à atteindre le seuil. Ensuite, la conversion des montants exprimés en dollars se fait en francs congolais au cours du jour, comme pour tout apport en devises (art. 51 et 52 AUDCIF, chapitre 1) : une dépréciation du franc congolais peut faire passer un capital en dessous de l'équivalent requis, même si aucun actionnaire ne s'est retiré. Le suivi du capital réglementaire devient alors un exercice permanent, qui dépasse la seule comptabilité des sociétés.",
       },
+      { type: 'intertitre', texte: "4.10.3 Synthèse des écritures" },
       {
         type: 'carte',
-        titre: "Synthèse : quelle écriture pour quelle augmentation ?",
+        titre: "Tableau 4.3 — Les écritures de réalisation selon le procédé d'augmentation",
         tableau: {
           entetes: ["Procédé", "Écriture de réalisation", "Effet sur les capitaux propres"],
           lignes: [
@@ -813,16 +818,16 @@ const SECTIONS: Chapitre['sections'] = [
           ],
         },
       },
+      { type: 'intertitre', texte: "4.10.4 Les autres activités réglementées" },
       {
         type: 'paragraphe',
         texte: "Au-delà du secteur bancaire, d'autres activités réglementées imposent en RDC des exigences de capital ou de fonds propres, que le comptable doit connaître lorsqu'il accompagne une augmentation : assurances, microfinance, monnaie électronique, par exemple. La méthode est la même. On identifie le texte sectoriel et le seuil, on vérifie s'il vise le capital souscrit, le capital libéré ou les fonds propres, on convertit les seuils exprimés en devises au cours pertinent, et l'on choisit la technique d'augmentation la mieux adaptée : incorporation si les réserves suffisent, apports nouveaux sinon, conversion de dettes lorsque les actionnaires ont déjà financé la société en compte courant ou par obligations.",
       },
-      { type: 'controle', question: QCM[28] },
+      { type: 'intertitre', texte: "4.10.5 Application : MONGALA ENERGIE" },
       {
         type: 'paragraphe',
         texte: "Retour à MONGALA ENERGIE, dont le cas 1 détaille les écritures. L'assemblée extraordinaire a décidé l'émission de 3 000 actions à 14 000 FC, sur les rapports du conseil et du commissaire aux comptes, après avoir vérifié que l'ancien capital était entièrement libéré. Le droit préférentiel de souscription, d'une valeur théorique de 800 FC, a protégé les anciens actionnaires contre la dilution. Les 42 000 000 FC versés chez le notaire ont transité par le 4615, puis la réalisation a porté 30 000 000 FC au capital et 12 000 000 FC à la prime d'émission. Le capital passe de 120 000 000 à 150 000 000 FC. KIVU CRÉDIT (cas 5) montre la même mécanique à l'échelle d'une banque, avec une suppression du DPS au profit d'investisseurs désignés.",
       },
-      { type: 'controle', question: QCM[29] },
     ],
   },
 ]
