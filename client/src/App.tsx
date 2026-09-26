@@ -3,7 +3,7 @@ import { useIdleTimer } from '@/hooks/useIdleTimer'
 import IdleWarningModal from '@/components/IdleWarningModal'
 import { Router, Route, Switch, Redirect } from 'wouter'
 import { useHashLocation } from 'wouter/use-hash-location'
-import { initDefaultData, User } from '@/lib/db'
+import type { User } from '@/lib/db'
 import { logoutAsync, getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
 import { isProfRole } from '@/lib/permissions'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
@@ -44,7 +44,6 @@ const ImmobilisationsPage = React.lazy(() => import('@/pages/ImmobilisationsPage
 const DocsComptablesHub = React.lazy(() => import('@/pages/DocsComptablesHub'))
 const EtatsFinanciersHub = React.lazy(() => import('@/pages/EtatsFinanciersHub'))
 const DictionnairePage = React.lazy(() => import('@/pages/DictionnairePage'))
-const PrepaOnecPage = React.lazy(() => import('@/pages/PrepaOnecPage'))
 const DebuggingAdminPage = React.lazy(() => import('@/pages/DebuggingAdminPage'))
 const GestionStockPage = React.lazy(() => import('@/pages/GestionStockPage'))
 const EmpruntsPage = React.lazy(() => import('@/pages/EmpruntsPage'))
@@ -103,9 +102,6 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Initialiser données par défaut (plan comptable, etc.) : localStorage uniquement
-    initDefaultData()
-
     // Écouter l'état Firebase Auth
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
@@ -289,10 +285,6 @@ export default function App() {
             description="Le module Analyse Financière permet d'étudier la santé financière d'une entreprise : rentabilité, liquidité, solvabilité et ratios clés."
             fonctionnalites={['Calcul des ratios financiers', 'Analyse de la rentabilité', 'Tableau des flux de trésorerie', 'Diagnostic financier', 'Exercices d\'analyse']}
           /></W>
-        </Route>
-
-        <Route path="/prepa-onec">
-          <W user={user} onLogout={handleLogout}><PrepaOnecPage /></W>
         </Route>
 
         <Route path="/debug-isolation">

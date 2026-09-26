@@ -1,8 +1,9 @@
 // ═══════════════════════════════════════════════════════════════════════
-//  CAMPUS OHADA - Page de débogage isolation admin
+//  ORBIT - Page de débogage isolation admin
 //  Accessible uniquement aux admins - route /debug-isolation
 //  Permet de vérifier que chaque admin ne voit que ses propres étudiants
 // ═══════════════════════════════════════════════════════════════════════
+import { isAdminRole } from '@/lib/permissions'
 import { useEffect, useState } from 'react'
 import { useUser } from '@/lib/userContext'
 import { onUsersSnapshot, deleteUserAsync } from '@/lib/db-firebase'
@@ -36,7 +37,9 @@ export default function DebuggingAdminPage() {
     return () => unsub()
   }, [])
 
-  if (!currentUser || !['admin', 'professeur', 'assistant'].includes(currentUser.role)) {
+  // Réservée à l'administrateur, comme l'annonce l'en-tête : la page permet
+  // de supprimer des comptes, ce qui n'est pas du ressort d'un enseignant.
+  if (!currentUser || !isAdminRole(currentUser)) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <p className="text-destructive font-semibold">Accès refusé - réservé aux administrateurs.</p>

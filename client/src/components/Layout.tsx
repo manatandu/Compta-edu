@@ -9,7 +9,7 @@ import {
 import GlobalSearch from '@/components/GlobalSearch'
 import { NotificationBell } from '@/components/NotificationBell'
 import { ChangerMotDePasse } from '@/components/ChangerMotDePasse'
-import { logout, User } from '@/lib/db'
+import type { User } from '@/lib/db'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -122,7 +122,6 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
   }, [location])
 
   const handleLogout = () => {
-    logout()
     if (onLogout) {
       onLogout()
     } else {

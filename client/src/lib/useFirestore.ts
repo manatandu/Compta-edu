@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════
-//  CAMPUS OHADA : Hooks Firestore temps réel
+//  ORBIT : Hooks Firestore temps réel
 //  Remplace complètement les lectures localStorage.
 //  Chaque hook s'abonne aux changements Firestore en temps réel via onSnapshot.
 // ═══════════════════════════════════════════════════════════════════════

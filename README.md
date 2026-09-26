@@ -1,6 +1,26 @@
-# Compta-edu (Orbit)
+# Orbit (dépôt Compta-edu)
 
-Logiciel web pédagogique de comptabilité OHADA/AUDCIF pour étudiants : cours (UE1-UE5), journal, grand livre, balance, bilan, plan comptable, simulateurs fiscaux (TVA, IPR, constitution de société), QCM, gestion des étudiants et des devoirs.
+Logiciel web pédagogique de comptabilité OHADA/SYSCOHADA pour étudiants congolais : manuels de cours, outils de comptabilité générale (journal, grand livre, balance, bilan, plan comptable, stocks, immobilisations, emprunts, factures, paie), simulateurs fiscaux (IS, IRPP, TVA, douane, fiscalité minière, constitution de société), QCM, gestion des étudiants et des devoirs.
+
+## Contenu pédagogique
+
+| UE | Module | Forme |
+|---|---|---|
+| 1 | Droit du travail | manuel, 10 chapitres |
+| 2 | Droit des sociétés OHADA | manuel, 11 chapitres + simulateur de constitution |
+| 3 | Comptabilité des sociétés | manuel, 10 chapitres |
+| 4 | Fiscalité des entreprises | simulateurs et procédures fiscales |
+| 5 | Finances publiques | manuel, 10 chapitres |
+| 9 | Comptabilité générale | outils de saisie et d'états financiers |
+| 13 | Normes IAS/IFRS | manuel, 8 chapitres |
+
+Les UE 6, 7, 8, 10, 11 et 12 figurent au catalogue mais sont désactivées (`actif: false` dans `COURS_SYSTEME`, `client/src/lib/db-firebase.ts`).
+
+Un manuel se compose de deux fichiers de référence :
+- `client/src/content/modules.ts` décrit le module (adresse, intitulé, sources, titres et durées des chapitres) ;
+- `client/src/content/catalogue.ts` relie chaque chapitre à son fichier de contenu `client/src/content/<ue>/chapitre-N.ts`.
+
+Ajouter un chapitre revient à écrire son fichier de contenu et à l'inscrire dans ces deux registres. Aucune route ni page n'est à créer.
 
 ## Stack
 
