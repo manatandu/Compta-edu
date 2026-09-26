@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 // fois - au même titre qu'un poste hors champ (`excluded`).
 //
 // Source unique, partagée entre FiscalitePage.tsx (Cat1Salaires et les autres
-// catégories IRPP/IS) et ChargesPersonnelIPRPage.tsx (UE9 Module 6) : les deux
+// catégories IRPP/IS) et ChargesPersonnelIRPPPage.tsx (UE9 Module 6) : les deux
 // pages calculent et présentent le même IRPP Cat. 1, elles doivent avoir la
 // même interface de saisie par catalogue.
 // ─────────────────────────────────────────────────────────────────────────────

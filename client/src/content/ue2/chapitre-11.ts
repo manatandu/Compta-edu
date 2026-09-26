@@ -11,6 +11,7 @@
 //   participation sur option), d'après le skill fiscalite-rdc ;
 // - AUDCG du 15 décembre 2010, art. 7 (conjoint du commerçant).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -602,7 +603,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 11,
   id: 'ue2-chapitre-11',
-  titre: 'La société en participation et la société de fait',
+  titre: titreChapitre('ue2', 11),
   sousTitre: "AUSCGIE révisé, art. 114, 115 et 854 à 868 · loi n° 23/053, art. 3 et 4",
   infoBulle: "Les sociétés sans personnalité morale : la société en participation (notion, rapports entre associés, biens, rapports avec les tiers, fin, fiscalité), la société créée de fait et la société de fait (notions, preuve, reconnaissance judiciaire, application des règles de la SNC), leur place dans l'économie congolaise et une synthèse du module.",
   loiRef: 'Art. 114, 115, 854-868 AUSCGIE · loi n° 23/053, art. 3 et 4',

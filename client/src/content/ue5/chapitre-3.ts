@@ -19,6 +19,7 @@
 // 2025) est conservée mais signalée comme donnée externe non vérifiable
 // dans les textes.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -494,7 +495,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 3,
   id: 'ue5-chapitre-3',
-  titre: "Structure et présentation du budget de l'État",
+  titre: titreChapitre('ue5', 3),
   sousTitre: 'LOFIP n° 11/011 du 13 juillet 2011 (mod. 2018 et 2023), art. 14-41 et 54-73 · LF 2025 et 2026',
   infoBulle: "Les quatre espèces de lois de finances, la structure tripartite du budget du pouvoir central (budget général, budgets annexes, comptes spéciaux), la classification des ressources et les neuf titres de dépenses, les régimes des crédits (limitatifs, évaluatifs, provisionnels) et les chiffres réels des budgets 2025-2026.",
   loiRef: 'Art. 17-41, 54-73 LOFIP',

@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 6 : Impôts différés, monnaies étrangères et avantages du
@@ -1178,7 +1179,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 6,
   id: 'ue13-chapitre-6',
-  titre: 'Impôts différés, monnaies étrangères et avantages du personnel',
+  titre: titreChapitre('ue13', 6),
   sousTitre: "IAS 12, IAS 21 et IAS 19 : fiscalité différée, conversion des devises et engagements sociaux",
   infoBulle: "Chapitre 6 du module IFRS/IAS : impôts sur le résultat selon IAS 12 (base fiscale, différences temporaires, exceptions, pertes fiscales, évaluation, rattachement, preuve d'impôt) ; effets des variations des cours des monnaies étrangères selon IAS 21 (monnaie fonctionnelle, transactions, éléments monétaires et non monétaires, conversion dans une monnaie de présentation) ; avantages du personnel selon IAS 19 (avantages à court terme, cotisations et prestations définies, unités de crédit projetées, réévaluations, cessation d'emploi) ; rapprochement avec le SYSCOHADA révisé et le contexte congolais (impôt sur les sociétés, CNSS, dollarisation).",
   loiRef: "IAS 12 · IAS 21 · IAS 19 · AUDCIF art. 17 et 54 à 57 · SYSCOHADA, Titre VIII, ch. 21 et 22 · Loi n° 23/053 (IS) · Décret n° 18/041 (CNSS)",

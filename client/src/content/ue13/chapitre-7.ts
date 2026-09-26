@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 7 : Première adoption des IFRS et IFRS pour les PME
@@ -1278,7 +1279,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 7,
   id: 'ue13-chapitre-7',
-  titre: 'Première adoption des IFRS et IFRS pour les PME',
+  titre: titreChapitre('ue13', 7),
   sousTitre: "IFRS 1 et IFRS pour les PME : transition vers le référentiel international et choix du référentiel",
   infoBulle: "Chapitre 7 du module IFRS/IAS : recours aux IFRS dans l'espace OHADA (AUDCIF, art. 8, 75 et 113 ; AUSCGIE, art. 371 et 664 ; monnaie fonctionnelle) ; première adoption selon IFRS 1 (champ, groupes, bilan d'ouverture complet, comparaison avec la première application du SYSCOHADA révisé, exceptions obligatoires, exemptions facultatives dont le coût présumé et la réévaluation légale congolaise, rapprochements chiffrés) ; norme IFRS pour les PME, troisième édition (fondements, obligation d'information du public, différences chiffrées, transition selon la section 35) ; synthèse sur le choix d'un référentiel.",
   loiRef: "IFRS 1 · IFRS for SMEs (3e éd., 2025) · AUDCIF art. 8, 75 et 113 · SYSCOHADA révisé, ch. 41",

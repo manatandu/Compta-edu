@@ -14,6 +14,7 @@
 // - loi n° 23/053 du 30 novembre 2023, art. 6 (exonération partielle du GIE),
 //   d'après le skill fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -627,7 +628,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 6,
   id: 'ue2-chapitre-6',
-  titre: "Le groupement d'intérêt économique (GIE)",
+  titre: titreChapitre('ue2', 6),
   sousTitre: "AUSCGIE révisé, art. 869 à 885 · comparaison avec la société, la coopérative (AUSCOOP) et l'ASBL (loi n° 004/2001)",
   infoBulle: "La finalité et la place du GIE, son objet exclusif et auxiliaire, l'absence de bénéfice propre et le traitement des excédents, la constitution et l'immatriculation, la responsabilité indéfinie et solidaire des membres, l'assemblée et l'administration, le contrôle, la comptabilité et l'émission d'obligations, la transformation, la dissolution et la liquidation.",
   loiRef: "Art. 869-885 AUSCGIE · art. 2 AUDCIF · art. 1-1 AUPCAP · art. 4 AUSCOOP · loi n° 23/053, art. 6",

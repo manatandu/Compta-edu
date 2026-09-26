@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 4 : Stocks, créances et instruments financiers
@@ -1165,7 +1166,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 4,
   id: 'ue13-chapitre-4',
-  titre: 'Stocks, créances et instruments financiers',
+  titre: titreChapitre('ue13', 4),
   sousTitre: "IAS 2, IFRS 9 et IAS 32 : évaluation des stocks, classement, évaluation et dépréciation des instruments financiers",
   infoBulle: "Chapitre 4 du module IFRS/IAS : stocks (champ, coût d'acquisition et de transformation, capacité normale, formules PEPS et coût moyen, valeur nette de réalisation, dépréciation et reprise) ; instruments financiers (définitions d'IAS 32, champ d'IFRS 9, évaluation initiale, classement selon le modèle économique et les flux contractuels, coût amorti et taux d'intérêt effectif, passifs financiers, pertes de crédit attendues et approche simplifiée, décomptabilisation, couverture) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
   loiRef: "IAS 2 · IFRS 9 · IAS 32 § 11 · IAS 8 § 8 · AUDCIF art. 42-44 et 46 · SYSCOHADA, Titre VII (compte 49) et Titre VIII, ch. 14-15",

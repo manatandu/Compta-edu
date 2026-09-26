@@ -13,6 +13,7 @@
 // convention collective interprofessionnelle nationale du travail, travaux
 // du Conseil national du travail (2025-2026) et communications officielles.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -689,7 +690,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 8,
   id: 'ue1-chapitre-8',
-  titre: "Administration du travail, moyens de contrôle et relations professionnelles",
+  titre: titreChapitre('ue1', 8),
   sousTitre: "Titres IX à XII du Code du travail · Loi n°015/2002, art. 185 à 296 · Décrets n°081/2002 et 12/003 (ONEM) · Arrêtés n°095/2018 et 30/2025 (contribution ONEM), 075/2025 (offres d'emploi), 032 et 035/2025 (syndicats, emploi des étrangers) · Arrêté du 12 octobre 2004 (représentation des travailleurs)",
   infoBulle: "Administration et inspection du travail (missions, pouvoirs, procès-verbaux, mesures exécutoires), Direction de l'emploi, ONEM et contribution patronale, emploi des étrangers et carte de travail, contrat écrit, livre de paie et déclarations, secrétariats sociaux, Conseil national du travail, liberté syndicale et enregistrement, délégation syndicale et protection des délégués, conventions collectives et extension.",
   loiRef: "Titres IX à XII, art. 185 à 296 ; renvois aux art. 7, 62, 64, 72, 78, 86, 103, 137, 157, 172 à 176, 298, 317 et 322",

@@ -24,6 +24,7 @@
 // comme telle ; ses règles convergent avec le Guide PAP/RAP vérifié
 // (4 à 5 programmes par ministère, limitation des objectifs).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -549,7 +550,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 5,
   id: 'ue5-chapitre-5',
-  titre: 'Élaboration et adoption du budget',
+  titre: titreChapitre('ue5', 5),
   sousTitre: 'LOFIP n° 11/011 du 13 juillet 2011 (mod. 2018 et 2023), art. 13, 76-87 · Guide PAP/RAP 2021 · décrets n° 22/37 et 23/18',
   infoBulle: "Le calendrier budgétaire (CBMT, dépôt du 15 septembre, délais de vote, crédits provisoires, reddition du 15 mai), les acteurs, les états intégrants (art. 78) et les onze documents accompagnants (art. 79 réd. 2023), la recevabilité des amendements (art. 86), le quitus (art. 87) et la fabrique de la performance : PAP/RAP, RPROG et PIP.",
   loiRef: 'Art. 13, 76-87 LOFIP',

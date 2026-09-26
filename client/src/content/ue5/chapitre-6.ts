@@ -22,6 +22,7 @@
 // (supprimée) ; « DGRAD 6 469,4 Mds » confondait la DGRAD (5 474,6 Mds,
 // annexe II) avec le total des recettes non fiscales (6 469,4 Mds).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -433,7 +434,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 6,
   id: 'ue5-chapitre-6',
-  titre: 'Exécution des recettes publiques',
+  titre: titreChapitre('ue5', 6),
   sousTitre: 'LOFIP, art. 89-92 et 110 · RGCP (décret n° 24/10 du 14 octobre 2024), art. 13-19, 50-54 et 60-79',
   infoBulle: "Les phases de la recette (constatation, liquidation, ordonnancement, recouvrement - art. 89 LOFIP et 61-70 RGCP), les ordonnateurs de recettes et les receveurs des régies financières (DGI, DGDA, DGRAD), les régies de recettes, la force exécutoire des titres, l'unité de trésorerie (art. 110) et les responsabilités (débet, gestion de fait).",
   loiRef: 'Art. 89-92, 110 LOFIP · RGCP 2024',

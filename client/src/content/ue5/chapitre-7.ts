@@ -19,6 +19,7 @@
 // obligations ne deviennent certaines et définitives qu'avec l'ouverture
 // des crédits correspondants).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -458,7 +459,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 7,
   id: 'ue5-chapitre-7',
-  titre: 'Exécution des dépenses : la chaîne de la dépense',
+  titre: titreChapitre('ue5', 7),
   sousTitre: 'LOFIP, art. 88-115 · RGCP (décret n° 24/10 du 14 octobre 2024), art. 80-92',
   infoBulle: "Les quatre phases de la dépense (engagement, liquidation, ordonnancement, paiement), les acteurs (ordonnateur, comptable public, contrôleur budgétaire), le service fait, le refus de payer et la réquisition, les quatre comptabilités publiques, les reports de crédits et les responsabilités devant la Cour des comptes.",
   loiRef: 'Art. 88-115 LOFIP · RGCP 2024',

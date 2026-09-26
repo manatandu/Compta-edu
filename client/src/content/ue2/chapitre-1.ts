@@ -25,6 +25,7 @@
 // à partir de l'art. 920 : quatre-vingt-dix jours après la publication au
 // Journal officiel de l'OHADA du 4 février 2014.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -673,7 +674,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 1,
   id: 'ue2-chapitre-1',
-  titre: 'La société commerciale : notion, constitution et naissance',
+  titre: titreChapitre('ue2', 1),
   sousTitre: "AUSCGIE révisé du 30 janvier 2014, art. 1 à 120-5, 242 à 262 et 907 à 920 · Guichet unique de création d'entreprise et capital libre de la SARL en RDC",
   infoBulle: "L'OHADA et son application en RDC depuis le 12 septembre 2012, la définition de la société et les sociétés sans immatriculation, l'associé unique et la capacité des associés, les trois apports, les titres sociaux et les clauses léonines, le capital social, les statuts, les cinq formes et les établissements secondaires, la naissance de la personnalité juridique au GUCE, les pactes d'associés et les nullités.",
   loiRef: 'Art. 1-120-5, 242-262, 907-920 AUSCGIE · décret n° 14/014 du 8 mai 2014 · arrêté du 30 décembre 2014',

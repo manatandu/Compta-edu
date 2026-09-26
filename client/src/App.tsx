@@ -17,6 +17,7 @@ import { ModuleProvider } from '@/lib/moduleContext'
 import { UserProvider } from '@/lib/userContext'
 import { NavProvider } from '@/lib/navContext'
 import PageLoader from '@/components/PageLoader'
+import { MODULES, ROUTE_CHAPITRE } from '@/content/modules'
 
 
 
@@ -38,7 +39,7 @@ const DocumentsPage = React.lazy(() => import('@/pages/DocumentsPage'))
 const ComingSoonPage = React.lazy(() => import('@/pages/ComingSoonPage'))
 const ApercuDevoirPage = React.lazy(() => import('@/pages/ApercuDevoirPage'))
 const FiscalitePage = React.lazy(() => import('@/pages/FiscalitePage'))
-const ChargesPersonnelIPRPage = React.lazy(() => import('@/pages/ChargesPersonnelIPRPage'))
+const ChargesPersonnelIRPPPage = React.lazy(() => import('@/pages/ChargesPersonnelIRPPPage'))
 const ImmobilisationsPage = React.lazy(() => import('@/pages/ImmobilisationsPage'))
 const DocsComptablesHub = React.lazy(() => import('@/pages/DocsComptablesHub'))
 const EtatsFinanciersHub = React.lazy(() => import('@/pages/EtatsFinanciersHub'))
@@ -54,13 +55,9 @@ const StockFichePage = React.lazy(() => import('@/pages/StockFichePage'))
 const StockJournalPage = React.lazy(() => import('@/pages/StockJournalPage'))
 const StockExercicePage = React.lazy(() => import('@/pages/StockExercicePage'))
 const MesCoursPage = React.lazy(() => import('@/pages/MesCoursPage'))
-const UE1DroitTravailPage = React.lazy(() => import('@/pages/UE1DroitTravailPage'))
 const ChapitrePage = React.lazy(() => import('@/pages/ChapitrePage'))
-const UE2DroitSocietesPage = React.lazy(() => import('@/pages/UE2DroitSocietesPage'))
+const SommaireModulePage = React.lazy(() => import('@/pages/SommaireModulePage'))
 const UE2SimulateurConstitutionPage = React.lazy(() => import('@/pages/UE2SimulateurConstitutionPage'))
-const UE3ComptaSocietesPage = React.lazy(() => import('@/pages/UE3ComptaSocietesPage'))
-const UE5FinancesPubliquesPage = React.lazy(() => import('@/pages/UE5FinancesPubliquesPage'))
-const UE13IFRSPage = React.lazy(() => import('@/pages/UE13IFRSPage'))
 const GestionEtudiantsPage = React.lazy(() => import('@/pages/GestionEtudiantsPage'))
 const FicheEtudiantPage = React.lazy(() => import('@/pages/FicheEtudiantPage'))
 const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPlatformePage'))
@@ -247,9 +244,12 @@ export default function App() {
         <Route path="/stock/exercice">
           {() => <ProtectedRoute component={StockExercicePage} user={user} onLogout={handleLogout} />}
         </Route>
-        <Route path="/charges-personnel/ipr">
-          <W user={user} onLogout={handleLogout}><ChargesPersonnelIPRPage /></W>
+        <Route path="/charges-personnel/irpp">
+          <W user={user} onLogout={handleLogout}><ChargesPersonnelIRPPPage /></W>
         </Route>
+        {/* Ancienne adresse (l'IPR est abrogé depuis le 1er janvier 2026) :
+            conservée en redirection pour les favoris et les liens déjà partagés. */}
+        <Route path="/charges-personnel/ipr"><Redirect to="/charges-personnel/irpp" /></Route>
         <Route path="/emprunts">
           {() => <ProtectedRoute component={EmpruntsPage} user={user} onLogout={handleLogout} />}
         </Route>
@@ -303,118 +303,32 @@ export default function App() {
           {() => <ProtectedRoute component={MesCoursPage} user={user} onLogout={handleLogout} />}
         </Route>
 
-        {/* ── UE 1 - Droit du travail ── */}
-        <Route path="/ue1-droit-travail">
-          <W user={user} onLogout={handleLogout}><UE1DroitTravailPage /></W>
-        </Route>
-        {/* Une seule route dessert tous les chapitres du module : le contenu
-            vit dans client/src/content, plus dans un fichier de page par chapitre. */}
-        <Route path="/ue1/chapitre-:numero">
-          {(params) => (
-            <W user={user} onLogout={handleLogout}>
-              <ChapitrePage ue="ue1" numero={params.numero} />
-            </W>
-          )}
-        </Route>
-
-        {/* ── UE 2 - Droit des sociétés OHADA ── */}
-        <Route path="/ue2-droit-societes">
-          <W user={user} onLogout={handleLogout}><UE2DroitSocietesPage /></W>
-        </Route>
-        <Route path="/ue2/chapitre-1">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="1" /></W>
-        </Route>
+        {/* ── Modules de cours rédigés ──
+            Sommaires et chapitres sont décrits par content/modules.ts et
+            content/catalogue.ts : ajouter un module ou un chapitre n'exige
+            aucune route supplémentaire ici. */}
+        {MODULES.map(m => (
+          <Route key={m.ue} path={m.route}>
+            <W user={user} onLogout={handleLogout}><SommaireModulePage ue={m.ue} /></W>
+          </Route>
+        ))}
         <Route path="/ue2/simulateur-constitution">
           <W user={user} onLogout={handleLogout}><UE2SimulateurConstitutionPage /></W>
         </Route>
-        <Route path="/ue2/chapitre-2">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="2" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-3">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="3" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-4">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="4" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-5">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="5" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-6">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="6" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-7">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="7" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-8">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="8" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-9">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="9" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-10">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="10" /></W>
-        </Route>
-        <Route path="/ue2/chapitre-11">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue2" numero="11" /></W>
-        </Route>
-
-        {/* ── UE 3 - Comptabilité des sociétés ── */}
-        <Route path="/ue3-compta-societes">
-          <W user={user} onLogout={handleLogout}><UE3ComptaSocietesPage /></W>
-        </Route>
-        {/* Une seule route dessert tous les chapitres du module : le contenu
-            vit dans client/src/content, pas dans un fichier de page par chapitre. */}
-        <Route path="/ue3/chapitre-:numero">
+        {/* Motif en expression régulière : le parseur de wouter (regexparam) ne
+            reconnaît un paramètre qu'en début de segment. « chapitre-:numero »
+            y était lu comme un texte littéral, si bien qu'aucune adresse de
+            chapitre ne correspondait et que l'UE1 et l'UE3 affichaient
+            « Page introuvable ». */}
+        <Route path={ROUTE_CHAPITRE}>
           {(params) => (
             <W user={user} onLogout={handleLogout}>
-              <ChapitrePage ue="ue3" numero={params.numero} />
+              <ChapitrePage ue={params.ue ?? ""} numero={params.numero ?? ""} />
             </W>
           )}
         </Route>
 
-        {/* ── UE 5 - Finances publiques ── */}
-        <Route path="/ue5-finances-publiques">
-          <W user={user} onLogout={handleLogout}><UE5FinancesPubliquesPage /></W>
-        </Route>
-        <Route path="/ue5/chapitre-1">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="1" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-2">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="2" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-3">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="3" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-4">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="4" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-5">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="5" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-6">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="6" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-7">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="7" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-8">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="8" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-9">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="9" /></W>
-        </Route>
-        <Route path="/ue5/chapitre-10">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue5" numero="10" /></W>
-        </Route>
-        <Route path="/ue13-ifrs-ias">
-          <W user={user} onLogout={handleLogout}><UE13IFRSPage /></W>
-        </Route>
-        <Route path="/ue13/chapitre-1">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="1" /></W>
-        </Route>
-        <Route path="/ue13/chapitre-2">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="2" /></W>
-        </Route>
+        {/* ── Gestion des étudiants ── */}
         <Route path="/gestion-etudiants">
           {() => <ProtectedRoute component={GestionEtudiantsPage} user={user} onLogout={handleLogout} />}
         </Route>
@@ -423,24 +337,6 @@ export default function App() {
         </Route>
         <Route path="/inscription-plateforme">
           {() => <ProtectedRoute component={InscriptionPlatformePage} user={user} onLogout={handleLogout} />}
-        </Route>
-        <Route path="/ue13/chapitre-3">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="3" /></W>
-        </Route>
-        <Route path="/ue13/chapitre-4">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="4" /></W>
-        </Route>
-        <Route path="/ue13/chapitre-5">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="5" /></W>
-        </Route>
-        <Route path="/ue13/chapitre-6">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="6" /></W>
-        </Route>
-        <Route path="/ue13/chapitre-7">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="7" /></W>
-        </Route>
-        <Route path="/ue13/chapitre-8">
-          <W user={user} onLogout={handleLogout}><ChapitrePage ue="ue13" numero="8" /></W>
         </Route>
 
         {/* Adresse inconnue : page explicite plutôt qu'un renvoi muet vers

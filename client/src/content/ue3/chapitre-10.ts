@@ -18,6 +18,7 @@
 //   selon l'AUDCIF contre l'art. 6 de la loi congolaise.
 // - Loi n° 23/053 du 30 novembre 2023, art. 3, 4 et 6, skill fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -968,7 +969,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 10,
   id: 'ue3-chapitre-10',
-  titre: "Sociétés particulières : participation, sociétés de fait, GIE, transformation",
+  titre: titreChapitre('ue3', 10),
   sousTitre: "AUSCGIE révisé, art. 181-188, 374-375, 690-693-1, 853-6 et 854-885 · AUDCIF, Titre VIII, ch. 26 et 33 · SYSCOHADA, Applications 96-97 et 106-107 · loi n° 23/053, art. 3, 4 et 6",
   infoBulle: "Quatre montages observés à Lubumbashi pour étudier les structures à part de l'AUSCGIE : la société en participation (sans personnalité morale, comptes de liaison 188, 182, 2773, 4631, partage du résultat), la société créée de fait et la société de fait (régime de la SNC), le GIE (activité auxiliaire, solidarité, comptes 266, 2774, 621, 772) et la transformation (continuité de la personne morale, conditions selon les formes, commissaires à la transformation), avec une grille de choix et la fiscalité congolaise.",
   loiRef: "Art. 181-188, 374-375, 690-693-1, 853-6, 854-885 AUSCGIE · AUDCIF, Titre VIII, ch. 26 et 33 · App. 96-97, 106-107 · loi n° 23/053, art. 3, 4, 6",

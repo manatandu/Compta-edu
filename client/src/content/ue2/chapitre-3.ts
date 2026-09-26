@@ -13,6 +13,7 @@
 //   sociétés de personnes ; IRPP des associés à défaut d'option), d'après le
 //   skill fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -605,7 +606,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 3,
   id: 'ue2-chapitre-3',
-  titre: 'Les sociétés de personnes : SNC et SCS',
+  titre: titreChapitre('ue2', 3),
   sousTitre: "AUSCGIE révisé, art. 270 à 292 (SNC) et 293 à 308 (SCS) · AUDCG, AUPCAP et fiscalité congolaise des sociétés de personnes",
   infoBulle: "L'intuitu personae, la SNC et ses associés commerçants, la responsabilité indéfinie et solidaire et son extension aux procédures collectives, la cession des parts, la gérance, la révocation du gérant, les décisions collectives et le contrôle, la fin de la SNC, puis la SCS : commandités et commanditaires, prohibition d'immixtion, décisions et fin de la société.",
   loiRef: 'Art. 270-308 AUSCGIE · art. 6-13 AUDCG · art. 31, 33 AUPCAP · loi n° 23/053',

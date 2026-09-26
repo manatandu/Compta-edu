@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 5 — Chapitre 9 : Le contrôle des finances publiques
@@ -626,7 +627,7 @@ const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 9,
   id: 'ue5-ch9',
-  titre: 'Le contrôle des finances publiques',
+  titre: titreChapitre('ue5', 9),
   sousTitre: "Contrôleur budgétaire, IGF, Cour des comptes et Parlement",
   infoBulle: "Chapitre 9 du module Finances publiques : les quatre étages du contrôle — administratif (contrôleur budgétaire, ordonnateur, comptable, IGF), juridictionnel (Cour des comptes) et parlementaire — et la loi de reddition des comptes.",
   loiRef: "Constitution, art. 173, 178-180 · LOFIP, art. 28-31, 111-131 · Loi organique n° 18/024",

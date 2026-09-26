@@ -9,6 +9,7 @@
 // AUSCGIE révisé du 30 janvier 2014, art. 2-1, 51 à 66, 125 à 136, 516 à
 // 561, 562 à 591, 627 à 640, 744 à 746, 764 à 765-3 et 778-1 à 778-2.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -611,7 +612,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 8,
   id: 'ue2-chapitre-8',
-  titre: 'Les associés, les assemblées et le capital',
+  titre: titreChapitre('ue2', 8),
   sousTitre: "AUSCGIE révisé, art. 2-1, 51 à 66, 125 à 136 (règles communes) · art. 516 à 561, 562 à 640, 764 à 778-2 (assemblées et capital de la SA)",
   infoBulle: "Les titres sociaux et les droits de l'associé, la proportionnalité et les clauses léonines, les pactes d'associés, le droit de vote et ses situations particulières, les décisions collectives et le vote à distance, l'abus de majorité et de minorité, les assemblées de SA (convocation, information, tenue, AGO, AGE, assemblée spéciale), l'augmentation de capital et le droit préférentiel de souscription, la réduction du capital, le rachat d'actions, les actions de préférence et la transmission des actions.",
   loiRef: 'Art. 2-1, 51-66, 125-136, 516-561, 562-591, 627-640, 764-765-3, 778-1-778-2 AUSCGIE',

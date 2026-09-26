@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 5 — Chapitre 10 : Réformes et actualité des finances publiques
@@ -658,7 +659,7 @@ const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 10,
   id: 'ue5-chapitre-10',
-  titre: 'Réformes et actualité des finances publiques',
+  titre: titreChapitre('ue5', 10),
   sousTitre: "Du budget de moyens au budget-programme : chantiers et chiffres 2025-2026",
   infoBulle: "Chapitre 10 du module Finances publiques : la trajectoire de la réforme — loi financière de 1983, LOFIP de 2011, prorogations de 2018 et 2023 —, le régime transitoire, le verrou budgétaire préventif et l'actualité des lois de finances 2025-2026.",
   loiRef: "LOFIP, art. 1-2, 8, 18, 22, 26-31, 43-44, 79, 82-84, 107, 230-235 · Lois n° 18/010 et n° 23/030 · LF n° 25/060",

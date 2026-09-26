@@ -233,7 +233,7 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 // ─────────────────────────────────────────────────────────────────────────────
 // PAGE PRINCIPALE
 // ─────────────────────────────────────────────────────────────────────────────
-export default function ChargesPersonnelIPRPage() {
+export default function ChargesPersonnelIRPPPage() {
   type Mode = 'national' | 'expatrie' | 'admin'
   const [mode, setMode] = useState<Mode>('national')
 
@@ -1250,7 +1250,7 @@ export default function ChargesPersonnelIPRPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <BoxFinal label="Total retenues salarié"
-                  sublabel={`QPO + IPR${res.syndicatVal > 0 ? ' + Syndicat' : ''}${res.avancesVal > 0 ? ' + Avances' : ''}`}
+                  sublabel={`QPO + IRPP${res.syndicatVal > 0 ? ' + Syndicat' : ''}${res.avancesVal > 0 ? ' + Avances' : ''}`}
                   val={formatFC(res.totalRetenues)} />
                 <BoxFinal label="IRPP net à verser au Trésor" val={formatFC(res.iprNet)} />
               </div>

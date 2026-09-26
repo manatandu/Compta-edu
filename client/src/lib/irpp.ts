@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Source unique de vérité pour tout calcul d'IRPP Cat. 1 dans l'application.
 // Extrait de FiscalitePage.tsx (Cat1Salaires) pour être partagé avec
-// ChargesPersonnelIPRPage.tsx (UE9 Module 6) : les deux pages calculaient le
+// ChargesPersonnelIRPPPage.tsx (UE9 Module 6) : les deux pages calculaient le
 // même impôt avec deux moteurs qui avaient divergé — celui de Fiscalité était
 // à jour, celui de la Comptabilité générale gardait un plancher de 2 000 FC
 // aboli, ignorait la part imposable du 663 dans l'assiette, et neutralisait

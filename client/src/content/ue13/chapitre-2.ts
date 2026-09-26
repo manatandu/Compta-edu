@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 2 : Immobilisations corporelles et incorporelles
@@ -1145,7 +1146,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 2,
   id: 'ue13-chapitre-2',
-  titre: 'Immobilisations corporelles et incorporelles',
+  titre: titreChapitre('ue13', 2),
   sousTitre: "IAS 16, IAS 38, IAS 23, IFRS 6, IFRIC 1 et IFRIC 20",
   infoBulle: "Chapitre 2 du module IFRS/IAS : reconnaissance et coût d'entrée des immobilisations corporelles, coûts d'emprunt, démantèlement, approche par composants, amortissement, réévaluation, sorties ; immobilisations incorporelles (définition, R&D, durée d'utilité, amortissement) ; découverture minière ; passerelles avec le SYSCOHADA révisé, la fiscalité et le droit minier congolais.",
   loiRef: "IAS 16 · IAS 38 · IAS 23 · IFRIC 1 · IFRIC 20 · IFRS 6 · AUDCIF art. 62-65 · loi n° 23/053, art. 129-133 · Code minier art. 204 et 258",

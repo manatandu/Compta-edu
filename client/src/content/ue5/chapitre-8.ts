@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 5 — Chapitre 8 : La décentralisation budgétaire
@@ -713,7 +714,7 @@ const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 8,
   id: 'ue5-ch8',
-  titre: 'La décentralisation budgétaire',
+  titre: titreChapitre('ue5', 8),
   sousTitre: "Provinces, ETD, retenue de 40 %, péréquation et consolidation",
   infoBulle: "Chapitre 8 du module Finances publiques : les finances des provinces et des entités territoriales décentralisées — retenue à la source de 40 %, Caisse nationale de péréquation, édits et décisions budgétaires, consolidation du Budget de l'État.",
   loiRef: "Constitution, art. 171, 175, 181, 195-207 · LOFIP, art. 3, 132-229 · LF n° 25/060 (2026), art. 8-9",

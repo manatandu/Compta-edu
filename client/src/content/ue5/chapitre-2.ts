@@ -24,6 +24,7 @@
 // entre programmes par décret du Premier ministre (art. 48-49, réd. 2023),
 // et l'interdiction d'abonder le titre du personnel vient de l'art. 51.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -547,7 +548,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 2,
   id: 'ue5-chapitre-2',
-  titre: 'Les principes budgétaires',
+  titre: titreChapitre('ue5', 2),
   sousTitre: 'LOFIP n° 11/011 du 13 juillet 2011 (mod. 2018 et 2023), art. 4 à 11 · Constitution, art. 126, 172, 174-175',
   infoBulle: "Les six principes budgétaires de la LOFIP (art. 4 à 11) : annualité, unité, universalité, spécialité, légalité des recettes et des dépenses, sincérité - avec leurs aménagements (crédits provisoires, LFR, reports, fongibilité, virements et transferts) et les neuf titres de dépenses de l'art. 37.",
   loiRef: 'Art. 4-11 LOFIP',

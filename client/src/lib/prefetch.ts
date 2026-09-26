@@ -8,6 +8,8 @@
 //  onTouchStart, avec le même effet en pratique.)
 // ═══════════════════════════════════════════════════════════════════
 
+import { MODULES } from '@/content/modules'
+
 type Loader = () => Promise<unknown>
 
 // Un seul déclenchement par route : inutile de relancer le fetch si déjà en vol/chargé.
@@ -26,7 +28,7 @@ const registry: Record<string, Loader> = {
   '/etats-financiers-hub': () => import('@/pages/EtatsFinanciersHub'),
   '/immobilisations': () => import('@/pages/ImmobilisationsPage'),
   '/stock': () => import('@/pages/GestionStockPage'),
-  '/charges-personnel/ipr': () => import('@/pages/ChargesPersonnelIPRPage'),
+  '/charges-personnel/irpp': () => import('@/pages/ChargesPersonnelIRPPPage'),
   '/exercices': () => import('@/pages/ExercicesPage'),
   '/professeurs': () => import('@/pages/ProfesseurPage'),
   '/chat': () => import('@/pages/ChatPage'),
@@ -35,17 +37,16 @@ const registry: Record<string, Loader> = {
   '/dictionnaire': () => import('@/pages/DictionnairePage'),
   '/analyse-financiere': () => import('@/pages/ComingSoonPage'),
   '/gestion-etudiants': () => import('@/pages/GestionEtudiantsPage'),
-  '/prepa-onec': () => import('@/pages/PrepaOnecPage'),
   '/mes-cours': () => import('@/pages/MesCoursPage'),
+  ...Object.fromEntries(MODULES.map(m => [m.route, () => import('@/pages/SommaireModulePage')])),
   '/ue2/simulateur-constitution': () => import('@/pages/UE2SimulateurConstitutionPage'),
-  '/ue3-compta-societes': () => import('@/pages/UE3ComptaSocietesPage'),
 }
 
 // Chapitres d'UE : préchargés uniquement au survol de leur ligne dans le
 // sommaire du module (pas depuis la nav générale) - ce sont les chunks les
 // plus lourds du site (60 à 180 KB), et le survol d'une ligne de sommaire
 // est le signal d'intention le plus fiable qui soit.
-// UE1 passe par le moteur commun : précharger le moteur + le contenu du
+// Tous les chapitres passent par le moteur commun : précharger le moteur + le contenu du
 // chapitre (deux chunks distincts). Le chargeur de contenu vient du
 // catalogue (imports statiques analysables par Vite, pas de template
 // literal dans import()).

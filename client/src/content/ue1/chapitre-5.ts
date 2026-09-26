@@ -10,6 +10,7 @@
 // décrets n°18/017 du 22 mai 2018 et n°25/22 du 30 mai 2025 (SMIG). Les
 // montants et modalités rapportés par la pratique sont signalés comme tels.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -642,7 +643,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 5,
   id: 'ue1-chapitre-5',
-  titre: "La rémunération : salaire, SMIG et sa protection",
+  titre: titreChapitre('ue1', 5),
   sousTitre: "Titre V du Code du travail · Loi n°015/2002, art. 86 à 118 · Décrets n°18/017 (2018) et n°25/22 (2025) sur le SMIG · Décret n°18/041 (CNSS) · Loi n°23/053 (IRPP)",
   infoBulle: "Égalité de rémunération, fixation du salaire, classification et tension salariale, SMIG et ses montants 2025-2026, paiement, maladie, privilèges, retenues autorisées et cautionnement, saisie et cession, économats, retenues sociales et fiscales sur le bulletin de paie.",
   loiRef: "Titre V, art. 86 à 118 ; renvois aux art. 7, 66, 138, 139 et 317",

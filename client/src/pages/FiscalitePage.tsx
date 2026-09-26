@@ -42,7 +42,7 @@ function formatFC(n: number): string {
 }
 
 // Barème, qualification du 663 et arrondi Art. 150 : voir '@/lib/irpp'
-// (source unique, partagée avec ChargesPersonnelIPRPage.tsx / UE9 Module 6).
+// (source unique, partagée avec ChargesPersonnelIRPPPage.tsx / UE9 Module 6).
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CATALOGUE COMPTES OHADA
@@ -158,7 +158,7 @@ function SectionSaisieModal({
 
 // Catalogue à sélection unique, groupé par section légale (ItemCatalogue,
 // SectionCatalogue, libelleItem, CatalogueGroupe) : voir '@/components/CatalogueGroupe'
-// (source unique, partagée avec ChargesPersonnelIPRPage.tsx / UE9 Module 6).
+// (source unique, partagée avec ChargesPersonnelIRPPPage.tsx / UE9 Module 6).
 
 // Catalogues produits/charges communs aux Bénéfices Industriels, Commerciaux,
 // Immobiliers et Artisanaux (BIC, Cat. 2 - Art. 14 pour les produits, Art. 20 à

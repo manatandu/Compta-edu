@@ -12,6 +12,7 @@
 // portant création de l'Ordre national des Héros nationaux, communiqués du
 // ministère de l'Emploi et du Travail (2025-2026) et doctrine citée.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -696,7 +697,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 6,
   id: 'ue1-chapitre-6',
-  titre: "Durée du travail, repos, maternité, congés et voyages",
+  titre: titreChapitre('ue1', 6),
   sousTitre: "Titre VI du Code du travail · Loi n°015/2002, art. 119 à 158 · Loi n°16/010 (2016) · Arrêtés n°68/11, 68/12 et 68/14 (1968) · Ordonnance n°23/042 (2023) · Arrêté du 8 août 2008 · Loi organique n°22/003 (2022)",
   infoBulle: "Durée légale et heures supplémentaires, repos hebdomadaire et jours fériés 2025-2026, travail de nuit, protection de la maternité, travail des enfants et des personnes avec handicap, logement et ration, congé annuel et allocation de congé, congés de circonstance, voyages et transports, règlement d'entreprise.",
   loiRef: "Titre VI, art. 119 à 158 ; renvois aux art. 6, 7, 57, 62, 93, 100, 105, 111, 112, 114 et 317",

@@ -15,6 +15,7 @@
 // - loi n° 23/053 du 30 novembre 2023, art. 74 (remboursements d'apports),
 //   skill fiscalite-rdc ; arrêté du 30 décembre 2014 (capital de la SARL).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -981,7 +982,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 5,
   id: 'ue3-chapitre-5',
-  titre: "La réduction et l'amortissement du capital",
+  titre: titreChapitre('ue3', 5),
   sousTitre: "AUSCGIE révisé, art. 69-70, 366-373 (SARL), 627-669 (SA), 853-11 (SAS) · AUDCIF, comptes 101 et 13 · SYSCOHADA, Applications 62, 63 et 64 · loi n° 23/053, art. 74",
   infoBulle: "Motifs et décision de la réduction de capital, contrôle du commissaire aux comptes, droit d'opposition des créanciers, écritures (pertes, remboursement, renonciation, attribution d'actifs), règles de la SARL et de la SAS, rachat d'actions propres et annulation, amortissement du capital et actions de jouissance, reconversion, capitaux propres inférieurs à la moitié du capital, coup d'accordéon, fiscalité des remboursements et contrôle.",
   loiRef: "Art. 66, 69-70, 143, 269-3, 269-5, 358, 366-373, 627-669, 853-3, 853-11 AUSCGIE · AUDCIF, comptes 101, 105, 13 · App. 62-64 · loi n° 23/053, art. 74",

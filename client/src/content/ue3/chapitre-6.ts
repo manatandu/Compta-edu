@@ -27,6 +27,7 @@
 //   relative aux marchés boursiers promulguée le 20 août 2026 et publiée au
 //   Journal officiel le 2 septembre 2026).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -1133,7 +1134,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 6,
   id: 'ue3-chapitre-6',
-  titre: "L'emprunt obligataire",
+  titre: titreChapitre('ue3', 6),
   sousTitre: "AUSCGIE révisé, art. 779-822-15 et 842-845 · AUDCIF, Titre VIII, ch. 20 · SYSCOHADA, Applications 78, 79 et 80 · loi n° 23/053, art. 77, 80 et 120",
   infoBulle: "Conditions d'émission (SA de deux ans, capital libéré, assemblée seule compétente), masse des obligataires et ses représentants, assemblée des obligataires, sûretés, rachat et annulation, tableau d'amortissement, comptabilisation de l'émission, de la prime (6714) et des intérêts courus (1661), emprunt in fine, obligations convertibles et valeurs mobilières composées, retenue à la source de 20 % sur les intérêts, eurobond de l'État et future Bourse de Kinshasa.",
   loiRef: "Art. 58, 546, 587-2, 779-822-15, 842-848 AUSCGIE · AUDCIF, Titre VIII, ch. 20 · App. 78-80 · loi n° 23/053, art. 20, 77, 80, 81, 120 · AM n° 008/2025",

@@ -10,6 +10,7 @@
 // 29 janvier 1968 (préavis de cessation collective du travail), Code pénal
 // congolais (art. 73, 133 à 135), doctrine et actualités 2024-2026.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -655,7 +656,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 9,
   id: 'ue1-chapitre-9',
-  titre: "Contentieux du travail, grève, sanctions et dispositions finales",
+  titre: titreChapitre('ue1', 9),
   sousTitre: "Titres XIII à XVI du Code du travail · Loi n°015/2002, art. 297 à 334 · Loi n°016/2002 (tribunaux du travail) · Constitution, art. 39 · Arrêtés n°3/68 et n°12/CAB.MIN/TPS/113/2005",
   infoBulle: "Conciliation préalable des litiges individuels, conflits collectifs, conciliation et médiation, grève et lock-out, tribunaux du travail, prescription des actions, fermeture provisoire de l'entreprise, barème des amendes et peines de servitude pénale, dispositions transitoires et survie des textes antérieurs.",
   loiRef: "Titres XIII à XVI, art. 297 à 334 ; renvois aux art. 52, 57, 61 ter, 62, 63, 72, 93, 103, 111, 112, 145, 151, 172, 174, 192, 194, 196 à 198, 215, 258, 264, 287, 295, 300 et 303 à 315",
