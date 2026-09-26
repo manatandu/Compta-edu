@@ -23,7 +23,7 @@ import { cn } from '@/lib/utils'
 import { QCMChapitre, CasPratique, PROMOTIONS } from '@/lib/db'
 import { createDevoirAsync, createExerciceLibreAsync } from '@/lib/db-firebase'
 import { db } from '@/lib/firebase'
-import { getCurrentUser } from '@/lib/db'
+import { useUser } from '@/lib/userContext'
 import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 
@@ -97,7 +97,10 @@ export default function DevoirChapitreCreateur({
   universiteId: uniIdProp, faculteId: facIdProp,
 }: Props) {
 
-  const user = getCurrentUser()
+  // Profil de la session Firebase. L'ancien getCurrentUser() lisait une liste
+  // de comptes en localStorage qui n'est plus alimentée : il renvoyait null,
+  // et le bouton de création restait désactivé en permanence.
+  const user = useUser()
 
   // Ouverture/fermeture
   const [ouvert, setOuvert] = useState(false)
