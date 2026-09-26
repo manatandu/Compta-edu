@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
- *  CAMPUS OHADA : Simulateur de Constitution de Société
+ *  ORBIT : Simulateur de Constitution de Société
  *  Composant : SimulateurConstitution.tsx
  *
  *  Guide l'étudiant à travers les 4 étapes de constitution :

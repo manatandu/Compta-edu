@@ -2852,7 +2852,6 @@ const COLOR_LIGHT: Record<string, string> = {
   stone:   'text-stone-600',
 }
 
-// Placeholder pour catégories à venir
 // ───────────────────────────────────────────────────────────────────────────────
 // CAT. 3 : BNC : Bénéfices des professions non commerciales et revenus assimilés
 // Art. 92-101 + Art. 90, Loi 23/053

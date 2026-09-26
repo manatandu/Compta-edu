@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════
-//  CAMPUS OHADA - Couche de données Firebase (remplace localStorage)
+//  ORBIT - Couche de données Firebase (remplace localStorage)
 //  Toutes les fonctions gardent les mêmes signatures qu'avant
 //  pour éviter de modifier les pages existantes.
 // ═══════════════════════════════════════════════════════════════════════

@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-//  CAMPUS OHADA : Configuration Firebase
+//  ORBIT : Configuration Firebase
 // ═══════════════════════════════════════════════════════
 import { initializeApp } from 'firebase/app'
 import {
