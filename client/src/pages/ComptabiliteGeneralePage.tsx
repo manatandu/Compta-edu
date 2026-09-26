@@ -87,9 +87,9 @@ const MODULES: Module[] = [
     id: 'personnels',
     number: 6,
     label: 'Charges du personnel',
-    desc: 'Calcul IPR nationaux et expatriés, charges patronales, net à payer.',
+    desc: 'Calcul de l\'IRPP sur salaires (nationaux et expatriés), charges patronales, net à payer.',
     icon: Users,
-    subModules: [{ path: '/charges-personnel/ipr', label: 'Simulateur IPR / Salaires', desc: '', icon: Users }],
+    subModules: [{ path: '/charges-personnel/irpp', label: 'Simulateur IRPP / Salaires', desc: '', icon: Users }],
   },
   {
     id: 'emprunts',

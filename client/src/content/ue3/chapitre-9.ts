@@ -22,6 +22,7 @@
 //   arrêté ministériel n° 028 du 28 septembre 2022 (quitus fiscal) ;
 //   réglementation du Numéro Impôt, skill fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -1045,7 +1046,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 9,
   id: 'ue3-chapitre-9',
-  titre: "La dissolution et la liquidation",
+  titre: titreChapitre('ue3', 9),
   sousTitre: "AUSCGIE révisé, art. 200-241, 384, 736-737 et 902-904 · AUDCIF, Titre VIII, ch. 40 · SYSCOHADA, Application 122 · loi n° 23/053, art. 11, 13, 73-74",
   infoBulle: "Le parcours complet d'une société qui disparaît, suivi à travers la liquidation de LUKENIE FRIGO SA : causes de dissolution, publicité et survie de la personnalité morale, dissolution sans liquidation de l'unipersonnelle, nomination et pouvoirs du liquidateur, cessions interdites ou réglementées, régime légal de liquidation, comptabilisation (837, 847, 1384), boni ou mali, partage (4619), clôture, prescriptions et fiscalité congolaise de la liquidation.",
   loiRef: "Art. 60, 66, 200-241, 266, 384, 664-668, 735-737, 902-904 AUSCGIE · AUDCIF, Titre VIII, ch. 40 · App. 122 · loi n° 23/053, art. 11, 13, 73, 74, 82 · AM n° 028/2022",

@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 3 : Dépréciation des actifs et immeubles de placement
@@ -1165,7 +1166,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 3,
   id: 'ue13-chapitre-3',
-  titre: 'Dépréciation des actifs et immeubles de placement',
+  titre: titreChapitre('ue13', 3),
   sousTitre: "IAS 36 et IAS 40 : dépréciation des actifs, unités génératrices de trésorerie et immeubles de placement",
   infoBulle: "Chapitre 3 du module IFRS/IAS : champ et indices de perte de valeur, valeur recouvrable (juste valeur diminuée des coûts de sortie, valeur d'utilité), perte et reprise, unités génératrices de trésorerie, goodwill, actifs communs et cascade d'imputation, informations à fournir et sensibilité (§ 134(f)), incidence d'impôt différé ; immeubles de placement (définition, classement, modèles du coût et de la juste valeur, transferts, sorties) ; passerelles avec le SYSCOHADA révisé, illustrées par des entreprises commerciales et industrielles.",
   loiRef: "IAS 36 · IAS 40 · IFRS 5 · IFRS 13 · AUDCIF art. 42, 43 et 46 · SYSCOHADA, Titre VIII, ch. 10 et 12",

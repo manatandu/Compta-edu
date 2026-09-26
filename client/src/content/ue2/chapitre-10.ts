@@ -11,6 +11,7 @@
 // - loi n° 004/2003 du 13 mars 2003 portant réforme des procédures
 //   fiscales, art. 16 et 80, d'après le skill fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -618,7 +619,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 10,
   id: 'ue2-chapitre-10',
-  titre: 'Dissolution, liquidation et nullités',
+  titre: titreChapitre('ue2', 10),
   sousTitre: "AUSCGIE révisé, art. 200 à 256 et 901 à 904 · loi n° 004/2003 portant réforme des procédures fiscales, art. 16 et 80",
   infoBulle: "Les causes de dissolution, la dissolution judiciaire pour justes motifs, les effets de la dissolution et la transmission universelle au profit de l'associé unique, le liquidateur, le régime encadré de liquidation, les opérations de liquidation et le partage du boni, les obligations fiscales en RDC, la clôture et les prescriptions, la nullité de la société et des actes, les infractions liées à la dissolution et à la liquidation.",
   loiRef: 'Art. 200-256, 901-904, 908-914 AUSCGIE · loi n° 004/2003, art. 16 et 80',

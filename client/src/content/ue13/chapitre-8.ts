@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 8 : Présentation des états financiers et méthodes
@@ -1403,7 +1404,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 8,
   id: 'ue13-chapitre-8',
-  titre: 'Présentation des états financiers et méthodes comptables',
+  titre: titreChapitre('ue13', 8),
   sousTitre: "IAS 1, IFRS 18, IAS 7, IAS 8 et IAS 10 : structure des états, flux de trésorerie, changements comptables et événements postérieurs",
   infoBulle: "Chapitre 8 du module IFRS/IAS : composantes des états financiers (IAS 1) ; état de la situation financière et classement courant/non courant, clauses restrictives ; état du résultat global, charges par nature ou par fonction, état des variations des capitaux propres ; regroupement et compensation ; éléments HAO et interdiction des éléments extraordinaires ; passage du bilan fonctionnel SYSCOHADA à l'état de la situation financière ; notes et gestion du capital ; IFRS 18 (catégories, sous-totaux, charges spécifiées, mesures définies par la direction) ; tableau des flux de trésorerie (IAS 7, méthode directe, indirecte et CAFG du SYSCOHADA) ; changements de méthodes et d'estimations, corrections d'erreurs (IAS 8) ; événements postérieurs à la clôture (IAS 10) ; rapprochements avec le SYSCOHADA révisé.",
   loiRef: "IAS 1 · IFRS 18 · IAS 7 · IAS 8 · IAS 10 · AUDCIF art. 7, 8, 23 · SYSCOHADA révisé, Titres V, VIII (ch. 31) et IX",

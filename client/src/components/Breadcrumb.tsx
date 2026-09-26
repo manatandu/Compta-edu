@@ -13,14 +13,23 @@ export type BreadcrumbItem = {
 
 type Props = {
   items: BreadcrumbItem[]
-  /** Couleur d'accentuation du segment actif - ex: 'sky' | 'green' | 'blue' */
-  color?: string
+  /** Couleur d'accentuation du segment actif. */
+  color?: keyof typeof COULEUR_ACTIVE
 }
+
+// Classes écrites en toutes lettres : une classe construite par concaténation
+// (`text-${color}-600`) n'est pas vue par Tailwind et n'apparaît dans la
+// feuille de style que si une autre page l'emploie par hasard.
+const COULEUR_ACTIVE = {
+  neutre: 'text-foreground',
+  emerald: 'text-emerald-600',
+  indigo: 'text-indigo-600',
+} as const
 
 // ─────────────────────────────────────────────────────────────────
 // COMPOSANT
 // ─────────────────────────────────────────────────────────────────
-export function Breadcrumb({ items, color = 'sky' }: Props) {
+export function Breadcrumb({ items, color = 'neutre' }: Props) {
   const [, navigate] = useHashLocation()
 
   return (
@@ -44,7 +53,7 @@ export function Breadcrumb({ items, color = 'sky' }: Props) {
               <button
                 onClick={() => navigate(item.route!)}
                 className={cn(
-                  'flex items-center gap-1 hover:underline underline-offset-2 transition-colors hover:text-foreground font-medium',
+                  'flex items-center gap-1 min-h-8 px-0.5 hover:underline underline-offset-2 transition-colors hover:text-foreground font-medium',
                   isFirst && 'text-muted-foreground'
                 )}
               >
@@ -56,7 +65,7 @@ export function Breadcrumb({ items, color = 'sky' }: Props) {
                 className={cn(
                   'font-semibold truncate max-w-[160px] sm:max-w-xs',
                   isLast
-                    ? `text-${color}-600`
+                    ? COULEUR_ACTIVE[color]
                     : 'text-muted-foreground'
                 )}
                 aria-current={isLast ? 'page' : undefined}

@@ -21,6 +21,7 @@
 //   mesures d'exécution (retrait du Numéro Impôt en cas de fusion), skill
 //   fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -1043,7 +1044,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 8,
   id: 'ue3-chapitre-8',
-  titre: "Les fusions et opérations assimilées",
+  titre: titreChapitre('ue3', 8),
   sousTitre: "AUSCGIE révisé, art. 189-199, 382-383 et 670-689 · AUDCIF, Titre VIII, ch. 38 · SYSCOHADA, Applications 116 à 120 · loi n° 23/053, art. 54",
   infoBulle: "Fusion, scission et apport partiel d'actif : transmission universelle, soulte plafonnée à 10 %, projet, publicité, décision, rapports et commissaire à la fusion, fusion simplifiée, protection des créanciers et des obligataires, évaluation imposée (valeur réelle ou comptable), parité et rompus, écritures chez l'absorbante et chez l'absorbée, renonciation et boni, actions propres, participations réciproques, filiale à 100 %, fusion-réunion, scission, apport partiel d'actif, régime fiscal de faveur et Notes annexes.",
   loiRef: "Art. 177, 189-199, 382-383, 639, 670-689, 809-810 AUSCGIE · AUDCIF, Titre VIII, ch. 38 · App. 116-120 · loi n° 23/053, art. 54",

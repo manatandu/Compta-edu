@@ -15,6 +15,7 @@
 // Les fusions-scissions (art. 382-383) et la dissolution-liquidation sont
 // seulement situées ici : elles sont traitées aux chapitres 9 et 10.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -626,7 +627,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 5,
   id: 'ue2-chapitre-5',
-  titre: 'La société à responsabilité limitée (SARL)',
+  titre: titreChapitre('ue2', 5),
   sousTitre: "AUSCGIE révisé, art. 309 à 384 · arrêté interministériel du 30 décembre 2014 (capital libre et statuts sous seing privé en RDC)",
   infoBulle: "La nature hybride de la SARL et sa fiscalité, le capital libre en RDC et les apports en nature, la libération et le dépôt des fonds, la cession et la transmission des parts, la gérance, les pouvoirs et la responsabilité du gérant, les décisions collectives et le droit d'information, les conventions, les modifications du capital, la perte de la moitié du capital, la transformation, le commissaire aux comptes et la fin de la société.",
   loiRef: "Art. 309-384 AUSCGIE · arrêté du 30 décembre 2014, art. 1-3 · loi n° 23/053, art. 3",

@@ -12,6 +12,7 @@
 // n°12/CAB.MIN/ETPS/043/2008 du 8 août 2008 (comités de sécurité), textes et
 // communications relatifs à la couverture santé universelle (2023-2026).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -670,7 +671,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 7,
   id: 'ue1-chapitre-7',
-  titre: "Santé, sécurité au travail, service médical et sécurité sociale",
+  titre: titreChapitre('ue1', 7),
   sousTitre: "Titres VII et VIII du Code du travail · Loi n°015/2002, art. 159 à 184 · Loi n°16/009 du 15 juillet 2016 (régime général de la sécurité sociale) · Décrets n°18/027 et 18/041 (CNSS) · Arrêtés n°137 à 146 de 2018 · Arrêté du 8 août 2008 (comités de sécurité)",
   infoBulle: "Objectifs de la santé et de la sécurité au travail, médecin du travail, service et comité de sécurité, mise en demeure et arrêt des machines, service médical et obligation de soins, régime général de la CNSS : assujettissement, affiliation, cotisations et pénalités, prestations aux familles, risques professionnels, pensions, couverture santé universelle et assurance maladie obligatoire.",
   loiRef: "Titres VII et VIII, art. 159 à 184 ; loi n°16/009 ; renvois aux art. 57, 62, 93, 100, 105, 106, 107, 112, 137 et 317",

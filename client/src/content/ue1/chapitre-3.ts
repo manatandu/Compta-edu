@@ -8,6 +8,7 @@
 // (pratique du visa ONEM, arrêté du 9 octobre 2025, communiqué du 10 avril 2026)
 // sont datés et présentés comme tels.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -676,7 +677,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 3,
   id: 'ue1-chapitre-3',
-  titre: "Le contrat de travail : formation, exécution, suspension",
+  titre: titreChapitre('ue1', 3),
   sousTitre: "Titre IV du Code du travail (1re partie) · Loi n°015/2002, art. 36 à 60 et 80 à 85",
   infoBulle: "Liberté contractuelle et ordre public, aptitude, CDD et CDI, clause d'essai, écrit, visa ONEM, obligations des parties, non-concurrence, discipline, suspension, substitution d'employeur et sous-entreprise.",
   loiRef: "Titre IV, art. 36 à 60 et 80 à 85 ; renvois aux art. 105, 106, 129, 130, 178 et 212",

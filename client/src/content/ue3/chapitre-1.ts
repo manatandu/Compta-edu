@@ -16,6 +16,7 @@
 // - page « Procédures » de l'ANAPI (mise à jour du 14 juillet 2026),
 //   consultée le 24 septembre 2026.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -1050,7 +1051,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 1,
   id: 'ue3-chapitre-1',
-  titre: "La constitution des sociétés : apports et comptabilisation",
+  titre: titreChapitre('ue3', 1),
   sousTitre: "AUSCGIE révisé, art. 4-6, 37-70, 97-113 et 269-1 à 269-7 · AUDCIF, art. 7, 17, 36-37 · SYSCOHADA révisé, Applications 58, 59 et 123",
   infoBulle: "Le contrat de société et l'obligation d'apport, la réalisation des apports en numéraire, en nature et en industrie, les titres sociaux et le capital, le capital en RDC (monnaie, minima, GUCE), l'évaluation comptable des apports, les comptes 101, 109 et 461, la libération intégrale et fractionnée, la société en formation et le premier exercice, le capital variable et la présentation du capital dans les états financiers.",
   loiRef: "Art. 4-6, 37-70, 97-113, 269-1 à 269-7, 311-313, 387-389, 400, 853-5 et 906 AUSCGIE · art. 7, 17, 36, 37, 51, 52 AUDCIF · arrêté du 30 décembre 2014 · décret n° 14/014",

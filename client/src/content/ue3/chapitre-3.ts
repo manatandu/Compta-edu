@@ -18,6 +18,7 @@
 //   finances n° 25/060 ; conventions RDC-Afrique du Sud et RDC-Belgique,
 //   art. 10 ; skill fiscalite-rdc (socle 2026).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -991,7 +992,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 3,
   id: 'ue3-chapitre-3',
-  titre: "L'affectation du résultat et la distribution des dividendes",
+  titre: titreChapitre('ue3', 3),
   sousTitre: "AUSCGIE révisé, art. 137-146, 269, 346-349, 430-431, 546, 754-756, 853-11, 889-890-1 · AUDCIF, comptes 11 à 13 · SYSCOHADA, Application 65 · loi n° 23/053 et AM n° 008/2025",
   infoBulle: "De l'arrêté des comptes au paiement des dividendes : rapport de gestion et calendrier, impôt sur les sociétés et résultat net, approbation selon la forme, bénéfice distribuable et butoir des capitaux propres, réserve légale, dividende fictif, premier dividende et superdividende, écritures de l'Application 65, affectation d'une perte, retenue de 20 % sur les dividendes en RDC, régime mère-fille, et contrôle de la distribution.",
   loiRef: "Art. 137-146, 269, 346-349, 430-432, 546, 558-559, 754-756, 778-13, 853-11, 889-890-1 AUSCGIE · loi n° 23/053, art. 56-57, 72-76, 81, 120 · AM n° 008/2025",

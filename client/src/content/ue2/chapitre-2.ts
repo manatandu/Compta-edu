@@ -23,6 +23,7 @@
 //   Bankable (avril 2025) ; le texte de la loi n'a pas été lu, aucun de ses
 //   articles n'est donc cité.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -643,7 +644,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 2,
   id: 'ue2-chapitre-2',
-  titre: 'La vie financière de la société : comptes, résultat, dividendes et appel au public',
+  titre: titreChapitre('ue2', 2),
   sousTitre: "AUSCGIE révisé, art. 81 à 96-1, 137 à 149, 263 à 269-7 · AUDCIF et SYSCOHADA révisé · fiscalité des dividendes et marché boursier en RDC",
   infoBulle: "L'exercice et les états financiers, le rapport de gestion et l'approbation des comptes, l'affectation du résultat et la réserve légale, le calcul du bénéfice distribuable, les dividendes et leur retenue fiscale, le dépôt des comptes et la publicité, le capital variable, l'appel public à l'épargne et la future Bourse de Kinshasa, les litiges entre associés.",
   loiRef: 'Art. 81-96-1, 137-149, 263-269-7, 346, 546, 889-890-1 AUSCGIE · AUDCIF · loi n° 23/053',

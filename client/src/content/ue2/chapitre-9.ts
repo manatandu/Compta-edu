@@ -11,6 +11,7 @@
 // - loi n° 23/053 du 30 novembre 2023, art. 54 (régime fiscal des fusions
 //   et apports partiels d'actif), d'après le skill fiscalite-rdc.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -617,7 +618,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 9,
   id: 'ue2-chapitre-9',
-  titre: 'Transformations, restructurations, groupes et prévention des difficultés',
+  titre: titreChapitre('ue2', 9),
   sousTitre: "AUSCGIE révisé, art. 150 à 158-1, 173 à 199, 671 à 693-1 · AUPCAP, art. 2, 5 à 15 et 25 · loi n° 23/053, art. 54",
   infoBulle: "La transformation et ses effets, la fusion, la scission et l'apport partiel d'actif, la procédure commune et les règles propres aux SA, le régime fiscal congolais des fusions, les groupes et participations croisées, la procédure d'alerte, la conciliation, le règlement préventif et la notion de cessation des paiements.",
   loiRef: 'Art. 150-158-1, 173-199, 671-693-1 AUSCGIE · art. 5-15, 25 AUPCAP · loi n° 23/053, art. 54',

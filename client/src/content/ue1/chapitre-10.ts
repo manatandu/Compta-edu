@@ -12,6 +12,7 @@
 // loi n°23/053 du 30 novembre 2023 et arrêté du 19 février 2025 (IRPP) ;
 // AUDCIF et plan comptable SYSCOHADA révisé.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -662,7 +663,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 10,
   id: 'ue1-chapitre-10',
-  titre: "Pratique professionnelle : le décompte final",
+  titre: titreChapitre('ue1', 10),
   sousTitre: "Art. 7, 64 à 67, 100, 103, 104, 111 à 114, 140 à 146 du Code du travail · Méthode du Conseil Permanent de la Comptabilité au Congo · Taux 2026 (CNSS, INPP, ONEM, IRPP) · Écritures SYSCOHADA révisé",
   infoBulle: "Notion et fondement du décompte final, structure en blocs, préavis et barèmes légaux et conventionnels, congé et ses trois composantes, gratification et rubriques particulières, retenues sociales et fiscales à jour 2026, comptabilisation SYSCOHADA, comparaison de trois hypothèses de rupture, erreurs récurrentes et grille de contrôle.",
   loiRef: "Art. 7, 40, 41, 52, 62 à 67, 72, 78, 80, 90, 100, 103, 104, 111 à 114, 140 à 152, 258, 317 ; loi n°16/009 ; loi n°23/053 ; décrets n°18/041 et 25/22 ; arrêtés INPP, ONEM et IRPP",

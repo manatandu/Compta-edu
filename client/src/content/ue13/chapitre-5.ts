@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 5 : Produits des contrats conclus avec des clients et
@@ -1217,7 +1218,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 5,
   id: 'ue13-chapitre-5',
-  titre: 'Produits des contrats avec les clients et subventions publiques',
+  titre: titreChapitre('ue13', 5),
   sousTitre: "IFRS 15 et IAS 20 : comptabilisation du chiffre d'affaires et des aides publiques",
   infoBulle: "Chapitre 5 du module IFRS/IAS : produits des activités ordinaires selon IFRS 15 (principe du transfert du contrôle, modèle en cinq étapes, contrepartie variable, composante financement, répartition du prix, comptabilisation progressive ou à un moment précis, coûts du contrat, actifs et passifs sur contrat) ; subventions publiques selon IAS 20 (fait générateur, approche par le résultat, présentation, prêts bonifiés, remboursement) ; rapprochement avec le SYSCOHADA révisé (classe 7, contrats pluri-exercices, compte 14).",
   loiRef: "IFRS 15 · IAS 20 · IAS 37 § 66-69 · SYSCOHADA, Titre VII (classe 7, compte 14) et Titre VIII, ch. 17 et 23",

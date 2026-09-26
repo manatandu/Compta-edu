@@ -17,6 +17,7 @@
 // La valeur théorique des droits est présentée comme technique financière
 // de la pratique, non comme règle légale.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -977,7 +978,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 4,
   id: 'ue3-chapitre-4',
-  titre: "L'augmentation de capital",
+  titre: titreChapitre('ue3', 4),
   sousTitre: "AUSCGIE révisé, art. 357-363 (SARL), 562-626-6 (SA), 853-11 (SAS) · AUDCIF, compte 105 · SYSCOHADA, Applications 60, 61, 76 et 77 · Code des assurances (loi n° 15/005)",
   infoBulle: "Procédés et compétence, droit préférentiel de souscription et sa valeur, suppression du DPS, libération et réalisation dans la SA, régime de la SARL et de la SAS, écritures en numéraire avec prime et frais imputés, incorporation de réserves et droit d'attribution, apports en nature, compensation et conversion, attribution gratuite d'actions au personnel, et l'exemple des entreprises d'assurance congolaises.",
   loiRef: "Art. 44, 62-63, 358-363, 562-626-6, 853-3, 853-4, 853-11 AUSCGIE · AUDCIF, compte 105 · App. 60, 61, 76, 77 · loi n° 15/005, art. 285, 295, 299-302, 388-390",

@@ -1,4 +1,5 @@
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UE 13 — Chapitre 1 : Fondements, cadre conceptuel et architecture des IFRS
@@ -1099,7 +1100,7 @@ const chapitre: Chapitre = {
   ue: 'ue13',
   numero: 1,
   id: 'ue13-chapitre-1',
-  titre: 'Fondements, cadre conceptuel et architecture des IFRS',
+  titre: titreChapitre('ue13', 1),
   sousTitre: "Normalisation internationale, Cadre conceptuel, IFRS 13, IAS 1 et IAS 8",
   infoBulle: "Chapitre 1 du module IFRS/IAS : histoire et écoles de normalisation, architecture IFRS Foundation-IASB-ISSB, force obligatoire en droit OHADA et en RDC, Cadre conceptuel (2018), bases d'évaluation et maintien du capital, juste valeur selon IFRS 13, caractéristiques générales d'IAS 1, hiérarchie d'IAS 8, choix d'une base d'évaluation, importance relative, application d'IFRIC 21 à la dotation minière de 0,3 %, profession comptable congolaise (ONEC), normes de durabilité de l'ISSB, comparaison avec le SYSCOHADA révisé et feuille de route des retraitements.",
   loiRef: "Cadre conceptuel (2018) · IAS 1.7, 15-38 · IAS 8.5-14 · IFRS 13 · IFRIC 21 · AUDCIF art. 8, 54, 73-1, 75, 113 · loi n° 15/002",

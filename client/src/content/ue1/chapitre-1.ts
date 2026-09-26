@@ -9,6 +9,7 @@
 // et présentés comme tels ; une initiative parlementaire n'est jamais confondue
 // avec le droit positif.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -707,7 +708,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 1,
   id: 'ue1-chapitre-1',
-  titre: "Notions fondamentales et sources du droit du travail",
+  titre: titreChapitre('ue1', 1),
   sousTitre: "Titre I du Code du travail · Loi n°015/2002, art. 1 à 7 · Constitution, art. 36 à 39, 122 et 215",
   infoBulle: "Objet, histoire, sources, champ d'application, droit au travail, travail des enfants, capacité, définitions légales et lien de subordination.",
   loiRef: "Titre I, art. 1 à 7 ; Titre XVI, art. 330 à 334",

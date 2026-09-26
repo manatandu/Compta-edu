@@ -8,6 +8,7 @@
 // 24 septembre 2025 (en vigueur) fixant le taux de la cotisation INPP, cités
 // mot pour mot. Les faits d'actualité 2025-2026 sont datés et présentés comme tels.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -666,7 +667,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 2,
   id: 'ue1-chapitre-2',
-  titre: "Formation professionnelle, apprentissage et INPP",
+  titre: titreChapitre('ue1', 2),
   sousTitre: "Titres II et III du Code du travail · Loi n°015/2002, art. 8 à 35 · Arrêtés interministériels sur la cotisation INPP (2006, 2025)",
   infoBulle: "Obligation de formation de l'employeur, statut, missions, gouvernance et financement de l'INPP, régime complet du contrat d'apprentissage.",
   loiRef: "Titres II et III, art. 8 à 35 ; renvois aux art. 38, 63, 72 et 141",

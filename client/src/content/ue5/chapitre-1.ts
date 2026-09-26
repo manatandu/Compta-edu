@@ -18,6 +18,7 @@
 // le RGCP n° 13/050 de 2013 est abrogé ; la dotation de péréquation de la
 // LF 2025 est de 2 376,5 milliards FC (art. 10), non « 2 282,9 ».
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -475,7 +476,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 1,
   id: 'ue5-chapitre-1',
-  titre: 'Introduction aux finances publiques',
+  titre: titreChapitre('ue5', 1),
   sousTitre: 'LOFIP n° 11/011 du 13 juillet 2011 (mod. 2018 et 2023) · Constitution du 18 février 2006, art. 122 et 170-181',
   infoBulle: "La notion de finances publiques, la LOFIP et son champ, le cadre constitutionnel (légalité de l'impôt, 40% retenus à la source, Cour des comptes, Caisse nationale de péréquation), les trois étages budgétaires, les acteurs de l'exécution et l'actualité des lois de finances 2025-2026.",
   loiRef: 'LOFIP · Constitution RDC · RGCP 2024',

@@ -14,6 +14,7 @@
 //   à la transformation des entreprises publiques, art. 1 à 14, texte publié
 //   au Journal officiel et reproduit par la base NATLEX de l'OIT.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -633,7 +634,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 4,
   id: 'ue2-chapitre-4',
-  titre: 'Les sociétés par actions : SA et SAS',
+  titre: titreChapitre('ue2', 4),
   sousTitre: "AUSCGIE révisé, art. 385 à 515 et 694 à 743 (SA), 853-1 à 853-23 (SAS) · loi n° 15/002 (ONEC) · loi n° 08/007 (entreprises publiques)",
   infoBulle: "La SA et la SAS, leur place en RDC et leur fiscalité, le capital et sa libération, la constitution avec ou sans apport en nature, le conseil d'administration, la direction générale (PDG, PCA et DG, administrateur général), les conventions réglementées et interdites, le commissaire aux comptes, la responsabilité des administrateurs, puis la SAS : liberté statutaire, président, commissaire aux comptes et clauses de maîtrise de l'actionnariat.",
   loiRef: 'Art. 385-515, 558-561, 694-743, 853-1 à 853-23 AUSCGIE · art. 59-61 loi n° 15/002 · loi n° 08/007',

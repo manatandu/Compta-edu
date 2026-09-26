@@ -19,6 +19,7 @@
 //   déclarée recevable (initiative parlementaire, non adoptée à notre
 //   connaissance), lu via Firecrawl.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -653,7 +654,7 @@ export const chapitre: Chapitre = {
   ue: 'ue2',
   numero: 7,
   id: 'ue2-chapitre-7',
-  titre: 'Les dirigeants sociaux : pouvoirs et responsabilités',
+  titre: titreChapitre('ue2', 7),
   sousTitre: "AUSCGIE révisé, art. 121 à 124, 159 à 172 et 886 à 905 · AUDCG, art. 6 à 12 · AUPCAP, art. 180 à 203 et 226 à 233",
   infoBulle: "Qui est dirigeant de droit ou de fait, les conditions d'accès et le cumul des mandats, les pouvoirs à l'égard des tiers, les conflits d'intérêts, la révocation, la responsabilité civile (actions individuelle et sociale), l'expertise de gestion et l'administration provisoire, le comblement du passif, l'extension de procédure et la faillite personnelle, la responsabilité pénale et l'incertitude sur les peines en RDC, la prévention du risque.",
   loiRef: 'Art. 121-124, 159-172, 886-905 AUSCGIE · art. 6-12 AUDCG · art. 180-203, 226-233 AUPCAP',

@@ -24,6 +24,7 @@
 // ODEP/UNIS sont conservées mais signalées comme données externes non
 // vérifiables dans les textes.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -431,7 +432,7 @@ export const chapitre: Chapitre = {
   ue: 'ue5',
   numero: 4,
   id: 'ue5-chapitre-4',
-  titre: 'Budget-programme et gestion par la performance',
+  titre: titreChapitre('ue5', 4),
   sousTitre: 'LOFIP n° 11/011 du 13 juillet 2011 (mod. 2018 et 2023), art. 42-53, 79, 82, 230-234',
   infoBulle: "La réforme du budget-programme : définition du programme (art. 43), fonctions et dotations (art. 44, art. 3), fongibilité et mouvements de crédits (art. 45-53), projets et rapports annuels de performance (art. 79 et 82) et état d'avancement de la réforme (art. 230-234, lois de 2018 et 2023).",
   loiRef: 'Art. 42-53, 79, 82 LOFIP',

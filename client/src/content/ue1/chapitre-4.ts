@@ -7,6 +7,7 @@
 // mot ; méthode de calcul du décompte final (séminaire CPCC) pour les barèmes
 // conventionnels, signalés comme tels. Les faits d'actualité sont datés.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const SECTIONS: Chapitre['sections'] = [
   {
@@ -670,7 +671,7 @@ export const chapitre: Chapitre = {
   ue: 'ue1',
   numero: 4,
   id: 'ue1-chapitre-4',
-  titre: "La rupture du contrat de travail",
+  titre: titreChapitre('ue1', 4),
   sousTitre: "Titre IV du Code du travail (2e partie) · Loi n°015/2002, art. 61 à 79",
   infoBulle: "Modes de rupture, motif valable, préavis, indemnités et réintégration, faute lourde, CDD et essai, licenciement économique, formalités de fin de contrat, protections renforcées.",
   loiRef: "Titre IV, art. 61 à 79 ; renvois aux art. 7, 43, 57, 60, 129, 130, 141, 178, 298 et 317",

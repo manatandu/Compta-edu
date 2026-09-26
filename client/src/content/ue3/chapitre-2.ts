@@ -14,6 +14,7 @@
 // - Actualite.cd (14 mai 2021) et Village de la Justice (23 août 2022) sur
 //   l'absence de peines fixées en RDC, déjà vérifiés pour l'UE2, chapitre 7.
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -955,7 +956,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 2,
   id: 'ue3-chapitre-2',
-  titre: "La constitution selon la forme sociale : SARL, SA, SAS et incidents de libération",
+  titre: titreChapitre('ue3', 2),
   sousTitre: "AUSCGIE révisé, art. 309-316 (SARL), 385-413 (SA), 774-777 (défaut de libération), 853-1 à 853-5 (SAS), 886-888 (infractions) · arrêté congolais du 30 décembre 2014",
   infoBulle: "Les règles de constitution propres à chaque forme et leurs écritures : capital et libération de la SARL (moitié, deux ans, capital libre en RDC) et de la SA (quart, trois ans), commissaire aux apports, dépôt et indisponibilité des fonds, bordereau acquitté en RDC, assemblée constitutive, SAS et sociétés unipersonnelles, actionnaire défaillant (compte 4617), nullités, responsabilités et infractions de la constitution.",
   loiRef: "Art. 309-316, 385-413, 558, 774-777, 853-1 à 853-5, 886-888 AUSCGIE · arrêté du 30 décembre 2014, art. 1-3 · SYSCOHADA, App. 58-59",

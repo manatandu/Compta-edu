@@ -20,6 +20,7 @@
 // - Loi n° 23/053 du 30 novembre 2023, art. 9, 50, 72, 76 et 120 ; skill
 //   fiscalite-rdc (paramètres 2026 : régime mère-fille).
 import type { Chapitre } from '@/lib/chapitre-types'
+import { titreChapitre } from '@/content/modules'
 
 const QCM: Chapitre['qcm'] = [
   {
@@ -1064,7 +1065,7 @@ export const chapitre: Chapitre = {
   ue: 'ue3',
   numero: 7,
   id: 'ue3-chapitre-7',
-  titre: "L'évaluation des titres sociaux et le portefeuille-titres",
+  titre: titreChapitre('ue3', 7),
   sousTitre: "AUSCGIE révisé, art. 56-59 et 173-180 · AUDCIF, art. 42-46 et Titre VIII, ch. 13 · SYSCOHADA, Applications 48 à 51 · loi n° 23/053, art. 9, 50, 76 et 120",
   infoBulle: "Classement des titres selon l'intention (participation 26, titres immobilisés 274, placement 50), présomptions de 10 %, 20 % et 40 %, participations croisées, coût d'entrée et frais, titres non libérés (4813, 4726), dividendes et intérêts, régime mère-fille, évaluation à l'inventaire et dépréciations sans compensation, cessions en HAO ou en résultat financier, PEPS et coût moyen pondéré, évaluation des droits sociaux et expertise de l'article 59.",
   loiRef: "Art. 56-59, 173-180 AUSCGIE · art. 42-46 AUDCIF, Titre VII (comptes 26, 27, 29, 47, 50, 59), Titre VIII ch. 13 · App. 48-51 · loi n° 23/053, art. 9, 50, 54, 72, 76, 80, 120",
