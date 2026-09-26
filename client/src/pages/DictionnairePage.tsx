@@ -1,8 +1,14 @@
+import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useState, useEffect, useRef } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import { useSearch } from 'wouter'
 import { BookMarked, Search, X, ChevronRight, ArrowUp, ArrowLeft } from 'lucide-react'
 import { DICTIONNAIRE, DOMAINES_DICT, UES_DICT, DomaineDict } from '@/data/dictionnaire'
+
+// Seules les UE du catalogue sont citées dans « Enseigné en » : les termes
+// gardent leurs étiquettes d'origine (consolidation, audit...), mais ces UE
+// ont été retirées et ne doivent plus être annoncées comme enseignées.
+const UES_ENSEIGNEES = new Set(COURS_SYSTEME.map(c => c.moduleKey))
 import { cn } from '@/lib/utils'
 
 const DOMAINE_COLORS: Record<DomaineDict, string> = {
@@ -245,10 +251,10 @@ export default function DictionnairePage() {
                     )}
 
                     {/* Cours où le terme est enseigné */}
-                    {t.ues.length > 0 && (
+                    {t.ues.some(ue => UES_ENSEIGNEES.has(ue)) && (
                       <div className="flex flex-wrap items-center gap-1.5">
                         <span className="text-xs text-muted-foreground font-medium">Enseigné en :</span>
-                        {t.ues.map(ue => (
+                        {t.ues.filter(ue => UES_ENSEIGNEES.has(ue)).map(ue => (
                           <span key={ue} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
                             {UES_DICT[ue] || ue}
                           </span>

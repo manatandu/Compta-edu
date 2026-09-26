@@ -180,15 +180,17 @@ export function useCours(faculteId?: string, universiteId?: string) {
 
 export function useAllCours() {
   const [cours, setCours] = useState<Cours[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'cours'), (snap) => {
       setCours(snap.docs.map(d => fromDoc<Cours>(d)))
-    }, err => notifyFirestoreError('useAllCours', err))
+      setLoading(false)
+    }, err => { setLoading(false); notifyFirestoreError('useAllCours', err) })
     return () => unsub()
   }, [])
 
-  return { cours }
+  return { cours, loading }
 }
 
 // ─── Toutes les facultés (sans filtre) ────────────────────────────────────────

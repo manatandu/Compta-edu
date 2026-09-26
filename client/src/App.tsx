@@ -36,7 +36,6 @@ const ProfesseurPage = React.lazy(() => import('@/pages/ProfesseurPage'))
 const ComptabiliteGeneralePage = React.lazy(() => import('@/pages/ComptabiliteGeneralePage'))
 const ChatPage = React.lazy(() => import('@/pages/ChatPage'))
 const DocumentsPage = React.lazy(() => import('@/pages/DocumentsPage'))
-const ComingSoonPage = React.lazy(() => import('@/pages/ComingSoonPage'))
 const ApercuDevoirPage = React.lazy(() => import('@/pages/ApercuDevoirPage'))
 const FiscalitePage = React.lazy(() => import('@/pages/FiscalitePage'))
 const ChargesPersonnelIRPPPage = React.lazy(() => import('@/pages/ChargesPersonnelIRPPPage'))
@@ -278,13 +277,6 @@ export default function App() {
         </Route>
         <Route path="/dictionnaire">
           <W user={user} onLogout={handleLogout}><DictionnairePage /></W>
-        </Route>
-        <Route path="/analyse-financiere">
-          <W user={user} onLogout={handleLogout}><ComingSoonPage
-            titre="Analyse Financière"
-            description="Le module Analyse Financière permet d'étudier la santé financière d'une entreprise : rentabilité, liquidité, solvabilité et ratios clés."
-            fonctionnalites={['Calcul des ratios financiers', 'Analyse de la rentabilité', 'Tableau des flux de trésorerie', 'Diagnostic financier', 'Exercices d\'analyse']}
-          /></W>
         </Route>
 
         <Route path="/debug-isolation">

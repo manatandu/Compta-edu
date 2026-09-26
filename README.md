@@ -14,7 +14,9 @@ Logiciel web pédagogique de comptabilité OHADA/SYSCOHADA pour étudiants congo
 | 9 | Comptabilité générale | outils de saisie et d'états financiers |
 | 13 | Normes IAS/IFRS | manuel, 8 chapitres |
 
-Les UE 6, 7, 8, 10, 11 et 12 figurent au catalogue mais sont désactivées (`actif: false` dans `COURS_SYSTEME`, `client/src/lib/db-firebase.ts`).
+Les UE 6, 7, 8, 10, 11 et 12 ont été retirées du catalogue le 26 septembre 2026 : le périmètre du logiciel est arrêté aux sept modules ci-dessus (`COURS_SYSTEME`, `client/src/lib/db-firebase.ts`).
+
+Un étudiant n'accède au sommaire et aux chapitres d'un manuel que s'il est inscrit au cours correspondant (`client/src/lib/accesCours.ts`) ; le personnel accède à tout.
 
 Un manuel se compose de deux fichiers de référence :
 - `client/src/content/modules.ts` décrit le module (adresse, intitulé, sources, titres et durées des chapitres) ;

@@ -17,7 +17,7 @@ const UE_COLORS = [
   'bg-module-emerald/10 text-module-emerald',
 ]
 
-const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'analyse-financiere', 'ue1-droit-travail', 'ue2-droit-societes', 'ue3-compta-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
+const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'ue1-droit-travail', 'ue2-droit-societes', 'ue3-compta-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
 
 export default function MesCoursPage() {
   const [, navigate] = useHashLocation()
@@ -48,7 +48,7 @@ export default function MesCoursPage() {
       <div className="flex items-center gap-3">
         <div>
           <h1 className="font-display text-xl font-bold text-foreground leading-tight">Mes cours</h1>
-          <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">{nbActifs} cours actifs · {COURS_SYSTEME.length} UE au total</p>
+          <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">{nbActifs} cours</p>
         </div>
       </div>
 

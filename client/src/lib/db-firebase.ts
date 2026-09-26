@@ -1225,36 +1225,6 @@ export const COURS_SYSTEME = [
     actif: true,
   },
   {
-    id: 'sys_ue6_gestion_financiere',
-    ue: 'UE 6',
-    nom: 'UE 6 - Analyse financière',
-    description: 'Analyse financière, ratios, VAN, TIR, emprunts',
-    moduleKey: 'analyse-financiere',
-    icon: 'BarChart2',
-    systeme: true,
-    actif: false,
-  },
-  {
-    id: 'sys_ue7_management',
-    ue: 'UE 7',
-    nom: 'UE 7 - Management',
-    description: 'Théories et pratiques du management',
-    moduleKey: 'ue7-management',
-    icon: 'BookOpen',
-    systeme: true,
-    actif: false,
-  },
-  {
-    id: 'sys_ue8_consolidation',
-    ue: 'UE 8',
-    nom: 'UE 8 - Consolidation des états financiers',
-    description: 'Consolidation des comptes de groupe - SYSCOHADA',
-    moduleKey: 'ue8-consolidation',
-    icon: 'BookOpen',
-    systeme: true,
-    actif: false,
-  },
-  {
     id: 'sys_comptabilite_generale',
     ue: 'UE 9',
     nom: 'UE 9 - Comptabilité générale',
@@ -1263,36 +1233,6 @@ export const COURS_SYSTEME = [
     icon: 'Calculator',
     systeme: true,
     actif: true,
-  },
-  {
-    id: 'sys_ue10_compta_approfondie',
-    ue: 'UE 10',
-    nom: 'UE 10 - Comptabilité approfondie',
-    description: 'Comptabilité approfondie - cas complexes SYSCOHADA',
-    moduleKey: 'ue10-compta-approfondie',
-    icon: 'BookOpen',
-    systeme: true,
-    actif: false,
-  },
-  {
-    id: 'sys_controle_de_gestion',
-    ue: 'UE 11',
-    nom: 'UE 11 - Contrôle de gestion',
-    description: 'Budgets, écarts, tableaux de bord',
-    moduleKey: 'controle-de-gestion',
-    icon: 'Target',
-    systeme: true,
-    actif: false,
-  },
-  {
-    id: 'sys_ue12_audit',
-    ue: 'UE 12',
-    nom: 'UE 12 - Audit',
-    description: 'Audit légal et contractuel',
-    moduleKey: 'ue12-audit',
-    icon: 'BookOpen',
-    systeme: true,
-    actif: false,
   },
   {
     id: 'sys_ue13_ias_ifrs',
@@ -1306,11 +1246,24 @@ export const COURS_SYSTEME = [
   },
 ]
 
+/**
+ * UE retirées du catalogue le 26/09/2026 (6, 7, 8, 10, 11, 12) : jamais
+ * rédigées, elles restaient affichées comme « bientôt disponibles ». Leurs
+ * identifiants sont conservés ici pour écarter tout document Cours qui en
+ * dériverait encore dans Firestore.
+ */
+export const COURS_RETIRES_IDS = new Set([
+  'sys_ue6_gestion_financiere',
+  'sys_ue7_management',
+  'sys_ue8_consolidation',
+  'sys_ue10_compta_approfondie',
+  'sys_controle_de_gestion',
+  'sys_ue12_audit',
+])
+
 /** Rang de chaque UE système (0 = UE1, 1 = UE2, ...) pour trier par ordre croissant. */
 const RANG_COURS_SYSTEME = new Map(COURS_SYSTEME.map((c, i) => [c.id, i]))
 
-/** IDs des cours système désactivés (à exclure des listes affichées) */
-const COURS_SYSTEME_INACTIFS_IDS = new Set(COURS_SYSTEME.filter(c => !c.actif).map(c => c.id))
 
 /**
  * Déduplique et trie par ordre croissant d'UE (UE1, UE2, UE3...) une liste de
@@ -1319,7 +1272,7 @@ const COURS_SYSTEME_INACTIFS_IDS = new Set(COURS_SYSTEME.filter(c => !c.actif).m
  * d'auto-provisionnement par faculté (provisionCoursManquantsAsync), pas du
  * numéro d'UE.
  * - Exclut les cours non actifs
- * - Exclut les cours liés à un cours système désactivé
+ * - Exclut les cours liés à une UE retirée du catalogue
  * - Déduplique : un seul cours par coursSystemeId (premier trouvé)
  */
 export function getCoursUniquesTries(liste: any[]): any[] {
@@ -1327,8 +1280,8 @@ export function getCoursUniquesTries(liste: any[]): any[] {
   return liste
     .filter(c => {
       if (!c.actif) return false
-      if (COURS_SYSTEME_INACTIFS_IDS.has(c.id)) return false
-      if (c.coursSystemeId && COURS_SYSTEME_INACTIFS_IDS.has(c.coursSystemeId)) return false
+      if (COURS_RETIRES_IDS.has(c.id)) return false
+      if (c.coursSystemeId && COURS_RETIRES_IDS.has(c.coursSystemeId)) return false
       const key = c.coursSystemeId || c.id
       if (seen.has(key)) return false
       seen.add(key)
