@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHashLocation } from 'wouter/use-hash-location'
 import {
-  BookOpen, LayoutDashboard, BookMarked, BarChart2, FileText,
+  BookOpen, LayoutDashboard, BookMarked, FileText,
   Users, MessageSquare, FolderOpen, LogOut,
   Menu, GraduationCap, ChevronRight,
   Calculator, Home, X, Lock,
@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { useAllCours } from '@/lib/useFirestore'
 import { useCoursStatuts } from '@/lib/useFirestore'
-import { COURS_SYSTEME } from '@/lib/db-firebase'
+import { COURS_SYSTEME, COURS_RETIRES_IDS } from '@/lib/db-firebase'
 import { prefetchRoute } from '@/lib/prefetch'
 import { isStudentRole } from '@/lib/permissions'
 
@@ -100,7 +100,6 @@ interface LayoutProps {
 function getModuleIcon(moduleKey?: string, icon?: string) {
   if (moduleKey === 'comptabilite-generale') return <Calculator className="h-4 w-4" />
   if (moduleKey === 'fiscalite') return <FileText className="h-4 w-4" />
-  if (moduleKey === 'analyse-financiere') return <BarChart2 className="h-4 w-4" />
   if (icon === 'BookOpen') return <BookOpen className="h-4 w-4" />
   if (icon === 'GraduationCap') return <GraduationCap className="h-4 w-4" />
   return <BookOpen className="h-4 w-4" />
@@ -219,7 +218,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
           // Cours manuels : exclure tout ce qui correspond à un cours système
           // (même id, même coursSystemeId, même moduleKey, ou même nom)
           const coursManuels = allCours.filter(c => {
-            if (systemIds.includes(c.id)) return false
+            if (systemIds.includes(c.id) || COURS_RETIRES_IDS.has(c.id)) return false
             if ((c as any).coursSystemeId && systemIds.includes((c as any).coursSystemeId)) return false
             if ((c as any).moduleKey && systemModuleKeys.includes((c as any).moduleKey)) return false
             if (systemNoms.includes(c.nom.trim().toLowerCase())) return false
@@ -230,7 +229,7 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
 
           // Routes connues dans l'application
           const ROUTES_CONNUES = [
-            'comptabilite-generale', 'fiscalite', 'analyse-financiere',
+            'comptabilite-generale', 'fiscalite',
             'immobilisations', 'stock', 'charges-personnel',
             'docs-comptables-hub', 'etats-financiers-hub',
             'dictionnaire', 'documents', 'exercices',

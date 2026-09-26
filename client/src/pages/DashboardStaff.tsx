@@ -4,7 +4,7 @@ import {
   BookOpen, BookMarked, ClipboardList, Clock, Users, GraduationCap,
 } from 'lucide-react'
 import { useAllCours, useFacultes, useUniversites, useAllSoumissions, useDevoirs } from '@/lib/useFirestore'
-import { getEtudiantsCreesParAsync, COURS_SYSTEME } from '@/lib/db-firebase'
+import { getEtudiantsCreesParAsync, COURS_RETIRES_IDS } from '@/lib/db-firebase'
 import { useEquipe, creeParEquipe } from '@/lib/equipe'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
@@ -62,12 +62,11 @@ export default function DashboardStaff() {
   // documents Cours que de facultés - le compter tel quel gonflait le
   // chiffre affiché ici (ex. 6 UE actives × 7 facultés = 42 « cours »).
   // On déduplique par coursSystemeId pour retomber sur le nombre d'UE.
-  const coursSystemeInactifsIds = new Set(COURS_SYSTEME.filter(c => !c.actif).map(c => c.id))
   const vusCoursSysteme = new Set<string>()
   const allCours = allCoursRaw.filter(c => {
     if (!c.actif) return false
     const csId = (c as any).coursSystemeId as string | undefined
-    if (csId && coursSystemeInactifsIds.has(csId)) return false
+    if (csId && COURS_RETIRES_IDS.has(csId)) return false
     const key = csId || c.id
     if (vusCoursSysteme.has(key)) return false
     vusCoursSysteme.add(key)

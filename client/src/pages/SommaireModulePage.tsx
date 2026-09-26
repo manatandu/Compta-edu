@@ -5,6 +5,8 @@ import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { prefetchRoute } from '@/lib/prefetch'
 import { moduleDe } from '@/content/modules'
+import { useAccesCours } from '@/lib/accesCours'
+import CoursVerrouille from '@/components/CoursVerrouille'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SOMMAIRE D'UN MODULE DE COURS
@@ -24,12 +26,14 @@ const AMBRE = 'text-[#8A6416]'
 export default function SommaireModulePage({ ue }: { ue: string }) {
   const [, navigate] = useHashLocation()
   const module = moduleDe(ue)
+  const acces = useAccesCours(module ? module.route.slice(1) : '')
   if (!module) return <Redirect to="/mes-cours" />
 
   const totalHeures = module.chapitres.reduce((s, c) => s + parseInt(c.duree), 0)
   const route = (num: number) => `/${module.ue}/chapitre-${num}`
 
   return (
+    <CoursVerrouille acces={acces}>
     <div className="space-y-8 pb-10 animate-fadeIn">
       <div className="space-y-1">
         <BackButton />
@@ -112,5 +116,6 @@ export default function SommaireModulePage({ ue }: { ue: string }) {
 
       <p className="text-xs text-center text-muted-foreground/60 pb-2">Sources : {module.sources}</p>
     </div>
+    </CoursVerrouille>
   )
 }

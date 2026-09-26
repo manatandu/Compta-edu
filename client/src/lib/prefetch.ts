@@ -35,7 +35,6 @@ const registry: Record<string, Loader> = {
   '/documents': () => import('@/pages/DocumentsPage'),
   '/fiscalite': () => import('@/pages/FiscalitePage'),
   '/dictionnaire': () => import('@/pages/DictionnairePage'),
-  '/analyse-financiere': () => import('@/pages/ComingSoonPage'),
   '/gestion-etudiants': () => import('@/pages/GestionEtudiantsPage'),
   '/mes-cours': () => import('@/pages/MesCoursPage'),
   ...Object.fromEntries(MODULES.map(m => [m.route, () => import('@/pages/SommaireModulePage')])),

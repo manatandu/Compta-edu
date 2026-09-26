@@ -16,7 +16,7 @@ import {
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createExerciceLibreAsync, updateExerciceLibreAsync, deleteExerciceLibreAsync,
   uploadExercicePDF, uploadExerciceCorrigePDF,
-  createTentativeELAsync, COURS_SYSTEME,
+  createTentativeELAsync, COURS_RETIRES_IDS,
 } from '@/lib/db-firebase'
 import { useSessions, useExercices, useTentatives, useExercicesLibres, useTentativesEL, useCours } from '@/lib/useFirestore'
 import { Button } from '@/components/ui/button'
@@ -896,13 +896,12 @@ export default function ExercicesPage() {
   const { tentatives } = useTentatives(user?.id)
   // Liste des cours pour les formulaires (prof/admin)
   // Dédupliquer : un seul cours par coursSystemeId, exclure cours système inactifs
-  const _coursInactifIds = new Set(COURS_SYSTEME.filter(c => !c.actif).map(c => c.id))
   const _coursSeen = new Set<string>()
   const coursList = allCours
     .filter(c => {
       if (!c.actif) return false
-      if (_coursInactifIds.has(c.id)) return false
-      if ((c as any).coursSystemeId && _coursInactifIds.has((c as any).coursSystemeId)) return false
+      if (COURS_RETIRES_IDS.has(c.id)) return false
+      if ((c as any).coursSystemeId && COURS_RETIRES_IDS.has((c as any).coursSystemeId)) return false
       const key = (c as any).coursSystemeId || c.id
       if (_coursSeen.has(key)) return false
       _coursSeen.add(key)

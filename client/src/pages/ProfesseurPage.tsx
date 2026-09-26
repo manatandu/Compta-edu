@@ -41,7 +41,7 @@ import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
   ChevronDown, ChevronRight, X, ShieldCheck, LibraryBig,
   Paperclip, FileDown, FileText, CalendarCheck, Award, CheckCircle2, ClipboardList, TrendingDown, Clock, Download,
-  Lock, Search, ExternalLink
+  Search, ExternalLink
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
@@ -452,7 +452,6 @@ export default function ProfesseurPage() {
   // Recherche onglet Universités
   const [searchUni, setSearchUni] = useState('')
   // Nettoyage doublons onglet Cours
-  const [showCoursVerrouilles, setShowCoursVerrouilles] = useState(false)
   const [confirmNettoyage, setConfirmNettoyage] = useState(false)
   const [nettoyageEnCours, setNettoyageEnCours] = useState(false)
   const [coursDoublonsIds, setCoursDoublonsIds] = useState<string[]>([])
@@ -1450,43 +1449,6 @@ export default function ProfesseurPage() {
           )
           })()}
 
-          {/* Séparateur : Cours en préparation (verrouillés) - replié par défaut,
-              rien à y faire (verrouillé) donc pas de raison de l'imposer en
-              permanence en bas de l'onglet. */}
-          {COURS_SYSTEME.filter(c => !c.actif).length > 0 && (
-            <div className="space-y-2">
-              <button
-                onClick={() => setShowCoursVerrouilles(v => !v)}
-                className="flex items-center gap-2 pt-1 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showCoursVerrouilles ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
-                <Lock className="h-3.5 w-3.5 text-muted-foreground/60" />
-                <p className="text-xs font-semibold uppercase tracking-wide">
-                  Cours en préparation : verrouillés ({COURS_SYSTEME.filter(c => !c.actif).length})
-                </p>
-              </button>
-              {showCoursVerrouilles && COURS_SYSTEME.filter(c => !c.actif).map(c => (
-                <Card key={c.id} className="border-dashed border-border bg-muted/20">
-                  <CardContent className="px-4 py-3">
-                    <div className="flex items-center gap-3 opacity-60">
-                      <Lock className="h-4 w-4 text-muted-foreground shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-foreground text-sm">{c.nom}</span>
-                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-gray-100 text-gray-500">
-                            Verrouillé
-                          </span>
-                          <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-blue-100 text-blue-700">Système</span>
-                        </div>
-                        {c.description && <p className="text-xs text-muted-foreground mt-0.5">{c.description}</p>}
-                        <p className="text-xs text-muted-foreground/70 mt-0.5 italic">Ce cours sera disponible prochainement.</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
         </div>
       )}
 

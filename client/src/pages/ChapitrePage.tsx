@@ -3,6 +3,9 @@ import { Redirect } from 'wouter'
 import ChapitreManuscrit from '@/components/chapitre/ChapitreManuscrit'
 import PageLoader from '@/components/PageLoader'
 import { chargeurDe } from '@/content/catalogue'
+import { moduleDe } from '@/content/modules'
+import { useAccesCours } from '@/lib/accesCours'
+import CoursVerrouille from '@/components/CoursVerrouille'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PAGE DE CHAPITRE
@@ -41,14 +44,18 @@ function composantDeChapitre(ue: string, numero: number): React.ComponentType | 
 export default function ChapitrePage({ ue, numero }: { ue: string; numero: string }) {
   const n = Number.parseInt(numero, 10)
   const Chapitre = Number.isFinite(n) ? composantDeChapitre(ue, n) : null
+  const module = moduleDe(ue)
+  const acces = useAccesCours(module ? module.route.slice(1) : '')
 
   // Module ou numéro absent du catalogue : on renvoie à la liste des cours
   // plutôt que d'afficher une page vide.
   if (!Chapitre) return <Redirect to="/mes-cours" />
 
   return (
-    <React.Suspense fallback={<PageLoader />}>
-      <Chapitre />
-    </React.Suspense>
+    <CoursVerrouille acces={acces}>
+      <React.Suspense fallback={<PageLoader />}>
+        <Chapitre />
+      </React.Suspense>
+    </CoursVerrouille>
   )
 }
