@@ -16,7 +16,7 @@ import {
 import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries, coursSystemeDe } from '@/lib/db-firebase'
 import {
   calculerCote, devoirConcerneEtudiant, estDevoirChapitre, estNotee, estACorriger, baremeDevoir,
-  formaterNote, formaterNombre, type Cote,
+  formaterNote, formaterNombre, noteDeCopie, type Cote,
 } from '@/lib/cotes'
 import { useUser } from '@/lib/userContext'
 import { useModule } from '@/lib/moduleContext'
@@ -53,7 +53,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
     return (
       <div className="mt-3 bg-green-50 border border-green-200 rounded-lg p-3 space-y-1">
         <p className="text-sm font-semibold text-green-700">✓ QCM corrigé automatiquement</p>
-        <p className="text-sm text-green-700">Note : <strong>{soumission.note}/10</strong></p>
+        <p className="text-sm text-green-700">Note : <strong>{formaterNombre(noteDeCopie(soumission, devoir) ?? 0)}/10</strong></p>
         {soumission.commentaire && <p className="text-xs text-muted-foreground">{soumission.commentaire}</p>}
       </div>
     )
@@ -428,7 +428,7 @@ export default function DashboardEtudiant() {
         .map(l => [
           l.devoir.titre,
           nomCours(l.devoir.coursId),
-          l.etat === 'note' ? formaterNote(l.soumission!.note!, l.bareme) : `${formaterNote(0, l.bareme)} (non rendu)`,
+          l.etat === 'note' ? formaterNote(noteDeCopie(l.soumission, l.devoir)!, l.bareme) : `${formaterNote(0, l.bareme)} (non rendu)`,
           l.etat === 'note' ? (l.soumission?.commentaire || '-') : '-',
         ])
       if (lignesDevoirs.length > 0) {
@@ -725,7 +725,7 @@ export default function DashboardEtudiant() {
                     {soum && estNotee(soum) && (
                       <div className="mt-3 bg-muted/40 rounded-md p-3">
                         <div className="flex items-center gap-3">
-                          <p className={cn('text-2xl font-mono font-bold', soum.note! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(soum.note!, baremeDevoir(dev))}</p>
+                          <p className={cn('text-2xl font-mono font-bold', noteDeCopie(soum, dev)! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(soum, dev)!, baremeDevoir(dev))}</p>
                           {soum.commentaire && <p className="text-xs text-foreground flex-1 italic">{soum.commentaire}</p>}
                         </div>
                       </div>
@@ -998,7 +998,7 @@ export default function DashboardEtudiant() {
                           <td className="px-3 py-2 text-center">
                             {l.etat === 'note' ? (
                               <span className={cn('font-bold', (l.ratio ?? 0) >= 0.5 ? 'text-green-600' : 'text-red-500')}>
-                                {formaterNote(l.soumission!.note!, l.bareme)}
+                                {formaterNote(noteDeCopie(l.soumission, l.devoir)!, l.bareme)}
                               </span>
                             ) : (
                               <span className="font-bold text-red-500">{formaterNote(0, l.bareme)}</span>

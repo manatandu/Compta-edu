@@ -25,6 +25,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 import type { Cours, Devoir, DevoirType, Presence, Soumission } from './db'
 import { promotionCorrespond } from './promotion'
+import { corrigerQCMChapitre, corrigerQCMClassique, partieQCMSur10 } from './correctionQCM'
 
 // ─── Barème et état d'une copie ──────────────────────────────────────────────
 
@@ -45,6 +46,30 @@ export function baremeDevoir(d: Pick<Devoir, 'type'> | null | undefined): 10 | 2
 // déjà noté. Ces copies anciennes portent une note sous le statut « soumis ».
 export function estNotee(s: Pick<Soumission, 'note'> | null | undefined): boolean {
   return !!s && typeof s.note === 'number' && Number.isFinite(s.note)
+}
+
+// Note d'une copie notée, à lire à la place de soumission.note. Pour un QCM
+// corrigé automatiquement, elle est recalculée à partir des réponses de la
+// copie et du corrigé du devoir : la note enregistrée par le navigateur de
+// l'étudiant n'est pas crue sur parole. Les autres copies sont notées par
+// l'enseignant, seul autorisé à écrire leur note (règles Firestore).
+type DevoirCorrige = Pick<Devoir, 'type'> & Partial<Pick<Devoir, 'questions' | 'questionsChapitre'>>
+export function noteDeCopie(s: Soumission | null | undefined, d: DevoirCorrige | null | undefined): number | null {
+  if (!s || !estNotee(s)) return null
+  if (d?.type === 'qcm_chapitre' && d.questionsChapitre?.length) {
+    return corrigerQCMChapitre(d.questionsChapitre, s.reponsesQCMChapitre || {}).note20
+  }
+  if (d?.type === 'qcm' && d.questions?.length) {
+    return corrigerQCMClassique(d.questions, s.reponsesQCM || []).note10
+  }
+  return s.note as number
+}
+
+// Partie QCM d'un devoir « QCM + cas pratiques », recalculée de même (sur 10).
+export function partieQCMDeCopie(s: Soumission | null | undefined, d: DevoirCorrige | null | undefined): number | null {
+  if (!s || d?.type !== 'qcm_cas' || !d.questionsChapitre?.length) return null
+  const { nbCorrectes } = corrigerQCMChapitre(d.questionsChapitre, s.reponsesQCMChapitre || {})
+  return partieQCMSur10(nbCorrectes, d.questionsChapitre.length)
 }
 
 // Copie rendue qui attend une note de l'enseignant.
@@ -173,7 +198,7 @@ export function calculerCote(e: EntreeCalculCote): Cote {
     let ratio: number | null = null
     if (soumission && estNotee(soumission)) {
       etat = 'note'
-      ratio = Math.min(1, Math.max(0, (soumission.note as number) / bareme))
+      ratio = Math.min(1, Math.max(0, (noteDeCopie(soumission, d) as number) / bareme))
     } else if (soumission) {
       etat = 'a_corriger'
     } else if (maintenant.getTime() > limite) {

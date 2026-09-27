@@ -1758,6 +1758,31 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
     await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-qcm', { note: -1, statut: 'note' })))
   })
 
+  it('Un devoir « QCM + cas » arrive « soumis », jamais noté par l\'étudiant', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-cas', { ...qcm, type: 'qcm_cas' })
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-cas', { statut: 'soumis', scoreQCMCas: 6, reponsesCasPratiques: { c1: 'Réponse' } })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-cas', { note: 20, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's3'), copie('d-cas', { statut: 'soumis', scoreCasPratiques: 10 })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's4'), copie('d-cas', { statut: 'soumis', evaluationsCasPratiques: [] })))
+  })
+
+  it('Un étudiant peut compléter sa copie rédigée, sans toucher à la correction', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-red', redige)
+    await seedDoc('soumissions', 's-red', { devoirId: 'd-red', etudiantId: USERS.etud1.uid, statut: 'soumis', reponseTexte: 'v1' })
+    await assertSucceeds(updateDoc(doc(db(USERS.etud1), 'soumissions', 's-red'), { reponseTexte: 'v2' }))
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 's-red'), { scoreCasPratiques: 10 }))
+  })
+
+  it('Un étudiant NE PEUT PAS retoucher une copie de QCM après l\'envoi', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await seedDoc('soumissions', 's-qcm', { devoirId: 'd-qcm', etudiantId: USERS.etud1.uid, statut: 'note', note: 8, reponsesQCMChapitre: { q1: 'a' } })
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 's-qcm'), { reponsesQCMChapitre: { q1: 'b' } }))
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 's-qcm'), { scoreQCMChapitre: 10 }))
+  })
+
   it('Un étudiant NE PEUT PAS rendre le devoir d\'un cours auquel il n\'est pas inscrit', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-fisc', { ...qcm, coursId: IDS.coursFiscalite })

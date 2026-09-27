@@ -29,6 +29,7 @@ export default defineConfig({
           if (!id.includes('node_modules')) return undefined
           if (/node_modules\/(react|react-dom|scheduler|wouter|regexparam|use-sync-external-store)\//.test(id)) return 'vendor-react'
           if (/node_modules\/(@firebase\/storage|firebase\/storage)\//.test(id)) return 'vendor-firebase-storage'
+          if (/node_modules\/(@firebase\/ai|firebase\/ai)\//.test(id)) return 'vendor-firebase-ai'
           if (/node_modules\/(@firebase|firebase|idb)\//.test(id)) return 'vendor-firebase'
           // Icônes : un seul petit fichier (8 Ko compressés) plutôt qu'un
           // fichier par icône, ce qui multiplierait les allers-retours réseau.

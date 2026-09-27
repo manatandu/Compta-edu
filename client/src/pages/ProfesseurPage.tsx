@@ -12,8 +12,9 @@ import {
 } from '@/lib/db'
 import {
   calculerCote, devoirConcerneEtudiant, estNotee, estACorriger, baremeDevoir, formaterNote, formaterNombre,
-  type Cote,
+  noteDeCopie, partieQCMDeCopie, type Cote,
 } from '@/lib/cotes'
+import { proposerNoteCas, type PropositionCas } from '@/lib/iaCorrection'
 import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
   createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
@@ -47,7 +48,7 @@ import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
   ChevronDown, ChevronRight, X, ShieldCheck, LibraryBig,
   Paperclip, FileDown, FileText, CalendarCheck, Award, CheckCircle2, ClipboardList, TrendingDown, Clock, Download,
-  Search
+  Search, Sparkles, Loader2,
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
@@ -200,7 +201,7 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                       </td>
                       <td className="px-3 py-2 text-center">
                         {soum && estNotee(soum) ? (
-                          <span className={cn('font-bold text-sm', soum.note! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(soum.note!, bareme)}</span>
+                          <span className={cn('font-bold text-sm', noteDeCopie(soum, dev)! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(soum, dev)!, bareme)}</span>
                         ) : !soum && expire ? (
                           <span className="font-bold text-sm text-red-500">{formaterNote(0, bareme)}</span>
                         ) : (
@@ -449,6 +450,11 @@ export default function ProfesseurPage() {
   const [correctionSoumId, setCorrectionSoumId] = useState<string | null>(null)
   const [correctionNote, setCorrectionNote] = useState('')
   const [correctionComment, setCorrectionComment] = useState('')
+  // Proposition de l'IA pour les cas pratiques de la copie en correction.
+  const [propositionIA, setPropositionIA] = useState<PropositionCas[] | null>(null)
+  const [propositionEnCours, setPropositionEnCours] = useState(false)
+  const [propositionErreur, setPropositionErreur] = useState('')
+  useEffect(() => { setPropositionIA(null); setPropositionErreur('') }, [correctionSoumId])
   const [viewSoumission, setViewSoumission] = useState<Soumission | null>(null)
   const [editUniId, setEditUniId] = useState<string | null>(null)
   const [deleteUniId, setDeleteUniId] = useState<string | null>(null)
@@ -578,15 +584,40 @@ export default function ProfesseurPage() {
   }
   // Copie en cours de correction et barème de son devoir : sur 20 pour un
   // devoir créé depuis un chapitre, sur 10 pour un devoir classique (voir
-  // lib/cotes.ts). Pour un devoir « QCM + cas pratiques » dont l'évaluation
-  // automatique des cas a échoué, la partie QCM est déjà calculée (sur 10) :
-  // l'enseignant ne note que les cas pratiques, sur 10.
+  // lib/cotes.ts). Pour un devoir « QCM + cas pratiques », la partie QCM est
+  // calculée (sur 10) : l'enseignant note les cas pratiques, sur 10, en
+  // s'aidant s'il le souhaite de la proposition de l'IA.
   const correctionContexte = () => {
     const soum = allSoumissions.find(s => s.id === correctionSoumId) as Soumission | undefined
     const dev = soum ? devoirsList.find(d => d.id === soum.devoirId) : undefined
     const bareme = baremeDevoir(dev)
-    const partieQCM = dev?.type === 'qcm_cas' && typeof soum?.scoreQCMCas === 'number' ? soum.scoreQCMCas : null
+    // Partie QCM recalculée à partir des réponses de la copie, et non lue
+    // dans le score que le navigateur de l'étudiant y a inscrit.
+    const partieQCM = partieQCMDeCopie(soum, dev)
     return { soum, dev, bareme, partieQCM, saisieMax: partieQCM !== null ? bareme - 10 : bareme }
+  }
+  const demanderPropositionIA = async () => {
+    const { soum, dev } = correctionContexte()
+    if (!soum || !dev?.casPratiques?.length) return
+    setPropositionEnCours(true); setPropositionErreur('')
+    try {
+      setPropositionIA(await proposerNoteCas(dev.casPratiques, soum.reponsesCasPratiques || {}))
+    } catch (e) {
+      console.error('Proposition IA :', e)
+      setPropositionErreur("L'IA n'a pas pu proposer de note. Réessayez dans un instant, ou notez vous-même.")
+    } finally {
+      setPropositionEnCours(false)
+    }
+  }
+  const reprendrePropositionIA = () => {
+    const { dev } = correctionContexte()
+    if (!propositionIA) return
+    const total = propositionIA.reduce((acc, p) => acc + p.score, 0)
+    setCorrectionNote(String(total))
+    setCorrectionComment(propositionIA.map(p => {
+      const cas = dev?.casPratiques?.find(c => c.id === p.casId)
+      return `${cas?.titre || 'Cas'} (${p.score}/${p.pointsMax}) : ${p.commentaire}`
+    }).join('\n'))
   }
   const handleCorrigerSoumission = () => {
     if (!correctionSoumId) return
@@ -2904,6 +2935,34 @@ export default function ProfesseurPage() {
                 Partie QCM déjà calculée : <strong>{formaterNote(partieQCM, 10)}</strong>. Notez les cas pratiques sur 10 ; la note finale est leur somme, sur 20.
               </p>
             )}
+            {dev?.type === 'qcm_cas' && !!dev.casPratiques?.length && (
+              <div className="rounded-md border border-border p-3 space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs font-semibold">Proposition de l'IA</p>
+                  <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={demanderPropositionIA} disabled={propositionEnCours}>
+                    {propositionEnCours ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3" />}
+                    {propositionIA ? 'Redemander' : 'Proposer une note'}
+                  </Button>
+                </div>
+                {propositionErreur && <p className="text-xs text-destructive">{propositionErreur}</p>}
+                {propositionIA && (
+                  <>
+                    <ul className="space-y-1.5">
+                      {propositionIA.map(p => (
+                        <li key={p.casId} className="text-xs">
+                          <span className="font-medium">{dev.casPratiques?.find(c => c.id === p.casId)?.titre || 'Cas'} : {p.score}/{p.pointsMax}</span>
+                          <span className="block text-muted-foreground">{p.commentaire}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button size="sm" className="h-7 text-xs w-full" onClick={reprendrePropositionIA}>
+                      Reprendre la proposition ({propositionIA.reduce((a, p) => a + p.score, 0)}/10)
+                    </Button>
+                  </>
+                )}
+                <p className="text-[11px] text-muted-foreground">Proposition indicative : vérifiez les réponses (bouton « Voir ») avant d'enregistrer. La note enregistrée est la vôtre.</p>
+              </div>
+            )}
             <div>
               <Label>{partieQCM !== null ? 'Note des cas pratiques' : 'Note'} (0 à {saisieMax}) *</Label>
               <Input type="number" min="0" max={saisieMax} step="0.5" value={correctionNote} onChange={e => setCorrectionNote(e.target.value)} placeholder={`Ex : ${Math.round(saisieMax * 0.7)}`} className="mt-1" />
@@ -3005,7 +3064,7 @@ export default function ProfesseurPage() {
                 {estNotee(viewSoumission) && (
                   <div className="bg-muted/40 rounded-md p-3">
                     <p className="text-xs text-muted-foreground mb-1">Note attribuée</p>
-                    <p className={cn('text-2xl font-bold', viewSoumission.note! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(viewSoumission.note!, baremeDevoir(dev))}</p>
+                    <p className={cn('text-2xl font-bold', noteDeCopie(viewSoumission, dev)! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(viewSoumission, dev)!, baremeDevoir(dev))}</p>
                     {viewSoumission.commentaire && <p className="text-xs mt-2 text-foreground">{viewSoumission.commentaire}</p>}
                   </div>
                 )}
