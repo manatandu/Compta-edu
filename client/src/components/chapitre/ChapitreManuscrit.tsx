@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useHashLocation } from '@/lib/hashLocation'
+import { useSearch } from 'wouter'
 import { useGoBack } from '@/lib/navContext'
 import { prefetchRoute } from '@/lib/prefetch'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
-import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap } from 'lucide-react'
+import { CheckCircle2, XCircle, ChevronRight, ArrowLeft, ArrowUp, GraduationCap, ClipboardPlus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { isStudentRole } from '@/lib/permissions'
@@ -272,7 +273,10 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
   const [, naviguer] = useHashLocation()
   const utilisateur = useUser()
   const estEtudiant = isStudentRole(utilisateur)
-  const [vue, setVue] = useState<Vue>('lecture')
+  // « ?vue=devoir » : ouverture directe du formulaire de devoir, depuis le
+  // bouton « Nouveau devoir » de l'Espace pédagogique.
+  const vueDemandee: Vue = new URLSearchParams(useSearch()).get('vue') === 'devoir' && !estEtudiant ? 'devoir' : 'lecture'
+  const [vue, setVue] = useState<Vue>(vueDemandee)
   const [afficherRemonter, setAfficherRemonter] = useState(false)
   const sommetRef = useRef<HTMLDivElement>(null)
 
@@ -288,8 +292,8 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
   // Le chapitre affiché peut changer sans démontage du composant (route
   // dynamique) : on revient alors à la lecture, en haut de page.
   useEffect(() => {
-    setVue('lecture')
-  }, [chapitre.id])
+    setVue(vueDemandee)
+  }, [chapitre.id, vueDemandee])
 
   // L'écoute est posée en phase de capture : un événement de défilement ne
   // remonte pas depuis un conteneur imbriqué jusqu'à window.
@@ -354,6 +358,16 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
           <InfoTooltip texte={chapitre.infoBulle} loi={chapitre.loiRef} />
         </div>
         <p className="text-xs font-mono uppercase tracking-wide text-muted-foreground">{chapitre.sousTitre}</p>
+        {/* Le bouton de création n'était qu'en bas du chapitre, après des
+            milliers de lignes de lecture : il est aussi en tête. */}
+        {!estEtudiant && vue === 'lecture' && (
+          <button
+            onClick={() => setVue('devoir')}
+            className={cn('mt-2 inline-flex items-center gap-1.5 text-xs font-mono px-3 py-2 rounded-sm text-white', VERT_BG)}
+          >
+            <ClipboardPlus className="h-3.5 w-3.5" /> Créer un devoir sur ce chapitre
+          </button>
+        )}
       </div>
 
       {vue === 'lecture' && (
@@ -520,6 +534,7 @@ export default function ChapitreManuscrit({ chapitre }: { chapitre: Chapitre }) 
             <ArrowLeft className="h-3.5 w-3.5" /> Retour à la lecture
           </button>
           <DevoirChapitreCreateur
+            ouvertParDefaut
             chapitreId={chapitre.id}
             chapitreNom={`Chapitre ${chapitre.numero} : ${chapitre.titre}`}
             questions={chapitre.qcm}

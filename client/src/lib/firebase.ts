@@ -5,7 +5,8 @@ import { initializeApp } from 'firebase/app'
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
 } from 'firebase/firestore'
-import { initializeAuth, indexedDBLocalPersistence, browserLocalPersistence } from 'firebase/auth'
+import { initializeAuth, indexedDBLocalPersistence, browserLocalPersistence, connectAuthEmulator } from 'firebase/auth'
+import { connectFirestoreEmulator } from 'firebase/firestore'
 import type { FirebaseStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -35,6 +36,16 @@ export const db = initializeFirestore(app, {
 export const auth = initializeAuth(app, {
   persistence: [indexedDBLocalPersistence, browserLocalPersistence],
 })
+
+// Émulateurs locaux (tests de parcours complets, jamais en production) :
+// activés seulement par VITE_EMULATEURS=1 au lancement du serveur de
+// développement. La variable est remplacée à la compilation : dans le site
+// publié, ce bloc disparaît.
+export const EMULATEURS = import.meta.env.VITE_EMULATEURS === '1'
+if (EMULATEURS) {
+  connectFirestoreEmulator(db, '127.0.0.1', 8080)
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true })
+}
 
 // Le stockage de fichiers ne sert qu'aux téléversements (devoirs, documents,
 // notes de cours) : son module n'est téléchargé qu'au premier envoi de

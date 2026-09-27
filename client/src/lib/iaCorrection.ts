@@ -13,13 +13,42 @@
 // l'étudiant, qui ne peut donc ni influencer ni contourner la proposition.
 // Le module est téléchargé au premier appel seulement.
 // ─────────────────────────────────────────────────────────────────────────────
-import app from './firebase'
+import app, { EMULATEURS } from './firebase'
 import type { CasPratique } from './db'
 import { borneScoreCas } from './correctionQCM'
 
 // Modèle à mettre à jour quand Google en arrête un (les modèles 2.0 et 2.5
 // ont été retirés en 2026).
 export const MODELE_IA = 'gemini-3.8-flash'
+
+// App Check : le service d'IA du projet n'accepte que les appels portant un
+// jeton App Check, qui prouve qu'ils viennent bien de ce site et non d'un
+// tiers qui userait le quota gratuit. La clé de site reCAPTCHA Enterprise,
+// créée dans la console Firebase (App Check > Applications), est publique
+// par nature : elle se met ici. Tant qu'elle est vide, l'IA répond « jeton
+// App Check invalide » et le professeur note sans proposition.
+export const CLE_SITE_APP_CHECK = ''
+
+let appCheckPret: Promise<void> | null = null
+function activerAppCheck(): Promise<void> {
+  if (!CLE_SITE_APP_CHECK || EMULATEURS) return Promise.resolve()
+  appCheckPret ??= import('firebase/app-check').then(({ initializeAppCheck, ReCaptchaEnterpriseProvider }) => {
+    initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(CLE_SITE_APP_CHECK), isTokenAutoRefreshEnabled: true })
+  })
+  return appCheckPret
+}
+
+// Message à montrer à l'enseignant quand la proposition échoue.
+export function messageErreurIA(e: unknown): string {
+  const texte = String((e as any)?.message || e)
+  if (/app check/i.test(texte)) {
+    return "Le service d'IA n'est pas encore autorisé pour ce site (App Check à configurer par l'administrateur). Notez vous-même en attendant."
+  }
+  if (/quota|429|resource.exhausted/i.test(texte)) {
+    return "Le quota gratuit de l'IA est atteint pour le moment. Réessayez plus tard, ou notez vous-même."
+  }
+  return "L'IA n'a pas pu proposer de note. Réessayez dans un instant, ou notez vous-même."
+}
 
 // Au-delà, la réponse est tronquée avant l'envoi (limite du volume transmis).
 const LONGUEUR_MAX_REPONSE = 8000
@@ -65,6 +94,7 @@ ${blocs}`
 }
 
 export async function proposerNoteCas(cas: CasPratique[], reponses: Record<string, string>): Promise<PropositionCas[]> {
+  await activerAppCheck()
   const { getAI, getGenerativeModel, GoogleAIBackend, Schema } = await import('firebase/ai')
   const modele = getGenerativeModel(getAI(app, { backend: new GoogleAIBackend() }), {
     model: MODELE_IA,

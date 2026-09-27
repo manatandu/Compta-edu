@@ -12,9 +12,10 @@ import {
 } from '@/lib/db'
 import {
   calculerCote, devoirConcerneEtudiant, estNotee, estACorriger, baremeDevoir, formaterNote, formaterNombre,
-  noteDeCopie, partieQCMDeCopie, type Cote,
+  noteDeCopie, partieQCMDeCopie, LIBELLES_TYPE_DEVOIR, type Cote,
 } from '@/lib/cotes'
-import { proposerNoteCas, avecCorriges, type PropositionCas } from '@/lib/iaCorrection'
+import NouveauDevoir from '@/components/NouveauDevoir'
+import { proposerNoteCas, avecCorriges, messageErreurIA, type PropositionCas } from '@/lib/iaCorrection'
 import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
   createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
@@ -616,7 +617,7 @@ export default function ProfesseurPage() {
       setPropositionIA(await proposerNoteCas(cas, soum.reponsesCasPratiques || {}))
     } catch (e) {
       console.error('Proposition IA :', e)
-      setPropositionErreur("L'IA n'a pas pu proposer de note. Réessayez dans un instant, ou notez vous-même.")
+      setPropositionErreur(messageErreurIA(e))
     } finally {
       setPropositionEnCours(false)
     }
@@ -673,7 +674,7 @@ export default function ProfesseurPage() {
     // Mot de passe exigé seulement à la création (voir le formulaire).
     if (!userForm.username.trim() || !userForm.nom.trim() || (!editUserId && !userForm.password.trim())) return
     const existing = users.find(u => u.username === userForm.username.trim().toLowerCase() && u.id !== editUserId)
-    if (existing) { toast({ title: "Ce nom d'utilisateur est déjà pris.=", variant: 'destructive' }); return }
+    if (existing) { toast({ title: "Ce nom d'utilisateur est déjà pris.", variant: 'destructive' }); return }
 
     const data = {
       ...userForm,
@@ -2009,12 +2010,12 @@ export default function ProfesseurPage() {
               <div className="space-y-3">
                 <div>
                   <Label>Titre *</Label>
-                  <Input value={noteForm.titre} onChange={e => setNoteForm(f => ({ ...f, titre: e.target.value }))} placeholder="Ex : Chapitre 1 : Introduction au SYSCOHADA=" />
+                  <Input value={noteForm.titre} onChange={e => setNoteForm(f => ({ ...f, titre: e.target.value }))} placeholder="Ex : Chapitre 1 : Introduction au SYSCOHADA" />
                 </div>
                 <div>
                   <Label>Cours *</Label>
                   <Select value={noteForm.coursId} onValueChange={v => setNoteForm(f => ({ ...f, coursId: v }))}>
-                    <SelectTrigger><SelectValue placeholder="Sélectionner un cours=" /></SelectTrigger>
+                    <SelectTrigger><SelectValue placeholder="Sélectionner un cours" /></SelectTrigger>
                     <SelectContent>
                       {(isAdmin ? getCoursTries(coursList) : [...coursEquipe, ...coursList.filter(c => c.id === noteForm.coursId && !coursEquipe.some(x => x.id === c.id))])
                         .map(c => <SelectItem key={c.id} value={c.id}>{libelleCours(c)}</SelectItem>)}
@@ -2026,7 +2027,7 @@ export default function ProfesseurPage() {
                   <textarea
                     value={noteForm.contenu}
                     onChange={e => setNoteForm(f => ({ ...f, contenu: e.target.value }))}
-                    placeholder="Rédigé le contenu de la note ici...="
+                    placeholder="Rédigé le contenu de la note ici..."
                     rows={6}
                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-y focus:outline-none focus:ring-1 focus:ring-ring"
                   />
@@ -2702,18 +2703,21 @@ export default function ProfesseurPage() {
           en changer la date limite, les masquer ou les supprimer. */}
       {tab === 'devoirs' && (
         <div className="space-y-4">
-          <div>
-            <h2 className="text-lg font-display font-bold text-foreground">Mes devoirs</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Devoirs créés par vous ou votre équipe pédagogique, du plus récent au plus ancien. Pour en créer un, ouvrez un chapitre de cours et utilisez « Créer un devoir ».
-            </p>
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h2 className="text-lg font-display font-bold text-foreground">Mes devoirs</h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Devoirs créés par vous ou votre équipe pédagogique, du plus récent au plus ancien.
+              </p>
+            </div>
+            <NouveauDevoir />
           </div>
           {devoirsList.length === 0 ? (
             <Card className="border-border">
               <CardContent className="py-8 flex flex-col items-center gap-2 text-center">
                 <LibraryBig className="h-8 w-8 text-muted-foreground/40" />
                 <p className="text-sm font-medium text-foreground">Aucun devoir pour l'instant</p>
-                <p className="text-xs text-muted-foreground max-w-sm">Ouvrez un chapitre depuis Mes cours et utilisez « Créer un devoir ».</p>
+                <p className="text-xs text-muted-foreground max-w-sm">Cliquez sur « Nouveau devoir » et choisissez le chapitre.</p>
               </CardContent>
             </Card>
           ) : (
@@ -3018,7 +3022,7 @@ export default function ProfesseurPage() {
                 <div className="grid grid-cols-2 gap-2">
                   <div><p className="text-xs text-muted-foreground">Étudiant</p><p className="font-medium">{nomEtudiant(etu)}</p></div>
                   <div><p className="text-xs text-muted-foreground">Devoir</p><p className="font-medium">{dev?.titre || '-'}</p></div>
-                  <div><p className="text-xs text-muted-foreground">Type</p><p className="capitalize">{devType}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Type</p><p>{(LIBELLES_TYPE_DEVOIR as Record<string, string>)[devType] || devType}</p></div>
                   <div><p className="text-xs text-muted-foreground">Soumis le</p><p>{new Date(viewSoumission.dateSoumission).toLocaleDateString('fr-FR')}</p></div>
                 </div>
 
@@ -3335,11 +3339,11 @@ export default function ProfesseurPage() {
           <div className="space-y-3">
             <div>
               <Label>Nom de l'université *</Label>
-              <Input value={uniForm.nom} onChange={e => setUniForm(f => ({ ...f, nom: e.target.value }))} placeholder="ex: Université de Kinshasa=" className="mt-1" />
+              <Input value={uniForm.nom} onChange={e => setUniForm(f => ({ ...f, nom: e.target.value }))} placeholder="ex: Université de Kinshasa" className="mt-1" />
             </div>
             <div>
               <Label>Ville</Label>
-              <Input value={uniForm.ville} onChange={e => setUniForm(f => ({ ...f, ville: e.target.value }))} placeholder="ex: Kinshasa, RDC=" className="mt-1" />
+              <Input value={uniForm.ville} onChange={e => setUniForm(f => ({ ...f, ville: e.target.value }))} placeholder="ex: Kinshasa, RDC" className="mt-1" />
             </div>
             <div>
               <Label>Adresse</Label>
@@ -3501,7 +3505,7 @@ export default function ProfesseurPage() {
               <Input
                 value={faculteForm.description}
                 onChange={e => setFaculteForm(f => ({ ...f, description: e.target.value }))}
-                placeholder="Description optionnelle="
+                placeholder="Description optionnelle"
                 className="mt-1"
               />
             </div>

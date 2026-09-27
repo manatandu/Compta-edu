@@ -6,7 +6,7 @@ import { useHashLocation } from '@/lib/hashLocation'
 import type { User } from '@/lib/db'
 import { getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
 import { seDeconnecter } from '@/lib/session'
-import { isProfRole } from '@/lib/permissions'
+import { isAdminRole } from '@/lib/permissions'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, onSnapshot } from 'firebase/firestore'
@@ -107,13 +107,11 @@ export default function App() {
         try {
           const appUser = await getCurrentUserAsync(firebaseUser)
           setUser(appUser)
-          // Synchronisation du catalogue des cours système : elle écrit dans
-          // /cours, ce que firestore.rules ne permet qu'à un professeur ou un
-          // administrateur (isProf()). Lancée pour tout visiteur - anonyme ou
-          // étudiant - elle échouait en permission-denied à chaque chargement,
-          // d'où des erreurs rouges en console dès l'écran de connexion. Elle
-          // ne part donc qu'une fois une session à privilèges établie.
-          if (appUser && isProfRole(appUser)) {
+          // Synchronisation du catalogue des cours système : elle modifie des
+          // documents /cours créés par « system », que firestore.rules ne laisse
+          // modifier qu'à l'administrateur. Lancée aussi pour un professeur,
+          // elle échouait en permission-denied à chaque connexion.
+          if (appUser && isAdminRole(appUser)) {
             initCoursSystemeAsync().catch(console.error)
           }
         } catch (e) {

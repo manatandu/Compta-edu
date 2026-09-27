@@ -7,17 +7,17 @@
 import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc,
   deleteDoc, query, where, onSnapshot, deleteField,
-  writeBatch, getFirestore, getCountFromServer, documentId,
+  writeBatch, getFirestore, getCountFromServer, documentId, connectFirestoreEmulator,
   type Unsubscribe
 } from 'firebase/firestore'
 import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signOut, onAuthStateChanged, type User as FirebaseUser,
   initializeAuth, browserLocalPersistence,
-  EmailAuthProvider, reauthenticateWithCredential, updatePassword
+  EmailAuthProvider, reauthenticateWithCredential, updatePassword, connectAuthEmulator
 } from 'firebase/auth'
 import { initializeApp, getApps } from 'firebase/app'
-import { db, auth, getStorageDiffere } from './firebase'
+import { db, auth, getStorageDiffere, EMULATEURS } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import { anneeAcademiqueEnCours } from './utils'
 import { promotionCorrespond } from './promotion'
@@ -47,6 +47,10 @@ const secondaryApp = getApps().find(a => a.name === 'secondary') ||
 const secondaryAuth = initializeAuth(secondaryApp, { persistence: browserLocalPersistence })
 // Firestore secondaire - utilisé pour les écritures authentifiées via secondaryAuth
 const secondaryDb = getFirestore(secondaryApp)
+if (EMULATEURS) {
+  connectAuthEmulator(secondaryAuth, 'http://127.0.0.1:9099', { disableWarnings: true })
+  connectFirestoreEmulator(secondaryDb, '127.0.0.1', 8080)
+}
 
 // ─── Noms des collections Firestore ──────────────────────────────────────────
 const C = {
@@ -1528,8 +1532,12 @@ export async function initCoursSystemeAsync(): Promise<void> {
         dateCreation: new Date().toISOString(),
       }) as any)
     } else {
-      // Toujours mettre à jour actif et les champs système
-      await updateDoc(ref, cleanUndefined({ actif: cours.actif, nom: cours.nom, moduleKey: cours.moduleKey, systeme: true }) as any)
+      // Champs système réalignés sur le catalogue, seulement s'ils ont changé :
+      // sept écritures inutiles à chaque connexion sinon.
+      const d = snap.data() as any
+      if (d.actif !== cours.actif || d.nom !== cours.nom || d.moduleKey !== cours.moduleKey || d.systeme !== true) {
+        await updateDoc(ref, cleanUndefined({ actif: cours.actif, nom: cours.nom, moduleKey: cours.moduleKey, systeme: true }) as any)
+      }
     }
   }
 }

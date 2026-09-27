@@ -817,8 +817,8 @@ function Cat1Salaires() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 661 : toutes les rémunérations directes versées au personnel national (salaires, primes, congés payés, avantages en nature, etc.). Ces montants forment la base de calcul de l'IRPP et de la QPO.=",
-              loi: "Compte 661 SYSCOHADA="
+              texte: "Compte 661 : toutes les rémunérations directes versées au personnel national (salaires, primes, congés payés, avantages en nature, etc.). Ces montants forment la base de calcul de l'IRPP et de la QPO.",
+              loi: "Compte 661 SYSCOHADA"
             }}
           />
 
@@ -857,8 +857,8 @@ function Cat1Salaires() {
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Effectif total entreprise
                 <InfoTooltip
-                  texte="L'effectif total de l'entreprise détermine le taux INPP applicable : ≤ 50 agents → 3,5% | 51 à 300 → 3% | + de 300 → 2%. C'est une charge patronale reversée à l'Institut National de Préparation Professionnelle.="
-                  loi="INPP : charge patronale="
+                  texte="L'effectif total de l'entreprise détermine le taux INPP applicable : ≤ 50 agents → 3,5% | 51 à 300 → 3% | + de 300 → 2%. C'est une charge patronale reversée à l'Institut National de Préparation Professionnelle."
+                  loi="INPP : charge patronale"
                 />
               </label>
               <input type="number" min={1} placeholder="Ex : 45" value={effectif}
@@ -882,8 +882,8 @@ function Cat1Salaires() {
                 <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                   Cotisation syndicale (FC)
                   <InfoTooltip
-                    texte="Les travailleurs peuvent librement adhérer au syndicat de leur choix. L'employeur est tenu d'opérer la retenue à la source sur instruction de la délégation syndicale. C'est une retenue salariale facultative.="
-                    loi="Code du Travail RDC="
+                    texte="Les travailleurs peuvent librement adhérer au syndicat de leur choix. L'employeur est tenu d'opérer la retenue à la source sur instruction de la délégation syndicale. C'est une retenue salariale facultative."
+                    loi="Code du Travail RDC"
                   />
                 </label>
                 <input type="number" min={0} placeholder="0" value={syndicat}
@@ -895,7 +895,7 @@ function Cat1Salaires() {
                 <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                   Avances / Prêts sur salaire (FC)
                   <InfoTooltip
-                    texte="Montants accordés au personnel en cours de mois et récupérés sur le salaire à la fin du mois. Inclut aussi les saisies-arrêts (2/3 max du salaire) et oppositions alimentaires.="
+                    texte="Montants accordés au personnel en cours de mois et récupérés sur le salaire à la fin du mois. Inclut aussi les saisies-arrêts (2/3 max du salaire) et oppositions alimentaires."
                     loi="Personnel, oppositions, saisies-arrêts"
                   />
                 </label>
@@ -933,7 +933,7 @@ function Cat1Salaires() {
             catalogueOnly
             tooltip={{
               texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et au prélèvement exceptionnel (charge patronale)",
-              loi: "Compte 662 SYSCOHADA="
+              loi: "Compte 662 SYSCOHADA"
             }}
           />
 
@@ -972,8 +972,8 @@ function Cat1Salaires() {
               <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                 Effectif total entreprise
                 <InfoTooltip
-                  texte="L'effectif total détermine le taux INPP : ≤ 50 → 3,5% | 51–300 → 3% | + de 300 → 2%. Charge patronale reversée à l'Institut National de Préparation Professionnelle.="
-                  loi="INPP : charge patronale="
+                  texte="L'effectif total détermine le taux INPP : ≤ 50 → 3,5% | 51–300 → 3% | + de 300 → 2%. Charge patronale reversée à l'Institut National de Préparation Professionnelle."
+                  loi="INPP : charge patronale"
                 />
               </label>
               <input type="number" min={1} placeholder="Ex : 45" value={effectifExp}
@@ -997,8 +997,8 @@ function Cat1Salaires() {
                 <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                   Cotisation syndicale (FC)
                   <InfoTooltip
-                    texte="Les travailleurs expatriés peuvent adhérer au syndicat de leur choix. L'employeur opère la retenue à la source selon les instructions de la délégation syndicale.="
-                    loi="Code du Travail RDC="
+                    texte="Les travailleurs expatriés peuvent adhérer au syndicat de leur choix. L'employeur opère la retenue à la source selon les instructions de la délégation syndicale."
+                    loi="Code du Travail RDC"
                   />
                 </label>
                 <input type="number" min={0} placeholder="0" value={syndicatExp}
@@ -1010,7 +1010,7 @@ function Cat1Salaires() {
                 <label className="text-xs font-medium text-muted-foreground mb-1.5 flex items-center">
                   Avances / Prêts sur salaire (FC)
                   <InfoTooltip
-                    texte="Montants accordés à l'expatrié en cours de mois et récupérés sur sa rémunération à la fin du mois. Inclut saisies-arrêts (2/3 max) et prêts personnels.="
+                    texte="Montants accordés à l'expatrié en cours de mois et récupérés sur sa rémunération à la fin du mois. Inclut saisies-arrêts (2/3 max) et prêts personnels."
                     loi="Personnel, oppositions, saisies-arrêts"
                   />
                 </label>
@@ -1037,15 +1037,15 @@ function Cat1Salaires() {
         <ResultatWrap titre={res.mode === 'national' ? 'IRPP Cat. 1 : Résultat National' : 'IRPP Cat. 1 : Résultat Expatrié'}>
           {res.mode === 'national' ? (
             <>
-              <EtapeResultat numero={1} titre="Revenu brut=">
+              <EtapeResultat numero={1} titre="Revenu brut">
                 <LigneR signe="+" label="Revenus imposables (661)" val={formatFC(res.brut661)} />
                 <LigneR signe="+" label="Non imposables (663)" val={formatFC(res.brut663)} />
                 <Separateur />
-                <LigneR signe="=" label="Total brut=" val={formatFC(res.brutTotal)} bold accent />
+                <LigneR signe="=" label="Total brut" val={formatFC(res.brutTotal)} bold accent />
               </EtapeResultat>
 
-              <EtapeResultat numero={2} titre="Base imposable nette=">
-                <LigneR signe="+" label="Revenus imposables bruts=" val={formatFC(res.brut661)} />
+              <EtapeResultat numero={2} titre="Base imposable nette">
+                <LigneR signe="+" label="Revenus imposables bruts" val={formatFC(res.brut661)} />
                 <LigneR signe="−" label="QPO : Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpo)} neg note="Art. 71"
                   tooltip={{ texte: "La QPO (Quote-Part Ouvrière) est la cotisation obligatoire retenue sur le salaire du travailleur au titre de la sécurité sociale (CNSS). Elle représente 5% de l'assiette CNSS - l'ensemble de la rémunération au sens du Code du travail (Loi 16/009 du 15/07/2016, Art. 13), qui EXCLUT nommément le logement et le transport (Art. 7.8 CT) : donc le 661 plus la part du 663 imposable (représentation, expatriation, autres). Déduite avant le calcul de l'IRPP.", loi: "Art. 71, Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016" }}
                 />
@@ -1060,7 +1060,7 @@ function Cat1Salaires() {
                   />
                 )}
                 <Separateur />
-                <LigneR signe="=" label="Revenu net imposable (arrondi au millier inférieur, Art. 118)=" val={formatFC(res.baseImposable)} bold accent />
+                <LigneR signe="=" label="Revenu net imposable (arrondi au millier inférieur, Art. 118)" val={formatFC(res.baseImposable)} bold accent />
 
               </EtapeResultat>
 
@@ -1083,17 +1083,17 @@ function Cat1Salaires() {
                 />
               </EtapeResultat>
 
-              <EtapeResultat numero={4} titre="Récapitulatif des retenues salariales=">
+              <EtapeResultat numero={4} titre="Récapitulatif des retenues salariales">
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpo)} neg />
                 <LigneR signe="−" label="IRPP net" val={formatFC(res.iprNet)} neg />
                 {res.syndicatVal > 0 && (
-                  <LigneR signe="−" label="Cotisation syndicale=" val={formatFC(res.syndicatVal)} neg />
+                  <LigneR signe="−" label="Cotisation syndicale" val={formatFC(res.syndicatVal)} neg />
                 )}
                 {res.avancesVal > 0 && (
                   <LigneR signe="−" label="Avances / Prêts" val={formatFC(res.avancesVal)} neg />
                 )}
                 <Separateur />
-                <LigneR signe="=" label="Total retenues=" val={formatFC(res.totalRetenues)} bold accent />
+                <LigneR signe="=" label="Total retenues" val={formatFC(res.totalRetenues)} bold accent />
               </EtapeResultat>
 
               <EtapeResultat numero={5} titre="Charges sociales patronales (employeur)">
@@ -1107,7 +1107,7 @@ function Cat1Salaires() {
                   tooltip={{ texte: "L'ONEM (Office National de l'Emploi) perçoit une cotisation patronale de 0,5% de la rémunération brute. | Taux 0,5% fixé par l'Arrêté Ministériel N°028/CAB/MIN.ET/FMM/RK/09/2025. | Elle finance les politiques de l'emploi et est à la charge exclusive de l'employeur. | Écriture : Débit 6641 / Crédit 4332 (ONEM dette patronale *).", loi: "AM N°028/CAB/MIN.ET/FMM/RK/09/2025" }}
                 />
                 <Separateur />
-                <LigneR signe="=" label="Total charges patronales=" val={formatFC(res.totalChargePatronale)} bold accent />
+                <LigneR signe="=" label="Total charges patronales" val={formatFC(res.totalChargePatronale)} bold accent />
               </EtapeResultat>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
@@ -1135,10 +1135,10 @@ function Cat1Salaires() {
                 <LigneR signe="+" label="Revenus imposables (662)" val={formatFC(res.brut662)} />
                 <LigneR signe="+" label="Non imposables (663)" val={formatFC(res.brut663e)} />
                 <Separateur />
-                <LigneR signe="=" label="Total brut=" val={formatFC(res.brutTotal)} bold accent />
+                <LigneR signe="=" label="Total brut" val={formatFC(res.brutTotal)} bold accent />
               </EtapeResultat>
 
-              <EtapeResultat numero={2} titre="Base imposable nette=">
+              <EtapeResultat numero={2} titre="Base imposable nette">
                 <LigneR signe="+" label="Revenus imposables bruts (662)" val={formatFC(res.brut662)} />
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpoE)} neg note="Art. 71"
                   tooltip={{ texte: "La QPO s'applique également aux travailleurs expatriés, sauf convention bilatérale de sécurité sociale entre le pays d'origine et la RDC. Elle représente 5% de l'assiette CNSS (Loi 16/009 du 15/07/2016, Art. 13) : le 662 plus la part du 663 imposable.", loi: "Art. 71, Loi 23/053 ; Art. 13, Loi 16/009 du 15/07/2016" }}
@@ -1154,7 +1154,7 @@ function Cat1Salaires() {
                   />
                 )}
                 <Separateur />
-                <LigneR signe="=" label="Revenu net imposable (arrondi au millier inférieur, Art. 118)=" val={formatFC(res.baseImposableE)} bold accent />
+                <LigneR signe="=" label="Revenu net imposable (arrondi au millier inférieur, Art. 118)" val={formatFC(res.baseImposableE)} bold accent />
 
               </EtapeResultat>
 
@@ -1190,17 +1190,17 @@ function Cat1Salaires() {
                 </div>
               </EtapeResultat>
 
-              <EtapeResultat numero={5} titre="Récapitulatif des retenues salariales=">
+              <EtapeResultat numero={5} titre="Récapitulatif des retenues salariales">
                 <LigneR signe="−" label="Quote-Part Ouvrière CNSS (5%)" val={formatFC(res.qpoE)} neg />
                 <LigneR signe="−" label="IRPP net" val={formatFC(res.iprNetExp)} neg />
                 {res.syndicatValE > 0 && (
-                  <LigneR signe="−" label="Cotisation syndicale=" val={formatFC(res.syndicatValE)} neg />
+                  <LigneR signe="−" label="Cotisation syndicale" val={formatFC(res.syndicatValE)} neg />
                 )}
                 {res.avancesValE > 0 && (
                   <LigneR signe="−" label="Avances / Prêts" val={formatFC(res.avancesValE)} neg />
                 )}
                 <Separateur />
-                <LigneR signe="=" label="Total retenues=" val={formatFC(res.totalRetenuesE)} bold accent />
+                <LigneR signe="=" label="Total retenues" val={formatFC(res.totalRetenuesE)} bold accent />
               </EtapeResultat>
 
               <EtapeResultat numero={6} titre="Charges patronales (prélèvement exceptionnel + cotisations)">
@@ -1211,13 +1211,13 @@ function Cat1Salaires() {
                   tooltip={{ texte: "La CNSS est une charge patronale de 13% calculée sur la rémunération imposable brute de l'expatrié (662). | Art. 1er Code du Travail RDC : applicable à tous les travailleurs en RDC, quelle que soit leur nationalité. | Art. 112(b) CT : les cotisations dues à la CNSS constituent des retenues autorisées sur le salaire. | Versée directement à la Caisse Nationale de Sécurité Sociale par l'employeur. | Écriture : Débit 6642 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 1er et 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
                 />
                 <LigneR signe="+" label={`INPP (${(res.inppTauxE * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 })}%)`} val={formatFC(res.inppE)}
-                  tooltip={{ texte: "L'INPP est une charge patronale dont le taux dépend de l'effectif total de l'entreprise : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%.", loi: "INPP : charge patronale=" }}
+                  tooltip={{ texte: "L'INPP est une charge patronale dont le taux dépend de l'effectif total de l'entreprise : ≤ 50 agents → 3,5% | 51–300 → 3% | + de 300 → 2%.", loi: "INPP : charge patronale" }}
                 />
                 <LigneR signe="+" label="ONEM (0,5%)" val={formatFC(res.onemE)}
                   tooltip={{ texte: "L'ONEM (Office National de l'Emploi) perçoit une cotisation patronale de 0,5% de la rémunération brute de l'expatrié. | Taux 0,5% fixé par l'Arrêté Ministériel N°028/CAB/MIN.ET/FMM/RK/09/2025. | Charge patronale exclusive de l'employeur ; art. 1er CT RDC : applicable à tous les travailleurs en RDC, quelle que soit leur nationalité. | Écriture : Débit 6642 / Crédit 4332 (ONEM dette patronale *).", loi: "AM N°028/CAB/MIN.ET/FMM/RK/09/2025 ; Art. 1er CT RDC" }}
                 />
                 <Separateur />
-                <LigneR signe="=" label="Total charges patronales=" val={formatFC(res.totalChargePatronale)} bold accent />
+                <LigneR signe="=" label="Total charges patronales" val={formatFC(res.totalChargePatronale)} bold accent />
               </EtapeResultat>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
@@ -1484,7 +1484,7 @@ function Cat2BIC() {
               value: 'reel',
               label: 'Régime réel',
               sub: 'CA > 300 000 000 FC',
-              tooltip: { texte: "Régime réel : CA annuel HT supérieur à 300 000 000 FC. Impôt calculé sur le bénéfice réel (produits − charges déductibles), soumis au barème progressif IRPP. Comptabilité complète obligatoire. Passage immédiat si le CA dépasse 300M FC.=", loi: 'Art. 112-113, Loi 23/053' },
+              tooltip: { texte: "Régime réel : CA annuel HT supérieur à 300 000 000 FC. Impôt calculé sur le bénéfice réel (produits − charges déductibles), soumis au barème progressif IRPP. Comptabilité complète obligatoire. Passage immédiat si le CA dépasse 300M FC.", loi: 'Art. 112-113, Loi 23/053' },
             },
           ]}
         />
@@ -1523,7 +1523,7 @@ function Cat2BIC() {
             <div className="flex items-center gap-1 mb-1.5">
               <p className="text-xs font-medium text-muted-foreground">Nature de l'activité</p>
               <InfoTooltip
-                texte="Le taux proportionnel dépend de la nature de l'activité : 1% pour les activités de vente de biens, 2% pour les prestations de services. En cas d'activités mixtes, le taux de l'activité principale s'applique sur le cumul des CA.="
+                texte="Le taux proportionnel dépend de la nature de l'activité : 1% pour les activités de vente de biens, 2% pour les prestations de services. En cas d'activités mixtes, le taux de l'activité principale s'applique sur le cumul des CA."
                 loi="Art. 127, Loi 23/053"
               />
             </div>
@@ -1543,7 +1543,7 @@ function Cat2BIC() {
             <div className="flex items-center gap-1 mb-1.5">
               <label className="text-xs font-medium text-muted-foreground">Chiffre d'affaires annuel (FC)</label>
               <InfoTooltip
-                texte="Le chiffre d'affaires annuel hors taxes perçu au cours de l'exercice. C'est la base de calcul de l'impôt pour la petite entreprise.="
+                texte="Le chiffre d'affaires annuel hors taxes perçu au cours de l'exercice. C'est la base de calcul de l'impôt pour la petite entreprise."
                 loi="Art. 127, Loi 23/053"
               />
             </div>
@@ -1568,7 +1568,7 @@ function Cat2BIC() {
             <div className="flex items-center gap-1">
               <p className="text-xs font-semibold text-foreground">Produits imposables</p>
               <InfoTooltip
-                texte="Tous les revenus encaissés dans le cadre de l'activité professionnelle. Les revenus de capitaux mobiliers et les loyers de biens non inscrits à l'actif sont exclus.="
+                texte="Tous les revenus encaissés dans le cadre de l'activité professionnelle. Les revenus de capitaux mobiliers et les loyers de biens non inscrits à l'actif sont exclus."
                 loi="Art. 89, Loi 23/053"
               />
             </div>
@@ -1581,7 +1581,7 @@ function Cat2BIC() {
                   value={r.label}
                   readOnly
                   className="min-w-0 flex-1 rounded-lg border border-border/60 bg-muted/40 px-2 py-2 text-xs text-foreground cursor-default select-none" />
-                <input type="number" placeholder="Montant FC=" value={r.montant}
+                <input type="number" placeholder="Montant FC" value={r.montant}
                   onChange={e => updateRow(setProduits, i, 'montant', e.target.value)}
                   className="w-28 shrink-0 rounded-lg border border-border/60 bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <button onClick={() => removeRow(setProduits, i)}
@@ -1615,7 +1615,7 @@ function Cat2BIC() {
                   value={r.label}
                   readOnly
                   className="min-w-0 flex-1 rounded-lg border border-border/60 bg-muted/40 px-2 py-2 text-xs text-foreground cursor-default select-none" />
-                <input type="number" placeholder="Montant FC=" value={r.montant}
+                <input type="number" placeholder="Montant FC" value={r.montant}
                   onChange={e => updateRow(setCharges, i, 'montant', e.target.value)}
                   className="w-28 shrink-0 rounded-lg border border-border/60 bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <button onClick={() => removeRow(setCharges, i)}
@@ -1633,7 +1633,7 @@ function Cat2BIC() {
               <span>{showDeductions ? '▼' : '▶'}</span>
               Déductions spécifiques (Art. 90)
               <InfoTooltip
-                texte="Des déductions complémentaires peuvent réduire le bénéfice imposable : (1) Cotisations à une caisse de prévoyance, assurance maladie ou retraite : dans la limite de 20% du bénéfice net. (2) Frais médicaux du contribuable, conjoint et enfants à charge : sur justificatifs.="
+                texte="Des déductions complémentaires peuvent réduire le bénéfice imposable : (1) Cotisations à une caisse de prévoyance, assurance maladie ou retraite : dans la limite de 20% du bénéfice net. (2) Frais médicaux du contribuable, conjoint et enfants à charge : sur justificatifs."
                 loi="Art. 90, Loi 23/053"
               />
             </button>
@@ -1703,7 +1703,7 @@ function Cat2BIC() {
       </div>
 
       {res && (
-        <ResultatWrap titre="IRPP : Cat. 2 : Bénéfices BIC=">
+        <ResultatWrap titre="IRPP : Cat. 2 : Bénéfices BIC">
 
           {/* Micro-entreprise */}
           {res.regime === 'micro' && (
@@ -1718,7 +1718,7 @@ function Cat2BIC() {
           {/* Petite entreprise */}
           {res.regime === 'petit' && (
             <EtapeResultat numero={1} titre={`Impôt proportionnel (Art. 127) : Taux ${(res.taux * 100).toFixed(0)}%`}>
-              <LigneR label="Chiffre d'affaires annuel=" val={formatFC(res.ca)} />
+              <LigneR label="Chiffre d'affaires annuel" val={formatFC(res.ca)} />
               <LigneR label={`CA × ${(res.taux * 100).toFixed(0)}%`} val={`= ${formatFC(res.impot)}`} />
               <LigneR label="Impôt total dû" val={formatFC(res.impot)} bold accent />
             </EtapeResultat>
@@ -1728,10 +1728,10 @@ function Cat2BIC() {
           {res.regime === 'reel' && (
             <>
               <EtapeResultat numero={1} titre="Bénéfice brut (Art. 89)">
-                <LigneR label="Total produits imposables=" val={formatFC(res.produits)} />
+                <LigneR label="Total produits imposables" val={formatFC(res.produits)} />
                 <LigneR label="Total charges déductibles" val={formatFC(res.charges)} neg />
                 <Separateur />
-                <LigneR label="Bénéfice brut=" val={formatFC(res.beneficeBrut)} bold />
+                <LigneR label="Bénéfice brut" val={formatFC(res.beneficeBrut)} bold />
               </EtapeResultat>
 
               {(res.cotSoc > 0 || res.fraisMed > 0) && (
@@ -1747,7 +1747,7 @@ function Cat2BIC() {
                     <LigneR label="Frais médicaux (sur justificatifs)" val={formatFC(res.fraisMed)} neg />
                   )}
                   <Separateur />
-                  <LigneR label="Bénéfice net imposable=" val={formatFC(res.beneficeNet)} bold />
+                  <LigneR label="Bénéfice net imposable" val={formatFC(res.beneficeNet)} bold />
                 </EtapeResultat>
               )}
 
@@ -1793,7 +1793,7 @@ function Cat2BIC() {
           )}
 
           {/* Quotités de paiement : selon régime */}
-          <EtapeResultat numero={res.regime === 'reel' ? (res.cotSoc > 0 || res.fraisMed > 0 ? 4 : 3) : 2} titre="Modalités de paiement=">
+          <EtapeResultat numero={res.regime === 'reel' ? (res.cotSoc > 0 || res.fraisMed > 0 ? 4 : 3) : 2} titre="Modalités de paiement">
 
             {/* MICRO */}
             {res.regime === 'micro' && (
@@ -1820,8 +1820,8 @@ function Cat2BIC() {
                     loi="Art. 57 quater, Loi procédures fiscales : Art. 127, Loi 23/053"
                   />
                 </div>
-                <LigneR label="1ère quotité (60%) : déclaration auto-liquidative au 31 janvier=" val={formatFC(res.q1)} />
-                <LigneR label="2ème quotité (40%) : bordereau de versement au 30 avril=" val={formatFC(res.q2)} />
+                <LigneR label="1ère quotité (60%) : déclaration auto-liquidative au 31 janvier" val={formatFC(res.q1)} />
+                <LigneR label="2ème quotité (40%) : bordereau de versement au 30 avril" val={formatFC(res.q2)} />
               </>
             )}
 
@@ -1832,7 +1832,7 @@ function Cat2BIC() {
                   <p className="text-xs text-muted-foreground">3 acomptes provisionnels + solde :</p>
                   <InfoTooltip
                     texte="Conformément à l'Art. 57 bis de la Loi sur les procédures fiscales, les acomptes sont calculés sur la base de l'impôt déclaré de l'exercice précédent (ou reconstitué d'office). Ils représentent 30%, 30% et 20% de cette base. Le solde est versé au dépôt de la déclaration annuelle. Si les acomptes versés excèdent l'impôt dû, le crédit constaté peut servir au paiement d'autres impôts et droits dus : mais ne peut pas faire l'objet de cession (Art. 57 ter)."
-                    loi="Art. 57 bis + Art. 57 ter, Loi procédures fiscales="
+                    loi="Art. 57 bis + Art. 57 ter, Loi procédures fiscales"
                   />
                 </div>
                 <div className="mb-2">
@@ -2031,7 +2031,7 @@ function Cat5Mobiliers() {
               </div>
               <div className="flex gap-2">
                 <input value={l.montant} onChange={e => updateMontant(i, e.target.value)}
-                  type="number" placeholder="Montant brut FC="
+                  type="number" placeholder="Montant brut FC"
                   className="flex-1 sm:w-36 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <button onClick={() => removeLigne(i)} className="text-muted-foreground hover:text-destructive transition-colors text-xs px-1">×</button>
               </div>
@@ -2047,7 +2047,7 @@ function Cat5Mobiliers() {
 
       {/* Résultats */}
       {res && (
-        <ResultatWrap titre="IRPP : Cat. 5 : Revenus de capitaux mobiliers=">
+        <ResultatWrap titre="IRPP : Cat. 5 : Revenus de capitaux mobiliers">
           <EtapeResultat numero={1} titre="Calcul de la retenue par nature de revenu (Art. 120)">
             {res.details.map((d: any, i: number) => (
               d.brut > 0 && (
@@ -2065,7 +2065,7 @@ function Cat5Mobiliers() {
             {res.details.filter((d: any) => d.brut > 0).length > 1 && (
               <>
                 <Separateur />
-                <LigneR signe="=" label="Total base imposable=" val={formatFC(res.totalBase)} />
+                <LigneR signe="=" label="Total base imposable" val={formatFC(res.totalBase)} />
               </>
             )}
             <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : chaque retenue individuelle est arrondie à la centaine de FC (tranche ≥ 50 FC → supérieure, sinon inférieure).</p>
@@ -2079,8 +2079,8 @@ function Cat5Mobiliers() {
                 loi="Art. 18 bis, Loi n° 004/2003 réformée par Loi 23/053"
               />
             </div>
-            <LigneR label="Délai de reversement au Trésor" val="≤ 15 du mois suivant=" />
-            <LigneR label="Obligation documentaire=" val="Déclaration + bordereau de versement=" />
+            <LigneR label="Délai de reversement au Trésor" val="≤ 15 du mois suivant" />
+            <LigneR label="Obligation documentaire" val="Déclaration + bordereau de versement" />
           </EtapeResultat>
 
           <BoxFinal label="Total retenu à la source (20%)" val={formatFC(res.totalRetenue)} />
@@ -2318,9 +2318,9 @@ function SimulateurIS() {
           <div>
             <label className="text-xs font-medium text-muted-foreground mb-1 flex items-center gap-1">
               Chiffre d'affaires HT (FC)
-              <InfoTooltip texte="Le CA HT est utilisé pour calculer l'IS minimum (Art. 57 : 1% du CA). Si CA = 0, l'IS minimum fixe s'applique selon la taille de l'entreprise (Art. 57 al. 2). Plafond de charges déductibles : dons 0,5%, cadeaux pub 2‰, redevances 3,5% du CA HT.=" loi="Art. 57, Loi 23/053" />
+              <InfoTooltip texte="Le CA HT est utilisé pour calculer l'IS minimum (Art. 57 : 1% du CA). Si CA = 0, l'IS minimum fixe s'applique selon la taille de l'entreprise (Art. 57 al. 2). Plafond de charges déductibles : dons 0,5%, cadeaux pub 2‰, redevances 3,5% du CA HT." loi="Art. 57, Loi 23/053" />
             </label>
-            <input type="number" min={0} placeholder="0 si pas de CA=" value={caHT}
+            <input type="number" min={0} placeholder="0 si pas de CA" value={caHT}
               onChange={e => { setCaHT(e.target.value); setRes(null) }}
               className={inputCls} />
           </div>
@@ -2371,7 +2371,7 @@ function SimulateurIS() {
         onAddFromCatalogue={e => { addFromCatalogue(setDeductions, e); setRes(null) }}
         onRemove={i => { removeRow(setDeductions, i); setRes(null) }}
         onUpdate={(i, f, v) => { updateRow(setDeductions, i, f, v); setRes(null) }}
-        note="Sélectionner les produits non imposables depuis le catalogue (Art. 19, 54, 55), puis saisir le montant.="
+        note="Sélectionner les produits non imposables depuis le catalogue (Art. 19, 54, 55), puis saisir le montant."
         catalogueOnly
       />
 
@@ -2419,12 +2419,12 @@ function SimulateurIS() {
         <ResultatWrap titre="IS : Impôt sur les Sociétés">
 
           {/* Étape 1 : Passage RC → RF */}
-          <EtapeResultat numero={1} titre="Passage résultat comptable → résultat fiscal=">
-            <LigneR label="Résultat comptable=" val={formatFC(res.rc)} bold />
+          <EtapeResultat numero={1} titre="Passage résultat comptable → résultat fiscal">
+            <LigneR label="Résultat comptable" val={formatFC(res.rc)} bold />
             <LigneR signe="+" label="(+) Total réintégrations" val={formatFC(res.totalReinteg)} />
             <LigneR signe="−" label="(−) Total déductions" val={formatFC(res.totalDeduc)} neg />
             <Separateur />
-            <LigneR signe="=" label="Résultat fiscal brut=" val={formatFC(res.rfBrut)} bold neg={res.rfBrut < 0} />
+            <LigneR signe="=" label="Résultat fiscal brut" val={formatFC(res.rfBrut)} bold neg={res.rfBrut < 0} />
             {res.deficits > 0 && (
               <LigneR signe="−" label="(−) Déficits reportables (N-1/N-2/N-3 : Art. 51)" val={formatFC(Math.min(Math.max(0, res.rfBrut), res.deficits))} neg />
             )}
@@ -2432,7 +2432,7 @@ function SimulateurIS() {
               <LigneR signe="−" label="(−) Amortissements différés (Art. 51 al. 3)" val={formatFC(res.amortDiff)} neg />
             )}
             {(res.deficits > 0 || res.amortDiff > 0) && <Separateur />}
-            <LigneR signe="=" label="Résultat fiscal net imposable=" val={formatFC(res.rfNet)} bold accent={res.rfNet > 0} neg={res.rfNet === 0 && res.rfBrut < 0} />
+            <LigneR signe="=" label="Résultat fiscal net imposable" val={formatFC(res.rfNet)} bold accent={res.rfNet > 0} neg={res.rfNet === 0 && res.rfBrut < 0} />
           </EtapeResultat>
 
           {/* Étape 2 : Calcul IS */}
@@ -2664,8 +2664,8 @@ const SOUS_ONGLETS_IRPP = [
     sublabel: 'Bénéf. ind. & comm.',
     icon: Coins,
     color: 'indigo',
-    desc: "Bénéfices industriels, commerciaux, immobiliers et artisanaux tirés d'activités exercées à titre individuel=",
-    definition: "Bénéfices industriels, commerciaux, immobiliers et artisanaux tirés d'activités exercées à titre individuel. Concerne les entrepreneurs individuels, commerçants, artisans et propriétaires d'immeubles en exploitation.=",
+    desc: "Bénéfices industriels, commerciaux, immobiliers et artisanaux tirés d'activités exercées à titre individuel",
+    definition: "Bénéfices industriels, commerciaux, immobiliers et artisanaux tirés d'activités exercées à titre individuel. Concerne les entrepreneurs individuels, commerçants, artisans et propriétaires d'immeubles en exploitation.",
   },
   {
     id: 'irpp_cat3',
@@ -2674,7 +2674,7 @@ const SOUS_ONGLETS_IRPP = [
     icon: Briefcase,
     color: 'violet',
     desc: 'Bénéfices des professions libérales, artistiques ou intellectuelles',
-    definition: "Bénéfices non commerciaux issus des professions libérales (médecins, avocats, notaires…), artistiques (musiciens, peintres…) ou intellectuelles (consultants, formateurs…) exercées à titre individuel.=",
+    definition: "Bénéfices non commerciaux issus des professions libérales (médecins, avocats, notaires…), artistiques (musiciens, peintres…) ou intellectuelles (consultants, formateurs…) exercées à titre individuel.",
   },
   {
     id: 'irpp_cat4',
@@ -2682,8 +2682,8 @@ const SOUS_ONGLETS_IRPP = [
     sublabel: 'Revenus agricoles',
     icon: Wheat,
     color: 'lime',
-    desc: "Revenus provenant de l'exploitation de terres ou d'élevages à titre lucratif=",
-    definition: "Revenus agricoles provenant de l'exploitation de terres cultivées ou d'élevages exercés à titre lucratif par une personne physique. Incluent les productions végétales, animales et les activités annexes.=",
+    desc: "Revenus provenant de l'exploitation de terres ou d'élevages à titre lucratif",
+    definition: "Revenus agricoles provenant de l'exploitation de terres cultivées ou d'élevages exercés à titre lucratif par une personne physique. Incluent les productions végétales, animales et les activités annexes.",
   },
   {
     id: 'irpp_cat5',
@@ -2691,7 +2691,7 @@ const SOUS_ONGLETS_IRPP = [
     sublabel: 'Capitaux mobiliers',
     icon: TrendingUp,
     color: 'teal',
-    desc: "Produits d'actions, d'obligations, de dépôts, de prêts ou de titres financiers=",
+    desc: "Produits d'actions, d'obligations, de dépôts, de prêts ou de titres financiers",
     definition: "Revenus de capitaux mobiliers : produits d'actions (dividendes), d'obligations, intérêts de dépôts ou de prêts, et revenus de titres financiers. Soumis à une retenue à la source libératoire de 20%.",
   },
   {
@@ -2708,10 +2708,10 @@ const SOUS_ONGLETS_IRPP = [
 // Pour compatibilité affichage description
 const ONGLETS = [
   { id: 'irpp_cat1', label: 'IRPP', sublabel: 'Cat. 1 : Revenus salariaux et assimilés',             icon: Users,     color: 'blue',    desc: 'Traitements, salaires, gratifications, indemnités, pensions et rentes viagères' },
-  { id: 'irpp_cat2', label: 'IRPP', sublabel: 'Cat. 2 : Bénéfices industr. & comm.',                 icon: Coins,     color: 'indigo',  desc: "Bénéfices industriels, commerciaux, immobiliers et artisanaux tirés d'activités individuelles=" },
+  { id: 'irpp_cat2', label: 'IRPP', sublabel: 'Cat. 2 : Bénéfices industr. & comm.',                 icon: Coins,     color: 'indigo',  desc: "Bénéfices industriels, commerciaux, immobiliers et artisanaux tirés d'activités individuelles" },
   { id: 'irpp_cat3', label: 'IRPP', sublabel: 'Cat. 3 : Bénéfices non commerciaux',                  icon: Briefcase, color: 'violet',  desc: 'Bénéfices des professions libérales, artistiques ou intellectuelles' },
-  { id: 'irpp_cat4', label: 'IRPP', sublabel: 'Cat. 4 : Revenus agricoles',                          icon: Wheat,     color: 'lime',    desc: "Revenus provenant de l'exploitation de terres ou d'élevages à titre lucratif=" },
-  { id: 'irpp_cat5', label: 'IRPP', sublabel: 'Cat. 5 : Revenus de capitaux mobiliers',              icon: TrendingUp,color: 'teal',    desc: "Produits d'actions, d'obligations, de dépôts, de prêts ou de titres financiers=" },
+  { id: 'irpp_cat4', label: 'IRPP', sublabel: 'Cat. 4 : Revenus agricoles',                          icon: Wheat,     color: 'lime',    desc: "Revenus provenant de l'exploitation de terres ou d'élevages à titre lucratif" },
+  { id: 'irpp_cat5', label: 'IRPP', sublabel: 'Cat. 5 : Revenus de capitaux mobiliers',              icon: TrendingUp,color: 'teal',    desc: "Produits d'actions, d'obligations, de dépôts, de prêts ou de titres financiers" },
   { id: 'irpp_cat6', label: 'IRPP', sublabel: 'Cat. 6 : Plus-values de cession de biens',            icon: BarChart2, color: 'orange',  desc: 'Plus-values réalisées à la vente de biens mobiliers ou immobiliers hors activité professionnelle' },
   { id: 'is',        label: 'IS',   sublabel: 'Impôt sur les Sociétés',                              icon: Building2, color: 'emerald', desc: 'Passage résultat comptable → fiscal (réintégrations & déductions) → IS 30%' },
   { id: 'irl',       label: 'Autres impôts',  sublabel: 'Impôts rétrocédés aux ETD',                      icon: Receipt,   color: 'amber',   desc: 'IRL (22%) · IF · IV · TSCR · TSMC : impôts réels provinciaux et locaux' },
@@ -2924,7 +2924,7 @@ function Cat3BNC() {
             <label className="text-xs font-medium text-muted-foreground mb-1 flex items-center gap-1">
               Taux BCC du jour (FC pour 1 USD)
               <InfoTooltip
-                texte="Le montant forfaitaire est de 30 USD/an, converti au taux de change officiel de la Banque Centrale du Congo à la date de paiement (Art. 128, Loi 23/053 + Arrêté Ministériel n° 015 du 19/02/2025). Consultez le taux officiel sur bcc.cd.="
+                texte="Le montant forfaitaire est de 30 USD/an, converti au taux de change officiel de la Banque Centrale du Congo à la date de paiement (Art. 128, Loi 23/053 + Arrêté Ministériel n° 015 du 19/02/2025). Consultez le taux officiel sur bcc.cd."
                 loi="Art. 128, Loi 23/053 : Arrêté n° 015 du 19/02/2025"
               />
             </label>
@@ -2936,7 +2936,7 @@ function Cat3BNC() {
                 IRPP forfaitaire : 30 × {tauxBCC} = <strong>{formatFC(30 * (parseFloat(tauxBCC) || 0))} FC</strong>
               </p>
             )}
-            <a href="https://www.bcc.cd" target="_blank" rel="noopener noreferrer="
+            <a href="https://www.bcc.cd" target="_blank" rel="noopener noreferrer"
               className="text-xs text-blue-600 hover:underline mt-1 inline-block">
               Consulter le taux BCC →
             </a>
@@ -3000,7 +3000,7 @@ function Cat3BNC() {
                   value={r.montant}
                   onChange={e => updateMontant(setRecettes, i, e.target.value)}
                   type="number"
-                  placeholder="Montant FC="
+                  placeholder="Montant FC"
                   className="flex-1 sm:w-32 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
                 />
                 <button onClick={() => removeRow(setRecettes, i)} className="text-muted-foreground hover:text-destructive transition-colors text-xs px-1">×</button>
@@ -3038,7 +3038,7 @@ function Cat3BNC() {
                   value={r.montant}
                   onChange={e => updateMontant(setCharges, i, e.target.value)}
                   type="number"
-                  placeholder="Montant FC="
+                  placeholder="Montant FC"
                   className="flex-1 sm:w-32 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
                 />
                 <button onClick={() => removeRow(setCharges, i)} className="text-muted-foreground hover:text-destructive transition-colors text-xs px-1">×</button>
@@ -3056,7 +3056,7 @@ function Cat3BNC() {
           <span className={cn('transition-transform duration-300 ease-out inline-block', showDeductions && 'rotate-90')}>▶</span>
           Déductions spécifiques (Art. 90)
           <InfoTooltip
-            texte="Déductions complémentaires (Art. 90) : (1) Cotisations à une caisse de prévoyance, assurance maladie ou retraite : dans la limite de 20% du bénéfice net. (2) Frais médicaux du contribuable, conjoint et enfants à charge : sur justificatifs.="
+            texte="Déductions complémentaires (Art. 90) : (1) Cotisations à une caisse de prévoyance, assurance maladie ou retraite : dans la limite de 20% du bénéfice net. (2) Frais médicaux du contribuable, conjoint et enfants à charge : sur justificatifs."
             loi="Art. 90, Loi 23/053"
           />
         </button>
@@ -3100,7 +3100,7 @@ function Cat3BNC() {
               <input type="number" min={0} max={9} placeholder="0" value={nbPersonnesCharge}
                 onChange={e => setNbPersonnesCharge(e.target.value)}
                 disabled={!!res && res.beneficeNetArrondi > 43200000}
-                className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed=" : "bg-background")} />
+                className={"w-full rounded-lg border border-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 " + (res && res.beneficeNetArrondi > 43200000 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed" : "bg-background")} />
               {res && res.beneficeNetArrondi > 43200000
                 ? <p className="text-xs text-amber-600 mt-1 font-medium">⚠ Art. 125 : inapplicable : revenu imposable &gt; 43 200 000 FC (au-delà de la 3e tranche)</p>
                 : <p className="text-xs text-muted-foreground mt-1">Maximum 9 personnes : réduction inapplicable si revenu imposable &gt; 43 200 000 FC</p>
@@ -3119,21 +3119,21 @@ function Cat3BNC() {
       </div>
 
       {res && res.regime === 'micro' && (
-        <ResultatWrap titre="IRPP : Cat. 3 : Régime micro-entreprise=">
+        <ResultatWrap titre="IRPP : Cat. 3 : Régime micro-entreprise">
           <EtapeResultat numero={1} titre="Calcul forfaitaire (Art. 128)">
-            <LigneR label="Montant USD fixé par Arrêté n° 015 du 19/02/2025" val="30 USD=" />
+            <LigneR label="Montant USD fixé par Arrêté n° 015 du 19/02/2025" val="30 USD" />
             <LigneR label={`Taux BCC du jour`} val={`${res.taux} FC / USD`} />
             <Separateur />
-            <LigneR signe="=" label="30 USD × taux BCC=" val={formatFC(res.impot)} bold accent />
+            <LigneR signe="=" label="30 USD × taux BCC" val={formatFC(res.impot)} bold accent />
           </EtapeResultat>
           <BoxFinal label="IRPP forfaitaire annuel dû" val={formatFC(res.impot)} />
         </ResultatWrap>
       )}
 
       {res && res.regime === 'petite' && (
-        <ResultatWrap titre="IRPP : Cat. 3 : Régime petite entreprise=">
+        <ResultatWrap titre="IRPP : Cat. 3 : Régime petite entreprise">
           <EtapeResultat numero={1} titre="Calcul proportionnel (Art. 127)">
-            <LigneR label="Recettes annuelles=" val={formatFC(res.ca)} />
+            <LigneR label="Recettes annuelles" val={formatFC(res.ca)} />
             <LigneR label={`Taux applicable (${res.typeActivite === 'ventes' ? 'ventes' : 'services'})`} val={`${res.taux * 100}%`} />
             <Separateur />
             <LigneR signe="=" label={`${formatFC(res.ca)} × ${res.taux * 100}%`} val={formatFC(res.impot)} bold accent />
@@ -3143,14 +3143,14 @@ function Cat3BNC() {
       )}
 
       {res && res.regime === 'reel' && (
-        <ResultatWrap titre="IRPP : Cat. 3 : Bénéfices non commerciaux=">
+        <ResultatWrap titre="IRPP : Cat. 3 : Bénéfices non commerciaux">
 
           <EtapeResultat numero={1} titre="Recettes professionnelles (Art. 94)">
             {recettes.map((r, i) => (
               <LigneR key={i} signe="+" label={r.label || 'Recette'} val={formatFC(parseFloat(r.montant) || 0)} />
             ))}
             <Separateur />
-            <LigneR signe="=" label="Total recettes=" val={formatFC(res.totalRecettes)} bold accent />
+            <LigneR signe="=" label="Total recettes" val={formatFC(res.totalRecettes)} bold accent />
           </EtapeResultat>
 
           <EtapeResultat numero={2} titre="Charges déductibles (Art. 98)">
@@ -3158,7 +3158,7 @@ function Cat3BNC() {
               <LigneR key={i} signe="−" label={r.label || 'Charge'} val={formatFC(parseFloat(r.montant) || 0)} neg />
             ))}
             <Separateur />
-            <LigneR signe="=" label="Bénéfice brut=" val={formatFC(res.beneficeBrut)} bold
+            <LigneR signe="=" label="Bénéfice brut" val={formatFC(res.beneficeBrut)} bold
               neg={res.beneficeBrut < 0} />
             {res.beneficeBrut < 0 && (
               <p className="text-xs text-amber-600 mt-1">Déficit constaté : base imposable ramenée à 0. Ce déficit peut être reporté sur les 3 exercices suivants (Art. 101, Loi 23/053).</p>
@@ -3178,7 +3178,7 @@ function Cat3BNC() {
                 <LigneR signe="−" label="Frais médicaux (sur justificatifs)" val={formatFC(res.fraisMed)} neg />
               )}
               <Separateur />
-              <LigneR signe="=" label="Bénéfice net imposable=" val={formatFC(res.beneficeNet)} bold />
+              <LigneR signe="=" label="Bénéfice net imposable" val={formatFC(res.beneficeNet)} bold />
             </EtapeResultat>
           )}
 
@@ -3221,12 +3221,12 @@ function Cat3BNC() {
             />
           </EtapeResultat>
 
-          <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement=">
+          <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement">
             <div className="flex items-center gap-1 mb-1">
               <p className="text-xs text-muted-foreground">3 acomptes provisionnels + solde :</p>
               <InfoTooltip
                 texte="Conformément à l'Art. 57 bis de la Loi sur les procédures fiscales, les acomptes sont calculés sur la base de l'impôt déclaré de l'exercice précédent. Ils représentent 30%, 30% et 20% de cette base. Le solde est versé au dépôt de la déclaration annuelle. Si les acomptes versés excèdent l'impôt dû, le crédit constaté peut servir au paiement d'autres impôts et droits dus : mais ne peut pas faire l'objet de cession (Art. 57 ter)."
-                loi="Art. 57 bis et Art. 57 ter, Loi procédures fiscales="
+                loi="Art. 57 bis et Art. 57 ter, Loi procédures fiscales"
               />
             </div>
             <div className="mb-2">
@@ -3500,7 +3500,7 @@ function Cat4Agricole() {
             <label className="text-xs font-medium text-muted-foreground mb-1 flex items-center gap-1">
               Taux BCC du jour (FC pour 1 USD)
               <InfoTooltip
-                texte="Le montant forfaitaire est de 30 USD/an, converti au taux de change officiel de la Banque Centrale du Congo à la date de paiement (Art. 128, Loi 23/053 + Arrêté Ministériel n° 015 du 19/02/2025). Consultez le taux officiel sur bcc.cd.="
+                texte="Le montant forfaitaire est de 30 USD/an, converti au taux de change officiel de la Banque Centrale du Congo à la date de paiement (Art. 128, Loi 23/053 + Arrêté Ministériel n° 015 du 19/02/2025). Consultez le taux officiel sur bcc.cd."
                 loi="Art. 128, Loi 23/053 : Arrêté n° 015 du 19/02/2025"
               />
             </label>
@@ -3512,7 +3512,7 @@ function Cat4Agricole() {
                 IRPP forfaitaire : 30 × {tauxBCC} = <strong>{formatFC(30 * (parseFloat(tauxBCC) || 0))} FC</strong>
               </p>
             )}
-            <a href="https://www.bcc.cd" target="_blank" rel="noopener noreferrer="
+            <a href="https://www.bcc.cd" target="_blank" rel="noopener noreferrer"
               className="text-xs text-blue-600 hover:underline mt-1 inline-block">
               Consulter le taux BCC →
             </a>
@@ -3574,7 +3574,7 @@ function Cat4Agricole() {
                   </div>
                   <div className="flex gap-2">
                     <input value={r.montant} onChange={e => updateMontant(setProduits, i, e.target.value)}
-                      type="number" placeholder="Montant FC="
+                      type="number" placeholder="Montant FC"
                       className="flex-1 sm:w-32 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                     <button onClick={() => removeRow(setProduits, i)} className="text-muted-foreground hover:text-destructive transition-colors text-xs px-1">×</button>
                   </div>
@@ -3608,7 +3608,7 @@ function Cat4Agricole() {
                   </div>
                   <div className="flex gap-2">
                     <input value={r.montant} onChange={e => updateMontant(setCharges, i, e.target.value)}
-                      type="number" placeholder="Montant FC="
+                      type="number" placeholder="Montant FC"
                       className="flex-1 sm:w-32 rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                     <button onClick={() => removeRow(setCharges, i)} className="text-muted-foreground hover:text-destructive transition-colors text-xs px-1">×</button>
                   </div>
@@ -3625,7 +3625,7 @@ function Cat4Agricole() {
               <span className={cn('transition-transform duration-300 ease-out inline-block', showDeductions && 'rotate-90')}>▶</span>
               Déductions spécifiques (Art. 90)
               <InfoTooltip
-                texte="Déductions complémentaires (Art. 90) : (1) Cotisations à une caisse de prévoyance, assurance maladie ou retraite : dans la limite de 20% du bénéfice net de l'année précédente (N−1). (2) Frais médicaux du contribuable, conjoint et enfants à charge : sur justificatifs.="
+                texte="Déductions complémentaires (Art. 90) : (1) Cotisations à une caisse de prévoyance, assurance maladie ou retraite : dans la limite de 20% du bénéfice net de l'année précédente (N−1). (2) Frais médicaux du contribuable, conjoint et enfants à charge : sur justificatifs."
                 loi="Art. 90, Loi 23/053"
               />
             </button>
@@ -3687,21 +3687,21 @@ function Cat4Agricole() {
 
       {/* ── RÉSULTATS ── */}
       {res && res.regime === 'micro' && (
-        <ResultatWrap titre="IRPP : Cat. 4 : Régime micro-entreprise=">
+        <ResultatWrap titre="IRPP : Cat. 4 : Régime micro-entreprise">
           <EtapeResultat numero={1} titre="Calcul forfaitaire (Art. 128)">
-            <LigneR label="Montant USD fixé par Arrêté n° 015 du 19/02/2025" val="30 USD=" />
+            <LigneR label="Montant USD fixé par Arrêté n° 015 du 19/02/2025" val="30 USD" />
             <LigneR label={`Taux BCC du jour`} val={`${res.taux} FC / USD`} />
             <Separateur />
-            <LigneR signe="=" label="30 USD × taux BCC=" val={formatFC(res.impot)} bold accent />
+            <LigneR signe="=" label="30 USD × taux BCC" val={formatFC(res.impot)} bold accent />
           </EtapeResultat>
           <BoxFinal label="IRPP forfaitaire annuel dû" val={formatFC(res.impot)} />
         </ResultatWrap>
       )}
 
       {res && res.regime === 'petite' && (
-        <ResultatWrap titre="IRPP : Cat. 4 : Régime petite entreprise=">
+        <ResultatWrap titre="IRPP : Cat. 4 : Régime petite entreprise">
           <EtapeResultat numero={1} titre="Calcul proportionnel (Art. 127)">
-            <LigneR label="Chiffre d'affaires annuel=" val={formatFC(res.ca)} />
+            <LigneR label="Chiffre d'affaires annuel" val={formatFC(res.ca)} />
             <LigneR label={`Taux applicable (${res.typeActivite === 'ventes' ? 'ventes' : 'services'})`} val={`${res.taux * 100}%`} />
             <Separateur />
             <LigneR signe="=" label={`${formatFC(res.ca)} × ${res.taux * 100}%`} val={formatFC(res.impot)} bold accent />
@@ -3718,7 +3718,7 @@ function Cat4Agricole() {
               <LigneR key={i} signe="+" label={r.label || 'Produit'} val={formatFC(parseFloat(r.montant) || 0)} />
             ))}
             <Separateur />
-            <LigneR signe="=" label="Total produits=" val={formatFC(res.totalProduits)} bold accent />
+            <LigneR signe="=" label="Total produits" val={formatFC(res.totalProduits)} bold accent />
           </EtapeResultat>
 
           <EtapeResultat numero={2} titre="Charges d'exploitation (Art. 104)">
@@ -3726,7 +3726,7 @@ function Cat4Agricole() {
               <LigneR key={i} signe="−" label={r.label || 'Charge'} val={formatFC(parseFloat(r.montant) || 0)} neg />
             ))}
             <Separateur />
-            <LigneR signe="=" label="Bénéfice brut=" val={formatFC(res.beneficeBrut)} bold neg={res.beneficeBrut < 0} />
+            <LigneR signe="=" label="Bénéfice brut" val={formatFC(res.beneficeBrut)} bold neg={res.beneficeBrut < 0} />
             {res.beneficeBrut < 0 && (
               <p className="text-xs text-amber-600 mt-1">Déficit constaté : base imposable ramenée à 0. Ce déficit peut être reporté sur les 3 exercices suivants (Art. 101 par renvoi Art. 104, Loi 23/053).</p>
             )}
@@ -3745,7 +3745,7 @@ function Cat4Agricole() {
                 <LigneR signe="−" label="Frais médicaux (sur justificatifs)" val={formatFC(res.fraisMed)} neg />
               )}
               <Separateur />
-              <LigneR signe="=" label="Bénéfice net imposable=" val={formatFC(res.beneficeNet)} bold />
+              <LigneR signe="=" label="Bénéfice net imposable" val={formatFC(res.beneficeNet)} bold />
             </EtapeResultat>
           )}
 
@@ -3788,12 +3788,12 @@ function Cat4Agricole() {
             />
           </EtapeResultat>
 
-          <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement=">
+          <EtapeResultat numero={res.cotSoc > 0 || res.fraisMed > 0 ? 5 : 4} titre="Modalités de paiement">
             <div className="flex items-center gap-1 mb-1">
               <p className="text-xs text-muted-foreground">3 acomptes provisionnels + solde :</p>
               <InfoTooltip
                 texte="Conformément à l'Art. 57 bis de la Loi sur les procédures fiscales, les acomptes sont calculés sur la base de l'impôt déclaré de l'exercice précédent. Ils représentent 30%, 30% et 20% de cette base. Le solde est versé au dépôt de la déclaration annuelle (Art. 57 ter)."
-                loi="Art. 57 bis et Art. 57 ter, Loi procédures fiscales="
+                loi="Art. 57 bis et Art. 57 ter, Loi procédures fiscales"
               />
             </div>
             <div className="mb-2">
@@ -3968,7 +3968,7 @@ function Cat6PlusValues() {
             La plus-value est exonérée (Art. 83)
           </label>
           <InfoTooltip
-            texte="Cochez si la cession entre dans l'un des cas d'exonération prévus à l'article 83 : résidence principale (≥ 5 ans ou impératif familial), meubles/appareils ménagers/voiture personnelle, terrain agricole, indemnité d'assurance sinistre.="
+            texte="Cochez si la cession entre dans l'un des cas d'exonération prévus à l'article 83 : résidence principale (≥ 5 ans ou impératif familial), meubles/appareils ménagers/voiture personnelle, terrain agricole, indemnité d'assurance sinistre."
             loi="Art. 83, Loi 23/053"
           />
         </div>
@@ -4114,7 +4114,7 @@ function Cat6PlusValues() {
                     ))}
                   </div>
                   {fraisAcqMode === 'justifies' && (
-                    <input type="number" min={0} placeholder="Frais d'acquisition justifiés FC=" value={fraisAcqJustifies}
+                    <input type="number" min={0} placeholder="Frais d'acquisition justifiés FC" value={fraisAcqJustifies}
                       onChange={e => { setFraisAcqJustifies(e.target.value); setRes(null) }}
                       className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                   )}
@@ -4149,7 +4149,7 @@ function Cat6PlusValues() {
                     ))}
                   </div>
                   {travauxMode === 'justifies' && (
-                    <input type="number" min={0} placeholder="Montant des travaux justifiés FC=" value={travauxJustifies}
+                    <input type="number" min={0} placeholder="Montant des travaux justifiés FC" value={travauxJustifies}
                       onChange={e => { setTravauxJustifies(e.target.value); setRes(null) }}
                       className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
                   )}
@@ -4177,21 +4177,21 @@ function Cat6PlusValues() {
       )}
 
       {res && !res.exonere && (
-        <ResultatWrap titre="IRPP : Cat. 6 : Plus-value de cession=">
+        <ResultatWrap titre="IRPP : Cat. 6 : Plus-value de cession">
 
           <EtapeResultat numero={1} titre="Prix de cession net (Art. 84 §2)">
-            <LigneR label="Prix de cession brut=" val={formatFC(res.prixCession)} />
+            <LigneR label="Prix de cession brut" val={formatFC(res.prixCession)} />
             {res.fraisCession > 0 && (
               <LigneR signe="−" label="Frais de cession (notaire, agence, enregistrement)" val={formatFC(res.fraisCession)} neg />
             )}
             <Separateur />
-            <LigneR signe="=" label="Prix de cession net=" val={formatFC(res.prixCessionNet)} bold />
+            <LigneR signe="=" label="Prix de cession net" val={formatFC(res.prixCessionNet)} bold />
           </EtapeResultat>
 
           <EtapeResultat numero={2} titre="Prix d'acquisition ajusté (Art. 84 §3-5)">
             {res.modeAcquisition === 'inconnu' ? (
               <>
-                <LigneR label="Prix d'acquisition inconnu : forfait 75% du prix de cession=" val="" />
+                <LigneR label="Prix d'acquisition inconnu : forfait 75% du prix de cession" val="" />
                 <LigneR signe="=" label={`${formatFC(res.prixCession)} × 75%`} val={formatFC(res.prixAcqAjuste)} bold />
               </>
             ) : (
@@ -4218,10 +4218,10 @@ function Cat6PlusValues() {
           </EtapeResultat>
 
           <EtapeResultat numero={3} titre="Plus-value nette imposable (Art. 84 §1)">
-            <LigneR label="Prix de cession net=" val={formatFC(res.prixCessionNet)} />
+            <LigneR label="Prix de cession net" val={formatFC(res.prixCessionNet)} />
             <LigneR signe="−" label="Prix d'acquisition ajusté" val={formatFC(res.prixAcqAjuste)} neg />
             <Separateur />
-            <LigneR signe="=" label="Plus-value nette=" val={formatFC(res.plusValueNette)} bold neg={res.plusValueNette < 0} />
+            <LigneR signe="=" label="Plus-value nette" val={formatFC(res.plusValueNette)} bold neg={res.plusValueNette < 0} />
             {res.plusValueNette < 0 && (
               <p className="text-xs text-muted-foreground mt-1">Moins-value constatée : base imposable ramenée à 0. Aucun IRPP exigible.</p>
             )}
@@ -4229,14 +4229,14 @@ function Cat6PlusValues() {
 
           {res.imposable > 0 && (
             <EtapeResultat numero={4} titre="Calcul de la retenue à la source (Art. 120)">
-              <LigneR label="Plus-value nette imposable=" val={formatFC(res.imposable)} />
+              <LigneR label="Plus-value nette imposable" val={formatFC(res.imposable)} />
               <LigneR signe="×" label={`${formatFC(res.imposable)} × 20%`} val={formatFC(res.retenue)} bold accent />
               <p className="text-xs text-muted-foreground mt-1">Arrondi selon Art. 150 : tranche ≥ 50 FC → centaine supérieure, sinon centaine inférieure.</p>
               <Separateur />
               <div className="flex items-center gap-1 mt-1">
                 <p className="text-xs text-muted-foreground">Versement par l'acquéreur au Trésor ≤ 15 du mois suivant :</p>
                 <InfoTooltip
-                  texte="Conformément à l'article 18 ter de la Loi n°004/2003 portant réforme des procédures fiscales (modifié par Loi 23/053), les retenues à la source opérées sur les plus-values doivent être versées par le débiteur des revenus (l'acquéreur) dans les quinze jours qui suivent le mois de leur réalisation. Chaque versement est accompagné d'une déclaration souscrite auprès du service gestionnaire.="
+                  texte="Conformément à l'article 18 ter de la Loi n°004/2003 portant réforme des procédures fiscales (modifié par Loi 23/053), les retenues à la source opérées sur les plus-values doivent être versées par le débiteur des revenus (l'acquéreur) dans les quinze jours qui suivent le mois de leur réalisation. Chaque versement est accompagné d'une déclaration souscrite auprès du service gestionnaire."
                   loi="Art. 18 ter, Loi n° 004/2003 réformée par Loi 23/053"
                 />
               </div>

@@ -35,6 +35,12 @@ export function estDevoirChapitre(d: Pick<Devoir, 'type'> | null | undefined): b
   return !!d && TYPES_DEVOIR_CHAPITRE.includes(d.type)
 }
 
+// Nom du type de devoir, tel qu'on l'affiche.
+export const LIBELLES_TYPE_DEVOIR: Record<DevoirType, string> = {
+  pratique: 'Pratique (journal)', theorique: 'Théorique', mixte: 'Mixte',
+  qcm: 'QCM', qcm_chapitre: 'QCM de chapitre', qcm_cas: 'QCM + cas pratiques', redaction: 'Questions rédigées',
+}
+
 // Note maximale d'un devoir.
 export function baremeDevoir(d: Pick<Devoir, 'type'> | null | undefined): 10 | 20 {
   return estDevoirChapitre(d) ? 20 : 10

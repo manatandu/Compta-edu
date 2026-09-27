@@ -393,17 +393,17 @@ function OngletChampApplication() {
         <SectionTitre texte="Définitions clés" loi="Art. 2" />
         <div className="grid gap-2">
           <DefLigne terme="Activités économiques" def="Activités de production, importation, prestation de services et de distribution, y compris activités extractives, agricoles, agro-industrielles, artisanales et professions libérales." loi="Art. 2" />
-          <DefLigne terme="Assujetti" def="Personne physique ou morale qui effectue de manière indépendante, à titre habituel ou occasionnel, des opérations économiques imposables.=" loi="Art. 13" />
-          <DefLigne terme="Importation" def="Entrée en RDC d'un bien ou service.=" loi="Art. 2" />
-          <DefLigne terme="Exportation" def="Sortie du territoire de la RDC d'un bien ou service.=" loi="Art. 2" />
-          <DefLigne terme="Mise à la consommation=" def="Régime douanier permettant aux marchandises importées de circuler librement en RDC après accomplissement de toutes les formalités douanières." loi="Art. 2" />
-          <DefLigne terme="Promoteur immobilier=" def="Personne physique ou morale qui réalise de manière habituelle des opérations de construction et/ou de rachat d'immeubles en vue de les louer ou vendre.=" loi="Art. 2" />
-          <DefLigne terme="Zone franche=" def="Étendue de la RDC considérée hors frontières douanières : biens et services affranchis de droits et taxes à l'entrée et à la sortie pour réexportation." loi="Art. 2" />
+          <DefLigne terme="Assujetti" def="Personne physique ou morale qui effectue de manière indépendante, à titre habituel ou occasionnel, des opérations économiques imposables." loi="Art. 13" />
+          <DefLigne terme="Importation" def="Entrée en RDC d'un bien ou service." loi="Art. 2" />
+          <DefLigne terme="Exportation" def="Sortie du territoire de la RDC d'un bien ou service." loi="Art. 2" />
+          <DefLigne terme="Mise à la consommation" def="Régime douanier permettant aux marchandises importées de circuler librement en RDC après accomplissement de toutes les formalités douanières." loi="Art. 2" />
+          <DefLigne terme="Promoteur immobilier" def="Personne physique ou morale qui réalise de manière habituelle des opérations de construction et/ou de rachat d'immeubles en vue de les louer ou vendre." loi="Art. 2" />
+          <DefLigne terme="Zone franche" def="Étendue de la RDC considérée hors frontières douanières : biens et services affranchis de droits et taxes à l'entrée et à la sortie pour réexportation." loi="Art. 2" />
         </div>
       </div>
 
       <div className="space-y-3">
-        <SectionTitre texte="Opérations imposables=" loi="Art. 3–12" />
+        <SectionTitre texte="Opérations imposables" loi="Art. 3–12" />
         <div className="grid gap-2">
           {[
             { titre: 'Livraisons de biens meubles corporels à des tiers', desc: 'Inclut : échanges, apports en société, location-vente, vente à tempérament, ventes d\'occasion par professionnels, cessions d\'actifs, exportations. Art. 3 et 6.' },
@@ -425,10 +425,10 @@ function OngletChampApplication() {
         <div className="rounded-xl border border-border/60 bg-card p-3 space-y-2">
           <p className="text-xs text-foreground">Sont soumises à la TVA <strong>toutes les opérations réalisées en RDC</strong>, même si l'assujetti est établi à l'étranger.</p>
           <div className="grid gap-1.5">
-            <DefLigne terme="Livraison de bien=" def="Opération réputée en RDC si le bien se trouve sur le territoire au moment de la vente.=" />
-            <DefLigne terme="Travaux immobiliers=" def="Réputés en RDC s'ils sont effectués sur le territoire.=" />
-            <DefLigne terme="Prestations de services=" def="Réputées en RDC si le service est utilisé ou exploité en RDC.=" />
-            <DefLigne terme="Redevable étranger" def="Doit désigner un représentant agréé résidant en RDC, solidairement responsable du paiement. À défaut, la TVA est payée par le client.=" loi="Art. 23" />
+            <DefLigne terme="Livraison de bien" def="Opération réputée en RDC si le bien se trouve sur le territoire au moment de la vente." />
+            <DefLigne terme="Travaux immobiliers" def="Réputés en RDC s'ils sont effectués sur le territoire." />
+            <DefLigne terme="Prestations de services" def="Réputées en RDC si le service est utilisé ou exploité en RDC." />
+            <DefLigne terme="Redevable étranger" def="Doit désigner un représentant agréé résidant en RDC, solidairement responsable du paiement. À défaut, la TVA est payée par le client." loi="Art. 23" />
           </div>
         </div>
       </div>
@@ -440,10 +440,10 @@ function OngletChampApplication() {
           <select value={typeOp} onChange={e => { setTypeOp(e.target.value); setResultat(null) }}
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30">
             <option value="">- Choisir une opération -</option>
-            <optgroup label="Opérations courantes=">
+            <optgroup label="Opérations courantes">
               {operations.slice(0, 8).map(o => <option key={o.id} value={o.id}>{o.label}</option>)}
             </optgroup>
-            <optgroup label="Cas particuliers=">
+            <optgroup label="Cas particuliers">
               {operations.slice(8).map(o => <option key={o.id} value={o.id}>{o.label}</option>)}
             </optgroup>
           </select>
@@ -504,7 +504,7 @@ function OngletAssujettis() {
       </div>
 
       <div className="space-y-3">
-        <SectionTitre texte="Non-assujettissement : Cas particuliers=" loi="Art. 13" />
+        <SectionTitre texte="Non-assujettissement : Cas particuliers" loi="Art. 13" />
         <div className="grid gap-2">
           {[
             { titre: 'Personnes morales de droit public', desc: 'Non assujetties pour leurs activités administratives, sociales, éducatives, culturelles et sportives : à condition que leur non-assujettissement ne crée pas de distorsion de concurrence.' },
@@ -596,7 +596,7 @@ function OngletExonerations() {
           </div>
           <p className="text-xs text-foreground font-medium">{selection.label}</p>
           <BadgeLoi loi={selection.article} />
-          <AlertInfo texte="Cette opération est exonérée : aucune TVA n'est collectée sur la vente. Attention : si l'opération est exonérée, la TVA payée en amont (sur les achats liés à cette opération) ne peut généralement pas être déduite. Seul le prorata s'applique si vous avez des activités mixtes.=" type="warning" />
+          <AlertInfo texte="Cette opération est exonérée : aucune TVA n'est collectée sur la vente. Attention : si l'opération est exonérée, la TVA payée en amont (sur les achats liés à cette opération) ne peut généralement pas être déduite. Seul le prorata s'applique si vous avez des activités mixtes." type="warning" />
         </div>
       )}
     </div>
@@ -1214,7 +1214,7 @@ function OngletDeductions() {
                   <div className="grid grid-cols-2 gap-2">
                     <div>
                       <label className="block text-xs text-muted-foreground mb-0.5">Montant HT (FC)</label>
-                      <input type="number" value={l.montantHT} onChange={e => updateLigne(i, 'montantHT', e.target.value)} placeholder="Base HT="
+                      <input type="number" value={l.montantHT} onChange={e => updateLigne(i, 'montantHT', e.target.value)} placeholder="Base HT"
                         className="w-full rounded border border-border bg-background px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-primary/30" />
                     </div>
                     <div>
@@ -1234,7 +1234,7 @@ function OngletDeductions() {
 
           {res && (
             <ResultatWrap titre="TVA déductible calculée">
-              <EtapeResultat numero={1} titre="Détail par achat=">
+              <EtapeResultat numero={1} titre="Détail par achat">
                 {res.lignesCalc.map((l: any, i: number) => (
                   <div key={i} className="flex items-baseline justify-between gap-2">
                     <span className="text-xs text-muted-foreground flex-1 min-w-0 truncate">{l.label}</span>
@@ -1249,7 +1249,7 @@ function OngletDeductions() {
                 <LigneR signe="+" label="TVA déductible" val={formatFC(res.totalDeductible)} />
                 <LigneR signe="+" label="TVA exclue (non récupérable)" val={formatFC(res.totalExclu)} neg />
                 <Separateur />
-                <LigneR signe="=" label="Total TVA sur achats=" val={formatFC(res.totalDeductible + res.totalExclu)} bold />
+                <LigneR signe="=" label="Total TVA sur achats" val={formatFC(res.totalDeductible + res.totalExclu)} bold />
               </EtapeResultat>
               <BoxFinal label="TVA déductible à reporter en onglet 6" val={formatFC(res.totalDeductible)} />
             </ResultatWrap>
@@ -1336,9 +1336,9 @@ function OngletTVANette() {
           <div className="space-y-2">
             {lignesCol.map((l, i) => (
               <div key={i} className="grid grid-cols-[1fr_100px_60px_24px] gap-1.5 items-center">
-                <input placeholder="Libellé de la vente=" value={l.label} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, label: e.target.value } : r)); setRes(null) }}
+                <input placeholder="Libellé de la vente" value={l.label} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, label: e.target.value } : r)); setRes(null) }}
                   className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
-                <input type="number" placeholder="Base HT=" value={l.baseHT} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, baseHT: e.target.value } : r)); setRes(null) }}
+                <input type="number" placeholder="Base HT" value={l.baseHT} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, baseHT: e.target.value } : r)); setRes(null) }}
                   className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <select value={l.taux} onChange={e => { setLignesCol(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="min-w-0 rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
@@ -1362,7 +1362,7 @@ function OngletTVANette() {
               <div key={i} className="grid grid-cols-[1fr_100px_60px_24px] gap-1.5 items-center">
                 <input placeholder="Libellé de l'achat" value={l.label} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, label: e.target.value } : r)); setRes(null) }}
                   className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
-                <input type="number" placeholder="Base HT=" value={l.baseHT} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, baseHT: e.target.value } : r)); setRes(null) }}
+                <input type="number" placeholder="Base HT" value={l.baseHT} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, baseHT: e.target.value } : r)); setRes(null) }}
                   className="min-w-0 rounded-lg border border-border bg-background px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30" />
                 <select value={l.taux} onChange={e => { setLignesDed(p => p.map((r, idx) => idx === i ? { ...r, taux: e.target.value } : r)); setRes(null) }}
                   className="rounded-lg border border-border bg-background px-1 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30">
@@ -1476,7 +1476,7 @@ function OngletProrata() {
           </div>
           <div>
             <label className="block text-xs font-medium mb-1">TVA en amont (sur tous achats) (FC)</label>
-            <input type="number" value={tvaAmont} onChange={e => { setTvaAmont(e.target.value); setRes(null) }} placeholder="Total TVA sur achats du mois="
+            <input type="number" value={tvaAmont} onChange={e => { setTvaAmont(e.target.value); setRes(null) }} placeholder="Total TVA sur achats du mois"
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
           </div>
         </div>
@@ -1484,20 +1484,20 @@ function OngletProrata() {
 
         {res && (
           <ResultatWrap titre="Calcul du prorata de déduction">
-            <EtapeResultat numero={1} titre="Calcul du taux prorata=">
-              <LigneR signe="+" label="Recettes imposables + exports=" val={formatFC(res.ri)} />
-              <LigneR signe={"\u00f7" as any} label="Total recettes=" val={formatFC(res.rt)} />
+            <EtapeResultat numero={1} titre="Calcul du taux prorata">
+              <LigneR signe="+" label="Recettes imposables + exports" val={formatFC(res.ri)} />
+              <LigneR signe={"\u00f7" as any} label="Total recettes" val={formatFC(res.rt)} />
               <Separateur />
               <LigneR signe="=" label={`Rapport brut = ${(res.ri / res.rt * 100).toFixed(4)}% → arrondi à l\'unité supérieure`} val={`${res.pct}%`} bold accent />
             </EtapeResultat>
-            <EtapeResultat numero={2} titre="Application du prorata à la TVA en amont=">
+            <EtapeResultat numero={2} titre="Application du prorata à la TVA en amont">
               <LigneR signe="+" label="TVA en amont (total)" val={formatFC(res.tva)} />
               <LigneR signe="×" label={`Prorata de déduction (${res.pct}%)`} val={`${res.pct}%`} />
               <Separateur />
               <LigneR signe="=" label="TVA déductible ajustée" val={formatFC(res.tvaAjustee)} bold accent />
               <LigneR signe="=" label="TVA non déductible (charge définitive)" val={formatFC(res.tvaExclue)} neg />
             </EtapeResultat>
-            <BoxFinal label="TVA déductible après prorata=" val={formatFC(res.tvaAjustee)} />
+            <BoxFinal label="TVA déductible après prorata" val={formatFC(res.tvaAjustee)} />
             <AlertInfo texte="Le prorata est calculé provisoirement sur la base des recettes de l'année N-1. Le prorata définitif est arrêté au plus tard le 31 mars de l'année suivante. Si la variation entre prorata provisoire et définitif est supérieure à 10%, une régularisation est effectuée (Art. 45-46)." type="info" />
           </ResultatWrap>
         )}
@@ -1634,7 +1634,7 @@ function OngletRegularisations() {
           <p className="text-xs text-muted-foreground">En cas de vente à perte, la déduction de la TVA amont est limitée au montant de la TVA due sur la vente. L'excédent doit être reversé.</p>
           <div className="space-y-2">
             <div><label className="block text-xs font-medium mb-1">TVA amont (sur l'achat du bien) (FC)</label><input type="number" value={tvaAmont} onChange={e => { setTvaAmont(e.target.value); setRes(null) }} placeholder="TVA payée lors de l'achat" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
-            <div><label className="block text-xs font-medium mb-1">TVA aval (sur la vente, au prix de vente inférieur) (FC)</label><input type="number" value={tvaAval} onChange={e => { setTvaAval(e.target.value); setRes(null) }} placeholder="TVA collectée sur la vente à perte=" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
+            <div><label className="block text-xs font-medium mb-1">TVA aval (sur la vente, au prix de vente inférieur) (FC)</label><input type="number" value={tvaAval} onChange={e => { setTvaAval(e.target.value); setRes(null) }} placeholder="TVA collectée sur la vente à perte" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
           </div>
           <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={() => { setTvaAmont(''); setTvaAval(''); setRes(null) }} /></div>
           {res?.type === 'perte' && (
@@ -1644,9 +1644,9 @@ function OngletRegularisations() {
                 <LigneR signe="+" label="TVA aval (sur vente à perte)" val={formatFC(res.tv)} />
                 <Separateur />
                 <LigneR label="Déduction limitée à min(TVA amont, TVA aval)" val={formatFC(res.limitation)} bold />
-                <LigneR signe="=" label="Reversement requis=" val={formatFC(res.reversement)} bold accent neg={res.reversement > 0} />
+                <LigneR signe="=" label="Reversement requis" val={formatFC(res.reversement)} bold accent neg={res.reversement > 0} />
               </EtapeResultat>
-              <BoxFinal label="Reversement TVA=" val={formatFC(res.reversement)} couleur={res.reversement > 0 ? 'red' : undefined} />
+              <BoxFinal label="Reversement TVA" val={formatFC(res.reversement)} couleur={res.reversement > 0 ? 'red' : undefined} />
             </ResultatWrap>
           )}
         </div>
@@ -1657,7 +1657,7 @@ function OngletRegularisations() {
           <p className="text-xs text-muted-foreground">En cas d'annulation, de résiliation ou de créance irrécouvrable, la TVA précédemment acquittée peut être récupérée par imputation sur la TVA due ultérieure.</p>
           <AlertInfo texte="Procédure : Pour une annulation ou résiliation, envoyer au client une nouvelle facture rectificative annulant l'ancienne. Pour un impayé définitif : envoyer un duplicata de facture avec la mention du montant impayé HT et TVA correspondante non récupérable. (Art. 52)" type="info" />
           <div className="space-y-2">
-            <div><label className="block text-xs font-medium mb-1">Montant HT de l'opération annulée/impayée (FC)</label><input type="number" value={montantImpaye} onChange={e => { setMontantImpaye(e.target.value); setRes(null) }} placeholder="Montant HT=" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
+            <div><label className="block text-xs font-medium mb-1">Montant HT de l'opération annulée/impayée (FC)</label><input type="number" value={montantImpaye} onChange={e => { setMontantImpaye(e.target.value); setRes(null) }} placeholder="Montant HT" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
             <div><label className="block text-xs font-medium mb-1">TVA acquittée sur cette opération (FC)</label><input type="number" value={tvaImpayee} onChange={e => { setTvaImpayee(e.target.value); setRes(null) }} placeholder="TVA déjà versée au Trésor" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" /></div>
           </div>
           <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={() => { setMontantImpaye(''); setTvaImpayee(''); setRes(null) }} /></div>
@@ -1737,7 +1737,7 @@ function OngletRemboursement() {
 
         <div>
           <label className="block text-xs font-medium mb-1">Crédit TVA du mois (FC)</label>
-          <input type="number" value={creditTVA} onChange={e => { setCreditTVA(e.target.value); setRes(null) }} placeholder="Montant du crédit TVA="
+          <input type="number" value={creditTVA} onChange={e => { setCreditTVA(e.target.value); setRes(null) }} placeholder="Montant du crédit TVA"
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
         </div>
 
@@ -1783,7 +1783,7 @@ function OngletRemboursement() {
         {profil === 'export' && (
           <div>
             <label className="block text-xs font-medium mb-1">Montant des exportations du mois (FC)</label>
-            <input type="number" value={montantExport} onChange={e => { setMontantExport(e.target.value); setRes(null) }} placeholder="Total exports du mois="
+            <input type="number" value={montantExport} onChange={e => { setMontantExport(e.target.value); setRes(null) }} placeholder="Total exports du mois"
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
           </div>
         )}
@@ -1791,7 +1791,7 @@ function OngletRemboursement() {
         {profil === 'invest' && (
           <div>
             <label className="block text-xs font-medium mb-1">Valeur des immobilisations neuves acquises (FC)</label>
-            <input type="number" value={montantImmob} onChange={e => { setMontantImmob(e.target.value); setRes(null) }} placeholder="Valeur projet ≥ 1 000 000 000 FC="
+            <input type="number" value={montantImmob} onChange={e => { setMontantImmob(e.target.value); setRes(null) }} placeholder="Valeur projet ≥ 1 000 000 000 FC"
               className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
           </div>
         )}
@@ -1799,31 +1799,31 @@ function OngletRemboursement() {
         <div className="flex gap-2"><BtnCalculer onClick={calculer} /><BtnReset onClick={() => { setCreditTVA(''); setMontantExport(''); setMontantImmob(''); setRes(null) }} /></div>
 
         {res && (
-          <ResultatWrap titre="Analyse du remboursement TVA=">
+          <ResultatWrap titre="Analyse du remboursement TVA">
             {!res.eligible ? (
               <AlertInfo texte="Votre profil ne permet pas le remboursement du crédit TVA. Le crédit sera reporté sur la déclaration du mois suivant jusqu'à épuisement (Art. 63)." type="warning" />
             ) : (
               <>
-                <EtapeResultat numero={1} titre="Calcul du montant remboursable=">
+                <EtapeResultat numero={1} titre="Calcul du montant remboursable">
                   {res.profil === 'export' && (
                     <>
-                      <LigneR signe="+" label="Montant des exportations du mois=" val={formatFC(res.exp)} />
+                      <LigneR signe="+" label="Montant des exportations du mois" val={formatFC(res.exp)} />
                       <LigneR signe="×" label="Taux normal (16%)" val="16%" />
                       <Separateur />
-                      <LigneR signe="=" label="Plafond de remboursement=" val={formatFC(res.plafond)} bold />
-                      <LigneR signe="+" label="Crédit TVA disponible=" val={formatFC(res.credit)} />
+                      <LigneR signe="=" label="Plafond de remboursement" val={formatFC(res.plafond)} bold />
+                      <LigneR signe="+" label="Crédit TVA disponible" val={formatFC(res.credit)} />
                       <Separateur />
                       <LigneR signe="=" label="Remboursement = min(Crédit, Plafond)" val={formatFC(res.remb)} bold accent />
                     </>
                   )}
                   {res.profil === 'invest' && (
                     <>
-                      <LigneR signe="+" label="Valeur immobilisations neuves=" val={formatFC(res.immob)} />
+                      <LigneR signe="+" label="Valeur immobilisations neuves" val={formatFC(res.immob)} />
                       <LigneR label={res.immob >= 1_000_000_000 ? '✓ Seuil 1 000 000 000 FC atteint' : '✗ Seuil 1 000 000 000 FC non atteint'} val="" bold />
                       {res.eligible && (
                         <>
                           <LigneR signe="×" label="TVA estimée sur immobilisations (× 16%)" val={formatFC(res.tvaImmob)} />
-                          <LigneR signe="+" label="Crédit TVA disponible=" val={formatFC(res.credit)} />
+                          <LigneR signe="+" label="Crédit TVA disponible" val={formatFC(res.credit)} />
                           <Separateur />
                           <LigneR signe="=" label="Remboursement = min(Crédit, TVA immob.)" val={formatFC(res.remb)} bold accent />
                         </>
@@ -1832,7 +1832,7 @@ function OngletRemboursement() {
                   )}
                   {(res.profil === 'minier' || res.profil === 'cessation' || res.profil === 'public') && (
                     <>
-                      <LigneR signe="+" label="Crédit TVA disponible=" val={formatFC(res.credit)} />
+                      <LigneR signe="+" label="Crédit TVA disponible" val={formatFC(res.credit)} />
                       <LigneR signe="=" label="Remboursable intégralement (sur demande)" val={formatFC(res.remb)} bold accent />
                     </>
                   )}
@@ -2006,7 +2006,7 @@ function OngletDeclarationPenalites() {
                   {res.perte_credit && <AlertInfo texte={`En plus de l\'amende : perte de ${res.perte_credit}% du crédit TVA.`} type="warning" />}
                 </EtapeResultat>
                 {res.inf.type !== 'perte_deduction' ? (
-                  <BoxFinal label="Amende TVA applicable=" val={formatFC(res.amende)} couleur="red" />
+                  <BoxFinal label="Amende TVA applicable" val={formatFC(res.amende)} couleur="red" />
                 ) : (
                   <AlertInfo texte="Sanction : Perte définitive du droit à déduction de la TVA supportée sur l'opération concernée." type="warning" />
                 )}
