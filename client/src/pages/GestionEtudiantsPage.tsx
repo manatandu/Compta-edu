@@ -39,7 +39,11 @@ const STATUT_ICONS: Record<StatutEtudiant, JSX.Element> = {
 }
 
 // ─── Composant principal ──────────────────────────────────────────────────────
-export default function GestionEtudiantsPage() {
+// `embedded` : rendu comme onglet « Étudiants » de l'Espace pédagogique, sans
+// bouton de retour ni fil d'Ariane (l'espace fournit déjà les siens). La
+// gestion des étudiants y est réunie avec les inscriptions à valider, au lieu
+// d'une page séparée qui faisait quitter l'espace.
+export default function GestionEtudiantsPage({ embedded = false }: { embedded?: boolean }) {
   const user = useUser()
   const [, navigate] = useLocation()
   const { toast } = useToast()
@@ -161,18 +165,20 @@ export default function GestionEtudiantsPage() {
   }
 
   return (
-    <div className="space-y-6 pb-10 animate-fadeIn max-w-7xl mx-auto px-4">
+    <div className={embedded ? 'space-y-6' : 'space-y-6 pb-10 animate-fadeIn max-w-7xl mx-auto px-4'}>
 
       {/* ─── HEADER ─── */}
       <div className="space-y-1">
-        <BackButton />
-        <Breadcrumb
-          items={[
-            { label: 'Tableau de bord', route: '/' },
-            { label: 'Gestion des étudiants' },
-          ]}
-          color="indigo"
-        />
+        {!embedded && <BackButton />}
+        {!embedded && (
+          <Breadcrumb
+            items={[
+              { label: 'Espace pédagogique', route: '/professeurs' },
+              { label: 'Étudiants' },
+            ]}
+            color="indigo"
+          />
+        )}
         <div className="flex items-center justify-between flex-wrap gap-3 mt-1">
           <div>
             <h1 className="text-xl font-display font-bold text-foreground leading-tight">Gestion des étudiants</h1>

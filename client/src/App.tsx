@@ -56,7 +56,6 @@ const MesCoursPage = React.lazy(() => import('@/pages/MesCoursPage'))
 const ChapitrePage = React.lazy(() => import('@/pages/ChapitrePage'))
 const SommaireModulePage = React.lazy(() => import('@/pages/SommaireModulePage'))
 const UE2SimulateurConstitutionPage = React.lazy(() => import('@/pages/UE2SimulateurConstitutionPage'))
-const GestionEtudiantsPage = React.lazy(() => import('@/pages/GestionEtudiantsPage'))
 const FicheEtudiantPage = React.lazy(() => import('@/pages/FicheEtudiantPage'))
 const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPlatformePage'))
 
@@ -313,9 +312,9 @@ export default function App() {
         </Route>
 
         {/* ── Gestion des étudiants ── */}
-        <Route path="/gestion-etudiants">
-          {() => <ProtectedRoute component={GestionEtudiantsPage} user={user} onLogout={handleLogout} />}
-        </Route>
+        {/* Page devenue l'onglet « Étudiants » de l'Espace pédagogique : l'ancienne
+            adresse y redirige. */}
+        <Route path="/gestion-etudiants"><Redirect to="/professeurs?tab=etudiants" /></Route>
         <Route path="/etudiant/:id">
           {() => <ProtectedRoute component={FicheEtudiantPage} user={user} onLogout={handleLogout} />}
         </Route>

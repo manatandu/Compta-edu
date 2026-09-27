@@ -98,7 +98,7 @@ export default function FicheEtudiantPage() {
       const snap = await getDoc(doc(db, 'etudiants', id!))
       if (!snap.exists()) {
         toast({ title: 'Introuvable', description: 'Fiche étudiant introuvable.', variant: 'destructive' })
-        navigate('/gestion-etudiants')
+        navigate('/professeurs?tab=etudiants')
         return
       }
       const data = { id: snap.id, ...snap.data() } as EtudiantFiche
@@ -233,11 +233,11 @@ export default function FicheEtudiantPage() {
 
       {/* ─── HEADER ─── */}
       <div className="space-y-1">
-        <BackButton to="/gestion-etudiants" label="Gestion des étudiants" />
+        <BackButton to="/professeurs?tab=etudiants" label="Étudiants" />
         <Breadcrumb
           items={[
             { label: 'Tableau de bord', route: '/' },
-            { label: 'Gestion des étudiants', route: '/gestion-etudiants' },
+            { label: 'Étudiants', route: '/professeurs?tab=etudiants' },
             { label: `${etudiant.prenom} ${etudiant.nom}` },
           ]}
           color="indigo"
