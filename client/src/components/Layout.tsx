@@ -66,10 +66,13 @@ const middleItems: NavItem[] = []
 // désormais dans « Outils pratiques » et les « Cours additionnels ».
 
 // Bottom nav items pour mobile (icônes principales)
+// « Fiscalité » y figurait : c'est l'UE 4, déjà dans Mes cours (et
+// verrouillée pour un étudiant qui n'y est pas inscrit), alors que la
+// messagerie n'était accessible que par le menu.
 const mobileBottomNav = [
   { path: '/', label: 'Accueil', icon: <Home className="h-5 w-5" /> },
   { path: '/mes-cours', label: 'Mes cours', icon: <BookOpen className="h-5 w-5" /> },
-  { path: '/fiscalite', label: 'Fiscalité', icon: <FileText className="h-5 w-5" /> },
+  { path: '/chat', label: 'Messages', icon: <MessageSquare className="h-5 w-5" /> },
   { path: '/exercices', label: 'Exercices', icon: <GraduationCap className="h-5 w-5" /> },
   { path: '/documents', label: 'Documents', icon: <FolderOpen className="h-5 w-5" /> },
 ]

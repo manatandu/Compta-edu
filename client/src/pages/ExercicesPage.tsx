@@ -906,6 +906,15 @@ export default function ExercicesPage() {
 
   const [onglet, setOnglet] = useState<'guides' | 'libres'>('guides')
   const [nbExercicesLibres, setNbExercicesLibres] = useState(0)
+  // Aucun exercice guidé mais des exercices libres : ouvrir sur ceux-ci
+  // (une fois, sans contrarier un choix de l'utilisateur).
+  const ongletChoisi = React.useRef(false)
+  React.useEffect(() => {
+    if (!ongletChoisi.current && !loadingEx && exercices.length === 0 && nbExercicesLibres > 0) {
+      ongletChoisi.current = true
+      setOnglet('libres')
+    }
+  }, [loadingEx, exercices.length, nbExercicesLibres])
   const [recherche, setRecherche] = useState('')
   const [filtreDifficulte, setFiltreDifficulte] = useState<'' | 'Facile' | 'Moyen' | 'Difficile'>('')
   const [showForm, setShowForm] = useState(false)
@@ -1028,7 +1037,7 @@ export default function ExercicesPage() {
       {/* Onglets */}
       <div className="flex gap-1 bg-muted/50 rounded-lg p-1 w-fit">
         <button
-          onClick={() => setOnglet('guides')}
+          onClick={() => { ongletChoisi.current = true; setOnglet('guides') }}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${onglet === 'guides' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           <span className="flex items-center gap-1.5">
@@ -1036,7 +1045,7 @@ export default function ExercicesPage() {
           </span>
         </button>
         <button
-          onClick={() => setOnglet('libres')}
+          onClick={() => { ongletChoisi.current = true; setOnglet('libres') }}
           className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${onglet === 'libres' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           <span className="flex items-center gap-1.5">
@@ -1273,7 +1282,12 @@ export default function ExercicesPage() {
       )}
 
       {/* Contenu onglet Exercices libres */}
-      {onglet === 'libres' && <OngletExercicesLibres coursIds={studentCoursIds} coursList={coursList} faculteId={studentFaculteId} promotion={studentPromotion} onCount={setNbExercicesLibres} />}
+      {/* Monté en permanence (masqué hors de son onglet) : son compteur
+          restait à 0 tant qu'on n'avait pas ouvert l'onglet, et l'étudiant
+          croyait n'avoir aucun exercice. */}
+      <div hidden={onglet !== 'libres'}>
+        <OngletExercicesLibres coursIds={studentCoursIds} coursList={coursList} faculteId={studentFaculteId} promotion={studentPromotion} onCount={setNbExercicesLibres} />
+      </div>
     </div>
   )
 }

@@ -47,6 +47,7 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
     details: { qId: string; choix: string; correct: boolean }[]
   } | null>(null)
   const [loading, setLoading] = useState(false)
+  const [erreur, setErreur] = useState('')
 
   const totalRepondues = Object.keys(reponses).length
   const peutSoumettre = totalRepondues === questions.length
@@ -54,6 +55,7 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
   const handleSoumettre = async () => {
     if (!peutSoumettre) return
     setLoading(true)
+    setErreur('')
     try {
       const details = questions.map(q => ({
         qId: q.id,
@@ -73,7 +75,6 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
         detailsQCMChapitre: details,
         note: noteSur20,
         statut: 'note' as const,
-        dateCorrection: new Date().toISOString(),
       } as any)
 
       setResultat({ score: nbCorrectes, details })
@@ -81,6 +82,7 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
       onSoumis(soumission)
     } catch (e) {
       console.error(e)
+      setErreur("Envoi impossible pour le moment : votre copie n'est pas rendue. Vérifiez votre connexion, puis réessayez.")
     } finally {
       setLoading(false)
     }
@@ -102,6 +104,7 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
   }
 
   return (
+    <div className="space-y-2">
     <QCMForm
       questions={questions}
       reponses={reponses}
@@ -110,6 +113,8 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
       loading={loading}
       label="Soumettre et voir ma note"
     />
+    {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
+    </div>
   )
 }
 

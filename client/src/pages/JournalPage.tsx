@@ -114,6 +114,9 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
       if (!map.has(e.ligneGroupe)) map.set(e.ligneGroupe, [])
       map.get(e.ligneGroupe)!.push(e)
     })
+    // Débit avant crédit dans chaque écriture, comme à la saisie : les lignes
+    // arrivaient dans l'ordre de stockage, sans rapport avec le sens.
+    map.forEach((lignes, cle) => map.set(cle, [...lignes.filter(l => l.debit > 0), ...lignes.filter(l => !(l.debit > 0))]))
     return Array.from(map.entries()).sort((a, b) => {
       const da = a[1][0]?.date || ''
       const db = b[1][0]?.date || ''

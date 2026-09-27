@@ -414,7 +414,9 @@ export function useTentatives(etudiantId?: string, exerciceId?: string, enabled:
   useEffect(() => {
     if (!enabled) { setTentatives([]); return }
     const conditions: any[] = []
-    if (etudiantId) conditions.push(where('etudiantId', '==', etudiantId))
+    // Le champ des tentatives est userId (type Tentative, règles Firestore) :
+    // la requête sur « etudiantId » était refusée en bloc pour un étudiant.
+    if (etudiantId) conditions.push(where('userId', '==', etudiantId))
     if (exerciceId) conditions.push(where('exerciceId', '==', exerciceId))
     const q = conditions.length > 0 ? query(collection(db, 'tentatives'), ...conditions) : collection(db, 'tentatives')
     const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))), err => notifyFirestoreError('useTentatives', err))

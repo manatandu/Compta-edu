@@ -10,7 +10,7 @@ import { isDevoirExpire, QuestionQCM } from '@/lib/db'
 import DevoirChapitreEtudiant from '@/components/DevoirChapitreEtudiant'
 import {
   useSessions, useAllCours, useAllDevoirs, useSoumissionsEtudiant,
-  useUniversites, useFacultes, useExercices, usePresencesEtudiant,
+  useUniversites, useFacultes, useExercices, useExercicesLibres, usePresencesEtudiant,
   useCoursStatuts,
 } from '@/lib/useFirestore'
 import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries, coursSystemeDe } from '@/lib/db-firebase'
@@ -47,6 +47,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
   const [reponses, setReponses] = React.useState<Record<number, number>>({})
   const [soumis, setSoumis] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+  const [erreur, setErreur] = React.useState('')
   const [resultat, setResultat] = React.useState<{ score: number; total: number; details: boolean[] } | null>(null)
 
   if (soumission && estNotee(soumission)) {
@@ -95,6 +96,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
       setSoumis(true)
     } catch (err: any) {
       console.error('Erreur soumission QCM:', err)
+      setErreur("Envoi impossible pour le moment : votre copie n'est pas rendue. Vérifiez votre connexion, puis réessayez.")
     }
     setLoading(false)
   }
@@ -161,6 +163,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
       >
         {loading ? 'Soumission...' : `Soumettre le QCM (${Object.keys(reponses).length}/${questions.length} répondu${Object.keys(reponses).length > 1 ? 'es' : 'e'})`}
       </Button>
+      {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
     </div>
   )
 }
@@ -323,6 +326,16 @@ export default function DashboardEtudiant() {
     (user as any)?.classe || undefined,
     allCoursRaw,
   )
+  // Exercices libres, avec les mêmes filtres : le compteur ne comptait que
+  // les exercices guidés et annonçait 0 quand seuls des exercices libres
+  // étaient proposés.
+  const { exercices: mesExercicesLibres } = useExercicesLibres(
+    undefined,
+    (user as any)?.coursIds?.length ? (user as any).coursIds : undefined,
+    (user as any)?.faculteId || undefined,
+    (user as any)?.classe || undefined,
+    allCoursRaw,
+  )
   const { presences: mesPresences } = usePresencesEtudiant(user?.id)
   const { statuts: coursStatuts } = useCoursStatuts(user?.id)
 
@@ -473,7 +486,7 @@ export default function DashboardEtudiant() {
 
   const stats: DashboardStat[] = [
     { label: 'Devoirs',   value: mesDevoirs.length, icon: ClipboardList, onClick: allerAuxDevoirs },
-    { label: 'Exercices', value: allExercices.filter(e => e.actif).length, icon: GraduationCap, onClick: () => navigate('/exercices') },
+    { label: 'Exercices', value: allExercices.filter(e => e.actif).length + mesExercicesLibres.filter(e => e.actif).length, icon: GraduationCap, onClick: () => navigate('/exercices') },
     { label: 'Cours',     value: userCours.length,                          icon: BookOpen, onClick: () => navigate('/mes-cours') },
     // Anciennement « Messages », dont la valeur était écrite en dur à 0 : jamais
     // calculée, donc toujours fausse. Un vrai compteur de non-lus n'est pas

@@ -180,6 +180,13 @@ export default function DevoirChapitreCreateur({
 
   // Formulaire
   const [titre, setTitre] = useState(`Devoir : ${chapitreNom}`)
+  // Titre proposé selon la destination, tant qu'il n'a pas été retouché : un
+  // exercice libre s'intitulait « Devoir : … ».
+  useEffect(() => {
+    setTitre(t => (t === `Devoir : ${chapitreNom}` || t === `Exercice : ${chapitreNom}`)
+      ? `${destinataire === 'devoir' ? 'Devoir' : 'Exercice'} : ${chapitreNom}`
+      : t)
+  }, [destinataire, chapitreNom])
   // Par défaut : dans sept jours à 23 h 59, heure locale (le champ
   // datetime-local attend l'heure locale ; toISOString donnait l'heure UTC).
   const [dateLimit, setDateLimit] = useState(() => {

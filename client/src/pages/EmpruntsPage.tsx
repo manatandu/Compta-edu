@@ -249,9 +249,12 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
         ) : (
           <div className="space-y-2.5">
             {emprunts.map(e => (
-              <button key={e.id} onClick={() => onSelect(e.id)}
+              // Ligne cliquable contenant un bouton de suppression : un
+              // bouton ne peut pas en contenir un autre (HTML invalide).
+              <div key={e.id} role="button" tabIndex={0} onClick={() => onSelect(e.id)}
+                onKeyDown={ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); onSelect(e.id) } }}
                 className={cn(
-                  'w-full flex items-center gap-3 rounded-xl border bg-card p-3.5 text-left transition-all',
+                  'w-full flex items-center gap-3 rounded-xl border bg-card p-3.5 text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-module-violet/40',
                   selectionId === e.id ? 'border-module-violet ring-2 ring-module-violet/20' : 'border-border hover:border-module-violet/40'
                 )}>
                 <div className="h-9 w-9 rounded-lg bg-module-violet/10 flex items-center justify-center shrink-0">
@@ -268,11 +271,11 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
                   <p className="font-mono font-bold text-sm">{e.capital.toLocaleString('fr-CD')}</p>
                   <p className="text-xs text-muted-foreground">{e.devise}</p>
                 </div>
-                <button onClick={ev => { ev.stopPropagation(); setConfirmSuppr(e.id) }}
+                <button onClick={ev => { ev.stopPropagation(); setConfirmSuppr(e.id) }} aria-label={`Supprimer l'emprunt ${e.reference}`}
                   className="h-7 w-7 rounded-lg hover:bg-red-50 flex items-center justify-center transition-colors shrink-0">
                   <Trash2 className="h-3.5 w-3.5 text-red-400" />
                 </button>
-              </button>
+              </div>
             ))}
           </div>
         )}
