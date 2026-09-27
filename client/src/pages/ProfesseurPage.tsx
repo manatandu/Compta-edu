@@ -273,6 +273,8 @@ function JournalSoumission({ sessionId, etudiantId }: { sessionId: string; etudi
     acc[e.ligneGroupe].push(e)
     return acc
   }, {} as Record<string, any[]>)
+  // Débit avant crédit dans chaque écriture, comme dans le journal.
+  Object.keys(groupes).forEach(k => { groupes[k] = [...groupes[k].filter((l: any) => l.debit > 0), ...groupes[k].filter((l: any) => !(l.debit > 0))] })
 
   const totalDebit = ecritures.reduce((s, e) => s + (e.debit || 0), 0)
   const totalCredit = ecritures.reduce((s, e) => s + (e.credit || 0), 0)

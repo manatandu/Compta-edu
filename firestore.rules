@@ -406,16 +406,21 @@ service cloud.firestore {
     function copieValide(d) {
       let devoir = get(/databases/$(database)/documents/devoirs/$(d.devoirId)).data;
       return devoir.coursId in studentCoursIds() &&
-        !d.keys().hasAny(['commentaire', 'dateCorrection', 'scoreCasPratiques', 'evaluationsCasPratiques']) && (
+        !d.keys().hasAny(['scoreCasPratiques', 'evaluationsCasPratiques']) && (
           (
-            !d.keys().hasAny(['note']) &&
+            !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
             d.get('statut', 'soumis') == 'soumis'
           ) || (
             devoir.get('type', '') in ['qcm', 'qcm_chapitre'] &&
             d.note is number && d.note >= 0 && d.note <= 20 &&
             // « soumis » accepté aussi : une page ouverte avant ce correctif
             // envoie encore ce statut ; la note fait foi (estNotee, lib/cotes.ts).
-            d.get('statut', '') in ['note', 'soumis']
+            d.get('statut', '') in ['note', 'soumis'] &&
+            // Date de correction et commentaire automatique, envoyés par
+            // l'écran du QCM : refusés un temps par erreur, ce qui bloquait
+            // tout envoi de QCM. Seul le commentaire automatique est permis.
+            d.get('commentaire', 'Correction automatique') is string &&
+            d.get('commentaire', 'Correction automatique').matches('Correction automatique.*')
           )
         );
     }

@@ -1738,6 +1738,29 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
     await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 16, statut: 'note', scoreQCMChapitre: 8 })))
   })
 
+  it('Copies exactes envoyées par les écrans de QCM (chapitre et classique) : acceptées', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await seedDoc('devoirs', 'd-classique', { ...qcm, type: 'qcm' })
+    // Écran « QCM de chapitre » (DevoirChapitreEtudiant), y compris une page
+    // ouverte avant le correctif, qui envoie encore la date de correction.
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 'c1'), copie('d-qcm', {
+      reponsesQCMChapitre: { q1: 'a' }, scoreQCMChapitre: 1, detailsQCMChapitre: [{ qId: 'q1', choix: 'a', correct: true }],
+      note: 20, statut: 'note', dateCorrection: '2026-09-27T20:00:00Z',
+    })))
+    // Écran « QCM classique » (tableau de bord) : commentaire automatique.
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 'c2'), copie('d-classique', {
+      reponsesQCM: [0, 1], statut: 'note', note: 5,
+      commentaire: 'Correction automatique : 1/2 bonne réponse.', dateCorrection: '2026-09-27T20:00:00Z',
+    })))
+  })
+
+  it('Un QCM NE PEUT PAS porter un commentaire autre que le commentaire automatique', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 20, statut: 'note', commentaire: 'Excellent travail, 20/20 mérité.' })))
+  })
+
   it('Un devoir rédigé arrive « soumis », sans note', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-red', redige)
