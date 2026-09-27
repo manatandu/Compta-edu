@@ -344,9 +344,34 @@ service cloud.firestore {
 
     // ─── SOUMISSIONS (réponses aux devoirs) ──────────────────────────────────
     // Isolation : par étudiant ET par devoir.
+    // Copie rendue par un étudiant : pour lui-même, sur un devoir d'un cours
+    // auquel il est inscrit. Elle n'arrive notée que pour un devoir corrigé à
+    // l'envoi (QCM), avec une note de 0 à 20 (barème des devoirs de chapitre) ;
+    // un devoir corrigé par l'enseignant arrive
+    // « soumis », sans note ni correction. Jusqu'ici seul l'auteur était
+    // vérifié : un étudiant pouvait créer sa copie déjà notée 20 sur un devoir
+    // rédigé, ou rendre une copie sur le devoir d'un autre cours.
+    function copieValide(d) {
+      let devoir = get(/databases/$(database)/documents/devoirs/$(d.devoirId)).data;
+      return devoir.coursId in studentCoursIds() && (
+        (
+          !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
+          d.get('statut', 'soumis') == 'soumis'
+        ) || (
+          d.keys().hasAny(['note']) &&
+          devoir.get('type', '') in ['qcm', 'qcm_chapitre', 'qcm_cas'] &&
+          d.note is number && d.note >= 0 && d.note <= 20 &&
+          // « soumis » accepté aussi : une page ouverte avant ce correctif
+          // envoie encore ce statut ; la note fait foi (estNotee, lib/cotes.ts).
+          d.get('statut', '') in ['note', 'soumis']
+        )
+      );
+    }
+
     match /soumissions/{soumissionId} {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
-      allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
+      allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid
+        && copieValide(request.resource.data);
       // Modification :
       // - l'étudiant : jamais les champs de correction (sinon il pouvait
       //   s'attribuer sa propre note) ;

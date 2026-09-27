@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore'
 import { db } from './firebase'
 import { useUser } from './userContext'
+import { promotionCorrespond } from './promotion'
 import { onPresencesByEtudiantSnapshot } from './db-firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import type {
@@ -378,11 +379,7 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
       if (coursIds && coursIds.length > 0) data = data.filter(e => coursIds.includes(e.coursId || ''))
       if (faculteId) data = data.filter(e => !e.faculteId || e.faculteId === faculteId)
       if (promotion && coursList && coursList.length > 0) {
-        data = data.filter(e => {
-          const cours = coursList.find(c => c.id === e.coursId)
-          if (!cours || !cours.promotion) return true
-          return cours.promotion === promotion
-        })
+        data = data.filter(e => promotionCorrespond(coursList.find(c => c.id === e.coursId)?.promotion, promotion))
       }
       return data
     }
@@ -444,11 +441,7 @@ export function useExercicesLibres(createdBy?: string, coursIds?: string[], facu
       if (coursIds && coursIds.length > 0) data = data.filter(e => coursIds.includes(e.coursId || ''))
       if (faculteId) data = data.filter(e => !e.faculteId || e.faculteId === faculteId)
       if (promotion && coursList && coursList.length > 0) {
-        data = data.filter(e => {
-          const cours = coursList.find(c => c.id === e.coursId)
-          if (!cours || !cours.promotion) return true
-          return cours.promotion === promotion
-        })
+        data = data.filter(e => promotionCorrespond(coursList.find(c => c.id === e.coursId)?.promotion, promotion))
       }
       return data
     }
@@ -547,7 +540,11 @@ export function useNotesCours(coursIds?: string[], promotionId?: string) {
     const applyFilters = (raw: NoteCours[]) => {
       let data = raw
       if (coursIds && coursIds.length > 0) data = data.filter(n => coursIds.includes(n.coursId || ''))
-      if (promotionId) data = data.filter(n => n.promotionId === promotionId)
+      // Note sans promotion : destinée à tout le cours. Elles étaient
+      // invisibles pour tout étudiant ayant une promotion (« » ≠ « L1 »),
+      // alors que c'est le cas de presque toutes : la promotion d'une note
+      // reprend celle du cours, rarement renseignée.
+      if (promotionId) data = data.filter(n => promotionCorrespond(n.promotionId, promotionId))
       return data
     }
 

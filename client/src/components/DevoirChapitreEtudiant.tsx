@@ -5,7 +5,8 @@
  *   - qcm_chapitre : N QCM (sélection libre) × 1pt → note ramenée /20
  *   - qcm_cas      : N QCM (10 pts) + cas pratiques évalués par Gemini (10 pts) = /20
  *
- * Barème : toujours /20. Note stockée = note finale sur 20.
+ * Barème : toujours /20. Note stockée = note finale sur 20 (voir
+ * baremeDevoir, lib/cotes.ts, qui lit chaque note avec son barème).
  */
 import { useState } from 'react'
 import {
@@ -15,6 +16,8 @@ import {
 import { cn } from '@/lib/utils'
 import { Devoir, Soumission, QCMChapitre, CasPratique } from '@/lib/db'
 import { createSoumissionAsync } from '@/lib/db-firebase'
+import { estNotee, estACorriger } from '@/lib/cotes'
+import { promotionCorrespond } from '@/lib/promotion'
 
 // ─── Constantes ───────────────────────────────────────────────────────────────
 
@@ -29,27 +32,6 @@ export function scoreEnNoteSur20(score: number, total: number = 10): number {
   return parseFloat(((score / total) * 20).toFixed(2))
 }
 
-/**
- * Calcule la cote /5 depuis les soumissions notées.
- * Toutes les notes sont désormais stockées sur 20.
- */
-export function calcCoteDevoirs(
-  soumissions: Soumission[],
-): number | null {
-  const notees = soumissions.filter(
-    s => s.statut === 'note' && typeof s.note === 'number'
-  )
-  if (notees.length === 0) return null
-
-  let cumul = 0
-  const nbDevoirs = notees.length
-  for (const s of notees) {
-    cumul += (s.note ?? 0)
-  }
-  // Moyenne des notes /20, ramenée en cote /5
-  const moyenne = cumul / nbDevoirs // sur 20
-  return parseFloat((moyenne / 4).toFixed(2)) // /5
-}
 
 // ─── Appel Gemini ─────────────────────────────────────────────────────────────
 
@@ -751,18 +733,21 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
   const [ouvert, setOuvert] = useState(false)
   const expire = new Date() > new Date(devoir.dateLimit)
 
-  // Calcul note /20 selon le type
-  const getNoteSur20 = () => {
-    if (!soumission || typeof soumission.note !== 'number') return null
-    if (devoir.type === 'qcm_cas') return soumission.note // déjà sur 20
-    return scoreEnNoteSur20(soumission.note)              // qcm_chapitre : ×2
-  }
-  const noteSur20 = getNoteSur20()
+  // La note enregistrée est déjà sur 20 pour les deux types de devoir de
+  // chapitre. Elle était encore doublée ici pour un QCM (16/20 affiché 32/20).
+  const noteSur20 = soumission && estNotee(soumission) ? soumission.note as number : null
 
-  const estEnAttenteCorrectionManuelle =
-    soumission?.statut === 'soumis' && devoir.type === 'qcm_cas'
+  // Copie rendue sans note : évaluation automatique des cas pratiques
+  // indisponible, l'enseignant corrige. Le statut « soumis » ne suffit pas à
+  // le dire : les copies notées automatiquement l'ont aussi porté.
+  const estEnAttenteCorrectionManuelle = !!soumission && estACorriger(soumission)
 
   const getBadgeNote = () => {
+    if (!soumission && expire) {
+      return (
+        <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-700">0/20</span>
+      )
+    }
     if (estEnAttenteCorrectionManuelle) {
       return (
         <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
@@ -872,7 +857,7 @@ interface ResultatSoumisProps {
 
 function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) {
   // Devoir en attente de correction manuelle
-  if (soumission.statut === 'soumis') {
+  if (estACorriger(soumission)) {
     return (
       <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-center space-y-2">
         <FileText className="h-8 w-8 mx-auto text-amber-600" />
@@ -969,9 +954,11 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
         <p className="text-3xl font-bold text-foreground">
           {noteSur20}<span className="text-sm font-normal text-muted-foreground">/20</span>
         </p>
-        <p className="text-xs text-muted-foreground">
-          {soumission.note}/10 bonnes réponses
-        </p>
+        {typeof soumission.scoreQCMChapitre === 'number' && (
+          <p className="text-xs text-muted-foreground">
+            {soumission.scoreQCMChapitre}/{devoir.questionsChapitre?.length ?? '?'} bonnes réponses
+          </p>
+        )}
         <p className="text-xs text-muted-foreground">
           Soumis le {new Date(soumission.dateSoumission).toLocaleDateString('fr-FR')}
         </p>
@@ -1007,28 +994,19 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
 
   const toutesLesSoumissions = [...soumissions, ...soumissionsLocales]
 
-  // Filtrer les devoirs des chapitres UE (qcm_chapitre + qcm_cas) ciblant cette promotion
+  // Devoirs des chapitres UE (qcm_chapitre + qcm_cas) ciblant cette
+  // promotion, comparée par son code (« L1 Comptabilité » vaut L1).
   const devoirsFiltres = devoirs.filter(d =>
     (d.type === 'qcm_chapitre' || d.type === 'qcm_cas') &&
-    (!promotionId || !d.promotionId || d.promotionId === promotionId)
+    promotionCorrespond(d.promotionId, promotionId)
   )
 
-  const enAttente = devoirsFiltres.filter(d => {
-    const soum = toutesLesSoumissions.find(s => s.devoirId === d.id)
-    return !soum && new Date() <= new Date(d.dateLimit)
-  })
-
-  const termines = devoirsFiltres.filter(d =>
-    toutesLesSoumissions.some(s => s.devoirId === d.id)
-  )
-
-  // Cote globale (tous types de devoirs chapitre)
-  const soumNotees = toutesLesSoumissions.filter(s =>
-    devoirsFiltres.some(d => d.id === s.devoirId) &&
-    typeof s.note === 'number' &&
-    s.statut === 'note'
-  )
-  const cote = calcCoteDevoirs(soumNotees)
+  const maintenant = new Date()
+  const soumissionDe = (d: Devoir) => toutesLesSoumissions.find(s => s.devoirId === d.id && s.etudiantId === etudiantId)
+  const enAttente = devoirsFiltres.filter(d => !soumissionDe(d) && maintenant <= new Date(d.dateLimit))
+  // Délai échu sans copie : compté zéro dans la cote, donc montré.
+  const nonRendus = devoirsFiltres.filter(d => !soumissionDe(d) && maintenant > new Date(d.dateLimit))
+  const termines = devoirsFiltres.filter(d => !!soumissionDe(d))
 
   const handleSoumis = (s: Soumission) => {
     setSoumissionsLocales(prev => [...prev, s])
@@ -1045,21 +1023,12 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
 
   return (
     <div className="space-y-4">
-      {/* Résumé cote */}
-      {cote !== null && (
-        <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 flex items-center justify-between">
-          <div>
-            <p className="text-xs text-muted-foreground">Cote devoirs chapitres</p>
-            <p className="text-xl font-bold text-foreground">
-              {cote}<span className="text-sm font-normal text-muted-foreground">/5</span>
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-muted-foreground">{termines.length} devoir(s) soumis</p>
-            <p className="text-xs text-muted-foreground">{enAttente.length} en attente</p>
-          </div>
-        </div>
-      )}
+      {/* La cote n'est plus recalculée ici : elle figure dans « Mes cotes »,
+          calculée une seule fois pour tous les devoirs (lib/cotes.ts). */}
+      <p className="text-xs text-muted-foreground px-1">
+        {termines.length} rendu{termines.length > 1 ? 's' : ''} · {enAttente.length} à faire
+        {nonRendus.length > 0 && <span className="text-red-500"> · {nonRendus.length} non rendu{nonRendus.length > 1 ? 's' : ''} (comptés zéro)</span>}
+      </p>
 
       {/* Devoirs en attente */}
       {enAttente.length > 0 && (
@@ -1071,7 +1040,25 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
             <DevoirCarte
               key={d.id}
               devoir={d}
-              soumission={toutesLesSoumissions.find(s => s.devoirId === d.id) || null}
+              soumission={soumissionDe(d) || null}
+              etudiantId={etudiantId}
+              onSoumis={handleSoumis}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Non rendus */}
+      {nonRendus.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold text-red-500 uppercase tracking-wide px-1">
+            Non rendus ({nonRendus.length})
+          </p>
+          {nonRendus.map(d => (
+            <DevoirCarte
+              key={d.id}
+              devoir={d}
+              soumission={null}
               etudiantId={etudiantId}
               onSoumis={handleSoumis}
             />
@@ -1089,7 +1076,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
             <DevoirCarte
               key={d.id}
               devoir={d}
-              soumission={toutesLesSoumissions.find(s => s.devoirId === d.id) || null}
+              soumission={soumissionDe(d) || null}
               etudiantId={etudiantId}
               onSoumis={handleSoumis}
             />

@@ -21,7 +21,9 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { QCMChapitre, CasPratique, PROMOTIONS } from '@/lib/db'
-import { createDevoirAsync, createExerciceLibreAsync } from '@/lib/db-firebase'
+import { createDevoirAsync, createExerciceLibreAsync, coursDeFaculte } from '@/lib/db-firebase'
+import { useAllCours } from '@/lib/useFirestore'
+import { codePromotion } from '@/lib/promotion'
 import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
 import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
@@ -144,11 +146,26 @@ export default function DevoirChapitreCreateur({
     if (!facultes.find(f => f.id === facId)) setFacId('')
   }, [facultes])
 
+  // Cours réel de la faculté choisie pour l'UE de ce chapitre. Le devoir
+  // recevait jusqu'ici l'identifiant du module (« ue1-droit-travail »), qui ne
+  // désigne aucun cours : aucun étudiant, inscrit au cours de sa faculté, ne
+  // pouvait le lire.
+  const { cours: coursDocs } = useAllCours()
+  const coursCible = facId ? coursDeFaculte(coursDocs, facId, coursId) : undefined
+  // Un cours réservé à une promotion impose cette promotion au devoir.
+  useEffect(() => {
+    const promo = codePromotion(coursCible?.promotion)
+    if (promo) setPromoId(promo)
+  }, [coursCible?.id])
+
   // Formulaire
   const [titre, setTitre] = useState(`Devoir : ${chapitreNom}`)
+  // Par défaut : dans sept jours à 23 h 59, heure locale (le champ
+  // datetime-local attend l'heure locale ; toISOString donnait l'heure UTC).
   const [dateLimit, setDateLimit] = useState(() => {
-    const d = new Date(); d.setDate(d.getDate() + 7)
-    return d.toISOString().slice(0, 16)
+    const d = new Date(); d.setDate(d.getDate() + 7); d.setHours(23, 59, 0, 0)
+    const p2 = (n: number) => String(n).padStart(2, '0')
+    return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}T${p2(d.getHours())}:${p2(d.getMinutes())}`
   })
 
   // Sélection QCM - libre, pas de limite max
@@ -205,7 +222,7 @@ export default function DevoirChapitreCreateur({
   // Validation
   const peutCreer = (() => {
     if (!titre.trim() || !user) return false
-    if (!uniId || !facId) return false
+    if (!uniId || !facId || !coursCible) return false
     if (destinataire === 'devoir') {
       if (!dateLimit || !promoId) return false
       if (nbQCMSelectionnes === 0) return false
@@ -247,7 +264,7 @@ export default function DevoirChapitreCreateur({
         const payload: any = {
           titre: titre.trim(),
           consignes: consignesParts.join('\n\n'),
-          coursId,
+          coursId: coursCible!.id,
           universiteId: uniId,
           faculteId: facId,
           createdBy: user!.id,
@@ -276,7 +293,7 @@ export default function DevoirChapitreCreateur({
         const payload: any = {
           titre: titre.trim(),
           consignes: consignesQCM,
-          coursId,
+          coursId: coursCible!.id,
           universiteId: uniId,
           faculteId: facId,
           promotionId: promoId,
@@ -308,6 +325,7 @@ export default function DevoirChapitreCreateur({
   const buildErreurMessage = (): string => {
     if (!uniId) return 'Sélectionnez une université.'
     if (!facId) return 'Sélectionnez une faculté.'
+    if (!coursCible) return "Cette UE n'est pas encore ouverte dans la faculté choisie : l'administrateur l'ouvre en visitant l'Espace pédagogique."
     if (destinataire === 'devoir' && !promoId) return 'Sélectionnez une promotion.'
     if (destinataire === 'devoir' && nbQCMSelectionnes === 0) return 'Sélectionnez au moins 1 question QCM.'
     if (destinataire === 'devoir' && typeDevoir === 'qcm_cas' && nbCasSelectionnes === 0) return 'Sélectionnez au moins 1 cas pratique.'
@@ -447,6 +465,9 @@ export default function DevoirChapitreCreateur({
               {uniId && facultes.length === 0 && (
                 <p className="text-xs text-muted-foreground mt-1">Aucune faculté dans cette université.</p>
               )}
+              {facId && !coursCible && (
+                <p className="text-xs text-amber-600 mt-1">Cette UE n'est pas encore ouverte dans cette faculté.</p>
+              )}
             </div>
 
             {/* Promotion (devoir noté uniquement - un exercice libre n'est
@@ -457,7 +478,7 @@ export default function DevoirChapitreCreateur({
                 <select
                   value={promoId}
                   onChange={e => setPromoId(e.target.value)}
-                  disabled={!facId}
+                  disabled={!facId || !!codePromotion(coursCible?.promotion)}
                   className="w-full text-xs rounded-lg border border-border bg-card px-3 py-2 focus:outline-none focus:border-indigo-500 disabled:opacity-50"
                 >
                   {PROMOTIONS.map(p => (

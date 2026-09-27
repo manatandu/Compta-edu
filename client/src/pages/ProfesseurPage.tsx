@@ -7,9 +7,14 @@ import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
 import GestionEtudiantsPage from '@/pages/GestionEtudiantsPage'
 import {
-  isDevoirExpire,
-  User, UserRole, Universite, Faculte, Cours, Devoir, Soumission, NoteCours
+  isDevoirExpire, PROMOTIONS,
+  User, UserRole, Universite, Faculte, Cours, Devoir, Soumission, NoteCours, Presence
 } from '@/lib/db'
+import {
+  calculerCote, devoirConcerneEtudiant, estNotee, estACorriger, baremeDevoir, formaterNote, formaterNombre,
+  type Cote,
+} from '@/lib/cotes'
+import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
   createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
   uploadNoteCoursFile,
@@ -20,7 +25,8 @@ import {
   corrigerSoumissionAsync, getEcrituresAsync,
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
-  onCoursStatutsParCreateur, COURS_SYSTEME, getCoursUniquesTries
+  onCoursStatutsParCreateur, COURS_SYSTEME, getCoursTries,
+  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
 } from '@/lib/db-firebase'
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
@@ -63,12 +69,6 @@ const resolveCoursIds = (user: any): string[] => {
   return []
 }
 
-/**
- * Retourne une liste dédupliquée de cours actifs, triée par ordre croissant
- * d'UE (UE1, UE2, UE3...). Alias local historique de getCoursUniquesTries
- * (db-firebase.ts), conservé pour ne pas réécrire tous les appels ci-dessous.
- */
-const getCoursUniques = getCoursUniquesTries
 
 // ─── Types ───────────────────────────────────────────────
 const ROLE_LABELS: Record<UserRole, string> = {
@@ -118,8 +118,12 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
   const { soumissions: soums } = useSoumissions(dev.id)
   const cours = coursList.find(c => c.id === dev.coursId)
   const uni = universites.find(u => u.id === dev.universiteId)
-  const inscrits = etudiants.filter(e => resolveCoursIds(e).includes(dev.coursId))
+  // Destinataires : même règle que la liste de devoirs de l'étudiant (cours,
+  // faculté, promotion), sans tenir compte de la visibilité du devoir pour que
+  // l'enseignant garde le suivi d'un devoir masqué.
+  const inscrits = etudiants.filter(e => devoirConcerneEtudiant({ ...dev, actif: true }, e, coursList))
   const expire = isDevoirExpire(dev)
+  const bareme = baremeDevoir(dev)
   return (
     <Card className="border-border">
       <CardContent className="pt-4 pb-4">
@@ -180,21 +184,25 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                   return (
                     <tr key={etu.id} className="border-t border-border/50 hover:bg-muted/20">
                       <td className="px-3 py-2">
-                        <p className="font-medium text-sm">{etu.prenom} {etu.nom}</p>
+                        <p className="font-medium text-sm">{[etu.nom, etu.prenom].filter(Boolean).join(' ')}</p>
                         <p className="text-xs text-muted-foreground font-mono">@{etu.username}</p>
                       </td>
                       <td className="px-3 py-2 text-center">
                         {!soum ? (
-                          <Badge variant="outline" className="text-xs border-gray-400 text-gray-500">À faire</Badge>
-                        ) : soum.statut === 'soumis' ? (
-                          <Badge variant="outline" className="text-xs border-blue-400 text-blue-600">Soumis</Badge>
+                          expire
+                            ? <Badge variant="outline" className="text-xs border-red-400 text-red-500">Non rendu</Badge>
+                            : <Badge variant="outline" className="text-xs border-gray-400 text-gray-500">À faire</Badge>
+                        ) : estACorriger(soum) ? (
+                          <Badge variant="outline" className="text-xs border-blue-400 text-blue-600">À corriger</Badge>
                         ) : (
                           <Badge variant="outline" className="text-xs border-green-400 text-green-600">Noté</Badge>
                         )}
                       </td>
                       <td className="px-3 py-2 text-center">
-                        {soum?.statut === 'note' ? (
-                          <span className={cn('font-bold text-sm', soum.note! >= 5 ? 'text-green-600' : 'text-red-500')}>{soum.note}/10</span>
+                        {soum && estNotee(soum) ? (
+                          <span className={cn('font-bold text-sm', soum.note! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(soum.note!, bareme)}</span>
+                        ) : !soum && expire ? (
+                          <span className="font-bold text-sm text-red-500">{formaterNote(0, bareme)}</span>
                         ) : (
                           <span className="text-muted-foreground text-xs">-</span>
                         )}
@@ -204,8 +212,8 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                           {soum && (
                             <Button variant="outline" size="sm" className="h-6 text-xs px-2" onClick={() => setViewSoumission(soum)}>Voir</Button>
                           )}
-                          {soum?.statut === 'soumis' && (
-                            <Button size="sm" className="h-6 text-xs px-2" onClick={() => { setCorrectionSoumId(soum.id); setCorrectionNote(String(soum.note || '')); setCorrectionComment(soum.commentaire || '') }}>Corriger</Button>
+                          {soum && estACorriger(soum) && (
+                            <Button size="sm" className="h-6 text-xs px-2" onClick={() => { setCorrectionSoumId(soum.id); setCorrectionNote(''); setCorrectionComment(soum.commentaire || '') }}>Corriger</Button>
                           )}
                         </div>
                       </td>
@@ -481,6 +489,27 @@ export default function ProfesseurPage() {
     return () => unsub()
   }, [isAdmin])
 
+  // Réparations des rattachements aux cours, une fois par visite (voir
+  // db-firebase.ts) : devoirs et exercices créés depuis un chapitre avec
+  // l'identifiant du module au lieu du cours de la faculté, et codes d'accès
+  // pointant vers le cours d'une autre faculté (équipe) ; inscriptions des
+  // étudiants dans le cours d'une autre faculté (administrateur).
+  const rattachementsRepares = useRef(false)
+  useEffect(() => {
+    if (rattachementsRepares.current || !isStaff || !equipe?.ids.length || coursList.length === 0) return
+    rattachementsRepares.current = true
+    reparerContenusDeChapitreAsync(equipe.ids, coursList)
+      .then(() => reparerCodesAccesFaculteAsync(equipe.ids, coursList))
+      .catch(err => console.warn('Réparation des rattachements de cours :', err))
+  }, [isStaff, cleEquipe, coursList.length])
+  const inscriptionsReparees = useRef(false)
+  useEffect(() => {
+    if (inscriptionsReparees.current || !isAdmin || users.length === 0 || coursList.length === 0) return
+    inscriptionsReparees.current = true
+    reparerInscriptionsFaculteAsync(users, coursList)
+      .catch(err => console.warn('Réparation des inscriptions :', err))
+  }, [isAdmin, users.length, coursList.length])
+
   const refresh = () => {
     // Tout se met à jour via les hooks Firestore temps réel - pas besoin de refresh manuel
   }
@@ -542,17 +571,26 @@ export default function ProfesseurPage() {
       toast({ title: 'Devoir supprimé', variant: 'destructive' })
     }).catch(() => toast({ title: 'Erreur lors de la suppression', variant: 'destructive' }))
   }
+  // Copie en cours de correction et barème de son devoir : sur 20 pour un
+  // devoir créé depuis un chapitre, sur 10 pour un devoir classique (voir
+  // lib/cotes.ts). Pour un devoir « QCM + cas pratiques » dont l'évaluation
+  // automatique des cas a échoué, la partie QCM est déjà calculée (sur 10) :
+  // l'enseignant ne note que les cas pratiques, sur 10.
+  const correctionContexte = () => {
+    const soum = allSoumissions.find(s => s.id === correctionSoumId) as Soumission | undefined
+    const dev = soum ? devoirsList.find(d => d.id === soum.devoirId) : undefined
+    const bareme = baremeDevoir(dev)
+    const partieQCM = dev?.type === 'qcm_cas' && typeof soum?.scoreQCMCas === 'number' ? soum.scoreQCMCas : null
+    return { soum, dev, bareme, partieQCM, saisieMax: partieQCM !== null ? bareme - 10 : bareme }
+  }
   const handleCorrigerSoumission = () => {
     if (!correctionSoumId) return
-    const note = parseFloat(correctionNote)
-    // Barème sur 10, et non sur 20 : c'est l'échelle utilisée partout ailleurs
-    // - correction automatique des QCM ((score / nbQuestions) × 10), affichage
-    // de la note à l'étudiant, bulletin PDF, et surtout le calcul de la cote
-    // devoirs (5 × cumul / (nbDevoirs × 10)). Le dialogue acceptait jusqu'à 20,
-    // ce qui affichait « 15/10 » à l'étudiant et gonflait sa cote.
-    if (isNaN(note) || note < 0 || note > 10) {
-      toast({ title: 'Note invalide (0-10)', variant: 'destructive' }); return
+    const { partieQCM, saisieMax } = correctionContexte()
+    const saisie = parseFloat(correctionNote.replace(',', '.'))
+    if (isNaN(saisie) || saisie < 0 || saisie > saisieMax) {
+      toast({ title: `Note invalide (0 à ${saisieMax})`, variant: 'destructive' }); return
     }
+    const note = partieQCM !== null ? Math.round((partieQCM + saisie) * 100) / 100 : saisie
     corrigerSoumissionAsync(correctionSoumId, note, correctionComment.trim()).then(() => {
       setCorrectionSoumId(null); setCorrectionNote(''); setCorrectionComment('')
       toast({ title: 'Correction enregistrée' })
@@ -573,7 +611,9 @@ export default function ProfesseurPage() {
       role: u.role, actif: u.actif,
       universiteId: (u as any).universiteId || '',
       faculteId: (u as any).faculteId || '',
-      classe: (u as any).classe || '',
+      // Ancienne saisie libre (« L1 Comptabilité ») ramenée à son code à
+      // l'ouverture : l'enregistrement suivant la corrige.
+      classe: codePromotion((u as any).classe) || (u as any).classe || '',
       telephone: (u as any).telephone || '',
       coursIds: (u as any).coursIds || [],
       titulaireId: (u as any).titulaireId || '',
@@ -857,77 +897,132 @@ export default function ProfesseurPage() {
   })
 
   // ── Présences ──
-  const { presences } = usePresences(equipe?.ids, (currentUser as any)?.faculteId)
+  // Toutes les séances de l'équipe. La requête était aussi filtrée sur la
+  // faculté du profil de l'enseignant : une séance rattachée au cours d'une
+  // autre faculté disparaissait de l'écran dès son enregistrement.
+  const { presences } = usePresences(equipe?.ids)
   const [showPresenceForm, setShowPresenceForm] = useState(false)
   const [presenceTitre, setPresenceTitre] = useState('')
   const [presenceDate, setPresenceDate] = useState(() => new Date().toISOString().slice(0, 10))
-  const [presenceCoursId, setPresenceCoursId] = useState('') // cours lié à la séance
+  const [presenceCoursId, setPresenceCoursId] = useState('') // cours de la séance
   const [presenceCoches, setPresenceCoches] = useState<Record<string, boolean>>({}) // etudiantId -> present
   const [editPresenceId, setEditPresenceId] = useState<string | null>(null)
   const [deletePresenceId, setDeletePresenceId] = useState<string | null>(null)
+
+  // Cours de l'équipe : ceux auxquels ses étudiants sont inscrits. Chaque
+  // faculté a son propre document pour une même UE : c'est ce document exact
+  // qui sert (getCoursTries), avec la faculté dans le libellé. La liste
+  // dédupliquée par UE utilisée jusqu'ici retenait le cours d'une faculté au
+  // hasard, et la séance se rattachait parfois à la mauvaise.
+  const idsCoursEtudiants = new Set(etudiants.flatMap(e => resolveCoursIds(e)))
+  const coursEquipe: Cours[] = getCoursTries(coursList.filter(c => idsCoursEtudiants.has(c.id)))
+  const libelleCours = (c: Cours) =>
+    [c.nom, facultesList.find(f => f.id === c.faculteId)?.nom, c.promotion].filter(Boolean).join(' · ')
+  const coursDuFiltre = (uniId: string, facId: string) =>
+    coursEquipe.filter(c => (!uniId || c.universiteId === uniId) && (!facId || c.faculteId === facId))
+
+  // Feuille de présence : les étudiants inscrits au cours de la séance, et eux
+  // seuls. Elle listait jusqu'ici tous les étudiants de l'enseignant, quel que
+  // soit leur cours : chacun recevait une présence pour des séances d'un cours
+  // qu'il ne suit pas, et sa cote en était faussée.
+  // En modification, la feuille reste celle d'origine (sans les étudiants qui
+  // ne sont plus inscrits au cours, dont la ligne est conservée telle quelle).
+  const seanceEditee: Presence | null = editPresenceId ? presences.find(p => p.id === editPresenceId) || null : null
+  const feuilleOrigine = !!seanceEditee && (seanceEditee.coursId || '') === presenceCoursId
+  const etudiantsFeuille: User[] = feuilleOrigine
+    ? (seanceEditee!.etudiants || [])
+        .map(x => users.find(u => u.id === x.etudiantId))
+        .filter((u): u is User => !!u && (!presenceCoursId || resolveCoursIds(u).includes(presenceCoursId)))
+    : presenceCoursId ? etudiants.filter(e => resolveCoursIds(e).includes(presenceCoursId)) : []
+  // Présent par défaut à la création : l'enseignant signale les absents.
+  const estCochePresent = (id: string) => presenceCoches[id] ?? true
 
   const openCreatePresence = () => {
     setEditPresenceId(null)
     setPresenceTitre('')
     setPresenceDate(new Date().toISOString().slice(0, 10))
-    setPresenceCoursId('')
-    // Par défaut tous présents
-    const coches: Record<string, boolean> = {}
-    etudiants.forEach(e => { coches[e.id] = true })
-    setPresenceCoches(coches)
+    setPresenceCoursId(coursEquipe.length === 1 ? coursEquipe[0].id : '')
+    setPresenceCoches({})
     setShowPresenceForm(true)
   }
 
-  const openEditPresence = (p: any) => {
+  const openEditPresence = (p: Presence) => {
     setEditPresenceId(p.id)
     setPresenceTitre(p.titre)
     setPresenceDate(p.date.slice(0, 10))
     setPresenceCoursId(p.coursId || '')
     const coches: Record<string, boolean> = {}
-    etudiants.forEach(e => {
-      const found = p.etudiants?.find((x: any) => x.etudiantId === e.id)
-      coches[e.id] = found ? found.present : false
-    })
+    ;(p.etudiants || []).forEach(x => { coches[x.etudiantId] = !!x.present })
     setPresenceCoches(coches)
     setShowPresenceForm(true)
   }
 
+  // Changer de cours change la feuille : les coches repartent de zéro, sauf
+  // retour au cours d'origine d'une séance modifiée.
+  const changerCoursSeance = (coursId: string) => {
+    setPresenceCoursId(coursId)
+    if (seanceEditee && (seanceEditee.coursId || '') === coursId) {
+      const coches: Record<string, boolean> = {}
+      ;(seanceEditee.etudiants || []).forEach(x => { coches[x.etudiantId] = !!x.present })
+      setPresenceCoches(coches)
+    } else {
+      setPresenceCoches({})
+    }
+  }
+
   const handleSavePresence = async () => {
     if (!presenceTitre.trim()) { toast({ title: 'Donnez un titre à la séance', variant: 'destructive' }); return }
-    const etudiantsData = etudiants.map(e => ({ etudiantId: e.id, present: !!presenceCoches[e.id] }))
-    // Résoudre faculteId/universiteId depuis le cours sélectionné ou depuis le profil du prof
-    const coursLie = presenceCoursId ? coursList.find(c => c.id === presenceCoursId) : null
-    const presenceFaculteId = coursLie ? (coursLie as any).faculteId || (currentUser as any)?.faculteId || undefined
-                                       : (currentUser as any)?.faculteId || undefined
-    const presenceUniversiteId = coursLie ? (coursLie as any).universiteId || (currentUser as any)?.universiteId || undefined
-                                          : (currentUser as any)?.universiteId || undefined
-    if (editPresenceId) {
-      await updatePresenceAsync(editPresenceId, {
-        titre: presenceTitre, date: presenceDate, etudiants: etudiantsData,
-        coursId: presenceCoursId || undefined,
-        faculteId: presenceFaculteId,
-        universiteId: presenceUniversiteId,
-      })
-      toast({ title: 'Séance modifiée' })
-    } else {
-      await createPresenceAsync({
-        titre: presenceTitre, date: presenceDate,
-        createdBy: currentUser?.id || '',
-        etudiants: etudiantsData,
-        coursId: presenceCoursId || undefined,
-        faculteId: presenceFaculteId,
-        universiteId: presenceUniversiteId,
-      })
-      toast({ title: 'Séance enregistrée' })
+    // Une séance appartient à un cours ; seule une séance antérieure à cette
+    // règle peut rester sans cours.
+    if (!presenceCoursId && !(seanceEditee && !seanceEditee.coursId)) {
+      toast({ title: 'Choisissez le cours de la séance', variant: 'destructive' }); return
     }
-    setShowPresenceForm(false)
+    if (etudiantsFeuille.length === 0) {
+      toast({ title: 'Aucun étudiant sur la feuille', description: 'Inscrivez d\'abord des étudiants à ce cours.', variant: 'destructive' }); return
+    }
+    const marques = etudiantsFeuille.map(e => ({ etudiantId: e.id, present: estCochePresent(e.id) }))
+    const conservees = feuilleOrigine
+      ? (seanceEditee!.etudiants || []).filter(x => !marques.some(m => m.etudiantId === x.etudiantId))
+      : []
+    const etudiantsData = [...marques, ...conservees]
+    const coursLie = presenceCoursId ? coursList.find(c => c.id === presenceCoursId) : null
+    const presenceFaculteId = coursLie?.faculteId || (currentUser as any)?.faculteId || undefined
+    const presenceUniversiteId = coursLie?.universiteId || (currentUser as any)?.universiteId || undefined
+    try {
+      if (editPresenceId) {
+        await updatePresenceAsync(editPresenceId, {
+          titre: presenceTitre.trim(), date: presenceDate, etudiants: etudiantsData,
+          coursId: presenceCoursId || undefined,
+          faculteId: presenceFaculteId,
+          universiteId: presenceUniversiteId,
+        })
+        toast({ title: 'Séance modifiée' })
+      } else {
+        await createPresenceAsync({
+          titre: presenceTitre.trim(), date: presenceDate,
+          createdBy: currentUser?.id || '',
+          etudiants: etudiantsData,
+          coursId: presenceCoursId,
+          faculteId: presenceFaculteId,
+          universiteId: presenceUniversiteId,
+        })
+        toast({ title: 'Séance enregistrée' })
+      }
+      setShowPresenceForm(false)
+    } catch {
+      toast({ title: 'Erreur lors de l\'enregistrement de la séance', variant: 'destructive' })
+    }
   }
 
   const handleDeletePresence = async () => {
     if (!deletePresenceId) return
-    await deletePresenceAsync(deletePresenceId)
+    try {
+      await deletePresenceAsync(deletePresenceId)
+      toast({ title: 'Séance supprimée', variant: 'destructive' })
+    } catch {
+      toast({ title: 'Erreur lors de la suppression', variant: 'destructive' })
+    }
     setDeletePresenceId(null)
-    toast({ title: 'Séance supprimée', variant: 'destructive' })
   }
 
   // ── Toutes les soumissions (pour calcul cote devoirs) ──
@@ -942,61 +1037,47 @@ export default function ProfesseurPage() {
   // bloc désactivé. Cet onglet rend la correction accessible, sans rouvrir la
   // création, qui elle reste abandonnée.
   const copiesACorriger = allSoumissions.filter(
-    s => s.statut === 'soumis' && devoirsList.some(d => d.id === s.devoirId)
+    s => estACorriger(s) && devoirsList.some(d => d.id === s.devoirId)
   )
 
   // ── Cotes (calcul) ──
-  // Tous les étudiants qui apparaissent dans au moins une séance de présence
-  // (inclut ceux créés par d'autres admins s'ils sont dans les séances)
-  const etudiantsPresences: User[] = React.useMemo(() => {
+  // Un seul calcul, celui de lib/cotes.ts, partagé avec le tableau de bord de
+  // l'étudiant et son bulletin : les deux affichent la même cote.
+  // Lignes : les étudiants de l'équipe, et ceux qui figurent sur une de ses
+  // séances (créés par un autre compte mais présents à ses cours).
+  const etudiantsPresences: User[] = (() => {
     const idsInPresences = new Set<string>()
     presences.forEach(p => p.etudiants?.forEach(e => idsInPresences.add(e.etudiantId)))
-    // union : ceux dans les séances + ceux de cet admin
-    const tous = users.filter(u => u.role === 'etudiant')
-    const fromPresences = tous.filter(u => idsInPresences.has(u.id))
-    const fromAdmin = etudiants
-    const merged = [...fromPresences]
-    fromAdmin.forEach(e => { if (!merged.find(m => m.id === e.id)) merged.push(e) })
+    const merged = [...etudiants]
+    users.forEach(u => {
+      if (u.role === 'etudiant' && idsInPresences.has(u.id) && !merged.some(m => m.id === u.id)) merged.push(u)
+    })
     return merged
-  }, [presences, users, etudiants])
+  })()
 
-  // Toutes les séances triées par date croissante (pour le tableau croisé)
-  const seancesSorted = React.useMemo(() =>
-    [...presences].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  , [presences])
+  // Séances triées par date croissante (colonnes du tableau des présences)
+  const seancesSorted = [...presences].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
-  // Cote présences : 5 × (nb présences / total séances)
-  // Cote TP : 5 × (moyenne scores / 100)
-  const cotesData = etudiantsPresences.map(et => {
-    const totalSeances = seancesSorted.length
-    const nbPresent = seancesSorted.filter(p => p.etudiants?.find(e => e.etudiantId === et.id)?.present).length
-    const cotePresence = totalSeances > 0 ? parseFloat((5 * nbPresent / totalSeances).toFixed(2)) : null
-    const tauxPresence = totalSeances > 0 ? Math.round(nbPresent / totalSeances * 100) : null
-
-    // Cote devoirs : 5 × (cumul notes obtenues / cumul notes max)
-    // Chaque devoir est sur 10, on cumule toutes les soumissions notées
-    const soumissionsEtu = allSoumissions.filter(s => s.etudiantId === et.id && s.statut === 'note' && typeof s.note === 'number')
-    const totalDevoirsNotes = soumissionsEtu.length
-    const cumulNotes = soumissionsEtu.reduce((acc, s) => acc + (s.note ?? 0), 0)
-    const cumulMax = totalDevoirsNotes * 10
-    const coteDevoirs = totalDevoirsNotes > 0
-      ? parseFloat((5 * cumulNotes / cumulMax).toFixed(2))
-      : null
-
-    const total = (cotePresence !== null || coteDevoirs !== null)
-      ? parseFloat(((cotePresence ?? 0) + (coteDevoirs ?? 0)).toFixed(2))
-      : null
-
-    let mention = ''
-    if (total !== null) {
-      if (total >= 8) mention = 'Excellent'
-      else if (total >= 6) mention = 'Bien'
-      else if (total >= 5) mention = 'Satisfaisant'
-      else mention = 'Insuffisant'
-    }
-
-    return { etudiant: et, totalSeances, nbPresent, tauxPresence, cotePresence, coteDevoirs, totalDevoirsNotes, cumulNotes, total, mention }
+  const maintenant = new Date()
+  // Cote d'un étudiant sur les séances et devoirs de l'équipe, pour un cours
+  // précis ou tous cours confondus.
+  const coteDe = (et: User, coursId?: string, seances: Presence[] = presences): Cote => calculerCote({
+    etudiant: et, seances, devoirs: devoirsList, soumissions: allSoumissions as Soumission[],
+    coursList, maintenant, coursId: coursId || undefined,
   })
+
+  // Filtres de groupe communs aux onglets Progression, Présences et Cotes.
+  type FiltresGroupe = { uniId: string; facId: string; coursId: string; classe: string }
+  const passeFiltresGroupe = (et: User, f: FiltresGroupe) =>
+    (!f.uniId || (et as any).universiteId === f.uniId) &&
+    (!f.facId || (et as any).faculteId === f.facId) &&
+    (!f.coursId || resolveCoursIds(et).includes(f.coursId)) &&
+    (!f.classe || libellePromotion((et as any).classe) === f.classe)
+  // Promotions présentes parmi les étudiants, variantes regroupées (« L1 » et
+  // « L1 Comptabilité » forment un seul groupe).
+  const promotionsDispo = [...new Set(etudiants.map(e => libellePromotion((e as any).classe)).filter(Boolean))].sort()
+  // Nom affiché d'un étudiant : Nom puis Post-nom (champs nom et prenom).
+  const nomEtudiant = (u: User | undefined) => u ? [u.nom, u.prenom].filter(Boolean).join(' ') : 'Étudiant inconnu'
 
   // Garde de rôle (point 7 de l'audit) : /professeurs n'était protégée que par
   // l'authentification (voir le wrapper W dans App.tsx), pas par le rôle - un
@@ -1228,7 +1309,9 @@ export default function ProfesseurPage() {
             </div>
           ) : (
             <div className="space-y-2">
-              {getCoursUniques(coursFiltres).map(c => {
+              {/* Tous les cours, un par faculté : l'ancienne liste dédupliquée par
+                  UE n'en montrait qu'un, pris dans une faculté au hasard. */}
+              {getCoursTries(coursFiltres).map(c => {
                 const inscrits = etudiants.filter(e => resolveCoursIds(e).includes(c.id))
                 return (
                   <Card key={c.id} className="border-border">
@@ -1236,7 +1319,7 @@ export default function ProfesseurPage() {
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="font-semibold text-foreground">{c.nom}</span>
+                            <span className="font-semibold text-foreground">{coursFiltreFaculteId ? c.nom : libelleCours(c)}</span>
                             <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-green-100 text-green-700">
                               Actif
                             </span>
@@ -1248,7 +1331,7 @@ export default function ProfesseurPage() {
                           <p className="text-xs text-muted-foreground mt-1">
                             <span className="font-medium text-foreground">{inscrits.length}</span> étudiant{inscrits.length > 1 ? 's' : ''} inscrit{inscrits.length > 1 ? 's' : ''}
                             {inscrits.length > 0 && (
-                              <span className="ml-1">: {inscrits.map(e => `${(e as any).prenom || ''} ${e.nom}`.trim()).join(', ')}</span>
+                              <span className="ml-1">: {inscrits.map(e => nomEtudiant(e)).join(', ')}</span>
                             )}
                           </p>
                         </div>
@@ -1533,41 +1616,32 @@ export default function ProfesseurPage() {
       {/* ═══════════════════ ONGLET PROGRESSION ═══════════════════ */}
       {tab === 'progression' && (() => {
         // ── Filtres cascade ──
-        const filtUniId  = (progFiltres as any).uniId  as string
-        const filtFacId  = (progFiltres as any).facId  as string
-        const filtCoursId= (progFiltres as any).coursId as string
-        const filtClasse = (progFiltres as any).classe as string
+        const filtUniId  = progFiltres.uniId
+        const filtFacId  = progFiltres.facId
+        const filtCoursId= progFiltres.coursId
+        const filtClasse = progFiltres.classe
 
         // Facultés disponibles pour l'université sélectionnée
         const facsDispo  = filtUniId  ? facultesList.filter(f => f.universiteId === filtUniId) : facultesList
-        // Cours disponibles pour la faculté sélectionnée
-        const coursDispo = getCoursUniques(filtFacId ? coursList.filter(c => c.faculteId === filtFacId) : coursList)
-        // Classes disponibles parmi les étudiants
-        const classesDispo = [...new Set(etudiants.map(e => (e as any).classe).filter(Boolean))].sort()
+        // Cours de l'équipe dans l'université et la faculté sélectionnées
+        const coursDispo = coursDuFiltre(filtUniId, filtFacId)
+        const classesDispo = promotionsDispo
 
-        // Filtrer les étudiants selon les critères
-        const etudiantsFiltres = etudiants.filter(et => {
-          if (filtUniId   && (et as any).universiteId !== filtUniId)  return false
-          if (filtFacId   && (et as any).faculteId    !== filtFacId)  return false
-          if (filtCoursId && !resolveCoursIds(et).includes(filtCoursId)) return false
-          if (filtClasse  && (et as any).classe       !== filtClasse) return false
-          return true
-        })
-
-        // Construire perfData sur les étudiants filtrés
-        const perfData = etudiantsFiltres.map(et => {
-          const cotes = cotesData.find(c => c.etudiant.id === et.id)
+        // Étudiants du groupe filtré, et leur cote sur le cours choisi (ou
+        // tous cours confondus)
+        const perfData = etudiants.filter(et => passeFiltresGroupe(et, progFiltres)).map(et => {
+          const cote  = coteDe(et, filtCoursId)
           const prog  = progressionData.find(p => p.etudiant.id === et.id)
           const uni   = universites.find(u => u.id === (et as any).universiteId)
           return {
             etudiant: et, uni,
-            totalSeances:  cotes?.totalSeances  ?? 0,
-            nbPresent:     cotes?.nbPresent     ?? 0,
-            tauxPresence:  cotes?.tauxPresence  ?? 0,
-            cotePresence:  cotes?.cotePresence  ?? null,
-            coteTP:        cotes?.coteDevoirs   ?? null,
-            total:         cotes?.total         ?? null,
-            mention:       cotes?.mention       ?? null,
+            totalSeances:  cote.seances,
+            nbPresent:     cote.presences,
+            tauxPresence:  cote.tauxPresence ?? 0,
+            cotePresence:  cote.cotePresence,
+            coteDevoirs:   cote.coteDevoirs,
+            total:         cote.total,
+            mention:       cote.mention,
             tentatives:    prog?.tentatives     ?? 0,
             moyenneTP:     prog?.moyenne        ?? null,
           }
@@ -1628,7 +1702,7 @@ export default function ProfesseurPage() {
                     className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
                   >
                     <option value="">Tous</option>
-                    {coursDispo.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)}
+                    {coursDispo.map(c => <option key={c.id} value={c.id}>{libelleCours(c)}</option>)}
                   </select>
                 </div>
                 {/* Classe */}
@@ -1703,19 +1777,19 @@ export default function ProfesseurPage() {
                       <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Présences</th>
                       <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote prés. /5</th>
                       <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Exercices</th>
-                      <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote TP /5</th>
+                      <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote devoirs /5</th>
                       <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Total /10</th>
                       <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Statut</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {perfData.map(({ etudiant: e, uni, totalSeances, nbPresent, tauxPresence, cotePresence, coteTP, total, mention, tentatives, moyenneTP }) => {
+                    {perfData.map(({ etudiant: e, uni, totalSeances, nbPresent, tauxPresence, cotePresence, coteDevoirs, total, mention, tentatives, moyenneTP }) => {
                       const enDiff  = total !== null && total < 5
                       const inactif = tentatives === 0 && totalSeances === 0
                       return (
                         <tr key={e.id} className={cn('border-t border-border/50 hover:bg-muted/20', enDiff && 'bg-red-50/40')}>
                           <td className="px-4 py-2.5">
-                            <p className="font-medium text-foreground">{e.prenom} {e.nom}</p>
+                            <p className="font-medium text-foreground">{nomEtudiant(e)}</p>
                             <p className="text-xs text-muted-foreground">{uni ? uni.nom : <span className="italic">Sans université</span>}{(e as any).classe ? ` · ${(e as any).classe}` : ''}</p>
                           </td>
                           <td className="px-3 py-2.5 text-center">
@@ -1725,7 +1799,7 @@ export default function ProfesseurPage() {
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {cotePresence !== null
-                              ? <span className={cn('font-bold text-sm', cotePresence >= 4 ? 'text-green-600' : cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{cotePresence}</span>
+                              ? <span className={cn('font-bold text-sm', cotePresence >= 4 ? 'text-green-600' : cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{formaterNombre(cotePresence)}</span>
                               : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
@@ -1734,13 +1808,13 @@ export default function ProfesseurPage() {
                               : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
-                            {coteTP !== null
-                              ? <span className={cn('font-bold text-sm', coteTP >= 4 ? 'text-green-600' : coteTP >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{coteTP}</span>
+                            {coteDevoirs !== null
+                              ? <span className={cn('font-bold text-sm', coteDevoirs >= 4 ? 'text-green-600' : coteDevoirs >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{formaterNombre(coteDevoirs)}</span>
                               : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {total !== null
-                              ? <span className={cn('font-bold text-base', total >= 8 ? 'text-green-600' : total >= 5 ? 'text-yellow-600' : 'text-red-600')}>{total}</span>
+                              ? <span className={cn('font-bold text-base', total >= 8 ? 'text-green-600' : total >= 5 ? 'text-yellow-600' : 'text-red-600')}>{formaterNombre(total)}</span>
                               : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
@@ -1763,7 +1837,7 @@ export default function ProfesseurPage() {
                 </div>
               </Card>
             )}
-            <p className="text-xs text-muted-foreground">Triés du plus faible au plus fort · Lignes rouges : total &lt; 5/10</p>
+            <p className="text-xs text-muted-foreground">Triés du plus faible au plus fort · Lignes rouges : total &lt; 5/10 · Le total apparaît quand l'étudiant a au moins une séance et un devoir comptés.</p>
           </div>
         )
       })()}
@@ -1846,7 +1920,8 @@ export default function ProfesseurPage() {
                   <Select value={noteForm.coursId} onValueChange={v => setNoteForm(f => ({ ...f, coursId: v }))}>
                     <SelectTrigger><SelectValue placeholder="Sélectionner un cours=" /></SelectTrigger>
                     <SelectContent>
-                      {getCoursUniques(coursList).map(c => <SelectItem key={c.id} value={c.id}>{c.nom}</SelectItem>)}
+                      {(isAdmin ? getCoursTries(coursList) : [...coursEquipe, ...coursList.filter(c => c.id === noteForm.coursId && !coursEquipe.some(x => x.id === c.id))])
+                        .map(c => <SelectItem key={c.id} value={c.id}>{libelleCours(c)}</SelectItem>)}
                     </SelectContent>
                   </Select>
                 </div>
@@ -1939,24 +2014,19 @@ export default function ProfesseurPage() {
         const pFiltCoursId = presenceFiltres.coursId
         const pFiltClasse  = presenceFiltres.classe
         const pFacsDispo   = pFiltUniId  ? facultesList.filter(f => f.universiteId === pFiltUniId) : facultesList
-        const pCoursDispo  = getCoursUniques(pFiltFacId ? coursList.filter(c => c.faculteId === pFiltFacId) : coursList)
-        const pClassesDispo = [...new Set(etudiants.map(e => (e as any).classe).filter(Boolean))].sort()
+        const pCoursDispo  = coursDuFiltre(pFiltUniId, pFiltFacId)
+        const pClassesDispo = promotionsDispo
         const pAucunFiltre = !pFiltUniId && !pFiltFacId && !pFiltCoursId && !pFiltClasse
-        const etudiantsPresenceFiltres = etudiants.filter(et => {
-          if (pFiltUniId   && (et as any).universiteId !== pFiltUniId)  return false
-          if (pFiltFacId   && (et as any).faculteId    !== pFiltFacId)  return false
-          if (pFiltCoursId && !resolveCoursIds(et).includes(pFiltCoursId)) return false
-          if (pFiltClasse  && (et as any).classe       !== pFiltClasse) return false
-          return true
-        })
-        // Séances qui ont au moins un étudiant du groupe filtré
-        const seancesFiltrees = pAucunFiltre ? seancesSorted : seancesSorted.filter(s =>
-          s.etudiants?.some(e => etudiantsPresenceFiltres.find(et => et.id === e.etudiantId))
+        // Séances du cours, de la faculté ou de l'université choisis. Le filtre
+        // ne portait auparavant que sur les étudiants : les colonnes restaient
+        // celles de tous les cours.
+        const seancesFiltrees = seancesSorted.filter(s =>
+          (!pFiltCoursId || s.coursId === pFiltCoursId) &&
+          (!pFiltFacId || s.faculteId === pFiltFacId) &&
+          (!pFiltUniId || s.universiteId === pFiltUniId)
         )
-        // Étudiants visibles dans les séances filtrées
-        const etudiantsVus = pAucunFiltre ? etudiantsPresences : etudiantsPresences.filter(et =>
-          etudiantsPresenceFiltres.find(ef => ef.id === et.id)
-        )
+        const etudiantsVus = etudiantsPresences.filter(et => passeFiltresGroupe(et, presenceFiltres))
+        const coursDeSeance = (s: Presence) => s.coursId ? coursList.find(c => c.id === s.coursId) : undefined
         return (
         <div className="space-y-4">
 
@@ -1990,7 +2060,7 @@ export default function ProfesseurPage() {
                 <select
                   value={pFiltFacId}
                   onChange={e => setPresenceFiltres((f: any) => ({ ...f, facId: e.target.value, coursId: '' }))}
-                  disabled={!pFiltUniId || pFacsDispo.length === 0}
+                  disabled={pFacsDispo.length === 0}
                   className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
                 >
                   <option value="">Toutes</option>
@@ -2003,11 +2073,11 @@ export default function ProfesseurPage() {
                 <select
                   value={pFiltCoursId}
                   onChange={e => setPresenceFiltres((f: any) => ({ ...f, coursId: e.target.value }))}
-                  disabled={!pFiltFacId || pCoursDispo.length === 0}
+                  disabled={pCoursDispo.length === 0}
                   className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
                 >
                   <option value="">Tous</option>
-                  {pCoursDispo.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)}
+                  {pCoursDispo.map(c => <option key={c.id} value={c.id}>{libelleCours(c)}</option>)}
                 </select>
               </div>
               {/* Promotion */}
@@ -2024,11 +2094,6 @@ export default function ProfesseurPage() {
                 </select>
               </div>
             </div>
-            {!pAucunFiltre && (
-              <p className="text-xs text-muted-foreground">
-                {etudiantsVus.length} étudiant{etudiantsVus.length !== 1 ? 's' : ''} • {seancesFiltrees.length} séance{seancesFiltrees.length !== 1 ? 's' : ''}
-              </p>
-            )}
           </div>
 
           <div className="flex items-center justify-between flex-wrap gap-2">
@@ -2042,7 +2107,7 @@ export default function ProfesseurPage() {
             <Card className="border-border">
               <CardContent className="pt-10 pb-10 text-center text-muted-foreground">
                 <CalendarCheck className="h-10 w-10 mx-auto mb-3 opacity-30" />
-                <p>Aucune séance enregistrée.</p>
+                <p>Aucune séance enregistrée{pAucunFiltre ? '' : ' pour ce groupe'}.</p>
                 <p className="text-xs mt-1">Créez une séance pour marquer les présences.</p>
               </CardContent>
             </Card>
@@ -2056,7 +2121,7 @@ export default function ProfesseurPage() {
                       <th className="text-left px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide whitespace-nowrap sticky left-0 bg-muted/40 z-10">Étudiant</th>
                       {/* Une colonne par séance */}
                       {seancesFiltrees.map(s => (
-                        <th key={s.id} className="text-center px-2 py-2.5 font-medium text-muted-foreground text-xs whitespace-nowrap">
+                        <th key={s.id} className="text-center px-2 py-2.5 font-medium text-muted-foreground text-xs whitespace-nowrap" title={[s.titre, coursDeSeance(s) ? libelleCours(coursDeSeance(s)!) : 'Sans cours'].join(' · ')}>
                           <div>{new Date(s.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}</div>
                           <div className="flex gap-1 justify-center mt-1">
                             <Button size="icon" variant="ghost" className="h-5 w-5" onClick={() => openEditPresence(s)} aria-label={`Modifier la séance ${s.titre}`}><Pencil className="h-2.5 w-2.5" /></Button>
@@ -2071,28 +2136,31 @@ export default function ProfesseurPage() {
                   </thead>
                   <tbody>
                     {etudiantsVus.map(et => {
-                      const totalS = seancesFiltrees.length
-                      const nbP = seancesFiltrees.filter(s => s.etudiants?.find(e => e.etudiantId === et.id)?.present).length
-                      const taux = totalS > 0 ? Math.round(nbP / totalS * 100) : 0
-                      const cote = totalS > 0 ? parseFloat((5 * nbP / totalS).toFixed(2)) : null
+                      // Même calcul que l'onglet Cotes et que le tableau de bord de
+                      // l'étudiant, sur les séances affichées.
+                      const cote = coteDe(et, pFiltCoursId, seancesFiltrees)
                       return (
                         <tr key={et.id} className="border-t border-border/50 hover:bg-muted/20">
                           <td className="px-4 py-2 sticky left-0 bg-card z-10">
-                            <p className="font-medium text-sm whitespace-nowrap">{et.prenom} {et.nom}</p>
+                            <p className="font-medium text-sm whitespace-nowrap">{nomEtudiant(et)}</p>
                           </td>
                           {seancesFiltrees.map(s => {
                             const entry = s.etudiants?.find(e => e.etudiantId === et.id)
                             const present = entry?.present ?? false
-                            const inSeance = !!entry
+                            // Figure sur la feuille d'un cours qu'il ne suit pas
+                            // (anciennes feuilles) : affiché, mais non compté.
+                            const horsCours = !!entry && !!s.coursId && !resolveCoursIds(et).includes(s.coursId)
                             return (
                               <td key={s.id} className="px-2 py-2 text-center">
-                                {inSeance ? (
-                                  <span className={cn(
-                                    'inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold',
-                                    present
-                                      ? 'bg-green-500 text-white'
-                                      : 'bg-red-500 text-white'
-                                  )}>
+                                {entry ? (
+                                  <span
+                                    className={cn(
+                                      'inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold',
+                                      present ? 'bg-green-500 text-white' : 'bg-red-500 text-white',
+                                      horsCours && 'opacity-30'
+                                    )}
+                                    title={horsCours ? 'Cours non suivi : séance non comptée' : undefined}
+                                  >
                                     {present ? '•' : '×'}
                                   </span>
                                 ) : (
@@ -2101,17 +2169,19 @@ export default function ProfesseurPage() {
                               </td>
                             )
                           })}
-                          <td className="px-3 py-2 text-center text-xs font-medium">{nbP}/{totalS}</td>
+                          <td className="px-3 py-2 text-center text-xs font-medium">{cote.seances > 0 ? `${cote.presences}/${cote.seances}` : '-'}</td>
                           <td className="px-3 py-2 text-center">
-                            <span className={cn('text-xs font-semibold',
-                              taux >= 75 ? 'text-green-600' : taux >= 50 ? 'text-yellow-600' : 'text-red-600'
-                            )}>{taux}%</span>
+                            {cote.tauxPresence !== null ? (
+                              <span className={cn('text-xs font-semibold',
+                                cote.tauxPresence >= 75 ? 'text-green-600' : cote.tauxPresence >= 50 ? 'text-yellow-600' : 'text-red-600'
+                              )}>{cote.tauxPresence}%</span>
+                            ) : <span className="opacity-30">-</span>}
                           </td>
                           <td className="px-3 py-2 text-center">
-                            {cote !== null ? (
+                            {cote.cotePresence !== null ? (
                               <span className={cn('font-bold',
-                                cote >= 4 ? 'text-green-600' : cote >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                              )}>{cote}</span>
+                                cote.cotePresence >= 4 ? 'text-green-600' : cote.cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600'
+                              )}>{formaterNombre(cote.cotePresence)}</span>
                             ) : <span className="opacity-30">-</span>}
                           </td>
                         </tr>
@@ -2139,36 +2209,46 @@ export default function ProfesseurPage() {
                   <Input type="date" value={presenceDate} onChange={e => setPresenceDate(e.target.value)} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label>Cours lié (optionnel)</Label>
-                  <Select value={presenceCoursId || '__none__'} onValueChange={v => setPresenceCoursId(v === '__none__' ? '' : v)}>
-                    <SelectTrigger><SelectValue placeholder="Sélectionner un cours" /></SelectTrigger>
+                  <Label>Cours *</Label>
+                  <Select value={presenceCoursId || (seanceEditee && !seanceEditee.coursId ? '__none__' : '')} onValueChange={v => changerCoursSeance(v === '__none__' ? '' : v)}>
+                    <SelectTrigger><SelectValue placeholder="Sélectionner le cours" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="__none__">Toutes les facultés</SelectItem>
-                      {getCoursUniques(coursList).map(c => (
-                        <SelectItem key={c.id} value={c.id}>{c.nom}</SelectItem>
+                      {seanceEditee && !seanceEditee.coursId && (
+                        <SelectItem value="__none__">Sans cours (séance antérieure)</SelectItem>
+                      )}
+                      {[...coursEquipe, ...(seanceEditee?.coursId && !coursEquipe.some(c => c.id === seanceEditee.coursId)
+                        ? coursList.filter(c => c.id === seanceEditee.coursId) : [])].map(c => (
+                        <SelectItem key={c.id} value={c.id}>{libelleCours(c)}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-muted-foreground">Si un cours est sélectionné, la séance est strictement liée à la faculté de ce cours.</p>
+                  {coursEquipe.length === 0 ? (
+                    <p className="text-xs text-amber-600">Aucun de vos étudiants n'est inscrit à un cours. Inscrivez-les d'abord (onglet Étudiants) : la feuille de présence liste les inscrits du cours choisi.</p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">La feuille liste les étudiants inscrits à ce cours ; la séance ne compte que pour eux.</p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label>Présences</Label>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { const c: Record<string,boolean> = {}; etudiants.forEach(e => { c[e.id] = true }); setPresenceCoches(c) }}>Tous présents</Button>
-                      <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { const c: Record<string,boolean> = {}; etudiants.forEach(e => { c[e.id] = false }); setPresenceCoches(c) }}>Tous absents</Button>
-                    </div>
+                    <Label>Présences{etudiantsFeuille.length > 0 ? ` (${etudiantsFeuille.filter(e => estCochePresent(e.id)).length}/${etudiantsFeuille.length})` : ''}</Label>
+                    {etudiantsFeuille.length > 0 && (
+                      <div className="flex gap-2">
+                        <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { const c: Record<string,boolean> = {}; etudiantsFeuille.forEach(e => { c[e.id] = true }); setPresenceCoches(c) }}>Tous présents</Button>
+                        <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => { const c: Record<string,boolean> = {}; etudiantsFeuille.forEach(e => { c[e.id] = false }); setPresenceCoches(c) }}>Tous absents</Button>
+                      </div>
+                    )}
                   </div>
-                  {etudiants.length === 0 ? (
-                    <p className="text-xs text-muted-foreground">Aucun étudiant enregistré.</p>
+                  {etudiantsFeuille.length === 0 ? (
+                    <p className="text-xs text-muted-foreground">{presenceCoursId || seanceEditee ? 'Aucun étudiant inscrit à ce cours.' : 'Choisissez le cours pour afficher la feuille.'}</p>
                   ) : (
                     <div className="space-y-1.5 max-h-60 overflow-y-auto pr-1">
-                      {etudiants.map(e => (
+                      {etudiantsFeuille.map(e => (
                         <div key={e.id} className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/30">
-                          <span className="text-sm">{e.prenom} {e.nom}</span>
+                          <span className="text-sm">{nomEtudiant(e)}</span>
                           <Switch
-                            checked={!!presenceCoches[e.id]}
+                            checked={estCochePresent(e.id)}
                             onCheckedChange={v => setPresenceCoches(c => ({ ...c, [e.id]: v }))}
+                            aria-label={`Présence de ${nomEtudiant(e)}`}
                           />
                         </div>
                       ))}
@@ -2207,19 +2287,16 @@ export default function ProfesseurPage() {
         const cFiltCoursId = coteFiltres.coursId
         const cFiltClasse  = coteFiltres.classe
         const cFacsDispo   = cFiltUniId  ? facultesList.filter(f => f.universiteId === cFiltUniId) : facultesList
-        const cCoursDispo  = getCoursUniques(cFiltFacId ? coursList.filter(c => c.faculteId === cFiltFacId) : coursList)
-        const cClassesDispo = [...new Set(etudiants.map(e => (e as any).classe).filter(Boolean))].sort()
+        const cCoursDispo  = coursDuFiltre(cFiltUniId, cFiltFacId)
+        const cClassesDispo = promotionsDispo
         const cAucunFiltre = !cFiltUniId && !cFiltFacId && !cFiltCoursId && !cFiltClasse
-        const etudiantsCotesFiltres = etudiants.filter(et => {
-          if (cFiltUniId   && (et as any).universiteId !== cFiltUniId)  return false
-          if (cFiltFacId   && (et as any).faculteId    !== cFiltFacId)  return false
-          if (cFiltCoursId && !resolveCoursIds(et).includes(cFiltCoursId)) return false
-          if (cFiltClasse  && (et as any).classe       !== cFiltClasse) return false
-          return true
-        })
-        const cotesDataFiltres = cAucunFiltre
-          ? cotesData
-          : cotesData.filter(({ etudiant: e }) => etudiantsCotesFiltres.find(ef => ef.id === e.id))
+        // Cote recalculée sur le cours choisi : ses séances et ses devoirs
+        // seulement. Le filtre « Cours » ne faisait auparavant que masquer des
+        // lignes, sans changer les chiffres.
+        const lignesCotes = etudiantsPresences
+          .filter(et => passeFiltresGroupe(et, coteFiltres))
+          .map(et => ({ etudiant: et, cote: coteDe(et, cFiltCoursId) }))
+        const coursChoisi = cFiltCoursId ? coursList.find(c => c.id === cFiltCoursId) : undefined
         return (
         <div className="space-y-4">
 
@@ -2253,7 +2330,7 @@ export default function ProfesseurPage() {
                 <select
                   value={cFiltFacId}
                   onChange={e => setCoteFiltres((f: any) => ({ ...f, facId: e.target.value, coursId: '' }))}
-                  disabled={!cFiltUniId || cFacsDispo.length === 0}
+                  disabled={cFacsDispo.length === 0}
                   className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
                 >
                   <option value="">Toutes</option>
@@ -2266,11 +2343,11 @@ export default function ProfesseurPage() {
                 <select
                   value={cFiltCoursId}
                   onChange={e => setCoteFiltres((f: any) => ({ ...f, coursId: e.target.value }))}
-                  disabled={!cFiltFacId || cCoursDispo.length === 0}
+                  disabled={cCoursDispo.length === 0}
                   className="w-full rounded-lg border border-border bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
                 >
                   <option value="">Tous</option>
-                  {cCoursDispo.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)}
+                  {cCoursDispo.map(c => <option key={c.id} value={c.id}>{libelleCours(c)}</option>)}
                 </select>
               </div>
               {/* Promotion */}
@@ -2289,32 +2366,40 @@ export default function ProfesseurPage() {
             </div>
             {!cAucunFiltre && (
               <p className="text-xs text-muted-foreground">
-                {cotesDataFiltres.length} étudiant{cotesDataFiltres.length !== 1 ? 's' : ''} dans ce groupe
+                {lignesCotes.length} étudiant{lignesCotes.length !== 1 ? 's' : ''} dans ce groupe
               </p>
             )}
           </div>
 
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Cotes sur 10 - 5 pts présences + 5 pts devoirs</p>
-            {cotesDataFiltres.length > 0 && (
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div className="text-xs text-muted-foreground space-y-0.5 max-w-2xl">
+              <p className="text-sm">Cotes sur 10 : 5 points de présence, 5 points de devoirs{coursChoisi ? ` · ${libelleCours(coursChoisi)}` : ' · tous vos cours'}.</p>
+              <p>Présence : séances du cours où l'étudiant figure sur la feuille. Devoirs : chaque note rapportée à son barème (sur 20 pour un devoir de chapitre, sur 10 sinon) ; un devoir non rendu à la date limite compte zéro ; une copie en attente de correction ne compte pas encore. Le total apparaît quand les deux parts existent.</p>
+            </div>
+            {lignesCotes.length > 0 && (
               <Button
                 size="sm"
                 variant="outline"
                 className="gap-1.5"
                 onClick={() => {
                   const date = new Date().toLocaleDateString('fr-FR').replace(/\//g, '-')
-                  const headers = ['Nom', 'Post-nom', 'Identifiant', 'Séances totales', 'Présences', 'Cote Présences /5', 'Cumul notes', 'Cote Devoirs /5', 'Total /10', 'Mention']
-                  const rows = cotesDataFiltres.map(({ etudiant: e, totalSeances, nbPresent, cotePresence, coteDevoirs, cumulNotes, total, mention }) => [
-                    e.prenom || '',
+                  const headers = ['Nom', 'Post-nom', 'Identifiant', 'Promotion', 'Cours', 'Séances', 'Présences', 'Cote présences /5', 'Devoirs notés', 'Devoirs non rendus', 'Copies à corriger', 'Moyenne devoirs /20', 'Cote devoirs /5', 'Total /10', 'Mention']
+                  const rows = lignesCotes.map(({ etudiant: e, cote }) => [
                     e.nom || '',
+                    e.prenom || '',
                     e.username || '',
-                    String(totalSeances),
-                    String(nbPresent),
-                    cotePresence !== null ? String(cotePresence) : '',
-                    cumulNotes !== undefined ? String(cumulNotes) : '',
-                    coteDevoirs !== null ? String(coteDevoirs) : '',
-                    total !== null ? String(total) : '',
-                    mention || ''
+                    (e as any).classe || '',
+                    coursChoisi ? libelleCours(coursChoisi) : 'Tous',
+                    String(cote.seances),
+                    String(cote.presences),
+                    cote.cotePresence !== null ? formaterNombre(cote.cotePresence) : '',
+                    String(cote.devoirsNotes),
+                    String(cote.devoirsNonRendus),
+                    String(cote.devoirsACorriger),
+                    cote.moyenneDevoirs !== null ? formaterNombre(cote.moyenneDevoirs) : '',
+                    cote.coteDevoirs !== null ? formaterNombre(cote.coteDevoirs) : '',
+                    cote.total !== null ? formaterNombre(cote.total) : '',
+                    cote.mention || '',
                   ])
                   exportToCSV([headers, ...rows], `orbit-cotes-${date}.csv`)
                 }}
@@ -2324,7 +2409,7 @@ export default function ProfesseurPage() {
             )}
           </div>
 
-          {cotesDataFiltres.length === 0 ? (
+          {lignesCotes.length === 0 ? (
             <Card className="border-border">
               <CardContent className="pt-10 pb-10 text-center text-muted-foreground">
                 <Award className="h-10 w-10 mx-auto mb-3 opacity-30" />
@@ -2334,51 +2419,61 @@ export default function ProfesseurPage() {
           ) : (
             <Card className="border-border overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full text-sm min-w-[700px]">
+                <table className="w-full text-sm min-w-[760px]">
                   <thead className="bg-muted/40">
                     <tr>
                       <th className="text-left px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Étudiant</th>
                       <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Présences</th>
-                      <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote Présences /5</th>
-                      <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote Devoirs /5</th>
+                      <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote présences /5</th>
+                      <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Devoirs</th>
+                      <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cote devoirs /5</th>
                       <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Total /10</th>
                       <th className="text-center px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Mention</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {cotesDataFiltres.map(({ etudiant: e, totalSeances, nbPresent, cotePresence, coteDevoirs, total, mention }) => (
+                    {lignesCotes.map(({ etudiant: e, cote }) => (
                       <tr key={e.id} className="border-t border-border/50 hover:bg-muted/20">
                         <td className="px-4 py-2.5">
-                          <p className="font-medium">{e.prenom} {e.nom}</p>
+                          <p className="font-medium">{nomEtudiant(e)}</p>
                           <p className="text-xs text-muted-foreground font-mono">@{e.username}</p>
                         </td>
                         <td className="px-4 py-2.5 text-center text-xs text-muted-foreground">
-                          {totalSeances > 0 ? `${nbPresent}/${totalSeances}` : <span className="opacity-40">-</span>}
+                          {cote.seances > 0 ? `${cote.presences}/${cote.seances}` : <span className="opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
-                          {cotePresence !== null
-                            ? <span className={cn('font-semibold', cotePresence >= 4 ? 'text-green-600' : cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{cotePresence}</span>
+                          {cote.cotePresence !== null
+                            ? <span className={cn('font-semibold', cote.cotePresence >= 4 ? 'text-green-600' : cote.cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{formaterNombre(cote.cotePresence)}</span>
+                            : <span className="text-muted-foreground opacity-40">-</span>}
+                        </td>
+                        <td className="px-4 py-2.5 text-center text-xs text-muted-foreground">
+                          {cote.devoirsNotes + cote.devoirsNonRendus + cote.devoirsACorriger > 0 ? (
+                            <span title="notés · non rendus (zéro) · à corriger">
+                              {cote.devoirsNotes} noté{cote.devoirsNotes > 1 ? 's' : ''}
+                              {cote.devoirsNonRendus > 0 && <span className="text-red-500"> · {cote.devoirsNonRendus} non rendu{cote.devoirsNonRendus > 1 ? 's' : ''}</span>}
+                              {cote.devoirsACorriger > 0 && <span className="text-blue-600"> · {cote.devoirsACorriger} à corriger</span>}
+                            </span>
+                          ) : <span className="opacity-40">-</span>}
+                        </td>
+                        <td className="px-4 py-2.5 text-center">
+                          {cote.coteDevoirs !== null
+                            ? <span className={cn('font-semibold', cote.coteDevoirs >= 4 ? 'text-green-600' : cote.coteDevoirs >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{formaterNombre(cote.coteDevoirs)}</span>
                             : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
-                          {coteDevoirs !== null
-                            ? <span className={cn('font-semibold', coteDevoirs >= 4 ? 'text-green-600' : coteDevoirs >= 2.5 ? 'text-yellow-600' : 'text-red-600')}>{coteDevoirs}</span>
+                          {cote.total !== null
+                            ? <span className={cn('font-bold text-base', cote.total >= 8 ? 'text-green-600' : cote.total >= 5 ? 'text-yellow-600' : 'text-red-600')}>{formaterNombre(cote.total)}</span>
                             : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                         <td className="px-4 py-2.5 text-center">
-                          {total !== null
-                            ? <span className={cn('font-bold text-base', total >= 8 ? 'text-green-600' : total >= 5 ? 'text-yellow-600' : 'text-red-600')}>{total}</span>
-                            : <span className="text-muted-foreground opacity-40">-</span>}
-                        </td>
-                        <td className="px-4 py-2.5 text-center">
-                          {mention ? (
+                          {cote.mention ? (
                             <span className={cn(
                               'text-xs px-2 py-0.5 rounded-full font-medium',
-                              mention === 'Excellent' ? 'bg-green-100 text-green-800' :
-                              mention === 'Bien' ? 'bg-blue-100 text-blue-800' :
-                              mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800' :
+                              cote.mention === 'Excellent' ? 'bg-green-100 text-green-800' :
+                              cote.mention === 'Bien' ? 'bg-blue-100 text-blue-800' :
+                              cote.mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-800' :
                               'bg-red-100 text-red-800'
-                            )}>{mention}</span>
+                            )}>{cote.mention}</span>
                           ) : <span className="text-muted-foreground opacity-40">-</span>}
                         </td>
                       </tr>
@@ -2476,9 +2571,7 @@ export default function ProfesseurPage() {
                       return (
                         <tr key={soum.id} className="border-t border-border/50 hover:bg-muted/20">
                           <td className="px-4 py-2.5">
-                            <p className="font-medium text-foreground">
-                              {etu ? `${etu.prenom || ''} ${etu.nom}`.trim() : 'Étudiant inconnu'}
-                            </p>
+                            <p className="font-medium text-foreground">{nomEtudiant(etu)}</p>
                             {etu?.username && <p className="text-xs text-muted-foreground font-mono">@{etu.username}</p>}
                           </td>
                           <td className="px-4 py-2.5 text-muted-foreground text-xs">{dev?.titre || '-'}</td>
@@ -2497,7 +2590,7 @@ export default function ProfesseurPage() {
                                 className="h-7 text-xs px-3"
                                 onClick={() => {
                                   setCorrectionSoumId(soum.id)
-                                  setCorrectionNote(String(soum.note || ''))
+                                  setCorrectionNote('')
                                   setCorrectionComment(soum.commentaire || '')
                                 }}
                               >
@@ -2637,10 +2730,23 @@ export default function ProfesseurPage() {
           <DialogHeader>
             <DialogTitle>Corriger la soumission</DialogTitle>
           </DialogHeader>
+          {(() => {
+            const { dev, bareme, partieQCM, saisieMax } = correctionContexte()
+            const saisie = parseFloat(correctionNote.replace(',', '.'))
+            return (
           <div className="space-y-3">
+            {dev && <p className="text-xs text-muted-foreground">{dev.titre} · noté sur {bareme}</p>}
+            {partieQCM !== null && (
+              <p className="text-xs rounded-md bg-muted/50 px-3 py-2">
+                Partie QCM déjà calculée : <strong>{formaterNote(partieQCM, 10)}</strong>. Notez les cas pratiques sur 10 ; la note finale est leur somme, sur 20.
+              </p>
+            )}
             <div>
-              <Label>Note (0 à 10) *</Label>
-              <Input type="number" min="0" max="10" step="0.5" value={correctionNote} onChange={e => setCorrectionNote(e.target.value)} placeholder="Ex : 7" className="mt-1" />
+              <Label>{partieQCM !== null ? 'Note des cas pratiques' : 'Note'} (0 à {saisieMax}) *</Label>
+              <Input type="number" min="0" max={saisieMax} step="0.5" value={correctionNote} onChange={e => setCorrectionNote(e.target.value)} placeholder={`Ex : ${Math.round(saisieMax * 0.7)}`} className="mt-1" />
+              {partieQCM !== null && !isNaN(saisie) && saisie >= 0 && saisie <= saisieMax && (
+                <p className="text-xs text-muted-foreground mt-1">Note finale : {formaterNote(partieQCM + saisie, bareme)}</p>
+              )}
             </div>
             <div>
               <Label>Commentaire</Label>
@@ -2653,6 +2759,8 @@ export default function ProfesseurPage() {
               />
             </div>
           </div>
+            )
+          })()}
           <DialogFooter className="mt-4">
             <Button variant="outline" onClick={() => setCorrectionSoumId(null)}>Annuler</Button>
             <Button onClick={handleCorrigerSoumission}>Enregistrer la note</Button>
@@ -2674,7 +2782,7 @@ export default function ProfesseurPage() {
               <div className="flex-1 overflow-y-auto pr-1 space-y-4 text-sm">
                 {/* Infos */}
                 <div className="grid grid-cols-2 gap-2">
-                  <div><p className="text-xs text-muted-foreground">Étudiant</p><p className="font-medium">{etu ? `${etu.prenom} ${etu.nom}` : '-'}</p></div>
+                  <div><p className="text-xs text-muted-foreground">Étudiant</p><p className="font-medium">{nomEtudiant(etu)}</p></div>
                   <div><p className="text-xs text-muted-foreground">Devoir</p><p className="font-medium">{dev?.titre || '-'}</p></div>
                   <div><p className="text-xs text-muted-foreground">Type</p><p className="capitalize">{devType}</p></div>
                   <div><p className="text-xs text-muted-foreground">Soumis le</p><p>{new Date(viewSoumission.dateSoumission).toLocaleDateString('fr-FR')}</p></div>
@@ -2698,11 +2806,43 @@ export default function ProfesseurPage() {
                   />
                 )}
 
+                {/* QCM de chapitre : score obtenu */}
+                {devType === 'qcm_chapitre' && typeof viewSoumission.scoreQCMChapitre === 'number' && (
+                  <p className="text-xs text-muted-foreground">
+                    Bonnes réponses : <strong className="text-foreground">{viewSoumission.scoreQCMChapitre}/{dev?.questionsChapitre?.length ?? '?'}</strong>
+                  </p>
+                )}
+
+                {/* QCM + cas pratiques : partie QCM et réponses aux cas, avec le corrigé type */}
+                {devType === 'qcm_cas' && (
+                  <div className="space-y-3">
+                    {typeof viewSoumission.scoreQCMCas === 'number' && (
+                      <p className="text-xs text-muted-foreground">
+                        Partie QCM : <strong className="text-foreground">{formaterNote(viewSoumission.scoreQCMCas, 10)}</strong>
+                        {typeof viewSoumission.scoreCasPratiques === 'number' && <> · Cas pratiques : <strong className="text-foreground">{formaterNote(viewSoumission.scoreCasPratiques, 10)}</strong></>}
+                      </p>
+                    )}
+                    {(dev?.casPratiques || []).map(cas => (
+                      <div key={cas.id} className="rounded-md border border-border p-3 space-y-2">
+                        <p className="text-xs font-semibold text-foreground">{cas.titre} <span className="font-normal text-muted-foreground">({cas.pointsMax} pts)</span></p>
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">Réponse de l'étudiant</p>
+                          <pre className="text-sm whitespace-pre-wrap font-sans bg-muted/40 rounded p-2 max-h-40 overflow-y-auto">{viewSoumission.reponsesCasPratiques?.[cas.id] || '(aucune réponse)'}</pre>
+                        </div>
+                        <details className="text-xs">
+                          <summary className="cursor-pointer text-primary">Corrigé type</summary>
+                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{cas.corrigeType}</pre>
+                        </details>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 {/* Note existante */}
-                {viewSoumission.statut === 'note' && (
+                {estNotee(viewSoumission) && (
                   <div className="bg-muted/40 rounded-md p-3">
                     <p className="text-xs text-muted-foreground mb-1">Note attribuée</p>
-                    <p className={cn('text-2xl font-bold', viewSoumission.note! >= 10 ? 'text-green-600' : 'text-red-500')}>{viewSoumission.note}/20</p>
+                    <p className={cn('text-2xl font-bold', viewSoumission.note! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(viewSoumission.note!, baremeDevoir(dev))}</p>
                     {viewSoumission.commentaire && <p className="text-xs mt-2 text-foreground">{viewSoumission.commentaire}</p>}
                   </div>
                 )}
@@ -2710,7 +2850,7 @@ export default function ProfesseurPage() {
             )
           })()}
           <DialogFooter className="flex-shrink-0 pt-2 border-t border-border">
-            {viewSoumission?.statut === 'soumis' && (
+            {viewSoumission && estACorriger(viewSoumission) && (
               <Button
                 size="sm"
                 variant="default"
@@ -2865,7 +3005,9 @@ export default function ProfesseurPage() {
                 {userForm.universiteId && facultesList.filter(f => f.universiteId === userForm.universiteId && f.actif).length > 0 && (
                   <div>
                     <Label>Faculté</Label>
-                    <Select value={(userForm as any).faculteId || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, faculteId: v === '__none__' ? '' : v } as any))}>
+                    {/* Changer de faculté reporte les inscriptions sur les cours de la
+                        nouvelle faculté (même UE) : chaque faculté a les siens. */}
+                    <Select value={(userForm as any).faculteId || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, faculteId: v === '__none__' ? '' : v, coursIds: v === '__none__' ? f.coursIds : inscriptionsDeLaFaculte(f.coursIds, v, coursList) } as any))}>
                       <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner une faculté" /></SelectTrigger>
                       <SelectContent>
                         <SelectItem value="__none__">- Aucune faculté -</SelectItem>
@@ -2879,19 +3021,37 @@ export default function ProfesseurPage() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label>Promotion</Label>
-                    <Input value={userForm.classe} onChange={e => setUserForm(f => ({ ...f, classe: e.target.value }))} placeholder="ex: L1 Comptabilité" className="mt-1" />
+                    {/* Liste fermée, comme à l'inscription par code ou par lot : les
+                        devoirs, notes de cours et documents ciblent L1…M2, et un
+                        texte libre (« L1 Comptabilité ») ne leur correspondait pas. */}
+                    <Select value={userForm.classe || '__none__'} onValueChange={v => setUserForm(f => ({ ...f, classe: v === '__none__' ? '' : v }))}>
+                      <SelectTrigger className="mt-1"><SelectValue placeholder="Choisir" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none__">Non renseignée</SelectItem>
+                        {PROMOTIONS.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                        {userForm.classe && !(PROMOTIONS as readonly string[]).includes(userForm.classe) && (
+                          <SelectItem value={userForm.classe}>{userForm.classe} (ancienne saisie)</SelectItem>
+                        )}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
                     <Label>Téléphone</Label>
                     <Input value={userForm.telephone} onChange={e => setUserForm(f => ({ ...f, telephone: e.target.value }))} placeholder="+243..." className="mt-1" />
                   </div>
                 </div>
-                {/* Cours : multi-sélection */}
+                {/* Cours : multi-sélection, parmi les cours de la faculté de
+                    l'étudiant. La liste dédupliquée par UE proposait parfois le
+                    cours d'une autre faculté : l'étudiant ne voyait alors ni les
+                    devoirs ni les notes de son enseignant. */}
                 {coursList.filter(c => c.actif).length > 0 && (
                   <div>
                     <Label>Cours inscrits</Label>
+                    {!(userForm as any).faculteId && (
+                      <p className="text-xs text-muted-foreground mt-1">Sans faculté : tous les cours sont proposés, avec leur faculté. Choisissez la faculté pour ne voir que les siens.</p>
+                    )}
                     <div className="mt-1.5 flex flex-wrap gap-2">
-                      {getCoursUniques(coursList).map(c => {
+                      {getCoursTries((userForm as any).faculteId ? coursList.filter(c => c.faculteId === (userForm as any).faculteId) : coursList).map(c => {
                         const ids = (userForm as any).coursIds || []
                         const selected = ids.includes(c.id)
                         return (
@@ -2905,7 +3065,7 @@ export default function ProfesseurPage() {
                                 : 'bg-background text-foreground border-border hover:border-primary/60'
                             }`}
                           >
-                            {selected ? '✓ ' : ''}{c.nom}
+                            {selected ? '✓ ' : ''}{(userForm as any).faculteId ? c.nom : libelleCours(c)}
                           </button>
                         )
                       })}

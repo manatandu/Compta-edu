@@ -20,6 +20,7 @@ import { initializeApp, getApps } from 'firebase/app'
 import { db, auth, getStorageDiffere } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import { anneeAcademiqueEnCours } from './utils'
+import { promotionCorrespond } from './promotion'
 import type {
   User, Session, Ecriture, Exercice, Tentative,
   Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours
@@ -746,7 +747,7 @@ export async function getTentativesAsync(userId?: string, exerciceId?: string, p
   const snap = await getDocs(query(collection(db, C.TENTATIVES), ...conditions))
   const all = snap.docs.map(d => fromDoc<Tentative>(d))
   return all.filter(t => {
-    if (promotionId && t.promotionId && t.promotionId !== promotionId) return false
+    if (!promotionCorrespond(t.promotionId, promotionId)) return false
     if (coursId && t.coursId && t.coursId !== coursId) return false
     return true
   })
@@ -775,24 +776,12 @@ export async function getDocumentsAsync(_userId?: string, promotionId?: string, 
     : query(collection(db, C.DOCUMENTS))
   const snap = await getDocs(q)
   const all = snap.docs.map(d => fromDoc<Document>(d))
-  // ISOLATION STRICTE :
-  // Si l'appelant est un étudiant (promotionId fourni), un document ne lui est visible
-  // QUE si son promotionId ET son coursId correspondent exactement - OU si le document
-  // n'a aucune restriction (pas de promotionId ET pas de coursId = document système global).
-  // Un document avec promotionId mais sans coursId = visible pour toute la promotion.
-  // Un document avec coursId mais sans promotionId = visible pour tout le cours.
-  // Un document avec les deux = visible uniquement à l'intersection exacte.
-  return all.filter(doc => {
-    const hasPromoFilter = !!promotionId  // l'appelant a une promotion (= étudiant)
-    const hasCoursFilter = !!coursId      // l'appelant a un cours
-    // Restriction promotion : si le doc cible une promotion précise, l'étudiant doit correspondre
-    if (doc.promotionId && hasPromoFilter && doc.promotionId !== promotionId) return false
-    // Restriction cours : si le doc cible un cours précis, l'étudiant doit y être inscrit
-    if (doc.coursId && hasCoursFilter && doc.coursId !== coursId) return false
-    // Si le doc a un cours mais l'étudiant n'a pas ce cours dans ses inscriptions -> invisible
-    if (doc.coursId && hasPromoFilter && !hasCoursFilter) return false
-    return true
-  })
+  // Appel étudiant (un par cours inscrit, requête déjà contrainte par ce
+  // coursId) : reste le filtre de promotion. Un document sans promotion vaut
+  // pour tout le cours ; la promotion est comparée par son code (L1…M2).
+  // Appel prof/admin (sans coursId) : tout.
+  if (!coursId) return all
+  return all.filter(doc => (!doc.coursId || doc.coursId === coursId) && promotionCorrespond(doc.promotionId, promotionId))
 }
 
 export async function saveDocumentAsync(data: Omit<Document, 'id' | 'dateCreation'>): Promise<Document> {
@@ -997,9 +986,16 @@ export async function getSoumissionsAsync(devoirId?: string, etudiantId?: string
   return snap.docs.map(d => fromDoc<Soumission>(d))
 }
 
+// Statut « noté » quand la copie arrive déjà notée (QCM corrigé à l'envoi),
+// « soumis » sinon. Le statut était auparavant toujours forcé à « soumis » :
+// les QCM corrigés automatiquement restaient « en attente de correction »
+// chez l'étudiant, s'accumulaient dans les copies à corriger de l'enseignant
+// et n'entraient dans aucune cote. Les copies enregistrées avant ce correctif
+// sont reconnues par leur note (voir estNotee, lib/cotes.ts).
 export async function createSoumissionAsync(data: Omit<Soumission, 'id' | 'dateSoumission' | 'statut'>): Promise<Soumission> {
   const id = generateId()
-  const s: Soumission = { ...data, id, dateSoumission: new Date().toISOString(), statut: 'soumis' }
+  const statut: Soumission['statut'] = typeof data.note === 'number' ? 'note' : 'soumis'
+  const s: Soumission = { ...data, id, dateSoumission: new Date().toISOString(), statut }
   await setDoc(doc(db, C.SOUMISSIONS, id), cleanUndefined(s) as any)
   return s
 }
@@ -1089,22 +1085,6 @@ export function onUsersSnapshot(callback: (users: User[]) => void): Unsubscribe 
 // ──────────────────────────────────────────────────────────────────────────────
 //  NOTES DE COURS
 // ──────────────────────────────────────────────────────────────────────────────
-export function onNotesCours(
-  coursIds: string[],
-  promotionId: string,
-  callback: (notes: NoteCours[]) => void
-): Unsubscribe {
-  if (coursIds.length === 0 || !promotionId) { callback([]); return () => {} }
-  const q = query(collection(db, C.NOTES_COURS), where('actif', '==', true))
-  return onSnapshot(q, snap => {
-    const notes = snap.docs
-      .map(d => fromDoc<NoteCours>(d))
-      // ISOLATION STRICTE : le cours ET la promotion doivent correspondre
-      .filter(n => coursIds.includes(n.coursId) && n.promotionId === promotionId)
-    callback(notes)
-  }, err => notifyFirestoreError('onNotesCours', err))
-}
-
 export function onAllNotesCours(callback: (notes: NoteCours[]) => void): Unsubscribe {
   return onSnapshot(collection(db, C.NOTES_COURS), snap => callback(snap.docs.map(d => fromDoc<NoteCours>(d))), err => notifyFirestoreError('onAllNotesCours', err))
 }
@@ -1298,6 +1278,122 @@ export function getCoursUniquesTries(liste: any[]): any[] {
       const rb = RANG_COURS_SYSTEME.get(b.coursSystemeId) ?? 999
       return ra - rb
     })
+}
+
+/**
+ * Même tri et même exclusion que getCoursUniquesTries, SANS déduplication :
+ * chaque faculté a son propre document pour une même UE, et les étudiants
+ * sont inscrits à celui de leur faculté. Pour rattacher une séance ou filtrer
+ * un groupe, il faut le document exact - la déduplication gardait le premier
+ * trouvé, parfois celui d'une autre faculté.
+ */
+export function getCoursTries<T extends { id: string; actif?: boolean; coursSystemeId?: string }>(liste: T[]): T[] {
+  return liste
+    .filter(c => {
+      if (!c.actif) return false
+      if (COURS_RETIRES_IDS.has(c.id)) return false
+      if (c.coursSystemeId && COURS_RETIRES_IDS.has(c.coursSystemeId)) return false
+      return true
+    })
+    .sort((a, b) => {
+      const ra = RANG_COURS_SYSTEME.get(a.coursSystemeId || '') ?? 999
+      const rb = RANG_COURS_SYSTEME.get(b.coursSystemeId || '') ?? 999
+      return ra - rb
+    })
+}
+
+// ─── Rattachement au cours réel d'une faculté ────────────────────────────────
+// Chaque faculté reçoit son propre document de cours pour chaque UE du
+// catalogue (provisionCoursManquantsAsync), relié à l'UE par coursSystemeId.
+// Les étudiants sont inscrits à ces documents, et firestore.rules ne leur
+// laisse lire un devoir, un exercice libre ou un document que si son coursId
+// figure dans leurs inscriptions.
+
+/** UE du catalogue désignée par l'identifiant d'un chapitre (« ue1-droit-travail ») ou par son id système. */
+export function coursSystemeDe(cle: string | undefined) {
+  if (!cle) return undefined
+  return COURS_SYSTEME.find(cs => cs.moduleKey === cle || cs.id === cle)
+}
+
+/** Document de cours de la faculté `faculteId` pour l'UE désignée par `cleUE`. */
+export function coursDeFaculte<T extends { faculteId: string; coursSystemeId?: string }>(
+  liste: T[], faculteId: string | undefined, cleUE: string | undefined,
+): T | undefined {
+  const cs = coursSystemeDe(cleUE)
+  if (!cs || !faculteId) return undefined
+  return liste.find(c => c.faculteId === faculteId && c.coursSystemeId === cs.id)
+}
+
+// Devoirs et exercices libres créés depuis un chapitre avant ce correctif :
+// leur coursId était l'identifiant du module (« ue1-droit-travail »), qui ne
+// désigne aucun cours. Aucun étudiant ne pouvait les lire. Ils sont rattachés
+// au cours de leur faculté. Portée : ceux de l'équipe pédagogique appelante,
+// seule autorisée à les modifier.
+export async function reparerContenusDeChapitreAsync(equipeIds: string[], coursList: Cours[]): Promise<number> {
+  if (equipeIds.length === 0 || coursList.length === 0) return 0
+  const cles = new Set(COURS_SYSTEME.map(cs => cs.moduleKey))
+  let n = 0
+  for (const coll of [C.DEVOIRS, C.EXERCICES_LIBRES]) {
+    const snap = await getDocs(query(collection(db, coll), where('createdBy', 'in', equipeIds.slice(0, 30))))
+    for (const d of snap.docs) {
+      const data = d.data() as { coursId?: string; faculteId?: string }
+      if (!data.coursId || !cles.has(data.coursId)) continue
+      const cible = coursDeFaculte(coursList, data.faculteId, data.coursId)
+      if (!cible) continue
+      await updateDoc(d.ref, { coursId: cible.id })
+      n++
+    }
+  }
+  return n
+}
+
+// Ramène une liste d'inscriptions à la faculté `faculteId` : un cours d'une
+// autre faculté est remplacé par celui de la faculté pour la même UE.
+export function inscriptionsDeLaFaculte(coursIds: string[], faculteId: string, coursList: Cours[]): string[] {
+  return Array.from(new Set(coursIds.map(id => {
+    const c = coursList.find(x => x.id === id)
+    if (!c || c.faculteId === faculteId || !c.coursSystemeId) return id
+    return coursList.find(x => x.faculteId === faculteId && x.coursSystemeId === c.coursSystemeId)?.id || id
+  })))
+}
+
+// Inscriptions et codes d'accès établis avec l'ancienne liste de cours, qui ne
+// gardait qu'un exemplaire de chaque UE, parfois celui d'une autre faculté :
+// l'étudiant ne voyait alors ni les devoirs ni les notes de son enseignant.
+// Ramenés à la faculté de l'étudiant (ou du code). Réservé à l'administrateur,
+// seul autorisé à modifier le profil d'un autre compte.
+export async function reparerInscriptionsFaculteAsync(users: User[], coursList: Cours[]): Promise<number> {
+  if (coursList.length === 0) return 0
+  const maj: { id: string; coursIds: string[] }[] = []
+  for (const u of users) {
+    const ids = (u as any).coursIds as string[] | undefined
+    const fac = (u as any).faculteId as string | undefined
+    if (u.role !== 'etudiant' || !fac || !ids?.length) continue
+    const nouveaux = inscriptionsDeLaFaculte(ids, fac, coursList)
+    if (nouveaux.join('|') !== ids.join('|')) maj.push({ id: u.id, coursIds: nouveaux })
+  }
+  for (let i = 0; i < maj.length; i += 400) {
+    const batch = writeBatch(db)
+    maj.slice(i, i + 400).forEach(m => batch.update(doc(db, C.USERS, m.id), { coursIds: m.coursIds }))
+    await batch.commit()
+  }
+  if (maj.length > 0) invaliderCacheUsers()
+  return maj.length
+}
+
+export async function reparerCodesAccesFaculteAsync(equipeIds: string[], coursList: Cours[]): Promise<number> {
+  if (equipeIds.length === 0 || coursList.length === 0) return 0
+  const snap = await getDocs(query(collection(db, 'codesAcces'), where('createdBy', 'in', equipeIds.slice(0, 30))))
+  let n = 0
+  for (const d of snap.docs) {
+    const data = d.data() as { faculteId?: string | null; coursIds?: string[] }
+    if (!data.faculteId || !data.coursIds?.length) continue
+    const nouveaux = inscriptionsDeLaFaculte(data.coursIds, data.faculteId, coursList)
+    if (nouveaux.join('|') === data.coursIds.join('|')) continue
+    await updateDoc(d.ref, { coursIds: nouveaux })
+    n++
+  }
+  return n
 }
 
 // Initialise les cours système dans Firestore (crée ou met à jour)

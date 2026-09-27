@@ -3,7 +3,8 @@ import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, Message
 import { cn } from '@/lib/utils'
 import { useHashLocation } from '@/lib/hashLocation'
 import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
-import { useEquipe } from '@/lib/equipe'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
+import { estACorriger } from '@/lib/cotes'
 import { getUsersByIdsAsync, getFichesAnnuaireAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -140,9 +141,11 @@ export function NotificationBell({ user }: NotificationBellProps) {
         action: () => { navigate('/professeurs?tab=inscriptions'); setOpen(false) },
       })),
 
-      // Soumissions pratiques/théoriques à corriger manuellement
+      // Copies rendues sans note, sur les devoirs de l'équipe : les QCM notés
+      // automatiquement n'en font plus partie (ils gardaient le statut
+      // « soumis »), ni les devoirs des autres enseignants.
       ...toutesLesSoumissions
-        .filter(s => s.statut === 'soumis')
+        .filter(s => estACorriger(s) && tousLesDevoirs.some(d => d.id === s.devoirId && creeParEquipe(d.createdBy, equipe)))
         .slice(0, 15)
         .map(s => {
           const devoir = tousLesDevoirs.find(d => d.id === s.devoirId)

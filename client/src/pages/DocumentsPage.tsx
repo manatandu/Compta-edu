@@ -20,6 +20,7 @@ import { Plus, Trash2, FolderOpen, FileText, Download, Lock, Eye, BookOpen, Clip
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 import { useNotesCours } from '@/lib/useFirestore'
+import { libellePromotion } from '@/lib/promotion'
 
 // Sous-dossiers disponibles
 const FOLDERS = [
@@ -166,7 +167,7 @@ export default function DocumentsPage() {
   const [dynamicPromotions, setDynamicPromotions] = useState<string[]>([])
   useEffect(() => {
     // Depuis les cours
-    const fromCours = allCours.map(c => (c as any).promotion).filter(Boolean) as string[]
+    const fromCours = allCours.map(c => libellePromotion((c as any).promotion)).filter(Boolean) as string[]
     // Depuis les étudiants : lecture unique mise en cache (et non plus une
     // écoute temps réel de toute la collection users pour extraire les classes).
     // Réservée au personnel, seul autorisé à lire les profils des étudiants.
@@ -175,7 +176,7 @@ export default function DocumentsPage() {
     let actif = true
     getUsersCacheAsync().then(users => {
       if (!actif) return
-      const fromUsers = users.map(u => (u as any).classe).filter(Boolean) as string[]
+      const fromUsers = users.map(u => libellePromotion((u as any).classe)).filter(Boolean) as string[]
       setDynamicPromotions(Array.from(new Set([...fromCours, ...fromUsers])).sort())
     }).catch(() => {})
     return () => { actif = false }
@@ -192,7 +193,9 @@ export default function DocumentsPage() {
     if (isEtudiant) {
       // ISOLATION STRICTE : on passe promotion + CHAQUE cours inscrit
       // On charge les docs pour chaque cours et on fusionne (dédupliqué)
-      if (!userPromotion || userCoursIds.length === 0) { setDocs([]); return }
+      // Un étudiant sans promotion renseignée voit les documents de ses cours
+      // destinés à toutes les promotions (il ne voyait jusqu'ici aucun document).
+      if (userCoursIds.length === 0) { setDocs([]); return }
       Promise.all(
         userCoursIds.map(cid => getDocumentsAsync(user.id, userPromotion, cid))
       ).then(results => {
@@ -300,7 +303,7 @@ export default function DocumentsPage() {
     if (!filtrePromotion) return true
     // doc sans promotionId = visible toutes promotions
     if (!doc.promotionId) return true
-    return doc.promotionId === filtrePromotion
+    return libellePromotion(doc.promotionId) === filtrePromotion
   }
 
   return (

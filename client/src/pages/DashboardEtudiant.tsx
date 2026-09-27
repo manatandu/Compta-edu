@@ -13,7 +13,11 @@ import {
   useUniversites, useFacultes, useExercices, usePresencesEtudiant,
   useCoursStatuts,
 } from '@/lib/useFirestore'
-import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries } from '@/lib/db-firebase'
+import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries, coursSystemeDe } from '@/lib/db-firebase'
+import {
+  calculerCote, devoirConcerneEtudiant, estDevoirChapitre, estNotee, estACorriger, baremeDevoir,
+  formaterNote, formaterNombre, type Cote,
+} from '@/lib/cotes'
 import { useUser } from '@/lib/userContext'
 import { useModule } from '@/lib/moduleContext'
 import { cn } from '@/lib/utils'
@@ -45,7 +49,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
   const [loading, setLoading] = React.useState(false)
   const [resultat, setResultat] = React.useState<{ score: number; total: number; details: boolean[] } | null>(null)
 
-  if (soumission?.statut === 'note') {
+  if (soumission && estNotee(soumission)) {
     return (
       <div className="mt-3 bg-green-50 border border-green-200 rounded-lg p-3 space-y-1">
         <p className="text-sm font-semibold text-green-700">✓ QCM corrigé automatiquement</p>
@@ -55,7 +59,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
     )
   }
 
-  if (soumission?.statut === 'soumis') {
+  if (soumission && estACorriger(soumission)) {
     return (
       <p className="mt-2 text-xs text-blue-600 flex items-center gap-1">
         <Lock className="h-3 w-3" /> QCM soumis : correction en cours...
@@ -289,8 +293,11 @@ function echeanceLisible(dateLimit: string): { label: string; urgent: boolean } 
 // Amène une section de la page sous les yeux, depuis « À faire » ou depuis une
 // tuile du bandeau. Sans effet si la section n'est pas rendue (pas de devoir,
 // pas de cote) - le raccourci n'est alors de toute façon pas proposé.
+function allerA(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 function allerAuxDevoirs() {
-  document.getElementById('mes-devoirs')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  allerA(document.getElementById('mes-devoirs') ? 'mes-devoirs' : 'mes-devoirs-chapitre')
 }
 
 function allerAuxCotes() {
@@ -308,28 +315,16 @@ export default function DashboardEtudiant() {
   const { universites: allUniversites } = useUniversites()
   const { facultes: allFacultes } = useFacultes()
   const { soumissions: mesSoumissions } = useSoumissionsEtudiant(user?.id)
-  const { exercices: allExercices } = useExercices()
+  // Mêmes filtres que la page Exercices (cours, faculté, promotion) : le
+  // compteur annonçait aussi les exercices d'autres promotions.
+  const { exercices: allExercices } = useExercices(
+    (user as any)?.coursIds?.length ? (user as any).coursIds : undefined,
+    (user as any)?.faculteId || undefined,
+    (user as any)?.classe || undefined,
+    allCoursRaw,
+  )
   const { presences: mesPresences } = usePresencesEtudiant(user?.id)
   const { statuts: coursStatuts } = useCoursStatuts(user?.id)
-
-  // Cotes étudiant
-  const totalSeances = mesPresences.length
-  const nbPresent = mesPresences.filter(p => p.etudiants?.find((e: any) => e.etudiantId === user?.id)?.present).length
-  const cotePresenceEtudiant = totalSeances > 0 ? parseFloat((5 * nbPresent / totalSeances).toFixed(2)) : null
-
-  const soumissionsNotees = mesSoumissions.filter(s => s.statut === 'note' && typeof s.note === 'number')
-  const cumulNotesEtudiant = soumissionsNotees.reduce((acc, s) => acc + (s.note ?? 0), 0)
-  const totalDevoirsNotesEtudiant = soumissionsNotees.length
-  const coteDevoirsEtudiant = totalDevoirsNotesEtudiant > 0
-    ? parseFloat((5 * cumulNotesEtudiant / (totalDevoirsNotesEtudiant * 10)).toFixed(2))
-    : null
-
-  const totalCoteEtudiant = (cotePresenceEtudiant !== null || coteDevoirsEtudiant !== null)
-    ? parseFloat(((cotePresenceEtudiant ?? 0) + (coteDevoirsEtudiant ?? 0)).toFixed(2))
-    : null
-  const mentionEtudiant = totalCoteEtudiant !== null
-    ? totalCoteEtudiant >= 8 ? 'Excellent' : totalCoteEtudiant >= 6 ? 'Bien' : totalCoteEtudiant >= 5 ? 'Satisfaisant' : 'Insuffisant'
-    : null
 
   const allCours = allCoursRaw.filter(c => c.actif)
   const userCoursIds: string[] = (user as any)?.coursIds || []
@@ -337,24 +332,144 @@ export default function DashboardEtudiant() {
   const userCours = getCoursUniquesTries(allCours.filter(c => userCoursIds.includes(c.id)))
 
   // Devoirs qui concernent réellement cet étudiant : un de ses cours, actif,
-  // sa faculté, sa promotion. Ce filtre était écrit deux fois à l'identique
-  // (barre de stats et section « Mes devoirs ») - calculé une seule fois ici,
-  // et réutilisé aussi par la section « À faire ».
-  const userFaculteId = (user as any)?.faculteId || ''
-  const userPromotion = (user as any)?.classe || ''
-  const mesDevoirs = allDevoirs.filter(d => {
-    if (!userCoursIds.includes(d.coursId) || !d.actif) return false
-    if (d.faculteId && userFaculteId && d.faculteId !== userFaculteId) return false
-    const cours = allCours.find(c => c.id === d.coursId)
-    if (cours?.promotion && userPromotion && cours.promotion !== userPromotion) return false
-    return true
+  // sa faculté, sa promotion. Règle unique (lib/cotes.ts) : ce qui s'affiche
+  // ici est exactement ce qui compte dans sa cote, et ce que l'enseignant voit
+  // pour lui. La promotion du devoir était ignorée jusqu'ici.
+  const mesDevoirs = user ? allDevoirs.filter(d => devoirConcerneEtudiant(d, user as any, allCoursRaw)) : []
+  // Devoirs de chapitre (QCM, QCM avec cas) : section dédiée plus bas ;
+  // devoirs classiques : section « Mes devoirs ».
+  const mesDevoirsChapitre = mesDevoirs.filter(d => estDevoirChapitre(d))
+  const mesDevoirsClassiques = mesDevoirs.filter(d => !estDevoirChapitre(d))
+
+  // Cotes : même calcul que l'Espace pédagogique (lib/cotes.ts). Par cours, ou
+  // tous cours confondus.
+  const [coursCote, setCoursCote] = React.useState<string>('')
+  const coteDe = (coursId?: string): Cote => calculerCote({
+    etudiant: (user as any) ?? { id: '' },
+    seances: mesPresences, devoirs: allDevoirs, soumissions: mesSoumissions,
+    coursList: allCoursRaw, maintenant: new Date(), coursId,
   })
+  const coteGlobale = coteDe()
+  const cote = coursCote ? coteDe(coursCote) : coteGlobale
+  const coursDeCote = userCours.find(c => c.id === coursCote)
+
+  // Bulletin PDF : récapitulatif par cours, devoirs comptés, présences. Mêmes
+  // chiffres que la section « Mes cotes » et que l'Espace pédagogique.
+  const telechargerBulletin = () => {
+    import('jspdf').then(({ jsPDF }) => import('jspdf-autotable').then(() => {
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+      const pageW = doc.internal.pageSize.getWidth()
+      const entete = { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }
+      const nb = (x: number | null) => x !== null ? formaterNombre(x) : '-'
+      const nomCours = (id?: string) => allCoursRaw.find(c => c.id === id)?.nom || '-'
+
+      doc.setFillColor(26, 50, 114)
+      doc.rect(0, 0, pageW, 40, 'F')
+      doc.setTextColor(255, 255, 255)
+      doc.setFontSize(18)
+      doc.setFont('helvetica', 'bold')
+      doc.text('ORBIT', pageW / 2, 14, { align: 'center' })
+      doc.setFontSize(11)
+      doc.setFont('helvetica', 'normal')
+      doc.text('SYSCOHADA Révisé - Bulletin de cotes', pageW / 2, 22, { align: 'center' })
+      doc.setFontSize(9)
+      doc.text(`Édité le ${new Date().toLocaleDateString('fr-FR')}`, pageW / 2, 30, { align: 'center' })
+
+      doc.setTextColor(30, 30, 30)
+      doc.setFontSize(11)
+      doc.setFont('helvetica', 'bold')
+      doc.text('Informations étudiant', 14, 52)
+      doc.setDrawColor(26, 50, 114)
+      doc.setLineWidth(0.5)
+      doc.line(14, 54, pageW - 14, 54)
+      const nomComplet = [user?.nom, (user as any)?.prenom].filter(Boolean).map((x: string) => x.charAt(0).toUpperCase() + x.slice(1)).join(' ')
+      const infos: [string, string][] = [
+        ['Nom complet', nomComplet || '-'],
+        ['Promotion', (user as any)?.classe || '-'],
+        ['Faculté', allFacultes.find((f: any) => f.id === (user as any)?.faculteId)?.nom || '-'],
+        ['Université', allUniversites.find((u: any) => u.id === (user as any)?.universiteId)?.nom || '-'],
+      ]
+      let y = 62
+      doc.setFontSize(10)
+      infos.forEach(([k, v]) => {
+        doc.setFont('helvetica', 'bold'); doc.text(`${k} :`, 14, y)
+        doc.setFont('helvetica', 'normal'); doc.text(v, 55, y)
+        y += 7
+      })
+
+      const titreSection = (t: string) => {
+        y += 4
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(30, 30, 30)
+        doc.text(t, 14, y); doc.line(14, y + 2, pageW - 14, y + 2); y += 6
+      }
+      const vide = (t: string) => {
+        doc.setFont('helvetica', 'italic'); doc.setFontSize(9); doc.setTextColor(150)
+        doc.text(t, 14, y); doc.setTextColor(30, 30, 30); y += 8
+      }
+
+      // Récapitulatif par cours (5 points de présence + 5 points de devoirs)
+      titreSection('Cotes par cours (sur 10 : présences /5 + devoirs /5)')
+      const lignesCours = userCours.map(c => {
+        const k = coteDe(c.id)
+        return [c.nom, nb(k.cotePresence), nb(k.coteDevoirs), nb(k.total), k.mention || '-']
+      })
+      if (userCours.length > 1) {
+        lignesCours.push(['Ensemble des cours', nb(coteGlobale.cotePresence), nb(coteGlobale.coteDevoirs), nb(coteGlobale.total), coteGlobale.mention || '-'])
+      }
+      if (lignesCours.length > 0) {
+        ;(doc as any).autoTable({ startY: y, head: [['Cours', 'Présences /5', 'Devoirs /5', 'Total /10', 'Mention']], body: lignesCours, theme: 'striped', headStyles: entete, bodyStyles: { fontSize: 9 }, columnStyles: { 1: { halign: 'center' }, 2: { halign: 'center' }, 3: { halign: 'center' }, 4: { halign: 'center' } }, margin: { left: 14, right: 14 } })
+        y = (doc as any).lastAutoTable.finalY + 6
+      } else vide('Aucun cours inscrit.')
+
+      // Devoirs comptés : notes rapportées à leur barème, non rendus à zéro
+      titreSection('Devoirs comptés')
+      const lignesDevoirs = coteGlobale.devoirs
+        .filter(l => l.etat === 'note' || l.etat === 'non_rendu')
+        .map(l => [
+          l.devoir.titre,
+          nomCours(l.devoir.coursId),
+          l.etat === 'note' ? formaterNote(l.soumission!.note!, l.bareme) : `${formaterNote(0, l.bareme)} (non rendu)`,
+          l.etat === 'note' ? (l.soumission?.commentaire || '-') : '-',
+        ])
+      if (lignesDevoirs.length > 0) {
+        ;(doc as any).autoTable({ startY: y, head: [['Devoir', 'Cours', 'Note', 'Commentaire']], body: lignesDevoirs, theme: 'striped', headStyles: entete, bodyStyles: { fontSize: 8.5 }, columnStyles: { 0: { cellWidth: 55 }, 1: { cellWidth: 45 }, 2: { cellWidth: 28, halign: 'center' } }, margin: { left: 14, right: 14 } })
+        y = (doc as any).lastAutoTable.finalY + 6
+      } else vide('Aucun devoir compté.')
+
+      // Présences : séances de ses cours où l'étudiant figure
+      titreSection('Présences')
+      const lignesPresences = [...mesPresences]
+        .filter(p => !p.coursId || userCoursIds.includes(p.coursId))
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .map(p => {
+          const entree = p.etudiants?.find((e: any) => e.etudiantId === user?.id)
+          return [new Date(p.date).toLocaleDateString('fr-FR'), p.titre || '-', p.coursId ? nomCours(p.coursId) : '-', entree ? (entree.present ? 'Présent(e)' : 'Absent(e)') : '-']
+        })
+      if (lignesPresences.length > 0) {
+        ;(doc as any).autoTable({ startY: y, head: [['Date', 'Séance', 'Cours', 'Statut']], body: lignesPresences, theme: 'striped', headStyles: entete, bodyStyles: { fontSize: 8.5 }, columnStyles: { 0: { cellWidth: 24, halign: 'center' }, 3: { cellWidth: 26, halign: 'center' } }, margin: { left: 14, right: 14 } })
+        y = (doc as any).lastAutoTable.finalY + 6
+      } else vide('Aucune séance enregistrée.')
+
+      if (coteGlobale.mention) {
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(26, 50, 114)
+        doc.text(`Mention d'ensemble : ${coteGlobale.mention} (${nb(coteGlobale.total)}/10)`, 14, Math.min(y + 2, doc.internal.pageSize.getHeight() - 16))
+      }
+      const pgH = doc.internal.pageSize.getHeight()
+      doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(150)
+      doc.text('ORBIT © ' + new Date().getFullYear() + ' - Propriété de Manassé TANDU', pageW / 2, pgH - 8, { align: 'center' })
+      doc.save(`bulletin_${(user?.nom || 'etudiant').toLowerCase().replace(/\s+/g, '_')}_${new Date().getFullYear()}.pdf`)
+    }))
+  }
 
   // Ce qui appelle une action maintenant : ni rendu, ni expiré. Le plus urgent
   // d'abord - c'est l'ordre dans lequel l'étudiant doit s'en occuper.
   const devoirsAFaire = mesDevoirs
     .filter(d => !isDevoirExpire(d) && !mesSoumissions.some(s => s.devoirId === d.id))
     .sort((a, b) => new Date(a.dateLimit).getTime() - new Date(b.dateLimit).getTime())
+
+  // Chemin d'un cours : celui de son UE. Les cours d'une faculté n'ont pas de
+  // moduleKey propre ; le lien retombait sur leur identifiant, une page inexistante.
+  const cheminCours = (c: any) => `/${coursSystemeDe(c.coursSystemeId)?.moduleKey || c.moduleKey || 'mes-cours'}`
 
   const stats: DashboardStat[] = [
     { label: 'Devoirs',   value: mesDevoirs.length, icon: ClipboardList, onClick: allerAuxDevoirs },
@@ -366,7 +481,7 @@ export default function DashboardEtudiant() {
     // à l'envoi, mais aucun code ne le repasse jamais à true : le compteur ne
     // ferait que croître sans jamais redescendre. Remplacé par la cote, qui est
     // une donnée réelle et déjà calculée plus haut.
-    { label: 'Ma cote',   value: totalCoteEtudiant !== null ? `${totalCoteEtudiant}/10` : '-', icon: Award, onClick: allerAuxCotes },
+    { label: 'Ma cote',   value: coteGlobale.total !== null ? `${formaterNombre(coteGlobale.total)}/10` : '-', icon: Award, onClick: allerAuxCotes },
   ]
 
   const identity = (
@@ -439,7 +554,7 @@ export default function DashboardEtudiant() {
                 return (
                   <button
                     key={dev.id}
-                    onClick={allerAuxDevoirs}
+                    onClick={() => allerA(estDevoirChapitre(dev) ? 'mes-devoirs-chapitre' : 'mes-devoirs')}
                     className="w-full rounded-xl border border-border bg-card px-4 py-3 text-left flex items-center gap-3 hover:bg-muted/40 hover:border-primary/30 transition-colors animate-slideUp"
                     style={{ animationDelay: `${500 + i * 60}ms` }}
                   >
@@ -505,12 +620,8 @@ export default function DashboardEtudiant() {
                   }
                   const s = statutMap[statutInfo] || statutMap.non_commence
 
-                  const prochainDevoir = allDevoirs
-                    .filter(d => d.coursId === cours.id && d.actif && !isDevoirExpire(d))
-                    .sort((a, b) => new Date(a.dateLimit).getTime() - new Date(b.dateLimit).getTime())[0]
-
-                  const moduleKey = (cours as any).moduleKey || cours.id
-                  const path = `/${moduleKey}`
+                  const prochainDevoir = devoirsAFaire.find(d => d.coursId === cours.id)
+                  const path = cheminCours(cours)
 
                   return (
                     <tr
@@ -556,15 +667,15 @@ export default function DashboardEtudiant() {
 
       {/* ══ MES DEVOIRS ══════════════════════════════════════════════════════ */}
       {userCoursIds.length > 0 && (() => {
-        if (mesDevoirs.length === 0) return null
+        if (mesDevoirsClassiques.length === 0) return null
         return (
           <div id="mes-devoirs" className="animate-slideUp scroll-mt-4" style={{ animationDelay: '1250ms' }}>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-base font-display font-semibold text-foreground">Mes devoirs</h2>
-              <span className="text-xs text-muted-foreground">{mesDevoirs.length} devoir{mesDevoirs.length > 1 ? 's' : ''}</span>
+              <span className="text-xs text-muted-foreground">{mesDevoirsClassiques.length} devoir{mesDevoirsClassiques.length > 1 ? 's' : ''}</span>
             </div>
             <div className="space-y-2">
-              {mesDevoirs.map((dev, i) => {
+              {mesDevoirsClassiques.map((dev, i) => {
                 const soum = mesSoumissions.find(s => s.devoirId === dev.id)
                 const expire = isDevoirExpire(dev)
                 const peutSoumettre = !expire && !soum
@@ -573,9 +684,9 @@ export default function DashboardEtudiant() {
                 let statutLabel = 'À faire'
                 let statutColor = 'border-gray-400 text-gray-500'
                 let StatutIcon = Clock
-                if (soum?.statut === 'soumis') { statutLabel = 'Soumis'; statutColor = 'border-blue-400 text-blue-600'; StatutIcon = Lock }
-                if (soum?.statut === 'note') { statutLabel = 'Noté'; statutColor = 'border-green-400 text-green-600'; StatutIcon = CheckCircle2 }
-                if (expire && !soum) { statutLabel = 'Délai expiré'; statutColor = 'border-red-400 text-red-500'; StatutIcon = Clock }
+                if (soum && estACorriger(soum)) { statutLabel = 'Soumis'; statutColor = 'border-blue-400 text-blue-600'; StatutIcon = Lock }
+                if (soum && estNotee(soum)) { statutLabel = 'Noté'; statutColor = 'border-green-400 text-green-600'; StatutIcon = CheckCircle2 }
+                if (expire && !soum) { statutLabel = 'Non rendu (0)'; statutColor = 'border-red-400 text-red-500'; StatutIcon = Clock }
 
                 return (
                   <div
@@ -611,10 +722,10 @@ export default function DashboardEtudiant() {
                       </div>
                     </div>
 
-                    {soum?.statut === 'note' && (
+                    {soum && estNotee(soum) && (
                       <div className="mt-3 bg-muted/40 rounded-md p-3">
                         <div className="flex items-center gap-3">
-                          <p className={cn('text-2xl font-mono font-bold', soum.note! >= 5 ? 'text-green-600' : 'text-red-500')}>{soum.note}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
+                          <p className={cn('text-2xl font-mono font-bold', soum.note! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(soum.note!, baremeDevoir(dev))}</p>
                           {soum.commentaire && <p className="text-xs text-foreground flex-1 italic">{soum.commentaire}</p>}
                         </div>
                       </div>
@@ -624,7 +735,7 @@ export default function DashboardEtudiant() {
                       const devType = (dev as any).type || 'pratique'
                       const sessionDevoir = sessions.find((s: any) => s.devoirId === dev.id && s.userId === user!.id)
 
-                      if (soum?.statut === 'soumis') return (
+                      if (soum && estACorriger(soum)) return (
                         <p className="mt-2 text-xs text-blue-600 flex items-center gap-1">
                           <Lock className="h-3 w-3" />Soumis : en attente de correction
                         </p>
@@ -692,133 +803,67 @@ export default function DashboardEtudiant() {
         )
       })()}
 
-      {/* ══ MES DEVOIRS QCM-CHAPITRE (auto-corrigés) ═══════════════════ */}
-      {(() => {
-        const userPromotion = (user as any)?.classe || ''
-        const devoirsQCMChapitre = allDevoirs.filter(d => (d as any).type === 'qcm_chapitre')
-        if (devoirsQCMChapitre.length === 0) return null
-        return (
-          <div className="animate-slideUp" style={{ animationDelay: '1260ms' }}>
-            <DevoirChapitreEtudiant
-              devoirs={devoirsQCMChapitre}
-              soumissions={mesSoumissions}
-              etudiantId={user!.id}
-              promotionId={userPromotion || undefined}
-            />
+      {/* ══ DEVOIRS DES CHAPITRES (QCM, QCM avec cas pratiques) ═════════
+           Les devoirs « QCM + cas » n'étaient jamais transmis à cette section
+           (filtre sur le seul type qcm_chapitre), et ceux d'une autre
+           promotion ou faculté l'étaient : même règle désormais que le reste
+           de la page. ══ */}
+      {mesDevoirsChapitre.length > 0 && (
+        <div id="mes-devoirs-chapitre" className="animate-slideUp scroll-mt-4" style={{ animationDelay: '1260ms' }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-display font-semibold text-foreground">Devoirs des chapitres</h2>
+            <span className="text-xs text-muted-foreground">{mesDevoirsChapitre.length} devoir{mesDevoirsChapitre.length > 1 ? 's' : ''} · notés sur 20</span>
           </div>
-        )
-      })()}
+          <DevoirChapitreEtudiant
+            devoirs={mesDevoirsChapitre}
+            soumissions={mesSoumissions}
+            etudiantId={user!.id}
+            promotionId={(user as any)?.classe || undefined}
+          />
+        </div>
+      )}
 
-      {/* ══ MES COTES ══════════════════════════════════════════════════════ */}
+      {/* ══ MES COTES ══════════════════════════════════════════════════════
+           Calcul unique (lib/cotes.ts), identique à celui de l'Espace
+           pédagogique : l'étudiant et son enseignant lisent la même cote. Une
+           cote se lit par cours ; « Tous mes cours » les réunit. ══ */}
       <div id="mes-cotes" className="rounded-2xl border border-border bg-card overflow-hidden animate-fadeIn scroll-mt-4" style={{ animationDelay: '1100ms' }}>
-        <div className="px-5 py-4 bg-gradient-to-r from-primary/8 via-primary/4 to-transparent border-b border-border flex items-center justify-between">
+        <div className="px-5 py-4 bg-gradient-to-r from-primary/8 via-primary/4 to-transparent border-b border-border flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
               <Award className="h-4 w-4 text-primary" />
             </div>
             <div>
               <h2 className="text-sm font-display font-semibold text-foreground">Mes cotes</h2>
-              <p className="text-xs text-muted-foreground">Performance académique</p>
+              <p className="text-xs text-muted-foreground">Sur 10 : 5 points de présence, 5 points de devoirs</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {mentionEtudiant && (
+          <div className="flex items-center gap-2 flex-wrap">
+            {userCours.length > 1 && (
+              <select
+                value={coursCote}
+                onChange={e => setCoursCote(e.target.value)}
+                aria-label="Cours de la cote"
+                className="rounded-lg border border-border bg-background px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-primary"
+              >
+                <option value="">Tous mes cours</option>
+                {userCours.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)}
+              </select>
+            )}
+            {cote.mention && (
               <span className={cn(
                 'text-xs px-2.5 py-1 rounded-full font-semibold border',
-                mentionEtudiant === 'Excellent' ? 'bg-green-100 text-green-700 border-green-200' :
-                mentionEtudiant === 'Bien' ? 'bg-blue-100 text-blue-700 border-blue-200' :
-                mentionEtudiant === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-700 border-yellow-200' :
+                cote.mention === 'Excellent' ? 'bg-green-100 text-green-700 border-green-200' :
+                cote.mention === 'Bien' ? 'bg-blue-100 text-blue-700 border-blue-200' :
+                cote.mention === 'Satisfaisant' ? 'bg-yellow-100 text-yellow-700 border-yellow-200' :
                 'bg-red-100 text-red-700 border-red-200'
-              )}>{mentionEtudiant}</span>
+              )}>{cote.mention}</span>
             )}
             <Button
               size="sm"
               variant="outline"
               className="gap-1.5 text-xs h-7 px-2"
-              onClick={() => {
-                import('jspdf').then(({ jsPDF }) => {
-                  import('jspdf-autotable').then(() => {
-                    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
-                    const pageW = doc.internal.pageSize.getWidth()
-                    doc.setFillColor(26, 50, 114)
-                    doc.rect(0, 0, pageW, 40, 'F')
-                    doc.setTextColor(255, 255, 255)
-                    doc.setFontSize(18)
-                    doc.setFont('helvetica', 'bold')
-                    doc.text('ORBIT', pageW / 2, 14, { align: 'center' })
-                    doc.setFontSize(11)
-                    doc.setFont('helvetica', 'normal')
-                    doc.text('SYSCOHADA Révisé - Bulletin de Notes', pageW / 2, 22, { align: 'center' })
-                    doc.setFontSize(9)
-                    doc.text(`Édité le ${new Date().toLocaleDateString('fr-FR')}`, pageW / 2, 30, { align: 'center' })
-                    doc.setTextColor(30, 30, 30)
-                    doc.setFontSize(11)
-                    doc.setFont('helvetica', 'bold')
-                    doc.text('Informations étudiant', 14, 52)
-                    doc.setDrawColor(26, 50, 114)
-                    doc.setLineWidth(0.5)
-                    doc.line(14, 54, pageW - 14, 54)
-                    const nomComplet = [user?.nom, (user as any)?.prenom].filter(Boolean).map((s: string) => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')
-                    const promotion = (user as any)?.classe || '-'
-                    const faculteNom = allFacultes.find((f: any) => f.id === (user as any)?.faculteId)?.nom || '-'
-                    const uniNom = allUniversites.find((u: any) => u.id === (user as any)?.universiteId)?.nom || '-'
-                    doc.setFont('helvetica', 'normal')
-                    doc.setFontSize(10)
-                    const infos: [string, string][] = [['Nom complet', nomComplet], ['Promotion', promotion], ['Faculté', faculteNom], ['Université', uniNom]]
-                    let y = 62
-                    infos.forEach(([k, v]) => {
-                      doc.setFont('helvetica', 'bold')
-                      doc.text(`${k} :`, 14, y)
-                      doc.setFont('helvetica', 'normal')
-                      doc.text(v, 55, y)
-                      y += 7
-                    })
-                    y += 4
-                    doc.setFont('helvetica', 'bold')
-                    doc.setFontSize(11)
-                    doc.text('Devoirs notés', 14, y)
-                    doc.line(14, y + 2, pageW - 14, y + 2)
-                    y += 6
-                    const soumissionsNoteesPdf = mesSoumissions.filter(s => s.statut === 'note' && typeof s.note === 'number')
-                    const rowsDevoirs = soumissionsNoteesPdf.map(s => {
-                      const dev = allDevoirs.find(d => d.id === s.devoirId)
-                      return [dev?.titre || '-', `${s.note}/10`, s.commentaire || '-', s.dateCorrection ? new Date(s.dateCorrection).toLocaleDateString('fr-FR') : '-']
-                    })
-                    if (rowsDevoirs.length > 0) {
-                      ;(doc as any).autoTable({ startY: y, head: [['Devoir', 'Note', 'Commentaire', 'Date']], body: rowsDevoirs, theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 9 }, columnStyles: { 0: { cellWidth: 60 }, 1: { cellWidth: 18, halign: 'center' }, 2: { cellWidth: 70 }, 3: { cellWidth: 30, halign: 'center' } }, margin: { left: 14, right: 14 } })
-                      y = (doc as any).lastAutoTable.finalY + 8
-                    } else {
-                      doc.setFont('helvetica', 'italic'); doc.setFontSize(9); doc.setTextColor(150)
-                      doc.text('Aucun devoir noté.', 14, y); doc.setTextColor(30, 30, 30); y += 10
-                    }
-                    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(30, 30, 30)
-                    doc.text('Présences', 14, y); doc.line(14, y + 2, pageW - 14, y + 2); y += 6
-                    if (mesPresences.length > 0) {
-                      const rowsPres = [...mesPresences].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map(p => {
-                        const entry = p.etudiants?.find((e: any) => e.etudiantId === user?.id)
-                        return [new Date(p.date).toLocaleDateString('fr-FR'), p.titre || '-', entry?.present ? 'Présent(e)' : entry ? 'Absent(e)' : '-']
-                      })
-                      ;(doc as any).autoTable({ startY: y, head: [['Date', 'Séance', 'Statut']], body: rowsPres, theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 9 }, columnStyles: { 0: { cellWidth: 28, halign: 'center' }, 1: { cellWidth: 110 }, 2: { cellWidth: 30, halign: 'center' } }, margin: { left: 14, right: 14 } })
-                      y = (doc as any).lastAutoTable.finalY + 8
-                    } else {
-                      doc.setFont('helvetica', 'italic'); doc.setFontSize(9); doc.setTextColor(150)
-                      doc.text('Aucune séance enregistrée.', 14, y); doc.setTextColor(30, 30, 30); y += 10
-                    }
-                    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(30, 30, 30)
-                    doc.text('Récapitulatif', 14, y); doc.line(14, y + 2, pageW - 14, y + 2); y += 6
-                    ;(doc as any).autoTable({ startY: y, head: [['Composante', 'Cote', 'Sur']], body: [['Présences', cotePresenceEtudiant !== null ? String(cotePresenceEtudiant) : '-', '5'], ['Devoirs', coteDevoirsEtudiant !== null ? String(coteDevoirsEtudiant) : '-', '5'], ['TOTAL', totalCoteEtudiant !== null ? String(totalCoteEtudiant) : '-', '10']], theme: 'striped', headStyles: { fillColor: [26, 50, 114], textColor: 255, fontStyle: 'bold', fontSize: 9 }, bodyStyles: { fontSize: 10 }, columnStyles: { 0: { cellWidth: 80 }, 1: { cellWidth: 30, halign: 'center' }, 2: { cellWidth: 20, halign: 'center' } }, margin: { left: 14, right: 14 } })
-                    if (mentionEtudiant) {
-                      const fy = (doc as any).lastAutoTable.finalY + 6
-                      doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(26, 50, 114)
-                      doc.text(`Mention : ${mentionEtudiant}`, 14, fy)
-                    }
-                    const pgH = doc.internal.pageSize.getHeight()
-                    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(150)
-                    doc.text('ORBIT © ' + new Date().getFullYear() + ' - Propriété de Manassé TANDU', pageW / 2, pgH - 8, { align: 'center' })
-                    doc.save(`bulletin_${(user?.nom || 'etudiant').toLowerCase().replace(/\s+/g, '_')}_${new Date().getFullYear()}.pdf`)
-                  })
-                })
-              }}
+              onClick={() => telechargerBulletin()}
             >
               <Download className="h-3 w-3" />
               Bulletin PDF
@@ -832,22 +877,22 @@ export default function DashboardEtudiant() {
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-foreground">Présences</span>
                 <div className="flex items-center gap-2">
-                  {totalSeances > 0 && <span className="text-xs text-muted-foreground">{nbPresent}/{totalSeances} séances</span>}
+                  {cote.seances > 0 && <span className="text-xs text-muted-foreground">{cote.presences}/{cote.seances} séances</span>}
                   <span className={cn('text-sm font-bold tabular-nums',
-                    cotePresenceEtudiant === null ? 'text-muted-foreground' :
-                    cotePresenceEtudiant >= 4 ? 'text-green-600' :
-                    cotePresenceEtudiant >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                  )}>{cotePresenceEtudiant !== null ? `${cotePresenceEtudiant}/5` : '-'}</span>
+                    cote.cotePresence === null ? 'text-muted-foreground' :
+                    cote.cotePresence >= 4 ? 'text-green-600' :
+                    cote.cotePresence >= 2.5 ? 'text-yellow-600' : 'text-red-600'
+                  )}>{cote.cotePresence !== null ? `${formaterNombre(cote.cotePresence)}/5` : '-'}</span>
                 </div>
               </div>
               <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
                 <div
                   className={cn('h-full rounded-full transition-all duration-1000',
-                    cotePresenceEtudiant === null ? 'w-0' :
-                    cotePresenceEtudiant >= 4 ? 'bg-green-500' :
-                    cotePresenceEtudiant >= 2.5 ? 'bg-yellow-500' : 'bg-red-500'
+                    cote.cotePresence === null ? 'w-0' :
+                    cote.cotePresence >= 4 ? 'bg-green-500' :
+                    cote.cotePresence >= 2.5 ? 'bg-yellow-500' : 'bg-red-500'
                   )}
-                  style={{ width: cotePresenceEtudiant !== null ? `${(cotePresenceEtudiant / 5) * 100}%` : '0%' }}
+                  style={{ width: cote.cotePresence !== null ? `${(cote.cotePresence / 5) * 100}%` : '0%' }}
                 />
               </div>
             </div>
@@ -856,80 +901,87 @@ export default function DashboardEtudiant() {
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-foreground">Devoirs</span>
                 <div className="flex items-center gap-2">
-                  {totalDevoirsNotesEtudiant > 0 && <span className="text-xs text-muted-foreground">{cumulNotesEtudiant}/{totalDevoirsNotesEtudiant * 10} pts</span>}
+                  {cote.devoirsNotes + cote.devoirsNonRendus > 0 && (
+                    <span className="text-xs text-muted-foreground">
+                      {cote.devoirsNotes} noté{cote.devoirsNotes > 1 ? 's' : ''}
+                      {cote.devoirsNonRendus > 0 && ` · ${cote.devoirsNonRendus} non rendu${cote.devoirsNonRendus > 1 ? 's' : ''}`}
+                      {cote.devoirsACorriger > 0 && ` · ${cote.devoirsACorriger} en correction`}
+                    </span>
+                  )}
                   <span className={cn('text-sm font-bold tabular-nums',
-                    coteDevoirsEtudiant === null ? 'text-muted-foreground' :
-                    coteDevoirsEtudiant >= 4 ? 'text-green-600' :
-                    coteDevoirsEtudiant >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                  )}>{coteDevoirsEtudiant !== null ? `${coteDevoirsEtudiant}/5` : '-'}</span>
+                    cote.coteDevoirs === null ? 'text-muted-foreground' :
+                    cote.coteDevoirs >= 4 ? 'text-green-600' :
+                    cote.coteDevoirs >= 2.5 ? 'text-yellow-600' : 'text-red-600'
+                  )}>{cote.coteDevoirs !== null ? `${formaterNombre(cote.coteDevoirs)}/5` : '-'}</span>
                 </div>
               </div>
               <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
                 <div
                   className={cn('h-full rounded-full transition-all duration-1000',
-                    coteDevoirsEtudiant === null ? 'w-0' :
-                    coteDevoirsEtudiant >= 4 ? 'bg-green-500' :
-                    coteDevoirsEtudiant >= 2.5 ? 'bg-yellow-500' : 'bg-red-500'
+                    cote.coteDevoirs === null ? 'w-0' :
+                    cote.coteDevoirs >= 4 ? 'bg-green-500' :
+                    cote.coteDevoirs >= 2.5 ? 'bg-yellow-500' : 'bg-red-500'
                   )}
-                  style={{ width: coteDevoirsEtudiant !== null ? `${(coteDevoirsEtudiant / 5) * 100}%` : '0%' }}
+                  style={{ width: cote.coteDevoirs !== null ? `${(cote.coteDevoirs / 5) * 100}%` : '0%' }}
                 />
               </div>
             </div>
 
             <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 flex items-center justify-between">
               <div>
-                <p className="text-xs text-muted-foreground">Score total</p>
+                <p className="text-xs text-muted-foreground">Score total{coursDeCote ? ` · ${coursDeCote.nom}` : ''}</p>
                 <p className={cn('text-2xl font-mono font-bold tabular-nums mt-0.5',
-                  totalCoteEtudiant === null ? 'text-muted-foreground' :
-                  totalCoteEtudiant >= 8 ? 'text-green-600' :
-                  totalCoteEtudiant >= 5 ? 'text-yellow-600' : 'text-red-600'
+                  cote.total === null ? 'text-muted-foreground' :
+                  cote.total >= 8 ? 'text-green-600' :
+                  cote.total >= 5 ? 'text-yellow-600' : 'text-red-600'
                 )}>
-                  {totalCoteEtudiant !== null ? totalCoteEtudiant : '-'}<span className="text-sm font-normal text-muted-foreground">/10</span>
+                  {cote.total !== null ? formaterNombre(cote.total) : '-'}<span className="text-sm font-normal text-muted-foreground">/10</span>
                 </p>
+                {cote.total === null && (
+                  <p className="text-xs text-muted-foreground mt-0.5">Le total apparaît dès qu'il y a au moins une séance et un devoir comptés.</p>
+                )}
               </div>
               <div className="h-14 w-14 rounded-full border-4 border-border flex items-center justify-center bg-background relative">
                 <svg className="absolute inset-0" viewBox="0 0 56 56">
                   <circle cx="28" cy="28" r="24" fill="none" stroke="currentColor" strokeWidth="4" className="text-muted/30" />
                   <circle cx="28" cy="28" r="24" fill="none" strokeWidth="4"
                     strokeDasharray={`${2 * Math.PI * 24}`}
-                    strokeDashoffset={`${2 * Math.PI * 24 * (1 - (totalCoteEtudiant ?? 0) / 10)}`}
+                    strokeDashoffset={`${2 * Math.PI * 24 * (1 - (cote.total ?? 0) / 10)}`}
                     strokeLinecap="round"
-                    className={totalCoteEtudiant !== null && totalCoteEtudiant >= 8 ? 'stroke-green-500' : totalCoteEtudiant !== null && totalCoteEtudiant >= 5 ? 'stroke-yellow-500' : 'stroke-red-500'}
+                    className={cote.total !== null && cote.total >= 8 ? 'stroke-green-500' : cote.total !== null && cote.total >= 5 ? 'stroke-yellow-500' : 'stroke-red-500'}
                     style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%', transition: 'stroke-dashoffset 1.2s ease' }}
                   />
                 </svg>
                 <span className={cn('text-xs font-bold relative z-10',
-                  totalCoteEtudiant === null ? 'text-muted-foreground' :
-                  totalCoteEtudiant >= 8 ? 'text-green-600' :
-                  totalCoteEtudiant >= 5 ? 'text-yellow-600' : 'text-red-600'
-                )}>{totalCoteEtudiant !== null ? `${Math.round((totalCoteEtudiant / 10) * 100)}%` : '-'}</span>
+                  cote.total === null ? 'text-muted-foreground' :
+                  cote.total >= 8 ? 'text-green-600' :
+                  cote.total >= 5 ? 'text-yellow-600' : 'text-red-600'
+                )}>{cote.total !== null ? `${Math.round((cote.total / 10) * 100)}%` : '-'}</span>
               </div>
             </div>
           </div>
 
-          {/* Le détail ligne à ligne (historique des devoirs, grille des séances)
-              occupait à lui seul l'essentiel de la page d'accueil. Il est replié :
-              l'essentiel - mention, cotes, score, bulletin PDF - reste visible
-              au-dessus, et le détail s'ouvre à la demande. */}
-          {(soumissionsNotees.length > 0 || mesPresences.length > 0) && (
+          {/* Le détail ligne à ligne (devoirs comptés, grille des séances) est
+              replié : l'essentiel - mention, cotes, score, bulletin PDF - reste
+              visible au-dessus, et le détail s'ouvre à la demande. */}
+          {(() => {
+            const devoirsComptes = cote.devoirs.filter(l => l.etat === 'note' || l.etat === 'non_rendu')
+            const seances = [...mesPresences]
+              .filter(p => !coursCote || p.coursId === coursCote)
+              .filter(p => !p.coursId || userCoursIds.includes(p.coursId))
+              .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+            if (devoirsComptes.length === 0 && seances.length === 0) return null
+            return (
           <details className="group px-5 pb-5">
             <summary className="cursor-pointer text-xs font-medium text-primary hover:underline flex items-center gap-1.5 select-none list-none">
               <span className="group-open:rotate-90 transition-transform duration-300 ease-out inline-block">▶</span>
-              Voir le détail : notes obtenues et relevé de présences
+              Voir le détail : devoirs comptés et relevé de présences
             </summary>
             <div className="mt-3 space-y-4">
 
-          {soumissionsNotees.length > 0 && (() => {
-            const devoirsNotes = soumissionsNotees.map(s => {
-              const dev = allDevoirs.find(d => d.id === s.devoirId)
-              return { soum: s, dev }
-            }).filter(x => x.dev)
-            return (
+          {devoirsComptes.length > 0 && (
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Historique des devoirs</p>
-                  <span className="text-xs text-muted-foreground">{cumulNotesEtudiant}/{totalDevoirsNotesEtudiant * 10} pts cumulés</span>
-                </div>
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Devoirs comptés</p>
                 <div className="rounded-lg border border-border overflow-hidden">
                   <table className="w-full text-xs">
                     <thead className="bg-muted/40">
@@ -940,98 +992,85 @@ export default function DashboardEtudiant() {
                       </tr>
                     </thead>
                     <tbody>
-                      {devoirsNotes.map(({ soum: s, dev: d }) => (
-                        <tr key={s.id} className="border-t border-border/50">
-                          <td className="px-3 py-2 font-medium">{d!.titre}</td>
+                      {devoirsComptes.map(l => (
+                        <tr key={l.devoir.id} className="border-t border-border/50">
+                          <td className="px-3 py-2 font-medium">{l.devoir.titre}</td>
                           <td className="px-3 py-2 text-center">
-                            <span className={cn('font-bold', s.note! >= 5 ? 'text-green-600' : 'text-red-500')}>
-                              {s.note}<span className="font-normal text-muted-foreground">/10</span>
-                            </span>
+                            {l.etat === 'note' ? (
+                              <span className={cn('font-bold', (l.ratio ?? 0) >= 0.5 ? 'text-green-600' : 'text-red-500')}>
+                                {formaterNote(l.soumission!.note!, l.bareme)}
+                              </span>
+                            ) : (
+                              <span className="font-bold text-red-500">{formaterNote(0, l.bareme)}</span>
+                            )}
                           </td>
-                          <td className="px-3 py-2 text-muted-foreground italic">{s.commentaire || '-'}</td>
+                          <td className="px-3 py-2 text-muted-foreground italic">
+                            {l.etat === 'non_rendu' ? 'Non rendu à la date limite' : (l.soumission?.commentaire || '-')}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                     <tfoot className="bg-muted/30 border-t border-border font-semibold">
                       <tr>
-                        <td className="px-3 py-2 text-muted-foreground">Total cumulé</td>
-                        <td className="px-3 py-2 text-center text-primary">{cumulNotesEtudiant}/{totalDevoirsNotesEtudiant * 10}</td>
-                        <td className="px-3 py-2 text-primary">Cote devoirs : {coteDevoirsEtudiant}/5</td>
+                        <td className="px-3 py-2 text-muted-foreground">Moyenne</td>
+                        <td className="px-3 py-2 text-center text-primary">{cote.moyenneDevoirs !== null ? `${formaterNombre(cote.moyenneDevoirs)}/20` : '-'}</td>
+                        <td className="px-3 py-2 text-primary">Cote devoirs : {cote.coteDevoirs !== null ? `${formaterNombre(cote.coteDevoirs)}/5` : '-'}</td>
                       </tr>
                     </tfoot>
                   </table>
                 </div>
               </div>
-            )
-          })()}
+          )}
 
-          {mesPresences.length > 0 && (() => {
-            const seancesTri = [...mesPresences].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-            const nbP = seancesTri.filter(p => p.etudiants?.find((e: any) => e.etudiantId === user?.id)?.present).length
-            const totalS = seancesTri.length
-            const taux = totalS > 0 ? Math.round(nbP / totalS * 100) : 0
-            return (
+          {seances.length > 0 && (
               <div className="space-y-2">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Détail des séances</p>
                 <div className="overflow-x-auto rounded-lg border border-border">
                   <table className="w-full text-xs">
                     <thead className="bg-muted/40">
                       <tr>
-                        {seancesTri.map(s => (
-                          <th key={s.id} className="text-center px-2 py-2 font-medium text-muted-foreground whitespace-nowrap">
-                            {new Date(s.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
+                        {seances.map(sc => (
+                          <th key={sc.id} className="text-center px-2 py-2 font-medium text-muted-foreground whitespace-nowrap" title={sc.titre}>
+                            {new Date(sc.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}
                           </th>
                         ))}
                         <th className="text-center px-3 py-2 font-medium text-muted-foreground whitespace-nowrap">Présences</th>
-                        <th className="text-center px-3 py-2 font-medium text-muted-foreground whitespace-nowrap">Taux</th>
                         <th className="text-center px-3 py-2 font-medium text-muted-foreground whitespace-nowrap">Cote /5</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        {seancesTri.map(s => {
-                          const entree = s.etudiants?.find((e: any) => e.etudiantId === user?.id)
-                          const present = entree?.present ?? false
-                          const inSeance = !!entree
+                        {seances.map(sc => {
+                          const entree = sc.etudiants?.find((e: any) => e.etudiantId === user?.id)
                           return (
-                            <td key={s.id} className="px-2 py-2 text-center">
-                              {inSeance ? (
+                            <td key={sc.id} className="px-2 py-2 text-center">
+                              {entree ? (
                                 <span className={cn(
                                   'inline-flex items-center justify-center w-6 h-6 rounded-full font-bold',
-                                  present ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+                                  entree.present ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
                                 )}>
-                                  {present ? '•' : '×'}
+                                  {entree.present ? '•' : '×'}
                                 </span>
                               ) : <span className="opacity-30">-</span>}
                             </td>
                           )
                         })}
-                        <td className="px-3 py-2 text-center font-semibold">{nbP}/{totalS}</td>
-                        <td className="px-3 py-2 text-center">
-                          <span className={cn('font-semibold',
-                            taux >= 75 ? 'text-green-600' : taux >= 50 ? 'text-yellow-600' : 'text-red-600'
-                          )}>{taux}%</span>
-                        </td>
-                        <td className="px-3 py-2 text-center">
-                          <span className={cn('font-bold',
-                            cotePresenceEtudiant !== null && cotePresenceEtudiant >= 4 ? 'text-green-600' :
-                            cotePresenceEtudiant !== null && cotePresenceEtudiant >= 2.5 ? 'text-yellow-600' : 'text-red-600'
-                          )}>{cotePresenceEtudiant ?? '-'}</span>
-                        </td>
+                        <td className="px-3 py-2 text-center font-semibold">{cote.presences}/{cote.seances}</td>
+                        <td className="px-3 py-2 text-center font-bold">{cote.cotePresence !== null ? formaterNombre(cote.cotePresence) : '-'}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Formule : 5 × ({nbP} présences ÷ {totalS} séances) = cote {cotePresenceEtudiant ?? '-'}/5
+                  Formule : 5 × ({cote.presences} présences ÷ {cote.seances} séances) = {cote.cotePresence !== null ? formaterNombre(cote.cotePresence) : '-'}/5
                 </p>
               </div>
-            )
-          })()}
+          )}
 
             </div>
           </details>
-          )}
+            )
+          })()}
         </div>
       </div>
 
