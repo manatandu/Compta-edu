@@ -16,13 +16,9 @@ import {
 import { cn } from '@/lib/utils'
 import { Devoir, Soumission, QCMChapitre, CasPratique } from '@/lib/db'
 import { createSoumissionAsync } from '@/lib/db-firebase'
-import { estNotee, estACorriger } from '@/lib/cotes'
+import { estACorriger, formaterNombre, noteDeCopie } from '@/lib/cotes'
+import { corrigerQCMChapitre, partieQCMSur10 } from '@/lib/correctionQCM'
 import { promotionCorrespond } from '@/lib/promotion'
-
-// ─── Constantes ───────────────────────────────────────────────────────────────
-
-const GEMINI_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDERRGuR0EBGatLlcB5zzFi284JK6_IGmM'
 
 // ─── Calculs ──────────────────────────────────────────────────────────────────
 
@@ -32,71 +28,6 @@ export function scoreEnNoteSur20(score: number, total: number = 10): number {
   return parseFloat(((score / total) * 20).toFixed(2))
 }
 
-
-// ─── Appel Gemini ─────────────────────────────────────────────────────────────
-
-interface GeminiEval {
-  score: number
-  commentaire: string
-  coherente: boolean
-}
-
-async function evaluerCasGemini(
-  cas: CasPratique,
-  reponseEtudiant: string
-): Promise<GeminiEval | null> {
-  const prompt = `Tu es un correcteur pédagogique en comptabilité OHADA (SYSCOHADA révisé) pour le logiciel ORBIT.
-
-Évalue la réponse d'un étudiant pour le cas pratique suivant.
-
-## Cas pratique
-Titre : ${cas.titre}
-Énoncé : ${cas.enonce}
-
-## Corrigé type (référence)
-${cas.corrigeType}
-
-## Réponse de l'étudiant
-${reponseEtudiant || '(aucune réponse fournie)'}
-
-## Consignes d'évaluation
-- Note maximale : ${cas.pointsMax} points
-- Évalue la LOGIQUE et la COHÉRENCE comptable, pas la formulation exacte
-- Si la réponse montre une compréhension correcte du concept, même avec des mots différents, c'est valide
-- Une réponse vide ou hors sujet = 0 point
-- Sois pédagogique dans ton commentaire (en français)
-
-## Format de réponse OBLIGATOIRE (JSON strict, sans markdown)
-{"score": <nombre entier entre 0 et ${cas.pointsMax}>, "commentaire": "<explication courte en français>", "coherente": <true|false>}`
-
-  try {
-    const res = await fetch(GEMINI_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      }),
-    })
-    if (!res.ok) return null
-    const data = await res.json()
-    const text: string =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
-    // Nettoyage : retirer ```json ... ``` si présent
-    const clean = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim()
-    const parsed = JSON.parse(clean) as GeminiEval
-    // Valider les champs
-    if (
-      typeof parsed.score !== 'number' ||
-      typeof parsed.commentaire !== 'string' ||
-      typeof parsed.coherente !== 'boolean'
-    ) return null
-    // Borner le score
-    parsed.score = Math.max(0, Math.min(cas.pointsMax, Math.round(parsed.score)))
-    return parsed
-  } catch {
-    return null
-  }
-}
 
 // ─── Composant : Passer un devoir qcm_chapitre ────────────────────────────────
 
@@ -199,14 +130,9 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
   const [reponsesQCM, setReponsesQCM] = useState<Record<string, string>>({})
   const [reponsesCas, setReponsesCas] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
-  const [resultat, setResultat] = useState<{
-    scoreQCM: number
-    detailsQCM: { qId: string; choix: string; correct: boolean }[]
-    evaluations: { casId: string; score: number; commentaire: string; coherente: boolean }[]
-    scoreCas: number
-    noteFinale: number
-    geminiEchoue: boolean
-  } | null>(null)
+  const [erreur, setErreur] = useState('')
+  // Partie QCM obtenue, affichée après l'envoi.
+  const [resultat, setResultat] = useState<{ scoreQCM: number } | null>(null)
 
   const totalQCMRepondues = Object.keys(reponsesQCM).length
   const peutPasserCas = totalQCMRepondues === questions.length
@@ -217,72 +143,16 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
     if (peutPasserCas) setEtape('cas')
   }
 
+  // La partie QCM est corrigée tout de suite ; les cas pratiques partent en
+  // correction chez l'enseignant, qui peut s'aider d'une proposition de
+  // l'IA (fenêtre de correction). Aucun appel à l'IA depuis ce navigateur.
   const handleSoumettreCas = async () => {
     if (!peutSoumettreCas) return
     setLoading(true)
+    setErreur('')
     try {
-      // 1. Calcul QCM : (nbCorrectes / nbTotal) * 10 pts
-      const detailsQCM = questions.map(q => ({
-        qId: q.id,
-        choix: reponsesQCM[q.id] || '',
-        correct: reponsesQCM[q.id] === q.reponseCorrecte,
-      }))
-      const nbCorrectes = detailsQCM.filter(d => d.correct).length
-      const scoreQCM = questions.length > 0
-        ? parseFloat(((nbCorrectes / questions.length) * 10).toFixed(2))
-        : 0
-
-      // 2. Évaluation Gemini par cas
-      let geminiEchoue = false
-      const evaluations: { casId: string; score: number; commentaire: string; coherente: boolean }[] = []
-
-      for (const cas of casPratiques) {
-        const reponse = reponsesCas[cas.id] || ''
-        const eval_ = await evaluerCasGemini(cas, reponse)
-        if (eval_ === null) {
-          geminiEchoue = true
-          break
-        }
-        evaluations.push({
-          casId: cas.id,
-          score: eval_.score,
-          commentaire: eval_.commentaire,
-          coherente: eval_.coherente,
-        })
-      }
-
-      if (geminiEchoue) {
-        // Gemini a échoué → soumission en statut 'soumis' pour correction manuelle
-        const soumission = await createSoumissionAsync({
-          devoirId: devoir.id,
-          etudiantId,
-          reponsesQCMChapitre: reponsesQCM,
-          scoreQCMChapitre: nbCorrectes,
-          detailsQCMChapitre: detailsQCM,
-          reponsesCasPratiques: reponsesCas,
-          scoreQCMCas: scoreQCM,
-          statut: 'soumis' as const,
-          // note non définie → correction manuelle par le prof
-        } as any)
-        setResultat({
-          scoreQCM,
-          detailsQCM,
-          evaluations: [],
-          scoreCas: 0,
-          noteFinale: 0,
-          geminiEchoue: true,
-        })
-        setSoumisEchoue(true)
-        onSoumis(soumission)
-        setEtape('correction')
-        return
-      }
-
-      // 3. Calcul score cas
-      const scoreCas = evaluations.reduce((acc, e) => acc + e.score, 0)
-      const noteFinale = scoreQCM + scoreCas // sur 20
-
-      // 4. Sauvegarde avec note finale
+      const { details: detailsQCM, nbCorrectes } = corrigerQCMChapitre(questions, reponsesQCM)
+      const scoreQCM = partieQCMSur10(nbCorrectes, questions.length)
       const soumission = await createSoumissionAsync({
         devoirId: devoir.id,
         etudiantId,
@@ -290,25 +160,18 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
         scoreQCMChapitre: nbCorrectes,
         detailsQCMChapitre: detailsQCM,
         reponsesCasPratiques: reponsesCas,
-        evaluationsCasPratiques: evaluations,
         scoreQCMCas: scoreQCM,
-        scoreCasPratiques: scoreCas,
-        note: noteFinale,
-        statut: 'note' as const,
-        dateCorrection: new Date().toISOString(),
       } as any)
-
-      setResultat({ scoreQCM, detailsQCM, evaluations, scoreCas, noteFinale, geminiEchoue: false })
+      setResultat({ scoreQCM })
       setEtape('correction')
       onSoumis(soumission)
     } catch (e) {
       console.error(e)
+      setErreur("Envoi impossible pour le moment. Vérifiez votre connexion, puis réessayez.")
     } finally {
       setLoading(false)
     }
   }
-
-  const [, setSoumisEchoue] = useState(false)
 
   // ── Étape QCM ──
   if (etape === 'qcm') {
@@ -318,7 +181,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
         <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 text-xs text-indigo-800">
           <p className="font-semibold mb-1">Devoir QCM + Cas pratiques - /20</p>
           <p>Partie 1 : {questions.length} QCM × 2 pts = 10 pts</p>
-          <p>Partie 2 : {casPratiques.length} cas pratique{casPratiques.length > 1 ? 's' : ''} = 10 pts (corrigé par IA)</p>
+          <p>Partie 2 : {casPratiques.length} cas pratique{casPratiques.length > 1 ? 's' : ''} = 10 pts (corrigé par votre professeur)</p>
         </div>
         <p className="text-xs font-semibold text-foreground px-1">Partie 1 - QCM ({questions.length} questions)</p>
         <QCMForm
@@ -341,7 +204,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
         <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-xs text-amber-800">
           <p className="font-semibold">Partie 2 - Cas pratiques</p>
           <p className="mt-0.5">QCM validé ({Object.values(reponsesQCM).length}/{questions.length}). Répondez maintenant aux cas pratiques.</p>
-          <p className="mt-0.5 text-amber-600">La correction est effectuée par IA - répondez avec vos mots, la logique est évaluée.</p>
+          <p className="mt-0.5 text-amber-600">Répondez avec vos mots : c'est la logique comptable qui est évaluée.</p>
         </div>
 
         {casPratiques.map((cas, i) => (
@@ -391,10 +254,11 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
           )}
         >
           {loading
-            ? <><Loader2 className="h-4 w-4 animate-spin" /> Correction IA en cours...</>
+            ? <><Loader2 className="h-4 w-4 animate-spin" /> Envoi en cours...</>
             : <><CheckCircle2 className="h-4 w-4" /> Soumettre et voir ma note</>
           }
         </button>
+        {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
         <p className="text-xs text-muted-foreground text-center">
           Une fois soumis, vous ne pourrez plus modifier vos réponses.
         </p>
@@ -404,32 +268,18 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
 
   // ── Étape Correction ──
   if (etape === 'correction' && resultat) {
-    if (resultat.geminiEchoue) {
-      return (
-        <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-center space-y-2">
-          <FileText className="h-8 w-8 mx-auto text-amber-600" />
-          <p className="text-sm font-semibold text-foreground">Devoir soumis</p>
-          <p className="text-xs text-amber-700">
-            La correction automatique des cas pratiques a rencontré un problème. Votre devoir a été transmis à votre professeur pour correction manuelle.
-          </p>
-          <div className="text-xs text-muted-foreground mt-2">
-            <p>QCM : {resultat.scoreQCM}/10 pts validés</p>
-            <p>Cas pratiques : en attente de correction</p>
-          </div>
-        </div>
-      )
-    }
-
     return (
-      <ResultatQCMCasDisplay
-        scoreQCM={resultat.scoreQCM}
-        scoreCas={resultat.scoreCas}
-        noteFinale={resultat.noteFinale}
-        questions={questions}
-        detailsQCM={resultat.detailsQCM}
-        casPratiques={casPratiques}
-        evaluations={resultat.evaluations}
-      />
+      <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-center space-y-2">
+        <FileText className="h-8 w-8 mx-auto text-indigo-600" />
+        <p className="text-sm font-semibold text-foreground">Devoir soumis</p>
+        <p className="text-xs text-indigo-800">
+          Vos cas pratiques ont été transmis à votre professeur. La note finale s'affichera ici après sa correction.
+        </p>
+        <div className="text-xs text-muted-foreground mt-2">
+          <p>QCM : {formaterNombre(resultat.scoreQCM)}/10</p>
+          <p>Cas pratiques : en attente de correction</p>
+        </div>
+      </div>
     )
   }
 
@@ -472,117 +322,6 @@ function ResultatQCMDisplay({ score, total, noteSur20, questions, details }: Res
         </p>
       </div>
       <QCMDetailsDisplay questions={questions} details={details} />
-    </div>
-  )
-}
-
-// ─── Affichage résultat QCM + Cas ─────────────────────────────────────────────
-
-interface ResultatQCMCasDisplayProps {
-  scoreQCM: number
-  scoreCas: number
-  noteFinale: number
-  questions: QCMChapitre[]
-  detailsQCM: { qId: string; choix: string; correct: boolean }[]
-  casPratiques: CasPratique[]
-  evaluations: { casId: string; score: number; commentaire: string; coherente: boolean }[]
-}
-
-function ResultatQCMCasDisplay({
-  scoreQCM, scoreCas, noteFinale,
-  questions, detailsQCM, casPratiques, evaluations
-}: ResultatQCMCasDisplayProps) {
-  const [voirDetailQCM, setVoirDetailQCM] = useState(false)
-
-  return (
-    <div className="space-y-4">
-      {/* Score global */}
-      <div className={cn(
-        'rounded-xl border p-4 text-center space-y-2',
-        noteFinale >= 14
-          ? 'border-emerald-300 bg-emerald-50'
-          : noteFinale >= 10
-            ? 'border-yellow-300 bg-yellow-50'
-            : 'border-red-300 bg-red-50'
-      )}>
-        <Award className={cn('h-8 w-8 mx-auto',
-          noteFinale >= 14 ? 'text-emerald-600' :
-          noteFinale >= 10 ? 'text-yellow-600' : 'text-red-500'
-        )} />
-        <p className="text-2xl font-bold text-foreground">
-          {noteFinale}<span className="text-base font-normal text-muted-foreground">/20</span>
-        </p>
-        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-          <span>QCM : {scoreQCM}/10</span>
-          <span className="text-border">|</span>
-          <span>Cas : {scoreCas}/10</span>
-        </div>
-        <p className="text-xs font-medium text-foreground">
-          {noteFinale >= 14 ? '🎉 Excellent !' : noteFinale >= 10 ? '👍 Satisfaisant' : '📚 Continuez à réviser'}
-        </p>
-      </div>
-
-      {/* Résultats cas pratiques */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold text-foreground px-1">Correction des cas pratiques</p>
-        {casPratiques.map((cas) => {
-          const ev = evaluations.find(e => e.casId === cas.id)
-          if (!ev) return null
-          const ratio = ev.score / cas.pointsMax
-          return (
-            <div key={cas.id} className={cn(
-              'rounded-lg border p-3 space-y-2',
-              ev.coherente
-                ? 'border-emerald-200 bg-emerald-50'
-                : ratio >= 0.5
-                  ? 'border-yellow-200 bg-yellow-50'
-                  : 'border-red-200 bg-red-50'
-            )}>
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold text-foreground">{cas.titre}</p>
-                <span className={cn(
-                  'text-xs font-bold px-2 py-0.5 rounded-full',
-                  ev.coherente
-                    ? 'bg-emerald-100 text-emerald-700'
-                    : ratio >= 0.5
-                      ? 'bg-yellow-100 text-yellow-700'
-                      : 'bg-red-100 text-red-700'
-                )}>
-                  {ev.score}/{cas.pointsMax} pts
-                </span>
-              </div>
-              <div className="flex items-center gap-1.5 text-xs">
-                {ev.coherente
-                  ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  : <XCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
-                }
-                <span className={ev.coherente ? 'text-emerald-700' : 'text-red-600'}>
-                  {ev.coherente ? 'Réponse logiquement correcte' : 'Réponse incohérente ou incorrecte'}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed pl-5 italic">
-                {ev.commentaire}
-              </p>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* Détail QCM (accordéon) */}
-      <div>
-        <button
-          onClick={() => setVoirDetailQCM(v => !v)}
-          className="w-full text-left text-xs text-indigo-600 font-medium hover:underline flex items-center gap-1 py-1"
-        >
-          {voirDetailQCM
-            ? <><ChevronUp className="h-3.5 w-3.5" /> Masquer le détail QCM</>
-            : <><ChevronDown className="h-3.5 w-3.5" /> Voir le détail QCM ({questions.length} questions)</>
-          }
-        </button>
-        {voirDetailQCM && (
-          <QCMDetailsDisplay questions={questions} details={detailsQCM} />
-        )}
-      </div>
     </div>
   )
 }
@@ -735,7 +474,7 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
 
   // La note enregistrée est déjà sur 20 pour les deux types de devoir de
   // chapitre. Elle était encore doublée ici pour un QCM (16/20 affiché 32/20).
-  const noteSur20 = soumission && estNotee(soumission) ? soumission.note as number : null
+  const noteSur20 = noteDeCopie(soumission, devoir)
 
   // Copie rendue sans note : évaluation automatique des cas pratiques
   // indisponible, l'enseignant corrige. Le statut « soumis » ne suffit pas à
