@@ -1215,100 +1215,86 @@ export default function ProfesseurPage() {
         </div>
       </div>
 
-      {/* Tabs groupés en 3 sections */}
-      <div className="animate-slideDown space-y-3" style={{ animationDelay: '80ms' }}>
-
-        {/* Groupe 1 : Gestion */}
-        <div className="space-y-1">
-          <div className="px-1">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Gestion</p>
-            <p className="text-[11px] text-muted-foreground/70">{isAdmin ? 'Comptes étudiants, inscriptions à valider, structure académique' : 'Comptes étudiants, inscriptions à valider'}</p>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            <button
-              onClick={() => setTab('etudiants')}
-              className={cn(
-                "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-                tab === 'etudiants' ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
-              )}>
-              <Users className="h-3.5 w-3.5" /> Étudiants
-            </button>
-            <button
-              onClick={() => setTab('inscriptions')}
-              className={cn(
-                "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-                tab === 'inscriptions' ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
-              )}>
-              <Clock className="h-3.5 w-3.5" /> Inscriptions
-              {inscriptionsEnAttente.length > 0 && (
-                <span className="ml-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold px-1.5 py-px tabular-nums">
-                  {inscriptionsEnAttente.length}
-                </span>
-              )}
-            </button>
-            {(isAdmin ? [
-              { id: 'universites' as Tab, label: 'Universités', icon: <Building2 className="h-3.5 w-3.5" /> },
-              { id: 'cours' as Tab,       label: 'Cours', icon: <LibraryBig className="h-3.5 w-3.5" /> },
-              { id: 'staff' as Tab,       label: 'Prof / Assistants', icon: <GraduationCap className="h-3.5 w-3.5" /> },
-            ] : []).map(t => (
-              <button key={t.id} onClick={() => setTab(t.id)}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
-                )}>
-                {t.icon}{t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Groupe 2 : Pédagogie */}
-        <div className="space-y-1">
-          <div className="px-1">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Pédagogie</p>
-            <p className="text-[11px] text-muted-foreground/70">Devoirs donnés depuis les chapitres, copies à corriger, supports de cours partagés</p>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {([
-              { id: 'devoirs',   label: 'Mes devoirs', icon: <CalendarCheck className="h-3.5 w-3.5" /> },
-              { id: 'copies',    label: 'Copies à corriger', icon: <ClipboardList className="h-3.5 w-3.5" /> },
-              { id: 'notes',     label: 'Notes de cours', icon: <FileText className="h-3.5 w-3.5" /> },
-            ] as {id: Tab, label: string, icon: React.ReactNode}[]).map(t => (
-              <button key={t.id} onClick={() => setTab(t.id as Tab)}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
-                )}>
-                {t.icon}{t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Groupe 3 : Suivi */}
-        <div className="space-y-1">
-          <div className="px-1">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Suivi</p>
-            <p className="text-[11px] text-muted-foreground/70">Avancement dans les modules, présence en classe, relevé de notes</p>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {([
+      {/* Navigation en deux niveaux : quatre rubriques pensées pour l'usage
+          quotidien, puis les onglets de la rubrique. Les onze onglets étaient
+          auparavant tous affichés d'un bloc, en trois groupes. */}
+      {(() => {
+        const badge = (n: number, couleur: string) => n > 0 && (
+          <span className={cn('ml-0.5 rounded-full text-white text-[10px] font-bold px-1.5 py-px tabular-nums', couleur)}>{n}</span>
+        )
+        const rubriques: { id: string; label: string; aide: string; icon: React.ReactNode; compte?: number; onglets: { id: Tab; label: string; icon: React.ReactNode; compte?: number }[] }[] = [
+          {
+            id: 'afaire', label: 'À faire', aide: 'Copies à corriger et inscriptions à valider',
+            icon: <ClipboardList className="h-4 w-4" />, compte: copiesACorriger.length + inscriptionsEnAttente.length,
+            onglets: [
+              { id: 'copies', label: 'Copies à corriger', icon: <ClipboardList className="h-3.5 w-3.5" />, compte: copiesACorriger.length },
+              { id: 'inscriptions', label: 'Inscriptions à valider', icon: <Clock className="h-3.5 w-3.5" />, compte: inscriptionsEnAttente.length },
+            ],
+          },
+          {
+            id: 'classes', label: 'Mes classes', aide: 'Étudiants, présences, cotes et progression',
+            icon: <Users className="h-4 w-4" />,
+            onglets: [
+              { id: 'etudiants', label: 'Étudiants', icon: <Users className="h-3.5 w-3.5" /> },
+              { id: 'presences', label: 'Présences', icon: <CalendarCheck className="h-3.5 w-3.5" /> },
+              { id: 'cotes', label: 'Cotes', icon: <Award className="h-3.5 w-3.5" /> },
               { id: 'progression', label: 'Progression', icon: <BarChart2 className="h-3.5 w-3.5" /> },
-              { id: 'presences',   label: 'Présences',   icon: <CalendarCheck className="h-3.5 w-3.5" /> },
-              { id: 'cotes',       label: 'Cotes',       icon: <Award className="h-3.5 w-3.5" /> },
-            ] as {id: Tab, label: string, icon: React.ReactNode}[]).map(t => (
-              <button key={t.id} onClick={() => setTab(t.id as Tab)}
-                className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
-                  tab === t.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
-                )}>
-                {t.icon}{t.label}
-              </button>
-            ))}
+            ],
+          },
+          {
+            id: 'devoirs', label: 'Mes devoirs', aide: 'Devoirs donnés et notes de cours partagées',
+            icon: <CalendarCheck className="h-4 w-4" />,
+            onglets: [
+              { id: 'devoirs', label: 'Devoirs', icon: <CalendarCheck className="h-3.5 w-3.5" /> },
+              { id: 'notes', label: 'Notes de cours', icon: <FileText className="h-3.5 w-3.5" /> },
+            ],
+          },
+          ...(isAdmin ? [{
+            id: 'admin', label: 'Administration', aide: 'Universités, cours et enseignants de la plateforme',
+            icon: <Building2 className="h-4 w-4" />,
+            onglets: [
+              { id: 'universites' as Tab, label: 'Universités', icon: <Building2 className="h-3.5 w-3.5" /> },
+              { id: 'cours' as Tab, label: 'Cours', icon: <LibraryBig className="h-3.5 w-3.5" /> },
+              { id: 'staff' as Tab, label: 'Enseignants', icon: <GraduationCap className="h-3.5 w-3.5" /> },
+            ],
+          }] : []),
+        ]
+        const active = rubriques.find(r => r.onglets.some(o => o.id === tab)) ?? rubriques[0]
+        return (
+          <div className="animate-slideDown space-y-2.5" style={{ animationDelay: '80ms' }}>
+            <div className={cn('grid gap-2', rubriques.length === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3')}>
+              {rubriques.map(r => (
+                <button
+                  key={r.id}
+                  onClick={() => setTab(r.onglets[0].id)}
+                  className={cn(
+                    'text-left rounded-lg border px-3 py-2.5 transition-colors',
+                    r.id === active.id ? 'border-primary bg-primary/10' : 'border-border bg-card hover:bg-muted/50',
+                  )}
+                >
+                  <span className={cn('flex items-center gap-1.5 text-sm font-semibold', r.id === active.id ? 'text-primary' : 'text-foreground')}>
+                    {r.icon}{r.label}{badge(r.compte ?? 0, 'bg-rose-500')}
+                  </span>
+                  <span className="hidden sm:block text-[11px] text-muted-foreground mt-0.5 leading-snug">{r.aide}</span>
+                </button>
+              ))}
+            </div>
+            {active.onglets.length > 1 && (
+              <div className="flex flex-wrap gap-1.5">
+                {active.onglets.map(t => (
+                  <button key={t.id} onClick={() => setTab(t.id)}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
+                      tab === t.id ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )}>
+                    {t.icon}{t.label}{badge(t.compte ?? 0, t.id === 'inscriptions' ? 'bg-amber-500' : 'bg-rose-500')}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
-
-      </div>
+        )
+      })()}
 
       {/* ═══════════════════ ONGLET COURS ═══════════════════ */}
       {tab === 'cours' && isAdmin && (

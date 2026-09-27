@@ -337,7 +337,7 @@ export default function DashboardEtudiant() {
   // pour lui. La promotion du devoir était ignorée jusqu'ici.
   const mesDevoirs = user ? allDevoirs.filter(d => devoirConcerneEtudiant(d, user as any, allCoursRaw)) : []
   // Devoirs de chapitre (QCM, QCM avec cas) : section dédiée plus bas ;
-  // devoirs classiques : section « Mes devoirs ».
+  // anciens types de devoirs : section « Anciens devoirs ».
   const mesDevoirsChapitre = mesDevoirs.filter(d => estDevoirChapitre(d))
   const mesDevoirsClassiques = mesDevoirs.filter(d => !estDevoirChapitre(d))
 
@@ -665,13 +665,37 @@ export default function DashboardEtudiant() {
           elle mènerait au même endroit tout en annonçant un autre nombre. */}
       <DashboardModulesGrid navigate={navigate} afficherMesCours={userCours.length === 0} />
 
-      {/* ══ MES DEVOIRS ══════════════════════════════════════════════════════ */}
+      {/* ══ MES DEVOIRS (devoirs créés depuis les chapitres) ═════════════
+           Seule liste de devoirs pour tout devoir récent : les devoirs se
+           créent désormais depuis un chapitre (QCM, QCM + cas, questions
+           rédigées).
+           Les devoirs « QCM + cas » n'étaient jamais transmis à cette section
+           (filtre sur le seul type qcm_chapitre), et ceux d'une autre
+           promotion ou faculté l'étaient : même règle désormais que le reste
+           de la page. ══ */}
+      {mesDevoirsChapitre.length > 0 && (
+        <div id="mes-devoirs-chapitre" className="animate-slideUp scroll-mt-4" style={{ animationDelay: '1260ms' }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-display font-semibold text-foreground">Mes devoirs</h2>
+            <span className="text-xs text-muted-foreground">{mesDevoirsChapitre.length} devoir{mesDevoirsChapitre.length > 1 ? 's' : ''} · notés sur 20</span>
+          </div>
+          <DevoirChapitreEtudiant
+            devoirs={mesDevoirsChapitre}
+            soumissions={mesSoumissions}
+            etudiantId={user!.id}
+            promotionId={(user as any)?.classe || undefined}
+          />
+        </div>
+      )}
+
+      {/* ══ ANCIENS DEVOIRS (types d'avant les devoirs de chapitre) : affichés
+           seulement s'il en reste ══════════════════════════════════════════════════════ */}
       {userCoursIds.length > 0 && (() => {
         if (mesDevoirsClassiques.length === 0) return null
         return (
           <div id="mes-devoirs" className="animate-slideUp scroll-mt-4" style={{ animationDelay: '1250ms' }}>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-base font-display font-semibold text-foreground">Mes devoirs</h2>
+              <h2 className="text-base font-display font-semibold text-foreground">Anciens devoirs</h2>
               <span className="text-xs text-muted-foreground">{mesDevoirsClassiques.length} devoir{mesDevoirsClassiques.length > 1 ? 's' : ''}</span>
             </div>
             <div className="space-y-2">
@@ -802,26 +826,6 @@ export default function DashboardEtudiant() {
           </div>
         )
       })()}
-
-      {/* ══ DEVOIRS DES CHAPITRES (QCM, QCM avec cas pratiques) ═════════
-           Les devoirs « QCM + cas » n'étaient jamais transmis à cette section
-           (filtre sur le seul type qcm_chapitre), et ceux d'une autre
-           promotion ou faculté l'étaient : même règle désormais que le reste
-           de la page. ══ */}
-      {mesDevoirsChapitre.length > 0 && (
-        <div id="mes-devoirs-chapitre" className="animate-slideUp scroll-mt-4" style={{ animationDelay: '1260ms' }}>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-base font-display font-semibold text-foreground">Devoirs des chapitres</h2>
-            <span className="text-xs text-muted-foreground">{mesDevoirsChapitre.length} devoir{mesDevoirsChapitre.length > 1 ? 's' : ''} · notés sur 20</span>
-          </div>
-          <DevoirChapitreEtudiant
-            devoirs={mesDevoirsChapitre}
-            soumissions={mesSoumissions}
-            etudiantId={user!.id}
-            promotionId={(user as any)?.classe || undefined}
-          />
-        </div>
-      )}
 
       {/* ══ MES COTES ══════════════════════════════════════════════════════
            Calcul unique (lib/cotes.ts), identique à celui de l'Espace
