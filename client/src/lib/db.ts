@@ -212,7 +212,9 @@ export interface NoteCours {
   actif: boolean
 }
 
-export type DevoirType = 'pratique' | 'theorique' | 'mixte' | 'qcm' | 'qcm_chapitre' | 'qcm_cas'
+// redaction : questions à réponse rédigée (cas du chapitre ou questions de
+// l'enseignant), notées sur 20 par l'enseignant avec l'aide de l'IA.
+export type DevoirType = 'pratique' | 'theorique' | 'mixte' | 'qcm' | 'qcm_chapitre' | 'qcm_cas' | 'redaction'
 
 // Cas pratique intégré dans un devoir QCM+Cas (type qcm_cas)
 export interface CasPratique {

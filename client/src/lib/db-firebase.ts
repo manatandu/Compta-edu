@@ -61,6 +61,7 @@ const C = {
   FACULTES:         'facultes',
   COURS:            'cours',
   DEVOIRS:          'devoirs',
+  DEVOIRS_CORRIGES: 'devoirs_corriges',
   SOUMISSIONS:      'soumissions',
   PRESENCES:        'presences',
   NOTES_COURS:      'notes_cours',
@@ -1047,6 +1048,28 @@ export async function createDevoirAsync(data: Omit<Devoir, 'id' | 'dateCreation'
   return devoir
 }
 
+// Devoir à questions rédigées : les réponses attendues ne figurent pas dans
+// le devoir, que tout étudiant du cours peut lire, mais dans un document à
+// part (devoirs_corriges/{devoirId}) réservé à l'équipe pédagogique. Les deux
+// sont écrits d'un bloc : pas de devoir sans corrigé après une coupure.
+export async function createDevoirAvecCorrigeAsync(
+  data: Omit<Devoir, 'id' | 'dateCreation'>, corriges: Record<string, string>,
+): Promise<Devoir> {
+  const id = generateId()
+  const devoir: Devoir = { ...data, id, dateCreation: new Date().toISOString() }
+  const batch = writeBatch(db)
+  batch.set(doc(db, C.DEVOIRS, id), cleanUndefined(devoir) as any)
+  batch.set(doc(db, C.DEVOIRS_CORRIGES, id), { devoirId: id, createdBy: data.createdBy, corriges })
+  await batch.commit()
+  return devoir
+}
+
+// Réponses attendues d'un devoir, par question ; vide si le devoir n'en a pas.
+export async function getCorrigesDevoirAsync(devoirId: string): Promise<Record<string, string>> {
+  const snap = await getDoc(doc(db, C.DEVOIRS_CORRIGES, devoirId))
+  return (snap.exists() ? (snap.data() as any).corriges : null) || {}
+}
+
 export async function updateDevoirAsync(id: string, data: Partial<Devoir>): Promise<void> {
   await updateDoc(doc(db, C.DEVOIRS, id), cleanUndefined(data) as any)
 }
@@ -1058,6 +1081,8 @@ export async function deleteDevoirAsync(id: string): Promise<void> {
   // le créateur du devoir (ownsVia), qu'il faut donc encore pouvoir lire.
   const copies = await getDocs(query(collection(db, C.SOUMISSIONS), where('devoirId', '==', id)))
   await Promise.all(copies.docs.map(d => deleteDoc(d.ref)))
+  // Corrigé réservé à l'équipe, s'il existe : même raison, avant le devoir.
+  await deleteDoc(doc(db, C.DEVOIRS_CORRIGES, id))
   await deleteDoc(doc(db, C.DEVOIRS, id))
 }
 

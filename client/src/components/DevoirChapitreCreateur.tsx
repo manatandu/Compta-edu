@@ -9,6 +9,10 @@
  *    corrigé (QCM auto-noté, cas pratiques évalués par IA).
  *      - QCM seul  (qcm_chapitre) : sélection libre de questions, 1 pt/question -> /20
  *      - QCM + Cas (qcm_cas)      : QCM (10 pts) + cas pratiques existants (10 pts) = /20
+ *      - Questions rédigées (redaction) : cas du chapitre et/ou questions
+ *        écrites par l'enseignant, 20 pts répartis. Les réponses attendues
+ *        sont rangées à part (devoirs_corriges), hors de portée des étudiants,
+ *        et servent de référence à la proposition de note de l'IA.
  *  - Exercice libre : entraînement sans note ni date limite, publié dans le
  *    module Exercices (ExercicesPage) plutôt que dans les devoirs. Le type
  *    (qcm / theorique / mixte) est dérivé de ce qui est sélectionné : QCM
@@ -17,11 +21,12 @@
 import { useState, useEffect } from 'react'
 import {
   CheckCircle2, XCircle, Send, ChevronDown, ChevronUp,
-  BookOpen, FileText, CheckSquare, Square, CalendarClock, Dumbbell,
+  BookOpen, FileText, CheckSquare, Square, CalendarClock, Dumbbell, PenLine, Plus, Trash2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { repartirPoints } from '@/lib/correctionQCM'
 import { QCMChapitre, CasPratique, PROMOTIONS } from '@/lib/db'
-import { createDevoirAsync, createExerciceLibreAsync, coursDeFaculte } from '@/lib/db-firebase'
+import { createDevoirAsync, createDevoirAvecCorrigeAsync, createExerciceLibreAsync, coursDeFaculte } from '@/lib/db-firebase'
 import { useAllCours } from '@/lib/useFirestore'
 import { codePromotion } from '@/lib/promotion'
 import { db } from '@/lib/firebase'
@@ -34,7 +39,7 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 interface Universite { id: string; nom: string }
 interface Faculte    { id: string; nom: string; universiteId: string }
 
-type TypeDevoir = 'qcm_chapitre' | 'qcm_cas'
+type TypeDevoir = 'qcm_chapitre' | 'qcm_cas' | 'redaction'
 
 // Forme réellement attendue par ExercicesPage.tsx (QCMBuilder, ModalCorrige,
 // session d'exercice libre) pour ExerciceLibre.questions - distincte de
@@ -78,6 +83,11 @@ export function versCasPratiqueExistant(cas: EtudeDeCasRaw, index = 0): CasPrati
     corrigeType: cas.questions.map(q => `Question ${q.num} : ${q.correction}`).join('\n\n'),
   }
 }
+
+// Devoir à questions rédigées : au plus 5 questions (cas du chapitre et
+// questions de l'enseignant réunis), 20 points répartis également, le reste
+// de la division sur la dernière.
+const MAX_QUESTIONS_REDIGEES = 5
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -186,6 +196,12 @@ export default function DevoirChapitreCreateur({
   // devoir noté (barème /20 conçu pour au plus 2 cas) - un exercice libre
   // n'a pas de barème fixe, la limite ne s'applique donc pas.
   const [selectionCas, setSelectionCas] = useState<Set<string>>(new Set())
+  const maxCasDevoir = typeDevoir === 'redaction' ? MAX_QUESTIONS_REDIGEES : 2
+
+  // Questions écrites par l'enseignant (devoir à questions rédigées), avec
+  // leur réponse attendue.
+  const [questionsPerso, setQuestionsPerso] = useState<{ question: string; reponse: string }[]>([])
+  const questionsPersoValides = questionsPerso.filter(q => q.question.trim() && q.reponse.trim())
 
   const toggleCas = (id: string) => {
     setSelectionCas(prev => {
@@ -193,7 +209,7 @@ export default function DevoirChapitreCreateur({
       if (next.has(id)) {
         next.delete(id)
       } else {
-        if (destinataire === 'devoir' && next.size >= 2) return prev // max 2 cas (devoir noté)
+        if (destinataire === 'devoir' && next.size >= maxCasDevoir) return prev // barème du devoir noté
         next.add(id)
       }
       return next
@@ -205,6 +221,11 @@ export default function DevoirChapitreCreateur({
   const nbCasSelectionnes = selectionCas.size
 
   const getBaremeLabel = () => {
+    if (typeDevoir === 'redaction') {
+      const n = nbCasSelectionnes + questionsPersoValides.length
+      if (n === 0) return 'Choisissez des cas du chapitre ou écrivez vos questions'
+      return `${n} question${n > 1 ? 's' : ''} rédigée${n > 1 ? 's' : ''} : ${repartirPoints(n).join(' + ')} = 20 pts`
+    }
     if (typeDevoir === 'qcm_chapitre') {
       if (nbQCMSelectionnes === 0) return 'Sélectionnez des questions QCM'
       return `${nbQCMSelectionnes} question${nbQCMSelectionnes > 1 ? 's' : ''} × 1 pt = ${nbQCMSelectionnes} pts → note /20`
@@ -225,6 +246,10 @@ export default function DevoirChapitreCreateur({
     if (!uniId || !facId || !coursCible) return false
     if (destinataire === 'devoir') {
       if (!dateLimit || !promoId) return false
+      if (typeDevoir === 'redaction') {
+        const n = nbCasSelectionnes + questionsPersoValides.length
+        return n > 0 && n <= MAX_QUESTIONS_REDIGEES && questionsPerso.every(q => !q.question.trim() === !q.reponse.trim())
+      }
       if (nbQCMSelectionnes === 0) return false
       if (typeDevoir === 'qcm_cas' && nbCasSelectionnes === 0) return false
       return true
@@ -275,6 +300,35 @@ export default function DevoirChapitreCreateur({
         if (aCas) payload.corrigeTexte = casSel.map(c => `${c.titre} :\n${c.corrigeType}`).join('\n\n')
 
         await createExerciceLibreAsync(payload)
+      } else if (typeDevoir === 'redaction') {
+        // Questions : cas du chapitre puis questions de l'enseignant. Les
+        // réponses attendues ne sont pas écrites dans le devoir.
+        const items = [
+          ...casSel.map(c => ({ id: c.id, titre: c.titre, enonce: c.enonce, corrige: c.corrigeType })),
+          ...questionsPersoValides.map((q, i) => ({
+            id: `q${i + 1}`, titre: `Question ${casSel.length + i + 1}`, enonce: q.question.trim(), corrige: q.reponse.trim(),
+          })),
+        ]
+        const points = repartirPoints(items.length)
+        const casPratiques: CasPratique[] = items.map((it, i) => ({
+          id: it.id, titre: it.titre, enonce: it.enonce, corrigeType: '', pointsMax: points[i],
+        }))
+        await createDevoirAvecCorrigeAsync({
+          titre: titre.trim(),
+          consignes: `Répondez par écrit aux ${items.length} question${items.length > 1 ? 's' : ''}. Note sur 20.`,
+          coursId: coursCible!.id,
+          universiteId: uniId,
+          faculteId: facId,
+          promotionId: promoId,
+          dateLimit: new Date(dateLimit).toISOString(),
+          createdBy: user!.id,
+          actif: true,
+          type: 'redaction',
+          chapitreId,
+          chapitreNom,
+          casPratiques,
+        } as any, Object.fromEntries(items.map(it => [it.id, it.corrige])))
+        setQuestionsPerso([])
       } else {
         // Construire les cas pratiques sélectionnés
         const pointsParCas = nbCasSelectionnes > 0 ? Math.floor(10 / nbCasSelectionnes) : 0
@@ -327,7 +381,13 @@ export default function DevoirChapitreCreateur({
     if (!facId) return 'Sélectionnez une faculté.'
     if (!coursCible) return "Cette UE n'est pas encore ouverte dans la faculté choisie : l'administrateur l'ouvre en visitant l'Espace pédagogique."
     if (destinataire === 'devoir' && !promoId) return 'Sélectionnez une promotion.'
-    if (destinataire === 'devoir' && nbQCMSelectionnes === 0) return 'Sélectionnez au moins 1 question QCM.'
+    if (destinataire === 'devoir' && typeDevoir === 'redaction') {
+      if (questionsPerso.some(q => !q.question.trim() !== !q.reponse.trim())) return 'Chaque question écrite doit avoir sa réponse attendue.'
+      const n = nbCasSelectionnes + questionsPersoValides.length
+      if (n === 0) return 'Choisissez au moins un cas du chapitre ou écrivez une question.'
+      if (n > MAX_QUESTIONS_REDIGEES) return `${MAX_QUESTIONS_REDIGEES} questions au plus.`
+    }
+    if (destinataire === 'devoir' && typeDevoir !== 'redaction' && nbQCMSelectionnes === 0) return 'Sélectionnez au moins 1 question QCM.'
     if (destinataire === 'devoir' && typeDevoir === 'qcm_cas' && nbCasSelectionnes === 0) return 'Sélectionnez au moins 1 cas pratique.'
     if (destinataire === 'exercice' && nbQCMSelectionnes === 0 && nbCasSelectionnes === 0) return 'Sélectionnez au moins une question QCM ou un cas pratique.'
     return 'Formulaire incomplet.'
@@ -391,10 +451,11 @@ export default function DevoirChapitreCreateur({
           {destinataire === 'devoir' && (
             <div>
               <label className="text-xs font-semibold text-foreground block mb-2">Type de devoir</label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {([
                   { val: 'qcm_chapitre', label: 'QCM seul', sub: '1 pt/question → /20', Icon: CheckSquare },
                   { val: 'qcm_cas',      label: 'QCM + Cas pratique', sub: 'QCM (10 pts) + cas (10 pts) = /20', Icon: FileText },
+                  { val: 'redaction',    label: 'Questions rédigées', sub: 'Réponses écrites, /20, IA en appui', Icon: PenLine },
                 ] as const).map(opt => (
                   <button
                     key={opt.val}
@@ -522,7 +583,8 @@ export default function DevoirChapitreCreateur({
             </div>
           )}
 
-          {/* Sélection QCM - libre */}
+          {/* Sélection QCM - libre (pas de QCM dans un devoir à questions rédigées) */}
+          {!(destinataire === 'devoir' && typeDevoir === 'redaction') && (
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs font-semibold text-foreground">
@@ -571,25 +633,26 @@ export default function DevoirChapitreCreateur({
               })}
             </div>
           </div>
+          )}
 
           {/* Cas pratiques existants : pour un devoir noté uniquement en
               qcm_cas (barème /20 dédié) ; pour un exercice libre, toujours
               proposés (pas de barème fixe, l'exercice n'a pas besoin de QCM
               pour exister - un cas seul devient un exercice théorique). */}
-          {(destinataire === 'exercice' || typeDevoir === 'qcm_cas') && (
+          {(destinataire === 'exercice' || typeDevoir === 'qcm_cas' || typeDevoir === 'redaction') && (
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-violet-600" />
                 <p className="text-xs font-semibold text-foreground">
-                  {destinataire === 'devoir' ? 'Cas pratique(s) : 10 pts total' : 'Cas pratique(s)'}
+                  {destinataire === 'exercice' ? 'Cas pratique(s)' : typeDevoir === 'redaction' ? 'Cas du chapitre (facultatif)' : 'Cas pratique(s) : 10 pts total'}
                 </p>
-                {destinataire === 'devoir' && <span className="text-xs text-muted-foreground">(max 2 cas)</span>}
+                {destinataire === 'devoir' && <span className="text-xs text-muted-foreground">(max {maxCasDevoir} {typeDevoir === 'redaction' ? 'questions en tout' : 'cas'})</span>}
               </div>
 
               <div className="rounded-lg bg-violet-50 border border-violet-200 px-3 py-2">
                 <p className="text-xs text-violet-700">
                   {destinataire === 'devoir'
-                    ? "Le corrigé type sert de référence à l'IA pour évaluer la logique de la réponse, pas la formulation exacte."
+                    ? "Le corrigé type sert de référence à la proposition de note de l'IA, que vous validez ou modifiez lors de la correction. Il n'est pas montré aux étudiants."
                     : "Le corrigé type est affiché tel quel à l'étudiant après soumission (pas d'évaluation automatique sur un exercice libre)."}
                 </p>
               </div>
@@ -602,7 +665,9 @@ export default function DevoirChapitreCreateur({
                 <div className="space-y-2">
                   {casPratiquesExistants.map(cas => {
                     const sel = selectionCas.has(cas.id)
-                    const disabled = destinataire === 'devoir' && !sel && selectionCas.size >= 2
+                    const disabled = destinataire === 'devoir' && !sel && (typeDevoir === 'redaction'
+                      ? selectionCas.size + questionsPersoValides.length >= MAX_QUESTIONS_REDIGEES
+                      : selectionCas.size >= maxCasDevoir)
                     return (
                       <button
                         key={cas.id}
@@ -634,7 +699,7 @@ export default function DevoirChapitreCreateur({
               )}
 
               {/* Répartition des points (devoir noté uniquement) */}
-              {destinataire === 'devoir' && nbCasSelectionnes > 0 && (
+              {destinataire === 'devoir' && typeDevoir === 'qcm_cas' && nbCasSelectionnes > 0 && (
                 <div className="rounded-lg bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
                   Répartition : QCM 10 pts + Cas {nbCasSelectionnes === 1 ? '10 pts' : '5 pts chacun'}
                   {' = '}
@@ -644,8 +709,60 @@ export default function DevoirChapitreCreateur({
             </div>
           )}
 
+          {/* Questions écrites par l'enseignant (devoir à questions rédigées) */}
+          {destinataire === 'devoir' && typeDevoir === 'redaction' && (
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <PenLine className="h-4 w-4 text-sky-600" />
+                <p className="text-xs font-semibold text-foreground">Vos questions</p>
+              </div>
+              <div className="rounded-lg bg-sky-50 border border-sky-200 px-3 py-2">
+                <p className="text-xs text-sky-800">
+                  Écrivez la question et la réponse attendue. La réponse attendue n'est jamais montrée aux étudiants : elle sert de référence à la proposition de note de l'IA.
+                </p>
+              </div>
+              {questionsPerso.map((q, i) => (
+                <div key={i} className="rounded-xl border border-border bg-card p-3 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-semibold text-foreground">Question {nbCasSelectionnes + i + 1}</p>
+                    <button
+                      onClick={() => setQuestionsPerso(l => l.filter((_, j) => j !== i))}
+                      className="text-muted-foreground hover:text-red-600"
+                      aria-label={`Retirer la question ${nbCasSelectionnes + i + 1}`}
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                  <textarea
+                    rows={2}
+                    value={q.question}
+                    onChange={e => setQuestionsPerso(l => l.map((x, j) => j === i ? { ...x, question: e.target.value } : x))}
+                    placeholder="Question posée à l'étudiant"
+                    aria-label={`Énoncé de la question ${nbCasSelectionnes + i + 1}`}
+                    className="w-full text-xs rounded-lg border border-border bg-background px-3 py-2 focus:outline-none focus:border-indigo-500"
+                  />
+                  <textarea
+                    rows={3}
+                    value={q.reponse}
+                    onChange={e => setQuestionsPerso(l => l.map((x, j) => j === i ? { ...x, reponse: e.target.value } : x))}
+                    placeholder="Réponse attendue (référence de correction)"
+                    aria-label={`Réponse attendue à la question ${nbCasSelectionnes + i + 1}`}
+                    className="w-full text-xs rounded-lg border border-border bg-background px-3 py-2 focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+              ))}
+              <button
+                onClick={() => setQuestionsPerso(l => [...l, { question: '', reponse: '' }])}
+                disabled={nbCasSelectionnes + questionsPerso.length >= MAX_QUESTIONS_REDIGEES}
+                className="w-full flex items-center justify-center gap-1.5 text-xs font-medium rounded-lg border border-dashed border-sky-300 text-sky-700 py-2 hover:bg-sky-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Plus className="h-3.5 w-3.5" /> Ajouter une question
+              </button>
+            </div>
+          )}
+
           {/* Barème récapitulatif (devoir noté uniquement) */}
-          {destinataire === 'devoir' && nbQCMSelectionnes > 0 && (
+          {destinataire === 'devoir' && (nbQCMSelectionnes > 0 || typeDevoir === 'redaction') && (
             <div className="rounded-lg bg-indigo-50 border border-indigo-200 px-3 py-2">
               <p className="text-xs text-indigo-700 font-medium">{getBaremeLabel()}</p>
             </div>
@@ -693,7 +810,9 @@ export default function DevoirChapitreCreateur({
               ? "Entraînement libre : pas de note, corrigé consultable après soumission."
               : typeDevoir === 'qcm_chapitre'
                 ? 'Score QCM ramené sur 20 points'
-                : 'QCM (10 pts) + cas pratiques évalués par IA (10 pts) = /20'
+                : typeDevoir === 'redaction'
+                  ? 'Réponses corrigées par vous, avec une proposition de note de l\'IA = /20'
+                  : 'QCM (10 pts) + cas pratiques corrigés par vous, avec une proposition de note de l\'IA (10 pts) = /20'
             }
           </p>
         </div>

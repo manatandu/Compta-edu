@@ -26,6 +26,13 @@ const LONGUEUR_MAX_REPONSE = 8000
 
 export interface PropositionCas { casId: string; score: number; pointsMax: number; commentaire: string }
 
+// Questions d'un devoir complétées de leurs réponses attendues. Pour un
+// devoir à questions rédigées, elles sont rangées à part (réservées à
+// l'équipe) et le devoir lui-même n'en porte pas.
+export function avecCorriges(cas: CasPratique[], corriges: Record<string, string>): CasPratique[] {
+  return cas.map(c => ({ ...c, corrigeType: corriges[c.id] ?? c.corrigeType ?? '' }))
+}
+
 export function consigneCorrection(cas: CasPratique[], reponses: Record<string, string>): string {
   const blocs = cas.map((c, i) => `### Cas ${i + 1}
 Identifiant : ${c.id}
@@ -36,7 +43,7 @@ Points : ${c.pointsMax}
 ${c.enonce}
 
 Corrigé type (référence) :
-${c.corrigeType}
+${c.corrigeType || '(aucun corrigé fourni : évalue d\'après tes connaissances du SYSCOHADA révisé et du droit OHADA)'}
 
 Réponse de l'étudiant (entre les balises) :
 <reponse>

@@ -23,7 +23,7 @@ import {
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField, writeBatch } from 'firebase/firestore'
 import { describe, it, beforeAll, afterAll, afterEach } from 'vitest'
 
 import { USERS, IDS, DOCS, token } from './helpers.js'
@@ -1793,6 +1793,54 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   it('Une copie sur un devoir inexistant est refusée', async () => {
     await seedUsers(USERS.etud1)
     await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-absent')))
+  })
+})
+
+describe('🔒 Réponses attendues des devoirs à questions rédigées', () => {
+  const ASSIST1 = { uid: 'assist1-uid', role: 'assistant', username: 'assist1', titulaireId: USERS.prof1.uid }
+  const devoirRedaction = { ...DOCS.devoirCompta, type: 'redaction', casPratiques: [{ id: 'q1', titre: 'Question 1', enonce: 'Définir la provision.', corrigeType: '', pointsMax: 20 }] }
+  const corrige = (createdBy, devoirId = 'd-red') => ({ devoirId, createdBy, corriges: { q1: 'Passif dont l\'échéance ou le montant est incertain.' } })
+
+  it('Le professeur crée le devoir et son corrigé d\'un bloc', async () => {
+    await seedUsers(USERS.prof1)
+    const fs = db(USERS.prof1)
+    const b = writeBatch(fs)
+    b.set(doc(fs, 'devoirs', 'd-red'), devoirRedaction)
+    b.set(doc(fs, 'devoirs_corriges', 'd-red'), corrige(USERS.prof1.uid))
+    await assertSucceeds(b.commit())
+  })
+
+  it('Un étudiant NE PEUT PAS lire les réponses attendues, même inscrit au cours', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-red', devoirRedaction)
+    await seedDoc('devoirs_corriges', 'd-red', corrige(USERS.prof1.uid))
+    await assertSucceeds(getDoc(doc(db(USERS.etud1), 'devoirs', 'd-red')))
+    await assertFails(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'd-red')))
+  })
+
+  it('L\'équipe du créateur lit le corrigé ; un autre professeur, non', async () => {
+    await seedUsers(USERS.prof1, ASSIST1, USERS.prof2)
+    await seedDoc('devoirs', 'd-red', devoirRedaction)
+    await seedDoc('devoirs_corriges', 'd-red', corrige(USERS.prof1.uid))
+    await assertSucceeds(getDoc(doc(db(USERS.prof1), 'devoirs_corriges', 'd-red')))
+    await assertSucceeds(getDoc(doc(db(ASSIST1), 'devoirs_corriges', 'd-red')))
+    await assertFails(getDoc(doc(db(USERS.prof2), 'devoirs_corriges', 'd-red')))
+  })
+
+  it('Un professeur NE PEUT PAS écrire le corrigé du devoir d\'un autre', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2)
+    await seedDoc('devoirs', 'd-red', devoirRedaction)
+    await assertFails(setDoc(doc(db(USERS.prof2), 'devoirs_corriges', 'd-red'), corrige(USERS.prof2.uid)))
+    await assertFails(setDoc(doc(db(USERS.prof1), 'devoirs_corriges', 'd-autre'), corrige(USERS.prof1.uid, 'd-autre')))
+  })
+
+  it('La copie d\'un devoir à questions rédigées arrive « soumis » et se fige une fois notée', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-red', devoirRedaction)
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), { devoirId: 'd-red', etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', statut: 'soumis', reponsesCasPratiques: { q1: 'Réponse' } }))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), { devoirId: 'd-red', etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', statut: 'note', note: 18 }))
+    await seedDoc('soumissions', 's3', { devoirId: 'd-red', etudiantId: USERS.etud1.uid, statut: 'note', note: 12, reponsesCasPratiques: { q1: 'v1' } })
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 's3'), { reponsesCasPratiques: { q1: 'v2' } }))
   })
 })
 

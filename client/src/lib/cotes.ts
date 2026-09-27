@@ -29,7 +29,7 @@ import { corrigerQCMChapitre, corrigerQCMClassique, partieQCMSur10 } from './cor
 
 // ─── Barème et état d'une copie ──────────────────────────────────────────────
 
-export const TYPES_DEVOIR_CHAPITRE: readonly DevoirType[] = ['qcm_chapitre', 'qcm_cas']
+export const TYPES_DEVOIR_CHAPITRE: readonly DevoirType[] = ['qcm_chapitre', 'qcm_cas', 'redaction']
 
 export function estDevoirChapitre(d: Pick<Devoir, 'type'> | null | undefined): boolean {
   return !!d && TYPES_DEVOIR_CHAPITRE.includes(d.type)
