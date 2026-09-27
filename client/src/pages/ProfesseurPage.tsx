@@ -393,9 +393,12 @@ export default function ProfesseurPage() {
   const provisionEnCours = useRef(false)
   useEffect(() => {
     if (!isAdmin || !currentUser?.id) return
-    if (facultesList.length === 0) return
+    if (facultesList.length === 0 || universites.length === 0) return
     if (provisionEnCours.current) return
-    const manque = facultesList.some(fac => {
+    // Facultés d'une université existante seulement : pas de cours créés pour
+    // une faculté orpheline.
+    const facultesValides = facultesList.filter(f => universites.some(u => u.id === f.universiteId))
+    const manque = facultesValides.some(fac => {
       const assignes = new Set(
         coursList.filter(c => c.faculteId === fac.id && (c as any).coursSystemeId).map(c => (c as any).coursSystemeId)
       )
@@ -404,7 +407,7 @@ export default function ProfesseurPage() {
     if (!manque) return
     provisionEnCours.current = true
     ;(async () => {
-      for (const fac of facultesList) {
+      for (const fac of facultesValides) {
         // adminId repris de l'université (même convention que la création
         // manuelle dans handleSaveCours) - pas l'auteur de l'action, qui
         // peut être n'importe quel admin/professeur ouvrant la page.
@@ -412,7 +415,7 @@ export default function ProfesseurPage() {
         await provisionCoursManquantsAsync(fac.id, fac.universiteId, uniAdminId, currentUser.id, coursList)
       }
     })().finally(() => { provisionEnCours.current = false })
-  }, [isAdmin, currentUser?.id, facultesList, coursList])
+  }, [isAdmin, currentUser?.id, facultesList, coursList, universites])
 
   // ── Formulaire Faculté ──
   const [showFaculteForm, setShowFaculteForm] = useState(false)
@@ -455,6 +458,8 @@ export default function ProfesseurPage() {
 
   // Recherche onglet Universités
   const [searchUni, setSearchUni] = useState('')
+  // Recherche dans les comptes étudiants (onglet Étudiants)
+  const [rechercheCompte, setRechercheCompte] = useState('')
   // Nettoyage doublons onglet Cours
   const [confirmNettoyage, setConfirmNettoyage] = useState(false)
   const [nettoyageEnCours, setNettoyageEnCours] = useState(false)
@@ -706,12 +711,41 @@ export default function ProfesseurPage() {
     setShowUniForm(false)
     toast({ title: editUniId ? 'Université modifiée' : 'Université créée' })
   }
-  const handleDeleteUni = () => {
+  // Comptes étudiants rattachés à une faculté (par leur profil ou par un de
+  // ses cours) : les supprimer les laisserait pointer vers une faculté et des
+  // cours disparus.
+  const etudiantsRattaches = (faculteIds: string[]) => {
+    const coursIds = new Set(coursList.filter(c => faculteIds.includes(c.faculteId)).map(c => c.id))
+    return users.filter(u => u.role === 'etudiant' && (
+      faculteIds.includes((u as any).faculteId) || resolveCoursIds(u).some(id => coursIds.has(id))
+    ))
+  }
+  // Suppression en cascade : cours, facultés, puis l'université. Seul le
+  // document de l'université était supprimé : ses facultés et leurs cours
+  // restaient orphelins (et l'affectation automatique continuait d'y créer
+  // des cours), contrairement à ce qu'annonçait la confirmation.
+  const handleDeleteUni = async () => {
     if (!deleteUniId) return
-    deleteUniversiteAsync(deleteUniId).then(() => {
-      setDeleteUniId(null)
+    const facs = facultesList.filter(f => f.universiteId === deleteUniId)
+    const rattaches = [
+      ...etudiantsRattaches(facs.map(f => f.id)),
+      ...users.filter(u => u.role === 'etudiant' && (u as any).universiteId === deleteUniId),
+    ].filter((u, i, t) => t.findIndex(x => x.id === u.id) === i)
+    if (rattaches.length > 0) {
+      toast({ title: 'Suppression impossible', description: `${rattaches.length} compte${rattaches.length > 1 ? 's' : ''} étudiant${rattaches.length > 1 ? 's' : ''} rattaché${rattaches.length > 1 ? 's' : ''} à cette université : réaffectez-les ou supprimez-les d'abord.`, variant: 'destructive' })
+      setDeleteUniId(null); return
+    }
+    try {
+      for (const fac of facs) {
+        for (const c of coursList.filter(c => c.faculteId === fac.id)) await deleteCoursAsync(c.id)
+        await deleteFaculteAsync(fac.id)
+      }
+      await deleteUniversiteAsync(deleteUniId)
       toast({ title: 'Université supprimée', variant: 'destructive' })
-    }).catch(() => toast({ title: 'Erreur lors de la suppression', variant: 'destructive' }))
+    } catch {
+      toast({ title: 'Erreur lors de la suppression', variant: 'destructive' })
+    }
+    setDeleteUniId(null)
   }
 
   // ── Facultés ──
@@ -737,12 +771,20 @@ export default function ProfesseurPage() {
   }
   const handleDeleteFaculte = async () => {
     if (!deleteFaculteId) return
-    // Supprimer aussi les cours liés
-    const coursLies = coursList.filter(c => c.faculteId === deleteFaculteId)
-    for (const c of coursLies) { await deleteCoursAsync(c.id) }
-    await deleteFaculteAsync(deleteFaculteId)
+    const rattaches = etudiantsRattaches([deleteFaculteId])
+    if (rattaches.length > 0) {
+      toast({ title: 'Suppression impossible', description: `${rattaches.length} compte${rattaches.length > 1 ? 's' : ''} étudiant${rattaches.length > 1 ? 's' : ''} rattaché${rattaches.length > 1 ? 's' : ''} à cette faculté ou à ses cours : réaffectez-les ou supprimez-les d'abord.`, variant: 'destructive' })
+      setDeleteFaculteId(null); return
+    }
+    try {
+      // Supprimer aussi les cours liés
+      for (const c of coursList.filter(c => c.faculteId === deleteFaculteId)) { await deleteCoursAsync(c.id) }
+      await deleteFaculteAsync(deleteFaculteId)
+      toast({ title: 'Faculté supprimée', variant: 'destructive' })
+    } catch {
+      toast({ title: 'Erreur lors de la suppression', variant: 'destructive' })
+    }
     setDeleteFaculteId(null)
-    toast({ title: 'Faculté supprimée', variant: 'destructive' })
   }
 
   // ── Cours ──
@@ -869,15 +911,16 @@ export default function ProfesseurPage() {
       promotionId: cours?.promotion || '',
       faculteId: cours?.faculteId,
       universiteId: cours?.universiteId,
-      createdBy: currentUser?.id || '',
       actif: noteForm.actif,
     }
     try {
       if (editNoteId) {
+        // L'auteur d'origine reste l'auteur : un collègue de l'équipe qui
+        // retouche la note ne se l'approprie pas.
         await updateNoteCoursAsync(editNoteId, data)
         toast({ title: 'Note modifiée' })
       } else {
-        await createNoteCoursAsync(data)
+        await createNoteCoursAsync({ ...data, createdBy: currentUser?.id || '' })
         toast({ title: 'Note créée' })
       }
       setShowNoteForm(false)
@@ -885,10 +928,20 @@ export default function ProfesseurPage() {
   }
   const handleDeleteNote = async () => {
     if (!deleteNoteId) return
-    await deleteNoteCoursAsync(deleteNoteId).catch(() => {})
+    try {
+      await deleteNoteCoursAsync(deleteNoteId)
+      toast({ title: 'Note supprimée' })
+    } catch {
+      toast({ title: 'Erreur lors de la suppression', variant: 'destructive' })
+    }
     setDeleteNoteId(null)
-    toast({ title: 'Note supprimée' })
   }
+  // Notes de l'équipe pédagogique. L'onglet listait celles de tous les
+  // enseignants, avec des boutons Modifier et Supprimer que Firestore refuse
+  // (seule l'équipe qui a créé une note peut la modifier).
+  const mesNotes = allNotes
+    .filter(n => creeParEquipe(n.createdBy, equipe))
+    .sort((a, b) => (b.dateCreation || '').localeCompare(a.dateCreation || ''))
   const progressionData = etudiants.map(et => {
     const tents = tentatives.filter(t => t.userId === et.id)
     const scores = tents.map(t => t.score)
@@ -1846,13 +1899,13 @@ export default function ProfesseurPage() {
       {tab === 'notes' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">{allNotes.length} note{allNotes.length > 1 ? 's' : ''} au total</p>
+            <p className="text-sm text-muted-foreground">{mesNotes.length} note{mesNotes.length > 1 ? 's' : ''} de votre équipe</p>
             <Button size="sm" onClick={openCreateNote}>
               <Plus className="h-4 w-4 mr-1.5" />Nouvelle note
             </Button>
           </div>
 
-          {allNotes.length === 0 ? (
+          {mesNotes.length === 0 ? (
             <Card className="border-border">
               <CardContent className="pt-10 pb-10 text-center text-muted-foreground">
                 <FileText className="h-10 w-10 mx-auto mb-3 opacity-30" />
@@ -1862,7 +1915,7 @@ export default function ProfesseurPage() {
             </Card>
           ) : (
             <div className="space-y-3">
-              {allNotes.map(note => {
+              {mesNotes.map(note => {
                 const cours = coursList.find(c => c.id === note.coursId)
                 return (
                   <Card key={note.id} className="border-border">
@@ -1874,7 +1927,7 @@ export default function ProfesseurPage() {
                             <p className="font-semibold text-foreground">{note.titre}</p>
                             {!note.actif && <Badge variant="outline" className="text-xs text-muted-foreground">Masquée</Badge>}
                           </div>
-                          {cours && <p className="text-xs text-muted-foreground mt-0.5">{cours.nom}</p>}
+                          {cours && <p className="text-xs text-muted-foreground mt-0.5">{libelleCours(cours)}{note.promotionId ? ` · ${note.promotionId}` : ''}</p>}
                           {note.contenu && (
                             <p className="text-sm text-foreground/80 mt-2 whitespace-pre-wrap line-clamp-3">{note.contenu}</p>
                           )}
@@ -2488,7 +2541,117 @@ export default function ProfesseurPage() {
       })()}
 
       {/* ═══════════════════ ONGLET ÉTUDIANTS ═══════════════════ */}
-      {tab === 'etudiants' && <GestionEtudiantsPage embedded />}
+      {tab === 'etudiants' && (() => {
+        // Comptes de connexion des étudiants de l'équipe. Aucun écran ne
+        // permettait de modifier le compte d'un étudiant après sa création :
+        // impossible de l'inscrire à un nouveau cours, de corriger sa promotion
+        // ou sa faculté. Les fiches administratives suivent en dessous.
+        const q = normalizeStr(rechercheCompte.trim())
+        const comptes = etudiants.filter(e => !q || normalizeStr(`${e.nom} ${e.prenom || ''} ${e.username}`).includes(q))
+        return (
+          <div className="space-y-8">
+            <div className="space-y-3">
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div>
+                  <h2 className="text-lg font-display font-bold text-foreground">Comptes de connexion</h2>
+                  <p className="text-xs text-muted-foreground mt-0.5 max-w-2xl">
+                    Vos étudiants inscrits sur la plateforme. Un étudiant n'ouvre que les chapitres des cours auxquels il est inscrit, et ne reçoit que les devoirs de sa promotion.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="relative">
+                    <Search className="h-3.5 w-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <Input value={rechercheCompte} onChange={e => setRechercheCompte(e.target.value)} placeholder="Rechercher" className="h-8 w-44 pl-8 text-xs" aria-label="Rechercher un étudiant" />
+                  </div>
+                  <Button size="sm" onClick={() => navigate('/inscription-plateforme')}>
+                    <Plus className="h-4 w-4 mr-1.5" />Inscrire des étudiants
+                  </Button>
+                </div>
+              </div>
+              {comptes.length === 0 ? (
+                <Card className="border-border">
+                  <CardContent className="py-8 text-center text-sm text-muted-foreground">
+                    {etudiants.length === 0 ? 'Aucun étudiant inscrit pour le moment.' : 'Aucun étudiant ne correspond à la recherche.'}
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="border-border overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm min-w-[760px]">
+                      <thead className="bg-muted/40">
+                        <tr>
+                          <th className="text-left px-4 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Étudiant</th>
+                          <th className="text-left px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Promotion</th>
+                          <th className="text-left px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Faculté</th>
+                          <th className="text-left px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Cours</th>
+                          <th className="text-center px-3 py-2.5 font-medium text-muted-foreground uppercase text-xs tracking-wide">Accès</th>
+                          <th className="px-3 py-2.5"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {comptes.map(u => {
+                          const fac = facultesList.find(f => f.id === (u as any).faculteId)
+                          const coursU = resolveCoursIds(u).map(id => coursList.find(c => c.id === id)).filter((c): c is Cours => !!c)
+                          const enAttente = (u as any).statutInscription === 'en_attente'
+                          return (
+                            <tr key={u.id} className="border-t border-border/50 hover:bg-muted/20 align-top">
+                              <td className="px-4 py-2.5">
+                                <p className="font-medium text-foreground">{nomEtudiant(u)}</p>
+                                <p className="text-xs text-muted-foreground font-mono">@{u.username}</p>
+                              </td>
+                              <td className="px-3 py-2.5 text-xs">{(u as any).classe || <span className="text-muted-foreground">-</span>}</td>
+                              <td className="px-3 py-2.5 text-xs">{fac?.nom || <span className="text-muted-foreground">-</span>}</td>
+                              <td className="px-3 py-2.5">
+                                {coursU.length > 0 ? (
+                                  <div className="flex flex-wrap gap-1">
+                                    {coursU.map(c => (
+                                      <span key={c.id} className="text-[11px] px-2 py-0.5 rounded-full bg-muted text-foreground" title={libelleCours(c)}>
+                                        {c.nom}{c.faculteId !== (u as any).faculteId ? ` · ${facultesList.find(f => f.id === c.faculteId)?.nom || 'autre faculté'}` : ''}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : <span className="text-xs text-amber-600">Aucun cours : chapitres verrouillés</span>}
+                              </td>
+                              <td className="px-3 py-2.5 text-center">
+                                {enAttente ? (
+                                  <button onClick={() => setTab('inscriptions')} className="text-xs px-2.5 py-1 rounded-full font-medium border bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100">
+                                    En attente
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => toggleActifUser(u.id, u.actif)}
+                                    className={`text-xs px-2.5 py-1 rounded-full font-medium border transition-colors ${u.actif ? 'bg-green-100 text-green-700 border-green-300 hover:bg-green-200' : 'bg-red-100 text-red-600 border-red-300 hover:bg-red-200'}`}
+                                    title={u.actif ? 'Suspendre le compte' : 'Réactiver le compte'}
+                                  >
+                                    {u.actif ? '● Actif' : '● Suspendu'}
+                                  </button>
+                                )}
+                              </td>
+                              <td className="px-3 py-2.5">
+                                <div className="flex gap-1 justify-end">
+                                  <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditUser(u)} aria-label={`Modifier le compte de ${nomEtudiant(u)}`}>
+                                    <Pencil className="h-3.5 w-3.5" />
+                                  </Button>
+                                  {isAdmin && (
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteUserId(u.id)} aria-label={`Supprimer le compte de ${nomEtudiant(u)}`}>
+                                      <Trash2 className="h-3.5 w-3.5" />
+                                    </Button>
+                                  )}
+                                </div>
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
+              )}
+            </div>
+            <GestionEtudiantsPage embedded />
+          </div>
+        )
+      })()}
 
       {/* ═══════════════════ ONGLET MES DEVOIRS ═══════════════════
           Les devoirs se créent depuis un chapitre (bouton « Créer un devoir ») ;
@@ -2902,7 +3065,11 @@ export default function ProfesseurPage() {
             )}
             <div>
               <Label>Nom d'utilisateur *</Label>
-              <Input value={userForm.username} onChange={e => setUserForm(f => ({ ...f, username: e.target.value }))} placeholder="" className="mt-1" />
+              {/* Figé après la création : la connexion passe par l'adresse dérivée
+                  de l'identifiant d'origine (toEmail). Le changer dans le profil
+                  ne changeait pas la connexion et les deux divergeaient. */}
+              <Input value={userForm.username} onChange={e => setUserForm(f => ({ ...f, username: e.target.value }))} placeholder="" className="mt-1" disabled={!!editUserId} />
+              {editUserId && <p className="text-xs text-muted-foreground mt-1">L'identifiant de connexion ne se modifie pas après la création du compte.</p>}
             </div>
             {editUserId ? (
               // Le mot de passe d'un compte existant est géré par Firebase
@@ -3178,7 +3345,7 @@ export default function ProfesseurPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Supprimer l'université ?</AlertDialogTitle>
-            <AlertDialogDescription>Les étudiants associés deviendront indépendants.</AlertDialogDescription>
+            <AlertDialogDescription>L'université, ses facultés et leurs cours seront supprimés. La suppression est refusée tant que des comptes étudiants y sont rattachés.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Annuler</AlertDialogCancel>
@@ -3284,7 +3451,7 @@ export default function ProfesseurPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Supprimer cette faculté ?</AlertDialogTitle>
-            <AlertDialogDescription>Tous les cours de cette faculté seront aussi supprimés.</AlertDialogDescription>
+            <AlertDialogDescription>Tous les cours de cette faculté seront aussi supprimés. La suppression est refusée tant que des comptes étudiants y sont rattachés.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Annuler</AlertDialogCancel>

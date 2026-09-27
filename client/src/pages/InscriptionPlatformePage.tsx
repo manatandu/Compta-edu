@@ -333,6 +333,14 @@ function FormIndividuel({ universites, getFacultes, getCours, coursPourFaculte, 
   )
 }
 
+// Mot de passe tiré au hasard (10 caractères, sans caractères ambigus).
+function motDePasseAleatoire(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789'
+  const tirage = new Uint32Array(10)
+  crypto.getRandomValues(tirage)
+  return Array.from(tirage, n => chars[n % chars.length]).join('')
+}
+
 // ─── Sous-composant B : Import CSV ────────────────────────────────────────────
 function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [csvFile, setCsvFile] = useState<File | null>(null)
@@ -340,6 +348,9 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
   const [csvError, setCsvError] = useState('')
   const [csvImporting, setCsvImporting] = useState(false)
   const [csvResult, setCsvResult] = useState<{ success: number; errors: string[] } | null>(null)
+  // Comptes créés avec un mot de passe tiré au hasard (colonne motdepasse
+  // vide) : liste à télécharger et à remettre, affichée une seule fois.
+  const [identifiantsGeneres, setIdentifiantsGeneres] = useState<{ nom: string; username: string; motDePasse: string }[]>([])
   const [universiteId, setUniversiteId] = useState('')
   const [faculteId, setFaculteId] = useState('')
   const [classe, setClasse] = useState('')
@@ -375,9 +386,10 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
 
   const handleImport = async () => {
     if (csvPreview.length === 0) return
-    setCsvImporting(true); setCsvResult(null)
+    setCsvImporting(true); setCsvResult(null); setIdentifiantsGeneres([])
     let success = 0
     const errors: string[] = []
+    const generes: { nom: string; username: string; motDePasse: string }[] = []
     // Identifiants déjà pris, lus en une série de requêtes ciblées (30 par
     // requête) ; complété au fil de l'import pour les doublons internes au fichier.
     let pris = new Set<string>()
@@ -392,7 +404,11 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
       const nom = (row.nom || '').trim()
       const prenom = (row.prenom || '').trim()
       const username = (row.username || row.id || row.identifiant || '').trim().toLowerCase()
-      const password = (row.motdepasse || row.password || row.mdp || 'campus2026').trim()
+      // Sans mot de passe dans le fichier : un mot de passe tiré au hasard,
+      // propre à chaque compte. Tous recevaient auparavant « campus2026 » :
+      // connaître l'identifiant d'un étudiant suffisait à entrer dans son compte.
+      const motDePasseSaisi = (row.motdepasse || row.password || row.mdp || '').trim()
+      const password = motDePasseSaisi || motDePasseAleatoire()
       // Promotion ramenée à son code (« L1 Comptabilité » → L1) : c'est ce
       // code que ciblent les devoirs, notes de cours et documents.
       const classeSaisie = (row.classe || '').trim()
@@ -400,6 +416,10 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
       const telephone = (row.telephone || row.tel || '').trim()
       if (!nom || !username) {
         errors.push(`Ligne ${row._line} : Nom et Identifiant obligatoires.`)
+        continue
+      }
+      if (motDePasseSaisi && motDePasseSaisi.length < 6) {
+        errors.push(`Ligne ${row._line} : mot de passe trop court (6 caractères au moins).`)
         continue
       }
       if (classeSaisie && !classeRow) {
@@ -422,12 +442,14 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
         } as any)
         pris.add(username)
         success++
+        if (!motDePasseSaisi) generes.push({ nom: `${nom.toUpperCase()} ${prenom}`.trim(), username, motDePasse: password })
       } catch (err: any) {
         errors.push(`Ligne ${row._line} (${username}) : ${err?.message || 'Erreur inconnue'}`)
       }
     }
     setCsvImporting(false)
     setCsvResult({ success, errors })
+    setIdentifiantsGeneres(generes)
     if (success > 0) toast({ title: `${success} étudiant${success > 1 ? 's' : ''} importé${success > 1 ? 's' : ''} avec succès` })
   }
 
@@ -435,7 +457,7 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
       <div className="space-y-1">
         <h2 className="text-sm font-display font-semibold text-foreground">Import depuis un fichier CSV</h2>
-        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code></p>
+        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code>. Sans mot de passe, chaque compte en reçoit un tiré au hasard, à télécharger après l'import.</p>
       </div>
 
       {/* Paramètres communs */}
@@ -561,6 +583,27 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
             <div className="flex items-center gap-2 p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-700 text-sm">
               <Check className="w-4 h-4 shrink-0" />
               {csvResult.success} étudiant{csvResult.success > 1 ? 's' : ''} importé{csvResult.success > 1 ? 's' : ''} avec succès.
+            </div>
+          )}
+          {identifiantsGeneres.length > 0 && (
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
+              <p className="text-xs text-amber-800">
+                {identifiantsGeneres.length} compte{identifiantsGeneres.length > 1 ? 's ont' : ' a'} reçu un mot de passe tiré au hasard. Téléchargez la liste maintenant et remettez à chaque étudiant le sien : elle n'est pas conservée et ne pourra pas être affichée de nouveau.
+              </p>
+              <button
+                onClick={() => {
+                  const esc = (v: string) => `"${v.replace(/"/g, '""')}"`
+                  const lignes = [['Nom', 'Identifiant', 'Mot de passe'], ...identifiantsGeneres.map(g => [g.nom, g.username, g.motDePasse])]
+                  const csv = '\uFEFF' + lignes.map(l => l.map(esc).join(';')).join('\r\n')
+                  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
+                  const a = document.createElement('a')
+                  a.href = url; a.download = `identifiants-etudiants-${new Date().toISOString().slice(0, 10)}.csv`; a.click()
+                  URL.revokeObjectURL(url)
+                }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold"
+              >
+                <FileText className="w-3.5 h-3.5" /> Télécharger les identifiants (CSV)
+              </button>
             </div>
           )}
           {csvResult.errors.length > 0 && (

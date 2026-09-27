@@ -1652,6 +1652,35 @@ describe('👥 Équipe pédagogique — titulaire + assistants', () => {
   })
 })
 
+describe('🎓 Comptes étudiants — gérés par leur équipe pédagogique', () => {
+  const ASSIST1 = { uid: 'assist1-uid', role: 'assistant', username: 'assist1', titulaireId: USERS.prof1.uid }
+  const etuEnAttente = { uid: 'etu-att-uid', role: 'etudiant', username: 'etu.att', nom: 'KASONGO', actif: false, statutInscription: 'en_attente', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }
+
+  it('Le professeur créateur (et son assistant) valide l\'inscription et inscrit l\'étudiant à un cours', async () => {
+    await seedUsers(USERS.prof1, ASSIST1, etuEnAttente)
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { actif: true, statutInscription: 'valide' }))
+    await assertSucceeds(updateDoc(doc(db(ASSIST1), 'users', etuEnAttente.uid), { coursIds: [IDS.coursCompta, 'cours-droit-uid'], classe: 'L2' }))
+  })
+
+  it('Un autre professeur NE PEUT PAS modifier le compte', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, etuEnAttente)
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'users', etuEnAttente.uid), { actif: true, statutInscription: 'valide' }))
+  })
+
+  it('Même l\'équipe NE PEUT PAS changer le rôle, l\'identifiant ou le créateur', async () => {
+    await seedUsers(USERS.prof1, etuEnAttente)
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { role: 'professeur' }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { username: 'autre' }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { createdBy: USERS.prof2.uid }))
+  })
+
+  it('L\'équipe NE PEUT PAS modifier le compte d\'un membre du personnel', async () => {
+    const prof3 = { uid: 'prof3-uid', role: 'professeur', username: 'prof3', createdBy: USERS.prof1.uid }
+    await seedUsers(USERS.prof1, prof3)
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', prof3.uid), { nom: 'X' }))
+  })
+})
+
 describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   const qcm = { ...DOCS.devoirCompta, type: 'qcm_chapitre' }
   const redige = { ...DOCS.devoirCompta, type: 'theorique' }

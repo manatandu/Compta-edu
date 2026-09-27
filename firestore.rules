@@ -122,6 +122,12 @@ service cloud.firestore {
       // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
       // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
       // en attente — même faille que sur la création, ici via update).
+      // L'équipe pédagogique qui a créé le compte d'un étudiant (directement ou
+      // par son code d'accès) gère ce compte : valider ou refuser l'inscription,
+      // activer ou suspendre, tenir à jour cours, promotion, faculté et
+      // coordonnées. Jamais le rôle, l'identifiant, le créateur ni le titulaire.
+      // Seul l'administrateur le pouvait : l'enseignant voyait les inscriptions
+      // de sa classe sans pouvoir les valider, ni inscrire un étudiant à un cours.
       allow update: if sansMotDePasseAjoute() && (isAdmin() || (
         isAuth() && request.auth.uid == userId &&
         request.resource.data.role == resource.data.role &&
@@ -129,6 +135,13 @@ service cloud.firestore {
         request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null) &&
         // Le rattachement à un titulaire (équipe pédagogique) n'est modifiable que par l'admin.
         request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null)
+      ) || (
+        isProf() && resource.data.role == 'etudiant' &&
+        memeEquipe(resource.data.get('createdBy', '')) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'coursIds', 'classe', 'faculteId', 'universiteId', 'nom', 'prenom', 'telephone',
+          'actif', 'statutInscription'
+        ])
       ));
       allow delete: if isAdmin();
     }

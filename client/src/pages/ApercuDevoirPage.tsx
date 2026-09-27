@@ -9,12 +9,15 @@ import { useHashLocation } from '@/lib/hashLocation'
 import { useSearch } from 'wouter'
 import { useUser } from '@/lib/userContext'
 import { getEcrituresAsync, createSoumissionAsync } from '@/lib/db-firebase'
+import { useSoumissions } from '@/lib/useFirestore'
+import { db } from '@/lib/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 import { formatMontant } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { BookOpen, BookMarked, Scale, BarChart2, FileText, AlertTriangle } from 'lucide-react'
-import type { Ecriture } from '@/lib/db'
+import { isDevoirExpire, type Devoir, type Ecriture } from '@/lib/db'
 import { ACTIF_RUBRIQUES, PASSIF_RUBRIQUES, CR_RUBRIQUES, calculerSoldes, calculerEtatsFinanciers } from '@/lib/etatsFinanciers'
 
 
@@ -52,6 +55,21 @@ export default function ApercuDevoirPage() {
   const [onglet, setOnglet] = useState('journal')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+
+  // Le devoir lui-même et la copie déjà rendue : la page ne chargeait ni l'un
+  // ni l'autre, si bien qu'on pouvait soumettre après la date limite, ou
+  // plusieurs fois (une copie de plus à chaque clic).
+  const [devoir, setDevoir] = useState<Devoir | null>(null)
+  useEffect(() => {
+    if (!devoirId) return
+    getDoc(doc(db, 'devoirs', devoirId))
+      .then(snap => setDevoir(snap.exists() ? ({ id: snap.id, ...snap.data() } as Devoir) : null))
+      .catch(() => setDevoir(null))
+  }, [devoirId])
+  const { soumissions: mesCopies } = useSoumissions(devoirId || undefined, user?.id)
+  const dejaRendu = mesCopies.length > 0
+  const expire = !!devoir && isDevoirExpire(devoir)
+  const soumissionBloquee = !devoir || dejaRendu || expire
 
   useEffect(() => {
     if (!user?.id || !sessionId) return
@@ -145,7 +163,7 @@ export default function ApercuDevoirPage() {
 
   // ── Soumission ────────────────────────────────────────────────────────────
   const handleSoumettre = async () => {
-    if (!user?.id || !devoirId) return
+    if (!user?.id || !devoirId || soumissionBloquee) return
     setSubmitting(true)
     try {
       await createSoumissionAsync({ devoirId, etudiantId: user.id, sessionId } as any)
@@ -501,8 +519,11 @@ export default function ApercuDevoirPage() {
       </div>
 
       <div className="rounded-xl border border-border bg-card p-4">
-        <h1 className="text-lg font-display font-bold text-foreground">Récapitulatif du devoir</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">Vérifiez vos travaux dans chaque document avant de soumettre.</p>
+        <h1 className="text-lg font-display font-bold text-foreground">Récapitulatif du devoir{devoir ? ` : ${devoir.titre}` : ''}</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">
+          Vérifiez vos travaux dans chaque document avant de soumettre.
+          {devoir && ` Date limite : ${new Date(devoir.dateLimit).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}.`}
+        </p>
         {loading && <p className="text-sm text-muted-foreground mt-2">Chargement des données...</p>}
         {!loading && ecritures.length === 0 && (
           <div className="mt-3 flex items-center gap-2 text-amber-600">
@@ -564,15 +585,20 @@ export default function ApercuDevoirPage() {
         <div className="max-w-3xl mx-auto space-y-2">
           <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-md px-3 py-2">
             <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-            <span>Une fois soumis, votre devoir sera transmis au professeur et vous ne pourrez plus modifier vos réponses.</span>
+            <span>
+              {dejaRendu ? 'Vous avez déjà rendu ce devoir : une seule copie est acceptée.'
+                : expire ? 'La date limite est dépassée : ce devoir ne peut plus être rendu.'
+                : !devoir ? 'Devoir introuvable ou inaccessible.'
+                : 'Une fois soumis, votre devoir sera transmis au professeur et vous ne pourrez plus modifier vos réponses.'}
+            </span>
           </div>
           <Button
             className="w-full"
             size="lg"
             onClick={handleSoumettre}
-            disabled={submitting || loading}
+            disabled={submitting || loading || soumissionBloquee}
           >
-            {submitting ? 'Soumission en cours...' : 'Soumettre définitivement'}
+            {submitting ? 'Soumission en cours...' : dejaRendu ? 'Devoir déjà rendu' : 'Soumettre définitivement'}
           </Button>
         </div>
       </div>
