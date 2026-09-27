@@ -28,10 +28,13 @@ service firebase.storage {
       return request.auth != null;
     }
 
+    // Personnel enseignant : l'assistant a les mêmes droits que le professeur
+    // (décision du 24/09/2026), comme dans firestore.rules. Il en était exclu
+    // ici : un assistant ne pouvait téléverser aucun PDF.
     function isProf() {
       return isAuth() &&
         firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role
-          in ['admin', 'professeur'];
+          in ['admin', 'professeur', 'assistant'];
     }
 
     // Toutes les pièces jointes de l'application sont des PDF (voir les

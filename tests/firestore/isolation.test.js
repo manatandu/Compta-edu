@@ -920,6 +920,7 @@ describe('📤 Soumissions — Isolation stricte par étudiant', () => {
 
   it('Etud1 peut créer SA soumission', async () => {
     await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
     const ref = doc(db(USERS.etud1), 'soumissions', 'soum-etud1-001')
     await assertSucceeds(setDoc(ref, {
       etudiantId: USERS.etud1.uid,
@@ -1493,6 +1494,27 @@ describe('💬 Messages — Isolation par participant', () => {
     await assertSucceeds(getDocs(q))
   })
 
+  it('Un tiers ajouté aux participants par l\'expéditeur est REFUSÉ', async () => {
+    const ref = doc(db(USERS.etud1), 'messages', 'msg-tiers')
+    await assertFails(setDoc(ref, {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid, USERS.etud3.uid],
+      contenu: 'Bonjour', date: new Date().toISOString(), lu: false,
+    }))
+  })
+
+  it('Le destinataire marque le message comme lu, sans pouvoir en changer le texte', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('messages', 'msg1', {
+      expediteurId: USERS.etud1.uid, destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid], contenu: 'Bonjour', lu: false,
+    })
+    await assertSucceeds(updateDoc(doc(db(USERS.etud2), 'messages', 'msg1'), { lu: true }))
+    await assertFails(updateDoc(doc(db(USERS.etud2), 'messages', 'msg1'), { contenu: 'Texte réécrit' }))
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'messages', 'msg1'), { contenu: 'Texte réécrit' }))
+  })
+
   it('Une requête filtrée sur destinataireId (ancienne forme du client) est REFUSÉE, même pour le destinataire', async () => {
     await seedUsers(USERS.etud1, USERS.etud2)
     await seedDoc('messages', 'msg1', {
@@ -1648,6 +1670,104 @@ describe('👥 Équipe pédagogique — titulaire + assistants', () => {
     const ref = doc(db(neuf), 'users', neuf.uid)
     await assertFails(setDoc(ref, { ...neuf, titulaireId: USERS.prof2.uid }))
     await assertSucceeds(setDoc(ref, { ...neuf, titulaireId: USERS.prof1.uid }))
+  })
+})
+
+describe('🗒️ Notes manuelles — saisies par le personnel', () => {
+  const note = (saisiePar, n = 14) => ({ etudiantFicheId: 'fiche-1', chapitreId: '', chapitreLabel: 'Interrogation 1', ueLabel: 'UE 2', note: n, mode: 'manuel', commentaire: '', saisiePar, dateSaisie: '2026-09-27T10:00:00Z', anneeAcademique: '2026-2027' })
+
+  it('Un professeur saisit une note sur 20 et la relit', async () => {
+    await seedUsers(USERS.prof1)
+    await assertSucceeds(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1'), note(USERS.prof1.uid)))
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'notes_manuelles'), where('etudiantFicheId', '==', 'fiche-1'))))
+  })
+
+  it('Note hors barème, ou au nom d\'un autre : refusée', async () => {
+    await seedUsers(USERS.prof1)
+    await assertFails(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1'), note(USERS.prof1.uid, 25)))
+    await assertFails(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n2'), note(USERS.prof2.uid)))
+  })
+
+  it('Un étudiant NE PEUT PAS lire ni écrire de note manuelle ; un autre professeur ne supprime pas', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, USERS.etud1)
+    await seedDoc('notes_manuelles', 'n1', note(USERS.prof1.uid))
+    await assertFails(getDoc(doc(db(USERS.etud1), 'notes_manuelles', 'n1')))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'notes_manuelles', 'n2'), note(USERS.etud1.uid)))
+    await assertFails(deleteDoc(doc(db(USERS.prof2), 'notes_manuelles', 'n1')))
+    await assertSucceeds(deleteDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1')))
+  })
+})
+
+describe('🎓 Comptes étudiants — gérés par leur équipe pédagogique', () => {
+  const ASSIST1 = { uid: 'assist1-uid', role: 'assistant', username: 'assist1', titulaireId: USERS.prof1.uid }
+  const etuEnAttente = { uid: 'etu-att-uid', role: 'etudiant', username: 'etu.att', nom: 'KASONGO', actif: false, statutInscription: 'en_attente', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }
+
+  it('Le professeur créateur (et son assistant) valide l\'inscription et inscrit l\'étudiant à un cours', async () => {
+    await seedUsers(USERS.prof1, ASSIST1, etuEnAttente)
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { actif: true, statutInscription: 'valide' }))
+    await assertSucceeds(updateDoc(doc(db(ASSIST1), 'users', etuEnAttente.uid), { coursIds: [IDS.coursCompta, 'cours-droit-uid'], classe: 'L2' }))
+  })
+
+  it('Un autre professeur NE PEUT PAS modifier le compte', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, etuEnAttente)
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'users', etuEnAttente.uid), { actif: true, statutInscription: 'valide' }))
+  })
+
+  it('Même l\'équipe NE PEUT PAS changer le rôle, l\'identifiant ou le créateur', async () => {
+    await seedUsers(USERS.prof1, etuEnAttente)
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { role: 'professeur' }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { username: 'autre' }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', etuEnAttente.uid), { createdBy: USERS.prof2.uid }))
+  })
+
+  it('L\'équipe NE PEUT PAS modifier le compte d\'un membre du personnel', async () => {
+    const prof3 = { uid: 'prof3-uid', role: 'professeur', username: 'prof3', createdBy: USERS.prof1.uid }
+    await seedUsers(USERS.prof1, prof3)
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'users', prof3.uid), { nom: 'X' }))
+  })
+})
+
+describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
+  const qcm = { ...DOCS.devoirCompta, type: 'qcm_chapitre' }
+  const redige = { ...DOCS.devoirCompta, type: 'theorique' }
+  const copie = (devoirId, extra = {}) => ({ devoirId, etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', ...extra })
+
+  it('Un QCM peut arriver noté (note de 0 à 20, statut « note »)', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 16, statut: 'note', scoreQCMChapitre: 8 })))
+  })
+
+  it('Un devoir rédigé arrive « soumis », sans note', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-red', redige)
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-red', { statut: 'soumis', reponseTexte: 'Réponse' })))
+  })
+
+  it('Un étudiant NE PEUT PAS rendre un devoir rédigé déjà noté', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-red', redige)
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-red', { note: 20, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-red', { statut: 'note' })))
+  })
+
+  it('Une note hors du barème de 0 à 20 est refusée', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 25, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-qcm', { note: -1, statut: 'note' })))
+  })
+
+  it('Un étudiant NE PEUT PAS rendre le devoir d\'un cours auquel il n\'est pas inscrit', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-fisc', { ...qcm, coursId: IDS.coursFiscalite })
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-fisc', { note: 10, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-fisc')))
+  })
+
+  it('Une copie sur un devoir inexistant est refusée', async () => {
+    await seedUsers(USERS.etud1)
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-absent')))
   })
 })
 

@@ -10,8 +10,7 @@ import {
   useArticlesStock, useEcrituresStock, marquerExporte, EcritureStock
 } from '@/lib/useStock'
 import { useSessions } from '@/lib/useFirestore'
-import { addEcritureAsync } from '@/lib/db-firebase'
-import { generateId } from '@/lib/utils'
+import { exporterEcrituresAsync, ErreurExercice } from '@/lib/db-firebase'
 
 // ─── Formatage ────────────────────────────────────────────────────────────────
 function fmt(n: number): string {
@@ -34,44 +33,36 @@ function ModalExport({
 
   const nonExportes = ecritures.filter(e => !e.exporte)
 
+  // Chaque écriture est exportée d'un bloc (débit et crédit ensemble), sans
+  // doublon, dans l'exercice de la session (voir exporterEcrituresAsync).
+  // Elle était écrite ligne par ligne : une coupure entre les deux lignes
+  // laissait une écriture déséquilibrée dans le journal.
+  // Nombre retenu à la fin de l'export : la liste des écritures non exportées
+  // se vide au fil de l'export, et le message annonçait « 0 écriture(s) ».
+  const [nbExportees, setNbExportees] = useState(0)
   const exporter = async () => {
-    if (!sessionId) { setErreur('Sélectionnez une session.'); return }
-    setExporting(true)
+    const session = sessions.find(s => s.id === sessionId)
+    if (!session) { setErreur('Sélectionnez une session.'); return }
+    setExporting(true); setErreur('')
+    let n = 0
     try {
       for (const ec of nonExportes) {
-        const ligneGroupe = generateId()
-        // Écriture débit
-        await addEcritureAsync({
-          sessionId,
-          ligneGroupe,
-          date: ec.date,
-          libelle: ec.libelle,
-          numeroPiece: ec.mouvementId,
-          numeroCompte: ec.debit,
-          intituleCompte: ec.libDebit,
-          debit: ec.montant,
-          credit: 0,
-          userId,
-        }, 'syscohada')
-        // Écriture crédit
-        await addEcritureAsync({
-          sessionId,
-          ligneGroupe,
-          date: ec.date,
-          libelle: ec.libelle,
-          numeroPiece: ec.mouvementId,
-          numeroCompte: ec.credit,
-          intituleCompte: ec.libCredit,
-          debit: 0,
-          credit: ec.montant,
-          userId,
-        }, 'syscohada')
-        // Marquer comme exporté
+        await exporterEcrituresAsync(userId, session, [{
+          date: ec.date, libelle: ec.libelle, numeroPiece: ec.mouvementId,
+          lignes: [
+            { compte: ec.debit, intitule: ec.libDebit, debit: ec.montant, credit: 0 },
+            { compte: ec.credit, intitule: ec.libCredit, debit: 0, credit: ec.montant },
+          ],
+        }])
         await marquerExporte(ec.id)
+        n++
       }
+      setNbExportees(n)
       setDone(true)
     } catch (e) {
-      setErreur("Erreur lors de l'export.")
+      setErreur(e instanceof ErreurExercice
+        ? `Une écriture est datée de ${e.annee} : choisissez une session de l'exercice ${e.annee} (celle-ci porte sur ${e.exercice}). Les écritures déjà exportées restent marquées.`
+        : "Erreur lors de l'export.")
     } finally {
       setExporting(false)
     }
@@ -92,7 +83,7 @@ function ModalExport({
             <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-3">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
               <p className="text-sm text-emerald-700 font-semibold">
-                {nonExportes.length} écriture(s) exportée(s) avec succès.
+                {nbExportees} écriture(s) exportée(s) avec succès.
               </p>
             </div>
             <button onClick={onClose}

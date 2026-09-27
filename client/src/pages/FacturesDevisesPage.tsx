@@ -7,8 +7,7 @@ import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { useSessions } from '@/lib/useFirestore'
-import { addEcritureAsync } from '@/lib/db-firebase'
-import { generateId } from '@/lib/utils'
+import { exporterEcrituresAsync, ErreurExercice } from '@/lib/db-firebase'
 import { exportFacturePDF } from '@/lib/exportPDF'
 import {
   useFacturesDevises, creerFacture, supprimerFacture, calculerDecompte, netAPayerDevise,
@@ -180,22 +179,21 @@ function ModalExport({ ecriture, userId, onClose }: { ecriture: EcritureFactureG
   const [done, setDone] = useState(false)
   const [erreur, setErreur] = useState('')
 
+  // Export d'un bloc, sans doublon, dans l'exercice de la session (voir
+  // exporterEcrituresAsync).
+  const [dejaPresente, setDejaPresente] = useState(false)
   const exporter = async () => {
-    if (!sessionId) { setErreur('Sélectionnez une session.'); return }
-    setExporting(true)
+    const session = sessions.find(s => s.id === sessionId)
+    if (!session) { setErreur('Sélectionnez une session.'); return }
+    setExporting(true); setErreur('')
     try {
-      const ligneGroupe = generateId()
-      for (const l of ecriture.lignes) {
-        await addEcritureAsync({
-          sessionId, ligneGroupe,
-          date: ecriture.date, libelle: ecriture.libelle,
-          numeroPiece: '', numeroCompte: l.compte, intituleCompte: l.intitule,
-          debit: l.debit, credit: l.credit, userId,
-        }, 'syscohada')
-      }
+      const r = await exporterEcrituresAsync(userId, session, [{ date: ecriture.date, libelle: ecriture.libelle, lignes: ecriture.lignes }])
+      setDejaPresente(r.dejaPresentes > 0)
       setDone(true)
-    } catch {
-      setErreur("Erreur lors de l'export.")
+    } catch (e) {
+      setErreur(e instanceof ErreurExercice
+        ? `L'écriture est datée de ${e.annee} : choisissez une session de l'exercice ${e.annee} (celle-ci porte sur ${e.exercice}).`
+        : "Erreur lors de l'export.")
     } finally {
       setExporting(false)
     }
@@ -214,7 +212,7 @@ function ModalExport({ ecriture, userId, onClose }: { ecriture: EcritureFactureG
           <div className="space-y-3">
             <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-3">
               <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-              <p className="text-sm text-emerald-700 font-semibold">Écriture exportée avec succès.</p>
+              <p className="text-sm text-emerald-700 font-semibold">{dejaPresente ? 'Cette écriture figurait déjà dans la session : rien n\'a été ajouté.' : 'Écriture exportée avec succès.'}</p>
             </div>
             <button onClick={onClose} className="w-full rounded-xl bg-primary hover:bg-primary/90 py-2.5 text-sm font-semibold text-primary-foreground transition-colors">Fermer</button>
           </div>

@@ -16,9 +16,10 @@ import {
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createExerciceLibreAsync, updateExerciceLibreAsync, deleteExerciceLibreAsync,
   uploadExercicePDF, uploadExerciceCorrigePDF,
-  createTentativeELAsync, COURS_RETIRES_IDS,
+  createTentativeELAsync, getCoursTries,
 } from '@/lib/db-firebase'
 import { useSessions, useExercices, useTentatives, useExercicesLibres, useTentativesEL, useCours } from '@/lib/useFirestore'
+import { useCoursEnseignes } from '@/lib/coursEquipe'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -894,20 +895,14 @@ export default function ExercicesPage() {
   const studentPromotion = !canManage ? (user as any)?.classe || undefined : undefined
   const { exercices, loading: loadingEx } = useExercices(studentCoursIds, studentFaculteId, studentPromotion, allCours)
   const { tentatives } = useTentatives(user?.id)
-  // Liste des cours pour les formulaires (prof/admin)
-  // Dédupliquer : un seul cours par coursSystemeId, exclure cours système inactifs
-  const _coursSeen = new Set<string>()
-  const coursList = allCours
-    .filter(c => {
-      if (!c.actif) return false
-      if (COURS_RETIRES_IDS.has(c.id)) return false
-      if ((c as any).coursSystemeId && COURS_RETIRES_IDS.has((c as any).coursSystemeId)) return false
-      const key = (c as any).coursSystemeId || c.id
-      if (_coursSeen.has(key)) return false
-      _coursSeen.add(key)
-      return true
-    })
-    .map(c => ({ id: c.id, nom: c.nom, faculteId: (c as any).faculteId, universiteId: (c as any).universiteId, promotion: c.promotion }))
+  // Cours des formulaires (personnel) : ceux que l'équipe enseigne, document
+  // exact de chaque faculté, faculté dans le libellé (voir lib/coursEquipe.ts).
+  // La liste dédupliquée par UE rattachait l'exercice au cours d'une faculté
+  // prise au hasard : les étudiants de l'enseignant ne le voyaient pas.
+  // Pour l'étudiant, tous les cours actifs : ils servent au filtre de promotion.
+  const { cours: coursEnseignes, libelle: libelleCours } = useCoursEnseignes()
+  const coursList = (canManage ? coursEnseignes : getCoursTries(allCours))
+    .map(c => ({ id: c.id, nom: canManage ? libelleCours(c) : c.nom, faculteId: (c as any).faculteId, universiteId: (c as any).universiteId, promotion: c.promotion }))
 
   const [onglet, setOnglet] = useState<'guides' | 'libres'>('guides')
   const [nbExercicesLibres, setNbExercicesLibres] = useState(0)

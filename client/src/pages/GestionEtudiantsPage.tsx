@@ -6,6 +6,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
 import { EtudiantFiche, StatutEtudiant } from '@/lib/db'
 import { onAnneeAcademiqueSnapshot, avancerAnneeAcademiqueAsync } from '@/lib/db-firebase'
@@ -54,7 +55,6 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
   const [filtreStatut, setFiltreStatut] = useState<StatutEtudiant | 'tous'>('tous')
   const [filtreType, setFiltreType] = useState<'tous' | 'interne' | 'externe'>('tous')
   const [filtreAnnee, setFiltreAnnee] = useState<string>('tous')
-  const [annees, setAnnees] = useState<string[]>([])
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
 
   // ─── Année académique + archivage ─────────────────────────────────────────
@@ -65,6 +65,7 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
 
   const isAdmin = isAdminRole(user)
   const isStaff = isStaffRole(user)
+  const equipe = useEquipe()
 
   // ─── Chargement ────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -106,10 +107,6 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
       const snap = await getDocs(q)
       const data = snap.docs.map(d => ({ id: d.id, ...d.data() } as EtudiantFiche))
       setEtudiants(data)
-
-      // Années uniques
-      const anneesSet = new Set(data.map(e => e.anneeAcademique).filter(Boolean))
-      setAnnees(Array.from(anneesSet).sort().reverse())
     } catch (e) {
       console.error(e)
       toast({ title: 'Erreur', description: 'Impossible de charger les étudiants.', variant: 'destructive' })
@@ -136,7 +133,12 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
   // passage à l'année suivante, jamais supprimé (base des anciens étudiants -
   // filtrable par année comme le reste, y compris au-delà de la dernière
   // cohorte archivée).
-  const etudiantsVue = etudiants.filter(e => vue === 'archives' ? !!e.archive : !e.archive)
+  // Fiches de l'équipe pédagogique ; toutes pour l'administrateur. Chaque
+  // enseignant voyait jusqu'ici les fiches de tous les étudiants de la
+  // plateforme, alors que ses autres écrans ne montrent que les siens.
+  const mesFiches = isAdmin ? etudiants : etudiants.filter(e => creeParEquipe(e.createdBy, equipe))
+  const annees = Array.from(new Set(mesFiches.map(e => e.anneeAcademique).filter(Boolean))).sort().reverse()
+  const etudiantsVue = mesFiches.filter(e => vue === 'archives' ? !!e.archive : !e.archive)
   const etudiantsFiltres = etudiantsVue.filter(e => {
     const matchSearch = search === '' ||
       `${e.nom} ${e.prenom} ${e.matricule} ${e.universite} ${e.filiere}`
@@ -154,7 +156,7 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
     internes: etudiantsVue.filter(e => e.type === 'interne').length,
     externes: etudiantsVue.filter(e => e.type === 'externe').length,
   }
-  const nbArchives = etudiants.filter(e => e.archive).length
+  const nbArchives = mesFiches.filter(e => e.archive).length
 
   if (!isStaff) {
     return (
@@ -182,7 +184,7 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
         <div className="flex items-center justify-between flex-wrap gap-3 mt-1">
           <div>
             <h1 className="text-xl font-display font-bold text-foreground leading-tight">Gestion des étudiants</h1>
-            <p className="text-sm text-muted-foreground">Étudiants internes et externes - toutes universités</p>
+            <p className="text-sm text-muted-foreground">Fiches administratives des étudiants internes et externes{isAdmin ? ' - toutes universités' : ' de votre équipe pédagogique'}</p>
           </div>
           {isAdmin && (
             <div className="flex items-center gap-2 flex-wrap">

@@ -4,11 +4,12 @@ import IdleWarningModal from '@/components/IdleWarningModal'
 import { Router, Route, Switch, Redirect } from 'wouter'
 import { useHashLocation } from '@/lib/hashLocation'
 import type { User } from '@/lib/db'
-import { logoutAsync, getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
+import { getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
+import { seDeconnecter } from '@/lib/session'
 import { isProfRole } from '@/lib/permissions'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
 import { onAuthStateChanged } from 'firebase/auth'
-import { terminate, clearIndexedDbPersistence } from 'firebase/firestore'
+import { doc, onSnapshot } from 'firebase/firestore'
 import { auth, db } from '@/lib/firebase'
 import { Layout } from '@/components/Layout'
 import ErrorBoundary from '@/components/ErrorBoundary'
@@ -128,6 +129,22 @@ export default function App() {
     return () => unsub()
   }, [])
 
+  // Profil suivi pendant la session : une inscription à un nouveau cours, une
+  // promotion corrigée s'appliquent sans reconnexion (le profil n'était lu
+  // qu'à la connexion). Un compte suspendu, refusé ou supprimé pendant la
+  // session est déconnecté : seule la connexion vérifiait le statut, et un
+  // étudiant suspendu gardait sa session ouverte.
+  useEffect(() => {
+    if (!user?.id) return
+    const unsub = onSnapshot(doc(db, 'users', user.id), snap => {
+      if (!snap.exists()) { void seDeconnecter('Ce compte a été supprimé.'); return }
+      const profil = { ...(snap.data() as User), id: snap.id, password: undefined }
+      if (profil.actif === false) { void seDeconnecter('Ce compte est suspendu. Contactez votre professeur.'); return }
+      setUser(prev => (prev && JSON.stringify(prev) === JSON.stringify(profil) ? prev : profil))
+    }, () => { /* erreurs d'écoute signalées ailleurs ; la session reste ouverte */ })
+    return () => unsub()
+  }, [user?.id])
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-background">
@@ -136,26 +153,8 @@ export default function App() {
     )
   }
 
-  const handleLogout = async () => {
-    // Le signOut() qui suit révoque immédiatement les droits Firestore : les
-    // onSnapshot() encore montés vont échouer en permission-denied avant que
-    // la page ne se recharge. Ce n'est pas une coupure réseau, on coupe donc
-    // l'avertissement pour cette fenêtre attendue.
-    setFirestoreErrorSuppressed(true)
-    await logoutAsync()
-    // Le cache Firestore persistant (IndexedDB) survit à la déconnexion :
-    // sur un poste partagé (salle informatique), les données du compte
-    // précédent resteraient sinon lisibles instantanément par le suivant,
-    // indépendamment des règles de sécurité Firestore. On le vide, puis on
-    // recharge la page pour repartir sur une instance Firestore propre.
-    try {
-      await terminate(db)
-      await clearIndexedDbPersistence(db)
-    } catch (e) {
-      console.warn('Nettoyage du cache Firestore impossible :', e)
-    }
-    window.location.reload()
-  }
+  // Déconnexion complète (cache Firestore vidé, page rechargée) : voir lib/session.ts.
+  const handleLogout = () => seDeconnecter()
 
   function IdleGuard() {
     const { showWarning, secondsLeft, stayConnected } = useIdleTimer()

@@ -6,6 +6,7 @@ import {
 import { useAllCours, useFacultes, useUniversites, useAllSoumissions, useDevoirs } from '@/lib/useFirestore'
 import { getEtudiantsCreesParAsync, COURS_RETIRES_IDS } from '@/lib/db-firebase'
 import { useEquipe, creeParEquipe } from '@/lib/equipe'
+import { estACorriger } from '@/lib/cotes'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole } from '@/lib/permissions'
 import { DashboardHero, greeting, type DashboardStat } from '@/components/DashboardHero'
@@ -74,7 +75,7 @@ export default function DashboardStaff() {
   // (l'onglet « Copies à corriger » est, lui, filtré sur ses propres devoirs).
   // Même portée que « En attente », déjà restreint via mesEtudiants/createdBy.
   const nbNonCorriges = toutesLesSoumissions.filter(
-    s => s.statut === 'soumis' && mesDevoirs.some(d => d.id === s.devoirId)
+    s => estACorriger(s) && mesDevoirs.some(d => d.id === s.devoirId)
   ).length
 
   const stats: DashboardStat[] = [

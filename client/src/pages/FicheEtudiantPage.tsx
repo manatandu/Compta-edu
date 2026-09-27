@@ -94,8 +94,14 @@ export default function FicheEtudiantPage() {
   async function charger() {
     setLoading(true)
     try {
-      // Fiche étudiant
-      const snap = await getDoc(doc(db, 'etudiants', id!))
+      // Fiche étudiant : l'identifiant reçu est celui de la fiche, ou celui du
+      // compte de connexion (résultat de la recherche globale), auquel cas la
+      // fiche liée est retrouvée par son userId.
+      let snap: any = await getDoc(doc(db, 'etudiants', id!))
+      if (!snap.exists()) {
+        const liees = await getDocs(query(collection(db, 'etudiants'), where('userId', '==', id!)))
+        if (!liees.empty) snap = liees.docs[0]
+      }
       if (!snap.exists()) {
         toast({ title: 'Introuvable', description: 'Fiche étudiant introuvable.', variant: 'destructive' })
         navigate('/professeurs?tab=etudiants')

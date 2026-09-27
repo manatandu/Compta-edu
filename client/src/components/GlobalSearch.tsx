@@ -5,7 +5,9 @@ import { cn } from '@/lib/utils'
 import { User } from '@/lib/db'
 import { isAdminRole, isStaffRole, isStudentRole } from '@/lib/permissions'
 import { useUniversites, useAllCours, useAllDevoirs } from '@/lib/useFirestore'
-import { getUsersCacheAsync } from '@/lib/db-firebase'
+import { getUsersCacheAsync, coursSystemeDe } from '@/lib/db-firebase'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
+import { devoirConcerneEtudiant } from '@/lib/cotes'
 // Le dictionnaire (plus de 600 termes, environ 400 Ko) n'est pas importé
 // statiquement : il serait téléchargé à chaque ouverture de l'application,
 // sur tous les écrans, alors qu'il ne sert qu'une fois une recherche saisie.
@@ -49,6 +51,10 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
 
   const canAdmin = isStaffRole(user)
   const isStudent = isStudentRole(user)
+  // Portée de l'enseignant : ses étudiants et ses devoirs (équipe pédagogique),
+  // comme dans l'Espace pédagogique. La recherche montrait ceux de tous.
+  const equipe = useEquipe()
+  const estAdmin = isAdminRole(user)
   const [dict, setDict] = useState<ModuleDictionnaire | null>(null)
 
   // Chargement du dictionnaire à la première frappe seulement.
@@ -93,7 +99,7 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
     // Étudiants : admins/profs seulement
     if (canAdmin) {
       allUsers
-        .filter(u => u.role === 'etudiant')
+        .filter(u => u.role === 'etudiant' && (estAdmin || creeParEquipe(u.createdBy, equipe)))
         .filter(u => {
           const name = `${u.nom || ''} ${u.prenom || ''} ${u.username || ''}`.toLowerCase()
           return name.includes(q)
@@ -105,7 +111,8 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
             label: `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username,
             sublabel: `@${u.username}`,
             type: 'etudiant',
-            // Fiche individuelle de l'étudiant, pas la gestion générale
+            // Fiche individuelle de l'étudiant, pas la gestion générale (la
+            // page retrouve la fiche à partir de l'identifiant du compte)
             path: `/etudiant/${u.id}`,
             adminOnly: true,
           })
@@ -114,25 +121,34 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
 
     // Cours : Faille sécurité corrigée : étudiants voient uniquement leurs cours inscrits
     const userCoursIds: string[] = (user as any)?.coursIds || []
+    // Chemin d'un cours : celui de son UE. Les cours d'une faculté n'ont pas
+    // de moduleKey propre ; le résultat retombait sur « Mes cours ».
+    const cleCours = (c: any) => coursSystemeDe(c.coursSystemeId)?.moduleKey || c.moduleKey || ''
+    const dejaVus = new Set<string>()
     cours
       .filter(c => {
         // Si étudiant, filtrer par coursIds inscrits
-        if (isStudent && userCoursIds.length > 0 && !userCoursIds.includes(c.id)) return false
-        const name = `${c.nom || ''} ${c.moduleKey || ''}`.toLowerCase()
-        return name.includes(q)
+        if (isStudent && !userCoursIds.includes(c.id)) return false
+        const name = `${c.nom || ''} ${cleCours(c)}`.toLowerCase()
+        if (!name.includes(q)) return false
+        // Une UE existe en un exemplaire par faculté : un seul résultat par UE.
+        const cle = cleCours(c) || c.id
+        if (dejaVus.has(cle)) return false
+        dejaVus.add(cle)
+        return true
       })
       .slice(0, 3)
       .forEach(c => {
         res.push({
           id: c.id,
           label: c.nom,
-          sublabel: c.moduleKey || undefined,
+          sublabel: cleCours(c) || undefined,
           type: 'cours',
           // Le résultat ouvre le cours lui-même (sommaire du manuel, module
           // Fiscalité ou Comptabilité générale). Il menait auparavant à
           // l'onglet Cours de l'espace pédagogique, réservé à l'administrateur :
           // un professeur y arrivait sans rien trouver.
-          path: c.moduleKey ? `/${c.moduleKey}` : '/mes-cours',
+          path: cleCours(c) ? `/${cleCours(c)}` : '/mes-cours',
         })
       })
 
@@ -154,8 +170,10 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
         })
     }
 
-    // Devoirs : chacun voit les siens seulement
+    // Devoirs : ceux de l'équipe pour le personnel, ceux qui le concernent
+    // pour l'étudiant (cours, faculté, promotion, visibles)
     devoirs
+      .filter(d => isStudent ? devoirConcerneEtudiant(d, user as any, cours as any) : (estAdmin || creeParEquipe(d.createdBy, equipe)))
       .filter(d => (d.titre || '').toLowerCase().includes(q))
       .slice(0, 3)
       .forEach(d => {
@@ -168,7 +186,10 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           // maintenant fonctionnel - voir ApercuDevoirPage). Admin/prof :
           // onglet "Copies à corriger", le plus proche d'une fiche devoir
           // dans ProfesseurPage (pas d'onglet dédié "devoirs" à ce jour).
-          path: isStudent ? `/apercu-devoir?devoir=${encodeURIComponent(d.id)}` : '/professeurs?tab=copies',
+          // Étudiant : son tableau de bord, où se rendent tous les devoirs
+          // (l'aperçu n'a de sens qu'avec la session d'un devoir pratique).
+          // Personnel : l'onglet de ses devoirs.
+          path: isStudent ? '/' : '/professeurs?tab=devoirs',
         })
       })
 

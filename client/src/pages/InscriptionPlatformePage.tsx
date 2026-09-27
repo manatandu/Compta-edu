@@ -14,8 +14,10 @@ import { useLocation } from 'wouter'
 import { collection, setDoc, doc, getFirestore } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 import {
-  createUserAsync, getUsernamesExistantsAsync, getCoursUniquesTries,
+  createUserAsync, getUsernamesExistantsAsync, getCoursTries, inscriptionsDeLaFaculte,
 } from '@/lib/db-firebase'
+import { PROMOTIONS } from '@/lib/db'
+import { codePromotion } from '@/lib/promotion'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
 import { isStaffRole } from '@/lib/permissions'
@@ -29,9 +31,6 @@ import {
   UserPlus, Upload, Key, ChevronDown, Check,
   Copy, AlertCircle, FileText
 } from 'lucide-react'
-
-// ─── Catalogues fixes ───────────────────────────────────────────────────────
-const PROMOTIONS = ['L1', 'L2', 'L3', 'M1', 'M2'] as const
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const METHODES = [
@@ -66,8 +65,16 @@ export default function InscriptionPlatformePage() {
   // ─── Filtres facultés / cours selon université sélectionnée ────────────────
   const getFacultes = (uniId: string) =>
     facultesList.filter(f => f.actif && (!uniId || f.universiteId === uniId))
-  const getCours = (uniId: string) =>
-    getCoursUniquesTries(coursList.filter(c => !uniId || c.universiteId === uniId))
+  // Cours de la faculté choisie. La liste était celle de l'université,
+  // dédupliquée par UE : elle gardait le cours d'une faculté au hasard, et
+  // l'étudiant se retrouvait inscrit au cours d'une autre faculté que la
+  // sienne, sans accès aux devoirs ni aux notes de son enseignant.
+  const getCours = (_uniId: string, facId?: string) =>
+    facId ? getCoursTries(coursList.filter(c => c.faculteId === facId)) : []
+  // Changer de faculté reporte les cours cochés sur ceux de la nouvelle
+  // faculté (même UE) ; sans faculté, plus de cours.
+  const coursPourFaculte = (ids: string[], facId: string) =>
+    facId ? inscriptionsDeLaFaculte(ids, facId, coursList).filter(id => coursList.some(c => c.id === id && c.faculteId === facId)) : []
 
   return (
     <div className="space-y-6 pb-10 animate-fadeIn max-w-3xl mx-auto px-4">
@@ -120,6 +127,7 @@ export default function InscriptionPlatformePage() {
           universites={universites}
           getFacultes={getFacultes}
           getCours={getCours}
+          coursPourFaculte={coursPourFaculte}
           currentUserId={user?.id || ''}
           toast={toast}
         />
@@ -131,6 +139,7 @@ export default function InscriptionPlatformePage() {
           universites={universites}
           getFacultes={getFacultes}
           getCours={getCours}
+          coursPourFaculte={coursPourFaculte}
           currentUserId={user?.id || ''}
           toast={toast}
         />
@@ -142,6 +151,7 @@ export default function InscriptionPlatformePage() {
           universites={universites}
           getFacultes={getFacultes}
           getCours={getCours}
+          coursPourFaculte={coursPourFaculte}
           currentUserId={user?.id || ''}
           toast={toast}
         />
@@ -151,7 +161,7 @@ export default function InscriptionPlatformePage() {
 }
 
 // ─── Sous-composant A : Formulaire individuel ─────────────────────────────────
-function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toast }: any) {
+function FormIndividuel({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [form, setForm] = useState({
     username: '', password: '', nom: '', prenom: '',
     universiteId: '', faculteId: '', classe: '', actif: true, coursIds: [] as string[]
@@ -161,7 +171,7 @@ function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toa
   const [loading, setLoading] = useState(false)
 
   const facultes = getFacultes(form.universiteId)
-  const cours = getCours(form.universiteId)
+  const cours = getCours(form.universiteId, form.faculteId)
 
   const toggleCours = (id: string) =>
     setForm(f => ({
@@ -266,7 +276,7 @@ function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toa
         <div className="space-y-1">
           <label className="text-xs font-medium text-muted-foreground">Université</label>
           <div className="relative">
-            <select value={form.universiteId} onChange={e => setForm(f => ({ ...f, universiteId: e.target.value, faculteId: '' }))}
+            <select value={form.universiteId} onChange={e => setForm(f => ({ ...f, universiteId: e.target.value, faculteId: '', coursIds: [] }))}
               className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
               <option value="">Toutes / non définie</option>
               {universites.map((u: any) => <option key={u.id} value={u.id}>{u.nom}</option>)}
@@ -277,7 +287,7 @@ function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toa
         <div className="space-y-1">
           <label className="text-xs font-medium text-muted-foreground">Faculté</label>
           <div className="relative">
-            <select value={form.faculteId} onChange={e => setForm(f => ({ ...f, faculteId: e.target.value }))}
+            <select value={form.faculteId} onChange={e => setForm(f => ({ ...f, faculteId: e.target.value, coursIds: coursPourFaculte(f.coursIds, e.target.value) }))}
               className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
               <option value="">-- Sélectionner --</option>
               {facultes.map((f: any) => <option key={f.id} value={f.id}>{f.nom}</option>)}
@@ -288,6 +298,9 @@ function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toa
       </div>
 
       {/* Cours */}
+      {form.universiteId && !form.faculteId && (
+        <p className="text-xs text-muted-foreground">Choisissez la faculté pour afficher ses cours.</p>
+      )}
       {cours.length > 0 && (
         <div className="space-y-2">
           <label className="text-xs font-medium text-muted-foreground">Cours assignés</label>
@@ -320,20 +333,31 @@ function FormIndividuel({ universites, getFacultes, getCours, currentUserId, toa
   )
 }
 
+// Mot de passe tiré au hasard (10 caractères, sans caractères ambigus).
+function motDePasseAleatoire(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789'
+  const tirage = new Uint32Array(10)
+  crypto.getRandomValues(tirage)
+  return Array.from(tirage, n => chars[n % chars.length]).join('')
+}
+
 // ─── Sous-composant B : Import CSV ────────────────────────────────────────────
-function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }: any) {
+function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [csvFile, setCsvFile] = useState<File | null>(null)
   const [csvPreview, setCsvPreview] = useState<any[]>([])
   const [csvError, setCsvError] = useState('')
   const [csvImporting, setCsvImporting] = useState(false)
   const [csvResult, setCsvResult] = useState<{ success: number; errors: string[] } | null>(null)
+  // Comptes créés avec un mot de passe tiré au hasard (colonne motdepasse
+  // vide) : liste à télécharger et à remettre, affichée une seule fois.
+  const [identifiantsGeneres, setIdentifiantsGeneres] = useState<{ nom: string; username: string; motDePasse: string }[]>([])
   const [universiteId, setUniversiteId] = useState('')
   const [faculteId, setFaculteId] = useState('')
   const [classe, setClasse] = useState('')
   const [coursIds, setCoursIds] = useState<string[]>([])
 
   const facultes = getFacultes(universiteId)
-  const cours = getCours(universiteId)
+  const cours = getCours(universiteId, faculteId)
 
   const toggleCours = (id: string) =>
     setCoursIds(prev => prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id])
@@ -362,9 +386,10 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
 
   const handleImport = async () => {
     if (csvPreview.length === 0) return
-    setCsvImporting(true); setCsvResult(null)
+    setCsvImporting(true); setCsvResult(null); setIdentifiantsGeneres([])
     let success = 0
     const errors: string[] = []
+    const generes: { nom: string; username: string; motDePasse: string }[] = []
     // Identifiants déjà pris, lus en une série de requêtes ciblées (30 par
     // requête) ; complété au fil de l'import pour les doublons internes au fichier.
     let pris = new Set<string>()
@@ -379,11 +404,26 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
       const nom = (row.nom || '').trim()
       const prenom = (row.prenom || '').trim()
       const username = (row.username || row.id || row.identifiant || '').trim().toLowerCase()
-      const password = (row.motdepasse || row.password || row.mdp || 'campus2026').trim()
-      const classeRow = (row.classe || '').trim()
+      // Sans mot de passe dans le fichier : un mot de passe tiré au hasard,
+      // propre à chaque compte. Tous recevaient auparavant « campus2026 » :
+      // connaître l'identifiant d'un étudiant suffisait à entrer dans son compte.
+      const motDePasseSaisi = (row.motdepasse || row.password || row.mdp || '').trim()
+      const password = motDePasseSaisi || motDePasseAleatoire()
+      // Promotion ramenée à son code (« L1 Comptabilité » → L1) : c'est ce
+      // code que ciblent les devoirs, notes de cours et documents.
+      const classeSaisie = (row.classe || '').trim()
+      const classeRow = codePromotion(classeSaisie)
       const telephone = (row.telephone || row.tel || '').trim()
       if (!nom || !username) {
         errors.push(`Ligne ${row._line} : Nom et Identifiant obligatoires.`)
+        continue
+      }
+      if (motDePasseSaisi && motDePasseSaisi.length < 6) {
+        errors.push(`Ligne ${row._line} : mot de passe trop court (6 caractères au moins).`)
+        continue
+      }
+      if (classeSaisie && !classeRow) {
+        errors.push(`Ligne ${row._line} : promotion « ${classeSaisie} » non reconnue (attendu : ${PROMOTIONS.join(', ')}).`)
         continue
       }
       if (pris.has(username)) {
@@ -402,12 +442,14 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
         } as any)
         pris.add(username)
         success++
+        if (!motDePasseSaisi) generes.push({ nom: `${nom.toUpperCase()} ${prenom}`.trim(), username, motDePasse: password })
       } catch (err: any) {
         errors.push(`Ligne ${row._line} (${username}) : ${err?.message || 'Erreur inconnue'}`)
       }
     }
     setCsvImporting(false)
     setCsvResult({ success, errors })
+    setIdentifiantsGeneres(generes)
     if (success > 0) toast({ title: `${success} étudiant${success > 1 ? 's' : ''} importé${success > 1 ? 's' : ''} avec succès` })
   }
 
@@ -415,7 +457,7 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
       <div className="space-y-1">
         <h2 className="text-sm font-display font-semibold text-foreground">Import depuis un fichier CSV</h2>
-        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code></p>
+        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code>. Sans mot de passe, chaque compte en reçoit un tiré au hasard, à télécharger après l'import.</p>
       </div>
 
       {/* Paramètres communs */}
@@ -423,7 +465,7 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
         <div className="space-y-1">
           <label className="text-xs font-medium text-muted-foreground">Université (optionnel)</label>
           <div className="relative">
-            <select value={universiteId} onChange={e => { setUniversiteId(e.target.value); setFaculteId('') }}
+            <select value={universiteId} onChange={e => { setUniversiteId(e.target.value); setFaculteId(''); setCoursIds([]) }}
               className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
               <option value="">Toutes</option>
               {universites.map((u: any) => <option key={u.id} value={u.id}>{u.nom}</option>)}
@@ -434,7 +476,7 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
         <div className="space-y-1">
           <label className="text-xs font-medium text-muted-foreground">Faculté</label>
           <div className="relative">
-            <select value={faculteId} onChange={e => setFaculteId(e.target.value)}
+            <select value={faculteId} onChange={e => { setFaculteId(e.target.value); setCoursIds(ids => coursPourFaculte(ids, e.target.value)) }}
               className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
               <option value="">--</option>
               {facultes.map((f: any) => <option key={f.id} value={f.id}>{f.nom}</option>)}
@@ -456,6 +498,9 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
       </div>
 
       {/* Cours */}
+      {universiteId && !faculteId && (
+        <p className="text-xs text-muted-foreground">Choisissez la faculté pour afficher ses cours.</p>
+      )}
       {cours.length > 0 && (
         <div className="space-y-2">
           <label className="text-xs font-medium text-muted-foreground">Cours à assigner à tous les importés</label>
@@ -540,6 +585,27 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
               {csvResult.success} étudiant{csvResult.success > 1 ? 's' : ''} importé{csvResult.success > 1 ? 's' : ''} avec succès.
             </div>
           )}
+          {identifiantsGeneres.length > 0 && (
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
+              <p className="text-xs text-amber-800">
+                {identifiantsGeneres.length} compte{identifiantsGeneres.length > 1 ? 's ont' : ' a'} reçu un mot de passe tiré au hasard. Téléchargez la liste maintenant et remettez à chaque étudiant le sien : elle n'est pas conservée et ne pourra pas être affichée de nouveau.
+              </p>
+              <button
+                onClick={() => {
+                  const esc = (v: string) => `"${v.replace(/"/g, '""')}"`
+                  const lignes = [['Nom', 'Identifiant', 'Mot de passe'], ...identifiantsGeneres.map(g => [g.nom, g.username, g.motDePasse])]
+                  const csv = '\uFEFF' + lignes.map(l => l.map(esc).join(';')).join('\r\n')
+                  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
+                  const a = document.createElement('a')
+                  a.href = url; a.download = `identifiants-etudiants-${new Date().toISOString().slice(0, 10)}.csv`; a.click()
+                  URL.revokeObjectURL(url)
+                }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold"
+              >
+                <FileText className="w-3.5 h-3.5" /> Télécharger les identifiants (CSV)
+              </button>
+            </div>
+          )}
           {csvResult.errors.length > 0 && (
             <div className="p-3 bg-red-50 border border-red-200 rounded-xl space-y-1">
               <p className="text-xs font-semibold text-red-700">{csvResult.errors.length} erreur{csvResult.errors.length > 1 ? 's' : ''} :</p>
@@ -555,7 +621,7 @@ function ImportCSV({ universites, getFacultes, getCours, currentUserId, toast }:
 }
 
 // ─── Sous-composant C : Code d'accès ─────────────────────────────────────────
-function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }: any) {
+function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [, navigate] = useLocation()
   const [form, setForm] = useState({ universiteId: '', faculteId: '', coursIds: [] as string[], classe: '' })
   const [generatedCode, setGeneratedCode] = useState('')
@@ -564,7 +630,7 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
   const [copied, setCopied] = useState(false)
 
   const facultes = getFacultes(form.universiteId)
-  const cours = getCours(form.universiteId)
+  const cours = getCours(form.universiteId, form.faculteId)
 
   const toggleCours = (id: string) =>
     setForm(f => ({
@@ -623,7 +689,7 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
         <div className="space-y-1">
           <label className="text-xs font-medium text-muted-foreground">Université</label>
           <div className="relative">
-            <select value={form.universiteId} onChange={e => setForm(f => ({ ...f, universiteId: e.target.value, faculteId: '' }))}
+            <select value={form.universiteId} onChange={e => setForm(f => ({ ...f, universiteId: e.target.value, faculteId: '', coursIds: [] }))}
               className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
               <option value="">Non définie</option>
               {universites.map((u: any) => <option key={u.id} value={u.id}>{u.nom}</option>)}
@@ -634,7 +700,7 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
         <div className="space-y-1">
           <label className="text-xs font-medium text-muted-foreground">Faculté</label>
           <div className="relative">
-            <select value={form.faculteId} onChange={e => setForm(f => ({ ...f, faculteId: e.target.value }))}
+            <select value={form.faculteId} onChange={e => setForm(f => ({ ...f, faculteId: e.target.value, coursIds: coursPourFaculte(f.coursIds, e.target.value) }))}
               className="w-full appearance-none pl-3 pr-8 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
               <option value="">--</option>
               {facultes.map((f: any) => <option key={f.id} value={f.id}>{f.nom}</option>)}
@@ -672,6 +738,8 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
             ))}
           </div>
         </div>
+      ) : form.universiteId && !form.faculteId ? (
+        <p className="text-xs text-muted-foreground">Choisissez la faculté pour afficher ses cours.</p>
       ) : form.universiteId && (
         // Aucune UE n'a encore été « provisionnée » pour cette université : les UE
         // affectables ici sont les cours réels créés dans Espace pédagogique >
@@ -683,9 +751,9 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
         <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <div className="space-y-1.5">
-            <p>Aucun cours n'a encore été créé pour cette université - le code fonctionnera, mais sans UE pré-affectée (l'étudiant devra être ajouté aux cours manuellement après son inscription).</p>
+            <p>Aucun cours n'a encore été créé pour cette faculté - le code fonctionnera, mais sans UE pré-affectée (l'étudiant devra être ajouté aux cours manuellement après son inscription).</p>
             <button onClick={() => navigate('/professeurs?tab=cours')} className="font-semibold underline hover:no-underline">
-              Créer des cours pour cette université →
+              Ouvrir les cours de cette faculté →
             </button>
           </div>
         </div>

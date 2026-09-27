@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { signOut } from 'firebase/auth'
-import { auth } from '@/lib/firebase'
-import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
+import { seDeconnecter } from '@/lib/session'
 
 const IDLE_MS = 30 * 60 * 1000   // 30 minutes
 const WARN_MS = 25 * 60 * 1000   // avertissement à 25 min
@@ -34,11 +32,11 @@ export function useIdleTimer() {
     clearAll()
     setShowWarning(false)
     warnRef.current = setTimeout(() => { setShowWarning(true); startCountdown() }, WARN_MS)
-    idleRef.current = setTimeout(async () => {
+    // Même déconnexion complète que le bouton (cache Firestore vidé) : un
+    // simple signOut laissait les données du compte dans le navigateur.
+    idleRef.current = setTimeout(() => {
       clearAll(); setShowWarning(false)
-      setFirestoreErrorSuppressed(true)
-      try { await signOut(auth) } catch {}
-      window.location.hash = '#/login'
+      void seDeconnecter('Session fermée après 30 minutes d\'inactivité.')
     }, IDLE_MS)
   }, [clearAll, startCountdown])
 

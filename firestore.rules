@@ -122,6 +122,12 @@ service cloud.firestore {
       // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
       // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
       // en attente — même faille que sur la création, ici via update).
+      // L'équipe pédagogique qui a créé le compte d'un étudiant (directement ou
+      // par son code d'accès) gère ce compte : valider ou refuser l'inscription,
+      // activer ou suspendre, tenir à jour cours, promotion, faculté et
+      // coordonnées. Jamais le rôle, l'identifiant, le créateur ni le titulaire.
+      // Seul l'administrateur le pouvait : l'enseignant voyait les inscriptions
+      // de sa classe sans pouvoir les valider, ni inscrire un étudiant à un cours.
       allow update: if sansMotDePasseAjoute() && (isAdmin() || (
         isAuth() && request.auth.uid == userId &&
         request.resource.data.role == resource.data.role &&
@@ -129,6 +135,13 @@ service cloud.firestore {
         request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null) &&
         // Le rattachement à un titulaire (équipe pédagogique) n'est modifiable que par l'admin.
         request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null)
+      ) || (
+        isProf() && resource.data.role == 'etudiant' &&
+        memeEquipe(resource.data.get('createdBy', '')) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'coursIds', 'classe', 'faculteId', 'universiteId', 'nom', 'prenom', 'telephone',
+          'actif', 'statutInscription'
+        ])
       ));
       allow delete: if isAdmin();
     }
@@ -271,9 +284,16 @@ service cloud.firestore {
     // ─── MESSAGES ────────────────────────────────────────────────────────────
     // Isolation : un message n'est lisible/modifiable que par l'expéditeur ou le
     // destinataire (champ 'participants' = [expediteurId, destinataireId]).
+    // Création : les participants sont exactement l'expéditeur et le
+    // destinataire (un tiers ajouté à la liste lisait la conversation).
+    // Modification : le destinataire marque le message comme lu, rien d'autre
+    // (tout participant pouvait réécrire le texte de l'autre).
     match /messages/{messageId} {
-      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.participants;
-      allow create: if isAuth() && request.resource.data.expediteurId == request.auth.uid;
+      allow read, delete: if isAuth() && request.auth.uid in resource.data.participants;
+      allow create: if isAuth() && request.resource.data.expediteurId == request.auth.uid &&
+        request.resource.data.participants == [request.auth.uid, request.resource.data.destinataireId];
+      allow update: if isAuth() && request.auth.uid == resource.data.destinataireId &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lu']);
     }
 
     // ─── CODES D'ACCÈS ─────────────────────────────────────────────────────────
@@ -344,9 +364,34 @@ service cloud.firestore {
 
     // ─── SOUMISSIONS (réponses aux devoirs) ──────────────────────────────────
     // Isolation : par étudiant ET par devoir.
+    // Copie rendue par un étudiant : pour lui-même, sur un devoir d'un cours
+    // auquel il est inscrit. Elle n'arrive notée que pour un devoir corrigé à
+    // l'envoi (QCM), avec une note de 0 à 20 (barème des devoirs de chapitre) ;
+    // un devoir corrigé par l'enseignant arrive
+    // « soumis », sans note ni correction. Jusqu'ici seul l'auteur était
+    // vérifié : un étudiant pouvait créer sa copie déjà notée 20 sur un devoir
+    // rédigé, ou rendre une copie sur le devoir d'un autre cours.
+    function copieValide(d) {
+      let devoir = get(/databases/$(database)/documents/devoirs/$(d.devoirId)).data;
+      return devoir.coursId in studentCoursIds() && (
+        (
+          !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
+          d.get('statut', 'soumis') == 'soumis'
+        ) || (
+          d.keys().hasAny(['note']) &&
+          devoir.get('type', '') in ['qcm', 'qcm_chapitre', 'qcm_cas'] &&
+          d.note is number && d.note >= 0 && d.note <= 20 &&
+          // « soumis » accepté aussi : une page ouverte avant ce correctif
+          // envoie encore ce statut ; la note fait foi (estNotee, lib/cotes.ts).
+          d.get('statut', '') in ['note', 'soumis']
+        )
+      );
+    }
+
     match /soumissions/{soumissionId} {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
-      allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
+      allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid
+        && copieValide(request.resource.data);
       // Modification :
       // - l'étudiant : jamais les champs de correction (sinon il pouvait
       //   s'attribuer sa propre note) ;
@@ -462,6 +507,18 @@ service cloud.firestore {
     // Firestore refuse par défaut tout accès à une collection sans match
     // correspondant, ce qui rendait GestionEtudiantsPage inutilisable en
     // production (toast "Impossible de charger les étudiants").
+    // ─── NOTES MANUELLES (fiche étudiant) ────────────────────────────────────
+    // Notes saisies à la main par le personnel sur la fiche d'un étudiant.
+    // Aucune règle n'existait pour cette collection : Firestore refusait tout,
+    // lecture comme écriture, et la section de la fiche restait vide.
+    match /notes_manuelles/{noteId} {
+      allow read: if isProf();
+      allow create: if isProf() && request.resource.data.saisiePar == request.auth.uid &&
+        request.resource.data.note is number &&
+        request.resource.data.note >= 0 && request.resource.data.note <= 20;
+      allow delete: if isProf() && (memeEquipe(resource.data.get('saisiePar', '')) || isAdmin());
+    }
+
     match /etudiants/{etudiantId} {
       allow read: if isProf();
       // 1) Formulaire "Nouvel étudiant" : le prof/admin est authentifié sur sa
