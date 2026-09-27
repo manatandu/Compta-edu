@@ -1,10 +1,7 @@
 name: Déploiement Firebase (main)
 
-# Déploie automatiquement le site (Hosting), les règles/index Firestore et
-# les Cloud Functions (correction des QCM) à chaque push sur la branche
-# principale. Les fonctions exigent l'offre Blaze du projet, le secret
-# GEMINI_KEY et, pour le compte de service du déploiement, les rôles
-# Cloud Functions, Artifact Registry et Secret Manager. Peut aussi être lancé manuellement
+# Déploie automatiquement le site (Hosting) et les règles/index Firestore
+# à chaque push sur la branche principale. Peut aussi être lancé manuellement
 # depuis l'onglet "Actions" de GitHub (bouton "Run workflow").
 on:
   push:
@@ -37,10 +34,6 @@ jobs:
         run: npm install
         working-directory: client
 
-      - name: Installer et compiler les fonctions
-        run: npm ci && npm run build
-        working-directory: functions
-
       # Séparé du build : l'émulateur Firestore peut occasionnellement rester bloqué
       # au démarrage sur un runner à froid. timeout-minutes évite qu'un run pende
       # indéfiniment (le job entier attendrait sinon la limite par défaut de 6h).
@@ -61,7 +54,7 @@ jobs:
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CAMPUS_OHADA }}
 
-      - name: Déployer (Hosting + règles + index Firestore + fonctions)
+      - name: Déployer (Hosting + règles + index Firestore)
         run: npx firebase-tools deploy --project campus-ohada --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-sa.json

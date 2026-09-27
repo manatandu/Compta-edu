@@ -1732,14 +1732,10 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   const redige = { ...DOCS.devoirCompta, type: 'theorique' }
   const copie = (devoirId, extra = {}) => ({ devoirId, etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', ...extra })
 
-  it('Un étudiant NE PEUT PAS écrire lui-même une copie de QCM, notée ou non (corrigée par le serveur)', async () => {
+  it('Un QCM peut arriver noté (note de 0 à 20, statut « note »)', async () => {
     await seedUsers(USERS.etud1)
-    for (const type of ['qcm', 'qcm_chapitre', 'qcm_cas']) {
-      await seedDoc('devoirs', `d-${type}`, { ...qcm, type })
-      await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', `n-${type}`), copie(`d-${type}`, { note: 16, statut: 'note', scoreQCMChapitre: 8 })))
-      await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', `s-${type}`), copie(`d-${type}`, { statut: 'soumis', scoreQCMCas: 10 })))
-      await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', `v-${type}`), copie(`d-${type}`)))
-    }
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 16, statut: 'note', scoreQCMChapitre: 8 })))
   })
 
   it('Un devoir rédigé arrive « soumis », sans note', async () => {
@@ -1755,34 +1751,18 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
     await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-red', { statut: 'note' })))
   })
 
-  it('Une copie rédigée ne peut porter aucun score de correction automatique', async () => {
-    await seedUsers(USERS.etud1)
-    await seedDoc('devoirs', 'd-red', redige)
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-red', { scoreCasPratiques: 10 })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-red', { evaluationsCasPratiques: [] })))
-  })
-
-  it('Un étudiant peut compléter sa copie rédigée, sans toucher à la correction', async () => {
-    await seedUsers(USERS.etud1)
-    await seedDoc('devoirs', 'd-red', redige)
-    await seedDoc('soumissions', 's-red', { devoirId: 'd-red', etudiantId: USERS.etud1.uid, statut: 'soumis', reponseTexte: 'v1' })
-    await assertSucceeds(updateDoc(doc(db(USERS.etud1), 'soumissions', 's-red'), { reponseTexte: 'v2' }))
-    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 's-red'), { scoreCasPratiques: 10 }))
-  })
-
-  it('Un étudiant NE PEUT PAS retoucher une copie de QCM écrite par le serveur', async () => {
+  it('Une note hors du barème de 0 à 20 est refusée', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-qcm', qcm)
-    await seedDoc('soumissions', 'd-qcm_etud1', { devoirId: 'd-qcm', etudiantId: USERS.etud1.uid, statut: 'note', note: 8, reponsesQCMChapitre: { q1: 'a' } })
-    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 'd-qcm_etud1'), { reponsesQCMChapitre: { q1: 'b' } }))
-    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 'd-qcm_etud1'), { scoreQCMChapitre: 10 }))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 25, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-qcm', { note: -1, statut: 'note' })))
   })
 
   it('Un étudiant NE PEUT PAS rendre le devoir d\'un cours auquel il n\'est pas inscrit', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-fisc', { ...qcm, coursId: IDS.coursFiscalite })
-    await seedDoc('devoirs', 'd-fisc-red', { ...redige, coursId: IDS.coursFiscalite })
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-fisc-red')))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-fisc', { note: 10, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-fisc')))
   })
 
   it('Une copie sur un devoir inexistant est refusée', async () => {

@@ -15,9 +15,14 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Devoir, Soumission, QCMChapitre, CasPratique } from '@/lib/db'
-import { soumettreQCM, messageErreurEnvoi } from '@/lib/correctionServeur'
+import { createSoumissionAsync } from '@/lib/db-firebase'
 import { estNotee, estACorriger } from '@/lib/cotes'
 import { promotionCorrespond } from '@/lib/promotion'
+
+// ─── Constantes ───────────────────────────────────────────────────────────────
+
+const GEMINI_URL =
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDERRGuR0EBGatLlcB5zzFi284JK6_IGmM'
 
 // ─── Calculs ──────────────────────────────────────────────────────────────────
 
@@ -28,19 +33,80 @@ export function scoreEnNoteSur20(score: number, total: number = 10): number {
 }
 
 
-// ─── Correction ───────────────────────────────────────────────────────────────
-// La note est calculée par le serveur (fonction soumettreQCM), qui écrit la
-// copie et fait évaluer les cas pratiques par Gemini : le navigateur ne fait
-// qu'envoyer les réponses et afficher le résultat renvoyé.
+// ─── Appel Gemini ─────────────────────────────────────────────────────────────
+
+interface GeminiEval {
+  score: number
+  commentaire: string
+  coherente: boolean
+}
+
+async function evaluerCasGemini(
+  cas: CasPratique,
+  reponseEtudiant: string
+): Promise<GeminiEval | null> {
+  const prompt = `Tu es un correcteur pédagogique en comptabilité OHADA (SYSCOHADA révisé) pour le logiciel ORBIT.
+
+Évalue la réponse d'un étudiant pour le cas pratique suivant.
+
+## Cas pratique
+Titre : ${cas.titre}
+Énoncé : ${cas.enonce}
+
+## Corrigé type (référence)
+${cas.corrigeType}
+
+## Réponse de l'étudiant
+${reponseEtudiant || '(aucune réponse fournie)'}
+
+## Consignes d'évaluation
+- Note maximale : ${cas.pointsMax} points
+- Évalue la LOGIQUE et la COHÉRENCE comptable, pas la formulation exacte
+- Si la réponse montre une compréhension correcte du concept, même avec des mots différents, c'est valide
+- Une réponse vide ou hors sujet = 0 point
+- Sois pédagogique dans ton commentaire (en français)
+
+## Format de réponse OBLIGATOIRE (JSON strict, sans markdown)
+{"score": <nombre entier entre 0 et ${cas.pointsMax}>, "commentaire": "<explication courte en français>", "coherente": <true|false>}`
+
+  try {
+    const res = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      }),
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    const text: string =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
+    // Nettoyage : retirer ```json ... ``` si présent
+    const clean = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim()
+    const parsed = JSON.parse(clean) as GeminiEval
+    // Valider les champs
+    if (
+      typeof parsed.score !== 'number' ||
+      typeof parsed.commentaire !== 'string' ||
+      typeof parsed.coherente !== 'boolean'
+    ) return null
+    // Borner le score
+    parsed.score = Math.max(0, Math.min(cas.pointsMax, Math.round(parsed.score)))
+    return parsed
+  } catch {
+    return null
+  }
+}
 
 // ─── Composant : Passer un devoir qcm_chapitre ────────────────────────────────
 
 interface PasserQCMChapitreProps {
   devoir: Devoir
+  etudiantId: string
   onSoumis: (soumission: Soumission) => void
 }
 
-function PasserQCMChapitre({ devoir, onSoumis }: PasserQCMChapitreProps) {
+function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitreProps) {
   const questions: QCMChapitre[] = devoir.questionsChapitre || []
   const [reponses, setReponses] = useState<Record<string, string>>({})
   const [soumis, setSoumis] = useState(false)
@@ -49,7 +115,6 @@ function PasserQCMChapitre({ devoir, onSoumis }: PasserQCMChapitreProps) {
     details: { qId: string; choix: string; correct: boolean }[]
   } | null>(null)
   const [loading, setLoading] = useState(false)
-  const [erreur, setErreur] = useState('')
 
   const totalRepondues = Object.keys(reponses).length
   const peutSoumettre = totalRepondues === questions.length
@@ -57,15 +122,33 @@ function PasserQCMChapitre({ devoir, onSoumis }: PasserQCMChapitreProps) {
   const handleSoumettre = async () => {
     if (!peutSoumettre) return
     setLoading(true)
-    setErreur('')
     try {
-      const { soumission } = await soumettreQCM({ devoirId: devoir.id, reponses })
-      setResultat({ score: soumission.scoreQCMChapitre ?? 0, details: soumission.detailsQCMChapitre ?? [] })
+      const details = questions.map(q => ({
+        qId: q.id,
+        choix: reponses[q.id] || '',
+        correct: reponses[q.id] === q.reponseCorrecte,
+      }))
+      const nbCorrectes = details.filter(d => d.correct).length
+      const nbTotal = questions.length
+      // Note finale sur 20 : (bonnes / total) * 20
+      const noteSur20 = parseFloat(((nbCorrectes / nbTotal) * 20).toFixed(2))
+
+      const soumission = await createSoumissionAsync({
+        devoirId: devoir.id,
+        etudiantId,
+        reponsesQCMChapitre: reponses,
+        scoreQCMChapitre: nbCorrectes,
+        detailsQCMChapitre: details,
+        note: noteSur20,
+        statut: 'note' as const,
+        dateCorrection: new Date().toISOString(),
+      } as any)
+
+      setResultat({ score: nbCorrectes, details })
       setSoumis(true)
       onSoumis(soumission)
     } catch (e) {
       console.error(e)
-      setErreur(messageErreurEnvoi(e))
     } finally {
       setLoading(false)
     }
@@ -87,17 +170,14 @@ function PasserQCMChapitre({ devoir, onSoumis }: PasserQCMChapitreProps) {
   }
 
   return (
-    <div className="space-y-2">
-      <QCMForm
-        questions={questions}
-        reponses={reponses}
-        onReponse={(qId, optId) => setReponses(r => ({ ...r, [qId]: optId }))}
-        onSoumettre={handleSoumettre}
-        loading={loading}
-        label="Soumettre et voir ma note"
-      />
-      {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
-    </div>
+    <QCMForm
+      questions={questions}
+      reponses={reponses}
+      onReponse={(qId, optId) => setReponses(r => ({ ...r, [qId]: optId }))}
+      onSoumettre={handleSoumettre}
+      loading={loading}
+      label="Soumettre et voir ma note"
+    />
   )
 }
 
@@ -105,12 +185,13 @@ function PasserQCMChapitre({ devoir, onSoumis }: PasserQCMChapitreProps) {
 
 interface PasserQCMCasProps {
   devoir: Devoir
+  etudiantId: string
   onSoumis: (soumission: Soumission) => void
 }
 
 type EtapeQCMCas = 'qcm' | 'cas' | 'correction'
 
-function PasserQCMCas({ devoir, onSoumis }: PasserQCMCasProps) {
+function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
   const questions: QCMChapitre[] = devoir.questionsChapitre || []
   const casPratiques: CasPratique[] = devoir.casPratiques || []
 
@@ -118,7 +199,6 @@ function PasserQCMCas({ devoir, onSoumis }: PasserQCMCasProps) {
   const [reponsesQCM, setReponsesQCM] = useState<Record<string, string>>({})
   const [reponsesCas, setReponsesCas] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
-  const [erreur, setErreur] = useState('')
   const [resultat, setResultat] = useState<{
     scoreQCM: number
     detailsQCM: { qId: string; choix: string; correct: boolean }[]
@@ -140,29 +220,95 @@ function PasserQCMCas({ devoir, onSoumis }: PasserQCMCasProps) {
   const handleSoumettreCas = async () => {
     if (!peutSoumettreCas) return
     setLoading(true)
-    setErreur('')
     try {
-      const { soumission } = await soumettreQCM({ devoirId: devoir.id, reponses: reponsesQCM, reponsesCas })
-      const noteFinale = typeof soumission.note === 'number' ? soumission.note : null
-      setResultat({
-        scoreQCM: soumission.scoreQCMCas ?? 0,
-        detailsQCM: soumission.detailsQCMChapitre ?? [],
-        evaluations: soumission.evaluationsCasPratiques ?? [],
-        scoreCas: soumission.scoreCasPratiques ?? 0,
-        noteFinale: noteFinale ?? 0,
-        // Sans note, le correcteur automatique n'a pas pu évaluer les cas :
-        // la copie attend la correction du professeur.
-        geminiEchoue: noteFinale === null,
-      })
+      // 1. Calcul QCM : (nbCorrectes / nbTotal) * 10 pts
+      const detailsQCM = questions.map(q => ({
+        qId: q.id,
+        choix: reponsesQCM[q.id] || '',
+        correct: reponsesQCM[q.id] === q.reponseCorrecte,
+      }))
+      const nbCorrectes = detailsQCM.filter(d => d.correct).length
+      const scoreQCM = questions.length > 0
+        ? parseFloat(((nbCorrectes / questions.length) * 10).toFixed(2))
+        : 0
+
+      // 2. Évaluation Gemini par cas
+      let geminiEchoue = false
+      const evaluations: { casId: string; score: number; commentaire: string; coherente: boolean }[] = []
+
+      for (const cas of casPratiques) {
+        const reponse = reponsesCas[cas.id] || ''
+        const eval_ = await evaluerCasGemini(cas, reponse)
+        if (eval_ === null) {
+          geminiEchoue = true
+          break
+        }
+        evaluations.push({
+          casId: cas.id,
+          score: eval_.score,
+          commentaire: eval_.commentaire,
+          coherente: eval_.coherente,
+        })
+      }
+
+      if (geminiEchoue) {
+        // Gemini a échoué → soumission en statut 'soumis' pour correction manuelle
+        const soumission = await createSoumissionAsync({
+          devoirId: devoir.id,
+          etudiantId,
+          reponsesQCMChapitre: reponsesQCM,
+          scoreQCMChapitre: nbCorrectes,
+          detailsQCMChapitre: detailsQCM,
+          reponsesCasPratiques: reponsesCas,
+          scoreQCMCas: scoreQCM,
+          statut: 'soumis' as const,
+          // note non définie → correction manuelle par le prof
+        } as any)
+        setResultat({
+          scoreQCM,
+          detailsQCM,
+          evaluations: [],
+          scoreCas: 0,
+          noteFinale: 0,
+          geminiEchoue: true,
+        })
+        setSoumisEchoue(true)
+        onSoumis(soumission)
+        setEtape('correction')
+        return
+      }
+
+      // 3. Calcul score cas
+      const scoreCas = evaluations.reduce((acc, e) => acc + e.score, 0)
+      const noteFinale = scoreQCM + scoreCas // sur 20
+
+      // 4. Sauvegarde avec note finale
+      const soumission = await createSoumissionAsync({
+        devoirId: devoir.id,
+        etudiantId,
+        reponsesQCMChapitre: reponsesQCM,
+        scoreQCMChapitre: nbCorrectes,
+        detailsQCMChapitre: detailsQCM,
+        reponsesCasPratiques: reponsesCas,
+        evaluationsCasPratiques: evaluations,
+        scoreQCMCas: scoreQCM,
+        scoreCasPratiques: scoreCas,
+        note: noteFinale,
+        statut: 'note' as const,
+        dateCorrection: new Date().toISOString(),
+      } as any)
+
+      setResultat({ scoreQCM, detailsQCM, evaluations, scoreCas, noteFinale, geminiEchoue: false })
       setEtape('correction')
       onSoumis(soumission)
     } catch (e) {
       console.error(e)
-      setErreur(messageErreurEnvoi(e))
     } finally {
       setLoading(false)
     }
   }
+
+  const [, setSoumisEchoue] = useState(false)
 
   // ── Étape QCM ──
   if (etape === 'qcm') {
@@ -249,7 +395,6 @@ function PasserQCMCas({ devoir, onSoumis }: PasserQCMCasProps) {
             : <><CheckCircle2 className="h-4 w-4" /> Soumettre et voir ma note</>
           }
         </button>
-        {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
         <p className="text-xs text-muted-foreground text-center">
           Une fois soumis, vous ne pourrez plus modifier vos réponses.
         </p>
@@ -580,10 +725,11 @@ function QCMForm({ questions, reponses, onReponse, onSoumettre, loading, label, 
 interface DevoirCarteProps {
   devoir: Devoir
   soumission: Soumission | null
+  etudiantId: string
   onSoumis: (s: Soumission) => void
 }
 
-function DevoirCarte({ devoir, soumission, onSoumis }: DevoirCarteProps) {
+function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCarteProps) {
   const [ouvert, setOuvert] = useState(false)
   const expire = new Date() > new Date(devoir.dateLimit)
 
@@ -685,11 +831,13 @@ function DevoirCarte({ devoir, soumission, onSoumis }: DevoirCarteProps) {
           ) : devoir.type === 'qcm_cas' ? (
             <PasserQCMCas
               devoir={devoir}
+              etudiantId={etudiantId}
               onSoumis={onSoumis}
             />
           ) : (
             <PasserQCMChapitre
               devoir={devoir}
+              etudiantId={etudiantId}
               onSoumis={onSoumis}
             />
           )}
@@ -893,6 +1041,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
               key={d.id}
               devoir={d}
               soumission={soumissionDe(d) || null}
+              etudiantId={etudiantId}
               onSoumis={handleSoumis}
             />
           ))}
@@ -910,6 +1059,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
               key={d.id}
               devoir={d}
               soumission={null}
+              etudiantId={etudiantId}
               onSoumis={handleSoumis}
             />
           ))}
@@ -927,6 +1077,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
               key={d.id}
               devoir={d}
               soumission={soumissionDe(d) || null}
+              etudiantId={etudiantId}
               onSoumis={handleSoumis}
             />
           ))}
