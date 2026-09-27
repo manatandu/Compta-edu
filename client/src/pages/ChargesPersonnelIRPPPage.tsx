@@ -327,7 +327,9 @@ export default function ChargesPersonnelIRPPPage() {
         totalRetenues,
         totalChargePatronale: cnssPatron + inpp + onem,
         netAPayer,
-        chargePatronale: netAPayer + cnssPatron + inpp + onem,
+        // Coût total pour l'employeur : le brut versé (dont la QPO et l'IRPP qu'il retient et
+        // reverse) plus ses propres charges. « Net + charges » omettait ces retenues.
+        chargePatronale: brut661 + brut663 + cnssPatron + inpp + onem,
       })
     } else {
       const brut662 = e662.reduce((s, r) => s + (parseFloat(r.montant) || 0), 0)
@@ -356,7 +358,8 @@ export default function ChargesPersonnelIRPPPage() {
       // (Art. 146), les immunités de l'Art. 69 s'y appliquant également (Art. 147) - donc la
       // même base que l'IRPP : 662 + la part du 663 non couverte par une immunité.
       const tauxIere = 0.25
-      const iere = (brut662 + imposable663E) * tauxIere
+      // Art. 150 : l'arrondi à la centaine vise « tous autres prélèvements prévus dans la présente Loi ».
+      const iere = arrondiCentaineFC((brut662 + imposable663E) * tauxIere)
       const nbEffE = parseInt(effectifExp) || 0
       const inppTauxE = nbEffE > 300 ? 0.02 : nbEffE >= 51 ? 0.03 : 0.035
       const cnssPatronE = (brut662 + imposable663E) * 0.13
@@ -376,7 +379,7 @@ export default function ChargesPersonnelIRPPPage() {
         totalRetenuesE,
         totalChargePatronale: iere + cnssPatronE + inppE + onemE,
         netAPayer: netAPayerE,
-        chargePatronale: netAPayerE + iere + cnssPatronE + inppE + onemE,
+        chargePatronale: brut662 + brut663e + iere + cnssPatronE + inppE + onemE,
       })
     }
   }
@@ -677,7 +680,7 @@ export default function ChargesPersonnelIRPPPage() {
               <span>
                 <strong>Deux calculs distincts (Art. 84 + Art. 145-148, Loi 23/053) :</strong><br/>
                 (1) L'expatrié paie son IRPP selon le même barème progressif que les nationaux (Art. 84 Loi 23/053).<br/>
-                (2) L'entreprise paie en plus l'IERE (Impôt Exceptionnel) : 25% du brut à sa propre charge.
+                (2) L'entreprise paie en plus le prélèvement exceptionnel sur les rémunérations des expatriés : 25% du brut, à sa propre charge (Art. 145-148 Loi 23/053).
               </span>
             </div>
           </div>
@@ -694,7 +697,7 @@ export default function ChargesPersonnelIRPPPage() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et à l'IERE (charge patronale)",
+              texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et au prélèvement exceptionnel (Art. 145-148) (charge patronale)",
               loi: "Compte 662 SYSCOHADA"
             }}
           />
@@ -711,7 +714,7 @@ export default function ChargesPersonnelIRPPPage() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc - chaque ligne est qualifiée séparément (Art. 69, 8°), même règle que pour les nationaux. Ces éléments servent de base à l'IRPP comme à l'IERE.",
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc - chaque ligne est qualifiée séparément (Art. 69, 8°), même règle que pour les nationaux. Ces éléments servent de base à l'IRPP comme au prélèvement exceptionnel.",
               loi: "Art. 69, 8°, Loi 23/053"
             }}
           />
@@ -799,13 +802,13 @@ export default function ChargesPersonnelIRPPPage() {
 
           <div className="rounded-xl border border-border bg-muted/20 px-4 py-3">
             <p className="text-sm font-medium flex items-center gap-1">
-              IERE : taux fixe 25%
+              Prélèvement exceptionnel : taux fixe 25%
               <InfoTooltip
                 texte="Art. 145 Loi 23/053 du 30/11/2023 : il est établi un prélèvement exceptionnel à charge des entreprises employant un personnel expatrié. | Art. 146 : le prélèvement est assis sur le montant brut des rémunérations payées (compte 662). | Art. 147 : les exemptions et immunités prévues en matière d'IRPP Cat. 1 s'appliquent également. | Art. 148 : le taux est fixé à 25% du montant brut des rémunérations. | Base : salaire brut imposable 662 uniquement, non les indemnités non imposables (663)."
                 loi="Art. 145-148 Loi n°23/053 du 30/11/2023"
               />
             </p>
-            <p className="text-xs text-muted-foreground mt-0.5">Taux IERE : 25% du brut 662 - charge exclusive de l'employeur (Art. 148 Loi 23/053)</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Taux du prélèvement exceptionnel : 25% du brut 662 - charge exclusive de l'employeur (Art. 148 Loi 23/053)</p>
           </div>
         </>
       ) : null}
@@ -1246,7 +1249,7 @@ export default function ChargesPersonnelIRPPPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 <BoxFinal label="Net à payer au salarié" sublabel="Brut (661+663) − Total retenues" val={formatFC(res.netAPayer)} />
-                <BoxFinal label="Charge patronale" sublabel="Net à payer + CNSS + INPP + ONEM" val={formatFC(res.chargePatronale)} credit />
+                <BoxFinal label="Coût total employeur" sublabel="Brut (661+663) + CNSS + INPP + ONEM" val={formatFC(res.chargePatronale)} credit />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <BoxFinal label="Total retenues salarié"
@@ -1315,13 +1318,13 @@ export default function ChargesPersonnelIRPPPage() {
                 </div>
               </EtapeResultat>
 
-              <EtapeResultat numero={4} titre="IERE : Charge patronale (Art. 145-148)">
+              <EtapeResultat numero={4} titre="Prélèvement exceptionnel : charge patronale (Art. 145-148)">
                 <div className="rounded-lg bg-red-50 border border-red-200 p-3 space-y-1">
                   <p className="text-xs font-semibold text-red-700 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
                   <LigneR signe="+" label="Base imposable (brut 662)" val={formatFC(res.brut662)} />
-                  <LigneR signe="×" label={`Taux IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
+                  <LigneR signe="×" label={`Taux du prélèvement (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
                   <Separateur />
-                  <LigneR signe="=" label="IERE dû par l'employeur" val={formatFC(res.iere)} bold />
+                  <LigneR signe="=" label="Prélèvement dû par l'employeur" val={formatFC(res.iere)} bold />
                 </div>
               </EtapeResultat>
 
@@ -1334,9 +1337,9 @@ export default function ChargesPersonnelIRPPPage() {
                 <LigneR signe="=" label="Total retenues" val={formatFC(res.totalRetenuesE)} bold accent />
               </EtapeResultat>
 
-              <EtapeResultat numero={6} titre="Charges patronales (IERE + cotisations)">
-                <LigneR signe="+" label={`IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val={formatFC(res.iere)}
-                  tooltip={{ texte: "L'IERE (Prélèvement Exceptionnel sur les Rémunérations des Expatriés) est une charge PATRONALE exclusive : ce n'est PAS une retenue sur le salaire. | Art. 145 Loi 23/053 : prélèvement à charge des entreprises employant un personnel expatrié. | Art. 146 : assis sur le montant brut des rémunérations (662). | Art. 147 : les exemptions IRPP Cat. 1 s'appliquent. | Art. 148 : taux fixé à 25% du brut. | Écriture : Débit 6413 / Crédit 44722 (IERE à verser *).", loi: "Art. 145-148 Loi n°23/053 du 30/11/2023" }}
+              <EtapeResultat numero={6} titre="Charges patronales (prélèvement exceptionnel + cotisations)">
+                <LigneR signe="+" label={`Prélèvement exceptionnel (${(res.tauxIere * 100).toFixed(1)}%)`} val={formatFC(res.iere)}
+                  tooltip={{ texte: "Le prélèvement exceptionnel sur les rémunérations des expatriés (anciennement IERE) est une charge PATRONALE exclusive : ce n'est PAS une retenue sur le salaire. | Art. 145 Loi 23/053 : prélèvement à charge des entreprises employant un personnel expatrié. | Art. 146 : assis sur le montant brut des rémunérations (662). | Art. 147 : les exemptions IRPP Cat. 1 s'appliquent. | Art. 148 : taux fixé à 25% du brut. | Écriture : Débit 6413 / Crédit 44722 (Prélèvement exceptionnel à verser *).", loi: "Art. 145-148 Loi n°23/053 du 30/11/2023" }}
                 />
                 <LigneR signe="+" label="CNSS patronal (13%)" val={formatFC(res.cnssPatronE)}
                   tooltip={{ texte: "La Quote-Part Patronale (QPP) CNSS est à la charge exclusive de l'employeur, non déductible du salaire de l'expatrié. | Taux : 13% du salaire brut imposable (662). | Applicable aux expatriés affiliés à la CNSS RDC, en l'absence de convention bilatérale de sécurité sociale. | Art. 1er Code du Travail RDC (Loi 015-2002) : le Code du Travail s'applique à tous les travailleurs exerçant en RDC, quelle que soit leur nationalité. | Art. 112(b) CT : les cotisations dues à la CNSS constituent des retenues autorisées sur le salaire. | La QPP CNSS couvre les risques : accident du travail, maladie professionnelle, allocations familiales, retraite (pension vieillesse). | Écriture : Débit 6642 (Charges sociales personnel non national) / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 1er et 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
@@ -1353,13 +1356,13 @@ export default function ChargesPersonnelIRPPPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 <BoxFinal label="Net à payer à l'expatrié" sublabel="Brut (662+663) − Total retenues" val={formatFC(res.netAPayer)} />
-                <BoxFinal label="IERE à verser au Trésor" val={formatFC(res.iere)} couleur="red" />
+                <BoxFinal label="Prélèvement exceptionnel à verser au Trésor" val={formatFC(res.iere)} couleur="red" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <BoxFinal label="Total retenues salarié"
                   sublabel={`QPO + IRPP${res.syndicatValE > 0 ? ' + Syndicat' : ''}${res.avancesValE > 0 ? ' + Avances' : ''}`}
                   val={formatFC(res.totalRetenuesE)} />
-                <BoxFinal label="Charge patronale" sublabel="Net à payer + IERE + CNSS + INPP + ONEM" val={formatFC(res.chargePatronale)} credit />
+                <BoxFinal label="Coût total employeur" sublabel="Brut (662+663) + prélèvement exceptionnel + CNSS + INPP + ONEM" val={formatFC(res.chargePatronale)} credit />
               </div>
             </>
           )}
@@ -1573,10 +1576,10 @@ export default function ChargesPersonnelIRPPPage() {
                 {/* ÉCRITURE 6 : IERE */}
                 <JournalEntry
                   numero="6"
-                  libelle={`IERE : Impôt exceptionnel sur rémunérations expatriées (${(res.tauxIere * 100).toFixed(1)}%)`}
+                  libelle={`Prélèvement exceptionnel sur les rémunérations des expatriés (${(res.tauxIere * 100).toFixed(1)}%)`}
                   lignes={[
                     { sens: 'D', compte: '6413', intitule: 'Taxes sur appointements et salaires', montant: res.iere },
-                    { sens: 'C', compte: '44722', intitule: 'IERE à verser *', montant: res.iere },
+                    { sens: 'C', compte: '44722', intitule: 'Prélèvement exceptionnel à verser *', montant: res.iere },
                   ]}
                 />
 
@@ -1590,7 +1593,7 @@ export default function ChargesPersonnelIRPPPage() {
                   lignes7e.push({ sens: 'D', compte: '4331', intitule: 'INPP : dette patronale *', montant: res.inppE })
                   lignes7e.push({ sens: 'D', compte: '4332', intitule: 'ONEM : dette patronale *', montant: res.onemE })
                   lignes7e.push({ sens: 'D', compte: '44721', intitule: 'IRPP retenu à la source *', montant: res.iprNetExp })
-                  lignes7e.push({ sens: 'D', compte: '44722', intitule: 'IERE à verser *', montant: res.iere })
+                  lignes7e.push({ sens: 'D', compte: '44722', intitule: 'Prélèvement exceptionnel à verser *', montant: res.iere })
                   const totalVerseE = (netBanqueE2 > 0 ? netBanqueE2 : 0) + res.qpoE + res.cnssPatronE + res.inppE + res.onemE + res.iprNetExp + res.iere
                   lignes7e.push({ sens: 'C', compte: '521', intitule: 'Banque', montant: totalVerseE })
                   return (
