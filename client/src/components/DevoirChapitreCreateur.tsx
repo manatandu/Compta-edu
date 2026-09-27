@@ -155,8 +155,16 @@ export default function DevoirChapitreCreateur({
   }, [uniId])
 
   useEffect(() => {
-    if (!facultes.find(f => f.id === facId)) setFacId('')
+    if (!facultes.find(f => f.id === facId)) setFacId(facultes.length === 1 ? facultes[0].id : '')
   }, [facultes])
+
+  // Une seule université, ou celle du compte : choisie d'office.
+  useEffect(() => {
+    if (uniId || universites.length === 0) return
+    const duCompte = (user as any)?.universiteId
+    if (duCompte && universites.some(u => u.id === duCompte)) setUniId(duCompte)
+    else if (universites.length === 1) setUniId(universites[0].id)
+  }, [universites])
 
   // Cours réel de la faculté choisie pour l'UE de ce chapitre. Le devoir
   // recevait jusqu'ici l'identifiant du module (« ue1-droit-travail »), qui ne
@@ -236,6 +244,16 @@ export default function DevoirChapitreCreateur({
       return `QCM : 10 pts + ${nbCasSelectionnes} cas (${ptsCas} pts chacun) = /20`
     }
   }
+
+  // Formulaire en trois étapes : 1. type et titre · 2. pour qui et quand ·
+  // 3. questions. Tout s'affichait d'un bloc, sur un écran très long.
+  const [etape, setEtape] = useState<1 | 2 | 3>(1)
+  const etape1Ok = !!titre.trim()
+  const etape2Ok = !!uniId && !!facId && !!coursCible && (destinataire === 'exercice' || (!!promoId && !!dateLimit))
+  const messageEtape2 = !uniId ? 'Sélectionnez une université.'
+    : !facId ? 'Sélectionnez une faculté.'
+    : !coursCible ? "Cette UE n'est pas encore ouverte dans la faculté choisie : l'administrateur l'ouvre en visitant l'Espace pédagogique."
+    : 'Indiquez la promotion et la date limite.'
 
   // État soumission
   const [loading, setLoading] = useState(false)
@@ -368,6 +386,7 @@ export default function DevoirChapitreCreateur({
         await createDevoirAsync(payload)
       }
       setSucces(true)
+      setEtape(1)
       setSelection(new Set())
       setSelectionCas(new Set())
       // Formulaire replié après l'envoi, sauf s'il est seul à l'écran (vue
@@ -425,6 +444,31 @@ export default function DevoirChapitreCreateur({
       {ouvert && (
         <div className="px-4 pb-5 space-y-4 border-t border-indigo-200 pt-4 animate-slideDown">
 
+          {/* Étapes */}
+          <ol className="grid grid-cols-3 gap-1.5 text-[11px]">
+            {(['Type et titre', 'Pour qui, quand', 'Questions'] as const).map((libelle, i) => {
+              const n = (i + 1) as 1 | 2 | 3
+              const accessible = n === 1 || (n === 2 && etape1Ok) || (n === 3 && etape1Ok && etape2Ok)
+              return (
+                <li key={n}>
+                  <button
+                    onClick={() => accessible && setEtape(n)}
+                    disabled={!accessible}
+                    className={cn(
+                      'w-full rounded-lg px-2 py-1.5 font-medium border transition-colors',
+                      etape === n ? 'bg-indigo-600 text-white border-indigo-600'
+                        : accessible ? 'bg-card text-indigo-700 border-indigo-200 hover:bg-indigo-50'
+                        : 'bg-muted/40 text-muted-foreground border-border cursor-not-allowed'
+                    )}
+                  >
+                    {n}. {libelle}
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+
+          {etape === 1 && (<>
           {/* Destination */}
           <div>
             <label className="text-xs font-semibold text-foreground block mb-2">Destination</label>
@@ -492,6 +536,9 @@ export default function DevoirChapitreCreateur({
             />
           </div>
 
+          </>)}
+
+          {etape === 2 && (<>
           {/* Ciblage : Université -> Faculté (-> Promotion pour un devoir noté) */}
           <div className="space-y-3 rounded-xl border border-border bg-card/60 p-3">
             <p className="text-xs font-semibold text-foreground">
@@ -587,6 +634,9 @@ export default function DevoirChapitreCreateur({
             </div>
           )}
 
+          </>)}
+
+          {etape === 3 && (<>
           {/* Sélection QCM - libre (pas de QCM dans un devoir à questions rédigées) */}
           {!(destinataire === 'devoir' && typeDevoir === 'redaction') && (
           <div>
@@ -772,6 +822,8 @@ export default function DevoirChapitreCreateur({
             </div>
           )}
 
+          </>)}
+
           {/* Erreur / Succès */}
           {erreur && (
             <div className="flex items-center gap-2 text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
@@ -788,12 +840,41 @@ export default function DevoirChapitreCreateur({
             </div>
           )}
 
+          {/* Navigation entre étapes */}
+          {etape === 2 && !etape2Ok && (
+            <p className="text-xs text-amber-700">{messageEtape2}</p>
+          )}
+          {etape < 3 && (
+            <div className="flex gap-2">
+              {etape > 1 && (
+                <button onClick={() => setEtape(e => (e - 1) as 1 | 2 | 3)} className="flex-1 text-xs font-semibold rounded-xl px-4 py-2.5 border border-border bg-card hover:bg-muted/50">
+                  ← Précédent
+                </button>
+              )}
+              <button
+                onClick={() => setEtape(e => (e + 1) as 1 | 2 | 3)}
+                disabled={etape === 1 ? !etape1Ok : !etape2Ok}
+                className={cn(
+                  'flex-1 text-xs font-semibold rounded-xl px-4 py-2.5 transition-colors',
+                  (etape === 1 ? etape1Ok : etape2Ok) ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-muted text-muted-foreground cursor-not-allowed'
+                )}
+              >
+                Suivant →
+              </button>
+            </div>
+          )}
+
           {/* Bouton créer */}
+          {etape === 3 && (
+          <div className="flex gap-2">
+          <button onClick={() => setEtape(2)} className="text-xs font-semibold rounded-xl px-4 py-2.5 border border-border bg-card hover:bg-muted/50">
+            ← Précédent
+          </button>
           <button
             onClick={handleCreer}
             disabled={loading || !peutCreer}
             className={cn(
-              'w-full flex items-center justify-center gap-2 text-xs font-semibold rounded-xl px-4 py-2.5 transition-colors',
+              'flex-1 flex items-center justify-center gap-2 text-xs font-semibold rounded-xl px-4 py-2.5 transition-colors',
               peutCreer && !loading
                 ? 'bg-indigo-600 text-white hover:bg-indigo-700'
                 : 'bg-muted text-muted-foreground cursor-not-allowed'
@@ -807,6 +888,8 @@ export default function DevoirChapitreCreateur({
                 : "Créer l'exercice"
             }
           </button>
+          </div>
+          )}
 
           {/* Info notation */}
           <p className="text-xs text-muted-foreground text-center">
