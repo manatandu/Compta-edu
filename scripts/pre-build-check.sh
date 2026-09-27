@@ -60,6 +60,14 @@ fi
 echo -e "${GREEN}  ✓ Tous les fichiers de sécurité sont présents${NC}"
 echo ""
 
+# ─── Tests des calculs (états financiers, IRPP, amortissements...) ─
+echo -e "${YELLOW}→ Tests des calculs...${NC}"
+if ! npx vitest run --config vitest.calculs.config.js; then
+  echo -e "${RED}✗ BUILD ANNULÉ — Tests des calculs échoués${NC}"
+  exit 1
+fi
+echo ""
+
 # ─── Lancement des tests d'isolation ──────────────────────────────
 echo -e "${YELLOW}→ Lancement des tests d'isolation Firestore...${NC}"
 echo ""

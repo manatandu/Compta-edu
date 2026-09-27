@@ -37,6 +37,10 @@ jobs:
       # Séparé du build : l'émulateur Firestore peut occasionnellement rester bloqué
       # au démarrage sur un runner à froid. timeout-minutes évite qu'un run pende
       # indéfiniment (le job entier attendrait sinon la limite par défaut de 6h).
+      - name: Tests des calculs
+        run: npm run test:calculs
+        timeout-minutes: 3
+
       - name: Tests d'isolation Firestore
         run: npm run test:firestore
         timeout-minutes: 5

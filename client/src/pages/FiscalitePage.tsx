@@ -684,7 +684,8 @@ function Cat1Salaires() {
         totalRetenues,
         totalChargePatronale: cnssPatron + inpp + onem,
         netAPayer,
-        chargePatronale: netAPayer + cnssPatron + inpp + onem,
+        // Coût total employeur : brut versé (QPO et IRPP retenus compris) + charges patronales.
+        chargePatronale: brut661 + brut663 + cnssPatron + inpp + onem,
       })
     } else {
       // EXPATRIÉS : Art. 118 : même barème progressif que nationaux
@@ -723,7 +724,8 @@ function Cat1Salaires() {
       // donc la même base que l'IRPP : 662 + la part du 663 non couverte par une immunité.
       // (l'Ord.-Loi n°69/007 du 10/02/1969 et son taux réduit minier sont abrogés : Art. 152 Loi 23/053)
       const tauxIere = 0.25
-      const iere = (brut662 + imposable663E) * tauxIere
+      // Art. 150 : arrondi à la centaine, applicable à tous les prélèvements de la loi.
+      const iere = arrondiIS((brut662 + imposable663E) * tauxIere)
 
       // Charges patronales habituelles sur expatriés
       const nbEffE = parseInt(effectifExp) || 0
@@ -747,7 +749,7 @@ function Cat1Salaires() {
         totalRetenuesE,
         totalChargePatronale: iere + cnssPatronE + inppE + onemE,
         netAPayer: netAPayerE,
-        chargePatronale: netAPayerE + iere + cnssPatronE + inppE + onemE,
+        chargePatronale: brut662 + brut663e + iere + cnssPatronE + inppE + onemE,
       })
     }
   }
@@ -913,7 +915,7 @@ function Cat1Salaires() {
               <span>
                 <strong>Deux calculs distincts (Art. 118 + Art. 145-148 Loi n°23/053) :</strong><br/>
                 (1) L'expatrié paie son IRPP selon le même barème progressif que les nationaux.<br/>
-                (2) L'entreprise paie en plus l'IERE (Impôt Exceptionnel) : 25% du brut à sa propre charge.
+                (2) L'entreprise paie en plus le prélèvement exceptionnel sur les rémunérations des expatriés : 25% du brut, à sa propre charge (Art. 145-148 Loi 23/053).
               </span>
             </div>
           </div>
@@ -930,7 +932,7 @@ function Cat1Salaires() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et à l'IERE (charge patronale)",
+              texte: "Compte 662 : rémunérations du personnel non national (expatriés). Même structure que le 661. Ces montants servent de base à l'IRPP (barème progressif) et au prélèvement exceptionnel (charge patronale)",
               loi: "Compte 662 SYSCOHADA="
             }}
           />
@@ -947,7 +949,7 @@ function Cat1Salaires() {
             note=""
             catalogueOnly
             tooltip={{
-              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc, ni pour l'IRPP ni pour l'IERE - les immunités de l'Art. 69 s'appliquent identiquement aux deux (Art. 147). Logement (6631) : exonéré dans la limite de 30% de la rémunération (662), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses) - plafond en FC non vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables.",
+              texte: "Compte 663 : le 663 n'est PAS non imposable en bloc, ni pour l'IRPP ni pour le prélèvement exceptionnel - les immunités de l'Art. 69 s'appliquent identiquement aux deux (Art. 147). Logement (6631) : exonéré dans la limite de 30% de la rémunération (662), l'excédent est imposable. Transport (6634) : exonéré sous condition de réalité et de nécessité démontrées, plafonné au coût du billet local (max 6 courses) - plafond en FC non vérifié ici, faute de tarif local connu : exonéré par défaut sous cette réserve. Représentation (6632), expatriation (6633), autres (6638) : non listés à l'Art. 69 → imposables.",
               loi: "Art. 69, 8° et Art. 147, Loi 23/053"
             }}
           />
@@ -1021,7 +1023,7 @@ function Cat1Salaires() {
           </div>
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
-            <p className="text-xs text-blue-700"><span className="font-semibold">IERE : taux unique 25%</span> - Art. 148 Loi n°23/053.</p>
+            <p className="text-xs text-blue-700"><span className="font-semibold">Prélèvement exceptionnel : taux unique 25%</span> - Art. 148 Loi n°23/053.</p>
           </div>
         </>
       )}
@@ -1114,8 +1116,8 @@ function Cat1Salaires() {
                   sublabel={`Brut (661+663) − Total retenues`}
                   val={formatFC(res.netAPayer)} />
                 <BoxFinal
-                  label="Charge patronale="
-                  sublabel="Net à payer + CNSS + INPP + ONEM="
+                  label="Coût total employeur"
+                  sublabel="Brut (661+663) + CNSS + INPP + ONEM"
                   val={formatFC(res.chargePatronale)}
                   credit />
               </div>
@@ -1143,7 +1145,7 @@ function Cat1Salaires() {
                 />
                 {res.imposable663E > 0 && (
                   <LigneR signe="+" label="Part imposable du 663 (non couverte par une immunité)" val={formatFC(res.imposable663E)}
-                    tooltip={{ texte: "Art. 69, 8° (applicable à l'IRPP comme à l'IERE via l'Art. 147) : seuls le logement (dans la limite de 30% de la rémunération) et le transport (sous condition, plafonné) peuvent être immunisés. Le reste est imposable au même titre que le 662.", loi: "Art. 69, 8° et Art. 147, Loi 23/053" }}
+                    tooltip={{ texte: "Art. 69, 8° (applicable à l'IRPP comme au prélèvement exceptionnel via l'Art. 147) : seuls le logement (dans la limite de 30% de la rémunération) et le transport (sous condition, plafonné) peuvent être immunisés. Le reste est imposable au même titre que le 662.", loi: "Art. 69, 8° et Art. 147, Loi 23/053" }}
                   />
                 )}
                 {res.exempte663E > 0 && (
@@ -1175,16 +1177,16 @@ function Cat1Salaires() {
                 />
               </EtapeResultat>
 
-              <EtapeResultat numero={4} titre="IERE : Charge patronale (Art. 148 Loi 23/053)">
+              <EtapeResultat numero={4} titre="Prélèvement exceptionnel : charge patronale (Art. 148 Loi 23/053)">
                 <div className="rounded-lg bg-red-50 border border-red-200 p-3 space-y-1">
                   <p className="text-xs font-semibold text-red-700 uppercase">Prélèvement exceptionnel à charge de l'entreprise</p>
                   <LigneR signe="+" label="Rémunérations brutes (662)" val={formatFC(res.brut662)} />
                   {res.imposable663E > 0 && (
                     <LigneR signe="+" label="Part imposable du 663 (Art. 147 : mêmes immunités qu'à l'IRPP)" val={formatFC(res.imposable663E)} />
                   )}
-                  <LigneR signe="×" label={`Taux IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
+                  <LigneR signe="×" label={`Taux du prélèvement (${(res.tauxIere * 100).toFixed(1)}%)`} val="" />
                   <Separateur />
-                  <LigneR signe="=" label="IERE dû par l'employeur" val={formatFC(res.iere)} bold />
+                  <LigneR signe="=" label="Prélèvement dû par l'employeur" val={formatFC(res.iere)} bold />
                 </div>
               </EtapeResultat>
 
@@ -1201,9 +1203,9 @@ function Cat1Salaires() {
                 <LigneR signe="=" label="Total retenues=" val={formatFC(res.totalRetenuesE)} bold accent />
               </EtapeResultat>
 
-              <EtapeResultat numero={6} titre="Charges patronales (IERE + cotisations)">
-                <LigneR signe="+" label={`IERE (${(res.tauxIere * 100).toFixed(1)}%)`} val={formatFC(res.iere)}
-                  tooltip={{ texte: "L'IERE (Impôt Exceptionnel sur les Rémunérations des Expatriés) est une charge PATRONALE à la charge exclusive de l'employeur. Taux unique : 25% du brut 662 (Art. 148 Loi n°23/053). Ce n'est PAS une retenue sur salaire de l'expatrié.", loi: "Art. 145-148 Loi n°23/053 du 30/11/2023" }}
+              <EtapeResultat numero={6} titre="Charges patronales (prélèvement exceptionnel + cotisations)">
+                <LigneR signe="+" label={`Prélèvement exceptionnel (${(res.tauxIere * 100).toFixed(1)}%)`} val={formatFC(res.iere)}
+                  tooltip={{ texte: "Le prélèvement exceptionnel (Impôt Exceptionnel sur les Rémunérations des Expatriés) est une charge PATRONALE à la charge exclusive de l'employeur. Taux unique : 25% du brut 662 (Art. 148 Loi n°23/053). Ce n'est PAS une retenue sur salaire de l'expatrié.", loi: "Art. 145-148 Loi n°23/053 du 30/11/2023" }}
                 />
                 <LigneR signe="+" label="CNSS patronal (13%)" val={formatFC(res.cnssPatronE)}
                   tooltip={{ texte: "La CNSS est une charge patronale de 13% calculée sur la rémunération imposable brute de l'expatrié (662). | Art. 1er Code du Travail RDC : applicable à tous les travailleurs en RDC, quelle que soit leur nationalité. | Art. 112(b) CT : les cotisations dues à la CNSS constituent des retenues autorisées sur le salaire. | Versée directement à la Caisse Nationale de Sécurité Sociale par l'employeur. | Écriture : Débit 6642 / Crédit 43182 (CNSS QPP *).", loi: "Art. 71 Loi 23/053 ; Art. 1er et 112(b) Loi n°015-2002 du 16/10/2002 (CT RDC)" }}
@@ -1223,7 +1225,7 @@ function Cat1Salaires() {
                   label="Net à payer à l'expatrié"
                   sublabel={`Brut (662+663) − Total retenues`}
                   val={formatFC(res.netAPayer)} />
-                <BoxFinal label="IERE à verser au Trésor" val={formatFC(res.iere)} couleur="red" />
+                <BoxFinal label="Prélèvement exceptionnel à verser au Trésor" val={formatFC(res.iere)} couleur="red" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <BoxFinal
@@ -1231,8 +1233,8 @@ function Cat1Salaires() {
                   sublabel={`QPO + IRPP${res.syndicatValE > 0 ? ' + Syndicat' : ''}${res.avancesValE > 0 ? ' + Avances' : ''}`}
                   val={formatFC(res.totalRetenuesE)} />
                 <BoxFinal
-                  label="Charge patronale="
-                  sublabel="Net à payer + IERE + CNSS + INPP + ONEM="
+                  label="Coût total employeur"
+                  sublabel="Brut (662+663) + prélèvement exceptionnel + CNSS + INPP + ONEM"
                   val={formatFC(res.chargePatronale)}
                   credit />
               </div>
@@ -2118,7 +2120,7 @@ const REINTAGRATIONS_CATALOGUE: ElementCatalogue[] = [
   { code: 'RI-11', label: "Frais de communication excédentaires (> 50% de leur montant : Art. 49, 7°)" },
   { code: 'RI-12', label: "Dépenses à caractère personnel : entretien du ménage, frais d'instruction, de congé et autres dépenses non nécessitées par la profession (Art. 50, 1°)" },
   { code: 'RI-13', label: "IS et impôt minimum de l'exercice, et autres impôts ne constituant pas une charge d'exploitation (Art. 50, 2°)" },
-  { code: 'RI-14', label: "Prélèvement exceptionnel à charge des entreprises employant du personnel expatrié : IERE (Art. 50, 2°)" },
+  { code: 'RI-14', label: "Prélèvement exceptionnel à charge des entreprises employant du personnel expatrié (Art. 145-148 ; non déductible, Art. 50, 2°)" },
   { code: 'RI-15', label: "Amendes, amendes transactionnelles, confiscations et pénalités de toute nature, ainsi que les honoraires et frais payés à cet effet (Art. 50, 3°)" },
   { code: 'RI-16', label: "Dépenses relatives aux biens donnés en location, amortissements compris, sauf location par une institution de crédit-bail agréée par la Banque Centrale du Congo (Art. 50, 4°)" },
   { code: 'RI-17', label: "Provisions pour pertes, charges ou dépréciations d'actif, hors gisements miniers, créances des établissements de crédit et de microfinance, et engagements réglementés des assurances (Art. 50, 5°)" },
