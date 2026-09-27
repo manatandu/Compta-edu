@@ -18,7 +18,7 @@ import { useAllCours } from '@/lib/useFirestore'
 import { useCoursStatuts } from '@/lib/useFirestore'
 import { COURS_SYSTEME, COURS_RETIRES_IDS } from '@/lib/db-firebase'
 import { prefetchRoute } from '@/lib/prefetch'
-import { isStudentRole } from '@/lib/permissions'
+import { isStaffRole, isStudentRole } from '@/lib/permissions'
 
 interface NavItem {
   path: string
@@ -72,12 +72,12 @@ const mobileBottomNav = [
 ]
 
 // Bottom nav admin (remplace Documents par Espace Admin)
-const mobileBottomNavAdmin = [
+const mobileBottomNavStaff = [
   { path: '/', label: 'Accueil', icon: <Home className="h-5 w-5" /> },
   { path: '/mes-cours', label: 'Mes cours', icon: <BookOpen className="h-5 w-5" /> },
   { path: '/exercices', label: 'Exercices', icon: <GraduationCap className="h-5 w-5" /> },
   { path: '/chat', label: 'Messages', icon: <MessageSquare className="h-5 w-5" /> },
-  { path: '/professeurs', label: 'Admin', icon: <Users className="h-5 w-5" /> },
+  { path: '/professeurs', label: 'Espace', icon: <Users className="h-5 w-5" /> },
 ]
 
 function getRoleBadge(role: string) {
@@ -129,8 +129,8 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
   }
 
   const roleBadge = getRoleBadge(user.role)
-  const isAdmin = ['admin', 'professeur', 'assistant'].includes(user.role)
-  const bottomNavItems = isAdmin ? mobileBottomNavAdmin : mobileBottomNav
+  const isStaff = isStaffRole(user)
+  const bottomNavItems = isStaff ? mobileBottomNavStaff : mobileBottomNav
 
   const NavButton = ({ item }: { item: NavItem }) => {
     const isActive = location === item.path || (item.path !== '/' && location.startsWith(item.path))

@@ -5,19 +5,19 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useLocation, useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
 import PasswordInput from '@/components/PasswordInput'
+import GestionEtudiantsPage from '@/pages/GestionEtudiantsPage'
 import {
   isDevoirExpire,
-  User, UserRole, Universite, Faculte, LigneSolution, Cours, Devoir, Soumission, QCMQuestion, QCMOption, NoteCours
+  User, UserRole, Universite, Faculte, Cours, Devoir, Soumission, NoteCours
 } from '@/lib/db'
 import {
   createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
-  uploadDevoirPDF, uploadExercicePDF, uploadNoteCoursFile,
+  uploadNoteCoursFile,
   saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
   updateCoursAsync, deleteCoursAsync, provisionCoursManquantsAsync,
-  createDevoirAsync, updateDevoirAsync, deleteDevoirAsync,
+  updateDevoirAsync, deleteDevoirAsync,
   corrigerSoumissionAsync, getEcrituresAsync,
-  createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
   onCoursStatutsParCreateur, COURS_SYSTEME, getCoursUniquesTries
@@ -25,9 +25,8 @@ import {
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
   useUniversites, useAllFacultes, useAllCours, useDevoirs, useSoumissions, useAllSoumissions,
-  useExercices, useTentatives, usePresences, useAllNotesCours
+  useTentatives, usePresences, useAllNotesCours
 } from '@/lib/useFirestore'
-import { generateId } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -37,11 +36,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Switch } from '@/components/ui/switch'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Plus, Pencil, Trash2, Users, Building2, GraduationCap, BarChart2,
   ChevronDown, ChevronRight, X, ShieldCheck, LibraryBig,
   Paperclip, FileDown, FileText, CalendarCheck, Award, CheckCircle2, ClipboardList, TrendingDown, Clock, Download,
-  Search, ExternalLink
+  Search
 } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
@@ -100,7 +100,7 @@ const emptyUniForm = { nom: '', ville: '', adresse: '', facultes: [] as string[]
 // type sert ces trois groupes. L'ancien tableau TABS plat (et le visibleTabs
 // qui en dérivait) a été retiré : calculé mais jamais rendu, remplacé de fait
 // par les groupes ci-dessous sans avoir été supprimé à l'époque.
-type Tab = 'cours' | 'universites' | 'staff' | 'inscriptions' | 'copies' | 'progression' | 'presences' | 'cotes' | 'notes'
+type Tab = 'etudiants' | 'inscriptions' | 'cours' | 'universites' | 'staff' | 'devoirs' | 'copies' | 'progression' | 'presences' | 'cotes' | 'notes'
 
 // ─── DevoirCard : composant isolé pour respecter les règles des hooks ──────────────
 function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, setDeleteDevoirId, setCorrectionSoumId, setCorrectionNote, setCorrectionComment, setViewSoumission }: {
@@ -343,19 +343,29 @@ export default function ProfesseurPage() {
   const purgeFaite = React.useRef(false)
   const annuaireSynchronise = React.useRef(false)
   const isStaff = isStaffRole(currentUser)
-
   const [, navigate] = useLocation()
+
   // Onglet initial pilotable par l'URL (ex: /professeurs?tab=universites),
   // notamment depuis la recherche globale (GlobalSearch) : sans ça, un
   // résultat "université" ou "devoir" renvoyait toujours sur l'onglet Cours
   // par défaut plutôt que sur l'onglet réellement recherché.
-  const TABS_VALIDES: Tab[] = ['cours', 'universites', 'staff', 'inscriptions', 'copies', 'progression', 'presences', 'cotes', 'notes']
-  const urlSearchInit = useSearch()
-  const tabInitiale = (() => {
-    const t = new URLSearchParams(urlSearchInit).get('tab') as Tab | null
-    return t && TABS_VALIDES.includes(t) ? t : 'cours'
+  // Onglet d'ouverture par défaut : « Cours » est réservé à l'administrateur,
+  // si bien qu'un professeur ou un assistant arrivait sur une page vide. Chacun
+  // ouvre désormais sur ce qui l'attend : les inscriptions pour
+  // l'administrateur, les copies à corriger pour l'enseignant.
+  const ONGLETS_ADMIN: Tab[] = ['cours', 'universites', 'staff']
+  const TABS_VALIDES: Tab[] = ['etudiants', 'inscriptions', 'cours', 'universites', 'staff', 'devoirs', 'copies', 'progression', 'presences', 'cotes', 'notes']
+  const urlSearch = useSearch()
+  const ongletDemande = (() => {
+    const t = new URLSearchParams(urlSearch).get('tab') as Tab | null
+    if (!t || !TABS_VALIDES.includes(t)) return null
+    return ONGLETS_ADMIN.includes(t) && !isAdminRole(currentUser) ? null : t
   })()
-  const [tab, setTab] = useState<Tab>(tabInitiale)
+  const ongletParDefaut: Tab = isAdminRole(currentUser) ? 'inscriptions' : 'copies'
+  const [tab, setTab] = useState<Tab>(ongletDemande ?? ongletParDefaut)
+  // Un lien vers un onglet (tableau de bord, notifications, recherche) doit
+  // changer d'onglet même quand l'espace est déjà ouvert.
+  useEffect(() => { if (ongletDemande) setTab(ongletDemande) }, [ongletDemande])
   // Filtre par faculté de l'onglet Cours - alimenté par le lien "Gérer →"
   // depuis l'accordéon Universités (voir onglet 'universites'), pour éviter
   // de dupliquer la gestion des cours à deux endroits (accordéon + onglet).
@@ -408,12 +418,6 @@ export default function ProfesseurPage() {
   const [deleteCoursId, setDeleteCoursId] = useState<string | null>(null)
   const [coursForm, setCoursForm] = useState({ nom: '', description: '', faculteId: '', universiteId: '', promotion: '', actif: true, coursSystemeId: '' })
 
-  // ── Formulaire Créer Étudiant (onglet dédié) ──
-
-  // ── Import CSV ──
-
-  // ── Code d'accès (Option B) ──
-
   // Modales utilisateurs
   const [showUserForm, setShowUserForm] = useState(false)
   const [editUserId, setEditUserId] = useState<string | null>(null)
@@ -424,20 +428,12 @@ export default function ProfesseurPage() {
   const [showUniForm, setShowUniForm] = useState(false)
   // ── Devoirs ──
   const { devoirs: devoirsList } = useDevoirs(equipe?.ids)
-  const [showDevoirForm, setShowDevoirForm] = useState(false)
-  const [editDevoirId, setEditDevoirId] = useState<string | null>(null)
   const [deleteDevoirId, setDeleteDevoirId] = useState<string | null>(null)
-  const [devoirForm, setDevoirForm] = useState({ titre: '', consignes: '', coursId: '', universiteId: '', faculteId: '', dateLimit: '', actif: true, type: 'pratique' as 'pratique'|'theorique'|'mixte'|'qcm', pdfData: '', pdfNom: '' })
-  const [qcmQuestions, setQcmQuestions] = useState<{ id: string; texte: string; choix: string[]; bonneReponse: number; explication: string }[]>([])
-
-  const addQcmQuestion = () => {
-    setQcmQuestions(qs => [...qs, { id: Math.random().toString(36).slice(2), texte: '', choix: ['', '', '', ''], bonneReponse: 0, explication: '' }])
-  }
-  const removeQcmQuestion = (idx: number) => setQcmQuestions(qs => qs.filter((_, i) => i !== idx))
-  const updateQcmQuestion = (idx: number, field: string, value: any) => setQcmQuestions(qs => qs.map((q, i) => i === idx ? { ...q, [field]: value } : q))
-  const updateQcmChoix = (qIdx: number, cIdx: number, value: string) => setQcmQuestions(qs => qs.map((q, i) => i === qIdx ? { ...q, choix: q.choix.map((c, j) => j === cIdx ? value : c) } : q))
-  const [pdfFile, setPdfFile] = useState<File | null>(null)
-  const [pdfUploading, setPdfUploading] = useState(false)
+  // Modification d'un devoir existant, limitée à ce qu'un enseignant change
+  // après coup : intitulé, consignes, date limite, visibilité. Les questions,
+  // le cours et la promotion viennent du chapitre et ne se retouchent pas ici.
+  const [devoirEdite, setDevoirEdite] = useState<{ id: string; titre: string; consignes: string; dateLimit: string; actif: boolean } | null>(null)
+  const [devoirEnregistrement, setDevoirEnregistrement] = useState(false)
   // ── Correction ──
   const [correctionSoumId, setCorrectionSoumId] = useState<string | null>(null)
   const [correctionNote, setCorrectionNote] = useState('')
@@ -490,77 +486,25 @@ export default function ProfesseurPage() {
   }
 
   // ── Devoirs ──
-  const openCreateDevoir = () => {
-    setEditDevoirId(null)
-    setDevoirForm({ titre: '', consignes: '', coursId: '', universiteId: '', faculteId: '', dateLimit: '', actif: true, type: 'pratique', pdfData: '', pdfNom: '' })
-    setQcmQuestions([])
-    setPdfFile(null)
-    setShowDevoirForm(true)
-  }
   const openEditDevoir = (d: Devoir) => {
-    setEditDevoirId(d.id)
-    setDevoirForm({ titre: d.titre, consignes: d.consignes, coursId: d.coursId, universiteId: d.universiteId || '', faculteId: (d as any).faculteId || '', dateLimit: d.dateLimit.split('T')[0], actif: d.actif, type: (d as any).type || 'pratique', pdfData: (d as any).pdfUrl || (d as any).pdfData || '', pdfNom: (d as any).pdfNom || '' })
-    setQcmQuestions((d as any).questions || [])
-    setPdfFile(null)
-    setShowDevoirForm(true)
+    setDevoirEdite({ id: d.id, titre: d.titre, consignes: d.consignes || '', dateLimit: d.dateLimit.split('T')[0], actif: d.actif })
   }
-  const handleSaveDevoir = async () => {
-    if (!devoirForm.titre.trim() || !devoirForm.coursId || !devoirForm.dateLimit) return
-    setPdfUploading(true)
+  const handleSaveDevoirEdite = async () => {
+    if (!devoirEdite || !devoirEdite.titre.trim() || !devoirEdite.dateLimit) return
+    setDevoirEnregistrement(true)
     try {
-      // Générer l'ID du devoir d'abord (pour l'organiser dans Storage)
-      const devoirId = editDevoirId || generateId()
-      let pdfUrl = devoirForm.pdfData || undefined  // URL existante ou base64 legacy
-      let pdfNom = devoirForm.pdfNom || undefined
-
-      // Si un nouveau fichier est sélectionné → uploader vers Firebase Storage
-      if (pdfFile) {
-        pdfUrl = await uploadDevoirPDF(devoirId, pdfFile)
-        pdfNom = pdfFile.name
-      }
-
-      // promotionId : la règle firestore.rules exige ce champ à la création
-      // (hasAll(['coursId','createdBy','promotionId'])) pour tout devoir, pas
-      // seulement les QCM-chapitre (seul type qui le renseignait jusqu'ici,
-      // via DevoirChapitreCreateur.tsx). Repris de la promotion du cours
-      // choisi quand elle existe (Cours.promotion), sinon chaîne vide - ce
-      // formulaire générique n'a pas son propre sélecteur de promotion, et
-      // promotionId n'est pas exploité côté lecture pour ce type de devoir
-      // (contrairement à coursId, seul vrai filtre d'isolation).
-      const promotionId = coursList.find(c => c.id === devoirForm.coursId)?.promotion || ''
-
-      const data = {
-        titre: devoirForm.titre.trim(),
-        consignes: devoirForm.consignes.trim(),
-        coursId: devoirForm.coursId,
-        universiteId: devoirForm.universiteId || undefined,
-        faculteId: devoirForm.faculteId || undefined,
-        dateLimit: new Date(devoirForm.dateLimit + 'T23:59:59').toISOString(),
-        createdBy: currentUser?.id || '',
-        promotionId,
-        actif: devoirForm.actif,
-        type: devoirForm.type || 'pratique',
-        questions: devoirForm.type === 'qcm' ? qcmQuestions : undefined,
-        pdfUrl,
-        pdfNom,
-      }
-
-      if (editDevoirId) {
-        await updateDevoirAsync(editDevoirId, data)
-      } else {
-        // Créer avec l'ID qu'on a généré (le cast est nécessaire ici car
-        // createDevoirAsync généré son propre id normalement - id doit être
-        // imposé pour correspondre au chemin Storage du PDF déjà uploadé)
-        await createDevoirAsync({ ...data, id: devoirId } as any)
-      }
-
-      setShowDevoirForm(false)
-      setPdfFile(null)
-      toast({ title: editDevoirId ? 'Devoir modifié' : 'Devoir créé' })
-    } catch (err: any) {
-      toast({ title: 'Erreur upload PDF : ' + (err?.message || 'inconnue'), variant: 'destructive' })
+      await updateDevoirAsync(devoirEdite.id, {
+        titre: devoirEdite.titre.trim(),
+        consignes: devoirEdite.consignes.trim(),
+        dateLimit: new Date(devoirEdite.dateLimit + 'T23:59:59').toISOString(),
+        actif: devoirEdite.actif,
+      })
+      setDevoirEdite(null)
+      toast({ title: 'Devoir modifié' })
+    } catch {
+      toast({ title: 'Erreur lors de la modification', variant: 'destructive' })
     } finally {
-      setPdfUploading(false)
+      setDevoirEnregistrement(false)
     }
   }
   // ── Cours Statuts ──
@@ -614,13 +558,6 @@ export default function ProfesseurPage() {
       toast({ title: 'Correction enregistrée' })
     }).catch(() => toast({ title: 'Erreur lors de la correction', variant: 'destructive' }))
   }
-
-  // ── Créer Étudiant (onglet dédié) ──
-
-  // ── Import CSV ──
-
-
-  // ── Générer code d'accès ──
 
   // ── Utilisateurs ──
   const openCreateUser = (defaultRole: UserRole = 'etudiant') => {
@@ -812,122 +749,7 @@ export default function ProfesseurPage() {
     setList(list.includes(id) ? list.filter(x => x !== id) : [...list, id])
   }
 
-  // ── Exercices ──
-  const emptyQCMOption = (): QCMOption => ({ id: generateId(), texte: '', correct: false })
-  const emptyQCMQuestion = (): QCMQuestion => ({ id: generateId(), question: '', options: [emptyQCMOption(), emptyQCMOption(), emptyQCMOption(), emptyQCMOption()] })
 
-  const emptyExForm = {
-    titre: '', description: '', difficulte: 'Facile' as 'Facile'|'Moyen'|'Difficile',
-    categorie: 'Journal comptable',
-    contexte: '', questions: [''], explicationCorrige: '', actif: true,
-    bareme: { compte: 40, sens: 30, montant: 20, equilibre: 10 },
-    pdfData: '', pdfNom: '',  // legacy base64
-    pdfUrl: '',               // nouveau : Firebase Storage URL
-    coursId: '',              // isolation : cours lié
-    faculteId: '',            // isolation : faculté
-    universiteId: '',         // isolation : université
-  }
-  const emptyLigneSol = (): LigneSolution => ({ id: generateId(), numeroCompte: '', intitule: '', sens: 'D', montant: '' })
-
-  const [exForm, setExForm] = useState(emptyExForm)
-  const [exPdfFile, setExPdfFile] = useState<File | null>(null)
-  const [exPdfUploading, setExPdfUploading] = useState(false)
-  const [exSolution, setExSolution] = useState<LigneSolution[]>([emptyLigneSol(), emptyLigneSol()])
-  const [exQCM, setExQCM] = useState<QCMQuestion[]>([])
-  const [editExId, setEditExId] = useState<string | null>(null)
-  const [deleteExId, setDeleteExId] = useState<string | null>(null)
-  const [showExForm, setShowExForm] = useState(false)
-
-  const openCreateEx = () => {
-    setEditExId(null)
-    setExForm(emptyExForm)
-    setExPdfFile(null)
-    setExSolution([emptyLigneSol(), emptyLigneSol()])
-    setExQCM([])
-    setShowExForm(true)
-  }
-  const openEditEx = (ex: any) => {
-    setEditExId(ex.id)
-    setExForm({
-      titre: ex.titre || '', description: ex.description || '',
-      difficulte: ex.difficulte || 'Facile', categorie: ex.categorie || 'Journal comptable',
-      contexte: ex.contexte || '',
-      questions: (ex.questions && ex.questions.length) ? ex.questions : [''],
-      explicationCorrige: ex.explicationCorrige || '', actif: ex.actif ?? true,
-      bareme: ex.bareme || { compte: 40, sens: 30, montant: 20, equilibre: 10 },
-      pdfData: '',
-      pdfNom: ex.pdfNom || '',
-      pdfUrl: ex.pdfUrl || ex.pdfData || '',  // compat legacy base64
-      coursId: ex.coursId || '',
-      faculteId: ex.faculteId || '',
-      universiteId: ex.universiteId || '',
-    })
-    setExPdfFile(null)
-    setExSolution((ex.solution && ex.solution.length) ? ex.solution : [emptyLigneSol(), emptyLigneSol()])
-    setExQCM((ex.qcm && ex.qcm.length) ? ex.qcm : [])
-    setShowExForm(true)
-  }
-  const handleSaveEx = async () => {
-    if (!exForm.titre.trim()) return
-    setExPdfUploading(true)
-    try {
-      const exId = editExId || generateId()
-      let pdfUrl: string | undefined = exForm.pdfUrl || undefined
-      let pdfNom: string | undefined = exForm.pdfNom || undefined
-
-      if (exPdfFile) {
-        pdfUrl = await uploadExercicePDF(exId, exPdfFile)
-        pdfNom = exPdfFile.name
-      }
-
-      const data = {
-        ...exForm,
-        solution: exSolution.filter(l => l.numeroCompte.trim()),
-        qcm: exQCM.filter(q => q.question.trim()),
-        ecrituresAttendues: exSolution.filter(l => l.numeroCompte.trim()).map(l => ({ numeroCompte: l.numeroCompte, sens: l.sens, montant: parseFloat(l.montant) || 0 })),
-        bareme: exForm.bareme,
-        sessionId: '',
-        instructions: exForm.contexte,
-        userId: currentUser?.id || '',
-        pdfUrl,
-        pdfNom,
-        pdfData: undefined,  // ne plus stocker base64
-      }
-      if (editExId) await updateExerciceAsync(editExId, data)
-      else await createExerciceAsync({ ...data, id: exId } as any)
-      setShowExForm(false)
-      setExPdfFile(null)
-      toast({ title: editExId ? 'Exercice modifié' : 'Exercice créé' })
-    } catch (err: any) {
-      toast({ title: 'Erreur upload PDF : ' + (err?.message || 'inconnue'), variant: 'destructive' })
-    } finally {
-      setExPdfUploading(false)
-    }
-  }
-  const handleDeleteEx = async () => {
-    if (!deleteExId) return
-    await deleteExerciceAsync(deleteExId)
-    setDeleteExId(null)
-    toast({ title: 'Exercice supprimé', variant: 'destructive' })
-  }
-
-  // Questions helpers
-  const addQuestion = () => setExForm(f => ({ ...f, questions: [...f.questions, ''] }))
-  const updateQuestion = (i: number, v: string) => setExForm(f => ({ ...f, questions: f.questions.map((q, idx) => idx === i ? v : q) }))
-  const removeQuestion = (i: number) => setExForm(f => ({ ...f, questions: f.questions.filter((_, idx) => idx !== i) }))
-
-  // QCM helpers
-  const addQCMQuestion = () => setExQCM(q => [...q, emptyQCMQuestion()])
-  const removeQCMQuestion = (id: string) => setExQCM(q => q.filter(x => x.id !== id))
-  const updateQCMQuestion = (id: string, text: string) => setExQCM(q => q.map(x => x.id === id ? { ...x, question: text } : x))
-  const updateQCMOption = (qId: string, oId: string, field: 'texte' | 'correct', value: string | boolean) =>
-    setExQCM(q => q.map(x => x.id === qId ? { ...x, options: x.options.map(o => o.id === oId ? { ...o, [field]: value } : (field === 'correct' && value === true ? { ...o, correct: false } : o)) } : x))
-
-  // Solution helpers
-  const addLigneSol = () => setExSolution(s => [...s, emptyLigneSol()])
-  const updateLigneSol = (id: string, field: keyof LigneSolution, value: string) =>
-    setExSolution(s => s.map(l => l.id === id ? { ...l, [field]: value } : l))
-  const removeLigneSol = (id: string) => { if (exSolution.length > 1) setExSolution(s => s.filter(l => l.id !== id)) }
 
   // ── Données filtrées ──
   // Chaque administrateur/prof voit UNIQUEMENT ses propres étudiants
@@ -956,7 +778,6 @@ export default function ProfesseurPage() {
   const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
 
   // ── Progression ──
-  const { exercices } = useExercices()
   const { tentatives } = useTentatives(undefined)
   const [progFiltres, setProgFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [presenceFiltres, setPresenceFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
@@ -1208,7 +1029,9 @@ export default function ProfesseurPage() {
             </div>
             <div>
               <h1 className="text-xl font-display font-bold text-foreground tracking-tight">Espace pédagogique</h1>
-              <p className="text-xs text-muted-foreground mt-0.5">Suivi des étudiants pour tout le corps enseignant - administration de la plateforme réservée aux groupes marqués « Gestion »</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{isAdmin
+                ? 'Étudiants, devoirs et suivi pédagogique, ainsi que la structure de la plateforme : universités, cours, enseignants'
+                : 'Vos étudiants, vos devoirs et leur suivi : copies à corriger, progression, présences, cotes'}</p>
             </div>
           </div>
         </div>
@@ -1221,18 +1044,16 @@ export default function ProfesseurPage() {
         <div className="space-y-1">
           <div className="px-1">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Gestion</p>
-            <p className="text-[11px] text-muted-foreground/70">Comptes étudiants, inscriptions à valider, structure académique</p>
+            <p className="text-[11px] text-muted-foreground/70">{isAdmin ? 'Comptes étudiants, inscriptions à valider, structure académique' : 'Comptes étudiants, inscriptions à valider'}</p>
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {/* Bouton redirection étudiants - seul bouton du groupe à changer de
-                page (Gestion des étudiants a son propre header/filtres/stats,
-                ça ne peut pas tenir dans un onglet) : la flèche ↗ le signale. */}
             <button
-              onClick={() => navigate('/gestion-etudiants')}
-              title="Ouvre la page Gestion des étudiants"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
-            >
-              <Users className="h-3.5 w-3.5" /> Étudiants <ExternalLink className="h-3 w-3 opacity-60" />
+              onClick={() => setTab('etudiants')}
+              className={cn(
+                "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all",
+                tab === 'etudiants' ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}>
+              <Users className="h-3.5 w-3.5" /> Étudiants
             </button>
             <button
               onClick={() => setTab('inscriptions')}
@@ -1267,10 +1088,11 @@ export default function ProfesseurPage() {
         <div className="space-y-1">
           <div className="px-1">
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">Pédagogie</p>
-            <p className="text-[11px] text-muted-foreground/70">Devoirs soumis à corriger, supports de cours partagés</p>
+            <p className="text-[11px] text-muted-foreground/70">Devoirs donnés depuis les chapitres, copies à corriger, supports de cours partagés</p>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {([
+              { id: 'devoirs',   label: 'Mes devoirs', icon: <CalendarCheck className="h-3.5 w-3.5" /> },
               { id: 'copies',    label: 'Copies à corriger', icon: <ClipboardList className="h-3.5 w-3.5" /> },
               { id: 'notes',     label: 'Notes de cours', icon: <FileText className="h-3.5 w-3.5" /> },
             ] as {id: Tab, label: string, icon: React.ReactNode}[]).map(t => (
@@ -1587,9 +1409,17 @@ export default function ProfesseurPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">{staff.length} membre{staff.length > 1 ? 's' : ''} du staff</p>
-            <Button size="sm" onClick={() => openCreateUser('professeur')}>
-              <Plus className="h-4 w-4 mr-1.5" /> Nouveau membre staff
-            </Button>
+            <div className="flex items-center gap-2">
+              {/* Outil de contrôle réservé à l'administrateur : vérifie que chaque
+                  enseignant ne voit que ses propres étudiants. Il n'avait aucun
+                  lien d'accès dans l'interface. */}
+              <Button size="sm" variant="outline" onClick={() => navigate('/debug-isolation')}>
+                <ShieldCheck className="h-4 w-4 mr-1.5" /> Contrôle d'isolation
+              </Button>
+              <Button size="sm" onClick={() => openCreateUser('professeur')}>
+                <Plus className="h-4 w-4 mr-1.5" /> Nouveau membre staff
+              </Button>
+            </div>
           </div>
 
           {/* Admins */}
@@ -1699,383 +1529,6 @@ export default function ProfesseurPage() {
         </div>
       )}
 
-      {/* ═══════════════════ ONGLET EXERCICES ═══════════════════ */}
-      {false && (tab as string) === 'exercices' && ( /* désactivé - devoirs depuis chapitres */
-        <div className="space-y-5">
-
-          {/* Liste des exercices existants */}
-          {exercices.length > 0 && (
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">{exercices.length} exercice{exercices.length > 1 ? 's' : ''} créé{exercices.length > 1 ? 's' : ''}</p>
-              {exercices.map(ex => {
-                const tents = tentatives.filter(t => t.exerciceId === ex.id)
-                return (
-                  <Card key={ex.id} className="border-border">
-                    <CardContent className="pt-3 pb-3">
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <p className="font-medium text-foreground">{ex.titre}</p>
-                            {(ex as any).difficulte && (
-                              <Badge variant="outline" className={cn('text-xs px-1.5 py-0',
-                                (ex as any).difficulte === 'Facile' ? 'border-green-400 text-green-600' :
-                                (ex as any).difficulte === 'Moyen' ? 'border-yellow-400 text-yellow-600' :
-                                'border-red-400 text-red-600'
-                              )}>{(ex as any).difficulte}</Badge>
-                            )}
-                            {(ex as any).categorie && <Badge variant="secondary" className="text-xs px-1.5 py-0">{(ex as any).categorie}</Badge>}
-                          </div>
-                          {ex.description && <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{ex.description}</p>}
-                        </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                          <Badge variant="outline" className="text-xs">{tents.length} tentative{tents.length > 1 ? 's' : ''}</Badge>
-                          <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditEx(ex)}>
-                            <Pencil className="h-3.5 w-3.5" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteExId(ex.id)}>
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              })}
-            </div>
-          )}
-
-          {/* Formulaire création/édition */}
-          {showExForm ? (
-            <Card className="border-border">
-              <CardContent className="pt-5 pb-5">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-base font-display font-semibold">{editExId ? 'Modifier l\'exercice' : 'Nouvel exercice pédagogique'}</h2>
-                  <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setShowExForm(false)}><X className="h-4 w-4" /></Button>
-                </div>
-                <div className="space-y-4">
-
-                  {/* Titre */}
-                  <div>
-                    <Label>Titre *</Label>
-                    <Input value={exForm.titre} onChange={e => setExForm(f => ({ ...f, titre: e.target.value }))} placeholder="Ex : Achat de marchandises au comptant=" className="mt-1" />
-                  </div>
-
-                  {/* Description */}
-                  <div>
-                    <Label>Description</Label>
-                    <Input value={exForm.description} onChange={e => setExForm(f => ({ ...f, description: e.target.value }))} placeholder="Brève description=" className="mt-1" />
-                  </div>
-
-                  {/* Difficulté + Catégorie */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <Label>Difficulté</Label>
-                      <Select value={exForm.difficulte} onValueChange={v => setExForm(f => ({ ...f, difficulte: v as any }))}>
-                        <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          {['Facile', 'Moyen', 'Difficile'].map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label>Catégorie</Label>
-                      <Select value={exForm.categorie} onValueChange={v => setExForm(f => ({ ...f, categorie: v }))}>
-                        <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          {['Journal comptable', 'Grand Livre', 'Balance', 'Bilan & Résultat', 'Plan Comptable', 'Autre'].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  {/* Contexte / Énoncé */}
-                  <div>
-                    <Label>Contexte / Énoncé</Label>
-                    <textarea
-                      className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-h-[90px] resize-y"
-                      value={exForm.contexte}
-                      onChange={e => setExForm(f => ({ ...f, contexte: e.target.value }))}
-                      placeholder="Décrivez la situation comptable...="
-                    />
-                  </div>
-
-                  {/* Questions */}
-                  <div>
-                    <Label>Questions</Label>
-                    <div className="space-y-2 mt-1">
-                      {exForm.questions.map((q, i) => (
-                        <div key={i} className="flex gap-2">
-                          <Input
-                            value={q}
-                            onChange={e => updateQuestion(i, e.target.value)}
-                            placeholder={`Question ${i + 1}...`}
-                            className="flex-1"
-                          />
-                          {exForm.questions.length > 1 && (
-                            <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-destructive" onClick={() => removeQuestion(i)}>
-                              <X className="h-3.5 w-3.5" />
-                            </Button>
-                          )}
-                        </div>
-                      ))}
-                      <button onClick={addQuestion} className="text-sm text-primary hover:underline flex items-center gap-1">
-                        <Plus className="h-3.5 w-3.5" /> Ajouter une question
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* SOLUTION */}
-                  <div>
-                    <Label className="text-sm font-bold uppercase tracking-wide">Solution</Label>
-                    <div className="space-y-2 mt-2">
-                      {exSolution.map(l => (
-                        <div key={l.id} className="grid grid-cols-[110px_1fr_80px_90px_32px] gap-2 items-center">
-                          <Input
-                            value={l.numeroCompte}
-                            onChange={e => updateLigneSol(l.id, 'numeroCompte', e.target.value)}
-                            placeholder="N° compte="
-                            className="min-w-0 font-mono text-sm"
-                          />
-                          <Input
-                            value={l.intitule}
-                            onChange={e => updateLigneSol(l.id, 'intitule', e.target.value)}
-                            placeholder="Intitulé"
-                            className="min-w-0 text-sm"
-                          />
-                          {/* Toggle Débit / Crédit */}
-                          <button
-                            onClick={() => updateLigneSol(l.id, 'sens', l.sens === 'D' ? 'C' : 'D')}
-                            className={cn(
-                              'h-9 rounded-md text-sm font-semibold border transition-colors',
-                              l.sens === 'D'
-                                ? 'bg-blue-600 text-white border-blue-600'
-                                : 'bg-green-600 text-white border-green-600'
-                            )}
-                          >
-                            {l.sens === 'D' ? 'D Débit' : 'C Crédit'}
-                          </button>
-                          <Input
-                            value={l.montant}
-                            onChange={e => updateLigneSol(l.id, 'montant', e.target.value)}
-                            placeholder="Montant"
-                            type="number"
-                            className="min-w-0 text-sm text-right"
-                          />
-                          <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-destructive" onClick={() => removeLigneSol(l.id)}>
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      ))}
-                      <button onClick={addLigneSol} className="text-sm text-primary hover:underline flex items-center gap-1">
-                        <Plus className="h-3.5 w-3.5" /> Ajouter une ligne
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Barème */}
-                  <div>
-                    <Label className="text-sm font-bold uppercase tracking-wide">Barème (total = 100 pts)</Label>
-                    <div className="grid grid-cols-2 gap-3 mt-2">
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Compte ({exForm.bareme.compte} pts)</Label>
-                        <Input type="number" min={0} max={100} value={exForm.bareme.compte}
-                          onChange={e => setExForm(f => ({ ...f, bareme: { ...f.bareme, compte: parseInt(e.target.value) || 0 } }))}
-                          className="mt-1 text-sm" />
-                      </div>
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Sens D/C ({exForm.bareme.sens} pts)</Label>
-                        <Input type="number" min={0} max={100} value={exForm.bareme.sens}
-                          onChange={e => setExForm(f => ({ ...f, bareme: { ...f.bareme, sens: parseInt(e.target.value) || 0 } }))}
-                          className="mt-1 text-sm" />
-                      </div>
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Montant ({exForm.bareme.montant} pts)</Label>
-                        <Input type="number" min={0} max={100} value={exForm.bareme.montant}
-                          onChange={e => setExForm(f => ({ ...f, bareme: { ...f.bareme, montant: parseInt(e.target.value) || 0 } }))}
-                          className="mt-1 text-sm" />
-                      </div>
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Équilibre ({exForm.bareme.equilibre} pts)</Label>
-                        <Input type="number" min={0} max={100} value={exForm.bareme.equilibre}
-                          onChange={e => setExForm(f => ({ ...f, bareme: { ...f.bareme, equilibre: parseInt(e.target.value) || 0 } }))}
-                          className="mt-1 text-sm" />
-                      </div>
-                    </div>
-                    <p className={cn('text-xs mt-1', (exForm.bareme.compte + exForm.bareme.sens + exForm.bareme.montant + exForm.bareme.equilibre) === 100 ? 'text-green-600' : 'text-destructive')}>
-                      Total : {exForm.bareme.compte + exForm.bareme.sens + exForm.bareme.montant + exForm.bareme.equilibre} / 100
-                      {(exForm.bareme.compte + exForm.bareme.sens + exForm.bareme.montant + exForm.bareme.equilibre) !== 100 && ' ⚠️ Le total doit être 100'}
-                    </p>
-                  </div>
-
-                  {/* Explication du corrigé */}
-                  <div>
-                    <Label>Explication du corrigé</Label>
-                    <textarea
-                      className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-h-[70px] resize-y"
-                      value={exForm.explicationCorrige}
-                      onChange={e => setExForm(f => ({ ...f, explicationCorrige: e.target.value }))}
-                      placeholder="Explication du corrigé..."
-                    />
-                  </div>
-
-                  {/* QCM */}
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label className="text-sm font-bold uppercase tracking-wide">QCM (optionnel)</Label>
-                      <button onClick={addQCMQuestion} className="text-sm text-primary hover:underline flex items-center gap-1">
-                        <Plus className="h-3.5 w-3.5" /> Ajouter une question QCM
-                      </button>
-                    </div>
-                    {exQCM.length === 0 && (
-                      <p className="text-xs text-muted-foreground italic">Aucune question QCM. Cliquez pour en créer.</p>
-                    )}
-                    {exQCM.map((qcmQ, qi) => (
-                      <div key={qcmQ.id} className="border border-border rounded-md p-3 mb-2 space-y-2">
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs font-bold text-muted-foreground mt-2 shrink-0">Q{qi + 1}</span>
-                          <Input
-                            value={qcmQ.question}
-                            onChange={e => updateQCMQuestion(qcmQ.id, e.target.value)}
-                            placeholder={`Question ${qi + 1}...`}
-                            className="flex-1"
-                          />
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive shrink-0" onClick={() => removeQCMQuestion(qcmQ.id)}>
-                            <X className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                        <div className="space-y-1 pl-6">
-                          {qcmQ.options.map((opt, oi) => (
-                            <div key={opt.id} className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-muted-foreground w-5 shrink-0">{String.fromCharCode(65 + oi)}.</span>
-                              <Input
-                                value={opt.texte}
-                                onChange={e => updateQCMOption(qcmQ.id, opt.id, 'texte', e.target.value)}
-                                placeholder={`Option ${String.fromCharCode(65 + oi)}...`}
-                                className="flex-1 h-8 text-sm"
-                              />
-                              <label className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer shrink-0">
-                                <input
-                                  type="radio"
-                                  name={`correct-${qcmQ.id}`}
-                                  checked={opt.correct}
-                                  onChange={() => updateQCMOption(qcmQ.id, opt.id, 'correct', true)}
-                                  className="accent-green-600"
-                                />
-                                Bonne réponse
-                              </label>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* PDF joint : Firebase Storage */}
-                  <div>
-                    <Label>Fichier PDF joint (optionnel)</Label>
-                    <div className="mt-1">
-                      {exPdfFile ? (
-                        <div className="flex items-center gap-2 p-3 rounded-md border border-green-300 bg-green-50">
-                          <FileText className="h-4 w-4 text-green-600 shrink-0" />
-                          <span className="text-sm text-green-700 flex-1 truncate">{exPdfFile!.name}</span>
-                          <span className="text-xs text-muted-foreground">{(exPdfFile!.size/1024/1024).toFixed(1)} Mo</span>
-                          <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => { setExPdfFile(null); setExForm(f => ({ ...f, pdfNom: '', pdfUrl: '' })) }}>
-                            <X className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      ) : exForm.pdfNom ? (
-                        <div className="flex items-center gap-2 p-3 rounded-md border border-blue-300 bg-blue-50">
-                          <FileText className="h-4 w-4 text-blue-600 shrink-0" />
-                          <span className="text-sm text-blue-700 flex-1 truncate">{exForm.pdfNom}</span>
-                          <span className="text-xs text-blue-500">Déjà uploadé</span>
-                          <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => setExForm(f => ({ ...f, pdfNom: '', pdfUrl: '', pdfData: '' }))}>
-                            <X className="h-3.5 w-3.5" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <label className="flex items-center gap-2 p-3 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted/40 transition-colors">
-                          <Paperclip className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm text-muted-foreground">Cliquer pour joindre un PDF (max 20 Mo)</span>
-                          <input
-                            type="file"
-                            accept=".pdf,application/pdf"
-                            className="hidden"
-                            onChange={e => {
-                              const file = e.target.files?.[0]
-                              if (!file) return
-                              if (file.size > 20 * 1024 * 1024) { toast({ title: 'Fichier trop volumineux (max 20 Mo)', variant: 'destructive' }); return }
-                              setExPdfFile(file)
-                              setExForm(f => ({ ...f, pdfNom: file.name }))
-                              e.target.value = ''
-                            }}
-                          />
-                        </label>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Cours (isolation) */}
-                  <div>
-                    <Label>Cours lié (isolation faculté)</Label>
-                    <Select value={exForm.coursId || '__none__'} onValueChange={v => {
-                      const c = coursList.find(cc => cc.id === v)
-                      setExForm(f => ({ ...f,
-                        coursId: v === '__none__' ? '' : v,
-                        faculteId: c ? (c as any).faculteId || '' : '',
-                        universiteId: c ? (c as any).universiteId || '' : ''
-                      }))
-                    }}>
-                      <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner un cours (optionnel)" /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="__none__">Aucun cours (exercice global)</SelectItem>
-                        {getCoursUniques(coursList).map(c => (
-                          <SelectItem key={c.id} value={c.id}>{c.nom}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <p className="text-xs text-muted-foreground mt-1">Si un cours est sélectionné, l'exercice sera visible uniquement par les étudiants de cette faculté.</p>
-                  </div>
-
-                  {/* Actif */}
-                  <div className="flex items-center gap-2">
-                    <Switch checked={exForm.actif} onCheckedChange={v => setExForm(f => ({ ...f, actif: v }))} />
-                    <Label>Exercice actif (visible par les étudiants)</Label>
-                  </div>
-
-                  {/* Bouton créer */}
-                  <Button onClick={handleSaveEx} disabled={!exForm.titre.trim() || exPdfUploading} className="w-full">
-                    {exPdfUploading ? (
-                      <span className="flex items-center gap-2">
-                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                        Upload en cours...
-                      </span>
-                    ) : editExId ? 'Enregistrer les modifications' : 'Créer l\'exercice'}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <Button onClick={openCreateEx} className="w-full" variant="outline">
-              <Plus className="h-4 w-4 mr-2" /> Nouvel exercice pédagogique
-            </Button>
-          )}
-
-          {/* Confirm delete ex */}
-          <AlertDialog open={!!deleteExId} onOpenChange={o => !o && setDeleteExId(null)}>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Supprimer l'exercice ?</AlertDialogTitle>
-                <AlertDialogDescription>Cette action est irréversible.</AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Annuler</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteEx} className="bg-destructive text-destructive-foreground">Supprimer</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-
-        </div>
-      )}
 
       {/* ═══════════════════ ONGLET PROGRESSION ═══════════════════ */}
       {tab === 'progression' && (() => {
@@ -2939,6 +2392,51 @@ export default function ProfesseurPage() {
         )
       })()}
 
+      {/* ═══════════════════ ONGLET ÉTUDIANTS ═══════════════════ */}
+      {tab === 'etudiants' && <GestionEtudiantsPage embedded />}
+
+      {/* ═══════════════════ ONGLET MES DEVOIRS ═══════════════════
+          Les devoirs se créent depuis un chapitre (bouton « Créer un devoir ») ;
+          cet onglet est le seul endroit où l'on retrouve ceux de l'équipe pour
+          en changer la date limite, les masquer ou les supprimer. */}
+      {tab === 'devoirs' && (
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-lg font-display font-bold text-foreground">Mes devoirs</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Devoirs créés par vous ou votre équipe pédagogique, du plus récent au plus ancien. Pour en créer un, ouvrez un chapitre de cours et utilisez « Créer un devoir ».
+            </p>
+          </div>
+          {devoirsList.length === 0 ? (
+            <Card className="border-border">
+              <CardContent className="py-8 flex flex-col items-center gap-2 text-center">
+                <LibraryBig className="h-8 w-8 text-muted-foreground/40" />
+                <p className="text-sm font-medium text-foreground">Aucun devoir pour l'instant</p>
+                <p className="text-xs text-muted-foreground max-w-sm">Ouvrez un chapitre depuis Mes cours et utilisez « Créer un devoir ».</p>
+              </CardContent>
+            </Card>
+          ) : (
+            [...devoirsList]
+              .sort((a, b) => (b.dateLimit || '').localeCompare(a.dateLimit || ''))
+              .map(dev => (
+                <DevoirCard
+                  key={dev.id}
+                  dev={dev}
+                  coursList={coursList}
+                  universites={universites}
+                  etudiants={etudiants}
+                  openEditDevoir={openEditDevoir}
+                  setDeleteDevoirId={setDeleteDevoirId}
+                  setCorrectionSoumId={setCorrectionSoumId}
+                  setCorrectionNote={setCorrectionNote}
+                  setCorrectionComment={setCorrectionComment}
+                  setViewSoumission={setViewSoumission}
+                />
+              ))
+          )}
+        </div>
+      )}
+
       {/* ═══════════════════ ONGLET COPIES À CORRIGER ═══════════════════ */}
       {tab === 'copies' && (
         <div className="space-y-4">
@@ -3083,230 +2581,37 @@ export default function ProfesseurPage() {
         </div>
       )}
 
-      {/* ═══════════════════ ONGLET DEVOIRS ═══════════════════ */}
-      {false && (tab as string) === 'devoirs' && ( /* désactivé - devoirs depuis chapitres */
-        <div className="space-y-5">
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">{devoirsList.length} devoir{devoirsList.length > 1 ? 's' : ''} créé{devoirsList.length > 1 ? 's' : ''}</p>
-            <Button size="sm" onClick={openCreateDevoir}>
-              <Plus className="h-4 w-4 mr-1.5" />Nouveau devoir
-            </Button>
-          </div>
 
-          {devoirsList.length === 0 && (
-            <Card className="border-border">
-              <CardContent className="pt-10 pb-10 text-center text-muted-foreground">
-                <LibraryBig className="h-10 w-10 mx-auto mb-3 opacity-30" />
-                <p>Aucun devoir créé.</p>
-                <p className="text-xs mt-1">Créez un devoir pour que vos étudiants travaillent dans le journal.</p>
-              </CardContent>
-            </Card>
-          )}
-
-          {devoirsList.map(dev => (
-            <DevoirCard
-              key={dev.id}
-              dev={dev}
-              coursList={coursList}
-              universites={universites}
-              etudiants={etudiants}
-              openEditDevoir={openEditDevoir}
-              setDeleteDevoirId={setDeleteDevoirId}
-              setCorrectionSoumId={setCorrectionSoumId}
-              setCorrectionNote={setCorrectionNote}
-              setCorrectionComment={setCorrectionComment}
-              setViewSoumission={setViewSoumission}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* ═══════════════════ MODALE DEVOIR (créer/modifier) ═══════════════════ */}
-      <Dialog open={showDevoirForm} onOpenChange={setShowDevoirForm}>
-        <DialogContent className="max-w-md flex flex-col max-h-[90vh]">
-          <DialogHeader className="flex-shrink-0">
-            <DialogTitle>{editDevoirId ? 'Modifier le devoir' : 'Nouveau devoir'}</DialogTitle>
+      {/* ═══════════════════ MODALE DEVOIR (modification) ═══════════════════ */}
+      <Dialog open={!!devoirEdite} onOpenChange={o => !o && setDevoirEdite(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Modifier le devoir</DialogTitle>
           </DialogHeader>
-          <div className="flex-1 overflow-y-auto pr-1 space-y-3">
-            <div>
-              <Label>Titre *</Label>
-              <Input value={devoirForm.titre} onChange={e => setDevoirForm(f => ({ ...f, titre: e.target.value }))} placeholder="Ex : Écriture d'un achat comptant=" className="mt-1" />
-            </div>
-
-            {/* Type de devoir */}
-            <div>
-              <Label>Type de devoir *</Label>
-              <div className="mt-1.5 grid grid-cols-4 gap-2">
-                {(['pratique', 'theorique', 'mixte', 'qcm'] as const).map(t => {
-                  const labels = { pratique: 'Pratique', theorique: 'Théorique', mixte: 'Mixte', qcm: 'QCM' }
-                  const descs = { pratique: 'Journal + états', theorique: 'Réponses texte', mixte: 'Les deux', qcm: 'Choix multiples' }
-                  const selected = devoirForm.type === t
-                  return (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => setDevoirForm(f => ({ ...f, type: t }))}
-                      className={`flex flex-col items-center gap-0.5 px-2 py-2.5 rounded-lg border text-center transition-colors ${
-                        selected
-                          ? 'border-primary bg-primary/5 text-primary'
-                          : 'border-border hover:border-primary/40 text-foreground'
-                      }`}
-                    >
-                      <span className="text-xs font-semibold">{labels[t]}</span>
-                      <span className="text-xs text-muted-foreground">{descs[t]}</span>
-                    </button>
-                  )
-                })}
+          {devoirEdite && (
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <Label htmlFor="devoir-titre">Intitulé</Label>
+                <Input id="devoir-titre" value={devoirEdite.titre} onChange={e => setDevoirEdite({ ...devoirEdite, titre: e.target.value })} />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="devoir-consignes">Consignes</Label>
+                <Textarea id="devoir-consignes" rows={3} value={devoirEdite.consignes} onChange={e => setDevoirEdite({ ...devoirEdite, consignes: e.target.value })} />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="devoir-date">Date limite</Label>
+                <Input id="devoir-date" type="date" value={devoirEdite.dateLimit} onChange={e => setDevoirEdite({ ...devoirEdite, dateLimit: e.target.value })} />
+              </div>
+              <div className="flex items-center gap-2">
+                <Switch id="devoir-actif" checked={devoirEdite.actif} onCheckedChange={v => setDevoirEdite({ ...devoirEdite, actif: v })} />
+                <Label htmlFor="devoir-actif">Visible par les étudiants</Label>
               </div>
             </div>
-
-            <div>
-              <Label>Cours *</Label>
-              <Select value={devoirForm.coursId || '__none__'} onValueChange={v => {
-                const c = coursList.find(cc => cc.id === v)
-                setDevoirForm(f => ({ ...f, coursId: v === '__none__' ? '' : v, universiteId: c ? (c as any).universiteId || '' : '', faculteId: c ? (c as any).faculteId || '' : '' }))
-              }}>
-                <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner un cours=" /></SelectTrigger>
-                <SelectContent>
-                  {getCoursUniques(coursList).map(c => (
-                    <SelectItem key={c.id} value={c.id}>{c.nom}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            {/* ═══ SECTION QCM ═══ */}
-            {devoirForm.type === 'qcm' && (
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label>Questions ({qcmQuestions.length})</Label>
-                  <Button type="button" size="sm" variant="outline" onClick={addQcmQuestion} className="gap-1">
-                    <Plus className="h-3.5 w-3.5" /> Ajouter une question
-                  </Button>
-                </div>
-                {qcmQuestions.length === 0 && (
-                  <p className="text-xs text-muted-foreground text-center py-4 border border-dashed border-border rounded-lg">Aucune question. Cliquez sur "Ajouter une question=" pour commencer.</p>
-                )}
-                {qcmQuestions.map((q, qIdx) => (
-                  <div key={q.id} className="border border-border rounded-lg p-4 space-y-3 bg-muted/30">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-muted-foreground">Question {qIdx + 1}</span>
-                      <button type="button" onClick={() => removeQcmQuestion(qIdx)} className="text-destructive hover:text-destructive/80 text-xs">Supprimer</button>
-                    </div>
-                    <div>
-                      <Label className="text-xs">Énoncé *</Label>
-                      <textarea
-                        value={q.texte}
-                        onChange={e => updateQcmQuestion(qIdx, 'texte', e.target.value)}
-                        placeholder="Ex : Quel compte est utilisé pour enregistrer une vente de marchandises ?"
-                        className="w-full mt-1 text-sm border border-border rounded-md p-2 bg-background resize-none"
-                        rows={2}
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label className="text-xs">Choix de réponses (cochez la bonne réponse)</Label>
-                      {q.choix.map((choix, cIdx) => (
-                        <div key={cIdx} className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            name={`bonne-reponse-${q.id}`}
-                            checked={q.bonneReponse === cIdx}
-                            onChange={() => updateQcmQuestion(qIdx, 'bonneReponse', cIdx)}
-                            className="accent-primary"
-                          />
-                          <Input
-                            value={choix}
-                            onChange={e => updateQcmChoix(qIdx, cIdx, e.target.value)}
-                            placeholder={`Choix ${cIdx + 1}`}
-                            className="h-8 text-sm flex-1"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <div>
-                      <Label className="text-xs">Explication (optionnel : affichée après correction)</Label>
-                      <Input
-                        value={q.explication}
-                        onChange={e => updateQcmQuestion(qIdx, 'explication', e.target.value)}
-                        placeholder="Ex : Le compte 701 est crédité lors d'une vente de marchandises.="
-                        className="mt-1 h-8 text-sm"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div>
-              <Label>Date limite *</Label>
-              <Input type="date" value={devoirForm.dateLimit} onChange={e => setDevoirForm(f => ({ ...f, dateLimit: e.target.value }))} className="mt-1" />
-            </div>
-            <div>
-              <Label>Consignes</Label>
-              <textarea
-                value={devoirForm.consignes}
-                onChange={e => setDevoirForm(f => ({ ...f, consignes: e.target.value }))}
-                placeholder="Instructions pour les étudiants..."
-                rows={3}
-                className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              />
-            </div>
-            {/* Upload PDF énoncé */}
-            <div>
-              <Label>Fichier PDF énoncé (optionnel)</Label>
-              <div className="mt-1">
-                {/* Fichier nouveau sélectionné */}
-                {pdfFile ? (
-                  <div className="flex items-center gap-2 p-3 rounded-md border border-green-300 bg-green-50 overflow-hidden">
-                    <FileText className="h-4 w-4 text-green-600 shrink-0" />
-                    <span className="text-sm text-green-700 flex-1 truncate min-w-0">{pdfFile.name}</span>
-                    <span className="text-xs text-muted-foreground shrink-0">{(pdfFile.size / 1024 / 1024).toFixed(1)} Mo</span>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive shrink-0" onClick={() => { setPdfFile(null); setDevoirForm(f => ({ ...f, pdfNom: '' })) }} aria-label="Retirer le fichier PDF">
-                      <X className="h-3.5 w-3.5" />
-                    </Button>
-                  </div>
-                ) : devoirForm.pdfNom ? (
-                  // PDF existant (déjà uploadé)
-                  <div className="flex items-center gap-2 p-3 rounded-md border border-blue-300 bg-blue-50 overflow-hidden">
-                    <FileText className="h-4 w-4 text-blue-600 shrink-0" />
-                    <span className="text-sm text-blue-700 flex-1 truncate min-w-0">{devoirForm.pdfNom}</span>
-                    <span className="text-xs text-blue-500">Déjà uploadé</span>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => setDevoirForm(f => ({ ...f, pdfData: '', pdfNom: '' }))} aria-label="Retirer le fichier PDF">
-                      <X className="h-3.5 w-3.5" />
-                    </Button>
-                  </div>
-                ) : (
-                  <label className="flex items-center gap-2 p-3 rounded-md border border-dashed border-border cursor-pointer hover:bg-muted/40 transition-colors">
-                    <Paperclip className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Cliquer pour joindre un PDF</span>
-                    <input
-                      type="file"
-                      accept=".pdf,application/pdf"
-                      className="hidden"
-                      onChange={e => {
-                        const file = e.target.files?.[0]
-                        if (!file) return
-                        if (file.size > 20 * 1024 * 1024) {
-                          toast({ title: 'Fichier trop volumineux (max 20 Mo)', variant: 'destructive' }); return
-                        }
-                        setPdfFile(file)
-                        setDevoirForm(f => ({ ...f, pdfNom: file.name }))
-                        e.target.value = ''
-                      }}
-                    />
-                  </label>
-                )}
-              </div>
-            </div>
-          </div>
-          <DialogFooter className="flex-shrink-0 pt-2 border-t border-border">
-            <Button variant="outline" onClick={() => setShowDevoirForm(false)} disabled={pdfUploading}>Annuler</Button>
-            <Button onClick={handleSaveDevoir} disabled={!devoirForm.titre.trim() || !devoirForm.coursId || !devoirForm.dateLimit || pdfUploading}>
-              {pdfUploading ? (
-                <span className="flex items-center gap-2">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                  Upload en cours...
-                </span>
-              ) : editDevoirId ? 'Enregistrer' : 'Créer'}
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDevoirEdite(null)}>Annuler</Button>
+            <Button onClick={handleSaveDevoirEdite} disabled={devoirEnregistrement || !devoirEdite?.titre.trim() || !devoirEdite?.dateLimit}>
+              {devoirEnregistrement ? 'Enregistrement…' : 'Enregistrer'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -3317,7 +2622,7 @@ export default function ProfesseurPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Supprimer ce devoir ?</AlertDialogTitle>
-            <AlertDialogDescription>Toutes les soumissions associées seront aussi supprimées.</AlertDialogDescription>
+            <AlertDialogDescription>Les copies rendues sur ce devoir seront supprimées avec lui.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Annuler</AlertDialogCancel>

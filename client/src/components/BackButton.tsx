@@ -36,11 +36,10 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/fiscalite':                  { path: '/mes-cours',             label: 'Mes cours' },
   '/apercu-devoir':              { path: '/exercices',             label: 'Exercices' },
   '/ue2/simulateur-constitution': { path: '/ue2-droit-societes',   label: 'UE 2 · Droit des sociétés' },
-  '/debug-isolation':            { path: '/',                      label: 'Tableau de bord' },
+  '/debug-isolation':            { path: '/professeurs?tab=staff', label: 'Espace pédagogique' },
   // Gestion des étudiants
-  '/gestion-etudiants':          { path: '/',                      label: 'Tableau de bord' },
-  '/etudiant':                   { path: '/gestion-etudiants',     label: 'Gestion des étudiants' },
-  '/inscription-plateforme':     { path: '/gestion-etudiants',     label: 'Gestion des étudiants' },
+  '/etudiant':                   { path: '/professeurs?tab=etudiants', label: 'Étudiants' },
+  '/inscription-plateforme':     { path: '/professeurs?tab=etudiants', label: 'Étudiants' },
 }
 
 function parentDeModule(location: string): { path: string; label: string } | undefined {

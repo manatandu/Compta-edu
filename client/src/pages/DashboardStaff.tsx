@@ -15,24 +15,9 @@ import { DashboardFooter } from '@/components/DashboardFooter'
 // ─────────────────────────────────────────────────────────────────────────────
 // TABLEAU DE BORD - ADMIN / PROFESSEUR / ASSISTANT
 //
-// Le staff n'a ici ni relevé de notes ni devoirs personnels : le travail de
-// suivi pédagogique lui-même - cours, progression, présences, cotes - vit
-// dans l'Espace pédagogique (/professeurs), pas ici. Cette page reste donc un
-// simple point d'entrée.
-//
-// Une section « Ce qui m'attend » (copies à corriger, inscriptions à valider)
-// a été essayée puis retirée : les deux actions qu'elle proposait n'existent
-// pas dans l'application.
-//   - Corriger une copie : le seul bouton qui ouvre la fenêtre de correction
-//     vit dans l'onglet « Devoirs » de ProfesseurPage, désactivé en dur
-//     (`{false && ...}`, commentaire « désactivé - devoirs depuis chapitres »).
-//   - Valider une inscription : `statutInscription` n'est écrit qu'une fois,
-//     à 'en_attente' (LoginPage), et jamais modifié ensuite ; l'activation
-//     d'un compte (`actif`) n'est proposée que dans l'onglet « Prof /
-//     Assistants », qui ne liste que les admins (`role === 'admin'`).
-// Tant que ces deux actions n'existent pas, les compteurs correspondants
-// restent de simples indicateurs : les rendre cliquables ne ferait que
-// promettre une action impossible.
+// Le suivi pédagogique lui-même (étudiants, devoirs, copies, progression,
+// présences, cotes) vit dans l'Espace pédagogique (/professeurs). Cette page
+// en est le point d'entrée : chaque compteur ouvre l'onglet correspondant.
 // ─────────────────────────────────────────────────────────────────────────────
 export default function DashboardStaff() {
   const [, navigate] = useHashLocation()
@@ -93,10 +78,12 @@ export default function DashboardStaff() {
   ).length
 
   const stats: DashboardStat[] = [
-    { label: 'Étudiants actifs', value: nbEtudiants,   icon: Users,         color: 'text-green-300', onClick: () => navigate('/gestion-etudiants') },
-    { label: 'En attente',        value: nbEnAttente,   icon: Clock,         color: nbEnAttente > 0 ? 'text-amber-300' : 'text-blue-300/80' },
-    { label: 'Non corrigés',      value: nbNonCorriges, icon: ClipboardList, color: nbNonCorriges > 0 ? 'text-rose-300' : 'text-blue-300/80' },
-    { label: 'Cours',             value: allCours.length, icon: BookOpen,    color: 'text-blue-300/80', onClick: () => navigate('/professeurs') },
+    { label: 'Étudiants actifs', value: nbEtudiants,   icon: Users,         color: 'text-green-300', onClick: () => navigate('/professeurs?tab=etudiants') },
+    { label: 'En attente',        value: nbEnAttente,   icon: Clock,         color: nbEnAttente > 0 ? 'text-amber-300' : 'text-blue-300/80', onClick: () => navigate('/professeurs?tab=inscriptions') },
+    { label: 'Non corrigés',      value: nbNonCorriges, icon: ClipboardList, color: nbNonCorriges > 0 ? 'text-rose-300' : 'text-blue-300/80', onClick: () => navigate('/professeurs?tab=copies') },
+    // « Cours » n'est un onglet que pour l'administrateur ; l'enseignant
+    // retrouve ses cours dans Mes cours.
+    { label: 'Cours',             value: allCours.length, icon: BookOpen,    color: 'text-blue-300/80', onClick: () => navigate(user?.role === 'admin' ? '/professeurs?tab=cours' : '/mes-cours') },
   ]
 
   const identity = (

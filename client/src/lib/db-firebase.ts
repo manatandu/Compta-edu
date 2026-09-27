@@ -976,6 +976,12 @@ export async function updateDevoirAsync(id: string, data: Partial<Devoir>): Prom
 }
 
 export async function deleteDevoirAsync(id: string): Promise<void> {
+  // Les copies rendues partent avec le devoir, comme l'annonce la fenêtre de
+  // confirmation : sinon elles restaient orphelines en base. Elles sont
+  // supprimées d'abord, car firestore.rules autorise leur suppression d'après
+  // le créateur du devoir (ownsVia), qu'il faut donc encore pouvoir lire.
+  const copies = await getDocs(query(collection(db, C.SOUMISSIONS), where('devoirId', '==', id)))
+  await Promise.all(copies.docs.map(d => deleteDoc(d.ref)))
   await deleteDoc(doc(db, C.DEVOIRS, id))
 }
 

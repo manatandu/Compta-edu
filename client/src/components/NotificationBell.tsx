@@ -137,7 +137,7 @@ export function NotificationBell({ user }: NotificationBellProps) {
         titre: `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Étudiant',
         desc: 'Demande d\'inscription en attente de validation',
         date: (u as any).dateCreation || new Date().toISOString(),
-        action: () => { navigate('/professeurs'); setOpen(false) },
+        action: () => { navigate('/professeurs?tab=inscriptions'); setOpen(false) },
       })),
 
       // Soumissions pratiques/théoriques à corriger manuellement
@@ -152,7 +152,7 @@ export function NotificationBell({ user }: NotificationBellProps) {
             titre: devoir?.titre || 'Devoir à corriger',
             desc: `Soumis le ${s.dateSoumission ? new Date(s.dateSoumission).toLocaleDateString('fr-FR') : 'Date inconnue'}`,
             date: s.dateSoumission || new Date().toISOString(),
-            action: () => { navigate('/professeurs'); setOpen(false) },
+            action: () => { navigate('/professeurs?tab=copies'); setOpen(false) },
           }
         }),
     ] : []),

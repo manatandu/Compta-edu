@@ -77,8 +77,8 @@ export default function InscriptionPlatformePage() {
         <BackButton />
         <Breadcrumb
           items={[
-            { label: 'Tableau de bord', route: '/' },
-            { label: 'Gestion des étudiants', route: '/gestion-etudiants' },
+            { label: 'Espace pédagogique', route: '/professeurs' },
+            { label: 'Étudiants', route: '/professeurs?tab=etudiants' },
             { label: 'Inscrire sur la plateforme' },
           ]}
           color="indigo"
@@ -684,7 +684,7 @@ function CodeAcces({ universites, getFacultes, getCours, currentUserId, toast }:
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <div className="space-y-1.5">
             <p>Aucun cours n'a encore été créé pour cette université - le code fonctionnera, mais sans UE pré-affectée (l'étudiant devra être ajouté aux cours manuellement après son inscription).</p>
-            <button onClick={() => navigate('/professeurs')} className="font-semibold underline hover:no-underline">
+            <button onClick={() => navigate('/professeurs?tab=cours')} className="font-semibold underline hover:no-underline">
               Créer des cours pour cette université →
             </button>
           </div>
