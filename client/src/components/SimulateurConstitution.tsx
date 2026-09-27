@@ -68,13 +68,20 @@ const FORMES_DEF: {
   art: string
   desc: string
   minFCFA: number | null   // null = capital libre
+  // Libération minimale des apports en numéraire à la souscription et délai du
+  // solde ; null quand l'Acte uniforme ne fixe rien (SNC, SCS : statuts).
+  liberation: { pct: number; delaiAns: number; art: string } | null
+  // Valeur nominale minimale des titres (FCFA) ; null = librement fixée.
+  nominalMinFCFA: number | null
 }[] = [
   {
     id: 'SARL',
     label: 'SARL',
     art: 'Art. 309–383 AUSCGIE',
-    desc: 'Responsabilité limitée aux apports : 1 à 50 associés. Capital LIBRE en RDC (Arrêté 30/12/2014)',
+    desc: 'Responsabilité limitée aux apports, une ou plusieurs personnes (Art. 309). Capital LIBRE en RDC (Arrêté 30/12/2014)',
     minFCFA: null, // libre en RDC
+    liberation: { pct: 0.5, delaiAns: 2, art: 'Art. 311-1 AUSCGIE' },
+    nominalMinFCFA: 5_000, // Art. 311
   },
   {
     id: 'SA',
@@ -82,6 +89,8 @@ const FORMES_DEF: {
     art: 'Art. 385–920 AUSCGIE',
     desc: 'Société Anonyme : appel possible à l\'épargne, 1 actionnaire minimum',
     minFCFA: 10_000_000,
+    liberation: { pct: 0.25, delaiAns: 3, art: 'Art. 389 AUSCGIE' },
+    nominalMinFCFA: null, // Art. 387 al. 2 : librement fixé par les statuts
   },
   {
     id: 'SAS',
@@ -89,20 +98,26 @@ const FORMES_DEF: {
     art: 'Art. 853-1–853-23 AUSCGIE',
     desc: 'Société par Actions Simplifiée : grande liberté statutaire, capital libre (Art. 853-5)',
     minFCFA: null,
+    liberation: { pct: 0.25, delaiAns: 3, art: 'Art. 389 AUSCGIE, par renvoi de l\'Art. 853-3' },
+    nominalMinFCFA: null, // Art. 853-5
   },
   {
     id: 'SNC',
     label: 'SNC',
-    art: 'Art. 270–290 AUSCGIE',
+    art: 'Art. 270–292 AUSCGIE',
     desc: 'Responsabilité indéfinie et solidaire. ⚠ Interdite entre époux (Art. 9 AUSCGIE)',
     minFCFA: null,
+    liberation: null,
+    nominalMinFCFA: null,
   },
   {
     id: 'SCS',
     label: 'SCS',
-    art: 'Art. 293–313 AUSCGIE',
+    art: 'Art. 293–308 AUSCGIE',
     desc: 'Commandités (resp. illimitée) + commanditaires (resp. limitée aux apports)',
     minFCFA: null,
+    liberation: null,
+    nominalMinFCFA: null,
   },
 ]
 
@@ -163,7 +178,8 @@ export default function SimulateurConstitution() {
   const capitalMinCDF = forme.minFCFA !== null ? fcfaToCDF(forme.minFCFA) : null
 
   // Valeur nominale minimum en CDF
-  const valeurNomMinCDF = fcfaToCDF(VALEUR_NOMINALE_MIN_FCFA)
+  // 0 quand l'Acte uniforme laisse le nominal libre (SA : art. 387 al. 2 ; SAS : art. 853-5).
+  const valeurNomMinCDF = forme.nominalMinFCFA !== null ? fcfaToCDF(forme.nominalMinFCFA) : 0
 
   // Parts sociales
   const nbParts = data.etape2.valeurNominale > 0
@@ -172,6 +188,7 @@ export default function SimulateurConstitution() {
 
   // ── Validation ──
   const erreurs: string[] = []
+  const avertissements: string[] = []
 
   if (capitalMinCDF !== null && capitalTotal < capitalMinCDF) {
     erreurs.push(
@@ -180,24 +197,27 @@ export default function SimulateurConstitution() {
   }
   if (data.etape2.valeurNominale < valeurNomMinCDF) {
     erreurs.push(
-      `Valeur nominale trop faible : ${formatCDF(data.etape2.valeurNominale)} < minimum de ${formatFCFA(VALEUR_NOMINALE_MIN_FCFA)} = ${formatCDF(valeurNomMinCDF)} (AUSCGIE)`
+      `Valeur nominale trop faible : ${formatCDF(data.etape2.valeurNominale)} < minimum de ${formatFCFA(forme.nominalMinFCFA ?? 0)} = ${formatCDF(valeurNomMinCDF)} (Art. 311 AUSCGIE)`
     )
   }
+  // Art. 50-1 : les apports en industrie sont interdits dans les sociétés
+  // anonymes. (Une limite de « 25 % des associés » était opposée ici en citant
+  // l'art. 50-3, qui ne prévoit rien de tel : ils ne concourent simplement pas
+  // à la formation du capital.)
   const nbIndustrie = data.associes.filter(a => a.typeApport === 'industrie').length
-  if (nbIndustrie > 0 && data.associes.length > 0) {
-    const pct = (nbIndustrie / data.associes.length) * 100
-    if (pct > 25) {
-      erreurs.push(`Apports en industrie > 25% des associés (Art. 50-3 al. 2 AUSCGIE) : réduire le nombre d'apporteurs en industrie`)
-    }
+  if (nbIndustrie > 0 && data.forme === 'SA') {
+    erreurs.push(`Apports en industrie interdits dans la société anonyme (Art. 50-1 AUSCGIE)`)
   }
+  // Art. 9 : des époux ne peuvent être associés d'une société où ils seraient tenus
+  // des dettes sociales « indéfiniment ou solidairement » : tous les associés de SNC,
+  // les commandités de SCS.
   if (data.forme === 'SNC') {
-    erreurs.push('⚠ SNC : vérifier qu\'aucun couple d\'époux n\'est associé : responsabilité indéfinie et solidaire interdite entre époux (Art. 9 AUSCGIE)')
+    erreurs.push('⚠ SNC : vérifier qu\'aucun couple d\'époux n\'est associé : des époux ne peuvent être tenus ensemble des dettes sociales indéfiniment ou solidairement (Art. 9 AUSCGIE)')
   }
-  if (data.forme === 'SARL' && data.associes.length > 50) {
-    erreurs.push('SARL : maximum 50 associés (Art. 311 AUSCGIE)')
+  if (data.forme === 'SCS') {
+    avertissements.push('SCS : deux époux ne peuvent être tous deux associés commandités, tenus indéfiniment et solidairement des dettes sociales (Art. 9 AUSCGIE).')
   }
 
-  const avertissements: string[] = []
   if (data.forme === 'SARL') {
     avertissements.push(
       `En RDC, le capital de la SARL est librement fixé par les associés (Arrêté intermin. n° 002 & 243 du 30/12/2014). Aucun minimum légal : contrairement au plancher OHADA de ${formatFCFA(1_000_000)} = ${formatCDF(fcfaToCDF(1_000_000))} (Art. 311 AUSCGIE).`
@@ -206,10 +226,14 @@ export default function SimulateurConstitution() {
   if (data.forme === 'SAS') {
     avertissements.push(`La SAS ne requiert aucun capital minimum (Art. 853-5 AUSCGIE). Capital librement fixé par les statuts.`)
   }
-  if (capitalTotal > 0) {
-    const lib25 = Math.ceil(capitalTotal * 0.25)
+  // Libération des apports en numéraire : la moitié et deux ans pour la SARL
+  // (art. 311-1), le quart et trois ans pour la SA et la SAS (art. 389). Le
+  // simulateur appliquait à toutes les formes « 25 %, solde sous deux ans »,
+  // en citant l'art. 313, qui ne règle que le dépôt des fonds.
+  const libMin = forme.liberation && capitalTotal > 0 ? Math.ceil(capitalTotal * forme.liberation.pct) : 0
+  if (capitalTotal > 0 && forme.liberation) {
     avertissements.push(
-      `Libération à la souscription (min. 25%) : ${formatCDF(lib25)}. Solde de ${formatCDF(capitalTotal - lib25)} à libérer sous 2 ans (Art. 313 AUSCGIE).`
+      `Libération à la souscription (min. ${forme.liberation.pct * 100} %) : ${formatCDF(libMin)}. Solde de ${formatCDF(capitalTotal - libMin)} à libérer sous ${forme.liberation.delaiAns} ans à compter de l'immatriculation (${forme.liberation.art}). Les apports en nature sont libérés intégralement.`
     )
   }
 
@@ -413,7 +437,9 @@ export default function SimulateurConstitution() {
             )}
           />
           <p className="text-xs text-muted-foreground mt-1">
-            Minimum légal : {formatFCFA(VALEUR_NOMINALE_MIN_FCFA)} = <strong>{formatCDF(valeurNomMinCDF)}</strong> (AUSCGIE)
+            {forme.nominalMinFCFA !== null
+              ? <>Minimum légal : {formatFCFA(forme.nominalMinFCFA)} = <strong>{formatCDF(valeurNomMinCDF)}</strong> (Art. 311 AUSCGIE)</>
+              : <>Valeur nominale librement fixée par les statuts ({data.forme === 'SA' ? 'Art. 387 AUSCGIE' : data.forme === 'SAS' ? 'Art. 853-5 AUSCGIE' : 'aucun minimum légal'})</>}
           </p>
           {data.etape2.valeurNominale < valeurNomMinCDF && (
             <p className="text-xs text-red-600 mt-0.5">⚠ Valeur nominale inférieure au minimum légal</p>
@@ -796,21 +822,21 @@ export default function SimulateurConstitution() {
             </div>
 
             {/* Libération */}
-            {capitalTotal > 0 && (
+            {capitalTotal > 0 && forme.liberation && (
               <>
                 <hr className="border-border" />
                 <div className="rounded-lg bg-muted/40 px-3 py-2">
-                  <p className="font-semibold text-foreground mb-1.5">Obligation de libération (Art. 313 AUSCGIE)</p>
+                  <p className="font-semibold text-foreground mb-1.5">Obligation de libération ({forme.liberation.art})</p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div>
-                      <p className="text-muted-foreground">À libérer à la souscription (min. 25%)</p>
-                      <p className="font-bold text-emerald-600">{formatCDF(Math.ceil(capitalTotal * 0.25))}</p>
-                      <p className="text-muted-foreground">≈ {formatFCFA(cdfToFCFA(Math.ceil(capitalTotal * 0.25)))}</p>
+                      <p className="text-muted-foreground">À libérer à la souscription (min. {forme.liberation.pct * 100} %)</p>
+                      <p className="font-bold text-emerald-600">{formatCDF(libMin)}</p>
+                      <p className="text-muted-foreground">≈ {formatFCFA(cdfToFCFA(libMin))}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground">Solde sous 2 ans</p>
-                      <p className="font-bold text-foreground">{formatCDF(Math.floor(capitalTotal * 0.75))}</p>
-                      <p className="text-muted-foreground">≈ {formatFCFA(cdfToFCFA(Math.floor(capitalTotal * 0.75)))}</p>
+                      <p className="text-muted-foreground">Solde sous {forme.liberation.delaiAns} ans</p>
+                      <p className="font-bold text-foreground">{formatCDF(capitalTotal - libMin)}</p>
+                      <p className="text-muted-foreground">≈ {formatFCFA(cdfToFCFA(capitalTotal - libMin))}</p>
                     </div>
                   </div>
                 </div>
@@ -825,7 +851,8 @@ export default function SimulateurConstitution() {
                 <li>AUSCGIE 2014 : {forme.art}</li>
                 <li>Arrêté interministériel RDC n° 002 & 243 du 30/12/2014</li>
                 <li>Art. 50-3 AUSCGIE : Apports en industrie hors capital</li>
-                <li>Art. 313 AUSCGIE : Libération du capital</li>
+                {forme.liberation && <li>{forme.liberation.art} : libération des apports en numéraire</li>}
+                <li>Art. 313 AUSCGIE : dépôt des fonds (SARL)</li>
               </ul>
             </div>
           </div>

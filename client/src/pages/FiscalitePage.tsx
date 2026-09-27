@@ -1901,8 +1901,9 @@ function Cat5Mobiliers() {
     {
       id: 'bons',
       label: 'Intérêts sur bons de caisse',
-      texte: "Intérêts et tous produits des bons de caisse émis par les établissements de crédit ou toute entreprise en activité en RDC. Peuvent être nominatifs ou anonymes, à court ou moyen terme. Base imposable : intérêts échus ou primes versées au remboursement (Art. 79, Art. 81, Loi 23/053). ⚠️ Exonération possible sous certaines conditions (Art. 80 §3).",
+      texte: "Intérêts et tous produits des bons de caisse émis par les établissements de crédit ou toute entreprise en activité en RDC. Peuvent être nominatifs ou anonymes, à court ou moyen terme. Exonérés de l'IRPP : l'article 80, 3° exonère « les intérêts des bons de caisse », sans condition. Aucune retenue n'est donc opérée ; la ligne est conservée pour le montrer (Art. 79, Art. 80 §3, Loi 23/053).",
       loi: 'Art. 79, Art. 80 §3, Loi 23/053',
+      baseReduite: 0,
     },
   ]
 
@@ -2052,12 +2053,9 @@ function Cat5Mobiliers() {
               d.brut > 0 && (
                 <div key={i} className="mb-2 last:mb-0">
                   <LigneR label={d.label} val={formatFC(d.brut)} />
-                  {d.coeff < 1 && (
-                    <LigneR signe="×" label={`Réduction base : ${Math.round(d.coeff * 100)}% du brut`} val={formatFC(d.base)}
-                      tooltip={{ texte: d.coeff === 0.5
-                        ? "Base imposable réduite à 50% pour les dividendes d'actions (LF 2025 Art. 26 mod. Art. 81 Loi 23/053)."
-                        : "Base imposable réduite à 60% pour les dividendes de parts d'associés (LF 2025 Art. 27 mod. Art. 81 Loi 23/053).",
-                        loi: 'LF 2025 Art. 26-27 : Loi 23/053' }}
+                  {d.coeff === 0 && (
+                    <LigneR signe="×" label="Revenu exonéré : base imposable nulle" val={formatFC(0)}
+                      tooltip={{ texte: "Les intérêts des bons de caisse sont exonérés de l'IRPP (Art. 80, 3°) : aucune retenue n'est opérée.", loi: 'Art. 80, Loi 23/053' }}
                     />
                   )}
                   <LigneR signe="×" label={`${formatFC(d.base)} × 20%`} val={formatFC(d.retenue)} bold accent />
@@ -2174,11 +2172,6 @@ function SimulateurIS() {
   const [facturesNonResidents, setFacturesNonResidents] = useState('')
   const [remunsExpatries, setRemunsExpatries] = useState('')
   const [capitauxNonResidents, setCapitauxNonResidents] = useState('')
-  // Bloc 9 : cas IS minimum sans CA
-  type TailleEntreprise = 'grande' | 'moyenne' | 'petite'
-  const [cessationActivite, setCessationActivite] = useState(false)
-  const [tailleEntreprise, setTailleEntreprise] = useState<TailleEntreprise>('grande')
-
   const [res, setRes] = useState<any>(null)
   const [showReeval, setShowReeval] = useState(false)
   const [showAcomptes, setShowAcomptes] = useState(false)
@@ -2212,34 +2205,12 @@ function SimulateurIS() {
 
     // IS théorique 30% (Art. 56)
     const isTheoriqueRaw = rfNet * 0.30
-    // IS minimum - 3 cas. Seul le cas §1 (1% du CA) est confirmé par le texte en vigueur
-    // (Art. 57, Loi 23/053). Les cas §2/§3 (forfaits par taille) reproduisent l'art. 91 de
-    // l'Ordonnance-loi 69/009 (ancien CGI), abrogée depuis le 1er janvier 2026 (Art. 152,
-    // Loi 23/053) - continuité non confirmée par le texte, conservée à titre indicatif.
-    // §1 : CA > 0 ET (déficit OU IS théorique < 1% CA) → minimum = 1% du CA (grandes+moyennes, hors petites)
-    // §2 : en activité mais CA = 0 → forfait fixe par taille
-    // §3 : cessation d'activités sans radiation RCCM → forfait réduit par taille
-    let isMinimumRaw = 0
-    let casMinimum: 'ca' | 'sansCA' | 'cessation' = 'ca'
-    const forfaitSansCA: Record<TailleEntreprise, number> = { grande: 2500000, moyenne: 750000, petite: 30000 }
-    const forfaitCessation: Record<TailleEntreprise, number> = { grande: 500000, moyenne: 250000, petite: 30000 }
-
-    if (cessationActivite) {
-      // §3 : cessation sans radiation RCCM
-      isMinimumRaw = forfaitCessation[tailleEntreprise]
-      casMinimum = 'cessation'
-    } else if (ca > 0) {
-      // §1 : CA réalisé - minimum = 1% du CA, sans plancher forfaitaire (Art. 57, Loi 23/053).
-      // Les forfaits par taille (forfaitSansCA) proviennent de l'Art. 91 de l'Ordonnance-loi
-      // 69/009, abrogée depuis le 1er janvier 2026 : ils ne s'appliquent qu'aux cas §2/§3
-      // ci-dessous, où aucun chiffre d'affaires n'existe pour asseoir le 1%.
-      isMinimumRaw = ca * 0.01
-      casMinimum = 'ca'
-    } else {
-      // §2 : en activité, CA = 0 → forfait fixe selon taille (régime non confirmé, voir réserve ci-dessus)
-      isMinimumRaw = forfaitSansCA[tailleEntreprise]
-      casMinimum = 'sansCA'
-    }
+    // IS minimum (Art. 57, Loi 23/053) : 1 % du chiffre d'affaires déclaré, lorsque le
+    // résultat est déficitaire ou que l'IS théorique lui est inférieur. Le texte ne
+    // prévoit rien d'autre : les forfaits par taille d'entreprise et le forfait de
+    // cessation qu'appliquait ce simulateur venaient de l'art. 91 de l'O.-L. 69/009,
+    // abrogé depuis le 1er janvier 2026 (Art. 152) ; ils sont retirés.
+    const isMinimumRaw = ca * 0.01
     // IS dû = max(IS théorique, IS minimum)
     const isDuRaw = Math.max(isTheoriqueRaw, isMinimumRaw)
     // Arrondi Art. 150
@@ -2273,7 +2244,6 @@ function SimulateurIS() {
       rfBrut, rfApresDeficits, rfNet, isDeficit,
       isTheorique, isMinimum, isDu,
       appliqueMinimum: isMinimumRaw > isTheoriqueRaw,
-      casMinimum, tailleEntreprise, cessationActivite,
       reevalMode, pvReeval, tauxReeval, prelevReeval,
       isN1, acompte1, acompte2, acompte3, totalAcomptes, solde,
       factures, remuns, capitauxNR, prelevNR, prelevExp, prelevCapitauxNR,
@@ -2294,7 +2264,6 @@ function SimulateurIS() {
     setIsNmoins1('')
     setFacturesNonResidents(''); setRemunsExpatries('')
     setCapitauxNonResidents('')
-    setCessationActivite(false); setTailleEntreprise('grande')
     setRes(null)
   }
 
@@ -2361,41 +2330,6 @@ function SimulateurIS() {
               onChange={e => { setExercice(e.target.value); setRes(null) }}
               className={inputCls} />
           </div>
-        </div>
-        {/* Taille d'entreprise : classement fiscal */}
-        <div className="space-y-2">
-          <label className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-            Taille de l'entreprise (classement fiscal)
-            <InfoTooltip
-              texte="⚠️ Réserve : ce régime forfaitaire par taille d'entreprise (§2 et §3 ci-dessous) provient de l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 par l'art. 152 de la Loi 23/053. L'art. 57 de la loi actuelle prévoit expressément un minimum uniforme de 1% du chiffre d'affaires déclaré, sans mentionner de forfaits par taille ni de régime de cessation - la continuité de ce régime forfaitaire n'est donc pas confirmée par le texte en vigueur. Reproduit ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. | §1 : si CA réalisé, minimum = 1% du CA (seule règle certaine, Art. 57). §2 : si CA = 0 (en activité) → forfait fixe reproduit de l'ancien régime : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : si cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
-              loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée - continuité non confirmée"
-            />
-          </label>
-          <CarreauChoix
-            couleur="emerald"
-            value={tailleEntreprise}
-            onChange={t => { setTailleEntreprise(t); setRes(null) }}
-            options={[
-              { value: 'grande',  label: 'Grande' },
-              { value: 'moyenne', label: 'Moyenne' },
-              { value: 'petite',  label: 'Petite' },
-            ]}
-          />
-          {/* Cessation d'activités sans radiation RCCM (Art. 91 §3 CGI) */}
-          <button
-            onClick={() => { setCessationActivite(v => !v); setRes(null) }}
-            className={cn(
-              'mt-1 w-full flex items-center gap-2 rounded-lg border px-3 py-2 text-xs font-medium transition-all text-left',
-              cessationActivite
-                ? 'bg-orange-100 border-orange-400 text-orange-800'
-                : 'border-border bg-card text-muted-foreground hover:bg-muted/30'
-            )}
-          >
-            <span className={cn('w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all',
-              cessationActivite ? 'bg-orange-500 border-orange-500 text-white' : 'border-border bg-background'
-            )}>{cessationActivite ? '✓' : ''}</span>
-            Cessation d’activités sans radiation RCCM (Art. 91 §3 CGI)
-          </button>
         </div>
       </div>
 
@@ -2504,22 +2438,7 @@ function SimulateurIS() {
           {/* Étape 2 : Calcul IS */}
           <EtapeResultat numero={2} titre="Calcul de l'IS (Art. 56-57)">
             <LigneR label={`IS théorique : ${formatFC(res.rfNet)} × 30%`} val={formatFC(res.isTheorique)} />
-            <div className="flex items-center gap-1">
-              <LigneR
-                label={
-                  res.casMinimum === 'ca'
-                    ? `IS minimum : 1% du CA = ${formatFC(res.isMinimum)} (Art. 57, Loi 23/053)`
-                    : res.casMinimum === 'sansCA'
-                    ? `IS minimum forfaitaire CA=0 - ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
-                    : `IS forfaitaire - cessation sans radiation RCCM - ${res.tailleEntreprise === 'grande' ? 'Grande' : res.tailleEntreprise === 'moyenne' ? 'Moyenne' : 'Petite'} entreprise (régime non confirmé, voir réserve)`
-                }
-                val={formatFC(res.isMinimum)}
-              />
-              <InfoTooltip
-                texte="⚠️ Réserve : seul le minimum de 1% du CA (Art. 57, Loi 23/053) est confirmé par le texte en vigueur. Les planchers et forfaits par taille d'entreprise ci-dessous reproduisent l'art. 91 de l'Ordonnance-loi 69/009 (ancien CGI), dont les titres III et IV sont abrogés depuis le 1er janvier 2026 (Art. 152, Loi 23/053) - leur continuité sous le régime actuel n'est pas confirmée par le texte, seulement reproduite ici à titre indicatif (pratique observée), à vérifier avant tout usage engageant. §1 : si CA > 0 → minimum = 1% du CA, sans plancher forfaitaire (les forfaits ci-dessous ne jouent que lorsqu'aucun chiffre d'affaires n'existe pour asseoir le 1%). §2 : en activité, CA = 0 → forfait fixe : Grande 2 500 000 FC / Moyenne 750 000 FC / Petite 30 000 FC. §3 : cessation sans radiation RCCM → forfait : Grande 500 000 FC / Moyenne 250 000 FC / Petite 30 000 FC."
-                loi="Art. 57 Loi 23/053 (seul confirmé) ; Art. 91 O.-L. 69/009 abrogée - continuité non confirmée"
-              />
-            </div>
+            <LigneR label={`IS minimum : 1% du CA déclaré = ${formatFC(res.isMinimum)} (Art. 57, Loi 23/053)`} val={formatFC(res.isMinimum)} />
             <Separateur />
             {res.appliqueMinimum ? (
               <div className="flex items-start gap-1.5 mt-1">
@@ -2540,26 +2459,6 @@ function SimulateurIS() {
               <p className="text-xs text-amber-600 mt-0.5">Le déficit ({formatFC(Math.abs(res.rfBrut))} FC) peut être reporté sur les 3 exercices suivants (Art. 51). Si le CA déclaré est positif, l'IS minimum (1% du CA) s'applique.</p>
             </div>
           )}
-          {res.casMinimum === 'sansCA' && (
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
-              <p className="text-xs font-semibold text-blue-700">CA = 0 : impôt forfaitaire appliqué (régime non confirmé, voir réserve)</p>
-              <p className="text-xs text-blue-600 mt-0.5">
-                L'entreprise est en activité mais n'a réalisé aucun chiffre d'affaires. Ce forfait fixe reproduit l'art. 91 §2 de l'ancien CGI (O.-L. 69/009), <strong>abrogé depuis le 1er janvier 2026</strong> (Art. 152, Loi 23/053) : sa continuité sous la loi actuelle n'est pas confirmée par le texte, qui ne prévoit qu'un minimum uniforme de 1% du CA (Art. 57). Reproduit à titre indicatif :
-                Grande entreprise : <strong>2 500 000 FC</strong> / Moyenne : <strong>750 000 FC</strong> / Petite : <strong>30 000 FC</strong>.
-                Prorata : 1/12e par mois d'activité si début après janvier (règle de l'ancien régime, également non confirmée).
-              </p>
-            </div>
-          )}
-          {res.casMinimum === 'cessation' && (
-            <div className="rounded-lg border border-orange-200 bg-orange-50 p-3">
-              <p className="text-xs font-semibold text-orange-700">Cessation sans radiation RCCM : forfait applicable (régime non confirmé, voir réserve)</p>
-              <p className="text-xs text-orange-600 mt-0.5">
-                L'entreprise a cessé ses activités sans s'être fait radier du RCCM (Art. 97 OHADA). Ce forfait reproduit l'art. 91 §3 de l'ancien CGI (O.-L. 69/009), <strong>abrogé depuis le 1er janvier 2026</strong> (Art. 152, Loi 23/053) : sa continuité sous la loi actuelle n'est pas confirmée par le texte, qui ne prévoit qu'un minimum uniforme de 1% du CA (Art. 57). Reproduit à titre indicatif :
-                Grande : <strong>500 000 FC</strong> / Moyenne : <strong>250 000 FC</strong> / Petite : <strong>30 000 FC</strong>.
-              </p>
-            </div>
-          )}
-
           <BoxFinal label="IS dû (exercice courant)" val={formatFC(res.isDu)} />
         </ResultatWrap>
       )}
