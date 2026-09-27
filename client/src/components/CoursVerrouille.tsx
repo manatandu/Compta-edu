@@ -1,5 +1,5 @@
 import { Lock } from 'lucide-react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import PageLoader from '@/components/PageLoader'
 import type { AccesCours } from '@/lib/accesCours'
 

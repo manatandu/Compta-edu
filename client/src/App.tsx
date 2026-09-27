@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useIdleTimer } from '@/hooks/useIdleTimer'
 import IdleWarningModal from '@/components/IdleWarningModal'
 import { Router, Route, Switch, Redirect } from 'wouter'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import type { User } from '@/lib/db'
 import { logoutAsync, getCurrentUserAsync, initCoursSystemeAsync } from '@/lib/db-firebase'
 import { isProfRole } from '@/lib/permissions'
@@ -26,9 +26,6 @@ const LoginPage = React.lazy(() => import('@/pages/LoginPage'))
 const DashboardPage = React.lazy(() => import('@/pages/DashboardPage'))
 const PageIntrouvable = React.lazy(() => import('@/pages/PageIntrouvable'))
 const JournalPage = React.lazy(() => import('@/pages/JournalPage'))
-const GrandLivrePage = React.lazy(() => import('@/pages/GrandLivrePage'))
-const BalancePage = React.lazy(() => import('@/pages/BalancePage'))
-const BilanPage = React.lazy(() => import('@/pages/BilanPage'))
 const PlanComptablePage = React.lazy(() => import('@/pages/PlanComptablePage'))
 const ExercicesPage = React.lazy(() => import('@/pages/ExercicesPage'))
 const ExerciceDetailPage = React.lazy(() => import('@/pages/ExerciceDetailPage'))
@@ -47,11 +44,9 @@ const DebuggingAdminPage = React.lazy(() => import('@/pages/DebuggingAdminPage')
 const GestionStockPage = React.lazy(() => import('@/pages/GestionStockPage'))
 const EmpruntsPage = React.lazy(() => import('@/pages/EmpruntsPage'))
 const FacturesDevisesPage = React.lazy(() => import('@/pages/FacturesDevisesPage'))
-const StockArticlesPage = React.lazy(() => import('@/pages/StockArticlesPage'))
 const StockMouvementPage = React.lazy(() => import('@/pages/StockMouvementPage'))
 const StockFichePage = React.lazy(() => import('@/pages/StockFichePage'))
 const StockJournalPage = React.lazy(() => import('@/pages/StockJournalPage'))
-const StockExercicePage = React.lazy(() => import('@/pages/StockExercicePage'))
 const MesCoursPage = React.lazy(() => import('@/pages/MesCoursPage'))
 const ChapitrePage = React.lazy(() => import('@/pages/ChapitrePage'))
 const SommaireModulePage = React.lazy(() => import('@/pages/SommaireModulePage'))
@@ -182,25 +177,22 @@ export default function App() {
           <W user={user} onLogout={handleLogout}><DashboardPage /></W>
         </Route>
 
-        {/* ── Comptabilité Générale (SYSCOHADA) ── */}
+        {/* ── Comptabilité Générale (SYSCOHADA) ──
+            Grand livre, balance, bilan, compte de résultat et les pages de stock
+            vivent comme onglets de leur hub ; leurs anciennes adresses
+            autonomes, que plus aucun lien n'utilisait, redirigent vers le bon
+            onglet. Le journal garde sa page : il reçoit une session en
+            paramètre (?session=) depuis l'aperçu d'un devoir. */}
         <Route path="/comptabilite-generale">
           <W user={user} onLogout={handleLogout}><ComptabiliteGeneralePage /></W>
         </Route>
         <Route path="/journal">
           <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><JournalPage /></ModuleProvider></W>
         </Route>
-        <Route path="/grand-livre">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><GrandLivrePage /></ModuleProvider></W>
-        </Route>
-        <Route path="/balance">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><BalancePage /></ModuleProvider></W>
-        </Route>
-        <Route path="/bilan">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><BilanPage mode="bilan" /></ModuleProvider></W>
-        </Route>
-        <Route path="/compte-resultat">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><BilanPage mode="cr" /></ModuleProvider></W>
-        </Route>
+        <Route path="/grand-livre"><Redirect to="/docs-comptables-hub?onglet=grand-livre" /></Route>
+        <Route path="/balance"><Redirect to="/docs-comptables-hub?onglet=balance" /></Route>
+        <Route path="/bilan"><Redirect to="/etats-financiers-hub?onglet=bilan" /></Route>
+        <Route path="/compte-resultat"><Redirect to="/etats-financiers-hub?onglet=compte-resultat" /></Route>
         <Route path="/plan-comptable">
           <W user={user} onLogout={handleLogout}><PlanComptablePage /></W>
         </Route>
@@ -220,24 +212,18 @@ export default function App() {
         <Route path="/stock">
           {() => <ProtectedRoute component={GestionStockPage} user={user} onLogout={handleLogout} />}
         </Route>
-        <Route path="/stock/articles">
-          {() => <ProtectedRoute component={StockArticlesPage} user={user} onLogout={handleLogout} />}
-        </Route>
+        <Route path="/stock/articles"><Redirect to="/stock?onglet=articles" /></Route>
         <Route path="/stock/mouvement/:id">
           {() => <ProtectedRoute component={StockMouvementPage} user={user} onLogout={handleLogout} />}
         </Route>
         <Route path="/stock/fiche/:id">
           {() => <ProtectedRoute component={StockFichePage} user={user} onLogout={handleLogout} />}
         </Route>
-        <Route path="/stock/journal">
-          {() => <ProtectedRoute component={StockJournalPage} user={user} onLogout={handleLogout} />}
-        </Route>
+        <Route path="/stock/journal"><Redirect to="/stock?onglet=journal" /></Route>
         <Route path="/stock/journal/:id">
           {() => <ProtectedRoute component={StockJournalPage} user={user} onLogout={handleLogout} />}
         </Route>
-        <Route path="/stock/exercice">
-          {() => <ProtectedRoute component={StockExercicePage} user={user} onLogout={handleLogout} />}
-        </Route>
+        <Route path="/stock/exercice"><Redirect to="/stock?onglet=exercice" /></Route>
         <Route path="/charges-personnel/irpp">
           <W user={user} onLogout={handleLogout}><ChargesPersonnelIRPPPage /></W>
         </Route>

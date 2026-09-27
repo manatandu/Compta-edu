@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { ArrowDownCircle, ArrowUpCircle, Check, AlertCircle } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'

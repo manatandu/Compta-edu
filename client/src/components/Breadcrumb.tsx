@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { ChevronRight, Home } from 'lucide-react'
 import { cn } from '@/lib/utils'
 

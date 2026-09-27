@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import {
   BookOpen, Upload, Check, AlertCircle, ChevronRight
 } from 'lucide-react'

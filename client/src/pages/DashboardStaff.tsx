@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import {
   BookOpen, BookMarked, ClipboardList, Clock, Users, GraduationCap,
 } from 'lucide-react'

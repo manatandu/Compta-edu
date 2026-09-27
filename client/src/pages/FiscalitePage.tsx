@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import BackButton from '@/components/BackButton'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { useNav } from '@/lib/navContext'
 import { InfoTooltip } from '@/components/InfoTooltip'
 // Les quatre grands simulateurs (TVA, autres impôts, douane, mines : plus de

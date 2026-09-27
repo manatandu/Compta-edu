@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import BackButton from '@/components/BackButton'
 import {
   ChevronRight, Sparkles, FolderOpen, Package, Receipt, Building2,

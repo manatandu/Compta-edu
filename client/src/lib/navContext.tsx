@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 
 // Contexte de navigation : paramètres entre pages
 

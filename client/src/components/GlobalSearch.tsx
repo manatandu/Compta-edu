@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { Search, X, BookOpen, Building2, ClipboardList, GraduationCap, BookMarked } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { User } from '@/lib/db'
-import { isStaffRole, isStudentRole } from '@/lib/permissions'
+import { isAdminRole, isStaffRole, isStudentRole } from '@/lib/permissions'
 import { useUniversites, useAllCours, useAllDevoirs } from '@/lib/useFirestore'
 import { getUsersCacheAsync } from '@/lib/db-firebase'
 // Le dictionnaire (plus de 600 termes, environ 400 Ko) n'est pas importé
@@ -128,15 +128,17 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
           label: c.nom,
           sublabel: c.moduleKey || undefined,
           type: 'cours',
-          // Étudiant : sa liste de cours (pas juste le dashboard générique).
-          // Admin : onglet Cours de la gestion, explicite pour rester valide
-          // même si l'onglet par défaut de ProfesseurPage change un jour.
-          path: isStudent ? '/mes-cours' : '/professeurs?tab=cours',
+          // Le résultat ouvre le cours lui-même (sommaire du manuel, module
+          // Fiscalité ou Comptabilité générale). Il menait auparavant à
+          // l'onglet Cours de l'espace pédagogique, réservé à l'administrateur :
+          // un professeur y arrivait sans rien trouver.
+          path: c.moduleKey ? `/${c.moduleKey}` : '/mes-cours',
         })
       })
 
-    // Universités : admins/profs seulement
-    if (canAdmin) {
+    // Universités : administrateur seulement - le résultat ouvre l'onglet
+    // Universités de l'espace pédagogique, qui lui est réservé.
+    if (isAdminRole(user)) {
       universites
         .filter(u => (u.nom || '').toLowerCase().includes(q))
         .slice(0, 2)

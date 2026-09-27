@@ -1,4 +1,4 @@
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { Compass } from 'lucide-react'
 
 // ─────────────────────────────────────────────────────────────────────────────

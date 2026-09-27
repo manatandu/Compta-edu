@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
 import { useEquipe } from '@/lib/equipe'
 import { getUsersByIdsAsync, getFichesAnnuaireAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
