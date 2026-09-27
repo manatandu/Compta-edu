@@ -1,11 +1,12 @@
 import { useUser } from '@/lib/userContext'
-import { isStudentRole } from '@/lib/permissions'
+import { isStudentRole, isAdminRole } from '@/lib/permissions'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
 import React, { useState, useEffect } from 'react'
 import BackButton from '@/components/BackButton'
 import { useNav } from '@/lib/navContext'
-import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, getUsersCacheAsync } from '@/lib/db-firebase'
+import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, getUsersCacheAsync, getEtudiantsCreesParAsync, getCoursTries, deleteStorageFile } from '@/lib/db-firebase'
 import { uploadDocumentFile } from '@/lib/db-firebase'
-import { useAllCours } from '@/lib/useFirestore'
+import { useAllCours, useAllFacultes } from '@/lib/useFirestore'
 // PROMOTIONS statique supprimé - on dérive depuis les cours réels
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -187,6 +188,27 @@ export default function DocumentsPage() {
   const userPromotion: string = (user as any)?.classe || ''
   const userCoursIds: string[] = (user as any)?.coursIds || []
 
+  // Portée de l'enseignant : ses documents et les cours de ses étudiants
+  // (équipe pédagogique), comme dans l'Espace pédagogique. L'administrateur
+  // voit tout. Un enseignant voyait jusqu'ici les documents de tous, avec un
+  // bouton Supprimer que Firestore refusait sans message.
+  const equipe = useEquipe()
+  const estAdmin = isAdminRole(user)
+  const deLEquipe = (d: any) => estAdmin || creeParEquipe(d.createdBy || d.userId, equipe)
+  const { facultes: toutesFacultes } = useAllFacultes()
+  const [coursEquipeIds, setCoursEquipeIds] = useState<Set<string>>(new Set())
+  React.useEffect(() => {
+    if (!user?.id || isEtudiant || estAdmin) return
+    getEtudiantsCreesParAsync({ id: user.id, username: (user as any).username }, undefined, equipe?.refs || [])
+      .then(etus => setCoursEquipeIds(new Set(etus.flatMap(e => (e as any).coursIds || []))))
+      .catch(() => {})
+  }, [user?.id, isEtudiant, estAdmin, equipe?.refs.join(',')])
+  // Cours proposés au dépôt : le document exact de chaque faculté, faculté
+  // dans le libellé (la liste montrait « UE 2 » autant de fois qu'il y a de
+  // facultés, sans les distinguer).
+  const coursProposes = getCoursTries(estAdmin ? allCours : allCours.filter(c => coursEquipeIds.has(c.id)))
+  const libelleCours = (c: any) => [c.nom, toutesFacultes.find(f => f.id === c.faculteId)?.nom, c.promotion].filter(Boolean).join(' · ')
+
   const [docs, setDocs] = useState<any[]>([])
   React.useEffect(() => {
     if (!user?.id) return
@@ -205,10 +227,10 @@ export default function DocumentsPage() {
         setDocs(merged.filter(d => { if (seen.has(d.id)) return false; seen.add(d.id); return true }))
       }).catch(() => {})
     } else {
-      // Prof/admin : voit tout
-      getDocumentsAsync(user?.id).then(setDocs).catch(() => {})
+      // Personnel : les documents de son équipe (tous pour l'administrateur)
+      getDocumentsAsync(user?.id).then(d => setDocs(d.filter(deLEquipe))).catch(() => {})
     }
-  }, [user?.id, isEtudiant, userPromotion, JSON.stringify(userCoursIds)])
+  }, [user?.id, isEtudiant, userPromotion, JSON.stringify(userCoursIds), equipe?.refs.join(',')])
 
   // Notes de cours : ISOLATION STRICTE - promotion + cours obligatoires
   const { notes: notesCours } = useNotesCours(
@@ -262,7 +284,7 @@ export default function DocumentsPage() {
       }
       await saveDocumentAsync(docData)
       const updated = await getDocumentsAsync(user?.id)
-      setDocs(updated)
+      setDocs(updated.filter(deLEquipe))
       setShowForm(false)
       setForm({ titre: '', contenu: '', type: 'cours', folderId: 'notes-cours', pdfNom: '', promotionId: '', coursId: '' })
       setDocFile(null)
@@ -276,12 +298,17 @@ export default function DocumentsPage() {
 
   const handleDelete = async () => {
     if (!deleteId) return
-    await deleteDocumentAsync(deleteId)
-    const promoFilter = isEtudiant ? userPromotion || undefined : undefined
-    const updated = await getDocumentsAsync(user?.id, promoFilter)
-    setDocs(updated)
+    const cible = docs.find(d => d.id === deleteId)
+    try {
+      await deleteDocumentAsync(deleteId)
+      // Le PDF téléversé ne restait plus rattaché à rien : supprimé aussi.
+      if (cible?.pdfUrl) deleteStorageFile(cible.pdfUrl).catch(() => {})
+      setDocs(prev => prev.filter(d => d.id !== deleteId))
+      toast({ title: 'Document supprimé', variant: 'destructive' })
+    } catch {
+      toast({ title: 'Erreur lors de la suppression', variant: 'destructive' })
+    }
     setDeleteId(null)
-    toast({ title: 'Document supprimé', variant: 'destructive' })
   }
 
   const handleDownloadSystem = () => {
@@ -689,7 +716,7 @@ export default function DocumentsPage() {
                                       <Eye className="h-3 w-3" />
                                     </Button>
                                   )}
-                                  {(canCreate || doc.userId === user?.id) && (
+                                  {canCreate && deLEquipe(doc) && (
                                     <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive" onClick={() => setDeleteId(doc.id)} aria-label={`Supprimer le document ${doc.titre}`}>
                                       <Trash2 className="h-3 w-3" />
                                     </Button>
@@ -750,16 +777,14 @@ export default function DocumentsPage() {
               <Select
                 value={form.coursId || '__none__'}
                 onValueChange={v => setForm(f => ({ ...f, coursId: v === '__none__' ? '' : v }))}
-                disabled={allCours.length === 0}
+                disabled={coursProposes.length === 0}
               >
                 <SelectTrigger className="mt-1">
-                  <SelectValue placeholder={allCours.length === 0 ? 'Aucun cours disponible' : 'Sélectionner un cours…'} />
+                  <SelectValue placeholder={coursProposes.length === 0 ? 'Aucun cours : inscrivez d\'abord vos étudiants à leurs cours' : 'Sélectionner un cours…'} />
                 </SelectTrigger>
                 <SelectContent>
-                  {allCours.filter(c => c.actif).map(c => (
-                    <SelectItem key={c.id} value={c.id}>
-                      {c.nom}{(c as any).promotion ? ` - ${(c as any).promotion}` : ''}
-                    </SelectItem>
+                  {coursProposes.map(c => (
+                    <SelectItem key={c.id} value={c.id}>{libelleCours(c)}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -770,7 +795,7 @@ export default function DocumentsPage() {
                 <GraduationCap className="h-4 w-4 text-green-600 shrink-0" />
                 <p className="text-xs text-green-700">
                   Visible uniquement aux étudiants inscrits au cours :
-                  <strong> {allCours.find(c => c.id === form.coursId)?.nom || form.coursId}</strong>
+                  <strong> {(() => { const c = allCours.find(c => c.id === form.coursId); return c ? libelleCours(c) : form.coursId })()}</strong>
                 </p>
               </div>
             ) : (

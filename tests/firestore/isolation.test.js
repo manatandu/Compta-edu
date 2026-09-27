@@ -1494,6 +1494,27 @@ describe('💬 Messages — Isolation par participant', () => {
     await assertSucceeds(getDocs(q))
   })
 
+  it('Un tiers ajouté aux participants par l\'expéditeur est REFUSÉ', async () => {
+    const ref = doc(db(USERS.etud1), 'messages', 'msg-tiers')
+    await assertFails(setDoc(ref, {
+      expediteurId: USERS.etud1.uid,
+      destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid, USERS.etud3.uid],
+      contenu: 'Bonjour', date: new Date().toISOString(), lu: false,
+    }))
+  })
+
+  it('Le destinataire marque le message comme lu, sans pouvoir en changer le texte', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await seedDoc('messages', 'msg1', {
+      expediteurId: USERS.etud1.uid, destinataireId: USERS.etud2.uid,
+      participants: [USERS.etud1.uid, USERS.etud2.uid], contenu: 'Bonjour', lu: false,
+    })
+    await assertSucceeds(updateDoc(doc(db(USERS.etud2), 'messages', 'msg1'), { lu: true }))
+    await assertFails(updateDoc(doc(db(USERS.etud2), 'messages', 'msg1'), { contenu: 'Texte réécrit' }))
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'messages', 'msg1'), { contenu: 'Texte réécrit' }))
+  })
+
   it('Une requête filtrée sur destinataireId (ancienne forme du client) est REFUSÉE, même pour le destinataire', async () => {
     await seedUsers(USERS.etud1, USERS.etud2)
     await seedDoc('messages', 'msg1', {

@@ -195,12 +195,17 @@ export async function loginAsync(username: string, password: string): Promise<Us
     // Lire le profil dans Firestore
     let userSnap = await getDoc(doc(db, C.USERS, uid))
 
-    // Si le profil Firestore n'existe pas → le recréer automatiquement
-    // (cas de migration : compte Auth existe mais Firestore vide)
+    // Profil absent : seul le compte administrateur principal est recréé
+    // (amorçage d'une base vide). Pour tout autre compte, un profil absent
+    // signifie qu'il a été supprimé : le recréer en étudiant actif annulait
+    // la suppression (le compte d'authentification, lui, subsiste).
     if (!userSnap.exists()) {
-      console.warn('Profil Firestore absent pour', username, '- reconstruction automatique')
-      // Déterminer le rôle : manasse.tandu est admin par défaut
       const isDefaultAdmin = username.toLowerCase() === 'manasse.tandu'
+      if (!isDefaultAdmin) {
+        await signOut(auth)
+        throw new Error('COMPTE_SUPPRIME')
+      }
+      console.warn('Profil Firestore absent pour', username, '- reconstruction automatique')
       const reconstructed: User = {
         id: uid,
         username: username.toLowerCase(),
@@ -229,7 +234,7 @@ export async function loginAsync(username: string, password: string): Promise<Us
     return { ...user, password: undefined }
   } catch (e: any) {
     // Propager les erreurs métier (compte en attente, refusé, inactif)
-    if (e.message === 'COMPTE_EN_ATTENTE' || e.message === 'COMPTE_REFUSE' || e.message === 'COMPTE_INACTIF') {
+    if (e.message === 'COMPTE_EN_ATTENTE' || e.message === 'COMPTE_REFUSE' || e.message === 'COMPTE_INACTIF' || e.message === 'COMPTE_SUPPRIME') {
       throw e
     }
     console.error('Login error:', e.code, e.message)
@@ -411,18 +416,32 @@ export async function getCurrentUserAsync(fbUser?: FirebaseUser | null): Promise
   const snap = await getDoc(doc(db, C.USERS, uid))
   if (snap.exists()) {
     const user = fromDoc<User>(snap)
+    // Reprise de session (rechargement de la page) : même contrôle qu'à la
+    // connexion. Un compte suspendu, refusé ou en attente retrouvait sinon
+    // l'application au simple rechargement.
+    if (user.actif === false) {
+      await signOut(auth).catch(() => {})
+      localStorage.removeItem('compta_current_user')
+      return null
+    }
     localStorage.setItem('compta_current_user', uid)
     void purgerMonMotDePasseStockeAsync(user)
     void publierMaFicheAnnuaireAsync(user)
     return { ...user, password: undefined }
   }
 
-  // Profil absent dans Firestore mais Firebase Auth est connecté
-  // → Reconstruire le profil automatiquement
+  // Profil absent dans Firestore mais Firebase Auth est connecté : seul
+  // l'administrateur principal est reconstruit (voir loginAsync). Un autre
+  // compte sans profil a été supprimé : session fermée.
   if (resolvedFbUser) {
     const email = resolvedFbUser.email || ''
     const username = email.replace('@campus-ohada.app', '')
     const isAdmin = username === 'manasse.tandu'
+    if (!isAdmin) {
+      await signOut(auth).catch(() => {})
+      localStorage.removeItem('compta_current_user')
+      return null
+    }
     const reconstructed: User = {
       id: resolvedFbUser.uid,
       username,

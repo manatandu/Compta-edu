@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { User } from '@/lib/db'
 import { loginAsync, createUserAsync } from '@/lib/db-firebase'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
+import { lireMotifDeconnexion } from '@/lib/session'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,6 +18,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  // Motif d'une déconnexion imposée (inactivité, compte suspendu ou supprimé)
+  const [motifDeconnexion] = useState(() => lireMotifDeconnexion())
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -53,7 +56,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     // compte existant (voir createUserAsync) au lieu de l'écraser silencieusement -
     // l'utilisateur devra alors ajuster ce champ, comme déjà indiqué à l'écran.
     setJoinUsername(`${n}.${p}`)
-    setJoinPassword(`${n.charAt(0)}${p}1`)
+    // Plus de mot de passe proposé : il se déduisait du nom (initiale +
+    // post-nom + « 1 ») et quiconque connaissait l'étudiant pouvait le deviner.
   }
 
   useEffect(() => {
@@ -86,6 +90,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     setJoinError('')
     if (!joinNom.trim() || !joinPostnom.trim() || !joinUsername.trim() || !joinPassword.trim()) {
       setJoinError('Nom, post-nom, identifiant et mot de passe sont obligatoires.')
+      return
+    }
+    if (joinPassword.trim().length < 8) {
+      setJoinError('Choisissez un mot de passe de 8 caractères au moins.')
       return
     }
     setJoinLoading(true)
@@ -145,6 +153,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         setError("Votre inscription a été refusée. Contactez votre professeur pour plus d'informations.")
       } else if (msg === 'COMPTE_INACTIF') {
         setError("Ce compte est suspendu. Contactez votre professeur.")
+      } else if (msg === 'COMPTE_SUPPRIME') {
+        setError("Ce compte a été supprimé. Contactez votre professeur.")
       } else {
         setError("Nom d'utilisateur ou mot de passe incorrect.")
       }
@@ -299,6 +309,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </div>
 
             {/* Erreur */}
+            {motifDeconnexion && !error && (
+              <div className="flex items-center gap-2 text-amber-800 text-sm p-3 bg-amber-50 rounded-lg border border-amber-200">
+                <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                {motifDeconnexion}
+              </div>
+            )}
             {error && (
               <div className="flex items-center gap-2 text-destructive text-sm p-3 bg-destructive/10 rounded-lg border border-destructive/20 animate-slideDown">
                 <AlertCircle className="h-4 w-4 flex-shrink-0" />
@@ -432,11 +448,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                     />
                     <p className="text-xs text-muted-foreground mt-0.5">Format : nom.post-nom : modifiable si déjà pris.</p>
                   </div>
-                  {/* Mot de passe auto-généré : visible, modifiable */}
+                  {/* Mot de passe choisi par l'étudiant */}
                   <div>
                     <div className="flex items-center justify-between">
                       <Label>Mot de passe *</Label>
-                      {joinPassword && <span className="text-xs text-green-600 font-medium">✓ Généré automatiquement</span>}
                     </div>
                     <div className="relative mt-1">
                       <Input
@@ -451,7 +466,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                         {joinShowPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">Format : initiale + post-nom + numéro d'ordre. Notez-le bien !</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">8 caractères au moins, que vous seul connaissez. Notez-le bien !</p>
                   </div>
                   {joinError && (
                     <div className="flex items-center gap-2 text-destructive text-sm p-3 bg-destructive/10 rounded-lg border border-destructive/20">

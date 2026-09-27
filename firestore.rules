@@ -284,9 +284,16 @@ service cloud.firestore {
     // ─── MESSAGES ────────────────────────────────────────────────────────────
     // Isolation : un message n'est lisible/modifiable que par l'expéditeur ou le
     // destinataire (champ 'participants' = [expediteurId, destinataireId]).
+    // Création : les participants sont exactement l'expéditeur et le
+    // destinataire (un tiers ajouté à la liste lisait la conversation).
+    // Modification : le destinataire marque le message comme lu, rien d'autre
+    // (tout participant pouvait réécrire le texte de l'autre).
     match /messages/{messageId} {
-      allow read, update, delete: if isAuth() && request.auth.uid in resource.data.participants;
-      allow create: if isAuth() && request.resource.data.expediteurId == request.auth.uid;
+      allow read, delete: if isAuth() && request.auth.uid in resource.data.participants;
+      allow create: if isAuth() && request.resource.data.expediteurId == request.auth.uid &&
+        request.resource.data.participants == [request.auth.uid, request.resource.data.destinataireId];
+      allow update: if isAuth() && request.auth.uid == resource.data.destinataireId &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lu']);
     }
 
     // ─── CODES D'ACCÈS ─────────────────────────────────────────────────────────
