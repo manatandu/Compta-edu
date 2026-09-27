@@ -362,6 +362,18 @@ service cloud.firestore {
       allow update, delete: if isProf() && createdBy();
     }
 
+    // ─── CORRIGÉS DES DEVOIRS À QUESTIONS RÉDIGÉES ───────────────────────────
+    // Réponses attendues, séparées du devoir que lisent les étudiants :
+    // lecture et modification par l'équipe pédagogique du créateur du devoir
+    // (proposition de note par l'IA), jamais par un étudiant. Création dans
+    // le même lot que le devoir (getAfter), par son auteur.
+    match /devoirs_corriges/{devoirId} {
+      allow read, update, delete: if isProf() && (ownsVia('devoirs', devoirId) || isAdmin());
+      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.devoirId == devoirId &&
+        getAfter(/databases/$(database)/documents/devoirs/$(devoirId)).data.get('createdBy', '') == request.auth.uid;
+    }
+
     // ─── SOUMISSIONS (réponses aux devoirs) ──────────────────────────────────
     // Isolation : par étudiant ET par devoir.
     // Copie rendue par un étudiant : pour lui-même, sur un devoir d'un cours
@@ -422,6 +434,8 @@ service cloud.firestore {
       //   professeur était refusée par Firestore.
       allow update: if (
           ownsResource('etudiantId') && !estQCM(resource.data.devoirId) &&
+          // Copie déjà notée : plus de retouche des réponses.
+          !resource.data.keys().hasAny(['note']) &&
           !request.resource.data.diff(resource.data).affectedKeys().hasAny(champsCorrection())
         ) || (
           isProf() && (ownsVia('devoirs', resource.data.devoirId) || isAdmin()) &&

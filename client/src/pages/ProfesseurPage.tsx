@@ -14,7 +14,7 @@ import {
   calculerCote, devoirConcerneEtudiant, estNotee, estACorriger, baremeDevoir, formaterNote, formaterNombre,
   noteDeCopie, partieQCMDeCopie, type Cote,
 } from '@/lib/cotes'
-import { proposerNoteCas, type PropositionCas } from '@/lib/iaCorrection'
+import { proposerNoteCas, avecCorriges, type PropositionCas } from '@/lib/iaCorrection'
 import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
   createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
@@ -23,7 +23,7 @@ import {
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
   updateCoursAsync, deleteCoursAsync, provisionCoursManquantsAsync,
   updateDevoirAsync, deleteDevoirAsync,
-  corrigerSoumissionAsync, getEcrituresAsync,
+  corrigerSoumissionAsync, getEcrituresAsync, getCorrigesDevoirAsync,
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
   onCoursStatutsParCreateur, COURS_SYSTEME, getCoursTries,
@@ -456,6 +456,16 @@ export default function ProfesseurPage() {
   const [propositionErreur, setPropositionErreur] = useState('')
   useEffect(() => { setPropositionIA(null); setPropositionErreur('') }, [correctionSoumId])
   const [viewSoumission, setViewSoumission] = useState<Soumission | null>(null)
+  // Réponses attendues du devoir à questions rédigées de la copie affichée.
+  const [corrigesVus, setCorrigesVus] = useState<Record<string, string>>({})
+  useEffect(() => {
+    setCorrigesVus({})
+    const dev = viewSoumission ? devoirsList.find(d => d.id === viewSoumission.devoirId) : undefined
+    if (dev?.type !== 'redaction') return
+    let actif = true
+    getCorrigesDevoirAsync(dev.id).then(c => { if (actif) setCorrigesVus(c) }).catch(() => {})
+    return () => { actif = false }
+  }, [viewSoumission?.id])
   const [editUniId, setEditUniId] = useState<string | null>(null)
   const [deleteUniId, setDeleteUniId] = useState<string | null>(null)
   const [uniForm, setUniForm] = useState(emptyUniForm)
@@ -601,7 +611,9 @@ export default function ProfesseurPage() {
     if (!soum || !dev?.casPratiques?.length) return
     setPropositionEnCours(true); setPropositionErreur('')
     try {
-      setPropositionIA(await proposerNoteCas(dev.casPratiques, soum.reponsesCasPratiques || {}))
+      // Questions rédigées : réponses attendues rangées à part, réservées à l'équipe.
+      const cas = dev.type === 'redaction' ? avecCorriges(dev.casPratiques, await getCorrigesDevoirAsync(dev.id)) : dev.casPratiques
+      setPropositionIA(await proposerNoteCas(cas, soum.reponsesCasPratiques || {}))
     } catch (e) {
       console.error('Proposition IA :', e)
       setPropositionErreur("L'IA n'a pas pu proposer de note. Réessayez dans un instant, ou notez vous-même.")
@@ -2935,7 +2947,7 @@ export default function ProfesseurPage() {
                 Partie QCM déjà calculée : <strong>{formaterNote(partieQCM, 10)}</strong>. Notez les cas pratiques sur 10 ; la note finale est leur somme, sur 20.
               </p>
             )}
-            {dev?.type === 'qcm_cas' && !!dev.casPratiques?.length && (
+            {(dev?.type === 'qcm_cas' || dev?.type === 'redaction') && !!dev.casPratiques?.length && (
               <div className="rounded-md border border-border p-3 space-y-2">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-xs font-semibold">Proposition de l'IA</p>
@@ -2956,7 +2968,7 @@ export default function ProfesseurPage() {
                       ))}
                     </ul>
                     <Button size="sm" className="h-7 text-xs w-full" onClick={reprendrePropositionIA}>
-                      Reprendre la proposition ({propositionIA.reduce((a, p) => a + p.score, 0)}/10)
+                      Reprendre la proposition ({propositionIA.reduce((a, p) => a + p.score, 0)}/{propositionIA.reduce((a, p) => a + p.pointsMax, 0)})
                     </Button>
                   </>
                 )}
@@ -3035,8 +3047,8 @@ export default function ProfesseurPage() {
                   </p>
                 )}
 
-                {/* QCM + cas pratiques : partie QCM et réponses aux cas, avec le corrigé type */}
-                {devType === 'qcm_cas' && (
+                {/* QCM + cas pratiques ou questions rédigées : réponses, avec le corrigé type */}
+                {(devType === 'qcm_cas' || devType === 'redaction') && (
                   <div className="space-y-3">
                     {typeof viewSoumission.scoreQCMCas === 'number' && (
                       <p className="text-xs text-muted-foreground">
@@ -3053,7 +3065,7 @@ export default function ProfesseurPage() {
                         </div>
                         <details className="text-xs">
                           <summary className="cursor-pointer text-primary">Corrigé type</summary>
-                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{cas.corrigeType}</pre>
+                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{(devType === 'redaction' ? corrigesVus[cas.id] : cas.corrigeType) || '(aucun corrigé)'}</pre>
                         </details>
                       </div>
                     ))}

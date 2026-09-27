@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { corrigerQCMChapitre, corrigerQCMClassique, partieQCMSur10, borneScoreCas } from '@/lib/correctionQCM'
-import { noteDeCopie, partieQCMDeCopie } from '@/lib/cotes'
-import { consigneCorrection } from '@/lib/iaCorrection'
+import { corrigerQCMChapitre, corrigerQCMClassique, partieQCMSur10, borneScoreCas, repartirPoints } from '@/lib/correctionQCM'
+import { noteDeCopie, partieQCMDeCopie, baremeDevoir, estDevoirChapitre } from '@/lib/cotes'
+import { consigneCorrection, avecCorriges } from '@/lib/iaCorrection'
 
 const q = (id: string, bonne: string) => ({ id, reponseCorrecte: bonne })
 const copie = (o: any = {}): any => ({ id: 's', devoirId: 'd', etudiantId: 'e', dateSoumission: '2026-09-27', statut: 'note', ...o })
@@ -68,5 +68,30 @@ describe('Consigne donnée à l\'IA', () => {
   it('signale une réponse vide et tronque une réponse trop longue', () => {
     expect(consigneCorrection(cas, {})).toContain('(aucune réponse)')
     expect(consigneCorrection(cas, { c1: 'x'.repeat(9000) })).toContain('x'.repeat(8000) + '\n</reponse>')
+  })
+})
+
+describe('Devoir à questions rédigées', () => {
+  it('20 points répartis entre les questions, le reste sur la dernière', () => {
+    expect(repartirPoints(1)).toEqual([20])
+    expect(repartirPoints(3)).toEqual([6, 6, 8])
+    expect(repartirPoints(5)).toEqual([4, 4, 4, 4, 4])
+    expect(repartirPoints(0)).toEqual([])
+    for (const n of [1, 2, 3, 4, 5]) expect(repartirPoints(n).reduce((a, b) => a + b, 0)).toBe(20)
+  })
+  it('noté sur 20, avec les devoirs de chapitre, et par l\'enseignant', () => {
+    expect(baremeDevoir({ type: 'redaction' })).toBe(20)
+    expect(estDevoirChapitre({ type: 'redaction' })).toBe(true)
+    expect(noteDeCopie(copie({ note: 15 }), { type: 'redaction' } as any)).toBe(15)
+  })
+  it('réponses attendues réunies aux questions pour la proposition de l\'IA', () => {
+    const questions: any[] = [
+      { id: 'q1', titre: 'Q1', enonce: 'É1', corrigeType: '', pointsMax: 10 },
+      { id: 'q2', titre: 'Q2', enonce: 'É2', corrigeType: '', pointsMax: 10 },
+    ]
+    const r = avecCorriges(questions, { q1: 'Attendu 1' })
+    expect(r[0].corrigeType).toBe('Attendu 1')
+    expect(r[1].corrigeType).toBe('')
+    expect(consigneCorrection(r, {})).toContain('aucun corrigé fourni')
   })
 })

@@ -41,3 +41,12 @@ export function corrigerQCMClassique(questions: QuestionClassiqueCorrigee[], rep
 export function borneScoreCas(score: number, pointsMax: number): number {
   return Math.max(0, Math.min(pointsMax, Math.round(score)))
 }
+
+// Barème d'un devoir à questions rédigées : total réparti également entre les
+// questions, en points entiers, le reste de la division sur la dernière
+// (20 pour 3 questions : 6 + 6 + 8).
+export function repartirPoints(nb: number, total = 20): number[] {
+  if (nb <= 0) return []
+  const base = Math.floor(total / nb)
+  return Array.from({ length: nb }, (_, i) => i < nb - 1 ? base : total - base * (nb - 1))
+}

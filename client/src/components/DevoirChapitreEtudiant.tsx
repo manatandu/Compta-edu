@@ -1,9 +1,10 @@
 /**
  * DevoirChapitreEtudiant.tsx
  * Affiché dans le Dashboard étudiant - onglet "Mes devoirs"
- * Gère deux types de devoirs depuis les chapitres UE :
+ * Gère trois types de devoirs depuis les chapitres UE :
  *   - qcm_chapitre : N QCM (sélection libre) × 1pt → note ramenée /20
- *   - qcm_cas      : N QCM (10 pts) + cas pratiques évalués par Gemini (10 pts) = /20
+ *   - qcm_cas      : N QCM (10 pts) + cas pratiques corrigés par l'enseignant (10 pts) = /20
+ *   - redaction    : questions à réponse rédigée, corrigées par l'enseignant = /20
  *
  * Barème : toujours /20. Note stockée = note finale sur 20 (voir
  * baremeDevoir, lib/cotes.ts, qui lit chaque note avec son barème).
@@ -16,7 +17,7 @@ import {
 import { cn } from '@/lib/utils'
 import { Devoir, Soumission, QCMChapitre, CasPratique } from '@/lib/db'
 import { createSoumissionAsync } from '@/lib/db-firebase'
-import { estACorriger, formaterNombre, noteDeCopie } from '@/lib/cotes'
+import { estACorriger, estDevoirChapitre, formaterNombre, noteDeCopie } from '@/lib/cotes'
 import { corrigerQCMChapitre, partieQCMSur10 } from '@/lib/correctionQCM'
 import { promotionCorrespond } from '@/lib/promotion'
 
@@ -286,6 +287,95 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
   return null
 }
 
+// ─── Composant : Passer un devoir à questions rédigées ────────────────────────
+
+// Les réponses partent en correction chez l'enseignant, qui peut s'aider
+// d'une proposition de l'IA. Les réponses attendues ne sont pas dans le
+// devoir : l'étudiant ne peut pas les lire.
+function PasserRedaction({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
+  const questionsRedigees: CasPratique[] = devoir.casPratiques || []
+  const [reponses, setReponses] = useState<Record<string, string>>({})
+  const [loading, setLoading] = useState(false)
+  const [erreur, setErreur] = useState('')
+  const [envoye, setEnvoye] = useState(false)
+  const toutesRemplies = questionsRedigees.every(q => (reponses[q.id] || '').trim())
+
+  const handleSoumettre = async () => {
+    if (!toutesRemplies) return
+    setLoading(true)
+    setErreur('')
+    try {
+      const soumission = await createSoumissionAsync({
+        devoirId: devoir.id,
+        etudiantId,
+        reponsesCasPratiques: Object.fromEntries(questionsRedigees.map(q => [q.id, reponses[q.id].trim()])),
+      } as any)
+      setEnvoye(true)
+      onSoumis(soumission)
+    } catch (e) {
+      console.error(e)
+      setErreur('Envoi impossible pour le moment. Vérifiez votre connexion, puis réessayez.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (envoye) {
+    return (
+      <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-center space-y-2">
+        <FileText className="h-8 w-8 mx-auto text-indigo-600" />
+        <p className="text-sm font-semibold text-foreground">Devoir soumis</p>
+        <p className="text-xs text-indigo-800">
+          Vos réponses ont été transmises à votre professeur. La note s'affichera ici après sa correction.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 text-xs text-indigo-800">
+        <p className="font-semibold mb-1">Questions à réponse rédigée - /20</p>
+        <p>Répondez avec vos mots : c'est l'exactitude et la logique comptable qui sont évaluées.</p>
+      </div>
+      {questionsRedigees.map((q, i) => (
+        <div key={q.id} className="rounded-xl border border-border bg-card p-4 space-y-3">
+          <div className="flex items-start gap-2">
+            <span className="h-6 w-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center shrink-0">{i + 1}</span>
+            <div className="flex-1">
+              <p className="text-xs font-semibold text-foreground">{q.titre}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{q.pointsMax} point{q.pointsMax > 1 ? 's' : ''}</p>
+            </div>
+          </div>
+          {q.enonce && q.enonce !== q.titre && (
+            <div className="rounded-lg bg-muted/40 p-3 text-xs text-foreground leading-relaxed whitespace-pre-wrap border border-border">{q.enonce}</div>
+          )}
+          <textarea
+            rows={5}
+            className="w-full rounded-lg border border-border bg-background text-xs text-foreground p-2.5 resize-y focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-muted-foreground/50"
+            placeholder="Rédigez votre réponse ici..."
+            aria-label={`Réponse à la question ${i + 1}`}
+            value={reponses[q.id] || ''}
+            onChange={e => setReponses(r => ({ ...r, [q.id]: e.target.value }))}
+          />
+        </div>
+      ))}
+      <button
+        onClick={handleSoumettre}
+        disabled={!toutesRemplies || loading}
+        className={cn(
+          'w-full flex items-center justify-center gap-2 text-xs font-semibold rounded-xl py-3 transition-colors',
+          toutesRemplies && !loading ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-muted text-muted-foreground cursor-not-allowed'
+        )}
+      >
+        {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Envoi en cours...</> : <><CheckCircle2 className="h-4 w-4" /> Soumettre mes réponses</>}
+      </button>
+      {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
+      <p className="text-xs text-muted-foreground text-center">Une fois soumis, vous ne pourrez plus modifier vos réponses.</p>
+    </div>
+  )
+}
+
 // ─── Affichage résultat QCM chapitre ──────────────────────────────────────────
 
 interface ResultatQCMDisplayProps {
@@ -537,6 +627,11 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
                   QCM+Cas
                 </span>
               )}
+              {devoir.type === 'redaction' && (
+                <span className="text-xs px-1.5 py-0.5 rounded bg-sky-100 text-sky-700 font-medium shrink-0">
+                  Rédaction
+                </span>
+              )}
             </div>
             <div className="flex items-center gap-2 mt-0.5 flex-wrap">
               <span className="text-xs text-muted-foreground">{devoir.chapitreNom}</span>
@@ -567,6 +662,12 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
               <XCircle className="h-8 w-8 mx-auto text-red-400 mb-2" />
               La date limite est dépassée. Ce devoir ne peut plus être soumis.
             </div>
+          ) : devoir.type === 'redaction' ? (
+            <PasserRedaction
+              devoir={devoir}
+              etudiantId={etudiantId}
+              onSoumis={onSoumis}
+            />
           ) : devoir.type === 'qcm_cas' ? (
             <PasserQCMCas
               devoir={devoir}
@@ -681,7 +782,8 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
     )
   }
 
-  // Devoir noté - qcm_chapitre classique
+  // Devoir noté par l'enseignant (questions rédigées, QCM + cas) ou QCM de
+  // chapitre : note, commentaire de l'enseignant et réponses rendues.
   return (
     <div className="space-y-3">
       <div className={cn(
@@ -702,6 +804,27 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
           Soumis le {new Date(soumission.dateSoumission).toLocaleDateString('fr-FR')}
         </p>
       </div>
+      {soumission.commentaire && (
+        <div className="rounded-lg border border-border bg-muted/30 p-3 text-xs">
+          <p className="font-semibold text-foreground mb-1">Commentaire du professeur</p>
+          <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed">{soumission.commentaire}</p>
+        </div>
+      )}
+      {soumission.reponsesCasPratiques && !!devoir.casPratiques?.length && (
+        <details className="text-xs">
+          <summary className="cursor-pointer text-indigo-600 font-medium hover:underline py-1">
+            Voir mes réponses rédigées
+          </summary>
+          <div className="space-y-2 mt-2">
+            {devoir.casPratiques.map(q => (
+              <div key={q.id} className="rounded-lg border border-border p-3 space-y-1">
+                <p className="font-semibold text-foreground">{q.titre}</p>
+                <p className="whitespace-pre-wrap text-muted-foreground">{soumission.reponsesCasPratiques?.[q.id] || '(aucune réponse)'}</p>
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
       {soumission.detailsQCMChapitre && devoir.questionsChapitre && (
         <details className="text-xs">
           <summary className="cursor-pointer text-indigo-600 font-medium hover:underline py-1">
@@ -733,10 +856,10 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
 
   const toutesLesSoumissions = [...soumissions, ...soumissionsLocales]
 
-  // Devoirs des chapitres UE (qcm_chapitre + qcm_cas) ciblant cette
-  // promotion, comparée par son code (« L1 Comptabilité » vaut L1).
+  // Devoirs des chapitres UE (QCM, QCM + cas, questions rédigées) ciblant
+  // cette promotion, comparée par son code (« L1 Comptabilité » vaut L1).
   const devoirsFiltres = devoirs.filter(d =>
-    (d.type === 'qcm_chapitre' || d.type === 'qcm_cas') &&
+    estDevoirChapitre(d) &&
     promotionCorrespond(d.promotionId, promotionId)
   )
 
