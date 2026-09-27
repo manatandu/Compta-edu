@@ -30,6 +30,9 @@ interface NavItem {
 // Items hors dossiers (communs à tous)
 const topItems: NavItem[] = [
   { path: '/', label: 'Tableau de bord', icon: <LayoutDashboard className="h-4 w-4" /> },
+  // Les cours sont le cœur du logiciel : ils n'avaient pas d'entrée dans le
+  // menu sur ordinateur (seulement sur mobile et en tuile d'accueil).
+  { path: '/mes-cours', label: 'Mes cours', icon: <BookOpen className="h-4 w-4" /> },
   { path: '/exercices', label: 'Exercices', icon: <GraduationCap className="h-4 w-4" /> },
   { path: '/documents', label: 'Documents', icon: <FolderOpen className="h-4 w-4" /> },
 

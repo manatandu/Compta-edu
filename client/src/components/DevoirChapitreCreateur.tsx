@@ -99,6 +99,8 @@ interface Props {
   casPratiquesExistants?: CasPratiqueExistant[]
   universiteId?: string
   faculteId?: string
+  // Formulaire déplié d'emblée (vue « devoir » du chapitre, où il est seul).
+  ouvertParDefaut?: boolean
 }
 
 // ─── Composant principal ──────────────────────────────────────────────────────
@@ -106,7 +108,7 @@ interface Props {
 export default function DevoirChapitreCreateur({
   chapitreId, chapitreNom, questions, coursId,
   casPratiquesExistants = [],
-  universiteId: uniIdProp, faculteId: facIdProp,
+  universiteId: uniIdProp, faculteId: facIdProp, ouvertParDefaut = false,
 }: Props) {
 
   // Profil de la session Firebase. L'ancien getCurrentUser() lisait une liste
@@ -115,7 +117,7 @@ export default function DevoirChapitreCreateur({
   const user = useUser()
 
   // Ouverture/fermeture
-  const [ouvert, setOuvert] = useState(false)
+  const [ouvert, setOuvert] = useState(ouvertParDefaut)
 
   // Devoir noté (envoyé, corrigé/évalué, avec date limite) ou exercice libre
   // (entraînement sans note ni date limite, disponible dans le module
@@ -368,7 +370,9 @@ export default function DevoirChapitreCreateur({
       setSucces(true)
       setSelection(new Set())
       setSelectionCas(new Set())
-      setTimeout(() => { setSucces(false); setOuvert(false) }, 3000)
+      // Formulaire replié après l'envoi, sauf s'il est seul à l'écran (vue
+      // « devoir » du chapitre) : il n'y resterait qu'un bandeau.
+      setTimeout(() => { setSucces(false); if (!ouvertParDefaut) setOuvert(false) }, 3000)
     } catch (e: any) {
       setErreur(e.message || `Erreur lors de la création ${destinataire === 'devoir' ? 'du devoir' : "de l'exercice"}.`)
     } finally {

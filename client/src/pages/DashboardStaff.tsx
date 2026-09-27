@@ -117,8 +117,9 @@ export default function DashboardStaff() {
         </div>
       )}
 
-      {/* Admin principal : mention assistant */}
-      {isAdminRole(user) && (
+      {/* Administrateur principal : son titre académique. Un autre compte
+          administrateur affichait à tort ce nom et ce titre. */}
+      {isAdminRole(user) && (user as any)?.username === 'manasse.tandu' && (
         <p className="text-sm text-white/75 mt-1">
           Assistant : <span className="text-secondary font-semibold">Manasse TANDU SAVA</span>
         </p>

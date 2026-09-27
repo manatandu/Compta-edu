@@ -96,7 +96,7 @@ export default function InscriptionPlatformePage() {
           </div>
           <div>
             <h1 className="text-xl font-display font-bold text-foreground">Inscrire un étudiant sur la plateforme</h1>
-            <p className="text-sm text-muted-foreground">Créer un compte Firebase (étudiant interne)</p>
+            <p className="text-sm text-muted-foreground">Créer le compte de connexion d'un étudiant</p>
           </div>
         </div>
       </div>

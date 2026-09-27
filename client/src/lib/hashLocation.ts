@@ -16,6 +16,28 @@ import { useHashLocation as useHashLocationWouter } from 'wouter/use-hash-locati
 
 type Options = { state?: unknown; replace?: boolean }
 
+// Adresse tapée ou partagée sous la forme « #/professeurs?tab=copies » : le
+// paramètre, placé après le #, empêchait de reconnaître la page (« Page
+// introuvable »). Il est remis à sa place, avant le #, à l'ouverture comme à
+// chaque changement d'adresse (adresse collée dans un onglet déjà ouvert).
+function remettreParametres(): boolean {
+  if (!window.location.hash.includes('?')) return false
+  const [chemin, parametres] = window.location.hash.slice(1).split('?')
+  const url = new URL(window.location.href)
+  url.hash = chemin
+  url.search = parametres ? `?${parametres}` : ''
+  history.replaceState(history.state, '', url.href)
+  return true
+}
+if (typeof window !== 'undefined') {
+  remettreParametres()
+  // Écoute posée avant celle du routeur (qui s'abonne au montage) : l'adresse
+  // est corrigée avant qu'il ne la lise.
+  window.addEventListener('hashchange', () => {
+    if (remettreParametres()) dispatchEvent(new HashChangeEvent('hashchange'))
+  })
+}
+
 export const navigate = (to: string, { state = null, replace = false }: Options = {}) => {
   const oldURL = location.href
   const [hash, search] = to.replace(/^#?\/?/, '').split('?')
