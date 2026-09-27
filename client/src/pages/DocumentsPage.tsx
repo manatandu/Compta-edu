@@ -4,9 +4,10 @@ import { useEquipe, creeParEquipe } from '@/lib/equipe'
 import React, { useState, useEffect } from 'react'
 import BackButton from '@/components/BackButton'
 import { useNav } from '@/lib/navContext'
-import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, getUsersCacheAsync, getEtudiantsCreesParAsync, getCoursTries, deleteStorageFile } from '@/lib/db-firebase'
+import { getDocumentsAsync, saveDocumentAsync, deleteDocumentAsync, getUsersCacheAsync, deleteStorageFile } from '@/lib/db-firebase'
+import { useCoursEnseignes } from '@/lib/coursEquipe'
 import { uploadDocumentFile } from '@/lib/db-firebase'
-import { useAllCours, useAllFacultes } from '@/lib/useFirestore'
+import { useAllCours } from '@/lib/useFirestore'
 // PROMOTIONS statique supprimé - on dérive depuis les cours réels
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -195,19 +196,10 @@ export default function DocumentsPage() {
   const equipe = useEquipe()
   const estAdmin = isAdminRole(user)
   const deLEquipe = (d: any) => estAdmin || creeParEquipe(d.createdBy || d.userId, equipe)
-  const { facultes: toutesFacultes } = useAllFacultes()
-  const [coursEquipeIds, setCoursEquipeIds] = useState<Set<string>>(new Set())
-  React.useEffect(() => {
-    if (!user?.id || isEtudiant || estAdmin) return
-    getEtudiantsCreesParAsync({ id: user.id, username: (user as any).username }, undefined, equipe?.refs || [])
-      .then(etus => setCoursEquipeIds(new Set(etus.flatMap(e => (e as any).coursIds || []))))
-      .catch(() => {})
-  }, [user?.id, isEtudiant, estAdmin, equipe?.refs.join(',')])
-  // Cours proposés au dépôt : le document exact de chaque faculté, faculté
-  // dans le libellé (la liste montrait « UE 2 » autant de fois qu'il y a de
-  // facultés, sans les distinguer).
-  const coursProposes = getCoursTries(estAdmin ? allCours : allCours.filter(c => coursEquipeIds.has(c.id)))
-  const libelleCours = (c: any) => [c.nom, toutesFacultes.find(f => f.id === c.faculteId)?.nom, c.promotion].filter(Boolean).join(' · ')
+  // Cours proposés au dépôt : ceux que l'équipe enseigne, faculté dans le
+  // libellé (voir lib/coursEquipe.ts). La liste montrait « UE 2 » autant de
+  // fois qu'il y a de facultés, sans les distinguer.
+  const { cours: coursProposes, libelle: libelleCours } = useCoursEnseignes()
 
   const [docs, setDocs] = useState<any[]>([])
   React.useEffect(() => {

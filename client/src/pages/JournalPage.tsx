@@ -9,7 +9,7 @@ import {
 import { getCompteByNumero, getComptes } from '@/lib/comptes'
 import {
   createSessionAsync, deleteSessionAsync,
-  addEcritureAsync, deleteEcrituresByGroupeAsync, clearSessionEcrituresAsync
+  enregistrerEcritureAsync, deleteEcrituresByGroupeAsync, clearSessionEcrituresAsync
 } from '@/lib/db-firebase'
 import { useSessions, useEcritures } from '@/lib/useFirestore'
 import { useModule } from '@/lib/moduleContext'
@@ -171,6 +171,22 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
     const validLines = lignes.filter(l => l.numeroCompte.trim())
     if (validLines.length < 2) { setFormError('Au moins 2 lignes de compte requises.'); return }
 
+    // Compte du plan SYSCOHADA révisé, ou sous-compte d'un compte du plan
+    // (4011001 sous 4011). Un numéro quelconque, voire des lettres, était
+    // accepté, et faussait la balance et les états financiers.
+    const compteInconnu = validLines.find(l => {
+      const n = l.numeroCompte.trim()
+      return !/^\d{2,}$/.test(n) || !allComptes.some(c => n.startsWith(c.numero))
+    })
+    if (compteInconnu) {
+      setFormError(`Le compte ${compteInconnu.numeroCompte.trim()} n'existe pas dans le plan comptable SYSCOHADA révisé.`)
+      return
+    }
+    if (validLines.some(l => (parseFloat(l.debit) || 0) < 0 || (parseFloat(l.credit) || 0) < 0)) {
+      setFormError('Les montants sont positifs : un montant négatif se passe au sens opposé (débit ou crédit).')
+      return
+    }
+
     // Check compte restrictions for bilan ouverture (no classes 6,7,8)
     if (isBilanOuverture) {
       const hasForbidden = validLines.some(l => ['6', '7', '8'].includes(l.numeroCompte[0]))
@@ -216,13 +232,10 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
     // Ordre de saisie préservé : pas de tri automatique débit/crédit
     const sorted = validLines
 
-    // Si édition : supprimer l'ancien groupe d'abord
-    if (editGroupe) {
-      await deleteEcrituresByGroupeAsync(editGroupe, user?.id || '')
-    }
-
-    await Promise.all(sorted.map(l =>
-      addEcritureAsync({
+    // Une seule opération : en modification, l'ancienne écriture n'est
+    // supprimée que si la nouvelle est bien enregistrée.
+    try {
+      await enregistrerEcritureAsync(sorted.map(l => ({
         sessionId: selectedSessionId,
         ligneGroupe,
         date,
@@ -235,8 +248,11 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
         userId: user?.id || '',
         faculteId: (user as any)?.faculteId || undefined,
         universiteId: (user as any)?.universiteId || undefined,
-      }, module)
-    ))
+      })), module, editGroupe ? { ligneGroupe: editGroupe, userId: user?.id || '' } : undefined)
+    } catch {
+      setFormError("L'écriture n'a pas pu être enregistrée (connexion ?). Rien n'a été modifié : réessayez.")
+      return
+    }
 
     setShowForm(false)
     setLignes([emptyLigne(), emptyLigne()])

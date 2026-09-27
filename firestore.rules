@@ -507,6 +507,18 @@ service cloud.firestore {
     // Firestore refuse par défaut tout accès à une collection sans match
     // correspondant, ce qui rendait GestionEtudiantsPage inutilisable en
     // production (toast "Impossible de charger les étudiants").
+    // ─── NOTES MANUELLES (fiche étudiant) ────────────────────────────────────
+    // Notes saisies à la main par le personnel sur la fiche d'un étudiant.
+    // Aucune règle n'existait pour cette collection : Firestore refusait tout,
+    // lecture comme écriture, et la section de la fiche restait vide.
+    match /notes_manuelles/{noteId} {
+      allow read: if isProf();
+      allow create: if isProf() && request.resource.data.saisiePar == request.auth.uid &&
+        request.resource.data.note is number &&
+        request.resource.data.note >= 0 && request.resource.data.note <= 20;
+      allow delete: if isProf() && (memeEquipe(resource.data.get('saisiePar', '')) || isAdmin());
+    }
+
     match /etudiants/{etudiantId} {
       allow read: if isProf();
       // 1) Formulaire "Nouvel étudiant" : le prof/admin est authentifié sur sa

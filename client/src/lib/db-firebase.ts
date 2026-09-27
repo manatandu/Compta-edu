@@ -711,6 +711,74 @@ export async function deleteEcritureAsync(id: string): Promise<void> {
   await deleteDoc(doc(db, C.ECRITURES, id))
 }
 
+// Enregistre une écriture (toutes ses lignes) en une seule opération, et
+// remplace l'ancienne version en cas de modification. La modification
+// supprimait l'ancienne écriture, puis écrivait les nouvelles lignes une à
+// une : une coupure réseau en cours de route perdait l'écriture, ou n'en
+// laissait qu'une partie, déséquilibrée.
+export async function enregistrerEcritureAsync(
+  lignes: Omit<Ecriture, 'id'>[],
+  module?: 'syscohada' | 'sycebnl',
+  remplace?: { ligneGroupe: string; userId: string },
+): Promise<void> {
+  const batch = writeBatch(db)
+  if (remplace) {
+    const snap = await getDocs(query(collection(db, C.ECRITURES),
+      where('ligneGroupe', '==', remplace.ligneGroupe),
+      where('userId', '==', remplace.userId)
+    ))
+    snap.docs.forEach(d => batch.delete(d.ref))
+  }
+  for (const l of lignes) {
+    const id = generateId()
+    batch.set(doc(db, C.ECRITURES, id), cleanUndefined({ ...l, id, ...(module ? { module } : {}) }) as any)
+  }
+  await batch.commit()
+}
+// Export vers le journal d'écritures produites par un outil (factures,
+// emprunts, stocks). Chaque écriture est écrite d'un bloc ; une écriture déjà
+// présente dans la session (même date, même libellé, mêmes lignes) n'est pas
+// écrite une seconde fois ; une écriture datée hors de l'exercice de la
+// session est refusée, comme à la saisie. L'export écrivait ligne par ligne :
+// une coupure laissait une écriture déséquilibrée, et un second clic la
+// dupliquait.
+export interface EcritureAExporter {
+  date: string
+  libelle: string
+  numeroPiece?: string
+  lignes: { compte: string; intitule: string; debit: number; credit: number }[]
+}
+export class ErreurExercice extends Error {
+  constructor(public annee: number, public exercice: number) { super(`EXERCICE:${annee}:${exercice}`) }
+}
+export async function exporterEcrituresAsync(
+  userId: string,
+  session: { id: string; exercice: number },
+  ecritures: EcritureAExporter[],
+): Promise<{ exportees: number; dejaPresentes: number }> {
+  const horsExercice = ecritures.find(e => new Date(e.date).getFullYear() !== Number(session.exercice))
+  if (horsExercice) throw new ErreurExercice(new Date(horsExercice.date).getFullYear(), Number(session.exercice))
+  const signature = (date: string, libelle: string, lignes: { compte: string; debit: number; credit: number }[]) =>
+    [date, libelle, ...lignes.map(l => `${l.compte}:${Math.round(l.debit * 100)}:${Math.round(l.credit * 100)}`).sort()].join('|')
+  const existantes = await getEcrituresAsync(userId, session.id)
+  const parGroupe = new Map<string, Ecriture[]>()
+  existantes.forEach(e => parGroupe.set(e.ligneGroupe, [...(parGroupe.get(e.ligneGroupe) || []), e]))
+  const deja = new Set(Array.from(parGroupe.values()).map(g =>
+    signature(g[0].date, g[0].libelle, g.map(l => ({ compte: l.numeroCompte, debit: l.debit, credit: l.credit })))))
+  let exportees = 0, dejaPresentes = 0
+  for (const e of ecritures) {
+    if (deja.has(signature(e.date, e.libelle, e.lignes))) { dejaPresentes++; continue }
+    const ligneGroupe = generateId()
+    await enregistrerEcritureAsync(e.lignes.map(l => ({
+      sessionId: session.id, ligneGroupe, date: e.date, libelle: e.libelle,
+      numeroPiece: e.numeroPiece || undefined,
+      numeroCompte: l.compte, intituleCompte: l.intitule, debit: l.debit, credit: l.credit, userId,
+    })), 'syscohada')
+    exportees++
+  }
+  return { exportees, dejaPresentes }
+}
+
 export async function deleteEcrituresByGroupeAsync(ligneGroupe: string, userId: string): Promise<void> {
   const snap = await getDocs(query(collection(db, C.ECRITURES),
     where('ligneGroupe', '==', ligneGroupe),

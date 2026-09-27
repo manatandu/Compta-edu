@@ -1673,6 +1673,31 @@ describe('👥 Équipe pédagogique — titulaire + assistants', () => {
   })
 })
 
+describe('🗒️ Notes manuelles — saisies par le personnel', () => {
+  const note = (saisiePar, n = 14) => ({ etudiantFicheId: 'fiche-1', chapitreId: '', chapitreLabel: 'Interrogation 1', ueLabel: 'UE 2', note: n, mode: 'manuel', commentaire: '', saisiePar, dateSaisie: '2026-09-27T10:00:00Z', anneeAcademique: '2026-2027' })
+
+  it('Un professeur saisit une note sur 20 et la relit', async () => {
+    await seedUsers(USERS.prof1)
+    await assertSucceeds(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1'), note(USERS.prof1.uid)))
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'notes_manuelles'), where('etudiantFicheId', '==', 'fiche-1'))))
+  })
+
+  it('Note hors barème, ou au nom d\'un autre : refusée', async () => {
+    await seedUsers(USERS.prof1)
+    await assertFails(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1'), note(USERS.prof1.uid, 25)))
+    await assertFails(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n2'), note(USERS.prof2.uid)))
+  })
+
+  it('Un étudiant NE PEUT PAS lire ni écrire de note manuelle ; un autre professeur ne supprime pas', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, USERS.etud1)
+    await seedDoc('notes_manuelles', 'n1', note(USERS.prof1.uid))
+    await assertFails(getDoc(doc(db(USERS.etud1), 'notes_manuelles', 'n1')))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'notes_manuelles', 'n2'), note(USERS.etud1.uid)))
+    await assertFails(deleteDoc(doc(db(USERS.prof2), 'notes_manuelles', 'n1')))
+    await assertSucceeds(deleteDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1')))
+  })
+})
+
 describe('🎓 Comptes étudiants — gérés par leur équipe pédagogique', () => {
   const ASSIST1 = { uid: 'assist1-uid', role: 'assistant', username: 'assist1', titulaireId: USERS.prof1.uid }
   const etuEnAttente = { uid: 'etu-att-uid', role: 'etudiant', username: 'etu.att', nom: 'KASONGO', actif: false, statutInscription: 'en_attente', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }

@@ -226,6 +226,14 @@
         { "fieldPath": "createdBy", "order": "ASCENDING" },
         { "fieldPath": "faculteId", "order": "ASCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "notes_manuelles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "etudiantFicheId", "order": "ASCENDING" },
+        { "fieldPath": "dateSaisie", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []
