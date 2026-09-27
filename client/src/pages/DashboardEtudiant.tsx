@@ -13,6 +13,7 @@ import {
   useUniversites, useFacultes, useExercices, usePresencesEtudiant,
   useCoursStatuts,
 } from '@/lib/useFirestore'
+import { soumettreQCM, messageErreurEnvoi } from '@/lib/correctionServeur'
 import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries, coursSystemeDe } from '@/lib/db-firebase'
 import {
   calculerCote, devoirConcerneEtudiant, estDevoirChapitre, estNotee, estACorriger, baremeDevoir,
@@ -42,11 +43,12 @@ function SoumettreButton({ devoirId, sessionId, navigate }: { devoirId: string; 
 }
 
 // QCMForm : interface étudiant pour répondre à un QCM + correction automatique
-function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: string; soumission: any }) {
+function QCMForm({ devoir, soumission }: { devoir: any; soumission: any }) {
   const questions: QuestionQCM[] = devoir.questions || []
   const [reponses, setReponses] = React.useState<Record<number, number>>({})
   const [soumis, setSoumis] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+  const [erreur, setErreur] = React.useState('')
   const [resultat, setResultat] = React.useState<{ score: number; total: number; details: boolean[] } | null>(null)
 
   if (soumission && estNotee(soumission)) {
@@ -76,25 +78,16 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
   const handleSubmit = async () => {
     if (!toutesRépondu) return
     setLoading(true)
-    const details = questions.map((q, i) => reponses[i] === q.bonneReponse)
-    const score = details.filter(Boolean).length
-    const note = Math.round((score / questions.length) * 10 * 10) / 10
-    const reponsesArray = questions.map((_, i) => reponses[i])
+    setErreur('')
     try {
-      await createSoumissionAsync({
-        devoirId: devoir.id,
-        etudiantId,
-        reponsesQCM: reponsesArray,
-        dateSoumission: new Date().toISOString(),
-        statut: 'note',
-        note,
-        commentaire: `Correction automatique : ${score}/${questions.length} bonne${score > 1 ? 's' : ''} réponse${score > 1 ? 's' : ''}.`,
-        dateCorrection: new Date().toISOString(),
-      } as any)
-      setResultat({ score, total: questions.length, details })
+      // Correction et enregistrement par le serveur (functions/src/index.ts).
+      const { detailsQCM } = await soumettreQCM({ devoirId: devoir.id, reponses: questions.map((_, i) => reponses[i]) })
+      const details = detailsQCM ?? []
+      setResultat({ score: details.filter(Boolean).length, total: questions.length, details })
       setSoumis(true)
     } catch (err: any) {
       console.error('Erreur soumission QCM:', err)
+      setErreur(messageErreurEnvoi(err))
     }
     setLoading(false)
   }
@@ -161,6 +154,7 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
       >
         {loading ? 'Soumission...' : `Soumettre le QCM (${Object.keys(reponses).length}/${questions.length} répondu${Object.keys(reponses).length > 1 ? 'es' : 'e'})`}
       </Button>
+      {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
     </div>
   )
 }
@@ -748,7 +742,7 @@ export default function DashboardEtudiant() {
                       )
 
                       if (devType === 'qcm') {
-                        return <QCMForm devoir={dev} etudiantId={user!.id} soumission={soum} />
+                        return <QCMForm devoir={dev} soumission={soum} />
                       }
 
                       if (devType === 'pratique' || devType === 'mixte') {

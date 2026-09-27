@@ -371,21 +371,29 @@ service cloud.firestore {
     // « soumis », sans note ni correction. Jusqu'ici seul l'auteur était
     // vérifié : un étudiant pouvait créer sa copie déjà notée 20 sur un devoir
     // rédigé, ou rendre une copie sur le devoir d'un autre cours.
+    // Champs posés par la correction (professeur ou serveur) : jamais écrits
+    // par l'étudiant.
+    function champsCorrection() {
+      return ['note', 'commentaire', 'statut', 'dateCorrection',
+              'scoreQCMChapitre', 'detailsQCMChapitre', 'scoreQCMCas',
+              'scoreCasPratiques', 'evaluationsCasPratiques'];
+    }
+    function estQCM(devoirId) {
+      return get(/databases/$(database)/documents/devoirs/$(devoirId)).data.get('type', '')
+        in ['qcm', 'qcm_chapitre', 'qcm_cas'];
+    }
+
+    // Copie rendue par l'étudiant : devoir d'un de ses cours, sans aucun champ
+    // de correction. Une copie de QCM n'est jamais créée par l'étudiant : la
+    // fonction soumettreQCM la corrige et l'écrit avec les droits du serveur,
+    // qui ne passent pas par ces règles. Auparavant la note était calculée
+    // dans le navigateur et acceptée telle quelle (0 à 20), donc falsifiable.
     function copieValide(d) {
       let devoir = get(/databases/$(database)/documents/devoirs/$(d.devoirId)).data;
-      return devoir.coursId in studentCoursIds() && (
-        (
-          !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
-          d.get('statut', 'soumis') == 'soumis'
-        ) || (
-          d.keys().hasAny(['note']) &&
-          devoir.get('type', '') in ['qcm', 'qcm_chapitre', 'qcm_cas'] &&
-          d.note is number && d.note >= 0 && d.note <= 20 &&
-          // « soumis » accepté aussi : une page ouverte avant ce correctif
-          // envoie encore ce statut ; la note fait foi (estNotee, lib/cotes.ts).
-          d.get('statut', '') in ['note', 'soumis']
-        )
-      );
+      return devoir.coursId in studentCoursIds() &&
+        !estQCM(d.devoirId) &&
+        !d.keys().hasAny(champsCorrection().removeAll(['statut'])) &&
+        d.get('statut', 'soumis') == 'soumis';
     }
 
     match /soumissions/{soumissionId} {
@@ -394,14 +402,15 @@ service cloud.firestore {
         && copieValide(request.resource.data);
       // Modification :
       // - l'étudiant : jamais les champs de correction (sinon il pouvait
-      //   s'attribuer sa propre note) ;
+      //   s'attribuer sa propre note), et jamais une copie de QCM, corrigée
+      //   par le serveur sur les réponses envoyées ;
       // - la correction (note, commentaire, statut, date) : l'équipe
       //   pédagogique du créateur du devoir, ou l'admin. Auparavant seul
       //   l'étudiant pouvait modifier sa soumission : la correction par le
       //   professeur était refusée par Firestore.
       allow update: if (
-          ownsResource('etudiantId') &&
-          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['note', 'commentaire', 'statut', 'dateCorrection'])
+          ownsResource('etudiantId') && !estQCM(resource.data.devoirId) &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(champsCorrection())
         ) || (
           isProf() && (ownsVia('devoirs', resource.data.devoirId) || isAdmin()) &&
           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['note', 'commentaire', 'statut', 'dateCorrection'])
