@@ -2,7 +2,7 @@ import { useUser } from '@/lib/userContext'
 import { isStaffRole, isStudentRole } from '@/lib/permissions'
 import React, { useState, useRef } from 'react'
 import BackButton from '@/components/BackButton'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { BAREME_DEFAUT } from '@/lib/db'
 import type { ExerciceLibreType } from '@/lib/db'
 

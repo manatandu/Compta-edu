@@ -5,7 +5,7 @@
  */
 import BackButton from '@/components/BackButton'
 import { useState, useEffect, useMemo } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { useSearch } from 'wouter'
 import { useUser } from '@/lib/userContext'
 import { getEcrituresAsync, createSoumissionAsync } from '@/lib/db-firebase'

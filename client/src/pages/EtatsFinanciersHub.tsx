@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearch } from 'wouter'
 import { FileText, BarChart2, TrendingUp } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
@@ -27,7 +28,12 @@ const ONGLETS = [
 ]
 
 export default function EtatsFinanciersHub() {
-  const [actif, setActif] = useState('bilan')
+  // Onglet d'ouverture lisible dans l'adresse (?onglet=...) : les anciennes
+  // adresses autonomes de ces pages redirigent ici, sur le bon onglet.
+  const ongletDemande = new URLSearchParams(useSearch()).get('onglet')
+  const [actif, setActif] = useState<string>(
+    (ONGLETS.find(o => o.id === ongletDemande)?.id ?? 'bilan') as any
+  )
 
   return (
     <div className="min-h-screen bg-background pb-24">

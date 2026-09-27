@@ -1,6 +1,6 @@
 import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useState, useEffect, useRef } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { useSearch } from 'wouter'
 import { BookMarked, Search, X, ChevronRight, ArrowUp, ArrowLeft } from 'lucide-react'
 import { DICTIONNAIRE, DOMAINES_DICT, UES_DICT, DomaineDict } from '@/data/dictionnaire'

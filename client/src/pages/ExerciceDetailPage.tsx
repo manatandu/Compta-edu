@@ -1,7 +1,7 @@
 import { useUser } from '@/lib/userContext'
 import { isStaffRole } from '@/lib/permissions'
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { useParams } from 'wouter'
 import {
   BAREME_DEFAUT

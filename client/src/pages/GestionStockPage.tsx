@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSearch } from 'wouter'
 import { Package, ClipboardList, BookOpen, Sparkles } from 'lucide-react'
 import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
@@ -43,7 +44,12 @@ const ONGLETS = [
 ] as const
 
 export default function GestionStockPage() {
-  const [actif, setActif] = useState<typeof ONGLETS[number]['id']>('articles')
+  // Onglet d'ouverture lisible dans l'adresse (?onglet=...) : les anciennes
+  // adresses autonomes de ces pages redirigent ici, sur le bon onglet.
+  const ongletDemande = new URLSearchParams(useSearch()).get('onglet')
+  const [actif, setActif] = useState<typeof ONGLETS[number]['id']>(
+    (ONGLETS.find(o => o.id === ongletDemande)?.id ?? 'articles') as any
+  )
 
   return (
     <div className="min-h-screen bg-background pb-24">

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import {
   BookMarked, ClipboardList, GraduationCap, BookOpen,
   ChevronRight, Award, LibraryBig, Lock, CheckCircle2, Clock, FileDown, User, Download,

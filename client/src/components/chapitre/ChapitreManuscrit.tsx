@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { useGoBack } from '@/lib/navContext'
 import { prefetchRoute } from '@/lib/prefetch'
 import { Breadcrumb } from '@/components/Breadcrumb'

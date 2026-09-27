@@ -1,15 +1,11 @@
-import { useHashLocation } from 'wouter/use-hash-location'
+import { useHashLocation } from '@/lib/hashLocation'
 import { ChevronLeft } from 'lucide-react'
 import { moduleDe, moduleParRoute } from '@/content/modules'
 
 // Correspondance adresse → page parente
 const PARENT_MAP: Record<string, { path: string; label: string }> = {
   // Comptabilité générale : documents
-  '/journal':                    { path: '/comptabilite-generale', label: 'Documents comptables' },
-  '/grand-livre':                { path: '/comptabilite-generale', label: 'Documents comptables' },
-  '/balance':                    { path: '/comptabilite-generale', label: 'Documents comptables' },
-  '/bilan':                      { path: '/comptabilite-generale', label: 'États financiers' },
-  '/compte-resultat':            { path: '/comptabilite-generale', label: 'États financiers' },
+  '/journal':                    { path: '/docs-comptables-hub',   label: 'Documents comptables' },
   '/plan-comptable':             { path: '/comptabilite-generale', label: 'Comptabilité générale' },
   '/immobilisations':            { path: '/comptabilite-generale', label: 'Comptabilité générale' },
   '/charges-personnel/irpp':     { path: '/comptabilite-generale', label: 'Comptabilité générale' },
@@ -19,9 +15,7 @@ const PARENT_MAP: Record<string, { path: string; label: string }> = {
   '/factures':                   { path: '/comptabilite-generale', label: 'Comptabilité générale' },
   // Stock - sous-module de Comptabilité générale (module 4), pas de Mes cours
   '/stock':                      { path: '/comptabilite-generale', label: 'Comptabilité générale' },
-  '/stock/articles':             { path: '/stock',                 label: 'Gestion de stock' },
   '/stock/journal':              { path: '/stock',                 label: 'Gestion de stock' },
-  '/stock/exercice':             { path: '/stock',                 label: 'Gestion de stock' },
   '/stock/mouvement':            { path: '/stock',                 label: 'Gestion de stock' },
   '/stock/fiche':                { path: '/stock',                 label: 'Gestion de stock' },
   // Mes cours et Dictionnaire : accessibles depuis le tableau de bord
