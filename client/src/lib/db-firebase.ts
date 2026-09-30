@@ -17,7 +17,7 @@ import {
   EmailAuthProvider, reauthenticateWithCredential, updatePassword, connectAuthEmulator
 } from 'firebase/auth'
 import { initializeApp, getApps } from 'firebase/app'
-import { db, auth, getStorageDiffere, EMULATEURS } from './firebase'
+import { db, auth, getStorageDiffere, EMULATEURS, PORT_EMU_AUTH, PORT_EMU_FIRESTORE } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import { anneeAcademiqueEnCours } from './utils'
 import { promotionCorrespond } from './promotion'
@@ -48,8 +48,8 @@ const secondaryAuth = initializeAuth(secondaryApp, { persistence: browserLocalPe
 // Firestore secondaire - utilisé pour les écritures authentifiées via secondaryAuth
 const secondaryDb = getFirestore(secondaryApp)
 if (EMULATEURS) {
-  connectAuthEmulator(secondaryAuth, 'http://127.0.0.1:9099', { disableWarnings: true })
-  connectFirestoreEmulator(secondaryDb, '127.0.0.1', 8080)
+  connectAuthEmulator(secondaryAuth, `http://127.0.0.1:${PORT_EMU_AUTH}`, { disableWarnings: true })
+  connectFirestoreEmulator(secondaryDb, '127.0.0.1', PORT_EMU_FIRESTORE)
 }
 
 // ─── Noms des collections Firestore ──────────────────────────────────────────
