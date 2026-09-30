@@ -16,7 +16,7 @@ import {
   createExerciceAsync, updateExerciceAsync, deleteExerciceAsync,
   createExerciceLibreAsync, updateExerciceLibreAsync, deleteExerciceLibreAsync,
   uploadExercicePDF, uploadExerciceCorrigePDF,
-  createTentativeELAsync, getCoursTries,
+  createTentativeELAsync, getCoursTries, createSessionAsync,
 } from '@/lib/db-firebase'
 import { useSessions, useExercices, useTentatives, useExercicesLibres, useTentativesEL, useCours } from '@/lib/useFirestore'
 import { useCoursEnseignes } from '@/lib/coursEquipe'
@@ -414,8 +414,40 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion, onCo
   // Étudiants : filtré par leurs cours + faculteId + promotion via cours ; prof/admin : tous
   const { exercices, loading } = useExercicesLibres(undefined, !canManage ? coursIds : undefined, !canManage ? faculteId : undefined, !canManage ? promotion : undefined, !canManage ? coursList : undefined)
   const { tentatives } = useTentativesEL(isStudentRole(user) ? user?.id : undefined)
+  const [, navigate] = useHashLocation()
+  const { sessions: sessionsCompta } = useSessions(user?.id, 'syscohada')
+  const [ouvertureJournal, setOuvertureJournal] = useState(false)
 
   React.useEffect(() => { onCount?.(exercices.length) }, [exercices.length, onCount])
+
+  // Écritures d'un exercice pratique : une session du journal propre à
+  // l'exercice, reprise à chaque visite. Le texte renvoyait vers la section
+  // Comptabilité, réservée aux inscrits de l'UE 9 : un exercice d'un autre
+  // cours devenait impossible à faire. Le journal reste ouvert pour cette
+  // session (GardeJournal).
+  const ouvrirJournal = async (ex: any) => {
+    if (!user?.id) return
+    setOuvertureJournal(true)
+    try {
+      let session = sessionsCompta.find(s => s.exerciceLibreId === ex.id)
+      if (!session) {
+        session = await createSessionAsync({
+          nom: ex.titre,
+          exercice: new Date().getFullYear(),
+          description: `Exercice : ${ex.titre}`,
+          userId: user.id,
+          exerciceLibreId: ex.id,
+          verrouille: false,
+          faculteId: user.faculteId || undefined,
+          universiteId: user.universiteId || undefined,
+        }, 'syscohada')
+      }
+      navigate(`/journal?session=${session.id}`)
+    } catch (e) {
+      toast({ title: 'Journal indisponible', description: "La session de l'exercice n'a pas pu être créée. Vérifiez votre connexion, puis réessayez.", variant: 'destructive' })
+      setOuvertureJournal(false)
+    }
+  }
 
   const [showForm, setShowForm] = useState(false)
   const [editData, setEditData] = useState<any>(null)
@@ -546,10 +578,16 @@ function OngletExercicesLibres({ coursIds, coursList, faculteId, promotion, onCo
         )}
 
         {/* Info pratique */}
-        {ex.type === 'pratique' && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm">
-            <p className="font-medium text-blue-700">Exercice pratique</p>
-            <p className="text-blue-600 mt-1">Passez dans la section <strong>Comptabilité</strong> pour saisir vos écritures dans une session dédiée, puis revenez ici pour soumettre.</p>
+        {(ex.type === 'pratique' || ex.type === 'mixte') && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm space-y-3">
+            <div>
+              <p className="font-medium text-blue-700">Écritures comptables</p>
+              <p className="text-blue-600 mt-1">Saisissez vos écritures dans le journal, dans une session réservée à cet exercice, puis revenez ici pour soumettre et voir le corrigé.</p>
+            </div>
+            <Button size="sm" variant="outline" onClick={() => ouvrirJournal(ex)} disabled={ouvertureJournal}>
+              {ouvertureJournal ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <BookOpen className="h-4 w-4 mr-1" />}
+              {sessionsCompta.some(s => s.exerciceLibreId === ex.id) ? 'Reprendre mes écritures' : 'Saisir mes écritures dans le journal'}
+            </Button>
           </div>
         )}
 

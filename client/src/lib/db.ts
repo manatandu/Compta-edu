@@ -16,6 +16,7 @@ export interface Session {
   coursId?: string         // isolation : cours lié
   verrouille?: boolean     // true = figé après soumission devoir
   devoirId?: string        // lié à un devoir spécifique
+  exerciceLibreId?: string // lié à un exercice libre pratique (écritures au journal)
 }
 
 export interface Ecriture {

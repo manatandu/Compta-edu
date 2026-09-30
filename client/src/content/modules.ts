@@ -168,6 +168,11 @@ export const MODULES: ModuleCours[] = [
   },
 ]
 
+/** Adresses (sans « / ») des cours système qui ont une page : les modules
+ *  rédigés ci-dessus, plus les espaces à outils de l'UE 4 et de l'UE 9.
+ *  Seule source : Mes cours et le menu latéral en tenaient chacun une copie. */
+export const ROUTES_COURS: string[] = [...MODULES.map(m => m.route.slice(1)), 'comptabilite-generale', 'fiscalite']
+
 /** Adresse d'un chapitre (/ue3/chapitre-7). Groupes nommés lus par wouter
  *  comme paramètres de route : params.ue et params.numero. */
 export const ROUTE_CHAPITRE = /^\/(?<ue>ue\d+)\/chapitre-(?<numero>\d+)\/?$/

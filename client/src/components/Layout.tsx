@@ -19,6 +19,7 @@ import { useCoursStatuts } from '@/lib/useFirestore'
 import { COURS_SYSTEME, COURS_RETIRES_IDS } from '@/lib/db-firebase'
 import { prefetchRoute } from '@/lib/prefetch'
 import { isStaffRole, isStudentRole } from '@/lib/permissions'
+import { ROUTES_COURS } from '@/content/modules'
 
 interface NavItem {
   path: string
@@ -233,9 +234,9 @@ export function Layout({ children, user, onLogout }: LayoutProps) {
 
           if (coursManuels.length === 0) return null
 
-          // Routes connues dans l'application
+          // Routes connues dans l'application : pages de cours, puis outils
           const ROUTES_CONNUES = [
-            'comptabilite-generale', 'fiscalite',
+            ...ROUTES_COURS,
             'immobilisations', 'stock', 'charges-personnel',
             'docs-comptables-hub', 'etats-financiers-hub',
             'dictionnaire', 'documents', 'exercices',

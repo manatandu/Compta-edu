@@ -18,7 +18,7 @@ import { ModuleProvider } from '@/lib/moduleContext'
 import { UserProvider } from '@/lib/userContext'
 import { NavProvider } from '@/lib/navContext'
 import PageLoader from '@/components/PageLoader'
-import GardeUE, { GardeJournal } from '@/components/GardeUE'
+import GardeUE, { GardeJournal, GardeDocumentsSession } from '@/components/GardeUE'
 import { MODULES, ROUTE_CHAPITRE } from '@/content/modules'
 
 
@@ -197,10 +197,10 @@ export default function App() {
 
         {/* ── Hubs dossiers 1 et 2 ── */}
         <Route path="/docs-comptables-hub">
-          <W user={user} onLogout={handleLogout} ue="comptabilite-generale"><DocsComptablesHub /></W>
+          <W user={user} onLogout={handleLogout}><GardeDocumentsSession><DocsComptablesHub /></GardeDocumentsSession></W>
         </Route>
         <Route path="/etats-financiers-hub">
-          <W user={user} onLogout={handleLogout} ue="comptabilite-generale"><EtatsFinanciersHub /></W>
+          <W user={user} onLogout={handleLogout}><GardeDocumentsSession><EtatsFinanciersHub /></GardeDocumentsSession></W>
         </Route>
 
         {/* ── Charges du personnel (Comptabilité Générale) ── */}

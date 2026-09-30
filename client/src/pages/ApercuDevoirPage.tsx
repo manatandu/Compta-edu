@@ -55,6 +55,7 @@ export default function ApercuDevoirPage() {
   const [onglet, setOnglet] = useState('journal')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [erreurEnvoi, setErreurEnvoi] = useState('')
 
   // Le devoir lui-même et la copie déjà rendue : la page ne chargeait ni l'un
   // ni l'autre, si bien qu'on pouvait soumettre après la date limite, ou
@@ -165,12 +166,15 @@ export default function ApercuDevoirPage() {
   const handleSoumettre = async () => {
     if (!user?.id || !devoirId || soumissionBloquee) return
     setSubmitting(true)
+    setErreurEnvoi('')
     try {
       await createSoumissionAsync({ devoirId, etudiantId: user.id, sessionId } as any)
       setSubmitted(true)
       setTimeout(() => navigate('/'), 2000)
     } catch (e) {
+      // Échec autrefois muet : le bouton se réactivait sans explication.
       console.error(e)
+      setErreurEnvoi("Envoi impossible pour le moment : votre devoir n'est pas rendu. Vérifiez votre connexion, puis réessayez.")
       setSubmitting(false)
     }
   }
@@ -600,6 +604,7 @@ export default function ApercuDevoirPage() {
           >
             {submitting ? 'Soumission en cours...' : dejaRendu ? 'Devoir déjà rendu' : 'Soumettre définitivement'}
           </Button>
+          {erreurEnvoi && <p role="alert" className="text-xs text-destructive text-center">{erreurEnvoi}</p>}
         </div>
       </div>
 

@@ -6,6 +6,7 @@ import { COURS_SYSTEME } from '@/lib/db-firebase'
 import { useUser } from '@/lib/userContext'
 import { isStudentRole } from '@/lib/permissions'
 import { cn } from '@/lib/utils'
+import { ROUTES_COURS } from '@/content/modules'
 
 // Cycle sur la palette « module » de la marque Orbit (5 teintes définies dans
 // index.css) plutôt que des couleurs Tailwind ad hoc sans rapport avec l'identité.
@@ -16,8 +17,6 @@ const UE_COLORS = [
   'bg-module-rose/10 text-module-rose',
   'bg-module-emerald/10 text-module-emerald',
 ]
-
-const ROUTES_CONNUES = ['comptabilite-generale', 'fiscalite', 'ue1-droit-travail', 'ue2-droit-societes', 'ue3-compta-societes', 'ue5-finances-publiques', 'ue13-ifrs-ias']
 
 export default function MesCoursPage() {
   const [, navigate] = useHashLocation()
@@ -69,7 +68,7 @@ export default function MesCoursPage() {
             {COURS_SYSTEME.map((cours, i) => {
               const couleur = UE_COLORS[i % UE_COLORS.length]
               const path = `/${cours.moduleKey}`
-              const estActif = !!cours.actif && ROUTES_CONNUES.includes(cours.moduleKey)
+              const estActif = !!cours.actif && ROUTES_COURS.includes(cours.moduleKey)
               const estVerrouilleEtudiant = isStudent && estActif && !userCoursSystemeIds.has(cours.id)
               const estInactif = !cours.actif
               const bloque = estVerrouilleEtudiant || estInactif
