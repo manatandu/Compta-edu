@@ -40,8 +40,11 @@ beforeAll(async () => {
     projectId: 'campus-ohada-test',
     firestore: {
       rules: readFileSync(RULES_PATH, 'utf8'),
-      host: 'localhost',
-      port: 8080,
+      // FIRESTORE_EMULATOR_HOST permet de viser l'émulateur d'un banc de test
+      // lancé sur d'autres ports (scripts/e2e/demarrer.sh) ; projet distinct,
+      // les données du banc ne sont pas touchées.
+      host: (process.env.FIRESTORE_EMULATOR_HOST || 'localhost:8080').split(':')[0],
+      port: Number((process.env.FIRESTORE_EMULATOR_HOST || 'localhost:8080').split(':')[1]),
     },
   })
 }, 30000)
