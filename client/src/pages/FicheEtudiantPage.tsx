@@ -7,6 +7,7 @@ import {
 import { db } from '@/lib/firebase'
 import { useUser } from '@/lib/userContext'
 import { isAdminRole, isStaffRole } from '@/lib/permissions'
+import { useEquipe, creeParEquipe } from '@/lib/equipe'
 import { EtudiantFiche, NoteManuelle, StatutEtudiant } from '@/lib/db'
 import { anneeAcademiqueEnCours } from '@/lib/utils'
 import { Breadcrumb } from '@/components/Breadcrumb'
@@ -84,6 +85,13 @@ export default function FicheEtudiantPage() {
 
   const isAdmin = isAdminRole(user)
   const isStaff = isStaffRole(user)
+  // Statut de la fiche et notes manuelles : gérés aussi par l'équipe
+  // pédagogique qui a créé la fiche ou saisi la note, comme le permettent
+  // firestore.rules. Les boutons n'étaient montrés qu'à l'administrateur :
+  // l'enseignant saisissait une note sans pouvoir la retirer.
+  const equipe = useEquipe()
+  const peutGererFiche = isAdmin || creeParEquipe((etudiant as any)?.createdBy, equipe)
+  const peutSupprimerNote = (n: NoteManuelle) => isAdmin || creeParEquipe(n.saisiePar, equipe)
 
   // ─── Chargement ────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -111,10 +119,13 @@ export default function FicheEtudiantPage() {
       setEtudiant(data)
       setNouveauStatut(data.statut)
 
-      // Notes manuelles
+      // Notes manuelles, rattachées à la fiche. Ouverte depuis la recherche
+      // globale, l'adresse porte l'identifiant du compte : les notes étaient
+      // rangées sous cet identifiant-là et n'apparaissaient pas depuis la liste
+      // des étudiants (et inversement). Les deux sont relus.
       const qNotes = query(
         collection(db, 'notes_manuelles'),
-        where('etudiantFicheId', '==', id),
+        where('etudiantFicheId', 'in', Array.from(new Set([data.id, id!]))),
         orderBy('dateSaisie', 'desc')
       )
       const snapNotes = await getDocs(qNotes)
@@ -178,7 +189,7 @@ export default function FicheEtudiantPage() {
     setSavingNote(true)
     try {
       const data = {
-        etudiantFicheId: id,
+        etudiantFicheId: etudiant!.id,
         chapitreId: '',
         chapitreLabel: formNote.chapitreLabel.trim(),
         ueLabel: formNote.ueLabel,
@@ -313,7 +324,7 @@ export default function FicheEtudiantPage() {
           </div>
 
           {/* Modifier statut / réactiver */}
-          {isAdmin && (
+          {peutGererFiche && (
             <div className="shrink-0 flex items-center gap-2">
               {etudiant.archive && (
                 <button
@@ -582,7 +593,7 @@ export default function FicheEtudiantPage() {
                           </span>
                         </td>
                         <td className="px-5 py-3 text-right">
-                          {isAdmin && (
+                          {peutSupprimerNote(n) && (
                             <button
                               onClick={() => setConfirmDeleteNote(n.id)}
                               className="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors"
