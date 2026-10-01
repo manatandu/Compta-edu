@@ -8,3 +8,5 @@ dist/
 emulator-data/
 # Configurations temporaires des bancs de test (scripts/e2e/demarrer.sh)
 firebase.e2e-*.json
+# Arbres de travail temporaires des agents
+.claude/worktrees/
