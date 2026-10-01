@@ -504,15 +504,16 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
         useSecondaryDb = true
       } catch (e2: any) {
         if (e2?.message === 'Ce nom d\'utilisateur est déjà utilisé.') throw e2
-        // Mot de passe différent - vérifier si un profil Firestore existe déjà avec ce username
+        // Compte d'authentification existant, avec un autre mot de passe :
+        // l'identifiant est pris, par un compte actif ou par un compte dont
+        // seul le profil a été supprimé. Le profil était auparavant recréé
+        // sous un identifiant tiré au hasard, sans compte de connexion
+        // derrière : l'import l'annonçait réussi, mais l'étudiant ne pouvait
+        // jamais se connecter. Et la recherche du profil existant, faite
+        // sans être connecté depuis l'onglet Rejoindre, était refusée par
+        // les règles : l'étudiant lisait une erreur technique.
         await signOut(secondaryAuth).catch(() => {})
-        const existing = await getDocs(query(collection(db, C.USERS), where('username', '==', data.username.toLowerCase())))
-        if (!existing.empty) {
-          throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
-        }
-        // Compte Auth avec autre MDP : impossible de récupérer - générer un ID unique
-        uid = generateId()
-        useSecondaryDb = false
+        throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
       }
     } else {
       throw e
