@@ -360,11 +360,14 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
         ) : (
           <div className="space-y-2.5">
             {factures.map(f => (
-              <button key={f.id} onClick={() => onSelect(f.id)}
+              // Carte en div : le bouton de suppression était imbriqué dans le
+              // bouton de sélection (HTML invalide, signalé par React).
+              <div key={f.id}
                 className={cn(
-                  'w-full flex items-center gap-3 rounded-xl border bg-card p-3.5 text-left transition-all',
+                  'w-full flex items-center gap-3 rounded-xl border bg-card p-3.5 transition-all',
                   selectionId === f.id ? 'border-module-rose ring-2 ring-module-rose/20' : 'border-border hover:border-module-rose/40'
                 )}>
+                <button onClick={() => onSelect(f.id)} className="flex-1 min-w-0 flex items-center gap-3 text-left">
                 <div className="h-9 w-9 rounded-lg bg-module-rose/10 flex items-center justify-center shrink-0">
                   <Receipt className="h-4 w-4 text-module-rose" />
                 </div>
@@ -381,11 +384,12 @@ function OngletFactures({ factures, loading, selectionId, onSelect, userId }: {
                   <p className="font-mono font-bold text-sm">{netAPayerDevise(f).toLocaleString('fr-CD', { maximumFractionDigits: 2 })}</p>
                   <p className="text-xs text-muted-foreground">{f.devise}</p>
                 </div>
-                <button onClick={ev => { ev.stopPropagation(); setConfirmSuppr(f.id) }}
+                </button>
+                <button onClick={() => setConfirmSuppr(f.id)} aria-label={`Supprimer la facture ${f.reference}`}
                   className="h-7 w-7 rounded-lg hover:bg-red-50 flex items-center justify-center transition-colors shrink-0">
                   <Trash2 className="h-3.5 w-3.5 text-red-400" />
                 </button>
-              </button>
+              </div>
             ))}
           </div>
         )}

@@ -1532,7 +1532,8 @@ export default function ImmobilisationsPage() {
                     <span className="text-muted-foreground">Valeur d'origine :</span>
                     <span className="font-semibold text-foreground">{fmt(parseFloat(formData.valeur || '0'))} Fc</span>
                     <span className="text-muted-foreground">Mode :</span>
-                    <span className="font-semibold text-foreground capitalize">{formData.mode}</span>
+                    {/* Libellé accentué : la clé interne (« lineaire ») s'affichait telle quelle. */}
+                    <span className="font-semibold text-foreground">{{ lineaire: 'Linéaire', degressif: 'Dégressif', exceptionnel: 'Exceptionnel' }[formData.mode]}</span>
                     <span className="text-muted-foreground">Compte amortissement :</span>
                     <span className="font-mono font-bold text-blue-600">{getCompteAmort(formData.compteOHADA)}</span>
                     {formData.mode === 'degressif' && (() => {
