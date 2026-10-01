@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { User } from '@/lib/db'
 import { loginAsync, createUserAsync } from '@/lib/db-firebase'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
-import { lireMotifDeconnexion } from '@/lib/session'
+import { lireMotifDeconnexion, effacerMotifDeconnexion } from '@/lib/session'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -20,6 +20,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [error, setError] = useState('')
   // Motif d'une déconnexion imposée (inactivité, compte suspendu ou supprimé)
   const [motifDeconnexion] = useState(() => lireMotifDeconnexion())
+  // Affiché une fois : effacé après le premier affichage de l'écran.
+  useEffect(() => { effacerMotifDeconnexion() }, [])
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [mounted, setMounted] = useState(false)

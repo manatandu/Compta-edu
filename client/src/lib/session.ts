@@ -35,13 +35,18 @@ export async function seDeconnecter(motif?: string): Promise<void> {
   window.location.reload()
 }
 
-// Lu une fois par l'écran de connexion, puis effacé.
+// Lu par l'écran de connexion, sans effet de bord : l'initialisation d'un
+// état React peut être rejouée (mode strict) et une lecture qui effaçait le
+// motif le perdait au second passage, d'où un écran de connexion muet après
+// une suspension. L'effacement se fait à part (effacerMotifDeconnexion).
 export function lireMotifDeconnexion(): string | null {
   try {
-    const m = sessionStorage.getItem(CLE_MOTIF)
-    if (m) sessionStorage.removeItem(CLE_MOTIF)
-    return m
+    return sessionStorage.getItem(CLE_MOTIF)
   } catch {
     return null
   }
+}
+
+export function effacerMotifDeconnexion(): void {
+  try { sessionStorage.removeItem(CLE_MOTIF) } catch { /* stockage indisponible */ }
 }
