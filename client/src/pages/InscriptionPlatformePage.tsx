@@ -341,6 +341,26 @@ function motDePasseAleatoire(): string {
   return Array.from(tirage, n => chars[n % chars.length]).join('')
 }
 
+// Cellules d'une ligne CSV : un champ entre guillemets peut contenir le
+// séparateur ou des guillemets doublés (« "KABILA, Joseph" »), comme les
+// écrit Excel ; un simple découpage sur le séparateur le coupait en deux.
+function decouperLigneCsv(ligne: string, sep: string): string[] {
+  const cellules: string[] = []
+  let cur = '', guillemets = false
+  for (let i = 0; i < ligne.length; i++) {
+    const ch = ligne[i]
+    if (guillemets) {
+      if (ch === '"' && ligne[i + 1] === '"') { cur += '"'; i++ }
+      else if (ch === '"') guillemets = false
+      else cur += ch
+    } else if (ch === '"') guillemets = true
+    else if (ch === sep) { cellules.push(cur.trim()); cur = '' }
+    else cur += ch
+  }
+  cellules.push(cur.trim())
+  return cellules
+}
+
 // ─── Sous-composant B : Import CSV ────────────────────────────────────────────
 function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [csvFile, setCsvFile] = useState<File | null>(null)
@@ -363,17 +383,39 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
     setCoursIds(prev => prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id])
 
   const parseCsvFile = (file: File) => {
-    setCsvError(''); setCsvResult(null)
+    setCsvError(''); setCsvResult(null); setCsvPreview([])
     const reader = new FileReader()
     reader.onload = (e) => {
-      const text = e.target?.result as string
-      if (!text) { setCsvError('Fichier vide ou illisible.'); return }
+      const octets = new Uint8Array(e.target?.result as ArrayBuffer)
+      // Excel sous Windows enregistre ses CSV en Windows-1252 : lus en UTF-8,
+      // « Béatrice » devenait « B�atrice ».
+      let text: string
+      try { text = new TextDecoder('utf-8', { fatal: true }).decode(octets) }
+      catch { text = new TextDecoder('windows-1252').decode(octets) }
+      text = text.replace(/^﻿/, '')
+      if (!text.trim()) { setCsvError('Fichier vide ou illisible.'); return }
       const lines = text.split(/\r?\n/).filter(l => l.trim())
       if (lines.length < 2) { setCsvError('Le fichier doit contenir au moins une ligne de données (en-tête + 1 étudiant).'); return }
       const sep = lines[0].includes(';') ? ';' : ','
-      const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/[^a-z]/g, ''))
+      // En-tête ramené à la colonne attendue : accents retirés (« Prénom »
+      // était lu « prnom », « Téléphone » « tlphone ») et intitulés usuels
+      // reconnus (« Promotion », « Identifiant », « Mot de passe »). Ces
+      // colonnes étaient ignorées sans avertissement : prénom et téléphone
+      // perdus, promotion remplacée par celle par défaut.
+      const ALIAS: Record<string, string> = {
+        prenoms: 'prenom', identifiant: 'username', login: 'username', id: 'username',
+        password: 'motdepasse', mdp: 'motdepasse', promotion: 'classe', promo: 'classe', tel: 'telephone',
+      }
+      const headers = decouperLigneCsv(lines[0], sep).map(h => {
+        const cle = h.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]/g, '')
+        return ALIAS[cle] || cle
+      })
+      if (!headers.includes('nom') || !headers.includes('username')) {
+        setCsvError('En-tête incomplet : les colonnes « nom » et « username » (ou « identifiant ») sont obligatoires.')
+        return
+      }
       const rows = lines.slice(1).map((line, idx) => {
-        const cols = line.split(sep).map(c => c.trim().replace(/^"|"$/g, ''))
+        const cols = decouperLigneCsv(line, sep)
         const row: any = { _line: idx + 2 }
         headers.forEach((h, i) => { row[h] = cols[i] || '' })
         return row
@@ -381,7 +423,7 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
       if (rows.length === 0) { setCsvError('Aucune ligne valide trouvée.'); return }
       setCsvPreview(rows)
     }
-    reader.readAsText(file, 'UTF-8')
+    reader.readAsArrayBuffer(file)
   }
 
   const handleImport = async () => {
@@ -457,7 +499,7 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
       <div className="space-y-1">
         <h2 className="text-sm font-display font-semibold text-foreground">Import depuis un fichier CSV</h2>
-        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code>. Sans mot de passe, chaque compte en reçoit un tiré au hasard, à télécharger après l'import.</p>
+        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code> (« Prénom », « Identifiant », « Mot de passe », « Promotion » sont aussi reconnus). Sans mot de passe, chaque compte en reçoit un tiré au hasard, à télécharger après l'import.</p>
       </div>
 
       {/* Paramètres communs */}
