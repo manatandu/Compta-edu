@@ -16,5 +16,16 @@ if [ -f "$LOGS/pids" ]; then
   done < "$LOGS/pids"
   rm -f "$LOGS/pids"
 fi
+# L'émulateur Firestore (Java) se détache parfois du groupe de firebase-tools
+# et garde son port : tout processus encore à l'écoute sur un port de ce banc
+# est arrêté.
+if [ -f "$LOGS/ports" ]; then
+  for port in $(cat "$LOGS/ports"); do
+    for pid in $(lsof -t -iTCP:"$port" -sTCP:LISTEN 2>/dev/null); do
+      kill -KILL "$pid" 2>/dev/null
+    done
+  done
+  rm -f "$LOGS/ports"
+fi
 rm -f "$ROOT/firebase.e2e-$SITE_PORT.json"
 echo "Banc $SITE_PORT arrêté."

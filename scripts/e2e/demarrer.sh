@@ -22,6 +22,7 @@ WS_PORT="${E2E_WS_PORT:-9150}"
 LOGS="${E2E_LOGS:-/tmp/e2e-orbit-$SITE_PORT}"
 mkdir -p "$LOGS"
 : > "$LOGS/pids"
+echo "$SITE_PORT $AUTH_PORT $FS_PORT $HUB_PORT $LOG_PORT $WS_PORT" > "$LOGS/ports"
 
 # Configuration des émulateurs propre à ce banc (mêmes règles et index que
 # firebase.json, seuls les ports changent).
