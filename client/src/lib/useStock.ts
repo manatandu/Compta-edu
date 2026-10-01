@@ -385,6 +385,8 @@ export async function marquerExporte(ecritureId: string) {
 
 // ─── Générateur d'écritures pour un mouvement ────────────────────────────────
 
+export const arrondiCentime = (n: number) => Math.round(n * 100) / 100
+
 export function genererEcritures(
   userId: string,
   articleId: string,
@@ -392,7 +394,10 @@ export function genererEcritures(
   mv: Omit<MouvementStock, 'id'>,
   cuCalcule: number   // CU de sortie calculé (CUMP ou PEPS)
 ): Omit<EcritureStock, 'id'>[] {
-  const montant = mv.quantite * (mv.type === 'entree' ? (mv.cuSaisi ?? 0) : cuCalcule)
+  // Arrondi au centime : au CUMP, le coût unitaire est une fraction sans fin
+  // (ex. 52 000 / 1,066…) et l'écriture partait au journal avec un montant
+  // comme 66 968,85553470919.
+  const montant = arrondiCentime(mv.quantite * (mv.type === 'entree' ? (mv.cuSaisi ?? 0) : cuCalcule))
   const cptStock = article.typeCompte          // 31 | 32 | 36
   const libStock = libelleCompte(article.typeCompte)
   const cptVar = compteVariation(article.typeCompte)

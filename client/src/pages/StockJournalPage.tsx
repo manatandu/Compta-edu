@@ -7,7 +7,7 @@ import BackButton from '@/components/BackButton'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import {
-  useArticlesStock, useEcrituresStock, marquerExporte, EcritureStock
+  useArticlesStock, useEcrituresStock, marquerExporte, EcritureStock, arrondiCentime
 } from '@/lib/useStock'
 import { useSessions } from '@/lib/useFirestore'
 import { exporterEcrituresAsync, ErreurExercice } from '@/lib/db-firebase'
@@ -47,11 +47,13 @@ function ModalExport({
     let n = 0
     try {
       for (const ec of nonExportes) {
+        // Écritures enregistrées avant l'arrondi à la génération : arrondies ici.
+        const montant = arrondiCentime(ec.montant)
         await exporterEcrituresAsync(userId, session, [{
           date: ec.date, libelle: ec.libelle, numeroPiece: ec.mouvementId,
           lignes: [
-            { compte: ec.debit, intitule: ec.libDebit, debit: ec.montant, credit: 0 },
-            { compte: ec.credit, intitule: ec.libCredit, debit: 0, credit: ec.montant },
+            { compte: ec.debit, intitule: ec.libDebit, debit: montant, credit: 0 },
+            { compte: ec.credit, intitule: ec.libCredit, debit: 0, credit: montant },
           ],
         }])
         await marquerExporte(ec.id)
