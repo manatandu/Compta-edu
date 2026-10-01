@@ -280,7 +280,7 @@ export default function App() {
           </Route>
         ))}
         <Route path="/ue2/simulateur-constitution">
-          <W user={user} onLogout={handleLogout}><UE2SimulateurConstitutionPage /></W>
+          <W user={user} onLogout={handleLogout} ue="ue2-droit-societes"><UE2SimulateurConstitutionPage /></W>
         </Route>
         {/* Motif en expression régulière : le parseur de wouter (regexparam) ne
             reconnaît un paramètre qu'en début de segment. « chapitre-:numero »
