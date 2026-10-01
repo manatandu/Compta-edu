@@ -4,7 +4,8 @@ import React, { useState, useRef } from 'react'
 import BackButton from '@/components/BackButton'
 import { useHashLocation } from '@/lib/hashLocation'
 import { BAREME_DEFAUT } from '@/lib/db'
-import type { ExerciceLibreType } from '@/lib/db'
+import type { ExerciceLibreType, LigneSolution } from '@/lib/db'
+import { EditeurCorrige, ligneCorrigeVide, lignesCorrigeRemplies, erreurCorrige } from '@/components/CorrigeExerciceGuide'
 
 // Type QCM local pour les exercices libres (format historique - différent de QCMChapitre)
 interface QuestionQCM {
@@ -927,10 +928,21 @@ export default function ExercicesPage() {
     titre: '', description: '', instructions: '', sessionId: sessions[0]?.id || '', actif: true, coursId: '',
     difficulte: '' as '' | 'Facile' | 'Moyen' | 'Difficile', categorie: '',
   })
+  // Corrigé, questions (une par ligne) et explication : tenus hors de `form`,
+  // qui est recopié tel quel dans le document.
+  const [corrige, setCorrige] = useState<LigneSolution[]>([ligneCorrigeVide('D'), ligneCorrigeVide('C')])
+  const [questionsTexte, setQuestionsTexte] = useState('')
+  const [explication, setExplication] = useState('')
 
   const openCreate = () => {
     setEditId(null)
-    setForm({ titre: '', description: '', instructions: '', sessionId: sessions[0]?.id || '', actif: true, coursId: allCours[0]?.id || '', difficulte: '', categorie: '' })
+    // Cours par défaut pris dans la liste affichée : allCours[0] (tous les
+    // cours de la plateforme) n'y figurait pas, le champ paraissait vide et
+    // l'exercice partait sur le cours d'une autre UE, invisible des étudiants.
+    setForm({ titre: '', description: '', instructions: '', sessionId: sessions[0]?.id || '', actif: true, coursId: coursList[0]?.id || '', difficulte: '', categorie: '' })
+    setCorrige([ligneCorrigeVide('D'), ligneCorrigeVide('C')])
+    setQuestionsTexte('')
+    setExplication('')
     setShowForm(true)
   }
 
@@ -942,12 +954,25 @@ export default function ExercicesPage() {
       titre: ex.titre, description: ex.description, instructions: ex.instructions, sessionId: ex.sessionId, actif: ex.actif, coursId: ex.coursId || '',
       difficulte: (ex as any).difficulte || '', categorie: (ex as any).categorie || '',
     })
+    setCorrige(ex.solution?.length ? ex.solution : [ligneCorrigeVide('D'), ligneCorrigeVide('C')])
+    setQuestionsTexte((ex.questions || []).join('\n'))
+    setExplication(ex.explicationCorrige || '')
     setShowForm(true)
   }
 
   const handleSave = async () => {
     if (!form.titre.trim()) { toast({ title: 'Titre obligatoire', variant: 'destructive' }); return }
     if (!form.coursId) { toast({ title: 'Cours obligatoire', variant: 'destructive' }); return }
+    const erreur = erreurCorrige(corrige)
+    if (erreur) { toast({ title: 'Corrigé à revoir', description: erreur, variant: 'destructive' }); return }
+    const solution = lignesCorrigeRemplies(corrige)
+    const champsCorrige = {
+      solution,
+      // Forme historique du corrigé, gardée en miroir pour les anciens écrans.
+      ecrituresAttendues: solution.map(l => ({ numeroCompte: l.numeroCompte, sens: l.sens, montant: parseFloat(l.montant) || 0 })),
+      questions: questionsTexte.split('\n').map(q => q.trim()).filter(Boolean),
+      explicationCorrige: explication.trim(),
+    }
     setSaving(true)
     try {
       // Résoudre faculteId/universiteId depuis le cours sélectionné
@@ -962,6 +987,7 @@ export default function ExercicesPage() {
         await updateExerciceAsync(editId, {
           ...form,
           ...champsFacultatifs,
+          ...champsCorrige,
           faculteId: coursObj?.faculteId || undefined,
           universiteId: coursObj?.universiteId || undefined,
         })
@@ -969,7 +995,7 @@ export default function ExercicesPage() {
         await createExerciceAsync({
           ...form,
           ...champsFacultatifs,
-          ecrituresAttendues: [],
+          ...champsCorrige,
           bareme: BAREME_DEFAUT,
           userId: user?.id || '',
           // firestore.rules exige createdBy pour autoriser update/delete
@@ -1189,7 +1215,7 @@ export default function ExercicesPage() {
 
           {/* Form guidé */}
           <Dialog open={showForm} onOpenChange={setShowForm}>
-            <DialogContent>
+            <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{editId ? "Modifier l'exercice" : 'Nouvel exercice'}</DialogTitle>
               </DialogHeader>
@@ -1212,8 +1238,21 @@ export default function ExercicesPage() {
                   <Textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} className="mt-1" rows={2} />
                 </div>
                 <div>
-                  <Label>Instructions détaillées</Label>
-                  <Textarea value={form.instructions} onChange={e => setForm(f => ({ ...f, instructions: e.target.value }))} className="mt-1" rows={4} />
+                  <Label>Énoncé (instructions détaillées)</Label>
+                  <Textarea value={form.instructions} onChange={e => setForm(f => ({ ...f, instructions: e.target.value }))} className="mt-1" rows={4} placeholder="Opération à comptabiliser : date, montants, tiers..." />
+                </div>
+                <div>
+                  <Label>Questions (facultatif, une par ligne)</Label>
+                  <Textarea value={questionsTexte} onChange={e => setQuestionsTexte(e.target.value)} className="mt-1" rows={2} />
+                </div>
+                <div>
+                  <Label>Écritures attendues (corrigé)</Label>
+                  <p className="text-xs text-muted-foreground mb-2">La saisie de l'étudiant est comparée ligne à ligne à ce corrigé (compte, sens, montant), puis le corrigé lui est montré.</p>
+                  <EditeurCorrige lignes={corrige} onChange={setCorrige} />
+                </div>
+                <div>
+                  <Label>Explication du corrigé (facultatif)</Label>
+                  <Textarea value={explication} onChange={e => setExplication(e.target.value)} className="mt-1" rows={2} />
                 </div>
                 <div>
                   <Label>Session</Label>
