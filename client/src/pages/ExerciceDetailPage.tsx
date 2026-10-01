@@ -279,7 +279,11 @@ export default function ExerciceDetailPage() {
   const user = useUser()
 
   const { exercices } = useExercices()
-  const { tentatives } = useTentatives(user?.id, exerciceId)
+  // Ordre chronologique : Firestore renvoie les documents dans l'ordre de leurs
+  // identifiants (aléatoires), et l'historique numérotait « Tentative 3 » une
+  // tentative antérieure à la deuxième.
+  const { tentatives: tentativesBrutes } = useTentatives(user?.id, exerciceId)
+  const tentatives = [...tentativesBrutes].sort((a, b) => (a.dateCreation || '').localeCompare(b.dateCreation || ''))
   const exercice = exercices.find(e => e.id === exerciceId)
   const bestScore = tentatives.length > 0 ? Math.max(...tentatives.map(t => t.score)) : null
 
@@ -352,10 +356,12 @@ export default function ExerciceDetailPage() {
     if (!result) saveDraft(lignes, date, libelle)
   }, [lignes, date, libelle, result, saveDraft])
 
-  if (!exercice) {
+  // Exercice désactivé par l'enseignant : plus de saisie ni de tentative pour
+  // l'étudiant, même par un lien ou un favori gardé.
+  if (!exercice || (!exercice.actif && !isStaff)) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">Exercice introuvable.</p>
+        <p className="text-muted-foreground">{exercice ? "Cet exercice n'est plus disponible : l'enseignant l'a désactivé." : 'Exercice introuvable.'}</p>
         <Button variant="outline" className="mt-4" onClick={() => navigate('/exercices')}>Retour</Button>
       </div>
     )

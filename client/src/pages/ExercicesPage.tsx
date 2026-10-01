@@ -35,6 +35,7 @@ import { Plus, Pencil, Trash2, Play, GraduationCap, BookOpen, Trophy, Loader2, D
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
+import { deleteField } from 'firebase/firestore'
 
 // ─── Icône par type ────────────────────────────────────────────────────────────
 function TypeIcon({ type }: { type: ExerciceLibreType }) {
@@ -894,7 +895,10 @@ export default function ExercicesPage() {
   const studentCoursIds = !canManage && user?.coursIds && user.coursIds.length > 0 ? user.coursIds : undefined
   const studentFaculteId = !canManage ? (user as any)?.faculteId || undefined : undefined
   const studentPromotion = !canManage ? (user as any)?.classe || undefined : undefined
-  const { exercices, loading: loadingEx } = useExercices(studentCoursIds, studentFaculteId, studentPromotion, allCours)
+  const { exercices: exercicesCours, loading: loadingEx } = useExercices(studentCoursIds, studentFaculteId, studentPromotion, allCours)
+  // Un exercice désactivé disparaît pour l'étudiant (comme les exercices
+  // libres) : il restait listé, grisé, compté, et s'ouvrait par son adresse.
+  const exercices = canManage ? exercicesCours : exercicesCours.filter(e => e.actif)
   const { tentatives } = useTentatives(user?.id)
   // Cours des formulaires (personnel) : ceux que l'équipe enseigne, document
   // exact de chaque faculté, faculté dans le libellé (voir lib/coursEquipe.ts).
@@ -987,6 +991,10 @@ export default function ExercicesPage() {
         await updateExerciceAsync(editId, {
           ...form,
           ...champsFacultatifs,
+          // En modification, omettre le champ laissait l'ancienne valeur : une
+          // difficulté remise à « Non précisée » restait « Facile ». On l'efface.
+          ...(!champsFacultatifs.difficulte && { difficulte: deleteField() as any }),
+          ...(!champsFacultatifs.categorie && { categorie: deleteField() as any }),
           ...champsCorrige,
           faculteId: coursObj?.faculteId || undefined,
           universiteId: coursObj?.universiteId || undefined,
