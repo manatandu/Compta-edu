@@ -504,15 +504,16 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
         useSecondaryDb = true
       } catch (e2: any) {
         if (e2?.message === 'Ce nom d\'utilisateur est déjà utilisé.') throw e2
-        // Mot de passe différent - vérifier si un profil Firestore existe déjà avec ce username
+        // Compte d'authentification existant, avec un autre mot de passe :
+        // l'identifiant est pris, par un compte actif ou par un compte dont
+        // seul le profil a été supprimé. Le profil était auparavant recréé
+        // sous un identifiant tiré au hasard, sans compte de connexion
+        // derrière : l'import l'annonçait réussi, mais l'étudiant ne pouvait
+        // jamais se connecter. Et la recherche du profil existant, faite
+        // sans être connecté depuis l'onglet Rejoindre, était refusée par
+        // les règles : l'étudiant lisait une erreur technique.
         await signOut(secondaryAuth).catch(() => {})
-        const existing = await getDocs(query(collection(db, C.USERS), where('username', '==', data.username.toLowerCase())))
-        if (!existing.empty) {
-          throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
-        }
-        // Compte Auth avec autre MDP : impossible de récupérer - générer un ID unique
-        uid = generateId()
-        useSecondaryDb = false
+        throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
       }
     } else {
       throw e
@@ -526,6 +527,14 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   const rolePrivilegie = useSecondaryDb && data.role !== 'etudiant'
   if (rolePrivilegie) {
     await setDoc(doc(db, 'accountInvites', uid), { role: data.role, ...((data as any).titulaireId ? { titulaireId: (data as any).titulaireId } : {}), dateCreation: new Date().toISOString() })
+  }
+  // Compte étudiant créé par un membre du personnel connecté : même
+  // invitation, à son nom. Les règles n'acceptent plus un profil étudiant
+  // écrit par le compte lui-même sans elle, sauf inscription en attente par
+  // code d'accès (onglet Rejoindre, où personne n'est connecté).
+  const inviteEtudiant = useSecondaryDb && data.role === 'etudiant' && !!auth.currentUser && data.createdBy === auth.currentUser.uid
+  if (inviteEtudiant) {
+    await setDoc(doc(db, 'accountInvites', uid), { role: 'etudiant', createdBy: data.createdBy, dateCreation: new Date().toISOString() })
   }
 
   // Le mot de passe ne sert qu'à créer le compte Firebase Authentication
@@ -554,7 +563,7 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
       await creerFicheEtudiantLiee(secondaryDb, user).catch(() => {})
     }
     await signOut(secondaryAuth)
-    if (rolePrivilegie) {
+    if (rolePrivilegie || inviteEtudiant) {
       await deleteDoc(doc(db, 'accountInvites', uid)).catch(() => {})
     }
   } else {

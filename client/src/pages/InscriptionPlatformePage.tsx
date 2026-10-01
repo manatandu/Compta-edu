@@ -9,9 +9,9 @@
  * Aucun conflit Firestore : écrit dans `users/` et `codesAcces/`
  * indépendamment de la collection `etudiants/` (fiches externes).
  */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
-import { collection, setDoc, doc, getFirestore } from 'firebase/firestore'
+import { collection, setDoc, doc, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 import {
   createUserAsync, getUsernamesExistantsAsync, getCoursTries, inscriptionsDeLaFaculte,
@@ -20,6 +20,7 @@ import { PROMOTIONS } from '@/lib/db'
 import { codePromotion } from '@/lib/promotion'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
+import { useEquipe } from '@/lib/equipe'
 import { isStaffRole } from '@/lib/permissions'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
@@ -341,6 +342,26 @@ function motDePasseAleatoire(): string {
   return Array.from(tirage, n => chars[n % chars.length]).join('')
 }
 
+// Cellules d'une ligne CSV : un champ entre guillemets peut contenir le
+// séparateur ou des guillemets doublés (« "KABILA, Joseph" »), comme les
+// écrit Excel ; un simple découpage sur le séparateur le coupait en deux.
+function decouperLigneCsv(ligne: string, sep: string): string[] {
+  const cellules: string[] = []
+  let cur = '', guillemets = false
+  for (let i = 0; i < ligne.length; i++) {
+    const ch = ligne[i]
+    if (guillemets) {
+      if (ch === '"' && ligne[i + 1] === '"') { cur += '"'; i++ }
+      else if (ch === '"') guillemets = false
+      else cur += ch
+    } else if (ch === '"') guillemets = true
+    else if (ch === sep) { cellules.push(cur.trim()); cur = '' }
+    else cur += ch
+  }
+  cellules.push(cur.trim())
+  return cellules
+}
+
 // ─── Sous-composant B : Import CSV ────────────────────────────────────────────
 function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [csvFile, setCsvFile] = useState<File | null>(null)
@@ -363,17 +384,39 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
     setCoursIds(prev => prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id])
 
   const parseCsvFile = (file: File) => {
-    setCsvError(''); setCsvResult(null)
+    setCsvError(''); setCsvResult(null); setCsvPreview([])
     const reader = new FileReader()
     reader.onload = (e) => {
-      const text = e.target?.result as string
-      if (!text) { setCsvError('Fichier vide ou illisible.'); return }
+      const octets = new Uint8Array(e.target?.result as ArrayBuffer)
+      // Excel sous Windows enregistre ses CSV en Windows-1252 : lus en UTF-8,
+      // « Béatrice » devenait « B�atrice ».
+      let text: string
+      try { text = new TextDecoder('utf-8', { fatal: true }).decode(octets) }
+      catch { text = new TextDecoder('windows-1252').decode(octets) }
+      text = text.replace(/^﻿/, '')
+      if (!text.trim()) { setCsvError('Fichier vide ou illisible.'); return }
       const lines = text.split(/\r?\n/).filter(l => l.trim())
       if (lines.length < 2) { setCsvError('Le fichier doit contenir au moins une ligne de données (en-tête + 1 étudiant).'); return }
       const sep = lines[0].includes(';') ? ';' : ','
-      const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/[^a-z]/g, ''))
+      // En-tête ramené à la colonne attendue : accents retirés (« Prénom »
+      // était lu « prnom », « Téléphone » « tlphone ») et intitulés usuels
+      // reconnus (« Promotion », « Identifiant », « Mot de passe »). Ces
+      // colonnes étaient ignorées sans avertissement : prénom et téléphone
+      // perdus, promotion remplacée par celle par défaut.
+      const ALIAS: Record<string, string> = {
+        prenoms: 'prenom', identifiant: 'username', login: 'username', id: 'username',
+        password: 'motdepasse', mdp: 'motdepasse', promotion: 'classe', promo: 'classe', tel: 'telephone',
+      }
+      const headers = decouperLigneCsv(lines[0], sep).map(h => {
+        const cle = h.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]/g, '')
+        return ALIAS[cle] || cle
+      })
+      if (!headers.includes('nom') || !headers.includes('username')) {
+        setCsvError('En-tête incomplet : les colonnes « nom » et « username » (ou « identifiant ») sont obligatoires.')
+        return
+      }
       const rows = lines.slice(1).map((line, idx) => {
-        const cols = line.split(sep).map(c => c.trim().replace(/^"|"$/g, ''))
+        const cols = decouperLigneCsv(line, sep)
         const row: any = { _line: idx + 2 }
         headers.forEach((h, i) => { row[h] = cols[i] || '' })
         return row
@@ -381,7 +424,7 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
       if (rows.length === 0) { setCsvError('Aucune ligne valide trouvée.'); return }
       setCsvPreview(rows)
     }
-    reader.readAsText(file, 'UTF-8')
+    reader.readAsArrayBuffer(file)
   }
 
   const handleImport = async () => {
@@ -457,7 +500,7 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
     <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
       <div className="space-y-1">
         <h2 className="text-sm font-display font-semibold text-foreground">Import depuis un fichier CSV</h2>
-        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code>. Sans mot de passe, chaque compte en reçoit un tiré au hasard, à télécharger après l'import.</p>
+        <p className="text-xs text-muted-foreground">Colonnes attendues : <code className="bg-muted px-1 rounded">nom, prenom, username, motdepasse, classe, telephone</code> (« Prénom », « Identifiant », « Mot de passe », « Promotion » sont aussi reconnus). Sans mot de passe, chaque compte en reçoit un tiré au hasard, à télécharger après l'import.</p>
       </div>
 
       {/* Paramètres communs */}
@@ -632,6 +675,28 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
   const facultes = getFacultes(form.universiteId)
   const cours = getCours(form.universiteId, form.faculteId)
 
+  // Codes déjà générés par l'équipe pédagogique. L'écran annonçait un code
+  // « valide jusqu'à sa désactivation » sans aucun moyen de le désactiver :
+  // un code diffusé hors de la classe restait ouvert pour toujours.
+  const equipe = useEquipe()
+  const cleEquipe = equipe?.ids.join(',') || currentUserId
+  const [codes, setCodes] = useState<any[]>([])
+  useEffect(() => {
+    const ids = (equipe?.ids.length ? equipe.ids : [currentUserId]).filter(Boolean).slice(0, 30)
+    if (ids.length === 0) return
+    return onSnapshot(query(collection(getFirestore(getApp()), 'codesAcces'), where('createdBy', 'in', ids)),
+      snap => setCodes(snap.docs.map(d => ({ ...d.data(), id: d.id })).sort((a: any, b: any) => (b.createdAt || '').localeCompare(a.createdAt || ''))),
+      () => setCodes([]))
+  }, [cleEquipe])
+  const basculerCode = async (c: any) => {
+    try {
+      await updateDoc(doc(getFirestore(getApp()), 'codesAcces', c.id), { actif: !c.actif })
+      toast({ title: c.actif ? `Code ${c.id} désactivé` : `Code ${c.id} réactivé` })
+    } catch {
+      toast({ title: 'Modification du code impossible', variant: 'destructive' })
+    }
+  }
+
   const toggleCours = (id: string) =>
     setForm(f => ({
       ...f,
@@ -776,7 +841,28 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
             {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             {copied ? 'Copié !' : 'Copier le code'}
           </button>
-          <p className="text-xs text-emerald-600">Transmettez ce code aux étudiants. Il sera valide jusqu'à sa désactivation.</p>
+          <p className="text-xs text-emerald-600">Transmettez ce code aux étudiants. Il sera valide jusqu'à sa désactivation, ci-dessous.</p>
+        </div>
+      )}
+
+      {codes.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="text-xs font-semibold text-foreground">Codes de votre équipe</h3>
+          <div className="divide-y divide-border rounded-xl border border-border">
+            {codes.map(c => (
+              <div key={c.id} className="flex items-center gap-3 px-3 py-2 text-xs">
+                <span className={`font-mono font-bold tracking-widest ${c.actif ? 'text-foreground' : 'text-muted-foreground line-through'}`}>{c.id}</span>
+                <span className="flex-1 min-w-0 truncate text-muted-foreground">
+                  {[c.classe, ...(c.coursIds || []).map((id: string) => getCours('', c.faculteId || '').find((x: any) => x.id === id)?.nom || '')].filter(Boolean).join(' · ') || 'Sans cours'}
+                  {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString('fr-FR')}` : ''}
+                </span>
+                <span className={c.actif ? 'text-emerald-700' : 'text-muted-foreground'}>{c.actif ? 'Actif' : 'Désactivé'}</span>
+                <button onClick={() => basculerCode(c)} className="px-2.5 py-1 rounded-lg border border-border hover:bg-muted font-medium">
+                  {c.actif ? 'Désactiver' : 'Réactiver'}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
