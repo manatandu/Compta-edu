@@ -388,9 +388,15 @@ export default function DevoirChapitreCreateur({
           nbQCMTotal: nbQCMSelectionnes,
         }
         if (typeDevoir === 'qcm_cas') {
-          payload.casPratiques = casPratiques
+          // Corrigés types rangés à part (devoirs_corriges), comme pour les
+          // questions rédigées : écrits dans le devoir, que tout étudiant du
+          // cours lit, ils étaient lisibles avant l'envoi de la copie (cache
+          // du navigateur, outils de développement).
+          payload.casPratiques = casPratiques.map(c => ({ ...c, corrigeType: '' }))
+          await createDevoirAvecCorrigeAsync(payload, Object.fromEntries(casPratiques.map(c => [c.id, c.corrigeType])))
+        } else {
+          await createDevoirAsync(payload)
         }
-        await createDevoirAsync(payload)
       }
       setSucces(true)
       setEtape(1)

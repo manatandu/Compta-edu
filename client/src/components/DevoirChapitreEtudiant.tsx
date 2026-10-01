@@ -17,7 +17,7 @@ import {
 import { cn } from '@/lib/utils'
 import { Devoir, Soumission, QCMChapitre, CasPratique } from '@/lib/db'
 import { createSoumissionAsync } from '@/lib/db-firebase'
-import { estACorriger, estDevoirChapitre, formaterNombre, noteDeCopie } from '@/lib/cotes'
+import { estACorriger, estDevoirChapitre, formaterNombre, noteDeCopie, partieQCMDeCopie } from '@/lib/cotes'
 import { corrigerQCMChapitre, partieQCMSur10 } from '@/lib/correctionQCM'
 import { promotionCorrespond } from '@/lib/promotion'
 
@@ -186,7 +186,9 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
         {/* Bandeau info */}
         <div className="rounded-lg bg-indigo-50 border border-indigo-200 p-3 text-xs text-indigo-800">
           <p className="font-semibold mb-1">Devoir QCM + Cas pratiques - /20</p>
-          <p>Partie 1 : {questions.length} QCM × 2 pts = 10 pts</p>
+          {/* Partie QCM sur 10 quel que soit le nombre de questions : « × 2 pts »
+              n'était juste que pour cinq questions (4 QCM × 2 pts = 10 pts). */}
+          <p>Partie 1 : {questions.length} QCM × {formaterNombre(partieQCMSur10(1, questions.length))} pt{partieQCMSur10(1, questions.length) > 1 ? 's' : ''} = 10 pts</p>
           <p>Partie 2 : {casPratiques.length} cas pratique{casPratiques.length > 1 ? 's' : ''} = 10 pts (corrigé par votre professeur)</p>
         </div>
         <p className="text-xs font-semibold text-foreground px-1">Partie 1 - QCM ({questions.length} questions)</p>
@@ -261,7 +263,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
         >
           {loading
             ? <><Loader2 className="h-4 w-4 animate-spin" /> Envoi en cours...</>
-            : <><CheckCircle2 className="h-4 w-4" /> Soumettre et voir ma note</>
+            : <><CheckCircle2 className="h-4 w-4" /> Soumettre ma copie</>
           }
         </button>
         {erreur && <p className="text-xs text-destructive text-center">{erreur}</p>}
@@ -561,10 +563,11 @@ interface DevoirCarteProps {
   soumission: Soumission | null
   etudiantId: string
   onSoumis: (s: Soumission) => void
+  ouvert: boolean
+  setOuvert: (o: boolean) => void
 }
 
-function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCarteProps) {
-  const [ouvert, setOuvert] = useState(false)
+function DevoirCarte({ devoir, soumission, etudiantId, onSoumis, ouvert, setOuvert }: DevoirCarteProps) {
   const expire = new Date() > new Date(devoir.dateLimit)
 
   // La note enregistrée est déjà sur 20 pour les deux types de devoir de
@@ -607,7 +610,7 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis }: DevoirCartePr
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       <button
-        onClick={() => setOuvert(o => !o)}
+        onClick={() => setOuvert(!ouvert)}
         className="w-full flex items-center justify-between p-4 hover:bg-muted/30 transition-colors"
       >
         <div className="flex items-start gap-3 text-left">
@@ -713,7 +716,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
         </p>
         {typeof soumission.scoreQCMCas === 'number' && (
           <p className="text-xs text-muted-foreground">
-            Partie QCM : {soumission.scoreQCMCas}/10 pts déjà calculés
+            Partie QCM : {formaterNombre(soumission.scoreQCMCas)}/10 pts déjà calculés
           </p>
         )}
       </div>
@@ -789,6 +792,7 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
 
   // Devoir noté par l'enseignant (questions rédigées, QCM + cas) ou QCM de
   // chapitre : note, commentaire de l'enseignant et réponses rendues.
+  const partieQCM = partieQCMDeCopie(soumission, devoir)
   return (
     <div className="space-y-3">
       <div className={cn(
@@ -803,6 +807,13 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
         {typeof soumission.scoreQCMChapitre === 'number' && (
           <p className="text-xs text-muted-foreground">
             {soumission.scoreQCMChapitre}/{devoir.questionsChapitre?.length ?? '?'} bonnes réponses
+          </p>
+        )}
+        {/* QCM + cas : la note seule (12/20) à côté de « 2/4 bonnes réponses »
+            ne disait pas ce que valaient les cas pratiques. */}
+        {partieQCM !== null && noteSur20 !== null && (
+          <p className="text-xs text-muted-foreground">
+            QCM : {formaterNombre(partieQCM)}/10 · Cas pratiques : {formaterNombre(Math.max(0, noteSur20 - partieQCM))}/10
           </p>
         )}
         <p className="text-xs text-muted-foreground">
@@ -858,6 +869,19 @@ interface Props {
 
 export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantId, promotionId }: Props) {
   const [soumissionsLocales, setSoumissionsLocales] = useState<Soumission[]>([])
+  // Cartes dépliées, tenues ici et non dans chaque carte : à l'envoi, le
+  // devoir passe de « À faire » à « Historique », sa carte est recréée et se
+  // repliait aussitôt ; l'étudiant ne voyait ni la confirmation d'envoi ni
+  // sa note de QCM.
+  const [ouverts, setOuverts] = useState<Set<string>>(new Set())
+  const carteProps = (d: Devoir) => ({
+    ouvert: ouverts.has(d.id),
+    setOuvert: (o: boolean) => setOuverts(prev => {
+      const next = new Set(prev)
+      if (o) next.add(d.id); else next.delete(d.id)
+      return next
+    }),
+  })
 
   const toutesLesSoumissions = [...soumissions, ...soumissionsLocales]
 
@@ -910,6 +934,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
               soumission={soumissionDe(d) || null}
               etudiantId={etudiantId}
               onSoumis={handleSoumis}
+              {...carteProps(d)}
             />
           ))}
         </div>
@@ -928,6 +953,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
               soumission={null}
               etudiantId={etudiantId}
               onSoumis={handleSoumis}
+              {...carteProps(d)}
             />
           ))}
         </div>
@@ -946,6 +972,7 @@ export default function DevoirChapitreEtudiant({ devoirs, soumissions, etudiantI
               soumission={soumissionDe(d) || null}
               etudiantId={etudiantId}
               onSoumis={handleSoumis}
+              {...carteProps(d)}
             />
           ))}
         </div>
