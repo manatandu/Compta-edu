@@ -427,7 +427,13 @@ service cloud.firestore {
 
     match /soumissions/{soumissionId} {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      // Une seule copie par étudiant et par devoir : son identifiant est
+      // imposé (devoirId_uid). Avec un identifiant libre, un étudiant pouvait
+      // rendre autant de copies qu'il voulait sur le même devoir (la cote
+      // retenait la première trouvée) ; un nouvel envoi devient une
+      // modification, refusée pour un QCM et pour une copie notée.
       allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid
+        && soumissionId == request.resource.data.devoirId + '_' + request.auth.uid
         && copieValide(request.resource.data);
       // Modification :
       // - l'étudiant : jamais les champs de correction (sinon il pouvait

@@ -1108,8 +1108,10 @@ export async function getSoumissionsAsync(devoirId?: string, etudiantId?: string
 // chez l'étudiant, s'accumulaient dans les copies à corriger de l'enseignant
 // et n'entraient dans aucune cote. Les copies enregistrées avant ce correctif
 // sont reconnues par leur note (voir estNotee, lib/cotes.ts).
+// Identifiant imposé par firestore.rules (devoirId_etudiantId) : une seule
+// copie par étudiant et par devoir.
 export async function createSoumissionAsync(data: Omit<Soumission, 'id' | 'dateSoumission' | 'statut'>): Promise<Soumission> {
-  const id = generateId()
+  const id = `${data.devoirId}_${data.etudiantId}`
   const statut: Soumission['statut'] = typeof data.note === 'number' ? 'note' : 'soumis'
   const s: Soumission = { ...data, id, dateSoumission: new Date().toISOString(), statut }
   await setDoc(doc(db, C.SOUMISSIONS, id), cleanUndefined(s) as any)
