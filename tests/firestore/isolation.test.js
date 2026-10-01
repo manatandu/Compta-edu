@@ -136,7 +136,9 @@ describe('🔐 Users — Isolation par utilisateur', () => {
 
   // ─── Mots de passe : jamais stockés dans un profil ─────────────────────────
   it('Créer son profil avec un champ password est REFUSÉ', async () => {
-    const nouveau = { uid: 'nouvel-etud-uid', role: 'etudiant', username: 'nouvel' }
+    // Compte créé par un professeur : invitation à son nom (voir les règles).
+    await seedDoc('accountInvites', 'nouvel-etud-uid', { role: 'etudiant', createdBy: USERS.prof1.uid })
+    const nouveau = { uid: 'nouvel-etud-uid', role: 'etudiant', username: 'nouvel', createdBy: USERS.prof1.uid }
     const ref = doc(db(nouveau), 'users', nouveau.uid)
     await assertFails(setDoc(ref, { ...nouveau, password: 'secret123' }))
     await assertSucceeds(setDoc(ref, nouveau))
@@ -194,12 +196,53 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await assertSucceeds(setDoc(doc(db(USERS.admin1), 'annuaire', USERS.prof1.uid), { nom: 'P', prenom: 'Un', username: 'prof1', role: 'professeur' }))
   })
 
-  it('Un utilisateur fraîchement authentifié (auto-inscription) peut créer SON profil étudiant', async () => {
+  it('Un utilisateur fraîchement authentifié (auto-inscription par code) peut créer SON profil étudiant en attente', async () => {
     // L'app crée d'abord le compte Firebase Auth (via secondaryAuth), PUIS écrit le
     // profil Firestore : au moment de l'écriture, l'appelant est donc authentifié
     // en tant que ce nouvel utilisateur — jamais réellement anonyme.
+    await seedDoc('codesAcces', 'CODE1234', { code: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true })
     const ref = doc(db({ uid: 'nouveau-uid' }), 'users', 'nouveau-uid')
-    await assertSucceeds(setDoc(ref, { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau' }))
+    await assertSucceeds(setDoc(ref, { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }))
+  })
+
+  it('Sans code ni invitation, un compte authentifié NE PEUT PAS créer un profil étudiant actif', async () => {
+    const ref = doc(db({ uid: 'intrus-uid' }), 'users', 'intrus-uid')
+    await assertFails(setDoc(ref, { uid: 'intrus-uid', role: 'etudiant', username: 'intrus', actif: true, coursIds: [IDS.coursCompta] }))
+    await assertFails(setDoc(ref, { uid: 'intrus-uid', role: 'etudiant', username: 'intrus' }))
+  })
+
+  it('Inscription par code : en attente, code actif, créateur et cours du code imposés', async () => {
+    await seedDoc('codesAcces', 'CODE1234', { code: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true })
+    await seedDoc('codesAcces', 'CODEOFF1', { code: 'CODEOFF1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: false })
+    const ref = doc(db({ uid: 'n-uid' }), 'users', 'n-uid')
+    const base = { role: 'etudiant', username: 'n', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }
+    await assertFails(setDoc(ref, { ...base, actif: true }))
+    await assertFails(setDoc(ref, { ...base, coursIds: [IDS.coursCompta, IDS.coursFiscalite] }))
+    await assertFails(setDoc(ref, { ...base, createdBy: USERS.prof2.uid }))
+    await assertFails(setDoc(ref, { ...base, codeAcces: 'CODEOFF1' }))
+    await assertFails(setDoc(ref, { ...base, codeAcces: 'INCONNU1' }))
+    await assertSucceeds(setDoc(ref, base))
+  })
+
+  it('Compte étudiant créé par un professeur : invitation à son nom, créateur imposé', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2)
+    await assertSucceeds(setDoc(doc(db(USERS.prof1), 'accountInvites', 'etu-neuf'), { role: 'etudiant', createdBy: USERS.prof1.uid, dateCreation: 'x' }))
+    // Ni au nom d'un autre, ni pour un rôle à privilèges
+    await assertFails(setDoc(doc(db(USERS.prof2), 'accountInvites', 'etu-autre'), { role: 'etudiant', createdBy: USERS.prof1.uid }))
+    await assertFails(setDoc(doc(db(USERS.prof2), 'accountInvites', 'etu-autre'), { role: 'professeur', createdBy: USERS.prof2.uid }))
+    const ref = doc(db({ uid: 'etu-neuf' }), 'users', 'etu-neuf')
+    await assertFails(setDoc(ref, { role: 'etudiant', username: 'etu.neuf', actif: true, createdBy: USERS.prof2.uid }))
+    await assertSucceeds(setDoc(ref, { role: 'etudiant', username: 'etu.neuf', actif: true, createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }))
+    await assertFails(deleteDoc(doc(db(USERS.prof2), 'accountInvites', 'etu-neuf')))
+    await assertSucceeds(deleteDoc(doc(db(USERS.prof1), 'accountInvites', 'etu-neuf')))
+  })
+
+  it('Un étudiant NE PEUT PAS changer lui-même ses cours, sa promotion ni son équipe', async () => {
+    await seedUsers({ ...USERS.etud1, coursIds: [IDS.coursCompta], classe: 'L1', createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertFails(updateDoc(ref, { coursIds: [IDS.coursCompta, IDS.coursFiscalite] }))
+    await assertFails(updateDoc(ref, { classe: 'M2' }))
+    await assertFails(updateDoc(ref, { createdBy: USERS.prof2.uid }))
   })
 
   it('Un utilisateur non authentifié NE PEUT PAS créer de compte directement', async () => {
@@ -1597,6 +1640,15 @@ describe('🔑 Codes d\'accès — get public, list réservé aux profs/admins',
       code: 'FRAUDE1', universiteId: IDS.univ1, faculteId: IDS.fac1,
       coursIds: [IDS.coursCompta], classe: 'L1', createdBy: USERS.etud1.uid, actif: true,
     }))
+  })
+
+  it('Un prof NE PEUT PAS créer un code au nom d\'un autre ni modifier le code d\'une autre équipe', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2)
+    await assertFails(setDoc(doc(db(USERS.prof2), 'codesAcces', 'code-usurpe'), { code: 'USURPE', coursIds: [], createdBy: USERS.prof1.uid, actif: true }))
+    await seedDoc('codesAcces', 'code1', { code: 'ABC123', coursIds: [IDS.coursCompta], createdBy: USERS.prof1.uid, actif: true })
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'codesAcces', 'code1'), { actif: false }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'codesAcces', 'code1'), { createdBy: USERS.prof2.uid }))
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'codesAcces', 'code1'), { actif: false }))
   })
 
   it('Un prof PEUT créer un code d\'accès', async () => {

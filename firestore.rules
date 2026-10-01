@@ -83,6 +83,27 @@ service cloud.firestore {
       return memeEquipe(get(/databases/$(database)/documents/$(coll)/$(id)).data.get('createdBy', ''));
     }
 
+    // Profil d'un étudiant qui s'inscrit lui-même avec un code d'accès.
+    function inscriptionParCode(d) {
+      return d.get('actif', true) == false && d.get('statutInscription', '') == 'en_attente' &&
+        d.get('codeAcces', '') is string && d.get('codeAcces', '') != '' &&
+        exists(/databases/$(database)/documents/codesAcces/$(d.codeAcces)) &&
+        codeOuvert(get(/databases/$(database)/documents/codesAcces/$(d.codeAcces)).data, d);
+    }
+    // Code actif ; créateur et cours du profil repris du code (coursId : forme
+    // des plus anciens codes, à un seul cours).
+    function codeOuvert(code, d) {
+      return code.get('actif', false) == true &&
+        d.get('createdBy', '') == code.get('createdBy', '') &&
+        d.get('coursIds', []).hasOnly(code.get('coursIds', []).concat([code.get('coursId', '')]));
+    }
+    // Compte étudiant créé par un membre du personnel (invitation à son nom).
+    function inviteEtudiant(uid, d) {
+      return exists(/databases/$(database)/documents/accountInvites/$(uid)) &&
+        get(/databases/$(database)/documents/accountInvites/$(uid)).data.role == 'etudiant' &&
+        get(/databases/$(database)/documents/accountInvites/$(uid)).data.get('createdBy', '') == d.get('createdBy', '');
+    }
+
     // ─── USERS ───────────────────────────────────────────────────────────────
     match /users/{userId} {
       // Création :
@@ -94,8 +115,17 @@ service cloud.firestore {
       //    (voir accountInvites) avant d'accepter un rôle à privilèges.
       // 3) Admin déjà authentifié écrivant directement (cas de repli import CSV / collision
       //    d'e-mail où l'uid généré ne correspond à aucun compte Auth).
+      // Compte étudiant : jamais créé librement. Auparavant, n'importe qui
+      // pouvait ouvrir un compte d'authentification (API publique) puis écrire
+      // lui-même un profil étudiant ACTIF, inscrit aux cours de son choix,
+      // sans code ni validation. Deux voies seulement :
+      // - inscription par code d'accès : en attente de validation, rattachée à
+      //   un code actif, au créateur du code et à ses cours ;
+      // - compte créé par le personnel : invitation posée juste avant par le
+      //   créateur (accountInvites, comme pour les rôles à privilèges).
       allow create: if !request.resource.data.keys().hasAny(['password']) && ((request.auth.uid == userId && (
-        (request.resource.data.role == 'etudiant' && !request.resource.data.keys().hasAny(['titulaireId'])) ||
+        (request.resource.data.role == 'etudiant' && !request.resource.data.keys().hasAny(['titulaireId']) &&
+          (inscriptionParCode(request.resource.data) || inviteEtudiant(userId, request.resource.data))) ||
         (
           request.resource.data.role in ['professeur', 'assistant', 'admin'] &&
           exists(/databases/$(database)/documents/accountInvites/$(userId)) &&
@@ -134,7 +164,12 @@ service cloud.firestore {
         request.resource.data.get('actif', null) == resource.data.get('actif', null) &&
         request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null) &&
         // Le rattachement à un titulaire (équipe pédagogique) n'est modifiable que par l'admin.
-        request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null)
+        request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null) &&
+        // Inscriptions, promotion, faculté et équipe : gérées par l'équipe
+        // pédagogique. Un étudiant pouvait s'ajouter lui-même à tous les cours.
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'coursIds', 'classe', 'faculteId', 'universiteId', 'createdBy'
+        ])
       ) || (
         isProf() && resource.data.role == 'etudiant' &&
         memeEquipe(resource.data.get('createdBy', '')) &&
@@ -168,6 +203,13 @@ service cloud.firestore {
     // ci-dessus ; jamais utilisée directement par l'interface.
     match /accountInvites/{inviteId} {
       allow read, write: if isAdmin();
+      // Compte étudiant créé par un professeur ou un assistant : invitation à
+      // son propre nom, retirée une fois le profil écrit.
+      allow create: if isProf() && request.resource.data.role == 'etudiant' &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.keys().hasOnly(['role', 'createdBy', 'dateCreation']);
+      allow delete: if isProf() && resource.data.role == 'etudiant' &&
+        resource.data.createdBy == request.auth.uid;
     }
 
     // ─── SESSIONS ────────────────────────────────────────────────────────────
@@ -307,7 +349,13 @@ service cloud.firestore {
     match /codesAcces/{codeId} {
       allow get: if true;
       allow list: if isProf();
-      allow write: if isProf();
+      // Un code ouvre l'inscription dans la classe de son créateur : créé au
+      // nom de l'appelant, modifié (désactivation, cours) par son équipe ou
+      // l'admin. Tout professeur pouvait réécrire le code d'un autre.
+      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid;
+      allow update: if isProf() && (createdBy() || isAdmin()) &&
+        request.resource.data.get('createdBy', '') == resource.data.get('createdBy', '');
+      allow delete: if isProf() && (createdBy() || isAdmin());
     }
 
     // ─── CONFIG (réglages globaux, ex. année académique en cours) ────────────

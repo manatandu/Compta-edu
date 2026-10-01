@@ -112,6 +112,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         classe: codeData.classe || undefined,
         coursIds: codeData.coursIds?.length > 0 ? codeData.coursIds : codeData.coursId ? [codeData.coursId] : undefined,
         createdBy: codeData.createdBy || '',
+        // Code utilisé : firestore.rules n'accepte l'inscription qu'avec un
+        // code actif, dont le profil reprend le créateur et les cours.
+        codeAcces: joinCode.trim().toUpperCase(),
       } as any)
       setJoinSuccess(true)
     } catch (err: any) {

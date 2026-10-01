@@ -528,6 +528,14 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   if (rolePrivilegie) {
     await setDoc(doc(db, 'accountInvites', uid), { role: data.role, ...((data as any).titulaireId ? { titulaireId: (data as any).titulaireId } : {}), dateCreation: new Date().toISOString() })
   }
+  // Compte étudiant créé par un membre du personnel connecté : même
+  // invitation, à son nom. Les règles n'acceptent plus un profil étudiant
+  // écrit par le compte lui-même sans elle, sauf inscription en attente par
+  // code d'accès (onglet Rejoindre, où personne n'est connecté).
+  const inviteEtudiant = useSecondaryDb && data.role === 'etudiant' && !!auth.currentUser && data.createdBy === auth.currentUser.uid
+  if (inviteEtudiant) {
+    await setDoc(doc(db, 'accountInvites', uid), { role: 'etudiant', createdBy: data.createdBy, dateCreation: new Date().toISOString() })
+  }
 
   // Le mot de passe ne sert qu'à créer le compte Firebase Authentication
   // ci-dessus : il n'est JAMAIS recopié dans le profil Firestore (il y était
@@ -555,7 +563,7 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
       await creerFicheEtudiantLiee(secondaryDb, user).catch(() => {})
     }
     await signOut(secondaryAuth)
-    if (rolePrivilegie) {
+    if (rolePrivilegie || inviteEtudiant) {
       await deleteDoc(doc(db, 'accountInvites', uid)).catch(() => {})
     }
   } else {
