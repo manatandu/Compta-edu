@@ -9,9 +9,9 @@
  * Aucun conflit Firestore : écrit dans `users/` et `codesAcces/`
  * indépendamment de la collection `etudiants/` (fiches externes).
  */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
-import { collection, setDoc, doc, getFirestore } from 'firebase/firestore'
+import { collection, setDoc, doc, getFirestore, onSnapshot, query, updateDoc, where } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
 import {
   createUserAsync, getUsernamesExistantsAsync, getCoursTries, inscriptionsDeLaFaculte,
@@ -20,6 +20,7 @@ import { PROMOTIONS } from '@/lib/db'
 import { codePromotion } from '@/lib/promotion'
 import { useUniversites, useAllFacultes, useAllCours } from '@/lib/useFirestore'
 import { useUser } from '@/lib/userContext'
+import { useEquipe } from '@/lib/equipe'
 import { isStaffRole } from '@/lib/permissions'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import BackButton from '@/components/BackButton'
@@ -674,6 +675,28 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
   const facultes = getFacultes(form.universiteId)
   const cours = getCours(form.universiteId, form.faculteId)
 
+  // Codes déjà générés par l'équipe pédagogique. L'écran annonçait un code
+  // « valide jusqu'à sa désactivation » sans aucun moyen de le désactiver :
+  // un code diffusé hors de la classe restait ouvert pour toujours.
+  const equipe = useEquipe()
+  const cleEquipe = equipe?.ids.join(',') || currentUserId
+  const [codes, setCodes] = useState<any[]>([])
+  useEffect(() => {
+    const ids = (equipe?.ids.length ? equipe.ids : [currentUserId]).filter(Boolean).slice(0, 30)
+    if (ids.length === 0) return
+    return onSnapshot(query(collection(getFirestore(getApp()), 'codesAcces'), where('createdBy', 'in', ids)),
+      snap => setCodes(snap.docs.map(d => ({ ...d.data(), id: d.id })).sort((a: any, b: any) => (b.createdAt || '').localeCompare(a.createdAt || ''))),
+      () => setCodes([]))
+  }, [cleEquipe])
+  const basculerCode = async (c: any) => {
+    try {
+      await updateDoc(doc(getFirestore(getApp()), 'codesAcces', c.id), { actif: !c.actif })
+      toast({ title: c.actif ? `Code ${c.id} désactivé` : `Code ${c.id} réactivé` })
+    } catch {
+      toast({ title: 'Modification du code impossible', variant: 'destructive' })
+    }
+  }
+
   const toggleCours = (id: string) =>
     setForm(f => ({
       ...f,
@@ -818,7 +841,28 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
             {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             {copied ? 'Copié !' : 'Copier le code'}
           </button>
-          <p className="text-xs text-emerald-600">Transmettez ce code aux étudiants. Il sera valide jusqu'à sa désactivation.</p>
+          <p className="text-xs text-emerald-600">Transmettez ce code aux étudiants. Il sera valide jusqu'à sa désactivation, ci-dessous.</p>
+        </div>
+      )}
+
+      {codes.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="text-xs font-semibold text-foreground">Codes de votre équipe</h3>
+          <div className="divide-y divide-border rounded-xl border border-border">
+            {codes.map(c => (
+              <div key={c.id} className="flex items-center gap-3 px-3 py-2 text-xs">
+                <span className={`font-mono font-bold tracking-widest ${c.actif ? 'text-foreground' : 'text-muted-foreground line-through'}`}>{c.id}</span>
+                <span className="flex-1 min-w-0 truncate text-muted-foreground">
+                  {[c.classe, ...(c.coursIds || []).map((id: string) => getCours('', c.faculteId || '').find((x: any) => x.id === id)?.nom || '')].filter(Boolean).join(' · ') || 'Sans cours'}
+                  {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString('fr-FR')}` : ''}
+                </span>
+                <span className={c.actif ? 'text-emerald-700' : 'text-muted-foreground'}>{c.actif ? 'Actif' : 'Désactivé'}</span>
+                <button onClick={() => basculerCode(c)} className="px-2.5 py-1 rounded-lg border border-border hover:bg-muted font-medium">
+                  {c.actif ? 'Désactiver' : 'Réactiver'}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
