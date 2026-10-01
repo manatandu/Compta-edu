@@ -459,12 +459,12 @@ export default function ProfesseurPage() {
   const [propositionErreur, setPropositionErreur] = useState('')
   useEffect(() => { setPropositionIA(null); setPropositionErreur('') }, [correctionSoumId])
   const [viewSoumission, setViewSoumission] = useState<Soumission | null>(null)
-  // Réponses attendues du devoir à questions rédigées de la copie affichée.
+  // Réponses attendues (questions rédigées, QCM + cas) de la copie affichée.
   const [corrigesVus, setCorrigesVus] = useState<Record<string, string>>({})
   useEffect(() => {
     setCorrigesVus({})
     const dev = viewSoumission ? devoirsList.find(d => d.id === viewSoumission.devoirId) : undefined
-    if (dev?.type !== 'redaction') return
+    if (dev?.type !== 'redaction' && dev?.type !== 'qcm_cas') return
     let actif = true
     getCorrigesDevoirAsync(dev.id).then(c => { if (actif) setCorrigesVus(c) }).catch(() => {})
     return () => { actif = false }
@@ -614,8 +614,9 @@ export default function ProfesseurPage() {
     if (!soum || !dev?.casPratiques?.length) return
     setPropositionEnCours(true); setPropositionErreur('')
     try {
-      // Questions rédigées : réponses attendues rangées à part, réservées à l'équipe.
-      const cas = dev.type === 'redaction' ? avecCorriges(dev.casPratiques, await getCorrigesDevoirAsync(dev.id)) : dev.casPratiques
+      // Questions rédigées, QCM + cas : réponses attendues rangées à part,
+      // réservées à l'équipe (les devoirs plus anciens les portent encore).
+      const cas = avecCorriges(dev.casPratiques, await getCorrigesDevoirAsync(dev.id))
       setPropositionIA(await proposerNoteCas(cas, soum.reponsesCasPratiques || {}))
     } catch (e) {
       console.error('Proposition IA :', e)
@@ -3057,7 +3058,7 @@ export default function ProfesseurPage() {
                         </div>
                         <details className="text-xs">
                           <summary className="cursor-pointer text-primary">Corrigé type</summary>
-                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{(devType === 'redaction' ? corrigesVus[cas.id] : cas.corrigeType) || '(aucun corrigé)'}</pre>
+                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{corrigesVus[cas.id] || cas.corrigeType || '(aucun corrigé)'}</pre>
                         </details>
                       </div>
                     ))}

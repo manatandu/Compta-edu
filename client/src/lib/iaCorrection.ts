@@ -41,6 +41,9 @@ function activerAppCheck(): Promise<void> {
 // Message à montrer à l'enseignant quand la proposition échoue.
 export function messageErreurIA(e: unknown): string {
   const texte = String((e as any)?.message || e)
+  if (texte === IA_INDISPONIBLE_EMULATEURS) {
+    return "La proposition de note par l'IA n'existe pas sur le banc de test (émulateurs locaux). Notez vous-même."
+  }
   if (/app check/i.test(texte)) {
     return "Le service d'IA n'est pas encore autorisé pour ce site (App Check à configurer par l'administrateur). Notez vous-même en attendant."
   }
@@ -93,7 +96,13 @@ Consignes :
 ${blocs}`
 }
 
+// Firebase AI Logic n'a pas d'émulateur : sur le banc de test, l'appel partait
+// vers le service d'IA du projet de production (quota, copies fictives
+// transmises) et échouait avec un message invitant à réessayer.
+const IA_INDISPONIBLE_EMULATEURS = 'IA_INDISPONIBLE_EMULATEURS'
+
 export async function proposerNoteCas(cas: CasPratique[], reponses: Record<string, string>): Promise<PropositionCas[]> {
+  if (EMULATEURS) throw new Error(IA_INDISPONIBLE_EMULATEURS)
   await activerAppCheck()
   const { getAI, getGenerativeModel, GoogleAIBackend, Schema } = await import('firebase/ai')
   const modele = getGenerativeModel(getAI(app, { backend: new GoogleAIBackend() }), {
