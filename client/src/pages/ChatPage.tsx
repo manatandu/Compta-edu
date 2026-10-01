@@ -3,7 +3,7 @@ import { isAdminRole } from '@/lib/permissions'
 import React, { useState, useRef, useEffect } from 'react'
 import { useSearch } from 'wouter'
 import BackButton from '@/components/BackButton'
-import { onMessagesSnapshot, saveMessageAsync, getPersonnelAsync, getEtudiantsAsync, getEtudiantsCreesParAsync, marquerMessagesLusAsync } from '@/lib/db-firebase'
+import { onMessagesSnapshot, saveMessageAsync, getPersonnelAsync, getEtudiantsAsync, getEtudiantsCreesParAsync, marquerMessagesLusAsync, getUsersByIdsAsync, getFichesAnnuaireAsync } from '@/lib/db-firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,6 +15,7 @@ import { useEquipe, creeParEquipe } from '@/lib/equipe'
 export default function ChatPage() {
   const currentUser = useUser()
   const [allUsersRaw, setAllUsersRaw] = React.useState<any[]>([])
+  const [contactsCharges, setContactsCharges] = React.useState(false)
   // Contacts chargés par requête ciblée selon le rôle, plutôt que toute la
   // collection users : l'admin principal lit les étudiants, un professeur ou
   // assistant uniquement ceux qu'il a inscrits (createdBy = son uid ou son
@@ -30,7 +31,7 @@ export default function ChatPage() {
       : ['professeur', 'assistant'].includes(role)
         ? getEtudiantsCreesParAsync({ id: currentUser.id, username: (currentUser as any).username }, undefined, equipe?.refs || [])
         : getPersonnelAsync()
-    chargement.then(setAllUsersRaw).catch(() => {})
+    chargement.then(setAllUsersRaw).catch(() => {}).finally(() => setContactsCharges(true))
   }, [currentUser?.id, currentUser?.role, refsEquipe])
   const allUsers = allUsersRaw.filter(u => u.id !== currentUser?.id && u.actif)
 
@@ -41,7 +42,7 @@ export default function ChatPage() {
   const isMainAdmin = isAdminRole(currentUser)
   const createdByRef = (currentUser as any)?.createdBy as string | undefined
 
-  const users = isStaff
+  const contactsRole = isStaff
     ? allUsers.filter(u => {
         if (u.role !== 'etudiant') return false
         if (isMainAdmin) return true  // l'admin voit tous les étudiants
@@ -59,6 +60,21 @@ export default function ChatPage() {
       })()
 
   const [selectedUserId, setSelectedUserId] = useState<string>('')
+  const [messages, setMessages] = useState<any[]>([])
+
+  // Correspondants hors de la liste ci-dessus : un étudiant peut écrire à
+  // tout le personnel, et son message n'apparaissait chez un enseignant
+  // d'une autre équipe que dans la cloche, sans conversation où répondre.
+  const [correspondants, setCorrespondants] = useState<any[]>([])
+  const idsCorrespondants = Array.from(new Set(messages.map(m => m.expediteurId === currentUser?.id ? m.destinataireId : m.expediteurId)))
+    .filter(id => id && id !== currentUser?.id && !contactsRole.some(u => u.id === id))
+  const cleCorrespondants = idsCorrespondants.sort().join(',')
+  React.useEffect(() => {
+    if (!cleCorrespondants) { setCorrespondants([]); return }
+    const lecture = isStaff ? getUsersByIdsAsync(idsCorrespondants) : getFichesAnnuaireAsync(idsCorrespondants)
+    lecture.then(setCorrespondants).catch(() => setCorrespondants([]))
+  }, [cleCorrespondants, isStaff])
+  const users = [...contactsRole, ...correspondants.filter(c => !contactsRole.some(u => u.id === c.id))]
 
   // Pré-sélectionner un contact passé en paramètre d'URL (?with=<userId>),
   // par exemple depuis un lien "Voir le message" de la cloche de
@@ -83,7 +99,6 @@ export default function ChatPage() {
       if (creator) setSelectedUserId(creator.id)
     }
   }, [users.length, isStaff])
-  const [messages, setMessages] = useState<any[]>([])
   const [newMessage, setNewMessage] = useState('')
   const bottomRef = useRef<HTMLDivElement>(null)
 
@@ -127,9 +142,13 @@ export default function ChatPage() {
     setNewMessage('')
   }
 
+  // Jamais l'identifiant technique à l'écran : un lien /chat?with=<id> vers
+  // un compte qui n'est pas un contact (autre équipe, compte supprimé)
+  // affichait l'identifiant brut et laissait écrire à cette personne.
+  const contactChoisi = users.find(u => u.id === selectedUserId)
   const getUserName = (id: string) => {
     const u = [...users, currentUser!].find(u => u?.id === id)
-    return u ? `${u.nom} ${u.prenom || ''}`.trim() : id
+    return u ? `${u.nom} ${u.prenom || ''}`.trim() : (contactsCharges ? 'Contact indisponible' : '…')
   }
 
   const getUserInitials = (id: string) => {
@@ -232,8 +251,10 @@ export default function ChatPage() {
                         )}>
                           {m.contenu}
                         </div>
-                        <p className="text-xs text-muted-foreground mt-0.5">
+                        <p className={cn('text-xs text-muted-foreground mt-0.5', isMe && 'text-right')}>
                           {new Date(m.date).toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                          {/* Marque de lecture : posée quand le destinataire ouvre la conversation. */}
+                          {isMe && <span className={cn('ml-1.5', m.lu && 'text-primary')}>{m.lu ? '✓✓ Lu' : '✓ Envoyé'}</span>}
                         </p>
                       </div>
                     </div>
@@ -245,6 +266,8 @@ export default function ChatPage() {
             <div className="border-t border-border p-3 shrink-0">
               {!selectedUserId ? (
                 <p className="text-xs text-center text-muted-foreground py-1">Sélectionnez un contact pour écrire un message.</p>
+              ) : !contactChoisi ? (
+                <p className="text-xs text-center text-muted-foreground py-1">Ce contact ne fait pas partie de vos correspondants.</p>
               ) : (
                 <div className="flex gap-2">
                   <Input
