@@ -17,7 +17,7 @@ import {
 import { cn } from '@/lib/utils'
 import { Devoir, Soumission, QCMChapitre, CasPratique } from '@/lib/db'
 import { createSoumissionAsync } from '@/lib/db-firebase'
-import { estACorriger, estDevoirChapitre, formaterNombre, noteDeCopie, partieQCMDeCopie } from '@/lib/cotes'
+import { corrigeQCMEnAttente, estACorriger, estDevoirChapitre, formaterNombre, noteDeCopie, partieQCMDeCopie } from '@/lib/cotes'
 import { corrigerQCMChapitre, partieQCMSur10 } from '@/lib/correctionQCM'
 import { promotionCorrespond } from '@/lib/promotion'
 
@@ -57,6 +57,20 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
     setLoading(true)
     setErreur('')
     try {
+      if (devoir.corrigeQCMSepare) {
+        // Corrigé publié à la date limite : la copie part avec les seules
+        // réponses, notée d'office (correctionAuto), la note se calculant
+        // ensuite partout d'après le corrigé.
+        const soumission = await createSoumissionAsync({
+          devoirId: devoir.id,
+          etudiantId,
+          reponsesQCMChapitre: reponses,
+          correctionAuto: true,
+        } as any)
+        setSoumis(true)
+        onSoumis(soumission)
+        return
+      }
       const details = questions.map(q => ({
         qId: q.id,
         choix: reponses[q.id] || '',
@@ -88,6 +102,7 @@ function PasserQCMChapitre({ devoir, etudiantId, onSoumis }: PasserQCMChapitrePr
     }
   }
 
+  if (soumis && !resultat) return <NoteApresDateLimite devoir={devoir} />
   if (soumis && resultat) {
     const noteSur20 = scoreEnNoteSur20(resultat.score, questions.length)
     return (
@@ -138,7 +153,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
   const [loading, setLoading] = useState(false)
   const [erreur, setErreur] = useState('')
   // Partie QCM obtenue, affichée après l'envoi.
-  const [resultat, setResultat] = useState<{ scoreQCM: number } | null>(null)
+  const [resultat, setResultat] = useState<{ scoreQCM: number | null } | null>(null)
 
   const totalQCMRepondues = Object.keys(reponsesQCM).length
   const peutPasserCas = totalQCMRepondues === questions.length
@@ -157,6 +172,19 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
     setLoading(true)
     setErreur('')
     try {
+      if (devoir.corrigeQCMSepare) {
+        // Partie QCM calculée d'après le corrigé, publié à la date limite.
+        const soumission = await createSoumissionAsync({
+          devoirId: devoir.id,
+          etudiantId,
+          reponsesQCMChapitre: reponsesQCM,
+          reponsesCasPratiques: reponsesCas,
+        } as any)
+        setResultat({ scoreQCM: null })
+        setEtape('correction')
+        onSoumis(soumission)
+        return
+      }
       const { details: detailsQCM, nbCorrectes } = corrigerQCMChapitre(questions, reponsesQCM)
       const scoreQCM = partieQCMSur10(nbCorrectes, questions.length)
       const soumission = await createSoumissionAsync({
@@ -284,7 +312,7 @@ function PasserQCMCas({ devoir, etudiantId, onSoumis }: PasserQCMCasProps) {
           Vos cas pratiques ont été transmis à votre professeur. La note finale s'affichera ici après sa correction.
         </p>
         <div className="text-xs text-muted-foreground mt-2">
-          <p>QCM : {formaterNombre(resultat.scoreQCM)}/10</p>
+          <p>QCM : {resultat.scoreQCM === null ? `calculé après la date limite (${dateLimiteLisible(devoir)})` : `${formaterNombre(resultat.scoreQCM)}/10`}</p>
           <p>Cas pratiques : en attente de correction</p>
         </div>
       </div>
@@ -592,6 +620,13 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis, ouvert, setOuve
         </span>
       )
     }
+    if (soumission && noteSur20 === null && corrigeQCMEnAttente(devoir)) {
+      return (
+        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
+          Note après la date limite
+        </span>
+      )
+    }
     if (noteSur20 !== null) {
       return (
         <span className={cn(
@@ -695,6 +730,40 @@ function DevoirCarte({ devoir, soumission, etudiantId, onSoumis, ouvert, setOuve
   )
 }
 
+// ─── Corrigé publié à la date limite ──────────────────────────────────────────
+
+function dateLimiteLisible(devoir: Devoir): string {
+  return new Date(devoir.dateLimit).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })
+}
+
+function NoteApresDateLimite({ devoir }: { devoir: Devoir }) {
+  return (
+    <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-center space-y-2">
+      <Clock className="h-8 w-8 mx-auto text-indigo-600" />
+      <p className="text-sm font-semibold text-foreground">Copie rendue</p>
+      <p className="text-xs text-indigo-800">
+        Votre note et le corrigé seront disponibles après la date limite, le {dateLimiteLisible(devoir)}.
+      </p>
+    </div>
+  )
+}
+
+// Copie telle qu'elle s'affiche. Pour un devoir à corrigé séparé, le score et
+// le détail du QCM sont recalculés d'après le corrigé publié, jamais lus sur
+// la copie (que l'étudiant écrit lui-même) ; avant la date limite, rien.
+function copieAffichee(s: Soumission, d: Devoir): Soumission {
+  if (!d.corrigeQCMSepare) return s
+  const { scoreQCMChapitre, detailsQCMChapitre, scoreQCMCas, ...reste } = s as any
+  if (!d.corrigeQCMCharge || !d.questionsChapitre?.length) return reste
+  const { details, nbCorrectes } = corrigerQCMChapitre(d.questionsChapitre, s.reponsesQCMChapitre || {})
+  return {
+    ...reste,
+    detailsQCMChapitre: details,
+    scoreQCMChapitre: nbCorrectes,
+    ...(d.type === 'qcm_cas' ? { scoreQCMCas: partieQCMSur10(nbCorrectes, d.questionsChapitre.length) } : {}),
+  }
+}
+
 // ─── Affichage devoir déjà soumis ─────────────────────────────────────────────
 
 interface ResultatSoumisProps {
@@ -703,7 +772,12 @@ interface ResultatSoumisProps {
   noteSur20: number | null
 }
 
-function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) {
+function ResultatSoumis({ devoir, soumission: copie, noteSur20 }: ResultatSoumisProps) {
+  const soumission = copieAffichee(copie, devoir)
+  // QCM de chapitre dont le corrigé n'est pas encore publié
+  if (devoir.type === 'qcm_chapitre' && noteSur20 === null && corrigeQCMEnAttente(devoir)) {
+    return <NoteApresDateLimite devoir={devoir} />
+  }
   // Devoir en attente de correction manuelle
   if (estACorriger(soumission)) {
     return (
@@ -714,9 +788,13 @@ function ResultatSoumis({ devoir, soumission, noteSur20 }: ResultatSoumisProps) 
           Votre devoir a été soumis le {new Date(soumission.dateSoumission).toLocaleDateString('fr-FR')}.
           Votre professeur procédera à la correction.
         </p>
-        {typeof soumission.scoreQCMCas === 'number' && (
+        {typeof soumission.scoreQCMCas === 'number' ? (
           <p className="text-xs text-muted-foreground">
             Partie QCM : {formaterNombre(soumission.scoreQCMCas)}/10 pts déjà calculés
+          </p>
+        ) : corrigeQCMEnAttente(devoir) && (
+          <p className="text-xs text-muted-foreground">
+            Partie QCM : calculée après la date limite ({dateLimiteLisible(devoir)})
           </p>
         )}
       </div>

@@ -26,7 +26,7 @@ import {
 import { cn } from '@/lib/utils'
 import { repartirPoints } from '@/lib/correctionQCM'
 import { QCMChapitre, CasPratique, PROMOTIONS } from '@/lib/db'
-import { createDevoirAsync, createDevoirAvecCorrigeAsync, createExerciceLibreAsync, coursDeFaculte } from '@/lib/db-firebase'
+import { createDevoirAvecCorrigeAsync, createExerciceLibreAsync, coursDeFaculte, separerCorrigeQCM } from '@/lib/db-firebase'
 import { useAllCours } from '@/lib/useFirestore'
 import { codePromotion } from '@/lib/promotion'
 import { db } from '@/lib/firebase'
@@ -384,18 +384,24 @@ export default function DevoirChapitreCreateur({
           type: typeDevoir,
           chapitreId,
           chapitreNom,
-          questionsChapitre: questionsSelectionnees,
           nbQCMTotal: nbQCMSelectionnes,
         }
+        // Bonnes réponses et explications rangées hors du devoir, que tout
+        // étudiant du cours lit : publiées à la date limite seulement, la note
+        // apparaissant alors (firestore.rules, devoirs_corriges).
+        const { publiques, qcm } = separerCorrigeQCM(questionsSelectionnees)
+        payload.questionsChapitre = publiques
+        payload.corrigeQCMSepare = true
+        payload.dateLimitMs = new Date(dateLimit).getTime()
         if (typeDevoir === 'qcm_cas') {
           // Corrigés types rangés à part (devoirs_corriges), comme pour les
           // questions rédigées : écrits dans le devoir, que tout étudiant du
           // cours lit, ils étaient lisibles avant l'envoi de la copie (cache
           // du navigateur, outils de développement).
           payload.casPratiques = casPratiques.map(c => ({ ...c, corrigeType: '' }))
-          await createDevoirAvecCorrigeAsync(payload, Object.fromEntries(casPratiques.map(c => [c.id, c.corrigeType])))
+          await createDevoirAvecCorrigeAsync(payload, Object.fromEntries(casPratiques.map(c => [c.id, c.corrigeType])), qcm)
         } else {
-          await createDevoirAsync(payload)
+          await createDevoirAvecCorrigeAsync(payload, {}, qcm)
         }
       }
       setSucces(true)

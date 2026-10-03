@@ -202,7 +202,7 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                       </td>
                       <td className="px-3 py-2 text-center">
                         {soum && estNotee(soum) ? (
-                          <span className={cn('font-bold text-sm', noteDeCopie(soum, dev)! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(soum, dev)!, bareme)}</span>
+                          <span className={cn('font-bold text-sm', noteDeCopie(soum, dev)! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{(noteDeCopie(soum, dev) === null ? '…' : formaterNote(noteDeCopie(soum, dev)!, bareme))}</span>
                         ) : !soum && expire ? (
                           <span className="font-bold text-sm text-red-500">{formaterNote(0, bareme)}</span>
                         ) : (
@@ -3072,7 +3072,7 @@ export default function ProfesseurPage() {
                 {estNotee(viewSoumission) && (
                   <div className="bg-muted/40 rounded-md p-3">
                     <p className="text-xs text-muted-foreground mb-1">Note attribuée</p>
-                    <p className={cn('text-2xl font-bold', noteDeCopie(viewSoumission, dev)! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(viewSoumission, dev)!, baremeDevoir(dev))}</p>
+                    <p className={cn('text-2xl font-bold', noteDeCopie(viewSoumission, dev)! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{(noteDeCopie(viewSoumission, dev) === null ? '…' : formaterNote(noteDeCopie(viewSoumission, dev)!, baremeDevoir(dev)))}</p>
                     {viewSoumission.commentaire && <p className="text-xs mt-2 text-foreground">{viewSoumission.commentaire}</p>}
                   </div>
                 )}

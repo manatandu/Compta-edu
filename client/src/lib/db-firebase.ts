@@ -23,7 +23,7 @@ import { anneeAcademiqueEnCours } from './utils'
 import { promotionCorrespond } from './promotion'
 import type {
   User, Session, Ecriture, Exercice, Tentative,
-  Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours
+  Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours, QCMChapitre
 } from './db'
 
 // ─── ID générique ────────────────────────────────────────────────────────────
@@ -1077,14 +1077,48 @@ export async function createDevoirAsync(data: Omit<Devoir, 'id' | 'dateCreation'
 // sont écrits d'un bloc : pas de devoir sans corrigé après une coupure.
 export async function createDevoirAvecCorrigeAsync(
   data: Omit<Devoir, 'id' | 'dateCreation'>, corriges: Record<string, string>,
+  qcm?: CorrigeQCM,
 ): Promise<Devoir> {
   const id = generateId()
   const devoir: Devoir = { ...data, id, dateCreation: new Date().toISOString() }
   const batch = writeBatch(db)
   batch.set(doc(db, C.DEVOIRS, id), cleanUndefined(devoir) as any)
-  batch.set(doc(db, C.DEVOIRS_CORRIGES, id), { devoirId: id, createdBy: data.createdBy, corriges })
+  batch.set(doc(db, C.DEVOIRS_CORRIGES, id), { devoirId: id, createdBy: data.createdBy, corriges, ...(qcm ? { qcm } : {}) })
   await batch.commit()
   return devoir
+}
+
+// ─── Corrigé des QCM rangé hors du devoir ────────────────────────────────────
+// Bonne réponse et explication de chaque question, par identifiant. Le devoir
+// n'en garde que l'énoncé et les options ; le corrigé est lu par l'équipe à
+// tout moment, par l'étudiant après la date limite (firestore.rules).
+export type CorrigeQCM = Record<string, { reponseCorrecte: string; explication: string }>
+
+export function separerCorrigeQCM(questions: QCMChapitre[]): { publiques: QCMChapitre[]; qcm: CorrigeQCM } {
+  const qcm: CorrigeQCM = {}
+  const publiques = questions.map(q => {
+    qcm[q.id] = { reponseCorrecte: q.reponseCorrecte, explication: q.explication || '' }
+    return { ...q, reponseCorrecte: '', explication: '' }
+  })
+  return { publiques, qcm }
+}
+
+export function avecCorrigeQCM<T extends Devoir>(devoir: T, qcm: CorrigeQCM): T {
+  return {
+    ...devoir,
+    corrigeQCMCharge: true,
+    questionsChapitre: devoir.questionsChapitre?.map(q => qcm[q.id] ? { ...q, ...qcm[q.id] } : q),
+  }
+}
+
+// null si le corrigé n'est pas (encore) lisible : étudiant avant la date limite.
+export async function getCorrigeQCMAsync(devoirId: string): Promise<CorrigeQCM | null> {
+  try {
+    const snap = await getDoc(doc(db, C.DEVOIRS_CORRIGES, devoirId))
+    return snap.exists() ? ((snap.data() as any).qcm || null) : null
+  } catch {
+    return null
+  }
 }
 
 // Réponses attendues d'un devoir, par question ; vide si le devoir n'en a pas.

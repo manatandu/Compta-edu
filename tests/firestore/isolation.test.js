@@ -1995,3 +1995,39 @@ describe('📝 Soumissions — correction', () => {
     await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 'soum-1'), { note: 20, statut: 'note' }))
   })
 })
+
+describe('🙈 QCM à corrigé séparé — corrigé publié à la date limite', () => {
+  const demain = Date.now() + 86400000, hier = Date.now() - 86400000
+  const devoir = (id, limite, type = 'qcm_chapitre') =>
+    seedDoc('devoirs', id, { ...DOCS.devoirCompta, type, corrigeQCMSepare: true, dateLimitMs: limite, dateLimit: new Date(limite).toISOString() })
+  const corrige = id => seedDoc('devoirs_corriges', id, { devoirId: id, createdBy: USERS.prof1.uid, corriges: {}, qcm: { q1: { reponseCorrecte: 'a', explication: 'x' } } })
+  const copie = (devoirId, extra = {}) => ({ devoirId, etudiantId: USERS.etud1.uid, dateSoumission: '2026-10-03', reponsesQCMChapitre: { q1: 'a' }, ...extra })
+
+  it('L\'étudiant du cours lit le corrigé après la date limite seulement ; un étudiant d\'un autre cours jamais', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await devoir('d-futur', demain); await corrige('d-futur')
+    await devoir('d-passe', hier); await corrige('d-passe')
+    await assertFails(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'd-futur')))
+    await assertSucceeds(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'd-passe')))
+    await assertFails(getDoc(doc(db(USERS.etud2), 'devoirs_corriges', 'd-passe')))
+  })
+
+  it('Copie d\'un QCM de chapitre : sans note, marquée correctionAuto, avant la date limite seulement', async () => {
+    await seedUsers(USERS.etud1)
+    await devoir('d-futur', demain); await devoir('d-passe', hier)
+    const ref = id => doc(db(USERS.etud1), 'soumissions', idCopie(id))
+    await assertFails(setDoc(ref('d-futur'), copie('d-futur')))
+    await assertFails(setDoc(ref('d-futur'), copie('d-futur', { correctionAuto: true, note: 20, statut: 'note' })))
+    await assertFails(setDoc(ref('d-passe'), copie('d-passe', { correctionAuto: true })))
+    await assertSucceeds(setDoc(ref('d-futur'), copie('d-futur', { correctionAuto: true })))
+  })
+
+  it('Copie d\'un QCM + cas à corrigé séparé : sans marque correctionAuto ; marque refusée sur les autres devoirs', async () => {
+    await seedUsers(USERS.etud1)
+    await devoir('d-cas', demain, 'qcm_cas')
+    await seedDoc('devoirs', 'd-redige', { ...DOCS.devoirCompta, type: 'redaction' })
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { correctionAuto: true })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-redige')), copie('d-redige', { correctionAuto: true })))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { reponsesCasPratiques: { c1: 'texte' } })))
+  })
+})

@@ -83,6 +83,12 @@ service cloud.firestore {
       return memeEquipe(get(/databases/$(database)/documents/$(coll)/$(id)).data.get('createdBy', ''));
     }
 
+    function corrigePublie(devoir) {
+      return devoir.get('corrigeQCMSepare', false) == true &&
+        devoir.coursId in studentCoursIds() &&
+        request.time.toMillis() > devoir.get('dateLimitMs', 0);
+    }
+
     // Profil d'un étudiant qui s'inscrit lui-même avec un code d'accès.
     function inscriptionParCode(d) {
       return d.get('actif', true) == false && d.get('statutInscription', '') == 'en_attente' &&
@@ -429,6 +435,9 @@ service cloud.firestore {
     // le même lot que le devoir (getAfter), par son auteur.
     match /devoirs_corriges/{devoirId} {
       allow read, update, delete: if isProf() && (ownsVia('devoirs', devoirId) || isAdmin());
+      // Corrigé publié aux étudiants du cours une fois la date limite passée
+      // (devoirs à corrigé séparé : leur copie n'est plus acceptée ensuite).
+      allow get: if isAuth() && corrigePublie(get(/databases/$(database)/documents/devoirs/$(devoirId)).data);
       allow create: if isProf() && request.resource.data.createdBy == request.auth.uid &&
         request.resource.data.devoirId == devoirId &&
         getAfter(/databases/$(database)/documents/devoirs/$(devoirId)).data.get('createdBy', '') == request.auth.uid;
@@ -465,12 +474,19 @@ service cloud.firestore {
     // Ni commentaire, ni évaluation des cas ne viennent de l'étudiant.
     function copieValide(d) {
       let devoir = get(/databases/$(database)/documents/devoirs/$(d.devoirId)).data;
+      let separe = devoir.get('corrigeQCMSepare', false) == true;
       return devoir.coursId in studentCoursIds() &&
-        !d.keys().hasAny(['scoreCasPratiques', 'evaluationsCasPratiques']) && (
+        !d.keys().hasAny(['scoreCasPratiques', 'evaluationsCasPratiques']) &&
+        // Corrigé publié à la date limite : plus aucune copie ensuite (elle
+        // pourrait recopier le corrigé). La copie d'un QCM de chapitre porte
+        // la marque correctionAuto, et elle seule.
+        (!separe || request.time.toMillis() <= devoir.get('dateLimitMs', 0)) &&
+        (d.get('correctionAuto', false) == (separe && devoir.get('type', '') == 'qcm_chapitre')) && (
           (
             !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
             d.get('statut', 'soumis') == 'soumis'
           ) || (
+            !separe &&
             devoir.get('type', '') in ['qcm', 'qcm_chapitre'] &&
             d.note is number && d.note >= 0 && d.note <= 20 &&
             // « soumis » accepté aussi : une page ouverte avant ce correctif

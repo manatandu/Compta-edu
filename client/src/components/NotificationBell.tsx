@@ -161,6 +161,8 @@ export function NotificationBell({ user }: NotificationBellProps) {
       // déjà à l'envoi de la copie).
       ...toutesLesSoumissions
         .filter(s => estNotee(s) && !String(s.commentaire || '').startsWith('Correction automatique'))
+        // QCM à corrigé séparé : annoncé une fois sa note calculable (date limite passée)
+        .filter(s => !s.correctionAuto || noteDeCopie(s, tousLesDevoirs.find(d => d.id === s.devoirId)) !== null)
         .map(s => {
           const devoir = tousLesDevoirs.find(d => d.id === s.devoirId)
           const note = noteDeCopie(s, devoir)
