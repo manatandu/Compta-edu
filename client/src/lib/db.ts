@@ -16,6 +16,7 @@ export interface Session {
   coursId?: string         // isolation : cours lié
   verrouille?: boolean     // true = figé après soumission devoir
   devoirId?: string        // lié à un devoir spécifique
+  exerciceLibreId?: string // lié à un exercice libre pratique (écritures au journal)
 }
 
 export interface Ecriture {
@@ -308,12 +309,19 @@ export interface Devoir {
   promotionId?: string               // promotion cible (ex: 'L2')
   // Champs spécifiques aux devoirs QCM+Cas (type qcm_cas)
   casPratiques?: CasPratique[]        // 1 ou 2 cas pratiques évalués par IA
+  // Corrigé du QCM rangé hors du devoir (devoirs_corriges), lisible par les
+  // étudiants après la date limite seulement : les bonnes réponses ne sont
+  // plus dans le devoir que tout étudiant du cours lit.
+  corrigeQCMSepare?: boolean
+  dateLimitMs?: number               // date limite en millisecondes (contrôlée par les règles)
+  corrigeQCMCharge?: boolean         // corrigé fusionné en mémoire (jamais enregistré)
 }
 
 export interface Soumission {
   id: string
   devoirId: string
   etudiantId: string
+  correctionAuto?: boolean // QCM corrigé d'après le corrigé publié à la date limite
   sessionId?: string       // session journal (type pratique/mixte)
   reponseTexte?: string    // réponse texte (type theorique/mixte)
   reponsesQCM?: number[]   // index des réponses choisies par l'étudiant (type qcm)

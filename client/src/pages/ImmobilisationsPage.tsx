@@ -2,13 +2,15 @@ import { type LigneAmort, getCoeffDegressif, calculerLineaire, calculerDegressif
 import { useState, useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import {
-  Building2, Search, Calculator,
+  Building2, Search, Calculator, Upload,
   BookOpen, AlertCircle, CheckCircle2, FileText,
   ChevronDown, Lock, TrendingUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import BackButton from '@/components/BackButton'
+import { ExportJournalDialog } from '@/components/ExportJournal'
+import type { EcritureAExporter } from '@/lib/db-firebase'
 import { cn } from '@/lib/utils'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -1107,6 +1109,10 @@ export default function ImmobilisationsPage() {
   const [tableauGenere, setTableauGenere] = useState<LigneAmort[] | null>(null)
   const [immoPrechoisie, setImmoPrechoisie] = useState<Immobilisation | null>(null)
   const [erreur, setErreur] = useState('')
+  // Export du plan vers le journal : année du plan et écriture d'acquisition
+  const [exportOuvert, setExportOuvert] = useState(false)
+  const [anneePlan, setAnneePlan] = useState(0)
+  const [avecAcquisition, setAvecAcquisition] = useState(true)
   // Autocomplete compte OHADA
   const [compteQuery, setCompteQuery] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -1158,6 +1164,40 @@ export default function ImmobilisationsPage() {
   }
 
   const MOIS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']
+
+  // Écritures de l'immobilisation pour l'exercice de la session choisie :
+  // l'acquisition (première année du plan seulement), datée du 1er du mois de
+  // mise en service, puis la dotation de l'année retenue du plan, au 31/12.
+  const centimes = (n: number) => Math.round(n * 100) / 100
+  function ecrituresImmobilisation(exercice: number): EcritureAExporter[] {
+    const ligne = tableauGenere?.[anneePlan]
+    if (!ligne || !formData.compteOHADA) return []
+    const nom = formData.designation || formData.intituleCompte || `compte ${formData.compteOHADA}`
+    const valeur = centimes(parseFloat(formData.valeur.replace(/\s/g, '').replace(',', '.')) || 0)
+    const annuite = centimes(ligne.annuite)
+    const res: EcritureAExporter[] = []
+    if (anneePlan === 0 && avecAcquisition && valeur > 0) {
+      res.push({
+        date: `${exercice}-${String(formData.moisDebut).padStart(2, '0')}-01`,
+        libelle: `Acquisition : ${nom}`,
+        lignes: [
+          { compte: formData.compteOHADA, intitule: formData.intituleCompte || nom, debit: valeur, credit: 0 },
+          { compte: '481', intitule: "Fournisseurs d'investissements", debit: 0, credit: valeur },
+        ],
+      })
+    }
+    if (annuite > 0) {
+      res.push({
+        date: `${exercice}-12-31`,
+        libelle: `Dotation aux amortissements (année ${anneePlan + 1}) : ${nom}`,
+        lignes: [
+          { compte: '681', intitule: "Dotations aux amortissements d'exploitation", debit: annuite, credit: 0 },
+          { compte: getCompteAmort(formData.compteOHADA), intitule: `Amortissement : ${nom}`, debit: 0, credit: annuite },
+        ],
+      })
+    }
+    return res
+  }
 
   // Éligibilité de l'immo sélectionnée pour les modes
   const immoDegressifOk = immoPrechoisie?.eligibleDegressif ?? true
@@ -1532,7 +1572,8 @@ export default function ImmobilisationsPage() {
                     <span className="text-muted-foreground">Valeur d'origine :</span>
                     <span className="font-semibold text-foreground">{fmt(parseFloat(formData.valeur || '0'))} Fc</span>
                     <span className="text-muted-foreground">Mode :</span>
-                    <span className="font-semibold text-foreground capitalize">{formData.mode}</span>
+                    {/* Libellé accentué : la clé interne (« lineaire ») s'affichait telle quelle. */}
+                    <span className="font-semibold text-foreground">{{ lineaire: 'Linéaire', degressif: 'Dégressif', exceptionnel: 'Exceptionnel' }[formData.mode]}</span>
                     <span className="text-muted-foreground">Compte amortissement :</span>
                     <span className="font-mono font-bold text-blue-600">{getCompteAmort(formData.compteOHADA)}</span>
                     {formData.mode === 'degressif' && (() => {
@@ -1667,6 +1708,32 @@ export default function ImmobilisationsPage() {
                       </tr>
                     </tbody>
                   </table>
+                  <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-2">
+                    <Button size="sm" variant="outline" onClick={() => { setAnneePlan(0); setAvecAcquisition(true); setExportOuvert(true) }} disabled={!formData.compteOHADA}>
+                      <Upload className="h-3.5 w-3.5 mr-1" />Exporter vers le journal
+                    </Button>
+                    {!formData.compteOHADA && <span className="text-xs text-muted-foreground">Choisissez d'abord le compte d'immobilisation.</span>}
+                  </div>
+                  <ExportJournalDialog
+                    ouvert={exportOuvert}
+                    onClose={() => setExportOuvert(false)}
+                    description="L'acquisition et la dotation de l'année choisie du plan sont passées au journal de la session, datées dans son exercice."
+                    construire={ecrituresImmobilisation}
+                  >
+                    <div className="space-y-1">
+                      <label className="text-sm font-medium">Année du plan</label>
+                      <select value={anneePlan} onChange={e => setAnneePlan(Number(e.target.value))}
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+                        {tableauGenere.map((l, i) => <option key={i} value={i}>Année {i + 1} : dotation {fmt(l.annuite)}</option>)}
+                      </select>
+                    </div>
+                    {anneePlan === 0 && (
+                      <label className="flex items-center gap-2 text-sm">
+                        <input type="checkbox" checked={avecAcquisition} onChange={e => setAvecAcquisition(e.target.checked)} />
+                        Inclure l'écriture d'acquisition (compte {formData.compteOHADA} / 481)
+                      </label>
+                    )}
+                  </ExportJournalDialog>
                 </div>
               </div>
             )}

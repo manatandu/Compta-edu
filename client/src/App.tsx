@@ -18,6 +18,7 @@ import { ModuleProvider } from '@/lib/moduleContext'
 import { UserProvider } from '@/lib/userContext'
 import { NavProvider } from '@/lib/navContext'
 import PageLoader from '@/components/PageLoader'
+import GardeUE, { GardeJournal, GardeDocumentsSession } from '@/components/GardeUE'
 import { MODULES, ROUTE_CHAPITRE } from '@/content/modules'
 
 
@@ -63,7 +64,7 @@ const InscriptionPlatformePage = React.lazy(() => import('@/pages/InscriptionPla
 // ce qui force React à démonter/remonter tout le sous-arbre enveloppé - y
 // compris l'ErrorBoundary et la page lazy - à chaque changement de `user`
 // (ex. après connexion/déconnexion), perdant leur état et rejouant le loader.
-function W({ user, onLogout, children }: { user: User | null; onLogout: () => void; children: React.ReactNode }) {
+function W({ user, onLogout, ue, children }: { user: User | null; onLogout: () => void; ue?: string; children: React.ReactNode }) {
   const [location] = useHashLocation()
   return user
     ? <Layout user={user} onLogout={onLogout}>
@@ -71,20 +72,20 @@ function W({ user, onLogout, children }: { user: User | null; onLogout: () => vo
             une page qui plante resterait affichée en erreur même après avoir
             cliqué vers une autre page dans la sidebar. */}
         <ErrorBoundary key={location}>
-          <React.Suspense fallback={<PageLoader />}>{children}</React.Suspense>
+          <React.Suspense fallback={<PageLoader />}>{ue ? <GardeUE moduleKey={ue}>{children}</GardeUE> : children}</React.Suspense>
         </ErrorBoundary>
       </Layout>
     : <Redirect to="/login" />
 }
 
-function ProtectedRoute({ component: Component, user, onLogout }: { component: React.ComponentType; user: User | null; onLogout: () => void }) {
+function ProtectedRoute({ component: Component, user, onLogout, ue }: { component: React.ComponentType; user: User | null; onLogout: () => void; ue?: string }) {
   const [location] = useHashLocation()
   if (!user) return <Redirect to="/login" />
   return (
     <Layout user={user} onLogout={onLogout}>
       <ErrorBoundary key={location}>
         <React.Suspense fallback={<PageLoader />}>
-          <Component />
+          {ue ? <GardeUE moduleKey={ue}><Component /></GardeUE> : <Component />}
         </React.Suspense>
       </ErrorBoundary>
     </Layout>
@@ -181,57 +182,57 @@ export default function App() {
             onglet. Le journal garde sa page : il reçoit une session en
             paramètre (?session=) depuis l'aperçu d'un devoir. */}
         <Route path="/comptabilite-generale">
-          <W user={user} onLogout={handleLogout}><ComptabiliteGeneralePage /></W>
+          <W user={user} onLogout={handleLogout} ue="comptabilite-generale"><ComptabiliteGeneralePage /></W>
         </Route>
         <Route path="/journal">
-          <W user={user} onLogout={handleLogout}><ModuleProvider module="syscohada"><JournalPage /></ModuleProvider></W>
+          <W user={user} onLogout={handleLogout}><GardeJournal><ModuleProvider module="syscohada"><JournalPage /></ModuleProvider></GardeJournal></W>
         </Route>
         <Route path="/grand-livre"><Redirect to="/docs-comptables-hub?onglet=grand-livre" /></Route>
         <Route path="/balance"><Redirect to="/docs-comptables-hub?onglet=balance" /></Route>
         <Route path="/bilan"><Redirect to="/etats-financiers-hub?onglet=bilan" /></Route>
         <Route path="/compte-resultat"><Redirect to="/etats-financiers-hub?onglet=compte-resultat" /></Route>
         <Route path="/plan-comptable">
-          <W user={user} onLogout={handleLogout}><PlanComptablePage /></W>
+          <W user={user} onLogout={handleLogout} ue="comptabilite-generale"><PlanComptablePage /></W>
         </Route>
 
         {/* ── Hubs dossiers 1 et 2 ── */}
         <Route path="/docs-comptables-hub">
-          <W user={user} onLogout={handleLogout}><DocsComptablesHub /></W>
+          <W user={user} onLogout={handleLogout}><GardeDocumentsSession><DocsComptablesHub /></GardeDocumentsSession></W>
         </Route>
         <Route path="/etats-financiers-hub">
-          <W user={user} onLogout={handleLogout}><EtatsFinanciersHub /></W>
+          <W user={user} onLogout={handleLogout}><GardeDocumentsSession><EtatsFinanciersHub /></GardeDocumentsSession></W>
         </Route>
 
         {/* ── Charges du personnel (Comptabilité Générale) ── */}
         <Route path="/immobilisations">
-          {() => <ProtectedRoute component={ImmobilisationsPage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={ImmobilisationsPage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
         <Route path="/stock">
-          {() => <ProtectedRoute component={GestionStockPage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={GestionStockPage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
         <Route path="/stock/articles"><Redirect to="/stock?onglet=articles" /></Route>
         <Route path="/stock/mouvement/:id">
-          {() => <ProtectedRoute component={StockMouvementPage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={StockMouvementPage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
         <Route path="/stock/fiche/:id">
-          {() => <ProtectedRoute component={StockFichePage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={StockFichePage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
         <Route path="/stock/journal"><Redirect to="/stock?onglet=journal" /></Route>
         <Route path="/stock/journal/:id">
-          {() => <ProtectedRoute component={StockJournalPage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={StockJournalPage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
         <Route path="/stock/exercice"><Redirect to="/stock?onglet=exercice" /></Route>
         <Route path="/charges-personnel/irpp">
-          <W user={user} onLogout={handleLogout}><ChargesPersonnelIRPPPage /></W>
+          <W user={user} onLogout={handleLogout} ue="comptabilite-generale"><ChargesPersonnelIRPPPage /></W>
         </Route>
         {/* Ancienne adresse (l'IPR est abrogé depuis le 1er janvier 2026) :
             conservée en redirection pour les favoris et les liens déjà partagés. */}
         <Route path="/charges-personnel/ipr"><Redirect to="/charges-personnel/irpp" /></Route>
         <Route path="/emprunts">
-          {() => <ProtectedRoute component={EmpruntsPage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={EmpruntsPage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
         <Route path="/factures">
-          {() => <ProtectedRoute component={FacturesDevisesPage} user={user} onLogout={handleLogout} />}
+          {() => <ProtectedRoute component={FacturesDevisesPage} user={user} onLogout={handleLogout} ue="comptabilite-generale" />}
         </Route>
 
         {/* ── Autres ── */}
@@ -255,7 +256,7 @@ export default function App() {
           <W user={user} onLogout={handleLogout}><ApercuDevoirPage /></W>
         </Route>
         <Route path="/fiscalite">
-          <W user={user} onLogout={handleLogout}><FiscalitePage /></W>
+          <W user={user} onLogout={handleLogout} ue="fiscalite"><FiscalitePage /></W>
         </Route>
         <Route path="/dictionnaire">
           <W user={user} onLogout={handleLogout}><DictionnairePage /></W>
@@ -279,7 +280,7 @@ export default function App() {
           </Route>
         ))}
         <Route path="/ue2/simulateur-constitution">
-          <W user={user} onLogout={handleLogout}><UE2SimulateurConstitutionPage /></W>
+          <W user={user} onLogout={handleLogout} ue="ue2-droit-societes"><UE2SimulateurConstitutionPage /></W>
         </Route>
         {/* Motif en expression régulière : le parseur de wouter (regexparam) ne
             reconnaît un paramètre qu'en début de segment. « chapitre-:numero »

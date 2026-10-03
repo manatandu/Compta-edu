@@ -4,14 +4,14 @@
 //  Chaque hook s'abonne aux changements Firestore en temps réel via onSnapshot.
 // ═══════════════════════════════════════════════════════════════════════
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   collection, query, where, onSnapshot, type Unsubscribe
 } from 'firebase/firestore'
 import { db } from './firebase'
 import { useUser } from './userContext'
 import { promotionCorrespond } from './promotion'
-import { onPresencesByEtudiantSnapshot } from './db-firebase'
+import { onPresencesByEtudiantSnapshot, getCorrigeQCMAsync, avecCorrigeQCM, type CorrigeQCM } from './db-firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import type {
   Session, Ecriture, Universite, Faculte, Cours, Devoir, Soumission,
@@ -222,6 +222,34 @@ function cleCreateur(createdBy: string | string[] | undefined) {
   return Array.isArray(createdBy) ? createdBy.join(',') : (createdBy || '')
 }
 
+// ─── Corrigé des QCM fusionné dans les devoirs ───────────────────────────────
+// Un devoir à corrigé séparé (corrigeQCMSepare) n'a pas les bonnes réponses ;
+// elles sont lues dans devoirs_corriges et remises en place ici, une fois pour
+// toutes (cache), pour que la note se recalcule partout comme avant. Un
+// étudiant ne les obtient qu'après la date limite : avant, aucune lecture
+// n'est tentée et le devoir reste sans corrigé (note « en attente »).
+const cacheCorrigesQCM = new Map<string, CorrigeQCM>()
+function useAvecCorrigesQCM(devoirs: Devoir[]): Devoir[] {
+  const currentUser = useUser()
+  const personnel = !!currentUser && currentUser.role !== 'etudiant'
+  const [version, setVersion] = useState(0)
+  useEffect(() => {
+    let actif = true
+    const aLire = devoirs.filter(d => d.corrigeQCMSepare && !cacheCorrigesQCM.has(d.id) &&
+      (personnel || (d.dateLimitMs ?? 0) < Date.now()))
+    if (aLire.length === 0) return
+    Promise.all(aLire.map(async d => {
+      const qcm = await getCorrigeQCMAsync(d.id)
+      if (qcm) cacheCorrigesQCM.set(d.id, qcm)
+    })).then(() => { if (actif) setVersion(v => v + 1) })
+    return () => { actif = false }
+  }, [devoirs, personnel])
+  return useMemo(
+    () => devoirs.map(d => cacheCorrigesQCM.has(d.id) ? avecCorrigeQCM(d, cacheCorrigesQCM.get(d.id)!) : d),
+    [devoirs, version],
+  )
+}
+
 export function useDevoirs(createdBy?: string | string[]) {
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
   const cle = cleCreateur(createdBy)
@@ -238,7 +266,7 @@ export function useDevoirs(createdBy?: string | string[]) {
     return () => unsub()
   }, [cle])
 
-  return { devoirs }
+  return { devoirs: useAvecCorrigesQCM(devoirs) }
 }
 
 // ─── Tous les devoirs (pour les étudiants : filtrés par coursIds) ─────────────
@@ -266,7 +294,7 @@ export function useAllDevoirs() {
     )
   }, [JSON.stringify(queryCoursIds)])
 
-  return { devoirs }
+  return { devoirs: useAvecCorrigesQCM(devoirs) }
 }
 
 // ─── Soumissions temps réel ───────────────────────────────────────────────────

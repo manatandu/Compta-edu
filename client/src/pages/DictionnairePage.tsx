@@ -24,6 +24,15 @@ const DOMAINE_COLORS: Record<DomaineDict, string> = {
 
 const PAGE_SIZE = 20
 
+// Page de la liste complète (sans recherche ni filtre, ordre alphabétique
+// comme DICTIONNAIRE) où se trouve un terme. Les liens vers un terme (barre
+// de recherche, « Voir aussi ») ouvraient toujours la page 1 : le terme
+// n'apparaissait que s'il figurait parmi les 20 premiers.
+function pageDuTerme(id: string): number {
+  const index = DICTIONNAIRE.findIndex(t => t.id === id)
+  return index < 0 ? 1 : Math.floor(index / PAGE_SIZE) + 1
+}
+
 const normalize = (s: string) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
@@ -54,6 +63,9 @@ export default function DictionnairePage() {
     const params = new URLSearchParams(urlSearch)
     const id = params.get('terme')
     if (id) {
+      setSearch('')
+      setDomaineFiltre('tous')
+      setPage(pageDuTerme(id))
       setTermeActif(id)
       // Scroll vers ce terme après le rendu
       setTimeout(() => {
@@ -89,7 +101,7 @@ export default function DictionnairePage() {
     setTermeActif(id)
     setSearch('')
     setDomaineFiltre('tous')
-    setPage(1)
+    setPage(pageDuTerme(id))
     setTimeout(() => {
       const el = termeRefs.current[id]
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })

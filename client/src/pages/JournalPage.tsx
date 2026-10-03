@@ -1,6 +1,7 @@
 import { useUser } from '@/lib/userContext'
 import React, { useState, useMemo } from 'react'
 import { useSearch } from 'wouter'
+import { useHashLocation } from '@/lib/hashLocation'
 import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import {
@@ -57,6 +58,7 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
   // outre déjà réactif aux navigations post-montage (pushState/popstate),
   // sans qu'un listener hashchange manuel soit nécessaire.
   const search = useSearch()
+  const [, navigate] = useHashLocation()
   const urlSessionId = React.useMemo(() => {
     return new URLSearchParams(search).get('session')
   }, [search])
@@ -366,6 +368,15 @@ export default function JournalPage({ embedded = false }: { embedded?: boolean }
           <Button size="sm" onClick={() => setShowForm(true)} disabled={!selectedSessionId || sessionVerrouillee}>
             <Plus className="h-4 w-4 mr-1" /> Nouvelle écriture
           </Button>
+        </div>
+      )}
+
+      {/* Session d'un exercice libre : le retour à l'exercice (soumission,
+          corrigé) ne passait que par le menu. */}
+      {selectedSession?.exerciceLibreId && !embedded && (
+        <div className="rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <span className="text-blue-700">Session de l'exercice « {selectedSession.nom} ». Une fois vos écritures saisies, revenez à l'exercice pour le soumettre et voir le corrigé.</span>
+          <Button size="sm" variant="outline" className="shrink-0" onClick={() => navigate('/exercices')}>Retour à l'exercice</Button>
         </div>
       )}
 

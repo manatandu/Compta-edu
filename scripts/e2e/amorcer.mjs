@@ -1,7 +1,7 @@
 // Compte administrateur fictif sur les émulateurs (base vide au départ).
 // Firestore est écrit avec le jeton « owner », qui ne vaut que sur l'émulateur.
-const AUTH = 'http://127.0.0.1:9099'
-const FS = 'http://127.0.0.1:8080/v1/projects/campus-ohada/databases/(default)/documents'
+const AUTH = `http://127.0.0.1:${process.env.E2E_AUTH_PORT || 9099}`
+const FS = `http://127.0.0.1:${process.env.E2E_FS_PORT || 8080}/v1/projects/campus-ohada/databases/(default)/documents`
 
 const res = await fetch(`${AUTH}/identitytoolkit.googleapis.com/v1/accounts:signUp?key=emulateur`, {
   method: 'POST', headers: { 'Content-Type': 'application/json' },

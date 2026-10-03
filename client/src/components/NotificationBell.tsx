@@ -2,15 +2,17 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { Bell, X, CheckCircle2, UserPlus, Clock, BookOpen, ChevronRight, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useHashLocation } from '@/lib/hashLocation'
-import { useAllSoumissions, useAllDevoirs } from '@/lib/useFirestore'
+import { useAllSoumissions, useAllDevoirs, useAllCours } from '@/lib/useFirestore'
 import { useEquipe, creeParEquipe } from '@/lib/equipe'
-import { estACorriger } from '@/lib/cotes'
-import { getUsersByIdsAsync, getFichesAnnuaireAsync, getEtudiantsCreesParAsync, onMessagesSnapshot } from '@/lib/db-firebase'
+import { estACorriger, estNotee, devoirConcerneEtudiant, noteDeCopie, baremeDevoir, formaterNote } from '@/lib/cotes'
+import { getUsersByIdsAsync, getFichesAnnuaireAsync, onMessagesSnapshot } from '@/lib/db-firebase'
+import { collection, onSnapshot, query, where } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Notif {
   id: string
-  type: 'inscription' | 'correction' | 'qcm_soumis' | 'message'
+  type: 'inscription' | 'correction' | 'qcm_soumis' | 'message' | 'devoir' | 'copie_notee'
   titre: string
   desc: string
   date: string        // ISO
@@ -103,11 +105,23 @@ export function NotificationBell({ user }: NotificationBellProps) {
   const refsEquipe = equipe?.refs.join(',') || ''
   useEffect(() => {
     if (!isAdmin || !user?.id) return
-    // Requête ciblée (créateur + statut) au lieu de toute la collection users.
-    getEtudiantsCreesParAsync({ id: user.id, username: user.username }, 'en_attente', equipe?.refs || [])
-      .then(setUsersEnAttente)
-      .catch(() => {})
+    // Requête ciblée (créateur + statut) au lieu de toute la collection users,
+    // suivie en temps réel : lue une seule fois à l'ouverture de la session,
+    // une nouvelle demande n'apparaissait qu'au rechargement de la page, et
+    // une demande déjà validée restait affichée.
+    const refs = Array.from(new Set([user.id, user.username, ...(equipe?.refs || [])].filter(Boolean))).slice(0, 30)
+    return onSnapshot(
+      query(collection(db, 'users'), where('createdBy', 'in', refs), where('role', '==', 'etudiant'), where('statutInscription', '==', 'en_attente')),
+      snap => setUsersEnAttente(snap.docs.map(d => ({ ...d.data(), id: d.id }))),
+      () => {},
+    )
   }, [user?.id, user?.username, isAdmin, refsEquipe])
+
+  // Étudiant : devoirs à rendre et copies notées par l'enseignant. La cloche
+  // ne montrait que les messages : un nouveau devoir ou une note passaient
+  // inaperçus tant que l'étudiant n'ouvrait pas son tableau de bord.
+  const { cours: tousLesCours } = useAllCours()
+  const estEtudiant = user?.role === 'etudiant'
 
   // Fermer au clic extérieur
   useEffect(() => {
@@ -129,6 +143,39 @@ export function NotificationBell({ user }: NotificationBellProps) {
       date: m.date || new Date().toISOString(),
       action: () => { navigate(`/chat?with=${m.expediteurId}`); setOpen(false) },
     })),
+
+    ...(estEtudiant ? [
+      ...tousLesDevoirs
+        .filter(d => devoirConcerneEtudiant(d, user, tousLesCours as any)
+          && !toutesLesSoumissions.some(s => s.devoirId === d.id)
+          && (!d.dateLimit || new Date(d.dateLimit).getTime() > Date.now()))
+        .map(d => ({
+          id: `devoir-${d.id}`,
+          type: 'devoir' as const,
+          titre: `Nouveau devoir : ${d.titre}`,
+          desc: d.dateLimit ? `À rendre avant le ${new Date(d.dateLimit).toLocaleDateString('fr-FR')}` : 'À rendre',
+          date: d.dateCreation || new Date().toISOString(),
+          action: () => { navigate('/'); setOpen(false) },
+        })),
+      // Note posée par l'enseignant (la note automatique d'un QCM s'affiche
+      // déjà à l'envoi de la copie).
+      ...toutesLesSoumissions
+        .filter(s => estNotee(s) && !String(s.commentaire || '').startsWith('Correction automatique'))
+        // QCM à corrigé séparé : annoncé une fois sa note calculable (date limite passée)
+        .filter(s => !s.correctionAuto || noteDeCopie(s, tousLesDevoirs.find(d => d.id === s.devoirId)) !== null)
+        .map(s => {
+          const devoir = tousLesDevoirs.find(d => d.id === s.devoirId)
+          const note = noteDeCopie(s, devoir)
+          return {
+            id: `copie-${s.id}-${s.note}`,
+            type: 'copie_notee' as const,
+            titre: `Copie notée : ${devoir?.titre || 'devoir'}`,
+            desc: note !== null ? `Note : ${formaterNote(note, baremeDevoir(devoir))}` : 'Votre copie a été corrigée',
+            date: s.dateCorrection || s.dateSoumission || new Date().toISOString(),
+            action: () => { navigate('/'); setOpen(false) },
+          }
+        }),
+    ] : []),
 
     ...(isAdmin ? [
       // Inscriptions en attente
@@ -198,6 +245,11 @@ export function NotificationBell({ user }: NotificationBellProps) {
     if (type === 'correction') return (
       <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
         <Clock className="h-4 w-4 text-blue-600" />
+      </div>
+    )
+    if (type === 'copie_notee') return (
+      <div className="h-8 w-8 rounded-lg bg-green-100 flex items-center justify-center shrink-0">
+        <CheckCircle2 className="h-4 w-4 text-green-600" />
       </div>
     )
     if (type === 'message') return (

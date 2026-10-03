@@ -7,7 +7,7 @@
 import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc,
   deleteDoc, query, where, onSnapshot, deleteField,
-  writeBatch, getFirestore, getCountFromServer, documentId, connectFirestoreEmulator,
+  writeBatch, increment, getFirestore, getCountFromServer, documentId, connectFirestoreEmulator,
   type Unsubscribe
 } from 'firebase/firestore'
 import {
@@ -17,13 +17,13 @@ import {
   EmailAuthProvider, reauthenticateWithCredential, updatePassword, connectAuthEmulator
 } from 'firebase/auth'
 import { initializeApp, getApps } from 'firebase/app'
-import { db, auth, getStorageDiffere, EMULATEURS } from './firebase'
+import { db, auth, getStorageDiffere, EMULATEURS, PORT_EMU_AUTH, PORT_EMU_FIRESTORE } from './firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
 import { anneeAcademiqueEnCours } from './utils'
 import { promotionCorrespond } from './promotion'
 import type {
   User, Session, Ecriture, Exercice, Tentative,
-  Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours
+  Document, Message, Universite, Faculte, Cours, Devoir, Soumission, Presence, NoteCours, QCMChapitre
 } from './db'
 
 // ─── ID générique ────────────────────────────────────────────────────────────
@@ -48,8 +48,8 @@ const secondaryAuth = initializeAuth(secondaryApp, { persistence: browserLocalPe
 // Firestore secondaire - utilisé pour les écritures authentifiées via secondaryAuth
 const secondaryDb = getFirestore(secondaryApp)
 if (EMULATEURS) {
-  connectAuthEmulator(secondaryAuth, 'http://127.0.0.1:9099', { disableWarnings: true })
-  connectFirestoreEmulator(secondaryDb, '127.0.0.1', 8080)
+  connectAuthEmulator(secondaryAuth, `http://127.0.0.1:${PORT_EMU_AUTH}`, { disableWarnings: true })
+  connectFirestoreEmulator(secondaryDb, '127.0.0.1', PORT_EMU_FIRESTORE)
 }
 
 // ─── Noms des collections Firestore ──────────────────────────────────────────
@@ -504,15 +504,16 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
         useSecondaryDb = true
       } catch (e2: any) {
         if (e2?.message === 'Ce nom d\'utilisateur est déjà utilisé.') throw e2
-        // Mot de passe différent - vérifier si un profil Firestore existe déjà avec ce username
+        // Compte d'authentification existant, avec un autre mot de passe :
+        // l'identifiant est pris, par un compte actif ou par un compte dont
+        // seul le profil a été supprimé. Le profil était auparavant recréé
+        // sous un identifiant tiré au hasard, sans compte de connexion
+        // derrière : l'import l'annonçait réussi, mais l'étudiant ne pouvait
+        // jamais se connecter. Et la recherche du profil existant, faite
+        // sans être connecté depuis l'onglet Rejoindre, était refusée par
+        // les règles : l'étudiant lisait une erreur technique.
         await signOut(secondaryAuth).catch(() => {})
-        const existing = await getDocs(query(collection(db, C.USERS), where('username', '==', data.username.toLowerCase())))
-        if (!existing.empty) {
-          throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
-        }
-        // Compte Auth avec autre MDP : impossible de récupérer - générer un ID unique
-        uid = generateId()
-        useSecondaryDb = false
+        throw new Error('Ce nom d\'utilisateur est déjà utilisé.')
       }
     } else {
       throw e
@@ -526,6 +527,14 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
   const rolePrivilegie = useSecondaryDb && data.role !== 'etudiant'
   if (rolePrivilegie) {
     await setDoc(doc(db, 'accountInvites', uid), { role: data.role, ...((data as any).titulaireId ? { titulaireId: (data as any).titulaireId } : {}), dateCreation: new Date().toISOString() })
+  }
+  // Compte étudiant créé par un membre du personnel connecté : même
+  // invitation, à son nom. Les règles n'acceptent plus un profil étudiant
+  // écrit par le compte lui-même sans elle, sauf inscription en attente par
+  // code d'accès (onglet Rejoindre, où personne n'est connecté).
+  const inviteEtudiant = useSecondaryDb && data.role === 'etudiant' && !!auth.currentUser && data.createdBy === auth.currentUser.uid
+  if (inviteEtudiant) {
+    await setDoc(doc(db, 'accountInvites', uid), { role: 'etudiant', createdBy: data.createdBy, dateCreation: new Date().toISOString() })
   }
 
   // Le mot de passe ne sert qu'à créer le compte Firebase Authentication
@@ -542,7 +551,17 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
 
   // Écriture Firestore avec l'instance authentifiée AVANT déconnexion
   if (useSecondaryDb) {
-    await setDoc(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+    const codeAcces = (data as any).codeAcces as string | undefined
+    if (codeAcces) {
+      // Inscription par code : profil et compteur du code d'un bloc (les
+      // règles refusent l'un sans l'autre, voir codeOuvert).
+      const lot = writeBatch(secondaryDb)
+      lot.set(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+      lot.update(doc(secondaryDb, 'codesAcces', codeAcces), { utilisations: increment(1) })
+      await lot.commit()
+    } else {
+      await setDoc(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+    }
     // Fiche 'etudiants' liée, créée pendant que secondaryAuth est encore
     // authentifié comme le compte tout juste créé (voir firestore.rules,
     // bloc etudiants : cette écriture ne peut se désigner elle-même que
@@ -554,7 +573,7 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
       await creerFicheEtudiantLiee(secondaryDb, user).catch(() => {})
     }
     await signOut(secondaryAuth)
-    if (rolePrivilegie) {
+    if (rolePrivilegie || inviteEtudiant) {
       await deleteDoc(doc(db, 'accountInvites', uid)).catch(() => {})
     }
   } else {
@@ -1058,14 +1077,48 @@ export async function createDevoirAsync(data: Omit<Devoir, 'id' | 'dateCreation'
 // sont écrits d'un bloc : pas de devoir sans corrigé après une coupure.
 export async function createDevoirAvecCorrigeAsync(
   data: Omit<Devoir, 'id' | 'dateCreation'>, corriges: Record<string, string>,
+  qcm?: CorrigeQCM,
 ): Promise<Devoir> {
   const id = generateId()
   const devoir: Devoir = { ...data, id, dateCreation: new Date().toISOString() }
   const batch = writeBatch(db)
   batch.set(doc(db, C.DEVOIRS, id), cleanUndefined(devoir) as any)
-  batch.set(doc(db, C.DEVOIRS_CORRIGES, id), { devoirId: id, createdBy: data.createdBy, corriges })
+  batch.set(doc(db, C.DEVOIRS_CORRIGES, id), { devoirId: id, createdBy: data.createdBy, corriges, ...(qcm ? { qcm } : {}) })
   await batch.commit()
   return devoir
+}
+
+// ─── Corrigé des QCM rangé hors du devoir ────────────────────────────────────
+// Bonne réponse et explication de chaque question, par identifiant. Le devoir
+// n'en garde que l'énoncé et les options ; le corrigé est lu par l'équipe à
+// tout moment, par l'étudiant après la date limite (firestore.rules).
+export type CorrigeQCM = Record<string, { reponseCorrecte: string; explication: string }>
+
+export function separerCorrigeQCM(questions: QCMChapitre[]): { publiques: QCMChapitre[]; qcm: CorrigeQCM } {
+  const qcm: CorrigeQCM = {}
+  const publiques = questions.map(q => {
+    qcm[q.id] = { reponseCorrecte: q.reponseCorrecte, explication: q.explication || '' }
+    return { ...q, reponseCorrecte: '', explication: '' }
+  })
+  return { publiques, qcm }
+}
+
+export function avecCorrigeQCM<T extends Devoir>(devoir: T, qcm: CorrigeQCM): T {
+  return {
+    ...devoir,
+    corrigeQCMCharge: true,
+    questionsChapitre: devoir.questionsChapitre?.map(q => qcm[q.id] ? { ...q, ...qcm[q.id] } : q),
+  }
+}
+
+// null si le corrigé n'est pas (encore) lisible : étudiant avant la date limite.
+export async function getCorrigeQCMAsync(devoirId: string): Promise<CorrigeQCM | null> {
+  try {
+    const snap = await getDoc(doc(db, C.DEVOIRS_CORRIGES, devoirId))
+    return snap.exists() ? ((snap.data() as any).qcm || null) : null
+  } catch {
+    return null
+  }
 }
 
 // Réponses attendues d'un devoir, par question ; vide si le devoir n'en a pas.
@@ -1108,8 +1161,10 @@ export async function getSoumissionsAsync(devoirId?: string, etudiantId?: string
 // chez l'étudiant, s'accumulaient dans les copies à corriger de l'enseignant
 // et n'entraient dans aucune cote. Les copies enregistrées avant ce correctif
 // sont reconnues par leur note (voir estNotee, lib/cotes.ts).
+// Identifiant imposé par firestore.rules (devoirId_etudiantId) : une seule
+// copie par étudiant et par devoir.
 export async function createSoumissionAsync(data: Omit<Soumission, 'id' | 'dateSoumission' | 'statut'>): Promise<Soumission> {
-  const id = generateId()
+  const id = `${data.devoirId}_${data.etudiantId}`
   const statut: Soumission['statut'] = typeof data.note === 'number' ? 'note' : 'soumis'
   const s: Soumission = { ...data, id, dateSoumission: new Date().toISOString(), statut }
   await setDoc(doc(db, C.SOUMISSIONS, id), cleanUndefined(s) as any)

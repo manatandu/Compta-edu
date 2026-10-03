@@ -50,8 +50,15 @@ export function baremeDevoir(d: Pick<Devoir, 'type'> | null | undefined): 10 | 2
 // pas : jusqu'à ce correctif, l'enregistrement d'une copie remettait toujours
 // le statut à « soumis », y compris pour un QCM corrigé automatiquement et
 // déjà noté. Ces copies anciennes portent une note sous le statut « soumis ».
-export function estNotee(s: Pick<Soumission, 'note'> | null | undefined): boolean {
-  return !!s && typeof s.note === 'number' && Number.isFinite(s.note)
+// Un QCM à corrigé séparé arrive sans note (correctionAuto) : il est noté
+// d'office, sa note se calcule dès que le corrigé est lisible.
+export function estNotee(s: Pick<Soumission, 'note' | 'correctionAuto'> | null | undefined): boolean {
+  return !!s && ((typeof s.note === 'number' && Number.isFinite(s.note)) || s.correctionAuto === true)
+}
+
+// Corrigé du QCM pas encore lisible : étudiant avant la date limite.
+export function corrigeQCMEnAttente(d: Partial<Pick<Devoir, 'corrigeQCMSepare' | 'corrigeQCMCharge'>> | null | undefined): boolean {
+  return !!d?.corrigeQCMSepare && !d.corrigeQCMCharge
 }
 
 // Note d'une copie notée, à lire à la place de soumission.note. Pour un QCM
@@ -59,9 +66,10 @@ export function estNotee(s: Pick<Soumission, 'note'> | null | undefined): boolea
 // copie et du corrigé du devoir : la note enregistrée par le navigateur de
 // l'étudiant n'est pas crue sur parole. Les autres copies sont notées par
 // l'enseignant, seul autorisé à écrire leur note (règles Firestore).
-type DevoirCorrige = Pick<Devoir, 'type'> & Partial<Pick<Devoir, 'questions' | 'questionsChapitre'>>
+type DevoirCorrige = Pick<Devoir, 'type'> & Partial<Pick<Devoir, 'questions' | 'questionsChapitre' | 'corrigeQCMSepare' | 'corrigeQCMCharge'>>
 export function noteDeCopie(s: Soumission | null | undefined, d: DevoirCorrige | null | undefined): number | null {
   if (!s || !estNotee(s)) return null
+  if (corrigeQCMEnAttente(d) && d?.type === 'qcm_chapitre') return null
   if (d?.type === 'qcm_chapitre' && d.questionsChapitre?.length) {
     return corrigerQCMChapitre(d.questionsChapitre, s.reponsesQCMChapitre || {}).note20
   }
@@ -73,13 +81,13 @@ export function noteDeCopie(s: Soumission | null | undefined, d: DevoirCorrige |
 
 // Partie QCM d'un devoir « QCM + cas pratiques », recalculée de même (sur 10).
 export function partieQCMDeCopie(s: Soumission | null | undefined, d: DevoirCorrige | null | undefined): number | null {
-  if (!s || d?.type !== 'qcm_cas' || !d.questionsChapitre?.length) return null
+  if (!s || d?.type !== 'qcm_cas' || !d.questionsChapitre?.length || corrigeQCMEnAttente(d)) return null
   const { nbCorrectes } = corrigerQCMChapitre(d.questionsChapitre, s.reponsesQCMChapitre || {})
   return partieQCMSur10(nbCorrectes, d.questionsChapitre.length)
 }
 
 // Copie rendue qui attend une note de l'enseignant.
-export function estACorriger(s: Pick<Soumission, 'note'> | null | undefined): boolean {
+export function estACorriger(s: Pick<Soumission, 'note' | 'correctionAuto'> | null | undefined): boolean {
   return !!s && !estNotee(s)
 }
 
@@ -121,7 +129,7 @@ export function devoirConcerneEtudiant(
 
 // ─── Calcul ──────────────────────────────────────────────────────────────────
 
-export type EtatDevoir = 'note' | 'non_rendu' | 'a_corriger' | 'ouvert'
+export type EtatDevoir = 'note' | 'non_rendu' | 'a_corriger' | 'ouvert' | 'attente_corrige'
 
 export interface LigneDevoirCote {
   devoir: Devoir
@@ -202,9 +210,13 @@ export function calculerCote(e: EntreeCalculCote): Cote {
     const bareme = baremeDevoir(d)
     let etat: EtatDevoir
     let ratio: number | null = null
-    if (soumission && estNotee(soumission)) {
+    const note = noteDeCopie(soumission, d)
+    if (soumission && estNotee(soumission) && note === null) {
+      // QCM rendu dont le corrigé n'est publié qu'à la date limite
+      etat = 'attente_corrige'
+    } else if (soumission && estNotee(soumission)) {
       etat = 'note'
-      ratio = Math.min(1, Math.max(0, (noteDeCopie(soumission, d) as number) / bareme))
+      ratio = Math.min(1, Math.max(0, (note as number) / bareme))
     } else if (soumission) {
       etat = 'a_corriger'
     } else if (maintenant.getTime() > limite) {

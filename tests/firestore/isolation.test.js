@@ -23,7 +23,7 @@ import {
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField, writeBatch } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField, writeBatch, increment } from 'firebase/firestore'
 import { describe, it, beforeAll, afterAll, afterEach } from 'vitest'
 
 import { USERS, IDS, DOCS, token } from './helpers.js'
@@ -40,8 +40,11 @@ beforeAll(async () => {
     projectId: 'campus-ohada-test',
     firestore: {
       rules: readFileSync(RULES_PATH, 'utf8'),
-      host: 'localhost',
-      port: 8080,
+      // FIRESTORE_EMULATOR_HOST permet de viser l'émulateur d'un banc de test
+      // lancé sur d'autres ports (scripts/e2e/demarrer.sh) ; projet distinct,
+      // les données du banc ne sont pas touchées.
+      host: (process.env.FIRESTORE_EMULATOR_HOST || 'localhost:8080').split(':')[0],
+      port: Number((process.env.FIRESTORE_EMULATOR_HOST || 'localhost:8080').split(':')[1]),
     },
   })
 }, 30000)
@@ -60,6 +63,16 @@ afterEach(async () => {
 function db(user) {
   if (!user) return testEnv.unauthenticatedContext().firestore()
   return testEnv.authenticatedContext(user.uid).firestore()
+}
+
+// Inscription par code telle que l'application l'écrit : profil et compteur
+// du code d'un même bloc (firestore.rules, codeOuvert).
+function inscrireParCode(uid, profil) {
+  const fs = db({ uid })
+  const lot = writeBatch(fs)
+  lot.set(doc(fs, 'users', uid), profil)
+  lot.update(doc(fs, 'codesAcces', profil.codeAcces), { utilisations: increment(1) })
+  return lot.commit()
 }
 
 /** Prépare les documents users dans Firestore (pour que isAdmin()/isProf() fonctionnent) */
@@ -133,7 +146,9 @@ describe('🔐 Users — Isolation par utilisateur', () => {
 
   // ─── Mots de passe : jamais stockés dans un profil ─────────────────────────
   it('Créer son profil avec un champ password est REFUSÉ', async () => {
-    const nouveau = { uid: 'nouvel-etud-uid', role: 'etudiant', username: 'nouvel' }
+    // Compte créé par un professeur : invitation à son nom (voir les règles).
+    await seedDoc('accountInvites', 'nouvel-etud-uid', { role: 'etudiant', createdBy: USERS.prof1.uid })
+    const nouveau = { uid: 'nouvel-etud-uid', role: 'etudiant', username: 'nouvel', createdBy: USERS.prof1.uid }
     const ref = doc(db(nouveau), 'users', nouveau.uid)
     await assertFails(setDoc(ref, { ...nouveau, password: 'secret123' }))
     await assertSucceeds(setDoc(ref, nouveau))
@@ -191,12 +206,70 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await assertSucceeds(setDoc(doc(db(USERS.admin1), 'annuaire', USERS.prof1.uid), { nom: 'P', prenom: 'Un', username: 'prof1', role: 'professeur' }))
   })
 
-  it('Un utilisateur fraîchement authentifié (auto-inscription) peut créer SON profil étudiant', async () => {
+  it('Un utilisateur fraîchement authentifié (auto-inscription par code) peut créer SON profil étudiant en attente', async () => {
     // L'app crée d'abord le compte Firebase Auth (via secondaryAuth), PUIS écrit le
     // profil Firestore : au moment de l'écriture, l'appelant est donc authentifié
     // en tant que ce nouvel utilisateur — jamais réellement anonyme.
-    const ref = doc(db({ uid: 'nouveau-uid' }), 'users', 'nouveau-uid')
-    await assertSucceeds(setDoc(ref, { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau' }))
+    await seedDoc('codesAcces', 'CODE1234', { code: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true })
+    await assertSucceeds(inscrireParCode('nouveau-uid', { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }))
+  })
+
+  it('Sans code ni invitation, un compte authentifié NE PEUT PAS créer un profil étudiant actif', async () => {
+    const ref = doc(db({ uid: 'intrus-uid' }), 'users', 'intrus-uid')
+    await assertFails(setDoc(ref, { uid: 'intrus-uid', role: 'etudiant', username: 'intrus', actif: true, coursIds: [IDS.coursCompta] }))
+    await assertFails(setDoc(ref, { uid: 'intrus-uid', role: 'etudiant', username: 'intrus' }))
+  })
+
+  it('Inscription par code : en attente, code actif, créateur et cours du code imposés', async () => {
+    await seedDoc('codesAcces', 'CODE1234', { code: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true })
+    await seedDoc('codesAcces', 'CODEOFF1', { code: 'CODEOFF1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: false })
+    const ref = doc(db({ uid: 'n-uid' }), 'users', 'n-uid')
+    const base = { role: 'etudiant', username: 'n', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }
+    await assertFails(inscrireParCode('n-uid', { ...base, actif: true }))
+    await assertFails(inscrireParCode('n-uid', { ...base, coursIds: [IDS.coursCompta, IDS.coursFiscalite] }))
+    await assertFails(inscrireParCode('n-uid', { ...base, createdBy: USERS.prof2.uid }))
+    await assertFails(inscrireParCode('n-uid', { ...base, codeAcces: 'CODEOFF1' }))
+    await assertFails(inscrireParCode('n-uid', { ...base, codeAcces: 'INCONNU1' }))
+    // Sans incrémenter le compteur du code dans la même écriture : refusé
+    await assertFails(setDoc(ref, base))
+    await assertSucceeds(inscrireParCode('n-uid', base))
+  })
+
+  it('Code d\'accès expiré ou complet : inscription refusée ; compteur intouchable hors inscription', async () => {
+    const hier = Date.now() - 86400000, demain = Date.now() + 86400000
+    await seedDoc('codesAcces', 'CODEEXP1', { code: 'CODEEXP1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true, expireLeMs: hier })
+    await seedDoc('codesAcces', 'CODEPLE1', { code: 'CODEPLE1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true, utilisationsMax: 2, utilisations: 2 })
+    await seedDoc('codesAcces', 'CODEOK01', { code: 'CODEOK01', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true, expireLeMs: demain, utilisationsMax: 2, utilisations: 1 })
+    const profil = code => ({ role: 'etudiant', username: 'x', actif: false, statutInscription: 'en_attente', codeAcces: code, createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] })
+    await assertFails(inscrireParCode('x1', profil('CODEEXP1')))
+    await assertFails(inscrireParCode('x2', profil('CODEPLE1')))
+    // Un compte quelconque ne peut ni remettre le compteur à zéro ni l'avancer sans s'inscrire
+    await assertFails(updateDoc(doc(db({ uid: 'x3' }), 'codesAcces', 'CODEPLE1'), { utilisations: 0 }))
+    await assertFails(updateDoc(doc(db({ uid: 'x3' }), 'codesAcces', 'CODEOK01'), { utilisations: increment(1) }))
+    await assertSucceeds(inscrireParCode('x4', profil('CODEOK01')))
+    // Code désormais complet (2/2)
+    await assertFails(inscrireParCode('x5', profil('CODEOK01')))
+  })
+
+  it('Compte étudiant créé par un professeur : invitation à son nom, créateur imposé', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2)
+    await assertSucceeds(setDoc(doc(db(USERS.prof1), 'accountInvites', 'etu-neuf'), { role: 'etudiant', createdBy: USERS.prof1.uid, dateCreation: 'x' }))
+    // Ni au nom d'un autre, ni pour un rôle à privilèges
+    await assertFails(setDoc(doc(db(USERS.prof2), 'accountInvites', 'etu-autre'), { role: 'etudiant', createdBy: USERS.prof1.uid }))
+    await assertFails(setDoc(doc(db(USERS.prof2), 'accountInvites', 'etu-autre'), { role: 'professeur', createdBy: USERS.prof2.uid }))
+    const ref = doc(db({ uid: 'etu-neuf' }), 'users', 'etu-neuf')
+    await assertFails(setDoc(ref, { role: 'etudiant', username: 'etu.neuf', actif: true, createdBy: USERS.prof2.uid }))
+    await assertSucceeds(setDoc(ref, { role: 'etudiant', username: 'etu.neuf', actif: true, createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }))
+    await assertFails(deleteDoc(doc(db(USERS.prof2), 'accountInvites', 'etu-neuf')))
+    await assertSucceeds(deleteDoc(doc(db(USERS.prof1), 'accountInvites', 'etu-neuf')))
+  })
+
+  it('Un étudiant NE PEUT PAS changer lui-même ses cours, sa promotion ni son équipe', async () => {
+    await seedUsers({ ...USERS.etud1, coursIds: [IDS.coursCompta], classe: 'L1', createdBy: USERS.prof1.uid })
+    const ref = doc(db(USERS.etud1), 'users', USERS.etud1.uid)
+    await assertFails(updateDoc(ref, { coursIds: [IDS.coursCompta, IDS.coursFiscalite] }))
+    await assertFails(updateDoc(ref, { classe: 'M2' }))
+    await assertFails(updateDoc(ref, { createdBy: USERS.prof2.uid }))
   })
 
   it('Un utilisateur non authentifié NE PEUT PAS créer de compte directement', async () => {
@@ -921,7 +994,7 @@ describe('📤 Soumissions — Isolation stricte par étudiant', () => {
   it('Etud1 peut créer SA soumission', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta)
-    const ref = doc(db(USERS.etud1), 'soumissions', 'soum-etud1-001')
+    const ref = doc(db(USERS.etud1), 'soumissions', `devoir-001_${USERS.etud1.uid}`)
     await assertSucceeds(setDoc(ref, {
       etudiantId: USERS.etud1.uid,
       devoirId: 'devoir-001',
@@ -1596,6 +1669,15 @@ describe('🔑 Codes d\'accès — get public, list réservé aux profs/admins',
     }))
   })
 
+  it('Un prof NE PEUT PAS créer un code au nom d\'un autre ni modifier le code d\'une autre équipe', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2)
+    await assertFails(setDoc(doc(db(USERS.prof2), 'codesAcces', 'code-usurpe'), { code: 'USURPE', coursIds: [], createdBy: USERS.prof1.uid, actif: true }))
+    await seedDoc('codesAcces', 'code1', { code: 'ABC123', coursIds: [IDS.coursCompta], createdBy: USERS.prof1.uid, actif: true })
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'codesAcces', 'code1'), { actif: false }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'codesAcces', 'code1'), { createdBy: USERS.prof2.uid }))
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'codesAcces', 'code1'), { actif: false }))
+  })
+
   it('Un prof PEUT créer un code d\'accès', async () => {
     await seedUsers(USERS.prof1)
     const ref = doc(db(USERS.prof1), 'codesAcces', 'code-nouveau')
@@ -1727,6 +1809,9 @@ describe('🎓 Comptes étudiants — gérés par leur équipe pédagogique', ()
   })
 })
 
+// Identifiant imposé d'une copie (firestore.rules) : une par étudiant et par devoir.
+const idCopie = (devoirId, uid = USERS.etud1.uid) => `${devoirId}_${uid}`
+
 describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   const qcm = { ...DOCS.devoirCompta, type: 'qcm_chapitre' }
   const redige = { ...DOCS.devoirCompta, type: 'theorique' }
@@ -1735,7 +1820,7 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   it('Un QCM peut arriver noté (note de 0 à 20, statut « note »)', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-qcm', qcm)
-    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 16, statut: 'note', scoreQCMChapitre: 8 })))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', { note: 16, statut: 'note', scoreQCMChapitre: 8 })))
   })
 
   it('Copies exactes envoyées par les écrans de QCM (chapitre et classique) : acceptées', async () => {
@@ -1744,12 +1829,12 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
     await seedDoc('devoirs', 'd-classique', { ...qcm, type: 'qcm' })
     // Écran « QCM de chapitre » (DevoirChapitreEtudiant), y compris une page
     // ouverte avant le correctif, qui envoie encore la date de correction.
-    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 'c1'), copie('d-qcm', {
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', {
       reponsesQCMChapitre: { q1: 'a' }, scoreQCMChapitre: 1, detailsQCMChapitre: [{ qId: 'q1', choix: 'a', correct: true }],
       note: 20, statut: 'note', dateCorrection: '2026-09-27T20:00:00Z',
     })))
     // Écran « QCM classique » (tableau de bord) : commentaire automatique.
-    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 'c2'), copie('d-classique', {
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-classique')), copie('d-classique', {
       reponsesQCM: [0, 1], statut: 'note', note: 5,
       commentaire: 'Correction automatique : 1/2 bonne réponse.', dateCorrection: '2026-09-27T20:00:00Z',
     })))
@@ -1758,36 +1843,36 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   it('Un QCM NE PEUT PAS porter un commentaire autre que le commentaire automatique', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-qcm', qcm)
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 20, statut: 'note', commentaire: 'Excellent travail, 20/20 mérité.' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', { note: 20, statut: 'note', commentaire: 'Excellent travail, 20/20 mérité.' })))
   })
 
   it('Un devoir rédigé arrive « soumis », sans note', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-red', redige)
-    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-red', { statut: 'soumis', reponseTexte: 'Réponse' })))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-red')), copie('d-red', { statut: 'soumis', reponseTexte: 'Réponse' })))
   })
 
   it('Un étudiant NE PEUT PAS rendre un devoir rédigé déjà noté', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-red', redige)
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-red', { note: 20, statut: 'note' })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-red', { statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-red')), copie('d-red', { note: 20, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-red')), copie('d-red', { statut: 'note' })))
   })
 
   it('Une note hors du barème de 0 à 20 est refusée', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-qcm', qcm)
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-qcm', { note: 25, statut: 'note' })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-qcm', { note: -1, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', { note: 25, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', { note: -1, statut: 'note' })))
   })
 
   it('Un devoir « QCM + cas » arrive « soumis », jamais noté par l\'étudiant', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-cas', { ...qcm, type: 'qcm_cas' })
-    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-cas', { statut: 'soumis', scoreQCMCas: 6, reponsesCasPratiques: { c1: 'Réponse' } })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-cas', { note: 20, statut: 'note' })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's3'), copie('d-cas', { statut: 'soumis', scoreCasPratiques: 10 })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's4'), copie('d-cas', { statut: 'soumis', evaluationsCasPratiques: [] })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { note: 20, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { statut: 'soumis', scoreCasPratiques: 10 })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { statut: 'soumis', evaluationsCasPratiques: [] })))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { statut: 'soumis', scoreQCMCas: 6, reponsesCasPratiques: { c1: 'Réponse' } })))
   })
 
   it('Un étudiant peut compléter sa copie rédigée, sans toucher à la correction', async () => {
@@ -1809,13 +1894,30 @@ describe('📤 Soumissions — copie rendue par l\'étudiant', () => {
   it('Un étudiant NE PEUT PAS rendre le devoir d\'un cours auquel il n\'est pas inscrit', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-fisc', { ...qcm, coursId: IDS.coursFiscalite })
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-fisc', { note: 10, statut: 'note' })))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), copie('d-fisc')))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-fisc')), copie('d-fisc', { note: 10, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-fisc')), copie('d-fisc')))
+  })
+
+  it('Une seule copie par devoir : identifiant libre ou d\'un autre étudiant refusé', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-cas', { ...qcm, type: 'qcm_cas' })
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 'copie-libre'), copie('d-cas', { statut: 'soumis', scoreQCMCas: 6 })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas', USERS.etud2.uid)), copie('d-cas', { statut: 'soumis', scoreQCMCas: 6 })))
+  })
+
+  it('Un second envoi d\'une copie « QCM + cas » ou de QCM est refusé', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('devoirs', 'd-cas', { ...qcm, type: 'qcm_cas' })
+    await seedDoc('devoirs', 'd-qcm', qcm)
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { statut: 'soumis', scoreQCMCas: 5, reponsesCasPratiques: { c1: 'v1' } })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { statut: 'soumis', scoreQCMCas: 10, reponsesCasPratiques: { c1: 'v2' } })))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', { note: 8, statut: 'note' })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-qcm')), copie('d-qcm', { note: 20, statut: 'note' })))
   })
 
   it('Une copie sur un devoir inexistant est refusée', async () => {
     await seedUsers(USERS.etud1)
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), copie('d-absent')))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-absent')), copie('d-absent')))
   })
 })
 
@@ -1860,8 +1962,8 @@ describe('🔒 Réponses attendues des devoirs à questions rédigées', () => {
   it('La copie d\'un devoir à questions rédigées arrive « soumis » et se fige une fois notée', async () => {
     await seedUsers(USERS.etud1)
     await seedDoc('devoirs', 'd-red', devoirRedaction)
-    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', 's1'), { devoirId: 'd-red', etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', statut: 'soumis', reponsesCasPratiques: { q1: 'Réponse' } }))
-    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', 's2'), { devoirId: 'd-red', etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', statut: 'note', note: 18 }))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-red')), { devoirId: 'd-red', etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', statut: 'note', note: 18 }))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-red')), { devoirId: 'd-red', etudiantId: USERS.etud1.uid, dateSoumission: '2026-09-27', statut: 'soumis', reponsesCasPratiques: { q1: 'Réponse' } }))
     await seedDoc('soumissions', 's3', { devoirId: 'd-red', etudiantId: USERS.etud1.uid, statut: 'note', note: 12, reponsesCasPratiques: { q1: 'v1' } })
     await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 's3'), { reponsesCasPratiques: { q1: 'v2' } }))
   })
@@ -1891,5 +1993,41 @@ describe('📝 Soumissions — correction', () => {
     await seedUsers(USERS.etud1)
     await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid, statut: 'soumis' })
     await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 'soum-1'), { note: 20, statut: 'note' }))
+  })
+})
+
+describe('🙈 QCM à corrigé séparé — corrigé publié à la date limite', () => {
+  const demain = Date.now() + 86400000, hier = Date.now() - 86400000
+  const devoir = (id, limite, type = 'qcm_chapitre') =>
+    seedDoc('devoirs', id, { ...DOCS.devoirCompta, type, corrigeQCMSepare: true, dateLimitMs: limite, dateLimit: new Date(limite).toISOString() })
+  const corrige = id => seedDoc('devoirs_corriges', id, { devoirId: id, createdBy: USERS.prof1.uid, corriges: {}, qcm: { q1: { reponseCorrecte: 'a', explication: 'x' } } })
+  const copie = (devoirId, extra = {}) => ({ devoirId, etudiantId: USERS.etud1.uid, dateSoumission: '2026-10-03', reponsesQCMChapitre: { q1: 'a' }, ...extra })
+
+  it('L\'étudiant du cours lit le corrigé après la date limite seulement ; un étudiant d\'un autre cours jamais', async () => {
+    await seedUsers(USERS.etud1, USERS.etud2)
+    await devoir('d-futur', demain); await corrige('d-futur')
+    await devoir('d-passe', hier); await corrige('d-passe')
+    await assertFails(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'd-futur')))
+    await assertSucceeds(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'd-passe')))
+    await assertFails(getDoc(doc(db(USERS.etud2), 'devoirs_corriges', 'd-passe')))
+  })
+
+  it('Copie d\'un QCM de chapitre : sans note, marquée correctionAuto, avant la date limite seulement', async () => {
+    await seedUsers(USERS.etud1)
+    await devoir('d-futur', demain); await devoir('d-passe', hier)
+    const ref = id => doc(db(USERS.etud1), 'soumissions', idCopie(id))
+    await assertFails(setDoc(ref('d-futur'), copie('d-futur')))
+    await assertFails(setDoc(ref('d-futur'), copie('d-futur', { correctionAuto: true, note: 20, statut: 'note' })))
+    await assertFails(setDoc(ref('d-passe'), copie('d-passe', { correctionAuto: true })))
+    await assertSucceeds(setDoc(ref('d-futur'), copie('d-futur', { correctionAuto: true })))
+  })
+
+  it('Copie d\'un QCM + cas à corrigé séparé : sans marque correctionAuto ; marque refusée sur les autres devoirs', async () => {
+    await seedUsers(USERS.etud1)
+    await devoir('d-cas', demain, 'qcm_cas')
+    await seedDoc('devoirs', 'd-redige', { ...DOCS.devoirCompta, type: 'redaction' })
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { correctionAuto: true })))
+    await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-redige')), copie('d-redige', { correctionAuto: true })))
+    await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { reponsesCasPratiques: { c1: 'texte' } })))
   })
 })

@@ -21,6 +21,7 @@ import {
 import { useUser } from '@/lib/userContext'
 import { useModule } from '@/lib/moduleContext'
 import { cn } from '@/lib/utils'
+import { useToast } from '@/components/ui/use-toast'
 import { prefetchRoute } from '@/lib/prefetch'
 import { DashboardHero, greeting, type DashboardStat } from '@/components/DashboardHero'
 import { DashboardModulesGrid } from '@/components/DashboardModulesGrid'
@@ -173,6 +174,7 @@ function CommencerDevoirButton({ devoir, etudiantId, sessionExistante, navigate,
   devoir: any; etudiantId: string; sessionExistante: any | null; navigate: (p: string) => void; module: string; faculteId?: string; universiteId?: string
 }) {
   const [loading, setLoading] = React.useState(false)
+  const { toast } = useToast()
   const handleCommencer = async () => {
     setLoading(true)
     try {
@@ -191,7 +193,10 @@ function CommencerDevoirButton({ devoir, etudiantId, sessionExistante, navigate,
       }
       navigate(`/journal?session=${session.id}`)
     } catch(e) {
+      // L'échec était muet : le bouton revenait à son état initial sans
+      // explication.
       console.error(e)
+      toast({ title: 'Devoir indisponible', description: "La session du devoir n'a pas pu être créée. Vérifiez votre connexion, puis réessayez.", variant: 'destructive' })
     } finally {
       setLoading(false)
     }
@@ -207,16 +212,19 @@ function CommencerDevoirButton({ devoir, etudiantId, sessionExistante, navigate,
 function ReponseTheoriqueForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: string; soumission: any }) {
   const [reponse, setReponse] = React.useState('')
   const [etape, setEtape] = React.useState<'redaction' | 'verification' | 'submitting'>('redaction')
+  const [erreur, setErreur] = React.useState('')
 
   if (soumission) return null
 
   const handleSoumettre = async () => {
     setEtape('submitting')
+    setErreur('')
     try {
       await createSoumissionAsync({ devoirId: devoir.id, etudiantId, reponseTexte: reponse.trim() } as any)
       window.location.reload()
     } catch(e) {
       console.error(e)
+      setErreur("Envoi impossible pour le moment : votre devoir n'est pas rendu. Vérifiez votre connexion, puis réessayez.")
       setEtape('verification')
     }
   }
@@ -266,6 +274,7 @@ function ReponseTheoriqueForm({ devoir, etudiantId, soumission }: { devoir: any;
       >
         {etape === 'submitting' ? 'Soumission en cours...' : 'Soumettre définitivement'}
       </Button>
+      {erreur && <p role="alert" className="text-xs text-destructive">{erreur}</p>}
     </div>
   )
 }

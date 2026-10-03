@@ -42,9 +42,12 @@ export const auth = initializeAuth(app, {
 // développement. La variable est remplacée à la compilation : dans le site
 // publié, ce bloc disparaît.
 export const EMULATEURS = import.meta.env.VITE_EMULATEURS === '1'
+// Ports réglables pour faire tourner plusieurs bancs de test côte à côte.
+export const PORT_EMU_AUTH = Number(import.meta.env.VITE_EMU_AUTH_PORT) || 9099
+export const PORT_EMU_FIRESTORE = Number(import.meta.env.VITE_EMU_FS_PORT) || 8080
 if (EMULATEURS) {
-  connectFirestoreEmulator(db, '127.0.0.1', 8080)
-  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true })
+  connectFirestoreEmulator(db, '127.0.0.1', PORT_EMU_FIRESTORE)
+  connectAuthEmulator(auth, `http://127.0.0.1:${PORT_EMU_AUTH}`, { disableWarnings: true })
 }
 
 // Le stockage de fichiers ne sert qu'aux téléversements (devoirs, documents,

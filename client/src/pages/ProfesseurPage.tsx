@@ -202,7 +202,7 @@ function DevoirCard({ dev, coursList, universites, etudiants, openEditDevoir, se
                       </td>
                       <td className="px-3 py-2 text-center">
                         {soum && estNotee(soum) ? (
-                          <span className={cn('font-bold text-sm', noteDeCopie(soum, dev)! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(soum, dev)!, bareme)}</span>
+                          <span className={cn('font-bold text-sm', noteDeCopie(soum, dev)! >= bareme / 2 ? 'text-green-600' : 'text-red-500')}>{(noteDeCopie(soum, dev) === null ? '…' : formaterNote(noteDeCopie(soum, dev)!, bareme))}</span>
                         ) : !soum && expire ? (
                           <span className="font-bold text-sm text-red-500">{formaterNote(0, bareme)}</span>
                         ) : (
@@ -459,12 +459,12 @@ export default function ProfesseurPage() {
   const [propositionErreur, setPropositionErreur] = useState('')
   useEffect(() => { setPropositionIA(null); setPropositionErreur('') }, [correctionSoumId])
   const [viewSoumission, setViewSoumission] = useState<Soumission | null>(null)
-  // Réponses attendues du devoir à questions rédigées de la copie affichée.
+  // Réponses attendues (questions rédigées, QCM + cas) de la copie affichée.
   const [corrigesVus, setCorrigesVus] = useState<Record<string, string>>({})
   useEffect(() => {
     setCorrigesVus({})
     const dev = viewSoumission ? devoirsList.find(d => d.id === viewSoumission.devoirId) : undefined
-    if (dev?.type !== 'redaction') return
+    if (dev?.type !== 'redaction' && dev?.type !== 'qcm_cas') return
     let actif = true
     getCorrigesDevoirAsync(dev.id).then(c => { if (actif) setCorrigesVus(c) }).catch(() => {})
     return () => { actif = false }
@@ -614,8 +614,9 @@ export default function ProfesseurPage() {
     if (!soum || !dev?.casPratiques?.length) return
     setPropositionEnCours(true); setPropositionErreur('')
     try {
-      // Questions rédigées : réponses attendues rangées à part, réservées à l'équipe.
-      const cas = dev.type === 'redaction' ? avecCorriges(dev.casPratiques, await getCorrigesDevoirAsync(dev.id)) : dev.casPratiques
+      // Questions rédigées, QCM + cas : réponses attendues rangées à part,
+      // réservées à l'équipe (les devoirs plus anciens les portent encore).
+      const cas = avecCorriges(dev.casPratiques, await getCorrigesDevoirAsync(dev.id))
       setPropositionIA(await proposerNoteCas(cas, soum.reponsesCasPratiques || {}))
     } catch (e) {
       console.error('Proposition IA :', e)
@@ -880,10 +881,13 @@ export default function ProfesseurPage() {
 
 
   // ── Données filtrées ──
-  // Chaque administrateur/prof voit UNIQUEMENT ses propres étudiants
+  // Un professeur ou un assistant voit les étudiants de son équipe ;
+  // l'administrateur, qui gère la plateforme, les voit tous (il ne pouvait
+  // ni suspendre ni supprimer un étudiant créé par un professeur).
   const isMainAdmin = currentUser?.username === 'manasse.tandu'
   const etudiants = users.filter(u => {
     if (u.role !== 'etudiant') return false
+    if (isAdminRole(currentUser)) return true
     const cb = (u as any).createdBy
     // Étudiant sans createdBy : visible uniquement pour l'admin principal
     if (!cb) return isMainAdmin
@@ -3057,7 +3061,7 @@ export default function ProfesseurPage() {
                         </div>
                         <details className="text-xs">
                           <summary className="cursor-pointer text-primary">Corrigé type</summary>
-                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{(devType === 'redaction' ? corrigesVus[cas.id] : cas.corrigeType) || '(aucun corrigé)'}</pre>
+                          <pre className="mt-1 whitespace-pre-wrap font-sans text-muted-foreground">{corrigesVus[cas.id] || cas.corrigeType || '(aucun corrigé)'}</pre>
                         </details>
                       </div>
                     ))}
@@ -3068,7 +3072,7 @@ export default function ProfesseurPage() {
                 {estNotee(viewSoumission) && (
                   <div className="bg-muted/40 rounded-md p-3">
                     <p className="text-xs text-muted-foreground mb-1">Note attribuée</p>
-                    <p className={cn('text-2xl font-bold', noteDeCopie(viewSoumission, dev)! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{formaterNote(noteDeCopie(viewSoumission, dev)!, baremeDevoir(dev))}</p>
+                    <p className={cn('text-2xl font-bold', noteDeCopie(viewSoumission, dev)! >= baremeDevoir(dev) / 2 ? 'text-green-600' : 'text-red-500')}>{(noteDeCopie(viewSoumission, dev) === null ? '…' : formaterNote(noteDeCopie(viewSoumission, dev)!, baremeDevoir(dev)))}</p>
                     {viewSoumission.commentaire && <p className="text-xs mt-2 text-foreground">{viewSoumission.commentaire}</p>}
                   </div>
                 )}

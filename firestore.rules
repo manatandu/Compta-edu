@@ -83,6 +83,38 @@ service cloud.firestore {
       return memeEquipe(get(/databases/$(database)/documents/$(coll)/$(id)).data.get('createdBy', ''));
     }
 
+    function corrigePublie(devoir) {
+      return devoir.get('corrigeQCMSepare', false) == true &&
+        devoir.coursId in studentCoursIds() &&
+        request.time.toMillis() > devoir.get('dateLimitMs', 0);
+    }
+
+    // Profil d'un étudiant qui s'inscrit lui-même avec un code d'accès.
+    function inscriptionParCode(d) {
+      return d.get('actif', true) == false && d.get('statutInscription', '') == 'en_attente' &&
+        d.get('codeAcces', '') is string && d.get('codeAcces', '') != '' &&
+        exists(/databases/$(database)/documents/codesAcces/$(d.codeAcces)) &&
+        codeOuvert(get(/databases/$(database)/documents/codesAcces/$(d.codeAcces)).data, d);
+    }
+    // Code actif, non expiré et non épuisé ; créateur et cours du profil
+    // repris du code (coursId : forme des plus anciens codes, à un seul cours).
+    // Chaque inscription incrémente le compteur du code dans la même écriture
+    // groupée (getAfter) : sans cela, la limite d'inscriptions se contournait.
+    function codeOuvert(code, d) {
+      return code.get('actif', false) == true &&
+        (code.get('expireLeMs', 0) == 0 || request.time.toMillis() < code.get('expireLeMs', 0)) &&
+        (code.get('utilisationsMax', 0) == 0 || code.get('utilisations', 0) < code.get('utilisationsMax', 0)) &&
+        getAfter(/databases/$(database)/documents/codesAcces/$(d.codeAcces)).data.get('utilisations', 0) == code.get('utilisations', 0) + 1 &&
+        d.get('createdBy', '') == code.get('createdBy', '') &&
+        d.get('coursIds', []).hasOnly(code.get('coursIds', []).concat([code.get('coursId', '')]));
+    }
+    // Compte étudiant créé par un membre du personnel (invitation à son nom).
+    function inviteEtudiant(uid, d) {
+      return exists(/databases/$(database)/documents/accountInvites/$(uid)) &&
+        get(/databases/$(database)/documents/accountInvites/$(uid)).data.role == 'etudiant' &&
+        get(/databases/$(database)/documents/accountInvites/$(uid)).data.get('createdBy', '') == d.get('createdBy', '');
+    }
+
     // ─── USERS ───────────────────────────────────────────────────────────────
     match /users/{userId} {
       // Création :
@@ -94,8 +126,17 @@ service cloud.firestore {
       //    (voir accountInvites) avant d'accepter un rôle à privilèges.
       // 3) Admin déjà authentifié écrivant directement (cas de repli import CSV / collision
       //    d'e-mail où l'uid généré ne correspond à aucun compte Auth).
+      // Compte étudiant : jamais créé librement. Auparavant, n'importe qui
+      // pouvait ouvrir un compte d'authentification (API publique) puis écrire
+      // lui-même un profil étudiant ACTIF, inscrit aux cours de son choix,
+      // sans code ni validation. Deux voies seulement :
+      // - inscription par code d'accès : en attente de validation, rattachée à
+      //   un code actif, au créateur du code et à ses cours ;
+      // - compte créé par le personnel : invitation posée juste avant par le
+      //   créateur (accountInvites, comme pour les rôles à privilèges).
       allow create: if !request.resource.data.keys().hasAny(['password']) && ((request.auth.uid == userId && (
-        (request.resource.data.role == 'etudiant' && !request.resource.data.keys().hasAny(['titulaireId'])) ||
+        (request.resource.data.role == 'etudiant' && !request.resource.data.keys().hasAny(['titulaireId']) &&
+          (inscriptionParCode(request.resource.data) || inviteEtudiant(userId, request.resource.data))) ||
         (
           request.resource.data.role in ['professeur', 'assistant', 'admin'] &&
           exists(/databases/$(database)/documents/accountInvites/$(userId)) &&
@@ -134,7 +175,12 @@ service cloud.firestore {
         request.resource.data.get('actif', null) == resource.data.get('actif', null) &&
         request.resource.data.get('statutInscription', null) == resource.data.get('statutInscription', null) &&
         // Le rattachement à un titulaire (équipe pédagogique) n'est modifiable que par l'admin.
-        request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null)
+        request.resource.data.get('titulaireId', null) == resource.data.get('titulaireId', null) &&
+        // Inscriptions, promotion, faculté et équipe : gérées par l'équipe
+        // pédagogique. Un étudiant pouvait s'ajouter lui-même à tous les cours.
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'coursIds', 'classe', 'faculteId', 'universiteId', 'createdBy'
+        ])
       ) || (
         isProf() && resource.data.role == 'etudiant' &&
         memeEquipe(resource.data.get('createdBy', '')) &&
@@ -168,6 +214,13 @@ service cloud.firestore {
     // ci-dessus ; jamais utilisée directement par l'interface.
     match /accountInvites/{inviteId} {
       allow read, write: if isAdmin();
+      // Compte étudiant créé par un professeur ou un assistant : invitation à
+      // son propre nom, retirée une fois le profil écrit.
+      allow create: if isProf() && request.resource.data.role == 'etudiant' &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.keys().hasOnly(['role', 'createdBy', 'dateCreation']);
+      allow delete: if isProf() && resource.data.role == 'etudiant' &&
+        resource.data.createdBy == request.auth.uid;
     }
 
     // ─── SESSIONS ────────────────────────────────────────────────────────────
@@ -307,7 +360,20 @@ service cloud.firestore {
     match /codesAcces/{codeId} {
       allow get: if true;
       allow list: if isProf();
-      allow write: if isProf();
+      // Un code ouvre l'inscription dans la classe de son créateur : créé au
+      // nom de l'appelant, modifié (désactivation, cours) par son équipe ou
+      // l'admin. Tout professeur pouvait réécrire le code d'un autre.
+      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid;
+      allow update: if isProf() && (createdBy() || isAdmin()) &&
+        request.resource.data.get('createdBy', '') == resource.data.get('createdBy', '');
+      allow delete: if isProf() && (createdBy() || isAdmin());
+      // Inscription par ce code : le nouvel étudiant ne peut qu'ajouter 1 au
+      // compteur, une seule fois, dans l'écriture qui crée son profil.
+      allow update: if isAuth() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['utilisations']) &&
+        request.resource.data.utilisations == resource.data.get('utilisations', 0) + 1 &&
+        !exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        getAfter(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('codeAcces', '') == codeId;
     }
 
     // ─── CONFIG (réglages globaux, ex. année académique en cours) ────────────
@@ -369,6 +435,9 @@ service cloud.firestore {
     // le même lot que le devoir (getAfter), par son auteur.
     match /devoirs_corriges/{devoirId} {
       allow read, update, delete: if isProf() && (ownsVia('devoirs', devoirId) || isAdmin());
+      // Corrigé publié aux étudiants du cours une fois la date limite passée
+      // (devoirs à corrigé séparé : leur copie n'est plus acceptée ensuite).
+      allow get: if isAuth() && corrigePublie(get(/databases/$(database)/documents/devoirs/$(devoirId)).data);
       allow create: if isProf() && request.resource.data.createdBy == request.auth.uid &&
         request.resource.data.devoirId == devoirId &&
         getAfter(/databases/$(database)/documents/devoirs/$(devoirId)).data.get('createdBy', '') == request.auth.uid;
@@ -405,12 +474,19 @@ service cloud.firestore {
     // Ni commentaire, ni évaluation des cas ne viennent de l'étudiant.
     function copieValide(d) {
       let devoir = get(/databases/$(database)/documents/devoirs/$(d.devoirId)).data;
+      let separe = devoir.get('corrigeQCMSepare', false) == true;
       return devoir.coursId in studentCoursIds() &&
-        !d.keys().hasAny(['scoreCasPratiques', 'evaluationsCasPratiques']) && (
+        !d.keys().hasAny(['scoreCasPratiques', 'evaluationsCasPratiques']) &&
+        // Corrigé publié à la date limite : plus aucune copie ensuite (elle
+        // pourrait recopier le corrigé). La copie d'un QCM de chapitre porte
+        // la marque correctionAuto, et elle seule.
+        (!separe || request.time.toMillis() <= devoir.get('dateLimitMs', 0)) &&
+        (d.get('correctionAuto', false) == (separe && devoir.get('type', '') == 'qcm_chapitre')) && (
           (
             !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
             d.get('statut', 'soumis') == 'soumis'
           ) || (
+            !separe &&
             devoir.get('type', '') in ['qcm', 'qcm_chapitre'] &&
             d.note is number && d.note >= 0 && d.note <= 20 &&
             // « soumis » accepté aussi : une page ouverte avant ce correctif
@@ -427,7 +503,13 @@ service cloud.firestore {
 
     match /soumissions/{soumissionId} {
       allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      // Une seule copie par étudiant et par devoir : son identifiant est
+      // imposé (devoirId_uid). Avec un identifiant libre, un étudiant pouvait
+      // rendre autant de copies qu'il voulait sur le même devoir (la cote
+      // retenait la première trouvée) ; un nouvel envoi devient une
+      // modification, refusée pour un QCM et pour une copie notée.
       allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid
+        && soumissionId == request.resource.data.devoirId + '_' + request.auth.uid
         && copieValide(request.resource.data);
       // Modification :
       // - l'étudiant : jamais les champs de correction (sinon il pouvait

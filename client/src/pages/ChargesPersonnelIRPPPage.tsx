@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import BackButton from '@/components/BackButton'
+import { ExportJournalDialog } from '@/components/ExportJournal'
 import { InfoTooltip } from '@/components/InfoTooltip'
 import {
   calculerBaremeIRPP as calculerBareme,
@@ -236,6 +237,10 @@ function ResultatWrap({ titre, children }: { titre: string; children: React.Reac
 export default function ChargesPersonnelIRPPPage() {
   type Mode = 'national' | 'expatrie' | 'admin'
   const [mode, setMode] = useState<Mode>('national')
+  // Export d'une écriture de paie vers le journal, datée du dernier jour du
+  // mois de paie choisi dans l'exercice de la session.
+  const [ecritureExport, setEcritureExport] = useState<{ numero: string; libelle: string; lignes: { sens: 'D' | 'C'; compte: string; intitule: string; montant: number }[] } | null>(null)
+  const [moisPaie, setMoisPaie] = useState(new Date().getMonth() + 1)
 
   // Nationaux
   const [e661, setE661] = useState<LigneSaisie[]>([{ code: '6611', label: 'Appointements et salaires', montant: '' }])
@@ -445,7 +450,13 @@ export default function ChargesPersonnelIRPPPage() {
       <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
         <div className="flex items-center gap-2.5 px-3 py-2 bg-muted/40 border-b border-border/40">
           <span className="flex h-5 items-center justify-center rounded-full bg-blue-500 text-white text-xs font-bold shrink-0 px-2">E{numero}</span>
-          <p className="text-xs font-semibold text-foreground">{libelle}</p>
+          <p className="text-xs font-semibold text-foreground flex-1">{libelle}</p>
+          {lignes.some(l => l.montant > 0) && (
+            <button onClick={() => setEcritureExport({ numero, libelle, lignes })}
+              className="shrink-0 rounded-md border border-border bg-background px-2 py-0.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted">
+              Exporter vers le journal
+            </button>
+          )}
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
@@ -479,11 +490,40 @@ export default function ChargesPersonnelIRPPPage() {
     )
   }
 
+  const MOIS_PAIE = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+  const ecrituresPaie = (exercice: number) => {
+    if (!ecritureExport) return []
+    const fin = new Date(exercice, moisPaie, 0).getDate()
+    const centimes = (n: number) => Math.round(n * 100) / 100
+    return [{
+      date: `${exercice}-${String(moisPaie).padStart(2, '0')}-${String(fin).padStart(2, '0')}`,
+      libelle: `Paie de ${MOIS_PAIE[moisPaie - 1]} ${exercice} : ${ecritureExport.libelle}`,
+      lignes: ecritureExport.lignes
+        .filter(l => l.montant > 0)
+        .map(l => ({ compte: l.compte, intitule: l.intitule.replace(/\s*\*$/, ''), debit: l.sens === 'D' ? centimes(l.montant) : 0, credit: l.sens === 'C' ? centimes(l.montant) : 0 })),
+    }]
+  }
+
   return (
     <div className="space-y-5 pb-6 animate-fadeIn">
 
       {/* ── Bouton retour ── */}
       <BackButton />
+
+      <ExportJournalDialog
+        ouvert={!!ecritureExport}
+        onClose={() => setEcritureExport(null)}
+        description={ecritureExport ? `Écriture E${ecritureExport.numero} : ${ecritureExport.libelle}` : ''}
+        construire={ecrituresPaie}
+      >
+        <div className="space-y-1">
+          <label className="text-sm font-medium">Mois de paie</label>
+          <select value={moisPaie} onChange={e => setMoisPaie(Number(e.target.value))}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+            {MOIS_PAIE.map((m, i) => <option key={m} value={i + 1}>{m.charAt(0).toUpperCase() + m.slice(1)}</option>)}
+          </select>
+        </div>
+      </ExportJournalDialog>
 
       {/* ── Header Banner Animé (cohérent avec Journal/GrandLivre/Balance/Bilan/PlanComptable) ── */}
       <div className="animate-slideDown" style={{ animationDelay: '0ms' }}>

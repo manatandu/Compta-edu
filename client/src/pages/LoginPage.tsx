@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { User } from '@/lib/db'
 import { loginAsync, createUserAsync } from '@/lib/db-firebase'
 import { setFirestoreErrorSuppressed } from '@/lib/firestoreErrorHandler'
-import { lireMotifDeconnexion } from '@/lib/session'
+import { lireMotifDeconnexion, effacerMotifDeconnexion } from '@/lib/session'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -20,6 +20,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [error, setError] = useState('')
   // Motif d'une déconnexion imposée (inactivité, compte suspendu ou supprimé)
   const [motifDeconnexion] = useState(() => lireMotifDeconnexion())
+  // Affiché une fois : effacé après le premier affichage de l'écran.
+  useEffect(() => { effacerMotifDeconnexion() }, [])
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -77,6 +79,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       if (!snap.exists()) { setJoinError('Code introuvable. Vérifiez le code fourni par votre professeur.'); setJoinLoading(false); return }
       const data = snap.data()
       if (!data.actif) { setJoinError('Ce code n’est plus actif. Contactez votre professeur.'); setJoinLoading(false); return }
+      if (data.expireLeMs && Date.now() > data.expireLeMs) { setJoinError('Ce code a expiré. Demandez-en un nouveau à votre professeur.'); setJoinLoading(false); return }
+      if (data.utilisationsMax && (data.utilisations || 0) >= data.utilisationsMax) { setJoinError('Ce code a atteint son nombre maximal d’inscriptions. Contactez votre professeur.'); setJoinLoading(false); return }
       setJoinCodeData(data)
       setJoinStep('form')
     } catch {
@@ -112,6 +116,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         classe: codeData.classe || undefined,
         coursIds: codeData.coursIds?.length > 0 ? codeData.coursIds : codeData.coursId ? [codeData.coursId] : undefined,
         createdBy: codeData.createdBy || '',
+        // Code utilisé : firestore.rules n'accepte l'inscription qu'avec un
+        // code actif, dont le profil reprend le créateur et les cours.
+        codeAcces: joinCode.trim().toUpperCase(),
       } as any)
       setJoinSuccess(true)
     } catch (err: any) {
