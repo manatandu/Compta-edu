@@ -881,10 +881,13 @@ export default function ProfesseurPage() {
 
 
   // ── Données filtrées ──
-  // Chaque administrateur/prof voit UNIQUEMENT ses propres étudiants
+  // Un professeur ou un assistant voit les étudiants de son équipe ;
+  // l'administrateur, qui gère la plateforme, les voit tous (il ne pouvait
+  // ni suspendre ni supprimer un étudiant créé par un professeur).
   const isMainAdmin = currentUser?.username === 'manasse.tandu'
   const etudiants = users.filter(u => {
     if (u.role !== 'etudiant') return false
+    if (isAdminRole(currentUser)) return true
     const cb = (u as any).createdBy
     // Étudiant sans createdBy : visible uniquement pour l'admin principal
     if (!cb) return isMainAdmin

@@ -23,7 +23,7 @@ import {
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField, writeBatch } from 'firebase/firestore'
+import { doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, collection, addDoc, query, where, documentId, getCountFromServer, deleteField, writeBatch, increment } from 'firebase/firestore'
 import { describe, it, beforeAll, afterAll, afterEach } from 'vitest'
 
 import { USERS, IDS, DOCS, token } from './helpers.js'
@@ -63,6 +63,16 @@ afterEach(async () => {
 function db(user) {
   if (!user) return testEnv.unauthenticatedContext().firestore()
   return testEnv.authenticatedContext(user.uid).firestore()
+}
+
+// Inscription par code telle que l'application l'écrit : profil et compteur
+// du code d'un même bloc (firestore.rules, codeOuvert).
+function inscrireParCode(uid, profil) {
+  const fs = db({ uid })
+  const lot = writeBatch(fs)
+  lot.set(doc(fs, 'users', uid), profil)
+  lot.update(doc(fs, 'codesAcces', profil.codeAcces), { utilisations: increment(1) })
+  return lot.commit()
 }
 
 /** Prépare les documents users dans Firestore (pour que isAdmin()/isProf() fonctionnent) */
@@ -201,8 +211,7 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     // profil Firestore : au moment de l'écriture, l'appelant est donc authentifié
     // en tant que ce nouvel utilisateur — jamais réellement anonyme.
     await seedDoc('codesAcces', 'CODE1234', { code: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true })
-    const ref = doc(db({ uid: 'nouveau-uid' }), 'users', 'nouveau-uid')
-    await assertSucceeds(setDoc(ref, { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }))
+    await assertSucceeds(inscrireParCode('nouveau-uid', { uid: 'nouveau-uid', role: 'etudiant', username: 'nouveau', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }))
   })
 
   it('Sans code ni invitation, un compte authentifié NE PEUT PAS créer un profil étudiant actif', async () => {
@@ -216,12 +225,30 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await seedDoc('codesAcces', 'CODEOFF1', { code: 'CODEOFF1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: false })
     const ref = doc(db({ uid: 'n-uid' }), 'users', 'n-uid')
     const base = { role: 'etudiant', username: 'n', actif: false, statutInscription: 'en_attente', codeAcces: 'CODE1234', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] }
-    await assertFails(setDoc(ref, { ...base, actif: true }))
-    await assertFails(setDoc(ref, { ...base, coursIds: [IDS.coursCompta, IDS.coursFiscalite] }))
-    await assertFails(setDoc(ref, { ...base, createdBy: USERS.prof2.uid }))
-    await assertFails(setDoc(ref, { ...base, codeAcces: 'CODEOFF1' }))
-    await assertFails(setDoc(ref, { ...base, codeAcces: 'INCONNU1' }))
-    await assertSucceeds(setDoc(ref, base))
+    await assertFails(inscrireParCode('n-uid', { ...base, actif: true }))
+    await assertFails(inscrireParCode('n-uid', { ...base, coursIds: [IDS.coursCompta, IDS.coursFiscalite] }))
+    await assertFails(inscrireParCode('n-uid', { ...base, createdBy: USERS.prof2.uid }))
+    await assertFails(inscrireParCode('n-uid', { ...base, codeAcces: 'CODEOFF1' }))
+    await assertFails(inscrireParCode('n-uid', { ...base, codeAcces: 'INCONNU1' }))
+    // Sans incrémenter le compteur du code dans la même écriture : refusé
+    await assertFails(setDoc(ref, base))
+    await assertSucceeds(inscrireParCode('n-uid', base))
+  })
+
+  it('Code d\'accès expiré ou complet : inscription refusée ; compteur intouchable hors inscription', async () => {
+    const hier = Date.now() - 86400000, demain = Date.now() + 86400000
+    await seedDoc('codesAcces', 'CODEEXP1', { code: 'CODEEXP1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true, expireLeMs: hier })
+    await seedDoc('codesAcces', 'CODEPLE1', { code: 'CODEPLE1', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true, utilisationsMax: 2, utilisations: 2 })
+    await seedDoc('codesAcces', 'CODEOK01', { code: 'CODEOK01', createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta], actif: true, expireLeMs: demain, utilisationsMax: 2, utilisations: 1 })
+    const profil = code => ({ role: 'etudiant', username: 'x', actif: false, statutInscription: 'en_attente', codeAcces: code, createdBy: USERS.prof1.uid, coursIds: [IDS.coursCompta] })
+    await assertFails(inscrireParCode('x1', profil('CODEEXP1')))
+    await assertFails(inscrireParCode('x2', profil('CODEPLE1')))
+    // Un compte quelconque ne peut ni remettre le compteur à zéro ni l'avancer sans s'inscrire
+    await assertFails(updateDoc(doc(db({ uid: 'x3' }), 'codesAcces', 'CODEPLE1'), { utilisations: 0 }))
+    await assertFails(updateDoc(doc(db({ uid: 'x3' }), 'codesAcces', 'CODEOK01'), { utilisations: increment(1) }))
+    await assertSucceeds(inscrireParCode('x4', profil('CODEOK01')))
+    // Code désormais complet (2/2)
+    await assertFails(inscrireParCode('x5', profil('CODEOK01')))
   })
 
   it('Compte étudiant créé par un professeur : invitation à son nom, créateur imposé', async () => {

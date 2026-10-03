@@ -79,6 +79,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       if (!snap.exists()) { setJoinError('Code introuvable. Vérifiez le code fourni par votre professeur.'); setJoinLoading(false); return }
       const data = snap.data()
       if (!data.actif) { setJoinError('Ce code n’est plus actif. Contactez votre professeur.'); setJoinLoading(false); return }
+      if (data.expireLeMs && Date.now() > data.expireLeMs) { setJoinError('Ce code a expiré. Demandez-en un nouveau à votre professeur.'); setJoinLoading(false); return }
+      if (data.utilisationsMax && (data.utilisations || 0) >= data.utilisationsMax) { setJoinError('Ce code a atteint son nombre maximal d’inscriptions. Contactez votre professeur.'); setJoinLoading(false); return }
       setJoinCodeData(data)
       setJoinStep('form')
     } catch {

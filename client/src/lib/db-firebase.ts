@@ -7,7 +7,7 @@
 import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc,
   deleteDoc, query, where, onSnapshot, deleteField,
-  writeBatch, getFirestore, getCountFromServer, documentId, connectFirestoreEmulator,
+  writeBatch, increment, getFirestore, getCountFromServer, documentId, connectFirestoreEmulator,
   type Unsubscribe
 } from 'firebase/firestore'
 import {
@@ -551,7 +551,17 @@ export async function createUserAsync(data: Omit<User, 'id' | 'dateCreation'>): 
 
   // Écriture Firestore avec l'instance authentifiée AVANT déconnexion
   if (useSecondaryDb) {
-    await setDoc(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+    const codeAcces = (data as any).codeAcces as string | undefined
+    if (codeAcces) {
+      // Inscription par code : profil et compteur du code d'un bloc (les
+      // règles refusent l'un sans l'autre, voir codeOuvert).
+      const lot = writeBatch(secondaryDb)
+      lot.set(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+      lot.update(doc(secondaryDb, 'codesAcces', codeAcces), { utilisations: increment(1) })
+      await lot.commit()
+    } else {
+      await setDoc(doc(secondaryDb, C.USERS, uid), cleanUndefined(user) as any)
+    }
     // Fiche 'etudiants' liée, créée pendant que secondaryAuth est encore
     // authentifié comme le compte tout juste créé (voir firestore.rules,
     // bloc etudiants : cette écriture ne peut se désigner elle-même que

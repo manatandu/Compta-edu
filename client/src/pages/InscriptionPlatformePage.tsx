@@ -666,7 +666,7 @@ function ImportCSV({ universites, getFacultes, getCours, coursPourFaculte, curre
 // ─── Sous-composant C : Code d'accès ─────────────────────────────────────────
 function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, currentUserId, toast }: any) {
   const [, navigate] = useLocation()
-  const [form, setForm] = useState({ universiteId: '', faculteId: '', coursIds: [] as string[], classe: '' })
+  const [form, setForm] = useState({ universiteId: '', faculteId: '', coursIds: [] as string[], classe: '', expireLe: '', utilisationsMax: '' })
   const [generatedCode, setGeneratedCode] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -718,6 +718,10 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
         createdBy: currentUserId,
         createdAt: new Date().toISOString(),
         actif: true,
+        // Limites facultatives, contrôlées par les règles : le code expire à
+        // la fin du jour choisi, et n'accepte qu'un nombre d'inscriptions.
+        ...(form.expireLe ? { expireLeMs: new Date(`${form.expireLe}T23:59:59`).getTime() } : {}),
+        ...(parseInt(form.utilisationsMax) > 0 ? { utilisationsMax: parseInt(form.utilisationsMax), utilisations: 0 } : {}),
       })
       setGeneratedCode(code)
       toast({ title: 'Code généré avec succès' })
@@ -824,6 +828,21 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
         </div>
       )}
 
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-muted-foreground">Valable jusqu'au (optionnel)</label>
+          <input type="date" value={form.expireLe} min={new Date().toISOString().slice(0, 10)}
+            onChange={e => setForm(f => ({ ...f, expireLe: e.target.value }))}
+            className="w-full px-3 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-muted-foreground">Nombre maximal d'inscriptions (optionnel)</label>
+          <input type="number" min={1} value={form.utilisationsMax} placeholder="Illimité"
+            onChange={e => setForm(f => ({ ...f, utilisationsMax: e.target.value }))}
+            className="w-full px-3 py-2 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        </div>
+      </div>
+
       <button onClick={handleGenerate} disabled={loading}
         className="w-full px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white text-sm font-semibold transition-colors">
         {loading ? 'Génération...' : 'Générer le code d\'accès'}
@@ -841,7 +860,7 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
             {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
             {copied ? 'Copié !' : 'Copier le code'}
           </button>
-          <p className="text-xs text-emerald-600">Transmettez ce code aux étudiants. Il sera valide jusqu'à sa désactivation, ci-dessous.</p>
+          <p className="text-xs text-emerald-600">Transmettez ce code aux étudiants. Il reste valable jusqu'à sa désactivation, ci-dessous, ou jusqu'aux limites choisies.</p>
         </div>
       )}
 
@@ -855,8 +874,16 @@ function CodeAcces({ universites, getFacultes, getCours, coursPourFaculte, curre
                 <span className="flex-1 min-w-0 truncate text-muted-foreground">
                   {[c.classe, ...(c.coursIds || []).map((id: string) => getCours('', c.faculteId || '').find((x: any) => x.id === id)?.nom || '')].filter(Boolean).join(' · ') || 'Sans cours'}
                   {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString('fr-FR')}` : ''}
+                  {` · ${c.utilisations || 0}${c.utilisationsMax ? `/${c.utilisationsMax}` : ''} inscription${(c.utilisations || 0) > 1 ? 's' : ''}`}
+                  {c.expireLeMs ? ` · jusqu'au ${new Date(c.expireLeMs).toLocaleDateString('fr-FR')}` : ''}
                 </span>
-                <span className={c.actif ? 'text-emerald-700' : 'text-muted-foreground'}>{c.actif ? 'Actif' : 'Désactivé'}</span>
+                {(() => {
+                  const etat = !c.actif ? 'Désactivé'
+                    : c.expireLeMs && Date.now() > c.expireLeMs ? 'Expiré'
+                    : c.utilisationsMax && (c.utilisations || 0) >= c.utilisationsMax ? 'Complet'
+                    : 'Actif'
+                  return <span className={etat === 'Actif' ? 'text-emerald-700' : 'text-muted-foreground'}>{etat}</span>
+                })()}
                 <button onClick={() => basculerCode(c)} className="px-2.5 py-1 rounded-lg border border-border hover:bg-muted font-medium">
                   {c.actif ? 'Désactiver' : 'Réactiver'}
                 </button>

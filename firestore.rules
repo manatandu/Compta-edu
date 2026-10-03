@@ -90,10 +90,15 @@ service cloud.firestore {
         exists(/databases/$(database)/documents/codesAcces/$(d.codeAcces)) &&
         codeOuvert(get(/databases/$(database)/documents/codesAcces/$(d.codeAcces)).data, d);
     }
-    // Code actif ; créateur et cours du profil repris du code (coursId : forme
-    // des plus anciens codes, à un seul cours).
+    // Code actif, non expiré et non épuisé ; créateur et cours du profil
+    // repris du code (coursId : forme des plus anciens codes, à un seul cours).
+    // Chaque inscription incrémente le compteur du code dans la même écriture
+    // groupée (getAfter) : sans cela, la limite d'inscriptions se contournait.
     function codeOuvert(code, d) {
       return code.get('actif', false) == true &&
+        (code.get('expireLeMs', 0) == 0 || request.time.toMillis() < code.get('expireLeMs', 0)) &&
+        (code.get('utilisationsMax', 0) == 0 || code.get('utilisations', 0) < code.get('utilisationsMax', 0)) &&
+        getAfter(/databases/$(database)/documents/codesAcces/$(d.codeAcces)).data.get('utilisations', 0) == code.get('utilisations', 0) + 1 &&
         d.get('createdBy', '') == code.get('createdBy', '') &&
         d.get('coursIds', []).hasOnly(code.get('coursIds', []).concat([code.get('coursId', '')]));
     }
@@ -356,6 +361,13 @@ service cloud.firestore {
       allow update: if isProf() && (createdBy() || isAdmin()) &&
         request.resource.data.get('createdBy', '') == resource.data.get('createdBy', '');
       allow delete: if isProf() && (createdBy() || isAdmin());
+      // Inscription par ce code : le nouvel étudiant ne peut qu'ajouter 1 au
+      // compteur, une seule fois, dans l'écriture qui crée son profil.
+      allow update: if isAuth() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['utilisations']) &&
+        request.resource.data.utilisations == resource.data.get('utilisations', 0) + 1 &&
+        !exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        getAfter(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('codeAcces', '') == codeId;
     }
 
     // ─── CONFIG (réglages globaux, ex. année académique en cours) ────────────
