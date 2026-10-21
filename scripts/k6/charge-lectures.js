@@ -63,7 +63,8 @@ export function etudiant(d) {
   const coursIds = ['k6-f1-ue3', 'k6-f1-ue9']
   let n = 0
   n += lire(jeton, `users/${uid}`, p)
-  n += requete(jeton, 'cours', null, p)                                          // useAllCours
+  n += requete(jeton, 'cours', filtre('faculteId', 'EQUAL', chaine('k6-f1')), p)  // useAllCours : cours de sa faculté
+  n += requete(jeton, 'cours', filtre('__name__', 'IN', { arrayValue: { values: ['k6-f1-ue3', 'k6-f1-ue9'].map(id => ({ referenceValue: `projects/campus-ohada/databases/(default)/documents/cours/${id}` })) } }), p)  // … et ceux où il est inscrit
   n += requete(jeton, 'devoirs', filtre('coursId', 'IN', tableau(coursIds)), p)  // useAllDevoirs
   n += requete(jeton, 'soumissions', filtre('etudiantId', 'EQUAL', chaine(uid)), p)
   n += requete(jeton, 'presences', filtre('etudiantIds', 'ARRAY_CONTAINS', chaine(uid)), p)
