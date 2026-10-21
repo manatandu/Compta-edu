@@ -1240,12 +1240,21 @@ export async function createSoumissionAsync(data: Omit<Soumission, 'id' | 'dateS
   return s
 }
 
-export async function corrigerSoumissionAsync(id: string, note: number, commentaire: string): Promise<void> {
+// evaluations : note et appréciation de chaque cas pratique (ou question
+// rédigée), montrées à l'étudiant avec sa note.
+export async function corrigerSoumissionAsync(
+  id: string, note: number, commentaire: string,
+  evaluations?: NonNullable<Soumission['evaluationsCasPratiques']>,
+): Promise<void> {
   await updateDoc(doc(db, C.SOUMISSIONS, id), cleanUndefined({
     note,
     commentaire,
     statut: 'note',
     dateCorrection: new Date().toISOString(),
+    ...(evaluations?.length ? {
+      evaluationsCasPratiques: evaluations,
+      scoreCasPratiques: Math.round(evaluations.reduce((s, e) => s + e.score, 0) * 100) / 100,
+    } : {}),
   }) as any)
 }
 

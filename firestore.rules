@@ -568,7 +568,8 @@ service cloud.firestore {
           !request.resource.data.diff(resource.data).affectedKeys().hasAny(champsCorrection())
         ) || (
           isProf() && (ownsVia('devoirs', resource.data.devoirId) || isAdmin()) &&
-          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['note', 'commentaire', 'statut', 'dateCorrection'])
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['note', 'commentaire', 'statut', 'dateCorrection',
+            'evaluationsCasPratiques', 'scoreCasPratiques'])
         );
       // Suppression isolée par créateur du devoir rattaché (et non isProf()
       // global) : un prof ne peut supprimer que les soumissions d'un devoir

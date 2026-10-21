@@ -2033,6 +2033,15 @@ describe('📝 Soumissions — correction', () => {
     await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid, statut: 'soumis' })
     await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'soumissions', 'soum-1'), correction))
     await assertSucceeds(updateDoc(doc(db(ASSIST1), 'soumissions', 'soum-1'), { note: 15 }))
+    // Détail par cas pratique, montré à l'étudiant
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'soumissions', 'soum-1'), { ...correction,
+      evaluationsCasPratiques: [{ casId: 'cas1', score: 4, commentaire: 'Écriture juste', coherente: true }], scoreCasPratiques: 4 }))
+  })
+
+  it('Un étudiant NE PEUT PAS écrire le détail de sa propre correction', async () => {
+    await seedUsers(USERS.etud1)
+    await seedDoc('soumissions', 'soum-1', { devoirId: 'devoir-001', etudiantId: USERS.etud1.uid, statut: 'soumis' })
+    await assertFails(updateDoc(doc(db(USERS.etud1), 'soumissions', 'soum-1'), { scoreCasPratiques: 10 }))
   })
 
   it('Un autre professeur NE PEUT PAS noter, ni modifier autre chose que la correction', async () => {
