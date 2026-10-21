@@ -1661,6 +1661,40 @@ export async function reparerCreateursParIdentifiantAsync(users: User[]): Promis
   return ops.length
 }
 
+// Tentatives enregistrées avant que l'équipe de l'étudiant (createurEtudiant)
+// n'y figure : complétées d'après son profil, pour que l'onglet Progression,
+// qui les lit par équipe, les retrouve. Administrateur : toutes les tentatives ;
+// équipe : celles de ses étudiants (paquets de 10, limite de lectures des
+// règles). Au plus une fois par semaine : la date du dernier passage est notée
+// sur le profil de l'appelant (valable sur tous ses appareils).
+export async function completerEquipeTentativesAsync(appelant: User, etudiants: User[], toutes: boolean): Promise<number> {
+  const derniere = Number((appelant as any).tentativesCompleteesLe || 0)
+  if (Date.now() - derniere < 7 * 24 * 3600 * 1000) return 0
+  const createurDe = new Map(etudiants
+    .filter(e => e.role === 'etudiant' && (e as any).createdBy)
+    .map(e => [e.id, (e as any).createdBy as string] as [string, string]))
+  // Équipe : paquets lus l'un après l'autre, en arrière-plan, pour ne pas
+  // ralentir les écrans ouverts (jusqu'à une centaine de requêtes).
+  const snaps = []
+  if (toutes) snaps.push(await getDocs(collection(db, C.TENTATIVES)))
+  else for (const ids of paquetsDe(Array.from(createurDe.keys()), 10)) {
+    snaps.push(await getDocs(query(collection(db, C.TENTATIVES), where('userId', 'in', ids))))
+  }
+  const aCompleter = snaps.flatMap(s => s.docs).filter(d => {
+    const t = d.data() as Tentative
+    return !t.createurEtudiant && createurDe.has(t.userId)
+  })
+  // Écritures une à une (20 à la fois), et non par lots : les règles relisent
+  // le profil de l'étudiant de chaque tentative, et un lot n'a droit qu'à 20
+  // lectures en tout ; un lot de plusieurs étudiants était refusé en bloc.
+  for (let i = 0; i < aCompleter.length; i += 20) {
+    await Promise.all(aCompleter.slice(i, i + 20).map(d =>
+      updateDoc(d.ref, { createurEtudiant: createurDe.get((d.data() as Tentative).userId)! })))
+  }
+  await updateDoc(doc(db, C.USERS, appelant.id), { tentativesCompleteesLe: Date.now() })
+  return aCompleter.length
+}
+
 // Ramène une liste d'inscriptions à la faculté `faculteId` : un cours d'une
 // autre faculté est remplacé par celui de la faculté pour la même UE.
 export function inscriptionsDeLaFaculte(coursIds: string[], faculteId: string, coursList: Cours[]): string[] {

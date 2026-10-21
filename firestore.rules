@@ -299,16 +299,36 @@ service cloud.firestore {
     // le create échouait systématiquement (PERMISSION_DENIED), en silence
     // (.catch(console.error) côté appelant). Conséquence réelle : aucun étudiant
     // ne pouvait enregistrer une tentative d'exercice coté. Champ corrigé en 'userId'.
+    // createurEtudiant : créateur du compte de l'étudiant (son équipe), posé
+    // à l'enregistrement de la tentative et vérifié ici sur son profil. Il
+    // permet à l'onglet Progression de lire les tentatives de toute l'équipe en
+    // une requête (une par paquet de dix étudiants auparavant).
     match /tentatives/{tentativeId} {
       allow read: if isAuth() && (
         ownsResource('userId') || isAdmin() || etudiantDeMonEquipe(resource.data.userId) ||
+        creeParMonEquipe(resource.data.get('createurEtudiant', '')) ||
         // Statistiques d'un exercice : l'équipe qui l'a créé (requête par exerciceId)
         (isProf() && ownsVia('exercices', resource.data.exerciceId))
       );
       allow create: if isAuth() && (
         request.resource.data.userId == request.auth.uid
+      ) && (
+        !request.resource.data.keys().hasAny(['createurEtudiant']) ||
+        request.resource.data.createurEtudiant ==
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('createdBy', '')
       );
-      allow update: if isAuth() && ownsResource('userId');
+      // L'étudiant modifie sa tentative, jamais son équipe. L'administrateur
+      // et l'équipe de l'étudiant complètent l'équipe des tentatives plus
+      // anciennes, d'après le profil de l'étudiant, sans rien changer d'autre.
+      allow update: if (
+          isAuth() && ownsResource('userId') &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['createurEtudiant'])
+        ) || (
+          (isAdmin() || etudiantDeMonEquipe(resource.data.userId)) &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['createurEtudiant']) &&
+          request.resource.data.createurEtudiant ==
+            get(/databases/$(database)/documents/users/$(resource.data.userId)).data.get('createdBy', '')
+        );
       // Suppression isolée par cours (et non isProf() global) : un prof ne peut
       // supprimer que les tentatives d'un cours qu'il enseigne ; sans coursId
       // (champ optionnel), seul un admin le peut — même compromis assumé

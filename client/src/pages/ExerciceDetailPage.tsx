@@ -464,6 +464,8 @@ export default function ExerciceDetailPage() {
         // Isolation par promotion et cours
         promotionId: (user as any)?.classe || undefined,
         coursId: exercice.coursId || undefined,
+        // Équipe de l'étudiant : lecture de la progression par équipe
+        createurEtudiant: (user as any)?.createdBy || undefined,
       }).catch(console.error)
       // Supprimer brouillon après soumission réelle
       try { localStorage.removeItem(DRAFT_KEY) } catch {}

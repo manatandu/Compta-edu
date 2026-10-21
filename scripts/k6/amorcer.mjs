@@ -117,6 +117,15 @@ const premier = etudiants[0].uid
 docs.push(['etudiants/k6-fiche-1', { type: 'interne', userId: premier, nom: 'ETUDIANT001', prenom: 'Charge', statut: 'actif', createdBy: prof }])
 docs.push(['notes_manuelles/k6-note-1', { etudiantFicheId: 'k6-fiche-1', note: 14, saisiePar: prof, dateSaisie: iso(maintenant), chapitreLabel: 'Interrogation 1', mode: 'manuel' }])
 docs.push(['tentatives/k6-tent-1', { userId: premier, exerciceId: 'k6-ex-1', score: 12, dateCreation: iso(maintenant) }])
+// Trois tentatives par étudiant : deux portent son équipe (createurEtudiant),
+// la troisième non, comme celles enregistrées avant ce champ (complétées à
+// la première ouverture de l'onglet Progression).
+for (const { uid, i } of etudiants) {
+  for (let t = 0; t < 3; t++) {
+    docs.push([`tentatives/k6-t-${uid}-${t}`, { userId: uid, exerciceId: `k6-ex-${t}`, score: 40 + ((i + t) * 7) % 60,
+      dateCreation: iso(maintenant - t * JOUR), ...(t < 2 ? { createurEtudiant: prof } : {}) }])
+  }
+}
 // Une session de journal par étudiant, 10 écritures équilibrées
 for (const { uid } of etudiants) {
   docs.push([`sessions/k6-s-${uid}`, { nom: 'KASAI SARL', exercice: 2026, userId: uid, module: 'syscohada', dateCreation: iso(maintenant - 10 * JOUR) }])

@@ -115,6 +115,7 @@ export interface Tentative {
   modeEntrainement?: boolean
   promotionId?: string   // isolation : promotion de l'étudiant
   coursId?: string       // isolation : cours lié
+  createurEtudiant?: string  // créateur du compte de l'étudiant (son équipe), voir firestore.rules
 }
 
 export interface Document {
