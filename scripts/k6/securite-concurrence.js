@@ -109,7 +109,9 @@ export function copieUnique(d) {
     devoirId: 'k6-d-ouvert', etudiantId: moi.uid, dateSoumission: new Date().toISOString(), correctionAuto: true, reponsesQCMChapitre: { 'k6-q1': 'abcd'[__VU % 4] },
   }) }), avec(moi.jeton))
   if (r.status === 200) copiesAcceptees.add(1)
-  check(r, { 'envoi accepté ou refusé proprement': x => x.status === 200 || x.status === 403 })
+  // 409 : écriture abandonnée par contention (« Transaction lock timeout »),
+  // non appliquée ; le SDK de l'application la réessaie.
+  check(r, { 'envoi accepté ou refusé proprement': x => x.status === 200 || x.status === 403 || x.status === 409 })
 }
 
 export function teardown(d) {
