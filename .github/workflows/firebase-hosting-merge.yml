@@ -13,25 +13,36 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Versions 5 des actions : elles tournent sous Node 24 (les versions 4,
+      # sous Node 20, étaient signalées obsolètes par GitHub).
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            client/package-lock.json
 
       # L'émulateur Firestore (lancé par le hook prebuild pour les tests d'isolation)
       # exige Java 21+ depuis une version récente de firebase-tools ; ubuntu-latest
       # n'embarque que Java 17 par défaut.
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"
 
+      # npm ci : installation exacte des fichiers de verrouillage, servie par le
+      # cache. firebase-tools fait partie des dépendances du projet : il n'est
+      # plus téléchargé à part à chaque lancement de l'émulateur ou du
+      # déploiement (une coupure réseau pendant ce téléchargement avait fait
+      # échouer le déploiement du 21/10/2026).
       - name: Installer les dépendances (racine)
-        run: npm install
+        run: npm ci
 
       - name: Installer les dépendances (client)
-        run: npm install
+        run: npm ci
         working-directory: client
 
       # Séparé du build : l'émulateur Firestore peut occasionnellement rester bloqué
