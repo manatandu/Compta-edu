@@ -383,6 +383,7 @@ export default function ProfesseurPage() {
   // de dupliquer la gestion des cours à deux endroits (accordéon + onglet).
   const [coursFiltreFaculteId, setCoursFiltreFaculteId] = useState<string>('')
   const [users, setUsers] = useState<User[]>([])
+  const [usersCharges, setUsersCharges] = useState(false)
   const { universites } = useUniversites()
   const { facultes: facultesList } = useAllFacultes()
   const { cours: coursList } = useAllCours()
@@ -442,7 +443,7 @@ export default function ProfesseurPage() {
   // Modales universités
   const [showUniForm, setShowUniForm] = useState(false)
   // ── Devoirs ──
-  const { devoirs: devoirsList } = useDevoirs(equipe?.ids)
+  const { devoirs: devoirsList, loading: chargementDevoirs } = useDevoirs(equipe?.ids)
   const [deleteDevoirId, setDeleteDevoirId] = useState<string | null>(null)
   // Modification d'un devoir existant, limitée à ce qu'un enseignant change
   // après coup : intitulé, consignes, date limite, visibilité. Les questions,
@@ -506,6 +507,7 @@ export default function ProfesseurPage() {
     const ecoute = (cb: (u: any[]) => void) => isAdmin ? onUsersSnapshot(cb) : onUsersEquipeSnapshot(equipe?.refs || [currentUser?.id || ''], cb)
     const unsub = ecoute((firebaseUsers) => {
       setUsers(firebaseUsers)
+      setUsersCharges(true)
       // Nettoyage des anciens profils qui contiennent encore un mot de passe en
       // clair : fait une fois par l'admin, seul autorisé à modifier les autres profils.
       if (isAdmin && !purgeFaite.current && firebaseUsers.some(u => (u as any).password !== undefined)) {
@@ -950,9 +952,12 @@ export default function ProfesseurPage() {
   const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
 
   // ── Progression ──
-  // Tentatives des étudiants affichés (l'admin : toutes, une seule requête).
+  // Tentatives des étudiants affichés (l'admin : toutes, une seule requête),
+  // lues seulement sur l'onglet Progression, le seul qui s'en sert : elles
+  // partaient à chaque ouverture de l'Espace pédagogique, une requête par
+  // paquet de dix étudiants (36 pour 360 étudiants), quel que soit l'onglet.
   const idsEtudiants = isAdmin ? undefined : etudiants.map(e => e.id)
-  const { tentatives } = useTentatives(undefined, undefined, true, idsEtudiants)
+  const { tentatives, loading: chargementTentatives } = useTentatives(undefined, undefined, tab === 'progression', idsEtudiants)
   const [progFiltres, setProgFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [presenceFiltres, setPresenceFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [coteFiltres, setCoteFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
@@ -1045,7 +1050,7 @@ export default function ProfesseurPage() {
   // Toutes les séances de l'équipe. La requête était aussi filtrée sur la
   // faculté du profil de l'enseignant : une séance rattachée au cours d'une
   // autre faculté disparaissait de l'écran dès son enregistrement.
-  const { presences } = usePresences(equipe?.ids)
+  const { presences, loading: chargementPresences } = usePresences(equipe?.ids)
   const [showPresenceForm, setShowPresenceForm] = useState(false)
   const [presenceTitre, setPresenceTitre] = useState('')
   const [presenceDate, setPresenceDate] = useState(() => new Date().toISOString().slice(0, 10))
@@ -1171,7 +1176,7 @@ export default function ProfesseurPage() {
   }
 
   // ── Toutes les soumissions (pour calcul cote devoirs) ──
-  const { soumissions: allSoumissions } = useAllSoumissions(devoirsList)
+  const { soumissions: allSoumissions, loading: chargementCopies } = useAllSoumissions(devoirsList)
 
   // Copies rendues attendant une note. La création de devoirs classiques a été
   // volontairement retirée (bloc « ONGLET DEVOIRS », désactivé en dur avec le
@@ -1745,7 +1750,17 @@ export default function ProfesseurPage() {
 
 
       {/* ═══════════════════ ONGLET PROGRESSION ═══════════════════ */}
-      {tab === 'progression' && (() => {
+      {tab === 'progression' && (!usersCharges || chargementPresences || chargementDevoirs || chargementCopies) && (
+        // Tableau affiché d'un bloc, une fois reçus comptes, présences, devoirs
+        // et copies, qui fixent son ordre (la cote) : affiché au fil des
+        // réponses, il se retriait à chaque arrivée et ses lignes sautaient
+        // (décalage de mise en page de 0,66). Les tentatives, plus longues à
+        // venir, ne changent pas l'ordre : leur colonne se remplit sur place.
+        <div role="status" className="flex items-center justify-center gap-2 rounded-xl border border-border py-16 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Chargement de la progression…
+        </div>
+      )}
+      {tab === 'progression' && usersCharges && !chargementPresences && !chargementDevoirs && !chargementCopies && (() => {
         // ── Filtres cascade ──
         const filtUniId  = progFiltres.uniId
         const filtFacId  = progFiltres.facId
@@ -1780,6 +1795,7 @@ export default function ProfesseurPage() {
 
         const enDifficulte = perfData.filter(d => d.total !== null && d.total < 5)
         const sansActivite = perfData.filter(d => d.tentatives === 0 && d.totalSeances === 0)
+        const nbSansActivite = chargementTentatives ? '…' : sansActivite.length
         const bons         = perfData.filter(d => d.total !== null && d.total >= 8)
         const aucunFiltre  = !filtUniId && !filtFacId && !filtCoursId && !filtClasse
 
@@ -1869,12 +1885,12 @@ export default function ProfesseurPage() {
                     <p className="text-xs text-muted-foreground">En difficulté (&lt; 5/10)</p>
                   </div>
                 </div>
-                <div className={cn('rounded-xl border p-3 flex items-center gap-3', sansActivite.length > 0 ? 'border-amber-300 bg-amber-50' : 'border-border bg-muted/20')}>
+                <div className={cn('rounded-xl border p-3 flex items-center gap-3', !chargementTentatives && sansActivite.length > 0 ? 'border-amber-300 bg-amber-50' : 'border-border bg-muted/20')}>
                   <div className="h-9 w-9 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
                     <Clock className="h-4 w-4 text-amber-600" />
                   </div>
                   <div>
-                    <p className="text-xl font-bold text-amber-600">{sansActivite.length}</p>
+                    <p className="text-xl font-bold text-amber-600">{nbSansActivite}</p>
                     <p className="text-xs text-muted-foreground">Aucune activité</p>
                   </div>
                 </div>
@@ -1916,7 +1932,7 @@ export default function ProfesseurPage() {
                   <tbody>
                     {perfData.map(({ etudiant: e, uni, totalSeances, nbPresent, tauxPresence, cotePresence, coteDevoirs, total, mention, tentatives, moyenneTP }) => {
                       const enDiff  = total !== null && total < 5
-                      const inactif = tentatives === 0 && totalSeances === 0
+                      const inactif = !chargementTentatives && tentatives === 0 && totalSeances === 0
                       return (
                         <tr key={e.id} className={cn('border-t border-border/50 hover:bg-muted/20', enDiff && 'bg-red-50/40')}>
                           <td className="px-4 py-2.5">
@@ -1934,9 +1950,11 @@ export default function ProfesseurPage() {
                               : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
-                            {tentatives > 0
-                              ? <span className="text-sm">{tentatives} <span className="text-xs text-muted-foreground">({moyenneTP}%)</span></span>
-                              : <span className="text-muted-foreground text-xs">-</span>}
+                            {chargementTentatives
+                              ? <span className="text-muted-foreground text-xs">…</span>
+                              : tentatives > 0
+                                ? <span className="text-sm">{tentatives} <span className="text-xs text-muted-foreground">({moyenneTP}%)</span></span>
+                                : <span className="text-muted-foreground text-xs">-</span>}
                           </td>
                           <td className="px-3 py-2.5 text-center">
                             {coteDevoirs !== null

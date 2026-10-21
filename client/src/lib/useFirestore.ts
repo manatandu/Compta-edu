@@ -56,10 +56,15 @@ function subscribeByFieldIn<T>(
 ): Unsubscribe {
   const groups = chunk(values, taille)
   const perChunk: T[][] = groups.map(() => [])
+  const recus = groups.map(() => false)
   const unsubs = groups.map((group, i) =>
     onSnapshot(query(collection(db, collectionName), where(field, 'in', group)), snap => {
       perChunk[i] = snap.docs.map(transform)
-      onData(perChunk.flat())
+      recus[i] = true
+      // Livraison une fois tous les paquets reçus, puis à chaque mise à jour :
+      // une liste livrée paquet par paquet se réordonnait à l'écran à chaque
+      // arrivée (décalage de mise en page sur l'onglet Progression).
+      if (recus.every(Boolean)) onData(perChunk.flat())
     }, err => { notifyFirestoreError(`subscribeByFieldIn(${collectionName}.${field})`, err); onError?.() })
   )
   return () => unsubs.forEach(u => u())
@@ -287,6 +292,7 @@ function useAvecCorrigesQCM(devoirs: Devoir[]): Devoir[] {
 
 export function useDevoirs(createdBy?: string | string[]) {
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
+  const [loading, setLoading] = useState(true)
   const cle = cleCreateur(createdBy)
 
   useEffect(() => {
@@ -297,11 +303,12 @@ export function useDevoirs(createdBy?: string | string[]) {
 
     const unsub = onSnapshot(q, (snap) => {
       setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-    }, err => notifyFirestoreError('useDevoirs', err))
+      setLoading(false)
+    }, err => { notifyFirestoreError('useDevoirs', err); setLoading(false) })
     return () => unsub()
   }, [cle])
 
-  return { devoirs: useAvecCorrigesQCM(devoirs) }
+  return { devoirs: useAvecCorrigesQCM(devoirs), loading }
 }
 
 // ─── Tous les devoirs (pour les étudiants : filtrés par coursIds) ─────────────
@@ -455,12 +462,17 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
 export function useTentatives(etudiantId?: string, exerciceId?: string, enabled: boolean = true, etudiantsIds?: string[]) {
   const [tentatives, setTentatives] = useState<Tentative[]>([])
   const cleEtudiants = etudiantsIds ? etudiantsIds.join(',') : null
+  // Chargé quand les tentatives à l'écran sont celles de la requête en cours.
+  const cleRequete = `${etudiantId || ''}|${exerciceId || ''}|${enabled}|${cleEtudiants ?? '*'}`
+  const [cleServie, setCleServie] = useState<string | null>(null)
   useEffect(() => {
     if (!enabled) { setTentatives([]); return }
+    const servies = (items: Tentative[]) => { setTentatives(items); setCleServie(cleRequete) }
     if (etudiantsIds && !etudiantId) {
-      if (etudiantsIds.length === 0) { setTentatives([]); return }
+      if (etudiantsIds.length === 0) { servies([]); return }
       return subscribeByFieldIn('tentatives', 'userId', etudiantsIds, d => ({ id: d.id, ...d.data() } as Tentative),
-        items => setTentatives(exerciceId ? items.filter(t => t.exerciceId === exerciceId) : items), PAQUET_EQUIPE)
+        items => servies(exerciceId ? items.filter(t => t.exerciceId === exerciceId) : items),
+        PAQUET_EQUIPE, () => setCleServie(cleRequete))
     }
     const conditions: any[] = []
     // Le champ des tentatives est userId (type Tentative, règles Firestore) :
@@ -468,10 +480,11 @@ export function useTentatives(etudiantId?: string, exerciceId?: string, enabled:
     if (etudiantId) conditions.push(where('userId', '==', etudiantId))
     if (exerciceId) conditions.push(where('exerciceId', '==', exerciceId))
     const q = conditions.length > 0 ? query(collection(db, 'tentatives'), ...conditions) : collection(db, 'tentatives')
-    const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))), err => notifyFirestoreError('useTentatives', err))
+    const unsub = onSnapshot(q, snap => servies(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))),
+      err => { notifyFirestoreError('useTentatives', err); setCleServie(cleRequete) })
     return () => unsub()
-  }, [etudiantId, exerciceId, enabled, cleEtudiants])
-  return { tentatives }
+  }, [cleRequete])
+  return { tentatives, loading: !enabled || cleServie !== cleRequete }
 }
 
 // ─── Exercices libres ─────────────────────────────────────────────────────────
@@ -640,6 +653,10 @@ export function useAllNotesCours() {
 // firestore.rules lui refuse désormais les copies des autres équipes.
 export function useAllSoumissions(devoirs: { id: string; createdBy?: string }[] = []) {
   const [soumissions, setSoumissions] = useState<any[]>([])
+  // Requête dont les copies sont à l'écran : chargé seulement quand c'est la
+  // requête en cours (un simple drapeau restait « chargé » le temps d'un rendu
+  // entre l'arrivée des devoirs et l'envoi de la requête de leurs copies).
+  const [cleServie, setCleServie] = useState<string | null>(null)
   const currentUser = useUser()
   const equipe = useEquipe()
   const isStudent = currentUser?.role === 'etudiant'
@@ -647,18 +664,21 @@ export function useAllSoumissions(devoirs: { id: string; createdBy?: string }[] 
   const idsDevoirs = isStudent || isAdmin ? [] : devoirs
     .filter(d => !!d.createdBy && !!equipe?.ids.includes(d.createdBy)).map(d => d.id).sort()
   const cle = idsDevoirs.join(',')
+  const cleRequete = `${isStudent}|${isAdmin}|${currentUser?.id || ''}|${cle}`
   useEffect(() => {
     if (!currentUser?.id) { setSoumissions([]); return }
     const versListe = (snap: any) => ({ id: snap.id, ...snap.data() })
+    const recues = (items: any[]) => { setSoumissions(items); setCleServie(cleRequete) }
     if (!isStudent && !isAdmin) {
-      if (idsDevoirs.length === 0) { setSoumissions([]); return }
-      return subscribeByFieldIn('soumissions', 'devoirId', idsDevoirs, versListe, setSoumissions, PAQUET_EQUIPE)
+      if (idsDevoirs.length === 0) { recues([]); return }
+      return subscribeByFieldIn('soumissions', 'devoirId', idsDevoirs, versListe, recues, PAQUET_EQUIPE, () => setCleServie(cleRequete))
     }
     const q = isStudent
       ? query(collection(db, 'soumissions'), where('etudiantId', '==', currentUser.id))
       : collection(db, 'soumissions')
-    const unsub = onSnapshot(q, snap => setSoumissions(snap.docs.map(versListe)), err => notifyFirestoreError('useAllSoumissions', err))
+    const unsub = onSnapshot(q, snap => recues(snap.docs.map(versListe)),
+      err => { notifyFirestoreError('useAllSoumissions', err); setCleServie(cleRequete) })
     return () => unsub()
-  }, [isStudent, isAdmin, currentUser?.id, cle])
-  return { soumissions }
+  }, [cleRequete])
+  return { soumissions, loading: cleServie !== cleRequete }
 }
