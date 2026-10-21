@@ -517,10 +517,10 @@ service cloud.firestore {
       return devoir.coursId in studentCoursIds() &&
         !d.keys().hasAny(['scoreCasPratiques', 'evaluationsCasPratiques']) &&
         // Corrigé publié à la date limite : plus aucune copie ensuite (elle
-        // pourrait recopier le corrigé). La copie d'un QCM de chapitre porte
-        // la marque correctionAuto, et elle seule.
+        // pourrait recopier le corrigé). La copie d'un QCM (de chapitre, ou
+        // ancien QCM séparé après coup) porte la marque correctionAuto, et elle seule.
         (!separe || request.time.toMillis() <= devoir.get('dateLimitMs', 0)) &&
-        (d.get('correctionAuto', false) == (separe && devoir.get('type', '') == 'qcm_chapitre')) && (
+        (d.get('correctionAuto', false) == (separe && devoir.get('type', '') in ['qcm_chapitre', 'qcm'])) && (
           (
             !d.keys().hasAny(['note', 'commentaire', 'dateCorrection']) &&
             d.get('statut', 'soumis') == 'soumis'

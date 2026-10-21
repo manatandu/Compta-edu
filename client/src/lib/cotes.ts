@@ -69,7 +69,7 @@ export function corrigeQCMEnAttente(d: Partial<Pick<Devoir, 'corrigeQCMSepare' |
 type DevoirCorrige = Pick<Devoir, 'type'> & Partial<Pick<Devoir, 'questions' | 'questionsChapitre' | 'corrigeQCMSepare' | 'corrigeQCMCharge'>>
 export function noteDeCopie(s: Soumission | null | undefined, d: DevoirCorrige | null | undefined): number | null {
   if (!s || !estNotee(s)) return null
-  if (corrigeQCMEnAttente(d) && d?.type === 'qcm_chapitre') return null
+  if (corrigeQCMEnAttente(d) && (d?.type === 'qcm_chapitre' || d?.type === 'qcm')) return null
   if (d?.type === 'qcm_chapitre' && d.questionsChapitre?.length) {
     return corrigerQCMChapitre(d.questionsChapitre, s.reponsesQCMChapitre || {}).note20
   }

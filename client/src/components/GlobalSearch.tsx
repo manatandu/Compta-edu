@@ -27,9 +27,16 @@ interface GlobalSearchProps {
 }
 
 export default function GlobalSearch({ user }: GlobalSearchProps) {
-  // Faille sécurité corrigée : si rôle pas encore chargé, ne pas afficher
-  const role = user?.role || null
-  if (!role) return null
+  // Faille sécurité corrigée : si rôle pas encore chargé, ne pas afficher.
+  // Le retour anticipé reste ici, hors du composant qui appelle les hooks :
+  // placé avant eux, il changeait leur nombre d'un rendu à l'autre (règle des
+  // hooks React), ce qui faisait planter la page quand le rôle arrivait.
+  if (!user?.role) return null
+  return <RechercheGlobale user={user} />
+}
+
+function RechercheGlobale({ user }: { user: User }) {
+  const role = user.role
 
   const [, navigate] = useHashLocation()
   const [query, setQuery] = useState('')

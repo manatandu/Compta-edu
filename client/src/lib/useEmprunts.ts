@@ -18,8 +18,13 @@ import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 // sur autres emprunts et dettes) et 671 (Intérêts des emprunts), le compte 16
 // étant crédité des intérêts courus « par le débit du compte 671 » (AUDCIF,
 // Titre VII, compte 16, fonctionnement) ; aucune subdivision de 671 ne vise ce
-// prêteur. Les comptes bloqués d'associés (164) et les dettes envers des
-// entités liées (181) ne sont pas traités ici.
+// prêteur.
+// Compte courant bloqué d'un associé : 164 (Avances reçues et comptes courants
+// bloqués), 1664 pour les intérêts courus, 6742 (Autres intérêts / comptes
+// courants bloqués), le compte 674 recevant les « charges financières versées
+// aux associés et à divers tiers ». Emprunt auprès d'une entité liée : 181
+// (Dettes liées à des participations), 183 pour les intérêts courus, 6713
+// (Intérêts des emprunts / dettes liées à des participations).
 // Limité aux emprunts classiques (comptes 162 et 1686) : l'emprunt obligataire
 // (compte 161, chapitre 20 AUDCIF) relève d'un régime distinct (prime de
 // remboursement, souscripteurs multiples) non couvert ici.
@@ -29,7 +34,7 @@ import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 
 export type Devise = 'CDF' | 'USD' | 'EUR'
 export type MethodeAmortEmprunt = 'constant' | 'annuites_constantes' | 'in_fine'
-export type NaturePreteur = 'etablissement_credit' | 'tiers'
+export type NaturePreteur = 'etablissement_credit' | 'tiers' | 'associe' | 'entite_liee'
 
 export interface Emprunt {
   id: string
@@ -155,17 +160,28 @@ export function calculerAmortissement(emprunt: Pick<Emprunt, 'capital' | 'tauxAn
 const COMPTE_TRESORERIE = { num: '521', lib: 'Banques locales' }
 // Comptes de la dette, des intérêts et des intérêts courus selon le prêteur.
 export function comptesEmprunt(emprunt: Pick<Emprunt, 'naturePreteur'>) {
-  return emprunt.naturePreteur === 'tiers'
-    ? {
-        emprunt: { num: '1686', lib: 'Emprunts et dettes contractés auprès des tiers' },
-        interets: { num: '671', lib: 'Intérêts des emprunts' },
-        courus: { num: '1668', lib: 'Intérêts courus sur autres emprunts et dettes' },
-      }
-    : {
-        emprunt: { num: '162', lib: 'Emprunts et dettes / établissements de crédit' },
-        interets: { num: '6712', lib: 'Intérêts / emprunts établissements de crédit' },
-        courus: { num: '1662', lib: 'Intérêts courus / établissements de crédit' },
-      }
+  switch (emprunt.naturePreteur) {
+    case 'tiers': return {
+      emprunt: { num: '1686', lib: 'Emprunts et dettes contractés auprès des tiers' },
+      interets: { num: '671', lib: 'Intérêts des emprunts' },
+      courus: { num: '1668', lib: 'Intérêts courus sur autres emprunts et dettes' },
+    }
+    case 'associe': return {
+      emprunt: { num: '164', lib: 'Avances reçues et comptes courants bloqués' },
+      interets: { num: '6742', lib: 'Intérêts des comptes courants bloqués' },
+      courus: { num: '1664', lib: 'Intérêts courus sur avances reçues et comptes courants bloqués' },
+    }
+    case 'entite_liee': return {
+      emprunt: { num: '181', lib: 'Dettes liées à des participations' },
+      interets: { num: '6713', lib: 'Intérêts des dettes liées à des participations' },
+      courus: { num: '183', lib: 'Intérêts courus sur dettes liées à des participations' },
+    }
+    default: return {
+      emprunt: { num: '162', lib: 'Emprunts et dettes / établissements de crédit' },
+      interets: { num: '6712', lib: 'Intérêts / emprunts établissements de crédit' },
+      courus: { num: '1662', lib: 'Intérêts courus / établissements de crédit' },
+    }
+  }
 }
 // Subdivisions du 478/479 propres aux dettes FINANCIÈRES (un emprunt en est
 // une) : 4784 « augmentation des dettes financières » et 4794 « diminution

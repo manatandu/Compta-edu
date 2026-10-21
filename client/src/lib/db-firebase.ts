@@ -1136,11 +1136,19 @@ export function separerCorrigeQCM(questions: QCMChapitre[]): { publiques: QCMCha
   return { publiques, qcm }
 }
 
+// QCM du premier format (type « qcm ») : questions sans identifiant, leur
+// corrigé est rangé sous la clé « #<rang> », bonne réponse = rang du choix.
+export const cleQuestionClassique = (rang: number) => `#${rang}`
+
 export function avecCorrigeQCM<T extends Devoir>(devoir: T, qcm: CorrigeQCM): T {
   return {
     ...devoir,
     corrigeQCMCharge: true,
     questionsChapitre: devoir.questionsChapitre?.map(q => qcm[q.id] ? { ...q, ...qcm[q.id] } : q),
+    questions: devoir.questions?.map((q, i) => {
+      const c = qcm[cleQuestionClassique(i)]
+      return c ? { ...q, bonneReponse: Number(c.reponseCorrecte), explication: c.explication } : q
+    }),
   }
 }
 
@@ -1157,12 +1165,15 @@ export async function separerCorrigesAnciensDevoirsAsync(userId: string, admin: 
   let n = 0
   for (const d of snap.docs) {
     const devoir = d.data() as Devoir
-    if (devoir.corrigeQCMSepare || !['qcm_chapitre', 'qcm_cas'].includes(devoir.type)) continue
+    if (devoir.corrigeQCMSepare || !['qcm_chapitre', 'qcm_cas', 'qcm'].includes(devoir.type)) continue
     const questions = devoir.questionsChapitre || []
+    const classiques = devoir.type === 'qcm' ? devoir.questions || [] : []
     const cas = devoir.casPratiques || []
     const dateLimitMs = new Date(devoir.dateLimit).getTime()
-    if (!Number.isFinite(dateLimitMs) || (!questions.some(q => q.reponseCorrecte) && !cas.some(c => c.corrigeType))) continue
+    if (!Number.isFinite(dateLimitMs) || (!questions.some(q => q.reponseCorrecte) && !cas.some(c => c.corrigeType) &&
+      !classiques.some(q => q.bonneReponse >= 0))) continue
     const { publiques, qcm } = separerCorrigeQCM(questions)
+    classiques.forEach((q, i) => { qcm[cleQuestionClassique(i)] = { reponseCorrecte: String(q.bonneReponse), explication: q.explication || '' } })
     const corrRef = doc(db, C.DEVOIRS_CORRIGES, d.id)
     const existant = await getDoc(corrRef)
     const corriges = {
@@ -1173,7 +1184,8 @@ export async function separerCorrigesAnciensDevoirsAsync(userId: string, admin: 
     if (existant.exists()) batch.update(corrRef, { corriges, qcm })
     else batch.set(corrRef, { devoirId: d.id, createdBy: admin ? devoir.createdBy : userId, corriges, qcm })
     batch.update(d.ref, cleanUndefined({
-      questionsChapitre: publiques,
+      questionsChapitre: questions.length ? publiques : undefined,
+      questions: classiques.length ? classiques.map(q => ({ ...q, bonneReponse: -1, explication: '' })) : undefined,
       casPratiques: cas.length ? cas.map(c => ({ ...c, corrigeType: '' })) : undefined,
       corrigeQCMSepare: true,
       dateLimitMs,
@@ -1618,6 +1630,35 @@ export async function reparerContenusDeChapitreAsync(equipeIds: string[], coursL
     }
   }
   return n
+}
+
+// Comptes et fiches d'étudiants les plus anciens : leur createdBy contient
+// l'identifiant de connexion du créateur au lieu de son uid. firestore.rules
+// (creeParMonEquipe) ne sait rattacher à l'équipe que des uid, plus les
+// identifiants de l'appelant et de son titulaire : les étudiants créés par
+// l'identifiant d'un assistant n'étaient visibles que de l'administrateur.
+// Remplacés par l'uid du membre du personnel. Réservé à l'administrateur.
+export async function reparerCreateursParIdentifiantAsync(users: User[]): Promise<number> {
+  const uidParIdentifiant = new Map(users
+    .filter(u => ROLES_PERSONNEL.includes(u.role) && u.username)
+    .map(u => [u.username, u.id] as [string, string]))
+  const ops: { ref: ReturnType<typeof doc>; createdBy: string }[] = []
+  users.forEach(u => {
+    const uid = u.role === 'etudiant' ? uidParIdentifiant.get((u as any).createdBy || '') : undefined
+    if (uid) ops.push({ ref: doc(db, C.USERS, u.id), createdBy: uid })
+  })
+  const fiches = await getDocs(collection(db, C.ETUDIANTS))
+  fiches.docs.forEach(f => {
+    const uid = uidParIdentifiant.get((f.data() as any).createdBy || '')
+    if (uid) ops.push({ ref: f.ref, createdBy: uid })
+  })
+  for (let i = 0; i < ops.length; i += 400) {
+    const batch = writeBatch(db)
+    ops.slice(i, i + 400).forEach(o => batch.update(o.ref, { createdBy: o.createdBy }))
+    await batch.commit()
+  }
+  if (ops.length > 0) invaliderCacheUsers()
+  return ops.length
 }
 
 // Ramène une liste d'inscriptions à la faculté `faculteId` : un cours d'une

@@ -28,7 +28,7 @@ import {
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
   onCoursStatutsParCreateur, COURS_SYSTEME, getCoursTries,
-  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
+  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCreateursParIdentifiantAsync, getUsersAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
 } from '@/lib/db-firebase'
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
@@ -514,9 +514,12 @@ export default function ProfesseurPage() {
       }
       // Annuaire du personnel (contacts de la messagerie étudiante) : réaligné
       // une fois par visite de l'admin sur cette page.
+      // Liste complète relue au serveur : la synchronisation retire de
+      // l'annuaire les comptes absents de la liste, et la première réponse de
+      // l'écoute peut ne contenir que le profil déjà en cache.
       if (isAdmin && !annuaireSynchronise.current) {
         annuaireSynchronise.current = true
-        synchroniserAnnuaireAsync(firebaseUsers).catch(() => { annuaireSynchronise.current = false })
+        getUsersAsync().then(synchroniserAnnuaireAsync).catch(() => { annuaireSynchronise.current = false })
       }
     })
     return () => unsub()
@@ -539,11 +542,15 @@ export default function ProfesseurPage() {
   }, [isStaff, cleEquipe, coursList.length])
   const inscriptionsReparees = useRef(false)
   useEffect(() => {
-    if (inscriptionsReparees.current || !isAdmin || users.length === 0 || coursList.length === 0) return
+    if (inscriptionsReparees.current || !isAdmin || coursList.length === 0) return
     inscriptionsReparees.current = true
-    reparerInscriptionsFaculteAsync(users, coursList)
+    // Liste complète lue au serveur : la première réponse de l'écoute des
+    // comptes ne contient parfois que le profil déjà en cache (le sien), et
+    // les réparations ne portaient alors sur aucun étudiant.
+    getUsersAsync()
+      .then(tous => reparerInscriptionsFaculteAsync(tous, coursList).then(() => reparerCreateursParIdentifiantAsync(tous)))
       .catch(err => console.warn('Réparation des inscriptions :', err))
-  }, [isAdmin, users.length, coursList.length])
+  }, [isAdmin, coursList.length])
 
   const refresh = () => {
     // Tout se met à jour via les hooks Firestore temps réel - pas besoin de refresh manuel
