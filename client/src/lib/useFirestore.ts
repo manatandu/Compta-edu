@@ -457,20 +457,21 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
 // un étudiant qui déclencherait cette requête (sans etudiantId) se heurterait
 // à firestore.rules (lecture refusée hors ownsResource/isProf), d'où l'erreur
 // silencieuse sinon systématique côté élève.
-// etudiantsIds (personnel) : tentatives des étudiants de l'équipe, par paquets ;
-// sans cette liste, la requête large n'est permise qu'à l'administrateur.
-export function useTentatives(etudiantId?: string, exerciceId?: string, enabled: boolean = true, etudiantsIds?: string[]) {
+// createurs (personnel) : tentatives des étudiants de l'équipe, lues par
+// l'équipe enregistrée sur chaque tentative (createurEtudiant) ; sans cette
+// liste, la requête large n'est permise qu'à l'administrateur.
+export function useTentatives(etudiantId?: string, exerciceId?: string, enabled: boolean = true, createurs?: string[]) {
   const [tentatives, setTentatives] = useState<Tentative[]>([])
-  const cleEtudiants = etudiantsIds ? etudiantsIds.join(',') : null
+  const cleEtudiants = createurs ? createurs.join(',') : null
   // Chargé quand les tentatives à l'écran sont celles de la requête en cours.
   const cleRequete = `${etudiantId || ''}|${exerciceId || ''}|${enabled}|${cleEtudiants ?? '*'}`
   const [cleServie, setCleServie] = useState<string | null>(null)
   useEffect(() => {
     if (!enabled) { setTentatives([]); return }
     const servies = (items: Tentative[]) => { setTentatives(items); setCleServie(cleRequete) }
-    if (etudiantsIds && !etudiantId) {
-      if (etudiantsIds.length === 0) { servies([]); return }
-      return subscribeByFieldIn('tentatives', 'userId', etudiantsIds, d => ({ id: d.id, ...d.data() } as Tentative),
+    if (createurs && !etudiantId) {
+      if (createurs.length === 0) { servies([]); return }
+      return subscribeByFieldIn('tentatives', 'createurEtudiant', createurs, d => ({ id: d.id, ...d.data() } as Tentative),
         items => servies(exerciceId ? items.filter(t => t.exerciceId === exerciceId) : items),
         PAQUET_EQUIPE, () => setCleServie(cleRequete))
     }

@@ -2198,3 +2198,56 @@ describe('🗂️ Anciens QCM — corrigé séparé après coup', () => {
     await assertFails(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'dv-ancien')))
   })
 })
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  Tentatives lues par équipe (createurEtudiant)
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🏷️ Tentatives — équipe enregistrée sur chaque tentative', () => {
+  const etu = { ...USERS.etud1, createdBy: USERS.prof1.uid }
+  const tentative = (o = {}) => ({ userId: etu.uid, exerciceId: 'ex', score: 10, ...o })
+
+  it('L\'étudiant enregistre la vraie équipe, jamais une autre', async () => {
+    await seedUsers(USERS.prof1, USERS.prof2, etu)
+    const fs = db(etu)
+    await assertFails(setDoc(doc(fs, 'tentatives', 't1'), tentative({ createurEtudiant: USERS.prof2.uid })))
+    await assertSucceeds(setDoc(doc(fs, 'tentatives', 't1'), tentative({ createurEtudiant: USERS.prof1.uid })))
+    await assertSucceeds(setDoc(doc(fs, 'tentatives', 't2'), tentative()))
+    // Il modifie sa tentative, pas son équipe
+    await assertSucceeds(updateDoc(doc(fs, 'tentatives', 't1'), { score: 12 }))
+    await assertFails(updateDoc(doc(fs, 'tentatives', 't1'), { createurEtudiant: USERS.prof2.uid }))
+  })
+
+  it('L\'équipe lit les tentatives par équipe en une requête ; une autre équipe non', async () => {
+    const assistant = { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1', titulaireId: USERS.prof1.uid }
+    await seedUsers(USERS.prof1, USERS.prof2, etu, assistant)
+    await seedDoc('tentatives', 't1', tentative({ createurEtudiant: USERS.prof1.uid }))
+    const parEquipe = (fs, refs) => getDocs(query(collection(fs, 'tentatives'), where('createurEtudiant', 'in', refs)))
+    const lues = await assertSucceeds(parEquipe(db(USERS.prof1), [USERS.prof1.uid, USERS.prof1.username]))
+    if (lues.size !== 1) throw new Error(`1 tentative attendue, ${lues.size} reçue(s)`)
+    await assertSucceeds(parEquipe(db(assistant), ['assistant1-uid', USERS.prof1.uid, USERS.prof1.username]))
+    await assertFails(parEquipe(db(USERS.prof2), [USERS.prof1.uid]))
+    await assertSucceeds(parEquipe(db(USERS.prof2), [USERS.prof2.uid]))
+  })
+
+  it('Équipe d\'une tentative ancienne : complétée par l\'admin ou l\'équipe, d\'après le profil', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2, etu)
+    await seedDoc('tentatives', 't1', tentative())
+    await seedDoc('tentatives', 't2', tentative())
+    await assertFails(updateDoc(doc(db(USERS.prof2), 'tentatives', 't1'), { createurEtudiant: USERS.prof1.uid }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'tentatives', 't1'), { createurEtudiant: USERS.prof2.uid }))
+    await assertFails(updateDoc(doc(db(USERS.prof1), 'tentatives', 't1'), { createurEtudiant: USERS.prof1.uid, score: 20 }))
+    await assertSucceeds(updateDoc(doc(db(USERS.prof1), 'tentatives', 't1'), { createurEtudiant: USERS.prof1.uid }))
+    await assertSucceeds(updateDoc(doc(db(USERS.admin1), 'tentatives', 't2'), { createurEtudiant: USERS.prof1.uid }))
+  })
+
+  it('Le complément s\'écrit tentative par tentative : un lot de plusieurs étudiants dépasse la limite de lectures', async () => {
+    const etudiants = Array.from({ length: 25 }, (_, i) => ({ uid: `ev${i}-uid`, role: 'etudiant', username: `ev${i}`, createdBy: USERS.prof1.uid }))
+    await seedUsers(USERS.prof1, ...etudiants)
+    for (const e of etudiants) await seedDoc('tentatives', `tv-${e.uid}`, { userId: e.uid, exerciceId: 'ex', score: 1 })
+    const fs = db(USERS.prof1)
+    const lot = writeBatch(fs)
+    etudiants.forEach(e => lot.update(doc(fs, 'tentatives', `tv-${e.uid}`), { createurEtudiant: USERS.prof1.uid }))
+    await assertFails(lot.commit())
+    await assertSucceeds(Promise.all(etudiants.map(e => updateDoc(doc(fs, 'tentatives', `tv-${e.uid}`), { createurEtudiant: USERS.prof1.uid }))))
+  })
+})

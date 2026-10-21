@@ -28,7 +28,7 @@ import {
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
   onCoursStatutsParCreateur, COURS_SYSTEME, getCoursTries,
-  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCreateursParIdentifiantAsync, getUsersAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
+  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCreateursParIdentifiantAsync, getUsersAsync, completerEquipeTentativesAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
 } from '@/lib/db-firebase'
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
@@ -550,7 +550,11 @@ export default function ProfesseurPage() {
     // comptes ne contient parfois que le profil déjà en cache (le sien), et
     // les réparations ne portaient alors sur aucun étudiant.
     getUsersAsync()
-      .then(tous => reparerInscriptionsFaculteAsync(tous, coursList).then(() => reparerCreateursParIdentifiantAsync(tous)))
+      .then(tous => reparerInscriptionsFaculteAsync(tous, coursList)
+        .then(() => reparerCreateursParIdentifiantAsync(tous))
+        // Après les créateurs : l'équipe des tentatives reprend leur uid.
+        .then(() => getUsersAsync())
+        .then(aJour => currentUser ? completerEquipeTentativesAsync(currentUser, aJour, true) : 0))
       .catch(err => console.warn('Réparation des inscriptions :', err))
   }, [isAdmin, coursList.length])
 
@@ -952,12 +956,25 @@ export default function ProfesseurPage() {
   const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
 
   // ── Progression ──
-  // Tentatives des étudiants affichés (l'admin : toutes, une seule requête),
-  // lues seulement sur l'onglet Progression, le seul qui s'en sert : elles
-  // partaient à chaque ouverture de l'Espace pédagogique, une requête par
-  // paquet de dix étudiants (36 pour 360 étudiants), quel que soit l'onglet.
-  const idsEtudiants = isAdmin ? undefined : etudiants.map(e => e.id)
-  const { tentatives, loading: chargementTentatives } = useTentatives(undefined, undefined, tab === 'progression', idsEtudiants)
+  // Tentatives des étudiants de l'équipe (l'admin : toutes), lues seulement
+  // sur l'onglet Progression, le seul qui s'en sert, et par l'équipe
+  // enregistrée sur chaque tentative : une requête au lieu d'une par paquet de
+  // dix étudiants (36 pour 360 étudiants), qui saturait le serveur.
+  const { tentatives, loading: chargementTentatives } = useTentatives(undefined, undefined, tab === 'progression',
+    isAdmin ? undefined : equipe?.refs || [currentUser?.id || ''])
+  // Tentatives plus anciennes, sans équipe : complétées à la première ouverture
+  // de l'onglet (voir completerEquipeTentativesAsync), une fois le tableau
+  // affiché, pour ne pas le retarder.
+  const tentativesCompletees = useRef(false)
+  useEffect(() => {
+    if (tab !== 'progression' || isAdmin || !usersCharges || chargementTentatives || !currentUser?.id || tentativesCompletees.current) return
+    const minuteur = setTimeout(() => {
+      tentativesCompletees.current = true
+      completerEquipeTentativesAsync(currentUser, etudiants, false)
+        .catch(err => console.warn('Équipe des tentatives :', err))
+    }, 3000)
+    return () => clearTimeout(minuteur)
+  }, [tab, isAdmin, usersCharges, chargementTentatives, currentUser?.id, etudiants.length])
   const [progFiltres, setProgFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [presenceFiltres, setPresenceFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [coteFiltres, setCoteFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
