@@ -111,6 +111,12 @@ for (let s = 0; s < 10; s++) {
   const presents = etudiants.map(e => ({ etudiantId: e.uid, present: (e.i + s) % 5 !== 0 }))
   docs.push([`presences/k6-seance-${s}`, { titre: `Séance ${s + 1}`, date: iso(maintenant - (20 - s) * JOUR), createdBy: prof, coursId: 'k6-f1-ue3', faculteId: 'k6-f1', universiteId: 'k6-u1', etudiants: presents, etudiantIds: etudiants.map(e => e.uid) }])
 }
+// Données cloisonnées par équipe : fiche administrative, note manuelle et
+// tentative d'exercice du premier étudiant
+const premier = etudiants[0].uid
+docs.push(['etudiants/k6-fiche-1', { type: 'interne', userId: premier, nom: 'ETUDIANT001', prenom: 'Charge', statut: 'actif', createdBy: prof }])
+docs.push(['notes_manuelles/k6-note-1', { etudiantFicheId: 'k6-fiche-1', note: 14, saisiePar: prof, dateSaisie: iso(maintenant), chapitreLabel: 'Interrogation 1', mode: 'manuel' }])
+docs.push(['tentatives/k6-tent-1', { userId: premier, exerciceId: 'k6-ex-1', score: 12, dateCreation: iso(maintenant) }])
 // Une session de journal par étudiant, 10 écritures équilibrées
 for (const { uid } of etudiants) {
   docs.push([`sessions/k6-s-${uid}`, { nom: 'KASAI SARL', exercice: 2026, userId: uid, module: 'syscohada', dateCreation: iso(maintenant - 10 * JOUR) }])

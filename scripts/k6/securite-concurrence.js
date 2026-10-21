@@ -9,6 +9,7 @@
 // Usage : k6 run scripts/k6/securite-concurrence.js
 import http from 'k6/http'
 import { check } from 'k6'
+import exec from 'k6/execution'
 import { Counter } from 'k6/metrics'
 
 const AUTH = `http://127.0.0.1:${__ENV.E2E_AUTH_PORT || 9099}/identitytoolkit.googleapis.com/v1`
@@ -17,6 +18,9 @@ const FS = `http://127.0.0.1:${__ENV.E2E_FS_PORT || 8080}/v1/${RACINE}`
 const JSONH = { 'Content-Type': 'application/json' }
 const inscriptionsAcceptees = new Counter('inscriptions_acceptees')
 const copiesAcceptees = new Counter('copies_acceptees')
+// Scénarios menés jusqu'au bout : une itération qui plante n'exécute aucun
+// contrôle, et le seuil sur les contrôles restait alors vert.
+const terminees = new Counter('scenarios_termines')
 
 export const options = {
   scenarios: {
@@ -24,8 +28,14 @@ export const options = {
     inscription_code: { executor: 'per-vu-iterations', vus: 40, iterations: 1, exec: 'inscriptionCode' },
     copie_unique: { executor: 'per-vu-iterations', vus: 20, iterations: 1, exec: 'copieUnique' },
     autre_equipe: { executor: 'per-vu-iterations', vus: 1, iterations: 1, exec: 'autreEquipe' },
+    meme_equipe: { executor: 'per-vu-iterations', vus: 1, iterations: 1, exec: 'memeEquipe' },
   },
-  thresholds: { checks: ['rate==1.0'] },
+  thresholds: {
+    checks: ['rate==1.0'],
+    'scenarios_termines{scenario:isolation}': ['count==30'],
+    'scenarios_termines{scenario:autre_equipe}': ['count==1'],
+    'scenarios_termines{scenario:meme_equipe}': ['count==1'],
+  },
 }
 
 const num = i => String(i).padStart(3, '0')
@@ -47,7 +57,10 @@ export function setup() {
 }
 
 export function isolation(d) {
-  const moi = d.etudiants[__VU - 1], autre = d.etudiants[__VU % 31]
+  // Rang dans le scénario, et non numéro global de l'utilisateur virtuel :
+  // celui-ci dépend du nombre de scénarios lancés ensemble.
+  const i = exec.scenario.iterationInTest
+  const moi = d.etudiants[i], autre = d.etudiants[(i + 1) % 30]
   const o = avec(moi.jeton)
   const refuse = r => r.status === 403
   check(http.get(`${FS}/users/${moi.uid}`, o), { 'lit son propre profil': r => r.status === 200 })
@@ -61,6 +74,8 @@ export function isolation(d) {
   check(http.patch(`${FS}/users/${moi.uid}?updateMask.fieldPaths=coursIds`, JSON.stringify({ fields: champs({ coursIds: ['k6-f1-ue1', 'k6-f1-ue3', 'k6-f1-ue9'] }) }), o), { "ne s'ajoute pas de cours": refuse })
   check(http.patch(`${FS}/users/${moi.uid}?updateMask.fieldPaths=role`, JSON.stringify({ fields: champs({ role: 'admin' }) }), o), { 'ne se fait pas administrateur': refuse })
   check(http.patch(`${FS}/soumissions/k6-d-clos_${moi.uid}?updateMask.fieldPaths=note`, JSON.stringify({ fields: champs({ note: 20 }) }), o), { 'ne se met pas 20/20': refuse })
+  check(http.patch(`${FS}/soumissions/k6-d-clos_${moi.uid}?updateMask.fieldPaths=scoreCasPratiques`, JSON.stringify({ fields: champs({ scoreCasPratiques: 10 }) }), o), { "n'écrit pas le détail de sa correction": refuse })
+  check(http.get(`${FS}/devoirs_corriges/k6-d-redac`, o), { 'pas de corrigé des questions rédigées': refuse })
   check(http.patch(`${FS}/soumissions/k6-d-redac_${moi.uid}`, JSON.stringify({ fields: champs({ devoirId: 'k6-d-redac', etudiantId: moi.uid, dateSoumission: 'x', note: 20, statut: 'note' }) }), o), { 'ne rend pas une copie déjà notée': refuse })
   check(http.patch(`${FS}/presences/k6-fausse-${moi.uid}`, JSON.stringify({ fields: champs({ titre: 'x', createdBy: moi.uid }) }), o), { 'ne crée pas de séance de présence': refuse })
   check(http.patch(`${FS}/annuaire/${moi.uid}`, JSON.stringify({ fields: champs({ nom: 'X', role: 'professeur' }) }), o), { "ne s'inscrit pas à l'annuaire": refuse })
@@ -68,6 +83,7 @@ export function isolation(d) {
   const rz = http.patch(`${FS}/codesAcces/K6LIMITE?updateMask.fieldPaths=utilisations`, JSON.stringify({ fields: champs({ utilisations: 0 }) }), o)
   // 409 : écriture abandonnée sur conflit avec les inscriptions en cours, non appliquée non plus
   check(rz, { "ne remet pas le compteur d'un code à zéro": r => r.status === 403 || r.status === 409 })
+  terminees.add(1)
 }
 
 // Professeur d'une autre faculté, sans aucun étudiant en commun : il ne
@@ -81,6 +97,32 @@ export function autreEquipe(d) {
   check(http.post(`${FS}:runQuery`, JSON.stringify({ structuredQuery: { from: [{ collectionId: 'users' }] } }), o), { 'autre équipe : ne liste pas tous les comptes': refuse })
   check(http.post(`${FS}:runQuery`, JSON.stringify({ structuredQuery: { from: [{ collectionId: 'soumissions' }] } }), o), { 'autre équipe : ne liste pas toutes les copies': refuse })
   check(http.post(`${FS}:runQuery`, JSON.stringify({ structuredQuery: { from: [{ collectionId: 'sessions' }], where: { fieldFilter: { field: { fieldPath: 'userId' }, op: 'EQUAL', value: { stringValue: etu.uid } } } } }), o), { "autre équipe : pas d'accès au journal": refuse })
+  check(http.get(`${FS}/presences/k6-seance-0`, o), { "autre équipe : pas d'accès aux présences": refuse })
+  check(http.post(`${FS}:runQuery`, JSON.stringify({ structuredQuery: { from: [{ collectionId: 'presences' }] } }), o), { 'autre équipe : ne liste pas toutes les présences': refuse })
+  check(http.get(`${FS}/etudiants/k6-fiche-1`, o), { "autre équipe : pas d'accès à la fiche administrative": refuse })
+  check(http.post(`${FS}:runQuery`, JSON.stringify({ structuredQuery: { from: [{ collectionId: 'etudiants' }] } }), o), { 'autre équipe : ne liste pas toutes les fiches': refuse })
+  check(http.get(`${FS}/notes_manuelles/k6-note-1`, o), { "autre équipe : pas d'accès aux notes manuelles": refuse })
+  check(http.get(`${FS}/tentatives/k6-tent-1`, o), { "autre équipe : pas d'accès aux tentatives": refuse })
+  terminees.add(1)
+}
+
+// L'équipe de l'étudiant garde l'accès à ses données (le cloisonnement ne
+// doit rien retirer au professeur concerné).
+export function memeEquipe(d) {
+  const o = avec(d.prof.jeton), etu = d.etudiants[0]
+  const lu = r => r.status === 200
+  const requete = (collection, champ, op, valeur) => http.post(`${FS}:runQuery`, JSON.stringify({ structuredQuery: {
+    from: [{ collectionId: collection }], where: { fieldFilter: { field: { fieldPath: champ }, op, value: valeur } } } }), o)
+  check(http.get(`${FS}/users/${etu.uid}`, o), { "équipe : lit le profil de son étudiant": lu })
+  check(http.get(`${FS}/soumissions/k6-d-clos_${etu.uid}`, o), { 'équipe : lit la copie de son étudiant': lu })
+  check(http.get(`${FS}/sessions/k6-s-${etu.uid}`, o), { 'équipe : lit le journal de son étudiant': lu })
+  check(http.get(`${FS}/presences/k6-seance-0`, o), { 'équipe : lit ses séances de présence': lu })
+  check(http.get(`${FS}/etudiants/k6-fiche-1`, o), { 'équipe : lit la fiche administrative': lu })
+  check(http.get(`${FS}/notes_manuelles/k6-note-1`, o), { 'équipe : lit ses notes manuelles': lu })
+  check(http.get(`${FS}/tentatives/k6-tent-1`, o), { "équipe : lit les tentatives de son étudiant": lu })
+  check(requete('users', 'createdBy', 'IN', { arrayValue: { values: [{ stringValue: d.prof.uid }] } }), { 'équipe : liste ses étudiants': lu })
+  check(requete('soumissions', 'devoirId', 'IN', { arrayValue: { values: ['k6-d-ouvert', 'k6-d-clos', 'k6-d-cas', 'k6-d-redac'].map(v => ({ stringValue: v })) } }), { 'équipe : liste les copies de ses devoirs': lu })
+  terminees.add(1)
 }
 
 // Inscription telle que l'écrit l'application : compte, puis profil et

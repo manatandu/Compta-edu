@@ -79,6 +79,10 @@ export async function etudiant() {
     await visiter(page, '/exercices', 'Exercices')
     await visiter(page, '/chat', 'Messagerie')
     await visiter(page, '/dictionnaire', 'Dictionnaire')
+    await visiter(page, '/emprunts', 'Gestion des Emprunts')
+    await visiter(page, '/factures', 'Facturation')
+    await visiter(page, '/immobilisations', 'Immobilisations')
+    await visiter(page, '/charges-personnel/irpp', 'IRPP')
   } finally { await page.close() }
 }
 
@@ -90,5 +94,8 @@ export async function enseignant() {
     await visiter(page, '/professeurs?tab=etudiants', 'Comptes de connexion')
     await visiter(page, '/professeurs?tab=cotes', 'Cotes')
     await visiter(page, '/professeurs?tab=copies', 'Copies')
+    await visiter(page, '/professeurs?tab=presences', 'Présences')
+    await visiter(page, '/professeurs?tab=progression', 'ETUDIANT')
+    await visiter(page, '/chat', 'Messagerie')
   } finally { await page.close() }
 }
