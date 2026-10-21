@@ -1,10 +1,19 @@
 import { describe, it, expect } from 'vitest'
-import { calculerAmortissement, genererEcritureEcheance, calculerEcartConversion } from '@/lib/useEmprunts'
+import { calculerAmortissement, genererEcritureEcheance, calculerEcartConversion, genererEcritureReception, genererEcritureInteretsCourus } from '@/lib/useEmprunts'
 
 const base = { capital: 1_000_000, tauxAnnuel: 0.10, dureeAnnees: 3, dateMiseADisposition: '2026-01-01' }
 const somme = (l: { debit: number; credit: number }[]) => [l.reduce((s, x) => s + x.debit, 0), l.reduce((s, x) => s + x.credit, 0)]
 
 describe('Emprunts', () => {
+  it('prêteur autre qu\'un établissement de crédit : 1686, intérêts en 671, courus en 1668', () => {
+    const emprunt: any = { ...base, methode: 'in_fine', coursEntree: 1, preteur: 'Société X', reference: 'R', naturePreteur: 'tiers' }
+    expect(genererEcritureReception(emprunt).lignes.map(l => l.compte)).toEqual(['521', '1686'])
+    expect(genererEcritureEcheance(emprunt, calculerAmortissement(emprunt)[2]).lignes.map(l => l.compte)).toEqual(['1686', '671', '521'])
+    expect(genererEcritureInteretsCourus(emprunt, 1000, 1, '2026-12-31').lignes.map(l => l.compte)).toEqual(['671', '1668'])
+    // Emprunt plus ancien, sans nature : établissement de crédit
+    expect(genererEcritureReception({ ...emprunt, naturePreteur: undefined }).lignes.map(l => l.compte)).toEqual(['521', '162'])
+  })
+
   it('annuités constantes : a = C·i / (1 - (1+i)^-n), capital intégralement remboursé', () => {
     const l = calculerAmortissement({ ...base, methode: 'annuites_constantes' })
     const a = 1_000_000 * 0.1 / (1 - Math.pow(1.1, -3))

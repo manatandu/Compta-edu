@@ -801,73 +801,6 @@ function ResultatSoumis({ devoir, soumission: copie, noteSur20 }: ResultatSoumis
     )
   }
 
-  // Devoir noté - qcm_cas avec évaluations Gemini
-  if (devoir.type === 'qcm_cas' && soumission.evaluationsCasPratiques && devoir.casPratiques) {
-    return (
-      <div className="space-y-3">
-        <div className={cn(
-          'rounded-xl border p-4 text-center space-y-2',
-          noteSur20! >= 14 ? 'border-emerald-300 bg-emerald-50' :
-          noteSur20! >= 10 ? 'border-yellow-300 bg-yellow-50' :
-          'border-red-300 bg-red-50'
-        )}>
-          <p className="text-3xl font-bold text-foreground">
-            {noteSur20}<span className="text-sm font-normal text-muted-foreground">/20</span>
-          </p>
-          <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <span>QCM : {soumission.scoreQCMCas ?? '-'}/10</span>
-            <span className="text-border">|</span>
-            <span>Cas : {soumission.scoreCasPratiques ?? '-'}/10</span>
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Soumis le {new Date(soumission.dateSoumission).toLocaleDateString('fr-FR')}
-          </p>
-        </div>
-        {/* Évaluations Gemini */}
-        <div className="space-y-2">
-          <p className="text-xs font-semibold text-foreground px-1">Détail des cas pratiques</p>
-          {devoir.casPratiques.map(cas => {
-            const ev = soumission.evaluationsCasPratiques!.find(e => e.casId === cas.id)
-            if (!ev) return null
-            return (
-              <div key={cas.id} className={cn(
-                'rounded-lg border p-3 text-xs space-y-1.5',
-                ev.coherente
-                  ? 'border-emerald-200 bg-emerald-50'
-                  : 'border-red-200 bg-red-50'
-              )}>
-                <div className="flex items-center justify-between">
-                  <p className="font-semibold text-foreground">{cas.titre}</p>
-                  <span className={cn(
-                    'font-bold px-2 py-0.5 rounded-full',
-                    ev.coherente ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
-                  )}>
-                    {ev.score}/{cas.pointsMax} pts
-                  </span>
-                </div>
-                <p className="text-muted-foreground italic leading-relaxed">{ev.commentaire}</p>
-              </div>
-            )
-          })}
-        </div>
-        {/* Détail QCM si disponible */}
-        {soumission.detailsQCMChapitre && devoir.questionsChapitre && (
-          <details className="text-xs">
-            <summary className="cursor-pointer text-indigo-600 font-medium hover:underline py-1">
-              Voir le détail QCM
-            </summary>
-            <div className="mt-2">
-              <QCMDetailsDisplay
-                questions={devoir.questionsChapitre}
-                details={soumission.detailsQCMChapitre}
-              />
-            </div>
-          </details>
-        )}
-      </div>
-    )
-  }
-
   // Devoir noté par l'enseignant (questions rédigées, QCM + cas) ou QCM de
   // chapitre : note, commentaire de l'enseignant et réponses rendues.
   const partieQCM = partieQCMDeCopie(soumission, devoir)
@@ -898,6 +831,29 @@ function ResultatSoumis({ devoir, soumission: copie, noteSur20 }: ResultatSoumis
           Soumis le {new Date(soumission.dateSoumission).toLocaleDateString('fr-FR')}
         </p>
       </div>
+      {/* Note et appréciation de chaque cas (ou question), posées par l'enseignant */}
+      {!!soumission.evaluationsCasPratiques?.length && !!devoir.casPratiques?.length && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold text-foreground px-1">{devoir.type === 'redaction' ? 'Détail par question' : 'Détail des cas pratiques'}</p>
+          {devoir.casPratiques.map(cas => {
+            const ev = soumission.evaluationsCasPratiques!.find(e => e.casId === cas.id)
+            if (!ev) return null
+            return (
+              <div key={cas.id} className={cn('rounded-lg border p-3 text-xs space-y-1.5',
+                ev.coherente ? 'border-emerald-200 bg-emerald-50' : 'border-red-200 bg-red-50')}>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="font-semibold text-foreground">{cas.titre}</p>
+                  <span className={cn('font-bold px-2 py-0.5 rounded-full shrink-0',
+                    ev.coherente ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700')}>
+                    {formaterNombre(ev.score)}/{cas.pointsMax} pts
+                  </span>
+                </div>
+                {ev.commentaire && <p className="text-muted-foreground italic leading-relaxed">{ev.commentaire}</p>}
+              </div>
+            )
+          })}
+        </div>
+      )}
       {soumission.commentaire && (
         <div className="rounded-lg border border-border bg-muted/30 p-3 text-xs">
           <p className="font-semibold text-foreground mb-1">Commentaire du professeur</p>

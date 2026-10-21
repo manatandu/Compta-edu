@@ -811,16 +811,20 @@ export async function exporterEcrituresAsync(
 ): Promise<{ exportees: number; dejaPresentes: number }> {
   const horsExercice = ecritures.find(e => new Date(e.date).getFullYear() !== Number(session.exercice))
   if (horsExercice) throw new ErreurExercice(new Date(horsExercice.date).getFullYear(), Number(session.exercice))
-  const signature = (date: string, libelle: string, lignes: { compte: string; debit: number; credit: number }[]) =>
-    [date, libelle, ...lignes.map(l => `${l.compte}:${Math.round(l.debit * 100)}:${Math.round(l.credit * 100)}`).sort()].join('|')
+  // Le numéro de pièce compte : deux pièces distinctes de même date, libellé
+  // et montants (deux factures identiques du même jour) ne sont pas un doublon.
+  const signature = (date: string, libelle: string, piece: string | undefined, lignes: { compte: string; debit: number; credit: number }[]) =>
+    [date, libelle, piece || '', ...lignes.map(l => `${l.compte}:${Math.round(l.debit * 100)}:${Math.round(l.credit * 100)}`).sort()].join('|')
   const existantes = await getEcrituresAsync(userId, session.id)
   const parGroupe = new Map<string, Ecriture[]>()
   existantes.forEach(e => parGroupe.set(e.ligneGroupe, [...(parGroupe.get(e.ligneGroupe) || []), e]))
   const deja = new Set(Array.from(parGroupe.values()).map(g =>
-    signature(g[0].date, g[0].libelle, g.map(l => ({ compte: l.numeroCompte, debit: l.debit, credit: l.credit })))))
+    signature(g[0].date, g[0].libelle, g[0].numeroPiece, g.map(l => ({ compte: l.numeroCompte, debit: l.debit, credit: l.credit })))))
   let exportees = 0, dejaPresentes = 0
   for (const e of ecritures) {
-    if (deja.has(signature(e.date, e.libelle, e.lignes))) { dejaPresentes++; continue }
+    const cle = signature(e.date, e.libelle, e.numeroPiece, e.lignes)
+    if (deja.has(cle)) { dejaPresentes++; continue }
+    deja.add(cle)
     const ligneGroupe = generateId()
     await enregistrerEcritureAsync(e.lignes.map(l => ({
       sessionId: session.id, ligneGroupe, date: e.date, libelle: e.libelle,
@@ -1140,6 +1144,46 @@ export function avecCorrigeQCM<T extends Devoir>(devoir: T, qcm: CorrigeQCM): T 
   }
 }
 
+// ─── Anciens devoirs : corrigé encore rangé dans le devoir ───────────────────
+// Les QCM de chapitre et « QCM + cas » créés avant le corrigé séparé gardent
+// bonnes réponses, explications et corrigés types dans le devoir, que tout
+// étudiant du cours lit (cache du navigateur, outils de développement). Ils
+// sont rangés dans devoirs_corriges et publiés à la date limite, comme pour
+// les nouveaux devoirs. Portée : les devoirs de l'appelant, seul autorisé à
+// en créer le corrigé ; tous pour l'administrateur. Une fois par visite de
+// l'Espace pédagogique.
+export async function separerCorrigesAnciensDevoirsAsync(userId: string, admin: boolean): Promise<number> {
+  const snap = await getDocs(admin ? collection(db, C.DEVOIRS) : query(collection(db, C.DEVOIRS), where('createdBy', '==', userId)))
+  let n = 0
+  for (const d of snap.docs) {
+    const devoir = d.data() as Devoir
+    if (devoir.corrigeQCMSepare || !['qcm_chapitre', 'qcm_cas'].includes(devoir.type)) continue
+    const questions = devoir.questionsChapitre || []
+    const cas = devoir.casPratiques || []
+    const dateLimitMs = new Date(devoir.dateLimit).getTime()
+    if (!Number.isFinite(dateLimitMs) || (!questions.some(q => q.reponseCorrecte) && !cas.some(c => c.corrigeType))) continue
+    const { publiques, qcm } = separerCorrigeQCM(questions)
+    const corrRef = doc(db, C.DEVOIRS_CORRIGES, d.id)
+    const existant = await getDoc(corrRef)
+    const corriges = {
+      ...Object.fromEntries(cas.filter(c => c.corrigeType).map(c => [c.id, c.corrigeType])),
+      ...((existant.exists() ? (existant.data() as any).corriges : null) || {}),
+    }
+    const batch = writeBatch(db)
+    if (existant.exists()) batch.update(corrRef, { corriges, qcm })
+    else batch.set(corrRef, { devoirId: d.id, createdBy: admin ? devoir.createdBy : userId, corriges, qcm })
+    batch.update(d.ref, cleanUndefined({
+      questionsChapitre: publiques,
+      casPratiques: cas.length ? cas.map(c => ({ ...c, corrigeType: '' })) : undefined,
+      corrigeQCMSepare: true,
+      dateLimitMs,
+    }) as any)
+    await batch.commit()
+    n++
+  }
+  return n
+}
+
 // null si le corrigé n'est pas (encore) lisible : étudiant avant la date limite.
 export async function getCorrigeQCMAsync(devoirId: string): Promise<CorrigeQCM | null> {
   try {
@@ -1200,12 +1244,21 @@ export async function createSoumissionAsync(data: Omit<Soumission, 'id' | 'dateS
   return s
 }
 
-export async function corrigerSoumissionAsync(id: string, note: number, commentaire: string): Promise<void> {
+// evaluations : note et appréciation de chaque cas pratique (ou question
+// rédigée), montrées à l'étudiant avec sa note.
+export async function corrigerSoumissionAsync(
+  id: string, note: number, commentaire: string,
+  evaluations?: NonNullable<Soumission['evaluationsCasPratiques']>,
+): Promise<void> {
   await updateDoc(doc(db, C.SOUMISSIONS, id), cleanUndefined({
     note,
     commentaire,
     statut: 'note',
     dateCorrection: new Date().toISOString(),
+    ...(evaluations?.length ? {
+      evaluationsCasPratiques: evaluations,
+      scoreCasPratiques: Math.round(evaluations.reduce((s, e) => s + e.score, 0) * 100) / 100,
+    } : {}),
   }) as any)
 }
 

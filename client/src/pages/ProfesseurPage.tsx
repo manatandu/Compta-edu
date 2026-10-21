@@ -18,7 +18,7 @@ import NouveauDevoir from '@/components/NouveauDevoir'
 import { proposerNoteCas, avecCorriges, messageErreurIA, type PropositionCas } from '@/lib/iaCorrection'
 import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
-  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, onUsersEquipeSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
+  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, onUsersEquipeSnapshot, separerCorrigesAnciensDevoirsAsync, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
   uploadNoteCoursFile,
   saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
@@ -453,11 +453,16 @@ export default function ProfesseurPage() {
   const [correctionSoumId, setCorrectionSoumId] = useState<string | null>(null)
   const [correctionNote, setCorrectionNote] = useState('')
   const [correctionComment, setCorrectionComment] = useState('')
+  // Note et appréciation de chaque cas pratique (ou question rédigée) : la
+  // note des cas en est la somme, et l'étudiant voit le détail. Une seule
+  // note globale était saisie jusqu'ici.
+  const [notesCas, setNotesCas] = useState<Record<string, string>>({})
+  const [commentairesCas, setCommentairesCas] = useState<Record<string, string>>({})
   // Proposition de l'IA pour les cas pratiques de la copie en correction.
   const [propositionIA, setPropositionIA] = useState<PropositionCas[] | null>(null)
   const [propositionEnCours, setPropositionEnCours] = useState(false)
   const [propositionErreur, setPropositionErreur] = useState('')
-  useEffect(() => { setPropositionIA(null); setPropositionErreur('') }, [correctionSoumId])
+  useEffect(() => { setPropositionIA(null); setPropositionErreur(''); setNotesCas({}); setCommentairesCas({}) }, [correctionSoumId])
   const [viewSoumission, setViewSoumission] = useState<Soumission | null>(null)
   // Réponses attendues (questions rédigées, QCM + cas) de la copie affichée.
   const [corrigesVus, setCorrigesVus] = useState<Record<string, string>>({})
@@ -528,6 +533,8 @@ export default function ProfesseurPage() {
     rattachementsRepares.current = true
     reparerContenusDeChapitreAsync(equipe.ids, coursList)
       .then(() => reparerCodesAccesFaculteAsync(equipe.ids, coursList))
+      // Anciens QCM : bonnes réponses et corrigés types retirés du devoir.
+      .then(() => currentUser?.id ? separerCorrigesAnciensDevoirsAsync(currentUser.id, isAdmin) : 0)
       .catch(err => console.warn('Réparation des rattachements de cours :', err))
   }, [isStaff, cleEquipe, coursList.length])
   const inscriptionsReparees = useRef(false)
@@ -611,8 +618,14 @@ export default function ProfesseurPage() {
     // Partie QCM recalculée à partir des réponses de la copie, et non lue
     // dans le score que le navigateur de l'étudiant y a inscrit.
     const partieQCM = partieQCMDeCopie(soum, dev)
-    return { soum, dev, bareme, partieQCM, saisieMax: partieQCM !== null ? bareme - 10 : bareme }
+    const saisieMax = partieQCM !== null ? bareme - 10 : bareme
+    // Saisie par cas quand les points des cas couvrent exactement la note à saisir.
+    const cas = dev?.casPratiques || []
+    const parCas = cas.length > 0 && cas.reduce((t, c) => t + (c.pointsMax || 0), 0) === saisieMax
+    return { soum, dev, bareme, partieQCM, saisieMax, parCas, cas }
   }
+  const lireNote = (v: string | undefined) => parseFloat((v || '').replace(',', '.'))
+  const totalNotesCas = (cas: { id: string }[]) => cas.reduce((t, c) => t + (lireNote(notesCas[c.id]) || 0), 0)
   const demanderPropositionIA = async () => {
     const { soum, dev } = correctionContexte()
     if (!soum || !dev?.casPratiques?.length) return
@@ -630,8 +643,13 @@ export default function ProfesseurPage() {
     }
   }
   const reprendrePropositionIA = () => {
-    const { dev } = correctionContexte()
+    const { dev, parCas } = correctionContexte()
     if (!propositionIA) return
+    if (parCas) {
+      setNotesCas(Object.fromEntries(propositionIA.map(p => [p.casId, String(p.score)])))
+      setCommentairesCas(Object.fromEntries(propositionIA.map(p => [p.casId, p.commentaire])))
+      return
+    }
     const total = propositionIA.reduce((acc, p) => acc + p.score, 0)
     setCorrectionNote(String(total))
     setCorrectionComment(propositionIA.map(p => {
@@ -641,13 +659,24 @@ export default function ProfesseurPage() {
   }
   const handleCorrigerSoumission = () => {
     if (!correctionSoumId) return
-    const { partieQCM, saisieMax } = correctionContexte()
-    const saisie = parseFloat(correctionNote.replace(',', '.'))
+    const { partieQCM, saisieMax, parCas, cas } = correctionContexte()
+    let evaluations: { casId: string; score: number; commentaire: string; coherente: boolean }[] | undefined
+    if (parCas) {
+      const horsBareme = cas.find(c => { const n = lireNote(notesCas[c.id]); return isNaN(n) || n < 0 || n > c.pointsMax })
+      if (horsBareme) {
+        toast({ title: `Note invalide pour « ${horsBareme.titre} » (0 à ${horsBareme.pointsMax})`, variant: 'destructive' }); return
+      }
+      evaluations = cas.map(c => {
+        const score = lireNote(notesCas[c.id])
+        return { casId: c.id, score, commentaire: (commentairesCas[c.id] || '').trim(), coherente: score >= c.pointsMax / 2 }
+      })
+    }
+    const saisie = parCas ? totalNotesCas(cas) : lireNote(correctionNote)
     if (isNaN(saisie) || saisie < 0 || saisie > saisieMax) {
       toast({ title: `Note invalide (0 à ${saisieMax})`, variant: 'destructive' }); return
     }
     const note = partieQCM !== null ? Math.round((partieQCM + saisie) * 100) / 100 : saisie
-    corrigerSoumissionAsync(correctionSoumId, note, correctionComment.trim()).then(() => {
+    corrigerSoumissionAsync(correctionSoumId, note, correctionComment.trim(), evaluations).then(() => {
       setCorrectionSoumId(null); setCorrectionNote(''); setCorrectionComment('')
       toast({ title: 'Correction enregistrée' })
     }).catch(() => toast({ title: 'Erreur lors de la correction', variant: 'destructive' }))
@@ -2939,8 +2968,8 @@ export default function ProfesseurPage() {
             <DialogTitle>Corriger la soumission</DialogTitle>
           </DialogHeader>
           {(() => {
-            const { dev, bareme, partieQCM, saisieMax } = correctionContexte()
-            const saisie = parseFloat(correctionNote.replace(',', '.'))
+            const { dev, bareme, partieQCM, saisieMax, parCas, cas } = correctionContexte()
+            const saisie = parCas ? totalNotesCas(cas) : lireNote(correctionNote)
             return (
           <div className="space-y-3">
             {dev && <p className="text-xs text-muted-foreground">{dev.titre} · noté sur {bareme}</p>}
@@ -2977,6 +3006,28 @@ export default function ProfesseurPage() {
                 <p className="text-[11px] text-muted-foreground">Proposition indicative : vérifiez les réponses (bouton « Voir ») avant d'enregistrer. La note enregistrée est la vôtre.</p>
               </div>
             )}
+            {parCas ? (
+              <div className="space-y-2">
+                {cas.map(c => (
+                  <div key={c.id} className="rounded-md border border-border p-2 space-y-1.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <Label htmlFor={`note-cas-${c.id}`} className="text-xs">{c.titre}</Label>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <Input id={`note-cas-${c.id}`} type="number" min="0" max={c.pointsMax} step="0.5" value={notesCas[c.id] || ''}
+                          onChange={e => setNotesCas(n => ({ ...n, [c.id]: e.target.value }))} className="h-8 w-20" />
+                        <span className="text-xs text-muted-foreground">/ {c.pointsMax}</span>
+                      </div>
+                    </div>
+                    <Input value={commentairesCas[c.id] || ''} onChange={e => setCommentairesCas(m => ({ ...m, [c.id]: e.target.value }))}
+                      placeholder="Appréciation (facultative)" className="h-8 text-xs" />
+                  </div>
+                ))}
+                <p className="text-xs text-muted-foreground">
+                  {partieQCM !== null ? 'Cas pratiques' : 'Total'} : {formaterNote(saisie, saisieMax)}
+                  {partieQCM !== null && saisie <= saisieMax && <> · Note finale : {formaterNote(partieQCM + saisie, bareme)}</>}
+                </p>
+              </div>
+            ) : (
             <div>
               <Label>{partieQCM !== null ? 'Note des cas pratiques' : 'Note'} (0 à {saisieMax}) *</Label>
               <Input type="number" min="0" max={saisieMax} step="0.5" value={correctionNote} onChange={e => setCorrectionNote(e.target.value)} placeholder={`Ex : ${Math.round(saisieMax * 0.7)}`} className="mt-1" />
@@ -2984,8 +3035,9 @@ export default function ProfesseurPage() {
                 <p className="text-xs text-muted-foreground mt-1">Note finale : {formaterNote(partieQCM + saisie, bareme)}</p>
               )}
             </div>
+            )}
             <div>
-              <Label>Commentaire</Label>
+              <Label>{parCas ? 'Commentaire général' : 'Commentaire'}</Label>
               <textarea
                 value={correctionComment}
                 onChange={e => setCorrectionComment(e.target.value)}
