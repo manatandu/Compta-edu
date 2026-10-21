@@ -28,7 +28,7 @@ import {
   createPresenceAsync, updatePresenceAsync, deletePresenceAsync,
   createNoteCoursAsync, updateNoteCoursAsync, deleteNoteCoursAsync,
   onCoursStatutsParCreateur, COURS_SYSTEME, getCoursTries,
-  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
+  reparerContenusDeChapitreAsync, reparerInscriptionsFaculteAsync, reparerCreateursParIdentifiantAsync, reparerCodesAccesFaculteAsync, inscriptionsDeLaFaculte,
 } from '@/lib/db-firebase'
 import type { CoursEtudiantStatut } from '@/lib/db'
 import {
@@ -542,6 +542,7 @@ export default function ProfesseurPage() {
     if (inscriptionsReparees.current || !isAdmin || users.length === 0 || coursList.length === 0) return
     inscriptionsReparees.current = true
     reparerInscriptionsFaculteAsync(users, coursList)
+      .then(() => reparerCreateursParIdentifiantAsync(users))
       .catch(err => console.warn('Réparation des inscriptions :', err))
   }, [isAdmin, users.length, coursList.length])
 

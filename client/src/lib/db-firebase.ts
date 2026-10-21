@@ -1620,6 +1620,35 @@ export async function reparerContenusDeChapitreAsync(equipeIds: string[], coursL
   return n
 }
 
+// Comptes et fiches d'étudiants les plus anciens : leur createdBy contient
+// l'identifiant de connexion du créateur au lieu de son uid. firestore.rules
+// (creeParMonEquipe) ne sait rattacher à l'équipe que des uid, plus les
+// identifiants de l'appelant et de son titulaire : les étudiants créés par
+// l'identifiant d'un assistant n'étaient visibles que de l'administrateur.
+// Remplacés par l'uid du membre du personnel. Réservé à l'administrateur.
+export async function reparerCreateursParIdentifiantAsync(users: User[]): Promise<number> {
+  const uidParIdentifiant = new Map(users
+    .filter(u => ROLES_PERSONNEL.includes(u.role) && u.username)
+    .map(u => [u.username, u.id] as [string, string]))
+  const ops: { ref: ReturnType<typeof doc>; createdBy: string }[] = []
+  users.forEach(u => {
+    const uid = u.role === 'etudiant' ? uidParIdentifiant.get((u as any).createdBy || '') : undefined
+    if (uid) ops.push({ ref: doc(db, C.USERS, u.id), createdBy: uid })
+  })
+  const fiches = await getDocs(collection(db, C.ETUDIANTS))
+  fiches.docs.forEach(f => {
+    const uid = uidParIdentifiant.get((f.data() as any).createdBy || '')
+    if (uid) ops.push({ ref: f.ref, createdBy: uid })
+  })
+  for (let i = 0; i < ops.length; i += 400) {
+    const batch = writeBatch(db)
+    ops.slice(i, i + 400).forEach(o => batch.update(o.ref, { createdBy: o.createdBy }))
+    await batch.commit()
+  }
+  if (ops.length > 0) invaliderCacheUsers()
+  return ops.length
+}
+
 // Ramène une liste d'inscriptions à la faculté `faculteId` : un cours d'une
 // autre faculté est remplacé par celui de la faculté pour la même UE.
 export function inscriptionsDeLaFaculte(coursIds: string[], faculteId: string, coursList: Cours[]): string[] {
