@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'wouter'
 import {
-  collection, getDocs, query, orderBy,
+  collection, getDocs, query, orderBy, where,
   doc, deleteDoc
 } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
@@ -70,10 +70,13 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
   // ─── Chargement ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!isStaff) return
-    chargerEtudiants()
     const unsub = onAnneeAcademiqueSnapshot(setAnneeActive)
     return () => unsub()
   }, [])
+  const refsEquipe = equipe?.refs.join(',') || ''
+  useEffect(() => {
+    if (isStaff) chargerEtudiants()
+  }, [refsEquipe])
 
   // Bascule vers l'année académique suivante : archive toutes les fiches pas
   // encore archivées + désactive les comptes de connexion liés. Action admin
@@ -100,12 +103,16 @@ export default function GestionEtudiantsPage({ embedded = false }: { embedded?: 
   async function chargerEtudiants() {
     setLoading(true)
     try {
-      const q = query(
-        collection(db, 'etudiants'),
-        orderBy('nom', 'asc')
-      )
-      const snap = await getDocs(q)
-      const data = snap.docs.map(d => ({ id: d.id, ...d.data() } as EtudiantFiche))
+      // Professeur ou assistant : les fiches de son équipe seulement (les
+      // autres lui sont refusées par firestore.rules), triées ici pour ne pas
+      // exiger d'index composite createdBy + nom.
+      const refs = equipe?.refs || [user?.id || '']
+      const snaps = isAdmin
+        ? [await getDocs(query(collection(db, 'etudiants'), orderBy('nom', 'asc')))]
+        : await Promise.all(Array.from({ length: Math.ceil(refs.length / 10) }, (_, i) =>
+            getDocs(query(collection(db, 'etudiants'), where('createdBy', 'in', refs.slice(i * 10, i * 10 + 10))))))
+      const data = snaps.flatMap(snap => snap.docs.map(d => ({ id: d.id, ...d.data() } as EtudiantFiche)))
+      if (!isAdmin) data.sort((a, b) => (a.nom || '').localeCompare(b.nom || '', 'fr'))
       setEtudiants(data)
     } catch (e) {
       console.error(e)

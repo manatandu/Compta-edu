@@ -72,7 +72,14 @@ export default function ChatPage() {
   React.useEffect(() => {
     if (!cleCorrespondants) { setCorrespondants([]); return }
     const lecture = isStaff ? getUsersByIdsAsync(idsCorrespondants) : getFichesAnnuaireAsync(idsCorrespondants)
-    lecture.then(setCorrespondants).catch(() => setCorrespondants([]))
+    // Profils illisibles (étudiant d'une autre équipe) : nom repris du message.
+    const avecNomsDesMessages = (lus: any[]) => [...lus, ...idsCorrespondants
+      .filter(id => !lus.some(u => u.id === id))
+      .flatMap(id => {
+        const nom = messages.find(m => m.expediteurId === id && m.expediteurNom)?.expediteurNom
+        return nom ? [{ id, nom, prenom: '', role: 'etudiant', actif: true }] : []
+      })]
+    lecture.then(lus => setCorrespondants(avecNomsDesMessages(lus))).catch(() => setCorrespondants(avecNomsDesMessages([])))
   }, [cleCorrespondants, isStaff])
   const users = [...contactsRole, ...correspondants.filter(c => !contactsRole.some(u => u.id === c.id))]
 
@@ -134,6 +141,7 @@ export default function ChatPage() {
     if (!newMessage.trim() || !currentUser || !selectedUserId) return
     saveMessageAsync({
       expediteurId: currentUser.id,
+      expediteurNom: `${currentUser.prenom || ''} ${currentUser.nom || ''}`.trim() || currentUser.username || '',
       destinataireId: selectedUserId,
       contenu: newMessage.trim(),
       date: new Date().toISOString(),

@@ -143,6 +143,9 @@ export interface Message {
   contenu: string
   date: string
   lu: boolean
+  // Nom affiché de l'expéditeur, posé à l'envoi : un enseignant ne lit pas le
+  // profil d'un étudiant d'une autre équipe qui lui écrit.
+  expediteurNom?: string
   // [expediteurId, destinataireId] — posé par saveMessageAsync ; c'est le seul
   // champ sur lequel firestore.rules autorise la lecture (array-contains).
   participants?: string[]

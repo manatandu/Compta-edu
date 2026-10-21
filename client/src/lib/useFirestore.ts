@@ -10,6 +10,8 @@ import {
 } from 'firebase/firestore'
 import { db } from './firebase'
 import { useUser } from './userContext'
+import { useEquipe } from './equipe'
+import { isAdminRole } from './permissions'
 import { promotionCorrespond } from './promotion'
 import { onPresencesByEtudiantSnapshot, getCorrigeQCMAsync, avecCorrigeQCM, type CorrigeQCM } from './db-firebase'
 import { notifyFirestoreError } from './firestoreErrorHandler'
@@ -27,6 +29,11 @@ function fromDoc<T>(snap: any): T {
 // L'opérateur Firestore "in" accepte au maximum 30 valeurs : au-delà, il faut
 // découper en plusieurs requêtes et fusionner les résultats côté client.
 const FIRESTORE_IN_LIMIT = 30
+// Requêtes du personnel sur les données de ses étudiants (copies, tentatives) :
+// firestore.rules relit le devoir ou le profil de l'étudiant pour chaque
+// valeur du filtre, et ces lectures sont limitées par requête (au-delà
+// d'environ 18 valeurs, toute la requête est refusée) : paquets de 10.
+export const PAQUET_EQUIPE = 10
 function chunk<T>(arr: T[], size = FIRESTORE_IN_LIMIT): T[][] {
   const out: T[][] = []
   for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
@@ -43,15 +50,17 @@ function subscribeByFieldIn<T>(
   field: string,
   values: string[],
   transform: (snap: any) => T,
-  onData: (items: T[]) => void
+  onData: (items: T[]) => void,
+  taille = FIRESTORE_IN_LIMIT,
+  onError?: () => void
 ): Unsubscribe {
-  const groups = chunk(values)
+  const groups = chunk(values, taille)
   const perChunk: T[][] = groups.map(() => [])
   const unsubs = groups.map((group, i) =>
     onSnapshot(query(collection(db, collectionName), where(field, 'in', group)), snap => {
       perChunk[i] = snap.docs.map(transform)
       onData(perChunk.flat())
-    }, err => notifyFirestoreError(`subscribeByFieldIn(${collectionName}.${field})`, err))
+    }, err => { notifyFirestoreError(`subscribeByFieldIn(${collectionName}.${field})`, err); onError?.() })
   )
   return () => unsubs.forEach(u => u())
 }
@@ -276,25 +285,29 @@ export function useDevoirs(createdBy?: string | string[]) {
 // where('coursId','in', ...) : firestore.rules refuse toute lecture de
 // collection non contrainte dès que la règle dépend de resource.data
 // (permission-denied), même si le client compte filtrer après coup.
+// loading : vrai jusqu'à la première réponse (le tableau de bord étudiant
+// affichait « Rien à rendre » et 0 devoir le temps du chargement).
 export function useAllDevoirs() {
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
+  const [loading, setLoading] = useState(true)
   const currentUser = useUser()
   const queryCoursIds = currentUser?.role === 'etudiant' ? ((currentUser as any).coursIds || []) : null
 
   useEffect(() => {
+    const recus = (items: Devoir[]) => { setDevoirs(items); setLoading(false) }
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'devoirs'), (snap) => {
-        setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-      }, err => notifyFirestoreError('useAllDevoirs', err))
+        recus(snap.docs.map(d => fromDoc<Devoir>(d)))
+      }, err => { notifyFirestoreError('useAllDevoirs', err); setLoading(false) })
       return () => unsub()
     }
-    if (queryCoursIds.length === 0) { setDevoirs([]); return }
+    if (queryCoursIds.length === 0) { recus([]); return }
     return subscribeByFieldIn(
-      'devoirs', 'coursId', queryCoursIds, d => fromDoc<Devoir>(d), setDevoirs
+      'devoirs', 'coursId', queryCoursIds, d => fromDoc<Devoir>(d), recus, FIRESTORE_IN_LIMIT, () => setLoading(false)
     )
   }, [JSON.stringify(queryCoursIds)])
 
-  return { devoirs: useAvecCorrigesQCM(devoirs) }
+  return { devoirs: useAvecCorrigesQCM(devoirs), loading }
 }
 
 // ─── Soumissions temps réel ───────────────────────────────────────────────────
@@ -321,17 +334,19 @@ export function useSoumissions(devoirId?: string, etudiantId?: string) {
 
 export function useSoumissionsEtudiant(etudiantId: string | undefined) {
   const [soumissions, setSoumissions] = useState<Soumission[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!etudiantId) { setSoumissions([]); return }
+    if (!etudiantId) { setSoumissions([]); setLoading(false); return }
     const q = query(collection(db, 'soumissions'), where('etudiantId', '==', etudiantId))
     const unsub = onSnapshot(q, (snap) => {
       setSoumissions(snap.docs.map(d => fromDoc<Soumission>(d)))
-    }, err => notifyFirestoreError('useSoumissionsEtudiant', err))
+      setLoading(false)
+    }, err => { notifyFirestoreError('useSoumissionsEtudiant', err); setLoading(false) })
     return () => unsub()
   }, [etudiantId])
 
-  return { soumissions }
+  return { soumissions, loading }
 }
 
 // ─── Statuts de cours d'un étudiant ────────────────────────────────────────
@@ -354,34 +369,6 @@ export function useCoursStatuts(etudiantId: string | undefined) {
   }, [etudiantId])
 
   return { statuts }
-}
-
-// ─── Toutes les sessions (admin) ─────────────────────────────────────────────
-
-// useAllSessions : admin voit toutes les sessions OU filtré par faculteId si fourni
-export function useAllSessions(faculteId?: string) {
-  const [sessions, setSessions] = useState<any[]>([])
-  useEffect(() => {
-    const q = faculteId
-      ? query(collection(db, 'sessions'), where('faculteId', '==', faculteId))
-      : collection(db, 'sessions')
-    const unsub = onSnapshot(q, snap => setSessions(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllSessions', err))
-    return () => unsub()
-  }, [faculteId])
-  return { sessions }
-}
-
-// useAllEcritures : admin voit toutes les écritures OU filtré par faculteId si fourni
-export function useAllEcritures(faculteId?: string) {
-  const [ecritures, setEcritures] = useState<any[]>([])
-  useEffect(() => {
-    const q = faculteId
-      ? query(collection(db, 'ecritures'), where('faculteId', '==', faculteId))
-      : collection(db, 'ecritures')
-    const unsub = onSnapshot(q, snap => setEcritures(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllEcritures', err))
-    return () => unsub()
-  }, [faculteId])
-  return { ecritures }
 }
 
 // ─── Exercices ────────────────────────────────────────────────────────────────
@@ -437,10 +424,18 @@ export function useExercices(coursIds?: string[], faculteId?: string, promotion?
 // un étudiant qui déclencherait cette requête (sans etudiantId) se heurterait
 // à firestore.rules (lecture refusée hors ownsResource/isProf), d'où l'erreur
 // silencieuse sinon systématique côté élève.
-export function useTentatives(etudiantId?: string, exerciceId?: string, enabled: boolean = true) {
+// etudiantsIds (personnel) : tentatives des étudiants de l'équipe, par paquets ;
+// sans cette liste, la requête large n'est permise qu'à l'administrateur.
+export function useTentatives(etudiantId?: string, exerciceId?: string, enabled: boolean = true, etudiantsIds?: string[]) {
   const [tentatives, setTentatives] = useState<Tentative[]>([])
+  const cleEtudiants = etudiantsIds ? etudiantsIds.join(',') : null
   useEffect(() => {
     if (!enabled) { setTentatives([]); return }
+    if (etudiantsIds && !etudiantId) {
+      if (etudiantsIds.length === 0) { setTentatives([]); return }
+      return subscribeByFieldIn('tentatives', 'userId', etudiantsIds, d => ({ id: d.id, ...d.data() } as Tentative),
+        items => setTentatives(exerciceId ? items.filter(t => t.exerciceId === exerciceId) : items), PAQUET_EQUIPE)
+    }
     const conditions: any[] = []
     // Le champ des tentatives est userId (type Tentative, règles Firestore) :
     // la requête sur « etudiantId » était refusée en bloc pour un étudiant.
@@ -449,7 +444,7 @@ export function useTentatives(etudiantId?: string, exerciceId?: string, enabled:
     const q = conditions.length > 0 ? query(collection(db, 'tentatives'), ...conditions) : collection(db, 'tentatives')
     const unsub = onSnapshot(q, snap => setTentatives(snap.docs.map(d => ({ id: d.id, ...d.data() } as Tentative))), err => notifyFirestoreError('useTentatives', err))
     return () => unsub()
-  }, [etudiantId, exerciceId, enabled])
+  }, [etudiantId, exerciceId, enabled, cleEtudiants])
   return { tentatives }
 }
 
@@ -613,16 +608,31 @@ export function useAllNotesCours() {
 // déclenchait cette requête (via NotificationBell, rendue pour tous les
 // rôles) recevait donc systématiquement un permission-denied à la
 // connexion, avant même d'avoir consulté quoi que ce soit.
-export function useAllSoumissions() {
+//
+// Professeur ou assistant : copies des devoirs de son équipe seulement
+// (devoirs fournis par l'appelant, filtrés sur leur créateur), par paquets ;
+// firestore.rules lui refuse désormais les copies des autres équipes.
+export function useAllSoumissions(devoirs: { id: string; createdBy?: string }[] = []) {
   const [soumissions, setSoumissions] = useState<any[]>([])
   const currentUser = useUser()
+  const equipe = useEquipe()
   const isStudent = currentUser?.role === 'etudiant'
+  const isAdmin = isAdminRole(currentUser)
+  const idsDevoirs = isStudent || isAdmin ? [] : devoirs
+    .filter(d => !!d.createdBy && !!equipe?.ids.includes(d.createdBy)).map(d => d.id).sort()
+  const cle = idsDevoirs.join(',')
   useEffect(() => {
-    const q = isStudent && currentUser?.id
+    if (!currentUser?.id) { setSoumissions([]); return }
+    const versListe = (snap: any) => ({ id: snap.id, ...snap.data() })
+    if (!isStudent && !isAdmin) {
+      if (idsDevoirs.length === 0) { setSoumissions([]); return }
+      return subscribeByFieldIn('soumissions', 'devoirId', idsDevoirs, versListe, setSoumissions, PAQUET_EQUIPE)
+    }
+    const q = isStudent
       ? query(collection(db, 'soumissions'), where('etudiantId', '==', currentUser.id))
       : collection(db, 'soumissions')
-    const unsub = onSnapshot(q, snap => setSoumissions(snap.docs.map(d => ({ id: d.id, ...d.data() }))), err => notifyFirestoreError('useAllSoumissions', err))
+    const unsub = onSnapshot(q, snap => setSoumissions(snap.docs.map(versListe)), err => notifyFirestoreError('useAllSoumissions', err))
     return () => unsub()
-  }, [isStudent, currentUser?.id])
+  }, [isStudent, isAdmin, currentUser?.id, cle])
   return { soumissions }
 }

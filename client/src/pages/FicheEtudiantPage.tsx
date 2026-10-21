@@ -97,7 +97,7 @@ export default function FicheEtudiantPage() {
   useEffect(() => {
     if (!id || !isStaff) return
     charger()
-  }, [id])
+  }, [id, equipe?.refs.join(',')])
 
   async function charger() {
     setLoading(true)
@@ -105,12 +105,18 @@ export default function FicheEtudiantPage() {
       // Fiche étudiant : l'identifiant reçu est celui de la fiche, ou celui du
       // compte de connexion (résultat de la recherche globale), auquel cas la
       // fiche liée est retrouvée par son userId.
-      let snap: any = await getDoc(doc(db, 'etudiants', id!))
-      if (!snap.exists()) {
-        const liees = await getDocs(query(collection(db, 'etudiants'), where('userId', '==', id!)))
+      // Un professeur ne lit que les fiches de son équipe : une fiche absente
+      // (identifiant de compte) ou d'une autre équipe lui est refusée, d'où
+      // la lecture tolérante et la recherche de la fiche liée restreinte à
+      // son équipe.
+      let snap: any = await getDoc(doc(db, 'etudiants', id!)).catch(() => null)
+      if (!snap?.exists()) {
+        const conditions: any[] = [where('userId', '==', id!)]
+        if (!isAdmin) conditions.push(where('createdBy', 'in', (equipe?.refs || [user!.id]).slice(0, 10)))
+        const liees = await getDocs(query(collection(db, 'etudiants'), ...conditions))
         if (!liees.empty) snap = liees.docs[0]
       }
-      if (!snap.exists()) {
+      if (!snap?.exists()) {
         toast({ title: 'Introuvable', description: 'Fiche étudiant introuvable.', variant: 'destructive' })
         navigate('/professeurs?tab=etudiants')
         return
@@ -123,13 +129,17 @@ export default function FicheEtudiantPage() {
       // globale, l'adresse porte l'identifiant du compte : les notes étaient
       // rangées sous cet identifiant-là et n'apparaissaient pas depuis la liste
       // des étudiants (et inversement). Les deux sont relus.
-      const qNotes = query(
-        collection(db, 'notes_manuelles'),
-        where('etudiantFicheId', 'in', Array.from(new Set([data.id, id!]))),
-        orderBy('dateSaisie', 'desc')
-      )
+      // Professeur ou assistant : les notes saisies par son équipe (celles
+      // d'une autre équipe lui sont refusées), triées ici.
+      const qNotes = isAdmin
+        ? query(collection(db, 'notes_manuelles'),
+            where('etudiantFicheId', 'in', Array.from(new Set([data.id, id!]))), orderBy('dateSaisie', 'desc'))
+        : query(collection(db, 'notes_manuelles'),
+            where('etudiantFicheId', 'in', Array.from(new Set([data.id, id!]))),
+            where('saisiePar', 'in', (equipe?.ids || [user!.id]).slice(0, 10)))
       const snapNotes = await getDocs(qNotes)
-      setNotes(snapNotes.docs.map(d => ({ id: d.id, ...d.data() } as NoteManuelle)))
+      setNotes(snapNotes.docs.map(d => ({ id: d.id, ...d.data() } as NoteManuelle))
+        .sort((a: any, b: any) => (b.dateSaisie || '').localeCompare(a.dateSaisie || '')))
     } catch (e) {
       console.error(e)
       toast({ title: 'Erreur', description: 'Impossible de charger la fiche.', variant: 'destructive' })

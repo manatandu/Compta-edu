@@ -15,7 +15,10 @@ import {
 import { useSessions, useEcritures } from '@/lib/useFirestore'
 import { useModule } from '@/lib/moduleContext'
 import { formatMontant, generateId, cn } from '@/lib/utils'
-import { exportJournalPDF } from '@/lib/exportPDF'
+// Bibliothèque PDF (environ 350 Ko) chargée au moment de l'export seulement :
+// importée d'emblée, elle retardait l'ouverture de la page.
+const exportJournalPDF = (...args: Parameters<typeof import('@/lib/exportPDF').exportJournalPDF>) =>
+  import('@/lib/exportPDF').then(m => m.exportJournalPDF(...args))
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

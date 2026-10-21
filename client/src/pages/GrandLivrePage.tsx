@@ -5,7 +5,10 @@ import PageLoader from '@/components/PageLoader'
 import type { Ecriture } from '@/lib/db'
 import { useModule } from '@/lib/moduleContext'
 import { formatMontant, cn } from '@/lib/utils'
-import { exportGrandLivrePDF } from '@/lib/exportPDF'
+// Bibliothèque PDF (environ 350 Ko) chargée au moment de l'export seulement :
+// importée d'emblée, elle retardait l'ouverture de la page.
+const exportGrandLivrePDF = (...args: Parameters<typeof import('@/lib/exportPDF').exportGrandLivrePDF>) =>
+  import('@/lib/exportPDF').then(m => m.exportGrandLivrePDF(...args))
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
