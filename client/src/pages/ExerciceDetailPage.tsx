@@ -1,5 +1,6 @@
 import { useUser } from '@/lib/userContext'
-import { isStaffRole } from '@/lib/permissions'
+import { isStaffRole, isAdminRole } from '@/lib/permissions'
+import { useEquipe } from '@/lib/equipe'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useHashLocation } from '@/lib/hashLocation'
 import { useParams } from 'wouter'
@@ -290,8 +291,12 @@ export default function ExerciceDetailPage() {
   // Statistiques de classe (prof/admin) : toutes les tentatives de tous les
   // étudiants sur cet exercice, `enabled` pour ne jamais tirer cette requête
   // large côté étudiant (firestore.rules la refuserait de toute façon).
+  // Réservées à l'administrateur et à l'équipe qui a créé l'exercice : les
+  // tentatives des étudiants d'une autre équipe ne lui sont pas lisibles.
   const isStaff = isStaffRole(user)
-  const { tentatives: tentativesClasse } = useTentatives(undefined, exerciceId, isStaff)
+  const equipe = useEquipe()
+  const voitStatsClasse = isStaff && !!exercice && (isAdminRole(user) || !!equipe?.ids.includes((exercice as any).createdBy))
+  const { tentatives: tentativesClasse } = useTentatives(undefined, exerciceId, voitStatsClasse)
 
   // ── State de base ──
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])

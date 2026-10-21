@@ -33,6 +33,7 @@ function connexion(identifiant, mdp) {
   return { jeton: r.json('idToken'), uid: r.json('localId') }
 }
 const filtre = (champ, op, valeur) => ({ fieldFilter: { field: { fieldPath: champ }, op, value: valeur } })
+const et = (...filtres) => ({ compositeFilter: { op: 'AND', filters: filtres } })
 const chaine = s => ({ stringValue: s })
 const tableau = l => ({ arrayValue: { values: l.map(chaine) } })
 // Une requête = une lecture de liste ; renvoie le nombre de documents lus
@@ -80,10 +81,13 @@ export function enseignant(d) {
   const { jeton, uid } = d.prof
   const p = 'enseignant'
   let n = 0
-  n += requete(jeton, 'users', null, p)                                            // onUsersSnapshot : toute la collection
-  n += requete(jeton, 'soumissions', null, p)                                      // useAllSoumissions : toutes les copies
+  // onUsersEquipeSnapshot : le personnel, puis les étudiants de l'équipe
+  n += requete(jeton, 'users', filtre('role', 'IN', tableau(['admin', 'professeur', 'assistant'])), p)
+  n += requete(jeton, 'users', et(filtre('createdBy', 'IN', tableau([uid, 'prof.k6'])), filtre('role', 'EQUAL', chaine('etudiant'))), p)
   n += requete(jeton, 'cours', null, p)
   n += requete(jeton, 'devoirs', filtre('createdBy', 'IN', tableau([uid])), p)
+  // useAllSoumissions : copies des devoirs de l'équipe, par paquets de 10
+  n += requete(jeton, 'soumissions', filtre('devoirId', 'IN', tableau(['k6-d-ouvert', 'k6-d-clos', 'k6-d-cas', 'k6-d-redac'])), p)
   n += requete(jeton, 'presences', filtre('createdBy', 'IN', tableau([uid])), p)
   lectProf.add(n)
   check(n, { 'espace enseignant chargé': x => x > 0 })

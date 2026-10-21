@@ -9,7 +9,10 @@
 //
 // ids  : uids des membres (pour les requêtes where('createdBy', 'in', ids))
 // refs : ids + identifiants (le createdBy des étudiants les plus anciens
-//        contient parfois l'identifiant du créateur plutôt que son uid)
+//        contient parfois l'identifiant du créateur plutôt que son uid).
+//        Seuls les identifiants de l'utilisateur et de son titulaire y
+//        figurent : ce sont les seuls que firestore.rules (creeParMonEquipe)
+//        reconnaît, et une seule valeur refusée fait échouer toute la requête.
 // ─────────────────────────────────────────────────────────────────────────────
 import { useEffect, useMemo, useState } from 'react'
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
@@ -33,7 +36,9 @@ export function getMembresEquipeAsync(titulaireId: string): Promise<User[]> {
   if (!p) {
     p = Promise.all([
       getDoc(doc(db, 'users', titulaireId)),
-      getDocs(query(collection(db, 'users'), where('titulaireId', '==', titulaireId))),
+      // Filtre sur le rôle : un membre du personnel ne lit, parmi les
+      // profils, que ceux du personnel et des étudiants de son équipe.
+      getDocs(query(collection(db, 'users'), where('titulaireId', '==', titulaireId), where('role', 'in', ['professeur', 'assistant', 'admin']))),
     ]).then(([titulaire, assistants]) => {
       const membres: User[] = []
       if (titulaire.exists()) membres.push({ ...(titulaire.data() as any), id: titulaire.id })
@@ -51,7 +56,8 @@ function construire(user: User, membres: User[]): Equipe {
   const titulaireId = (user as any).titulaireId || user.id
   const tous = membres.some(m => m.id === user.id) ? membres : [user, ...membres]
   const ids = Array.from(new Set(tous.map(m => m.id)))
-  const refs = Array.from(new Set([...ids, ...tous.map(m => m.username).filter(Boolean)]))
+  const titulaire = tous.find(m => m.id === titulaireId)
+  const refs = Array.from(new Set([...ids, user.username, titulaire?.username].filter(Boolean) as string[]))
   return { titulaireId, membres: tous, ids, refs }
 }
 

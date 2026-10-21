@@ -27,10 +27,10 @@ export default function DashboardStaff() {
   const { cours: allCoursRaw } = useAllCours()
   const { facultes: allFacultes } = useFacultes()
   const { universites: allUniversites } = useUniversites()
-  const { soumissions: toutesLesSoumissions } = useAllSoumissions()
   // Équipe pédagogique (titulaire + assistants) : devoirs et étudiants partagés.
   const equipe = useEquipe()
   const { devoirs: mesDevoirs } = useDevoirs(equipe?.ids)
+  const { soumissions: toutesLesSoumissions } = useAllSoumissions(mesDevoirs)
   const [users, setUsers] = React.useState<any[]>([])
 
   // Seuls les étudiants rattachés à ce compte sont lus (requête sur createdBy),

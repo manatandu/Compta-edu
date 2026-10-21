@@ -18,7 +18,7 @@ import NouveauDevoir from '@/components/NouveauDevoir'
 import { proposerNoteCas, avecCorriges, messageErreurIA, type PropositionCas } from '@/lib/iaCorrection'
 import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
-  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
+  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, onUsersEquipeSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
   uploadNoteCoursFile,
   saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
@@ -493,9 +493,13 @@ export default function ProfesseurPage() {
     const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n
   })
 
-  // Listener temps réel Firebase pour les utilisateurs
+  // Listener temps réel Firebase pour les utilisateurs : toute la collection
+  // pour l'administrateur ; pour un professeur ou un assistant, le personnel
+  // et les étudiants de son équipe (firestore.rules lui refuse les autres).
+  const refsEquipeUsers = equipe?.refs.join(',') || ''
   useEffect(() => {
-    const unsub = onUsersSnapshot((firebaseUsers) => {
+    const ecoute = (cb: (u: any[]) => void) => isAdmin ? onUsersSnapshot(cb) : onUsersEquipeSnapshot(equipe?.refs || [currentUser?.id || ''], cb)
+    const unsub = ecoute((firebaseUsers) => {
       setUsers(firebaseUsers)
       // Nettoyage des anciens profils qui contiennent encore un mot de passe en
       // clair : fait une fois par l'admin, seul autorisé à modifier les autres profils.
@@ -511,7 +515,7 @@ export default function ProfesseurPage() {
       }
     })
     return () => unsub()
-  }, [isAdmin])
+  }, [isAdmin, refsEquipeUsers])
 
   // Réparations des rattachements aux cours, une fois par visite (voir
   // db-firebase.ts) : devoirs et exercices créés depuis un chapitre avec
@@ -910,7 +914,9 @@ export default function ProfesseurPage() {
   const inscriptionsEnAttente = etudiants.filter(e => (e as any).statutInscription === 'en_attente')
 
   // ── Progression ──
-  const { tentatives } = useTentatives(undefined)
+  // Tentatives des étudiants affichés (l'admin : toutes, une seule requête).
+  const idsEtudiants = isAdmin ? undefined : etudiants.map(e => e.id)
+  const { tentatives } = useTentatives(undefined, undefined, true, idsEtudiants)
   const [progFiltres, setProgFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [presenceFiltres, setPresenceFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
   const [coteFiltres, setCoteFiltres] = useState({ uniId: '', facId: '', coursId: '', classe: '' })
@@ -1129,7 +1135,7 @@ export default function ProfesseurPage() {
   }
 
   // ── Toutes les soumissions (pour calcul cote devoirs) ──
-  const { soumissions: allSoumissions } = useAllSoumissions()
+  const { soumissions: allSoumissions } = useAllSoumissions(devoirsList)
 
   // Copies rendues attendant une note. La création de devoirs classiques a été
   // volontairement retirée (bloc « ONGLET DEVOIRS », désactivé en dur avec le

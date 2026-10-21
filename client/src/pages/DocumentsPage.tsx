@@ -165,6 +165,9 @@ export default function DocumentsPage() {
   // Cours disponibles pour le formulaire prof
   const { cours: allCours } = useAllCours()
 
+  const equipe = useEquipe()
+  const estAdmin = isAdminRole(user)
+
   // Promotions dynamiques : union de cours.promotion + user.classe (valeurs réelles Firebase)
   const [dynamicPromotions, setDynamicPromotions] = useState<string[]>([])
   useEffect(() => {
@@ -172,17 +175,18 @@ export default function DocumentsPage() {
     const fromCours = allCours.map(c => libellePromotion((c as any).promotion)).filter(Boolean) as string[]
     // Depuis les étudiants : lecture unique mise en cache (et non plus une
     // écoute temps réel de toute la collection users pour extraire les classes).
-    // Réservée au personnel, seul autorisé à lire les profils des étudiants.
+    // Réservée au personnel, seul autorisé à lire les profils des étudiants
+    // (ceux de son équipe, pour un professeur ou un assistant).
     setDynamicPromotions(Array.from(new Set(fromCours)).sort())
     if (isStudentRole(user)) return
     let actif = true
-    getUsersCacheAsync().then(users => {
+    getUsersCacheAsync(estAdmin ? undefined : equipe?.refs).then(users => {
       if (!actif) return
       const fromUsers = users.map(u => libellePromotion((u as any).classe)).filter(Boolean) as string[]
       setDynamicPromotions(Array.from(new Set([...fromCours, ...fromUsers])).sort())
     }).catch(() => {})
     return () => { actif = false }
-  }, [allCours, user?.role])
+  }, [allCours, user?.role, estAdmin, equipe?.refs.join(',')])
 
   // Promotion de l'étudiant connecté (champ 'classe', ex: 'L1')
   const isEtudiant = isStudentRole(user)
@@ -193,8 +197,6 @@ export default function DocumentsPage() {
   // (équipe pédagogique), comme dans l'Espace pédagogique. L'administrateur
   // voit tout. Un enseignant voyait jusqu'ici les documents de tous, avec un
   // bouton Supprimer que Firestore refusait sans message.
-  const equipe = useEquipe()
-  const estAdmin = isAdminRole(user)
   const deLEquipe = (d: any) => estAdmin || creeParEquipe(d.createdBy || d.userId, equipe)
   // Cours proposés au dépôt : ceux que l'équipe enseigne, faculté dans le
   // libellé (voir lib/coursEquipe.ts). La liste montrait « UE 2 » autant de

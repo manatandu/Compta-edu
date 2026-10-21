@@ -76,9 +76,10 @@ export default function GlobalSearch({ user }: GlobalSearchProps) {
     // sur chaque page tant que la barre de recherche est affichée.
     if (!query.trim()) return
     let actif = true
-    getUsersCacheAsync().then(users => { if (actif) setAllUsers(users) }).catch(() => {})
+    // Professeur ou assistant : le personnel et les étudiants de son équipe.
+    getUsersCacheAsync(estAdmin ? undefined : equipe?.refs).then(users => { if (actif) setAllUsers(users) }).catch(() => {})
     return () => { actif = false }
-  }, [role, canAdmin, query.trim() !== ''])
+  }, [role, canAdmin, query.trim() !== '', estAdmin, equipe?.refs.join(',')])
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

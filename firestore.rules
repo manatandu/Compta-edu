@@ -52,6 +52,31 @@ service cloud.firestore {
       return memeEquipe(resource.data.get('createdBy', ''));
     }
 
+    // ─── DONNÉES DES ÉTUDIANTS : CLOISONNÉES PAR ÉQUIPE ─────────────────────
+    // Un membre du personnel ne lit que les étudiants de son équipe (comptes
+    // créés par elle, directement ou par ses codes d'accès) et ce qui s'y
+    // rattache ; l'administrateur lit tout. Auparavant, tout professeur ou
+    // assistant lisait les profils, copies, journaux et présences de tous les
+    // étudiants de la plateforme, quelle que soit sa faculté.
+    //
+    // createdBy vaut l'uid du créateur, ou son identifiant pour les comptes
+    // les plus anciens : seuls les identifiants de l'appelant et de son
+    // titulaire sont reconnus (aucune recherche par identifiant en règle).
+    function creeParMonEquipe(createur) {
+      return isProf() && createur is string && createur.size() > 0 && (
+        createur == request.auth.uid ||
+        createur == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('username', '') ||
+        createur == get(/databases/$(database)/documents/users/$(titulaire(request.auth.uid))).data.get('username', '') ||
+        (exists(/databases/$(database)/documents/users/$(createur)) && titulaire(request.auth.uid) == titulaire(createur))
+      );
+    }
+
+    // L'étudiant uid appartient-il à l'équipe de l'appelant ?
+    function etudiantDeMonEquipe(uid) {
+      return isProf() && uid is string && uid.size() > 0 &&
+        creeParMonEquipe(get(/databases/$(database)/documents/users/$(uid)).data.get('createdBy', ''));
+    }
+
     // Vérifie que le document appartient au même admin (isolation admin→enfants)
     function sameAdmin() {
       return isAuth() && request.auth.uid == resource.data.adminId;
@@ -158,7 +183,12 @@ service cloud.firestore {
       // contacts de sa messagerie passent par la collection annuaire (ci-dessous),
       // qui ne contient que le nom et le rôle. Une condition sur resource.data
       // ne protège pas une requête de liste de façon fiable (testé à l'émulateur).
-      allow read: if isAuth() && (request.auth.uid == userId || isProf());
+      // Personnel : les profils du personnel, et les étudiants de son équipe
+      // seulement (voir creeParMonEquipe) ; l'admin lit tout.
+      allow read: if isAuth() && (request.auth.uid == userId || isAdmin() || (isProf() && (
+        resource.data.role in ['admin', 'professeur', 'assistant'] ||
+        creeParMonEquipe(resource.data.get('createdBy', ''))
+      )));
       // Modification : un admin peut tout modifier. Un utilisateur peut modifier SON
       // propre profil mais ne peut PAS changer son propre role/actif/statutInscription
       // (sinon un étudiant s'auto-attribue le rôle admin, ou s'auto-valide son inscription
@@ -227,7 +257,7 @@ service cloud.firestore {
     // Isolation : une session (exercice journal) appartient à un étudiant (userId).
     // Les profs peuvent les lire (statistiques du tableau de bord) mais pas les modifier.
     match /sessions/{sessionId} {
-      allow read: if isAuth() && (ownsResource('userId') || isProf());
+      allow read: if isAuth() && (ownsResource('userId') || isAdmin() || etudiantDeMonEquipe(resource.data.userId));
       allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
       allow update, delete: if isAuth() && ownsResource('userId');
     }
@@ -271,7 +301,9 @@ service cloud.firestore {
     // ne pouvait enregistrer une tentative d'exercice coté. Champ corrigé en 'userId'.
     match /tentatives/{tentativeId} {
       allow read: if isAuth() && (
-        ownsResource('userId') || isProf()
+        ownsResource('userId') || isAdmin() || etudiantDeMonEquipe(resource.data.userId) ||
+        // Statistiques d'un exercice : l'équipe qui l'a créé (requête par exerciceId)
+        (isProf() && ownsVia('exercices', resource.data.exerciceId))
       );
       allow create: if isAuth() && (
         request.resource.data.userId == request.auth.uid
@@ -301,7 +333,7 @@ service cloud.firestore {
     // ─── TENTATIVES EXERCICES LIBRES ──────────────────────────────────────────
     // Isolation : par étudiant. Un étudiant ne peut voir que ses propres tentatives.
     match /tentatives_el/{tentativeId} {
-      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      allow read: if isAuth() && (ownsResource('etudiantId') || isAdmin() || etudiantDeMonEquipe(resource.data.etudiantId));
       allow create: if isAuth() && request.resource.data.etudiantId == request.auth.uid;
       allow update: if isAuth() && ownsResource('etudiantId');
       // Suppression isolée par créateur de l'exercice libre rattaché (et non
@@ -502,7 +534,10 @@ service cloud.firestore {
     }
 
     match /soumissions/{soumissionId} {
-      allow read: if isAuth() && (ownsResource('etudiantId') || isProf());
+      // Personnel : copies de ses devoirs, ou de ses étudiants ; l'admin lit tout.
+      allow read: if isAuth() && (ownsResource('etudiantId') || isAdmin() || (isProf() && (
+        ownsVia('devoirs', resource.data.devoirId) || etudiantDeMonEquipe(resource.data.etudiantId)
+      )));
       // Une seule copie par étudiant et par devoir : son identifiant est
       // imposé (devoirId_uid). Avec un identifiant libre, un étudiant pouvait
       // rendre autant de copies qu'il voulait sur le même devoir (la cote
@@ -553,7 +588,7 @@ service cloud.firestore {
     // (Firestore ne sait filtrer/vérifier un tableau d'objets par sous-champ).
     match /presences/{presenceId} {
       allow read: if isAuth() && (
-        request.auth.uid in resource.data.get('etudiantIds', []) || isProf()
+        request.auth.uid in resource.data.get('etudiantIds', []) || isAdmin() || (isProf() && createdBy())
       );
       allow create: if isProf() && request.resource.data.createdBy == request.auth.uid;
       allow update, delete: if isProf() && (createdBy() || isAdmin());
@@ -634,7 +669,7 @@ service cloud.firestore {
     // Aucune règle n'existait pour cette collection : Firestore refusait tout,
     // lecture comme écriture, et la section de la fiche restait vide.
     match /notes_manuelles/{noteId} {
-      allow read: if isProf();
+      allow read: if isAdmin() || (isProf() && memeEquipe(resource.data.get('saisiePar', '')));
       allow create: if isProf() && request.resource.data.saisiePar == request.auth.uid &&
         request.resource.data.note is number &&
         request.resource.data.note >= 0 && request.resource.data.note <= 20;
@@ -642,7 +677,7 @@ service cloud.firestore {
     }
 
     match /etudiants/{etudiantId} {
-      allow read: if isProf();
+      allow read: if isAdmin() || (isProf() && creeParMonEquipe(resource.data.get('createdBy', '')));
       // 1) Formulaire "Nouvel étudiant" : le prof/admin est authentifié sur sa
       //    propre session et écrit directement.
       // 2) Fiche auto-créée par createUserAsync en même temps que le compte

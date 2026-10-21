@@ -117,23 +117,36 @@ describe('🔐 Users — Isolation par utilisateur', () => {
     await assertSucceeds(getDoc(ref2))
   })
 
-  it('Un professeur peut aussi lire TOUS les profils (gestion des étudiants)', async () => {
-    // Régression : la règle ne vérifiait que isAdmin(), ce qui cassait silencieusement
-    // ProfesseurPage/DocumentsPage/InscriptionPlatformePage pour un compte professeur
-    // non-admin (requête de liste rejetée en bloc dès qu'un document ne satisfait pas
-    // la règle). isProf() (admin OU professeur) doit couvrir ce cas.
-    await seedUsers(USERS.prof1, USERS.etud1, USERS.etud2)
-    const ref1 = doc(db(USERS.prof1), 'users', USERS.etud1.uid)
-    const ref2 = doc(db(USERS.prof1), 'users', USERS.etud2.uid)
-    await assertSucceeds(getDoc(ref1))
-    await assertSucceeds(getDoc(ref2))
+  it('Un professeur lit les profils de SES étudiants, jamais ceux d\'une autre équipe', async () => {
+    // Auparavant tout professeur lisait tous les profils de la plateforme
+    // (défaut relevé par les tests k6) : seuls ceux de son équipe désormais.
+    await seedUsers(USERS.prof1, USERS.prof2,
+      { ...USERS.etud1, createdBy: USERS.prof1.uid }, { ...USERS.etud2, createdBy: USERS.prof2.uid },
+      { ...USERS.etud3, createdBy: USERS.prof1.username })
+    const fs = db(USERS.prof1)
+    await assertSucceeds(getDoc(doc(fs, 'users', USERS.etud1.uid)))
+    await assertSucceeds(getDoc(doc(fs, 'users', USERS.etud3.uid)))
+    await assertSucceeds(getDoc(doc(fs, 'users', USERS.prof2.uid)))
+    await assertFails(getDoc(doc(fs, 'users', USERS.etud2.uid)))
+    await assertFails(getDocs(collection(fs, 'users')))
+    await assertFails(getDocs(query(collection(fs, 'users'), where('role', '==', 'etudiant'))))
+    await assertSucceeds(getDocs(query(collection(fs, 'users'), where('role', 'in', ['admin', 'professeur', 'assistant']))))
   })
 
-  it('Un assistant peut lire les profils, comme un professeur (mêmes droits depuis le 24/09/2026)', async () => {
-    await seedDoc('users', 'assistant1-uid', { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1' })
-    await seedUsers(USERS.etud1)
-    const ref = doc(db({ uid: 'assistant1-uid' }), 'users', USERS.etud1.uid)
-    await assertSucceeds(getDoc(ref))
+  it('Un assistant lit les étudiants de son titulaire, pas ceux d\'une autre équipe', async () => {
+    await seedDoc('users', 'assistant1-uid', { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1', titulaireId: USERS.prof1.uid })
+    await seedUsers(USERS.prof1, USERS.prof2,
+      { ...USERS.etud1, createdBy: USERS.prof1.uid }, { ...USERS.etud2, createdBy: USERS.prof2.uid },
+      { ...USERS.etud3, createdBy: USERS.prof1.username })
+    const fs = db({ uid: 'assistant1-uid' })
+    await assertSucceeds(getDoc(doc(fs, 'users', USERS.etud1.uid)))
+    await assertSucceeds(getDoc(doc(fs, 'users', USERS.etud3.uid)))
+    await assertFails(getDoc(doc(fs, 'users', USERS.etud2.uid)))
+    const liste = await assertSucceeds(getDocs(query(collection(fs, 'users'),
+      where('createdBy', 'in', ['assistant1-uid', USERS.prof1.uid, USERS.prof1.username]), where('role', '==', 'etudiant'))))
+    if (liste.size !== 2) throw new Error(`2 étudiants attendus, ${liste.size} reçu(s)`)
+    await assertFails(getDocs(query(collection(fs, 'users'),
+      where('createdBy', 'in', [USERS.prof1.uid, USERS.prof2.uid]), where('role', '==', 'etudiant'))))
   })
 
   it('Un assistant peut créer un devoir, comme un professeur', async () => {
@@ -637,14 +650,16 @@ describe('✏️ Tentatives — Un étudiant ne voit que les siennes', () => {
     await assertFails(getDoc(ref))
   })
 
-  it('Un prof peut lire TOUTES les tentatives', async () => {
-    await seedUsers(USERS.admin1, USERS.prof1)
+  it('Un prof lit les tentatives de SES étudiants seulement ; l\'admin les lit toutes', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2,
+      { ...USERS.etud1, createdBy: USERS.prof1.uid }, { ...USERS.etud2, createdBy: USERS.prof2.uid })
     await seedDoc('tentatives', 'tent-etud1-001', DOCS.tentativeEtud1)
     await seedDoc('tentatives', 'tent-etud2-001', DOCS.tentativeEtud2)
-    const ref1 = doc(db(USERS.prof1), 'tentatives', 'tent-etud1-001')
-    const ref2 = doc(db(USERS.prof1), 'tentatives', 'tent-etud2-001')
-    await assertSucceeds(getDoc(ref1))
-    await assertSucceeds(getDoc(ref2))
+    await assertSucceeds(getDoc(doc(db(USERS.prof1), 'tentatives', 'tent-etud1-001')))
+    await assertFails(getDoc(doc(db(USERS.prof1), 'tentatives', 'tent-etud2-001')))
+    await assertFails(getDocs(collection(db(USERS.prof1), 'tentatives')))
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'tentatives'), where('userId', 'in', [USERS.etud1.uid]))))
+    await assertSucceeds(getDocs(collection(db(USERS.admin1), 'tentatives')))
   })
 
   it('Un prof peut supprimer une tentative de SON cours', async () => {
@@ -1026,6 +1041,7 @@ describe('📤 Soumissions — Isolation stricte par étudiant', () => {
 
   it('Un prof peut lire les soumissions de ses étudiants', async () => {
     await seedUsers(USERS.admin1, USERS.prof1)
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta) // createdBy: prof1
     await seedDoc('soumissions', 'soum-etud1-001', {
       etudiantId: USERS.etud1.uid,
       devoirId: 'devoir-001',
@@ -1033,6 +1049,20 @@ describe('📤 Soumissions — Isolation stricte par étudiant', () => {
     })
     const ref = doc(db(USERS.prof1), 'soumissions', 'soum-etud1-001')
     await assertSucceeds(getDoc(ref))
+  })
+
+  it('Un prof d\'une autre équipe ne lit ni ne liste les copies ; l\'admin si', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2, { ...USERS.etud1, createdBy: USERS.prof1.uid })
+    await seedDoc('devoirs', 'devoir-001', DOCS.devoirCompta) // createdBy: prof1
+    await seedDoc('soumissions', 'soum-etud1-001', { etudiantId: USERS.etud1.uid, devoirId: 'devoir-001' })
+    await assertFails(getDoc(doc(db(USERS.prof2), 'soumissions', 'soum-etud1-001')))
+    await assertFails(getDocs(collection(db(USERS.prof2), 'soumissions')))
+    await assertFails(getDocs(collection(db(USERS.prof1), 'soumissions')))
+    await assertFails(getDocs(query(collection(db(USERS.prof2), 'soumissions'), where('etudiantId', '==', USERS.etud1.uid))))
+    // L'équipe : par devoir, ou par étudiant (fiche de l'étudiant)
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'soumissions'), where('devoirId', 'in', ['devoir-001']))))
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'soumissions'), where('etudiantId', '==', USERS.etud1.uid))))
+    await assertSucceeds(getDocs(collection(db(USERS.admin1), 'soumissions')))
   })
 
   it('Un prof peut supprimer une soumission de SON devoir', async () => {
@@ -1127,10 +1157,16 @@ describe('🎓 Étudiants (fiches administratives) — Réservé au personnel', 
     await assertFails(getDocs(collection(db(USERS.etud1), 'etudiants')))
   })
 
-  it('Un prof peut lire la liste des fiches étudiants (GestionEtudiantsPage)', async () => {
-    await seedUsers(USERS.prof1)
+  it('Un prof lit les fiches de son équipe (GestionEtudiantsPage), pas les autres', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
     await seedDoc('etudiants', 'fiche-001', { nom: 'KABILA', prenom: 'Grace', createdBy: USERS.prof1.uid })
-    await assertSucceeds(getDocs(collection(db(USERS.prof1), 'etudiants')))
+    await seedDoc('etudiants', 'fiche-002', { nom: 'MBUYI', prenom: 'Paul', createdBy: USERS.prof2.uid })
+    const fs = db(USERS.prof1)
+    const miennes = await assertSucceeds(getDocs(query(collection(fs, 'etudiants'), where('createdBy', 'in', [USERS.prof1.uid, USERS.prof1.username]))))
+    if (miennes.size !== 1) throw new Error(`1 fiche attendue, ${miennes.size} reçue(s)`)
+    await assertFails(getDoc(doc(fs, 'etudiants', 'fiche-002')))
+    await assertFails(getDocs(collection(fs, 'etudiants')))
+    await assertSucceeds(getDocs(collection(db(USERS.admin1), 'etudiants')))
   })
 
   it('Le prof créateur peut modifier sa fiche étudiant', async () => {
@@ -1298,7 +1334,10 @@ describe('🔎 Users — Requêtes ciblées (createdBy, rôle, identifiant, id)'
   })
 
   it('Un professeur peut lire des profils précis par identifiant de document', async () => {
-    await seedUsers(USERS.prof1, USERS.etud1, USERS.etud2)
+    await seedUsers(USERS.prof1, USERS.prof2, { ...USERS.etud1, createdBy: USERS.prof1.uid }, { ...USERS.etud2, createdBy: USERS.prof1.uid },
+      { ...USERS.etud3, createdBy: USERS.prof2.uid })
+    await assertFails(getDocs(query(collection(db(USERS.prof1), 'users'),
+      where(documentId(), 'in', [USERS.etud1.uid, USERS.etud3.uid]))))
     const snap = await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'users'),
       where(documentId(), 'in', [USERS.etud1.uid, USERS.etud2.uid]))))
     if (snap.size !== 2) throw new Error(`2 profils attendus, ${snap.size} reçu(s)`)
@@ -1475,8 +1514,20 @@ describe('📓 Sessions — Isolation par étudiant', () => {
     await assertFails(getDoc(ref))
   })
 
+  it('Le journal d\'un étudiant : lisible par son équipe et l\'admin, pas par une autre équipe', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2, { ...USERS.etud1, createdBy: USERS.prof1.uid })
+    await seedDoc('sessions', 'session1', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid })
+    const parEtudiant = fs => query(collection(fs, 'sessions'), where('userId', '==', USERS.etud1.uid))
+    await assertSucceeds(getDocs(parEtudiant(db(USERS.prof1))))
+    await assertSucceeds(getDoc(doc(db(USERS.prof1), 'sessions', 'session1')))
+    await assertFails(getDocs(parEtudiant(db(USERS.prof2))))
+    await assertFails(getDoc(doc(db(USERS.prof2), 'sessions', 'session1')))
+    await assertFails(getDocs(collection(db(USERS.prof1), 'sessions')))
+    await assertSucceeds(getDocs(collection(db(USERS.admin1), 'sessions')))
+  })
+
   it('Un prof peut lire la session d\'un étudiant (statistiques)', async () => {
-    await seedUsers(USERS.prof1)
+    await seedUsers(USERS.prof1, { ...USERS.etud1, createdBy: USERS.prof1.uid })
     await seedDoc('sessions', 'session1', { nom: 'Exercice 1', exercice: 1, userId: USERS.etud1.uid })
     const ref = doc(db(USERS.prof1), 'sessions', 'session1')
     await assertSucceeds(getDoc(ref))
@@ -1761,7 +1812,10 @@ describe('🗒️ Notes manuelles — saisies par le personnel', () => {
   it('Un professeur saisit une note sur 20 et la relit', async () => {
     await seedUsers(USERS.prof1)
     await assertSucceeds(setDoc(doc(db(USERS.prof1), 'notes_manuelles', 'n1'), note(USERS.prof1.uid)))
-    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'notes_manuelles'), where('etudiantFicheId', '==', 'fiche-1'))))
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'notes_manuelles'),
+      where('etudiantFicheId', 'in', ['fiche-1', 'compte-1']), where('saisiePar', 'in', [USERS.prof1.uid]))))
+    // Sans filtre sur l'équipe qui a saisi : refusé (notes d'une autre équipe possibles)
+    await assertFails(getDocs(query(collection(db(USERS.prof1), 'notes_manuelles'), where('etudiantFicheId', '==', 'fiche-1'))))
   })
 
   it('Note hors barème, ou au nom d\'un autre : refusée', async () => {
@@ -2029,5 +2083,64 @@ describe('🙈 QCM à corrigé séparé — corrigé publié à la date limite',
     await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { correctionAuto: true })))
     await assertFails(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-redige')), copie('d-redige', { correctionAuto: true })))
     await assertSucceeds(setDoc(doc(db(USERS.etud1), 'soumissions', idCopie('d-cas')), copie('d-cas', { reponsesCasPratiques: { c1: 'texte' } })))
+  })
+})
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  Données des étudiants cloisonnées par équipe : requêtes de l'application
+//  (paquets de 30 valeurs pour l'opérateur in)
+// ══════════════════════════════════════════════════════════════════════════════
+// Chaque valeur du filtre in coûte une lecture de document dans les règles
+// (devoir ou profil de l'étudiant) : au-delà d'environ 18 valeurs, la limite
+// d'accès des règles est atteinte et la requête entière est refusée. Le client
+// interroge donc par paquets de 10 (PAQUET_EQUIPE, lib/useFirestore.ts).
+describe('🧱 Équipes — requêtes par paquets de 10 (copies, tentatives, présences)', () => {
+  const N = 30
+  const etudiants = Array.from({ length: N }, (_, i) => ({ uid: `e${i}-uid`, role: 'etudiant', username: `e${i}`, createdBy: USERS.prof1.uid }))
+  const devoirs = Array.from({ length: N }, (_, i) => `dv-${i}`)
+
+  async function amorcer() {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2, ...etudiants)
+    await testEnv.withSecurityRulesDisabled(async ctx => {
+      const fs = ctx.firestore()
+      for (const [i, e] of etudiants.entries()) {
+        await setDoc(doc(fs, 'devoirs', devoirs[i]), { titre: 'D', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+        await setDoc(doc(fs, 'soumissions', `${devoirs[i]}_${e.uid}`), { devoirId: devoirs[i], etudiantId: e.uid })
+        await setDoc(doc(fs, 'tentatives', `t-${i}`), { userId: e.uid, exerciceId: 'ex', score: 10 })
+      }
+      await setDoc(doc(fs, 'presences', 'p1'), { createdBy: USERS.prof1.uid, etudiantIds: [etudiants[0].uid] })
+      await setDoc(doc(fs, 'presences', 'p2'), { createdBy: USERS.prof2.uid, etudiantIds: [] })
+    })
+  }
+
+  it('Le professeur et son assistant lisent copies et tentatives par paquets de 10', async () => {
+    await amorcer()
+    await seedDoc('users', 'assistant1-uid', { uid: 'assistant1-uid', role: 'assistant', username: 'assistant1', titulaireId: USERS.prof1.uid })
+    for (const membre of [USERS.prof1, { uid: 'assistant1-uid' }]) {
+      const fs = db(membre)
+      let copies = 0, tents = 0
+      for (let i = 0; i < N; i += 10) {
+        copies += (await assertSucceeds(getDocs(query(collection(fs, 'soumissions'), where('devoirId', 'in', devoirs.slice(i, i + 10)))))).size
+        tents += (await assertSucceeds(getDocs(query(collection(fs, 'tentatives'), where('userId', 'in', etudiants.slice(i, i + 10).map(e => e.uid)))))).size
+      }
+      if (copies !== N || tents !== N) throw new Error(`${N} copies et tentatives attendues, ${copies} et ${tents} reçues`)
+    }
+  })
+
+  it('Une autre équipe : mêmes requêtes refusées ; présences limitées à l\'équipe', async () => {
+    await amorcer()
+    const fs = db(USERS.prof2)
+    await assertFails(getDocs(query(collection(fs, 'soumissions'), where('devoirId', 'in', devoirs.slice(0, 10)))))
+    await assertFails(getDocs(query(collection(fs, 'tentatives'), where('userId', 'in', etudiants.slice(0, 10).map(e => e.uid)))))
+    await assertFails(getDoc(doc(fs, 'presences', 'p1')))
+    await assertFails(getDocs(collection(fs, 'presences')))
+    await assertSucceeds(getDocs(query(collection(fs, 'presences'), where('createdBy', 'in', [USERS.prof2.uid]))))
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'presences'), where('createdBy', 'in', [USERS.prof1.uid]))))
+    // Statistiques d'un exercice : l'équipe qui l'a créé, pas une autre
+    await seedDoc('exercices', 'ex', { titre: 'E', coursId: IDS.coursCompta, createdBy: USERS.prof1.uid })
+    await assertSucceeds(getDocs(query(collection(db(USERS.prof1), 'tentatives'), where('exerciceId', '==', 'ex'))))
+    await assertFails(getDocs(query(collection(fs, 'tentatives'), where('exerciceId', '==', 'ex'))))
+    // L'étudiant lit toujours les séances où il figure
+    await assertSucceeds(getDocs(query(collection(db(etudiants[0]), 'presences'), where('etudiantIds', 'array-contains', etudiants[0].uid))))
   })
 })

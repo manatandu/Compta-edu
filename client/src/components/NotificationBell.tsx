@@ -63,8 +63,8 @@ export function NotificationBell({ user }: NotificationBellProps) {
   const isAdmin = ['admin', 'professeur', 'assistant'].includes(user?.role || '')
 
   // Données Firebase
-  const { soumissions: toutesLesSoumissions } = useAllSoumissions()
   const { devoirs: tousLesDevoirs } = useAllDevoirs()
+  const { soumissions: toutesLesSoumissions } = useAllSoumissions(tousLesDevoirs)
   const [usersEnAttente, setUsersEnAttente] = useState<any[]>([])
   const [messagesRecus, setMessagesRecus] = useState<any[]>([])
   const [expediteurs, setExpediteurs] = useState<Record<string, string>>({})
@@ -90,6 +90,7 @@ export function NotificationBell({ user }: NotificationBellProps) {
     const lecture = user?.role === 'etudiant' ? getFichesAnnuaireAsync(ids) : getUsersByIdsAsync(ids)
     lecture.then(users => {
       const map: Record<string, string> = {}
+      messagesRecus.forEach(m => { if (m.expediteurNom) map[m.expediteurId] = m.expediteurNom })
       users.forEach(u => { map[u.id] = `${u.nom || ''} ${u.prenom || ''}`.trim() || u.username || 'Utilisateur' })
       setExpediteurs(map)
     }).catch(() => {})

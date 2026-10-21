@@ -261,37 +261,62 @@ export async function getUsersAsync(): Promise<User[]> {
   return snap.docs.map(d => fromDoc<User>(d))
 }
 
-// Lecture unique et partagée de toute la collection users, pour les écrans qui
-// en ont réellement besoin (recherche globale, liste des promotions). Remplace
+// Lecture unique et partagée des profils visibles, pour les écrans qui en ont
+// réellement besoin (recherche globale, liste des promotions) : toute la
+// collection pour l'administrateur ; pour un professeur ou un assistant
+// (refsEquipe fourni), le personnel et les étudiants de son équipe, seuls
+// profils que firestore.rules lui laisse lire. Remplace
 // plusieurs écoutes temps réel simultanées de la collection entière : avec
 // quelques milliers d'étudiants, chaque écoute relisait tous les profils à
 // chaque ouverture de page. Le cache est vidé à toute création, modification
 // ou suppression de compte faite depuis ce navigateur.
 const USERS_CACHE_TTL_MS = 5 * 60 * 1000
-let usersCache: { at: number; promise: Promise<User[]> } | null = null
-export function getUsersCacheAsync(): Promise<User[]> {
-  if (usersCache && Date.now() - usersCache.at < USERS_CACHE_TTL_MS) return usersCache.promise
-  const promise = getUsersAsync().catch(err => { usersCache = null; throw err })
-  usersCache = { at: Date.now(), promise }
+let usersCache: { at: number; cle: string; promise: Promise<User[]> } | null = null
+export function getUsersCacheAsync(refsEquipe?: string[]): Promise<User[]> {
+  const cle = refsEquipe ? refsEquipe.join(',') : '*'
+  if (usersCache && usersCache.cle === cle && Date.now() - usersCache.at < USERS_CACHE_TTL_MS) return usersCache.promise
+  const lecture = refsEquipe ? getUsersEquipeAsync(refsEquipe) : getUsersAsync()
+  const promise = lecture.catch(err => { usersCache = null; throw err })
+  usersCache = { at: Date.now(), cle, promise }
   return promise
+}
+
+// Personnel et étudiants de l'équipe (refsEquipe : lib/equipe.ts).
+export async function getUsersEquipeAsync(refsEquipe: string[]): Promise<User[]> {
+  const [personnel, etudiants] = await Promise.all([
+    getDocs(query(collection(db, C.USERS), where('role', 'in', ROLES_PERSONNEL))),
+    getEtudiantsCreesParAsync({ id: refsEquipe[0] || '' }, undefined, refsEquipe),
+  ])
+  return [...personnel.docs.map(d => fromDoc<User>(d)), ...etudiants]
 }
 export function invaliderCacheUsers(): void { usersCache = null }
 
 // Découpe une liste pour l'opérateur Firestore "in" (30 valeurs au maximum).
-function paquetsDe30<T>(arr: T[]): T[][] {
+function paquetsDe<T>(arr: T[], taille: number): T[][] {
   const out: T[][] = []
-  for (let i = 0; i < arr.length; i += 30) out.push(arr.slice(i, i + 30))
+  for (let i = 0; i < arr.length; i += taille) out.push(arr.slice(i, i + taille))
   return out
 }
+function paquetsDe30<T>(arr: T[]): T[][] { return paquetsDe(arr, 30) }
 
 // Profils précis, lus par identifiant (noms des expéditeurs de messages, etc.)
 // au lieu de charger toute la collection pour n'en garder que quelques-uns.
+// Un professeur ne lit pas le profil d'un étudiant d'une autre équipe (qui
+// peut pourtant lui écrire) : une seule valeur refusée fait échouer toute la
+// requête groupée, on relit alors profil par profil et on ignore les refus.
 export async function getUsersByIdsAsync(ids: string[]): Promise<User[]> {
   const uniques = Array.from(new Set(ids.filter(Boolean)))
   if (uniques.length === 0) return []
-  const snaps = await Promise.all(paquetsDe30(uniques).map(paquet =>
-    getDocs(query(collection(db, C.USERS), where(documentId(), 'in', paquet)))))
-  return snaps.flatMap(s => s.docs.map(d => fromDoc<User>(d)))
+  const paquets = await Promise.all(paquetsDe30(uniques).map(async paquet => {
+    try {
+      const snap = await getDocs(query(collection(db, C.USERS), where(documentId(), 'in', paquet)))
+      return snap.docs.map(d => fromDoc<User>(d))
+    } catch {
+      const lus = await Promise.allSettled(paquet.map(id => getDoc(doc(db, C.USERS, id))))
+      return lus.flatMap(r => r.status === 'fulfilled' && r.value.exists() ? [fromDoc<User>(r.value)] : [])
+    }
+  }))
+  return paquets.flat()
 }
 
 // Étudiants rattachés à un membre du personnel. Le champ createdBy contient
@@ -304,12 +329,16 @@ export async function getEtudiantsCreesParAsync(
   statutInscription?: string,
   refsSupplementaires: string[] = [],
 ): Promise<User[]> {
-  const refs = Array.from(new Set([createur.id, createur.username, ...refsSupplementaires].filter(Boolean))).slice(0, 30) as string[]
+  const refs = Array.from(new Set([createur.id, createur.username, ...refsSupplementaires].filter(Boolean))) as string[]
   if (refs.length === 0) return []
-  const conditions: any[] = [where('createdBy', 'in', refs), where('role', '==', 'etudiant')]
-  if (statutInscription) conditions.push(where('statutInscription', '==', statutInscription))
-  const snap = await getDocs(query(collection(db, C.USERS), ...conditions))
-  return snap.docs.map(d => fromDoc<User>(d))
+  // Paquets de 10 : chaque valeur coûte une lecture dans firestore.rules
+  // (creeParMonEquipe), dont le nombre est limité par requête.
+  const snaps = await Promise.all(paquetsDe(refs, 10).map(paquet => {
+    const conditions: any[] = [where('createdBy', 'in', paquet), where('role', '==', 'etudiant')]
+    if (statutInscription) conditions.push(where('statutInscription', '==', statutInscription))
+    return getDocs(query(collection(db, C.USERS), ...conditions))
+  }))
+  return snaps.flatMap(s => s.docs.map(d => fromDoc<User>(d)))
 }
 
 // Tous les étudiants (écrans réservés à l'administrateur principal).
@@ -1251,6 +1280,26 @@ export function onEcrituresSnapshot(userId: string, module: string | undefined, 
 
 export function onUsersSnapshot(callback: (users: User[]) => void): Unsubscribe {
   return onSnapshot(collection(db, C.USERS), snap => callback(snap.docs.map(d => fromDoc<User>(d))), err => notifyFirestoreError('onUsersSnapshot', err))
+}
+
+// Professeur ou assistant : le personnel et les étudiants de son équipe, en
+// temps réel (refsEquipe : lib/equipe.ts). Toute la collection lui est refusée.
+export function onUsersEquipeSnapshot(refsEquipe: string[], callback: (users: User[]) => void): Unsubscribe {
+  const requetes = [
+    query(collection(db, C.USERS), where('role', 'in', ROLES_PERSONNEL)),
+    ...paquetsDe(refsEquipe, 10).map(paquet =>
+      query(collection(db, C.USERS), where('createdBy', 'in', paquet), where('role', '==', 'etudiant'))),
+  ]
+  const parRequete: User[][] = requetes.map(() => [])
+  const recus = requetes.map(() => false)
+  const unsubs = requetes.map((q, i) => onSnapshot(q, snap => {
+    parRequete[i] = snap.docs.map(d => fromDoc<User>(d))
+    recus[i] = true
+    // Une seule livraison une fois toutes les requêtes reçues : sinon la liste
+    // des étudiants apparaissait vide le temps de la seconde réponse.
+    if (recus.every(Boolean)) callback(parRequete.flat())
+  }, err => notifyFirestoreError('onUsersEquipeSnapshot', err)))
+  return () => unsubs.forEach(u => u())
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
