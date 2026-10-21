@@ -1140,6 +1140,46 @@ export function avecCorrigeQCM<T extends Devoir>(devoir: T, qcm: CorrigeQCM): T 
   }
 }
 
+// ─── Anciens devoirs : corrigé encore rangé dans le devoir ───────────────────
+// Les QCM de chapitre et « QCM + cas » créés avant le corrigé séparé gardent
+// bonnes réponses, explications et corrigés types dans le devoir, que tout
+// étudiant du cours lit (cache du navigateur, outils de développement). Ils
+// sont rangés dans devoirs_corriges et publiés à la date limite, comme pour
+// les nouveaux devoirs. Portée : les devoirs de l'appelant, seul autorisé à
+// en créer le corrigé ; tous pour l'administrateur. Une fois par visite de
+// l'Espace pédagogique.
+export async function separerCorrigesAnciensDevoirsAsync(userId: string, admin: boolean): Promise<number> {
+  const snap = await getDocs(admin ? collection(db, C.DEVOIRS) : query(collection(db, C.DEVOIRS), where('createdBy', '==', userId)))
+  let n = 0
+  for (const d of snap.docs) {
+    const devoir = d.data() as Devoir
+    if (devoir.corrigeQCMSepare || !['qcm_chapitre', 'qcm_cas'].includes(devoir.type)) continue
+    const questions = devoir.questionsChapitre || []
+    const cas = devoir.casPratiques || []
+    const dateLimitMs = new Date(devoir.dateLimit).getTime()
+    if (!Number.isFinite(dateLimitMs) || (!questions.some(q => q.reponseCorrecte) && !cas.some(c => c.corrigeType))) continue
+    const { publiques, qcm } = separerCorrigeQCM(questions)
+    const corrRef = doc(db, C.DEVOIRS_CORRIGES, d.id)
+    const existant = await getDoc(corrRef)
+    const corriges = {
+      ...Object.fromEntries(cas.filter(c => c.corrigeType).map(c => [c.id, c.corrigeType])),
+      ...((existant.exists() ? (existant.data() as any).corriges : null) || {}),
+    }
+    const batch = writeBatch(db)
+    if (existant.exists()) batch.update(corrRef, { corriges, qcm })
+    else batch.set(corrRef, { devoirId: d.id, createdBy: admin ? devoir.createdBy : userId, corriges, qcm })
+    batch.update(d.ref, cleanUndefined({
+      questionsChapitre: publiques,
+      casPratiques: cas.length ? cas.map(c => ({ ...c, corrigeType: '' })) : undefined,
+      corrigeQCMSepare: true,
+      dateLimitMs,
+    }) as any)
+    await batch.commit()
+    n++
+  }
+  return n
+}
+
 // null si le corrigé n'est pas (encore) lisible : étudiant avant la date limite.
 export async function getCorrigeQCMAsync(devoirId: string): Promise<CorrigeQCM | null> {
   try {

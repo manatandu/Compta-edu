@@ -457,7 +457,10 @@ service cloud.firestore {
     match /devoirs/{devoirId} {
       allow read: if isAuth() && (isProf() || resource.data.coursId in studentCoursIds());
       allow create: if isProf() && request.resource.data.keys().hasAll(['coursId', 'createdBy', 'promotionId']);
-      allow update, delete: if isProf() && createdBy();
+      // L'admin aussi : il range hors du devoir le corrigé des anciens QCM
+      // (separerCorrigesAnciensDevoirsAsync, côté client).
+      allow update: if isProf() && (createdBy() || isAdmin());
+      allow delete: if isProf() && createdBy();
     }
 
     // ─── CORRIGÉS DES DEVOIRS À QUESTIONS RÉDIGÉES ───────────────────────────
@@ -470,9 +473,13 @@ service cloud.firestore {
       // Corrigé publié aux étudiants du cours une fois la date limite passée
       // (devoirs à corrigé séparé : leur copie n'est plus acceptée ensuite).
       allow get: if isAuth() && corrigePublie(get(/databases/$(database)/documents/devoirs/$(devoirId)).data);
-      allow create: if isProf() && request.resource.data.createdBy == request.auth.uid &&
-        request.resource.data.devoirId == devoirId &&
-        getAfter(/databases/$(database)/documents/devoirs/$(devoirId)).data.get('createdBy', '') == request.auth.uid;
+      allow create: if isProf() && request.resource.data.devoirId == devoirId && ((
+        request.resource.data.createdBy == request.auth.uid &&
+        getAfter(/databases/$(database)/documents/devoirs/$(devoirId)).data.get('createdBy', '') == request.auth.uid
+      ) || (
+        // Corrigé d'un ancien devoir, rangé à part par l'admin
+        isAdmin() && exists(/databases/$(database)/documents/devoirs/$(devoirId))
+      ));
     }
 
     // ─── SOUMISSIONS (réponses aux devoirs) ──────────────────────────────────

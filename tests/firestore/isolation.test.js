@@ -2144,3 +2144,35 @@ describe('🧱 Équipes — requêtes par paquets de 10 (copies, tentatives, pr�
     await assertSucceeds(getDocs(query(collection(db(etudiants[0]), 'presences'), where('etudiantIds', 'array-contains', etudiants[0].uid))))
   })
 })
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  Anciens QCM : corrigé rangé hors du devoir par son auteur ou par l'admin
+// ══════════════════════════════════════════════════════════════════════════════
+describe('🗂️ Anciens QCM — corrigé séparé après coup', () => {
+  const ancien = { titre: 'QCM', type: 'qcm_chapitre', coursId: IDS.coursCompta, promotionId: 'L1', createdBy: USERS.prof1.uid,
+    dateLimit: '2030-01-01T00:00:00Z', questionsChapitre: [{ id: 'q1', question: '?', options: [], reponseCorrecte: 'a', explication: 'x', articleRef: '' }] }
+  const separation = (fs, createdBy) => {
+    const lot = writeBatch(fs)
+    lot.set(doc(fs, 'devoirs_corriges', 'dv-ancien'), { devoirId: 'dv-ancien', createdBy, corriges: {}, qcm: { q1: { reponseCorrecte: 'a', explication: 'x' } } })
+    lot.update(doc(fs, 'devoirs', 'dv-ancien'), { questionsChapitre: [{ ...ancien.questionsChapitre[0], reponseCorrecte: '', explication: '' }], corrigeQCMSepare: true, dateLimitMs: Date.parse(ancien.dateLimit) })
+    return lot.commit()
+  }
+
+  it('L\'auteur et l\'admin peuvent séparer le corrigé ; un autre professeur non', async () => {
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
+    await seedDoc('devoirs', 'dv-ancien', ancien)
+    await assertFails(separation(db(USERS.prof2), USERS.prof2.uid))
+    await assertSucceeds(separation(db(USERS.admin1), USERS.prof1.uid))
+    await testEnv.clearFirestore()
+    await seedUsers(USERS.admin1, USERS.prof1, USERS.prof2)
+    await seedDoc('devoirs', 'dv-ancien', ancien)
+    await assertSucceeds(separation(db(USERS.prof1), USERS.prof1.uid))
+  })
+
+  it('Un étudiant ne lit pas le corrigé avant la date limite', async () => {
+    await seedUsers(USERS.prof1, USERS.etud1)
+    await seedDoc('devoirs', 'dv-ancien', ancien)
+    await separation(db(USERS.prof1), USERS.prof1.uid)
+    await assertFails(getDoc(doc(db(USERS.etud1), 'devoirs_corriges', 'dv-ancien')))
+  })
+})

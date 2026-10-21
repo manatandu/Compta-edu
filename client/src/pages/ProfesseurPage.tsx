@@ -18,7 +18,7 @@ import NouveauDevoir from '@/components/NouveauDevoir'
 import { proposerNoteCas, avecCorriges, messageErreurIA, type PropositionCas } from '@/lib/iaCorrection'
 import { codePromotion, libellePromotion } from '@/lib/promotion'
 import {
-  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, onUsersEquipeSnapshot, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
+  createUserAsync, updateUserAsync, deleteUserAsync, onUsersSnapshot, onUsersEquipeSnapshot, separerCorrigesAnciensDevoirsAsync, purgerMotsDePasseStockesAsync, synchroniserAnnuaireAsync, definirTitulaireAsync,
   uploadNoteCoursFile,
   saveUniversiteAsync, updateUniversiteAsync, deleteUniversiteAsync,
   createFaculteAsync, updateFaculteAsync, deleteFaculteAsync,
@@ -528,6 +528,8 @@ export default function ProfesseurPage() {
     rattachementsRepares.current = true
     reparerContenusDeChapitreAsync(equipe.ids, coursList)
       .then(() => reparerCodesAccesFaculteAsync(equipe.ids, coursList))
+      // Anciens QCM : bonnes réponses et corrigés types retirés du devoir.
+      .then(() => currentUser?.id ? separerCorrigesAnciensDevoirsAsync(currentUser.id, isAdmin) : 0)
       .catch(err => console.warn('Réparation des rattachements de cours :', err))
   }, [isStaff, cleEquipe, coursList.length])
   const inscriptionsReparees = useRef(false)
