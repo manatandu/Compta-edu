@@ -51,7 +51,8 @@ function subscribeByFieldIn<T>(
   values: string[],
   transform: (snap: any) => T,
   onData: (items: T[]) => void,
-  taille = FIRESTORE_IN_LIMIT
+  taille = FIRESTORE_IN_LIMIT,
+  onError?: () => void
 ): Unsubscribe {
   const groups = chunk(values, taille)
   const perChunk: T[][] = groups.map(() => [])
@@ -59,7 +60,7 @@ function subscribeByFieldIn<T>(
     onSnapshot(query(collection(db, collectionName), where(field, 'in', group)), snap => {
       perChunk[i] = snap.docs.map(transform)
       onData(perChunk.flat())
-    }, err => notifyFirestoreError(`subscribeByFieldIn(${collectionName}.${field})`, err))
+    }, err => { notifyFirestoreError(`subscribeByFieldIn(${collectionName}.${field})`, err); onError?.() })
   )
   return () => unsubs.forEach(u => u())
 }
@@ -284,25 +285,29 @@ export function useDevoirs(createdBy?: string | string[]) {
 // where('coursId','in', ...) : firestore.rules refuse toute lecture de
 // collection non contrainte dès que la règle dépend de resource.data
 // (permission-denied), même si le client compte filtrer après coup.
+// loading : vrai jusqu'à la première réponse (le tableau de bord étudiant
+// affichait « Rien à rendre » et 0 devoir le temps du chargement).
 export function useAllDevoirs() {
   const [devoirs, setDevoirs] = useState<Devoir[]>([])
+  const [loading, setLoading] = useState(true)
   const currentUser = useUser()
   const queryCoursIds = currentUser?.role === 'etudiant' ? ((currentUser as any).coursIds || []) : null
 
   useEffect(() => {
+    const recus = (items: Devoir[]) => { setDevoirs(items); setLoading(false) }
     if (queryCoursIds === null) {
       const unsub = onSnapshot(collection(db, 'devoirs'), (snap) => {
-        setDevoirs(snap.docs.map(d => fromDoc<Devoir>(d)))
-      }, err => notifyFirestoreError('useAllDevoirs', err))
+        recus(snap.docs.map(d => fromDoc<Devoir>(d)))
+      }, err => { notifyFirestoreError('useAllDevoirs', err); setLoading(false) })
       return () => unsub()
     }
-    if (queryCoursIds.length === 0) { setDevoirs([]); return }
+    if (queryCoursIds.length === 0) { recus([]); return }
     return subscribeByFieldIn(
-      'devoirs', 'coursId', queryCoursIds, d => fromDoc<Devoir>(d), setDevoirs
+      'devoirs', 'coursId', queryCoursIds, d => fromDoc<Devoir>(d), recus, FIRESTORE_IN_LIMIT, () => setLoading(false)
     )
   }, [JSON.stringify(queryCoursIds)])
 
-  return { devoirs: useAvecCorrigesQCM(devoirs) }
+  return { devoirs: useAvecCorrigesQCM(devoirs), loading }
 }
 
 // ─── Soumissions temps réel ───────────────────────────────────────────────────
@@ -329,17 +334,19 @@ export function useSoumissions(devoirId?: string, etudiantId?: string) {
 
 export function useSoumissionsEtudiant(etudiantId: string | undefined) {
   const [soumissions, setSoumissions] = useState<Soumission[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!etudiantId) { setSoumissions([]); return }
+    if (!etudiantId) { setSoumissions([]); setLoading(false); return }
     const q = query(collection(db, 'soumissions'), where('etudiantId', '==', etudiantId))
     const unsub = onSnapshot(q, (snap) => {
       setSoumissions(snap.docs.map(d => fromDoc<Soumission>(d)))
-    }, err => notifyFirestoreError('useSoumissionsEtudiant', err))
+      setLoading(false)
+    }, err => { notifyFirestoreError('useSoumissionsEtudiant', err); setLoading(false) })
     return () => unsub()
   }, [etudiantId])
 
-  return { soumissions }
+  return { soumissions, loading }
 }
 
 // ─── Statuts de cours d'un étudiant ────────────────────────────────────────

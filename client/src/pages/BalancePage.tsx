@@ -4,7 +4,10 @@ import BackButton from '@/components/BackButton'
 import PageLoader from '@/components/PageLoader'
 import { useModule } from '@/lib/moduleContext'
 import { formatMontant, cn } from '@/lib/utils'
-import { exportBalancePDF } from '@/lib/exportPDF'
+// Bibliothèque PDF (environ 350 Ko) chargée au moment de l'export seulement :
+// importée d'emblée, elle retardait l'ouverture de la page.
+const exportBalancePDF = (...args: Parameters<typeof import('@/lib/exportPDF').exportBalancePDF>) =>
+  import('@/lib/exportPDF').then(m => m.exportBalancePDF(...args))
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'

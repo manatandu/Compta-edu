@@ -2,7 +2,7 @@ import React from 'react'
 import { useHashLocation } from '@/lib/hashLocation'
 import {
   BookMarked, ClipboardList, GraduationCap, BookOpen,
-  ChevronRight, Award, LibraryBig, Lock, CheckCircle2, Clock, FileDown, User, Download,
+  ChevronRight, Award, LibraryBig, Lock, CheckCircle2, Clock, FileDown, User, Download, Loader2,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -323,10 +323,13 @@ export default function DashboardEtudiant() {
 
   const { sessions } = useSessions(user?.id)
   const { cours: allCoursRaw } = useAllCours()
-  const { devoirs: allDevoirs } = useAllDevoirs()
+  const { devoirs: allDevoirs, loading: chargementDevoirs } = useAllDevoirs()
   const { universites: allUniversites } = useUniversites()
   const { facultes: allFacultes } = useFacultes()
-  const { soumissions: mesSoumissions } = useSoumissionsEtudiant(user?.id)
+  const { soumissions: mesSoumissions, loading: chargementCopies } = useSoumissionsEtudiant(user?.id)
+  // Tant que devoirs et copies ne sont pas reçus, ni « 0 devoir » ni « Rien à
+  // rendre » : l'étudiant lisait pendant deux secondes qu'il n'avait rien à faire.
+  const chargementAFaire = chargementDevoirs || chargementCopies
   // Mêmes filtres que la page Exercices (cours, faculté, promotion) : le
   // compteur annonçait aussi les exercices d'autres promotions.
   const { exercices: allExercices } = useExercices(
@@ -494,7 +497,7 @@ export default function DashboardEtudiant() {
   const cheminCours = (c: any) => `/${coursSystemeDe(c.coursSystemeId)?.moduleKey || c.moduleKey || 'mes-cours'}`
 
   const stats: DashboardStat[] = [
-    { label: 'Devoirs',   value: mesDevoirs.length, icon: ClipboardList, onClick: allerAuxDevoirs },
+    { label: 'Devoirs',   value: chargementDevoirs ? '…' : mesDevoirs.length, icon: ClipboardList, onClick: allerAuxDevoirs },
     { label: 'Exercices', value: allExercices.filter(e => e.actif).length + mesExercicesLibres.filter(e => e.actif).length, icon: GraduationCap, onClick: () => navigate('/exercices') },
     { label: 'Cours',     value: userCours.length,                          icon: BookOpen, onClick: () => navigate('/mes-cours') },
     // Anciennement « Messages », dont la valeur était écrite en dur à 0 : jamais
@@ -563,7 +566,12 @@ export default function DashboardEtudiant() {
               </span>
             )}
           </div>
-          {devoirsAFaire.length === 0 ? (
+          {chargementAFaire ? (
+            <div role="status" className="rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-2.5">
+              <Loader2 className="h-4 w-4 text-muted-foreground animate-spin shrink-0" />
+              <p className="text-sm text-muted-foreground">Chargement de vos devoirs…</p>
+            </div>
+          ) : devoirsAFaire.length === 0 ? (
             <div className="rounded-xl border border-border bg-card px-4 py-3 flex items-center gap-2.5">
               <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
               <p className="text-sm text-muted-foreground">Rien à rendre pour le moment.</p>

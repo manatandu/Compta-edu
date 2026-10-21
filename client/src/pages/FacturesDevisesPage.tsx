@@ -8,7 +8,10 @@ import { cn } from '@/lib/utils'
 import { useUser } from '@/lib/userContext'
 import { useSessions } from '@/lib/useFirestore'
 import { exporterEcrituresAsync, ErreurExercice } from '@/lib/db-firebase'
-import { exportFacturePDF } from '@/lib/exportPDF'
+// Bibliothèque PDF (environ 350 Ko) chargée au moment de l'export seulement :
+// importée d'emblée, elle retardait l'ouverture de la page.
+const exportFacturePDF = (...args: Parameters<typeof import('@/lib/exportPDF').exportFacturePDF>) =>
+  import('@/lib/exportPDF').then(m => m.exportFacturePDF(...args))
 import {
   useFacturesDevises, creerFacture, supprimerFacture, calculerDecompte, netAPayerDevise,
   genererEcritureEngagementFournisseur, genererEcritureEngagementClient,
