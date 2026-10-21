@@ -6,7 +6,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import {
-  collection, query, where, onSnapshot, type Unsubscribe
+  collection, query, where, onSnapshot, documentId, type Unsubscribe
 } from 'firebase/firestore'
 import { db } from './firebase'
 import { useUser } from './userContext'
@@ -188,17 +188,43 @@ export function useCours(faculteId?: string, universiteId?: string) {
 
 // ─── Tous les cours (sans filtre) ─────────────────────────────────────────────
 
+// Étudiant : les cours de sa faculté et ceux auxquels il est inscrit, et non
+// toute la collection (chaque ouverture relisait les cours de toutes les
+// facultés de la plateforme). Personnel : tous les cours.
 export function useAllCours() {
   const [cours, setCours] = useState<Cours[]>([])
   const [loading, setLoading] = useState(true)
+  const currentUser = useUser()
+  const etudiant = currentUser?.role === 'etudiant'
+  const faculteId: string = etudiant ? ((currentUser as any).faculteId || '') : ''
+  const coursIds: string[] = etudiant ? (((currentUser as any).coursIds || []) as string[]) : []
+  const cle = etudiant ? `${faculteId}|${[...coursIds].sort().join(',')}` : '*'
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'cours'), (snap) => {
-      setCours(snap.docs.map(d => fromDoc<Cours>(d)))
+    if (!etudiant || (!faculteId && coursIds.length === 0)) {
+      const unsub = onSnapshot(collection(db, 'cours'), (snap) => {
+        setCours(snap.docs.map(d => fromDoc<Cours>(d)))
+        setLoading(false)
+      }, err => { setLoading(false); notifyFirestoreError('useAllCours', err) })
+      return () => unsub()
+    }
+    const requetes = [
+      ...(faculteId ? [query(collection(db, 'cours'), where('faculteId', '==', faculteId))] : []),
+      ...chunk(coursIds).map(ids => query(collection(db, 'cours'), where(documentId(), 'in', ids))),
+    ]
+    const parRequete: Cours[][] = requetes.map(() => [])
+    const recues = requetes.map(() => false)
+    const unsubs = requetes.map((q, i) => onSnapshot(q, snap => {
+      parRequete[i] = snap.docs.map(d => fromDoc<Cours>(d))
+      recues[i] = true
+      if (!recues.every(Boolean)) return
+      const parId = new Map<string, Cours>()
+      parRequete.flat().forEach(c => parId.set(c.id, c))
+      setCours(Array.from(parId.values()))
       setLoading(false)
-    }, err => { setLoading(false); notifyFirestoreError('useAllCours', err) })
-    return () => unsub()
-  }, [])
+    }, err => { setLoading(false); notifyFirestoreError('useAllCours', err) }))
+    return () => unsubs.forEach(u => u())
+  }, [cle])
 
   return { cours, loading }
 }

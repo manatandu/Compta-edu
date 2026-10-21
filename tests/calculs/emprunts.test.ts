@@ -10,6 +10,10 @@ describe('Emprunts', () => {
     expect(genererEcritureReception(emprunt).lignes.map(l => l.compte)).toEqual(['521', '1686'])
     expect(genererEcritureEcheance(emprunt, calculerAmortissement(emprunt)[2]).lignes.map(l => l.compte)).toEqual(['1686', '671', '521'])
     expect(genererEcritureInteretsCourus(emprunt, 1000, 1, '2026-12-31').lignes.map(l => l.compte)).toEqual(['671', '1668'])
+    // Associé (compte courant bloqué) et entité liée
+    expect(genererEcritureInteretsCourus({ ...emprunt, naturePreteur: 'associe' }, 1000, 1, '2026-12-31').lignes.map(l => l.compte)).toEqual(['6742', '1664'])
+    expect(genererEcritureInteretsCourus({ ...emprunt, naturePreteur: 'entite_liee' }, 1000, 1, '2026-12-31').lignes.map(l => l.compte)).toEqual(['6713', '183'])
+    expect(genererEcritureReception({ ...emprunt, naturePreteur: 'entite_liee' }).lignes.map(l => l.compte)).toEqual(['521', '181'])
     // Emprunt plus ancien, sans nature : établissement de crédit
     expect(genererEcritureReception({ ...emprunt, naturePreteur: undefined }).lignes.map(l => l.compte)).toEqual(['521', '162'])
   })

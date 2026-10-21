@@ -237,7 +237,7 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
   return (
     <div className="space-y-5">
       <Callout>
-        <strong>Compte 162 — Emprunts et dettes / établissements de crédit</strong>, ou <strong>1686 — Emprunts et dettes contractés auprès des tiers</strong> pour un autre prêteur. Ressources externes remboursables à terme. Chaque emprunt créé génère automatiquement son tableau d'amortissement et ses écritures. Limité ici à l'emprunt classique (l'emprunt obligataire, compte 161, relève d'un régime distinct ; les comptes bloqués d'associés, du compte 164).
+        <strong>Compte 162 — Emprunts et dettes / établissements de crédit</strong>, ou, pour un autre prêteur, <strong>1686</strong> (tiers), <strong>164</strong> (compte courant bloqué d'un associé) ou <strong>181</strong> (entité liée). Ressources externes remboursables à terme. Chaque emprunt créé génère automatiquement son tableau d'amortissement et ses écritures. Limité ici à l'emprunt classique (l'emprunt obligataire, compte 161, relève d'un régime distinct).
       </Callout>
 
       <div>
@@ -307,6 +307,8 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
                   className="w-full mt-1.5 rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30">
                   <option value="etablissement_credit">Établissement de crédit (compte 162)</option>
                   <option value="tiers">Autre tiers : entreprise, particulier (compte 1686)</option>
+                  <option value="associe">Associé : compte courant bloqué (compte 164)</option>
+                  <option value="entite_liee">Entité liée : société du groupe ou participation (compte 181)</option>
                 </select>
               )}
             </div>
