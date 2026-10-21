@@ -2178,6 +2178,19 @@ describe('🗂️ Anciens QCM — corrigé séparé après coup', () => {
     await assertSucceeds(separation(db(USERS.prof1), USERS.prof1.uid))
   })
 
+  it('Ancien QCM classique séparé : copie sans note, marquée correctionAuto', async () => {
+    const etu = { ...USERS.etud1, coursIds: [IDS.coursCompta] }
+    await seedUsers(USERS.prof1, etu)
+    await seedDoc('devoirs', 'dv-classique', { titre: 'QCM', type: 'qcm', coursId: IDS.coursCompta, promotionId: 'L1', createdBy: USERS.prof1.uid,
+      corrigeQCMSepare: true, dateLimitMs: Date.now() + 86400000, questions: [{ texte: '?', choix: ['a', 'b'], bonneReponse: -1 }] })
+    const fs = db(etu)
+    const ref = doc(fs, 'soumissions', `dv-classique_${etu.uid}`)
+    const base = { devoirId: 'dv-classique', etudiantId: etu.uid, reponsesQCM: [1], dateSoumission: 'x', statut: 'soumis' }
+    await assertFails(setDoc(ref, { ...base, note: 10, statut: 'note', correctionAuto: true }))
+    await assertFails(setDoc(ref, base))
+    await assertSucceeds(setDoc(ref, { ...base, correctionAuto: true }))
+  })
+
   it('Un étudiant ne lit pas le corrigé avant la date limite', async () => {
     await seedUsers(USERS.prof1, USERS.etud1)
     await seedDoc('devoirs', 'dv-ancien', ancien)

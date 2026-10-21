@@ -7,7 +7,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { isDevoirExpire, QuestionQCM } from '@/lib/db'
-import DevoirChapitreEtudiant from '@/components/DevoirChapitreEtudiant'
+import DevoirChapitreEtudiant, { NoteApresDateLimite } from '@/components/DevoirChapitreEtudiant'
 import {
   useSessions, useAllCours, useAllDevoirs, useSoumissionsEtudiant,
   useUniversites, useFacultes, useExercices, useExercicesLibres, usePresencesEtudiant,
@@ -15,7 +15,7 @@ import {
 } from '@/lib/useFirestore'
 import { createSoumissionAsync, createSessionAsync, getCoursUniquesTries, coursSystemeDe } from '@/lib/db-firebase'
 import {
-  calculerCote, devoirConcerneEtudiant, estDevoirChapitre, estNotee, estACorriger, baremeDevoir,
+  calculerCote, devoirConcerneEtudiant, estDevoirChapitre, estNotee, estACorriger, baremeDevoir, corrigeQCMEnAttente,
   formaterNote, formaterNombre, noteDeCopie, type Cote,
 } from '@/lib/cotes'
 import { useUser } from '@/lib/userContext'
@@ -50,6 +50,13 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
   const [loading, setLoading] = React.useState(false)
   const [erreur, setErreur] = React.useState('')
   const [resultat, setResultat] = React.useState<{ score: number; total: number; details: boolean[] } | null>(null)
+  // Corrigé rangé hors du devoir (anciens QCM aussi, depuis leur séparation) :
+  // la copie part sans note, la note est calculée après la date limite.
+  const separe = !!devoir.corrigeQCMSepare
+
+  if ((soumission || soumis) && separe && corrigeQCMEnAttente(devoir)) {
+    return <div className="mt-3"><NoteApresDateLimite devoir={devoir} /></div>
+  }
 
   if (soumission && estNotee(soumission)) {
     return (
@@ -82,6 +89,20 @@ function QCMForm({ devoir, etudiantId, soumission }: { devoir: any; etudiantId: 
     const score = details.filter(Boolean).length
     const note = Math.round((score / questions.length) * 10 * 10) / 10
     const reponsesArray = questions.map((_, i) => reponses[i])
+    if (separe) {
+      try {
+        await createSoumissionAsync({
+          devoirId: devoir.id, etudiantId, reponsesQCM: reponsesArray,
+          dateSoumission: new Date().toISOString(), statut: 'soumis', correctionAuto: true,
+        } as any)
+        setSoumis(true)
+      } catch (err: any) {
+        console.error('Erreur soumission QCM:', err)
+        setErreur("Envoi impossible pour le moment : votre copie n'est pas rendue. Vérifiez votre connexion, puis réessayez.")
+      }
+      setLoading(false)
+      return
+    }
     try {
       await createSoumissionAsync({
         devoirId: devoir.id,

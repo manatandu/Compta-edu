@@ -44,6 +44,13 @@ describe('Note d\'une copie : recalculée à partir des réponses', () => {
     const d: any = { type: 'qcm', questions: [{ bonneReponse: 1 }, { bonneReponse: 0 }] }
     expect(noteDeCopie(copie({ note: 10, reponsesQCM: [1, 1] }), d)).toBe(5)
   })
+  it('ancien QCM classique à corrigé séparé : pas de note avant le corrigé, puis recalculée', () => {
+    const copieAuto = copie({ statut: 'soumis', correctionAuto: true, reponsesQCM: [1, 1] })
+    const enAttente: any = { type: 'qcm', corrigeQCMSepare: true, questions: [{ bonneReponse: -1 }, { bonneReponse: -1 }] }
+    expect(noteDeCopie(copieAuto, enAttente)).toBeNull()
+    const publie: any = { ...enAttente, corrigeQCMCharge: true, questions: [{ bonneReponse: 1 }, { bonneReponse: 0 }] }
+    expect(noteDeCopie(copieAuto, publie)).toBe(5)
+  })
   it('copie non notée : pas de note ; devoir corrigé à la main : la note de l\'enseignant', () => {
     expect(noteDeCopie(copie({ statut: 'soumis' }), devoirChapitre)).toBeNull()
     expect(noteDeCopie(copie({ note: 14 }), { type: 'qcm_cas', questionsChapitre: [q('a', '1')] } as any)).toBe(14)

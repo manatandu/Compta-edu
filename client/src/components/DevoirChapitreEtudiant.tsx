@@ -736,7 +736,7 @@ function dateLimiteLisible(devoir: Devoir): string {
   return new Date(devoir.dateLimit).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })
 }
 
-function NoteApresDateLimite({ devoir }: { devoir: Devoir }) {
+export function NoteApresDateLimite({ devoir }: { devoir: Devoir }) {
   return (
     <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-center space-y-2">
       <Clock className="h-8 w-8 mx-auto text-indigo-600" />
