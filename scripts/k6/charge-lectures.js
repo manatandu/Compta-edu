@@ -87,6 +87,8 @@ export function enseignant(d) {
   n += requete(jeton, 'users', et(filtre('createdBy', 'IN', tableau([uid, 'prof.k6'])), filtre('role', 'EQUAL', chaine('etudiant'))), p)
   n += requete(jeton, 'cours', null, p)
   n += requete(jeton, 'devoirs', filtre('createdBy', 'IN', tableau([uid])), p)
+  // Onglet Progression : tentatives de l'équipe, en une requête
+  n += requete(jeton, 'tentatives', filtre('createurEtudiant', 'IN', tableau([uid, 'prof.k6'])), p)
   // useAllSoumissions : copies des devoirs de l'équipe, par paquets de 10
   n += requete(jeton, 'soumissions', filtre('devoirId', 'IN', tableau(['k6-d-ouvert', 'k6-d-clos', 'k6-d-cas', 'k6-d-redac'])), p)
   n += requete(jeton, 'presences', filtre('createdBy', 'IN', tableau([uid])), p)

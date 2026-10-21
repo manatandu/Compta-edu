@@ -3,7 +3,7 @@
 // compteur du code : mesure des refus par conflit d'écriture sur ce document.
 // Banc d'émulateurs uniquement. Usage : k6 run -e N=60 scripts/k6/inscription-amphi.js
 import http from 'k6/http'
-import { check } from 'k6'
+import { check, sleep } from 'k6'
 import { Counter } from 'k6/metrics'
 
 const AUTH = `http://127.0.0.1:${__ENV.E2E_AUTH_PORT || 9099}/identitytoolkit.googleapis.com/v1`
@@ -13,6 +13,7 @@ const JSONH = { 'Content-Type': 'application/json' }
 const proprio = { headers: { ...JSONH, Authorization: 'Bearer owner' } }
 const reussies = new Counter('inscriptions_reussies')
 const conflits = new Counter('inscriptions_en_conflit')
+const reprises = new Counter('reprises_apres_conflit')
 const N = Number(__ENV.N || 60)
 
 export const options = {
@@ -41,10 +42,19 @@ export default function (d) {
     actif: { booleanValue: false }, statutInscription: { stringValue: 'en_attente' }, codeAcces: { stringValue: CODE },
     createdBy: { stringValue: d.prof }, coursIds: { arrayValue: { values: [{ stringValue: 'k6-f1-ue9' }] } },
   }
-  const r = http.post(`${FS}:commit`, JSON.stringify({ writes: [
+  const envoi = () => http.post(`${FS}:commit`, JSON.stringify({ writes: [
     { update: { name: `${RACINE}/users/${uid}`, fields: profil } },
     { transform: { document: `${RACINE}/codesAcces/${CODE}`, fieldTransforms: [{ fieldPath: 'utilisations', increment: { integerValue: '1' } }] } },
   ] }), { headers: { ...JSONH, Authorization: `Bearer ${jeton}` } })
+  // Un conflit d'écriture (409, ABORTED) n'est pas définitif : le SDK Firestore
+  // de l'application réessaie l'écriture. On fait de même, avec un délai
+  // croissant ; seul un conflit persistant compte comme échec.
+  let r = envoi()
+  for (let essai = 1; r.status === 409 && essai <= 5; essai++) {
+    reprises.add(1)
+    sleep((0.2 * 2 ** essai) * (0.5 + Math.random()))
+    r = envoi()
+  }
   if (r.status === 200) reussies.add(1)
   else if (r.status === 409) conflits.add(1)
   check(r, { 'inscription enregistrée': x => x.status === 200 })
