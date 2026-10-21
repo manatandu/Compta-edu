@@ -811,16 +811,20 @@ export async function exporterEcrituresAsync(
 ): Promise<{ exportees: number; dejaPresentes: number }> {
   const horsExercice = ecritures.find(e => new Date(e.date).getFullYear() !== Number(session.exercice))
   if (horsExercice) throw new ErreurExercice(new Date(horsExercice.date).getFullYear(), Number(session.exercice))
-  const signature = (date: string, libelle: string, lignes: { compte: string; debit: number; credit: number }[]) =>
-    [date, libelle, ...lignes.map(l => `${l.compte}:${Math.round(l.debit * 100)}:${Math.round(l.credit * 100)}`).sort()].join('|')
+  // Le numéro de pièce compte : deux pièces distinctes de même date, libellé
+  // et montants (deux factures identiques du même jour) ne sont pas un doublon.
+  const signature = (date: string, libelle: string, piece: string | undefined, lignes: { compte: string; debit: number; credit: number }[]) =>
+    [date, libelle, piece || '', ...lignes.map(l => `${l.compte}:${Math.round(l.debit * 100)}:${Math.round(l.credit * 100)}`).sort()].join('|')
   const existantes = await getEcrituresAsync(userId, session.id)
   const parGroupe = new Map<string, Ecriture[]>()
   existantes.forEach(e => parGroupe.set(e.ligneGroupe, [...(parGroupe.get(e.ligneGroupe) || []), e]))
   const deja = new Set(Array.from(parGroupe.values()).map(g =>
-    signature(g[0].date, g[0].libelle, g.map(l => ({ compte: l.numeroCompte, debit: l.debit, credit: l.credit })))))
+    signature(g[0].date, g[0].libelle, g[0].numeroPiece, g.map(l => ({ compte: l.numeroCompte, debit: l.debit, credit: l.credit })))))
   let exportees = 0, dejaPresentes = 0
   for (const e of ecritures) {
-    if (deja.has(signature(e.date, e.libelle, e.lignes))) { dejaPresentes++; continue }
+    const cle = signature(e.date, e.libelle, e.numeroPiece, e.lignes)
+    if (deja.has(cle)) { dejaPresentes++; continue }
+    deja.add(cle)
     const ligneGroupe = generateId()
     await enregistrerEcritureAsync(e.lignes.map(l => ({
       sessionId: session.id, ligneGroupe, date: e.date, libelle: e.libelle,

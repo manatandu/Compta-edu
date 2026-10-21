@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react'
+import { dateClotureExercice } from '@/lib/cloture'
 import {
   Landmark, Plus, Trash2, Info, AlertCircle,
   BarChart2, BookOpen, ArrowLeftRight, Upload, Check, ChevronRight
@@ -12,8 +13,8 @@ import {
   useEmprunts, creerEmprunt, supprimerEmprunt, calculerAmortissement, libelleMethode,
   genererEcritureReception, genererEcritureEcheance, genererEcritureInteretsCourus,
   calculerEcartConversion, genererEcritureEcartConversion, genererEcritureProvisionPerteChange,
-  calculerProvisionPerteChange,
-  type Emprunt, type Devise, type MethodeAmortEmprunt,
+  calculerProvisionPerteChange, comptesEmprunt,
+  type Emprunt, type Devise, type MethodeAmortEmprunt, type NaturePreteur,
   type EcritureEmpruntGeneree,
 } from '@/lib/useEmprunts'
 
@@ -183,7 +184,7 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
   onSelect: (id: string) => void; onCreated: (emprunt: Emprunt) => void; userId: string
 }) {
   const [form, setForm] = useState({
-    preteur: '', preteurAutre: '', devise: 'USD' as Devise, reference: '',
+    preteur: '', preteurAutre: '', naturePreteur: 'etablissement_credit' as NaturePreteur, devise: 'USD' as Devise, reference: '',
     capital: '', coursEntree: '2800', tauxAnnuel: '8', dureeAnnees: '5',
     dateMiseADisposition: new Date().toISOString().split('T')[0],
     methode: 'constant' as MethodeAmortEmprunt,
@@ -206,6 +207,8 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
       const donnees = {
         userId,
         preteur: preteurFinal,
+        // Banque de la liste : établissement de crédit ; « Autre » : selon le choix.
+        naturePreteur: form.preteur === 'Autre' ? form.naturePreteur : 'etablissement_credit' as NaturePreteur,
         reference: form.reference.trim(),
         devise: form.devise,
         coursEntree: form.devise === 'CDF' ? 1 : Number(form.coursEntree) || 1,
@@ -234,7 +237,7 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
   return (
     <div className="space-y-5">
       <Callout>
-        <strong>Compte 162 — Emprunts et dettes / établissements de crédit.</strong> Ressources externes remboursables à terme. Chaque emprunt créé génère automatiquement son tableau d'amortissement et ses écritures. Limité ici à l'emprunt bancaire classique (l'emprunt obligataire, compte 161, relève d'un régime distinct).
+        <strong>Compte 162 — Emprunts et dettes / établissements de crédit</strong>, ou <strong>1686 — Emprunts et dettes contractés auprès des tiers</strong> pour un autre prêteur. Ressources externes remboursables à terme. Chaque emprunt créé génère automatiquement son tableau d'amortissement et ses écritures. Limité ici à l'emprunt classique (l'emprunt obligataire, compte 161, relève d'un régime distinct ; les comptes bloqués d'associés, du compte 164).
       </Callout>
 
       <div>
@@ -295,8 +298,16 @@ function OngletEmprunts({ emprunts, loading, selectionId, onSelect, onCreated, u
               </select>
               {form.preteur === 'Autre' && (
                 <input value={form.preteurAutre} onChange={e => setForm(f => ({ ...f, preteurAutre: e.target.value }))}
-                  placeholder="Nom de l'établissement" autoFocus
+                  placeholder="Nom du prêteur" autoFocus
                   className="w-full mt-1.5 rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30" />
+              )}
+              {form.preteur === 'Autre' && (
+                <select value={form.naturePreteur} onChange={e => setForm(f => ({ ...f, naturePreteur: e.target.value as NaturePreteur }))}
+                  aria-label="Nature du prêteur"
+                  className="w-full mt-1.5 rounded-lg border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-module-violet/30">
+                  <option value="etablissement_credit">Établissement de crédit (compte 162)</option>
+                  <option value="tiers">Autre tiers : entreprise, particulier (compte 1686)</option>
+                </select>
               )}
             </div>
             <div>
@@ -497,7 +508,7 @@ function OngletEcritures({ emprunt, userId }: { emprunt: Emprunt; userId: string
   const [coursReglement, setCoursReglement] = useState(String(emprunt.coursEntree))
   const [joursCourus, setJoursCourus] = useState('0')
   const [coursCourus, setCoursCourus] = useState(String(emprunt.coursEntree))
-  const [dateCloture, setDateCloture] = useState(new Date().toISOString().split('T')[0])
+  const [dateCloture, setDateCloture] = useState(dateClotureExercice())
   const [modalEcriture, setModalEcriture] = useState<EcritureEmpruntGeneree | null>(null)
 
   const ligneCourante = lignes[periodeChoisie - 1]
@@ -595,7 +606,7 @@ function OngletEcritures({ emprunt, userId }: { emprunt: Emprunt; userId: string
           <p className="text-xs text-muted-foreground italic">Saisissez un nombre de jours courus &gt; 0 pour générer l'écriture.</p>
         )}
         <Callout couleur="amber">
-          Nécessaire seulement si l'échéance de l'emprunt ne coïncide pas avec la date de clôture. <strong>Cette écriture est contrepassée à l'ouverture de l'exercice suivant</strong> (débit 1662 / crédit 6712).
+          Nécessaire seulement si l'échéance de l'emprunt ne coïncide pas avec la date de clôture. <strong>Cette écriture est contrepassée à l'ouverture de l'exercice suivant</strong> (débit {comptesEmprunt(emprunt).courus.num} / crédit {comptesEmprunt(emprunt).interets.num}).
         </Callout>
       </div>
 
@@ -609,7 +620,7 @@ function OngletEcarts({ emprunt, userId }: { emprunt: Emprunt; userId: string })
   const lignes = useMemo(() => calculerAmortissement(emprunt), [emprunt])
   const [apresEcheance, setApresEcheance] = useState(lignes.length > 0 ? 1 : 0)
   const [coursCloture, setCoursCloture] = useState(String(Math.round(emprunt.coursEntree * 1.05)))
-  const [dateCloture, setDateCloture] = useState(new Date().toISOString().split('T')[0])
+  const [dateCloture, setDateCloture] = useState(dateClotureExercice())
   const [modalEcriture, setModalEcriture] = useState<EcritureEmpruntGeneree | null>(null)
 
   const capitalRestant = apresEcheance === 0 ? emprunt.capital : (lignes[apresEcheance - 1]?.capitalFin ?? 0)

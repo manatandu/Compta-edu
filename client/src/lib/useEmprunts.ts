@@ -13,7 +13,14 @@ import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 // établissements de crédit), 478/479 (Écarts de conversion Actif/Passif),
 // 194 (Provisions pour pertes de change), 6971/7971 (Dotations/Reprises
 // provisions financières), 676/776 (Pertes/Gains de change financiers).
-// Limité aux emprunts bancaires classiques (compte 162) : l'emprunt obligataire
+// Prêteur autre qu'un établissement de crédit (entreprise, particulier) :
+// 1686 (Emprunts et dettes contractés auprès des tiers), 1668 (Intérêts courus
+// sur autres emprunts et dettes) et 671 (Intérêts des emprunts), le compte 16
+// étant crédité des intérêts courus « par le débit du compte 671 » (AUDCIF,
+// Titre VII, compte 16, fonctionnement) ; aucune subdivision de 671 ne vise ce
+// prêteur. Les comptes bloqués d'associés (164) et les dettes envers des
+// entités liées (181) ne sont pas traités ici.
+// Limité aux emprunts classiques (comptes 162 et 1686) : l'emprunt obligataire
 // (compte 161, chapitre 20 AUDCIF) relève d'un régime distinct (prime de
 // remboursement, souscripteurs multiples) non couvert ici.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -22,12 +29,14 @@ import { notifyFirestoreError } from '@/lib/firestoreErrorHandler'
 
 export type Devise = 'CDF' | 'USD' | 'EUR'
 export type MethodeAmortEmprunt = 'constant' | 'annuites_constantes' | 'in_fine'
+export type NaturePreteur = 'etablissement_credit' | 'tiers'
 
 export interface Emprunt {
   id: string
   userId: string
   reference: string          // ex : « Équipement industriel »
   preteur: string            // ex : « BCDC »
+  naturePreteur?: NaturePreteur  // absent : établissement de crédit (emprunts plus anciens)
   devise: Devise
   coursEntree: number        // CDF pour 1 unité de devise ; 1 si devise === 'CDF' (Art. 52 : cours au comptant à la mise à disposition)
   capital: number            // en devise
@@ -144,9 +153,20 @@ export function calculerAmortissement(emprunt: Pick<Emprunt, 'capital' | 'tauxAn
 // ─── Écritures ────────────────────────────────────────────────────────────────
 
 const COMPTE_TRESORERIE = { num: '521', lib: 'Banques locales' }
-const COMPTE_EMPRUNT = { num: '162', lib: 'Emprunts et dettes / établissements de crédit' }
-const COMPTE_INTERETS = { num: '6712', lib: 'Intérêts / emprunts établissements de crédit' }
-const COMPTE_INTERETS_COURUS = { num: '1662', lib: 'Intérêts courus / établissements de crédit' }
+// Comptes de la dette, des intérêts et des intérêts courus selon le prêteur.
+export function comptesEmprunt(emprunt: Pick<Emprunt, 'naturePreteur'>) {
+  return emprunt.naturePreteur === 'tiers'
+    ? {
+        emprunt: { num: '1686', lib: 'Emprunts et dettes contractés auprès des tiers' },
+        interets: { num: '671', lib: 'Intérêts des emprunts' },
+        courus: { num: '1668', lib: 'Intérêts courus sur autres emprunts et dettes' },
+      }
+    : {
+        emprunt: { num: '162', lib: 'Emprunts et dettes / établissements de crédit' },
+        interets: { num: '6712', lib: 'Intérêts / emprunts établissements de crédit' },
+        courus: { num: '1662', lib: 'Intérêts courus / établissements de crédit' },
+      }
+}
 // Subdivisions du 478/479 propres aux dettes FINANCIÈRES (un emprunt en est
 // une) : 4784 « augmentation des dettes financières » et 4794 « diminution
 // des dettes financières » (classe 4 SYSCOHADA), à distinguer des
@@ -165,6 +185,7 @@ const COMPTE_GAIN_CHANGE = { num: '776', lib: 'Gains de change financiers' }
 // du jour de mise à disposition). Compte 16 « fonctionnement » : crédité du
 // montant net reçu par le débit de la trésorerie.
 export function genererEcritureReception(emprunt: Emprunt): EcritureEmpruntGeneree {
+  const { emprunt: COMPTE_EMPRUNT } = comptesEmprunt(emprunt)
   const montant = arrondi(emprunt.capital * emprunt.coursEntree)
   return {
     libelle: `Réception emprunt : ${emprunt.preteur} : ${emprunt.reference}`,
@@ -183,6 +204,7 @@ export function genererEcritureReception(emprunt: Emprunt): EcritureEmpruntGener
 export function genererEcritureEcheance(
   emprunt: Emprunt, ligne: LigneAmortEmprunt, coursReglement: number = emprunt.coursEntree
 ): EcritureEmpruntGeneree {
+  const { emprunt: COMPTE_EMPRUNT, interets: COMPTE_INTERETS } = comptesEmprunt(emprunt)
   const capitalCDF = arrondi(ligne.amortCapital * emprunt.coursEntree)     // valeur d'origine du capital remboursé
   const capitalReglementCDF = arrondi(ligne.amortCapital * coursReglement) // montant réellement décaissé
   const interetsCDF = arrondi(ligne.interets * coursReglement)             // intérêts : charge de la période, au cours du jour
@@ -212,6 +234,7 @@ export function genererEcritureEcheance(
 export function genererEcritureInteretsCourus(
   emprunt: Emprunt, montantInteretsDevise: number, coursCloture: number, dateCloture: string
 ): EcritureEmpruntGeneree {
+  const { interets: COMPTE_INTERETS, courus: COMPTE_INTERETS_COURUS } = comptesEmprunt(emprunt)
   const montant = arrondi(montantInteretsDevise * coursCloture)
   return {
     libelle: `Intérêts courus non échus : ${emprunt.preteur} : ${emprunt.reference}`,
@@ -242,6 +265,7 @@ export function calculerEcartConversion(emprunt: Pick<Emprunt, 'coursEntree'>, c
 
 // Écriture 4 : constatation de l'écart de conversion sur le compte de dette (162).
 export function genererEcritureEcartConversion(emprunt: Emprunt, ecart: EcartConversion, dateCloture: string): EcritureEmpruntGeneree | null {
+  const { emprunt: COMPTE_EMPRUNT } = comptesEmprunt(emprunt)
   if (ecart.sens === 'nul') return null
   const lignes: LigneEcritureEmprunt[] = ecart.sens === 'perte'
     ? [

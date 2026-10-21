@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react'
+import { dateClotureExercice } from '@/lib/cloture'
 import {
   Receipt, Plus, Trash2, Info, AlertCircle,
   BookOpen, ArrowLeftRight, Wallet, Upload, Check, FileText, Lock,
@@ -783,7 +784,7 @@ function OngletEcarts({ facture, userId }: { facture: FactureDevise; userId: str
   const soldeInitial = useMemo(() => netAPayerDevise(facture), [facture])
   const [soldeRestant, setSoldeRestant] = useState(String(soldeInitial))
   const [coursCloture, setCoursCloture] = useState(String(Math.round(facture.coursEngagement * 1.03)))
-  const [dateCloture, setDateCloture] = useState(new Date().toISOString().split('T')[0])
+  const [dateCloture, setDateCloture] = useState(dateClotureExercice(facture.dateFacture))
 
   const solde = Number(soldeRestant) || 0
   const ecart = useMemo(
@@ -878,7 +879,7 @@ function OngletDisponibilites() {
   const [montant, setMontant] = useState('')
   const [coursEntree, setCoursEntree] = useState('2800')
   const [coursCloture, setCoursCloture] = useState('2850')
-  const [dateCloture, setDateCloture] = useState(new Date().toISOString().split('T')[0])
+  const [dateCloture, setDateCloture] = useState(dateClotureExercice())
   const [resultat, setResultat] = useState<EcritureFactureGeneree | null | undefined>(undefined)
 
   const calculer = () => {
